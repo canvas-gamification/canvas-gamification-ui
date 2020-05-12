@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "canvas-gamification-ui": {
@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "canvas-gamification-ui"
+    }
+  },
+  "defaultProject": "canvas-gamification-ui",
+  "cli": {
+    "analytics": "9de04249-6dbe-4103-b4f2-50ce895f19e6"
+  }
 }
