@@ -1,12 +1,18 @@
 <div class="content" role="main">
-
-  <a href="homepage">Old Website</a>
-
-  <!-- Highlight Card -->
-  <div class="card highlight-card card-small">
-    <span>{{ title }} app is running!</span>
-  </div>
-
+  <app-nav-bar></app-nav-bar>
+  <header>
+    <div class="container-fluid">
+      <div class="row my-auto">
+        <div class="col m-3">
+          <h1 class="m-0">
+            Header
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
+  <app-messages></app-messages>
+  <app-problem-set></app-problem-set>
 </div>
 
 <router-outlet></router-outlet>
