@@ -5,17 +5,15 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {MessagesComponent} from './messages/messages.component';
+import { MessagesComponent } from './messages/messages.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LandingPageComponent } from './landing-page/landing-page.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatIconModule} from '@angular/material/icon';
-
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {NavBarComponent} from './nav-bar/nav-bar.component';
-import {ContactComponent} from './components/contact/contact.component';
-import {ReactiveFormsModule} from '@angular/forms';
-import {ContactService} from './services/contact.service';
+import { MatIconModule } from '@angular/material/icon';
+import { ContactComponent } from './components/contact/contact.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ContactService } from './services/contact.service';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +21,7 @@ import {ContactService} from './services/contact.service';
     MessagesComponent,
     LandingPageComponent,
     ContactComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,8 +29,7 @@ import {ContactService} from './services/contact.service';
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
-    HttpClientModule
-    NgbModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule
   ],
