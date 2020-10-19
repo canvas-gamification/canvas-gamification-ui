@@ -38,5 +38,4 @@ import { HeaderComponent } from './components/header/header.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
