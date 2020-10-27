@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ContactComponent } from './components/contact/contact.component';
-import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ContactComponent} from './components/contact/contact.component';
+import {LandingPageComponent} from './components/landing-page/landing-page.component';
+import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'contact',
     component: ContactComponent
+  },
+  {
+    path: 'sample-questions',
+    component: SampleQuestionsComponent
   }
 ];
 
@@ -21,4 +26,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
