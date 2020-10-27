@@ -8,12 +8,16 @@ export class MessageService {
   }
 
   messages: string[] = [];
-
+  successMessages: string[] = [];
   add(message: string) {
     this.messages.push(message);
+  }
+  addSuccess(message: string) {
+    this.successMessages.push(message);
   }
 
   clear() {
     this.messages = [];
+    this.successMessages = [];
   }
 }
