@@ -16,6 +16,7 @@ import { ContactService } from './services/contact.service';
 import { HeaderComponent } from './components/header/header.component';
 import { SampleQuestionsComponent } from './components/sample-questions/sample-questions.component';
 import {MatCardModule} from '@angular/material/card';
+import { TopicsComponent } from './components/topics/topics.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {MatCardModule} from '@angular/material/card';
     LandingPageComponent,
     ContactComponent,
     HeaderComponent,
+    TopicsComponent,
     SampleQuestionsComponent,
   ],
   imports: [

@@ -1,0 +1,27 @@
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+.topics-page {
+    width: 80%;
+}
+
+.topics-page table {
+    font-size: 15px;
+    padding: 7.5rem;
+    text-align: center;
+}
+
+.topics-page thead th {
+    height: 5rem;
+    vertical-align: middle;
+}
+
+.topics-page tbody th, 
+.topics-page tbody tr,
+.topics-page tbody td {
+    height: 7rem;
+    vertical-align: middle;
+}
