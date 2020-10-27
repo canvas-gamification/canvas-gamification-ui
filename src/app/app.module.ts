@@ -14,6 +14,7 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactService } from './services/contact.service';
 import { HeaderComponent } from './components/header/header.component';
+import { TopicsComponent } from './components/topics/topics.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { HeaderComponent } from './components/header/header.component';
     LandingPageComponent,
     ContactComponent,
     HeaderComponent,
+    TopicsComponent,
   ],
   imports: [
     BrowserModule,
