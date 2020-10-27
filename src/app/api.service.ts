@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {Question} from '../models/question';
 import {environment} from '../environments/environment';
 import {MessageService} from './message.service';

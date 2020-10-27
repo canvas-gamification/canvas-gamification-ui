@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ContactService} from '../../services/contact.service';
+import {MessageService} from '../../message.service';
 
 @Component({
   selector: 'app-contact',
@@ -10,14 +11,14 @@ import {ContactService} from '../../services/contact.service';
 export class ContactComponent implements OnInit {
   FormData: FormGroup;
 
-  constructor(private builder: FormBuilder, private contact: ContactService) {
+  constructor(private builder: FormBuilder, private contact: ContactService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {
     this.FormData = this.builder.group({
-      Fullname: new FormControl('', [Validators.required]),
-      Email: new FormControl('', [Validators.compose([Validators.required, Validators.email])]),
-      Comment: new FormControl('', [Validators.required])
+      fullname: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.compose([Validators.required, Validators.email])]),
+      comment: new FormControl('', [Validators.required])
     });
   }
 
@@ -25,7 +26,8 @@ export class ContactComponent implements OnInit {
     console.log(FormData);
     this.contact.PostMessage(FormData)
       .subscribe(response => {
-        location.href = 'https://mailthis.to/confirm';
+        this.FormData.reset();
+        this.messageService.addSuccess('Your comment have been successfully sent!');
         console.log(response);
       }, error => {
         console.warn(error.responseText);
