@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ContactService } from './services/contact.service';
 import { HeaderComponent } from './components/header/header.component';
 import { SampleQuestionsComponent } from './components/sample-questions/sample-questions.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SampleQuestionsComponent } from './components/sample-questions/sample-q
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ],
   providers: [
     ContactService
