@@ -18,6 +18,8 @@ import { ContactComponent } from './components/contact/contact.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ContactService } from './services/contact.service';
 import { HeaderComponent } from './components/header/header.component';
+import { SampleQuestionsComponent } from './components/sample-questions/sample-questions.component';
+import {MatCardModule} from '@angular/material/card';
 import { TopicsComponent } from './components/topics/topics.component';
 
 @NgModule({
@@ -28,6 +30,7 @@ import { TopicsComponent } from './components/topics/topics.component';
     ContactComponent,
     HeaderComponent,
     TopicsComponent,
+    SampleQuestionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { TopicsComponent } from './components/topics/topics.component';
     MatIconModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
-    )
+    ),
+    MatCardModule
   ],
   providers: [
     ContactService
