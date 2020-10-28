@@ -1,0 +1,20 @@
+<div *ngIf="messageService.messages.length">
+  <div *ngFor='let message of messageService.messages' class="alert alert-danger alert-dismissible fade show"
+       role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+
+<div *ngIf="messageService.successMessages.length">
+  <div *ngFor='let successMessages of messageService.successMessages'
+       class="alert alert-success alert-dismissible fade show"
+       role="alert">
+    {{ successMessages }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
