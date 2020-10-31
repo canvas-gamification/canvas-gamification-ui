@@ -18,7 +18,8 @@ export class ContactComponent implements OnInit {
     this.FormData = this.builder.group({
       fullname: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.compose([Validators.required, Validators.email])]),
-      comment: new FormControl('', [Validators.required])
+      comment: new FormControl('', [Validators.required]),
+      recaptchaReactive: new FormControl(null, [Validators.required])
     });
   }
 
@@ -33,5 +34,9 @@ export class ContactComponent implements OnInit {
         console.warn(error.responseText);
         console.log({error});
       });
+  }
+
+  resolved(captchaResponse: string) {
+    console.log(`Resolved response token: ${captchaResponse}`);
   }
 }
