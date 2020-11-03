@@ -19,8 +19,7 @@
           <textarea class="form-control" formControlName="comment" name="comment" id="comment"></textarea>
         </div>
         <div class="form-group">
-          <re-captcha (resolved)="resolved($event)"
-                      formControlName="recaptchaReactive"
+          <re-captcha formControlName="recaptcha_key"
                       siteKey="{{siteKey}}">
 
           </re-captcha>
