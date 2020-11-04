@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ContactService} from '../../services/contact.service';
-import {MessageService} from '../../message.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ContactService } from '../../services/contact.service';
+import { MessageService } from '../../message.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-contact',
@@ -10,6 +11,7 @@ import {MessageService} from '../../message.service';
 })
 export class ContactComponent implements OnInit {
   FormData: FormGroup;
+  siteKey: string = environment.siteKey;
 
   constructor(private builder: FormBuilder, private contact: ContactService, private messageService: MessageService) {
   }
@@ -18,7 +20,8 @@ export class ContactComponent implements OnInit {
     this.FormData = this.builder.group({
       fullname: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.compose([Validators.required, Validators.email])]),
-      comment: new FormControl('', [Validators.required])
+      comment: new FormControl('', [Validators.required]),
+      recaptcha_key: new FormControl(null, [Validators.required])
     });
   }
 
