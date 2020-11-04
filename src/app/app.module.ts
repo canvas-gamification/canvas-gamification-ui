@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-//For dummy topics API setup
+// For dummy topics API setup
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './fake-api-service/in-memory-data.service';
 
@@ -44,7 +44,7 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     MatIconModule,
     MatCardModule,
     RecaptchaModule,
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
