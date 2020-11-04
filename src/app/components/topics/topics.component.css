@@ -5,23 +5,34 @@ html {
 }
 
 .topics-page {
-    width: 80%;
+  width: 80%;
 }
 
 .topics-page table {
-    font-size: 15px;
-    padding: 7.5rem;
-    text-align: center;
+  font-size: 15px;
+  padding: 7.5rem;
+  text-align: center;
 }
 
-.topics-page thead th {
-    height: 5rem;
-    vertical-align: middle;
+thead th {
+  height: 5rem;
+  vertical-align: middle;
 }
 
-.topics-page tbody th, 
-.topics-page tbody tr,
-.topics-page tbody td {
-    height: 7rem;
-    vertical-align: middle;
+tbody th,
+tbody tr,
+tbody td {
+  height: 7rem;
+  vertical-align: middle;
+}
+
+.subcat-row {
+  /* padding-left: 5rem; */
+  text-indent: 5rem;
+}
+
+tr td.cat-description {
+  height: 1rem;
+  text-align: left;
+  text-indent: 5rem;
 }
