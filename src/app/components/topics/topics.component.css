@@ -5,34 +5,45 @@ html {
 }
 
 .topics-page {
-  width: 80%;
+  padding: 0 7rem 0 7rem;
 }
 
-.topics-page table {
-  font-size: 15px;
-  padding: 7.5rem;
-  text-align: center;
+table th,
+table tr,
+table td {
+  font-size: 1rem;
+  padding: 2rem;
+  vertical-align: middle;
 }
 
 thead th {
   height: 5rem;
-  vertical-align: middle;
+  text-align: center;
+}
+
+thead th.header-topic {
+  text-align: left;
 }
 
 tbody th,
 tbody tr,
 tbody td {
   height: 7rem;
-  vertical-align: middle;
+}
+
+table td {
+  text-align: center;
 }
 
 .subcat-row {
-  /* padding-left: 5rem; */
-  text-indent: 5rem;
+  opacity: 75%;
 }
 
-tr td.cat-description {
-  height: 1rem;
+tbody tr .subcat-name {
   text-align: left;
-  text-indent: 5rem;
+}
+
+.expanded-icon {
+  display: inline-block;
+  width: 1.5rem;
 }

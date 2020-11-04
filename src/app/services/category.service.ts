@@ -4,12 +4,14 @@ import { Observable, of } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { catchError, map, tap } from "rxjs/operators";
 import { MessageService } from "../message.service";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: "root",
 })
 export class CategoryService {
-  private categoriesUrl = "api/categories"; // URL to fake api
+  private categoriesUrl = new URL('/api/question-category/', environment.apiBaseUrl).toString();
+  // private categoriesUrl = 'api/categories';
 
   constructor(
     private http: HttpClient,
