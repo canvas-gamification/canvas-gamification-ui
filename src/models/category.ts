@@ -5,4 +5,5 @@ export interface Category {
     parent: number,
     numQues: number,
     avgSuccess: number,
+    linkedTo: number[],
 }
