@@ -44,6 +44,6 @@ export class CategoryService {
   }
 
   private log(message: string) {
-    this.messageService.add(`HeroService: ${message}`);
+    this.messageService.add(`CategoryService: ${message}`);
   }
 }
