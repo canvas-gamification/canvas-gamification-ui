@@ -11,7 +11,6 @@ import { environment } from '../../environments/environment';
 })
 export class CategoryService {
   private categoriesUrl = new URL('/api/question-category/', environment.apiBaseUrl).toString();
-  // private categoriesUrl = 'api/categories';
 
   constructor(
     private http: HttpClient,
