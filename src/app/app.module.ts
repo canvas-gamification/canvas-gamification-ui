@@ -21,6 +21,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SampleQuestionsComponent } from './components/sample-questions/sample-questions.component';
 import {MatCardModule} from '@angular/material/card';
 import { TopicsComponent } from './components/topics/topics.component';
+import { ConceptMapComponent } from './components/concept-map/concept-map.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TopicsComponent } from './components/topics/topics.component';
     HeaderComponent,
     TopicsComponent,
     SampleQuestionsComponent,
+    ConceptMapComponent,
   ],
   imports: [
     BrowserModule,
