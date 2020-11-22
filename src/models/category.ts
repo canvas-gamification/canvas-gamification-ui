@@ -3,7 +3,7 @@ export interface Category {
     name: string,
     description: string,
     parent: number,
-    numQues: number,
+    numQuestions: number,
     avgSuccess: number,
-    linkedTo: number[],
+    nextCategories: number[],
 }
