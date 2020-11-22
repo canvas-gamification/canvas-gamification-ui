@@ -47,3 +47,7 @@ tbody tr .subcat-name {
   display: inline-block;
   width: 1.5rem;
 }
+
+.heavy-indent {
+  padding-left: 2.5rem;
+}

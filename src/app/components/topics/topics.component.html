@@ -27,7 +27,7 @@
                     <ng-container *ngIf="expanded[category.name]">
                         <ng-container *ngFor="let subcat of subcats[category.name]">
                             <tr class="subcat-row">
-                                <td class="subcat-name">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ subcat.name }}</td>
+                                <td class="subcat-name"><span class="heavy-indent">{{ subcat.name }}</span></td>
                                 <td>{{ subcat.numQues }}</td>
                                 <td>{{ subcat.avgSuccess }}%</td>
                             </tr>
