@@ -24,12 +24,10 @@ export class TopicsComponent implements OnInit {
         this.topLevelCategories = categories.filter(c => c.parent == null);
         this.categories = categories;
       });
-  }
+  };
 
   toggleChildTopics(category: Category): void {
     this.expanded[category.name] = !this.expanded[category.name];
     this.subcats[category.name] = this.categories.filter(c => c.parent == category.pk);
-    console.log(this.subcats["Basics"]);
-    console.log(this.expanded);
-  }
+  };
 }
