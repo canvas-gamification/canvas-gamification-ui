@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CategoryService } from "../../services/category.service";
 import { Category } from "../../../models/category";
+import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: "app-topics",
@@ -14,6 +15,9 @@ export class TopicsComponent implements OnInit {
   topLevelCategories: Category[];
   expanded: {} = {};
   subcats: {} = {};
+  
+  faCaretRight = faCaretRight;
+  faCaretDown = faCaretDown;
 
   constructor(public categoryService: CategoryService) {}
 

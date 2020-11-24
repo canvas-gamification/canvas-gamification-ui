@@ -21,6 +21,7 @@ import { SampleQuestionsComponent } from './components/sample-questions/sample-q
 import { MatCardModule } from '@angular/material/card';
 import { TopicsComponent } from './components/topics/topics.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     MatCardModule,
     RecaptchaModule,
     RecaptchaFormsModule,
-    MatCardModule
+    MatCardModule,
+    FontAwesomeModule
   ],
   providers: [
     ContactService

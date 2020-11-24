@@ -16,8 +16,8 @@
                     <tr [class.table-primary]="expanded[category.name]" (click)="toggleChildTopics(category)">
                         <th>
                             <span class="expanded-icon">
-                                <i class="fas fa-caret-right" *ngIf="!expanded[category.name]"></i>
-                                <i class="fas fa-caret-down" *ngIf="expanded[category.name]"></i>
+                                <fa-icon [icon]=faCaretRight *ngIf="!expanded[category.name]"></fa-icon>
+                                <fa-icon [icon]=faCaretDown *ngIf="expanded[category.name]"></fa-icon>
                             </span>
                             {{ category.name }}
                         </th>
