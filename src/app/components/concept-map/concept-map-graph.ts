@@ -76,6 +76,9 @@ export class ConceptMapGraph {
           padding: 20,
         }
       },
+      connector: {
+        name: 'smooth',
+      },
       attrs: {
         line: {
           stroke: 'black',
@@ -85,7 +88,6 @@ export class ConceptMapGraph {
           cursor: 'default'
         }
       },
-      smooth: true,
     });
   }
 
@@ -111,10 +113,10 @@ export class ConceptMapGraph {
     joint.layout.DirectedGraph.layout(this.graph, {
       dagre,
       graphlib,
-      setLinkVertices: false,
       nodeSep: 80,
       edgeSep: 80,
-      rankDir: 'LR'
+      ranker: 'longest-path',
+      rankDir: 'LR',
     });
   }
 }

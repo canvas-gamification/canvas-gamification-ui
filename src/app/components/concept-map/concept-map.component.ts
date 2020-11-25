@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ConceptMapGraph} from './concept-map-graph';
-
+import {data} from './data';
 
 @Component({
   selector: 'app-concept-map',
@@ -15,30 +15,10 @@ export class ConceptMapComponent implements OnInit {
   renderGraph() {
     console.log(this.parentNode);
 
-    let adj: {};
-
-    if (this.parentNode === 'Basics') {
-      adj = {
-        Variables: ['Statements', 'Data\nTypes', 'Constants'],
-        Statements: ['Arithmetic\nOperators'],
-        'Data\nTypes': ['Arithmetic\nOperators', 'Simple\nCalculation\nPrograms', 'Casting'],
-        Constants: ['Simple\nCalculation\nPrograms'],
-        'Arithmetic\nOperators': ['Simple\nCalculation\nPrograms'],
-        Casting: [],
-        'Simple\nCalculation\nPrograms': []
-      };
-    } else {
-      adj = {
-        Basics: ['Conditionals', 'Pre-Defined\nClasses'],
-        'Pre-Defined\nClasses': ['Object-Oriented\nPrograming'],
-        Conditionals: ['Pre-Defined\nClasses', 'Loops', 'Methods'],
-        Loops: ['Methods', 'Arrays'],
-        Methods: ['Object-Oriented\nPrograming'],
-        Arrays: ['Object-Oriented\nPrograming'],
-        'Object-Oriented\nPrograming': []
-      };
+    let adj = data.default;
+    if (this.parentNode in data) {
+      adj = data[this.parentNode];
     }
-
 
     this.conceptMapGraph.buildGraphFromAdjacencyList(adj);
   }
