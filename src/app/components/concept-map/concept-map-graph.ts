@@ -22,9 +22,9 @@ export class ConceptMapGraph {
     });
 
     this.paper.on('cell:pointerdown', (cellView, evt, x, y) => {
-        if (cellView.model.attributes.type === 'basic.Rect') {
+        // if (cellView.model.attributes.type === 'basic.Ellipses') {
           onclick(cellView.model.id);
-        }
+        // }
       }
     );
   }
@@ -36,7 +36,7 @@ export class ConceptMapGraph {
     const width = 2 * (letterSize * (0.6 * maxLineLength + 1));
     const height = 2 * ((label.split('\n').length + 1) * letterSize);
 
-    return new joint.shapes.basic.Rect({
+    return new joint.shapes.basic.Ellipse({
       id: label,
       size: {width, height},
       attrs: {
