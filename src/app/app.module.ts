@@ -22,6 +22,7 @@ import { SampleQuestionsComponent } from './components/sample-questions/sample-q
 import { MatCardModule } from '@angular/material/card';
 import { TopicsComponent } from './components/topics/topics.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { ConceptMapComponent } from './components/concept-map/concept-map.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     HeaderComponent,
     TopicsComponent,
     SampleQuestionsComponent,
+    ConceptMapComponent,
   ],
   imports: [
     BrowserModule,
