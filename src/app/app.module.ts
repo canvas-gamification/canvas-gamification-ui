@@ -22,6 +22,7 @@ import { MatCardModule } from '@angular/material/card';
 import { TopicsComponent } from './components/topics/topics.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConceptMapComponent } from './components/concept-map/concept-map.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HeaderComponent,
     TopicsComponent,
     SampleQuestionsComponent,
+    ConceptMapComponent,
   ],
   imports: [
     BrowserModule,
