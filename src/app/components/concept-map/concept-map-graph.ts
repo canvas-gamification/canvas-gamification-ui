@@ -17,13 +17,13 @@ export class ConceptMapGraph {
       width: 2000,
       height: 2000,
       model: this.graph,
-      gridSize: 1,
+      gridSize: 20,
       interactive: false,
     });
 
     this.paper.on('cell:pointerdown', (cellView, evt, x, y) => {
         // if (cellView.model.attributes.type === 'basic.Ellipses') {
-          onclick(cellView.model.id);
+        onclick(cellView.model.id);
         // }
       }
     );
@@ -36,21 +36,25 @@ export class ConceptMapGraph {
     const width = 2 * (letterSize * (0.6 * maxLineLength + 1));
     const height = 2 * ((label.split('\n').length + 1) * letterSize);
 
-    return new joint.shapes.basic.Ellipse({
+    return new joint.shapes.standard.Ellipse({
       id: label,
       size: {width, height},
+      strokeDasharray: '10,2',
+      fill: '#42f575',
       attrs: {
-        text: {
+        label: {
           text: label,
           'font-size': letterSize,
           'font-family': 'monospace',
           cursor: 'pointer',
         },
-        rect: {
+        body: {
           width, height,
           rx: 10, ry: 10,
-          stroke: '#555',
+          stroke: '#000000',
           cursor: 'pointer',
+          strokeDasharray: '10,2',
+          fill: '#42f575',
         },
       }
     });
@@ -60,29 +64,29 @@ export class ConceptMapGraph {
     return new joint.shapes.standard.Link({
       source: {
         id: parentElementLabel,
-        anchor: {
-          name: 'midSide'
-        }
       },
       target: {
         id: childElementLabel,
-        anchor: {
-          name: 'midSide'
-        }
       },
       router: {
-        name: 'normal',
+        name: 'metro',
         args: {
-          padding: 20,
+          step: 20,
         }
       },
       connector: {
-        name: 'smooth',
+        name: 'normal',
       },
       attrs: {
         line: {
           stroke: 'black',
           cursor: 'default',
+          targetMarker: {
+            type: 'path',
+            d: 'M 20 -10 0 0 20 10',
+            fill: 'rgba(0,0,0,0)',
+            'stroke-width': 1.75
+          }
         },
         wrapper: {
           cursor: 'default'
