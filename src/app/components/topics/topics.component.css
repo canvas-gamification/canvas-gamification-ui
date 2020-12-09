@@ -35,6 +35,10 @@ table td {
   text-align: center;
 }
 
+tbody tr {
+  cursor: pointer;
+}
+
 .subcat-row {
   opacity: 75%;
 }
