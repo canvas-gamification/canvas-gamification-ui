@@ -22,22 +22,23 @@ export class ConceptMapGraph {
     });
 
     this.paper.on('cell:pointerdown', (cellView, evt, x, y) => {
-        // if (cellView.model.attributes.type === 'basic.Ellipses') {
-        onclick(cellView.model.id);
-        // }
+        if (cellView.model.attributes.type === 'standard.Ellipse') {
+          onclick(cellView.model.id);
+        }
       }
     );
   }
 
-  makeElement(label) {
+  makeElement(id, label) {
+    label = label.replaceAll(' ', '\n');
     const maxLineLength = Math.max(...label.split('\n').map(x => x.length));
 
     const letterSize = 16;
-    const width = 2 * (letterSize * (0.6 * maxLineLength + 1));
-    const height = 2 * ((label.split('\n').length + 1) * letterSize);
+    const width = 1.5 * (letterSize * (0.6 * maxLineLength + 1));
+    const height = 1.5 * ((label.split('\n').length + 1) * letterSize);
 
     return new joint.shapes.standard.Ellipse({
-      id: label,
+      id,
       size: {width, height},
       strokeDasharray: '10,2',
       fill: '#42f575',
@@ -69,13 +70,18 @@ export class ConceptMapGraph {
         id: childElementLabel,
       },
       router: {
-        name: 'metro',
+        name: 'manhattan',
         args: {
-          step: 20,
+          step: 10,
+          padding: 20,
+          maxAllowedDirectionChange: 360,
+          perpendicular: false,
+          startDirections: ['right', 'top', 'bottom'],
+          endDirections: ['left', 'top', 'bottom']
         }
       },
       connector: {
-        name: 'normal',
+        name: 'rounded',
       },
       attrs: {
         line: {
@@ -83,7 +89,7 @@ export class ConceptMapGraph {
           cursor: 'default',
           targetMarker: {
             type: 'path',
-            d: 'M 20 -10 0 0 20 10',
+            d: 'M 10 -5 0 0 10 5',
             fill: 'rgba(0,0,0,0)',
             'stroke-width': 1.75
           }
@@ -100,11 +106,11 @@ export class ConceptMapGraph {
     const elements = [];
     const links = [];
 
-    _.each(adjacencyList, (edges, parentElementLabel) => {
-      elements.push(this.makeElement(parentElementLabel));
+    _.each(adjacencyList, (category) => {
+      elements.push(this.makeElement(category.pk, category.name));
 
-      _.each(edges, (childElementLabel) => {
-        links.push(this.makeLink(parentElementLabel, childElementLabel));
+      _.each(category.nextCategories, (childElementId) => {
+        links.push(this.makeLink(category.pk, childElementId));
       });
     });
 
@@ -117,8 +123,8 @@ export class ConceptMapGraph {
     joint.layout.DirectedGraph.layout(this.graph, {
       dagre,
       graphlib,
-      nodeSep: 80,
-      edgeSep: 80,
+      nodeSep: 40,
+      edgeSep: 40,
       ranker: 'longest-path',
       rankDir: 'LR',
     });

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ConceptMapGraph} from './concept-map-graph';
-import {data} from './data';
+import {Category} from '../../../models/category';
+import {CategoryService} from '../../services/api/category.service';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-concept-map',
@@ -9,33 +11,43 @@ import {data} from './data';
 })
 export class ConceptMapComponent implements OnInit {
 
-  parentNode: string;
+  rawCategories: Category[];
+  parentNode: number = null;
   conceptMapGraph: ConceptMapGraph;
 
   renderGraph() {
-    console.log(this.parentNode);
+    const adj = [];
+    for (const category of this.rawCategories) {
+      if (category.parent === this.parentNode) {
+        adj.push(category);
+      }
+    }
 
-    let adj = data.default;
-    if (this.parentNode in data) {
-      adj = data[this.parentNode];
+    if (adj.length === 0) {
+      this.parentNode = null;
+      this.renderGraph();
+      return;
     }
 
     this.conceptMapGraph.buildGraphFromAdjacencyList(adj);
   }
 
-  constructor() {
+  constructor(private categoryService: CategoryService, private messageService: MessageService) {
   }
 
   ngOnInit() {
-    this.conceptMapGraph = new ConceptMapGraph((cellId) => {
-      this.parentNode = cellId;
+    this.categoryService.getCategories().subscribe(categories => {
+      this.rawCategories = categories;
+      this.conceptMapGraph = new ConceptMapGraph((cellId) => {
+        this.parentNode = cellId;
+        this.renderGraph();
+      });
       this.renderGraph();
     });
-    this.renderGraph();
   }
 
   reset() {
-    this.parentNode = '';
+    this.parentNode = null;
     this.renderGraph();
   }
 }
