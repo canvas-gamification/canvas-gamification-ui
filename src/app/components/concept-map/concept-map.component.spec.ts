@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ConceptMapComponent } from './concept-map.component';
 
@@ -6,7 +6,7 @@ describe('ConceptMapComponent', () => {
   let component: ConceptMapComponent;
   let fixture: ComponentFixture<ConceptMapComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ConceptMapComponent ]
     })
