@@ -27,7 +27,6 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@ng-bootstrap/ng-bootstrap": "^6.1.0",
-    "angular-in-memory-web-api": "^0.11.0",
     "backbone": "^1.4.0",
     "bootstrap": "^4.4.0",
     "bulma": "^0.9.1",
@@ -37,8 +36,7 @@
     "ng-recaptcha": "^6.0.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "angular-in-memory-web-api": "latest"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1001.7",

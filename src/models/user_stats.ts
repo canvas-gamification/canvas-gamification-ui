@@ -1,4 +1,4 @@
 export interface UserStats {
-    avgUserSuccess: number,
-    avgCategorySuccess: number,
+    avgUserSuccess: number;
+    avgCategorySuccess: number;
 }
