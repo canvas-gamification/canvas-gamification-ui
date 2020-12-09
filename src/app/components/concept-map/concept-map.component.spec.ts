@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { HeaderComponent } from './header.component';
+import { ConceptMapComponent } from './concept-map.component';
 
-describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+describe('ConceptMapComponent', () => {
+  let component: ConceptMapComponent;
+  let fixture: ComponentFixture<ConceptMapComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      declarations: [ ConceptMapComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(ConceptMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
