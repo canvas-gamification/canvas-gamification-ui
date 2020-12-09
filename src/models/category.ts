@@ -1,7 +1,9 @@
 export interface Category {
+    pk: number,
     name: string,
     description: string,
-    parentName: string,
-    numQues: number,
+    parent: number,
+    numQuestions: number,
     avgSuccess: number,
+    nextCategories: number[],
 }

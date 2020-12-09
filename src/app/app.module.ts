@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './fake-api-service/in-memory-data.service';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MessagesComponent } from './components/messages/messages.component';
@@ -22,6 +21,7 @@ import { SampleQuestionsComponent } from './components/sample-questions/sample-q
 import { MatCardModule } from '@angular/material/card';
 import { TopicsComponent } from './components/topics/topics.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConceptMapComponent } from './components/concept-map/concept-map.component';
 
 @NgModule({
@@ -47,10 +47,8 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
     MatCardModule,
     RecaptchaModule,
     RecaptchaFormsModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    ),
-    MatCardModule
+    MatCardModule,
+    FontAwesomeModule
   ],
   providers: [
     ContactService
