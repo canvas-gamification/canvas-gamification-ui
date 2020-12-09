@@ -3,7 +3,7 @@ import {UserStats} from '../../../models/user_stats';
 import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
-import {MessageService} from '../../message.service';
+import {MessageService} from '../message.service';
 import {environment} from '../../../environments/environment';
 
 @Injectable({

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionService} from '../../services/api/question.service';
-import {MessageService} from '../../message.service';
+import {MessageService} from '../../services/message.service';
 import {MultipleChoiceQuestion} from '../../../models/multiple_choice_question';
 
 @Component({

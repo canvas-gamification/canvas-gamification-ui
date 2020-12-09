@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ContactService } from '../../services/contact.service';
-import { MessageService } from '../../message.service';
+import { ContactService } from '../../services/api/contact.service';
+import { MessageService } from '../../services/message.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
