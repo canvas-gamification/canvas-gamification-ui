@@ -10,7 +10,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { ContactComponent } from './components/contact/contact.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ContactService } from './services/api/contact.service';
 import { HeaderComponent } from './components/header/header.component';
 import { SampleQuestionsComponent } from './components/sample-questions/sample-questions.component';
@@ -44,7 +44,8 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
     RecaptchaModule,
     RecaptchaFormsModule,
     MatCardModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [
     ContactService
