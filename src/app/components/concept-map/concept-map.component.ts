@@ -11,6 +11,7 @@ import {MessageService} from '../../services/message.service';
 })
 export class ConceptMapComponent implements OnInit {
 
+  userId: number;
   rawCategories: Category[];
   parentNode: number = null;
   conceptMapGraph: ConceptMapGraph;
@@ -48,6 +49,10 @@ export class ConceptMapComponent implements OnInit {
 
   reset() {
     this.parentNode = null;
+    this.renderGraph();
+  }
+
+  update() {
     this.renderGraph();
   }
 }
