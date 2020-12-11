@@ -5,6 +5,7 @@ import {LandingPageComponent} from './components/landing-page/landing-page.compo
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
 import {TopicsComponent} from './components/topics/topics.component';
 import {ConceptMapComponent} from './components/concept-map/concept-map.component';
+import {UserStatsComponent} from "./components/user-stats/user-stats.component";
 
 
 const routes: Routes = [
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'concept-map',
     component: ConceptMapComponent
+  },
+  {
+    path: 'user-stats',
+    component: UserStatsComponent
   }
 ];
 

@@ -25,8 +25,7 @@ export class ConceptMapGraph {
         if (cellView.model.attributes.type === 'standard.Ellipse') {
           onclick(cellView.model.id);
         }
-      }
-    );
+      });
   }
 
   makeElement(id, label) {

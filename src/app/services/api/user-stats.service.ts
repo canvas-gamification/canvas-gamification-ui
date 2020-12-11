@@ -11,7 +11,7 @@ import {environment} from '../../../environments/environment';
 })
 export class UserStatsService {
   private userStatsUrl = new URL(
-    '/api/user-stats/',
+    '/api/user-stats',
     environment.apiBaseUrl
   ).toString();
 
