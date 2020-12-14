@@ -29,7 +29,6 @@ export class ConceptMapGraph {
   }
 
   makeElement(id, label) {
-    label = label.replaceAll(' ', '\n');
     const maxLineLength = Math.max(...label.split('\n').map(x => x.length));
 
     const letterSize = 16;
@@ -106,7 +105,8 @@ export class ConceptMapGraph {
     const links = [];
 
     _.each(adjacencyList, (category) => {
-      elements.push(this.makeElement(category.pk, category.name));
+      const label = category.name.replaceAll(' ', '\n') + '\n\nAverage Success:\n' + category.avgSuccess + '%';
+      elements.push(this.makeElement(category.pk, label));
 
       _.each(category.nextCategories, (childElementId) => {
         links.push(this.makeLink(category.pk, childElementId));

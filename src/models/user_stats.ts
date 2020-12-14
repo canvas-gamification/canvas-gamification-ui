@@ -1,4 +1,9 @@
 export interface UserStats {
-    avgUserSuccess: number;
-    avgCategorySuccess: number;
+  pk: number;
+  successRateByCategory: [
+    {
+      category: number;
+      avgSuccess: number;
+    }
+  ];
 }
