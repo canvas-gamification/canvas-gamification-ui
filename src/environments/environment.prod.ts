@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiBaseUrl: '/api',
+  apiBaseUrl: 'http://s202.ok.ubc.ca/',
   siteKey: ''
 };
