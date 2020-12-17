@@ -40,7 +40,7 @@ tbody tr {
 }
 
 .subcat-row {
-  opacity: 75%;
+  opacity: 0.75;
 }
 
 tbody tr .subcat-name {
