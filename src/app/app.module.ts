@@ -19,6 +19,7 @@ import { TopicsComponent } from './components/topics/topics.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConceptMapComponent } from './components/concept-map/concept-map.component';
+import { UserStatsComponent } from './components/user-stats/user-stats.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
     TopicsComponent,
     SampleQuestionsComponent,
     ConceptMapComponent,
+    UserStatsComponent,
   ],
   imports: [
     BrowserModule,

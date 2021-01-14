@@ -11,32 +11,21 @@ import {environment} from '../../../environments/environment';
 })
 export class UserStatsService {
   private userStatsUrl = new URL(
-    '/api/user-stats/',
+    '/api/user-stats',
     environment.apiBaseUrl
   ).toString();
 
   constructor(private http: HttpClient, private messageService: MessageService) {
   }
 
-  getAllUserStats(userId: number): Observable<UserStats[]> {
-    const url = `${this.userStatsUrl}/?user=${userId}`;
-    return this.http
-      .get<UserStats[]>(url)
-      .pipe(
-        catchError(
-          this.handleError<UserStats[]>(`getAllUserStats user=${userId}`)
-        )
-      );
-  }
-
-  getUserStats(userId: number, categoryId: number): Observable<UserStats> {
-    const url = `${this.userStatsUrl}/${categoryId}/?user=${userId}`;
+  getUserStats(): Observable<UserStats> {
+    const url = `${this.userStatsUrl}/1`;
     return this.http
       .get<UserStats>(url)
       .pipe(
         catchError(
           this.handleError<UserStats>(
-            `getUserStat user=${userId} category=${categoryId}`
+            `getUserStat`
           )
         )
       );

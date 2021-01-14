@@ -3,6 +3,7 @@ import {ConceptMapGraph} from './concept-map-graph';
 import {Category} from '../../../models/category';
 import {CategoryService} from '../../services/api/category.service';
 import {MessageService} from '../../services/message.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-concept-map',
@@ -33,7 +34,7 @@ export class ConceptMapComponent implements OnInit {
     this.conceptMapGraph.buildGraphFromAdjacencyList(adj);
   }
 
-  constructor(private categoryService: CategoryService, private messageService: MessageService) {
+  constructor(private categoryService: CategoryService, private messageService: MessageService, private router: Router) {
   }
 
   ngOnInit() {
@@ -41,6 +42,9 @@ export class ConceptMapComponent implements OnInit {
       this.rawCategories = categories;
       this.conceptMapGraph = new ConceptMapGraph((cellId) => {
         this.parentNode = cellId;
+        if (!this.isTopLevel(cellId)) {
+          this.router.navigate(['user-stats', {categoryId: cellId, userId: this.userId}]);
+        }
         this.renderGraph();
       });
       this.renderGraph();
@@ -54,5 +58,13 @@ export class ConceptMapComponent implements OnInit {
 
   update() {
     this.renderGraph();
+  }
+
+  isTopLevel(categoryId: number) {
+    for (const category of this.rawCategories) {
+      if (categoryId === category.pk) {
+        return category.parent === null;
+      }
+    }
   }
 }
