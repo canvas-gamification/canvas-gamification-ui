@@ -5,7 +5,9 @@ import {LandingPageComponent} from './components/landing-page/landing-page.compo
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
 import {TopicsComponent} from './components/topics/topics.component';
 import {ConceptMapComponent} from './components/concept-map/concept-map.component';
-import {UserStatsComponent} from "./components/user-stats/user-stats.component";
+import {UserStatsComponent} from './components/user-stats/user-stats.component';
+import {LoginComponent} from './components/login/login.component';
+import {SignupComponent} from './components/signup/signup.component';
 
 
 const routes: Routes = [
@@ -34,6 +36,14 @@ const routes: Routes = [
   {
     path: 'user-stats',
     component: UserStatsComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
   }
 ];
 

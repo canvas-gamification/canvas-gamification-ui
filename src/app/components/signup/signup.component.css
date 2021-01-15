@@ -1,0 +1,99 @@
+html, body {
+  height: 100%;
+}
+
+body.signup {
+  background-color: #f7f9fb;
+  font-size: 14px;
+}
+
+.signup .brand {
+  width: 90px;
+  height: 90px;
+  overflow: hidden;
+  border-radius: 50%;
+  margin: 40px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .05);
+  position: relative;
+  z-index: 1;
+}
+
+.signup .brand img {
+  width: 100%;
+}
+
+.signup .card-wrapper {
+  width: 400px;
+}
+
+.signup .card {
+  border-color: transparent;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .05);
+}
+
+.signup .card.fat {
+  padding: 10px;
+}
+
+.signup .card .card-title {
+  margin-bottom: 30px;
+}
+
+.signup .form-control {
+  border-width: 2.3px;
+}
+
+.signup .form-group label {
+  width: 100%;
+}
+
+.signup .btn.btn-block {
+  padding: 12px 10px;
+}
+
+.signup .footer {
+  margin: 40px 0;
+  color: #888;
+  text-align: center;
+}
+
+@media screen and (max-width: 425px) {
+  .signup .card-wrapper {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .signup .card.fat {
+    padding: 0;
+  }
+
+  .signup .card.fat .card-body {
+    padding: 15px;
+  }
+}
+
+.signup-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  padding-top: 5rem;
+  display: none;
+}
+
+.dark-background {
+  margin: 0;
+  padding: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.5);
+}
