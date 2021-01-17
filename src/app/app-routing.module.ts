@@ -8,6 +8,8 @@ import {ConceptMapComponent} from './components/concept-map/concept-map.componen
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from './components/login/login.component';
 import {SignupComponent} from './components/signup/signup.component';
+import {ProfileDetailsComponent} from './components/profile-details/profile-details.component';
+import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -44,6 +46,14 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupComponent
+  },
+  {
+    path: 'profile',
+    component: ProfileDetailsComponent
+  },
+  {
+    path: 'change-password',
+    component: ResetPasswordComponent
   }
 ];
 

@@ -22,6 +22,8 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { ProfileDetailsComponent } from './components/profile-details/profile-details.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { SignupComponent } from './components/signup/signup.component';
     UserStatsComponent,
     LoginComponent,
     SignupComponent,
+    ProfileDetailsComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
