@@ -6,6 +6,7 @@ import {SampleQuestionsComponent} from './components/sample-questions/sample-que
 import {TopicsComponent} from './components/topics/topics.component';
 import {ConceptMapComponent} from './components/concept-map/concept-map.component';
 import {UserStatsComponent} from "./components/user-stats/user-stats.component";
+import {TokenValuesComponent} from "./components/token-values/token-values.component";
 
 
 const routes: Routes = [
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'concept-map',
     component: ConceptMapComponent
+  },
+  {
+    path: 'token-values',
+    component: TokenValuesComponent
   },
   {
     path: 'user-stats',

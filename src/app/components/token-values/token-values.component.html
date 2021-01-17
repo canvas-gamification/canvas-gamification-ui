@@ -1,0 +1,27 @@
+<form [formGroup]="tokenValueTable">
+	<table>
+		<thead>
+			<th>Category Name</th>
+			<th>EASY</th>
+			<th>MEDIUM</th>
+      <th>HARD</th>
+		</thead>
+		<tbody formArrayName="CategoryRows">
+			<tr>
+				<td>
+					Test
+        </td>
+        <td>
+          <input formControlName="easytokenval" class="form-control">
+        </td>
+        <td>
+          <input formControlName="medtokenval" class="form-control">
+        </td>
+        <td>
+          <input formControlName="hardtokenval" class="form-control">
+        </td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+

@@ -20,6 +20,7 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConceptMapComponent } from './components/concept-map/concept-map.component';
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
+import { TokenValuesComponent } from './components/token-values/token-values.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { UserStatsComponent } from './components/user-stats/user-stats.component
     SampleQuestionsComponent,
     ConceptMapComponent,
     UserStatsComponent,
+    TokenValuesComponent,
   ],
   imports: [
     BrowserModule,
