@@ -8,26 +8,59 @@ import {FormGroup, FormArray, FormBuilder} from '@angular/forms';
 })
 export class TokenValuesComponent implements OnInit {
   tokenValueTable: FormGroup;
-  difficulties: string[]; // array for the columns
+  formControl: FormArray;
+  editedRows: any;
+  difficulties: string[];
 
   constructor(private formBuilder: FormBuilder) {
-    this.difficulties = ['EASY', 'MEDIUM', 'HARD'];
+    this.difficulties = ['EASY', 'MEDIUM', 'HARD'];  // TODO: make this call the API and get the global difficulties
   }
 
   ngOnInit(): void {
     this.tokenValueTable = this.formBuilder.group({
-      CategoryRows: this.formBuilder.array([this.fillRows()])
+      categoryRows: this.formBuilder.array([])
     });
+    this.fillRows();
   }
 
-  get formArr() {
-    return this.tokenValueTable.get('CategoryRows') as FormArray;
+  ngAfterOnInit(): void {
+    this.formControl = this.getFormControls;
+
   }
 
-  fillRows() {
+  private fillRows() {
+    // TODO: This is where we call the API and populate the table
+  }
+
+  get getFormControls() {
+    const formControl = this.tokenValueTable.get('categoryRows') as FormArray;
+    return formControl;
+  }
+
+  private emptyRow() {
     return this.formBuilder.group({
-      Category: ['']
+      Category: [''],
+      Easy: [''],
+      Medium: [''],
+      Hard: [''],
+      isEditable: [true]
     });
+  }
+
+  addRow() {
+    const formControl =  this.getFormControls;
+    formControl.push(this.emptyRow());
+  }
+
+  deleteRow(index: number) {
+    const formControl =  this.getFormControls;
+    formControl.removeAt(index);
+  }
+
+  submitForm() {
+    const formControl = this.getFormControls;
+    this.editedRows = formControl.controls.filter(row => row.touched).map(row => row.value);
+    console.log(this.editedRows);
   }
 
 }

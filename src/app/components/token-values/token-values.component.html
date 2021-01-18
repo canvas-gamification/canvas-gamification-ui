@@ -6,22 +6,31 @@
 			<th>MEDIUM</th>
       <th>HARD</th>
 		</thead>
-		<tbody formArrayName="CategoryRows">
-			<tr>
+		<tbody>
+    <ng-container formArrayName="categoryRows" *ngFor="let group of getFormControls.controls; let i=index">
+			<tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
 				<td>
-					Test
+          <input type="text" formControlName="Category">
         </td>
         <td>
-          <input formControlName="easytokenval" class="form-control">
+          <input type="text" formControlName="Easy">
         </td>
         <td>
-          <input formControlName="medtokenval" class="form-control">
+          <input type="text" formControlName="Medium">
         </td>
         <td>
-          <input formControlName="hardtokenval" class="form-control">
+          <input type="text" formControlName="Hard">
+        </td>
+        <td>
+          <button class="delete" (click)="deleteRow(i)">delete</button>
         </td>
 			</tr>
+    </ng-container>
 		</tbody>
 	</table>
+  <div class="action-container">
+      <button type="submit" (click)="addRow()">Add row</button>
+      <button type="submit" (click)="submitForm()">Submit</button>
+    </div>
 </form>
 
