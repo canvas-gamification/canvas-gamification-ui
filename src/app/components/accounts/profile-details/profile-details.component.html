@@ -1,36 +1,40 @@
 <div class="profile">
   <div class="row">
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-6 offset-md-3 mt-5 mb-5">
       <div class="brand">
         <img src="../../../../assets/img/logo.jpg" alt="logo">
       </div>
-      <h1 class="title">Profile</h1>
-      <form [formGroup]="FormData">
-        <div class="form-group">
-          <label for="firstname">First Name:</label>
-          <input type="text" class="form-control" name="firstname"
-                 formControlName="firstname" id="firstname">
-        </div>
+      <div class="card">
+        <h2 class="card-header">Profile</h2>
+        <div class="card-body">
+          <form [formGroup]="FormData">
+            <div class="form-group">
+              <label for="firstname">First Name:</label>
+              <input type="text" class="form-control" name="firstname"
+                     formControlName="firstname" id="firstname">
+            </div>
 
-        <div class="form-group">
-          <label for="lastname">Last Name:</label>
-          <input type="text" class="form-control" name="lastname"
-                 formControlName="lastname" id="lastname">
-        </div>
+            <div class="form-group">
+              <label for="lastname">Last Name:</label>
+              <input type="text" class="form-control" name="lastname"
+                     formControlName="lastname" id="lastname">
+            </div>
 
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" class="form-control" name="email"
-                 formControlName="email" id="email">
-        </div>
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" class="form-control" name="email"
+                     formControlName="email" id="email">
+            </div>
 
-        <button type="submit" class="btn btn-primary">Update</button>
-      </form>
-      <button [routerLink]="'/change-password'" class="btn btn-outline-warning my-1" onclick="">
-        Change Password
-      </button>
-      <hr>
-      <!-- Need to add suport for consent form here! -->
+            <button type="submit" class="btn btn-primary">Update</button>
+          </form>
+          <button [routerLink]="'accounts/reset-password'" class="btn btn-outline-warning my-1" onclick="">
+            Change Password
+          </button>
+          <hr>
+          <!-- Need to add support for consent form here! -->
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -4,11 +4,6 @@ html {
   height: 100%;
 }
 
-.login {
-  padding-top: 7.5rem;
-  padding-bottom: 7.5rem;
-}
-
 .brand {
   width: 90px;
   height: 90px;
@@ -20,8 +15,6 @@ html {
   z-index: 1;
 }
 
-brand img {
+.brand img {
   width: 100%;
 }
-
-

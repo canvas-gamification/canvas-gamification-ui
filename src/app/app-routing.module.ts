@@ -8,7 +8,7 @@ import {ConceptMapComponent} from './components/concept-map/concept-map.componen
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
-import {SignupComponent} from './components/accounts/signup/signup.component';
+import {RegisterComponent} from './components/accounts/register/register.component';
 import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
 import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
 
@@ -45,15 +45,15 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'signup',
-    component: SignupComponent
+    path: 'accounts/register',
+    component: RegisterComponent
   },
   {
-    path: 'profile',
+    path: 'accounts/profile',
     component: ProfileDetailsComponent
   },
   {
-    path: 'change-password',
+    path: 'accounts/reset-password',
     component: ResetPasswordComponent
   }
 ];

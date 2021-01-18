@@ -21,9 +21,10 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
-import { SignupComponent } from './components/accounts/signup/signup.component';
+import { RegisterComponent } from './components/accounts/register/register.component';
 import { ProfileDetailsComponent } from './components/accounts/profile-details/profile-details.component';
 import { ResetPasswordComponent } from './components/accounts/reset-password/reset-password.component';
+import { EmailTemplateComponent } from './components/accounts/email-template/email-template.component';
 
 @NgModule({
   declarations: [
@@ -37,9 +38,10 @@ import { ResetPasswordComponent } from './components/accounts/reset-password/res
     ConceptMapComponent,
     UserStatsComponent,
     LoginComponent,
-    SignupComponent,
+    RegisterComponent,
     ProfileDetailsComponent,
     ResetPasswordComponent,
+    EmailTemplateComponent,
   ],
   imports: [
     BrowserModule,
