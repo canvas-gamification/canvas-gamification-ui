@@ -21,9 +21,9 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
-import { SignupComponent } from './components/signup/signup.component';
-import { ProfileDetailsComponent } from './components/profile-details/profile-details.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { SignupComponent } from './components/accounts/signup/signup.component';
+import { ProfileDetailsComponent } from './components/accounts/profile-details/profile-details.component';
+import { ResetPasswordComponent } from './components/accounts/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [

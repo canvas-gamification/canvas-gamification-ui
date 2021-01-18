@@ -8,9 +8,9 @@ import {ConceptMapComponent} from './components/concept-map/concept-map.componen
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
-import {SignupComponent} from './components/signup/signup.component';
-import {ProfileDetailsComponent} from './components/profile-details/profile-details.component';
-import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
+import {SignupComponent} from './components/accounts/signup/signup.component';
+import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
+import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
 
 
 const routes: Routes = [
