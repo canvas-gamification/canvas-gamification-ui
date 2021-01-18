@@ -6,7 +6,8 @@ import {SampleQuestionsComponent} from './components/sample-questions/sample-que
 import {TopicsComponent} from './components/topics/topics.component';
 import {ConceptMapComponent} from './components/concept-map/concept-map.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
-import {LoginComponent} from './components/login/login.component';
+import {LoginComponent} from '@app/components/accounts/login';
+import {AuthGuard} from '@app/_helpers/auth.guard';
 import {SignupComponent} from './components/signup/signup.component';
 import {ProfileDetailsComponent} from './components/profile-details/profile-details.component';
 import {ResetPasswordComponent} from './components/reset-password/reset-password.component';
@@ -17,7 +18,6 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: LandingPageComponent,
-
   },
   {
     path: 'contact',
@@ -33,14 +33,15 @@ const routes: Routes = [
   },
   {
     path: 'concept-map',
-    component: ConceptMapComponent
+    component: ConceptMapComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'user-stats',
     component: UserStatsComponent
   },
   {
-    path: 'login',
+    path: 'accounts/login',
     component: LoginComponent
   },
   {
