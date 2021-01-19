@@ -1,34 +1,33 @@
 import {Injectable} from '@angular/core';
-import {UserStats} from '../../../models/user_stats';
+import {Category} from '../../_models/category';
 import {Observable, of} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {catchError, map, tap} from 'rxjs/operators';
 import {MessageService} from '../message.service';
 import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserStatsService {
-  private userStatsUrl = new URL(
-    '/api/user-stats',
-    environment.apiBaseUrl
-  ).toString();
+export class CategoryService {
+  private categoriesUrl = new URL('/api/question-category/', environment.apiBaseUrl).toString();
 
-  constructor(private http: HttpClient, private messageService: MessageService) {
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService
+  ) {
   }
 
-  getUserStats(): Observable<UserStats> {
-    const url = `${this.userStatsUrl}/1`;
+  getCategories(): Observable<Category[]> {
     return this.http
-      .get<UserStats>(url)
-      .pipe(
-        catchError(
-          this.handleError<UserStats>(
-            `getUserStat`
-          )
-        )
-      );
+      .get<Category[]>(this.categoriesUrl)
+      .pipe(catchError(this.handleError<Category[]>('getCategories', [])));
+  }
+
+  getCategory(categoryId): Observable<Category> {
+    return this.http
+      .get<Category>(this.categoriesUrl + `${categoryId}/`)
+      .pipe(catchError(this.handleError<Category>('getCategory')));
   }
 
   /**

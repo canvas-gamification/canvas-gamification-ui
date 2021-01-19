@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {QuestionService} from '../../services/api/question.service';
-import {MessageService} from '../../services/message.service';
-import {MultipleChoiceQuestion} from '../../../models/multiple_choice_question';
+import {QuestionService} from '../../_services/api/question.service';
+import {MessageService} from '../../_services/message.service';
+import {MultipleChoiceQuestion} from '../../_models/multiple_choice_question';
 
 @Component({
   selector: 'app-sample-questions',
