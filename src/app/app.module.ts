@@ -24,7 +24,8 @@ import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 import { RegisterComponent } from './components/accounts/register/register.component';
 import { ProfileDetailsComponent } from './components/accounts/profile-details/profile-details.component';
 import { ResetPasswordComponent } from './components/accounts/reset-password/reset-password.component';
-import { EmailTemplateComponent } from './components/accounts/email-template/email-template.component';
+import { ConsentFormComponent } from './components/accounts/consent-form/consent-form.component';
+import { TermsAndConditionsSnippetComponent } from './components/accounts/terms-and-conditions-snippet/terms-and-conditions-snippet.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { EmailTemplateComponent } from './components/accounts/email-template/ema
     RegisterComponent,
     ProfileDetailsComponent,
     ResetPasswordComponent,
-    EmailTemplateComponent,
+    ConsentFormComponent,
+    TermsAndConditionsSnippetComponent,
   ],
   imports: [
     BrowserModule,

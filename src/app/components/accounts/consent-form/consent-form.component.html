@@ -1,0 +1,50 @@
+<div class="consent-form">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 mt-5 mb-5">
+      <div class="brand">
+        <img src="../../../../assets/img/logo.jpg" alt="logo">
+      </div>
+      <div class="card">
+        <h2 class="card-header">Please Read our Informed Consent Form</h2>
+        <app-terms-and-conditions-snippet></app-terms-and-conditions-snippet>
+        <div class="card-body">
+          <form [formGroup]="FormData">
+            <div class="form-group">
+              <label for="lastName">Type in your last name:</label>
+              <input type="text" class="form-control" name="lastName"
+                     formControlName="lastName" id="lastName">
+            </div>
+
+            <div class="form-group">
+              <label for="firstName">Type in your first name:</label>
+              <input type="text" class="form-control" name="firstName"
+                     formControlName="firstName" id="firstName">
+            </div>
+
+            <div class="form-group">
+              <label for="studentNumber">Type in your student number (this is only needed in case there are students
+                with the same first and last name):</label>
+              <input type="text" class="form-control" name="studentNumber"
+                     formControlName="studentNumber" id="studentNumber">
+            </div>
+
+            <div class="form-group">
+              <label for="date">Type in today's date:</label>
+              <input type="text" class="form-control" name="date"
+                     formControlName="date" id="date">
+            </div>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary float-right mx-2"
+                      onclick="submit()">I Consent
+              </button>
+              <button type="submit" class="btn btn-primary float-right mx-2"
+                      onclick="">I Do Not Consent
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

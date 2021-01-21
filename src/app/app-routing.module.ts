@@ -11,6 +11,7 @@ import {AuthGuard} from '@app/_helpers/auth.guard';
 import {RegisterComponent} from './components/accounts/register/register.component';
 import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
 import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
+import {ConsentFormComponent} from '@app/components/accounts/consent-form/consent-form.component';
 
 
 const routes: Routes = [
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: 'accounts/reset-password',
     component: ResetPasswordComponent
+  },
+  {
+    path: 'accounts/consent-form',
+    component: ConsentFormComponent
   }
 ];
 
