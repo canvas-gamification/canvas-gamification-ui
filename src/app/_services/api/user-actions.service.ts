@@ -18,7 +18,6 @@ export class UserActionsService {
   }
 
   getAllUserActions(): Observable<UserAction[]> {
-    const url = `${this.userActionUrl}`;
     return this.http
       .get<UserAction[]>(this.userActionUrl)
       .pipe(
@@ -31,7 +30,8 @@ export class UserActionsService {
   }
 
   getUserActions(userId: any): Observable<UserAction> {
-    const url = `${this.userActionUrl}/${userId}`;
+    // const url = `${this.userActionUrl}/${userId}`;
+    const url = `${this.userActionUrl}/${2}`;
     return this.http
       .get<UserAction>(url)
       .pipe(
