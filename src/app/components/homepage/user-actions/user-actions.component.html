@@ -3,10 +3,9 @@
     <h3>Recent Actions</h3>
   </div>
   <ul class="list-group list-group-flush">
-    <ng-container *ngFor="let action of userActionsHtml">
-    <li class="list-group-item" [innerHTML]="action">
-    </li>
-    <li class="list-group-item">No Recent Action</li>
+    <ng-container *ngFor="let action of userActionsHtml.slice(0,5)">
+      <li class="list-group-item" [innerHTML]="action"></li>
+      <li class="list-group-item">No Recent Action</li>
     </ng-container>
   </ul>
   <div class="card-footer">

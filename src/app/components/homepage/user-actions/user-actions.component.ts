@@ -25,7 +25,6 @@ export class UserActionsComponent implements OnInit {
       .getUserActions(userId)
       ?.subscribe((userActionSet) => {
         this.userActions = userActionSet.recentActions;
-
         this.userActionsHtml = userActionSet.recentActions.map(action =>
           action.description + `<span class="float-right">${this.formatTokenChange(action.token_change)}</span>`
         );
