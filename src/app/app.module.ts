@@ -24,6 +24,7 @@ import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 import { RecentUserActionsComponent } from './components/homepage/recent-user-actions/recent-user-actions.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { UserActionsComponent } from './components/homepage/user-actions/user-actions.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     RecentUserActionsComponent,
     HomepageComponent,
     NavbarComponent,
+    UserActionsComponent,
   ],
   imports: [
     BrowserModule,

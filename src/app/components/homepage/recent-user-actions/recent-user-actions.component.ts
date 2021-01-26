@@ -20,7 +20,6 @@ export class RecentUserActionsComponent implements OnInit {
 
   ngOnInit(): void {
     const userId = this.authenticationService.currentUserValue?.id;
-    console.log(userId);
     this.userActionService
       .getUserActions(userId)
       ?.subscribe((userActionSet) => {

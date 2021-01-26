@@ -9,7 +9,8 @@ import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
 
-import { HomepageComponent } from './components/homepage/homepage.component';
+import {HomepageComponent} from './components/homepage/homepage.component';
+import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 
 
 const routes: Routes = [
@@ -46,11 +47,15 @@ const routes: Routes = [
   {
     path: 'homepage',
     component: HomepageComponent
+  },
+  {
+    path: 'actions',
+    component: UserActionsComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

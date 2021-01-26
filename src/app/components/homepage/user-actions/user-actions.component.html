@@ -1,0 +1,26 @@
+<div *ngIf="userActions; else noActions" class="container-fluid">
+  <table class="table table-bordered table-striped table-hover no-text-wrap-table">
+    <thead>
+    <tr>
+      <th scope="col">Description</th>
+      <th scope="col">Token&nbsp;Change</th>
+      <th scope="col">Date</th>
+      <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let action of userActions">
+    <tr>
+      <td [innerHTML]="action.description"></td>
+      <td>{{ formatTokenChange(action.token_change) }}</td>
+      <td>{{ action.time_created | date:'LLL. dd, YYYY, hh:MM a' }}</td>
+      <td>{{ action.status }}</td>
+    </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #noActions>
+  <p>No recent Actions</p>
+</ng-template>
