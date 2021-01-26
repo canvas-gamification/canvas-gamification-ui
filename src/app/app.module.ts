@@ -21,7 +21,7 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
-import { UserActionsComponent } from './components/homepage/user-actions/user-actions.component';
+import { RecentUserActionsComponent } from './components/homepage/recent-user-actions/recent-user-actions.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
@@ -37,7 +37,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     ConceptMapComponent,
     UserStatsComponent,
     LoginComponent,
-    UserActionsComponent,
+    RecentUserActionsComponent,
     HomepageComponent,
     NavbarComponent,
   ],

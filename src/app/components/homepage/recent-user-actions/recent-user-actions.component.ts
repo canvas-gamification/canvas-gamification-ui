@@ -4,11 +4,11 @@ import {AuthenticationService} from '@app/_services/api/authentication';
 import {UserActionsService} from '@app/_services/api/user-actions.service';
 
 @Component({
-  selector: 'app-user-actions',
-  templateUrl: './user-actions.component.html',
-  styleUrls: ['./user-actions.component.css'],
+  selector: 'app-recent-user-actions',
+  templateUrl: './recent-user-actions.component.html',
+  styleUrls: ['./recent-user-actions.component.css'],
 })
-export class UserActionsComponent implements OnInit {
+export class RecentUserActionsComponent implements OnInit {
   userActions: Action[];
   userActionsHtml: string[];
 

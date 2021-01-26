@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import {UserAction} from '../../_models/user_action';
+import {UserAction} from '@app/_models';
 
 @Injectable({
   providedIn: 'root'

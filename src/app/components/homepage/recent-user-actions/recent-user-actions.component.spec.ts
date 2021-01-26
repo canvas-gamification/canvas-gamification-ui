@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserActionsComponent } from './user-actions.component';
+import { RecentUserActionsComponent } from './recent-user-actions.component';
 
-describe('UserActionsComponent', () => {
-  let component: UserActionsComponent;
-  let fixture: ComponentFixture<UserActionsComponent>;
+describe('RecentUserActionsComponent', () => {
+  let component: RecentUserActionsComponent;
+  let fixture: ComponentFixture<RecentUserActionsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserActionsComponent ]
+      declarations: [ RecentUserActionsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserActionsComponent);
+    fixture = TestBed.createComponent(RecentUserActionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
