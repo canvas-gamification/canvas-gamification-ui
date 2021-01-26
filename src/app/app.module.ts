@@ -21,7 +21,9 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
-import { UserActionsComponent } from './components/user-actions/user-actions.component';
+import { UserActionsComponent } from './components/homepage/user-actions/user-actions.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { UserActionsComponent } from './components/user-actions/user-actions.com
     UserStatsComponent,
     LoginComponent,
     UserActionsComponent,
+    HomepageComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

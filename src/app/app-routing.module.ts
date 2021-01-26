@@ -8,7 +8,9 @@ import {ConceptMapComponent} from './components/concept-map/concept-map.componen
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
-import { UserActionsComponent } from './components/user-actions/user-actions.component';
+
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { UserActionsComponent } from './components/homepage/user-actions/user-actions.component';
 
 
 const routes: Routes = [
@@ -43,8 +45,8 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'user-actions',
-    component: UserActionsComponent
+    path: 'homepage',
+    component: HomepageComponent
   }
 ];
 
