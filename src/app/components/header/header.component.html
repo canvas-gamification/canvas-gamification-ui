@@ -1,16 +1,30 @@
-<nav class="navbar is-dark">
+<nav class="navbar fixed-top navbar-expand-md navbar-light bg-light">
   <div class="navbar-brand">
     <a class="navbar-item" routerLink="">Canvas Gamification</a>
   </div>
-  <div class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="#about">Find Out More</a>
-      <a class="navbar-item" href="/homepage">Get Started</a>
-      <a class="navbar-item" routerLink="sample-questions">Sample Questions</a>
-      <a class="navbar-item" routerLink="contact">Contact Us</a>
-      <a class="navbar-item" routerLink="concept-map">Concept Map</a>
-      <a class="navbar-item" routerLink="accounts/login">Login</a>
-      <a class="navbar-item" (click)="logout()">Logout</a>
-    </div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#about">Find Out More</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="homepage">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="sample-questions">Sample Questions</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="contact">Contact Us</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="concept-map">Concept Map</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="accounts/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()">Logout</a>
+      </li>
+    </ul>
   </div>
 </nav>
