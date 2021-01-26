@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-header">
+    <h3>Recent Actions</h3>
+  </div>
+  <ul class="list-group list-group-flush">
+    <ng-container *ngFor="let action of userActions">
+    <li class="list-group-item">
+      {{ action.description }}
+      <span class="float-right">{{action.token_change}}</span>
+    </li>
+    <li class="list-group-item">No Recent Action</li>
+    </ng-container>
+  </ul>
+  <div class="card-footer">
+    <a href="" class="btn btn-secondary">View More Actions</a>
+  </div>
+</div>
