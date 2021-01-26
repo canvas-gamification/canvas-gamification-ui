@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {UserAction} from '@app/_models';
 import {Action} from '@app/_models/action';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {UserActionsService} from '@app/_services/api/user-actions.service';
@@ -11,6 +10,7 @@ import {UserActionsService} from '@app/_services/api/user-actions.service';
 })
 export class UserActionsComponent implements OnInit {
   userActions: Action[];
+  userActionsHtml: string[];
 
   constructor(
     private userActionService: UserActionsService,
@@ -25,6 +25,14 @@ export class UserActionsComponent implements OnInit {
       .getUserActions(userId)
       ?.subscribe((userActionSet) => {
         this.userActions = userActionSet.recentActions;
+
+        this.userActionsHtml = userActionSet.recentActions.map(action =>
+          action.description + `<span class="float-right">${this.formatTokenChange(action.token_change)}</span>`
+        );
       });
+  }
+
+  formatTokenChange(tokenChange): string {
+    return `+${tokenChange.toFixed(2)}`;
   }
 }
