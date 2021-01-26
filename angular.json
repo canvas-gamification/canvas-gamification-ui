@@ -32,11 +32,11 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/bulma/css/bulma.css",
               "node_modules/jointjs/css/layout.css",
-              "src/sass/styles.scss"
+              "src/scss/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/sass"
+                "src/scss"
               ]
             },
             "scripts": [
@@ -107,7 +107,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/sass/styles.scss"
+              "src/scss/styles.scss"
             ],
             "scripts": []
           }
