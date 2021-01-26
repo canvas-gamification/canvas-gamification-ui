@@ -1,7 +1,7 @@
 export interface Action {
-    description: String;
+    description: string;
     token_change: number;
-    status: String;
+    status: string;
     time_created: Date;
     time_modified: Date;
   }
