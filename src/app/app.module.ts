@@ -21,10 +21,11 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
-import { RecentUserActionsComponent } from './components/homepage/recent-user-actions/recent-user-actions.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { RecentUserActionsComponent } from './components/homepage/recent-user-actions/recent-user-actions.component';
 import { UserActionsComponent } from './components/homepage/user-actions/user-actions.component';
+import { RecentViewedQuestionsComponent } from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
 
 @NgModule({
   declarations: [
@@ -38,10 +39,11 @@ import { UserActionsComponent } from './components/homepage/user-actions/user-ac
     ConceptMapComponent,
     UserStatsComponent,
     LoginComponent,
-    RecentUserActionsComponent,
     HomepageComponent,
     NavbarComponent,
+    RecentUserActionsComponent,
     UserActionsComponent,
+    RecentViewedQuestionsComponent,
   ],
   imports: [
     BrowserModule,
