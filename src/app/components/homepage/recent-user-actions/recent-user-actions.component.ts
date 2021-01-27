@@ -22,9 +22,9 @@ export class RecentUserActionsComponent implements OnInit {
     const userId = this.authenticationService.currentUserValue?.id;
     this.userActionService
       .getUserActions(userId, {recent: true})
-      ?.subscribe((userActionSet) => {
-        this.userActions = userActionSet.actions;
-        this.userActionsHtml = userActionSet.actions.map(action =>
+      ?.subscribe((userAction) => {
+        this.userActions = userAction.actions;
+        this.userActionsHtml = userAction.actions.map(action =>
           action.description + `<span class="float-right">${this.formatTokenChange(action.token_change)}</span>`
         );
       });

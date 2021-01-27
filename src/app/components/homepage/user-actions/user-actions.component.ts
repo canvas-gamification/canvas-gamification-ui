@@ -20,8 +20,8 @@ export class UserActionsComponent implements OnInit {
     const userId = this.authenticationService.currentUserValue?.id;
     this.userActionService
       .getUserActions(userId)
-      ?.subscribe((userActionSet) => {
-        this.userActions = userActionSet.actions;
+      ?.subscribe((userAction) => {
+        this.userActions = userAction.actions;
       });
   }
 
