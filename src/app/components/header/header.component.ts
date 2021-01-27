@@ -10,6 +10,7 @@ import {AuthenticationService} from '@app/_services/api/authentication';
 export class HeaderComponent implements OnInit {
   user: User;
   path: string;
+  logoPath = 'assets/global/logo.jpg';
 
   constructor(
     private authenticationService: AuthenticationService,
