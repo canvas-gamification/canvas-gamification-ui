@@ -1,0 +1,8 @@
+@import 'variables';
+@import 'mixins';
+
+header {
+  background: $color-complement;
+  margin: 5em 0 0 0;
+  font-family: "Times New Roman", serif;
+}

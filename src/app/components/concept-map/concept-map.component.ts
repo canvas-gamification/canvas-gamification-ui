@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-concept-map',
   templateUrl: './concept-map.component.html',
-  styleUrls: ['./concept-map.component.css']
+  styleUrls: ['./concept-map.component.scss']
 })
 export class ConceptMapComponent implements OnInit {
 
