@@ -7,9 +7,9 @@
 		</thead>
 		<tbody>
     <ng-container formArrayName="categoryRows" *ngFor="let group of getFormControls.controls; let i=index">
-			<tr *ngIf="group != null" [formGroupName]="i">
+			<tr [formGroupName]="i">
 				<td>
-          <input type="text" formControlName="Category">
+          <input type="text" formControlName="token_val">
         </td>
         <td>
           <input type="text" formControlName="Difficulty">

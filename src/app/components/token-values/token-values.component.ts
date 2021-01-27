@@ -42,17 +42,16 @@ export class TokenValuesComponent implements OnInit {
     this.tokenValueService.getTokenValues().subscribe(tokenVals => {
      this.existingTokenValues = tokenVals as TokenValue[]; });
 
-    // tslint:disable-next-line:prefer-const
-    let tokenValuesFG;
+    const tokenValuesFG = this.formBuilder.group({});
 
-    this.existingTokenValues.forEach( (tokenVal) => {
-      tokenValuesFG.append(
-        this.formBuilder.group({
-      Category: tokenVal.category,
-      Difficulty: tokenVal.difficulty,
-      Value: tokenVal.value})
-      );
-    });
+    // tslint:disable-next-line:prefer-for-of
+    for ( let i = 0; i < this.existingTokenValues.length; i++){
+      tokenValuesFG.addControl('token_value', this.formBuilder.group({
+      Category: this.existingTokenValues[i].category,
+      Difficulty: [this.existingTokenValues[i].difficulty],
+      Value: [this.existingTokenValues[i].value],
+    }));
+    }
 
     return tokenValuesFG;
   }
