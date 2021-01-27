@@ -2,34 +2,26 @@
 	<table>
 		<thead>
 			<th>Category Name</th>
-			<th>EASY</th>
-			<th>MEDIUM</th>
-      <th>HARD</th>
+			<th>Difficulty</th>
+			<th>Value</th>
 		</thead>
 		<tbody>
     <ng-container formArrayName="categoryRows" *ngFor="let group of getFormControls.controls; let i=index">
-			<tr *ngIf="group.get('isEditable').value" [formGroupName]="i">
+			<tr *ngIf="group != null" [formGroupName]="i">
 				<td>
           <input type="text" formControlName="Category">
         </td>
         <td>
-          <input type="text" formControlName="Easy">
+          <input type="text" formControlName="Difficulty">
         </td>
         <td>
-          <input type="text" formControlName="Medium">
-        </td>
-        <td>
-          <input type="text" formControlName="Hard">
-        </td>
-        <td>
-          <button class="delete" (click)="deleteRow(i)">delete</button>
+          <input type="text" formControlName="Value">
         </td>
 			</tr>
     </ng-container>
 		</tbody>
 	</table>
   <div class="action-container">
-      <button type="submit" (click)="addRow()">Add row</button>
       <button type="submit" (click)="submitForm()">Submit</button>
     </div>
 </form>

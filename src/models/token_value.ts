@@ -2,7 +2,8 @@ import {Category} from './category';
 
 export interface TokenValue {
     value: number;
-    category: Category;
+    category: number;
     difficulty: string;
+    tokenValueId: number;
 }
 

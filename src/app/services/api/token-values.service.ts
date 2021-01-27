@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Category} from '../../../models/category';
 import {TokenValue} from '../../../models/token_value';
 import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -25,21 +24,14 @@ export class TokenValuesService {
   getTokenValues(): Observable<TokenValue[]> {
     return this.http
       .get<TokenValue[]>(this.tokenValuesUrl)
-      .pipe(catchError(this.handleError<TokenValue[]>('getCategories', [])));
-  }
-   addTokenValue(tokenValue: TokenValue): Observable<TokenValue> {
-    return this.http.post<TokenValue>(this.tokenValuesUrl, tokenValue, this.httpOptions)
-    .pipe(
-      tap((newTokenValue: TokenValue) => console.log(`added ${newTokenValue.category.name}_${newTokenValue.difficulty} token value`)),
-      catchError(this.handleError<TokenValue>('addTokenValue', tokenValue))
-    );
+      .pipe(catchError(this.handleError<TokenValue[]>('getTokenValues', [])));
   }
 
-   updateTokenValue(tokenValue: TokenValue): Observable<TokenValue> {
+  updateTokenValue(tokenValue: TokenValue): Observable<TokenValue>{
     return this.http.put<TokenValue>(this.tokenValuesUrl, tokenValue, this.httpOptions)
     .pipe(
-    tap((newTokenValue: TokenValue) => console.log(`updated ${newTokenValue.category.name}_${newTokenValue.difficulty} token value`)),
-      catchError(this.handleError<TokenValue>('updateTokenValue', tokenValue))
+    tap((newTokenValue: TokenValue) => console.log(`updated token value`)),
+      catchError(this.handleError<TokenValue>('updateTokenValues', tokenValue))
     );
   }
 
