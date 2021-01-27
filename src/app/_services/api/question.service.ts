@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {MessageService} from '../message.service';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {MultipleChoiceQuestion} from '../../../models/multiple_choice_question';
+import {MultipleChoiceQuestion} from '../../_models/multiple_choice_question';
 
 @Injectable({
   providedIn: 'root'

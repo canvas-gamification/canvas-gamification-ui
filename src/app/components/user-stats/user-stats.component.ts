@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {UserStatsService} from '../../services/api/user-stats.service';
-import {CategoryService} from '../../services/api/category.service';
-import {Category} from '../../../models/category';
+import {UserStatsService} from '../../_services/api/user-stats.service';
+import {CategoryService} from '../../_services/api/category.service';
+import {Category} from '../../_models/category';
 import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-user-stats',
   templateUrl: './user-stats.component.html',
-  styleUrls: ['./user-stats.component.css']
+  styleUrls: ['./user-stats.component.scss']
 })
 export class UserStatsComponent implements OnInit {
   categoryId: number;

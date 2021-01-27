@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ContactService } from '../../services/api/contact.service';
-import { MessageService } from '../../services/message.service';
+import { ContactService } from '../../_services/api/contact.service';
+import { MessageService } from '../../_services/message.service';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css']
+  styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
   FormData: FormGroup;

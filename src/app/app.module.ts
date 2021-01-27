@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,8 +10,7 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { ContactComponent } from './components/contact/contact.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ContactService } from './services/api/contact.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { SampleQuestionsComponent } from './components/sample-questions/sample-questions.component';
 import { MatCardModule } from '@angular/material/card';
@@ -21,6 +20,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConceptMapComponent } from './components/concept-map/concept-map.component';
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { TokenValuesComponent } from './components/token-values/token-values.component';
+import { LoginComponent } from './components/accounts/login';
+import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { TokenValuesComponent } from './components/token-values/token-values.com
     SampleQuestionsComponent,
     ConceptMapComponent,
     UserStatsComponent,
+    LoginComponent,
     TokenValuesComponent,
   ],
   imports: [
@@ -49,10 +51,11 @@ import { TokenValuesComponent } from './components/token-values/token-values.com
     RecaptchaFormsModule,
     MatCardModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
-    ContactService
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
