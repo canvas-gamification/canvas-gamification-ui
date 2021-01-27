@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '@environments/environment';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from '@environments/environment';
+import {Observable, of} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 import {UserAction} from '@app/_models';
 
 @Injectable({
@@ -17,9 +17,14 @@ export class UserActionsService {
   constructor(private http: HttpClient) {
   }
 
-  getAllUserActions(): Observable<UserAction[]> {
+  getAllUserActions(options?): Observable<UserAction[]> {
+    const recent: boolean = options?.recent;
+    const params = new HttpParams().set('recent', `${recent ? recent : false}`);
+    const reqOptions = {
+      params,
+    };
     return this.http
-      .get<UserAction[]>(this.userActionUrl)
+      .get<UserAction[]>(this.userActionUrl, reqOptions)
       .pipe(
         catchError(
           this.handleError<UserAction[]>(
@@ -29,11 +34,16 @@ export class UserActionsService {
       );
   }
 
-  getUserActions(userId: any): Observable<UserAction> {
+  getUserActions(userId: any, options?): Observable<UserAction> {
+    const recent: boolean = options?.recent;
+    const params = new HttpParams().set('recent', `${recent ? recent : false}`);
+    const reqOptions = {
+      params,
+    };
     // const url = `${this.userActionUrl}/${userId}`;
     const url = `${this.userActionUrl}/${2}`;
     return this.http
-      .get<UserAction>(url)
+      .get<UserAction>(url, reqOptions)
       .pipe(
         catchError(
           this.handleError<UserAction>(

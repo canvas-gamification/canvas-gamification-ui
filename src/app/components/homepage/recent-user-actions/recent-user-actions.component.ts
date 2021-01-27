@@ -21,10 +21,10 @@ export class RecentUserActionsComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.authenticationService.currentUserValue?.id;
     this.userActionService
-      .getUserActions(userId)
+      .getUserActions(userId, {recent: true})
       ?.subscribe((userActionSet) => {
-        this.userActions = userActionSet.recentActions;
-        this.userActionsHtml = userActionSet.recentActions.map(action =>
+        this.userActions = userActionSet.actions;
+        this.userActionsHtml = userActionSet.actions.map(action =>
           action.description + `<span class="float-right">${this.formatTokenChange(action.token_change)}</span>`
         );
       });

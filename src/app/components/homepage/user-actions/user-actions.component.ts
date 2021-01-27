@@ -21,7 +21,7 @@ export class UserActionsComponent implements OnInit {
     this.userActionService
       .getUserActions(userId)
       ?.subscribe((userActionSet) => {
-        this.userActions = userActionSet.recentActions;
+        this.userActions = userActionSet.actions;
       });
   }
 
