@@ -1,53 +1,52 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {environment} from '@environments/environment';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {UserAction} from '@app/_models';
+import {UserUQJ} from '@app/_models/user_uqj';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserActionsService {
-  private userActionUrl = new URL(
-    '/api/user-actions',
+export class UqjService {
+  private uqjUrl = new URL(
+    '/api/uqj',
     environment.apiBaseUrl
   ).toString();
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) { }
 
-  getAllUserActions(options?): Observable<UserAction[]> {
+  getAllUserUQJs(options?): Observable<UserUQJ[]> {
     const recent: boolean = options?.recent;
     const params = new HttpParams().set('recent', `${recent ? recent : false}`);
     const reqOptions = {
       params,
     };
     return this.http
-      .get<UserAction[]>(this.userActionUrl, reqOptions)
+      .get<UserUQJ[]>(this.uqjUrl, reqOptions)
       .pipe(
         catchError(
-          this.handleError<UserAction[]>(
-            `getAllUserActions`
+          this.handleError<UserUQJ[]>(
+            `getAllUserUQJs`
           )
         )
       );
   }
 
-  getUserActions(userId: any, options?): Observable<UserAction> {
+  getUserUQJs(userId: any, options?): Observable<UserUQJ> {
     const recent: boolean = options?.recent;
     const params = new HttpParams().set('recent', `${recent ? recent : false}`);
     const reqOptions = {
       params,
     };
     // TODO: const url = `${this.userActionUrl}/${userId}`;
-    const url = `${this.userActionUrl}/${2}`;
+    const url = `${this.uqjUrl}/${2}`;
     return this.http
-      .get<UserAction>(url, reqOptions)
+      .get<UserUQJ>(url, reqOptions)
       .pipe(
         catchError(
-          this.handleError<UserAction>(
-            `getUserActions`
+          this.handleError<UserUQJ>(
+            `getUserUQJs`
           )
         )
       );

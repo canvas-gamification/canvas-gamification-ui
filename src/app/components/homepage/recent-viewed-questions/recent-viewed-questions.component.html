@@ -1,1 +1,20 @@
-<p>recent-viewed-questions works!</p>
+<div class="card">
+  <div class="card-header">
+    <h3>Recently Viewed</h3>
+  </div>
+  <ul class="list-group list-group-flush">
+    <ng-container *ngIf="uqjs; else noRecentQuestions">
+      <ng-container *ngFor="let uqj of uqjs">
+        <li class="list-group-item">
+<!--          TODO: link to the question's page-->
+          <a href="">
+            {{ uqj.question.title }}
+          </a>
+        </li>
+      </ng-container>
+    </ng-container>
+    <ng-template #noRecentQuestions>
+      <li class="list-group-item">No Recent Question</li>
+    </ng-template>
+  </ul>
+</div>
