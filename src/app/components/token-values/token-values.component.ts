@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormArray, FormBuilder} from '@angular/forms';
-import {TokenValuesService} from '../../services/api/token-values.service';
-import {CategoryService} from '../../services/api/category.service';
-import {TokenValue} from '../../../models/token_value';
+import {TokenValuesService} from '../../_services/api/token-values.service';
+import {CategoryService} from '../../_services/api/category.service';
+import {TokenValue} from '../../_models/token_value';
 
 @Component({
   selector: 'app-token-values',
@@ -20,7 +20,7 @@ export class TokenValuesComponent implements OnInit {
 
   ngOnInit(): void {
     this.tokenValueTable = this.formBuilder.group({
-        categoryRows: this.formBuilder.array([this.fillRows()])  // Fetch the already existing categories with token values
+        categoryRows: this.fillRows()  // Fetch the already existing categories with token values
     });
   }
 
@@ -38,20 +38,20 @@ export class TokenValuesComponent implements OnInit {
    * @private fillRows(): FormGroup
    * will return a formGroup with all the retrieved token values
    */
-  private fillRows(): FormGroup{
+  private fillRows(): FormArray{
+    const tokenValuesFG = this.formBuilder.array([]);
     this.tokenValueService.getTokenValues().subscribe(tokenVals => {
-     this.existingTokenValues = tokenVals as TokenValue[]; });
-
-    const tokenValuesFG = this.formBuilder.group({});
-
-    // tslint:disable-next-line:prefer-for-of
-    for ( let i = 0; i < this.existingTokenValues.length; i++){
-      tokenValuesFG.addControl('token_value', this.formBuilder.group({
+     this.existingTokenValues = tokenVals;
+     const len = this.existingTokenValues.length;
+     // tslint:disable-next-line:prefer-for-of
+     for ( let i = 0; i < len; i++){
+      tokenValuesFG.push(this.formBuilder.group({
       Category: this.existingTokenValues[i].category,
-      Difficulty: [this.existingTokenValues[i].difficulty],
-      Value: [this.existingTokenValues[i].value],
+      Difficulty: this.existingTokenValues[i].difficulty,
+      Value: this.existingTokenValues[i].value,
     }));
     }
+     });
 
     return tokenValuesFG;
   }

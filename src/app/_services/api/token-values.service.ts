@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {TokenValue} from '../../../models/token_value';
+import {TokenValue} from '../../_models/token_value';
 import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
