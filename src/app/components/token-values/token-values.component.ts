@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormArray, FormBuilder} from '@angular/forms';
-import {TokenValuesService} from '../../_services/api/token-values.service';
-import {CategoryService} from '../../_services/api/category.service';
-import {TokenValue} from '../../_models/token_value';
+import {TokenValuesService} from '@app/_services/api/token-values.service';
+import {CategoryService} from '@app/_services/api/category.service';
+import {TokenValue} from '@app/_models/token_value';
 
 @Component({
   selector: 'app-token-values',
   templateUrl: './token-values.component.html',
-  styleUrls: ['./token-values.component.css']
+  styleUrls: ['./token-values.component.scss']
 })
 export class TokenValuesComponent implements OnInit {
   tokenValueTable: FormGroup;
@@ -29,8 +29,7 @@ export class TokenValuesComponent implements OnInit {
 
   }
   get getFormControls() {
-    const formControl = this.tokenValueTable.get('categoryRows') as FormArray;
-    return formControl;
+    return this.tokenValueTable.get('categoryRows') as FormArray;
   }
 
   /**
@@ -54,14 +53,6 @@ export class TokenValuesComponent implements OnInit {
      });
 
     return tokenValuesFG;
-  }
-
-  private emptyRow(): FormGroup {
-    return this.formBuilder.group({
-      Category: [''],
-      Difficulty: [''],
-      Value: [''],
-    });
   }
 
   submitForm() {
