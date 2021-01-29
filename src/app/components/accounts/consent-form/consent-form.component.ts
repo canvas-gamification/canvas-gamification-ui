@@ -6,7 +6,7 @@ import {MessageService} from '@app/_services/message.service';
 @Component({
   selector: 'app-consent-form',
   templateUrl: './consent-form.component.html',
-  styleUrls: ['./consent-form.component.css']
+  styleUrls: ['./consent-form.component.scss']
 })
 export class ConsentFormComponent implements OnInit {
   FormData: FormGroup;
