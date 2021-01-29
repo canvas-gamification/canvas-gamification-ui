@@ -7,17 +7,17 @@
       <div class="card">
         <h2 class="card-header">Profile</h2>
         <div class="card-body">
-          <form [formGroup]="FormData">
+          <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
             <div class="form-group">
-              <label for="firstname">First Name:</label>
-              <input type="text" class="form-control" name="firstname"
-                     formControlName="firstname" id="firstname">
+              <label for="first_name">First Name:</label>
+              <input type="text" class="form-control" name="first_name"
+                     formControlName="first_name" id="first_name">
             </div>
 
             <div class="form-group">
-              <label for="lastname">Last Name:</label>
-              <input type="text" class="form-control" name="lastname"
-                     formControlName="lastname" id="lastname">
+              <label for="last_name">Last Name:</label>
+              <input type="text" class="form-control" name="last_name"
+                     formControlName="last_name" id="last_name">
             </div>
 
             <div class="form-group">

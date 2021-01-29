@@ -51,15 +51,18 @@ const routes: Routes = [
   },
   {
     path: 'accounts/profile',
-    component: ProfileDetailsComponent
+    component: ProfileDetailsComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'accounts/reset-password',
-    component: ResetPasswordComponent
+    component: ResetPasswordComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'accounts/consent-form',
-    component: ConsentFormComponent
+    component: ConsentFormComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
