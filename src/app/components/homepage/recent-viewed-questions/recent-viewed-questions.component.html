@@ -4,11 +4,12 @@
   </div>
   <ul class="list-group list-group-flush">
     <ng-container *ngIf="uqjs; else noRecentQuestions">
-      <ng-container *ngFor="let uqj of uqjs">
+      <ng-container *ngFor="let uqj of uqjs; index as i;">
         <li class="list-group-item">
 <!--          TODO: link to the question's page-->
-          <a href="">
-            {{ uqj.question.title }}
+<!--          TODO: make this router url-->
+          <a routerLink="/course/question/{{ i }}">
+            {{ formatQuestion(uqj.question) }}
           </a>
         </li>
       </ng-container>

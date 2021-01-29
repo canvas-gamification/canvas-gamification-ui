@@ -22,9 +22,12 @@ export class RecentViewedQuestionsComponent implements OnInit {
     this.uqjService
       .getUserUQJs(userId, {recent: true})
       ?.subscribe((userUQJ) => {
-        console.log("Really");
-        this.uqjs = userUQJ.uqjSet;
+        this.uqjs = userUQJ.question_junctions;
       });
+  }
+
+  formatQuestion(question): string {
+    return `${question.title} (${question.id})`;
   }
 
 }
