@@ -51,15 +51,15 @@
     <ul class="navbar-nav mr-md-0">
       <ng-container *ngIf="isLoggedIn(); else notLoggedIn">
           <span class="navbar-text" style="float: right">
-                <ng-container *ngIf="hasCompleteProfile(); else incompleteProfile">
-                    Hello, {{ user.firstName }}
-                </ng-container>
-                <ng-template #incompleteProfile>
-                    Hello, {{ user.username }}
-                </ng-template>
+            <ng-container *ngIf="hasCompleteProfile(); else incompleteProfile">
+                Hello, {{ user.firstName }}
+            </ng-container>
+            <ng-template #incompleteProfile>
+                Hello, {{ user.username }}
+            </ng-template>
           </span>
-        <span class="navbar-text ml-1" style="float: right">
-                    Tokens: {{ getUserTokens() }}
+          <span class="navbar-text ml-1" style="float: right">
+            Tokens: {{ getUserTokens() }}
           </span>
         <li class="nav-item dropdown" style="float: right">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
@@ -76,7 +76,8 @@
         </li>
         <ng-container *ngIf="isAdmin()">
           <form class="form-inline" style="margin-left: 5px">
-            <a class="btn btn-outline-success float-right" routerLink="admin/index">Admin
+            <a class="btn btn-outline-success float-right" routerLink="admin/index">
+              Admin
             </a>
           </form>
         </ng-container>

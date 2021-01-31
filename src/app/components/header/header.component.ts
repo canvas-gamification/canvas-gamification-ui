@@ -23,10 +23,11 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authenticationService.logout();
+    // TODO: redirect user to main page
   }
 
   isLoggedIn() {
-    return !!this.user;
+    return !!this.authenticationService.currentUserValue;
   }
 
   isActive() {
