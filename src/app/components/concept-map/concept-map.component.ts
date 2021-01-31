@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {ConceptMapGraph} from './concept-map-graph';
-import {Category} from '../../_models/category';
-import {CategoryService} from '../../_services/api/category.service';
-import {MessageService} from '../../_services/message.service';
+import {Category} from '@app/_models';
+import {CategoryService} from '@app/_services/api/category.service';
+import {MessageService} from '@app/_services/message.service';
 import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-concept-map',
   templateUrl: './concept-map.component.html',
-  styleUrls: ['./concept-map.component.css']
+  styleUrls: ['./concept-map.component.scss']
 })
 export class ConceptMapComponent implements OnInit {
 
