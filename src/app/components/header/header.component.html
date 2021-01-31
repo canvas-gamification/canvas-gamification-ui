@@ -3,33 +3,96 @@
     <img [src]="logoPath" width="40" height="40" class="d-inline-block align-top"
          alt="Logo" style="border-radius: 50%">
   </a>
-  <a class="navbar-brand" routerLink="">
+  <div class="navbar-brand">
     <a class="nav-item" routerLink="">Canvas Gamification</a>
-  </a>
+  </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#about">Find Out More</a>
+        <a [class.active]="isActive()" class="nav-link" routerLink="homepage">Homepage <span
+          class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="homepage">Get Started</a>
+        <a class="nav-link" routerLink="course">Courses</a>
       </li>
+      <ng-container *ngIf="isTeacher()">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="">Problem Set</a>
+        </li>
+        <li class="nav-item dropdown"
+            style="float: right">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
+             data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false" style="float: right">
+            New Problem
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+            <a class="dropdown-item" routerLink="course/new_problem_multiple_choice">Multiple Choice Problem</a>
+            <a class="dropdown-item" routerLink="course/new_problem_checkbox">Checkbox Problem</a>
+            <a class="dropdown-item" routerLink="course/new_problem_java">Java Problem</a>
+            <a class="dropdown-item" routerLink="course/new_problem_parsons">Parsons Problem</a>
+          </div>
+        </li>
+      </ng-container>
       <li class="nav-item">
-        <a class="nav-link" routerLink="sample-questions">Sample Questions</a>
+        <a class="nav-link" routerLink="faq">FAQ</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="contact">Contact Us</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="concept-map">Concept Map</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="accounts/login">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="logout()">Logout</a>
-      </li>
+      <ng-container *ngIf="isTeacher()">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="course/token_values">Token Values</a>
+        </li>
+      </ng-container>
+    </ul>
+    <ul class="navbar-nav mr-md-0">
+      <ng-container *ngIf="isLoggedIn(); else notLoggedIn">
+          <span class="navbar-text" style="float: right">
+                <ng-container *ngIf="hasCompleteProfile(); else incompleteProfile">
+                    Hello, {{ user.firstName }}
+                </ng-container>
+                <ng-template #incompleteProfile>
+                    Hello, {{ user.username }}
+                </ng-template>
+          </span>
+        <span class="navbar-text ml-1" style="float: right">
+                    Tokens: {{ getUserTokens() }}
+          </span>
+        <li class="nav-item dropdown" style="float: right">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button"
+             data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false" style="float: right">
+            Account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+            <a class="dropdown-item" routerLink="accounts/profile">Profile</a>
+            <a class="dropdown-item" routerLink="#">Messages</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+        </li>
+        <ng-container *ngIf="isAdmin()">
+          <form class="form-inline" style="margin-left: 5px">
+            <a class="btn btn-outline-success float-right" routerLink="admin/index">Admin
+            </a>
+          </form>
+        </ng-container>
+      </ng-container>
+      <ng-template #notLoggedIn>
+        <form class="form-inline">
+          <button class="btn btn-outline-success float-right" type="button"
+                  routerLink="accounts/signup">Sign Up
+          </button>
+        </form>
+        <form class="form-inline" style="margin-left: 5px">
+          <button class="btn btn-outline-success float-right" type="button"
+                  routerLink="accounts/login">Login
+          </button>
+        </form>
+      </ng-template>
     </ul>
   </div>
 </nav>
