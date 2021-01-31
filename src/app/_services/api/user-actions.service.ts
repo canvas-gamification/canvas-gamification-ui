@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {UserAction} from '@app/_models';
+import {Action} from '@app/_models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,37 +17,32 @@ export class UserActionsService {
   constructor(private http: HttpClient) {
   }
 
-  getAllUserActions(options?): Observable<UserAction[]> {
+  getAllUserActions(options?): Observable<Action[]> {
     const recent: boolean = options?.recent;
     const params = new HttpParams().set('recent', `${recent ? recent : false}`);
-    const reqOptions = {
-      params,
-    };
+
     return this.http
-      .get<UserAction[]>(this.userActionUrl, reqOptions)
+      .get<Action[]>(this.userActionUrl, {params})
       .pipe(
         catchError(
-          this.handleError<UserAction[]>(
+          this.handleError<Action[]>(
             `getAllUserActions`
           )
         )
       );
   }
 
-  getUserActions(userId: any, options?): Observable<UserAction> {
+  getUserActions(actionId: any, options?): Observable<Action> {
     const recent: boolean = options?.recent;
     const params = new HttpParams().set('recent', `${recent ? recent : false}`);
-    const reqOptions = {
-      params,
-    };
-    // TODO: const url = `${this.userActionUrl}/${userId}`;
-    const url = `${this.userActionUrl}/${2}`;
+
+    const url = `${this.userActionUrl}/${actionId}`;
     return this.http
-      .get<UserAction>(url, reqOptions)
+      .get<Action>(url, {params})
       .pipe(
         catchError(
-          this.handleError<UserAction>(
-            `getUserActions`
+          this.handleError<Action>(
+            `getUserAction`
           )
         )
       );

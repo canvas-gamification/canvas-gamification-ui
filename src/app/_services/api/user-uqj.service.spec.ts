@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UqjService } from './uqj.service';
+import { UserUqjService } from './user-uqj.service';
 
 describe('UqjService', () => {
-  let service: UqjService;
+  let service: UserUqjService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UqjService);
+    service = TestBed.inject(UserUqjService);
   });
 
   it('should be created', () => {

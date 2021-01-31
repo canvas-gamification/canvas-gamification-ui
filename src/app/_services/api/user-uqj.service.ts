@@ -3,50 +3,45 @@ import {environment} from '@environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
-import {UserUQJ} from '@app/_models/user_uqj';
+import {UQJ} from '@app/_models/uqj';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UqjService {
-  private uqjUrl = new URL(
-    '/api/uqj',
+export class UserUqjService {
+  private userUqjUrl = new URL(
+    '/api/user-uqj',
     environment.apiBaseUrl
   ).toString();
 
   constructor(private http: HttpClient) { }
 
-  getAllUserUQJs(options?): Observable<UserUQJ[]> {
+  getAllUserUQJ(options?): Observable<UQJ[]> {
     const recent: boolean = options?.recent;
     const params = new HttpParams().set('recent', `${recent ? recent : false}`);
-    const reqOptions = {
-      params,
-    };
+
     return this.http
-      .get<UserUQJ[]>(this.uqjUrl, reqOptions)
+      .get<UQJ[]>(this.userUqjUrl, {params})
       .pipe(
         catchError(
-          this.handleError<UserUQJ[]>(
-            `getAllUserUQJs`
+          this.handleError<UQJ[]>(
+            `getAllUserUQJ`
           )
         )
       );
   }
 
-  getUserUQJs(userId: any, options?): Observable<UserUQJ> {
+  getUserUQJ(uqjId: any, options?): Observable<UQJ> {
     const recent: boolean = options?.recent;
     const params = new HttpParams().set('recent', `${recent ? recent : false}`);
-    const reqOptions = {
-      params,
-    };
-    // TODO: const url = `${this.userActionUrl}/${userId}`;
-    const url = `${this.uqjUrl}/${2}`;
+
+    const url = `${this.userUqjUrl}/${uqjId}`;
     return this.http
-      .get<UserUQJ>(url, reqOptions)
+      .get<UQJ>(url, {params})
       .pipe(
         catchError(
-          this.handleError<UserUQJ>(
-            `getUserUQJs`
+          this.handleError<UQJ>(
+            `getUserUQJ`
           )
         )
       );

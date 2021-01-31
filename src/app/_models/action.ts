@@ -1,4 +1,5 @@
 export interface Action {
+    id: number;
     description: string;
     token_change: number;
     status: string;

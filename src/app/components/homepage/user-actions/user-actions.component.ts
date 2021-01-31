@@ -19,9 +19,9 @@ export class UserActionsComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.authenticationService.currentUserValue?.id;
     this.userActionService
-      .getUserActions(userId)
-      ?.subscribe((userAction) => {
-        this.userActions = userAction.actions;
+      .getAllUserActions(userId)
+      ?.subscribe((actions) => {
+        this.userActions = actions;
       });
   }
 

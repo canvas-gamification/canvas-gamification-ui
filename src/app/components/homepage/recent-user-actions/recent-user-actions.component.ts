@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Action} from '@app/_models/action';
-import {AuthenticationService} from '@app/_services/api/authentication';
 import {UserActionsService} from '@app/_services/api/user-actions.service';
 
 @Component({
@@ -14,17 +13,15 @@ export class RecentUserActionsComponent implements OnInit {
 
   constructor(
     private userActionService: UserActionsService,
-    private authenticationService: AuthenticationService
   ) {
   }
 
   ngOnInit(): void {
-    const userId = this.authenticationService.currentUserValue?.id;
     this.userActionService
-      .getUserActions(userId, {recent: true})
-      ?.subscribe((userAction) => {
-        this.userActions = userAction.actions;
-        this.userActionsHtml = userAction.actions.map(action =>
+      .getAllUserActions({recent: true})
+      ?.subscribe((actions) => {
+        this.userActions = actions;
+        this.userActionsHtml = actions.map(action =>
           action.description + `<span class="float-right">${this.formatTokenChange(action.token_change)}</span>`
         );
       });

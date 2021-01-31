@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UQJ} from '@app/_models/uqj';
-import {AuthenticationService} from '@app/_services/api/authentication';
-import {UqjService} from '@app/_services/api/uqj.service';
+import {UserUqjService} from '@app/_services/api/user-uqj.service';
 
 @Component({
   selector: 'app-recent-viewed-questions',
@@ -12,17 +11,15 @@ export class RecentViewedQuestionsComponent implements OnInit {
   uqjs: UQJ[];
 
   constructor(
-    private uqjService: UqjService,
-    private authenticationService: AuthenticationService
+    private uqjService: UserUqjService,
   ) {
   }
 
   ngOnInit(): void {
-    const userId = this.authenticationService.currentUserValue?.id;
     this.uqjService
-      .getUserUQJs(userId, {recent: true})
-      ?.subscribe((userUQJ) => {
-        this.uqjs = userUQJ.question_junctions;
+      .getAllUserUQJ({recent: true})
+      ?.subscribe((uqjs) => {
+        this.uqjs = uqjs;
       });
   }
 
