@@ -7,7 +7,7 @@
       <div class="card">
         <h2 class="card-header">Register</h2>
         <div class="card-body">
-          <form [formGroup]="FormData">
+          <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
             <div class="form-group">
               <label for="email">Email:</label>
               <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Email"
@@ -29,9 +29,9 @@
             </div>
 
             <div class="form-group">
-              <label for="passwordConfirmation">Password Confirmation:</label>
-              <input type="password" class="form-control" name="passwordConfirmation" placeholder="Confirm Password"
-                     formControlName="passwordConfirmation" id="passwordConfirmation">
+              <label for="password_confirmation">Password Confirmation:</label>
+              <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password"
+                     formControlName="password_confirmation" id="password_confirmation">
             </div>
 
             <div class="form-group">

@@ -7,7 +7,7 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ResetPasswordService {
-  private ResetPasswordUrl = new URL('/api/change-password', environment.apiBaseUrl).toString();
+  private ResetPasswordUrl = new URL('/api/reset-password/', environment.apiBaseUrl).toString();
 
   constructor(private http: HttpClient) { }
 

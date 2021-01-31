@@ -7,7 +7,7 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProfileDetailsService {
-  private ProfileDetailsUrl = new URL('/api/update-profile', environment.apiBaseUrl).toJSON();
+  private ProfileDetailsUrl = new URL('/api/update-profile/', environment.apiBaseUrl).toJSON();
 
   constructor(private http: HttpClient) { }
 
