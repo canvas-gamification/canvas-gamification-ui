@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {UQJ} from '@app/_models/uqj';
+import {PaginatedResult} from '@app/_models/paginatedResult';
 
 @Injectable({
   providedIn: 'root'
@@ -14,17 +15,20 @@ export class UqjService {
     environment.apiBaseUrl
   ).toString();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getUQJs(options?): Observable<UQJ[]> {
-    const recent: boolean = options?.recent;
-    const params = new HttpParams().set('recent', `${recent ? recent : false}`);
+  getUQJs(options?): Observable<PaginatedResult<UQJ>> {
+    const {recent = false, page = 1, page_size = 100} = options ? options : {};
+    const params = new HttpParams().set('recent', recent)
+      .set('page', page)
+      .set('page_size', page_size);
 
     return this.http
-      .get<UQJ[]>(this.userUqjUrl, {params})
+      .get<PaginatedResult<UQJ>>(this.userUqjUrl, {params})
       .pipe(
         catchError(
-          this.handleError<UQJ[]>(
+          this.handleError<PaginatedResult<UQJ>>(
             `getAllUserUQJ`
           )
         )
@@ -32,8 +36,8 @@ export class UqjService {
   }
 
   getUQJ(uqjId: any, options?): Observable<UQJ> {
-    const recent: boolean = options?.recent;
-    const params = new HttpParams().set('recent', `${recent ? recent : false}`);
+    const {recent = false} = options ? options : {};
+    const params = new HttpParams().set('recent', recent);
 
     const url = `${this.userUqjUrl}/${uqjId}`;
     return this.http

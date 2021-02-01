@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UserActionsService} from '@app/_services/api/user-actions.service';
-import {AuthenticationService} from '@app/_services/api/authentication';
 import {Action} from '@app/_models';
 import {formatDate} from '@angular/common';
 
@@ -11,17 +10,37 @@ import {formatDate} from '@angular/common';
 })
 export class UserActionsComponent implements OnInit {
   userActions: Action[];
+  perPage = 25;
+  currentPage: number;
+  canChange: {next: boolean, prev: boolean};
 
-  constructor(private userActionService: UserActionsService,
-              private authenticationService: AuthenticationService) {
+  constructor(private userActionService: UserActionsService) {
+    this.currentPage = 1;
   }
 
   ngOnInit(): void {
-    const userId = this.authenticationService.currentUserValue?.id;
     this.userActionService
-      .getUserActions(userId)
-      ?.subscribe((actions) => {
-        this.userActions = actions;
+      .getUserActions({page: this.currentPage, page_size: this.perPage})
+      ?.subscribe((paginatedActions) => {
+        this.userActions = paginatedActions.results;
+        this.canChange = {
+          next: !!paginatedActions.next,
+          prev: !!paginatedActions.previous
+        };
+      });
+  }
+
+  changePage(forward: boolean): void {
+    const change = forward ? 1 : -1;
+    this.userActionService
+      .getUserActions({page: this.currentPage + change, page_size: this.perPage})
+      ?.subscribe((paginatedActions) => {
+        this.userActions = paginatedActions.results;
+        this.currentPage = this.currentPage + change;
+        this.canChange = {
+          next: !!paginatedActions.next,
+          prev: !!paginatedActions.previous
+        };
       });
   }
 

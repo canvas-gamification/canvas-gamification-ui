@@ -4,6 +4,7 @@ import {environment} from '@environments/environment';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Action} from '@app/_models';
+import {PaginatedResult} from '@app/_models/paginatedResult';
 
 @Injectable({
   providedIn: 'root'
@@ -17,15 +18,17 @@ export class UserActionsService {
   constructor(private http: HttpClient) {
   }
 
-  getUserActions(options?): Observable<Action[]> {
-    const recent: boolean = options?.recent;
-    const params = new HttpParams().set('recent', `${recent ? recent : false}`);
+  getUserActions(options?): Observable<PaginatedResult<Action>> {
+    const {recent = false, page = 1, page_size = 100} = options ? options : {};
+    const params = new HttpParams().set('recent', recent)
+      .set('page', page)
+      .set('page_size', page_size);
 
     return this.http
-      .get<Action[]>(this.userActionUrl, {params})
+      .get<PaginatedResult<Action>>(this.userActionUrl, {params})
       .pipe(
         catchError(
-          this.handleError<Action[]>(
+          this.handleError<PaginatedResult<Action>>(
             `getAllUserActions`
           )
         )
@@ -33,8 +36,8 @@ export class UserActionsService {
   }
 
   getUserAction(actionId: any, options?): Observable<Action> {
-    const recent: boolean = options?.recent;
-    const params = new HttpParams().set('recent', `${recent ? recent : false}`);
+    const {recent = false} = options ? options : {};
+    const params = new HttpParams().set('recent', recent);
 
     const url = `${this.userActionUrl}/${actionId}`;
     return this.http
