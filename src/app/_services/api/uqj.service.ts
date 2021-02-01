@@ -8,7 +8,7 @@ import {UQJ} from '@app/_models/uqj';
 @Injectable({
   providedIn: 'root'
 })
-export class UserUqjService {
+export class UqjService {
   private userUqjUrl = new URL(
     '/api/user-uqj',
     environment.apiBaseUrl
@@ -16,7 +16,7 @@ export class UserUqjService {
 
   constructor(private http: HttpClient) { }
 
-  getAllUserUQJ(options?): Observable<UQJ[]> {
+  getUQJs(options?): Observable<UQJ[]> {
     const recent: boolean = options?.recent;
     const params = new HttpParams().set('recent', `${recent ? recent : false}`);
 
@@ -31,7 +31,7 @@ export class UserUqjService {
       );
   }
 
-  getUserUQJ(uqjId: any, options?): Observable<UQJ> {
+  getUQJ(uqjId: any, options?): Observable<UQJ> {
     const recent: boolean = options?.recent;
     const params = new HttpParams().set('recent', `${recent ? recent : false}`);
 

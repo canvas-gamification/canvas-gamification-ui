@@ -17,7 +17,7 @@ export class UserActionsService {
   constructor(private http: HttpClient) {
   }
 
-  getAllUserActions(options?): Observable<Action[]> {
+  getUserActions(options?): Observable<Action[]> {
     const recent: boolean = options?.recent;
     const params = new HttpParams().set('recent', `${recent ? recent : false}`);
 
@@ -32,7 +32,7 @@ export class UserActionsService {
       );
   }
 
-  getUserActions(actionId: any, options?): Observable<Action> {
+  getUserAction(actionId: any, options?): Observable<Action> {
     const recent: boolean = options?.recent;
     const params = new HttpParams().set('recent', `${recent ? recent : false}`);
 

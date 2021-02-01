@@ -7,7 +7,7 @@ import {formatDate} from '@angular/common';
 @Component({
   selector: 'app-user-actions',
   templateUrl: './user-actions.component.html',
-  styleUrls: ['./user-actions.component.css']
+  styleUrls: ['./user-actions.component.scss']
 })
 export class UserActionsComponent implements OnInit {
   userActions: Action[];
@@ -19,13 +19,13 @@ export class UserActionsComponent implements OnInit {
   ngOnInit(): void {
     const userId = this.authenticationService.currentUserValue?.id;
     this.userActionService
-      .getAllUserActions(userId)
+      .getUserActions(userId)
       ?.subscribe((actions) => {
         this.userActions = actions;
       });
   }
 
   formatTokenChange(tokenChange): string {
-    return `+${tokenChange.toFixed(2)}`;
+    return `${tokenChange > 0 ? '+' : ''}${tokenChange.toFixed(2)}`;
   }
 }

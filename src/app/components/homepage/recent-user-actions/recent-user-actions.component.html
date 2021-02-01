@@ -3,9 +3,12 @@
     <h3>Recent Actions</h3>
   </div>
   <ul class="list-group list-group-flush">
-    <ng-container *ngIf="userActionsHtml; else noRecentActions">
-      <ng-container *ngFor="let action of userActionsHtml.slice(0,5)">
-        <li class="list-group-item" [innerHTML]="action"></li>
+    <ng-container *ngIf="userActions; else noRecentActions">
+      <ng-container *ngFor="let action of userActions">
+        <li class="list-group-item">
+          <span [innerHTML]="action.description"></span>
+          <span class="float-right">{{this.formatTokenChange(action.token_change)}}</span>
+        </li>
       </ng-container>
     </ng-container>
     <ng-template #noRecentActions>

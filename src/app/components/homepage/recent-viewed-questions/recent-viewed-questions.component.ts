@@ -1,25 +1,25 @@
 import {Component, OnInit} from '@angular/core';
 import {UQJ} from '@app/_models/uqj';
-import {UserUqjService} from '@app/_services/api/user-uqj.service';
+import {UqjService} from '@app/_services/api/uqj.service';
 
 @Component({
   selector: 'app-recent-viewed-questions',
   templateUrl: './recent-viewed-questions.component.html',
-  styleUrls: ['./recent-viewed-questions.component.css']
+  styleUrls: ['./recent-viewed-questions.component.scss']
 })
 export class RecentViewedQuestionsComponent implements OnInit {
   uqjs: UQJ[];
 
   constructor(
-    private uqjService: UserUqjService,
+    private uqjService: UqjService,
   ) {
   }
 
   ngOnInit(): void {
     this.uqjService
-      .getAllUserUQJ({recent: true})
+      .getUQJs({recent: true})
       ?.subscribe((uqjs) => {
-        this.uqjs = uqjs;
+        this.uqjs = uqjs.slice(0, 5);
       });
   }
 

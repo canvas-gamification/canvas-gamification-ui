@@ -5,11 +5,10 @@ import {UserActionsService} from '@app/_services/api/user-actions.service';
 @Component({
   selector: 'app-recent-user-actions',
   templateUrl: './recent-user-actions.component.html',
-  styleUrls: ['./recent-user-actions.component.css'],
+  styleUrls: ['./recent-user-actions.component.scss'],
 })
 export class RecentUserActionsComponent implements OnInit {
   userActions: Action[];
-  userActionsHtml: string[];
 
   constructor(
     private userActionService: UserActionsService,
@@ -18,16 +17,13 @@ export class RecentUserActionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.userActionService
-      .getAllUserActions({recent: true})
+      .getUserActions({recent: true})
       ?.subscribe((actions) => {
-        this.userActions = actions;
-        this.userActionsHtml = actions.map(action =>
-          action.description + `<span class="float-right">${this.formatTokenChange(action.token_change)}</span>`
-        );
+        this.userActions = actions.slice(0, 5);
       });
   }
 
   formatTokenChange(tokenChange): string {
-    return `+${tokenChange.toFixed(2)}`;
+    return `${tokenChange > 0 ? '+' : ''}${tokenChange.toFixed(2)}`;
   }
 }
