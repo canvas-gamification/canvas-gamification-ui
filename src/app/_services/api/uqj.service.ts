@@ -10,7 +10,7 @@ import {UQJ} from '@app/_models/uqj';
 })
 export class UqjService {
   private userUqjUrl = new URL(
-    '/api/user-uqj',
+    '/api/uqj',
     environment.apiBaseUrl
   ).toString();
 
