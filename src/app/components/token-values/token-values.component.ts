@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormArray, FormBuilder} from '@angular/forms';
 import {TokenValuesService} from '@app/_services/api/token-values.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {TokenValue} from '@app/_models/token_value';
+import {TokenValue,Category} from '@app/_models';
 
 @Component({
   selector: 'app-token-values',
@@ -14,13 +14,15 @@ export class TokenValuesComponent implements OnInit {
   formControl: FormArray;
   editedRows: FormGroup[];
   existingTokenValues: TokenValue[];
+  categoryList: Category[];
 
   constructor(private formBuilder: FormBuilder, private tokenValueService: TokenValuesService, private categoryService: CategoryService) {
   }
 
   ngOnInit(): void {
+    this.populateCategories();
     this.tokenValueTable = this.formBuilder.group({
-        categoryRows: this.fillRows()  // Fetch the already existing categories with token values
+        categoryRows: this.fillRows()
     });
   }
 
@@ -30,6 +32,11 @@ export class TokenValuesComponent implements OnInit {
   }
   get getFormControls() {
     return this.tokenValueTable.get('categoryRows') as FormArray;
+  }
+
+  private populateCategories() {
+    this.categoryService.getCategories().subscribe(categories =>
+    this.categoryList = categories);
   }
 
   /**
@@ -42,10 +49,9 @@ export class TokenValuesComponent implements OnInit {
     this.tokenValueService.getTokenValues().subscribe(tokenVals => {
      this.existingTokenValues = tokenVals;
      const len = this.existingTokenValues.length;
-     // tslint:disable-next-line:prefer-for-of
      for ( let i = 0; i < len; i++){
       tokenValuesFG.push(this.formBuilder.group({
-      Category: this.existingTokenValues[i].category,
+      Category: this.categoryList.find(element => element.pk == this.existingTokenValues[i].category),
       Difficulty: this.existingTokenValues[i].difficulty,
       Value: this.existingTokenValues[i].value,
     }));
