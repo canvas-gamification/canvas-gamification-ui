@@ -21,6 +21,7 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
+import { FaqComponent } from './components/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
     ConceptMapComponent,
     UserStatsComponent,
     LoginComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,

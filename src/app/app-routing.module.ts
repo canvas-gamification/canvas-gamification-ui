@@ -8,6 +8,7 @@ import {ConceptMapComponent} from './components/concept-map/concept-map.componen
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
+import { FaqComponent } from './components/faq/faq.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'accounts/login',
     component: LoginComponent
+  },
+  {
+    path: 'faq',
+    component: FaqComponent
   }
 ];
 
