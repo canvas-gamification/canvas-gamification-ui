@@ -1,9 +1,9 @@
 <div class="container">
-<div class="faq" *ngFor="let faq of faqs">
-    <h1>{{faq.question}}</h1>
-    <div [innerHTML]="faq.answer"></div>
-</div>
-    
-</div>
-
-
+    <h1>Frequently Asked Questions</h1>
+    <!--Create a list of frequently asked questions which can be clicked 
+        to drop down text. Each heading targets it's description -->
+    <div class="faq" *ngFor="let faq of faqs; index as i">
+        <h2 type="button" data-toggle="collapse" [attr.data-target] = "'#FaqAnswer'+i" aria-expanded="false" [attr.aria-controls]="'FaqAnswer'+i">{{faq.question}}</h2>
+        <div [innerHTML]="faq.answer" class="collapse multi-collapse" [attr.id]="'FaqAnswer'+i"></div>
+    </div>
+</div>   
