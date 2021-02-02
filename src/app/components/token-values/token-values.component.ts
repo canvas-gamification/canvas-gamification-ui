@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormArray, FormBuilder} from '@angular/forms';
+import {FormGroup, FormArray, FormBuilder, FormControl} from '@angular/forms';
 import {TokenValuesService} from '@app/_services/api/token-values.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {TokenValue,Category} from '@app/_models';
+import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-token-values',
@@ -20,11 +21,17 @@ export class TokenValuesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.populateCategories();
-    this.tokenValueTable = this.formBuilder.group({
-        categoryRows: this.fillRows()
+    const tokenValuesObservable = this.tokenValueService.getTokenValues();
+    const categoryObservable = this.categoryService.getCategories();
+    forkJoin([tokenValuesObservable, categoryObservable]).subscribe(result => {
+      this.existingTokenValues = result[0];
+      this.categoryList = result[1];
+      this.tokenValueTable = this.formBuilder.group({
+        categoryRows: this.populateRows()
+      });
     });
   }
+
 
   ngAfterOnInit(): void {
     this.formControl = this.getFormControls;
@@ -34,31 +41,28 @@ export class TokenValuesComponent implements OnInit {
     return this.tokenValueTable.get('categoryRows') as FormArray;
   }
 
-  private populateCategories() {
-    this.categoryService.getCategories().subscribe(categories =>
-    this.categoryList = categories);
-  }
 
   /**
    *
-   * @private fillRows(): FormGroup
-   * will return a formGroup with all the retrieved token values
+   * @private populateRows(): FormGroup
+   * will return a formGroup with all the retrieved token values arranged based on difficulty
    */
-  private fillRows(): FormArray{
+  private populateRows(): FormArray{
     const tokenValuesFG = this.formBuilder.array([]);
-    this.tokenValueService.getTokenValues().subscribe(tokenVals => {
-     this.existingTokenValues = tokenVals;
-     const len = this.existingTokenValues.length;
-     for ( let i = 0; i < len; i++){
+    this.categoryList.forEach(category => {
       tokenValuesFG.push(this.formBuilder.group({
-      Category: this.categoryList.find(element => element.pk == this.existingTokenValues[i].category),
-      Difficulty: this.existingTokenValues[i].difficulty,
-      Value: this.existingTokenValues[i].value,
-    }));
-    }
-     });
-
+        Category_Name: new FormControl({value: category.name, disabled: true}),
+        Easy: this.getValueByDifficulty("EASY"),
+        Medium: this.getValueByDifficulty("NORMAL"),
+        Hard: this.getValueByDifficulty("HARD")
+      }));
+    });
     return tokenValuesFG;
+  }
+
+  private getValueByDifficulty(difficulty: string) : number{
+    const tokenVal = this.existingTokenValues.find(element => element.difficulty === difficulty).value;
+    return (tokenVal === undefined)? 0 : tokenVal;
   }
 
   submitForm() {

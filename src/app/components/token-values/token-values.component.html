@@ -2,20 +2,24 @@
 	<table>
 		<thead>
 			<th>Category Name</th>
-			<th>Difficulty</th>
-			<th>Value</th>
+			<th>Easy</th>
+			<th>Medium</th>
+      <th>Hard</th>
 		</thead>
 		<tbody>
     <ng-container formArrayName="categoryRows" *ngFor="let group of getFormControls.controls; let i=index">
 			<tr [formGroupName]="i">
 				<td>
-          <input type="text" formControlName="Category">
+          <input type="text" formControlName="Category_Name">
         </td>
         <td>
-          <input type="text" formControlName="Difficulty">
+          <input type="text" formControlName="Easy">
         </td>
         <td>
-          <input type="text" formControlName="Value">
+          <input type="text" formControlName="Medium">
+        </td>
+        <td>
+          <input type="text" formControlName="Hard">
         </td>
 			</tr>
     </ng-container>
@@ -25,5 +29,4 @@
       <button type="submit" (click)="submitForm()">Submit</button>
     </div>
 </form>
-{{categoryList[12].name}}
 
