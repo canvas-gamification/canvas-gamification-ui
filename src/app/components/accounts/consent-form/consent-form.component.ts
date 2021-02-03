@@ -10,7 +10,6 @@ import {MessageService} from '@app/_services/message.service';
 })
 export class ConsentFormComponent implements OnInit {
   FormData: FormGroup;
-
   constructor(private builder: FormBuilder, private consent: ConsentService, private messageService: MessageService) {
   }
 

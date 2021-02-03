@@ -12,7 +12,7 @@ export class ResetPasswordService {
   constructor(private http: HttpClient) { }
 
   PutPasswordReset(input: any) {
-    return this.http.put(this.ResetPasswordUrl, input, {responseType: 'text'}).pipe(
+    return this.http.post(this.ResetPasswordUrl, input, {responseType: 'text'}).pipe(
       map(
         (response) => {
           if (response) {

@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment.prod';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {UserConsent} from '@app/_models/user_consent';
 
 @Injectable({
   providedIn: 'root'
@@ -25,4 +27,10 @@ export class ConsentService {
       )
     );
   }
+
+  GetConsent(): Observable<UserConsent[]> {
+    console.log(this.http.get<UserConsent[]>(this.consentAPIUrl));
+    return this.http.get<UserConsent[]>(this.consentAPIUrl);
+  }
+
 }
