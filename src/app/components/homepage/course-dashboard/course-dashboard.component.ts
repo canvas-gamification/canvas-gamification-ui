@@ -14,7 +14,7 @@ export class CourseDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseService
-      .getCourses({active: true, registered: true})
+      .getCourses({status: 'active', registered: true})
       ?.subscribe((courses) => {
         this.activeCourses = courses;
       });

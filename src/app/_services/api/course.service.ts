@@ -18,9 +18,9 @@ export class CourseService {
   }
 
   getCourses(options?): Observable<Course[]> {
-    const {active = false, registered = false} = options ? options : {};
+    const {status = 'all', registered = false} = options ? options : {};
     const params = new HttpParams()
-      .set('active', active)
+      .set('status', status)
       .set('registered', registered);
 
     return this.http
@@ -35,9 +35,9 @@ export class CourseService {
   }
 
   getCourse(courseId: number, options?): Observable<Course> {
-    const {active = false, registered = false} = options ? options : {};
+    const {status = 'all', registered = false} = options ? options : {};
     const params = new HttpParams()
-      .set('active', active)
+      .set('status', status)
       .set('registered', registered);
 
     const url = `${this.courseUrl}/${courseId}`;
