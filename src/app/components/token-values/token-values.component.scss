@@ -1,0 +1,36 @@
+
+.btn-primary {
+  background-color: #1D809F !important;
+  border-color: #1D809F !important;
+  color: #fff !important;
+  &:hover, &:focus, &:active {
+    background-color: #155d74 !important;
+    border-color: #155d74 !important;
+  }
+}
+
+.btn-secondary {
+  background-color: #ecb807 !important;
+  border-color: #ecb807 !important;
+  color: #fff !important;
+  &:hover, &:focus, &:active {
+    background-color: #ba9106 !important;
+    border-color: #ba9106 !important;
+  }
+}
+.btn {
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+  font-weight: 700;
+}
+
+.bg-primary {
+  background-color: #1D809F !important;
+}
+
+.text-primary {
+  color: #1D809F !important;
+}
+
+.text-secondary {
+  color: #ecb807 !important;
+}

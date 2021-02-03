@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {TokenValue} from '../../_models/token_value';
+import {TokenValue} from '@app/_models';
 import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 import {MessageService} from '../message.service';
-import {environment} from '../../../environments/environment';
+import {environment} from '@environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -28,10 +28,9 @@ export class TokenValuesService {
   }
 
   updateTokenValue(tokenValue: TokenValue): Observable<TokenValue>{
-    return this.http.put<TokenValue>(this.tokenValuesUrl, tokenValue, this.httpOptions)
-    .pipe(
-    tap((newTokenValue: TokenValue) => console.log(`updated token value`)),
-      catchError(this.handleError<TokenValue>('updateTokenValues', tokenValue))
+    return this.http.put<TokenValue>(this.tokenValuesUrl + tokenValue.pk + '/', tokenValue, this.httpOptions).pipe(
+    tap((newTokenValue: TokenValue) => console.log(`updated token value #`+ newTokenValue.pk)),
+      catchError(this.handleError<TokenValue>('updateTokenValue', tokenValue))
     );
   }
 

@@ -16,8 +16,11 @@ export class TokenValuesComponent implements OnInit {
   editedRows: FormGroup[];
   existingTokenValues: TokenValue[];
   categoryList: Category[];
+  tokenIdList: number[];
 
   constructor(private formBuilder: FormBuilder, private tokenValueService: TokenValuesService, private categoryService: CategoryService) {
+    this.tokenIdList = [];
+    this.existingTokenValues = [];
   }
 
   ngOnInit(): void {
@@ -30,15 +33,21 @@ export class TokenValuesComponent implements OnInit {
         categoryRows: this.populateRows()
       });
     });
+    console.log(this.tokenIdList);
   }
 
 
   ngAfterOnInit(): void {
     this.formControl = this.getFormControls;
-
   }
   get getFormControls() {
-    return this.tokenValueTable.get('categoryRows') as FormArray;
+    try {
+      return this.tokenValueTable.get('categoryRows') as FormArray;
+    }
+    catch (e){
+      console.log(e);
+      return this.formBuilder.array([]);
+    }
   }
 
 
@@ -52,23 +61,60 @@ export class TokenValuesComponent implements OnInit {
     this.categoryList.forEach(category => {
       tokenValuesFG.push(this.formBuilder.group({
         Category_Name: new FormControl({value: category.name, disabled: true}),
-        Easy: this.getValueByDifficulty("EASY"),
-        Medium: this.getValueByDifficulty("NORMAL"),
-        Hard: this.getValueByDifficulty("HARD")
+        Easy: this.getValueByDifficulty("EASY", category.pk),
+        Medium: this.getValueByDifficulty("NORMAL", category.pk),
+        Hard: this.getValueByDifficulty("HARD", category.pk),
+        Token_Id: this.getIDByDifficulty("EASY", category.pk) + ' ' + this.getIDByDifficulty("NORMAL", category.pk)
+          + ' ' + this.getIDByDifficulty("HARD", category.pk)
       }));
     });
     return tokenValuesFG;
   }
 
-  private getValueByDifficulty(difficulty: string) : number{
-    const tokenVal = this.existingTokenValues.find(element => element.difficulty === difficulty).value;
-    return (tokenVal === undefined)? 0 : tokenVal;
+  private getValueByDifficulty(difficulty: string, categoryId: number) : number{
+    try {
+      const tokenVal = this.existingTokenValues.find(element => (element.difficulty === difficulty) && (element.category == categoryId));
+      return tokenVal.value;
+    }
+    catch(e){
+        console.log(e);
+        return NaN;
+      }
+    }
+  private getIDByDifficulty(difficulty: string, categoryId: number) : string{
+    try {
+      const tokenVal = this.existingTokenValues.find(element => (element.difficulty === difficulty) && (element.category == categoryId));
+      return tokenVal.pk.toString();
+    }
+    catch(e){
+      console.log(e);
+      return "N/A";
+    }
+  }
+
+  refresh(): void{
+    window.location.reload();
   }
 
   submitForm() {
     const formControl = this.getFormControls;
     this.editedRows = formControl.controls.filter(row => row.touched).map(row => row.value);
-    console.log(this.editedRows);
+    this.updateOrPushNewTokenValues(this.editedRows);
+  }
+  private updateOrPushNewTokenValues(editedRows): void{
+    // TODO: If the value doesn't exist then instead of updating POST the value
+    editedRows.forEach(row => {
+      const rowValues = [row.Easy, row.Medium, row.Hard]; //TODO: Find a way to do this so it doesn't matter how many difficulties there are aka dynamic
+      let tokenIds = row.Token_Id.split(" ");
+      for(let i = 0; i < tokenIds.length; i++){
+        const currentTokenValue = this.existingTokenValues.find(element => element.pk == +tokenIds[i]);
+        if(currentTokenValue.value != rowValues[i]){
+          currentTokenValue.value = rowValues[i];
+          this.tokenValueService.updateTokenValue(currentTokenValue).subscribe();
+        }
+      }
+    });
+    this.refresh();
   }
 
 }
