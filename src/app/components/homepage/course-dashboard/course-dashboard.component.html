@@ -1,0 +1,33 @@
+<div>
+  <div class="card-deck" *ngIf="activeCourses; else noActiveCourses">
+    <ng-container *ngFor="let course of activeCourses; index as i">
+      <div class="card">
+        <span class="sr-only">Card for course {{ course.name }}</span>
+        <div class="card-block-top"></div>
+        <div class="card-body">
+          <h5 class="card-title">{{course.name}}</h5>
+          <!--          TODO: should this route to the course url? or should we add custom routing?-->
+          <a href="{{course.url}}" class="btn btn-primary">Open</a>
+        </div>
+      </div>
+    </ng-container>
+    <div class="card card-register-new" routerLink="courses">
+      <span class="sr-only">Card for Register New Course</span>
+      <div class="card-block-top"></div>
+      <div class="card-body">
+        <h5 class="card-title">Looking for more courses?</h5>
+        <button class="btn btn-outline-secondary" routerLink="courses">Registration</button>
+      </div>
+    </div>
+  </div>
+  <ng-template #noActiveCourses class="container">
+    <div class="jumbotron">
+      <p class="text-md-center">Looks like you don't have any active courses. Not to worry, you can register here:</p>
+      <div class="row">
+        <div class="col text-center">
+          <button class="btn btn-primary" routerLink="courses">Register into Courses</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

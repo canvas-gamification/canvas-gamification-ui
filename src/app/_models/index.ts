@@ -5,3 +5,4 @@ export * from './question';
 export * from './user_stats';
 export * from './uqj';
 export * from './action';
+export * from './course';
