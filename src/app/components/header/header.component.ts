@@ -30,9 +30,8 @@ export class HeaderComponent implements OnInit {
     return !!this.authenticationService.currentUserValue;
   }
 
-  isActive() {
-    // TODO: check which page is currently active and set the active class on the navbar item correlating to it
-    return true;
+  isActive(navLink) {
+    return window.location.pathname.slice(1) === navLink;
   }
 
   isTeacher() {
