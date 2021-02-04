@@ -10,22 +10,22 @@
         <div class="card-body">
           <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
             <div class="form-group">
-              <label for="lastName">Type in your last name:</label>
-              <input type="text" class="form-control" name="lastName"
-                     formControlName="lastName" id="lastName">
+              <label for="legal_last_name">Type in your last name:</label>
+              <input type="text" class="form-control" name="legal_last_name"
+                     formControlName="legal_last_name" id="legal_last_name">
             </div>
 
             <div class="form-group">
-              <label for="firstName">Type in your first name:</label>
-              <input type="text" class="form-control" name="firstName"
-                     formControlName="firstName" id="firstName">
+              <label for="legal_first_name">Type in your first name:</label>
+              <input type="text" class="form-control" name="legal_first_name"
+                     formControlName="legal_first_name" id="legal_first_name">
             </div>
 
             <div class="form-group">
-              <label for="studentNumber">Type in your student number (this is only needed in case there are students
+              <label for="student_number">Type in your student number (this is only needed in case there are students
                 with the same first and last name):</label>
-              <input type="text" class="form-control" name="studentNumber"
-                     formControlName="studentNumber" id="studentNumber">
+              <input type="text" class="form-control" name="student_number"
+                     formControlName="student_number" id="student_number">
             </div>
 
             <div class="form-group">
@@ -35,10 +35,9 @@
             </div>
 
             <div class="form-group">
-              <button type="submit" class="btn btn-primary float-right mx-2"
-                      onclick="submit()">I Consent
+              <button type="submit" class="btn btn-primary float-right mx-2">I Consent
               </button>
-              <button type="submit" class="btn btn-primary float-right mx-2"
+              <button routerLink="../profile" type="button" class="btn btn-primary float-right mx-2"
                       onclick="">I Do Not Consent
               </button>
             </div>

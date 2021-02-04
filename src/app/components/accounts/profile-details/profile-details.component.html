@@ -28,16 +28,27 @@
 
             <button type="submit" class="btn btn-primary">Update</button>
           </form>
-          <button [routerLink]="'accounts/reset-password'" class="btn btn-outline-warning my-1" onclick="">
+          <button [routerLink]="'../reset-password'" class="btn btn-outline-warning my-1" onclick="">
             Change Password
           </button>
           <hr>
-          <!-- Need to add support for consent form here! -->
-          <div class="my-1">You have not consented to our Informed Consent Form, if you wish to consent please click on
-            the button below
+          <div *ngIf="!UserConsent">
+            <div class="my-1">You have not consented to our Informed Consent Form, if you wish to consent please click
+              on
+              the button below
+            </div>
+            <a routerLink="../consent-form" type="submit" class="btn btn-primary">Consent</a>
           </div>
-          <a routerLink="accounts/consent-form" type="submit" class="btn btn-primary">Consent</a>
+          <div *ngIf="UserConsent">
+            <div class="my-1">You have consented to our Informed Consent Form, if you wish to withdraw please click on the
+              button below
+            </div>
+            <button type="button" class="btn btn-warning" (click)="withdraw()">
+              Withdraw Your Consent
+            </button>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
