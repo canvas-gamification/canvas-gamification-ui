@@ -1,33 +1,57 @@
- <h1 class="title text-center" >Token Values</h1>
+<div class="token-values-page container-fluid mt-md-5">
+  <div class="mx-auto">
+    <h1 class="my-md-2">Token Values</h1>
 <form [formGroup]="tokenValueTable">
-	<table class="table">
-		<thead>
+	<table class="table table-lg table-bordered table-hover" style="width:100%">
+		<thead class="thead-light">
     <tr>
-			<th class="w-50">Category Name</th>
-			<th>Easy</th>
-			<th>Medium</th>
-      <th>Hard</th>
+			<th class="header-topic" scope="col">Category Name</th>
+			<th scope="col">Easy</th>
+			<th scope="col">Medium</th>
+      <th scope="col">Hard</th>
+      <th></th>
     </tr>
 		</thead>
-		<tbody>
-    <ng-container formArrayName="categoryRows" *ngFor="let group of getFormControls.controls; let i=index">
-			<tr [formGroupName]="i">
-				<td class="input-group">
-          <input class="input" type="text" formControlName="Category_Name">
-        </td>
-        <td>
-          <input class="input" type="text" formControlName="Easy">
-        </td>
-        <td>
-          <input class="input" type="text" formControlName="Medium">
-        </td>
-        <td>
-          <input class="input" type="text" formControlName="Hard">
-        </td>
-        <td>
-          <input class="input" type="hidden" formControlName="Token_Id">
-        </td>
-			</tr>
+		<tbody class="table-striped">
+    <ng-container *ngFor="let category of topLevelCategoryList">
+      <tr [class.table-primary]="expanded[category.name]" (click)="toggleChildTopics(category)">
+        <th>
+          <span class="expanded-icon">
+            <fa-icon [icon]=faCaretRight *ngIf="!expanded[category.name]"></fa-icon>
+            <fa-icon [icon]=faCaretDown *ngIf="expanded[category.name]"></fa-icon>
+          </span>
+          {{ category.name }}
+        </th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <ng-container *ngIf="expanded[category.name]">
+        <ng-container formArrayName="categoryRows" *ngFor="let subcat of formControl.controls; let i = index">
+          <tr class="subcat-row" [formGroupName]="i">
+            <td class="subcat-name"><span class="heavy-indent">{{ subcat.get('Category_Name').value }}</span></td>
+            <td>
+              <label>
+                <input class="input" type="text" formControlName="Easy">
+              </label>
+            </td>
+            <td>
+              <label>
+                <input class="input" type="text" formControlName="Medium">
+              </label>
+            </td>
+            <td>
+              <label>
+                <input class="input" type="text" formControlName="Hard">
+              </label>
+            </td>
+            <td>
+              <input class="input" type="hidden" formControlName="Token_Id">
+            </td>
+          </tr>
+        </ng-container>
+      </ng-container>
     </ng-container>
 		</tbody>
 	</table>
@@ -35,3 +59,5 @@
       <button class="btn btn-primary" type="submit" (click)="submitForm()">Submit</button>
     </div>
 </form>
+  </div>
+</div>

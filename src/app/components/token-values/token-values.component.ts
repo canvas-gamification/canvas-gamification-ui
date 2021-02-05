@@ -4,6 +4,7 @@ import {TokenValuesService} from '@app/_services/api/token-values.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {TokenValue,Category} from '@app/_models';
 import {forkJoin} from 'rxjs';
+import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-token-values',
@@ -16,11 +17,20 @@ export class TokenValuesComponent implements OnInit {
   editedRows: FormGroup[];
   existingTokenValues: TokenValue[];
   categoryList: Category[];
+  topLevelCategoryList: Category[];
   tokenIdList: number[];
+  expanded: {} = {};
+  subCategories: {} = {};
+  faCaretRight = faCaretRight;
+  faCaretDown = faCaretDown;
 
   constructor(private formBuilder: FormBuilder, private tokenValueService: TokenValuesService, private categoryService: CategoryService) {
     this.tokenIdList = [];
     this.existingTokenValues = [];
+    this.formControl = this.formBuilder.array([]);
+    this.tokenValueTable = this.formBuilder.group({
+      categoryRows: this.formControl
+    });
   }
 
   ngOnInit(): void {
@@ -28,18 +38,12 @@ export class TokenValuesComponent implements OnInit {
     const categoryObservable = this.categoryService.getCategories();
     forkJoin([tokenValuesObservable, categoryObservable]).subscribe(result => {
       this.existingTokenValues = result[0];
+      this.topLevelCategoryList = result[1].filter(c => c.parent == null);
       this.categoryList = result[1];
-      this.tokenValueTable = this.formBuilder.group({
-        categoryRows: this.populateRows()
-      });
     });
-    console.log(this.tokenIdList);
   }
 
 
-  ngAfterOnInit(): void {
-    this.formControl = this.getFormControls;
-  }
   get getFormControls() {
     try {
       return this.tokenValueTable.get('categoryRows') as FormArray;
@@ -50,34 +54,13 @@ export class TokenValuesComponent implements OnInit {
     }
   }
 
-
-  /**
-   *
-   * @private populateRows(): FormGroup
-   * will return a formGroup with all the retrieved token values arranged based on difficulty
-   */
-  private populateRows(): FormArray{
-    const tokenValuesFG = this.formBuilder.array([]);
-    this.categoryList.forEach(category => {
-      tokenValuesFG.push(this.formBuilder.group({
-        Category_Name: new FormControl({value: category.name, disabled: true}),
-        Easy: this.getValueByDifficulty("EASY", category.pk),
-        Medium: this.getValueByDifficulty("NORMAL", category.pk),
-        Hard: this.getValueByDifficulty("HARD", category.pk),
-        Token_Id: this.getIDByDifficulty("EASY", category.pk) + ' ' + this.getIDByDifficulty("NORMAL", category.pk)
-          + ' ' + this.getIDByDifficulty("HARD", category.pk)
-      }));
-    });
-    return tokenValuesFG;
-  }
-
   private getValueByDifficulty(difficulty: string, categoryId: number) : number{
     try {
       const tokenVal = this.existingTokenValues.find(element => (element.difficulty === difficulty) && (element.category == categoryId));
       return tokenVal.value;
     }
     catch(e){
-        console.log(e);
+      console.log(e);
         return NaN;
       }
     }
@@ -99,10 +82,10 @@ export class TokenValuesComponent implements OnInit {
   submitForm() {
     const formControl = this.getFormControls;
     this.editedRows = formControl.controls.filter(row => row.touched).map(row => row.value);
-    this.updateOrPushNewTokenValues(this.editedRows);
+    this.updateNewTokenValues(this.editedRows);
   }
-  private updateOrPushNewTokenValues(editedRows): void{
-    // TODO: If the value doesn't exist then instead of updating POST the value
+
+  private updateNewTokenValues(editedRows): void{
     editedRows.forEach(row => {
       const rowValues = [row.Easy, row.Medium, row.Hard]; //TODO: Find a way to do this so it doesn't matter how many difficulties there are aka dynamic
       let tokenIds = row.Token_Id.split(" ");
@@ -115,6 +98,26 @@ export class TokenValuesComponent implements OnInit {
       }
     });
     this.refresh();
+  }
+
+  toggleChildTopics(category: Category): void {
+    this.expanded[category.name] = !this.expanded[category.name];
+    this.subCategories[category.name] = this.categoryList.filter(c => c.parent === category.pk);
+    if(this.getFormControls.length == 0) {
+      this.subCategories[category.name].forEach(cat => {
+        this.getFormControls.push(this.formBuilder.group({
+          Category_Name: new FormControl({value: cat.name, disabled: true}),
+          Easy: this.getValueByDifficulty("EASY", cat.pk),
+          Medium: this.getValueByDifficulty("NORMAL", cat.pk),
+          Hard: this.getValueByDifficulty("HARD", cat.pk),
+          Token_Id: this.getIDByDifficulty("EASY", cat.pk) + ' ' + this.getIDByDifficulty("NORMAL", cat.pk)
+            + ' ' + this.getIDByDifficulty("HARD", cat.pk)
+        }));
+      });
+    }
+    else{
+      this.getFormControls.clear(); // If the array is already populated, then clear it
+    }
   }
 
 }
