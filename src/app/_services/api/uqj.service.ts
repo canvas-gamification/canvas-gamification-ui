@@ -19,10 +19,14 @@ export class UqjService {
   }
 
   getUQJs(options?): Observable<PaginatedResult<UQJ>> {
-    const {recent = false, page = 1, page_size = 100} = options ? options : {};
-    const params = new HttpParams().set('recent', recent)
+    const {page = 1, page_size = 100} = options ? options : {};
+    let params = new HttpParams()
       .set('page', page)
       .set('page_size', page_size);
+
+    if (options?.recent ?? false) {
+      params = params.set('ordering', '-last_viewed');
+    }
 
     return this.http
       .get<PaginatedResult<UQJ>>(this.userUqjUrl, {params})
@@ -35,9 +39,8 @@ export class UqjService {
       );
   }
 
-  getUQJ(uqjId: any, options?): Observable<UQJ> {
-    const {recent = false} = options ? options : {};
-    const params = new HttpParams().set('recent', recent);
+  getUQJ(uqjId: any): Observable<UQJ> {
+    const params = new HttpParams();
 
     const url = `${this.userUqjUrl}/${uqjId}`;
     return this.http

@@ -19,10 +19,14 @@ export class UserActionsService {
   }
 
   getUserActions(options?): Observable<PaginatedResult<Action>> {
-    const {recent = false, page = 1, page_size = 100} = options ? options : {};
-    const params = new HttpParams().set('recent', recent)
+    const {page = 1, page_size = 100} = options ? options : {};
+    let params = new HttpParams()
       .set('page', page)
       .set('page_size', page_size);
+
+    if (options?.recent ?? false) {
+      params = params.set('ordering', '-time_modified');
+    }
 
     return this.http
       .get<PaginatedResult<Action>>(this.userActionUrl, {params})
@@ -35,9 +39,8 @@ export class UserActionsService {
       );
   }
 
-  getUserAction(actionId: any, options?): Observable<Action> {
-    const {recent = false} = options ? options : {};
-    const params = new HttpParams().set('recent', recent);
+  getUserAction(actionId: any): Observable<Action> {
+    const params = new HttpParams();
 
     const url = `${this.userActionUrl}/${actionId}`;
     return this.http
