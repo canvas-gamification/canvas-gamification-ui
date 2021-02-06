@@ -1,5 +1,5 @@
 <div>
-  <h2>Active Courses</h2>
+  <h3>Active Courses</h3>
   <div class="card-deck" *ngIf="activeCourses; else noActiveCourses">
     <ng-container *ngFor="let course of activeCourses; index as i">
       <div class="card" [attr.id]="'courseCard'+course.course_id">
