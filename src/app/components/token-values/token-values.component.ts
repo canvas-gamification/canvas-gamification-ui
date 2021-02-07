@@ -100,10 +100,14 @@ export class TokenValuesComponent implements OnInit {
     this.refresh();
   }
 
+  isSubCategory(subCat, mainCat): boolean{
+    let subPk = this.categoryList.find(c => c.name === subCat).pk;
+    return this.subCategories[mainCat].find(c => c.pk === subPk);
+  }
+
   toggleChildTopics(category: Category): void {
     this.expanded[category.name] = !this.expanded[category.name];
     this.subCategories[category.name] = this.categoryList.filter(c => c.parent === category.pk);
-    if(this.getFormControls.length == 0) {
       this.subCategories[category.name].forEach(cat => {
         this.getFormControls.push(this.formBuilder.group({
           Category_Name: new FormControl({value: cat.name, disabled: true}),
@@ -114,10 +118,6 @@ export class TokenValuesComponent implements OnInit {
             + ' ' + this.getIDByDifficulty("HARD", cat.pk)
         }));
       });
-    }
-    else{
-      this.getFormControls.clear(); // If the array is already populated, then clear it
-    }
   }
 
 }
