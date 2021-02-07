@@ -29,7 +29,7 @@
       </tr>
       <ng-container *ngIf="expanded[category.name]">
         <ng-container formArrayName="categoryRows" *ngFor="let subcat of formControl.controls; let i = index">
-          <ng-container *ngIf="isSubCategory(subcat.get('Category_Name').value, category.name)">
+          <ng-container *ngIf="isSubCategory(subcat.get('categoryPk').value, category.name)">
           <tr class="subcat-row" [formGroupName]="i">
             <td class="subcat-name"><span class="heavy-indent">{{ subcat.get('Category_Name').value }}</span></td>
             <td>

@@ -101,8 +101,7 @@ export class TokenValuesComponent implements OnInit {
   }
 
   isSubCategory(subCat, mainCat): boolean{
-    let subPk = this.categoryList.find(c => c.name === subCat).pk;
-    return this.subCategories[mainCat].find(c => c.pk === subPk);
+    return this.subCategories[mainCat].find(c => c.pk === subCat);
   }
 
   toggleChildTopics(category: Category): void {
@@ -115,7 +114,8 @@ export class TokenValuesComponent implements OnInit {
           Medium: this.getValueByDifficulty("NORMAL", cat.pk),
           Hard: this.getValueByDifficulty("HARD", cat.pk),
           Token_Id: this.getIDByDifficulty("EASY", cat.pk) + ' ' + this.getIDByDifficulty("NORMAL", cat.pk)
-            + ' ' + this.getIDByDifficulty("HARD", cat.pk)
+            + ' ' + this.getIDByDifficulty("HARD", cat.pk),
+          categoryPk: cat.pk
         }));
       });
   }
