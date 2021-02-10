@@ -22,6 +22,7 @@ import { UserStatsComponent } from './components/user-stats/user-stats.component
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 import { RegisterNameComponent } from './components/registration/register-name/register-name.component';
+import { CourseComponent } from './components/course/course.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { RegisterNameComponent } from './components/registration/register-name/r
     UserStatsComponent,
     LoginComponent,
     RegisterNameComponent,
+    CourseComponent,
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,7 @@ import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
 import { RegisterNameComponent } from './components/registration/register-name/register-name.component';
+import {CourseComponent} from '@app/components/course/course.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,11 @@ const routes: Routes = [
   {
     path: 'register/:courseId',
     component: RegisterNameComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'course/:courseId',
+    component: CourseComponent,
     canActivate: [AuthGuard]
   }
 ];
