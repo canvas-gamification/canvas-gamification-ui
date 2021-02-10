@@ -21,7 +21,7 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
-import { RegisterNameComponent } from './components/register-name/register-name.component';
+import { RegisterNameComponent } from './components/registration/register-name/register-name.component';
 
 @NgModule({
   declarations: [
