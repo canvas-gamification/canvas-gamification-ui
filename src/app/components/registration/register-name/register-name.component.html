@@ -7,11 +7,9 @@
         <div class="form-group">
             <label class="sr-only" for="inline_form_input2">Your Full Name:</label>
             <input class="form-control" id="inline_form_input2" type="text" name="confirmed_name"
-                   value="{{ guessed_name }}"
-                   readonly>
+                   [attr.value]='guessedName'/>
             <button type="submit" class="btn btn-success ml-2">Confirm</button>
-            <button type="button" class="btn btn-outline-danger ml-2" onclick="location = location">Try Again
-            </button>
+            <button type="button" class="btn btn-outline-danger ml-2" onclick="location = location">Try Again</button>
         </div>
     </form>
 </div>
