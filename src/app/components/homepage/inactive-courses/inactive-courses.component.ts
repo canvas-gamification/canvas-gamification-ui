@@ -16,7 +16,9 @@ export class InactiveCoursesComponent implements OnInit {
     this.courseService
       .getCourses({status: 'inactive', registered: true})
       ?.subscribe((courses) => {
-        this.inactiveCourses = courses;
+        this.inactiveCourses = courses.filter(course => {
+          return course.status !== 'In Session';
+        });
       });
   }
 }

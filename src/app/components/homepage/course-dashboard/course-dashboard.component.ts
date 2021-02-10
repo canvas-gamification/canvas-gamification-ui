@@ -16,7 +16,9 @@ export class CourseDashboardComponent implements OnInit {
     this.courseService
       .getCourses({status: 'active', registered: true})
       ?.subscribe((courses) => {
-        this.activeCourses = courses;
+        this.activeCourses = courses.filter(course => {
+          return course.status === 'In Session';
+        });
       });
   }
 }
