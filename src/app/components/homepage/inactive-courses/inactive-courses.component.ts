@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Course} from '@app/_models';
+import {Course, STATUS} from '@app/_models';
 import {CourseService} from '@app/_services/api/course.service';
 
 @Component({
@@ -14,10 +14,10 @@ export class InactiveCoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseService
-      .getCourses({status: 'inactive', registered: true})
+      .getCourses({registered: true})
       ?.subscribe((courses) => {
         this.inactiveCourses = courses.filter(course => {
-          return course.status !== 'In Session';
+          return course.status !== STATUS.active;
         });
       });
   }

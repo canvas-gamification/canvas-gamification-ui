@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CourseService} from '@app/_services/api/course.service';
-import {Course} from '@app/_models';
+import {Course, STATUS} from '@app/_models';
 
 @Component({
   selector: 'app-course-dashboard',
@@ -14,10 +14,10 @@ export class CourseDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseService
-      .getCourses({status: 'active', registered: true})
+      .getCourses({registered: true})
       ?.subscribe((courses) => {
         this.activeCourses = courses.filter(course => {
-          return course.status === 'In Session';
+          return course.status === STATUS.active;
         });
       });
   }

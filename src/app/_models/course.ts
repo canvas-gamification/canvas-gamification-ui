@@ -14,3 +14,10 @@ export interface Course {
   is_registered: boolean;
 }
 
+export const STATUS = {
+  active: 'In Session',
+  pending: 'Pending',
+  finished: 'Finished',
+  blocked: 'Blocked',
+};
+
