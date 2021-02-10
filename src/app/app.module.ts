@@ -26,6 +26,7 @@ import { RegisterStudentNumberComponent } from './components/registration/regist
 import { NameConfirmComponent } from './components/registration/name-confirm/name-confirm.component';
 import { VerificationComponent } from './components/registration/verification/verification.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
