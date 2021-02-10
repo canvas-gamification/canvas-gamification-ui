@@ -22,6 +22,9 @@ import { UserStatsComponent } from './components/user-stats/user-stats.component
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 import { RegisterNameComponent } from './components/registration/register-name/register-name.component';
+import { RegisterStudentNumberComponent } from './components/registration/register-student-number/register-student-number.component';
+import { NameConfirmComponent } from './components/registration/name-confirm/name-confirm.component';
+import { VerificationComponent } from './components/registration/verification/verification.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { RegisterNameComponent } from './components/registration/register-name/r
     UserStatsComponent,
     LoginComponent,
     RegisterNameComponent,
+    RegisterStudentNumberComponent,
+    NameConfirmComponent,
+    VerificationComponent,
   ],
   imports: [
     BrowserModule,
