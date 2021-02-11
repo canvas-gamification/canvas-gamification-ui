@@ -60,7 +60,6 @@ export class TokenValuesComponent implements OnInit {
       return tokenVal.value;
     }
     catch(e){
-      console.log(e);
         return NaN;
       }
     }
@@ -70,7 +69,6 @@ export class TokenValuesComponent implements OnInit {
       return tokenVal.pk.toString();
     }
     catch(e){
-      console.log(e);
       return "N/A";
     }
   }

@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {TokenValue} from '@app/_models';
 import {Observable, of} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, tap} from 'rxjs/operators';
-import {MessageService} from '../message.service';
+import {HttpClient} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
 import {environment} from '@environments/environment';
 
 @Injectable({
@@ -11,13 +10,9 @@ import {environment} from '@environments/environment';
 })
 export class TokenValuesService {
   private tokenValuesUrl = new URL('/api/token-values/', environment.apiBaseUrl).toString();
-  httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
   ) {
   }
 
@@ -28,8 +23,7 @@ export class TokenValuesService {
   }
 
   updateTokenValue(tokenValue: TokenValue): Observable<TokenValue>{
-    return this.http.put<TokenValue>(this.tokenValuesUrl + tokenValue.pk + '/', tokenValue, this.httpOptions).pipe(
-    tap((newTokenValue: TokenValue) => console.log(`updated token value #`+ newTokenValue.pk)),
+    return this.http.put<TokenValue>(this.tokenValuesUrl + tokenValue.pk + '/', tokenValue).pipe(
       catchError(this.handleError<TokenValue>('updateTokenValue', tokenValue))
     );
   }

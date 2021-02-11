@@ -7,8 +7,8 @@ import {TopicsComponent} from './components/topics/topics.component';
 import {ConceptMapComponent} from './components/concept-map/concept-map.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
-import {LoginComponent} from './components/accounts/login';
-import {AuthGuard} from './_helpers/auth.guard';
+import {LoginComponent} from '@app/components/accounts/login';
+import {AuthGuard} from '@app/_helpers/auth.guard';
 
 
 const routes: Routes = [
@@ -16,7 +16,6 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: LandingPageComponent,
-
   },
   {
     path: 'contact',
