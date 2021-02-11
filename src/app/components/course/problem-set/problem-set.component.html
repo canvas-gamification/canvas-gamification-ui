@@ -1,0 +1,108 @@
+<header>
+  <div class="container-fluid">
+    <div class="row my-auto">
+      <div class="col m-3">
+        <h1 class="m-0">Problem Set</h1>
+      </div>
+    </div>
+  </div>
+</header>
+<main class="page-content m-3">
+  <div class="container-fluid">
+    <form [formGroup]="FormData">
+      <div class="form-row">
+        <div class="form-group col-3">
+          <label for="query">Search in Question Name:</label>
+          <input type="text" class="form-control" name="query" formControlName="query" id="query"
+                 placeholder="Search in the problem set...">
+        </div>
+        <div class="form-group col-2">
+          <label for="difficulty">Difficulty:</label>
+          <select class="form-control" name="difficulty" formControlName="difficulty" id="difficulty">
+            <option>All</option>
+            <option>EASY</option>
+            <option>MEDIUM</option>
+            <option>HARD</option>
+          </select>
+        </div>
+        <div class="form-group col-2">
+          <label for="category">Category:</label>
+          <select class="form-control" name="category" formControlName="category" id="category">
+            <option>All</option>
+            <option>Basics</option>
+            <option>Pre-Defined Classes</option>
+            <option>Conditionals</option>
+            <option>Loops</option>
+            <option>Methods</option>
+            <option>Arrays</option>
+            <option>Object Oriented Programming</option>
+          </select>
+        </div>
+        <div class="form-group col-2">
+          <label for="status">Status:</label>
+          <select class="form-control" name="status" formControlName="status" id="status">
+            <option>All</option>
+            <option>Solved</option>
+            <option>Partially Correct</option>
+            <option>Unsolved</option>
+            <option>Wrong</option>
+            <option>New</option>
+          </select>
+        </div>
+        <div class="form-group col-2">
+          <label for="sample">Sample:</label>
+          <select class="form-control" name="sample" formControlName="sample" id="sample">
+            <option>All</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+        </div>
+        <div class="form-group col-1 mt-auto">
+          <button type="submit" class="btn btn-primary float-right">Go</button>
+        </div>
+      </div>
+    </form>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Question Name</th>
+        <th scope="col">Author</th>
+        <th scope="col">Type</th>
+        <th scope="col">Category</th>
+        <th scope="col">Sub Category</th>
+        <th scope="col">Difficulty</th>
+        <th scope="col">Token Value</th>
+        <th scope="col">Avg Success</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of dataList">
+        <td>{{data.id}}</td>
+        <td>{{data.name}}</td>
+        <td>{{data.author}}</td>
+        <td>{{data.type}}</td>
+        <td>{{data.category}}</td>
+        <td>{{data.subCategory}}</td>
+        <td>{{data.difficulty}}</td>
+        <td>{{data.tokenValue}}</td>
+        <td>{{data.avgSuccess}}</td>
+        <td>
+          <div style="white-space: nowrap; display: flex">
+            <a href="">
+              <fa-icon [icon]="faEye"></fa-icon>
+            </a>
+            <a href="">
+              <fa-icon [icon]="faPencilAlt"></fa-icon>
+            </a>
+            <a href="">
+              <fa-icon [icon]="faTrashAlt"></fa-icon>
+            </a>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
