@@ -21,6 +21,12 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { RecentUserActionsComponent } from './components/homepage/recent-user-actions/recent-user-actions.component';
+import { UserActionsComponent } from './components/homepage/user-actions/user-actions.component';
+import { RecentViewedQuestionsComponent } from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
+import { CourseDashboardComponent } from './components/homepage/course-dashboard/course-dashboard.component';
+import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
 import { FaqComponent } from './components/faq/faq.component';
 
 @NgModule({
@@ -36,6 +42,12 @@ import { FaqComponent } from './components/faq/faq.component';
     UserStatsComponent,
     LoginComponent,
     FaqComponent,
+    HomepageComponent,
+    RecentUserActionsComponent,
+    UserActionsComponent,
+    RecentViewedQuestionsComponent,
+    CourseDashboardComponent,
+    InactiveCoursesComponent,
   ],
   imports: [
     BrowserModule,

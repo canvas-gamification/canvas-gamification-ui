@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../../_services/api/category.service';
-import { Category } from '../../_models/category';
+import { CategoryService } from '@app/_services/api/category.service';
+import { Category } from '@app/_models';
 import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

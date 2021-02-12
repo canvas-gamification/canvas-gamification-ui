@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {UserStatsService} from '../../_services/api/user-stats.service';
-import {CategoryService} from '../../_services/api/category.service';
-import {Category} from '../../_models/category';
+import {UserStatsService} from '@app/_services/api/user-stats.service';
+import {CategoryService} from '@app/_services/api/category.service';
+import {Category} from '@app/_models';
 import {forkJoin} from 'rxjs';
 
 @Component({

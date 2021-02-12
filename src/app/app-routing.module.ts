@@ -8,7 +8,9 @@ import {ConceptMapComponent} from './components/concept-map/concept-map.componen
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
-import { FaqComponent } from './components/faq/faq.component';
+import {FaqComponent} from './components/faq/faq.component';
+import {HomepageComponent} from './components/homepage/homepage.component';
+import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 
 
 const routes: Routes = [
@@ -43,13 +45,22 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'homepage',
+    component: HomepageComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'actions',
+    component: UserActionsComponent
+  },
+  {
     path: 'faq',
     component: FaqComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

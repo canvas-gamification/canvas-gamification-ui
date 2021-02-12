@@ -5,5 +5,5 @@ export interface Question {
   author: number;
   category: number;
   difficulty: string;
-  in_verified: boolean;
+  is_verified: boolean;
 }
