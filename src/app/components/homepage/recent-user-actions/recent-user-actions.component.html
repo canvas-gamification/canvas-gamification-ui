@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-header">
+    <h3>Recent Actions</h3>
+  </div>
+  <ul class="list-group list-group-flush">
+    <ng-container *ngIf="userActions; else noRecentActions">
+      <ng-container *ngFor="let action of userActions">
+        <li class="list-group-item">
+          <span [innerHTML]="action.description"></span>
+          <span class="float-right">{{this.formatTokenChange(action.token_change)}}</span>
+        </li>
+      </ng-container>
+    </ng-container>
+    <ng-template #noRecentActions>
+      <li class="list-group-item">No Recent Actions</li>
+    </ng-template>
+  </ul>
+  <div class="card-footer">
+    <a routerLink="../actions" class="btn btn-secondary">View More Actions</a>
+  </div>
+</div>
