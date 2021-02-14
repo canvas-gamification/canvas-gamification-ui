@@ -67,5 +67,6 @@ export class ProfileDetailsComponent implements OnInit {
       console.warn(error.responseText);
       console.log({error});
     });
+    this.UserConsent = false;
   }
 }

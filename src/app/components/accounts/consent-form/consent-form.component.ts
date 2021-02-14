@@ -11,7 +11,10 @@ import {Router, NavigationExtras, ActivatedRoute} from '@angular/router';
 })
 export class ConsentFormComponent implements OnInit {
   FormData: FormGroup;
-  constructor(private router: Router, private route: ActivatedRoute, private builder: FormBuilder, private consent: ConsentService, private messageService: MessageService) {
+
+  constructor(private router: Router, private route: ActivatedRoute,
+              private builder: FormBuilder, private consent: ConsentService,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
