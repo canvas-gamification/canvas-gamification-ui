@@ -9,6 +9,7 @@ import {TokenValuesComponent} from './components/token-values/token-values.compo
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
+import {CourseListComponent} from "@app/components/course-list/course-list.component";
 
 
 const routes: Routes = [
@@ -41,6 +42,11 @@ const routes: Routes = [
   {
     path: 'user-stats',
     component: UserStatsComponent
+  },
+  {
+    path: 'course-list',
+    component: CourseListComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'accounts/login',

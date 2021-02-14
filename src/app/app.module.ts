@@ -21,6 +21,7 @@ import { UserStatsComponent } from './components/user-stats/user-stats.component
 import { TokenValuesComponent } from './components/token-values/token-values.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from './_helpers';
+import { CourseListComponent } from './components/course-list/course-list.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {ErrorInterceptor, JwtInterceptor} from './_helpers';
     UserStatsComponent,
     LoginComponent,
     TokenValuesComponent,
+    CourseListComponent,
   ],
   imports: [
     BrowserModule,
