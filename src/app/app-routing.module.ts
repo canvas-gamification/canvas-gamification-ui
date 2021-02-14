@@ -13,6 +13,9 @@ import {ProfileDetailsComponent} from './components/accounts/profile-details/pro
 import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
 import {ConsentFormComponent} from '@app/components/accounts/consent-form/consent-form.component';
 
+import {HomepageComponent} from './components/homepage/homepage.component';
+import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
+
 
 const routes: Routes = [
   {
@@ -46,6 +49,15 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'homepage',
+    component: HomepageComponent,
+    canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'actions',
+    component: UserActionsComponent
+  },
+  {
     path: 'accounts/register',
     component: RegisterComponent
   },
@@ -67,7 +79,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

@@ -19,7 +19,7 @@ export class UserStatsService {
   }
 
   getUserStats(): Observable<UserStats> {
-    const url = `${this.userStatsUrl}/1`;
+    const url = `${this.userStatsUrl}`;
     return this.http
       .get<UserStats>(url)
       .pipe(
