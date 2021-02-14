@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
     this.register.PostRegistration(FormData)
       .subscribe(response => {
         this.FormData.reset();
-        this.messageService.addSuccess('Your profile has been updated successfully!');
+        this.messageService.addSuccess('You have successfully registered.');
         console.log(response);
       }, error => {
         console.warn(error.responseText);

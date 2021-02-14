@@ -61,7 +61,6 @@ export class ProfileDetailsComponent implements OnInit {
       student_number: '',
       date: ''
     }).subscribe(response => {
-      this.location.;
       this.messageService.addSuccess('Your consent has been withdrawn successfully!');
       console.log(response);
     }, error => {

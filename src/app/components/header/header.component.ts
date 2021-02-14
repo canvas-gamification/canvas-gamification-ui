@@ -24,4 +24,32 @@ export class HeaderComponent implements OnInit {
   logout(): void {
     this.authenticationService.logout();
   }
+
+  isLoggedIn() {
+    return !!this.authenticationService.currentUserValue;
+  }
+
+  isActive(navLink) {
+    return window.location.pathname.slice(1) === navLink;
+  }
+
+  isTeacher() {
+    // TODO: is this user a teacher?
+    return true;
+  }
+
+  hasCompleteProfile() {
+    // TODO: does this user have a saved firstName, i.e. is their profile complete
+    return true;
+  }
+
+  getUserTokens() {
+    // TODO: retrieve the number of tokens this user has
+    return 220;
+  }
+
+  isAdmin() {
+    // TODO: is this user an admin? or staff?
+    return true;
+  }
 }
