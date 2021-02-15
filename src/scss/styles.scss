@@ -1,10 +1,12 @@
 @import 'variables';
 @import 'mixins';
 
+@import "bootstrap";
+
 body {
     font-size: 2rem;
     font-family: Arial, serif;
-    background-color: $color-bg;
+    background-color: $gray-100;
 }
 
 html, body { height: 100%; }
