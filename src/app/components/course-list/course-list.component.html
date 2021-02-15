@@ -12,8 +12,20 @@
           </tr>
         </thead>
         <tbody class="table-striped">
-          <tr>
-          </tr>
+          <ng-container *ngFor="let course of courseList">
+            <tr>
+              <td>{{course.course_id}}</td>
+              <td>{{course.name}}</td>
+              <td>{{course.status}}</td>
+              <td *ngIf="course.registered">Registered</td>
+              <td *ngIf="!course.registered">Not Registered</td>
+              <td>
+                <!--TODO: Make the following buttons have authentication so only those eligible can see them-->
+                <a class="btn btn-primary" href="/course/{{course.course_id}}">Open</a>
+                <a class="btn btn-primary" *ngIf="!course.registered" href="/course/{{course.course_id}}/register">Register</a>
+              </td>
+            </tr>
+          </ng-container>
         </tbody>
 </table>
   </div>

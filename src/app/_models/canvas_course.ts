@@ -3,6 +3,8 @@ export interface CanvasCourse {
   name: string;
   url: URL;
   course_id: number;
+  status: string;
+  registered: boolean;
   token: string;
   instructor_id: number;
   allow_registration: boolean;
