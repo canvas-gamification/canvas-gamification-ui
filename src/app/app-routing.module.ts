@@ -10,8 +10,7 @@ import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
 import {CourseListComponent} from "@app/components/course-list/course-list.component";
-
-import {HomepageComponent} from './components/homepage/homepage.component';
+import {HomepageComponent} from '@app/components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 
 
@@ -47,7 +46,7 @@ const routes: Routes = [
     component: UserStatsComponent
   },
   {
-    path: 'course-list',
+    path: 'course',
     component: CourseListComponent,
     canActivate: [AuthGuard]
   },

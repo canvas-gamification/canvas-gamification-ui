@@ -17,12 +17,15 @@
               <td>{{course.course_id}}</td>
               <td>{{course.name}}</td>
               <td>{{course.status}}</td>
-              <td *ngIf="course.registered">Registered</td>
-              <td *ngIf="!course.registered">Not Registered</td>
+              <ng-container *ngIf="course.is_registered; else notRegistered">
+                <td>Registered</td>
+              </ng-container>
+              <ng-template #notRegistered>
+                <td>Not Registered</td>
+              </ng-template>
               <td>
-                <!--TODO: Make the following buttons have authentication so only those eligible can see them-->
-                <a class="btn btn-primary" href="/course/{{course.course_id}}">Open</a>
-                <a class="btn btn-primary" *ngIf="!course.registered" href="/course/{{course.course_id}}/register">Register</a>
+                <a class="btn btn-primary" *ngIf="has_view_permission(course.course_id)" routerLink="course/{{course.course_id}}">Open</a>
+                <a class="btn btn-primary" *ngIf="!course.is_registered" routerLink="register/{{course.course_id}}">Register</a>
               </td>
             </tr>
           </ng-container>

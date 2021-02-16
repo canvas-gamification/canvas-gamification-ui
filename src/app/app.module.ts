@@ -27,6 +27,7 @@ import { UserActionsComponent } from './components/homepage/user-actions/user-ac
 import { RecentViewedQuestionsComponent } from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
 import { CourseDashboardComponent } from './components/homepage/course-dashboard/course-dashboard.component';
 import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
+import {TokenValuesComponent} from "@app/components/token-values/token-values.component";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { InactiveCoursesComponent } from './components/homepage/inactive-courses
     RecentViewedQuestionsComponent,
     CourseDashboardComponent,
     InactiveCoursesComponent,
+    TokenValuesComponent
   ],
   imports: [
     BrowserModule,

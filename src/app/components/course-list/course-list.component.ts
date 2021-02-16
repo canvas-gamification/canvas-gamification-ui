@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CanvasCourse} from "@app/_models";
+import {Course} from "@app/_models";
 import {CourseService} from "@app/_services/api/course.service";
 import {ActivatedRoute} from "@angular/router";
 
@@ -9,19 +9,24 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit {
-  userId: number;
-  courseList: CanvasCourse[];
+  courseList: Course[];
 
   constructor(private route: ActivatedRoute, private courseService: CourseService) {
     this.courseList = [];
-    this.userId = +this.route.snapshot.paramMap.get('userId');
   }
 
   ngOnInit(): void {
-    this.courseService.getCourses(this.userId).subscribe((courses) =>
+    this.courseService.getCourses().subscribe((courses) =>
       {
         this.courseList = courses;
       });
   }
+
+// TODO: Django function convert to Angular
+  has_view_permission(courseId: number): boolean {
+    // return user.is_teacher or self.is_instructor(user) or self.is_registered(user)
+    return true;
+  }
+
 
 }
