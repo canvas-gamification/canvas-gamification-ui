@@ -1,0 +1,19 @@
+<div class="my-5">
+  <h3>Inactive Courses</h3>
+  <table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+      <th>Course</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let course of inactiveCourses; index as i">
+      <tr [attr.id]="'inactiveCourseRow'+course.course_id">
+        <td>{{course.name}}</td>
+        <td>{{course.status}}</td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+</div>
