@@ -11,6 +11,9 @@ import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
 import {CourseListComponent} from "@app/components/course-list/course-list.component";
 
+import {HomepageComponent} from './components/homepage/homepage.component';
+import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
+
 
 const routes: Routes = [
   {
@@ -51,11 +54,20 @@ const routes: Routes = [
   {
     path: 'accounts/login',
     component: LoginComponent
+  },
+  {
+    path: 'homepage',
+    component: HomepageComponent,
+    canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'actions',
+    component: UserActionsComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

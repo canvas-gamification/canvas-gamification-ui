@@ -1,29 +1,54 @@
 import { Injectable } from '@angular/core';
-import {environment} from "@environments/environment";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable, of} from "rxjs";
-import {CanvasCourse} from "@app/_models";
-import {catchError} from "rxjs/operators";
+import {Observable, of} from 'rxjs';
+import {Course} from '@app/_models';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
+import {environment} from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-  private courseUrl = new URL('/api/course/', environment.apiBaseUrl).toString();
+  private courseUrl = new URL(
+    '/api/course',
+    environment.apiBaseUrl
+  ).toString();
 
-  constructor(
-    private http: HttpClient,
-  ) {
+  constructor(private http: HttpClient) {
   }
 
-  getCourses(userId : number): Observable<CanvasCourse[]> {
-    const userHeaders = new HttpHeaders();
-    userHeaders.append('user',''+userId);
+  getCourses(options?): Observable<Course[]> {
+    const {registered = false} = options ? options : {};
+    const params = new HttpParams()
+      .set('registered', registered);
+
     return this.http
-      .get<CanvasCourse[]>(this.courseUrl,{headers: userHeaders})
-      .pipe(catchError(this.handleError<CanvasCourse[]>('getCourses', [])));
+      .get<Course[]>(this.courseUrl, {params})
+      .pipe(
+        catchError(
+          this.handleError<Course[]>(
+            `getAllUserCourse`
+          )
+        )
+      );
   }
 
+  getCourse(courseId: number, options?): Observable<Course> {
+    const {registered = false} = options ? options : {};
+    const params = new HttpParams()
+      .set('registered', registered);
+
+    const url = `${this.courseUrl}/${courseId}`;
+    return this.http
+      .get<Course>(url, {params})
+      .pipe(
+        catchError(
+          this.handleError<Course>(
+            `getUserCourse`
+          )
+        )
+      );
+  }
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -34,7 +59,6 @@ export class CourseService {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
-
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };

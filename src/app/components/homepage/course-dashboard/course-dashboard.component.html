@@ -1,0 +1,40 @@
+<div>
+  <h3>Active Courses</h3>
+  <div class="row" *ngIf="activeCourses; else noActiveCourses">
+    <ng-container *ngFor="let course of activeCourses; index as i">
+      <div class="col-md-4 mb-4">
+        <div class="card" [attr.id]="'courseCard'+course.course_id">
+          <span class="sr-only">Card for course {{ course.name }}</span>
+          <div class="card-block-top"></div>
+          <div class="card-body">
+            <h5 class="card-title">{{course.name}}</h5>
+            <!--          TODO: should this route to the course url? or should we add custom routing?-->
+            <a href="{{course.url}}" class="btn btn-primary">Open</a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="activeCourses.length <= 3">
+      <div class="col-md-4 mb-4">
+        <div class="card card-register-new">
+          <span class="sr-only">Card for Register New Course</span>
+          <div class="card-block-top"></div>
+          <div class="card-body">
+            <h5 class="card-title">Looking for more courses?</h5>
+            <button class="btn btn-outline-secondary" routerLink="courses">Registration</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <ng-template #noActiveCourses class="container">
+    <div class="jumbotron">
+      <p class="text-md-center">Looks like you don't have any active courses. Not to worry, you can register here:</p>
+      <div class="row">
+        <div class="col text-center">
+          <button class="btn btn-primary" routerLink="courses">Register into Courses</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

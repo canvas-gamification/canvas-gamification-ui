@@ -1,0 +1,27 @@
+<div class="container">
+  <header>
+    <div class="container-fluid">
+      <div class="row my-auto">
+        <div class="col my-3 pl-0">
+          <h1 class="m-0">
+            {{ header }}
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="row">
+    <div class="col-md-9">
+      <app-course-dashboard></app-course-dashboard>
+      <app-inactive-courses></app-inactive-courses>
+    </div>
+    <div class="col-md-3">
+      <div class="mb-3 mr-3">
+        <app-recent-viewed-questions></app-recent-viewed-questions>
+      </div>
+      <div class="mr-3">
+        <app-recent-user-actions></app-recent-user-actions>
+      </div>
+    </div>
+  </div>
+</div>

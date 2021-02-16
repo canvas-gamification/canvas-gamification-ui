@@ -29,7 +29,6 @@
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "backbone": "^1.4.0",
     "bootstrap": "^4.4.0",
-    "bulma": "^0.9.1",
     "jointjs": "^3.2.0",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
