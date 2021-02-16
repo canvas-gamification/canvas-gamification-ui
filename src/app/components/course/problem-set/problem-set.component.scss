@@ -1,9 +1,57 @@
 header {
   background: #EEEEEE;
 }
+
 table {
   border: 1px solid #dee2e6;
+  background: white;
 }
+
 td, th {
   border: 1px solid #dee2e6;
+}
+
+.action-icon #faEye {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0;
+  border-radius: 5px;
+  background-color: #007bff;
+}
+
+.action-icon #faPencilAlt {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0;
+  border-radius: 5px;
+  background-color: antiquewhite;
+}
+
+.action-icon #faTrashAlt {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  text-align: center;
+  padding: 0;
+  border-radius: 5px;
+  background-color: #dc3545;
+}
+
+#faEye, #faTrashAlt {
+  color: white;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+#faPencilAlt {
+  color: black;
+  text-decoration: none;
+  background-color: transparent;
 }
