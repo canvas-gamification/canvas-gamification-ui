@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Course} from "@app/_models";
-import {CourseService} from "@app/_services/api/course.service";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {Course} from '@app/_models';
+import {CourseService} from '@app/_services/api/course.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-course-list',
@@ -16,15 +16,13 @@ export class CourseListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.courseService.getCourses().subscribe((courses) =>
-      {
-        this.courseList = courses;
-      });
+    this.courseService.getCourses().subscribe((courses) => {
+      this.courseList = courses;
+    });
   }
 
-// TODO: Django function convert to Angular
-  has_view_permission(courseId: number): boolean {
-    // return user.is_teacher or self.is_instructor(user) or self.is_registered(user)
+  hasViewPermission(courseId: number): boolean {
+    // TODO: return user.is_teacher or self.is_instructor(user) or self.is_registered(user)
     return true;
   }
 
