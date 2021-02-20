@@ -1,16 +1,86 @@
-<nav class="navbar is-dark">
+<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="">
+    <img [src]="logoPath" width="40" height="40" class="d-inline-block align-top"
+         alt="Logo" style="border-radius: 50%">
+  </a>
   <div class="navbar-brand">
-    <a class="navbar-item" routerLink="">Canvas Gamification</a>
+    <a class="nav-item" routerLink="">Canvas Gamification</a>
   </div>
-  <div class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="#about">Find Out More</a>
-      <a class="navbar-item" href="/homepage">Get Started</a>
-      <a class="navbar-item" routerLink="sample-questions">Sample Questions</a>
-      <a class="navbar-item" routerLink="contact">Contact Us</a>
-      <a class="navbar-item" routerLink="concept-map">Concept Map</a>
-      <a class="navbar-item" routerLink="accounts/login">Login</a>
-      <a class="navbar-item" (click)="logout()">Logout</a>
-    </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a [class.active]="isActive('homepage')" class="nav-link" routerLink="homepage">Homepage <span
+          class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a [class.active]="isActive('course')" class="nav-link" routerLink="course">Courses</a>
+      </li>
+      <li class="nav-item">
+        <a [class.active]="isActive('faq')" class="nav-link" routerLink="faq">FAQ</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav mr-md-0">
+      <ng-container *ngIf="isLoggedIn(); else notLoggedIn">
+          <span class="navbar-text mx-2 float-md-right">
+            <ng-container *ngIf="hasCompleteProfile(); else incompleteProfile">
+                Hello, {{ user.firstName }}
+            </ng-container>
+            <ng-template #incompleteProfile>
+                Hello, {{ user.username }}
+            </ng-template>
+          </span>
+        <span class="navbar-text mx-2 float-md-right">
+            Tokens: {{ getUserTokens() }}
+          </span>
+        <li class="nav-item dropdown float-md-right">
+          <a class="nav-link dropdown-toggle float-md-right" href="#" id="navbarDropdownAccount" role="button"
+             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Account
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAccount">
+            <a class="dropdown-item" routerLink="accounts/profile">Profile</a>
+            <a class="dropdown-item" routerLink="#">Messages</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="logout()">Logout</a>
+          </div>
+        </li>
+        <ng-container *ngIf="isAdmin()">
+          <li class="nav-item dropdown float-md-right">
+            <a class="nav-link dropdown-toggle text-success float-md-right" href="#"  id="navbarDropdownAdmin" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownAdmin">
+              <a class="dropdown-item" routerLink="">Dashboard</a>
+              <div class="dropdown-divider"></div>
+              <ng-container *ngIf="isTeacher()">
+                <a class="dropdown-item">Token Values</a>
+                <div class="dropdown-divider"></div>
+                <h4 class="dropdown-header mb-0">New Problem</h4>
+                <a class="dropdown-item" routerLink="course/new_problem_multiple_choice">Multiple Choice Problem</a>
+                <a class="dropdown-item" routerLink="course/new_problem_checkbox">Checkbox Problem</a>
+                <a class="dropdown-item" routerLink="course/new_problem_java">Java Problem</a>
+                <a class="dropdown-item" routerLink="course/new_problem_parsons">Parsons Problem</a>
+              </ng-container>
+            </div>
+          </li>
+        </ng-container>
+      </ng-container>
+      <ng-template #notLoggedIn>
+        <form class="form-inline">
+          <button class="btn btn-outline-success float-right" type="button" routerLink="accounts/login">
+            Login
+          </button>
+          <button class="btn btn-success ml-2 float-right" type="button"  routerLink="accounts/signup">
+            Sign Up
+          </button>
+        </form>
+      </ng-template>
+    </ul>
   </div>
 </nav>

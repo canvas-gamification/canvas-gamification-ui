@@ -10,6 +10,8 @@ import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
 import { RegisterNameComponent } from './components/registration/register-name/register-name.component';
 import {CourseComponent} from '@app/components/course/course.component';
+import {HomepageComponent} from './components/homepage/homepage.component';
+import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 
 
 const routes: Routes = [
@@ -44,6 +46,15 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
+    path: 'homepage',
+    component: HomepageComponent,
+    canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'actions',
+    component: UserActionsComponent
+  },
+  {
     path: 'register/:courseId',
     component: RegisterNameComponent,
     canActivate: [AuthGuard]
@@ -56,7 +67,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
