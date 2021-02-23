@@ -43,7 +43,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   onSubmit(FormData) {
     console.log(FormData);
-    this.profile.PostProfileDetails(FormData)
+    this.profile.PutProfileDetails(FormData, this.UserDetails[0].id)
       .subscribe(response => {
         this.messageService.addSuccess('Your profile has been updated successfully!');
         console.log(response);

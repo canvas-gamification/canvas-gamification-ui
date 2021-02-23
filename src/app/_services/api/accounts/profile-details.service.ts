@@ -14,8 +14,8 @@ export class ProfileDetailsService {
   constructor(private http: HttpClient) {
   }
 
-  PostProfileDetails(input: any) {
-    return this.http.post(this.ProfileDetailsUrl, input, {responseType: 'text'}).pipe(
+  PutProfileDetails(input: any, id: number) {
+    return this.http.put(this.ProfileDetailsUrl + id + '/', input, {responseType: 'text'}).pipe(
       map(
         (response) => {
           if (response) {
