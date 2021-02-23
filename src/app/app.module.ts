@@ -28,6 +28,7 @@ import { RecentViewedQuestionsComponent } from './components/homepage/recent-vie
 import { CourseDashboardComponent } from './components/homepage/course-dashboard/course-dashboard.component';
 import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
 import { ProblemSetComponent } from './components/course/problem-set/problem-set.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { ProblemSetComponent } from './components/course/problem-set/problem-set
     MatCardModule,
     FontAwesomeModule,
     FormsModule,
+    MatPaginatorModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

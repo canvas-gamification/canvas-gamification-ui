@@ -20,7 +20,7 @@ export class ProblemSetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.questionService.getQuestions().subscribe(questions => this.questions = questions);
+    this.questionService.getQuestions().subscribe(paginatedQuestions => this.questions = paginatedQuestions.results);
 
     this.FormData = this.builder.group({
       query: new FormControl(''),

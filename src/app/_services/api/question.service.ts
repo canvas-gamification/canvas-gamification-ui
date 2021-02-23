@@ -3,6 +3,7 @@ import {environment} from '@environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Question} from '@app/_models';
+import {PaginatedResult} from '@app/_models/paginatedResult';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class QuestionService {
   constructor(private http: HttpClient) {
   }
 
-  getQuestions(): Observable<Question[]> {
-    return this.http.get<Question[]>(this.questionServiceUrl);
+  getQuestions(): Observable<PaginatedResult<Question>> {
+    return this.http.get<PaginatedResult<Question>>(this.questionServiceUrl);
   }
 }
