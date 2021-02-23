@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Question} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
@@ -14,7 +14,12 @@ export class QuestionService {
   constructor(private http: HttpClient) {
   }
 
-  getQuestions(): Observable<PaginatedResult<Question>> {
-    return this.http.get<PaginatedResult<Question>>(this.questionServiceUrl);
+  getQuestions(options?): Observable<PaginatedResult<Question>> {
+    const {page = 1, page_size = 50} = options ? options : {};
+    const params = new HttpParams()
+      .set('page', page)
+      .set('page_size', page_size);
+
+    return this.http.get<PaginatedResult<Question>>(this.questionServiceUrl, {params});
   }
 }

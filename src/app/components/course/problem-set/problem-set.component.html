@@ -110,6 +110,12 @@
       </tr>
       </tbody>
     </table>
-    <mat-paginator></mat-paginator>
+    <mat-paginator
+      [length]="questionsLength"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="update($event)"
+    >
+    </mat-paginator>
   </div>
 </main>
