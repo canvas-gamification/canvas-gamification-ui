@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {QuestionService} from '@app/_services/api/question.service';
+import {SampleQuestionService} from '@app/_services/api/sample-question.service';
 import {MessageService} from '@app/_services/message.service';
 import {MultipleChoiceQuestion} from '@app/_models';
 
@@ -12,7 +12,7 @@ export class SampleQuestionsComponent implements OnInit {
 
   multipleChoiceQuestions: MultipleChoiceQuestion[];
 
-  constructor(private questionService: QuestionService, private messageService: MessageService) {
+  constructor(private questionService: SampleQuestionService, private messageService: MessageService) {
   }
 
   ngOnInit(): void {

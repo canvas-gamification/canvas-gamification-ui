@@ -68,7 +68,7 @@
         <th scope="col">#</th>
         <th scope="col">Question Name</th>
         <th scope="col">Author</th>
-        <th scope="col">Type</th>
+        <th scope="col">Event</th>
         <th scope="col">Category</th>
         <th scope="col">Sub Category</th>
         <th scope="col">Difficulty</th>
@@ -78,16 +78,16 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let data of dataList">
-        <td>{{data.id}}</td>
-        <td>{{data.name}}</td>
-        <td>{{data.author}}</td>
-        <td>{{data.type}}</td>
-        <td>{{data.category}}</td>
-        <td>{{data.subCategory}}</td>
-        <td>{{data.difficulty}}</td>
-        <td>{{data.tokenValue}}</td>
-        <td>{{data.avgSuccess}}</td>
+      <tr *ngFor="let question of questions">
+        <td>{{question.id}}</td>
+        <td>{{question.title}}</td>
+        <td>{{question.author_name}}</td>
+        <td>{{question.event_name}}</td>
+        <td>{{question.parent_category_name}}</td>
+        <td>{{question.category_name}}</td>
+        <td>{{question.difficulty}}</td>
+        <td>{{question.token_value}}</td>
+        <td>{{question.success_rate}}</td>
         <td>
           <div style="white-space: nowrap; display: flex">
             <div class="action-icon">
