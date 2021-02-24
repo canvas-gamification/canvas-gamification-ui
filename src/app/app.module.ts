@@ -27,11 +27,12 @@ import { UserActionsComponent } from './components/homepage/user-actions/user-ac
 import { RecentViewedQuestionsComponent } from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
 import { CourseDashboardComponent } from './components/homepage/course-dashboard/course-dashboard.component';
 import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
-import { RegisterNameComponent } from './components/registration/register-name/register-name.component';
-import { RegisterStudentNumberComponent } from './components/registration/register-student-number/register-student-number.component';
-import { NameConfirmComponent } from './components/registration/name-confirm/name-confirm.component';
-import { VerificationComponent } from './components/registration/verification/verification.component';
+import { RegisterNameComponent } from './components/course/registration/register-name/register-name.component';
+import { RegisterStudentNumberComponent } from './components/course/registration/register-student-number/register-student-number.component';
+import { NameConfirmComponent } from './components/course/registration/name-confirm/name-confirm.component';
+import { VerificationComponent } from './components/course/registration/verification/verification.component';
 import { CourseComponent } from './components/course/course.component';
+import { TokenUseSnippetComponent } from './token-use-snippet/token-use-snippet.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { CourseComponent } from './components/course/course.component';
     NameConfirmComponent,
     VerificationComponent,
     CourseComponent,
+    TokenUseSnippetComponent,
   ],
   imports: [
     BrowserModule,
