@@ -32,6 +32,8 @@ import { RegisterStudentNumberComponent } from './components/registration/regist
 import { NameConfirmComponent } from './components/registration/name-confirm/name-confirm.component';
 import { VerificationComponent } from './components/registration/verification/verification.component';
 import { CourseComponent } from './components/course/course.component';
+import { CourseEventsSnippetComponent } from './components/course/course-events-snippet/course-events-snippet.component';
+
 
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { CourseComponent } from './components/course/course.component';
     NameConfirmComponent,
     VerificationComponent,
     CourseComponent,
+    CourseEventsSnippetComponent,
   ],
   imports: [
     BrowserModule,
