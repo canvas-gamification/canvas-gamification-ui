@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-register-name',
@@ -7,17 +7,18 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./register-name.component.scss']
 })
 export class RegisterNameComponent implements OnInit {
-  guessedName: string
-  courseId: number
-  constructor(private route: ActivatedRoute) { 
+  guessedName: string;
+  courseId: number;
+
+  constructor(private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.courseId = params.courseId;
-    })
+    });
   }
 
   ngOnInit(): void {
-    this.guessedName = "bob"
-    console.log(this.courseId)
+    this.guessedName = 'bob';
+    console.log(this.courseId);
   }
 
 }
