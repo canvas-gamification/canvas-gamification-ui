@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from '../../../_services/api/event.service';
+import { Event } from '../../../_models/event';
 
 @Component({
   selector: 'app-course-events-snippet',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./course-events-snippet.component.scss']
 })
 export class CourseEventsSnippetComponent implements OnInit {
+  events2: Event[]
 
   events = [
     {
@@ -34,9 +37,15 @@ export class CourseEventsSnippetComponent implements OnInit {
   }
 
 
-  constructor() { }
+  constructor(public EventService: EventService) { }
 
   ngOnInit(): void {
+    this.EventService
+    .getEvents()
+    .subscribe((events2)=> {
+      this.events2 = events2;
+    });
+    console.log(this.events2)
   }
 
 }

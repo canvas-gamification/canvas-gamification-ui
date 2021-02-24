@@ -1,5 +1,5 @@
 <p>course-events-snippet works!</p>
-
+{{events2}}
 <ng-container *ngIf="request.user.isTeacher">
     <a class="btn btn-primary my-1" href="{% url 'canvas:create_event' course.pk %}">Add an Event</a>
     <a class="btn btn-primary my-1" href="#">Import an Event</a>
