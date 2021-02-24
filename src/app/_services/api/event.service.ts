@@ -10,7 +10,7 @@ import {environment} from '../../../environments/environment';
   providedIn: 'root'
 })
 export class EventService {
-  private eventsUrl = new URL("/api/event/", environment.apiBaseUrl).toString();
+  private eventsUrl = new URL("/api/events/", environment.apiBaseUrl).toString();
 
   constructor(
     private http: HttpClient,
