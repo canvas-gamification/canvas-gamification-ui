@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./token-use-snippet.component.scss']
 })
 export class TokenUseSnippetComponent implements OnInit {
-
+  courseReg: string;
   constructor() { }
 
   ngOnInit(): void {
   }
+
+
 
 }
