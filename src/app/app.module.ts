@@ -32,7 +32,7 @@ import { RegisterStudentNumberComponent } from './components/course/registration
 import { NameConfirmComponent } from './components/course/registration/name-confirm/name-confirm.component';
 import { VerificationComponent } from './components/course/registration/verification/verification.component';
 import { CourseComponent } from './components/course/course.component';
-import { TokenUseSnippetComponent } from './token-use-snippet/token-use-snippet.component';
+import { TokenUseSnippetComponent } from './components/course/token-use-snippet/token-use-snippet.component';
 
 @NgModule({
   declarations: [
