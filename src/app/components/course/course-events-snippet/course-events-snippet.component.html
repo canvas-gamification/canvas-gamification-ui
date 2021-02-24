@@ -1,1 +1,45 @@
 <p>course-events-snippet works!</p>
+
+<ng-container *ngIf="request.user.isTeacher">
+    <a class="btn btn-primary my-1" href="{% url 'canvas:create_event' course.pk %}">Add an Event</a>
+    <a class="btn btn-primary my-1" href="#">Import an Event</a>
+</ng-container>
+<table class="table table-hover" data-toggle="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Start&nbsp;Date</th>
+        <th scope="col">End&nbsp;Date</th>
+        <th scope="col">Grade</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let event of events; index as i">
+        <tr>
+            <td>{{ event.name }}</td>
+            <td>{{ event.startDate }}</td>
+            <td>{{ event.endDate }}</td>
+            <td *ngIf="event.isExamAndOpen; else totalEventGrade" >Not Available Yet</td>
+            <ng-template #totalEventGrade>
+                <td>{{"uhhhhh"}}</td> 
+                <!-- event|total_event_grade:request.user -->
+            </ng-template>
+            <td>
+                <!--
+                {% is_allowed_to_open_event event request.user as allowed_to_open %}
+                {% is_allowed_to_edit_event  event request.user as allowed_to_edit %}
+                {% event_button_text event request.user as event_btn_text %}
+                -->
+                <ng-container *ngIf="event.allowedToOpen; else notAllowedOpen">
+                    <a class="btn btn-primary" href="{% url 'canvas:event_problem_set' event.id %}">{{ event.eventBtnText }}</a>
+                </ng-container>
+                <ng-template #notAllowedOpen>
+                    <button class="btn btn-outline-info" disabled href="www.google.com">{{ event.eventBtnText }}</button>
+                </ng-template>
+                <a *ngIf="event.allowedToEdit" class="btn btn-primary" href="{% url 'canvas:edit-event' event.id %}">Edit</a>
+            </td>
+        </tr>
+    </ng-container>
+    </tbody>
+</table>
