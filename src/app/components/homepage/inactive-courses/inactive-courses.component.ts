@@ -14,7 +14,7 @@ export class InactiveCoursesComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseService
-      .getCourses({registered: true})
+      .getCourses(true, {ordering: {name: true}})
       ?.subscribe((courses) => {
         this.inactiveCourses = courses.filter(course => {
           return course.status !== STATUS.active;
