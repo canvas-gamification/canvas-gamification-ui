@@ -12,6 +12,9 @@ export interface Course {
   instructor: number;
   status: string;
   is_registered: boolean;
+  token_use_options: any;
+  question_set: any;
+  events: Event[];
 }
 
 export const STATUS = {

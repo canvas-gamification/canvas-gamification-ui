@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { EventService } from '../../../_services/api/event.service';
-import { Event } from '../../../_models/event';
+import {Component, Input, OnInit} from '@angular/core';
+import {Event} from '@app/_models';
 
 @Component({
   selector: 'app-course-events-snippet',
@@ -8,44 +7,48 @@ import { Event } from '../../../_models/event';
   styleUrls: ['./course-events-snippet.component.scss']
 })
 export class CourseEventsSnippetComponent implements OnInit {
-  events2: Event[]
+  @Input() events: Event[];
 
-  events = [
-    {
-      name: "ev1",
-      startDate: 1204,
-      endDate: 1819,
-      isExamAndOpen: true,
-      allowedToOpen: true,
-      eventBtnText: "buttonTxt1",
-      allowedToEdit: true
-    },
-    {
-      name: "ev2",
-      startDate: 2000,
-      endDate: 2020,
-      isExamAndOpen: true,
-      allowedToOpen: true,
-      eventBtnText: "buttonTxt1",
-      allowedToEdit: true
-    }
-  ]
-  request= {
+  // events = [
+  //   {
+  //     name: "ev1",
+  //     startDate: 1204,
+  //     endDate: 1819,
+  //     isExamAndOpen: true,
+  //     allowedToOpen: true,
+  //     eventBtnText: "buttonTxt1",
+  //     allowedToEdit: true
+  //   },
+  //   {
+  //     name: "ev2",
+  //     startDate: 2000,
+  //     endDate: 2020,
+  //     isExamAndOpen: true,
+  //     allowedToOpen: true,
+  //     eventBtnText: "buttonTxt1",
+  //     allowedToEdit: true
+  //   }
+  // ]
+
+  request = {
     user: {
       isTeacher: true
     }
+  };
+
+
+  constructor() {
   }
 
-
-  constructor(public EventService: EventService) { }
-
   ngOnInit(): void {
-    this.EventService
-    .getEvents()
-    .subscribe((events2)=> {
-      this.events2 = events2;
-    });
-    console.log(this.events2)
+  }
+
+  getEventButtonText(event: Event): string {
+    return 'Open';
+  }
+
+  isExamAndOpen(event: Event): boolean {
+    return event.is_open && event.is_exam;
   }
 
 }

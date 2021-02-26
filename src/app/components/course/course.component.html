@@ -48,7 +48,7 @@
     </ng-container>
     <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
       <div class="m-3">
-        <app-course-events-snippet></app-course-events-snippet>
+        <app-course-events-snippet [events]="course.events"></app-course-events-snippet>
       </div>
     </div>
     <div class="tab-pane fade" id="tokens" role="tabpanel" aria-labelledby="tokens-tab">

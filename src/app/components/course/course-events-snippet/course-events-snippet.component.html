@@ -1,5 +1,3 @@
-<p>course-events-snippet works!</p>
-{{events2[0].name}}
 <ng-container *ngIf="request.user.isTeacher">
     <a class="btn btn-primary my-1" href="{% url 'canvas:create_event' course.pk %}">Add an Event</a>
     <a class="btn btn-primary my-1" href="#">Import an Event</a>
@@ -18,11 +16,11 @@
     <ng-container *ngFor="let event of events; index as i">
         <tr>
             <td>{{ event.name }}</td>
-            <td>{{ event.startDate }}</td>
-            <td>{{ event.endDate }}</td>
-            <td *ngIf="event.isExamAndOpen; else totalEventGrade" >Not Available Yet</td>
+            <td>{{ event.start_date }}</td>
+            <td>{{ event.end_date }}</td>
+            <td *ngIf="isExamAndOpen(event); else totalEventGrade" >Not Available Yet</td>
             <ng-template #totalEventGrade>
-                <td>{{"uhhhhh"}}</td> 
+                <td>{{"uhhhhh"}}</td>
                 <!-- event|total_event_grade:request.user -->
             </ng-template>
             <td>
@@ -31,13 +29,13 @@
                 {% is_allowed_to_edit_event  event request.user as allowed_to_edit %}
                 {% event_button_text event request.user as event_btn_text %}
                 -->
-                <ng-container *ngIf="event.allowedToOpen; else notAllowedOpen">
-                    <a class="btn btn-primary" href="{% url 'canvas:event_problem_set' event.id %}">{{ event.eventBtnText }}</a>
+                <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
+                    <a class="btn btn-primary" href="{% url 'canvas:event_problem_set' event.id %}">{{ getEventButtonText(event) }}</a>
                 </ng-container>
                 <ng-template #notAllowedOpen>
-                    <button class="btn btn-outline-info" disabled href="www.google.com">{{ event.eventBtnText }}</button>
+                    <button class="btn btn-outline-info" href="www.google.com" disabled>{{ getEventButtonText(event) }}</button>
                 </ng-template>
-                <a *ngIf="event.allowedToEdit" class="btn btn-primary" href="{% url 'canvas:edit-event' event.id %}">Edit</a>
+                <a *ngIf="event.has_edit_permission" class="btn btn-primary" href="{% url 'canvas:edit-event' event.id %}">Edit</a>
             </td>
         </tr>
     </ng-container>
