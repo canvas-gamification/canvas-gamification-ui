@@ -6,6 +6,6 @@ export * from './user_stats';
 export * from './uqj';
 export * from './action';
 export * from './course';
-export * from './event';
+export * from './courseEvent';
 export * from './courseRegistration';
 export * from './tokenUseOption';

@@ -1,26 +1,27 @@
-import { Injectable } from '@angular/core';
-import {Event} from '../../_models/event';
+import {Injectable} from '@angular/core';
+import {CourseEvent} from '@app/_models';
 import {Observable, of} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {catchError, map, tap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {catchError} from 'rxjs/operators';
 import {MessageService} from '../message.service';
-import {environment} from '../../../environments/environment';
+import {environment} from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
-  private eventsUrl = new URL("/api/events/", environment.apiBaseUrl).toString();
+  private eventsUrl = new URL('/api/events/', environment.apiBaseUrl).toString();
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService
-  ) { }
+  ) {
+  }
 
-  getEvents(): Observable<Event[]> {
+  getEvents(): Observable<CourseEvent[]> {
     return this.http
-    .get<Event[]>(this.eventsUrl)
-    .pipe(catchError(this.handleError<Event[]>('getEvent', [])));
+      .get<CourseEvent[]>(this.eventsUrl)
+      .pipe(catchError(this.handleError<CourseEvent[]>('getEvent', [])));
   }
 
   /**

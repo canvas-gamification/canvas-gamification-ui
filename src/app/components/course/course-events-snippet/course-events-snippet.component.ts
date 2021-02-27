@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Event} from '@app/_models';
+import {CourseEvent} from '@app/_models';
 
 @Component({
   selector: 'app-course-events-snippet',
@@ -7,7 +7,7 @@ import {Event} from '@app/_models';
   styleUrls: ['./course-events-snippet.component.scss']
 })
 export class CourseEventsSnippetComponent implements OnInit {
-  @Input() events: Event[];
+  @Input() events: CourseEvent[];
 
   // events = [
   //   {
@@ -43,11 +43,11 @@ export class CourseEventsSnippetComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getEventButtonText(event: Event): string {
+  getEventButtonText(event: CourseEvent): string {
     return 'Open';
   }
 
-  isExamAndOpen(event: Event): boolean {
+  isExamAndOpen(event: CourseEvent): boolean {
     return event.is_open && event.is_exam;
   }
 
