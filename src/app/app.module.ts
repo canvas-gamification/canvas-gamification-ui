@@ -29,6 +29,8 @@ import { CourseDashboardComponent } from './components/homepage/course-dashboard
 import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
 import { ProblemSetComponent } from './components/course/problem-set/problem-set.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { ProblemViewComponent } from './components/course/problem-view/problem-view.component';
+import { ProblemEditComponent } from './components/course/problem-edit/problem-edit.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     RecentViewedQuestionsComponent,
     CourseDashboardComponent,
     InactiveCoursesComponent,
+    ProblemViewComponent,
+    ProblemEditComponent,
   ],
   imports: [
     BrowserModule,

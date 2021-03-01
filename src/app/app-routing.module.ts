@@ -12,6 +12,8 @@ import {ProblemSetComponent} from '@app/components/course/problem-set/problem-se
 
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
+import {ProblemViewComponent} from '@app/components/course/problem-view/problem-view.component';
+import {ProblemEditComponent} from '@app/components/course/problem-edit/problem-edit.component';
 
 
 const routes: Routes = [
@@ -57,6 +59,14 @@ const routes: Routes = [
   {
     path: 'course/problem-set',
     component: ProblemSetComponent
+  },
+  {
+    path: 'course/question',
+    component: ProblemViewComponent
+  },
+  {
+    path: 'course/edit',
+    component:ProblemEditComponent
   }
 ];
 
