@@ -62,18 +62,18 @@
         </div>
       </div>
     </form>
-    <table class="table table-hover table-bordered">
+    <table matSort (matSortChange)="sortData($event)" class="table table-hover table-bordered">
       <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Question Name</th>
-        <th scope="col">Author</th>
-        <th scope="col">Event</th>
-        <th scope="col">Category</th>
-        <th scope="col">Sub Category</th>
-        <th scope="col">Difficulty</th>
-        <th scope="col">Token Value</th>
-        <th scope="col">Avg Success</th>
+        <th mat-sort-header="id" scope="col">#</th>
+        <th mat-sort-header="title" scope="col">Question Name</th>
+        <th mat-sort-header="author_name" scope="col">Author</th>
+        <th mat-sort-header="event_name" scope="col">Event</th>
+        <th mat-sort-header="parent_category_name" scope="col">Category</th>
+        <th mat-sort-header="category_name" scope="col">Sub Category</th>
+        <th mat-sort-header="difficulty" scope="col">Difficulty</th>
+        <th mat-sort-header="token_value" scope="col">Token Value</th>
+        <th mat-sort-header="success_rate" scope="col">Avg Success</th>
         <th scope="col">Action</th>
       </tr>
       </thead>

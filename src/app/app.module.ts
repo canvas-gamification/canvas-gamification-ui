@@ -29,6 +29,7 @@ import { CourseDashboardComponent } from './components/homepage/course-dashboard
 import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
 import { ProblemSetComponent } from './components/course/problem-set/problem-set.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -50,23 +51,24 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     CourseDashboardComponent,
     InactiveCoursesComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    NgbModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatCardModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
-    MatCardModule,
-    FontAwesomeModule,
-    FormsModule,
-    MatPaginatorModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        NgbModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatCardModule,
+        RecaptchaModule,
+        RecaptchaFormsModule,
+        MatCardModule,
+        FontAwesomeModule,
+        FormsModule,
+        MatPaginatorModule,
+        MatSortModule,
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
