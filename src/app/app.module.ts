@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { SampleQuestionsComponent } from './components/sample-questions/sample-questions.component';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { TopicsComponent } from './components/topics/topics.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -34,6 +35,7 @@ import { VerificationComponent } from './components/course/registration/verifica
 import { CourseComponent } from './components/course/course.component';
 import { CourseEventsSnippetComponent } from './components/course/course-events-snippet/course-events-snippet.component';
 import { TokenUseSnippetComponent } from './components/course/token-use-snippet/token-use-snippet.component';
+import { ProgressBarComponent } from './components/course/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +62,7 @@ import { TokenUseSnippetComponent } from './components/course/token-use-snippet/
     CourseComponent,
     CourseEventsSnippetComponent,
     TokenUseSnippetComponent,
+    ProgressBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,6 +77,7 @@ import { TokenUseSnippetComponent } from './components/course/token-use-snippet/
     RecaptchaModule,
     RecaptchaFormsModule,
     MatCardModule,
+    MatProgressBarModule,
     FontAwesomeModule,
     FormsModule,
   ],
