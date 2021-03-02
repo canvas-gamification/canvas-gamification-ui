@@ -9,7 +9,7 @@
 </header>
 <main class="page-content m-3">
   <div class="container-fluid">
-    <form [formGroup]="FormData">
+    <form [formGroup]="FormData" (ngSubmit)="applyFilter(FormData.value)">
       <div class="form-row">
         <div class="form-group col-3">
           <label for="query">Search in Question Name:</label>
