@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Question} from '@app/_models';
+import {Question, UQJ} from '@app/_models';
 
 @Component({
   selector: 'app-course-question-snippet',
@@ -8,6 +8,7 @@ import {Question} from '@app/_models';
 })
 export class CourseQuestionSnippetComponent implements OnInit {
   @Input() questions: Question[];
+  @Input() uqjs: UQJ[];
 
   constructor() {
   }

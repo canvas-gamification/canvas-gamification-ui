@@ -1,4 +1,4 @@
-import {CourseEvent} from '@app/_models';
+import {CourseEvent, UQJ} from '@app/_models';
 
 export interface Course {
   id: number;
@@ -17,6 +17,7 @@ export interface Course {
   token_use_options: any;
   question_set: any;
   events: CourseEvent[];
+  uqjs: UQJ[];
 }
 
 export const STATUS = {
