@@ -1,0 +1,37 @@
+<div class="course-list-page container-fluid mt-md-5">
+  <div class="mx-auto">
+    <h1 class="my-md-2">Course List</h1>
+    <table class="table table-lg table-bordered table-hover" data-toggle="table" style="width:100%">
+      <thead class="thead-light">
+      <tr>
+        <th scope="col" data-sortable="true">#</th>
+        <th scope="col" data-sortable="true">Name</th>
+        <th scope="col" data-sortable="true">Course&nbsp;Status</th>
+        <th scope="col" data-sortable="true">Registration&nbsp;Status</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody class="table-striped">
+      <ng-container *ngFor="let course of courseList">
+        <tr>
+          <td>{{course.course_id}}</td>
+          <td>{{course.name}}</td>
+          <td>{{course.status}}</td>
+          <ng-container *ngIf="course.is_registered; else notRegistered">
+            <td>Registered</td>
+          </ng-container>
+          <ng-template #notRegistered>
+            <td>Not Registered</td>
+          </ng-template>
+          <td>
+            <a class="btn btn-primary" *ngIf="hasViewPermission(course.course_id)"
+               routerLink="course/{{course.course_id}}">Open</a>
+            <a class="btn btn-primary" *ngIf="!course.is_registered"
+               routerLink="register/{{course.course_id}}">Register</a>
+          </td>
+        </tr>
+      </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>
