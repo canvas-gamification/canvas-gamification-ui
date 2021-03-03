@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseService} from '@app/_services/api/course.service';
-import {Course} from '@app/_models';
+import {Course, CourseRegistration} from '@app/_models';
 import {ActivatedRoute} from '@angular/router';
+import {CourseRegistrationService} from '@app/_services/api/course-registration.service';
+import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-course',
@@ -11,20 +13,24 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CourseComponent implements OnInit {
   course: Course;
+  courseReg: CourseRegistration;
   courseId: number;
 
   constructor(private authenticationService: AuthenticationService,
               private courseService: CourseService,
+              private courseRegistrationService: CourseRegistrationService,
               private route: ActivatedRoute) {
     this.courseId = this.route.snapshot.params.courseId;
   }
 
   ngOnInit(): void {
-    this.courseService
-      .getCourse(this.courseId, true, {ordering: {name: true}})
-      ?.subscribe((course) => {
-        this.course = course;
-      });
+    forkJoin([
+      this.courseService.getCourse(this.courseId, true, {ordering: {name: true}}),
+      this.courseRegistrationService.getCourseRegistrations({filters: {course: this.courseId}})
+    ])?.subscribe(([course, courseRegs]) => {
+      this.course = course;
+      this.courseReg = courseRegs[0];
+    });
   }
 
   isTeacher() {
