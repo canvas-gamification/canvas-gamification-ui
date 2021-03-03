@@ -1,5 +1,6 @@
 <ng-container *ngIf="request.user.isTeacher">
-    <a class="btn btn-primary my-1 mr-3" href="{% url 'canvas:create_event' course.pk %}">Add an Event</a>
+    <!--Fill in these hrefs later-->
+    <a class="btn btn-primary my-1 mr-3" href="">Add an Event</a>
     <a class="btn btn-primary my-1" href="#">Import an Event</a>
 </ng-container>
 <table class="table table-hover" data-toggle="table">
@@ -25,12 +26,14 @@
             </ng-template>
             <td>
                 <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
-                    <a class="btn btn-primary" href="{% url 'canvas:event_problem_set' event.id %}">{{ getEventButtonText(event) }}</a>
+                    <!--Fill in this href later-->
+                    <a class="btn btn-primary" href="#">{{ getEventButtonText(event) }}</a>
                 </ng-container>
                 <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
                     <button class="btn btn-outline-info" href="www.google.com" disabled>{{ getEventButtonText(event) }}</button>
                 </ng-template>
-                <a *ngIf="event.has_edit_permission" class="btn btn-primary" href="{% url 'canvas:edit-event' event.id %}">Edit</a>
+                <!--Fill in this href later-->
+                <a *ngIf="event.has_edit_permission" class="btn btn-primary" href="#">Edit</a>
             </td>
         </tr>
     </ng-container>
