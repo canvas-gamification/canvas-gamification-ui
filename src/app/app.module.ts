@@ -27,6 +27,7 @@ import { UserActionsComponent } from './components/homepage/user-actions/user-ac
 import { RecentViewedQuestionsComponent } from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
 import { CourseDashboardComponent } from './components/homepage/course-dashboard/course-dashboard.component';
 import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
+import { FaqComponent } from './components/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { InactiveCoursesComponent } from './components/homepage/inactive-courses
     ConceptMapComponent,
     UserStatsComponent,
     LoginComponent,
+    FaqComponent,
     HomepageComponent,
     RecentUserActionsComponent,
     UserActionsComponent,

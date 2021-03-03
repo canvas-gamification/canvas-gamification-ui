@@ -8,7 +8,7 @@ import {ConceptMapComponent} from './components/concept-map/concept-map.componen
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
-
+import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 
@@ -47,11 +47,15 @@ const routes: Routes = [
   {
     path: 'homepage',
     component: HomepageComponent,
-    canActivate: [ AuthGuard ]
+    canActivate: [AuthGuard]
   },
   {
     path: 'actions',
     component: UserActionsComponent
+  },
+  {
+    path: 'faq',
+    component: FaqComponent
   }
 ];
 
