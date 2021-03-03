@@ -20,7 +20,7 @@ import { ConceptMapComponent } from './components/concept-map/concept-map.compon
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
 import { TokenValuesComponent } from './components/token-values/token-values.component';
 import { LoginComponent } from './components/accounts/login';
-import {ErrorInterceptor, JwtInterceptor} from './_helpers';
+import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 
 @NgModule({
   declarations: [
