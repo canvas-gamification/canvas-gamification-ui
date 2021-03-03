@@ -15,6 +15,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { SampleQuestionsComponent } from './components/sample-questions/sample-questions.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 import { TopicsComponent } from './components/topics/topics.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -80,6 +82,8 @@ import { ProgressBarComponent } from './components/course/progress-bar/progress-
     RecaptchaFormsModule,
     MatCardModule,
     MatProgressBarModule,
+    MatTableModule,
+    MatSortModule,
     FontAwesomeModule,
     FormsModule,
   ],

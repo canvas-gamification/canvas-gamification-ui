@@ -1,23 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {Course} from '@app/_models';
+import {Component, AfterViewInit, ViewChild} from '@angular/core';
 import {CourseService} from '@app/_services/api/course.service';
 import {ActivatedRoute} from '@angular/router';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-course-list',
   templateUrl: './course-list.component.html',
   styleUrls: ['./course-list.component.scss']
 })
-export class CourseListComponent implements OnInit {
-  courseList: Course[];
+export class CourseListComponent implements AfterViewInit {
+  courseList: any;
+  displayedColumns: string[] = ['id', 'name', 'status','is_registered', 'actions'];
 
   constructor(private route: ActivatedRoute, private courseService: CourseService) {
     this.courseList = [];
   }
+  @ViewChild(MatSort) sort: MatSort;
 
-  ngOnInit(): void {
+  ngAfterViewInit() {
     this.courseService.getCourses().subscribe((courses) => {
-      this.courseList = courses;
+      this.courseList = new MatTableDataSource(courses);
+      this.courseList.sort = this.sort;
     });
   }
 

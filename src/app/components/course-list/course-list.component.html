@@ -1,37 +1,49 @@
 <div class="course-list-page container-fluid mt-md-5">
   <div class="mx-auto">
     <h1 class="my-md-2">Course List</h1>
-    <table class="table table-lg table-bordered table-hover" data-toggle="table" style="width:100%">
-      <thead class="thead-light">
-      <tr>
-        <th scope="col" data-sortable="true">#</th>
-        <th scope="col" data-sortable="true">Name</th>
-        <th scope="col" data-sortable="true">Course&nbsp;Status</th>
-        <th scope="col" data-sortable="true">Registration&nbsp;Status</th>
-        <th scope="col">Action</th>
-      </tr>
-      </thead>
-      <tbody class="table-striped">
-      <ng-container *ngFor="let course of courseList">
-        <tr>
-          <td>{{course.course_id}}</td>
-          <td>{{course.name}}</td>
-          <td>{{course.status}}</td>
-          <ng-container *ngIf="course.is_registered; else notRegistered">
-            <td>Registered</td>
-          </ng-container>
-          <ng-template #notRegistered>
-            <td>Not Registered</td>
-          </ng-template>
-          <td>
-            <a class="btn btn-primary" *ngIf="hasViewPermission(course.course_id)"
-               routerLink="course/{{course.course_id}}">Open</a>
-            <a class="btn btn-primary" *ngIf="!course.is_registered"
-               routerLink="register/{{course.course_id}}">Register</a>
-          </td>
-        </tr>
+    <table mat-table [dataSource]="courseList" matSort class="mat-elevation-z8">
+
+      <!-- Index Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
-      </tbody>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <!-- Status Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Course Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+
+      <!-- Registered Column -->
+      <ng-container matColumnDef="is_registered">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Registration Status </th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngIf="element.is_registered; else notRegistered">Registered</ng-container>
+          <ng-template #notRegistered>Not Registered</ng-template>
+        </td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">
+          <a class="btn btn-primary" *ngIf="hasViewPermission(element.id)"
+             routerLink="{{element.id}}">Open</a>
+          <a class="btn btn-primary" *ngIf="!element.is_registered"
+             routerLink="/register/{{element.id}}">Register</a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
 </div>
+
