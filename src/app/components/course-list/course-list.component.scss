@@ -27,7 +27,9 @@ tbody tr,
 tbody td {
   height: 7rem;
 }
-
+table{
+  width: 100%;
+}
 table td {
   text-align: center;
 }
@@ -35,7 +37,6 @@ table td {
 tbody tr {
   cursor: pointer;
 }
-
 
 .heavy-indent {
   padding-left: 2.5rem;
