@@ -21,6 +21,18 @@ import { UserStatsComponent } from './components/user-stats/user-stats.component
 import { TokenValuesComponent } from './components/token-values/token-values.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { RecentUserActionsComponent } from './components/homepage/recent-user-actions/recent-user-actions.component';
+import { UserActionsComponent } from './components/homepage/user-actions/user-actions.component';
+import { RecentViewedQuestionsComponent } from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
+import { CourseDashboardComponent } from './components/homepage/course-dashboard/course-dashboard.component';
+import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
+import { RegisterComponent } from './components/accounts/register/register.component';
+import { ProfileDetailsComponent } from './components/accounts/profile-details/profile-details.component';
+import { ResetPasswordComponent } from './components/accounts/reset-password/reset-password.component';
+import { ConsentFormComponent } from './components/accounts/consent-form/consent-form.component';
+import { TermsAndConditionsSnippetComponent } from './components/accounts/terms-and-conditions-snippet/terms-and-conditions-snippet.component';
+import { FaqComponent } from './components/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +47,18 @@ import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
     UserStatsComponent,
     LoginComponent,
     TokenValuesComponent,
+    FaqComponent,
+    HomepageComponent,
+    RecentUserActionsComponent,
+    UserActionsComponent,
+    RecentViewedQuestionsComponent,
+    CourseDashboardComponent,
+    InactiveCoursesComponent,
+    RegisterComponent,
+    ProfileDetailsComponent,
+    ResetPasswordComponent,
+    ConsentFormComponent,
+    TermsAndConditionsSnippetComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,16 @@
+.fixed-top {
+  position: relative !important;
+}
+
+nav {
+  height: 5rem;
+
+  .navbar-brand {
+    padding: 1rem 0;
+
+    .nav-item {
+      color: white;
+    }
+  }
+}
+

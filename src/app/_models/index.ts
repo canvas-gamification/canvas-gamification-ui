@@ -4,3 +4,6 @@ export * from './multiple_choice_question';
 export * from './question';
 export * from './user_stats';
 export * from './token_value';
+export * from './uqj';
+export * from './action';
+export * from './course';
