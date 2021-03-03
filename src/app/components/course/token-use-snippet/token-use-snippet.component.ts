@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {TokenUseOption} from '@app/_models';
 
 @Component({
   selector: 'app-token-use-snippet',
@@ -6,6 +7,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./token-use-snippet.component.scss']
 })
 export class TokenUseSnippetComponent implements OnInit {
+  @Input() tokenUseOptions: TokenUseOption[];
   courseReg = {
     total_tokens_received: 55.555,
     available_tokens: 75.9183,
