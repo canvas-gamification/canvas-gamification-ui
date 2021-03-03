@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MessagesComponent } from './components/messages/messages.component';
@@ -19,6 +18,7 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ConceptMapComponent } from './components/concept-map/concept-map.component';
 import { UserStatsComponent } from './components/user-stats/user-stats.component';
+import { TokenValuesComponent } from './components/token-values/token-values.component';
 import { LoginComponent } from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 import { HomepageComponent } from './components/homepage/homepage.component';
@@ -46,6 +46,7 @@ import { FaqComponent } from './components/faq/faq.component';
     ConceptMapComponent,
     UserStatsComponent,
     LoginComponent,
+    TokenValuesComponent,
     FaqComponent,
     HomepageComponent,
     RecentUserActionsComponent,

@@ -5,6 +5,7 @@ import {LandingPageComponent} from './components/landing-page/landing-page.compo
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
 import {TopicsComponent} from './components/topics/topics.component';
 import {ConceptMapComponent} from './components/concept-map/concept-map.component';
+import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
@@ -39,6 +40,10 @@ const routes: Routes = [
     path: 'concept-map',
     component: ConceptMapComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'token-values',
+    component: TokenValuesComponent
   },
   {
     path: 'user-stats',
