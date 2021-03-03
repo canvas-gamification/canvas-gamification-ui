@@ -25,8 +25,7 @@
             </ng-template>
             <td>
                 <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
-                    <!--Fill in this href later-->
-                    <a class="btn btn-primary" href="#">{{ getEventButtonText(event) }}</a>
+                    <a class="btn btn-primary" href="{% url 'canvas:event_problem_set' event.id %}">{{ getEventButtonText(event) }}</a>
                 </ng-container>
                 <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
                     <button class="btn btn-outline-info" href="www.google.com" disabled>{{ getEventButtonText(event) }}</button>
