@@ -9,4 +9,10 @@ export interface UQJ {
   is_solved: boolean;
   is_partially_solved: boolean;
   question: Question;
+  num_attempts: number;
+  format: string;
+  category: null;
+  subcategory: string;
+  status: string;
+  formatted_current_tokens_received: string;
 }
