@@ -9,10 +9,10 @@
 </header>
 <main class="page-content m-3">
   <div class="container-fluid">
-    <form>
+    <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
     <div class="form-row m-3">
       <label for="questionName">Question Name:</label>
-      <input class="form-control" formControlName="questionName" type="text" id="questionName">
+      <input class="form-control" formControlName="title" type="text" id="questionName">
     </div>
       <div class="form-row m-3">
         <label for="difficulty">Difficulty</label>
@@ -30,31 +30,33 @@
       </div>
       <div class="form-row m-3">
         <label for="course">Course:</label>
-        <select class="form-control" formControlName="course" id="course">
+        <select class="form-control" formControlName="course_name" id="course">
           <option value="...">...</option>
         </select>
       </div>
       <div class="form-row m-3">
         <label for="event">Event Name:</label>
-        <select class="form-control" formControlName="event" id="event">
+        <select class="form-control" formControlName="event_name" id="event">
           <option value="...">...</option>
         </select>
       </div>
       <div class="form-row m-3">
         <label for="question">Question:</label>
-        <textarea class="form-control" formControlName="question" id="question"></textarea>
+        <textarea class="form-control" formControlName="text" id="question"></textarea>
       </div>
       <div class="form-row m-3">
         Variables:
       </div>
-      <div class="form-row m-3">
-        <label for="correctAnswer">Correct Answer:</label>
-        <textarea class="form-control" formControlName="correctAnswer" id="correctAnswer"></textarea>
-      </div>
+<!--      <div class="form-row m-3">-->
+<!--        <label for="correctAnswer">Correct Answer:</label>-->
+<!--        <textarea class="form-control" formControlName="correctAnswer" id="correctAnswer"></textarea>-->
+<!--      </div>-->
       <div class="form-row m-3">
         Distract Answers
       </div>
-      <button class="btn btn-primary">Submit</button>
+      <div class="form-row m-3">
+        <button class="btn btn-primary">Submit</button>
+      </div>
     </form>
   </div>
 </main>

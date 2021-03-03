@@ -4,13 +4,14 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Question} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
-  private questionServiceUrl = new URL('/api/questions', environment.apiBaseUrl).toString();
-
+  private questionServiceUrl = new URL('/api/questions/', environment.apiBaseUrl).toString();
+  private multipleChoiceQuestionUrl = new URL('/api/multiple-choice-question/', environment.apiBaseUrl).toString();
   constructor(private http: HttpClient) {
   }
 
@@ -21,5 +22,24 @@ export class QuestionService {
       .set('page_size', page_size);
 
     return this.http.get<PaginatedResult<Question>>(this.questionServiceUrl, {params});
+  }
+
+  getQuestion(id: number): Observable<Question> {
+    return this.http.get<Question>(this.multipleChoiceQuestionUrl + id + '/');
+  }
+
+  putQuestion(input: any, id: number) {
+    return this.http.put(this.multipleChoiceQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
+      map(
+        (response) => {
+          if (response) {
+            return response;
+          }
+        },
+        (error: any) => {
+          return error;
+        }
+      )
+    );
   }
 }

@@ -61,12 +61,12 @@ const routes: Routes = [
     component: ProblemSetComponent
   },
   {
-    path: 'course/question',
+    path: 'course/question/:id',
     component: ProblemViewComponent
   },
   {
-    path: 'course/edit',
-    component:ProblemEditComponent
+    path: 'course/edit/:id',
+    component: ProblemEditComponent
   }
 ];
 
