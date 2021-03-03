@@ -1,7 +1,7 @@
 <div class="course-list-page container-fluid mt-md-5">
   <div class="mx-auto">
     <h1 class="my-md-2">Course List</h1>
-    <table mat-table [dataSource]="courseList" matSort class="mat-elevation-z8">
+    <table mat-table [dataSource]="courseList" matSort class="table table-lg table-bordered table-hover">
 
       <!-- Index Column -->
       <ng-container matColumnDef="id">
@@ -34,7 +34,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-          <a class="btn btn-primary" *ngIf="hasViewPermission(element.id)"
+          <a class="btn btn-primary mr-3" *ngIf="hasViewPermission(element.id)"
              routerLink="{{element.id}}">Open</a>
           <a class="btn btn-primary" *ngIf="!element.is_registered"
              routerLink="/register/{{element.id}}">Register</a>
