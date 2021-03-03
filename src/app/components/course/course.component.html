@@ -43,7 +43,7 @@
       <ng-container *ngIf="isTeacher()">
         <div class="tab-pane fade" id="problem-set" role="tabpanel" aria-labelledby="problem-set-tab">
           <div class="m-3">
-            <!--          {% include 'canvas/problem_set_snippet.html' %}-->
+            <app-course-question-snippet [questions]="course.question_set"></app-course-question-snippet>
           </div>
         </div>
       </ng-container>
