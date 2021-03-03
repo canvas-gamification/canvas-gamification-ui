@@ -14,7 +14,7 @@
         <td [innerHTML]="action.description"></td>
         <td>{{ formatTokenChange(action.token_change) }}</td>
         <td>{{ action.time_created | date:'LLL. dd, YYYY, hh:MM a' }}</td>
-        <td>{{ action.status }}</td>
+        <td>{{ action.is_verified }}</td>
       </tr>
     </ng-container>
     </tbody>

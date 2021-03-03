@@ -19,16 +19,16 @@
         <div class="form-group col-2">
           <label for="difficulty">Difficulty:</label>
           <select class="form-control" name="difficulty" formControlName="difficulty" id="difficulty">
-            <option value="All">All</option>
+            <option value="">All</option>
             <option value="EASY">EASY</option>
-            <option value="MEDIUM">MEDIUM</option>
+            <option value="NORMAL">MEDIUM</option>
             <option value="HARD">HARD</option>
           </select>
         </div>
         <div class="form-group col-2">
           <label for="category">Category:</label>
           <select class="form-control" name="category" formControlName="category" id="category">
-            <option value="All">All</option>
+            <option value="">All</option>
             <option value="Basics">Basics</option>
             <option value="Pre-Defined Classes">Pre-Defined Classes</option>
             <option value="Conditionals">Conditionals</option>
@@ -39,22 +39,22 @@
           </select>
         </div>
         <div class="form-group col-2">
-          <label for="status">Status:</label>
-          <select class="form-control" name="status" formControlName="status" id="status">
-            <option value="All">All</option>
-            <option value="Solved">Solved</option>
-            <option value="Partially Correct">Partially Correct</option>
-            <option value="Unsolved">Unsolved</option>
-            <option value="Wrong">Wrong</option>
-            <option value="New">New</option>
-          </select>
+<!--          <label for="status">Status:</label>-->
+<!--          <select class="form-control" name="status" formControlName="is_verified" id="status">-->
+<!--            <option value="" selected>All</option>-->
+<!--            <option value="Solved">Solved</option>-->
+<!--            <option value="Partially Correct">Partially Correct</option>-->
+<!--            <option value="Unsolved">Unsolved</option>-->
+<!--            <option value="Wrong">Wrong</option>-->
+<!--            <option value="New">New</option>-->
+<!--          </select>-->
         </div>
         <div class="form-group col-2">
           <label for="sample">Sample:</label>
-          <select class="form-control" name="sample" formControlName="sample" id="sample">
-            <option value="All">All</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+          <select class="form-control" name="sample" formControlName="is_sample" id="sample">
+            <option value="">All</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
         </div>
         <div class="form-group col-1 mt-auto">
@@ -114,7 +114,7 @@
       [length]="questionsLength"
       [pageSize]="pageSize"
       [pageSizeOptions]="pageSizeOptions"
-      (page)="update($event)"
+      (page)="newPageEvent($event)"
     >
     </mat-paginator>
   </div>

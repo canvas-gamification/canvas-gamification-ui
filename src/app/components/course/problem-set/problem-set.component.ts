@@ -18,15 +18,18 @@ export class ProblemSetComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faTrashAlt = faTrashAlt;
   questions: Question[];
-  allQuestions: Question[];
 
   // Pagination
   questionsLength: number;
   pageSize: number;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageEvent: PageEvent;
 
   // Sorting
   sortedData: Question[];
+
+  // Filtering
+  filterQueryString;
 
   constructor(private builder: FormBuilder, private questionService: QuestionService) {
   }
@@ -36,10 +39,10 @@ export class ProblemSetComponent implements OnInit {
 
     this.FormData = this.builder.group({
       query: new FormControl(''),
-      difficulty: new FormControl('All'),
-      category: new FormControl('All'),
-      status: new FormControl('All'),
-      sample: new FormControl('All')
+      difficulty: new FormControl(''),
+      category: new FormControl(''),
+      // status: new FormControl(''),
+      is_sample: new FormControl('')
     });
   }
 
@@ -48,24 +51,41 @@ export class ProblemSetComponent implements OnInit {
       this.questionsLength = paginatedQuestions.count;
       this.pageSize = paginatedQuestions.results.length;
       this.questions = paginatedQuestions.results;
-      this.allQuestions = this.questions;
       this.sortedData = this.questions.slice();
     });
   }
 
-  update(event: PageEvent): void {
-    this.questionService.getQuestions({
-      page: event.pageIndex + 1,
-      page_size: event.pageSize
-    }).subscribe(paginatedQuestions => {
+  newPageEvent(event): void {
+    this.pageEvent = event;
+    this.update();
+  }
+
+  update(): void {
+    let options = {};
+    if (this.pageEvent) {
+      options = {page: this.pageEvent.pageIndex + 1,
+        page_size: this.pageEvent.pageSize,
+        query: this.filterQueryString.query,
+        difficulty: this.filterQueryString.difficulty,
+        category: this.filterQueryString.category,
+        is_sample: this.filterQueryString.is_sample
+      };
+    }
+    else {
+      options = {
+        query: this.filterQueryString.query,
+        difficulty: this.filterQueryString.difficulty,
+        category: this.filterQueryString.category,
+        is_sample: this.filterQueryString.is_sample
+      };
+    }
+    this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
       this.questions = paginatedQuestions.results;
-      this.allQuestions = this.questions;
     });
   }
 
   sortData(sort: Sort) {
     const data = this.questions.slice();
-    console.log(data);
     if (!sort.active || sort.direction === '') {
       this.sortedData = data;
       return;
@@ -96,38 +116,11 @@ export class ProblemSetComponent implements OnInit {
       }
     });
     this.questions = this.sortedData;
-    this.allQuestions = this.questions;
   }
 
   applyFilter(FormData) {
-    const queryFilter = FormData.query.toLowerCase();
-    const difficultyFilter = FormData.difficulty.toLowerCase();
-    const categoryFilter = FormData.category.toLowerCase();
-    const statusFilter = FormData.status.toLowerCase();
-    let sampleFilter = FormData.sample.toLowerCase();
-    this.questions = this.allQuestions;
-
-    if (queryFilter !== '') {
-      this.questions = this.questions.filter((question) => question.title.toLowerCase().includes(queryFilter));
-    }
-    if (difficultyFilter !== 'all') {
-      this.questions = this.questions.filter((question) => question.difficulty.toLowerCase().includes(difficultyFilter));
-    }
-    if (categoryFilter !== 'all') {
-      this.questions = this.questions.filter((question) => question.parent_category_name.toLowerCase().includes(categoryFilter));
-    }
-    // if (statusFilter !== 'all') {
-    //   this.question = this.questions.filter((question) => question.status.includes(statusFilter));
-    // }
-    if (sampleFilter !== 'all') {
-      if (sampleFilter === 'yes') {
-        sampleFilter = true;
-      }
-      else {
-        sampleFilter = false;
-      }
-      this.questions = this.questions.filter((question) => question.is_sample.valueOf() === sampleFilter);
-    }
+    this.filterQueryString = FormData;
+    this.update();
   }
 }
 
