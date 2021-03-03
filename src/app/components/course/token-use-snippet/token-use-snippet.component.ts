@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TokenUseOption} from '@app/_models';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-token-use-snippet',
@@ -8,6 +9,9 @@ import {TokenUseOption} from '@app/_models';
 })
 export class TokenUseSnippetComponent implements OnInit {
   @Input() tokenUseOptions: TokenUseOption[];
+
+  tokenActions = {}
+
   courseReg = {
     total_tokens_received: 55.555,
     available_tokens: 75.9183,
@@ -25,11 +29,16 @@ export class TokenUseSnippetComponent implements OnInit {
     ]
   };
 
+  faMinus = faMinus;
+  faPlus = faPlus;
+
   constructor() {
   }
 
   ngOnInit(): void {
+    this.tokenUseOptions.forEach(token_use => this.tokenActions[token_use.id] = 0);
   }
+
 
   formatFloat(value: number, fractionDigits: number): string {
     return value.toFixed(fractionDigits);
@@ -41,6 +50,14 @@ export class TokenUseSnippetComponent implements OnInit {
 
   unuseTokensOption(id) {
     return true;
+  }
+
+  incrementAction(){
+
+  }
+
+  decrementAction(){
+
   }
 
 }

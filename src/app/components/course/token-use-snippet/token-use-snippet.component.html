@@ -23,24 +23,11 @@
           <td>{{ option.points_given }}</td>
           <td>{{ option.maximum_number_of_use }}</td>
           <td>
-            <div style="white-space: nowrap; display: flex">
-              <div class="action-icon mr-2" style="background-color: #dc3545;">
-                        <span (click)="unuseTokensOption(option.id)">
-                            <i class="fa fa-minus button-icon"></i>
-                        </span>
-              </div>
-              <div style="display: inline-block">
-                <!--            value="{{ token_use.num_used }}"-->
-                <input class="no-spin-button token-input" name="token_use#{{ option.id }}"
-                       id="use_tokens_input_{{ option.id }}"
-                       type="number" placeholder="0" max="{{ option.maximum_number_of_use }}"/>
-              </div>
-              <div class="action-icon ml-2" style="background-color: #28a745;">
-                        <span (click)="useTokensOption(option.id)">
-                            <i class="fa fa-plus button-icon"></i>
-                        </span>
-              </div>
-            </div>
+            <span class="bg-danger action-buttons fa-minus"><fa-icon [icon]=faMinus class="fa button-icon fa-minus"></fa-icon></span>
+            <!--<input class="no-spin-button token-input" name="token_use#{{ option.id }}"
+                                   [attr.id]="'#TokenUseAction' + option.id"
+                                   type="number" placeholder="0" max="{{ token_use.option.maximum_number_of_use }}"> -->
+            <span class="bg-success action-buttons fa-plus"> <fa-icon [icon]=faPlus class="fa button-icon fa-plus"></fa-icon></span>
           </td>
         </tr>
       </ng-container>
