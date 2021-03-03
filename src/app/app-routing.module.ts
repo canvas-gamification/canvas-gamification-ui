@@ -8,6 +8,10 @@ import {ConceptMapComponent} from './components/concept-map/concept-map.componen
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
+import {RegisterComponent} from './components/accounts/register/register.component';
+import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
+import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
+import {ConsentFormComponent} from '@app/components/accounts/consent-form/consent-form.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
@@ -56,6 +60,25 @@ const routes: Routes = [
   {
     path: 'faq',
     component: FaqComponent
+  },
+  {
+    path: 'accounts/register',
+    component: RegisterComponent
+  },
+  {
+    path: 'accounts/profile',
+    component: ProfileDetailsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'accounts/reset-password',
+    component: ResetPasswordComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'accounts/consent-form',
+    component: ConsentFormComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

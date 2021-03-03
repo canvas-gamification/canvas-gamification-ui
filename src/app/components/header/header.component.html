@@ -28,7 +28,7 @@
       <ng-container *ngIf="isLoggedIn(); else notLoggedIn">
           <span class="navbar-text mx-2 float-md-right">
             <ng-container *ngIf="hasCompleteProfile(); else incompleteProfile">
-                Hello, {{ user.firstName }}
+                Hello, {{ user.first_name }}
             </ng-container>
             <ng-template #incompleteProfile>
                 Hello, {{ user.username }}
@@ -76,7 +76,7 @@
           <button class="btn btn-outline-success float-right" type="button" routerLink="accounts/login">
             Login
           </button>
-          <button class="btn btn-success ml-2 float-right" type="button"  routerLink="accounts/signup">
+          <button class="btn btn-success ml-2 float-right" type="button"  routerLink="accounts/register">
             Sign Up
           </button>
         </form>

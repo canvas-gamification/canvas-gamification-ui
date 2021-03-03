@@ -27,6 +27,11 @@ import { UserActionsComponent } from './components/homepage/user-actions/user-ac
 import { RecentViewedQuestionsComponent } from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
 import { CourseDashboardComponent } from './components/homepage/course-dashboard/course-dashboard.component';
 import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
+import { RegisterComponent } from './components/accounts/register/register.component';
+import { ProfileDetailsComponent } from './components/accounts/profile-details/profile-details.component';
+import { ResetPasswordComponent } from './components/accounts/reset-password/reset-password.component';
+import { ConsentFormComponent } from './components/accounts/consent-form/consent-form.component';
+import { TermsAndConditionsSnippetComponent } from './components/accounts/terms-and-conditions-snippet/terms-and-conditions-snippet.component';
 import { FaqComponent } from './components/faq/faq.component';
 
 @NgModule({
@@ -48,6 +53,11 @@ import { FaqComponent } from './components/faq/faq.component';
     RecentViewedQuestionsComponent,
     CourseDashboardComponent,
     InactiveCoursesComponent,
+    RegisterComponent,
+    ProfileDetailsComponent,
+    ResetPasswordComponent,
+    ConsentFormComponent,
+    TermsAndConditionsSnippetComponent,
   ],
   imports: [
     BrowserModule,
