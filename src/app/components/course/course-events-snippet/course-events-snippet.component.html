@@ -20,19 +20,14 @@
             <td>{{ event.end_date }}</td>
             <td *ngIf="isExamAndOpen(event); else totalEventGrade" >Not Available Yet</td>
             <ng-template #totalEventGrade>
-                <td>{{"uhhhhh"}}</td>
-                <!-- event|total_event_grade:request.user -->
+                <td>{{"This will be total event grade"}}</td>
+                <!-- Not sure how to calculate this better yet -->
             </ng-template>
             <td>
-                <!--
-                {% is_allowed_to_open_event event request.user as allowed_to_open %}
-                {% is_allowed_to_edit_event  event request.user as allowed_to_edit %}
-                {% event_button_text event request.user as event_btn_text %}
-                -->
                 <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
                     <a class="btn btn-primary" href="{% url 'canvas:event_problem_set' event.id %}">{{ getEventButtonText(event) }}</a>
                 </ng-container>
-                <ng-template #notAllowedOpen>
+                <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
                     <button class="btn btn-outline-info" href="www.google.com" disabled>{{ getEventButtonText(event) }}</button>
                 </ng-template>
                 <a *ngIf="event.has_edit_permission" class="btn btn-primary" href="{% url 'canvas:edit-event' event.id %}">Edit</a>
