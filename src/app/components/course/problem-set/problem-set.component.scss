@@ -11,47 +11,32 @@ td, th {
   border: 1px solid #dee2e6;
 }
 
-.action-icon #faEye {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  font-size: 1.5rem;
+a {
+  margin: auto;
   text-align: center;
-  padding: 0;
-  border-radius: 5px;
-  background-color: #007bff;
+  vertical-align: middle;
+
+  #faEye {
+    color: white;
+    background-color: #007bff;
+  }
+
+  #faPencilAlt {
+    color: black;
+    background-color: antiquewhite;
+  }
+
+  #faTrashAlt {
+    color: white;
+    background-color: #dc3545;
+  }
 }
 
-.action-icon #faPencilAlt {
+.action-icon {
+  line-height: 1.25rem;
   display: inline-block;
-  width: 40px;
-  height: 40px;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   text-align: center;
-  padding: 0;
+  padding: 0.55rem;
   border-radius: 5px;
-  background-color: antiquewhite;
-}
-
-.action-icon #faTrashAlt {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  font-size: 1.5rem;
-  text-align: center;
-  padding: 0;
-  border-radius: 5px;
-  background-color: #dc3545;
-}
-
-#faEye, #faTrashAlt {
-  color: white;
-  text-decoration: none;
-  background-color: transparent;
-}
-
-#faPencilAlt {
-  color: black;
-  text-decoration: none;
-  background-color: transparent;
 }
