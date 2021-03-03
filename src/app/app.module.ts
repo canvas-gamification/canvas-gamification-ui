@@ -37,6 +37,7 @@ import { CourseComponent } from './components/course/course.component';
 import { CourseEventsSnippetComponent } from './components/course/course-events-snippet/course-events-snippet.component';
 import { TokenUseSnippetComponent } from './components/course/token-use-snippet/token-use-snippet.component';
 import { ProgressBarComponent } from './components/course/progress-bar/progress-bar.component';
+import { CourseQuestionSnippetComponent } from './components/course/course-question-snippet/course-question-snippet.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ProgressBarComponent } from './components/course/progress-bar/progress-
     CourseEventsSnippetComponent,
     TokenUseSnippetComponent,
     ProgressBarComponent,
+    CourseQuestionSnippetComponent,
   ],
   imports: [
     BrowserModule,
