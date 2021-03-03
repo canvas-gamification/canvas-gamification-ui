@@ -14,34 +14,36 @@
     </tr>
     </thead>
     <tbody>
-    <ng-container *ngFor="let token_use of courseReg.get_token_uses; index as i">
-    <tr>
-      <td>{{ i }}</td>
-      <td>{{ token_use.option.assignment_name }}</td>
-      <td id="req_tokens_{{ token_use.option.id }}">{{ token_use.option.tokens_required }}</td>
-      <td>{{ token_use.option.points_given }}</td>
-      <td>{{ token_use.option.maximum_number_of_use }}</td>
-      <td>
-        <div style="white-space: nowrap; display: flex">
-          <div class="action-icon mr-2" style="background-color: #dc3545;">
-                        <span (click)="unuseTokensOption(token_use.option.id)">
+    <ng-container *ngIf="tokenUseOptions">
+      <ng-container *ngFor="let option of tokenUseOptions; index as i">
+        <tr>
+          <td>{{ i+1 }}</td>
+          <td>{{ option.assignment_name }}</td>
+          <td id="req_tokens_{{ option.id }}">{{ option.tokens_required }}</td>
+          <td>{{ option.points_given }}</td>
+          <td>{{ option.maximum_number_of_use }}</td>
+          <td>
+            <div style="white-space: nowrap; display: flex">
+              <div class="action-icon mr-2" style="background-color: #dc3545;">
+                        <span (click)="unuseTokensOption(option.id)">
                             <i class="fa fa-minus button-icon"></i>
                         </span>
-          </div>
-          <div style="display: inline-block">
-            <input class="no-spin-button token-input" name="token_use#{{ token_use.option.id }}"
-                   id="use_tokens_input_{{ token_use.option.id }}"
-                   value="{{ token_use.num_used }}"
-                   type="number" placeholder="0" max="{{ token_use.option.maximum_number_of_use }}">
-          </div>
-          <div class="action-icon ml-2" style="background-color: #28a745;">
-                        <span (click)="useTokensOption(token_use.option.id)">
+              </div>
+              <div style="display: inline-block">
+                <!--            value="{{ token_use.num_used }}"-->
+                <input class="no-spin-button token-input" name="token_use#{{ option.id }}"
+                       id="use_tokens_input_{{ option.id }}"
+                       type="number" placeholder="0" max="{{ option.maximum_number_of_use }}"/>
+              </div>
+              <div class="action-icon ml-2" style="background-color: #28a745;">
+                        <span (click)="useTokensOption(option.id)">
                             <i class="fa fa-plus button-icon"></i>
                         </span>
-          </div>
-        </div>
-      </td>
-    </tr>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
     </ng-container>
     </tbody>
   </table>
