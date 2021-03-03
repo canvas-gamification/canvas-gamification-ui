@@ -32,6 +32,7 @@ import { ProfileDetailsComponent } from './components/accounts/profile-details/p
 import { ResetPasswordComponent } from './components/accounts/reset-password/reset-password.component';
 import { ConsentFormComponent } from './components/accounts/consent-form/consent-form.component';
 import { TermsAndConditionsSnippetComponent } from './components/accounts/terms-and-conditions-snippet/terms-and-conditions-snippet.component';
+import { FaqComponent } from './components/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { TermsAndConditionsSnippetComponent } from './components/accounts/terms-
     ConceptMapComponent,
     UserStatsComponent,
     LoginComponent,
+    FaqComponent,
     HomepageComponent,
     RecentUserActionsComponent,
     UserActionsComponent,

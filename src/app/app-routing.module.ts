@@ -12,7 +12,7 @@ import {RegisterComponent} from './components/accounts/register/register.compone
 import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
 import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
 import {ConsentFormComponent} from '@app/components/accounts/consent-form/consent-form.component';
-
+import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 
@@ -51,11 +51,15 @@ const routes: Routes = [
   {
     path: 'homepage',
     component: HomepageComponent,
-    canActivate: [ AuthGuard ]
+    canActivate: [AuthGuard]
   },
   {
     path: 'actions',
     component: UserActionsComponent
+  },
+  {
+    path: 'faq',
+    component: FaqComponent
   },
   {
     path: 'accounts/register',
