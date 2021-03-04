@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,9 +13,7 @@ export class HeaderComponent implements OnInit {
   path: string;
   logoPath = 'assets/global/logo.jpg';
 
-  constructor(
-    private authenticationService: AuthenticationService,
-  ) {
+  constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute) {
     this.user = this.authenticationService.currentUserValue;
   }
 
@@ -23,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authenticationService.logout();
-    // TODO: redirect user to main page
+    this.router.navigate(['../../'], {relativeTo: this.route});
   }
 
   isLoggedIn() {

@@ -5,11 +5,17 @@ import {LandingPageComponent} from './components/landing-page/landing-page.compo
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
 import {TopicsComponent} from './components/topics/topics.component';
 import {ConceptMapComponent} from './components/concept-map/concept-map.component';
+import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
 import {ProblemSetComponent} from '@app/components/course/problem-set/problem-set.component';
 
+import {RegisterComponent} from './components/accounts/register/register.component';
+import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
+import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
+import {ConsentFormComponent} from '@app/components/accounts/consent-form/consent-form.component';
+import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 
@@ -38,6 +44,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'token-values',
+    component: TokenValuesComponent
+  },
+  {
     path: 'user-stats',
     component: UserStatsComponent
   },
@@ -48,7 +58,7 @@ const routes: Routes = [
   {
     path: 'homepage',
     component: HomepageComponent,
-    canActivate: [ AuthGuard ]
+    canActivate: [AuthGuard]
   },
   {
     path: 'actions',
@@ -57,6 +67,29 @@ const routes: Routes = [
   {
     path: 'course/problem-set',
     component: ProblemSetComponent
+  },
+  {
+    path: 'faq',
+    component: FaqComponent
+  },
+  {
+    path: 'accounts/register',
+    component: RegisterComponent
+  },
+  {
+    path: 'accounts/profile',
+    component: ProfileDetailsComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'accounts/reset-password',
+    component: ResetPasswordComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'accounts/consent-form',
+    component: ConsentFormComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
