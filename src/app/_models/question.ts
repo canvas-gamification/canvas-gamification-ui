@@ -23,5 +23,5 @@ export interface Question {
   course_name: string;
   event_name: string;
   author_name: string;
-  choices: {};
+  choices: Map<string, string>;
 }

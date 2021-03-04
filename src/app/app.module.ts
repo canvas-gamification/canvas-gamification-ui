@@ -31,6 +31,8 @@ import { ProblemSetComponent } from './components/course/problem-set/problem-set
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { ProblemViewComponent } from './components/course/problem-view/problem-view.component';
 import { ProblemEditComponent } from './components/course/problem-edit/problem-edit.component';
+import {CommonModule} from '@angular/common';
+import { ProblemDeleteComponent } from './components/course/problem-delete/problem-delete.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { ProblemEditComponent } from './components/course/problem-edit/problem-e
     InactiveCoursesComponent,
     ProblemViewComponent,
     ProblemEditComponent,
+    ProblemDeleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ import { ProblemEditComponent } from './components/course/problem-edit/problem-e
     FontAwesomeModule,
     FormsModule,
     MatPaginatorModule,
+    CommonModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

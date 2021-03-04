@@ -17,7 +17,10 @@ export class ProblemEditComponent implements OnInit {
   userId: number;
   QuestionDetails: Question;
 
-  constructor(private route: ActivatedRoute, private questionService: QuestionService, private formBuilder: FormBuilder, private messageService: MessageService) {
+  constructor(private route: ActivatedRoute,
+              private questionService: QuestionService,
+              private formBuilder: FormBuilder,
+              private messageService: MessageService) {
   }
 
   ngOnInit(): void {
@@ -34,7 +37,7 @@ export class ProblemEditComponent implements OnInit {
     this.routeSub = this.route.params.subscribe(params => {
       this.userId = params.id;
     });
-    this.questionService.getQuestion(this.userId).subscribe((details: Question) => {
+    this.questionService.getMultipleChoiceQuestion(this.userId).subscribe((details: Question) => {
       this.QuestionDetails = details;
       this.FormData.controls.title.setValue(this.QuestionDetails.title);
       this.FormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);

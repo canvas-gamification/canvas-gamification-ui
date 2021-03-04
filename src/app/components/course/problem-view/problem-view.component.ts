@@ -12,9 +12,10 @@ import {Question} from '@app/_models';
 export class ProblemViewComponent implements OnInit {
   private routeSub: Subscription;
   userId: number;
+  MultipleChoiceQuestionDetails: Question;
   QuestionDetails: Question;
-  choices: Array<any>;
-
+  choices = new Map<string, string>();
+  keys: string[];
   constructor(private route: ActivatedRoute, private questionService: QuestionService) {
   }
 
@@ -22,9 +23,13 @@ export class ProblemViewComponent implements OnInit {
     this.routeSub = this.route.params.subscribe(params => {
       this.userId = params.id;
     });
-    this.questionService.getQuestion(this.userId).subscribe((details: Question) => {
+    this.questionService.getMultipleChoiceQuestion(this.userId).subscribe((details: Question) => {
+      this.MultipleChoiceQuestionDetails = details;
+      this.keys = Array.from(this.MultipleChoiceQuestionDetails.choices.keys());
+      console.log(this.keys);
+    });
+    this.questionService.getQuestion(this.userId).subscribe((details) => {
       this.QuestionDetails = details;
     });
   }
-
 }

@@ -14,6 +14,7 @@ import {HomepageComponent} from './components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 import {ProblemViewComponent} from '@app/components/course/problem-view/problem-view.component';
 import {ProblemEditComponent} from '@app/components/course/problem-edit/problem-edit.component';
+import {ProblemDeleteComponent} from '@app/components/course/problem-delete/problem-delete.component';
 
 
 const routes: Routes = [
@@ -58,15 +59,23 @@ const routes: Routes = [
   },
   {
     path: 'course/problem-set',
-    component: ProblemSetComponent
+    component: ProblemSetComponent,
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'course/question/:id',
-    component: ProblemViewComponent
+    component: ProblemViewComponent,
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'course/edit/:id',
-    component: ProblemEditComponent
+    component: ProblemEditComponent,
+    canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'course/delete/:id',
+    component: ProblemDeleteComponent,
+    canActivate: [ AuthGuard ]
   }
 ];
 

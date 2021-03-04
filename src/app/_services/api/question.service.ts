@@ -12,6 +12,7 @@ import {map} from 'rxjs/operators';
 export class QuestionService {
   private questionServiceUrl = new URL('/api/questions/', environment.apiBaseUrl).toString();
   private multipleChoiceQuestionUrl = new URL('/api/multiple-choice-question/', environment.apiBaseUrl).toString();
+
   constructor(private http: HttpClient) {
   }
 
@@ -25,7 +26,26 @@ export class QuestionService {
   }
 
   getQuestion(id: number): Observable<Question> {
+    return this.http.get<Question>(this.questionServiceUrl + id + '/');
+  }
+
+  getMultipleChoiceQuestion(id: number): Observable<Question> {
     return this.http.get<Question>(this.multipleChoiceQuestionUrl + id + '/');
+  }
+
+  deleteQuestion(id: number) {
+    return this.http.delete(this.questionServiceUrl + id + '/', {responseType: 'text'}).pipe(
+      map(
+        (response) => {
+          if (response) {
+            return response;
+          }
+        },
+        (error: any) => {
+          return error;
+        }
+      )
+    );
   }
 
   putQuestion(input: any, id: number) {

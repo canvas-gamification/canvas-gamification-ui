@@ -20,19 +20,19 @@
       </thead>
       <tbody>
       <tr>
+        <td scope="col">{{QuestionDetails?.parent_category_name}} :: {{QuestionDetails?.category_name}}</td>
+        <td scope="col">{{QuestionDetails?.token_value}}</td>
         <td scope="col">Not in API</td>
-        <td scope="col">Not in API</td>
-        <td scope="col">Not in API</td>
-        <td scope="col">{{QuestionDetails?.max_submission_allowed}}</td>
+        <td scope="col">{{MultipleChoiceQuestionDetails?.max_submission_allowed}}</td>
       </tr>
       </tbody>
     </table>
     <div class="card my-1">
       <div class="card-header">
-        <h1>{{QuestionDetails?.title}}</h1>
+        <h1>{{MultipleChoiceQuestionDetails?.title}}</h1>
       </div>
       <div class="card-body">
-        {{QuestionDetails?.text}}
+        {{MultipleChoiceQuestionDetails?.text}}
       </div>
     </div>
     <div class="card my-1">
@@ -40,9 +40,9 @@
         <h1>Possible Answers</h1>
       </div>
       <div class="card-body">
-        <li *ngFor="let choice of choices">
-          {{choice}}
-        </li>
+        <ul *ngFor="let key of keys">
+          <li>{{key}}: {{choices[key]}}</li>
+        </ul>
         <button class="btn btn-primary">Submit</button>
       </div>
     </div>
