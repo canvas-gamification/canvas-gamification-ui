@@ -15,11 +15,11 @@ export class QuestionService {
   }
 
   getQuestions(options?): Observable<PaginatedResult<Question>> {
-    const {page = 1, page_size = 50, query = '', category = '', difficulty = '', is_sample = ''} = options ? options : {};
+    const {page = 1, page_size = 50, search = '', category = '', difficulty = '', is_sample = ''} = options ? options : {};
     const params = new HttpParams()
       .set('page', page)
       .set('page_size', page_size)
-      .set('query', query)
+      .set('search', search)
       .set('category', category)
       .set('difficulty', difficulty)
       .set('is_sample', is_sample);

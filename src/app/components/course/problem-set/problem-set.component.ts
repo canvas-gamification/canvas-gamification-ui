@@ -31,6 +31,9 @@ export class ProblemSetComponent implements OnInit {
   // Filtering
   filterQueryString;
 
+  // Status Filter Currently Disabled
+  Disabled = 'Disabled';
+
   constructor(private builder: FormBuilder, private questionService: QuestionService) {
   }
 
@@ -38,7 +41,7 @@ export class ProblemSetComponent implements OnInit {
     this.initialize();
 
     this.FormData = this.builder.group({
-      query: new FormControl(''),
+      search: new FormControl(''),
       difficulty: new FormControl(''),
       category: new FormControl(''),
       // status: new FormControl(''),
@@ -61,11 +64,11 @@ export class ProblemSetComponent implements OnInit {
   }
 
   update(): void {
-    let options = {};
+    let options: {};
     if (this.pageEvent) {
       options = {page: this.pageEvent.pageIndex + 1,
         page_size: this.pageEvent.pageSize,
-        query: this.filterQueryString.query,
+        search: this.filterQueryString.search,
         difficulty: this.filterQueryString.difficulty,
         category: this.filterQueryString.category,
         is_sample: this.filterQueryString.is_sample
@@ -73,7 +76,7 @@ export class ProblemSetComponent implements OnInit {
     }
     else {
       options = {
-        query: this.filterQueryString.query,
+        search: this.filterQueryString.search,
         difficulty: this.filterQueryString.difficulty,
         category: this.filterQueryString.category,
         is_sample: this.filterQueryString.is_sample
