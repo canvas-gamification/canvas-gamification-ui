@@ -17,7 +17,7 @@ export class CourseDashboardComponent implements OnInit {
       .getCourses({registered: true})
       ?.subscribe((courses) => {
         this.activeCourses = courses.filter(course => {
-          return course.is_verified === STATUS.active;
+          return course.status === STATUS.active;
         });
       });
   }

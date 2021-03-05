@@ -17,7 +17,7 @@ export class InactiveCoursesComponent implements OnInit {
       .getCourses({registered: true})
       ?.subscribe((courses) => {
         this.inactiveCourses = courses.filter(course => {
-          return course.is_verified !== STATUS.active;
+          return course.status !== STATUS.active;
         });
       });
   }
