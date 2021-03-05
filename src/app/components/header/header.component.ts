@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,10 +13,8 @@ export class HeaderComponent implements OnInit {
   path: string;
   logoPath = 'assets/global/logo.jpg';
 
-  constructor(
-    private authenticationService: AuthenticationService,
-  ) {
-    this.user = this.authenticationService.currentUserValue;
+  constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute) {
+    this.authenticationService.currentUser.subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
@@ -23,11 +22,11 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.authenticationService.logout();
-    // TODO: redirect user to main page
+    this.router.navigate(['../../'], {relativeTo: this.route});
   }
 
   isLoggedIn() {
-    return !!this.authenticationService.currentUserValue;
+    return !!this.user;
   }
 
   isActive(navLink) {
@@ -35,22 +34,18 @@ export class HeaderComponent implements OnInit {
   }
 
   isTeacher() {
-    // TODO: is this user a teacher?
-    return true;
+    return this.user.is_teacher;
   }
 
   hasCompleteProfile() {
-    // TODO: does this user have a saved firstName, i.e. is their profile complete
-    return true;
+    return !!this.user.first_name;
   }
 
   getUserTokens() {
-    // TODO: retrieve the number of tokens this user has
-    return 220;
+    return this.user.tokens;
   }
 
   isAdmin() {
-    // TODO: is this user an admin? or staff?
-    return true;
+    return this.user.is_teacher;
   }
 }

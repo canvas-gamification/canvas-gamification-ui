@@ -1,0 +1,16 @@
+<div class="container">
+    <ng-container *ngFor="let faq of faqs; index as i">
+        <div class="card">
+            <div class="card-header" [attr.id]="'heading'+i">
+                <h2 class="mb-0" type="button" data-toggle="collapse" [attr.data-target] = "'#FaqAnswer'+i"
+                    aria-expanded="false" [attr.aria-controls]="'FaqAnswer'+i">
+                    {{ faq.question }}
+                </h2>
+            </div>
+            <div [attr.id]="'FaqAnswer'+i" class="collapse multi-collapse" [attr.aria-labelledby]="'heading'+i">
+                <div class="card-body" [innerHTML]="faq.answer"></div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
