@@ -20,7 +20,7 @@ export class QuestionService {
       .set('page', page)
       .set('page_size', page_size)
       .set('search', search)
-      .set('category', category)
+      .set('parent_category_name__exact', category)
       .set('difficulty', difficulty)
       .set('is_sample', is_sample);
 

@@ -5,7 +5,6 @@ import {Question} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
-import {sample} from 'rxjs/operators';
 
 @Component({
   selector: 'app-problem-set',
