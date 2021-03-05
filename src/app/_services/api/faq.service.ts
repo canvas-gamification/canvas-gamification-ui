@@ -11,7 +11,7 @@ import {environment} from '../../../environments/environment';
 })
 export class FaqService {
   private faqsUrl = new URL('/api/faq/', environment.apiBaseUrl).toString();
-  
+
   constructor(
     private http: HttpClient,
     private messageService: MessageService
