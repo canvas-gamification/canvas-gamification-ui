@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   logoPath = 'assets/global/logo.jpg';
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute) {
-    this.user = this.authenticationService.currentUserValue;
+    this.authenticationService.currentUser.subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   isLoggedIn() {
-    return !!this.authenticationService.currentUserValue;
+    return !!this.user;
   }
 
   isActive(navLink) {
@@ -34,22 +34,18 @@ export class HeaderComponent implements OnInit {
   }
 
   isTeacher() {
-    // TODO: is this user a teacher?
-    return true;
+    return this.user.is_teacher;
   }
 
   hasCompleteProfile() {
-    // TODO: does this user have a saved firstName, i.e. is their profile complete
-    return true;
+    return !!this.user.first_name;
   }
 
   getUserTokens() {
-    // TODO: retrieve the number of tokens this user has
-    return 220;
+    return this.user.tokens;
   }
 
   isAdmin() {
-    // TODO: is this user an admin? or staff?
-    return true;
+    return this.user.is_teacher;
   }
 }
