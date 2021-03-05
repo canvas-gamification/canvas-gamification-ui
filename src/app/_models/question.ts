@@ -23,5 +23,6 @@ export interface Question {
   course_name: string;
   event_name: string;
   author_name: string;
-  choices: Map<string, string>;
+  choices: any;
+  variables: [];
 }

@@ -1,90 +1,110 @@
 <header>
-  <div class="container-fluid">
-    <div class="row my-auto">
-      <div class="col m-3">
-        <h1 class="m-0">Question Summary</h1>
-      </div>
+    <div class="container-fluid">
+        <div class="row my-auto">
+            <div class="col m-3">
+                <h1 class="m-0">Question Summary</h1>
+            </div>
+        </div>
     </div>
-  </div>
 </header>
 <main class="page-content m-3">
-  <div class="container-fluid">
-    <table class="table table-hover table-bordered">
-      <thead>
-      <tr>
-        <th scope="col">Category</th>
-        <th scope="col">Tokens Value</th>
-        <th scope="col">Status</th>
-        <th scope="col">Num Attempts</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td scope="col">{{QuestionDetails?.parent_category_name}} :: {{QuestionDetails?.category_name}}</td>
-        <td scope="col">{{QuestionDetails?.token_value}}</td>
-        <td scope="col">Not in API</td>
-        <td scope="col">{{MultipleChoiceQuestionDetails?.max_submission_allowed}}</td>
-      </tr>
-      </tbody>
-    </table>
-    <div class="card my-1">
-      <div class="card-header">
-        <h1>{{MultipleChoiceQuestionDetails?.title}}</h1>
-      </div>
-      <div class="card-body">
-        {{MultipleChoiceQuestionDetails?.text}}
-      </div>
-    </div>
-    <div class="card my-1">
-      <div class="card-header">
-        <h1>Possible Answers</h1>
-      </div>
-      <div class="card-body">
-        <ul *ngFor="let key of keys">
-          <li>{{key}}: {{choices[key]}}</li>
-        </ul>
-        <button class="btn btn-primary">Submit</button>
-      </div>
-    </div>
-    <div class="card my-1">
-      <div class="card-header">
-        <h1>Generated Variables</h1>
-      </div>
-      <div class="card-body">
-        No Variables.
-      </div>
-      <div class="card-footer">
-        No Error Detected.
-      </div>
-    </div>
-    <div class="card my-1">
-      <div class="card-header">
-        <h1>My Past Submissions</h1>
-      </div>
-      <div class="card-body">
+    <div class="container-fluid">
         <table class="table table-hover table-bordered">
-          <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Answer</th>
-            <th scope="col">Grade</th>
-            <th scope="col">Tokens Received</th>
-            <th scope="col">Time Submitted</th>
-            <th scope="col">Status</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td scope="col">1</td>
-            <td scope="col">Used to store data that can be used or modified as needed</td>
-            <td scope="col">1.00</td>
-            <td scope="col">1.0/1.0</td>
-            <td scope="col">Feb. 10, 2021, 12:52 p.m.</td>
-            <td scope="col">Correct</td>
-          </tr>
-          </tbody>
+            <thead>
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Tokens Value</th>
+                <th scope="col">Status</th>
+                <th scope="col">Num Attempts</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td scope="col">{{QuestionDetails?.parent_category_name}} :: {{QuestionDetails?.category_name}}</td>
+                <td scope="col">{{QuestionDetails?.token_value}}</td>
+                <td scope="col">Not in API</td>
+                <td scope="col">{{QuestionDetails?.max_submission_allowed}}</td>
+            </tr>
+            </tbody>
         </table>
-      </div>
+        <div *ngIf="MultipleChoiceQuestionDetails" class="card my-1">
+            <div class="card-header">
+                <h1>{{QuestionDetails?.title}}</h1>
+            </div>
+            <div class="card-body">
+                {{MultipleChoiceQuestionDetails?.text}}
+            </div>
+        </div>
+        <div *ngIf="MultipleChoiceQuestionDetails" class="card my-1">
+            <div class="card-header">
+                <h1>Possible Answers</h1>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-check" *ngFor="let choice of choiceArray">
+                        <input class="form-check-input" name="radio" type="radio" id="answer-{{choice.id}}"
+                               value="{{choice.id}}">
+                        <label class="form-check-label" for="answer-{{choice.id}}">{{choice.value}}</label>
+                    </div>
+                </form>
+                <button class="btn btn-success">Submit</button>
+            </div>
+        </div>
+        <div *ngIf="MultipleChoiceQuestionDetails" class="card my-1">
+            <div class="card-header">
+                <h1>Generated Variables</h1>
+            </div>
+            <div *ngIf="variables; else elseBlock">
+                <div *ngFor="let variable of variables" class="card-body">
+                    <ul>
+                        <li>
+                            Name: {{variable.name}}
+                            <ul>
+                                <li>Type: {{variable.type}}</li>
+                                <li>Min: {{variable.min}}</li>
+                                <li>Max: {{variable.max}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <div class="card-body">
+                    No Variables
+                </div>
+            </ng-template>
+            <div class="card-footer">
+                No Error Detected.
+            </div>
+        </div>
+        <div class="card my-1">
+            <div class="card-header">
+                <h1>My Past Submissions</h1>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Answer</th>
+                        <th scope="col">Grade</th>
+                        <th scope="col">Tokens Received</th>
+                        <th scope="col">Time Submitted</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td scope="col">1</td>
+                        <td scope="col">Used to store data that can be used or modified as needed</td>
+                        <td scope="col">1.00</td>
+                        <td scope="col">1.0/1.0</td>
+                        <td scope="col">Feb. 10, 2021, 12:52 p.m.</td>
+                        <td scope="col">Correct</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-  </div>
 </main>
