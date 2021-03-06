@@ -12,18 +12,18 @@
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
-                <th scope="col">Category</th>
-                <th scope="col">Tokens Value</th>
-                <th scope="col">Status</th>
-                <th scope="col">Num Attempts</th>
+                <th>Category</th>
+                <th>Tokens Value</th>
+                <th>Status</th>
+                <th>Num Attempts</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td scope="col">{{QuestionDetails?.parent_category_name}} :: {{QuestionDetails?.category_name}}</td>
-                <td scope="col">{{QuestionDetails?.token_value}}</td>
-                <td scope="col">Not in API</td>
-                <td scope="col">{{QuestionDetails?.max_submission_allowed}}</td>
+                <td>{{QuestionDetails?.parent_category_name}} :: {{QuestionDetails?.category_name}}</td>
+                <td>{{QuestionDetails?.token_value}}</td>
+                <td>Not in API</td>
+                <td>{{QuestionDetails?.max_submission_allowed}}</td>
             </tr>
             </tbody>
         </table>
@@ -33,6 +33,14 @@
             </div>
             <div class="card-body">
                 {{MultipleChoiceQuestionDetails?.text}}
+            </div>
+        </div>
+        <div *ngIf="JavaQuestionDetails" class="card my-1">
+            <div class="card-header">
+                <h1>{{QuestionDetails?.title}}</h1>
+            </div>
+            <div class="card-body">
+                {{JavaQuestionDetails?.text}}
             </div>
         </div>
         <div *ngIf="MultipleChoiceQuestionDetails" class="card my-1">
@@ -50,11 +58,37 @@
                 <button class="btn btn-success">Submit</button>
             </div>
         </div>
+        <div *ngIf="JavaQuestionDetails" class="card my-1">
+            <div class="card-header">
+                <h1>My Answer</h1>
+            </div>
+            <div class="card-body">
+                Submit the required files.
+                <form>
+                    <div *ngFor="let input of inputFileNames">
+                        <ul class="nav nav-tabs" id="submission" role="tablist">
+                            <li class="nav-item">{{input.name}}
+                                <a class="nav-link" href="#" role="tab"></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" role="tabpanel">
+                            <div class="tab=pane">
+                                <div>{{input.name}}</div>
+                                <div class="form-group">
+                                    <textarea value="{{input.template}}"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                </form>
+            </div>
+        </div>
         <div *ngIf="MultipleChoiceQuestionDetails" class="card my-1">
             <div class="card-header">
                 <h1>Generated Variables</h1>
             </div>
-            <div *ngIf="variables; else elseBlock">
+            <div *ngIf="variables.length !== 0; else elseBlock">
                 <div *ngFor="let variable of variables" class="card-body">
                     <ul>
                         <li>
@@ -77,33 +111,60 @@
                 No Error Detected.
             </div>
         </div>
-        <div class="card my-1">
+        <div *ngIf="JavaQuestionDetails" class="card my-1">
             <div class="card-header">
-                <h1>My Past Submissions</h1>
+                <h1>Generated Variables</h1>
             </div>
-            <div class="card-body">
-                <table class="table table-hover table-bordered">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Answer</th>
-                        <th scope="col">Grade</th>
-                        <th scope="col">Tokens Received</th>
-                        <th scope="col">Time Submitted</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td scope="col">1</td>
-                        <td scope="col">Used to store data that can be used or modified as needed</td>
-                        <td scope="col">1.00</td>
-                        <td scope="col">1.0/1.0</td>
-                        <td scope="col">Feb. 10, 2021, 12:52 p.m.</td>
-                        <td scope="col">Correct</td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div *ngIf="variables.length !== 0; else elseBlock">
+                <div *ngFor="let variable of variables" class="card-body">
+                    <ul>
+                        <li>
+                            Name: {{variable.name}}
+                            <ul>
+                                <li>Type: {{variable.type}}</li>
+                                <li>Min: {{variable.min}}</li>
+                                <li>Max: {{variable.max}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <ng-template #elseBlock>
+                <div class="card-body">
+                    No Variables
+                </div>
+            </ng-template>
+            <div class="card-footer">
+                No Error Detected.
+            </div>
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>My Past Submissions</h1>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Answer</th>
+                            <th>Grade</th>
+                            <th>Tokens Received</th>
+                            <th>Time Submitted</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Used to store data that can be used or modified as needed</td>
+                            <td>1.00</td>
+                            <td>1.0/1.0</td>
+                            <td>Feb. 10, 2021, 12:52 p.m.</td>
+                            <td>Correct</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

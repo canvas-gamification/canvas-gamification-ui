@@ -25,4 +25,6 @@ export interface Question {
   author_name: string;
   choices: any;
   variables: [];
+  input_file_names: [];
+  answer: any;
 }

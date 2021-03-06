@@ -31,13 +31,13 @@
       <div class="form-row m-3">
         <label for="course">Course:</label>
         <select class="form-control" formControlName="course_name" id="course">
-          <option value="...">...</option>
+          <option value="{{QuestionDetails?.course_name}}">{{QuestionDetails?.course_name}}</option>
         </select>
       </div>
       <div class="form-row m-3">
         <label for="event">Event Name:</label>
         <select class="form-control" formControlName="event_name" id="event">
-          <option value="...">...</option>
+          <option value="{{QuestionDetails?.event_name}}">{{QuestionDetails?.event_name}}</option>
         </select>
       </div>
       <div class="form-row m-3">
@@ -47,10 +47,10 @@
       <div class="form-row m-3">
         Variables:
       </div>
-<!--      <div class="form-row m-3">-->
-<!--        <label for="correctAnswer">Correct Answer:</label>-->
-<!--        <textarea class="form-control" formControlName="correctAnswer" id="correctAnswer"></textarea>-->
-<!--      </div>-->
+      <div class="form-row m-3">
+        <label for="correctAnswer">Correct Answer:</label>
+        <textarea class="form-control" formControlName="answer" id="correctAnswer"></textarea>
+      </div>
       <div class="form-row m-3">
         Distract Answers
       </div>

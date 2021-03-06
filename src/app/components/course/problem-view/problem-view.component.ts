@@ -19,6 +19,7 @@ export class ProblemViewComponent implements OnInit {
     questionType: string;
     choiceArray: any[];
     variables: any[];
+    inputFileNames: any[];
 
     constructor(private route: ActivatedRoute, private questionService: QuestionService) {
     }
@@ -49,6 +50,8 @@ export class ProblemViewComponent implements OnInit {
             if (this.questionType === 'java question') {
                 this.questionService.getJavaQuestion(this.userId).subscribe((detail: Question) => {
                     this.JavaQuestionDetails = detail;
+                    this.inputFileNames = this.JavaQuestionDetails.input_file_names;
+                    this.variables = this.JavaQuestionDetails.variables;
                 });
             }
             if (this.questionType === 'parsons question') {
