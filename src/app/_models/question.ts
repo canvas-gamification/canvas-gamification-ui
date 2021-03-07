@@ -27,4 +27,5 @@ export interface Question {
   variables: [];
   input_file_names: [];
   answer: any;
+  junit_template: string;
 }

@@ -1,62 +1,76 @@
 <header>
-  <div class="container-fluid">
-    <div class="row my-auto">
-      <div class="col m-3">
-        <h1 class="m-0">Edit Question</h1>
-      </div>
+    <div class="container-fluid">
+        <div class="row my-auto">
+            <div class="col m-3">
+                <h1 class="m-0">Edit Question</h1>
+            </div>
+        </div>
     </div>
-  </div>
 </header>
 <main class="page-content m-3">
-  <div class="container-fluid">
-    <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
-    <div class="form-row m-3">
-      <label for="questionName">Question Name:</label>
-      <input class="form-control" formControlName="title" type="text" id="questionName">
+    <div class="container-fluid">
+        <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
+            <div class="form-row m-3">
+                <label for="questionName">Question Name:</label>
+                <input class="form-control" formControlName="title" type="text" id="questionName">
+            </div>
+            <div class="form-row m-3">
+                <label for="difficulty">Difficulty</label>
+                <select class="form-control" formControlName="difficulty" id="difficulty">
+                    <option value="EASY">EASY</option>
+                    <option value="NORMAL">MEDIUM</option>
+                    <option value="HARD">HARD</option>
+                </select>
+            </div>
+            <div class="form-row m-3">
+                <label for="category">Category:</label>
+                <select class="form-control" formControlName="category" id="category">
+                    <option value="...">...</option>
+                </select>
+            </div>
+            <div class="form-row m-3">
+                <label for="course">Course:</label>
+                <select class="form-control" formControlName="course_name" id="course">
+                    <option value="{{QuestionDetails?.course_name}}">{{QuestionDetails?.course_name}}</option>
+                </select>
+            </div>
+            <div class="form-row m-3">
+                <label for="event">Event Name:</label>
+                <select class="form-control" formControlName="event_name" id="event">
+                    <option value="{{QuestionDetails?.event_name}}">{{QuestionDetails?.event_name}}</option>
+                </select>
+            </div>
+            <div class="form-row m-3">
+                <label for="question">Question:</label>
+                <textarea class="form-control" formControlName="text" id="question"></textarea>
+            </div>
+            <div *ngIf="JavaQuestionDetails" class="form-row m-3">
+                <label for="junit_template">JUnit Template:</label>
+                <textarea class="form-control" formControlName="junit_template" id="junit_template"></textarea>
+            </div>
+            <div *ngIf="JavaQuestionDetails" class="form-row m-3">
+                <div class="card">
+                    <div class="card-header"><h1>Submission Files</h1></div>
+                    <div class="card-body">
+                        <div *ngFor="let file of inputFileNames">
+                            Name: {{file.name}}  Template: {{file.template}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row m-3">
+                Variables:
+            </div>
+            <div *ngIf="MultipleChoiceQuestionDetails" class="form-row m-3">
+                <label for="correctAnswer">Correct Answer:</label>
+                <textarea class="form-control" formControlName="answer" id="correctAnswer"></textarea>
+            </div>
+            <div *ngIf="MultipleChoiceQuestionDetails" class="form-row m-3">
+                Distract Answers
+            </div>
+            <div class="form-row m-3">
+                <button class="btn btn-success">Submit</button>
+            </div>
+        </form>
     </div>
-      <div class="form-row m-3">
-        <label for="difficulty">Difficulty</label>
-        <select class="form-control" formControlName="difficulty" id="difficulty">
-          <option value="EASY">EASY</option>
-          <option value="MEDIUM">MEDIUM</option>
-          <option value="HARD">HARD</option>
-        </select>
-      </div>
-      <div class="form-row m-3">
-        <label for="category">Category:</label>
-        <select class="form-control" formControlName="category" id="category">
-          <option value="...">...</option>
-        </select>
-      </div>
-      <div class="form-row m-3">
-        <label for="course">Course:</label>
-        <select class="form-control" formControlName="course_name" id="course">
-          <option value="{{QuestionDetails?.course_name}}">{{QuestionDetails?.course_name}}</option>
-        </select>
-      </div>
-      <div class="form-row m-3">
-        <label for="event">Event Name:</label>
-        <select class="form-control" formControlName="event_name" id="event">
-          <option value="{{QuestionDetails?.event_name}}">{{QuestionDetails?.event_name}}</option>
-        </select>
-      </div>
-      <div class="form-row m-3">
-        <label for="question">Question:</label>
-        <textarea class="form-control" formControlName="text" id="question"></textarea>
-      </div>
-      <div class="form-row m-3">
-        Variables:
-      </div>
-      <div class="form-row m-3">
-        <label for="correctAnswer">Correct Answer:</label>
-        <textarea class="form-control" formControlName="answer" id="correctAnswer"></textarea>
-      </div>
-      <div class="form-row m-3">
-        Distract Answers
-      </div>
-      <div class="form-row m-3">
-        <button class="btn btn-primary">Submit</button>
-      </div>
-    </form>
-  </div>
 </main>
