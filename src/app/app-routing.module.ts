@@ -21,100 +21,106 @@ import {UserActionsComponent} from '@app/components/homepage/user-actions/user-a
 import {ProblemViewComponent} from '@app/components/course/problem-view/problem-view.component';
 import {ProblemEditComponent} from '@app/components/course/problem-edit/problem-edit.component';
 import {ProblemDeleteComponent} from '@app/components/course/problem-delete/problem-delete.component';
+import {ProblemCreateComponent} from '@app/components/course/problem-create/problem-create.component';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    pathMatch: 'full',
-    component: LandingPageComponent,
-  },
-  {
-    path: 'contact',
-    component: ContactComponent
-  },
-  {
-    path: 'sample-questions',
-    component: SampleQuestionsComponent
-  },
-  {
-    path: 'topics',
-    component: TopicsComponent
-  },
-  {
-    path: 'concept-map',
-    component: ConceptMapComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'token-values',
-    component: TokenValuesComponent
-  },
-  {
-    path: 'user-stats',
-    component: UserStatsComponent
-  },
-  {
-    path: 'accounts/login',
-    component: LoginComponent
-  },
-  {
-    path: 'homepage',
-    component: HomepageComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'actions',
-    component: UserActionsComponent
-  },
-  {
-    path: 'course/problem-set',
-    component: ProblemSetComponent,
-    canActivate: [ AuthGuard ]
-  },
-  {
-    path: 'course/question/:id',
-    component: ProblemViewComponent,
-    canActivate: [ AuthGuard ]
-  },
-  {
-    path: 'course/edit/:id',
-    component: ProblemEditComponent,
-    canActivate: [ AuthGuard ]
-  },
-  {
-    path: 'course/delete/:id',
-    component: ProblemDeleteComponent,
-    canActivate: [ AuthGuard ]
-  },
-  {
-    path: 'faq',
-    component: FaqComponent
-  },
-  {
-    path: 'accounts/register',
-    component: RegisterComponent
-  },
-  {
-    path: 'accounts/profile',
-    component: ProfileDetailsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'accounts/reset-password',
-    component: ResetPasswordComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'accounts/consent-form',
-    component: ConsentFormComponent,
-    canActivate: [AuthGuard]
-  }
+    {
+        path: '',
+        pathMatch: 'full',
+        component: LandingPageComponent,
+    },
+    {
+        path: 'contact',
+        component: ContactComponent
+    },
+    {
+        path: 'sample-questions',
+        component: SampleQuestionsComponent
+    },
+    {
+        path: 'topics',
+        component: TopicsComponent
+    },
+    {
+        path: 'concept-map',
+        component: ConceptMapComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'token-values',
+        component: TokenValuesComponent
+    },
+    {
+        path: 'user-stats',
+        component: UserStatsComponent
+    },
+    {
+        path: 'accounts/login',
+        component: LoginComponent
+    },
+    {
+        path: 'homepage',
+        component: HomepageComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'actions',
+        component: UserActionsComponent
+    },
+    {
+        path: 'course/problem-set',
+        component: ProblemSetComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/question/:id',
+        component: ProblemViewComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/edit/:id',
+        component: ProblemEditComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/delete/:id',
+        component: ProblemDeleteComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/question/create/:type',
+        component: ProblemCreateComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'faq',
+        component: FaqComponent
+    },
+    {
+        path: 'accounts/register',
+        component: RegisterComponent
+    },
+    {
+        path: 'accounts/profile',
+        component: ProfileDetailsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'accounts/reset-password',
+        component: ResetPasswordComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'accounts/consent-form',
+        component: ConsentFormComponent,
+        canActivate: [AuthGuard]
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
+    exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

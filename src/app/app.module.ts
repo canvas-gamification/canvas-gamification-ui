@@ -39,6 +39,7 @@ import { ProblemViewComponent } from './components/course/problem-view/problem-v
 import { ProblemEditComponent } from './components/course/problem-edit/problem-edit.component';
 import {CommonModule} from '@angular/common';
 import { ProblemDeleteComponent } from './components/course/problem-delete/problem-delete.component';
+import { ProblemCreateComponent } from './components/course/problem-create/problem-create.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ProblemDeleteComponent } from './components/course/problem-delete/probl
     ResetPasswordComponent,
     ConsentFormComponent,
     TermsAndConditionsSnippetComponent,
+    ProblemCreateComponent,
   ],
   imports: [
     BrowserModule,
