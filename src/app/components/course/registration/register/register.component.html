@@ -1,0 +1,36 @@
+<mat-horizontal-stepper #stepper>
+  <mat-step [stepControl]="nameForm" errorMessage="Name is required">
+    <form [formGroup]="nameForm">
+      <ng-template matStepLabel>Fill out your full name</ng-template>
+      <mat-form-field>
+        <mat-label>Full Name as it appears on Canvas</mat-label>
+        <input matInput placeholder="Your full name" formControlName="nameControl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="studentNumberForm" errorMessage="Student Number is required">
+    <form [formGroup]="studentNumberForm">
+      <ng-template matStepLabel>Fill out your student number</ng-template>
+      <mat-form-field>
+        <mat-label>Student Number</mat-label>
+        <input matInput formControlName="studentNumberControl" placeholder="Ex. 12345678"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

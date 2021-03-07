@@ -13,6 +13,7 @@ import {HomepageComponent} from '@app/components/homepage/homepage.component';
 import {RegisterNameComponent} from './components/course/registration/register-name/register-name.component';
 import {CourseComponent} from '@app/components/course/course.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
+import {RegisterComponent} from "@app/components/course/registration/register/register.component";
 
 
 const routes: Routes = [
@@ -63,7 +64,7 @@ const routes: Routes = [
   },
   {
     path: 'register/:courseId',
-    component: RegisterNameComponent,
+    component: RegisterComponent,
     canActivate: [AuthGuard]
   },
   {
