@@ -33,6 +33,7 @@
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",
     "ng-recaptcha": "^6.0.2",
+    "ng2-dragula": "^2.1.1",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {QuestionService} from '@app/_services/api/question.service';
 import {Subscription} from 'rxjs';
 import {Question} from '@app/_models';
+import {DragulaService} from 'ng2-dragula';
 
 @Component({
     selector: 'app-problem-view',
@@ -10,6 +11,7 @@ import {Question} from '@app/_models';
     styleUrls: ['./problem-view.component.scss']
 })
 export class ProblemViewComponent implements OnInit {
+    PARSONS_LINES = 'PARSONS_LINES';
     private routeSub: Subscription;
     MultipleChoiceQuestionDetails: Question;
     JavaQuestionDetails: Question;
@@ -20,8 +22,15 @@ export class ProblemViewComponent implements OnInit {
     choiceArray: any[];
     variables: any[];
     inputFileNames: any[];
+    parsonLines: any[];
+    parsonAnswerLines: any[];
 
-    constructor(private route: ActivatedRoute, private questionService: QuestionService) {
+    parsonSub = new Subscription();
+
+    constructor(private route: ActivatedRoute, private questionService: QuestionService, private dragulaService: DragulaService) {
+        this.dragulaService.createGroup(this.PARSONS_LINES, {
+            direction: 'horizontal'
+        });
     }
 
     ngOnInit(): void {
@@ -57,6 +66,19 @@ export class ProblemViewComponent implements OnInit {
             if (this.questionType === 'parsons question') {
                 this.questionService.getParsonsQuestion(this.userId).subscribe((detail: Question) => {
                     this.ParsonsQuestionDetails = detail;
+                    this.parsonLines = this.ParsonsQuestionDetails.lines;
+                    this.variables = this.ParsonsQuestionDetails.variables;
+                    this.parsonSub.add(this.dragulaService.dropModel(this.PARSONS_LINES)
+                        .subscribe(({el, target, source, sourceModel, targetModel, item}) => {
+                            console.log('dropModel:');
+                            console.log(el);
+                            console.log(source);
+                            console.log(target);
+                            console.log(sourceModel);
+                            console.log(targetModel);
+                            console.log(item);
+                        })
+                    );
                 });
             }
 

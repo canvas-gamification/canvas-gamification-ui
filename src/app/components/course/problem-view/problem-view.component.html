@@ -38,14 +38,6 @@
             </div>
             <div class="card my-1">
                 <div class="card-header">
-                    <h1>{{QuestionDetails?.title}}</h1>
-                </div>
-                <div class="card-body">
-                    {{MultipleChoiceQuestionDetails?.text}}
-                </div>
-            </div>
-            <div class="card my-1">
-                <div class="card-header">
                     <h1>Possible Answers</h1>
                 </div>
                 <div class="card-body">
@@ -209,6 +201,97 @@
             </div>
         </ng-container>
         <ng-container *ngIf="ParsonsQuestionDetails">
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>{{QuestionDetails?.title}}</h1>
+                </div>
+                <div class="card-body">
+                    {{ParsonsQuestionDetails?.text}}
+                </div>
+            </div>
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>My Answer</h1>
+                </div>
+                <div class="row">
+                    <div class="card-body">
+                        <div class="wrapper">
+                            <div class="col-sm-6">
+                                <h2>Lines</h2>
+                                <div class="left_container" [dragula]="PARSONS_LINES" [(dragulaModel)]="parsonLines">
+                                    <div *ngFor="let line of parsonLines">
+                                        {{line}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h2>My Solution</h2>
+                                <div class="right_container" [dragula]="PARSONS_LINES" [(dragulaModel)]="parsonAnswerLines">
+                                    <div *ngFor="let line of parsonAnswerLines">
+                                        {{line}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>Generated Variables</h1>
+                </div>
+                <div *ngIf="variables.length !== 0; else elseBlock">
+                    <div *ngFor="let variable of variables" class="card-body">
+                        <ul>
+                            <li>
+                                Name: {{variable.name}}
+                                <ul>
+                                    <li>Type: {{variable.type}}</li>
+                                    <li>Min: {{variable.min}}</li>
+                                    <li>Max: {{variable.max}}</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <ng-template #elseBlock>
+                    <div class="card-body">
+                        No Variables
+                    </div>
+                </ng-template>
+                <div class="card-footer">
+                    No Error Detected.
+                </div>
+            </div>
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>My Past Submissions</h1>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Answer</th>
+                            <th>Grade</th>
+                            <th>Tokens Received</th>
+                            <th>Time Submitted</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Used to store data that can be used or modified as needed</td>
+                            <td>1.00</td>
+                            <td>1.0/1.0</td>
+                            <td>Feb. 10, 2021, 12:52 p.m.</td>
+                            <td>Correct</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </ng-container>
     </div>
 </main>

@@ -28,4 +28,5 @@ export interface Question {
   input_file_names: [];
   answer: any;
   junit_template: string;
+  lines: any[];
 }
