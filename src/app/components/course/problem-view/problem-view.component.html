@@ -27,145 +27,188 @@
             </tr>
             </tbody>
         </table>
-        <div *ngIf="MultipleChoiceQuestionDetails" class="card my-1">
-            <div class="card-header">
-                <h1>{{QuestionDetails?.title}}</h1>
+        <ng-container *ngIf="MultipleChoiceQuestionDetails">
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>{{QuestionDetails?.title}}</h1>
+                </div>
+                <div class="card-body">
+                    {{MultipleChoiceQuestionDetails?.text}}
+                </div>
             </div>
-            <div class="card-body">
-                {{MultipleChoiceQuestionDetails?.text}}
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>{{QuestionDetails?.title}}</h1>
+                </div>
+                <div class="card-body">
+                    {{MultipleChoiceQuestionDetails?.text}}
+                </div>
             </div>
-        </div>
-        <div *ngIf="JavaQuestionDetails" class="card my-1">
-            <div class="card-header">
-                <h1>{{QuestionDetails?.title}}</h1>
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>Possible Answers</h1>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-check" *ngFor="let choice of choiceArray">
+                            <input class="form-check-input" name="radio" type="radio" id="answer-{{choice.id}}"
+                                   value="{{choice.id}}">
+                            <label class="form-check-label" for="answer-{{choice.id}}">{{choice.value}}</label>
+                        </div>
+                    </form>
+                    <button class="btn btn-success">Submit</button>
+                </div>
             </div>
-            <div class="card-body">
-                {{JavaQuestionDetails?.text}}
-            </div>
-        </div>
-        <div *ngIf="MultipleChoiceQuestionDetails" class="card my-1">
-            <div class="card-header">
-                <h1>Possible Answers</h1>
-            </div>
-            <div class="card-body">
-                <form>
-                    <div class="form-check" *ngFor="let choice of choiceArray">
-                        <input class="form-check-input" name="radio" type="radio" id="answer-{{choice.id}}"
-                               value="{{choice.id}}">
-                        <label class="form-check-label" for="answer-{{choice.id}}">{{choice.value}}</label>
-                    </div>
-                </form>
-                <button class="btn btn-success">Submit</button>
-            </div>
-        </div>
-        <div *ngIf="JavaQuestionDetails" class="card my-1">
-            <div class="card-header">
-                <h1>My Answer</h1>
-            </div>
-            <div class="card-body">
-                Submit the required files.
-                <form>
-                    <div *ngFor="let input of inputFileNames">
-                        <ul class="nav nav-tabs" id="submission" role="tablist">
-                            <li class="nav-item">{{input.name}}
-                                <a class="nav-link" href="#" role="tab"></a>
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>Generated Variables</h1>
+                </div>
+                <div *ngIf="variables.length !== 0; else elseBlock">
+                    <div *ngFor="let variable of variables" class="card-body">
+                        <ul>
+                            <li>
+                                Name: {{variable.name}}
+                                <ul>
+                                    <li>Type: {{variable.type}}</li>
+                                    <li>Min: {{variable.min}}</li>
+                                    <li>Max: {{variable.max}}</li>
+                                </ul>
                             </li>
                         </ul>
-                        <div class="tab-content" role="tabpanel">
-                            <div class="tab=pane">
-                                <div>{{input.name}}</div>
-                                <div class="form-group">
-                                    <textarea value="{{input.template}}"></textarea>
+                    </div>
+                </div>
+                <ng-template #elseBlock>
+                    <div class="card-body">
+                        No Variables
+                    </div>
+                </ng-template>
+                <div class="card-footer">
+                    No Error Detected.
+                </div>
+            </div>
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>My Past Submissions</h1>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Answer</th>
+                            <th>Grade</th>
+                            <th>Tokens Received</th>
+                            <th>Time Submitted</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Used to store data that can be used or modified as needed</td>
+                            <td>1.00</td>
+                            <td>1.0/1.0</td>
+                            <td>Feb. 10, 2021, 12:52 p.m.</td>
+                            <td>Correct</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="JavaQuestionDetails">
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>{{QuestionDetails?.title}}</h1>
+                </div>
+                <div class="card-body">
+                    {{JavaQuestionDetails?.text}}
+                </div>
+            </div>
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>My Answer</h1>
+                </div>
+                <div class="card-body">
+                    Submit the required files.
+                    <form>
+                        <div *ngFor="let input of inputFileNames">
+                            <ul class="nav nav-tabs" id="submission" role="tablist">
+                                <li class="nav-item">{{input.name}}
+                                    <a class="nav-link" href="#" role="tab"></a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" role="tabpanel">
+                                <div class="tab-panel">
+                                    <div>{{input.name}}</div>
+                                    <div class="form-group">
+                                        <textarea value="{{input.template}}"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <button class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>Generated Variables</h1>
+                </div>
+                <div *ngIf="variables.length !== 0; else elseBlock">
+                    <div *ngFor="let variable of variables" class="card-body">
+                        <ul>
+                            <li>
+                                Name: {{variable.name}}
+                                <ul>
+                                    <li>Type: {{variable.type}}</li>
+                                    <li>Min: {{variable.min}}</li>
+                                    <li>Max: {{variable.max}}</li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
-                    <button class="btn btn-success">Submit</button>
-                </form>
-            </div>
-        </div>
-        <div *ngIf="MultipleChoiceQuestionDetails" class="card my-1">
-            <div class="card-header">
-                <h1>Generated Variables</h1>
-            </div>
-            <div *ngIf="variables.length !== 0; else elseBlock">
-                <div *ngFor="let variable of variables" class="card-body">
-                    <ul>
-                        <li>
-                            Name: {{variable.name}}
-                            <ul>
-                                <li>Type: {{variable.type}}</li>
-                                <li>Min: {{variable.min}}</li>
-                                <li>Max: {{variable.max}}</li>
-                            </ul>
-                        </li>
-                    </ul>
+                </div>
+                <ng-template #elseBlock>
+                    <div class="card-body">
+                        No Variables
+                    </div>
+                </ng-template>
+                <div class="card-footer">
+                    No Error Detected.
                 </div>
             </div>
-            <ng-template #elseBlock>
+            <div class="card my-1">
+                <div class="card-header">
+                    <h1>My Past Submissions</h1>
+                </div>
                 <div class="card-body">
-                    No Variables
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Answer</th>
+                            <th>Grade</th>
+                            <th>Tokens Received</th>
+                            <th>Time Submitted</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Used to store data that can be used or modified as needed</td>
+                            <td>1.00</td>
+                            <td>1.0/1.0</td>
+                            <td>Feb. 10, 2021, 12:52 p.m.</td>
+                            <td>Correct</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </ng-template>
-            <div class="card-footer">
-                No Error Detected.
             </div>
-        </div>
-        <div *ngIf="JavaQuestionDetails" class="card my-1">
-            <div class="card-header">
-                <h1>Generated Variables</h1>
-            </div>
-            <div *ngIf="variables.length !== 0; else elseBlock">
-                <div *ngFor="let variable of variables" class="card-body">
-                    <ul>
-                        <li>
-                            Name: {{variable.name}}
-                            <ul>
-                                <li>Type: {{variable.type}}</li>
-                                <li>Min: {{variable.min}}</li>
-                                <li>Max: {{variable.max}}</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <ng-template #elseBlock>
-                <div class="card-body">
-                    No Variables
-                </div>
-            </ng-template>
-            <div class="card-footer">
-                No Error Detected.
-            </div>
-        </div>
-        <div class="card my-1">
-            <div class="card-header">
-                <h1>My Past Submissions</h1>
-            </div>
-            <div class="card-body">
-                <table class="table table-hover table-bordered">
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Answer</th>
-                        <th>Grade</th>
-                        <th>Tokens Received</th>
-                        <th>Time Submitted</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Used to store data that can be used or modified as needed</td>
-                        <td>1.00</td>
-                        <td>1.0/1.0</td>
-                        <td>Feb. 10, 2021, 12:52 p.m.</td>
-                        <td>Correct</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        </ng-container>
+        <ng-container *ngIf="ParsonsQuestionDetails">
+        </ng-container>
     </div>
 </main>

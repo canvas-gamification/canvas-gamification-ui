@@ -9,68 +9,115 @@
 </header>
 <main class="page-content m-3">
     <div class="container-fluid">
-        <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
-            <div class="form-row m-3">
-                <label for="questionName">Question Name:</label>
-                <input class="form-control" formControlName="title" type="text" id="questionName">
-            </div>
-            <div class="form-row m-3">
-                <label for="difficulty">Difficulty</label>
-                <select class="form-control" formControlName="difficulty" id="difficulty">
-                    <option value="EASY">EASY</option>
-                    <option value="NORMAL">MEDIUM</option>
-                    <option value="HARD">HARD</option>
-                </select>
-            </div>
-            <div class="form-row m-3">
-                <label for="category">Category:</label>
-                <select class="form-control" formControlName="category" id="category">
-                    <option value="...">...</option>
-                </select>
-            </div>
-            <div class="form-row m-3">
-                <label for="course">Course:</label>
-                <select class="form-control" formControlName="course_name" id="course">
-                    <option value="{{QuestionDetails?.course_name}}">{{QuestionDetails?.course_name}}</option>
-                </select>
-            </div>
-            <div class="form-row m-3">
-                <label for="event">Event Name:</label>
-                <select class="form-control" formControlName="event_name" id="event">
-                    <option value="{{QuestionDetails?.event_name}}">{{QuestionDetails?.event_name}}</option>
-                </select>
-            </div>
-            <div class="form-row m-3">
-                <label for="question">Question:</label>
-                <textarea class="form-control" formControlName="text" id="question"></textarea>
-            </div>
-            <div *ngIf="JavaQuestionDetails" class="form-row m-3">
-                <label for="junit_template">JUnit Template:</label>
-                <textarea class="form-control" formControlName="junit_template" id="junit_template"></textarea>
-            </div>
-            <div *ngIf="JavaQuestionDetails" class="form-row m-3">
-                <div class="card">
-                    <div class="card-header"><h1>Submission Files</h1></div>
-                    <div class="card-body">
-                        <div *ngFor="let file of inputFileNames">
-                            Name: {{file.name}}  Template: {{file.template}}
+        <ng-container *ngIf="MultipleChoiceQuestionDetails">
+            <form [formGroup]="MCQFormData" (ngSubmit)="onSubmit(MCQFormData.value)">
+                <div class="form-row m-3">
+                    <label for="mcqQuestionName">Question Name:</label>
+                    <input class="form-control" formControlName="title" type="text" id="mcqQuestionName">
+                </div>
+                <div class="form-row m-3">
+                    <label for="mcqDifficulty">Difficulty</label>
+                    <select class="form-control" formControlName="difficulty" id="mcqDifficulty">
+                        <option value="EASY">EASY</option>
+                        <option value="NORMAL">MEDIUM</option>
+                        <option value="HARD">HARD</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+                    <label for="mcqCategory">Category:</label>
+                    <select class="form-control" formControlName="category" id="mcqCategory">
+                        <option value="...">...</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+                    <label for="mcqCourse">Course:</label>
+                    <select class="form-control" formControlName="course_name" id="mcqCourse">
+                        <option value="{{QuestionDetails?.course_name}}">{{QuestionDetails?.course_name}}</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+                    <label for="mcqEvent">Event Name:</label>
+                    <select class="form-control" formControlName="event_name" id="mcqEvent">
+                        <option value="{{QuestionDetails?.event_name}}">{{QuestionDetails?.event_name}}</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+                    <label for="mcqQuestion">Question:</label>
+                    <textarea class="form-control" formControlName="text" id="mcqQuestion"></textarea>
+                </div>
+                <div class="form-row m-3">
+                    <label for="mcqCorrectAnswer">Correct Answer:</label>
+                    <textarea class="form-control" formControlName="answer" id="mcqCorrectAnswer"></textarea>
+                </div>
+                <div class="form-row m-3">
+                    Distract Answers
+                </div>
+                <div class="form-row m-3">
+                    Variables:
+                </div>
+                <div class="form-row m-3">
+                    <button class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </ng-container>
+        <ng-container *ngIf="JavaQuestionDetails">
+            <form [formGroup]="JavaFormData" (ngSubmit)="onSubmit(JavaFormData.value)">
+                <div class="form-row m-3">
+                    <label for="javaQuestionName">Question Name:</label>
+                    <input class="form-control" formControlName="title" type="text" id="javaQuestionName">
+                </div>
+                <div class="form-row m-3">
+                    <label for="javaDifficulty">Difficulty</label>
+                    <select class="form-control" formControlName="difficulty" id="javaDifficulty">
+                        <option value="EASY">EASY</option>
+                        <option value="NORMAL">MEDIUM</option>
+                        <option value="HARD">HARD</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+                    <label for="javaCategory">Category:</label>
+                    <select class="form-control" formControlName="category" id="javaCategory">
+                        <option value="...">...</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+                    <label for="javaCourse">Course:</label>
+                    <select class="form-control" formControlName="course_name" id="javaCourse">
+                        <option value="{{QuestionDetails?.course_name}}">{{QuestionDetails?.course_name}}</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+                    <label for="javaEvent">Event Name:</label>
+                    <select class="form-control" formControlName="event_name" id="javaEvent">
+                        <option value="{{QuestionDetails?.event_name}}">{{QuestionDetails?.event_name}}</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+                    <label for="javaQuestion">Question:</label>
+                    <textarea class="form-control" formControlName="text" id="javaQuestion"></textarea>
+                </div>
+                <div class="form-row m-3">
+                    <label for="junit_template">JUnit Template:</label>
+                    <textarea class="form-control" formControlName="junit_template" id="junit_template"></textarea>
+                </div>
+                <div class="form-row m-3">
+                    <div class="card">
+                        <div class="card-header"><h1>Submission Files</h1></div>
+                        <div class="card-body">
+                            <div *ngFor="let file of inputFileNames">
+                                Name: {{file.name}}  Template: {{file.template}}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-row m-3">
-                Variables:
-            </div>
-            <div *ngIf="MultipleChoiceQuestionDetails" class="form-row m-3">
-                <label for="correctAnswer">Correct Answer:</label>
-                <textarea class="form-control" formControlName="answer" id="correctAnswer"></textarea>
-            </div>
-            <div *ngIf="MultipleChoiceQuestionDetails" class="form-row m-3">
-                Distract Answers
-            </div>
-            <div class="form-row m-3">
-                <button class="btn btn-success">Submit</button>
-            </div>
-        </form>
+                <div class="form-row m-3">
+                    Variables:
+                </div>
+                <div class="form-row m-3">
+                    <button class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </ng-container>
+        <ng-container *ngIf="ParsonsQuestionDetails"></ng-container>
     </div>
 </main>
