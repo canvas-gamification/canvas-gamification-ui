@@ -10,4 +10,5 @@ export interface CourseEvent {
   has_edit_permission: boolean;
   is_open: boolean;
   is_exam: boolean;
+  total_event_grade: number;
 }
