@@ -70,6 +70,9 @@ export class ProblemViewComponent implements OnInit {
                     this.ParsonsQuestionDetails = detail;
                     this.parsonLines = this.ParsonsQuestionDetails.lines;
                     this.variables = this.ParsonsQuestionDetails.variables;
+                    this.dragulaService.createGroup(this.PARSONS_LINES, {
+                        direction: 'horizontal',
+                    });
                     this.parsonSub.add(this.dragulaService.dropModel(this.PARSONS_LINES)
                         .subscribe(({el, target, source, sourceModel, targetModel, item}) => {
                             console.log('dropModel:');

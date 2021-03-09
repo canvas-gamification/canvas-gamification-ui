@@ -29,4 +29,5 @@ export interface Question {
   answer: any;
   junit_template: string;
   lines: any[];
+  additional_file_name: any;
 }

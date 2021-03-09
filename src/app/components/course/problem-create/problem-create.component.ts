@@ -48,12 +48,22 @@ export class ProblemCreateComponent implements OnInit {
                 course_name: new FormControl(''),
                 event_name: new FormControl(''),
                 text: new FormControl(''),
-                answer: new FormControl(''),
                 junit_template: new FormControl(''),
+                input_file_names: new FormControl(''),
             });
         }
         if (this.questionType === 'parsons') {
-
+            this.ParsonsFormData = this.formBuilder.group({
+                title: new FormControl(''),
+                difficulty: new FormControl(''),
+                category: new FormControl(''),
+                course_name: new FormControl(''),
+                event_name: new FormControl(''),
+                text: new FormControl(''),
+                junit_template: new FormControl(''),
+                lines: new FormControl(''),
+                additional_file_name: new FormControl(''),
+            });
         }
     }
 

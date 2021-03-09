@@ -45,7 +45,7 @@ export class ProblemEditComponent implements OnInit {
                 this.MCQFormData = this.formBuilder.group({
                     title: new FormControl(''),
                     difficulty: new FormControl(''),
-                    category: new FormControl(''),
+                    // category: new FormControl(''),
                     course_name: new FormControl(''),
                     event_name: new FormControl(''),
                     text: new FormControl(''),
@@ -54,7 +54,7 @@ export class ProblemEditComponent implements OnInit {
                 });
                 this.MCQFormData.controls.title.setValue(this.QuestionDetails.title);
                 this.MCQFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
-                this.MCQFormData.controls.category.setValue(this.QuestionDetails.category_name);
+                // this.MCQFormData.controls.category.setValue(this.QuestionDetails.category_name);
                 this.MCQFormData.controls.course_name.setValue(this.QuestionDetails.course_name);
                 this.MCQFormData.controls.event_name.setValue(this.QuestionDetails.event_name);
                 this.questionService.getMultipleChoiceQuestion(this.userId).subscribe((details: Question) => {
@@ -82,7 +82,7 @@ export class ProblemEditComponent implements OnInit {
                 this.JavaFormData = this.formBuilder.group({
                     title: new FormControl(''),
                     difficulty: new FormControl(''),
-                    category: new FormControl(''),
+                    // category: new FormControl(''),
                     course_name: new FormControl(''),
                     event_name: new FormControl(''),
                     text: new FormControl(''),
@@ -95,7 +95,7 @@ export class ProblemEditComponent implements OnInit {
                     this.variables = this.JavaQuestionDetails.variables;
                     this.JavaFormData.controls.title.setValue(this.QuestionDetails.title);
                     this.JavaFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
-                    this.JavaFormData.controls.category.setValue(this.QuestionDetails.category_name);
+                    // this.JavaFormData.controls.category.setValue(this.QuestionDetails.category_name);
                     this.JavaFormData.controls.course_name.setValue(this.QuestionDetails.course_name);
                     this.JavaFormData.controls.event_name.setValue(this.QuestionDetails.event_name);
                     this.JavaFormData.controls.text.setValue(this.JavaQuestionDetails.text);
@@ -104,23 +104,66 @@ export class ProblemEditComponent implements OnInit {
             }
 
             if (this.questionType === 'parsons question') {
+                this.ParsonsFormData = this.formBuilder.group({
+                    title: new FormControl(''),
+                    difficulty: new FormControl(''),
+                    // category: new FormControl(''),
+                    course_name: new FormControl(''),
+                    event_name: new FormControl(''),
+                    text: new FormControl(''),
+                    junit_template: new FormControl(''),
+                    lines: new FormControl(''),
+                    additional_file_name: new FormControl(''),
+                });
                 this.questionService.getParsonsQuestion(this.userId).subscribe((details: Question) => {
+                    console.log(this.QuestionDetails);
                     this.ParsonsQuestionDetails = details;
                     this.variables = this.ParsonsQuestionDetails.variables;
+                    this.ParsonsFormData.controls.title.setValue(this.QuestionDetails.title);
+                    this.ParsonsFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
+                    // this.ParsonsFormData.controls.category.setValue(this.QuestionDetails.category_name);
+                    this.ParsonsFormData.controls.course_name.setValue(this.QuestionDetails.course_name);
+                    this.ParsonsFormData.controls.event_name.setValue(this.QuestionDetails.event_name);
+                    this.ParsonsFormData.controls.text.setValue(this.ParsonsQuestionDetails.text);
+                    this.ParsonsFormData.controls.junit_template.setValue(this.ParsonsQuestionDetails.junit_template);
+                    this.ParsonsFormData.controls.lines.setValue(this.ParsonsQuestionDetails.lines);
+                    this.ParsonsFormData.controls.additional_file_name.setValue(this.ParsonsQuestionDetails.additional_file_name);
                 });
             }
         });
     }
 
     onSubmit(FormData) {
-        this.questionService.putQuestion(FormData, this.userId)
-            .subscribe(response => {
-                this.messageService.addSuccess('The Question has been Updated Successfully.');
-                console.log(response);
-            }, error => {
-                console.warn(error.responseText);
-                console.log({error});
-            });
+        if (this.questionType === 'multiple choice question') {
+            this.questionService.putMultipleChoiceQuestion(FormData, this.userId)
+                .subscribe(response => {
+                    this.messageService.addSuccess('The Question has been Updated Successfully.');
+                    console.log(response);
+                }, error => {
+                    console.warn(error.responseText);
+                    console.log({error});
+                });
+        }
+        if (this.questionType === 'java question') {
+            this.questionService.putJavaQuestion(FormData, this.userId)
+                .subscribe(response => {
+                    this.messageService.addSuccess('The Question has been Updated Successfully.');
+                    console.log(response);
+                }, error => {
+                    console.warn(error.responseText);
+                    console.log({error});
+                });
+        }
+        if (this.questionType === 'parsons question') {
+            this.questionService.putParsonsQuestion(FormData, this.userId)
+                .subscribe(response => {
+                    this.messageService.addSuccess('The Question has been Updated Successfully.');
+                    console.log(response);
+                }, error => {
+                    console.warn(error.responseText);
+                    console.log({error});
+                });
+        }
     }
 
 }

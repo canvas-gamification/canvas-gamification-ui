@@ -96,7 +96,7 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let submission of previousSubmissions; let i = index">
-                            <td>{{i+1}}</td>
+                            <td>{{i + 1}}</td>
                             <td>{{submission.answer}}</td>
                             <td>{{submission.grade.toFixed(2)}}</td>
                             <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
@@ -179,7 +179,6 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Answer</th>
                             <th>Grade</th>
                             <th>Tokens Received</th>
                             <th>Time Submitted</th>
@@ -188,8 +187,7 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let submission of previousSubmissions; let i = index">
-                            <td>{{i+1}}</td>
-                            <td>{{submission.answer}}</td>
+                            <td>{{i + 1}}</td>
                             <td>{{submission.grade.toFixed(2)}}</td>
                             <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
                             <td>{{submission.submission_time | date:'medium'}}</td>
@@ -213,21 +211,21 @@
                 <div class="card-header">
                     <h1>My Answer</h1>
                 </div>
-                <div class="row">
+                <div class="container">
                     <div class="card-body">
-                        <div class="wrapper">
-                            <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-md-6">
                                 <h2>Lines</h2>
                                 <div class="left_container" [dragula]="PARSONS_LINES" [(dragulaModel)]="parsonLines">
-                                    <div *ngFor="let line of parsonLines">
+                                    <div class="container-object" *ngFor="let line of parsonLines">
                                         {{line}}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-md-6">
                                 <h2>My Solution</h2>
                                 <div class="right_container" [dragula]="PARSONS_LINES" [(dragulaModel)]="parsonAnswerLines">
-                                    <div *ngFor="let line of parsonAnswerLines">
+                                    <div class="container-object" *ngFor="let line of parsonAnswerLines">
                                         {{line}}
                                     </div>
                                 </div>
@@ -281,7 +279,7 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let submission of previousSubmissions; let i = index">
-                            <td>{{i+1}}</td>
+                            <td>{{i + 1}}</td>
                             <td>{{submission.answer}}</td>
                             <td>{{submission.grade.toFixed(2)}}</td>
                             <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>

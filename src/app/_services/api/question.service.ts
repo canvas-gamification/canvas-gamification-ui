@@ -68,8 +68,36 @@ export class QuestionService {
         );
     }
 
-    putQuestion(input: any, id: number) {
+    putMultipleChoiceQuestion(input: any, id: number) {
         return this.http.put(this.multipleChoiceQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
+            map(
+                (response) => {
+                    if (response) {
+                        return response;
+                    }
+                },
+                (error: any) => {
+                    return error;
+                }
+            )
+        );
+    }
+    putJavaQuestion(input: any, id: number) {
+        return this.http.put(this.javaQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
+            map(
+                (response) => {
+                    if (response) {
+                        return response;
+                    }
+                },
+                (error: any) => {
+                    return error;
+                }
+            )
+        );
+    }
+    putParsonsQuestion(input: any, id: number) {
+        return this.http.put(this.parsonsQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
             map(
                 (response) => {
                     if (response) {

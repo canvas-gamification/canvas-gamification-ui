@@ -24,10 +24,10 @@
                     </select>
                 </div>
                 <div class="form-row m-3">
-                    <label for="mcqCategory">Category:</label>
-                    <select class="form-control" formControlName="category" id="mcqCategory">
-                        <option value="...">...</option>
-                    </select>
+<!--                    <label for="mcqCategory">Category:</label>-->
+<!--                    <select class="form-control" formControlName="category" id="mcqCategory" disabled>-->
+<!--                        <option value="...">...</option>-->
+<!--                    </select>-->
                 </div>
                 <div class="form-row m-3">
                     <label for="mcqCourse">Course:</label>
@@ -75,10 +75,10 @@
                     </select>
                 </div>
                 <div class="form-row m-3">
-                    <label for="javaCategory">Category:</label>
-                    <select class="form-control" formControlName="category" id="javaCategory">
-                        <option value="...">...</option>
-                    </select>
+<!--                    <label for="javaCategory">Category:</label>-->
+<!--                    <select class="form-control" formControlName="category" id="javaCategory" disabled>-->
+<!--                        <option value="...">...</option>-->
+<!--                    </select>-->
                 </div>
                 <div class="form-row m-3">
                     <label for="javaCourse">Course:</label>
@@ -118,6 +118,61 @@
                 </div>
             </form>
         </ng-container>
-        <ng-container *ngIf="ParsonsQuestionDetails"></ng-container>
+        <ng-container *ngIf="ParsonsQuestionDetails">
+            <form [formGroup]="ParsonsFormData" (ngSubmit)="onSubmit(ParsonsFormData.value)">
+                <div class="form-row m-3">
+                    <label for="parsonsQuestionName">Question Name:</label>
+                    <input class="form-control" formControlName="title" type="text" id="parsonsQuestionName">
+                </div>
+                <div class="form-row m-3">
+                    <label for="parsonsDifficulty">Difficulty</label>
+                    <select class="form-control" formControlName="difficulty" id="parsonsDifficulty">
+                        <option value="EASY">EASY</option>
+                        <option value="NORMAL">MEDIUM</option>
+                        <option value="HARD">HARD</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+<!--                    <label for="parsonsCategory">Category:</label>-->
+<!--                    <select class="form-control" formControlName="category" id="parsonsCategory" disabled>-->
+<!--                        <option value="...">...</option>-->
+<!--                    </select>-->
+                </div>
+                <div class="form-row m-3">
+                    <label for="parsonsCourse">Course:</label>
+                    <select class="form-control" formControlName="course_name" id="parsonsCourse">
+                        <option value="{{QuestionDetails?.course_name}}">{{QuestionDetails?.course_name}}</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+                    <label for="parsonsEvent">Event Name:</label>
+                    <select class="form-control" formControlName="event_name" id="parsonsEvent">
+                        <option value="{{QuestionDetails?.event_name}}">{{QuestionDetails?.event_name}}</option>
+                    </select>
+                </div>
+                <div class="form-row m-3">
+                    <label for="parsonsQuestion">Question:</label>
+                    <textarea class="form-control" formControlName="text" id="parsonsQuestion"></textarea>
+                </div>
+                <div class="form-row m-3">
+                    <label for="parsonsLines">Lines:</label>
+                    <textarea class="form-control" formControlName="lines" id="parsonsLines"></textarea>
+                </div>
+                <div class="form-row m-3">
+                    <label for="parsons_junit_template">JUnit Template:</label>
+                    <textarea class="form-control" formControlName="junit_template" id="parsons_junit_template"></textarea>
+                </div>
+                <div class="form-row m-3">
+                    <label for="additionalFileName">User Code File Name</label>
+                    <textarea class="form-control" formControlName="additional_file_name" id="additionalFileName"></textarea>
+                </div>
+                <div class="form-row m-3">
+                    Variables:
+                </div>
+                <div class="form-row m-3">
+                    <button class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </ng-container>
     </div>
 </main>
