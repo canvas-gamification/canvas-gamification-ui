@@ -4,6 +4,7 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {Subscription} from 'rxjs';
 import {Question} from '@app/_models';
 import {DragulaService} from 'ng2-dragula';
+import {QuestionSubmission} from '@app/_models/questionSubmission';
 
 @Component({
     selector: 'app-problem-view',
@@ -24,13 +25,11 @@ export class ProblemViewComponent implements OnInit {
     inputFileNames: any[];
     parsonLines: any[];
     parsonAnswerLines: any[];
+    previousSubmissions: QuestionSubmission[];
 
     parsonSub = new Subscription();
 
     constructor(private route: ActivatedRoute, private questionService: QuestionService, private dragulaService: DragulaService) {
-        this.dragulaService.createGroup(this.PARSONS_LINES, {
-            direction: 'horizontal'
-        });
     }
 
     ngOnInit(): void {
@@ -41,6 +40,9 @@ export class ProblemViewComponent implements OnInit {
         this.questionService.getQuestion(this.userId).subscribe((details) => {
             this.QuestionDetails = details;
             this.questionType = this.questionService.getQuestionType(this.QuestionDetails);
+            this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe((submission: QuestionSubmission[]) => {
+               this.previousSubmissions = submission;
+            });
             if (this.questionType === 'multiple choice question') {
                 this.questionService.getMultipleChoiceQuestion(this.userId).subscribe((detail: Question) => {
                     this.MultipleChoiceQuestionDetails = detail;

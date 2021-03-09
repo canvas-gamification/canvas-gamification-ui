@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {Question} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
 import {map} from 'rxjs/operators';
+import {QuestionSubmission} from '@app/_models/questionSubmission';
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,7 @@ export class QuestionService {
     private multipleChoiceQuestionUrl = new URL('/api/multiple-choice-question/', environment.apiBaseUrl).toString();
     private javaQuestionUrl = new URL('/api/java-question/', environment.apiBaseUrl).toString();
     private parsonsQuestionUrl = new URL('/api/parsons-question/', environment.apiBaseUrl).toString();
+    private submissionUrl = new URL('api/submission/', environment.apiBaseUrl).toString();
 
     constructor(private http: HttpClient) {
     }
@@ -45,6 +47,10 @@ export class QuestionService {
 
     getQuestionType(question: Question) {
         return question.type_name;
+    }
+
+    getPreviousSubmissions(id: number): Observable<QuestionSubmission[]> {
+        return this.http.get<QuestionSubmission[]>(this.submissionUrl + '?question=' + id);
     }
 
     deleteQuestion(id: number) {

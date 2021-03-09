@@ -95,13 +95,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Used to store data that can be used or modified as needed</td>
-                            <td>1.00</td>
-                            <td>1.0/1.0</td>
-                            <td>Feb. 10, 2021, 12:52 p.m.</td>
-                            <td>Correct</td>
+                        <tr *ngFor="let submission of previousSubmissions; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{submission.answer}}</td>
+                            <td>{{submission.grade.toFixed(2)}}</td>
+                            <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
+                            <td>{{submission.submission_time | date:'medium'}}</td>
+                            <td>{{submission.status}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -187,13 +187,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Used to store data that can be used or modified as needed</td>
-                            <td>1.00</td>
-                            <td>1.0/1.0</td>
-                            <td>Feb. 10, 2021, 12:52 p.m.</td>
-                            <td>Correct</td>
+                        <tr *ngFor="let submission of previousSubmissions; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{submission.answer}}</td>
+                            <td>{{submission.grade.toFixed(2)}}</td>
+                            <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
+                            <td>{{submission.submission_time | date:'medium'}}</td>
+                            <td>{{submission.status}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -280,13 +280,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Used to store data that can be used or modified as needed</td>
-                            <td>1.00</td>
-                            <td>1.0/1.0</td>
-                            <td>Feb. 10, 2021, 12:52 p.m.</td>
-                            <td>Correct</td>
+                        <tr *ngFor="let submission of previousSubmissions; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{submission.answer}}</td>
+                            <td>{{submission.grade.toFixed(2)}}</td>
+                            <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
+                            <td>{{submission.submission_time | date:'medium'}}</td>
+                            <td>{{submission.status}}</td>
                         </tr>
                         </tbody>
                     </table>
