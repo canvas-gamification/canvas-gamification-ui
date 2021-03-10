@@ -33,8 +33,8 @@
                 option {{ tokenUse.option.id }} to use</label>
               <input class="form-control input-sm mx-sm-2 token-input no-spin-button"
                      [attr.id]="'tokenUseAction' + tokenUse.option.id"
-                     [(ngModel)]="tokenActions[tokenUse.option.id]" [ngModelOptions]="{standalone: true}"
-                     type="number" min="0" [attr.max]="tokenUse.option.maximum_number_of_use">
+                     [(ngModel)]="currentTokenActions[tokenUse.option.id]" [ngModelOptions]="{standalone: true}"
+                     type="number" min="0" [attr.max]="tokenUse.option.maximum_number_of_use" (input)="typingChanges(tokenUse, $event.target.value)">
               <!--Issue: option related things in this input tags are undefined. Why?-->
               <button class="btn btn-success action-icon" (click)="incrementAction(tokenUse)">
                 <fa-icon [icon]=faPlus class="fa button-icon fa-plus"></fa-icon>

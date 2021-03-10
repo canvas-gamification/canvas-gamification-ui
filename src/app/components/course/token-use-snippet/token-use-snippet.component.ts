@@ -13,7 +13,8 @@ import { TokenUse } from '@app/_models/token_use';
 export class TokenUseSnippetComponent implements OnInit {
   @Input() courseReg: CourseRegistration;
 
-  tokenActions = {};
+  currentTokenActions = {};
+  prevTokenActions = {}
   courseId: number;
 
   invalid: boolean;
@@ -29,7 +30,8 @@ export class TokenUseSnippetComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseReg.token_uses.forEach(tokenUse => {
-      this.tokenActions[tokenUse.option.id] = tokenUse.num_used;
+      this.currentTokenActions[tokenUse.option.id] = tokenUse.num_used;
+      this.prevTokenActions[tokenUse.option.id] = tokenUse.num_used;
     });
     // Should always make invalid false unless some truly funky situations are happening
     this.currentTotal = this.courseReg.available_tokens;
@@ -47,34 +49,46 @@ export class TokenUseSnippetComponent implements OnInit {
 
   // Is this actually safe? I'm not 100% sure
   incrementAction(token_use: TokenUse) {
-    console.log(this.tokenActions[token_use.option.id]+1)
-    this.changeTokenUse(token_use, this.tokenActions[token_use.option.id]+1)
+    this.changeTokenUse(token_use, this.currentTokenActions[token_use.option.id]+1)
   }
 
   decrementAction(token_use: TokenUse) {
-    console.log(this.tokenActions[token_use.option.id]-1)
-    this.changeTokenUse(token_use, this.tokenActions[token_use.option.id]-1)
+    this.changeTokenUse(token_use, this.currentTokenActions[token_use.option.id]-1)
   }
 
+  // This is messy... but it somehow handles null as well? Is this a really dumb way of doing this?
   changeTokenUse(token_use: TokenUse, newVal: number){
-    let change = newVal - this.tokenActions[token_use.option.id];
-    if (newVal > token_use.option.maximum_number_of_use)
+    // Handles user typing a change... basically change the linked value to what it was earlier, and redo the change properly
+    if(this.currentTokenActions[token_use.option.id] != this.prevTokenActions[token_use.option.id]){ 
+      let temp = this.currentTokenActions[token_use.option.id]
+      this.currentTokenActions[token_use.option.id] = this.prevTokenActions[token_use.option.id]
+      this.changeTokenUse(token_use,temp)
+    }
+    let change = newVal - this.currentTokenActions[token_use.option.id];
+    if (newVal > token_use.option.maximum_number_of_use){
       this.changeTokenUse(token_use, token_use.option.maximum_number_of_use);
-    else if (newVal < 0){
+      return;
+    }else if (newVal < 0){
       this.changeTokenUse(token_use,0)
+      return;
     }else{
-      this.tokenActions[token_use.option.id] = newVal
+      this.currentTokenActions[token_use.option.id] = newVal
+      this.prevTokenActions[token_use.option.id] = newVal
       this.currentTotal -= change*token_use.option.tokens_required
     }
     this.canSave()
   }
 
+  typingChanges(token_use: TokenUse, newVal: number){
+    this.changeTokenUse(token_use,this.currentTokenActions[token_use.option.id])
+  }
+
   confirmChanges() {
-    console.log(this.tokenActions);
+    console.log(this.currentTokenActions);
     const tokenActionsData = {};
-    for (const optionId in this.tokenActions) {
-      if (this.tokenActions.hasOwnProperty(optionId)) {
-        tokenActionsData[`token_use#${optionId}`] = this.tokenActions[optionId];
+    for (const optionId in this.currentTokenActions) {
+      if (this.currentTokenActions.hasOwnProperty(optionId)) {
+        tokenActionsData[`token_use#${optionId}`] = this.currentTokenActions[optionId];
       }
     }
     this.tokenUseService.useTokens(tokenActionsData, this.courseId).subscribe(message => {
