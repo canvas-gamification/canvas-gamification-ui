@@ -32,9 +32,7 @@
                 <div class="card-header">
                     <h1>{{QuestionDetails?.title}}</h1>
                 </div>
-                <div class="card-body">
-                    {{MultipleChoiceQuestionDetails?.text}}
-                </div>
+                <div class="card-body" [innerHTML]="MultipleChoiceQuestionDetails?.text"></div>
             </div>
             <div class="card my-1">
                 <div class="card-header">
@@ -45,7 +43,9 @@
                         <div class="form-check" *ngFor="let choice of choiceArray">
                             <input class="form-check-input" name="radio" type="radio" id="answer-{{choice.id}}"
                                    value="{{choice.id}}">
-                            <label class="form-check-label" for="answer-{{choice.id}}">{{choice.value}}</label>
+                            <div [innerHTML]="choice.value">
+                                <label class="form-check-label" for="answer-{{choice.id}}"></label>
+                            </div>
                         </div>
                     </form>
                     <button class="btn btn-success">Submit</button>
@@ -113,9 +113,7 @@
                 <div class="card-header">
                     <h1>{{QuestionDetails?.title}}</h1>
                 </div>
-                <div class="card-body">
-                    {{JavaQuestionDetails?.text}}
-                </div>
+                <div class="card-body" [innerHTML]="JavaQuestionDetails?.text"></div>
             </div>
             <div class="card my-1">
                 <div class="card-header">
@@ -203,9 +201,7 @@
                 <div class="card-header">
                     <h1>{{QuestionDetails?.title}}</h1>
                 </div>
-                <div class="card-body">
-                    {{ParsonsQuestionDetails?.text}}
-                </div>
+                <div class="card-body" [innerHTML]="ParsonsQuestionDetails?.text"></div>
             </div>
             <div class="card my-1">
                 <div class="card-header">
@@ -224,13 +220,15 @@
                             </div>
                             <div class="col-md-6">
                                 <h2>My Solution</h2>
-                                <div class="right_container" [dragula]="PARSONS_LINES" [(dragulaModel)]="parsonAnswerLines">
+                                <div class="right_container" [dragula]="PARSONS_LINES"
+                                     [(dragulaModel)]="parsonAnswerLines">
                                     <div class="container-object" *ngFor="let line of parsonAnswerLines">
                                         {{line}}
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <button class="btn btn-success">Submit</button>
                     </div>
                 </div>
             </div>
