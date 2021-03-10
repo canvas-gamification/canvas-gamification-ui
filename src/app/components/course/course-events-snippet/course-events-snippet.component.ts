@@ -21,7 +21,6 @@ export class CourseEventsSnippetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.events);
   }
 
   getEventButtonText(event: CourseEvent): string {
