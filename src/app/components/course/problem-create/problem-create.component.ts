@@ -141,6 +141,7 @@ export class ProblemCreateComponent implements OnInit {
         }
 
         if (this.questionType === 'parsons') {
+            FormData.lines = FormData.lines.split(',');
             this.questionService.postParsonsQuestion(FormData)
                 .subscribe(response => {
                     this.messageService.addSuccess('The Question has been Created Successfully.');

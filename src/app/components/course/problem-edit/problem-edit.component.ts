@@ -182,6 +182,7 @@ export class ProblemEditComponent implements OnInit {
                 });
         }
         if (this.questionType === 'parsons question') {
+            FormData.lines = FormData.lines.split(',');
             this.questionService.putParsonsQuestion(FormData, this.userId)
                 .subscribe(response => {
                     this.messageService.addSuccess('The Question has been Updated Successfully.');
