@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseService} from '@app/_services/api/course.service';
-import {Course, CourseRegistration} from '@app/_models';
+import {Course, CourseRegistration, User} from '@app/_models';
 import {ActivatedRoute} from '@angular/router';
 import {CourseRegistrationService} from '@app/_services/api/course-registration.service';
 import {forkJoin} from 'rxjs';
@@ -15,12 +15,15 @@ export class CourseComponent implements OnInit {
   course: Course;
   courseReg: CourseRegistration;
   courseId: number;
+  user: User;
 
   constructor(private authenticationService: AuthenticationService,
               private courseService: CourseService,
               private courseRegistrationService: CourseRegistrationService,
               private route: ActivatedRoute) {
     this.courseId = this.route.snapshot.params.courseId;
+    this.authenticationService.currentUser.subscribe(user => this.user = user);
+
   }
 
   ngOnInit(): void {
@@ -30,11 +33,16 @@ export class CourseComponent implements OnInit {
     ])?.subscribe(([course, courseRegs]) => {
       this.course = course;
       this.courseReg = courseRegs[0];
+      console.log(course)
     });
+
   }
 
   isTeacher() {
     return true;
+    // TODO: MERGE THIS BRANCH with increased auth service and change this function to the following:
+    // return this.user.is_teacher;
+    
   }
 
 }
