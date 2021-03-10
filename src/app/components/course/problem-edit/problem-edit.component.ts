@@ -45,18 +45,25 @@ export class ProblemEditComponent implements OnInit {
                 this.MCQFormData = this.formBuilder.group({
                     title: new FormControl(''),
                     difficulty: new FormControl(''),
-                    // category: new FormControl(''),
-                    course_name: new FormControl(''),
-                    event_name: new FormControl(''),
+                    course: new FormControl(''),
+                    event: new FormControl(''),
                     text: new FormControl(''),
                     answer: new FormControl(''),
-                    visible_distractor_count: new FormControl('3')
+                    category: new FormControl(''),
+                    variables: new FormControl(''),
+
+                    // Hard coded for now...
+                    author: new FormControl(1),
+                    visible_distractor_count: new FormControl('3'),
+                    max_submission_allowed: new FormControl(3),
+                    is_verified: new FormControl(true),
+                    // choices: new FormControl(''),
                 });
                 this.MCQFormData.controls.title.setValue(this.QuestionDetails.title);
                 this.MCQFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
-                // this.MCQFormData.controls.category.setValue(this.QuestionDetails.category_name);
-                this.MCQFormData.controls.course_name.setValue(this.QuestionDetails.course_name);
-                this.MCQFormData.controls.event_name.setValue(this.QuestionDetails.event_name);
+                this.MCQFormData.controls.category.setValue(this.QuestionDetails.category_name);
+                this.MCQFormData.controls.course.setValue(this.QuestionDetails.course_name);
+                this.MCQFormData.controls.event.setValue(this.QuestionDetails.event_name);
                 this.questionService.getMultipleChoiceQuestion(this.userId).subscribe((details: Question) => {
                     this.MultipleChoiceQuestionDetails = details;
                     this.variables = this.MultipleChoiceQuestionDetails.variables;
@@ -74,7 +81,7 @@ export class ProblemEditComponent implements OnInit {
 
                     this.MCQFormData.controls.text.setValue(this.MultipleChoiceQuestionDetails.text);
                     this.MCQFormData.controls.answer.setValue(this.correctAnswer.value);
-
+                    // this.MCQFormData.controls.choices.setValue(this.choiceArray);
                 });
             }
 
@@ -82,12 +89,18 @@ export class ProblemEditComponent implements OnInit {
                 this.JavaFormData = this.formBuilder.group({
                     title: new FormControl(''),
                     difficulty: new FormControl(''),
-                    // category: new FormControl(''),
-                    course_name: new FormControl(''),
-                    event_name: new FormControl(''),
+                    category: new FormControl(''),
+                    course: new FormControl(''),
+                    event: new FormControl(''),
                     text: new FormControl(''),
-                    answer: new FormControl(''),
                     junit_template: new FormControl(''),
+                    input_file_names: new FormControl(''),
+                    variables: new FormControl(''),
+
+                    // Hard coded for now...
+                    author: new FormControl(1),
+                    max_submission_allowed: new FormControl(5),
+                    is_verified: new FormControl(true),
                 });
                 this.questionService.getJavaQuestion(this.userId).subscribe((details: Question) => {
                     this.JavaQuestionDetails = details;
@@ -95,9 +108,9 @@ export class ProblemEditComponent implements OnInit {
                     this.variables = this.JavaQuestionDetails.variables;
                     this.JavaFormData.controls.title.setValue(this.QuestionDetails.title);
                     this.JavaFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
-                    // this.JavaFormData.controls.category.setValue(this.QuestionDetails.category_name);
-                    this.JavaFormData.controls.course_name.setValue(this.QuestionDetails.course_name);
-                    this.JavaFormData.controls.event_name.setValue(this.QuestionDetails.event_name);
+                    this.JavaFormData.controls.category.setValue(this.QuestionDetails.category_name);
+                    this.JavaFormData.controls.course.setValue(this.QuestionDetails.course_name);
+                    this.JavaFormData.controls.event.setValue(this.QuestionDetails.event_name);
                     this.JavaFormData.controls.text.setValue(this.JavaQuestionDetails.text);
                     this.JavaFormData.controls.junit_template.setValue(this.JavaQuestionDetails.junit_template);
                 });
@@ -107,13 +120,18 @@ export class ProblemEditComponent implements OnInit {
                 this.ParsonsFormData = this.formBuilder.group({
                     title: new FormControl(''),
                     difficulty: new FormControl(''),
-                    // category: new FormControl(''),
-                    course_name: new FormControl(''),
-                    event_name: new FormControl(''),
+                    category: new FormControl(''),
+                    course: new FormControl(''),
+                    event: new FormControl(''),
                     text: new FormControl(''),
                     junit_template: new FormControl(''),
                     lines: new FormControl(''),
                     additional_file_name: new FormControl(''),
+
+                    // Hard coded for now...
+                    author: new FormControl(1),
+                    max_submission_allowed: new FormControl(100),
+                    is_verified: new FormControl(true),
                 });
                 this.questionService.getParsonsQuestion(this.userId).subscribe((details: Question) => {
                     console.log(this.QuestionDetails);
@@ -121,9 +139,9 @@ export class ProblemEditComponent implements OnInit {
                     this.variables = this.ParsonsQuestionDetails.variables;
                     this.ParsonsFormData.controls.title.setValue(this.QuestionDetails.title);
                     this.ParsonsFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
-                    // this.ParsonsFormData.controls.category.setValue(this.QuestionDetails.category_name);
-                    this.ParsonsFormData.controls.course_name.setValue(this.QuestionDetails.course_name);
-                    this.ParsonsFormData.controls.event_name.setValue(this.QuestionDetails.event_name);
+                    this.ParsonsFormData.controls.category.setValue(this.QuestionDetails.category_name);
+                    this.ParsonsFormData.controls.course.setValue(this.QuestionDetails.course_name);
+                    this.ParsonsFormData.controls.event.setValue(this.QuestionDetails.event_name);
                     this.ParsonsFormData.controls.text.setValue(this.ParsonsQuestionDetails.text);
                     this.ParsonsFormData.controls.junit_template.setValue(this.ParsonsQuestionDetails.junit_template);
                     this.ParsonsFormData.controls.lines.setValue(this.ParsonsQuestionDetails.lines);

@@ -68,6 +68,21 @@ export class QuestionService {
         );
     }
 
+    putQuestion(input: any, id: number) {
+        return this.http.put(this.questionServiceUrl + id + '/', input, {responseType: 'text'}).pipe(
+            map(
+                (response) => {
+                    if (response) {
+                        return response;
+                    }
+                },
+                (error: any) => {
+                    return error;
+                }
+            )
+        );
+    }
+
     putMultipleChoiceQuestion(input: any, id: number) {
         return this.http.put(this.multipleChoiceQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
             map(
@@ -82,6 +97,7 @@ export class QuestionService {
             )
         );
     }
+
     putJavaQuestion(input: any, id: number) {
         return this.http.put(this.javaQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
             map(
@@ -96,8 +112,54 @@ export class QuestionService {
             )
         );
     }
+
     putParsonsQuestion(input: any, id: number) {
         return this.http.put(this.parsonsQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
+            map(
+                (response) => {
+                    if (response) {
+                        return response;
+                    }
+                },
+                (error: any) => {
+                    return error;
+                }
+            )
+        );
+    }
+
+    postMultipleChoiceQuestion(input: any) {
+        return this.http.post(this.multipleChoiceQuestionUrl, input, {responseType: 'text'}).pipe(
+            map(
+                (response) => {
+                    if (response) {
+                        return response;
+                    }
+                },
+                (error: any) => {
+                    return error;
+                }
+            )
+        );
+    }
+
+    postJavaQuestion(input: any) {
+        return this.http.post(this.javaQuestionUrl, input, {responseType: 'text'}).pipe(
+            map(
+                (response) => {
+                    if (response) {
+                        return response;
+                    }
+                },
+                (error: any) => {
+                    return error;
+                }
+            )
+        );
+    }
+
+    postParsonsQuestion(input: any) {
+        return this.http.post(this.parsonsQuestionUrl, input, {responseType: 'text'}).pipe(
             map(
                 (response) => {
                     if (response) {

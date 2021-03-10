@@ -12,6 +12,9 @@ import {QuestionSubmission} from '@app/_models/questionSubmission';
     styleUrls: ['./problem-view.component.scss']
 })
 export class ProblemViewComponent implements OnInit {
+
+    constructor(private route: ActivatedRoute, private questionService: QuestionService, private dragulaService: DragulaService) {
+    }
     PARSONS_LINES = 'PARSONS_LINES';
     private routeSub: Subscription;
     MultipleChoiceQuestionDetails: Question;
@@ -26,11 +29,6 @@ export class ProblemViewComponent implements OnInit {
     parsonLines: any[];
     parsonAnswerLines: any[];
     previousSubmissions: QuestionSubmission[];
-
-    parsonSub = new Subscription();
-
-    constructor(private route: ActivatedRoute, private questionService: QuestionService, private dragulaService: DragulaService) {
-    }
 
     ngOnInit(): void {
         this.routeSub = this.route.params.subscribe(params => {
@@ -72,18 +70,13 @@ export class ProblemViewComponent implements OnInit {
                     this.variables = this.ParsonsQuestionDetails.variables;
                     this.dragulaService.createGroup(this.PARSONS_LINES, {
                         direction: 'horizontal',
+                        copy: true,
+                        copySortSource: true,
                     });
-                    this.parsonSub.add(this.dragulaService.dropModel(this.PARSONS_LINES)
-                        .subscribe(({el, target, source, sourceModel, targetModel, item}) => {
-                            console.log('dropModel:');
-                            console.log(el);
-                            console.log(source);
-                            console.log(target);
-                            console.log(sourceModel);
-                            console.log(targetModel);
-                            console.log(item);
-                        })
-                    );
+                    this.dragulaService.over().subscribe((value) => {
+                    });
+                    this.dragulaService.drop().subscribe((value) => {
+                    });
                 });
             }
 

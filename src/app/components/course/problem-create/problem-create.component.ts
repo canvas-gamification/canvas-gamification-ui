@@ -4,6 +4,8 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {Subscription} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
+import {AuthenticationService} from '@app/_services/api/authentication';
+import {Question, User} from '@app/_models';
 
 @Component({
     selector: 'app-problem-create',
@@ -11,6 +13,7 @@ import {MessageService} from '@app/_services/message.service';
     styleUrls: ['./problem-create.component.scss']
 })
 export class ProblemCreateComponent implements OnInit {
+    user: User;
     private routeSub: Subscription;
     MCQFormData: FormGroup;
     JavaFormData: FormGroup;
@@ -20,7 +23,9 @@ export class ProblemCreateComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private questionService: QuestionService,
                 private formBuilder: FormBuilder,
-                private messageService: MessageService) {
+                private messageService: MessageService,
+                private authenticationService: AuthenticationService) {
+        this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
@@ -32,12 +37,23 @@ export class ProblemCreateComponent implements OnInit {
             this.MCQFormData = this.formBuilder.group({
                 title: new FormControl(''),
                 difficulty: new FormControl(''),
-                category: new FormControl(''),
-                course_name: new FormControl(''),
-                event_name: new FormControl(''),
+                course: new FormControl(''),
+                event: new FormControl(''),
                 text: new FormControl(''),
                 answer: new FormControl(''),
-                visible_distractor_count: new FormControl('3')
+                category: new FormControl(''),
+                variables: new FormControl(''),
+
+                // Hard coded for now...
+                author: new FormControl(1),
+                visible_distractor_count: new FormControl('3'),
+                max_submission_allowed: new FormControl(3),
+                is_verified: new FormControl(true),
+                choices: new FormControl({
+                    a: 'test',
+                    b: 'TEST',
+                    c: 'teSt',
+                }),
             });
         }
         if (this.questionType === 'java') {
@@ -45,11 +61,17 @@ export class ProblemCreateComponent implements OnInit {
                 title: new FormControl(''),
                 difficulty: new FormControl(''),
                 category: new FormControl(''),
-                course_name: new FormControl(''),
-                event_name: new FormControl(''),
+                course: new FormControl(''),
+                event: new FormControl(''),
                 text: new FormControl(''),
                 junit_template: new FormControl(''),
                 input_file_names: new FormControl(''),
+                variables: new FormControl(''),
+
+                // Hard coded for now...
+                author: new FormControl(1),
+                max_submission_allowed: new FormControl(5),
+                is_verified: new FormControl(true),
             });
         }
         if (this.questionType === 'parsons') {
@@ -57,17 +79,73 @@ export class ProblemCreateComponent implements OnInit {
                 title: new FormControl(''),
                 difficulty: new FormControl(''),
                 category: new FormControl(''),
-                course_name: new FormControl(''),
-                event_name: new FormControl(''),
+                course: new FormControl(''),
+                event: new FormControl(''),
                 text: new FormControl(''),
                 junit_template: new FormControl(''),
                 lines: new FormControl(''),
                 additional_file_name: new FormControl(''),
+
+                // Hard coded for now...
+                author: new FormControl(1),
+                max_submission_allowed: new FormControl(100),
+                is_verified: new FormControl(true),
             });
         }
     }
 
     onSubmit(FormData) {
-        // Post Question for Create
+        if (this.questionType === 'MCQ') {
+            this.questionService.postMultipleChoiceQuestion(FormData)
+                .subscribe(response => {
+                    this.messageService.addSuccess('The Question has been Created Successfully.');
+                    const jsonResponse: Question = JSON.parse(response);
+                    // this.questionService.putQuestion({
+                    //     event: this.MCQFormData.controls.event,
+                    // }, jsonResponse.id).subscribe(updateResponse => {
+                    // }, error => {
+                    //     console.warn(error.responseText);
+                    //     console.log({error});
+                    //     });
+                }, error => {
+                    console.warn(error.responseText);
+                    console.log({error});
+                });
+        }
+        if (this.questionType === 'java') {
+            this.questionService.postJavaQuestion(FormData)
+                .subscribe(response => {
+                    this.messageService.addSuccess('The Question has been Created Successfully.');
+                    const jsonResponse: Question = JSON.parse(response);
+                    // this.questionService.putQuestion({
+                    //     event: this.MCQFormData.controls.event,
+                    // }, jsonResponse.id).subscribe(updateResponse => {
+                    // }, error => {
+                    //     console.warn(error.responseText);
+                    //     console.log({error});
+                    //     });
+                }, error => {
+                    console.warn(error.responseText);
+                    console.log({error});
+                });
+        }
+
+        if (this.questionType === 'parsons') {
+            this.questionService.postParsonsQuestion(FormData)
+                .subscribe(response => {
+                    this.messageService.addSuccess('The Question has been Created Successfully.');
+                    const jsonResponse: Question = JSON.parse(response);
+                    // this.questionService.putQuestion({
+                    //     eve  nt: this.MCQFormData.controls.event,
+                    // }, jsonResponse.id).subscribe(updateResponse => {
+                    // }, error => {
+                    //     console.warn(error.responseText);
+                    //     console.log({error});
+                    //     });
+                }, error => {
+                    console.warn(error.responseText);
+                    console.log({error});
+                });
+        }
     }
 }
