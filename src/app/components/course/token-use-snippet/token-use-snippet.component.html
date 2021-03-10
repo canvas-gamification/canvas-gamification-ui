@@ -17,6 +17,7 @@
     <ng-container *ngIf="tokenUseOptions">
       <ng-container *ngFor="let option of tokenUseOptions; index as i">
         <tr>
+
           <td>{{ i+1 }}</td>
           <td>{{ option.assignment_name }}</td>
           <td id="req_tokens_{{ option.id }}">{{ option.tokens_required }}</td>
@@ -24,9 +25,10 @@
           <td>{{ option.maximum_number_of_use }}</td>
           <td>
             <span class="bg-danger action-buttons fa-minus"><fa-icon [icon]=faMinus class="fa button-icon fa-minus"></fa-icon></span>
-            <!--<input class="no-spin-button token-input" name="token_use#{{ option.id }}"
+            <input class="no-spin-button token-input" [attr.name]="'token_use'+ option.id"
                                    [attr.id]="'#TokenUseAction' + option.id"
-                                   type="number" placeholder="0" max="{{ token_use.option.maximum_number_of_use }}"> -->
+                                   type="number" placeholder="0" [attr.max]="option.maximum_number_of_use">
+            <!--Issue: option related things in this input tags are undefined. Why?-->
             <span class="bg-success action-buttons fa-plus"> <fa-icon [icon]=faPlus class="fa button-icon fa-plus"></fa-icon></span>
           </td>
         </tr>
