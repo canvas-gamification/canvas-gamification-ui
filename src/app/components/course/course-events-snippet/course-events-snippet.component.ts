@@ -9,6 +9,11 @@ import {CourseEvent} from '@app/_models';
 export class CourseEventsSnippetComponent implements OnInit {
   @Input() events: CourseEvent[];
 
+  // I am unhappy with this solution: discuss more intelligent ways of doing this
+  formatDate = function(date: string){ 
+    return date.substr(0,10)
+  }
+
   // events = [
   //   {
   //     name: "ev1",
@@ -44,10 +49,14 @@ export class CourseEventsSnippetComponent implements OnInit {
   }
 
   getEventButtonText(event: CourseEvent): string {
-    return 'Open';
+    console.log(event.type)
+    var strAppend = event.type.toLowerCase()
+    strAppend = strAppend.charAt(0).toUpperCase() + strAppend.substr(1,strAppend.length)
+    return 'Open ' + strAppend;
   }
 
   isExamAndOpen(event: CourseEvent): boolean {
+    console.log(event.total_event_grade)
     return event.is_open && event.is_exam;
   }
 

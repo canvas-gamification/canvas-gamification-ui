@@ -17,23 +17,25 @@
     <ng-container *ngFor="let event of events; index as i">
         <tr>
             <td>{{ event.name }}</td>
-            <td>{{ event.start_date }}</td>
-            <td>{{ event.end_date }}</td>
+            <td>{{ formatDate(event.start_date) }}</td>
+            <td>{{ formatDate(event.end_date) }}</td>
             <td *ngIf="isExamAndOpen(event); else totalEventGrade" >Not Available Yet</td>
             <ng-template #totalEventGrade>
-                <td>{{"This will be total event grade"}}</td>
-                <!-- Not sure how to calculate this better yet -->
+                <td>{{ event.totalEventGrade }}%</td>
+                <!-- This is currently undefined. Api problem? -->
             </ng-template>
             <td>
-                <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
+                <div class="btn-container">
+                    <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
+                        <!--Fill in this href later-->
+                        <a class="btn btn-primary" href="#">{{ getEventButtonText(event) }}</a>
+                    </ng-container>
+                    <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
+                        <button class="btn btn-outline-info open-btn" href="www.google.com" disabled>{{ getEventButtonText(event) }}</button>
+                    </ng-template>
                     <!--Fill in this href later-->
-                    <a class="btn btn-primary" href="#">{{ getEventButtonText(event) }}</a>
-                </ng-container>
-                <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
-                    <button class="btn btn-outline-info" href="www.google.com" disabled>{{ getEventButtonText(event) }}</button>
-                </ng-template>
-                <!--Fill in this href later-->
-                <a *ngIf="event.has_edit_permission" class="btn btn-primary" href="#">Edit</a>
+                    <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn" href="#">Edit</a>
+                </div>
             </td>
         </tr>
     </ng-container>
