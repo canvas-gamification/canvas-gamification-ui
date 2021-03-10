@@ -17,8 +17,8 @@
         <td>{{ course.name }}</td>
         <td>{{ course.url }}</td>
         <td>{{ course.name }}</td>
-        <td>{{ course.start_date }}</td>
-        <td>{{ course.end_date }}</td>
+        <td>{{ course.start_date | date: 'LLL. dd, YYYY, hh:MM a'}}</td>
+        <td>{{ course.end_date | date: 'LLL. dd, YYYY, hh:MM a'}}</td>
       </tr>
       </tbody>
     </table>
