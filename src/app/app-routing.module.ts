@@ -79,12 +79,12 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'course/edit/:id',
+        path: 'course/question/edit/:id',
         component: ProblemEditComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'course/delete/:id',
+        path: 'course/question/delete/:id',
         component: ProblemDeleteComponent,
         canActivate: [AuthGuard]
     },

@@ -26,12 +26,12 @@ export class ProblemDeleteComponent implements OnInit {
     this.questionService.deleteQuestion(this.userId)
       .subscribe(response => {
         this.messageService.addSuccess('The Question has been Deleted Successfully.');
-        this.router.navigate(['../../problem-set'], {relativeTo: this.route});
+        this.router.navigate(['../../../problem-set'], {relativeTo: this.route});
         console.log(response);
       }, error => {
         console.warn(error.responseText);
         console.log({error});
-        this.router.navigate(['../../problem-set'], {relativeTo: this.route});
+        this.router.navigate(['../../../problem-set'], {relativeTo: this.route});
       });
   }
 
