@@ -60,13 +60,13 @@
                 <div class="form-row m-3">
                     <div class="col-md-6">
                         <label for="mcqQuestion">Question:</label>
-                        <textarea class="form-control" formControlName="text" id="mcqQuestion"></textarea>
+                        <ckeditor formControlName="text" [editor]="Editor" id="mcqQuestion"></ckeditor>
                     </div>
                 </div>
                 <div class="form-row m-3">
                     <div class="col-md-6">
                         <label for="mcqCorrectAnswer">Correct Answer:</label>
-                        <textarea class="form-control" formControlName="answer" id="mcqCorrectAnswer"></textarea>
+                        <ckeditor formControlName="answer" id="mcqCorrectAnswer" [editor]="Editor"></ckeditor>
                     </div>
                 </div>
                 <div class="form-row m-3">
@@ -136,7 +136,7 @@
                 <div class="form-row m-3">
                     <div class="col-md-6">
                         <label for="javaQuestion">Question:</label>
-                        <textarea class="form-control" formControlName="text" id="javaQuestion"></textarea>
+                        <ckeditor formControlName="text" [editor]="Editor" id="javaQuestion"></ckeditor>
                     </div>
                 </div>
                 <div class="form-row m-3">
@@ -228,7 +228,7 @@
                 <div class="form-row m-3">
                     <div class="col-md-6">
                         <label for="parsonsQuestion">Question:</label>
-                        <textarea class="form-control" formControlName="text" id="parsonsQuestion"></textarea>
+                        <ckeditor formControlName="text" [editor]="Editor" id="parsonsQuestion"></ckeditor>
                     </div>
                 </div>
                 <div class="form-row m-3">

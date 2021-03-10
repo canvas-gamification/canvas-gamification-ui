@@ -41,6 +41,7 @@ import {CommonModule} from '@angular/common';
 import {ProblemDeleteComponent} from './components/course/problem-delete/problem-delete.component';
 import {ProblemCreateComponent} from './components/course/problem-create/problem-create.component';
 import {DragulaModule} from 'ng2-dragula';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
     declarations: [
@@ -91,6 +92,7 @@ import {DragulaModule} from 'ng2-dragula';
         MatPaginatorModule,
         CommonModule,
         DragulaModule.forRoot(),
+        CKEditorModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

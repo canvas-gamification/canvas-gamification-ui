@@ -7,6 +7,8 @@ import {MessageService} from '@app/_services/message.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {Course, Question, User} from '@app/_models';
 import {CourseService} from '@app/_services/api/course.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 
 @Component({
     selector: 'app-problem-create',
@@ -14,6 +16,8 @@ import {CourseService} from '@app/_services/api/course.service';
     styleUrls: ['./problem-create.component.scss']
 })
 export class ProblemCreateComponent implements OnInit {
+    public Editor = ClassicEditor;
+
     user: User;
     private routeSub: Subscription;
     MCQFormData: FormGroup;

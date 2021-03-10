@@ -6,6 +6,7 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import {CourseService} from '@app/_services/api/course.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-problem-edit',
@@ -13,6 +14,8 @@ import {CourseService} from '@app/_services/api/course.service';
     styleUrls: ['./problem-edit.component.scss']
 })
 export class ProblemEditComponent implements OnInit {
+    public Editor = ClassicEditor;
+
     MCQFormData: FormGroup;
     JavaFormData: FormGroup;
     ParsonsFormData: FormGroup;
