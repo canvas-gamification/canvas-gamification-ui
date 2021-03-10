@@ -16,11 +16,13 @@ export class RegisterComponent implements OnInit {
   nameForm: FormGroup;
   studentNumberForm: FormGroup;
   courseId: number;
+  needsStudentNumber: boolean;
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder) {
     this.route.params.subscribe(params => {
       this.courseId = params.courseId;
     });
+    this.needsStudentNumber = true;
   }
 
   ngOnInit(): void {
