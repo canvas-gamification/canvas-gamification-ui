@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {CourseRegistration, TokenUseOption} from '@app/_models';
-import { TokenUse } from '@app/_models/token_use';
-
 
 @Component({
   selector: 'app-token-use-snippet',
@@ -11,9 +9,10 @@ import { TokenUse } from '@app/_models/token_use';
 })
 export class TokenUseSnippetComponent implements OnInit {
   @Input() courseReg: CourseRegistration;
-  
-  invalid: Boolean;
+  @Input() tokenUseOptions: TokenUseOption[];
+  tokenActions = {};
 
+  invalid: boolean;
 
   faMinus = faMinus;
   faPlus = faPlus;
@@ -22,31 +21,31 @@ export class TokenUseSnippetComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.courseReg.token_uses.forEach(tokenUse => {
+      this.tokenActions[tokenUse.option.id] = tokenUse.num_used;
+    });
     // Should always make invalid false unless some truly funky situations are happening
-    this.canSave()
+    this.canSave();
   }
 
-  canSave(){
-    this.invalid = this.courseReg.available_tokens < 0
+  canSave() {
+    this.invalid = this.courseReg.available_tokens < 0;
   }
 
   formatFloat(value: number, fractionDigits: number): string {
     return value.toFixed(fractionDigits);
   }
 
-  useTokensOption(use: TokenUse) {
-    console.log("use")
-    use.num_used += 1
-
+  incrementAction(optionId: number) {
+    ++this.tokenActions[optionId];
   }
 
-  unuseTokensOption(use: TokenUse) {
-    console.log("unuse")
-    use.num_used -= 1
+  decrementAction(optionId: number) {
+    --this.tokenActions[optionId];
   }
 
-  saveChanges(){
-
+  confirmChanges() {
+    // TODO: make a post request to the use tokens service
+    console.log(this.tokenActions);
   }
-
 }

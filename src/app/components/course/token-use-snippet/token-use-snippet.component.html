@@ -15,28 +15,32 @@
     </thead>
     <tbody>
     <ng-container *ngIf="courseReg.token_uses">
-      <ng-container *ngFor="let use of courseReg.token_uses; index as i">
+      <ng-container *ngFor="let tokenUse of courseReg.token_uses; index as i">
         <tr>
-
-          <td>{{ i+1 }}</td> <!--Is this right?-->
-          <td>{{ use.option.assignment_name }}</td>
-          <td id="req_tokens_{{ use.option.id }}">{{ use.option.tokens_required }}</td>
-          <td>{{ use.option.points_given }}</td>
-          <td>{{ use.option.maximum_number_of_use }}</td>
+          <td>{{ i + 1 }}</td>
+          <td>{{ tokenUse.option.assignment_name }}</td>
+          <td id="req_tokens_{{ tokenUse.option.id }}">{{ tokenUse.option.tokens_required }}</td>
+          <td>{{ tokenUse.option.points_given }}</td>
+          <td>{{ tokenUse.option.maximum_number_of_use }}</td>
           <td>
-            <span class="bg-danger action-buttons fa-minus" (click)="unuseTokensOption(use)"><fa-icon [icon]=faMinus class="fa button-icon fa-minus"></fa-icon></span>
-            <input class="no-spin-button token-input" 
-                [attr.name]="'token_use'+ use.option.id"
-                [attr.id]="'#TokenUseAction' + use.option.id"
-                type="number" 
-                [(ngModel)]="use.num_used" 
-                [attr.max]="use.option.maximum_number_of_use">
-            <span class="bg-success action-buttons fa-plus" (click)="useTokensOption(use)"> <fa-icon [icon]=faPlus class="fa button-icon fa-plus"></fa-icon></span>
+            <form class="form-inline">
+                <button class="btn btn-danger action-icon" (click)="decrementAction(tokenUse.option.id)">
+                  <fa-icon [icon]=faMinus class="fa button-icon fa-minus"></fa-icon>
+                </button>
+                <label class="sr-only" [attr.for]="'tokenUseAction' + tokenUse.option.id">Number of token use option {{ tokenUse.option.id }} to use</label>
+                <input class="form-control input-sm mx-sm-2 token-input no-spin-button" [attr.id]="'tokenUseAction' + tokenUse.option.id"
+                       [(ngModel)]="tokenActions[tokenUse.option.id]" [ngModelOptions]="{standalone: true}"
+                       type="number" min="0" [attr.max]="tokenUse.option.maximum_number_of_use">
+                <!--Issue: option related things in this input tags are undefined. Why?-->
+                <button class="btn btn-success action-icon" (click)="incrementAction(tokenUse.option.id)">
+                  <fa-icon [icon]=faPlus class="fa button-icon fa-plus"></fa-icon>
+                </button>
+            </form>
           </td>
         </tr>
       </ng-container>
     </ng-container>
     </tbody>
   </table>
-  <button class="my-1 btn btn-primary" id="submit_button">Confirm Changes</button>
+  <button class="my-1 btn btn-primary" id="submit_button" (click)="confirmChanges()">Confirm Changes</button>
 </form>

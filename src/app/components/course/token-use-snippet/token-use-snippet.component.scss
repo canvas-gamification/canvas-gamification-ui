@@ -1,15 +1,19 @@
-.action-buttons.fa-minus{
-    background-color: bg-danger;
-}
-.action-buttons.fa-plus{
-    background-color: bg-success;
+.action-icon {
+  line-height: 1.25rem;
+  display: inline-block;
+  font-size: 1.25rem;
+  text-align: center;
+  padding: 0.55rem;
+  border-radius: 5px;
 }
 
-.action-buttons{
-    padding: 0.5rem;
-    margin: 0.5rem;
-    border-radius: 0.5rem;
-    color: white;
+button .action-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.token-input {
+  width: 5rem;
 }
 
 .red-text{
