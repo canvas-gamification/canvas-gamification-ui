@@ -7,13 +7,14 @@
         <th scope="col">Format</th>
         <th scope="col">Tokens Earned</th>
         <th scope="col">Status</th>
-        <th scope="col">Num&nbsp;Attempts</th>
+        <ng-container *ngIf="isStudent()">
+            <th scope="col">Num&nbsp;Attempts</th>
+        </ng-container>
+        
         <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
-    <strong>Suh dude</strong>
-    
     <ng-container *ngFor="let uqj of uqjs; index as i">
         <!--
         {% for key, uqj in uqjs.items %}
@@ -25,28 +26,15 @@
             <td>{{ uqj.subcategory }}</td>
             <td>{{ uqj.format }}</td>
             <td>{{ uqj.tokens_received }}</td>
-            <td>FILL IN PLS</td>
-            <!-- {% if event.is_exam %}
-                {% exam_question_status event uqj as status %}
-                <td>
-                    {{ status }}
-                </td>
-            {% else %}
-                <td>
-                    {{ uqj.status }}
-                </td>
-            {% endif %}
-            -->
-            <!-- Not sure what is going on... add an additional col if it's not an exam?
-            {% if not event.is_exam %}
-                <td>
-                    {{ uqj.num_attempts }} / {{ uqj.question.max_submission_allowed }}
-                </td>
-            {% endif %}
-            -->
-            <td>{{uqj.num_attempts}}</td>
+            <td>{{ getStatus(uqj) }}</td>
+            <ng-container *ngIf="isStudent()">
+                <td>{{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed }}</td>
+            </ng-container>
             <td>
-                Not sure what action goes here
+                <button class="btn btn-primary mr-3" href="#">Open</button>
+                <ng-container *ngIf="isTeacher()">
+                    <button class="btn btn-warning mr-3" href="#">Edit</button>
+                </ng-container>
                 <!--
                 <a href="{% url 'course:question_view' pk=uqj.question.pk key=key %}" class="btn btn-primary">Open</a>
                 {% if user.is_teacher %}

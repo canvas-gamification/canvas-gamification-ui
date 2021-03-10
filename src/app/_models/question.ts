@@ -1,3 +1,6 @@
+import { CourseEvent } from "./course_event";
+
+
 export interface Question {
   title: string;
   text: string;
@@ -6,4 +9,5 @@ export interface Question {
   category: number;
   difficulty: string;
   is_verified: boolean;
+  event: CourseEvent;
 }
