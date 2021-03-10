@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {Question} from '@app/_models';
+import {Course, Question} from '@app/_models';
 import {ActivatedRoute} from '@angular/router';
 import {QuestionService} from '@app/_services/api/question.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
+import {CourseService} from '@app/_services/api/course.service';
 
 @Component({
     selector: 'app-problem-edit',
@@ -21,6 +22,7 @@ export class ProblemEditComponent implements OnInit {
     choiceArray: any[];
     variables: any[];
     inputFileNames: any[];
+    courses: Course[];
     correctAnswer: any;
     MultipleChoiceQuestionDetails: Question;
     JavaQuestionDetails: Question;
@@ -30,7 +32,8 @@ export class ProblemEditComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private questionService: QuestionService,
                 private formBuilder: FormBuilder,
-                private messageService: MessageService) {
+                private messageService: MessageService,
+                private courseService: CourseService) {
     }
 
     ngOnInit(): void {
@@ -40,7 +43,9 @@ export class ProblemEditComponent implements OnInit {
         this.questionService.getQuestion(this.userId).subscribe((detail: Question) => {
             this.QuestionDetails = detail;
             this.questionType = this.questionService.getQuestionType(this.QuestionDetails);
-
+            this.courseService.getCourses().subscribe((course) => {
+                this.courses = course;
+            });
             if (this.questionType === 'multiple choice question') {
                 this.MCQFormData = this.formBuilder.group({
                     title: new FormControl(''),
@@ -62,7 +67,8 @@ export class ProblemEditComponent implements OnInit {
                 this.MCQFormData.controls.title.setValue(this.QuestionDetails.title);
                 this.MCQFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
                 this.MCQFormData.controls.category.setValue(this.QuestionDetails.category_name);
-                this.MCQFormData.controls.course.setValue(this.QuestionDetails.course_name);
+                // Hard coded till event api is implemented.
+                this.MCQFormData.controls.course.setValue(1);
                 this.MCQFormData.controls.event.setValue(this.QuestionDetails.event_name);
                 this.questionService.getMultipleChoiceQuestion(this.userId).subscribe((details: Question) => {
                     this.MultipleChoiceQuestionDetails = details;
@@ -78,7 +84,6 @@ export class ProblemEditComponent implements OnInit {
                     }
                     this.correctAnswer = this.choiceArray[this.choiceArray
                         .findIndex(x => x.id === this.MultipleChoiceQuestionDetails.answer)];
-
                     this.MCQFormData.controls.text.setValue(this.MultipleChoiceQuestionDetails.text);
                     this.MCQFormData.controls.answer.setValue(this.correctAnswer.value);
                     // this.MCQFormData.controls.choices.setValue(this.choiceArray);
@@ -109,7 +114,8 @@ export class ProblemEditComponent implements OnInit {
                     this.JavaFormData.controls.title.setValue(this.QuestionDetails.title);
                     this.JavaFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
                     this.JavaFormData.controls.category.setValue(this.QuestionDetails.category_name);
-                    this.JavaFormData.controls.course.setValue(this.QuestionDetails.course_name);
+                    // Hard coded till event api is implemented.
+                    this.JavaFormData.controls.course.setValue(1);
                     this.JavaFormData.controls.event.setValue(this.QuestionDetails.event_name);
                     this.JavaFormData.controls.text.setValue(this.JavaQuestionDetails.text);
                     this.JavaFormData.controls.junit_template.setValue(this.JavaQuestionDetails.junit_template);
@@ -134,13 +140,13 @@ export class ProblemEditComponent implements OnInit {
                     is_verified: new FormControl(true),
                 });
                 this.questionService.getParsonsQuestion(this.userId).subscribe((details: Question) => {
-                    console.log(this.QuestionDetails);
                     this.ParsonsQuestionDetails = details;
                     this.variables = this.ParsonsQuestionDetails.variables;
                     this.ParsonsFormData.controls.title.setValue(this.QuestionDetails.title);
                     this.ParsonsFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
                     this.ParsonsFormData.controls.category.setValue(this.QuestionDetails.category_name);
-                    this.ParsonsFormData.controls.course.setValue(this.QuestionDetails.course_name);
+                    // Hard coded till event api is implemented.
+                    this.ParsonsFormData.controls.course.setValue(1);
                     this.ParsonsFormData.controls.event.setValue(this.QuestionDetails.event_name);
                     this.ParsonsFormData.controls.text.setValue(this.ParsonsQuestionDetails.text);
                     this.ParsonsFormData.controls.junit_template.setValue(this.ParsonsQuestionDetails.junit_template);

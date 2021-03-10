@@ -5,7 +5,8 @@ import {Subscription} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {Question, User} from '@app/_models';
+import {Course, Question, User} from '@app/_models';
+import {CourseService} from '@app/_services/api/course.service';
 
 @Component({
     selector: 'app-problem-create',
@@ -19,18 +20,23 @@ export class ProblemCreateComponent implements OnInit {
     JavaFormData: FormGroup;
     ParsonsFormData: FormGroup;
     questionType: string;
+    courses: Course[];
 
     constructor(private route: ActivatedRoute,
                 private questionService: QuestionService,
                 private formBuilder: FormBuilder,
                 private messageService: MessageService,
-                private authenticationService: AuthenticationService) {
+                private authenticationService: AuthenticationService,
+                private courseService: CourseService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
         this.routeSub = this.route.params.subscribe(params => {
             this.questionType = params.type;
+        });
+        this.courseService.getCourses().subscribe((course) => {
+            this.courses = course;
         });
 
         if (this.questionType === 'MCQ') {
