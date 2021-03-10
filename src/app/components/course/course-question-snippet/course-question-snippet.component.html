@@ -1,48 +1,56 @@
-<table class="table table-hover" data-toggle="table">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Category</th>
-        <th scope="col">Sub&nbsp;Category</th>
-        <th scope="col">Format</th>
-        <th scope="col">Tokens Earned</th>
-        <th scope="col">Status</th>
-        <ng-container *ngIf="isStudent()">
-            <th scope="col">Num&nbsp;Attempts</th>
-        </ng-container>
-        
-        <th scope="col">Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-container *ngFor="let uqj of uqjs; index as i">
-        <!--
-        {% for key, uqj in uqjs.items %}
-        {% row_class uqj event as row_class_name %}
-        -->
-        <tr [attr.class]="'.Question' + uqj.id">
-            <th scope="row">{{i}}</th>
-            <td>{{ uqj.category }}</td>
-            <td>{{ uqj.subcategory }}</td>
-            <td>{{ uqj.format }}</td>
-            <td>{{ uqj.tokens_received }}</td>
-            <td>{{ getStatus(uqj) }}</td>
-            <ng-container *ngIf="isStudent()">
-                <td>{{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed }}</td>
-            </ng-container>
-            <td>
-                <button class="btn btn-primary mr-3" href="#">Open</button>
-                <ng-container *ngIf="isTeacher()">
-                    <button class="btn btn-warning mr-3" href="#">Edit</button>
-                </ng-container>
-                <!--
-                <a href="{% url 'course:question_view' pk=uqj.question.pk key=key %}" class="btn btn-primary">Open</a>
-                {% if user.is_teacher %}
-                    <a href="{% url 'course:question_edit' uqj.question.pk %}" class="btn btn-warning">Edit</a>
-                {% endif %}
-                -->
-            </td>
-        </tr>
+<table class="table table-hover mt-3" data-toggle="table">
+  <thead class="thead-light text-dark">
+  <tr>
+    <th scope="col">Category</th>
+    <th scope="col">Sub&nbsp;Category</th>
+    <th scope="col">Format</th>
+    <th scope="col">Tokens Earned</th>
+    <th scope="col">Status</th>
+    <ng-container *ngIf="isStudent()">
+      <th scope="col">Num&nbsp;Attempts</th>
     </ng-container>
-    </tbody>
+
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngIf="uqjs.length>0; else tableEmpty">
+    <ng-container *ngFor="let uqj of uqjs; index as i">
+      <!--
+      {% for key, uqj in uqjs.items %}
+      {% row_class uqj event as row_class_name %}
+      -->
+      <tr [attr.class]="'.Question' + uqj.id">
+        <td>{{ uqj.category }}</td>
+        <td>{{ uqj.subcategory }}</td>
+        <td>{{ uqj.format }}</td>
+        <td>{{ uqj.tokens_received }}</td>
+        <td>{{ getStatus(uqj) }}</td>
+        <ng-container *ngIf="isStudent()">
+          <td>{{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed }}</td>
+        </ng-container>
+        <td>
+          <a class="btn btn-primary mr-3" href="#">Open</a>
+          <ng-container *ngIf="isTeacher()">
+            <a class="btn btn-warning mr-3" href="#">Edit</a>
+          </ng-container>
+          <!--
+          <a href="{% url 'course:question_view' pk=uqj.question.pk key=key %}" class="btn btn-primary">Open</a>
+          {% if user.is_teacher %}
+              <a href="{% url 'course:question_edit' uqj.question.pk %}" class="btn btn-warning">Edit</a>
+          {% endif %}
+          -->
+        </td>
+      </tr>
+    </ng-container>
+  </ng-container>
+  <ng-template #tableEmpty>
+    <tr>
+<!--      TODO: colspan depends on if the num attempts column is rendered-->
+      <td colspan="6" class="bg-info">
+        <p class="text-center text-light m-0">There currently aren't any questions in this course.</p>
+      </td>
+    </tr>
+  </ng-template>
+  </tbody>
 </table>

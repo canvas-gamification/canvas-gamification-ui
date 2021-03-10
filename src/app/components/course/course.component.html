@@ -1,7 +1,7 @@
 <ng-container *ngIf="course">
   <div class="container">
-    <table class="table">
-      <thead>
+    <table class="table table-bordered table-light mt-5 hover-shadow">
+      <thead class="thead-dark">
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Name</th>
@@ -23,7 +23,7 @@
       </tbody>
     </table>
 
-    <ul class="nav nav-tabs" role="tablist">
+    <ul class="nav nav-tabs mt-5" role="tablist">
       <ng-container *ngIf="isTeacher()">
         <li class="nav-item" role="presentation">
           <a class="nav-link" id="problem-set-tab" data-toggle="tab" href="#problem-set" role="tab"
@@ -42,18 +42,19 @@
     <div class="tab-content" id="myTabContent">
       <ng-container *ngIf="isTeacher()">
         <div class="tab-pane fade" id="problem-set" role="tabpanel" aria-labelledby="problem-set-tab">
-          <div class="m-3">
-            <app-course-question-snippet [questions]="course.question_set" [uqjs]="course.uqjs"></app-course-question-snippet>
+          <div class="hover-shadow p-3">
+            <app-course-question-snippet [questions]="course.question_set"
+                                         [uqjs]="course.uqjs"></app-course-question-snippet>
           </div>
         </div>
       </ng-container>
       <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
-        <div class="m-3">
+        <div class="hover-shadow p-3">
           <app-course-events-snippet [events]="course.events"></app-course-events-snippet>
         </div>
       </div>
       <div class="tab-pane fade" id="tokens" role="tabpanel" aria-labelledby="tokens-tab">
-        <div class="m-3">
+        <div class="hover-shadow p-3">
           <app-token-use-snippet [courseReg]="courseReg"></app-token-use-snippet>
         </div>
       </div>
