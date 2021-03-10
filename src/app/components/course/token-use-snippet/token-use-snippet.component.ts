@@ -9,8 +9,9 @@ import {CourseRegistration, TokenUseOption} from '@app/_models';
 })
 export class TokenUseSnippetComponent implements OnInit {
   @Input() courseReg: CourseRegistration;
-  @Input() tokenUseOptions: TokenUseOption[];
-  tokenActions = {}
+  
+  invalid: Boolean;
+
 
   faMinus = faMinus;
   faPlus = faPlus;
@@ -19,7 +20,8 @@ export class TokenUseSnippetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.tokenUseOptions.forEach(token_use => this.tokenActions[token_use.id] = 0);
+    // Should always be true unless some truly funky situations are happening
+    this.invalid = this.courseReg.available_tokens < 0
   }
 
 
@@ -28,18 +30,13 @@ export class TokenUseSnippetComponent implements OnInit {
   }
 
   useTokensOption(id: number) {
-    return true;
   }
 
-  unuseTokensOption(id) {
-    return true;
+  unuseTokensOption(id: number) {
+    
   }
 
-  incrementAction(){
-
-  }
-
-  decrementAction(){
+  saveChanges(){
 
   }
 
