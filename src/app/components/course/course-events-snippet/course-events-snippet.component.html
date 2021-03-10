@@ -17,21 +17,21 @@
     <ng-container *ngFor="let event of events; index as i">
         <tr>
             <td>{{ event.name }}</td>
-            <td>{{ formatDate(event.start_date) }}</td>
-            <td>{{ formatDate(event.end_date) }}</td>
+            <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a' }}</td>
+            <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a'  }}</td>
             <td *ngIf="isExamAndOpen(event); else totalEventGrade" >Not Available Yet</td>
             <ng-template #totalEventGrade>
-                <td>{{ event.totalEventGrade }}%</td>
+                <td>{{ event.total_event_grade }}%</td>
                 <!-- This is currently undefined. Api problem? -->
             </ng-template>
             <td>
                 <div class="btn-container">
                     <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
                         <!--Fill in this href later-->
-                        <a class="btn btn-primary" href="#">{{ getEventButtonText(event) }}</a>
+                        <a class="btn btn-primary mr-3" href="#">{{ getEventButtonText(event) }}</a>
                     </ng-container>
                     <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
-                        <button class="btn btn-outline-info open-btn" href="www.google.com" disabled>{{ getEventButtonText(event) }}</button>
+                        <button class="btn btn-outline-info open-btn mr-3" href="www.google.com" disabled>{{ getEventButtonText(event) }}</button>
                     </ng-template>
                     <!--Fill in this href later-->
                     <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn" href="#">Edit</a>

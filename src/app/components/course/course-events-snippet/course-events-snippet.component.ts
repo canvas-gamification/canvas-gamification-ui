@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CourseEvent} from '@app/_models';
+import {formatDate} from '@angular/common'
 
 @Component({
   selector: 'app-course-events-snippet',
@@ -8,32 +9,6 @@ import {CourseEvent} from '@app/_models';
 })
 export class CourseEventsSnippetComponent implements OnInit {
   @Input() events: CourseEvent[];
-
-  // I am unhappy with this solution: discuss more intelligent ways of doing this
-  formatDate = function(date: string){ 
-    return date.substr(0,10)
-  }
-
-  // events = [
-  //   {
-  //     name: "ev1",
-  //     startDate: 1204,
-  //     endDate: 1819,
-  //     isExamAndOpen: true,
-  //     allowedToOpen: true,
-  //     eventBtnText: "buttonTxt1",
-  //     allowedToEdit: true
-  //   },
-  //   {
-  //     name: "ev2",
-  //     startDate: 2000,
-  //     endDate: 2020,
-  //     isExamAndOpen: true,
-  //     allowedToOpen: true,
-  //     eventBtnText: "buttonTxt1",
-  //     allowedToEdit: true
-  //   }
-  // ]
 
   request = {
     user: {
@@ -46,6 +21,7 @@ export class CourseEventsSnippetComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.events);
   }
 
   getEventButtonText(event: CourseEvent): string {
