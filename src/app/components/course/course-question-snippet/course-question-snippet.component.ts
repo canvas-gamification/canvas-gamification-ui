@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Question, UQJ, User } from '@app/_models';
-import { AuthenticationService } from '@app/_services/api/authentication';
+import {Component, Input, OnInit} from '@angular/core';
+import {Question, UQJ, User} from '@app/_models';
+import {AuthenticationService} from '@app/_services/api/authentication';
 
 @Component({
   selector: 'app-course-question-snippet',
@@ -22,23 +22,22 @@ export class CourseQuestionSnippetComponent implements OnInit {
 
   getStatus(uqj: UQJ): string {
     if (!uqj.question.event || !uqj.question.event.is_exam) { // If the event exists
-      return uqj.status
+      return uqj.status;
     }
     if (uqj.question.event.is_exam && uqj.num_attempts > 0) {
-      return "Submitted"
-    }
-    else if (uqj.question.event.is_exam) {
-      return "Not submitted"
+      return 'Submitted';
+    } else if (uqj.question.event.is_exam) {
+      return 'Not submitted';
     }
   }
 
   // TODO: FIX THIS FUNCTION
   isStudent() {
     return false;
-  // return this.user.is_student;
+    // return this.user.is_student;
   }
 
-  isTeacher(){
+  isTeacher() {
     return false;
     // return this.user.is_teacher;
   }

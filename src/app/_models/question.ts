@@ -1,5 +1,4 @@
-import { CourseEvent } from "./course_event";
-
+import {CourseEvent} from './course_event';
 
 export interface Question {
   title: string;
