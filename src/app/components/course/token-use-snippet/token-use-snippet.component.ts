@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import {CourseRegistration, TokenUseOption} from '@app/_models';
+import { TokenUse } from '@app/_models/token_use';
+
 
 @Component({
   selector: 'app-token-use-snippet',
@@ -20,20 +22,27 @@ export class TokenUseSnippetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Should always be true unless some truly funky situations are happening
-    this.invalid = this.courseReg.available_tokens < 0
+    // Should always make invalid false unless some truly funky situations are happening
+    this.canSave()
   }
 
+  canSave(){
+    this.invalid = this.courseReg.available_tokens < 0
+  }
 
   formatFloat(value: number, fractionDigits: number): string {
     return value.toFixed(fractionDigits);
   }
 
-  useTokensOption(id: number) {
+  useTokensOption(use: TokenUse) {
+    console.log("use")
+    use.num_used += 1
+
   }
 
-  unuseTokensOption(id: number) {
-    
+  unuseTokensOption(use: TokenUse) {
+    console.log("unuse")
+    use.num_used -= 1
   }
 
   saveChanges(){
