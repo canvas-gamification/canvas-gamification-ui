@@ -2,7 +2,7 @@
   <div class="card-body">
     <p class="card-text">Available Tokens: <span id="available_tokens">{{ courseReg.total_tokens_received }}</span></p>
     <p class="card-text" id="remaining_tokens_text" [class.red-text]="invalid">
-      Remaining Tokens:<span id="remaining_tokens">{{ courseReg.available_tokens }}</span></p>
+      Remaining Tokens:<span id="remaining_tokens">{{ currentTotal }}</span></p>
   </div>
 </div>
 <form class="mt-3" method="post">
@@ -26,7 +26,7 @@
           <td>{{ tokenUse.option.maximum_number_of_use }}</td>
           <td>
             <form class="form-inline">
-              <button class="btn btn-danger action-icon" (click)="decrementAction(tokenUse.option.id)">
+              <button class="btn btn-danger action-icon" (click)="decrementAction(tokenUse)">
                 <fa-icon [icon]=faMinus class="fa button-icon fa-minus"></fa-icon>
               </button>
               <label class="sr-only" [attr.for]="'tokenUseAction' + tokenUse.option.id">Number of token use
@@ -36,7 +36,7 @@
                      [(ngModel)]="tokenActions[tokenUse.option.id]" [ngModelOptions]="{standalone: true}"
                      type="number" min="0" [attr.max]="tokenUse.option.maximum_number_of_use">
               <!--Issue: option related things in this input tags are undefined. Why?-->
-              <button class="btn btn-success action-icon" (click)="incrementAction(tokenUse.option.id)">
+              <button class="btn btn-success action-icon" (click)="incrementAction(tokenUse)">
                 <fa-icon [icon]=faPlus class="fa button-icon fa-plus"></fa-icon>
               </button>
             </form>
@@ -53,7 +53,7 @@
     </ng-template>
     </tbody>
   </table>
-  <button class="my-1 btn btn-primary" id="submit_button" (click)="confirmChanges()">Confirm Changes</button>
+  <button class="my-1 btn btn-primary" id="submit_button" (click)="confirmChanges()" [disabled]="invalid">Confirm Changes</button>
 </form>
 
 
