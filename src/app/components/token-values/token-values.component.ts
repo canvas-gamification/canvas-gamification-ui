@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormArray, FormBuilder, FormControl} from '@angular/forms';
 import {TokenValuesService} from '@app/_services/api/token-values.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {TokenValue,Category} from '@app/_models';
+import {TokenValue, Category} from '@app/_models';
 import {forkJoin} from 'rxjs';
-import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import {faCaretRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-token-values',
@@ -47,33 +47,31 @@ export class TokenValuesComponent implements OnInit {
   get getFormControls() {
     try {
       return this.tokenValueTable.get('categoryRows') as FormArray;
-    }
-    catch (e){
+    } catch (e) {
       console.log(e);
       return this.formBuilder.array([]);
     }
   }
 
-  private getValueByDifficulty(difficulty: string, categoryId: number) : number{
+  private getValueByDifficulty(difficulty: string, categoryId: number): number {
     try {
-      const tokenVal = this.existingTokenValues.find(element => (element.difficulty === difficulty) && (element.category == categoryId));
+      const tokenVal = this.existingTokenValues.find(element => (element.difficulty === difficulty) && (element.category === categoryId));
       return tokenVal.value;
-    }
-    catch(e){
-        return NaN;
-      }
-    }
-  private getIDByDifficulty(difficulty: string, categoryId: number) : string{
-    try {
-      const tokenVal = this.existingTokenValues.find(element => (element.difficulty === difficulty) && (element.category == categoryId));
-      return tokenVal.pk.toString();
-    }
-    catch(e){
-      return "N/A";
+    } catch (e) {
+      return NaN;
     }
   }
 
-  refresh(): void{
+  private getIDByDifficulty(difficulty: string, categoryId: number): string {
+    try {
+      const tokenVal = this.existingTokenValues.find(element => (element.difficulty === difficulty) && (element.category === categoryId));
+      return tokenVal.pk.toString();
+    } catch (e) {
+      return 'N/A';
+    }
+  }
+
+  refresh(): void {
     window.location.reload();
   }
 
@@ -83,13 +81,14 @@ export class TokenValuesComponent implements OnInit {
     this.updateNewTokenValues(this.editedRows);
   }
 
-  private updateNewTokenValues(editedRows): void{
+  private updateNewTokenValues(editedRows): void {
     editedRows.forEach(row => {
-      const rowValues = [row.Easy, row.Medium, row.Hard]; //TODO: Find a way to do this so it doesn't matter how many difficulties there are aka dynamic
-      let tokenIds = row.Token_Id.split(" ");
-      for(let i = 0; i < tokenIds.length; i++){
-        const currentTokenValue = this.existingTokenValues.find(element => element.pk == +tokenIds[i]);
-        if(currentTokenValue.value != rowValues[i]){
+      // TODO: Find a way to do this so it doesn't matter how many difficulties there are aka dynamic
+      const rowValues = [row.Easy, row.Medium, row.Hard];
+      const tokenIds = row.Token_Id.split(' ');
+      for (let i = 0; i < tokenIds.length; i++) {
+        const currentTokenValue = this.existingTokenValues.find(element => element.pk === +tokenIds[i]);
+        if (currentTokenValue.value !== rowValues[i]) {
           currentTokenValue.value = rowValues[i];
           this.tokenValueService.updateTokenValue(currentTokenValue).subscribe();
         }
@@ -98,24 +97,24 @@ export class TokenValuesComponent implements OnInit {
     this.refresh();
   }
 
-  isSubCategory(subCat, mainCat): boolean{
+  isSubCategory(subCat, mainCat): boolean {
     return this.subCategories[mainCat].find(c => c.pk === subCat);
   }
 
   toggleChildTopics(category: Category): void {
     this.expanded[category.name] = !this.expanded[category.name];
     this.subCategories[category.name] = this.categoryList.filter(c => c.parent === category.pk);
-      this.subCategories[category.name].forEach(cat => {
-        this.getFormControls.push(this.formBuilder.group({
-          Category_Name: new FormControl({value: cat.name, disabled: true}),
-          Easy: this.getValueByDifficulty("EASY", cat.pk),
-          Medium: this.getValueByDifficulty("NORMAL", cat.pk),
-          Hard: this.getValueByDifficulty("HARD", cat.pk),
-          Token_Id: this.getIDByDifficulty("EASY", cat.pk) + ' ' + this.getIDByDifficulty("NORMAL", cat.pk)
-            + ' ' + this.getIDByDifficulty("HARD", cat.pk),
-          categoryPk: cat.pk
-        }));
-      });
+    this.subCategories[category.name].forEach(cat => {
+      this.getFormControls.push(this.formBuilder.group({
+        Category_Name: new FormControl({value: cat.name, disabled: true}),
+        Easy: this.getValueByDifficulty('EASY', cat.pk),
+        Medium: this.getValueByDifficulty('NORMAL', cat.pk),
+        Hard: this.getValueByDifficulty('HARD', cat.pk),
+        Token_Id: this.getIDByDifficulty('EASY', cat.pk) + ' ' + this.getIDByDifficulty('NORMAL', cat.pk)
+          + ' ' + this.getIDByDifficulty('HARD', cat.pk),
+        categoryPk: cat.pk
+      }));
+    });
   }
 
 }

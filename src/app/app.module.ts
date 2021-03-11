@@ -27,6 +27,9 @@ import { UserActionsComponent } from './components/homepage/user-actions/user-ac
 import { RecentViewedQuestionsComponent } from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
 import { CourseDashboardComponent } from './components/homepage/course-dashboard/course-dashboard.component';
 import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
+import { ProblemSetComponent } from './components/course/problem-set/problem-set.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
 import { RegisterComponent } from './components/accounts/register/register.component';
 import { ProfileDetailsComponent } from './components/accounts/profile-details/profile-details.component';
 import { ResetPasswordComponent } from './components/accounts/reset-password/reset-password.component';
@@ -48,6 +51,7 @@ import { FaqComponent } from './components/faq/faq.component';
     LoginComponent,
     TokenValuesComponent,
     FaqComponent,
+    ProblemSetComponent,
     HomepageComponent,
     RecentUserActionsComponent,
     UserActionsComponent,
@@ -60,22 +64,24 @@ import { FaqComponent } from './components/faq/faq.component';
     ConsentFormComponent,
     TermsAndConditionsSnippetComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    NgbModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatCardModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
-    MatCardModule,
-    FontAwesomeModule,
-    FormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        NgbModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatCardModule,
+        RecaptchaModule,
+        RecaptchaFormsModule,
+        MatCardModule,
+        FontAwesomeModule,
+        FormsModule,
+        MatPaginatorModule,
+        MatSortModule,
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

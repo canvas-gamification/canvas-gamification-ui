@@ -1,21 +1,29 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {MessageService} from '../message.service';
+import {environment} from '@environments/environment';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
-import {MultipleChoiceQuestion} from '../../_models/multiple_choice_question';
+import {Question} from '@app/_models';
+import {PaginatedResult} from '@app/_models/paginatedResult';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
+  private questionServiceUrl = new URL('/api/questions/', environment.apiBaseUrl).toString();
 
-  private sampleMultipleChoiceQuestionsUrl = new URL('/api/sample-multiple-choice-question', environment.apiBaseUrl).toString();
-
-  constructor(private http: HttpClient, private messageService: MessageService) {
+  constructor(private http: HttpClient) {
   }
 
-  getSampleMultipleChoiceQuestions(): Observable<MultipleChoiceQuestion[]> {
-    return this.http.get<MultipleChoiceQuestion[]>(this.sampleMultipleChoiceQuestionsUrl);
+  getQuestions(options?): Observable<PaginatedResult<Question>> {
+    const {page = 1, page_size = 50, search = '', category = '', difficulty = '', is_sample = ''} = options ? options : {};
+    const params = new HttpParams()
+      .set('page', page)
+      .set('page_size', page_size)
+      .set('search', search)
+      .set('parent_category_name__exact', category)
+      .set('difficulty', difficulty)
+      .set('is_sample', is_sample);
+
+    return this.http.get<PaginatedResult<Question>>(this.questionServiceUrl, {params});
   }
 }
