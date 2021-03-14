@@ -6,7 +6,6 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import {CourseService} from '@app/_services/api/course.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-problem-edit',
@@ -14,7 +13,6 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
     styleUrls: ['./problem-edit.component.scss']
 })
 export class ProblemEditComponent implements OnInit {
-    public Editor = ClassicEditor;
 
     MCQFormData: FormGroup;
     JavaFormData: FormGroup;
@@ -182,7 +180,6 @@ export class ProblemEditComponent implements OnInit {
                 });
         }
         if (this.questionType === 'parsons question') {
-            FormData.lines = FormData.lines.split(',');
             this.questionService.putParsonsQuestion(FormData, this.userId)
                 .subscribe(response => {
                     this.messageService.addSuccess('The Question has been Updated Successfully.');
