@@ -45,7 +45,9 @@
                             "node_modules/bootstrap/dist/js/bootstrap.min.js",
                             "node_modules/lodash/lodash.js",
                             "node_modules/backbone/backbone.js",
-                            "node_modules/jointjs/dist/joint.js"
+                            "node_modules/jointjs/dist/joint.js",
+                            "node_modules/ace-builds/src-min/ace.js",
+                            "node_modules/ace-builds/src-min/mode-javascript.js"
                         ]
                     },
                     "configurations": {

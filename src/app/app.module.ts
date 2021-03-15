@@ -42,6 +42,7 @@ import {ProblemDeleteComponent} from './components/course/problem-delete/problem
 import {ProblemCreateComponent} from './components/course/problem-create/problem-create.component';
 import {DragulaModule} from 'ng2-dragula';
 import {CKEditorModule} from 'ckeditor4-angular';
+import {AceEditorModule} from 'ng2-ace-editor';
 
 @NgModule({
     declarations: [
@@ -93,6 +94,7 @@ import {CKEditorModule} from 'ckeditor4-angular';
         CommonModule,
         DragulaModule.forRoot(),
         CKEditorModule,
+        AceEditorModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

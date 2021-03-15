@@ -24,6 +24,7 @@ export class ProblemEditComponent implements OnInit {
     variables: any[];
     inputFileNames: any[];
     courses: Course[];
+    events: Event[];
     correctAnswer: any;
     MultipleChoiceQuestionDetails: Question;
     JavaQuestionDetails: Question;

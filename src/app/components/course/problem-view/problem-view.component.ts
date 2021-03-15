@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {QuestionService} from '@app/_services/api/question.service';
 import {Subscription} from 'rxjs';
 import {Question} from '@app/_models';
 import {DragulaService} from 'ng2-dragula';
 import {QuestionSubmission} from '@app/_models/questionSubmission';
+import {AceEditorComponent} from 'ng2-ace-editor';
 
 @Component({
     selector: 'app-problem-view',
@@ -15,6 +16,7 @@ export class ProblemViewComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, private questionService: QuestionService, private dragulaService: DragulaService) {
     }
+    // @ViewChild('editor') editor: AceEditorComponent;
     PARSONS_LINES = 'PARSONS_LINES';
     private routeSub: Subscription;
     MultipleChoiceQuestionDetails: Question;
@@ -39,7 +41,7 @@ export class ProblemViewComponent implements OnInit {
             this.QuestionDetails = details;
             this.questionType = this.questionService.getQuestionType(this.QuestionDetails);
             this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe((submission: QuestionSubmission[]) => {
-               this.previousSubmissions = submission;
+                this.previousSubmissions = submission;
             });
             if (this.questionType === 'multiple choice question') {
                 this.questionService.getMultipleChoiceQuestion(this.userId).subscribe((detail: Question) => {
@@ -82,4 +84,17 @@ export class ProblemViewComponent implements OnInit {
 
         });
     }
+    //
+    // ngAfterInit(): void {
+    //     console.log(this.editor);
+    //     this.editor.setTheme('ace/theme/monokai');
+    //     this.editor.setMode('ace/mode/java');
+    //     this.editor.setOptions({
+    //         enableBasicAutocompletion: true,
+    //         enableSnippets: true,
+    //         enableLiveAutocompletion: true,
+    //         tabSize: 4,
+    //         useSoftTabs: true
+    //     });
+    // }
 }
