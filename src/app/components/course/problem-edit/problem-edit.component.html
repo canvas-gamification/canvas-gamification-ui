@@ -31,14 +31,17 @@
                     <div class="col-md-6">
                         <label for="mcqCategory">Category:</label>
                         <select class="form-control" formControlName="category" id="mcqCategory">
-                            <option value="119">...</option>
+                            <option *ngFor="let category of categories" value="{{category.pk}}">
+                                <div *ngIf="category.parent!==null">{{getParentCategoryName(category.parent)}} :: {{category.name}}</div>
+                                <div *ngIf="category.parent===null">{{category.name}}</div>
+                            </option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row m-3">
                     <div class="col-md-6">
                         <label for="mcqCourse">Course:</label>
-                        <select class="form-control" formControlName="course" id="mcqCourse">
+                        <select class="form-control" formControlName="course" id="mcqCourse" (change)="courseSelected($event)">
                             <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
                         </select>
                     </div>
@@ -47,7 +50,7 @@
                     <div class="col-md-6">
                         <label for="mcqEvent">Event Name:</label>
                         <select class="form-control" formControlName="event" id="mcqEvent">
-                            <option value="{{QuestionDetails?.event_name}}">{{QuestionDetails?.event_name}}</option>
+                            <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
                         </select>
                     </div>
                 </div>

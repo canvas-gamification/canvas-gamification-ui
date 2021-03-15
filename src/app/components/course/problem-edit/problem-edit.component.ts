@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {Course, Question} from '@app/_models';
+import {Category, Course, Question} from '@app/_models';
+import {CourseEvent} from '@app/_models/courseEvent';
 import {ActivatedRoute} from '@angular/router';
 import {QuestionService} from '@app/_services/api/question.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import {CourseService} from '@app/_services/api/course.service';
+import {CategoryService} from '@app/_services/api/category.service';
 
 @Component({
     selector: 'app-problem-edit',
@@ -24,18 +26,21 @@ export class ProblemEditComponent implements OnInit {
     variables: any[];
     inputFileNames: any[];
     courses: Course[];
-    events: Event[];
+    events: CourseEvent[];
     correctAnswer: any;
     MultipleChoiceQuestionDetails: Question;
     JavaQuestionDetails: Question;
     ParsonsQuestionDetails: Question;
     QuestionDetails: Question;
+    selectedCourse: Course;
+    categories: Category[];
 
     constructor(private route: ActivatedRoute,
                 private questionService: QuestionService,
                 private formBuilder: FormBuilder,
                 private messageService: MessageService,
-                private courseService: CourseService) {
+                private courseService: CourseService,
+                private categoryService: CategoryService) {
     }
 
     ngOnInit(): void {
@@ -47,6 +52,9 @@ export class ProblemEditComponent implements OnInit {
             this.questionType = this.questionService.getQuestionType(this.QuestionDetails);
             this.courseService.getCourses().subscribe((course) => {
                 this.courses = course;
+            });
+            this.categoryService.getCategories().subscribe((category) => {
+                this.categories = category;
             });
             if (this.questionType === 'multiple choice question') {
                 this.MCQFormData = this.formBuilder.group({
@@ -68,10 +76,10 @@ export class ProblemEditComponent implements OnInit {
                 });
                 this.MCQFormData.controls.title.setValue(this.QuestionDetails.title);
                 this.MCQFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
-                this.MCQFormData.controls.category.setValue(this.QuestionDetails.category_name);
+                this.MCQFormData.controls.category.setValue(this.QuestionDetails.category);
                 // Hard coded till event api is implemented.
                 this.MCQFormData.controls.course.setValue(1);
-                this.MCQFormData.controls.event.setValue(this.QuestionDetails.event_name);
+                this.MCQFormData.controls.event.setValue(this.QuestionDetails.event);
                 this.questionService.getMultipleChoiceQuestion(this.userId).subscribe((details: Question) => {
                     this.MultipleChoiceQuestionDetails = details;
                     this.variables = this.MultipleChoiceQuestionDetails.variables;
@@ -118,7 +126,7 @@ export class ProblemEditComponent implements OnInit {
                     this.JavaFormData.controls.category.setValue(this.QuestionDetails.category_name);
                     // Hard coded till event api is implemented.
                     this.JavaFormData.controls.course.setValue(1);
-                    this.JavaFormData.controls.event.setValue(this.QuestionDetails.event_name);
+                    this.JavaFormData.controls.event.setValue(this.QuestionDetails.event);
                     this.JavaFormData.controls.text.setValue(this.JavaQuestionDetails.text);
                     this.JavaFormData.controls.junit_template.setValue(this.JavaQuestionDetails.junit_template);
                 });
@@ -190,6 +198,24 @@ export class ProblemEditComponent implements OnInit {
                     console.log({error});
                 });
         }
+    }
+
+    courseSelected(value: any) {
+        this.courses.forEach(course => {
+            const courseId: number = +value.target.value;
+            if (course.course_id === courseId) {
+                this.selectedCourse = course;
+                this.events = this.selectedCourse.events;
+                console.log(this.events);
+            }
+        });
+    }
+
+    getParentCategoryName(categoryPK: number) {
+        this.categoryService.getCategory(categoryPK).subscribe(category => {
+            console.log(category.name);
+            return category.name;
+        });
     }
 
 }
