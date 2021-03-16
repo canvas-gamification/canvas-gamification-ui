@@ -33,7 +33,6 @@ export class CourseComponent implements OnInit {
     ])?.subscribe(([course, courseRegs]) => {
       this.course = course;
       this.courseReg = courseRegs[0];
-      console.log(course)
     });
 
   }
@@ -42,7 +41,5 @@ export class CourseComponent implements OnInit {
     return true;
     // TODO: MERGE THIS BRANCH with increased auth service and change this function to the following:
     // return this.user.is_teacher;
-    
   }
-
 }

@@ -40,6 +40,7 @@ import { CourseEventsSnippetComponent } from './components/course/course-events-
 import { TokenUseSnippetComponent } from './components/course/token-use-snippet/token-use-snippet.component';
 import { ProgressBarComponent } from './components/course/progress-bar/progress-bar.component';
 import { CourseQuestionSnippetComponent } from './components/course/course-question-snippet/course-question-snippet.component';
+import {TokenValuesComponent} from '@app/components/token-values/token-values.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { CourseQuestionSnippetComponent } from './components/course/course-quest
     TokenUseSnippetComponent,
     ProgressBarComponent,
     CourseQuestionSnippetComponent,
+    TokenValuesComponent
   ],
   imports: [
     BrowserModule,

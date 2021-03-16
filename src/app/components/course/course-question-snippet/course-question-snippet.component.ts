@@ -17,7 +17,6 @@ export class CourseQuestionSnippetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.uqjs);
   }
 
   getStatus(uqj: UQJ): string {
