@@ -9,4 +9,4 @@ export * from './course';
 export * from './course_event';
 export * from './course_registration';
 export * from './token_use_option';
-export * from './message';
+export * from './api_response';

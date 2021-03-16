@@ -59,7 +59,7 @@ export class TokenUseSnippetComponent implements OnInit {
   // This is messy... but it somehow handles null as well? Is this a really dumb way of doing this?
   changeTokenUse(token_use: TokenUse, newVal: number){
     // Handles user typing a change... basically change the linked value to what it was earlier, and redo the change properly
-    if(this.currentTokenActions[token_use.option.id] != this.prevTokenActions[token_use.option.id]){ 
+    if(this.currentTokenActions[token_use.option.id] != this.prevTokenActions[token_use.option.id]){
       let temp = this.currentTokenActions[token_use.option.id]
       this.currentTokenActions[token_use.option.id] = this.prevTokenActions[token_use.option.id]
       this.changeTokenUse(token_use,temp)
@@ -85,15 +85,9 @@ export class TokenUseSnippetComponent implements OnInit {
 
   confirmChanges() {
     console.log(this.currentTokenActions);
-    const tokenActionsData = {};
-    for (const optionId in this.currentTokenActions) {
-      if (this.currentTokenActions.hasOwnProperty(optionId)) {
-        tokenActionsData[`token_use#${optionId}`] = this.currentTokenActions[optionId];
-      }
-    }
-    this.tokenUseService.useTokens(tokenActionsData, this.courseId).subscribe(message => {
-      console.log(message);
-      const display = message.type === 'SUCCESS' || window.location.reload();
+    this.tokenUseService.useTokens(this.currentTokenActions, this.courseId).subscribe(apiResponse => {
+      console.log(apiResponse);
+      const display = apiResponse.success || window.location.reload();
     });
   }
 }

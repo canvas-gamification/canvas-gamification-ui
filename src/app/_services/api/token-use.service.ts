@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {Course, Message} from '@app/_models';
+import {Course, APIResponse} from '@app/_models';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
@@ -10,20 +10,20 @@ import {catchError} from 'rxjs/operators';
 })
 export class TokenUseService {
   private tokenUseUrl = new URL(
-    '/api/use-tokens',
+    '/api/token-use',
     environment.apiBaseUrl
   ).toString();
 
   constructor(private http: HttpClient) {
   }
 
-  useTokens(tokenActions, courseId: number): Observable<Message> {
+  useTokens(tokenActions, courseId: number): Observable<APIResponse> {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-    const url = `${this.tokenUseUrl}/${courseId}`;
-    return this.http.post<Message>(url, tokenActions, {headers})
+    const url = `${this.tokenUseUrl}/use/${courseId}/`;
+    return this.http.post<APIResponse>(url, tokenActions, {headers})
       .pipe(
         catchError(
-          this.handleError<Message>(
+          this.handleError<APIResponse>(
             `getCourses`
           )
         )
