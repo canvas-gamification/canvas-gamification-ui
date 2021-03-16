@@ -1,6 +1,4 @@
-import {Category} from '@app/_models/category';
 import {CourseEvent} from '@app/_models/courseEvent';
-import {User} from '@app/_models/user';
 
 export interface Question {
   id: number;
@@ -16,7 +14,7 @@ export interface Question {
   token_value: number;
   success_rate: number;
   type_name: string;
-  event: number;
+  event: CourseEvent;
   is_sample: boolean;
   category_name: string;
   parent_category_name: string;

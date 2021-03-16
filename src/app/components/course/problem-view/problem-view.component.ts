@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {QuestionService} from '@app/_services/api/question.service';
 import {Subscription} from 'rxjs';
@@ -6,6 +6,8 @@ import {Question} from '@app/_models';
 import {DragulaService} from 'ng2-dragula';
 import {QuestionSubmission} from '@app/_models/questionSubmission';
 import {AceEditorComponent} from 'ng2-ace-editor';
+import * as ace from 'ace-builds/src-noconflict/ace';
+
 
 @Component({
     selector: 'app-problem-view',
@@ -15,8 +17,10 @@ import {AceEditorComponent} from 'ng2-ace-editor';
 export class ProblemViewComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, private questionService: QuestionService, private dragulaService: DragulaService) {
+        ace.config.set('basePath', 'https://unpkg.com/ace-builds@1.4.12/src-noconflict');
     }
-    // @ViewChild('editor') editor: AceEditorComponent;
+
+    @ViewChild('editor') editor: AceEditorComponent;
     PARSONS_LINES = 'PARSONS_LINES';
     private routeSub: Subscription;
     MultipleChoiceQuestionDetails: Question;
@@ -94,7 +98,9 @@ export class ProblemViewComponent implements OnInit {
     //         enableSnippets: true,
     //         enableLiveAutocompletion: true,
     //         tabSize: 4,
-    //         useSoftTabs: true
+    //         useSoftTabs: true,
+    //         width: '250px',
+    //         height: '250px'
     //     });
     // }
 }

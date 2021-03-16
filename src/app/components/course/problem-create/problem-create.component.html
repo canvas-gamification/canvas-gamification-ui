@@ -37,14 +37,14 @@
                     <div class="col-md-6">
                         <label for="mcqCategory">Category:</label>
                         <select class="form-control" formControlName="category" id="mcqCategory">
-                            <option value="119">...</option>
+                            <option *ngFor="let category of categories" value="{{category.pk}}">{{category.full_name}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row m-3">
                     <div class="col-md-6">
                         <label for="mcqCourse">Course:</label>
-                        <select class="form-control" formControlName="course" id="mcqCourse">
+                        <select class="form-control" formControlName="course" id="mcqCourse" (change)="courseSelectedEvent($event)">
                             <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
                         </select>
                     </div>
@@ -53,7 +53,7 @@
                     <div class="col-md-6">
                         <label for="mcqEvent">Event Name:</label>
                         <select class="form-control" formControlName="event" id="mcqEvent">
-                            <option value="1">Vroom</option>
+                            <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -113,14 +113,14 @@
                     <div class="col-md-6">
                         <label for="javaCategory">Category:</label>
                         <select class="form-control" formControlName="category" id="javaCategory">
-                            <option value="119">...</option>
+                            <option *ngFor="let category of categories" value="{{category.pk}}">{{category.full_name}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row m-3">
                     <div class="col-md-6">
                         <label for="javaCourse">Course:</label>
-                        <select class="form-control" formControlName="course" id="javaCourse">
+                        <select class="form-control" formControlName="course" id="javaCourse" (change)="courseSelectedEvent($event)">
                             <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
                         </select>
                     </div>
@@ -129,7 +129,7 @@
                     <div class="col-md-6">
                         <label for="javaEvent">Event Name:</label>
                         <select class="form-control" formControlName="event" id="javaEvent">
-                            <option value="1">Vroom</option>
+                            <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
                         </select>
                     </div>
                 </div>
@@ -205,14 +205,14 @@
                     <div class="col-md-6">
                         <label for="parsonsCategory">Category:</label>
                         <select class="form-control" formControlName="category" id="parsonsCategory">
-                            <option value="119">...</option>
+                            <option *ngFor="let category of categories" value="{{category.pk}}">{{category.full_name}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row m-3">
                     <div class="col-md-6">
                         <label for="parsonsCourse">Course:</label>
-                        <select class="form-control" formControlName="course" id="parsonsCourse">
+                        <select class="form-control" formControlName="course" id="parsonsCourse" (change)="courseSelectedEvent($event)">
                             <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
                         </select>
                     </div>
@@ -221,7 +221,7 @@
                     <div class="col-md-6">
                         <label for="parsonsEvent">Event Name:</label>
                         <select class="form-control" formControlName="event" id="parsonsEvent">
-                            <option value="1">Vroom</option>
+                            <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
                         </select>
                     </div>
                 </div>

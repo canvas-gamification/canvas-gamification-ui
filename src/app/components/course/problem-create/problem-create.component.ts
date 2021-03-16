@@ -1,12 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {QuestionService} from '@app/_services/api/question.service';
-import {Subscription} from 'rxjs';
+import {forkJoin, Subscription} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {Course, Question, User} from '@app/_models';
+import {Category, Course, Question, User} from '@app/_models';
 import {CourseService} from '@app/_services/api/course.service';
+import {CourseEvent} from '@app/_models/courseEvent';
+import {CategoryService} from '@app/_services/api/category.service';
 
 @Component({
     selector: 'app-problem-create',
@@ -22,13 +24,17 @@ export class ProblemCreateComponent implements OnInit {
     ParsonsFormData: FormGroup;
     questionType: string;
     courses: Course[];
+    events: CourseEvent[];
+    selectedCourse: number;
+    categories: Category[];
 
     constructor(private route: ActivatedRoute,
                 private questionService: QuestionService,
                 private formBuilder: FormBuilder,
                 private messageService: MessageService,
                 private authenticationService: AuthenticationService,
-                private courseService: CourseService) {
+                private courseService: CourseService,
+                private categoryService: CategoryService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
@@ -36,8 +42,12 @@ export class ProblemCreateComponent implements OnInit {
         this.routeSub = this.route.params.subscribe(params => {
             this.questionType = params.type;
         });
-        this.courseService.getCourses().subscribe((course) => {
-            this.courses = course;
+        const coursesObservable = this.courseService.getCourses();
+        const categoriesObservable = this.categoryService.getCategories();
+
+        forkJoin([coursesObservable, categoriesObservable]).subscribe(result => {
+           this.courses = result[0];
+           this.categories = result[1];
         });
 
         if (this.questionType === 'MCQ') {
@@ -144,7 +154,7 @@ export class ProblemCreateComponent implements OnInit {
                     this.messageService.addSuccess('The Question has been Created Successfully.');
                     const jsonResponse: Question = JSON.parse(response);
                     // this.questionService.putQuestion({
-                    //     eve  nt: this.MCQFormData.controls.event,
+                    //     event: this.MCQFormData.controls.event,
                     // }, jsonResponse.id).subscribe(updateResponse => {
                     // }, error => {
                     //     console.warn(error.responseText);
@@ -154,6 +164,20 @@ export class ProblemCreateComponent implements OnInit {
                     console.warn(error.responseText);
                     console.log({error});
                 });
+        }
+    }
+    courseSelectedEvent(value) {
+        this.courseSelectedById(+value.target.value);
+    }
+
+    courseSelectedById(courseId: number) {
+        this.selectedCourse = courseId;
+        if (this.courses) {
+            this.courses.forEach(course => {
+                if (course.course_id === this.selectedCourse) {
+                    this.events = course.events;
+                }
+            });
         }
     }
 }
