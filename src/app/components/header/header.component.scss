@@ -4,9 +4,13 @@
 
 nav {
   height: 5rem;
+
+  .navbar-brand {
+    padding: 1rem 0;
+
+    .nav-item {
+      color: white;
+    }
+  }
 }
 
-nav .navbar-brand .nav-item{
-  color: white;
-
-}

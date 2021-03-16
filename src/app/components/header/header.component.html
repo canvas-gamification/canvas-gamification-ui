@@ -24,7 +24,7 @@
       <ng-container *ngIf="isLoggedIn(); else notLoggedIn">
           <span class="navbar-text mx-2 float-md-right">
             <ng-container *ngIf="hasCompleteProfile(); else incompleteProfile">
-                Hello, {{ user.firstName }}
+                Hello, {{ user.first_name }}
             </ng-container>
             <ng-template #incompleteProfile>
                 Hello, {{ user.username }}
@@ -55,7 +55,7 @@
               <a class="dropdown-item" routerLink="">Dashboard</a>
               <div class="dropdown-divider"></div>
               <ng-container *ngIf="isTeacher()">
-                <a class="dropdown-item">Token Values</a>
+                <a class="dropdown-item" routerLink="token-values">Token Values</a>
                 <div class="dropdown-divider"></div>
                 <h4 class="dropdown-header mb-0">New Problem</h4>
                 <a class="dropdown-item" routerLink="course/new_problem_multiple_choice">Multiple Choice Problem</a>
@@ -72,7 +72,7 @@
           <button class="btn btn-outline-success float-right" type="button" routerLink="accounts/login">
             Login
           </button>
-          <button class="btn btn-success ml-2 float-right" type="button"  routerLink="accounts/signup">
+          <button class="btn btn-success ml-2 float-right" type="button"  routerLink="accounts/register">
             Sign Up
           </button>
         </form>
