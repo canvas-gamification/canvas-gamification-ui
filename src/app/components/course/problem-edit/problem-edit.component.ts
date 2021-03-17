@@ -27,6 +27,7 @@ export class ProblemEditComponent implements OnInit {
     inputFileNames: any[];
     courses: Course[];
     events: CourseEvent[];
+    selectedEvent: number;
     correctAnswer: any;
     MultipleChoiceQuestionDetails: Question;
     JavaQuestionDetails: Question;
@@ -83,7 +84,7 @@ export class ProblemEditComponent implements OnInit {
                     this.MCQFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
                     this.MCQFormData.controls.category.setValue(this.QuestionDetails.category);
                     this.MCQFormData.controls.course.setValue(this.QuestionDetails.event.course);
-                    this.MCQFormData.controls.event.setValue(this.QuestionDetails.event);
+                    this.MCQFormData.controls.event.setValue(this.selectedEvent);
                     this.questionService.getMultipleChoiceQuestion(this.userId).subscribe((details: Question) => {
                         this.MultipleChoiceQuestionDetails = details;
                         this.variables = this.MultipleChoiceQuestionDetails.variables;
@@ -121,6 +122,8 @@ export class ProblemEditComponent implements OnInit {
                         max_submission_allowed: new FormControl(5),
                         is_verified: new FormControl(true),
                     });
+                    this.courseSelectedById(this.QuestionDetails.event.course);
+
                     this.questionService.getJavaQuestion(this.userId).subscribe((details: Question) => {
                         this.JavaQuestionDetails = details;
                         this.inputFileNames = this.JavaQuestionDetails.input_file_names;
@@ -132,7 +135,7 @@ export class ProblemEditComponent implements OnInit {
                         this.JavaFormData.controls.category.setValue(this.QuestionDetails.category);
                         // Hard coded till event api is implemented.
                         this.JavaFormData.controls.course.setValue(this.QuestionDetails.event.course);
-                        this.JavaFormData.controls.event.setValue(this.QuestionDetails.event);
+                        this.JavaFormData.controls.event.setValue(this.selectedEvent);
                         this.JavaFormData.controls.text.setValue(this.JavaQuestionDetails.text);
                         this.JavaFormData.controls.junit_template.setValue(this.JavaQuestionDetails.junit_template);
                     });
@@ -155,6 +158,8 @@ export class ProblemEditComponent implements OnInit {
                         max_submission_allowed: new FormControl(100),
                         is_verified: new FormControl(true),
                     });
+                    this.courseSelectedById(this.QuestionDetails.event.course);
+
                     this.questionService.getParsonsQuestion(this.userId).subscribe((details: Question) => {
                         this.ParsonsQuestionDetails = details;
                         this.variables = this.ParsonsQuestionDetails.variables;
@@ -165,7 +170,7 @@ export class ProblemEditComponent implements OnInit {
                         this.ParsonsFormData.controls.category.setValue(this.QuestionDetails.category);
                         // Hard coded till event api is implemented.
                         this.ParsonsFormData.controls.course.setValue(this.QuestionDetails.event.course);
-                        this.ParsonsFormData.controls.event.setValue(this.QuestionDetails.event_name);
+                        this.ParsonsFormData.controls.event.setValue(this.selectedEvent);
                         this.ParsonsFormData.controls.text.setValue(this.ParsonsQuestionDetails.text);
                         this.ParsonsFormData.controls.junit_template.setValue(this.ParsonsQuestionDetails.junit_template);
                         this.ParsonsFormData.controls.lines.setValue(this.ParsonsQuestionDetails.lines);
@@ -218,6 +223,7 @@ export class ProblemEditComponent implements OnInit {
             this.courses.forEach(course => {
                 if (course.course_id === this.selectedCourse) {
                     this.events = course.events;
+                    this.selectedEvent = this.QuestionDetails.event.id;
                 }
             });
         }
