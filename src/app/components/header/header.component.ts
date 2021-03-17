@@ -14,7 +14,9 @@ export class HeaderComponent implements OnInit {
   logoPath = 'assets/global/logo.jpg';
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private route: ActivatedRoute) {
-    this.authenticationService.currentUser.subscribe(user => this.user = user);
+    this.authenticationService.currentUser.subscribe(user => {
+        this.user = user;
+    });
   }
 
   ngOnInit(): void {
@@ -25,27 +27,7 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['../../'], {relativeTo: this.route});
   }
 
-  isLoggedIn() {
-    return !!this.user;
-  }
-
   isActive(navLink) {
     return window.location.pathname.slice(1) === navLink;
-  }
-
-  isTeacher() {
-    return this.user.is_teacher;
-  }
-
-  hasCompleteProfile() {
-    return !!this.user.first_name;
-  }
-
-  getUserTokens() {
-    return this.user.tokens;
-  }
-
-  isAdmin() {
-    return this.user.is_teacher;
   }
 }
