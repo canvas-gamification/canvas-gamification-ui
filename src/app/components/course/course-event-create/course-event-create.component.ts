@@ -10,6 +10,7 @@ export class CourseEventCreateComponent implements OnInit {
 
 
   courseId: number;
+  minDateISO: string;
 
   constructor(private route: ActivatedRoute) { }
   
@@ -17,7 +18,13 @@ export class CourseEventCreateComponent implements OnInit {
   ngOnInit(): void {
     // Convert to number
     this.courseId = +this.route.snapshot.paramMap.get("courseId");
-
+    this.minDateISO = this.getMinDate();
+    console.log(this.minDateISO)
+  }
+  
+  getMinDate(): string{
+    let d = new Date()
+    return d.toISOString().split(".")[0];
   }
 
 }
