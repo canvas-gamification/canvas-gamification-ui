@@ -15,7 +15,6 @@ import {CategoryService} from '@app/_services/api/category.service';
     styleUrls: ['./problem-edit.component.scss']
 })
 export class ProblemEditComponent implements OnInit {
-
     MCQFormData: FormGroup;
     JavaFormData: FormGroup;
     ParsonsFormData: FormGroup;
@@ -98,10 +97,10 @@ export class ProblemEditComponent implements OnInit {
                             this.choiceArray = outputArray;
                         }
                         this.correctAnswer = this.choiceArray[this.choiceArray
-                            .findIndex(x => x.value === this.MultipleChoiceQuestionDetails.answer)];
+                            .findIndex(x => x.id === this.MultipleChoiceQuestionDetails.answer)];
                         this.MCQFormData.controls.text.setValue(this.MultipleChoiceQuestionDetails.text);
                         this.MCQFormData.controls.answer.setValue(this.correctAnswer.value);
-                        // this.MCQFormData.controls.choices.setValue(this.choiceArray);
+                        // this.MCQFormData.controls.choices.setValue(this.choiceArray[1].value);
                     });
                 }
 
