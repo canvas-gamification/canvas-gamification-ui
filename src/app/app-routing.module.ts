@@ -110,9 +110,9 @@ const routes: Routes = [
         path: 'accounts/consent-form',
         component: ConsentFormComponent,
         canActivate: [AuthGuard]
-    }
+    },
     {
-        path: 'course/view/:courseId/new-event',
+        path: 'course/new-event/:courseId',
         component: CourseEventCreateComponent,
     }
 ];

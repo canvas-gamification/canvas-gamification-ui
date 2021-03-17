@@ -9,6 +9,7 @@ import {formatDate} from '@angular/common'
 })
 export class CourseEventsSnippetComponent implements OnInit {
   @Input() events: CourseEvent[];
+  @Input() courseId: number;
 
   request = {
     user: {

@@ -1,9 +1,10 @@
 <ng-container *ngIf="request.user.isTeacher">
   <!--Fill in these hrefs later-->
-  <a class="btn btn-primary my-2 mr-3" href="#">Add an Event</a>
+  <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course/new-event', courseId]">Add an Event</a>
   <a class="btn btn-primary my-2" href="#">Import an Event</a>
 </ng-container>
 <hr/>
+{{courseId}}
 <table class="table table-hover mt-1" data-toggle="table">
   <thead class="thead-light text-dark">
   <tr>
