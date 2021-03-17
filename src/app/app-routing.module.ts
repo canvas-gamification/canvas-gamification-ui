@@ -74,7 +74,7 @@ const routes: Routes = [
     },
     {
         path: 'register/:courseId',
-        component: RegisterNameComponent,
+        component: RegisterComponent,
         canActivate: [AuthGuard]
     },
     {

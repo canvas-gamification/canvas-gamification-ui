@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MessagesComponent } from './components/messages/messages.component';
@@ -16,6 +17,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { TopicsComponent } from './components/topics/topics.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -48,6 +52,7 @@ import { CourseEventsSnippetComponent } from './components/course/course-events-
 import { TokenUseSnippetComponent } from './components/course/token-use-snippet/token-use-snippet.component';
 import { ProgressBarComponent } from './components/course/progress-bar/progress-bar.component';
 import { CourseQuestionSnippetComponent } from './components/course/course-question-snippet/course-question-snippet.component';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -86,25 +91,31 @@ import { CourseQuestionSnippetComponent } from './components/course/course-quest
     ProgressBarComponent,
     CourseQuestionSnippetComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        NgbModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatIconModule,
-        MatCardModule,
-        RecaptchaModule,
-        RecaptchaFormsModule,
-        FontAwesomeModule,
-        FormsModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatProgressBarModule,
-        MatTableModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgbModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FontAwesomeModule,
+    FormsModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatCardModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
+    MatProgressBarModule,
+    MatTableModule,
+    MatStepperModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSortModule,
+    FontAwesomeModule,
+    FormsModule,
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
