@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CourseEvent} from '@app/_models';
+import {CourseEvent, User} from '@app/_models';
 import {formatDate} from '@angular/common'
 
 @Component({
@@ -10,13 +10,7 @@ import {formatDate} from '@angular/common'
 export class CourseEventsSnippetComponent implements OnInit {
   @Input() events: CourseEvent[];
   @Input() courseId: number;
-
-  request = {
-    user: {
-      isTeacher: true
-    }
-  };
-
+  @Input() teacherForClass: boolean;
 
   constructor() {
   }
@@ -25,9 +19,21 @@ export class CourseEventsSnippetComponent implements OnInit {
   }
 
   getEventButtonText(event: CourseEvent): string {
-    var strAppend = event.type.toLowerCase()
-    strAppend = strAppend.charAt(0).toUpperCase() + strAppend.substr(1,strAppend.length)
-    return 'Open ' + strAppend;
+    if(this.teacherForClass){
+      var strAppend = event.type.toLowerCase()
+      strAppend = strAppend.charAt(0).toUpperCase() + strAppend.substr(1,strAppend.length)
+      return 'Open ' + strAppend;
+    }else{
+      if (event.type == "ASSIGNMENT")
+        return "Complete Assignment"
+      else if(event.type == "PRACTICE")
+        return "Start Practice"
+      else if(event.type == "EXAM")
+        return "Take Exam"
+      else // Should never happen
+        return "Open"
+    }
+    
   }
 
   isExamAndOpen(event: CourseEvent): boolean {

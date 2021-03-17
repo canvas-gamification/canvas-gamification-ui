@@ -15,6 +15,7 @@ export class CourseComponent implements OnInit {
     courseReg: CourseRegistration;
     courseId: number;
     user: User;
+    teacherForClass: boolean;
 
     constructor(private authenticationService: AuthenticationService,
                 private courseService: CourseService,
@@ -25,6 +26,7 @@ export class CourseComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.teacherForClass = this.isTeacher()
         this.courseService
             .getCourse(this.courseId, true, {ordering: {name: true}})
             ?.subscribe(course => {
@@ -34,8 +36,9 @@ export class CourseComponent implements OnInit {
     }
 
     isTeacher() {
-        return true;
+        return this.user.role == "Teacher";
         // TODO: MERGE THIS BRANCH with increased auth service and change this function to the following:
+        // This depends on the course right? Need to check if teacher is teacher for this course
         // return this.user.is_teacher;
     }
 }
