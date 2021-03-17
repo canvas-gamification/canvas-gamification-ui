@@ -55,6 +55,7 @@ const routes: Routes = [
     },
     {
         path: 'course',
+        pathMatch: 'full',
         component: CourseListComponent,
         canActivate: [AuthGuard]
     },
@@ -78,7 +79,7 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'course/:courseId',
+        path: 'course/view/:courseId',
         component: CourseComponent,
         canActivate: [AuthGuard]
     },

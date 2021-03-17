@@ -1,40 +1,19 @@
-
-body,
-html {
-  width: 100%;
-  height: 100%;
-}
-
-.course-list-page {
-  padding: 0 7rem 0 7rem;
-}
-
-
-table {
-  td,
-  tr,
-  th {
+.mat-header-cell {
     font-size: 1rem;
-    height: 4rem;
-    vertical-align: middle;
-    text-align: center;
-    .actions{
-      text-align: left;
-      padding-left: 1rem;
+    color: black;
+    vertical-align: middle !important;
+
+    div.mat-sort-header-container {
+        margin: 0 auto;
     }
-  }
 }
 
-.heavy-indent {
-  padding-left: 2.5rem;
+.mat-cell {
+    font-size: 1rem;
+    vertical-align: middle;
+    border: 0;
 }
 
-header {
-  background: #EEEEEE;
+.mat-row {
+    height: 5rem;
 }
-
-table {
-  border: 1px solid #dee2e6;
-  background: white;
-}
-

@@ -4,7 +4,6 @@ import {CourseService} from '@app/_services/api/course.service';
 import {Course, CourseRegistration, User} from '@app/_models';
 import {ActivatedRoute} from '@angular/router';
 import {CourseRegistrationService} from '@app/_services/api/course-registration.service';
-import {forkJoin} from 'rxjs';
 
 @Component({
     selector: 'app-course',
@@ -23,7 +22,6 @@ export class CourseComponent implements OnInit {
                 private route: ActivatedRoute) {
         this.courseId = this.route.snapshot.params.courseId;
         this.authenticationService.currentUser.subscribe(user => this.user = user);
-
     }
 
     ngOnInit(): void {
