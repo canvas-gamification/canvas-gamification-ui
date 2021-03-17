@@ -18,7 +18,7 @@ export class CourseRegistrationService {
   }
 
   /**
-   * Retrieve all courses with their info
+   * Retrieve all course registration objects with their info
    * @param options - Object of options for this request
    */
   getCourseRegistrations(options?: any): Observable<CourseRegistration[]> {
@@ -53,7 +53,7 @@ export class CourseRegistrationService {
   }
 
   /**
-   * Retrieve a specific course with it's info
+   * Retrieve a specific course registration object with it's info
    * @param courseRegistrationId - Corresponds to the id of the course-registration object
    * @param options - Object of options for this request
    */
@@ -85,9 +85,7 @@ export class CourseRegistrationService {
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-      // Let the app keep running by returning an empty result.
+      console.error(error);
       return of(result as T);
     };
   }
