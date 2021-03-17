@@ -53,6 +53,7 @@ import { TokenUseSnippetComponent } from './components/course/token-use-snippet/
 import { ProgressBarComponent } from './components/course/progress-bar/progress-bar.component';
 import { CourseQuestionSnippetComponent } from './components/course/course-question-snippet/course-question-snippet.component';
 import {MatButtonModule} from "@angular/material/button";
+import { CourseEventCreateComponent } from './components/course/course-event-create/course-event-create.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import {MatButtonModule} from "@angular/material/button";
     TokenUseSnippetComponent,
     ProgressBarComponent,
     CourseQuestionSnippetComponent,
+    CourseEventCreateComponent,
   ],
   imports: [
     BrowserModule,

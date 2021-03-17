@@ -20,6 +20,7 @@ import {CourseListComponent} from '@app/components/course-list/course-list.compo
 import {RegisterNameComponent} from './components/course/registration/register-name/register-name.component';
 import {CourseComponent} from '@app/components/course/course.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
+import { CourseEventCreateComponent } from './components/course/course-event-create/course-event-create.component';
 
 
 const routes: Routes = [
@@ -109,6 +110,10 @@ const routes: Routes = [
         path: 'accounts/consent-form',
         component: ConsentFormComponent,
         canActivate: [AuthGuard]
+    }
+    {
+        path: 'course/view/:courseId/new-event',
+        component: CourseEventCreateComponent,
     }
 ];
 
