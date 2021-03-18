@@ -1,7 +1,6 @@
-<div class="container page-content m-3">
-
+<div id="mainContainer" class="container page-content m-3">
+<div class="w-50 m-auto">
 <form action="post" id="new-event">
-    <div class="form-col">
     <div class="row mb-3">
         <h2 class="form-label"><label for="id-name">Event Name</label></h2>
         <input id="id-name" type="text" name="name" required class="form-control">
@@ -15,7 +14,9 @@
             <option value="practice">Practice</option>
         </select>
     </div>
-    <!--Needs to stop -->
+    <div class="row mb-3">
+        <input id="id-count-for-tokens" name="count_for_tokens">
+    </div>
     <div class="row mb-3">
         <h2 class="form-label"><label for="id-name">Start time</label></h2>
         <input id="id-start_date" type="datetime-local" required name="start_date" class="form-control" [attr.min]="minDateISO">
@@ -24,10 +25,10 @@
         <h2 class="form-label"><label for="id-name">End time</label></h2>
         <input id="id-end_date" type="datetime-local" required name="end_date" class="form-control" [attr.min]="minDateISO">
     </div>
-    </div>
     <div class="row mb-3">
         <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course/view', courseId]">Back</a>
         <input id="id-name" type="submit" name="submit" class="btn btn-primary my-2 mr-3">
     </div>
 </form>
+</div>
 </div>
