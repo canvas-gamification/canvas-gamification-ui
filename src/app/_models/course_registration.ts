@@ -6,8 +6,6 @@ export interface CourseRegistration {
   is_verified: boolean;
   is_blocked: boolean;
   token_uses: TokenUse[];
-  // TODO: Check the difference here has repurcussions for token-use-options
-  // What is the difference between these two? Is available the remaining?
   total_tokens_received: number;
   available_tokens: number;
 }
