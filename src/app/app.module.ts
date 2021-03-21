@@ -43,6 +43,7 @@ import {ProblemCreateComponent} from './components/course/problem-create/problem
 import {DragulaModule} from 'ng2-dragula';
 import {CKEditorModule} from 'ckeditor4-angular';
 import {AceEditorModule} from 'ng2-ace-editor';
+import { AceComponent } from './components/course/problem-view/ace/ace.component';
 
 @NgModule({
     declarations: [
@@ -74,6 +75,7 @@ import {AceEditorModule} from 'ng2-ace-editor';
         ConsentFormComponent,
         TermsAndConditionsSnippetComponent,
         ProblemCreateComponent,
+        AceComponent,
     ],
     imports: [
         BrowserModule,
