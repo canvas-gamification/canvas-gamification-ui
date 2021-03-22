@@ -17,7 +17,6 @@ import {ConsentFormComponent} from '@app/components/accounts/consent-form/consen
 import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {CourseListComponent} from '@app/components/course-list/course-list.component';
-import {RegisterNameComponent} from './components/course/registration/register-name/register-name.component';
 import {CourseComponent} from '@app/components/course/course.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 import { CourseEventCreateComponent } from './components/course/course-event-create/course-event-create.component';
@@ -75,7 +74,7 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'register/:courseId',
+        path: 'course/register/:courseId',
         component: RegisterComponent,
         canActivate: [AuthGuard]
     },
