@@ -15,6 +15,11 @@ export class McqViewSnippetComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+      console.log(this.QuestionDetails);
+      console.log(this.MultipleChoiceQuestionDetails);
+      console.log(this.choiceArray);
+      console.log(this.variables);
+      console.log(this.previousSubmissions);
   }
 
 }

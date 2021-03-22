@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-java-view-snippet',
@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./java-view-snippet.component.scss']
 })
 export class JavaViewSnippetComponent implements OnInit {
+    @Input() QuestionDetails;
+    @Input() JavaQuestionDetails;
+    @Input() inputFileNames;
+    @Input() variables;
+    @Input() previousSubmissions;
 
   constructor() { }
 

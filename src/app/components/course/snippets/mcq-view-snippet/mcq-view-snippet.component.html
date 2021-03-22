@@ -25,20 +25,20 @@
     <div class="card-header">
         <h1>Generated Variables</h1>
     </div>
-    <div *ngIf="variables.length !== 0; else elseBlock">
-        <div *ngFor="let variable of variables" class="card-body">
-            <ul>
-                <li>
-                    Name: {{variable.name}}
-                    <ul>
-                        <li>Type: {{variable.type}}</li>
-                        <li>Min: {{variable.min}}</li>
-                        <li>Max: {{variable.max}}</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+<!--    <div *ngIf="variables.length !== 0; else elseBlock">-->
+<!--        <div *ngFor="let variable of variables" class="card-body">-->
+<!--            <ul>-->
+<!--                <li>-->
+<!--                    Name: {{variable.name}}-->
+<!--                    <ul>-->
+<!--                        <li>Type: {{variable.type}}</li>-->
+<!--                        <li>Min: {{variable.min}}</li>-->
+<!--                        <li>Max: {{variable.max}}</li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
     <ng-template #elseBlock>
         <div class="card-body">
             No Variables

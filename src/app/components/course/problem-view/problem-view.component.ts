@@ -17,6 +17,7 @@ export class ProblemViewComponent implements OnInit {
     constructor(private route: ActivatedRoute, private questionService: QuestionService, private dragulaService: DragulaService) {
     }
 
+    javaDataLoaded = false;
     PARSONS_LINES = 'PARSONS_LINES';
     private routeSub: Subscription;
     MultipleChoiceQuestionDetails: Question;
@@ -56,6 +57,7 @@ export class ProblemViewComponent implements OnInit {
                         });
                         this.choiceArray = outputArray;
                     }
+                    this.javaDataLoaded = true;
                 });
             }
             if (this.questionType === 'java question') {

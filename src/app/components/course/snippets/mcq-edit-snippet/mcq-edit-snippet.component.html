@@ -1,0 +1,90 @@
+<form [formGroup]="MCQFormData" (ngSubmit)="onSubmit(MCQFormData.value)">
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="mcqQuestionName">Question Name:</label>
+            <input class="form-control" formControlName="title" type="text" id="mcqQuestionName">
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="mcqDifficulty">Difficulty</label>
+            <select class="form-control" formControlName="difficulty" id="mcqDifficulty">
+                <option value="EASY">EASY</option>
+                <option value="NORMAL">MEDIUM</option>
+                <option value="HARD">HARD</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="mcqCategory">Category:</label>
+            <select class="form-control" formControlName="category" id="mcqCategory">
+                <option *ngFor="let category of categories" value="{{category.pk}}">{{category.full_name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="mcqCourse">Course:</label>
+            <select class="form-control" formControlName="course" id="mcqCourse" (change)="courseSelectedEvent($event)">
+                <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="mcqEvent">Event Name:</label>
+            <select class="form-control" formControlName="event" id="mcqEvent">
+                <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="mcqQuestion">Question:</label>
+            <ckeditor formControlName="text" id="mcqQuestion"></ckeditor>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="mcqCorrectAnswer">Correct Answer:</label>
+            <ckeditor formControlName="answer" id="mcqCorrectAnswer"></ckeditor>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6>">
+            <h3>Distract Answers:</h3>
+            <label class="radio-inline">
+                <input name="radio" type="radio" value="">All
+            </label>
+            <label class="radio-inline">
+                <input name="radio" type="radio" value="2">2
+            </label>
+            <label class="radio-inline">
+                <input name="radio" type="radio" value="3">3
+            </label>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <!--                        fix backend for this!!!     -->
+            <!--                        <label for="mcqChoices">Distract Answers:</label>-->
+            <!--                        <ckeditor formControlName="choices" id="mcqChoices"></ckeditor>-->
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            Variables:
+        </div>
+        <div class="col-md-6">
+            If you are not using variables,
+            please don't add any variables
+            and delete the existing ones.
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <button class="btn btn-success">Submit</button>
+        </div>
+    </div>
+</form>
