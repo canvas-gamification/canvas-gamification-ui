@@ -28,7 +28,7 @@
             </tbody>
         </table>
         <ng-container *ngIf="MultipleChoiceQuestionDetails">
-            <app-problem-view-snippet *ngIf="QuestionDetails && MultipleChoiceQuestionDetails && choiceArray && variables && previousSubmissions" [QuestionDetails] [MultipleChoiceQuestionDetails] [choiceArray] [variables] [previousSubmissions]></app-problem-view-snippet>
+            <app-mcq-view-snippet [QuestionDetails] [MultipleChoiceQuestionDetails] [choiceArray] [variables] [previousSubmissions]></app-mcq-view-snippet>
         </ng-container>
         <ng-container *ngIf="JavaQuestionDetails">
             <div class="card my-1">

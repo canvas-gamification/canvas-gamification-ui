@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProblemViewSnippetComponent } from './problem-view-snippet.component';
+import { JavaViewSnippetComponent } from './java-view-snippet.component';
 
-describe('ProblemViewSnippetComponent', () => {
-  let component: ProblemViewSnippetComponent;
-  let fixture: ComponentFixture<ProblemViewSnippetComponent>;
+describe('JavaViewSnippetComponent', () => {
+  let component: JavaViewSnippetComponent;
+  let fixture: ComponentFixture<JavaViewSnippetComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProblemViewSnippetComponent ]
+      declarations: [ JavaViewSnippetComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProblemViewSnippetComponent);
+    fixture = TestBed.createComponent(JavaViewSnippetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

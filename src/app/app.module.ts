@@ -44,9 +44,8 @@ import {DragulaModule} from 'ng2-dragula';
 import {CKEditorModule} from 'ckeditor4-angular';
 import {AceEditorModule} from 'ng2-ace-editor';
 import { AceComponent } from './components/course/problem-view/ace/ace.component';
-import { ProblemViewSnippetComponent } from './components/course/snippets/problem-view-snippet/problem-view-snippet.component';
-import { ProblemEditSnippetComponent } from './components/course/snippets/problem-edit-snippet/problem-edit-snippet.component';
-import { ProblemCreateSnippetComponent } from './components/course/snippets/problem-create-snippet/problem-create-snippet.component';
+import { McqViewSnippetComponent } from './components/course/snippets/mcq-view-snippet/mcq-view-snippet.component';
+import { JavaViewSnippetComponent } from './components/course/snippets/java-view-snippet/java-view-snippet.component';
 
 @NgModule({
     declarations: [
@@ -79,9 +78,8 @@ import { ProblemCreateSnippetComponent } from './components/course/snippets/prob
         TermsAndConditionsSnippetComponent,
         ProblemCreateComponent,
         AceComponent,
-        ProblemViewSnippetComponent,
-        ProblemEditSnippetComponent,
-        ProblemCreateSnippetComponent,
+        McqViewSnippetComponent,
+        JavaViewSnippetComponent,
     ],
     imports: [
         BrowserModule,
