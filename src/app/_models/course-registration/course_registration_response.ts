@@ -9,7 +9,7 @@ export interface CourseRegistrationResponse extends APIResponse {
     attempts_remaining?: number;
 }
 
-export interface CourseRegistrationRequest extends APIResponse {
+export interface CourseRegistrationRequest {
     name?: string;
     confirmed_name?: string;
     student_number?: number;
