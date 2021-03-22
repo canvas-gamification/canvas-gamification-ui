@@ -17,9 +17,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import { MatStepperModule } from "@angular/material/stepper";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { TopicsComponent } from './components/topics/topics.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -52,7 +52,7 @@ import { CourseEventsSnippetComponent } from './components/course/course-events-
 import { TokenUseSnippetComponent } from './components/course/token-use-snippet/token-use-snippet.component';
 import { ProgressBarComponent } from './components/course/progress-bar/progress-bar.component';
 import { CourseQuestionSnippetComponent } from './components/course/course-question-snippet/course-question-snippet.component';
-import {MatButtonModule} from "@angular/material/button";
+import {MatButtonModule} from '@angular/material/button';
 import { CourseEventCreateComponent } from './components/course/course-event-create/course-event-create.component';
 
 @NgModule({

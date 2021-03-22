@@ -11,4 +11,7 @@ export * from './course_event';
 export * from './course_registration';
 export * from './token_use_option';
 export * from './token_value';
-export * from './api_response';
+export * from './global/api_response';
+export * from './course-registration/registration_status';
+export * from './global/alert_message';
+export * from './course-registration/course_registration_response';
