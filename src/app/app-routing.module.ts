@@ -20,6 +20,7 @@ import {CourseListComponent} from '@app/components/course-list/course-list.compo
 import {CourseComponent} from '@app/components/course/course.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 import { CourseEventCreateComponent } from './components/course/course-event-create/course-event-create.component';
+import {CourseRegisterComponent} from '@app/components/course/registration/course-registration/course-register.component';
 
 
 const routes: Routes = [
@@ -75,7 +76,7 @@ const routes: Routes = [
     },
     {
         path: 'course/register/:courseId',
-        component: RegisterComponent,
+        component: CourseRegisterComponent,
         canActivate: [AuthGuard]
     },
     {
