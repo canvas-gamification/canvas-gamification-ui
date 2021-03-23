@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
@@ -22,6 +22,8 @@ const REGISTRATION_STAGES = {
     }]
 })
 export class CourseRegisterComponent implements OnInit {
+    @ViewChild('stepper') stepper;
+
     nameForm: FormGroup;
     confirmNameForm: FormGroup;
     studentNumberForm: FormGroup;
@@ -30,9 +32,12 @@ export class CourseRegisterComponent implements OnInit {
     courseId: number;
     needsStudentNumber: boolean;
     selectedIndex: number;
-    guessedName: string;
+    serverGuessedName: string;
     attemptsRemaining: number;
-    editable = true;
+
+    completed: boolean;
+    verification: boolean;
+    editable: boolean;
 
     constructor(private route: ActivatedRoute,
                 private formBuilder: FormBuilder,
@@ -42,6 +47,9 @@ export class CourseRegisterComponent implements OnInit {
             this.courseId = params.courseId;
         });
         this.needsStudentNumber = false;
+        this.completed = false;
+        this.verification = false;
+        this.editable = false;
     }
 
     ngOnInit(): void {
@@ -49,7 +57,7 @@ export class CourseRegisterComponent implements OnInit {
             nameControl: ['', Validators.required]
         });
         this.confirmNameForm = this.formBuilder.group({
-            confirmNameControl: ['', Validators.required]
+            confirmNameControl: ['']
         });
         this.studentNumberForm = this.formBuilder.group({
             studentNumberControl: ['', Validators.required]
@@ -64,7 +72,7 @@ export class CourseRegisterComponent implements OnInit {
         this.courseService.getCourseRegistrationStatus(this.courseId).subscribe(
             courseRegistrationStatus => {
                 const messageContent = courseRegistrationStatus.message;
-                // the api only sends a non-null message value if the user is blocked from registering, thus the "danger" type
+                // the api only responds with a non-null message value if the user is blocked from registering, thus the "danger" type
                 if (messageContent) {
                     this.messageService.add('danger', messageContent);
                 }
@@ -74,14 +82,14 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     initialStage(status: string): void {
-        console.log(status);
         switch (status) {
             case REGISTRATION_STATUS.REGISTERED:
                 this.selectedIndex = REGISTRATION_STAGES.REGISTERED;
-                this.editable = false;
+                this.completed = true;
                 break;
             case REGISTRATION_STATUS.AWAIT_VERIFICATION:
                 this.selectedIndex = REGISTRATION_STAGES.VERIFICATION;
+                this.verification = true;
                 break;
             case REGISTRATION_STATUS.NOT_REGISTERED:
                 this.selectedIndex = REGISTRATION_STAGES.ENTER_NAME;
@@ -89,28 +97,26 @@ export class CourseRegisterComponent implements OnInit {
         }
     }
 
-    // this.selectedIndex = needStudentNumber ? REGISTRATION_STAGES.STUDENT_NUMBER : REGISTRATION_STAGES.CONFIRM_NAME;
     setRegistrationStage(courseRegResponse: CourseRegistrationResponse): void {
-        switch (this.selectedIndex) {
+        switch (this.stepper.selectedIndex) {
             case REGISTRATION_STAGES.ENTER_NAME:
-                if (courseRegResponse?.success) {
-                    this.guessedName = courseRegResponse?.guessed_name;
-                    this.selectedIndex = REGISTRATION_STAGES.CONFIRM_IDENTITY;
+                if (courseRegResponse.success) {
+                    this.serverGuessedName = courseRegResponse?.guessed_name;
+                    this.progress();
                 } else {
                     this.needsStudentNumber = true;
-                    this.selectedIndex = REGISTRATION_STAGES.CONFIRM_IDENTITY;
+                    this.progress();
                 }
                 break;
             case REGISTRATION_STAGES.CONFIRM_IDENTITY:
-                if (courseRegResponse?.success) {
-                    this.selectedIndex = REGISTRATION_STAGES.VERIFICATION;
+                if (courseRegResponse.success) {
+                    this.progress();
                 }
                 break;
             case REGISTRATION_STAGES.VERIFICATION:
-                if (courseRegResponse?.success) {
-                    this.attemptsRemaining = courseRegResponse.attempts_remaining;
-                    this.editable = false;
-                    this.selectedIndex = REGISTRATION_STAGES.REGISTERED;
+                if (courseRegResponse.success) {
+                    this.attemptsRemaining = courseRegResponse?.attempts_remaining;
+                    this.progress();
                 }
                 break;
             default:
@@ -121,13 +127,10 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     registerStepSubmit(): void {
-        const data = {
-            name: this.nameForm.get('nameControl').value || null,
-            confirmed_name: this.confirmNameForm.get('confirmNameControl').value || null,
-            student_number: this.studentNumberForm.get('studentNumberControl').value || null,
-            code: this.verifyForm.get('verifyControl').value || null,
-        };
-        console.log(this.selectedIndex);
+        const data = this.retrieveFormData();
+        if (!data.name && !data.student_number) {
+            return;
+        }
         this.courseService.register(this.courseId, data).subscribe(
             courseRegResponse => {
                 if (courseRegResponse.bad_request) {
@@ -140,7 +143,10 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     verifyStepSubmit(): void {
-        const data = {};
+        const data = this.retrieveFormData();
+        if (!data.code) {
+            return;
+        }
         this.courseService.registerVerify(this.courseId, data).subscribe(
             courseRegResponse => {
                 if (courseRegResponse.bad_request) {
@@ -152,12 +158,27 @@ export class CourseRegisterComponent implements OnInit {
         );
     }
 
+    retrieveFormData(): any {
+        return {
+            name: this.nameForm.get('nameControl').value || null,
+            confirmed_name: this.serverGuessedName || null,
+            student_number: this.studentNumberForm.get('studentNumberControl').value || null,
+            code: this.verifyForm.get('verifyControl').value || null,
+        };
+    }
+
+    progress(): void {
+        this.stepper.selected.completed = true;
+        this.stepper.selected.editable = false;
+        this.stepper.next();
+    }
+
     sendErrorMessage(): void {
         this.messageService.add('danger', 'Something went wrong. Check that your inputted values are accurate and try again.');
     }
 
-    previousStep() {
-        this.selectedIndex += -1;
-        console.log(this.selectedIndex);
+    reset(): void {
+        this.stepper.reset();
+        // TODO: leave the confirmed name pre-filled in the first name input box when user returns to this step?
     }
 }

@@ -1,8 +1,8 @@
 <div class="container">
     <!--    TODO: inform user of which course they are registering for (by name) in this page-->
     <h1 class="my-5">Course Registration</h1>
-    <mat-horizontal-stepper #stepper [selectedIndex]="selectedIndex" linear>
-        <mat-step [stepControl]="nameForm" [editable]="editable" errorMessage="Name is required">
+    <mat-horizontal-stepper #stepper [selectedIndex]="selectedIndex" class="border-success" linear>
+        <mat-step [stepControl]="nameForm" [editable]="editable" [completed]="completed || verification" errorMessage="Name is required">
             <form [formGroup]="nameForm">
                 <ng-template matStepLabel>Identification</ng-template>
                 <mat-form-field class="w-50">
@@ -16,7 +16,7 @@
         </mat-step>
 
         <mat-step [stepControl]="needsStudentNumber ? studentNumberForm : confirmNameForm"
-                  errorMessage="Student Number is required">
+                  [editable]="editable" [completed]="completed || verification" errorMessage="Student Number is required">
             <form [formGroup]="needsStudentNumber ? studentNumberForm : confirmNameForm">
                 <ng-container *ngIf="needsStudentNumber; else confirmNameOnly">
                     <ng-template matStepLabel>Confirm Identity</ng-template>
@@ -26,7 +26,7 @@
                                required>
                     </mat-form-field>
                     <div>
-                        <button class="btn btn-danger" (click)="previousStep()" mat-button>Back</button>
+                        <button class="btn btn-danger" (click)="reset()" mat-button>Back</button>
                         <button class="btn btn-success" (click)="registerStepSubmit()" mat-button>Submit</button>
                     </div>
                 </ng-container>
@@ -34,31 +34,32 @@
                     <ng-template matStepLabel>Confirm Identity</ng-template>
                     <mat-form-field>
                         <mat-label>Please confirm the following details.</mat-label>
-                        <input matInput placeholder="Ex. John Doe" formControlName="nameControl" [value]="guessedName"
+                        <input matInput placeholder="Ex. John Doe" formControlName="nameControl" [value]="serverGuessedName"
                                disabled>
                     </mat-form-field>
+                    <div>
+                        <button class="btn btn-danger" (click)="reset()" mat-button>Back</button>
+                        <button class="btn btn-success" (click)="registerStepSubmit()" mat-button>Confirm</button>
+                    </div>
                 </ng-template>
-                <div>
-                    <button class="btn btn-danger" mat-button matStepperPrevious>Back</button>
-                    <button class="btn btn-success" (click)="registerStepSubmit()" mat-button>Confirm</button>
-                </div>
             </form>
         </mat-step>
 
-        <mat-step [stepControl]="verifyForm" errorMessage="Verification is required">
+        <mat-step [stepControl]="verifyForm" [editable]="editable" [completed]="completed" errorMessage="Verification is required">
             <form [formGroup]="verifyForm">
                 <ng-template matStepLabel>Verification</ng-template>
                 <mat-form-field>
-                    <mat-label>Please confirm the following details.</mat-label>
+                    <mat-label>Verification Code</mat-label>
                     <input matInput placeholder="Ex. 1234" formControlName="verifyControl" required>
                 </mat-form-field>
+                <p *ngIf="attemptsRemaining">Attempts Remaining: {{ attemptsRemaining }}</p>
                 <div>
-                    <button class="btn btn-success" (click)="registerStepSubmit()" mat-button>Submit</button>
+                    <button class="btn btn-success" (click)="verifyStepSubmit()" mat-button>Submit</button>
                 </div>
             </form>
         </mat-step>
 
-        <mat-step>
+        <mat-step [editable]="editable" [completed]="completed">
             <ng-template matStepLabel>Done</ng-template>
             <p>Registration Complete.</p>
             <div>
