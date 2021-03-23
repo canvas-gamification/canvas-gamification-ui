@@ -16,13 +16,13 @@
 <main class="page-content m-3">
     <div class="container-fluid">
         <ng-container *ngIf="questionType === 'MCQ'">
-            <app-mcq-create-snippet [MCQFormData] [categories] [courses] [events]></app-mcq-create-snippet>
+            <app-mcq-create-snippet></app-mcq-create-snippet>
         </ng-container>
         <ng-container *ngIf="questionType === 'java'">
-            <app-java-create-snippet [JavaFormData] [categories] [courses] [events]></app-java-create-snippet>
+            <app-java-create-snippet></app-java-create-snippet>
         </ng-container>
         <ng-container *ngIf="questionType === 'parsons'">
-
+            <app-parsons-create-snippet></app-parsons-create-snippet>
         </ng-container>
     </div>
 </main>
