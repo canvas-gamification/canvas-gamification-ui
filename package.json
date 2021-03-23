@@ -30,6 +30,7 @@
     "backbone": "^1.4.0",
     "bootstrap": "^4.4.0",
     "ckeditor4-angular": "^2.1.0",
+    "indent-string": "^4.0.0",
     "jointjs": "^3.2.0",
     "jquery": "^3.5.1",
     "lodash": "^4.17.20",

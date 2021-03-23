@@ -34,3 +34,8 @@
     background: rgb(210, 210, 210);
     border-radius: 5px;
 }
+
+pre {
+    -moz-tab-size: 8; /* Firefox */
+    tab-size: 8;
+}

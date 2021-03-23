@@ -3,6 +3,9 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {DragulaService} from 'ng2-dragula';
 import {forkJoin} from 'rxjs';
 import {QuestionSubmission} from '@app/_models/questionSubmission';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {MessageService} from '@app/_services/message.service';
+import * as indentString from 'indent-string';
 
 class ContainerObject {
     constructor(public value: string) {
@@ -16,18 +19,28 @@ class ContainerObject {
 })
 export class ParsonsViewSnippetComponent implements OnInit {
     @Input() QuestionDetails;
+    FormData: FormGroup;
+    code = '';
     PARSONS_LINES = 'PARSONS_LINES';
     parsonLines: any[];
     parsonAnswerLines: any[];
     variables: any[];
     previousSubmissions: QuestionSubmission[];
 
-    constructor(private questionService: QuestionService, private dragulaService: DragulaService) {
+    constructor(private questionService: QuestionService,
+                private dragulaService: DragulaService,
+                private formBuilder: FormBuilder,
+                private messageService: MessageService) {
     }
 
     ngOnInit(): void {
-        const previousSubmissionsObservble = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
-        forkJoin([previousSubmissionsObservble])
+
+        this.FormData = this.formBuilder.group({
+            question: new FormControl(''),
+            solution: new FormControl('')
+        });
+        const previousSubmissionsObservable = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
+        forkJoin([previousSubmissionsObservable])
             .subscribe(result => {
                 this.previousSubmissions = result[0];
             });
@@ -40,7 +53,54 @@ export class ParsonsViewSnippetComponent implements OnInit {
         this.dragulaService.createGroup(this.PARSONS_LINES, {});
 
         this.dragulaService.drop().subscribe((value) => {
-            // console.log(this.parsonLines);
+            this.determineIndents();
+            this.removeLeftContainerIndents();
+            this.calculateSourceCode();
         });
     }
+
+    determineIndents(): void {
+        const tempParsonLines = this.parsonAnswerLines;
+        let count = 0;
+        tempParsonLines.forEach(line => {
+            const tempLine = line.value.trim();
+            line.value = tempLine;
+            if (tempLine.charAt(tempLine.length - 1) === '{') {
+                line.value = indentString(tempLine, count);
+                count++;
+            } else if (tempLine.charAt(tempLine.length - 1) === '}') {
+                count--;
+                line.value = indentString(tempLine, count);
+            } else if (count > 0) {
+                line.value = indentString(tempLine, count);
+            }
+        });
+    }
+
+    removeLeftContainerIndents(): void {
+        const tempParsonLines = this.parsonLines;
+        tempParsonLines.forEach(line => {
+           line.value = line.value.trim();
+        });
+    }
+
+    calculateSourceCode(): void {
+        this.code = '';
+        const tempParsonLines = this.parsonAnswerLines;
+        tempParsonLines.forEach(line => {
+            this.code += line.value + '\n';
+        });
+    }
+
+    onSubmit(FormData) {
+        this.questionService.postQuestionSubmission(FormData)
+            .subscribe(response => {
+                this.messageService.addSuccess('The Question has been Submitted Successfully.');
+                console.log(response);
+            }, error => {
+                console.warn(error.responseText);
+                console.log({error});
+            });
+    }
+
 }
