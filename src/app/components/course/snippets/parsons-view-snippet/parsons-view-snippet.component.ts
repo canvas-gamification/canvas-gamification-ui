@@ -4,6 +4,11 @@ import {DragulaService} from 'ng2-dragula';
 import {forkJoin} from 'rxjs';
 import {QuestionSubmission} from '@app/_models/questionSubmission';
 
+class ContainerObject {
+    constructor(public value: string) {
+    }
+}
+
 @Component({
     selector: 'app-parsons-view-snippet',
     templateUrl: './parsons-view-snippet.component.html',
@@ -16,6 +21,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
     parsonAnswerLines: any[];
     variables: any[];
     previousSubmissions: QuestionSubmission[];
+
     constructor(private questionService: QuestionService, private dragulaService: DragulaService) {
     }
 
@@ -25,17 +31,16 @@ export class ParsonsViewSnippetComponent implements OnInit {
             .subscribe(result => {
                 this.previousSubmissions = result[0];
             });
-        this.parsonLines = this.QuestionDetails.lines;
+        this.parsonLines = [];
+        for (const line of this.QuestionDetails.lines) {
+            this.parsonLines.push(new ContainerObject(line));
+        }
+        this.parsonAnswerLines = [];
         this.variables = this.QuestionDetails.variables;
-        this.dragulaService.createGroup(this.PARSONS_LINES, {
-            direction: 'horizontal',
-            copy: true,
-            copySortSource: true,
-        });
-        this.dragulaService.over().subscribe((value) => {
-        });
+        this.dragulaService.createGroup(this.PARSONS_LINES, {});
+
         this.dragulaService.drop().subscribe((value) => {
+            // console.log(this.parsonLines);
         });
     }
-
 }
