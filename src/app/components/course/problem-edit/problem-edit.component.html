@@ -9,14 +9,14 @@
 </header>
 <main class="page-content m-3">
     <div class="container-fluid">
-        <ng-container *ngIf="MultipleChoiceQuestionDetails">
-            <app-mcq-edit-snippet [MCQFormData] [categories] [courses] [events]></app-mcq-edit-snippet>
+        <ng-container *ngIf="questionType === 'multiple choice question'">
+            <app-mcq-edit-snippet [QuestionDetails]="QuestionDetails"></app-mcq-edit-snippet>
         </ng-container>
-        <ng-container *ngIf="JavaQuestionDetails">
-            <app-java-edit-snippet [JavaFormData] [categories] [courses] [events] [inputFileNames]></app-java-edit-snippet>
+        <ng-container *ngIf="questionType === 'java question'">
+            <app-java-edit-snippet [QuestionDetails]="QuestionDetails"></app-java-edit-snippet>
         </ng-container>
-        <ng-container *ngIf="ParsonsQuestionDetails">
-
+        <ng-container *ngIf="questionType === 'parsons question'">
+            <app-parsons-edit-snippet [QuestionDetails]="QuestionDetails"></app-parsons-edit-snippet>
         </ng-container>
     </div>
 </main>

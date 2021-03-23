@@ -3,9 +3,6 @@ import {ActivatedRoute} from '@angular/router';
 import {QuestionService} from '@app/_services/api/question.service';
 import {Subscription} from 'rxjs';
 import {Question} from '@app/_models';
-import {DragulaService} from 'ng2-dragula';
-import {QuestionSubmission} from '@app/_models/questionSubmission';
-
 
 @Component({
     selector: 'app-problem-view',
@@ -14,7 +11,7 @@ import {QuestionSubmission} from '@app/_models/questionSubmission';
 })
 export class ProblemViewComponent implements OnInit {
 
-    constructor(private route: ActivatedRoute, private questionService: QuestionService, private dragulaService: DragulaService) {
+    constructor(private route: ActivatedRoute, private questionService: QuestionService) {
     }
 
     private routeSub: Subscription;
