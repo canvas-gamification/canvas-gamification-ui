@@ -27,14 +27,14 @@
             </tr>
             </tbody>
         </table>
-        <ng-container *ngIf="MultipleChoiceQuestionDetails && javaDataLoaded">
-            <app-mcq-view-snippet [QuestionDetails] [MultipleChoiceQuestionDetails] [choiceArray] [variables] [previousSubmissions]></app-mcq-view-snippet>
+        <ng-container *ngIf="questionType === 'multiple choice question'">
+            <app-mcq-view-snippet [QuestionDetails]="QuestionDetails"></app-mcq-view-snippet>
         </ng-container>
-        <ng-container *ngIf="JavaQuestionDetails">
-            <app-java-view-snippet [QuestionDetails] [JavaQuestionDetails] [inputFileNames] [variables] [previousSubmissions]></app-java-view-snippet>
+        <ng-container *ngIf="questionType === 'java question'">
+            <app-java-view-snippet [QuestionDetails]="QuestionDetails"></app-java-view-snippet>
         </ng-container>
-        <ng-container *ngIf="ParsonsQuestionDetails">
-            <app-parsons-view-snippet [QuestionDetails] [ParsonsQuestionDetails] [parsonLines] [parsonAnswerLines] [PARSONS_LINES] [variables] [previousSubmissions]></app-parsons-view-snippet>
+        <ng-container *ngIf="questionType === 'parsons question'">
+            <app-parsons-view-snippet [QuestionDetails]="QuestionDetails"></app-parsons-view-snippet>
         </ng-container>
     </div>
 </main>

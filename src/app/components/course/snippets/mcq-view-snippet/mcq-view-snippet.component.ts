@@ -1,4 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {QuestionService} from '@app/_services/api/question.service';
+import {QuestionSubmission} from '@app/_models/questionSubmission';
+import {MessageService} from '@app/_services/message.service';
+import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-mcq-view-snippet',
@@ -7,19 +11,28 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class McqViewSnippetComponent implements OnInit {
     @Input() QuestionDetails;
-    @Input() MultipleChoiceQuestionDetails;
-    @Input() choiceArray;
-    @Input() variables;
-    @Input() previousSubmissions;
+    previousSubmissions: QuestionSubmission[];
+    variables: any[];
+    choiceArray: any[];
 
-  constructor() { }
+  constructor(private questionService: QuestionService,
+              private messageService: MessageService) { }
 
   ngOnInit(): void {
-      console.log(this.QuestionDetails);
-      console.log(this.MultipleChoiceQuestionDetails);
-      console.log(this.choiceArray);
-      console.log(this.variables);
-      console.log(this.previousSubmissions);
+      const previousSubmissionsObservble = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
+      forkJoin([previousSubmissionsObservble])
+          .subscribe(result => {
+              this.previousSubmissions = result[0];
+          });
+      const outputArray = [];
+      // tslint:disable-next-line:forin
+      for (const choice in this.QuestionDetails.choices) {
+          outputArray.push({
+              id: choice,
+              value: this.QuestionDetails.choices[choice]
+          });
+          this.choiceArray = outputArray;
+      }
   }
 
 }

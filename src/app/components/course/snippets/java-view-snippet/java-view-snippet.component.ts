@@ -1,4 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {QuestionService} from '@app/_services/api/question.service';
+import {forkJoin} from 'rxjs';
+import {QuestionSubmission} from '@app/_models/questionSubmission';
 
 @Component({
   selector: 'app-java-view-snippet',
@@ -7,14 +10,16 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class JavaViewSnippetComponent implements OnInit {
     @Input() QuestionDetails;
-    @Input() JavaQuestionDetails;
-    @Input() inputFileNames;
-    @Input() variables;
-    @Input() previousSubmissions;
+    previousSubmissions: QuestionSubmission[];
 
-  constructor() { }
+  constructor(private questionService: QuestionService) { }
 
   ngOnInit(): void {
+      const previousSubmissionsObservble = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
+      forkJoin([previousSubmissionsObservble])
+          .subscribe(result => {
+              this.previousSubmissions = result[0];
+          });
   }
 
 }

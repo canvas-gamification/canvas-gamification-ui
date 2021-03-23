@@ -2,7 +2,7 @@
     <div class="card-header">
         <h1>{{QuestionDetails?.title}}</h1>
     </div>
-    <div class="card-body" [innerHTML]="JavaQuestionDetails?.text"></div>
+    <div class="card-body" [innerHTML]="QuestionDetails?.text"></div>
 </div>
 <div class="card my-1">
     <div class="card-header">
@@ -11,7 +11,7 @@
     <div class="card-body">
         Submit the required files.
         <form>
-            <div *ngFor="let input of inputFileNames">
+            <div *ngFor="let input of QuestionDetails?.input_file_names">
                 <ul class="nav nav-tabs" id="submission" role="tablist">
                     <li class="nav-item">{{input.name}}
                         <a class="nav-link" href="#" role="tab"></a>
@@ -36,25 +36,25 @@
     <div class="card-header">
         <h1>Generated Variables</h1>
     </div>
-    <div *ngIf="variables.length !== 0; else elseBlock">
-        <div *ngFor="let variable of variables" class="card-body">
-            <ul>
-                <li>
-                    Name: {{variable.name}}
-                    <ul>
-                        <li>Type: {{variable.type}}</li>
-                        <li>Min: {{variable.min}}</li>
-                        <li>Max: {{variable.max}}</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <ng-template #elseBlock>
-        <div class="card-body">
-            No Variables
-        </div>
-    </ng-template>
+<!--    <div *ngIf="QuestionDetails.variables.length !== 0; else elseBlock">-->
+<!--        <div *ngFor="let variable of QuestionDetails.variables" class="card-body">-->
+<!--            <ul>-->
+<!--                <li>-->
+<!--                    Name: {{variable.name}}-->
+<!--                    <ul>-->
+<!--                        <li>Type: {{variable.type}}</li>-->
+<!--                        <li>Min: {{variable.min}}</li>-->
+<!--                        <li>Max: {{variable.max}}</li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <ng-template #elseBlock>-->
+<!--        <div class="card-body">-->
+<!--            No Variables-->
+<!--        </div>-->
+<!--    </ng-template>-->
     <div class="card-footer">
         No Error Detected.
     </div>

@@ -2,7 +2,7 @@
     <div class="card-header">
         <h1>{{QuestionDetails?.title}}</h1>
     </div>
-    <div class="card-body" [innerHTML]="MultipleChoiceQuestionDetails?.text"></div>
+    <div class="card-body" [innerHTML]="QuestionDetails?.text"></div>
 </div>
 <div class="card my-1">
     <div class="card-header">
@@ -39,11 +39,11 @@
 <!--            </ul>-->
 <!--        </div>-->
 <!--    </div>-->
-    <ng-template #elseBlock>
-        <div class="card-body">
-            No Variables
-        </div>
-    </ng-template>
+<!--    <ng-template #elseBlock>-->
+<!--        <div class="card-body">-->
+<!--            No Variables-->
+<!--        </div>-->
+<!--    </ng-template>-->
     <div class="card-footer">
         No Error Detected.
     </div>
