@@ -76,6 +76,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
+        FormData.lines = FormData.lines.split(',');
         this.questionService.putParsonsQuestion(FormData, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');

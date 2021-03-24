@@ -24,6 +24,17 @@
                 <a [class.active]="isActive('course/problem-set')" class="nav-link" routerLink="course/problem-set">Problem
                     Set</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle float-md-right" href="#" id="newProblemDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    New Problem
+                </a>
+                <div class="dropdown-menu" aria-labelledby="newProblemDropdown">
+                    <a class="dropdown-item" routerLink="course/question/create/MCQ">Multiple Choice Problem</a>
+                    <a class="dropdown-item" routerLink="course/question/create/java">Java Problem</a>
+                    <a class="dropdown-item" routerLink="course/question/create/parsons">Parsons Problem</a>
+                </div>
+            </li>
             <li class="nav-item">
                 <a [class.active]="isActive('faq')" class="nav-link" routerLink="faq">FAQ</a>
             </li>

@@ -63,14 +63,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
         this.questionService.postParsonsQuestion(FormData)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');
-                const jsonResponse: Question = JSON.parse(response);
-                // this.questionService.putQuestion({
-                //     event: this.MCQFormData.controls.event,
-                // }, jsonResponse.id).subscribe(updateResponse => {
-                // }, error => {
-                //     console.warn(error.responseText);
-                //     console.log({error});
-                //     });
+                console.log(response);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
