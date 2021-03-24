@@ -21,6 +21,8 @@ import {CourseComponent} from '@app/components/course/course.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 import { CourseEventCreateComponent } from '@app/components/course/course-event-create/course-event-create.component';
 import { CourseQuestionSnippetComponent } from '@app/components/course/course-question-snippet/course-question-snippet.component';
+import {CourseRegisterComponent} from '@app/components/course/registration/course-registration/course-register.component';
+
 
 const routes: Routes = [
     {
@@ -74,8 +76,8 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'register/:courseId',
-        component: RegisterComponent,
+        path: 'course/register/:courseId',
+        component: CourseRegisterComponent,
         canActivate: [AuthGuard]
     },
     {

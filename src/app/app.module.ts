@@ -17,9 +17,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule} from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import { MatStepperModule } from "@angular/material/stepper";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { TopicsComponent } from './components/topics/topics.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -43,17 +43,14 @@ import { ResetPasswordComponent } from './components/accounts/reset-password/res
 import { ConsentFormComponent } from './components/accounts/consent-form/consent-form.component';
 import { TermsAndConditionsSnippetComponent } from './components/accounts/terms-and-conditions-snippet/terms-and-conditions-snippet.component';
 import { FaqComponent } from './components/faq/faq.component';
-import { RegisterNameComponent } from './components/course/registration/register-name/register-name.component';
-import { RegisterStudentNumberComponent } from './components/course/registration/register-student-number/register-student-number.component';
-import { NameConfirmComponent } from './components/course/registration/name-confirm/name-confirm.component';
-import { VerificationComponent } from './components/course/registration/verification/verification.component';
 import { CourseComponent } from './components/course/course.component';
 import { CourseEventsSnippetComponent } from './components/course/course-events-snippet/course-events-snippet.component';
 import { TokenUseSnippetComponent } from './components/course/token-use-snippet/token-use-snippet.component';
 import { ProgressBarComponent } from './components/course/progress-bar/progress-bar.component';
 import { CourseQuestionSnippetComponent } from './components/course/course-question-snippet/course-question-snippet.component';
-import {MatButtonModule} from "@angular/material/button";
+import {MatButtonModule} from '@angular/material/button';
 import { CourseEventCreateComponent } from './components/course/course-event-create/course-event-create.component';
+import {CourseRegisterComponent} from '@app/components/course/registration/course-registration/course-register.component';
 
 @NgModule({
   declarations: [
@@ -82,10 +79,7 @@ import { CourseEventCreateComponent } from './components/course/course-event-cre
     ResetPasswordComponent,
     ConsentFormComponent,
     TermsAndConditionsSnippetComponent,
-    RegisterNameComponent,
-    RegisterStudentNumberComponent,
-    NameConfirmComponent,
-    VerificationComponent,
+    CourseRegisterComponent,
     CourseComponent,
     CourseEventsSnippetComponent,
     TokenUseSnippetComponent,

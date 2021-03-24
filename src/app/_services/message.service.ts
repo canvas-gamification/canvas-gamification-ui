@@ -1,23 +1,28 @@
 import {Injectable} from '@angular/core';
+import {AlertMessage} from '@app/_models';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class MessageService {
-  constructor() {
-  }
+    messages: AlertMessage[] = [];
+    successMessages: string[] = [];
 
-  messages: string[] = [];
-  successMessages: string[] = [];
-  add(message: string) {
-    this.messages.push(message);
-  }
-  addSuccess(message: string) {
-    this.successMessages.push(message);
-  }
+    constructor() {}
 
-  clear() {
-    this.messages = [];
-    this.successMessages = [];
-  }
+    add(type: string, message: string) {
+        this.messages.push({
+            type,
+            message,
+        });
+    }
+
+    addSuccess(message: string) {
+        this.successMessages.push(message);
+    }
+
+    clear() {
+        this.messages = [];
+        this.successMessages = [];
+    }
 }
