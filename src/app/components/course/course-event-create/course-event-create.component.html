@@ -3,11 +3,11 @@
 <form action="post" id="new-event">
     <div class="row mb-3">
         <h2 class="form-label"><label for="id-name">Event Name</label></h2>
-        <input id="id-name" type="text" name="name" required class="form-control">
+        <input id="id-name" type="text" name="name" required class="form-control" [value]="eventName">
     </div>
     <div class="row mb-3">
         <h2 class="form-label"><label for="id-type">Event type</label></h2>
-        <select id="id-type" name="type" required class="form-control">
+        <select id="id-type" name="type" required class="form-control" [value]="eventType">
             <option value="" selected></option>
             <option value="assignment">Assignment</option>
             <option value="exam">Exam</option>
@@ -17,16 +17,16 @@
     <div class="row mb-3">
         <h2 class="form-label"><label for="id-name">Counts for tokens</label></h2>
         <p>
-            <input id="id-count-for-tokens" name="count_for_tokens" type="checkbox">
+            <input id="id-count-for-tokens" name="count_for_tokens" type="checkbox" [value]="countsForTokens">
         </p>
     </div>
     <div class="row mb-3">
         <h2 class="form-label"><label for="id-name">Start time</label></h2>
-        <input id="id-start_date" type="datetime-local" required name="start_date" class="form-control" [attr.min]="minDateISO">
+        <input id="id-start_date" type="datetime-local" required name="start_date" class="form-control" [attr.min]="minDateISO" [value]="startTime">
     </div>
     <div class="row mb-3">
         <h2 class="form-label"><label for="id-name">End time</label></h2>
-        <input id="id-end_date" type="datetime-local" required name="end_date" class="form-control" [attr.min]="minDateISO">
+        <input id="id-end_date" type="datetime-local" required name="end_date" class="form-control" [attr.min]="minDateISO" [value]="endTime">
     </div>
     <div class="row mb-3">
         <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course/view', courseId]">Back</a>

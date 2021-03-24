@@ -13,6 +13,13 @@ export class CourseEventCreateComponent implements OnInit {
     minDateISO: string;
     subscription: Subscription;
 
+    // Two way bound variables on inputs
+    eventName: string;
+    eventType: string;
+    countsForTokens: boolean;
+    startTime: Date;
+    endTime: Date;
+
   constructor(private route: ActivatedRoute) { }
   
   // TODO: Reroute if you try and navigate to a page like this without clicking the button?
