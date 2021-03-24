@@ -1,3 +1,6 @@
+<ng-container *ngIf="teacherForClass">
+  <h3 class="card-text red-text">Warning: You are logged in as a teacher! Token uses will not do anything for you!</h3>
+</ng-container>
 <div class="card border-secondary" style="width: 18rem;">
   <div class="card-body">
     <p class="card-text">Available Tokens: <span id="available_tokens">{{ courseReg.total_tokens_received }}</span></p>

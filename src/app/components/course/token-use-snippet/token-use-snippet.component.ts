@@ -12,6 +12,7 @@ import {TokenUse} from '@app/_models/token_use';
 })
 export class TokenUseSnippetComponent implements OnInit {
   @Input() courseReg: CourseRegistration;
+  @Input() teacherForClass: boolean;
 
   currentTokenActions = {};
   prevTokenActions = {};
