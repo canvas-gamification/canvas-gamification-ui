@@ -1,6 +1,6 @@
 <ng-container *ngIf="teacherForClass">
   <!--Fill in these hrefs later-->
-  <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course/new-event', courseId]">Add an Event</a>
+  <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
   <a class="btn btn-primary my-2" href="#">Import an Event</a>
 </ng-container>
 <hr/>
@@ -30,13 +30,13 @@
           <div class="btn-container">
             <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
               <!--Fill in this href later-->
-              <a class="btn btn-primary mr-3" href="#">{{ getEventButtonText(event) }}</a>
+              <a class="btn btn-primary mr-3" [routerLink]="['/course', courseId, 'event', event.id]">{{ getEventButtonText(event) }}</a>
             </ng-container>
             <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
               <a class="btn btn-outline-info open-btn mr-3 disabled" href="#">{{ getEventButtonText(event) }}</a>
             </ng-template>
             <!--Fill in this href later-->
-            <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn" [routerLink]="['/course/new-event/', courseId, event.id]">Edit</a>
+            <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn" [routerLink]="['/course', courseId, 'new-event', event.id]">Edit</a>
           </div>
         </td>
       </tr>

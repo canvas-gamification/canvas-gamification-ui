@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Question, UQJ, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-course-question-snippet',
@@ -9,14 +10,17 @@ import {AuthenticationService} from '@app/_services/api/authentication';
 })
 export class CourseQuestionSnippetComponent implements OnInit {
   @Input() questions: Question[];
-  @Input() uqjs: UQJ[];
+  @Input() uqjs: UQJ[]; // This will need to be commented out
   user: User;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService, private route: ActivatedRoute) {
     this.authenticationService.currentUser.subscribe(user => this.user = user);
   }
 
   ngOnInit(): void {
+    if(this.route.snapshot.paramMap.get("eventId")){ // We are opening an event
+      // uqjs = some api call
+    }
   }
 
   getStatus(uqj: UQJ): string {
