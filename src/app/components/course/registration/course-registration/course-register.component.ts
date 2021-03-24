@@ -106,6 +106,7 @@ export class CourseRegisterComponent implements OnInit {
         if (this.stepper.selectedIndex === REGISTRATION_STAGES.ENTER_NAME) {
             if (!courseRegResponse.success) {
                 this.needsStudentNumber = true;
+                this.progress();
             }
         } else {
             this.selectedIndex = REGISTRATION_STAGES.ENTER_NAME;
@@ -148,7 +149,7 @@ export class CourseRegisterComponent implements OnInit {
         return {
             name: this.nameForm.get('nameControl').value || null,
             confirmed_name: this.serverGuessedName || null,
-            student_number: this.studentNumberForm.get('studentNumberControl').value || null,
+            student_number: String(this.studentNumberForm.get('studentNumberControl').value) || null,
             code: this.verifyForm.get('verifyControl').value || null,
         };
     }
