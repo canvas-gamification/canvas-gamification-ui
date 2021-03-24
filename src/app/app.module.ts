@@ -45,15 +45,15 @@ import {DragulaModule} from 'ng2-dragula';
 import {CKEditorModule} from 'ckeditor4-angular';
 import {AceEditorModule} from 'ng2-ace-editor';
 import { AceComponent } from './components/course/problem-view/ace/ace.component';
-import { McqViewSnippetComponent } from './components/course/snippets/mcq-view-snippet/mcq-view-snippet.component';
-import { JavaViewSnippetComponent } from './components/course/snippets/java-view-snippet/java-view-snippet.component';
-import { ParsonsViewSnippetComponent } from './components/course/snippets/parsons-view-snippet/parsons-view-snippet.component';
-import { ParsonsEditSnippetComponent } from './components/course/snippets/parsons-edit-snippet/parsons-edit-snippet.component';
-import { McqEditSnippetComponent } from './components/course/snippets/mcq-edit-snippet/mcq-edit-snippet.component';
-import { JavaEditSnippetComponent } from './components/course/snippets/java-edit-snippet/java-edit-snippet.component';
-import { McqCreateSnippetComponent } from './components/course/snippets/mcq-create-snippet/mcq-create-snippet.component';
-import { JavaCreateSnippetComponent } from './components/course/snippets/java-create-snippet/java-create-snippet.component';
-import { ParsonsCreateSnippetComponent } from './components/course/snippets/parsons-create-snippet/parsons-create-snippet.component';
+import { McqViewSnippetComponent } from './components/course/problem-view/mcq-view-snippet/mcq-view-snippet.component';
+import { JavaViewSnippetComponent } from './components/course/problem-view/java-view-snippet/java-view-snippet.component';
+import { ParsonsViewSnippetComponent } from './components/course/problem-view/parsons-view-snippet/parsons-view-snippet.component';
+import { ParsonsEditSnippetComponent } from './components/course/problem-edit/parsons-edit-snippet/parsons-edit-snippet.component';
+import { McqEditSnippetComponent } from './components/course/problem-edit/mcq-edit-snippet/mcq-edit-snippet.component';
+import { JavaEditSnippetComponent } from './components/course/problem-edit/java-edit-snippet/java-edit-snippet.component';
+import { McqCreateSnippetComponent } from './components/course/problem-create/mcq-create-snippet/mcq-create-snippet.component';
+import { JavaCreateSnippetComponent } from './components/course/problem-create/java-create-snippet/java-create-snippet.component';
+import { ParsonsCreateSnippetComponent } from './components/course/problem-create/parsons-create-snippet/parsons-create-snippet.component';
 
 @NgModule({
     declarations: [
