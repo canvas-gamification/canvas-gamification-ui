@@ -98,31 +98,17 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     setRegistrationStage(courseRegResponse: CourseRegistrationResponse): void {
-        switch (this.stepper.selectedIndex) {
-            case REGISTRATION_STAGES.ENTER_NAME:
-                if (courseRegResponse.success) {
-                    this.serverGuessedName = courseRegResponse?.guessed_name;
-                    this.progress();
-                } else {
-                    this.needsStudentNumber = true;
-                    this.progress();
-                }
-                break;
-            case REGISTRATION_STAGES.CONFIRM_IDENTITY:
-                if (courseRegResponse.success) {
-                    this.progress();
-                }
-                break;
-            case REGISTRATION_STAGES.VERIFICATION:
-                if (courseRegResponse.success) {
-                    this.attemptsRemaining = courseRegResponse?.attempts_remaining;
-                    this.progress();
-                }
-                break;
-            default:
-                // if the user is not registered (or has any other course registration status, send them to the beginning of the form)
-                this.selectedIndex = REGISTRATION_STAGES.ENTER_NAME;
-                break;
+        this.serverGuessedName = courseRegResponse?.guessed_name;
+        this.attemptsRemaining = courseRegResponse?.attempts_remaining;
+        if (courseRegResponse.success) {
+            this.progress();
+        }
+        if (this.stepper.selectedIndex === REGISTRATION_STAGES.ENTER_NAME) {
+            if (!courseRegResponse.success) {
+                this.needsStudentNumber = true;
+            }
+        } else {
+            this.selectedIndex = REGISTRATION_STAGES.ENTER_NAME;
         }
     }
 
@@ -179,6 +165,5 @@ export class CourseRegisterComponent implements OnInit {
 
     reset(): void {
         this.stepper.reset();
-        // TODO: leave the confirmed name pre-filled in the first name input box when user returns to this step?
     }
 }
