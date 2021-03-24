@@ -38,8 +38,7 @@ export class CourseEventCreateComponent implements OnInit {
             this.eventId = +this.route.snapshot.paramMap.get('eventId');
             console.log('This is a previously existing event of id');
         }
-        const source = interval(10000);
-        this.subscription = source.subscribe(() => this.getMinDate());
+        this.eventId = +this.route.snapshot.paramMap.get('eventId');
     }
 
     // TODO: Set the mindate to a higher number?
@@ -51,7 +50,7 @@ export class CourseEventCreateComponent implements OnInit {
 
     retrieveFormData(): CourseEvent {
         return {
-            id: this.eventId = +this.route.snapshot.paramMap.get('eventId'),
+            id: this.eventId,
             name: this.eventName,
             type: this.eventType,
             count_for_tokens: Boolean(this.countsForTokens),

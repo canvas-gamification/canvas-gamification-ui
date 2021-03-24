@@ -114,6 +114,11 @@ const routes: Routes = [
         path: 'course/new-event/:courseId',
         component: CourseEventCreateComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/new-event/:courseId/:eventId',
+        component: CourseEventCreateComponent,
+        canActivate: [AuthGuard]
     }
 ];
 
