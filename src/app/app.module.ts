@@ -33,6 +33,7 @@ import {ResetPasswordComponent} from './components/accounts/reset-password/reset
 import {ConsentFormComponent} from './components/accounts/consent-form/consent-form.component';
 import {TermsAndConditionsSnippetComponent} from './components/accounts/terms-and-conditions-snippet/terms-and-conditions-snippet.component';
 import {FaqComponent} from './components/faq/faq.component';
+import {MatSortModule} from '@angular/material/sort';
 import {ProblemSetComponent} from './components/course/problem-set/problem-set.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {ProblemViewComponent} from './components/course/problem-view/problem-view.component';
@@ -115,6 +116,8 @@ import { ParsonsCreateSnippetComponent } from './components/course/snippets/pars
         DragulaModule.forRoot(),
         CKEditorModule,
         AceEditorModule,
+        MatSortModule,
+
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
@@ -122,5 +125,4 @@ import { ParsonsCreateSnippetComponent } from './components/course/snippets/pars
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }

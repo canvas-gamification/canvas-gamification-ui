@@ -9,7 +9,7 @@
 </header>
 <main class="page-content m-3">
   <div class="container-fluid">
-    <form [formGroup]="FormData">
+    <form [formGroup]="FormData" (ngSubmit)="applyFilter(FormData.value)">
       <div class="form-row">
         <div class="form-group col-3">
           <label for="query">Search in Question Name:</label>
@@ -19,28 +19,28 @@
         <div class="form-group col-2">
           <label for="difficulty">Difficulty:</label>
           <select class="form-control" name="difficulty" formControlName="difficulty" id="difficulty">
-            <option value="All">All</option>
+            <option value="">All</option>
             <option value="EASY">EASY</option>
-            <option value="MEDIUM">MEDIUM</option>
+            <option value="NORMAL">MEDIUM</option>
             <option value="HARD">HARD</option>
           </select>
         </div>
         <div class="form-group col-2">
           <label for="category">Category:</label>
           <select class="form-control" name="category" formControlName="category" id="category">
-            <option value="All">All</option>
+            <option value="">All</option>
             <option value="Basics">Basics</option>
             <option value="Pre-Defined Classes">Pre-Defined Classes</option>
             <option value="Conditionals">Conditionals</option>
             <option value="Loops">Loops</option>
             <option value="Methods">Methods</option>
             <option value="Arrays">Arrays</option>
-            <option value="ObjectOrientedProgramming">Object Oriented Programming</option>
+            <option value="Object Oriented Programming">Object Oriented Programming</option>
           </select>
         </div>
         <div class="form-group col-2">
           <label for="status">Status:</label>
-          <select class="form-control" name="status" formControlName="status" id="status">
+          <select disabled class="form-control" name="status" formControlName="status" id="status">
             <option value="All">All</option>
             <option value="Solved">Solved</option>
             <option value="Partially Correct">Partially Correct</option>
@@ -51,10 +51,10 @@
         </div>
         <div class="form-group col-2">
           <label for="sample">Sample:</label>
-          <select class="form-control" name="sample" formControlName="sample" id="sample">
-            <option value="All">All</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
+          <select class="form-control" name="sample" formControlName="is_sample" id="sample">
+            <option value="">All</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
           </select>
         </div>
         <div class="form-group col-1 mt-auto">
@@ -62,19 +62,19 @@
         </div>
       </div>
     </form>
-    <table class="table table-hover table-bordered">
+    <table matSort (matSortChange)="sortData($event)" class="table table-hover table-bordered">
       <thead>
       <tr>
-        <th >#</th>
-        <th >Question Name</th>
-        <th >Author</th>
-        <th >Event</th>
-        <th >Category</th>
-        <th >Sub Category</th>
-        <th >Difficulty</th>
-        <th >Token Value</th>
-        <th >Avg Success</th>
-        <th >Action</th>
+        <th mat-sort-header="id" scope="col">#</th>
+        <th mat-sort-header="title" scope="col">Question Name</th>
+        <th mat-sort-header="author_name" scope="col">Author</th>
+        <th mat-sort-header="event_name" scope="col">Event</th>
+        <th mat-sort-header="parent_category_name" scope="col">Category</th>
+        <th mat-sort-header="category_name" scope="col">Sub Category</th>
+        <th mat-sort-header="difficulty" scope="col">Difficulty</th>
+        <th mat-sort-header="token_value" scope="col">Token Value</th>
+        <th mat-sort-header="success_rate" scope="col">Avg Success</th>
+        <th scope="col">Action</th>
       </tr>
       </thead>
       <tbody>
@@ -114,7 +114,7 @@
       [length]="questionsLength"
       [pageSize]="pageSize"
       [pageSizeOptions]="pageSizeOptions"
-      (page)="update($event)"
+      (page)="newPageEvent($event)"
     >
     </mat-paginator>
   </div>

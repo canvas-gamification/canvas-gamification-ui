@@ -13,4 +13,12 @@
     is_teacher: boolean;
     // tslint:disable-next-line:variable-name
     is_student: boolean;
+
+    isAdmin() {
+        return this.is_teacher;
+    }
+
+    hasCompleteProfile() {
+        return !!this.first_name;
+    }
 }

@@ -6,11 +6,11 @@ export interface Question {
   text: string;
   max_submission_allowed: number;
   author: number;
+  category: number;
   difficulty: string;
   is_verified: boolean;
   time_created: Date;
   time_modified: Date;
-  category: number;
   token_value: number;
   success_rate: number;
   type_name: string;

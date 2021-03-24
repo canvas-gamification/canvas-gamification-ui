@@ -10,7 +10,6 @@ import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
 import {ProblemSetComponent} from '@app/components/course/problem-set/problem-set.component';
-
 import {RegisterComponent} from './components/accounts/register/register.component';
 import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
 import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
@@ -69,6 +68,29 @@ const routes: Routes = [
         component: UserActionsComponent
     },
     {
+        path: 'faq',
+        component: FaqComponent
+    },
+    {
+        path: 'accounts/register',
+        component: RegisterComponent
+    },
+    {
+        path: 'accounts/profile',
+        component: ProfileDetailsComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'accounts/reset-password',
+        component: ResetPasswordComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'accounts/consent-form',
+        component: ConsentFormComponent,
+        canActivate: [AuthGuard]
+    },
+    {
         path: 'course/problem-set',
         component: ProblemSetComponent,
         canActivate: [AuthGuard]
@@ -93,29 +115,6 @@ const routes: Routes = [
         component: ProblemCreateComponent,
         canActivate: [AuthGuard]
     },
-    {
-        path: 'faq',
-        component: FaqComponent
-    },
-    {
-        path: 'accounts/register',
-        component: RegisterComponent
-    },
-    {
-        path: 'accounts/profile',
-        component: ProfileDetailsComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'accounts/reset-password',
-        component: ResetPasswordComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'accounts/consent-form',
-        component: ConsentFormComponent,
-        canActivate: [AuthGuard]
-    }
 ];
 
 @NgModule({
