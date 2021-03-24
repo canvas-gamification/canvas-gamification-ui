@@ -16,10 +16,28 @@ export class CourseEventService {
     ) {
     }
 
+    getCourseEvent(courseEventId): Observable<CourseEvent> {
+        return this.http
+            .get<CourseEvent>(this.courseEventUrl + `${courseEventId}/`)
+            .pipe(catchError(this.handleError<CourseEvent>('getCourseEvent')));
+    }
+
+    deleteCourseEvent(courseEventId): Observable<{ }> {
+        return this.http
+            .delete<CourseEvent>(this.courseEventUrl + `${courseEventId}/`)
+            .pipe(catchError(this.handleError<CourseEvent>('deleteCourseEvent')));
+    }
+
     getCourseEvents(): Observable<CourseEvent[]> {
         return this.http
             .get<CourseEvent[]>(this.courseEventUrl)
             .pipe(catchError(this.handleError<CourseEvent[]>('getCourseEvents', [])));
+    }
+
+    addCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+        return this.http
+            .post<CourseEvent>(this.courseEventUrl, courseEvent)
+            .pipe(catchError(this.handleError<CourseEvent>('addCourseEvent', courseEvent)));
     }
 
     updateCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent>{
