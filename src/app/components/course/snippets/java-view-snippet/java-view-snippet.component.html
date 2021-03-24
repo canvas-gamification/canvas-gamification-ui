@@ -10,8 +10,8 @@
     </div>
     <div class="card-body">
         Submit the required files.
-        <form>
-            <div *ngFor="let input of QuestionDetails?.input_file_names">
+        <form (ngSubmit)="onSubmit()">
+            <div *ngFor="let input of inputFileNames">
                 <ul class="nav nav-tabs" id="submission" role="tablist">
                     <li class="nav-item">{{input.name}}
                         <a class="nav-link" href="#" role="tab"></a>
@@ -22,13 +22,13 @@
                         <div>{{input.name}}</div>
                         <div class="form-group">
                             <div style="position: relative; height: 30rem">
-                                <app-ace></app-ace>
+                                <app-ace [(template)]="input.template"></app-ace>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>
 </div>

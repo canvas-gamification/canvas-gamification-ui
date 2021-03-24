@@ -19,7 +19,6 @@ class ContainerObject {
 })
 export class ParsonsViewSnippetComponent implements OnInit {
     @Input() QuestionDetails;
-    FormData: FormGroup;
     code = '';
     PARSONS_LINES = 'PARSONS_LINES';
     parsonLines: any[];
@@ -34,11 +33,6 @@ export class ParsonsViewSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
-        this.FormData = this.formBuilder.group({
-            question: new FormControl(''),
-            solution: new FormControl('')
-        });
         const previousSubmissionsObservable = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
         forkJoin([previousSubmissionsObservable])
             .subscribe(result => {
@@ -92,10 +86,13 @@ export class ParsonsViewSnippetComponent implements OnInit {
         });
     }
 
-    onSubmit(FormData) {
-        this.questionService.postQuestionSubmission(FormData)
+    onSubmit() {
+        this.questionService.postQuestionSubmission({question: this.QuestionDetails.id, solution: this.code})
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Submitted Successfully.');
+                this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe(result => {
+                    this.previousSubmissions = result;
+                });
                 console.log(response);
             }, error => {
                 console.warn(error.responseText);

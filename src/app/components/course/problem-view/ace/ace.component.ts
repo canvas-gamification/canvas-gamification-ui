@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import 'ace-builds/src-noconflict/ext-language_tools';
 
 @Component({
@@ -7,7 +7,8 @@ import 'ace-builds/src-noconflict/ext-language_tools';
     styleUrls: ['./ace.component.scss']
 })
 export class AceComponent implements OnInit {
-
+    @Input() template;
+    @Output() templateChange = new EventEmitter<string>();
     text: string;
     @ViewChild('editor') editor;
 
@@ -27,5 +28,10 @@ export class AceComponent implements OnInit {
             tabSize: 4,
             useSoftTabs: true,
         });
+        this.addNewCodeItem(this.template);
+    }
+
+    addNewCodeItem(value: string) {
+        this.templateChange.emit(value);
     }
 }

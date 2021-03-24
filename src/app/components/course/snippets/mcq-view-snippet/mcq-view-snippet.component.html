@@ -9,15 +9,15 @@
         <h1>Possible Answers</h1>
     </div>
     <div class="card-body">
-        <form>
+        <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
             <div class="form-check" *ngFor="let choice of choiceArray">
-                <input class="form-check-input" name="radio" type="radio" id="answer-{{choice.id}}"
-                       value="{{choice.id}}">
+                <input class="form-check-input" name="solution" type="radio" id="answer-{{choice.id}}"
+                       value="{{choice.id}}"  formControlName="solution">
                 <div [innerHTML]="choice.value">
                     <label class="form-check-label" for="answer-{{choice.id}}"></label>
                 </div>
             </div>
-            <button class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
         </form>
     </div>
 </div>

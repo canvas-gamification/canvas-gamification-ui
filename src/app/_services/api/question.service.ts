@@ -16,7 +16,7 @@ export class QuestionService {
     private javaQuestionUrl = new URL('/api/java-question/', environment.apiBaseUrl).toString();
     private parsonsQuestionUrl = new URL('/api/parsons-question/', environment.apiBaseUrl).toString();
     private submissionUrl = new URL('api/submission/', environment.apiBaseUrl).toString();
-    private answerSubmissionUrl = new URL('api/submission/submit', environment.apiBaseUrl).toString();
+    private answerSubmissionUrl = new URL('api/submission/submit/', environment.apiBaseUrl).toString();
 
     constructor(private http: HttpClient) {
     }

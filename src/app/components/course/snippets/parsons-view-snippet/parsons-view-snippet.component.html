@@ -9,9 +9,9 @@
         <h1>My Answer</h1>
     </div>
     <div class="container">
-        <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
+        <form (ngSubmit)="onSubmit()">
             <div class="card-body">
-                <div class="row">
+                <div class="row overflow-hidden">
                     <div class="col-md-6">
                         <h2>Lines</h2>
                         <div class="left-container" [dragula]="PARSONS_LINES" [(dragulaModel)]="parsonLines">
@@ -30,9 +30,8 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" [value]="code" formControlName="solution"/>
-                <button type="submit" class="btn btn-success">Submit</button>
             </div>
+            <button type="submit" class="btn btn-success my-3">Submit</button>
         </form>
     </div>
 </div>
