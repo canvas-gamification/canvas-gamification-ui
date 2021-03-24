@@ -23,12 +23,12 @@
             </div>
             <div class="row mb-3">
                 <h2 class="form-label"><label for="id-name">Start time</label></h2>
-                <input id="id-start_date" type="datetime-local" required name="start_date" class="form-control"
+                <input id="id-start_date" type="datetime" required name="start_date" class="form-control"
                        [(ngModel)]="startTime" (input)="checkCanSubmit()">
             </div>
             <div class="row mb-3">
                 <h2 class="form-label"><label for="id-name">End time</label></h2>
-                <input id="id-end_date" type="datetime-local" required name="end_date" class="form-control"
+                <input id="id-end_date" type="datetime" required name="end_date" class="form-control"
                        [attr.min]="minDateISO" [(ngModel)]="endTime" (input)="checkCanSubmit()">
             </div>
             <div class="row mb-3">

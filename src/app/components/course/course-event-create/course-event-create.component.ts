@@ -32,12 +32,10 @@ export class CourseEventCreateComponent implements OnInit {
     // TODO: Reroute if you try and navigate to a page like this without clicking the button?
     ngOnInit(): void {
         this.getMinDate();
-        this.checkCanSubmit();
         // Convert to number
         this.courseId = +this.route.snapshot.paramMap.get('courseId');
         if (this.route.snapshot.paramMap.get('eventId')) {
             this.eventId = +this.route.snapshot.paramMap.get('eventId');
-            console.log('This is a previously existing event of id');
             this.courseEventService.getCourseEvent(this.eventId).subscribe(
                 event => {
                     this.eventName = event.name;
@@ -45,12 +43,14 @@ export class CourseEventCreateComponent implements OnInit {
                     this.startTime = event.start_date;
                     this.endTime = event.end_date;
                     this.countsForTokens = event.count_for_tokens;
+                    this.checkCanSubmit();
                 }
             );
         }else{
             this.countsForTokens = false; // needs a default value specifically
+            this.invalid = true;
         }
-        this.eventId = +this.route.snapshot.paramMap.get('eventId');
+
     }
 
     // TODO: Set the mindate to a higher number?
@@ -64,7 +64,7 @@ export class CourseEventCreateComponent implements OnInit {
             id: this.eventId,
             name: this.eventName,
             type: this.eventType,
-            count_for_tokens: Boolean(this.countsForTokens),
+            count_for_tokens: this.countsForTokens,
             start_date: this.startTime,
             end_date: this.endTime,
             course: this.courseId
@@ -75,8 +75,7 @@ export class CourseEventCreateComponent implements OnInit {
         const ourEvent: CourseEvent = this.retrieveFormData();
 
         if (this.eventId) { // If this is a previously existing event
-            // TODO: gotta pass in the id of the event
-            this.courseEventService.updateCourseEvent(ourEvent);
+            this.courseEventService.updateCourseEvent(ourEvent).subscribe();
         } else { // Creating a brand new event
             this.courseEventService.addCourseEvent(ourEvent).subscribe(
                 newEvent => {
