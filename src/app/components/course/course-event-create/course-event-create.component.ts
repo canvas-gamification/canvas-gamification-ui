@@ -44,40 +44,36 @@ export class CourseEventCreateComponent implements OnInit {
 
     // TODO: Set the mindate to a higher number?
     getMinDate(): void {
-        let d = new Date();
+        const d = new Date();
         this.minDateISO = d.toISOString().split('.')[0];
 
     }
 
+    retrieveFormData(): CourseEvent {
+        return {
+            id: this.eventId = +this.route.snapshot.paramMap.get('eventId'),
+            name: this.eventName,
+            type: this.eventType,
+            count_for_tokens: Boolean(this.countsForTokens),
+            start_date: this.startTime,
+            end_date: this.endTime,
+            course: this.courseId
+        };
+    }
+
     submitEvent(): void {
-        // Create the object here with the two way bound variables
-        let localCountsForTokens = false;
-        if (this.countsForTokens === 'on') {
-            localCountsForTokens = true;
-        }
+        const ourEvent: CourseEvent = this.retrieveFormData();
 
         if (this.eventId) { // If this is a previously existing event
-            const ourEvent: CourseEvent = {
-                id: this.eventId = +this.route.snapshot.paramMap.get('eventId'),
-                name: this.eventName,
-                type: this.eventType,
-                count_for_tokens: localCountsForTokens,
-                start_date: new Date(this.startTime),
-                end_date: new Date(this.endTime),
-                course: this.courseId
-            };
+            // TODO: gotta pass in the id of the event
             this.courseEventService.updateCourseEvent(ourEvent);
         } else { // Creating a brand new event
-            const ourEvent: CourseEvent = {
-                name: this.eventName,
-                type: this.eventType,
-                count_for_tokens: localCountsForTokens,
-                start_date: new Date(this.startTime),
-                end_date: new Date(this.endTime),
-                course: this.courseId
-            };
-            console.log(ourEvent);
-            this.courseEventService.addCourseEvent(ourEvent).subscribe();
+            this.courseEventService.addCourseEvent(ourEvent).subscribe(
+                newEvent => {
+                    console.log(newEvent);
+                    // TODO: router.navigate(['event/', newEvent.id])
+                }
+            );
         }
     }
 
