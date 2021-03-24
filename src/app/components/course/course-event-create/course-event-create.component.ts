@@ -16,13 +16,12 @@ export class CourseEventCreateComponent implements OnInit {
 
     courseId: number;
     minDateISO: string;
-    subscription: Subscription;
     eventId: number;
 
     // Two way bound variables on inputs
     eventName: string;
     eventType: string;
-    countsForTokens: string;
+    countsForTokens: boolean;
     startTime: Date;
     endTime: Date;
 
@@ -37,6 +36,15 @@ export class CourseEventCreateComponent implements OnInit {
         if (this.route.snapshot.paramMap.get('eventId')) {
             this.eventId = +this.route.snapshot.paramMap.get('eventId');
             console.log('This is a previously existing event of id');
+            this.courseEventService.getCourseEvent(this.eventId).subscribe(
+                event => {
+                    this.eventName = event.name;
+                    this.eventType = event.type;
+                    this.startTime = event.start_date;
+                    this.endTime = event.end_date;
+                    this.countsForTokens = event.count_for_tokens;
+                }
+            );
         }
         this.eventId = +this.route.snapshot.paramMap.get('eventId');
     }

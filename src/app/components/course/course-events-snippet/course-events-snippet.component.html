@@ -36,7 +36,7 @@
               <a class="btn btn-outline-info open-btn mr-3 disabled" href="#">{{ getEventButtonText(event) }}</a>
             </ng-template>
             <!--Fill in this href later-->
-            <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn" href="#">Edit</a>
+            <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn" [routerLink]="['/course/new-event/', courseId, event.id]">Edit</a>
           </div>
         </td>
       </tr>
