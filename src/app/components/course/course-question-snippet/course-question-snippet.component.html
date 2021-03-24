@@ -21,7 +21,7 @@
       {% row_class uqj event as row_class_name %}
       -->
       <tr [attr.class]="'.Question' + uqj.id">
-        <td>{{ uqj.category }}</td>
+        <td>{{ uqj.category?.name }}</td>
         <td>{{ uqj.subcategory }}</td>
         <td>{{ uqj.format }}</td>
         <td>{{ uqj.tokens_received }}</td>

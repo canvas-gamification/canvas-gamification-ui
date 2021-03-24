@@ -1,4 +1,5 @@
-import {Question} from '@app/_models/question';
+import {Question, Category} from '@app/_models';
+
 
 export interface UQJ {
   id: number;
@@ -11,7 +12,7 @@ export interface UQJ {
   question: Question;
   num_attempts: number;
   format: string;
-  category: null;
+  category: Category;
   subcategory: string;
   status: string;
   formatted_current_tokens_received: string;
