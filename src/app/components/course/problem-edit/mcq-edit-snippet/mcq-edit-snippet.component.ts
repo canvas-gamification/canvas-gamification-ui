@@ -21,6 +21,8 @@ export class McqEditSnippetComponent implements OnInit {
     categories: Category[];
     variables: any[];
     choiceArray: any[];
+    distractArray: any[];
+    newArray = Array();
     correctAnswer: any;
     selectedCourse: number;
     selectedEvent: number;
@@ -51,10 +53,9 @@ export class McqEditSnippetComponent implements OnInit {
             answer: new FormControl(''),
             category: new FormControl(''),
             variables: new FormControl(''),
-
+            visible_distractor_count: new FormControl(''),
             // Hard coded for now...
             author: new FormControl(1),
-            visible_distractor_count: new FormControl('3'),
             max_submission_allowed: new FormControl(3),
             is_verified: new FormControl(true),
             // choices: new FormControl(''),
@@ -80,11 +81,25 @@ export class McqEditSnippetComponent implements OnInit {
             .findIndex(x => x.id === this.QuestionDetails.answer)];
         this.MCQFormData.controls.text.setValue(this.QuestionDetails.text);
         this.MCQFormData.controls.answer.setValue(this.correctAnswer.value);
-        // this.MCQFormData.controls.choices.setValue(this.choiceArray[1].value);
+        this.MCQFormData.controls.visible_distractor_count.setValue(this.QuestionDetails.visible_distractor_count);
+
+        // this.distractArray = this.choiceArray.splice(this.choiceArray.findIndex(x => x.id === this.QuestionDetails.answer), 1);
+        this.distractArray = this.choiceArray.filter(x => x.id !== this.correctAnswer.id);
     }
 
     onSubmit(FormData) {
         FormData.answer = this.choiceArray[this.choiceArray.findIndex(x => x.value === FormData.answer)];
+        this.newArray.push(this.correctAnswer);
+        this.distractArray.forEach(answer => {
+            this.newArray.push(answer);
+        });
+        const result = {};
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.newArray.length; i++) {
+            result[this.newArray[i].id] = this.newArray[i].value;
+        }
+        console.log(result);
+        FormData.choices = result;
         this.questionService.putMultipleChoiceQuestion(FormData, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');
