@@ -4,6 +4,8 @@ import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {environment} from '@environments/environment';
+import { EventInfo } from '@app/_models/event_info';
+import { UpdateEvent } from '@app/_models/update_event';
 
 @Injectable({
     providedIn: 'root',
@@ -15,7 +17,7 @@ export class CourseEventService {
         private http: HttpClient,
     ) {
     }
-
+// TODO: Consider the interface type for both gets and the deletes
     getCourseEvent(courseEventId): Observable<CourseEvent> {
         return this.http
             .get<CourseEvent>(this.courseEventUrl + `${courseEventId}/`)
@@ -34,15 +36,15 @@ export class CourseEventService {
             .pipe(catchError(this.handleError<CourseEvent[]>('getCourseEvents', [])));
     }
 
-    addCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+    addCourseEvent(courseEvent: EventInfo): Observable<EventInfo> {
         return this.http
-            .post<CourseEvent>(this.courseEventUrl, courseEvent)
-            .pipe(catchError(this.handleError<CourseEvent>('addCourseEvent', courseEvent)));
+            .post<EventInfo>(this.courseEventUrl, courseEvent)
+            .pipe(catchError(this.handleError<EventInfo>('addCourseEvent', courseEvent)));
     }
 
-    updateCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent>{
-        return this.http.put<CourseEvent>(this.courseEventUrl + courseEvent.id + '/', courseEvent).pipe(
-            catchError(this.handleError<CourseEvent>('updateCourseEvent', courseEvent))
+    updateCourseEvent(courseEvent: UpdateEvent): Observable<UpdateEvent>{
+        return this.http.put<UpdateEvent>(this.courseEventUrl + courseEvent.id + '/', courseEvent).pipe(
+            catchError(this.handleError<UpdateEvent>('updateCourseEvent', courseEvent))
         );
     }
 
