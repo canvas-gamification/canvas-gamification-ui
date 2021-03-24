@@ -40,7 +40,7 @@
         </div>
         <div class="form-group col-2">
           <label for="status">Status:</label>
-          <select disabled class="form-control" name="status" formControlName="status" id="status">
+          <select disabled class="form-control" name="status" id="status" [value]="'All'">
             <option value="All">All</option>
             <option value="Solved">Solved</option>
             <option value="Partially Correct">Partially Correct</option>
@@ -89,23 +89,17 @@
         <td>{{question.token_value}}</td>
         <td>{{question.success_rate}}</td>
         <td>
-          <div style="white-space: nowrap; display: flex">
-            <div class="action-icon">
-              <a routerLink="../question/{{question.id}}" id="faEye">
-                <fa-icon [icon]="faEye"></fa-icon>
-              </a>
+            <div style="white-space: nowrap; display: flex">
+                <a routerLink="../question/{{question.id}}">
+                    <fa-icon class="action-icon" id="faEye" [icon]="faEye"></fa-icon>
+                </a>
+                <a href="../question/edit/{{question.id}}">
+                    <fa-icon class="action-icon" id="faPencilAlt" [icon]="faPencilAlt"></fa-icon>
+                </a>
+                <a href="../question/delete/{{question.id}}">
+                    <fa-icon class="action-icon" id="faTrashAlt" [icon]="faTrashAlt"></fa-icon>
+                </a>
             </div>
-            <div class="action-icon mx-2">
-              <a routerLink="../question/edit/{{question.id}}" id="faPencilAlt">
-                <fa-icon [icon]="faPencilAlt"></fa-icon>
-              </a>
-            </div>
-            <div class="action-icon">
-              <a routerLink="../question/delete/{{question.id}}" id="faTrashAlt">
-                <fa-icon [icon]="faTrashAlt"></fa-icon>
-              </a>
-            </div>
-          </div>
         </td>
       </tr>
       </tbody>
