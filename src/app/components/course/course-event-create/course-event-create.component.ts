@@ -72,7 +72,8 @@ export class CourseEventCreateComponent implements OnInit {
       this.CourseEventService.updateCourseEvent(ourUpdateEvent);
     }
     else{ // Creating a brand new event
-      this.CourseEventService.addCourseEvent(ourEvent);
+      console.log("We got here")
+      this.CourseEventService.addCourseEvent(ourEvent).subscribe();
     }
   }
 

@@ -30,7 +30,7 @@
     </div>
     <div class="row mb-3">
         <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course/view', courseId]">Back</a>
-        <input id="id-submit" type="submit" name="submit" class="btn btn-primary my-2 mr-3">
+        <input id="id-submit" type="submit" name="submit" class="btn btn-primary my-2 mr-3" (click)="submitEvent()">
     </div>
 </form>
 </div>
