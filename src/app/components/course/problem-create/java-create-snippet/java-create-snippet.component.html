@@ -61,16 +61,21 @@
             <div class="card">
                 <div class="card-header"><h1>Submission Files</h1></div>
                 <div class="card-body">
-                    <div>
-                        Submission Files Go Here
-                    </div>
+                    <textarea rows="10" class="form-control" formControlName="input_file_names"></textarea>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
             Please provide the name of the
             files students need to submit.
-            Each file will be compiled with the junit.
+            Each file will be compiled with the junit. Example Format:
+            [{{'{'}}
+            "name": "Calculator.java",
+            "template": "public class Calculator {{'{'}}\n    public int add(int x, int y) {{'{'}}\n        return x + y;\n    {{'}'}}\n{{'}'}}"
+            },
+            {{'{'}}
+            "name": "Calculator2.java",
+            "template": "public class Calculator {{'{'}}\n    public int sub(int x, int y) {{'{'}}\n        return x - y;\n    {{'}'}}\n{{'}'}}" {{'}'}}]
         </div>
     </div>
     <div class="form-row m-3">

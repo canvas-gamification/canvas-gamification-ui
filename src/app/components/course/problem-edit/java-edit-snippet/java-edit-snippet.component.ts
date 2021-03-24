@@ -20,7 +20,6 @@ export class JavaEditSnippetComponent implements OnInit {
     events: CourseEvent[];
     categories: Category[];
     variables: any[];
-    inputFileNames: any[];
     selectedCourse: number;
     selectedEvent: number;
 
@@ -32,7 +31,6 @@ export class JavaEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.inputFileNames = this.QuestionDetails.input_file_names;
         this.variables = this.QuestionDetails.variables;
 
         const coursesObservable = this.courseService.getCourses();
@@ -66,14 +64,15 @@ export class JavaEditSnippetComponent implements OnInit {
         this.JavaFormData.controls.title.setValue(this.QuestionDetails.title);
         this.JavaFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
         this.JavaFormData.controls.category.setValue(this.QuestionDetails.category);
-        // Hard coded till event api is implemented.
         this.JavaFormData.controls.course.setValue(this.QuestionDetails.event.course);
         this.JavaFormData.controls.event.setValue(this.selectedEvent);
         this.JavaFormData.controls.text.setValue(this.QuestionDetails.text);
         this.JavaFormData.controls.junit_template.setValue(this.QuestionDetails.junit_template);
+        this.JavaFormData.controls.input_file_names.setValue(JSON.stringify(this.QuestionDetails.input_file_names));
     }
 
     onSubmit(FormData) {
+        FormData.input_file_names = JSON.parse(FormData.input_file_names);
         this.questionService.putJavaQuestion(FormData, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');

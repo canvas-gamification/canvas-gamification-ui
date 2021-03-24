@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Category, Course, Question, User} from '@app/_models';
+import {Category, Course, User} from '@app/_models';
 import {CourseEvent} from '@app/_models/courseEvent';
 import {forkJoin} from 'rxjs';
 import {QuestionService} from '@app/_services/api/question.service';
@@ -75,17 +75,11 @@ export class JavaCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
+        FormData.input_file_names = JSON.parse(FormData.input_file_names);
         this.questionService.postJavaQuestion(FormData)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');
-                const jsonResponse: Question = JSON.parse(response);
-                // this.questionService.putQuestion({
-                //     event: this.MCQFormData.controls.event,
-                // }, jsonResponse.id).subscribe(updateResponse => {
-                // }, error => {
-                //     console.warn(error.responseText);
-                //     console.log({error});
-                //     });
+                console.log(response);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
