@@ -20,7 +20,7 @@
       <tr>
         <td>{{ event.name }}</td>
         <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a' }}</td>
-        <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a'  }}</td>
+        <td>{{ event.end_date | date: 'LLL. dd, YYYY, hh:MM a'  }}</td>
         <td *ngIf="isExamAndOpen(event); else totalEventGrade">Not Available Yet</td>
         <ng-template #totalEventGrade>
           <td>{{ event.total_event_grade }}%</td>
@@ -33,8 +33,7 @@
               <a class="btn btn-primary mr-3" href="#">{{ getEventButtonText(event) }}</a>
             </ng-container>
             <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
-              <a class="btn btn-outline-info open-btn mr-3" href="#"
-                      disabled>{{ getEventButtonText(event) }}</a>
+              <a class="btn btn-outline-info open-btn mr-3 disabled" href="#">{{ getEventButtonText(event) }}</a>
             </ng-template>
             <!--Fill in this href later-->
             <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn" href="#">Edit</a>
