@@ -17,6 +17,7 @@ export class CourseEventCreateComponent implements OnInit {
     courseId: number;
     minDateISO: string;
     eventId: number;
+    invalid: boolean;
 
     // Two way bound variables on inputs
     eventName: string;
@@ -31,6 +32,7 @@ export class CourseEventCreateComponent implements OnInit {
     // TODO: Reroute if you try and navigate to a page like this without clicking the button?
     ngOnInit(): void {
         this.getMinDate();
+        this.checkCanSubmit();
         // Convert to number
         this.courseId = +this.route.snapshot.paramMap.get('courseId');
         if (this.route.snapshot.paramMap.get('eventId')) {
@@ -45,6 +47,8 @@ export class CourseEventCreateComponent implements OnInit {
                     this.countsForTokens = event.count_for_tokens;
                 }
             );
+        }else{
+            this.countsForTokens = false; // needs a default value specifically
         }
         this.eventId = +this.route.snapshot.paramMap.get('eventId');
     }
@@ -53,7 +57,6 @@ export class CourseEventCreateComponent implements OnInit {
     getMinDate(): void {
         const d = new Date();
         this.minDateISO = d.toISOString().split('.')[0];
-
     }
 
     retrieveFormData(): CourseEvent {
@@ -84,4 +87,15 @@ export class CourseEventCreateComponent implements OnInit {
         }
     }
 
+    checkCanSubmit(): void {
+        console.log("authenticating")
+        if(this.eventName && this.eventType && this.startTime && this.endTime){
+            console.log("all variables are non null")
+            if(this.eventName.length > 0 && this.eventType.length > 0 && this.endTime > this.startTime){
+                this.invalid = false;
+                return;
+            }
+        }
+        this.invalid = true;
+    }
 }
