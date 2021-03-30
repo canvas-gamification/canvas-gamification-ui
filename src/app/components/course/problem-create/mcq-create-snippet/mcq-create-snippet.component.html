@@ -58,7 +58,7 @@
                 <input name="visible_distractor_count" type="radio" value="999" formControlName="visible_distractor_count">All
             </label>
             <label class="radio-inline">
-                <input name="visible_distractor_countradio" type="radio" value="2" formControlName="visible_distractor_count">2
+                <input name="visible_distractor_count" type="radio" value="2" formControlName="visible_distractor_count">2
             </label>
             <label class="radio-inline">
                 <input name="visible_distractor_count" type="radio" value="3" formControlName="visible_distractor_count">3
@@ -66,8 +66,18 @@
         </div>
     </div>
     <div class="form-row m-3">
-        <div class="col-md-6" id="distractAnswers">
-            Distract Answers
+        <div class="col-md-6">
+            <table>
+                <tbody>
+                <tr *ngFor="let control of distract.controls; index as i">
+                    <td class="p-3"><ckeditor [formControl]="distract.controls[i]"></ckeditor></td>
+                    <td class="p-3"><button type="button" class="btn btn-danger m-auto" (click)="removeChoice(i)">Remove</button></td>
+                </tr>
+                </tbody>
+                <tr>
+                    <td colspan="2" class="p-3"><button type="button" class="btn btn-primary m-auto" (click)="addChoice()">Add Another</button></td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="form-row m-3">

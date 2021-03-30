@@ -1,11 +1,11 @@
 <form [formGroup]="MCQFormData" (ngSubmit)="onSubmit(MCQFormData.value)">
-    <div class="form-row m-3">
+    <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqQuestionName">Question Name:</label>
             <input class="form-control" formControlName="title" type="text" id="mcqQuestionName">
         </div>
     </div>
-    <div class="form-row m-3">
+    <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqDifficulty">Difficulty</label>
             <select class="form-control" formControlName="difficulty" id="mcqDifficulty">
@@ -15,7 +15,7 @@
             </select>
         </div>
     </div>
-    <div class="form-row m-3">
+    <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqCategory">Category:</label>
             <select class="form-control" formControlName="category" id="mcqCategory">
@@ -23,7 +23,7 @@
             </select>
         </div>
     </div>
-    <div class="form-row m-3">
+    <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqCourse">Course:</label>
             <select class="form-control" formControlName="course" id="mcqCourse" (change)="courseSelectedEvent($event)">
@@ -31,7 +31,7 @@
             </select>
         </div>
     </div>
-    <div class="form-row m-3">
+    <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqEvent">Event Name:</label>
             <select class="form-control" formControlName="event" id="mcqEvent">
@@ -39,19 +39,19 @@
             </select>
         </div>
     </div>
-    <div class="form-row m-3">
+    <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqQuestion">Question:</label>
             <ckeditor formControlName="text" id="mcqQuestion"></ckeditor>
         </div>
     </div>
-    <div class="form-row m-3">
+    <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqCorrectAnswer">Correct Answer:</label>
             <ckeditor formControlName="answer" id="mcqCorrectAnswer"></ckeditor>
         </div>
     </div>
-    <div class="form-row m-3">
+    <div class="form-row m-3 p-3">
         <div class="col-md-6>">
             <h3>Distract Answers:</h3>
             <label class="radio-inline">
@@ -68,9 +68,19 @@
             </label>
         </div>
     </div>
-    <div class="form-row m-3"  *ngFor="let choice of distractArray">
+    <div class="form-row m-3">
         <div class="col-md-6">
-            <ckeditor data="{{choice.value}}"></ckeditor>
+            <table>
+                <tbody>
+                <tr *ngFor="let control of distract.controls; index as i">
+                    <td class="p-3"><ckeditor [formControl]="distract.controls[i]"></ckeditor></td>
+                    <td class="p-3"><button type="button" class="btn btn-danger m-auto" (click)="removeChoice(i)">Remove</button></td>
+                </tr>
+                </tbody>
+                <tr>
+                    <td colspan="2" class="p-3"><button type="button" class="btn btn-primary m-auto" (click)="addChoice()">Add Another</button></td>
+                </tr>
+            </table>
         </div>
     </div>
     <div class="form-row m-3">

@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CourseService} from '@app/_services/api/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
-import {Category, Course, Question} from '@app/_models';
+import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/courseEvent';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
 
@@ -21,11 +21,10 @@ export class McqEditSnippetComponent implements OnInit {
     categories: Category[];
     variables: any[];
     choiceArray: any[];
-    distractArray: any[];
-    newArray = Array();
     correctAnswer: any;
     selectedCourse: number;
     selectedEvent: number;
+    distract: FormArray;
 
     constructor(private courseService: CourseService,
                 private categoryService: CategoryService,
@@ -42,7 +41,10 @@ export class McqEditSnippetComponent implements OnInit {
             .subscribe(result => {
                 this.courses = result[0];
                 this.categories = result[1];
+                this.courseSelectedById(this.QuestionDetails.event.course);
             });
+
+        this.distract = new FormArray([]);
 
         this.MCQFormData = this.formBuilder.group({
             title: new FormControl(''),
@@ -54,13 +56,10 @@ export class McqEditSnippetComponent implements OnInit {
             category: new FormControl(''),
             variables: new FormControl(''),
             visible_distractor_count: new FormControl(''),
-            // Hard coded for now...
-            author: new FormControl(1),
             max_submission_allowed: new FormControl(3),
             is_verified: new FormControl(true),
-            // choices: new FormControl(''),
+            choices: new FormControl(''),
         });
-        this.courseSelectedById(this.QuestionDetails.event.course);
 
         this.MCQFormData.controls.title.setValue(this.QuestionDetails.title);
         this.MCQFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
@@ -76,31 +75,37 @@ export class McqEditSnippetComponent implements OnInit {
                 value: this.QuestionDetails.choices[choice]
             });
             this.choiceArray = outputArray;
+            this.distract.push(new FormControl(this.QuestionDetails.choices[choice]));
         }
         this.correctAnswer = this.choiceArray[this.choiceArray
             .findIndex(x => x.id === this.QuestionDetails.answer)];
+        this.distract.removeAt(this.distract.value.findIndex(item => item === this.correctAnswer.value));
         this.MCQFormData.controls.text.setValue(this.QuestionDetails.text);
         this.MCQFormData.controls.answer.setValue(this.correctAnswer.value);
         this.MCQFormData.controls.visible_distractor_count.setValue(this.QuestionDetails.visible_distractor_count);
 
-        // this.distractArray = this.choiceArray.splice(this.choiceArray.findIndex(x => x.id === this.QuestionDetails.answer), 1);
-        this.distractArray = this.choiceArray.filter(x => x.id !== this.correctAnswer.id);
     }
 
     onSubmit(FormData) {
-        FormData.answer = this.choiceArray[this.choiceArray.findIndex(x => x.value === FormData.answer)];
-        this.newArray.push(this.correctAnswer);
-        this.distractArray.forEach(answer => {
-            this.newArray.push(answer);
-        });
-        const result = {};
-        // tslint:disable-next-line:prefer-for-of
-        for (let i = 0; i < this.newArray.length; i++) {
-            result[this.newArray[i].id] = this.newArray[i].value;
-        }
-        console.log(result);
-        FormData.choices = result;
-        this.questionService.putMultipleChoiceQuestion(FormData, this.QuestionDetails.id)
+        let mcqChoices = this.distract.value;
+        mcqChoices.unshift(FormData.answer);
+        mcqChoices = this.arrayToObject(mcqChoices);
+        console.log(mcqChoices);
+        const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === FormData.answer);
+        const submissionRequest = {
+            title: FormData.title,
+            difficulty: FormData.difficulty,
+            course: FormData.course,
+            event: FormData.event,
+            text: FormData.text,
+            answer: correctAnswer,
+            category: FormData.category,
+            variables: FormData.variables,
+            visible_distractor_count: FormData.visible_distractor_count,
+            max_submission_allowed: FormData.max_submission_allowed,
+            is_verified: true,
+            choices: mcqChoices};
+        this.questionService.putMultipleChoiceQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');
                 console.log(response);
@@ -124,5 +129,29 @@ export class McqEditSnippetComponent implements OnInit {
                 }
             });
         }
+    }
+
+    addChoice() {
+        this.distract.push(new FormControl(''));
+    }
+
+    removeChoice(index) {
+        this.distract.removeAt(index);
+    }
+
+    getNextLetter(char) {
+        let code = char.charCodeAt(0);
+        code++;
+        return String.fromCharCode(code);
+    }
+
+    arrayToObject(choicesArray: string[]) {
+        const choices = {};
+        let id = 'a';
+        for (const choice of choicesArray) {
+            choices[id] = choice;
+            id = this.getNextLetter(id);
+        }
+        return choices;
     }
 }
