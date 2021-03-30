@@ -56,7 +56,6 @@ export class McqEditSnippetComponent implements OnInit {
             category: new FormControl(''),
             variables: new FormControl(''),
             visible_distractor_count: new FormControl(''),
-            max_submission_allowed: new FormControl(3),
             is_verified: new FormControl(true),
             choices: new FormControl(''),
         });
@@ -90,7 +89,6 @@ export class McqEditSnippetComponent implements OnInit {
         let mcqChoices = this.distract.value;
         mcqChoices.unshift(FormData.answer);
         mcqChoices = this.arrayToObject(mcqChoices);
-        console.log(mcqChoices);
         const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === FormData.answer);
         const submissionRequest = {
             title: FormData.title,
@@ -102,8 +100,6 @@ export class McqEditSnippetComponent implements OnInit {
             category: FormData.category,
             variables: this.variables,
             visible_distractor_count: FormData.visible_distractor_count,
-            max_submission_allowed: FormData.max_submission_allowed,
-            is_verified: true,
             choices: mcqChoices
         };
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.QuestionDetails.id)

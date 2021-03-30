@@ -21,7 +21,6 @@ export class ParsonsEditSnippetComponent implements OnInit {
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
-    variables: any[];
 
     constructor(private formBuilder: FormBuilder,
                 private questionService: QuestionService,
@@ -39,7 +38,6 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 this.courses = result[0];
                 this.categories = result[1];
             });
-        this.variables = this.QuestionDetails.variables;
 
         this.ParsonsFormData = this.formBuilder.group({
             title: new FormControl(''),
@@ -51,23 +49,17 @@ export class ParsonsEditSnippetComponent implements OnInit {
             junit_template: new FormControl(''),
             lines: new FormControl(''),
             additional_file_name: new FormControl(''),
-
-            // Hard coded for now...
-            author: new FormControl(1),
-            max_submission_allowed: new FormControl(100),
-            is_verified: new FormControl(true),
         });
 
         this.courseSelectedById(this.QuestionDetails.event.course);
         this.ParsonsFormData.controls.title.setValue(this.QuestionDetails.title);
         this.ParsonsFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
         this.ParsonsFormData.controls.category.setValue(this.QuestionDetails.category);
-        // Hard coded till event api is implemented.
         this.ParsonsFormData.controls.course.setValue(this.QuestionDetails.event.course);
         this.ParsonsFormData.controls.event.setValue(this.selectedEvent);
         this.ParsonsFormData.controls.text.setValue(this.QuestionDetails.text);
         this.ParsonsFormData.controls.junit_template.setValue(this.QuestionDetails.junit_template);
-        this.ParsonsFormData.controls.lines.setValue(this.QuestionDetails.lines);
+        this.ParsonsFormData.controls.lines.setValue(this.QuestionDetails.lines.join('\n'));
         this.ParsonsFormData.controls.additional_file_name.setValue(this.QuestionDetails.additional_file_name);
     }
 
@@ -76,8 +68,19 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        FormData.lines = FormData.lines.split(',');
-        this.questionService.putParsonsQuestion(FormData, this.QuestionDetails.id)
+        const submissionRequest = {
+            title: FormData.title,
+            difficulty: FormData.difficulty,
+            course: FormData.course,
+            event: FormData.event,
+            text: FormData.text,
+            category: FormData.category,
+            variables: this.QuestionDetails.variables,
+            lines: FormData.lines.split('\n'),
+            additional_file_name: FormData.additional_file_name,
+            junit_template: FormData.junit_template,
+        };
+        this.questionService.putParsonsQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');
                 console.log(response);

@@ -19,7 +19,6 @@ export class JavaEditSnippetComponent implements OnInit {
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
-    variables: any[];
     selectedCourse: number;
     selectedEvent: number;
 
@@ -31,7 +30,6 @@ export class JavaEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.variables = this.QuestionDetails.variables;
 
         const coursesObservable = this.courseService.getCourses();
         const categoriesObservable = this.categoryService.getCategories();
@@ -51,13 +49,6 @@ export class JavaEditSnippetComponent implements OnInit {
             event: new FormControl(''),
             text: new FormControl(''),
             junit_template: new FormControl(''),
-            input_file_names: new FormControl(''),
-            variables: new FormControl(''),
-
-            // Hard coded for now...
-            author: new FormControl(1),
-            max_submission_allowed: new FormControl(5),
-            is_verified: new FormControl(true),
         });
 
         this.courseSelectedById(this.QuestionDetails.event.course);
@@ -68,12 +59,22 @@ export class JavaEditSnippetComponent implements OnInit {
         this.JavaFormData.controls.event.setValue(this.selectedEvent);
         this.JavaFormData.controls.text.setValue(this.QuestionDetails.text);
         this.JavaFormData.controls.junit_template.setValue(this.QuestionDetails.junit_template);
-        this.JavaFormData.controls.input_file_names.setValue(JSON.stringify(this.QuestionDetails.input_file_names));
     }
 
     onSubmit(FormData) {
-        FormData.input_file_names = JSON.parse(FormData.input_file_names);
-        this.questionService.putJavaQuestion(FormData, this.QuestionDetails.id)
+        const submissionRequest = {
+            title: FormData.title,
+            difficulty: FormData.difficulty,
+            course: FormData.course,
+            event: FormData.event,
+            text: FormData.text,
+            category: FormData.category,
+            variables: this.QuestionDetails.variables,
+            junit_template: FormData.junit_template,
+            input_file_names: this.QuestionDetails.input_file_names,
+            visible_distractor_count: FormData.visible_distractor_count
+        };
+        this.questionService.putJavaQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');
                 console.log(response);
