@@ -12,6 +12,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 })
 export class JavaViewSnippetComponent implements OnInit {
     @Input() QuestionDetails;
+    @Input() UQJDetails;
     previousSubmissions: QuestionSubmission[];
     inputFileNames = new Array<{name: string, template: string}>();
 

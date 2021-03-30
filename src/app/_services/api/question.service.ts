@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Question} from '@app/_models';
+import {Question, UQJ} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
 import {map} from 'rxjs/operators';
 import {QuestionSubmission} from '@app/_models/questionSubmission';
@@ -47,7 +47,8 @@ export class QuestionService {
     }
 
     getPreviousSubmissions(id: number): Observable<QuestionSubmission[]> {
-        return this.http.get<QuestionSubmission[]>(this.submissionUrl + '?question=' + id);
+        const params = new HttpParams().set('question', String(id));
+        return this.http.get<QuestionSubmission[]>(this.submissionUrl, {params});
     }
 
     deleteQuestion(id: number) {

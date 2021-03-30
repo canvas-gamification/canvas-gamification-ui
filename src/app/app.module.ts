@@ -54,6 +54,7 @@ import { JavaEditSnippetComponent } from './components/course/problem-edit/java-
 import { McqCreateSnippetComponent } from './components/course/problem-create/mcq-create-snippet/mcq-create-snippet.component';
 import { JavaCreateSnippetComponent } from './components/course/problem-create/java-create-snippet/java-create-snippet.component';
 import { ParsonsCreateSnippetComponent } from './components/course/problem-create/parsons-create-snippet/parsons-create-snippet.component';
+import { VariableViewComponent } from './components/course/problem-view/variable-view/variable-view.component';
 
 @NgModule({
     declarations: [
@@ -95,6 +96,7 @@ import { ParsonsCreateSnippetComponent } from './components/course/problem-creat
         McqCreateSnippetComponent,
         JavaCreateSnippetComponent,
         ParsonsCreateSnippetComponent,
+        VariableViewComponent,
     ],
     imports: [
         BrowserModule,

@@ -3,7 +3,7 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {DragulaService} from 'ng2-dragula';
 import {forkJoin} from 'rxjs';
 import {QuestionSubmission} from '@app/_models/questionSubmission';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import * as indentString from 'indent-string';
 
@@ -19,6 +19,7 @@ class ContainerObject {
 })
 export class ParsonsViewSnippetComponent implements OnInit {
     @Input() QuestionDetails;
+    @Input() UQJDetails;
     code = '';
     PARSONS_LINES = 'PARSONS_LINES';
     parsonLines: any[];

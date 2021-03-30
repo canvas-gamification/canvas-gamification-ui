@@ -12,9 +12,9 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 })
 export class McqViewSnippetComponent implements OnInit {
     @Input() QuestionDetails;
+    @Input() UQJDetails;
     FormData: FormGroup;
     previousSubmissions: QuestionSubmission[];
-    variables: any[];
     choiceArray: any[];
 
     constructor(private questionService: QuestionService,
@@ -34,10 +34,10 @@ export class McqViewSnippetComponent implements OnInit {
             });
         const outputArray = [];
         // tslint:disable-next-line:forin
-        for (const choice in this.QuestionDetails.choices) {
+        for (const choice in this.UQJDetails.rendered_choices) {
             outputArray.push({
                 id: choice,
-                value: this.QuestionDetails.choices[choice]
+                value: this.UQJDetails.rendered_choices[choice]
             });
             this.choiceArray = outputArray;
         }
