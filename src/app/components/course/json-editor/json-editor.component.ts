@@ -1,0 +1,51 @@
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SchemaService} from '@app/_services/api/schema.service';
+
+declare var JSONEditor: any;
+
+@Component({
+    selector: 'app-json-editor',
+    templateUrl: './json-editor.component.html',
+    styleUrls: ['./json-editor.component.scss']
+})
+export class JsonEditorComponent implements OnInit {
+
+    editor: any;
+    @Input() name: string;
+    @Input() value: any[];
+    @Output() valueChange = new EventEmitter<any[]>();
+
+    constructor(private schemaService: SchemaService) {
+    }
+
+    ngOnInit(): void {
+        const element = document.getElementById('editor');
+
+        this.schemaService.getSchema(this.name).subscribe(schema => {
+            this.editor = new JSONEditor(element, {
+                schema,
+                theme: 'bootstrap4',
+                no_additional_properties: true,
+                disable_properties: true,
+                disable_collapse: true,
+                disable_array_reorder: true,
+                disable_array_delete_all_rows: true,
+                disable_array_delete_last_row: true,
+                disable_edit_json: true,
+                remove_empty_properties: true,
+                object_layout: 'grid',
+                compact: true
+            });
+
+            this.editor.on('change', () => {
+                this.changeValue(this.editor.getValue());
+            });
+
+            this.editor.setValue(this.value);
+        });
+    }
+
+    changeValue(value) {
+        this.valueChange.emit(value);
+    }
+}

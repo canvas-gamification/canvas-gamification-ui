@@ -73,19 +73,25 @@
             <table>
                 <tbody>
                 <tr *ngFor="let control of distract.controls; index as i">
-                    <td class="p-3"><ckeditor [formControl]="distract.controls[i]"></ckeditor></td>
-                    <td class="p-3"><button type="button" class="btn btn-danger m-auto" (click)="removeChoice(i)">Remove</button></td>
+                    <td class="p-3">
+                        <ckeditor [formControl]="distract.controls[i]"></ckeditor>
+                    </td>
+                    <td class="p-3">
+                        <button type="button" class="btn btn-danger m-auto" (click)="removeChoice(i)">Remove</button>
+                    </td>
                 </tr>
                 </tbody>
                 <tr>
-                    <td colspan="2" class="p-3"><button type="button" class="btn btn-primary m-auto" (click)="addChoice()">Add Another</button></td>
+                    <td colspan="2" class="p-3">
+                        <button type="button" class="btn btn-primary m-auto" (click)="addChoice()">Add Another</button>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
-            Variables:
+            <app-json-editor [(value)]="this.variables" [name]="'variables'"></app-json-editor>
         </div>
         <div class="col-md-6">
             If you are not using variables,

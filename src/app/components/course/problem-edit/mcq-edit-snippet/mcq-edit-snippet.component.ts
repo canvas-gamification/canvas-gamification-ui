@@ -41,7 +41,7 @@ export class McqEditSnippetComponent implements OnInit {
             .subscribe(result => {
                 this.courses = result[0];
                 this.categories = result[1];
-                this.courseSelectedById(this.QuestionDetails.event.course);
+                this.courseSelectedById(this.QuestionDetails.event?.course);
             });
 
         this.distract = new FormArray([]);
@@ -64,7 +64,7 @@ export class McqEditSnippetComponent implements OnInit {
         this.MCQFormData.controls.title.setValue(this.QuestionDetails.title);
         this.MCQFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
         this.MCQFormData.controls.category.setValue(this.QuestionDetails.category);
-        this.MCQFormData.controls.course.setValue(this.QuestionDetails.event.course);
+        this.MCQFormData.controls.course.setValue(this.QuestionDetails.event?.course);
         this.MCQFormData.controls.event.setValue(this.selectedEvent);
         this.variables = this.QuestionDetails.variables;
         const outputArray = [];
@@ -100,11 +100,12 @@ export class McqEditSnippetComponent implements OnInit {
             text: FormData.text,
             answer: correctAnswer,
             category: FormData.category,
-            variables: FormData.variables,
+            variables: this.variables,
             visible_distractor_count: FormData.visible_distractor_count,
             max_submission_allowed: FormData.max_submission_allowed,
             is_verified: true,
-            choices: mcqChoices};
+            choices: mcqChoices
+        };
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');
