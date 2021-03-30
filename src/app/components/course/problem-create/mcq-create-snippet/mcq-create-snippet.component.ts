@@ -22,6 +22,7 @@ export class McqCreateSnippetComponent implements OnInit {
     events: CourseEvent[];
     categories: Category[];
     selectedCourse: number;
+    variables: any[];
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
@@ -51,10 +52,6 @@ export class McqCreateSnippetComponent implements OnInit {
             text: new FormControl(''),
             answer: new FormControl(''),
             category: new FormControl(''),
-            variables: new FormControl(''),
-            visible_distractor_count: new FormControl(''),
-            max_submission_allowed: new FormControl(3),
-            is_verified: new FormControl(true),
             choices: new FormControl(''),
         });
     }
@@ -78,7 +75,6 @@ export class McqCreateSnippetComponent implements OnInit {
         let mcqChoices = this.distract.value;
         mcqChoices.unshift(FormData.answer);
         mcqChoices = this.arrayToObject(mcqChoices);
-        console.log(mcqChoices);
         const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === FormData.answer);
         const submissionRequest = {
             title: FormData.title,
@@ -88,11 +84,10 @@ export class McqCreateSnippetComponent implements OnInit {
             text: FormData.text,
             answer: correctAnswer,
             category: FormData.category,
-            variables: FormData.variables,
+            variables: this.variables,
             visible_distractor_count: FormData.visible_distractor_count,
-            max_submission_allowed: FormData.max_submission_allowed,
-            is_verified: true,
-            choices: mcqChoices};
+            choices: mcqChoices
+        };
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');

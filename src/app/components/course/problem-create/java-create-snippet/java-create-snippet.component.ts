@@ -21,6 +21,8 @@ export class JavaCreateSnippetComponent implements OnInit {
     selectedCourse: number;
     categories: Category[];
     user: User;
+    variables: any[];
+    inputFileNames: any;
 
 
     constructor(private questionService: QuestionService,
@@ -50,12 +52,6 @@ export class JavaCreateSnippetComponent implements OnInit {
             text: new FormControl(''),
             junit_template: new FormControl(''),
             input_file_names: new FormControl(''),
-            variables: new FormControl(''),
-
-            // Hard coded for now...
-            author: new FormControl(1),
-            max_submission_allowed: new FormControl(5),
-            is_verified: new FormControl(true),
         });
     }
 
@@ -75,8 +71,17 @@ export class JavaCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        FormData.input_file_names = JSON.parse(FormData.input_file_names);
-        this.questionService.postJavaQuestion(FormData)
+        const submissionRequest = {
+            title: FormData.title,
+            difficulty: FormData.difficulty,
+            course: FormData.course,
+            event: FormData.event,
+            text: FormData.text,
+            category: FormData.category,
+            variables: this.variables,
+            input_file_names: this.inputFileNames,
+        };
+        this.questionService.postJavaQuestion(submissionRequest)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');
                 console.log(response);

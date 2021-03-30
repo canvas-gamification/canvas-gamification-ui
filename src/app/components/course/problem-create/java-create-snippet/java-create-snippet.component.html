@@ -58,12 +58,7 @@
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
-            <div class="card">
-                <div class="card-header"><h1>Submission Files</h1></div>
-                <div class="card-body">
-                    <textarea rows="10" class="form-control" formControlName="input_file_names"></textarea>
-                </div>
-            </div>
+            <app-json-editor [(value)]="inputFileNames" [name]="'input_file_names'"></app-json-editor>
         </div>
         <div class="col-md-6">
             Please provide the name of the
@@ -80,7 +75,7 @@
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
-            Variables:
+            <app-json-editor [(value)]="variables" [name]="'variables'"></app-json-editor>
         </div>
         <div class="col-md-6">
             If you are not using variables,

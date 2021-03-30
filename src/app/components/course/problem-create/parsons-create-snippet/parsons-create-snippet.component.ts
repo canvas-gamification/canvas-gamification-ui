@@ -21,6 +21,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
     selectedCourse: number;
     categories: Category[];
     user: User;
+    variables: any[];
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
@@ -50,17 +51,23 @@ export class ParsonsCreateSnippetComponent implements OnInit {
             junit_template: new FormControl(''),
             lines: new FormControl(''),
             additional_file_name: new FormControl(''),
-
-            // Hard coded for now...
-            author: new FormControl(1),
-            max_submission_allowed: new FormControl(100),
-            is_verified: new FormControl(true),
         });
     }
 
     onSubmit(FormData) {
-        FormData.lines = FormData.lines.split(',');
-        this.questionService.postParsonsQuestion(FormData)
+        const submissionRequest = {
+            title: FormData.title,
+            difficulty: FormData.difficulty,
+            course: FormData.course,
+            event: FormData.event,
+            text: FormData.text,
+            category: FormData.category,
+            variables: this.variables,
+            lines: FormData.lines.split('\n'),
+            additional_file_name: FormData.additional_file_name,
+            junit_template: FormData.junit_template,
+        };
+        this.questionService.postParsonsQuestion(submissionRequest)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');
                 console.log(response);
