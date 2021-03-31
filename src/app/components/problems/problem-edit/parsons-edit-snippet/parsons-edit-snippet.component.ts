@@ -7,6 +7,7 @@ import {CourseEvent} from '@app/_models/courseEvent';
 import {forkJoin} from 'rxjs';
 import {CourseService} from '@app/_services/api/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
+import {CommonParsonsFunctionsService} from '@app/_services/common-parsons-functions.service';
 
 @Component({
     selector: 'app-parsons-edit-snippet',
@@ -21,12 +22,14 @@ export class ParsonsEditSnippetComponent implements OnInit {
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
+    variables: any[];
 
     constructor(private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private messageService: MessageService,
                 private courseService: CourseService,
-                private categoryService: CategoryService) {
+                private categoryService: CategoryService,
+                private commonParsonsFunctionsService: CommonParsonsFunctionsService) {
     }
 
     ngOnInit(): void {
@@ -39,28 +42,19 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 this.categories = result[1];
             });
 
-        this.ParsonsFormData = this.formBuilder.group({
-            title: new FormControl(''),
-            difficulty: new FormControl(''),
-            category: new FormControl(''),
-            course: new FormControl(''),
-            event: new FormControl(''),
-            text: new FormControl(''),
-            junit_template: new FormControl(''),
-            lines: new FormControl(''),
-            additional_file_name: new FormControl(''),
-        });
-
         this.courseSelectedById(this.QuestionDetails.event.course);
-        this.ParsonsFormData.controls.title.setValue(this.QuestionDetails.title);
-        this.ParsonsFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
-        this.ParsonsFormData.controls.category.setValue(this.QuestionDetails.category);
-        this.ParsonsFormData.controls.course.setValue(this.QuestionDetails.event.course);
-        this.ParsonsFormData.controls.event.setValue(this.selectedEvent);
-        this.ParsonsFormData.controls.text.setValue(this.QuestionDetails.text);
-        this.ParsonsFormData.controls.junit_template.setValue(this.QuestionDetails.junit_template);
-        this.ParsonsFormData.controls.lines.setValue(this.QuestionDetails.lines.join('\n'));
-        this.ParsonsFormData.controls.additional_file_name.setValue(this.QuestionDetails.additional_file_name);
+
+        this.ParsonsFormData = this.formBuilder.group({
+            title: new FormControl(this.QuestionDetails?.title),
+            difficulty: new FormControl(this.QuestionDetails?.difficulty),
+            category: new FormControl(this.QuestionDetails?.category),
+            course: new FormControl(this.QuestionDetails?.event.course),
+            event: new FormControl(this.selectedEvent),
+            text: new FormControl(this.QuestionDetails?.text),
+            junit_template: new FormControl(this.QuestionDetails?.junit_template),
+            lines: new FormControl(this.QuestionDetails?.lines.join('\n')),
+            additional_file_name: new FormControl(this.QuestionDetails?.additional_file_name),
+        });
     }
 
     courseSelectedEvent(value) {
@@ -68,18 +62,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        const submissionRequest = {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
-            category: FormData.category,
-            variables: this.QuestionDetails.variables,
-            lines: FormData.lines.split('\n'),
-            additional_file_name: FormData.additional_file_name,
-            junit_template: FormData.junit_template,
-        };
+        const submissionRequest = this.commonParsonsFunctionsService.createSubmissionRequest(FormData, this.variables);
         this.questionService.putParsonsQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');

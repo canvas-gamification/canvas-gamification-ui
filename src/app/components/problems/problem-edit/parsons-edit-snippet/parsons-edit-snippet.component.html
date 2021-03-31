@@ -55,7 +55,6 @@
         <div class="col-md-6">
             Paste the solution here. Possibly add extra lines at the end.
             Lines will be extracted and shuffled.
-            Enter Lines in the separated by a comma, e.g. line_one, line_two.
         </div>
     </div>
     <div class="form-row m-3">
@@ -89,7 +88,7 @@
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
-            <app-json-editor [(value)]="QuestionDetails.variables" [name]="'variables'"></app-json-editor>
+            <app-json-editor [(value)]="variables" [name]="'variables'"></app-json-editor>
         </div>
         <div class="col-md-6">
             If you are not using variables,
