@@ -28,12 +28,6 @@ export class CourseEventService {
             .pipe(catchError(this.handleError<CourseEvent>('deleteCourseEvent')));
     }
 
-    getCourseEvents(): Observable<CourseEvent[]> {
-        return this.http
-            .get<CourseEvent[]>(this.courseEventUrl)
-            .pipe(catchError(this.handleError<CourseEvent[]>('getCourseEvents', [])));
-    }
-
     addCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
         return this.http
             .post<CourseEvent>(this.courseEventUrl, courseEvent)
