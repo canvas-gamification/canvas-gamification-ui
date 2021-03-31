@@ -95,9 +95,11 @@ export class ParsonsViewSnippetComponent implements OnInit {
                     this.previousSubmissions = result;
                 });
                 console.log(response);
+                window.scroll(0, 0);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
+                window.scroll(0, 0);
             });
     }
 

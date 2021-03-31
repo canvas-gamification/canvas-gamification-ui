@@ -72,15 +72,16 @@ export class JavaEditSnippetComponent implements OnInit {
             variables: this.QuestionDetails.variables,
             junit_template: FormData.junit_template,
             input_file_names: this.QuestionDetails.input_file_names,
-            visible_distractor_count: FormData.visible_distractor_count
         };
         this.questionService.putJavaQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');
                 console.log(response);
+                window.scroll(0, 0);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
+                window.scroll(0, 0);
             });
     }
 
