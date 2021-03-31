@@ -15,7 +15,7 @@ import {ResetPasswordComponent} from './components/accounts/reset-password/reset
 import {ConsentFormComponent} from '@app/components/accounts/consent-form/consent-form.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
-import {CourseListComponent} from '@app/components/course-list/course-list.component';
+import {CourseListComponent} from '@app/components/course/course-list/course-list.component';
 import {CourseComponent} from '@app/components/course/course.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 import { CourseEventCreateComponent } from '@app/components/course/course-event-create/course-event-create.component';
