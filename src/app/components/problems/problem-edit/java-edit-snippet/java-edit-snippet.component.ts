@@ -7,6 +7,7 @@ import {MessageService} from '@app/_services/message.service';
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/courseEvent';
 import {forkJoin} from 'rxjs';
+import {CommonJavaFunctionsService} from '@app/_services/common-java-functions.service';
 
 @Component({
     selector: 'app-java-edit-snippet',
@@ -19,14 +20,17 @@ export class JavaEditSnippetComponent implements OnInit {
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
+    variables: any[];
     selectedCourse: number;
     selectedEvent: number;
+    inputFileNames: any;
 
     constructor(private courseService: CourseService,
                 private categoryService: CategoryService,
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
-                private messageService: MessageService) {
+                private messageService: MessageService,
+                private commonJavaFunctionsService: CommonJavaFunctionsService) {
     }
 
     ngOnInit(): void {
@@ -40,39 +44,22 @@ export class JavaEditSnippetComponent implements OnInit {
                 this.categories = result[1];
             });
 
+        this.courseSelectedById(this.QuestionDetails.event.course);
+        this.inputFileNames = this.QuestionDetails?.input_file_names;
 
         this.JavaFormData = this.formBuilder.group({
-            title: new FormControl(''),
-            difficulty: new FormControl(''),
-            category: new FormControl(''),
-            course: new FormControl(''),
-            event: new FormControl(''),
-            text: new FormControl(''),
-            junit_template: new FormControl(''),
+            title: new FormControl(this.QuestionDetails?.title),
+            difficulty: new FormControl(this.QuestionDetails?.difficulty),
+            category: new FormControl(this.QuestionDetails?.category),
+            course: new FormControl(this.QuestionDetails?.event.course),
+            event: new FormControl(this.selectedEvent),
+            text: new FormControl(this.QuestionDetails?.text),
+            junit_template: new FormControl(this.QuestionDetails?.junit_template),
         });
-
-        this.courseSelectedById(this.QuestionDetails.event.course);
-        this.JavaFormData.controls.title.setValue(this.QuestionDetails.title);
-        this.JavaFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
-        this.JavaFormData.controls.category.setValue(this.QuestionDetails.category);
-        this.JavaFormData.controls.course.setValue(this.QuestionDetails.event.course);
-        this.JavaFormData.controls.event.setValue(this.selectedEvent);
-        this.JavaFormData.controls.text.setValue(this.QuestionDetails.text);
-        this.JavaFormData.controls.junit_template.setValue(this.QuestionDetails.junit_template);
     }
 
     onSubmit(FormData) {
-        const submissionRequest = {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
-            category: FormData.category,
-            variables: this.QuestionDetails.variables,
-            junit_template: FormData.junit_template,
-            input_file_names: this.QuestionDetails.input_file_names,
-        };
+        const submissionRequest = this.commonJavaFunctionsService.createSubmissionRequest(FormData, this.variables, this.inputFileNames);
         this.questionService.putJavaQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');

@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Category, Course, User} from '@app/_models';
+import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/courseEvent';
 import {forkJoin} from 'rxjs';
 import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
-import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseService} from '@app/_services/api/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
+import {CommonJavaFunctionsService} from '@app/_services/common-java-functions.service';
 
 @Component({
     selector: 'app-java-create-snippet',
@@ -20,7 +20,6 @@ export class JavaCreateSnippetComponent implements OnInit {
     events: CourseEvent[];
     selectedCourse: number;
     categories: Category[];
-    user: User;
     variables: any[];
     inputFileNames: any;
 
@@ -28,10 +27,9 @@ export class JavaCreateSnippetComponent implements OnInit {
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
                 private messageService: MessageService,
-                private authenticationService: AuthenticationService,
                 private courseService: CourseService,
-                private categoryService: CategoryService) {
-        this.authenticationService.currentUser.subscribe(user => this.user = user);
+                private categoryService: CategoryService,
+                private commonJavaFunctionsService: CommonJavaFunctionsService) {
     }
 
     ngOnInit(): void {
@@ -71,17 +69,7 @@ export class JavaCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        const submissionRequest = {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
-            category: FormData.category,
-            variables: this.variables,
-            input_file_names: this.inputFileNames,
-            junit_template: FormData.junit_template,
-        };
+        const submissionRequest = this.commonJavaFunctionsService.createSubmissionRequest(FormData, this.variables, this.inputFileNames);
         this.questionService.postJavaQuestion(submissionRequest)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');
