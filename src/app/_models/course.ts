@@ -1,5 +1,3 @@
-import {CourseEvent} from '@app/_models/courseEvent';
-
 import {CourseEvent, CourseRegistration, UQJ} from '@app/_models';
 
 export interface Course {
