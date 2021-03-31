@@ -6,7 +6,7 @@ import {CourseService} from '@app/_services/api/course.service';
 import {MessageService} from '@app/_services/message.service';
 import {CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
 
-const REGISTRATION_STAGES = {
+const STEPPER_STAGES = {
     ENTER_NAME: 0,
     CONFIRM_IDENTITY: 1,
     VERIFICATION: 2,
@@ -47,8 +47,8 @@ export class CourseRegisterComponent implements OnInit {
             this.courseId = params.courseId;
         });
         this.needsStudentNumber = false;
-        this.completed = false;
         this.verification = false;
+        this.completed = false;
         this.editable = false;
     }
 
@@ -71,10 +71,9 @@ export class CourseRegisterComponent implements OnInit {
     getRegistrationStatus(): void {
         this.courseService.getCourseRegistrationStatus(this.courseId).subscribe(
             courseRegistrationStatus => {
-                const messageContent = courseRegistrationStatus.message;
                 // the api only responds with a non-null message value if the user is blocked from registering, thus the "danger" type
-                if (messageContent) {
-                    this.messageService.add('danger', messageContent);
+                if (courseRegistrationStatus.message) {
+                    this.messageService.add('danger', courseRegistrationStatus.message);
                 }
                 this.initialStage(courseRegistrationStatus.status);
             }
@@ -82,39 +81,31 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     initialStage(status: string): void {
-        switch (status) {
-            case REGISTRATION_STATUS.REGISTERED:
-                this.selectedIndex = REGISTRATION_STAGES.REGISTERED;
-                this.completed = true;
-                break;
-            case REGISTRATION_STATUS.AWAIT_VERIFICATION:
-                this.selectedIndex = REGISTRATION_STAGES.VERIFICATION;
-                this.verification = true;
-                break;
-            case REGISTRATION_STATUS.NOT_REGISTERED:
-                this.selectedIndex = REGISTRATION_STAGES.ENTER_NAME;
-                break;
-        }
+        this.completed = status === REGISTRATION_STATUS.REGISTERED;
+        this.verification = status === REGISTRATION_STATUS.AWAIT_VERIFICATION;
+
+        this.selectedIndex = status === REGISTRATION_STATUS.REGISTERED ? STEPPER_STAGES.REGISTERED :
+                                status === REGISTRATION_STATUS.AWAIT_VERIFICATION ? STEPPER_STAGES.VERIFICATION :
+                                    STEPPER_STAGES.ENTER_NAME;
     }
 
     setRegistrationStage(courseRegResponse: CourseRegistrationResponse): void {
         this.serverGuessedName = courseRegResponse?.guessed_name;
         this.attemptsRemaining = courseRegResponse?.attempts_remaining;
+
         if (courseRegResponse.success) {
-            this.progress();
-        }
-        if (this.stepper.selectedIndex === REGISTRATION_STAGES.ENTER_NAME) {
-            if (!courseRegResponse.success) {
-                this.needsStudentNumber = true;
-                this.progress();
-            }
+            this.nextStep();
         } else {
-            this.selectedIndex = REGISTRATION_STAGES.ENTER_NAME;
+            if (this.stepper.selectedIndex === STEPPER_STAGES.ENTER_NAME) {
+                this.needsStudentNumber = true;
+                this.nextStep();
+            }
         }
     }
 
     registerStepSubmit(): void {
         const data = this.retrieveFormData();
+        this.needsStudentNumber = false; // IMPORTANT
         if (!data.name && !data.student_number) {
             return;
         }
@@ -149,14 +140,13 @@ export class CourseRegisterComponent implements OnInit {
         return {
             name: this.nameForm.get('nameControl').value || null,
             confirmed_name: this.serverGuessedName || null,
-            student_number: String(this.studentNumberForm.get('studentNumberControl').value) || null,
+            student_number: this.studentNumberForm.get('studentNumberControl').value || null,
             code: this.verifyForm.get('verifyControl').value || null,
         };
     }
 
-    progress(): void {
+    nextStep(): void {
         this.stepper.selected.completed = true;
-        this.stepper.selected.editable = false;
         this.stepper.next();
     }
 
@@ -165,6 +155,7 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     reset(): void {
+        this.serverGuessedName = null;
         this.stepper.reset();
     }
 }
