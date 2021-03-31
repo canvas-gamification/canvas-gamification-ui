@@ -30,16 +30,11 @@
           <td>{{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed }}</td>
         </ng-container>
         <td>
-          <a class="btn btn-primary mr-3" href="#">Open</a>
+          <a class="btn btn-primary mr-3" [routerLink]="['/course/question', uqj.queston.id]">Open</a>
           <ng-container *ngIf="isTeacher()">
-            <a class="btn btn-warning mr-3" href="#">Edit</a>
+            <a class="btn btn-warning mr-3" href="['/course/question/edit', uqj.queston.id]">Edit</a>
           </ng-container>
-          <!--
-          <a href="{% url 'course:question_view' pk=uqj.question.pk key=key %}" class="btn btn-primary">Open</a>
-          {% if user.is_teacher %}
-              <a href="{% url 'course:question_edit' uqj.question.pk %}" class="btn btn-warning">Edit</a>
-          {% endif %}
-          -->
+
         </td>
       </tr>
     </ng-container>
