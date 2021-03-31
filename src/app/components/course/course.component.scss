@@ -1,15 +1,10 @@
 @use 'mixins';
 @use 'variables';
 
-.hover-shadow {
-  @include mixins.smooth-transition();
-  &:hover {
-    @include mixins.soft-shadow();
-  }
-}
+@include mixins.hover-shadow();
 
 .tab-content {
-  div {
-    background-color: #fff;
-  }
+    div {
+        background-color: #fff;
+    }
 }

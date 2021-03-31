@@ -14,3 +14,37 @@
         pointer-events: none;
     }
 }
+
+@mixin custom-table-theme() {
+    .mat-table {
+        .mat-header-row {
+            .mat-sort-header-container {
+                &:hover {
+                    .mat-sort-header-arrow {
+                        opacity: 1 !important;
+                    }
+                }
+
+                .mat-sort-header-arrow {
+                    opacity: 0.2 !important;
+                }
+            }
+
+            .mat-sort-header-sorted {
+                .mat-sort-header-arrow {
+                    opacity: 1 !important;
+                }
+            }
+
+            .mat-header-cell {
+                font-size: 1rem;
+                padding-bottom: 0.5rem;
+            }
+        }
+
+        .mat-cell {
+            vertical-align: middle;
+        }
+    }
+
+}

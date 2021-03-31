@@ -1,0 +1,23 @@
+@use 'mixins';
+
+@include mixins.hover-shadow();
+
+//.mat-header-cell {
+//    font-size: 1rem;
+//    color: black;
+//    vertical-align: middle !important;
+//
+//    div.mat-sort-header-container {
+//        margin: 0 auto;
+//    }
+//}
+
+//.mat-cell {
+//    font-size: 1rem;
+//    vertical-align: middle;
+//    border: 0;
+//}
+
+//.mat-row {
+//    height: 5rem;
+//}
