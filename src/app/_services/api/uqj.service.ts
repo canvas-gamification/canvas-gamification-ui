@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {UQJ} from '@app/_models/uqj';
 import {PaginatedResult} from '@app/_models/paginatedResult';
 
@@ -28,15 +28,9 @@ export class UqjService {
             params = params.set(`${field}`, String(filters[field]));
         }
 
-        const orderingFields = [];
-        for (const field of Object.keys(ordering)) {
-            if (ordering[field]) {
-                orderingFields.push(`${field}`);
-            } else {
-                orderingFields.push(`-${field}`);
-            }
+        if (options?.recent ?? false) {
+            params = params.set('ordering', '-last_viewed');
         }
-        params = params.set(`ordering`, `${orderingFields.join()}`);
 
         return this.http
             .get<PaginatedResult<UQJ>>(this.userUqjUrl, {params})
@@ -55,6 +49,22 @@ export class UqjService {
         const url = `${this.userUqjUrl}/${uqjId}`;
         return this.http
             .get<UQJ>(url, {params})
+            .pipe(
+                catchError(
+                    this.handleError<UQJ>(
+                        `getUserUQJ`
+                    )
+                )
+            );
+    }
+
+    getUQJByQuestion(questionId: any): Observable<UQJ> {
+        const params = new HttpParams()
+            .set('question', questionId);
+        const url = `${this.userUqjUrl}`;
+        return this.http
+            .get<PaginatedResult<UQJ>>(url, {params})
+            .pipe(map(x => x.results[0]))
             .pipe(
                 catchError(
                     this.handleError<UQJ>(

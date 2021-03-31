@@ -1,3 +1,5 @@
+import {CourseEvent} from '@app/_models/courseEvent';
+
 import {CourseEvent, CourseRegistration, UQJ} from '@app/_models';
 
 export interface Course {
@@ -14,9 +16,9 @@ export interface Course {
     instructor: number;
     status: string;
     is_registered: boolean;
+    events: CourseEvent[];
     token_use_options: any;
     question_set: any;
-    events: CourseEvent[];
     uqjs: UQJ[];
     course_reg: CourseRegistration;
 }

@@ -1,4 +1,4 @@
-import {CourseEvent} from './course_event';
+import {CourseEvent} from '@app/_models/courseEvent';
 
 export interface Question {
   id: number;
@@ -21,4 +21,11 @@ export interface Question {
   course_name: string;
   event_name: string;
   author_name: string;
+  choices: any;
+  variables: [];
+  input_file_names: [];
+  answer: any;
+  junit_template: string;
+  lines: any[];
+  additional_file_name: any;
 }

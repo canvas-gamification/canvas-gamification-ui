@@ -1,0 +1,23 @@
+<div class="card my-1">
+    <div class="card-header">
+        <h1>Generated Variables</h1>
+    </div>
+    <div *ngIf="generatedVariables.length !== 0; else elseBlock">
+        <div *ngFor="let variable of generatedVariables" class="card-body">
+            {{variable.name}}: {{variable.value}}
+        </div>
+    </div>
+    <ng-template #elseBlock>
+        <div class="card-body">
+            No Variables
+        </div>
+    </ng-template>
+    <div class="card-footer">
+        <div *ngIf="variableErrors.length !== 0; else noErrors">
+            <div class="alert-danger" *ngFor="let error of variableErrors">{{error}}</div>
+        </div>
+        <ng-template #noErrors>
+            No Errors.
+        </ng-template>
+    </div>
+</div>

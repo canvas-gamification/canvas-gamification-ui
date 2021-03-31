@@ -1,0 +1,28 @@
+<header>
+    <div class="container-fluid">
+        <div class="row my-auto">
+            <div *ngIf="questionType === 'MCQ'" class="col m-3">
+                <h1 class="m-0">Create Multiple Choice Question</h1>
+            </div>
+            <div *ngIf="questionType === 'java'" class="col m-3">
+                <h1 class="m-0">Create Java Question</h1>
+            </div>
+            <div *ngIf="questionType === 'parsons'" class="col m-3">
+                <h1 class="m-0">Create Parsons Question</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="page-content m-3">
+    <div class="container-fluid">
+        <ng-container *ngIf="questionType === 'MCQ'">
+            <app-mcq-create-snippet></app-mcq-create-snippet>
+        </ng-container>
+        <ng-container *ngIf="questionType === 'java'">
+            <app-java-create-snippet></app-java-create-snippet>
+        </ng-container>
+        <ng-container *ngIf="questionType === 'parsons'">
+            <app-parsons-create-snippet></app-parsons-create-snippet>
+        </ng-container>
+    </div>
+</main>

@@ -1,4 +1,4 @@
-import {Question, Category} from '@app/_models';
+import {Category} from '@app/_models';
 
 
 export interface UQJ {
@@ -9,11 +9,19 @@ export interface UQJ {
     tokens_received: number;
     is_solved: boolean;
     is_partially_solved: boolean;
-    question: Question;
-    num_attempts: number;
     format: string;
     category: Category;
     subcategory: string;
     status: string;
+    question: number;
+    num_attempts: number;
     formatted_current_tokens_received: string;
+    is_allowed_to_submit: boolean;
+    variables: any;
+    variables_errors: [];
+    rendered_text: string;
+    rendered_choices: {};
+    rendered_lines: [];
+    status_class: string;
+    input_files: [];
 }

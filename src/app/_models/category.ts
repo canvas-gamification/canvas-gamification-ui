@@ -6,4 +6,5 @@ export interface Category {
     numQuestions: number;
     avgSuccess: number;
     nextCategories: number[];
+    full_name: string;
 }

@@ -9,6 +9,7 @@ import {TokenValuesComponent} from './components/token-values/token-values.compo
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
+import {ProblemSetComponent} from '@app/components/problems/problem-set/problem-set.component';
 import {RegisterComponent} from './components/accounts/register/register.component';
 import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
 import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
@@ -18,9 +19,13 @@ import {HomepageComponent} from './components/homepage/homepage.component';
 import {CourseListComponent} from '@app/components/course/course-list/course-list.component';
 import {CourseComponent} from '@app/components/course/course.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
-import { CourseEventCreateComponent } from '@app/components/course/course-event-create/course-event-create.component';
-import { CourseQuestionSnippetComponent } from '@app/components/course/course-question-snippet/course-question-snippet.component';
+import {CourseEventCreateComponent} from '@app/components/course/course-event-create/course-event-create.component';
+import {CourseQuestionSnippetComponent} from '@app/components/course/course-question-snippet/course-question-snippet.component';
 import {CourseRegisterComponent} from '@app/components/course/course-registration/course-register.component';
+import {ProblemViewComponent} from '@app/components/problems/problem-view/problem-view.component';
+import {ProblemEditComponent} from '@app/components/problems/problem-edit/problem-edit.component';
+import {ProblemDeleteComponent} from '@app/components/problems/problem-delete/problem-delete.component';
+import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
 
 
 const routes: Routes = [
@@ -55,12 +60,6 @@ const routes: Routes = [
         component: UserStatsComponent
     },
     {
-        path: 'course',
-        pathMatch: 'full',
-        component: CourseListComponent,
-        canActivate: [AuthGuard]
-    },
-    {
         path: 'accounts/login',
         component: LoginComponent
     },
@@ -71,18 +70,7 @@ const routes: Routes = [
     },
     {
         path: 'actions',
-        component: UserActionsComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'course/register/:courseId',
-        component: CourseRegisterComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'course/view/:courseId',
-        component: CourseComponent,
-        canActivate: [AuthGuard]
+        component: UserActionsComponent
     },
     {
         path: 'faq',
@@ -108,6 +96,22 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'course',
+        pathMatch: 'full',
+        component: CourseListComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/register/:courseId',
+        component: CourseRegisterComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/view/:courseId',
+        component: CourseComponent,
+        canActivate: [AuthGuard]
+    },
+    {
         path: 'course/:courseId/new-event',
         component: CourseEventCreateComponent,
         canActivate: [AuthGuard]
@@ -122,6 +126,31 @@ const routes: Routes = [
         component: CourseQuestionSnippetComponent,
         canActivate: [AuthGuard]
     }
+    {
+        path: 'problems',
+        component: ProblemSetComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'problem/:id',
+        component: ProblemViewComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'problem/:id/edit',
+        component: ProblemEditComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'problem/:id/delete',
+        component: ProblemDeleteComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'problem/create/:type',
+        component: ProblemCreateComponent,
+        canActivate: [AuthGuard]
+    },
 ];
 
 @NgModule({

@@ -1,0 +1,103 @@
+<form [formGroup]="ParsonsFormData" (ngSubmit)="onSubmit(ParsonsFormData.value)">
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="parsonsQuestionName">Question Name:</label>
+            <input class="form-control" formControlName="title" type="text" id="parsonsQuestionName">
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="parsonsDifficulty">Difficulty</label>
+            <select class="form-control" formControlName="difficulty" id="parsonsDifficulty">
+                <option value="EASY">EASY</option>
+                <option value="NORMAL">MEDIUM</option>
+                <option value="HARD">HARD</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="parsonsCategory">Category:</label>
+            <select class="form-control" formControlName="category" id="parsonsCategory">
+                <option *ngFor="let category of categories" value="{{category.pk}}">{{category.full_name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="parsonsCourse">Course:</label>
+            <select class="form-control" formControlName="course" id="parsonsCourse"
+                    (change)="courseSelectedEvent($event)">
+                <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="parsonsEvent">Event Name:</label>
+            <select class="form-control" formControlName="event" id="parsonsEvent">
+                <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="parsonsQuestion">Question:</label>
+            <ckeditor formControlName="text" id="parsonsQuestion"></ckeditor>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="parsonsLines">Lines:</label>
+            <textarea class="form-control" formControlName="lines" id="parsonsLines"></textarea>
+        </div>
+        <div class="col-md-6">
+            Paste the solution here. Possibly add extra lines at the end.
+            Lines will be extracted and shuffled.
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="parsons_junit_template">JUnit Template:</label>
+            <textarea class="form-control" formControlName="junit_template"
+                      id="parsons_junit_template"></textarea>
+        </div>
+        <div class="col-md-6">
+            Please provide a JUnit template to evaluate the code.
+            Identify where to insert the solution by "code"
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="additionalFileName">User Code File Name</label>
+            <textarea class="form-control" formControlName="additional_file_name"
+                      id="additionalFileName"></textarea>
+        </div>
+        <div class="col-md-6">
+            Provide a file name to put the user code in it when compiling.
+            Leave empty if the user code is not a complete java program.
+            This has no interference with code tag in the Junit template, you can use both.
+            By providing a name here a file with that name will be created in the same directory
+            of your Junit code and will be compiled with you Junit code.
+
+            This name usually should be the exact name of the Java class with .java extension.
+            For example if the solution has a public class Calculator, the file name should be
+            Calculator.java
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <app-json-editor [(value)]="variables" [name]="'variables'"></app-json-editor>
+        </div>
+        <div class="col-md-6">
+            If you are not using variables,
+            please don't add any variables
+            and delete the existing ones.
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <button class="btn btn-success">Submit</button>
+        </div>
+    </div>
+</form>
