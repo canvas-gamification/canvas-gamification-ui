@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+@import 'variables';
+
+@mixin custom-stepper-theme() {
+    .mat-step-icon-state-done {
+        background-color: $green;
+    }
+    .mat-horizontal-stepper-header {
+        pointer-events: none;
+    }
+}

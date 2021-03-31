@@ -31,6 +31,7 @@
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/jointjs/css/layout.css",
+                "src/scss/material/global-material-theme.scss",
               "src/scss/styles.scss"
             ],
             "stylePreprocessorOptions": {
