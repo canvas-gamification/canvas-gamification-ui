@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Question, UQJ, User} from '@app/_models';
+import {CourseEvent, Question, UQJ, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
 import {UqjService} from '@app/_services/api/uqj.service';
 import {forkJoin} from 'rxjs';
+import {CourseEventService} from '@app/_services/api/course/course-event.service';
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -14,22 +15,22 @@ export class CourseQuestionSnippetComponent implements OnInit {
     @Input() questions: Question[];
     @Input() uqjs: UQJ[]; // This will need to be commented out
     user: User;
-    event: any; // TODO: this should by of type Event
+    event: CourseEvent;
     eventId: number;
 
     constructor(private authenticationService: AuthenticationService,
                 private route: ActivatedRoute,
-                private uqjService: UqjService, ) {
+                private uqjService: UqjService,
+                private courseEventService: CourseEventService, ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
-        if (this.route.snapshot.paramMap.get('eventId')) { // We are opening an event
-            this.eventId = + this.route.snapshot.paramMap.get('eventId');
+        if (this.route.snapshot.paramMap.get('eventId')) { // if this snippet is an event-view
+            this.eventId = +this.route.snapshot.paramMap.get('eventId'); // the '+' casts this to a number from a string
             forkJoin({
-                // TODO: actually call events API (make the server)
-                event: this.uqjService.getUQJs({filters: {question__event: this.eventId, }}),
-                uqjs: this.uqjService.getUQJs({filters: {question__event: this.eventId, }}),
+                event: this.courseEventService.getCourseEvent(this.eventId),
+                uqjs: this.uqjService.getUQJs({filters: {question__event: this.eventId}}),
             }).subscribe(result => {
                 this.event = result.event;
                 this.uqjs = result.uqjs.results;
