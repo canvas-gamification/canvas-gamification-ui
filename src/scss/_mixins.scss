@@ -12,3 +12,12 @@
 @mixin soft-shadow() {
   box-shadow: 0 0.65rem 0.65rem rgba(0, 0, 0, 0.08);
 }
+
+@mixin hover-shadow() {
+    .hover-shadow {
+        @include smooth-transition();
+        &:hover {
+            @include soft-shadow();
+        }
+    }
+}
