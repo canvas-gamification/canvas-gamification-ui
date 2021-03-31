@@ -31,9 +31,9 @@
         </ng-container>
         <td>
           <!--TO DO: CHECK THESE WORK AFTER MERGING WTIH CARSON-->
-          <a class="btn btn-primary mr-3" [routerLink]="['/course/question', uqj.queston.id]">Open</a>
+          <a class="btn btn-primary mr-3" [routerLink]="['/course/question', uqj.question.id]">Open</a>
           <ng-container *ngIf="isTeacher()">
-            <a class="btn btn-warning mr-3" [routerLink]="['/course/question/edit', uqj.queston.id]">Edit</a>
+            <a class="btn btn-warning mr-3" [routerLink]="['/course/question/edit', uqj.question.id]">Edit</a>
           </ng-container>
 
         </td>
