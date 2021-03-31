@@ -21,7 +21,7 @@
                 <a [class.active]="isActive('course')" class="nav-link" routerLink="course">Courses</a>
             </li>
             <li class="nav-item">
-                <a [class.active]="isActive('course/problem-set')" class="nav-link" routerLink="course/problem-set">Problem
+                <a [class.active]="isActive('problems')" class="nav-link" routerLink="problems">Problem
                     Set</a>
             </li>
             <li class="nav-item dropdown">
@@ -30,9 +30,9 @@
                     New Problem
                 </a>
                 <div class="dropdown-menu" aria-labelledby="newProblemDropdown">
-                    <a class="dropdown-item" routerLink="course/question/create/MCQ">Multiple Choice Problem</a>
-                    <a class="dropdown-item" routerLink="course/question/create/java">Java Problem</a>
-                    <a class="dropdown-item" routerLink="course/question/create/parsons">Parsons Problem</a>
+                    <a class="dropdown-item" routerLink="problem/create/MCQ">Multiple Choice Problem</a>
+                    <a class="dropdown-item" routerLink="problem/create/java">Java Problem</a>
+                    <a class="dropdown-item" routerLink="problem/create/parsons">Parsons Problem</a>
                 </div>
             </li>
             <li class="nav-item">

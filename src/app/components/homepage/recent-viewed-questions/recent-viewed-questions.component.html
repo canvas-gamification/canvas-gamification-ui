@@ -7,7 +7,7 @@
       <ng-container *ngFor="let uqj of uqjs; index as i;">
         <li class="list-group-item">
 <!--          TODO: link to the question's page-->
-          <a routerLink="/course/question/{{ i }}">
+          <a routerLink="/problem/{{ i }}">
             {{ formatQuestion(uqj.question) }}
           </a>
         </li>

@@ -80,6 +80,7 @@ export class JavaCreateSnippetComponent implements OnInit {
             category: FormData.category,
             variables: this.variables,
             input_file_names: this.inputFileNames,
+            junit_template: FormData.junit_template,
         };
         this.questionService.postJavaQuestion(submissionRequest)
             .subscribe(response => {

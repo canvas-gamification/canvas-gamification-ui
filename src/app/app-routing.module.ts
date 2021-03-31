@@ -9,7 +9,7 @@ import {TokenValuesComponent} from './components/token-values/token-values.compo
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
-import {ProblemSetComponent} from '@app/components/course/problem-set/problem-set.component';
+import {ProblemSetComponent} from '@app/components/problems/problem-set/problem-set.component';
 import {RegisterComponent} from './components/accounts/register/register.component';
 import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
 import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
@@ -17,10 +17,10 @@ import {ConsentFormComponent} from '@app/components/accounts/consent-form/consen
 import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
-import {ProblemViewComponent} from '@app/components/course/problem-view/problem-view.component';
-import {ProblemEditComponent} from '@app/components/course/problem-edit/problem-edit.component';
-import {ProblemDeleteComponent} from '@app/components/course/problem-delete/problem-delete.component';
-import {ProblemCreateComponent} from '@app/components/course/problem-create/problem-create.component';
+import {ProblemViewComponent} from '@app/components/problems/problem-view/problem-view.component';
+import {ProblemEditComponent} from '@app/components/problems/problem-edit/problem-edit.component';
+import {ProblemDeleteComponent} from '@app/components/problems/problem-delete/problem-delete.component';
+import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
 
 
 const routes: Routes = [
@@ -91,27 +91,27 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'course/problem-set',
+        path: 'problems',
         component: ProblemSetComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'course/question/:id',
+        path: 'problem/:id',
         component: ProblemViewComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'course/question/edit/:id',
+        path: 'problem/:id/edit',
         component: ProblemEditComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'course/question/delete/:id',
+        path: 'problem/:id/delete',
         component: ProblemDeleteComponent,
         canActivate: [AuthGuard]
     },
     {
-        path: 'course/question/create/:type',
+        path: 'problem/create/:type',
         component: ProblemCreateComponent,
         canActivate: [AuthGuard]
     },

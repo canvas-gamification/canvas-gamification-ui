@@ -34,28 +34,28 @@ import {ConsentFormComponent} from './components/accounts/consent-form/consent-f
 import {TermsAndConditionsSnippetComponent} from './components/accounts/terms-and-conditions-snippet/terms-and-conditions-snippet.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {MatSortModule} from '@angular/material/sort';
-import {ProblemSetComponent} from './components/course/problem-set/problem-set.component';
+import {ProblemSetComponent} from './components/problems/problem-set/problem-set.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {ProblemViewComponent} from './components/course/problem-view/problem-view.component';
-import {ProblemEditComponent} from './components/course/problem-edit/problem-edit.component';
+import {ProblemViewComponent} from './components/problems/problem-view/problem-view.component';
+import {ProblemEditComponent} from './components/problems/problem-edit/problem-edit.component';
 import {CommonModule} from '@angular/common';
-import {ProblemDeleteComponent} from './components/course/problem-delete/problem-delete.component';
-import {ProblemCreateComponent} from './components/course/problem-create/problem-create.component';
+import {ProblemDeleteComponent} from './components/problems/problem-delete/problem-delete.component';
+import {ProblemCreateComponent} from './components/problems/problem-create/problem-create.component';
 import {DragulaModule} from 'ng2-dragula';
 import {CKEditorModule} from 'ckeditor4-angular';
 import {AceEditorModule} from 'ng2-ace-editor';
-import {AceComponent} from './components/course/problem-view/ace/ace.component';
-import {McqViewSnippetComponent} from './components/course/problem-view/mcq-view-snippet/mcq-view-snippet.component';
-import {JavaViewSnippetComponent} from './components/course/problem-view/java-view-snippet/java-view-snippet.component';
-import {ParsonsViewSnippetComponent} from './components/course/problem-view/parsons-view-snippet/parsons-view-snippet.component';
-import {ParsonsEditSnippetComponent} from './components/course/problem-edit/parsons-edit-snippet/parsons-edit-snippet.component';
-import {McqEditSnippetComponent} from './components/course/problem-edit/mcq-edit-snippet/mcq-edit-snippet.component';
-import {JavaEditSnippetComponent} from './components/course/problem-edit/java-edit-snippet/java-edit-snippet.component';
-import {McqCreateSnippetComponent} from './components/course/problem-create/mcq-create-snippet/mcq-create-snippet.component';
-import {JavaCreateSnippetComponent} from './components/course/problem-create/java-create-snippet/java-create-snippet.component';
-import {ParsonsCreateSnippetComponent} from './components/course/problem-create/parsons-create-snippet/parsons-create-snippet.component';
-import {VariableViewComponent} from './components/course/problem-view/variable-view/variable-view.component';
-import {JsonEditorComponent} from './components/course/json-editor/json-editor.component';
+import {AceComponent} from './components/problems/problem-view/ace/ace.component';
+import {McqViewSnippetComponent} from './components/problems/problem-view/mcq-view-snippet/mcq-view-snippet.component';
+import {JavaViewSnippetComponent} from './components/problems/problem-view/java-view-snippet/java-view-snippet.component';
+import {ParsonsViewSnippetComponent} from './components/problems/problem-view/parsons-view-snippet/parsons-view-snippet.component';
+import {ParsonsEditSnippetComponent} from './components/problems/problem-edit/parsons-edit-snippet/parsons-edit-snippet.component';
+import {McqEditSnippetComponent} from './components/problems/problem-edit/mcq-edit-snippet/mcq-edit-snippet.component';
+import {JavaEditSnippetComponent} from './components/problems/problem-edit/java-edit-snippet/java-edit-snippet.component';
+import {McqCreateSnippetComponent} from './components/problems/problem-create/mcq-create-snippet/mcq-create-snippet.component';
+import {JavaCreateSnippetComponent} from './components/problems/problem-create/java-create-snippet/java-create-snippet.component';
+import {ParsonsCreateSnippetComponent} from './components/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component';
+import {VariableViewComponent} from './components/problems/problem-view/variable-view/variable-view.component';
+import {JsonEditorComponent} from './components/problems/json-editor/json-editor.component';
 
 @NgModule({
     declarations: [
