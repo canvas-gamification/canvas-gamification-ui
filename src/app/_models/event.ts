@@ -7,3 +7,9 @@ export interface Event {
   end_date: Date;
   course: number;
 }
+
+export const EVENT_TYPES = {
+    ASSIGNMENT: 'ASSIGNMENT',
+    PRACTICE: 'PRACTICE',
+    EXAM: 'EXAM',
+};
