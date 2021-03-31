@@ -53,6 +53,7 @@ export class McqCreateSnippetComponent implements OnInit {
             answer: new FormControl(''),
             category: new FormControl(''),
             choices: new FormControl(''),
+            visible_distractor_count: new FormControl(''),
         });
     }
 
