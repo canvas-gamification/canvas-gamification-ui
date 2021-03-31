@@ -1,0 +1,40 @@
+<header>
+    <div class="container-fluid">
+        <div class="row my-auto">
+            <div class="col m-3">
+                <h1 class="m-0">Question Summary</h1>
+            </div>
+        </div>
+    </div>
+</header>
+<main class="page-content m-3">
+    <div class="container-fluid">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Tokens Value</th>
+                <th>Status</th>
+                <th>Num Attempts</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{QuestionDetails?.parent_category_name}} :: {{QuestionDetails?.category_name}}</td>
+                <td>{{QuestionDetails?.token_value}}</td>
+                <td>Not in API</td>
+                <td>{{QuestionDetails?.max_submission_allowed}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <ng-container *ngIf="questionType === 'multiple choice question'">
+            <app-mcq-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails"></app-mcq-view-snippet>
+        </ng-container>
+        <ng-container *ngIf="questionType === 'java question'">
+            <app-java-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails"></app-java-view-snippet>
+        </ng-container>
+        <ng-container *ngIf="questionType === 'parsons question'">
+            <app-parsons-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails"></app-parsons-view-snippet>
+        </ng-container>
+    </div>
+</main>

@@ -1,3 +1,5 @@
+import {CourseEvent} from '@app/_models/courseEvent';
+
 export interface Course {
   id: number;
   mock: boolean;
@@ -12,6 +14,7 @@ export interface Course {
   instructor: number;
   status: string;
   is_registered: boolean;
+  events: CourseEvent[];
 }
 
 export const STATUS = {

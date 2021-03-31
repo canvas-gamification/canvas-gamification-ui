@@ -12,8 +12,8 @@
     <form [formGroup]="FormData" (ngSubmit)="applyFilter(FormData.value)">
       <div class="form-row">
         <div class="form-group col-3">
-          <label for="search">Search in Question Name:</label>
-          <input type="text" class="form-control" name="search" formControlName="search" id="search"
+          <label for="query">Search in Question Name:</label>
+          <input type="text" class="form-control" name="query" formControlName="query" id="query"
                  placeholder="Search in the problem set...">
         </div>
         <div class="form-group col-2">
@@ -40,8 +40,13 @@
         </div>
         <div class="form-group col-2">
           <label for="status">Status:</label>
-          <select disabled class="form-control" name="status" id="status" [value]="Disabled">
-            <option value="Disabled">Disabled</option>
+          <select disabled class="form-control" name="status" id="status" [value]="'All'">
+            <option value="All">All</option>
+            <option value="Solved">Solved</option>
+            <option value="Partially Correct">Partially Correct</option>
+            <option value="Unsolved">Unsolved</option>
+            <option value="Wrong">Wrong</option>
+            <option value="New">New</option>
           </select>
         </div>
         <div class="form-group col-2">
@@ -84,17 +89,17 @@
         <td>{{question.token_value}}</td>
         <td>{{question.success_rate}}</td>
         <td>
-          <div style="white-space: nowrap; display: flex">
-              <a href="">
-                <fa-icon class="action-icon" id="faEye" [icon]="faEye"></fa-icon>
-              </a>
-              <a href="">
-                <fa-icon class="action-icon" id="faPencilAlt" [icon]="faPencilAlt"></fa-icon>
-              </a>
-              <a href="">
-                <fa-icon class="action-icon" id="faTrashAlt" [icon]="faTrashAlt"></fa-icon>
-              </a>
-          </div>
+            <div style="white-space: nowrap; display: flex">
+                <a routerLink="../question/{{question.id}}">
+                    <fa-icon class="action-icon" id="faEye" [icon]="faEye"></fa-icon>
+                </a>
+                <a href="../course/question/edit/{{question.id}}">
+                    <fa-icon class="action-icon" id="faPencilAlt" [icon]="faPencilAlt"></fa-icon>
+                </a>
+                <a href="../course/question/delete/{{question.id}}">
+                    <fa-icon class="action-icon" id="faTrashAlt" [icon]="faTrashAlt"></fa-icon>
+                </a>
+            </div>
         </td>
       </tr>
       </tbody>
