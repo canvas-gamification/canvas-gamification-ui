@@ -3,8 +3,13 @@
 
 @mixin custom-stepper-theme() {
     .mat-step-icon-state-done {
-        background-color: $green;
+        background-color: $green !important;
     }
+
+    .mat-step-icon-state-number {
+        background-color: $blue !important;
+    }
+
     .mat-horizontal-stepper-header {
         pointer-events: none;
     }
