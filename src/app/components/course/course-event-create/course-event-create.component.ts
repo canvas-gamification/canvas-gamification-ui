@@ -46,7 +46,7 @@ export class CourseEventCreateComponent implements OnInit {
                     this.checkCanSubmit();
                 }
             );
-        }else{
+        } else {
             this.countsForTokens = false; // needs a default value specifically
             this.invalid = true;
         }
@@ -87,10 +87,10 @@ export class CourseEventCreateComponent implements OnInit {
     }
 
     checkCanSubmit(): void {
-        console.log("authenticating")
-        if(this.eventName && this.eventType && this.startTime && this.endTime){
-            console.log("all variables are non null")
-            if(this.eventName.length > 0 && this.eventType.length > 0 && this.endTime > this.startTime){
+        console.log('authenticating');
+        if (this.eventName && this.eventType && this.startTime && this.endTime) {
+            console.log('all variables are non null');
+            if (this.eventName.length > 0 && this.eventType.length > 0 && this.endTime > this.startTime) {
                 this.invalid = false;
                 return;
             }
