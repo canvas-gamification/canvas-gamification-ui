@@ -39,6 +39,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     }
 
     getStatus(uqj: UQJ): string {
+        // TODO: rethink this since questions are just numbers now
         if (!uqj.question.event || !uqj.question.event.is_exam) { // If the event exists
             return uqj.status;
         }

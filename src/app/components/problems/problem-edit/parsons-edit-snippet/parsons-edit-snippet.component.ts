@@ -5,7 +5,7 @@ import {MessageService} from '@app/_services/message.service';
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/courseEvent';
 import {forkJoin} from 'rxjs';
-import {CourseService} from '@app/_services/api/course.service';
+import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 
 @Component({

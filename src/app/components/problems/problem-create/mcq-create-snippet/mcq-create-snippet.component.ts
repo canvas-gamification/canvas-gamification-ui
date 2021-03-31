@@ -3,7 +3,7 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {CourseService} from '@app/_services/api/course.service';
+import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {Category, Course, User} from '@app/_models';
 import {forkJoin} from 'rxjs';
