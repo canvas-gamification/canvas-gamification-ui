@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import {CourseService} from '@app/_services/api/course.service';
+import {CourseService} from '@app/_services/api/course/course.service';
 import {MessageService} from '@app/_services/message.service';
 import {CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
 

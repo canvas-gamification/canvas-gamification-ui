@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Course, STATUS} from '@app/_models';
-import {CourseService} from '@app/_services/api/course.service';
+import {CourseService} from '@app/_services/api/course/course.service';
 
 @Component({
   selector: 'app-inactive-courses',
