@@ -50,7 +50,7 @@ import { ProgressBarComponent } from './components/course/progress-bar/progress-
 import { CourseQuestionSnippetComponent } from './components/course/course-question-snippet/course-question-snippet.component';
 import {MatButtonModule} from '@angular/material/button';
 import { CourseEventCreateComponent } from './components/course/course-event-create/course-event-create.component';
-import {CourseRegisterComponent} from '@app/components/course/registration/course-registration/course-register.component';
+import {CourseRegisterComponent} from '@app/components/course/course-registration/course-register.component';
 
 @NgModule({
   declarations: [

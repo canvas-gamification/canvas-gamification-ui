@@ -1,0 +1,23 @@
+@use 'variables';
+
+mat-horizontal-stepper {
+    .mat-horizontal-stepper-header-container {
+        background-color: red !important;
+
+        mat-step-header {
+            pointer-events: none !important;
+        }
+    }
+
+    .mat-horizontal-content-container {
+        background-color: blue !important;
+    }
+
+    ::ng-deep .mat-step-header .mat-step-icon-state-done {
+        background-color: variables.$green !important;
+    }
+}
+
+mat-step {
+    pointer-events: none !important;
+}
