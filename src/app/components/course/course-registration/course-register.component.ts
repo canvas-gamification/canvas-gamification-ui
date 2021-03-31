@@ -85,8 +85,8 @@ export class CourseRegisterComponent implements OnInit {
         this.verification = status === REGISTRATION_STATUS.AWAIT_VERIFICATION;
 
         this.selectedIndex = status === REGISTRATION_STATUS.REGISTERED ? STEPPER_STAGES.REGISTERED :
-                                status === REGISTRATION_STATUS.AWAIT_VERIFICATION ? STEPPER_STAGES.VERIFICATION :
-                                    STEPPER_STAGES.ENTER_NAME;
+            status === REGISTRATION_STATUS.AWAIT_VERIFICATION ? STEPPER_STAGES.VERIFICATION :
+                STEPPER_STAGES.ENTER_NAME;
     }
 
     setRegistrationStage(courseRegResponse: CourseRegistrationResponse): void {

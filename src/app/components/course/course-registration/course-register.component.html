@@ -2,7 +2,8 @@
     <!--    TODO: inform user of which course they are registering for (by name) in this page-->
     <h1 class="my-5">Course Registration</h1>
     <mat-horizontal-stepper #stepper [selectedIndex]="selectedIndex" class="border-success" linear>
-        <mat-step [stepControl]="nameForm" [editable]="editable" [completed]="completed || verification" errorMessage="Name is required">
+        <mat-step [stepControl]="nameForm" [editable]="editable" [completed]="completed || verification"
+                  errorMessage="Name is required">
             <form [formGroup]="nameForm">
                 <ng-template matStepLabel>Identification</ng-template>
                 <mat-form-field class="w-50">
@@ -16,7 +17,8 @@
         </mat-step>
 
         <mat-step [stepControl]="needsStudentNumber ? studentNumberForm : confirmNameForm"
-                  [editable]="editable" [completed]="completed || verification" errorMessage="Student Number is required">
+                  [editable]="editable" [completed]="completed || verification"
+                  errorMessage="Student Number is required">
             <form [formGroup]="needsStudentNumber ? studentNumberForm : confirmNameForm">
                 <ng-container *ngIf="needsStudentNumber; else confirmNameOnly">
                     <ng-template matStepLabel>Confirm Identity</ng-template>
@@ -34,7 +36,8 @@
                     <ng-template matStepLabel>Confirm Identity</ng-template>
                     <mat-form-field>
                         <mat-label>Please confirm the following details.</mat-label>
-                        <input matInput placeholder="Ex. John Doe" formControlName="nameControl" [value]="serverGuessedName"
+                        <input matInput placeholder="Ex. John Doe" formControlName="nameControl"
+                               [value]="serverGuessedName"
                                disabled>
                     </mat-form-field>
                     <div>
@@ -45,7 +48,8 @@
             </form>
         </mat-step>
 
-        <mat-step [stepControl]="verifyForm" [editable]="editable" [completed]="completed" errorMessage="Verification is required">
+        <mat-step [stepControl]="verifyForm" [editable]="editable" [completed]="completed"
+                  errorMessage="Verification is required">
             <form [formGroup]="verifyForm">
                 <ng-template matStepLabel>Verification</ng-template>
                 <mat-form-field>

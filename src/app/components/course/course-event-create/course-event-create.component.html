@@ -3,11 +3,13 @@
         <form id="new-event">
             <div class="row mb-3">
                 <h2 class="form-label"><label for="id-name">Event Name</label></h2>
-                <input id="id-name" type="text" name="name" required class="form-control" [(ngModel)]="eventName" (input)="checkCanSubmit()">
+                <input id="id-name" type="text" name="name" required class="form-control" [(ngModel)]="eventName"
+                       (input)="checkCanSubmit()">
             </div>
             <div class="row mb-3">
                 <h2 class="form-label"><label for="id-type">Event type</label></h2>
-                <select id="id-type" name="type" required class="form-control" [(ngModel)]="eventType" (change)="checkCanSubmit()">
+                <select id="id-type" name="type" required class="form-control" [(ngModel)]="eventType"
+                        (change)="checkCanSubmit()">
                     <option value="" selected></option>
                     <option value="ASSIGNMENT">Assignment</option>
                     <option value="EXAM">Exam</option>

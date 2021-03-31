@@ -1,53 +1,56 @@
 <ng-container *ngIf="teacherForClass">
-  <!--Fill in these hrefs later-->
-  <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
-  <!--TODO: Consider if this button should still even be here-->
-  <a class="btn btn-primary my-2" href="#">Import an Event</a>
+    <!--Fill in these hrefs later-->
+    <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
+    <!--TODO: Consider if this button should still even be here-->
+    <a class="btn btn-primary my-2" href="#">Import an Event</a>
 </ng-container>
 <hr/>
 <table class="table table-hover mt-1" data-toggle="table">
-  <thead class="thead-light text-dark">
-  <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Start&nbsp;Date</th>
-    <th scope="col">End&nbsp;Date</th>
-    <th scope="col">Grade</th>
-    <th scope="col">Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <ng-container *ngIf="events; else tableEmpty">
-    <ng-container *ngFor="let event of events; index as i">
-      <tr>
-        <td>{{ event.name }}</td>
-        <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a' }}</td>
-        <td>{{ event.end_date | date: 'LLL. dd, YYYY, hh:MM a'  }}</td>
-        <td *ngIf="isExamAndOpen(event); else totalEventGrade">Not Available Yet</td>
-        <ng-template #totalEventGrade>
-          <td>{{ event.total_event_grade }}%</td>
-        </ng-template>
-        <td>
-          <div class="btn-container">
-            <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
-              <!--Fill in this href later-->
-              <a class="btn btn-primary mr-3" [routerLink]="['/course', courseId, 'event', event.id]">{{ getEventButtonText(event) }}</a>
-            </ng-container>
-            <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
-              <a class="btn btn-outline-info open-btn mr-3 disabled" href="#">{{ getEventButtonText(event) }}</a>
-            </ng-template>
-            <!--Fill in this href later-->
-            <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn" [routerLink]="['/course', courseId, 'new-event', event.id]">Edit</a>
-          </div>
-        </td>
-      </tr>
-    </ng-container>
-  </ng-container>
-  <ng-template #tableEmpty>
+    <thead class="thead-light text-dark">
     <tr>
-      <td colspan="6" class="bg-info">
-        <p class="text-center text-light m-0">There are currently no events in this course.</p>
-      </td>
+        <th scope="col">Name</th>
+        <th scope="col">Start&nbsp;Date</th>
+        <th scope="col">End&nbsp;Date</th>
+        <th scope="col">Grade</th>
+        <th scope="col">Actions</th>
     </tr>
-  </ng-template>
-  </tbody>
+    </thead>
+    <tbody>
+    <ng-container *ngIf="events; else tableEmpty">
+        <ng-container *ngFor="let event of events; index as i">
+            <tr>
+                <td>{{ event.name }}</td>
+                <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a' }}</td>
+                <td>{{ event.end_date | date: 'LLL. dd, YYYY, hh:MM a'  }}</td>
+                <td *ngIf="isExamAndOpen(event); else totalEventGrade">Not Available Yet</td>
+                <ng-template #totalEventGrade>
+                    <td>{{ event.total_event_grade }}%</td>
+                </ng-template>
+                <td>
+                    <div class="btn-container">
+                        <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
+                            <!--Fill in this href later-->
+                            <a class="btn btn-primary mr-3"
+                               [routerLink]="['/course', courseId, 'event', event.id]">{{ getEventButtonText(event) }}</a>
+                        </ng-container>
+                        <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
+                            <a class="btn btn-outline-info open-btn mr-3 disabled"
+                               href="#">{{ getEventButtonText(event) }}</a>
+                        </ng-template>
+                        <!--Fill in this href later-->
+                        <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn"
+                           [routerLink]="['/course', courseId, 'new-event', event.id]">Edit</a>
+                    </div>
+                </td>
+            </tr>
+        </ng-container>
+    </ng-container>
+    <ng-template #tableEmpty>
+        <tr>
+            <td colspan="6" class="bg-info">
+                <p class="text-center text-light m-0">There are currently no events in this course.</p>
+            </td>
+        </tr>
+    </ng-template>
+    </tbody>
 </table>

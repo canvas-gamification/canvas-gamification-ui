@@ -1,22 +1,24 @@
+@use 'variables';
+
 .action-icon {
-  line-height: 1.25rem;
-  display: inline-block;
-  font-size: 1.25rem;
-  text-align: center;
-  padding: 0.55rem;
-  border-radius: 5px;
+    line-height: 1.25rem;
+    display: inline-block;
+    font-size: 1.25rem;
+    text-align: center;
+    padding: 0.55rem;
+    border-radius: 5px;
 }
 
 button .action-icon {
-  width: 2rem;
-  height: 2rem;
+    width: 2rem;
+    height: 2rem;
 }
 
 .token-input {
-  width: 5rem;
+    width: 5rem;
 }
 
-.red-text{
-    color: text-danger;
+.red-text {
+    color: variables.$danger;
     font-weight: bold;
 }
