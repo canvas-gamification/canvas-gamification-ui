@@ -3,12 +3,12 @@ import {Injectable} from '@angular/core';
 @Injectable({
     providedIn: 'root'
 })
-export class CommonMcqFunctionsService {
+export class ProblemHelpersService {
 
     constructor() {
     }
 
-    createSubmissionRequest(FormData, choices, variablesJSON) {
+    createMCQSubmissionRequest(FormData, choices, variablesJSON) {
         let mcqChoices = choices.value;
         mcqChoices.unshift(FormData.answer);
         mcqChoices = this.arrayToObject(mcqChoices);
@@ -26,6 +26,35 @@ export class CommonMcqFunctionsService {
             choices: mcqChoices
         };
         return submissionRequest;
+    }
+
+    createJavaSubmissionRequest(FormData, variablesJSON, inputFileNames) {
+        return {
+            title: FormData.title,
+            difficulty: FormData.difficulty,
+            course: FormData.course,
+            event: FormData.event,
+            text: FormData.text,
+            category: FormData.category,
+            variables: variablesJSON,
+            junit_template: FormData.junit_template,
+            input_file_names: inputFileNames,
+        };
+    }
+
+    createParsonsSubmissionRequest(FormData, variablesJSON) {
+        return {
+            title: FormData.title,
+            difficulty: FormData.difficulty,
+            course: FormData.course,
+            event: FormData.event,
+            text: FormData.text,
+            category: FormData.category,
+            variables: variablesJSON,
+            lines: FormData.lines.split('\n'),
+            additional_file_name: FormData.additional_file_name,
+            junit_template: FormData.junit_template,
+        };
     }
 
     getNextLetter(char) {

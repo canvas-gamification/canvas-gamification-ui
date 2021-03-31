@@ -7,7 +7,7 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
 import {CourseService} from '@app/_services/api/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {CommonJavaFunctionsService} from '@app/_services/common-java-functions.service';
+import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 
 @Component({
     selector: 'app-java-create-snippet',
@@ -29,7 +29,7 @@ export class JavaCreateSnippetComponent implements OnInit {
                 private messageService: MessageService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
-                private commonJavaFunctionsService: CommonJavaFunctionsService) {
+                private problemHelpersService: ProblemHelpersService) {
     }
 
     ngOnInit(): void {
@@ -69,7 +69,7 @@ export class JavaCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        const submissionRequest = this.commonJavaFunctionsService.createSubmissionRequest(FormData, this.variables, this.inputFileNames);
+        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(FormData, this.variables, this.inputFileNames);
         this.questionService.postJavaQuestion(submissionRequest)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');

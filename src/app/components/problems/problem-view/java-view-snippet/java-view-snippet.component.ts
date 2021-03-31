@@ -21,8 +21,8 @@ export class JavaViewSnippetComponent implements OnInit {
 
     ngOnInit(): void {
         this.inputFileNames = this.QuestionDetails.input_file_names;
-        const previousSubmissionsObservble = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
-        forkJoin([previousSubmissionsObservble])
+        const previousSubmissionsObservable = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
+        forkJoin([previousSubmissionsObservable])
             .subscribe(result => {
                 this.previousSubmissions = result[0];
             });

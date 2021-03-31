@@ -7,7 +7,7 @@ import {MessageService} from '@app/_services/message.service';
 import {CourseService} from '@app/_services/api/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
-import {CommonParsonsFunctionsService} from '@app/_services/common-parsons-functions.service';
+import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 
 @Component({
     selector: 'app-parsons-create-snippet',
@@ -27,7 +27,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
                 private messageService: MessageService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
-                private commonParsonsFunctionsService: CommonParsonsFunctionsService) {
+                private problemHelpersService: ProblemHelpersService) {
     }
 
     ngOnInit(): void {
@@ -53,7 +53,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        const submissionRequest = this.commonParsonsFunctionsService.createSubmissionRequest(FormData, this.variables);
+        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(FormData, this.variables);
         this.questionService.postParsonsQuestion(submissionRequest)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');

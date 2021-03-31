@@ -7,7 +7,7 @@ import {CourseEvent} from '@app/_models/courseEvent';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
-import {CommonMcqFunctionsService} from '@app/_services/common-mcq-functions.service';
+import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 
 @Component({
     selector: 'app-mcq-edit-snippet',
@@ -32,7 +32,7 @@ export class McqEditSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private messageService: MessageService,
-                private commonMcqFunctionsService: CommonMcqFunctionsService) {
+                private problemHelpersService: ProblemHelpersService) {
     }
 
     ngOnInit(): void {
@@ -69,7 +69,7 @@ export class McqEditSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        const submissionRequest = this.commonMcqFunctionsService.createSubmissionRequest(FormData, this.distract, this.variables);
+        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(FormData, this.distract, this.variables);
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');

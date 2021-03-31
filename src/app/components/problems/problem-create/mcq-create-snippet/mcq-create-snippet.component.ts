@@ -7,7 +7,7 @@ import {CategoryService} from '@app/_services/api/category.service';
 import {Category, Course} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseEvent} from '@app/_models/courseEvent';
-import {CommonMcqFunctionsService} from '@app/_services/common-mcq-functions.service';
+import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -28,7 +28,7 @@ export class McqCreateSnippetComponent implements OnInit {
                 private messageService: MessageService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
-                private commonMCQFunctionsService: CommonMcqFunctionsService) {
+                private problemHelpersService: ProblemHelpersService) {
     }
 
     ngOnInit(): void {
@@ -71,7 +71,7 @@ export class McqCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        const submissionRequest = this.commonMCQFunctionsService.createSubmissionRequest(FormData, this.distract, this.variables);
+        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(FormData, this.distract, this.variables);
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');

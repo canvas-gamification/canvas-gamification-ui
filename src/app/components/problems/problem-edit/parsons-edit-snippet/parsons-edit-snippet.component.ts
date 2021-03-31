@@ -7,7 +7,7 @@ import {CourseEvent} from '@app/_models/courseEvent';
 import {forkJoin} from 'rxjs';
 import {CourseService} from '@app/_services/api/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {CommonParsonsFunctionsService} from '@app/_services/common-parsons-functions.service';
+import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 
 @Component({
     selector: 'app-parsons-edit-snippet',
@@ -29,7 +29,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 private messageService: MessageService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
-                private commonParsonsFunctionsService: CommonParsonsFunctionsService) {
+                private problemHelpersService: ProblemHelpersService) {
     }
 
     ngOnInit(): void {
@@ -62,7 +62,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        const submissionRequest = this.commonParsonsFunctionsService.createSubmissionRequest(FormData, this.variables);
+        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(FormData, this.variables);
         this.questionService.putParsonsQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');

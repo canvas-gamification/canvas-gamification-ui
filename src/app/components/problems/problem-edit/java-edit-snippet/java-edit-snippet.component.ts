@@ -7,7 +7,7 @@ import {MessageService} from '@app/_services/message.service';
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/courseEvent';
 import {forkJoin} from 'rxjs';
-import {CommonJavaFunctionsService} from '@app/_services/common-java-functions.service';
+import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 
 @Component({
     selector: 'app-java-edit-snippet',
@@ -30,7 +30,7 @@ export class JavaEditSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private messageService: MessageService,
-                private commonJavaFunctionsService: CommonJavaFunctionsService) {
+                private problemHelpersService: ProblemHelpersService) {
     }
 
     ngOnInit(): void {
@@ -59,7 +59,7 @@ export class JavaEditSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        const submissionRequest = this.commonJavaFunctionsService.createSubmissionRequest(FormData, this.variables, this.inputFileNames);
+        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(FormData, this.variables, this.inputFileNames);
         this.questionService.putJavaQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');
