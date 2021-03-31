@@ -8,7 +8,8 @@ export class MessageService {
     messages: AlertMessage[] = [];
     successMessages: string[] = [];
 
-    constructor() {}
+    constructor() {
+    }
 
     add(type: string, message: string) {
         this.messages.push({
