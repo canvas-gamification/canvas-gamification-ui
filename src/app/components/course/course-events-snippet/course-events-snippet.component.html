@@ -1,6 +1,7 @@
 <ng-container *ngIf="teacherForClass">
   <!--Fill in these hrefs later-->
   <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
+  <!--TODO: Consider if this button should still even be here-->
   <a class="btn btn-primary my-2" href="#">Import an Event</a>
 </ng-container>
 <hr/>
@@ -24,7 +25,6 @@
         <td *ngIf="isExamAndOpen(event); else totalEventGrade">Not Available Yet</td>
         <ng-template #totalEventGrade>
           <td>{{ event.total_event_grade }}%</td>
-          <!-- This is currently undefined. Api problem? -->
         </ng-template>
         <td>
           <div class="btn-container">
