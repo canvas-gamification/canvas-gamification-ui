@@ -9,7 +9,6 @@ import {TokenValuesComponent} from './components/token-values/token-values.compo
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
-import {ProblemSetComponent} from '@app/components/course/problem-set/problem-set.component';
 import {RegisterComponent} from './components/accounts/register/register.component';
 import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
 import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
@@ -84,10 +83,6 @@ const routes: Routes = [
         path: 'course/view/:courseId',
         component: CourseComponent,
         canActivate: [AuthGuard]
-    },
-    {
-        path: 'course/problem-set',
-        component: ProblemSetComponent
     },
     {
         path: 'faq',

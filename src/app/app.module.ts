@@ -35,7 +35,6 @@ import { UserActionsComponent } from './components/homepage/user-actions/user-ac
 import { RecentViewedQuestionsComponent } from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
 import { CourseDashboardComponent } from './components/homepage/course-dashboard/course-dashboard.component';
 import { InactiveCoursesComponent } from './components/homepage/inactive-courses/inactive-courses.component';
-import { ProblemSetComponent } from './components/course/problem-set/problem-set.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { RegisterComponent } from './components/accounts/register/register.component';
 import { ProfileDetailsComponent } from './components/accounts/profile-details/profile-details.component';
@@ -46,7 +45,6 @@ import { FaqComponent } from './components/faq/faq.component';
 import { CourseComponent } from './components/course/course.component';
 import { CourseEventsSnippetComponent } from './components/course/course-events-snippet/course-events-snippet.component';
 import { TokenUseSnippetComponent } from './components/course/token-use-snippet/token-use-snippet.component';
-import { ProgressBarComponent } from './components/course/progress-bar/progress-bar.component';
 import { CourseQuestionSnippetComponent } from './components/course/course-question-snippet/course-question-snippet.component';
 import {MatButtonModule} from '@angular/material/button';
 import { CourseEventCreateComponent } from './components/course/course-event-create/course-event-create.component';
@@ -67,7 +65,6 @@ import {CourseRegisterComponent} from '@app/components/course/course-registratio
     CourseListComponent,
     TokenValuesComponent,
     FaqComponent,
-    ProblemSetComponent,
     HomepageComponent,
     RecentUserActionsComponent,
     UserActionsComponent,
@@ -83,7 +80,6 @@ import {CourseRegisterComponent} from '@app/components/course/course-registratio
     CourseComponent,
     CourseEventsSnippetComponent,
     TokenUseSnippetComponent,
-    ProgressBarComponent,
     CourseQuestionSnippetComponent,
     CourseEventCreateComponent,
   ],
