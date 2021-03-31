@@ -2,9 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {CourseEvent} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
-import {interval, Subscription} from 'rxjs';
-// TODO: Make changes to import properly from @app/_models for both
-// import { EventInfo, UpdateEvent} from '@app/_models';
 
 
 @Component({

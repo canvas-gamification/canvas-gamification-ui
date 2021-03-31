@@ -46,7 +46,7 @@ import {TokenUseSnippetComponent} from './components/course/token-use-snippet/to
 import {CourseQuestionSnippetComponent} from './components/course/course-question-snippet/course-question-snippet.component';
 import {MatButtonModule} from '@angular/material/button';
 import {CourseEventCreateComponent} from './components/course/course-event-create/course-event-create.component';
-import {CourseRegisterComponent} from '@app/components/course/course-registration/course-register.component';
+import {CourseRegisterComponent} from './components/course/course-registration/course-register.component';
 import {MatSortModule} from '@angular/material/sort';
 import {ProblemSetComponent} from './components/problems/problem-set/problem-set.component';
 import {ProblemViewComponent} from './components/problems/problem-view/problem-view.component';

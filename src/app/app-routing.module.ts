@@ -125,7 +125,7 @@ const routes: Routes = [
         path: 'course/:courseId/event/:eventId',
         component: CourseQuestionSnippetComponent,
         canActivate: [AuthGuard]
-    }
+    },
     {
         path: 'problems',
         component: ProblemSetComponent,
