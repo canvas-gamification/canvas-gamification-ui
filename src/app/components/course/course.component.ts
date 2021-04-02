@@ -27,8 +27,10 @@ export class CourseComponent implements OnInit {
 
     ngOnInit(): void {
         this.teacherForClass = this.isTeacher();
+        // const needsToBeRegistered = !this.user.is_teacher; TODO: should equal this
+        const needsToBeRegistered = false;
         this.courseService
-            .getCourse(this.courseId, true, {ordering: {name: true}})
+            .getCourse(this.courseId, needsToBeRegistered, {ordering: {name: true}})
             .subscribe(course => {
                 this.course = course;
                 this.courseReg = course.course_reg;
@@ -36,9 +38,8 @@ export class CourseComponent implements OnInit {
     }
 
     isTeacher(): boolean {
-        return this.user.role === 'Teacher';
-        // TODO: MERGE THIS BRANCH with increased auth service and change this function to the following:
-        // This depends on the course right? Need to check if teacher is teacher for this course
+        // TODO: This depends on the course right? Need to check if teacher is teacher for this course
         // return this.user.is_teacher;
+        return true;
     }
 }

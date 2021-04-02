@@ -24,10 +24,10 @@
                     {% row_class uqj event as row_class_name %}
                     -->
                     <tr [attr.class]="'.Question' + uqj.id">
-                        <td>{{ uqj.category?.name }}</td>
-                        <td>{{ uqj.subcategory }}</td>
-                        <td>{{ uqj.format }}</td>
-                        <td>{{ uqj.tokens_received }}</td>
+                        <td>{{ uqj.question.parent_category_name }}</td>
+                        <td>{{ uqj.question.category_name }}</td>
+                        <td>{{ uqj.question.type_name }}</td>
+                        <td>{{ uqj.formatted_current_tokens_received }}</td>
                         <td>{{ getStatus(uqj) }}</td>
                         <ng-container *ngIf="isStudent()">
                             <td>{{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed }}</td>

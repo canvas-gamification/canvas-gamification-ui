@@ -3,6 +3,8 @@ import {CourseService} from '@app/_services/api/course/course.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {AuthenticationService} from '@app/_services/api/authentication';
+import {Course, User} from '@app/_models';
 
 @Component({
     selector: 'app-course-list',
@@ -11,25 +13,31 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class CourseListComponent implements AfterViewInit {
     courseList: any;
+    allCourses: Course[];
     displayedColumns: string[] = ['id', 'name', 'status', 'is_registered', 'actions'];
+    user: User;
 
-    constructor(private route: ActivatedRoute, private courseService: CourseService) {
+    constructor(private authenticationService: AuthenticationService,
+                private route: ActivatedRoute,
+                private courseService: CourseService, ) {
         this.courseList = [];
+        this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     @ViewChild(MatSort) sort: MatSort;
 
     ngAfterViewInit() {
         this.courseService.getCourses().subscribe((courses) => {
+            this.allCourses = courses;
             this.courseList = new MatTableDataSource(courses);
             this.courseList.sort = this.sort;
         });
     }
 
     hasViewPermission(courseId: number): boolean {
-        // TODO: return user.is_teacher or self.is_instructor(user) or self.is_registered(user)
+        console.log(this.user.is_teacher);
+        console.log(this.user.is_student);
+        // return this.user.is_teacher || !!this.allCourses.find(course => course.id === courseId)?.is_registered;
         return true;
     }
-
-
 }
