@@ -1,4 +1,4 @@
-import {CourseEvent} from '@app/_models/courseEvent';
+import {CourseEvent} from '@app/_models/course_event';
 
 export interface Question {
   id: number;

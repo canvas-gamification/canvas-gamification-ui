@@ -7,7 +7,7 @@ import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {Category, Course, User} from '@app/_models';
 import {forkJoin} from 'rxjs';
-import {CourseEvent} from '@app/_models/courseEvent';
+import {CourseEvent} from '@app/_models/course_event';
 
 @Component({
     selector: 'app-mcq-create-snippet',

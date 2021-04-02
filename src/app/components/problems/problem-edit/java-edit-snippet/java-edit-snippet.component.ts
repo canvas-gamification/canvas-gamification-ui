@@ -5,7 +5,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
 import {Category, Course} from '@app/_models';
-import {CourseEvent} from '@app/_models/courseEvent';
+import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 
 @Component({
