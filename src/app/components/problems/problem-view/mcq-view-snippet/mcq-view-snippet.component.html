@@ -22,32 +22,4 @@
     </div>
 </div>
 <app-variable-view [variables]="UQJDetails.variables" [variableErrors]="UQJDetails.variables_errors"></app-variable-view>
-<div class="card my-1">
-    <div class="card-header">
-        <h1>My Past Submissions</h1>
-    </div>
-    <div class="card-body">
-        <table class="table table-hover table-bordered">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Answer</th>
-                <th>Grade</th>
-                <th>Tokens Received</th>
-                <th>Time Submitted</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let submission of previousSubmissions; let i = index">
-                <td>{{i + 1}}</td>
-                <td>{{submission.answer}}</td>
-                <td>{{submission.grade.toFixed(2)}}</td>
-                <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
-                <td>{{submission.submission_time | date:'medium'}}</td>
-                <td>{{submission.status}}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<app-submission-view [previousSubmissions]="previousSubmissions"></app-submission-view>
