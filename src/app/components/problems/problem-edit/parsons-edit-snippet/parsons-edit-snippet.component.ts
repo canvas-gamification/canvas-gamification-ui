@@ -69,6 +69,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 console.log(response);
                 window.scroll(0, 0);
             }, error => {
+                this.messageService.add(error.responseText);
                 console.warn(error.responseText);
                 console.log({error});
                 window.scroll(0, 0);

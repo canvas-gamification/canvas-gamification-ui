@@ -5,39 +5,40 @@ import {MessageService} from '@app/_services/message.service';
 import {Router, NavigationExtras, ActivatedRoute} from '@angular/router';
 
 @Component({
-  selector: 'app-consent-form',
-  templateUrl: './consent-form.component.html',
-  styleUrls: ['./consent-form.component.scss']
+    selector: 'app-consent-form',
+    templateUrl: './consent-form.component.html',
+    styleUrls: ['./consent-form.component.scss']
 })
 export class ConsentFormComponent implements OnInit {
-  FormData: FormGroup;
+    FormData: FormGroup;
 
-  constructor(private router: Router, private route: ActivatedRoute,
-              private builder: FormBuilder, private consent: ConsentService,
-              private messageService: MessageService) {
-  }
+    constructor(private router: Router, private route: ActivatedRoute,
+                private builder: FormBuilder, private consent: ConsentService,
+                private messageService: MessageService) {
+    }
 
-  ngOnInit(): void {
-    this.FormData = this.builder.group({
-      consent: true,
-      legal_first_name: new FormControl('', [Validators.required]),
-      legal_last_name: new FormControl('', [Validators.required]),
-      student_number: new FormControl('', [Validators.required]),
-      date: new FormControl('', [Validators.required])
-    });
-  }
+    ngOnInit(): void {
+        this.FormData = this.builder.group({
+            consent: true,
+            legal_first_name: new FormControl('', [Validators.required]),
+            legal_last_name: new FormControl('', [Validators.required]),
+            student_number: new FormControl('', [Validators.required]),
+            date: new FormControl('', [Validators.required])
+        });
+    }
 
-  onSubmit(FormData) {
-    console.log(FormData);
-    this.consent.PostConsent(FormData)
-      .subscribe(response => {
-        this.router.navigate(['../profile'], {relativeTo: this.route});
-        this.messageService.addSuccess('You have successfully consented!');
-        console.log(response);
-      }, error => {
-        console.warn(error.responseText);
-        console.log({error});
-      });
-  }
+    onSubmit(FormData) {
+        console.log(FormData);
+        this.consent.PostConsent(FormData)
+            .subscribe(response => {
+                this.router.navigate(['../profile'], {relativeTo: this.route});
+                this.messageService.addSuccess('You have successfully consented!');
+                console.log(response);
+            }, error => {
+                console.warn(error.responseText);
+                console.log({error});
+                this.messageService.add(error.responseText);
+            });
+    }
 
 }
