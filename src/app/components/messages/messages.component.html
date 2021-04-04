@@ -1,5 +1,4 @@
 <ng-container *ngIf="messageService.messages">
-<!--    TODO: generic message doesn't have to be a danger message-->
   <div *ngFor='let message of messageService.messages' [ngClass]="'alert-'+message.type"
        class="alert alert-dismissible my-0 fade show" role="alert">
     {{ message.message }}
