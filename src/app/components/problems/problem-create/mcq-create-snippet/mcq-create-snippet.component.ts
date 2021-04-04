@@ -2,12 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {QuestionService} from '@app/_services/api/question.service';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
-import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseService} from '@app/_services/api/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {Category, Course, User} from '@app/_models';
+import {Category, Course} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseEvent} from '@app/_models/courseEvent';
+import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -17,7 +17,6 @@ import {CourseEvent} from '@app/_models/courseEvent';
 export class McqCreateSnippetComponent implements OnInit {
     MCQFormData: FormGroup;
     distract: FormArray;
-    user: User;
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
@@ -27,10 +26,9 @@ export class McqCreateSnippetComponent implements OnInit {
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
                 private messageService: MessageService,
-                private authenticationService: AuthenticationService,
                 private courseService: CourseService,
-                private categoryService: CategoryService) {
-        this.authenticationService.currentUser.subscribe(user => this.user = user);
+                private categoryService: CategoryService,
+                private problemHelpersService: ProblemHelpersService) {
     }
 
     ngOnInit(): void {
@@ -73,29 +71,16 @@ export class McqCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        let mcqChoices = this.distract.value;
-        mcqChoices.unshift(FormData.answer);
-        mcqChoices = this.arrayToObject(mcqChoices);
-        const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === FormData.answer);
-        const submissionRequest = {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
-            answer: correctAnswer,
-            category: FormData.category,
-            variables: this.variables,
-            visible_distractor_count: FormData.visible_distractor_count,
-            choices: mcqChoices
-        };
+        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(FormData, this.distract, this.variables);
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');
                 console.log(response);
+                window.scroll(0, 0);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
+                window.scroll(0, 0);
             });
     }
 
