@@ -27,8 +27,7 @@ export class CourseComponent implements OnInit {
 
     ngOnInit(): void {
         this.teacherForClass = this.isTeacher();
-        // const needsToBeRegistered = !this.user.is_teacher; TODO: should equal this
-        const needsToBeRegistered = false;
+        const needsToBeRegistered = this.user.is_student; // only impose that the user needs to be registered if they are a student
         this.courseService
             .getCourse(this.courseId, needsToBeRegistered, {ordering: {name: true}})
             .subscribe(course => {
@@ -38,8 +37,11 @@ export class CourseComponent implements OnInit {
     }
 
     isTeacher(): boolean {
-        // TODO: This depends on the course right? Need to check if teacher is teacher for this course
-        // return this.user.is_teacher;
-        return true;
+        /*
+           TODO: this is supposed to return if the user is a teacher for this specific course, then it should be named as such,
+           and if we decided this feature was out of scope for now then there's no point leaving it in here if we don't know
+           how it'll be implemented in the end
+        */
+        return this.user.is_teacher;
     }
 }

@@ -1,3 +1,4 @@
+<!--this overarching *ngIf is simply to avoid errors when the page tries to load before the API response is received-->
 <ng-container *ngIf="uqjs">
     <div [class.container]="eventId">
         <h1 *ngIf="eventId" class="mb-3 mt-5">{{ event.name }} Questions</h1>
@@ -9,34 +10,38 @@
                 <th scope="col">Format</th>
                 <th scope="col">Tokens Earned</th>
                 <th scope="col">Status</th>
-                <ng-container *ngIf="isStudent()">
+                <ng-container *ngIf="eventId">
                     <th scope="col">Num&nbsp;Attempts</th>
                 </ng-container>
-
                 <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
-            <ng-container *ngIf="uqjs.length>0; else tableEmpty">
+            <ng-container *ngIf="uqjs.length; else tableEmpty">
                 <ng-container *ngFor="let uqj of uqjs; index as i">
-                    <!--
-                    {% for key, uqj in uqjs.items %}
-                    {% row_class uqj event as row_class_name %}
-                    -->
+                    <!--TODO: why are we setting the class here? Also why do we want a '.' in the class name?-->
                     <tr [attr.class]="'.Question' + uqj.id">
                         <td>{{ uqj.question.parent_category_name }}</td>
                         <td>{{ uqj.question.category_name }}</td>
                         <td>{{ uqj.question.type_name }}</td>
                         <td>{{ uqj.formatted_current_tokens_received }}</td>
                         <td>{{ getStatus(uqj) }}</td>
-                        <ng-container *ngIf="isStudent()">
-                            <td>{{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed }}</td>
+                        <ng-container *ngIf="eventId">
+                            <td [class.text-muted]="user.is_teacher">
+                                <ng-container *ngIf="user.is_student; else isTeacher">
+                                    {{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed }}
+                                </ng-container>
+                                <ng-template #isTeacher>
+                                    <!--TODO: if a teacher looks into the event-view, the num attempts is meaningless-->
+                                    N/A
+                                </ng-template>
+                            </td>
                         </ng-container>
                         <td>
-                            <!--TO DO: CHECK THESE WORK AFTER MERGING WTIH CARSON-->
+                            <!--TODO: CHECK THESE WORK AFTER MERGING WITH CARSON-->
                             <a class="btn btn-primary mr-3"
                                [routerLink]="['/course/question', uqj.question.id]">Open</a>
-                            <ng-container *ngIf="isTeacher()">
+                            <ng-container *ngIf="user.is_teacher">
                                 <a class="btn btn-warning mr-3"
                                    [routerLink]="['/course/question/edit', uqj.question.id]">Edit</a>
                             </ng-container>
@@ -47,8 +52,7 @@
             </ng-container>
             <ng-template #tableEmpty>
                 <tr>
-                    <!--      TODO: colspan depends on if the num attempts column is rendered-->
-                    <td colspan="6" class="bg-info">
+                    <td [attr.colspan]="eventId ? 7 : 6" class="bg-info">
                         <p *ngIf="eventId; else inCourse" class="text-center text-light m-0">There currently aren't any
                             questions in this course.</p>
                         <ng-template #inCourse>

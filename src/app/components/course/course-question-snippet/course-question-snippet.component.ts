@@ -13,7 +13,7 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
 })
 export class CourseQuestionSnippetComponent implements OnInit {
     @Input() questions: Question[];
-    @Input() uqjs: UQJ[]; // This will need to be commented out
+    @Input() uqjs: UQJ[];
     user: User;
     event: CourseEvent;
     eventId: number;
@@ -39,25 +39,15 @@ export class CourseQuestionSnippetComponent implements OnInit {
     }
 
     getStatus(uqj: UQJ): string {
-        // TODO: rethink this since questions are just numbers now
         if (!uqj.question.event || !uqj.question.event.is_exam) { // If the event exists
+            // TODO: couldn't the condition just be if(uqj.question.event)? What was this supposed to do?
             return uqj.status;
         }
+
         if (uqj.question.event.is_exam && uqj.num_attempts > 0) {
             return 'Submitted';
         } else if (uqj.question.event.is_exam) {
             return 'Not submitted';
         }
-    }
-
-    // TODO: FIX THIS FUNCTION
-    isStudent() {
-        return false;
-        // return this.user.is_student;
-    }
-
-    isTeacher() {
-        return false;
-        // return this.user.is_teacher;
     }
 }

@@ -17,14 +17,14 @@ export class CourseListComponent implements AfterViewInit {
     displayedColumns: string[] = ['id', 'name', 'status', 'is_registered', 'actions'];
     user: User;
 
+    @ViewChild(MatSort) sort: MatSort;
+
     constructor(private authenticationService: AuthenticationService,
                 private route: ActivatedRoute,
                 private courseService: CourseService, ) {
         this.courseList = [];
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
-
-    @ViewChild(MatSort) sort: MatSort;
 
     ngAfterViewInit() {
         this.courseService.getCourses().subscribe((courses) => {
@@ -35,9 +35,6 @@ export class CourseListComponent implements AfterViewInit {
     }
 
     hasViewPermission(courseId: number): boolean {
-        console.log(this.user.is_teacher);
-        console.log(this.user.is_student);
-        // return this.user.is_teacher || !!this.allCourses.find(course => course.id === courseId)?.is_registered;
-        return true;
+        return this.user.is_teacher || !!this.allCourses.find(course => course.id === courseId)?.is_registered;
     }
 }
