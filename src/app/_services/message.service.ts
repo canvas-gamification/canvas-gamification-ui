@@ -1,10 +1,12 @@
 import {Injectable} from '@angular/core';
-import {AlertMessage} from '@app/_models';
+import {AlertMessage, MESSAGE_TYPES} from '@app/_models';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MessageService {
+    // Example of a message object: {type: MESSAGE_TYPES.WARNING,
+    //                               message: 'Bruh'}
     messages: AlertMessage[] = [];
     successMessages: string[] = [];
 

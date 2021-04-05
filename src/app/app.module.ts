@@ -69,6 +69,7 @@ import {JavaCreateSnippetComponent} from './components/problems/problem-create/j
 import {ParsonsCreateSnippetComponent} from './components/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component';
 import {VariableViewComponent} from './components/problems/problem-view/variable-view/variable-view.component';
 import {JsonEditorComponent} from './components/problems/json-editor/json-editor.component';
+import { SubmissionViewComponent } from './components/problems/problem-view/submission-view/submission-view.component';
 
 @NgModule({
     declarations: [
@@ -119,6 +120,7 @@ import {JsonEditorComponent} from './components/problems/json-editor/json-editor
         ParsonsCreateSnippetComponent,
         VariableViewComponent,
         JsonEditorComponent,
+        SubmissionViewComponent,
     ],
     imports: [
         BrowserModule,

@@ -27,8 +27,8 @@ export class McqViewSnippetComponent implements OnInit {
             question: new FormControl(this.QuestionDetails.id),
             solution: new FormControl('')
         });
-        const previousSubmissionsObservble = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
-        forkJoin([previousSubmissionsObservble])
+        const previousSubmissionsObservable = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
+        forkJoin([previousSubmissionsObservable])
             .subscribe(result => {
                 this.previousSubmissions = result[0];
             });
@@ -51,9 +51,11 @@ export class McqViewSnippetComponent implements OnInit {
                     this.previousSubmissions = result;
                 });
                 console.log(response);
+                window.scroll(0, 0);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
+                window.scroll(0, 0);
             });
     }
 

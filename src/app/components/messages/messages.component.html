@@ -1,7 +1,7 @@
 <ng-container *ngIf="messageService.messages">
-  <div *ngFor='let message of messageService.messages' [ngClass]="'alert-'+message.type"
-       class="alert alert-dismissible my-0 fade show" role="alert">
-    {{ message.message }}
+    <div *ngFor='let message of messageService.messages' [ngClass]="'alert-'+message.type"
+         class="alert alert-dismissible my-0 fade show" role="alert">
+        {{ message.message }}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>

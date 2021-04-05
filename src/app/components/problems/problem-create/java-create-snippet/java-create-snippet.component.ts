@@ -8,6 +8,7 @@ import {MessageService} from '@app/_services/message.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
+import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 
 @Component({
     selector: 'app-java-create-snippet',
@@ -20,7 +21,6 @@ export class JavaCreateSnippetComponent implements OnInit {
     events: CourseEvent[];
     selectedCourse: number;
     categories: Category[];
-    user: User;
     variables: any[];
     inputFileNames: any;
 
@@ -28,10 +28,9 @@ export class JavaCreateSnippetComponent implements OnInit {
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
                 private messageService: MessageService,
-                private authenticationService: AuthenticationService,
                 private courseService: CourseService,
-                private categoryService: CategoryService) {
-        this.authenticationService.currentUser.subscribe(user => this.user = user);
+                private categoryService: CategoryService,
+                private problemHelpersService: ProblemHelpersService) {
     }
 
     ngOnInit(): void {
@@ -71,24 +70,16 @@ export class JavaCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        const submissionRequest = {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
-            category: FormData.category,
-            variables: this.variables,
-            input_file_names: this.inputFileNames,
-            junit_template: FormData.junit_template,
-        };
+        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(FormData, this.variables, this.inputFileNames);
         this.questionService.postJavaQuestion(submissionRequest)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Created Successfully.');
                 console.log(response);
+                window.scroll(0, 0);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
+                window.scroll(0, 0);
             });
     }
 }

@@ -7,6 +7,7 @@ import {CourseEvent} from '@app/_models/course_event';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
+import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 
 @Component({
     selector: 'app-mcq-edit-snippet',
@@ -21,7 +22,7 @@ export class McqEditSnippetComponent implements OnInit {
     categories: Category[];
     variables: any[];
     choiceArray: any[];
-    correctAnswer: any;
+    correctAnswer: { id: string, value: string };
     selectedCourse: number;
     selectedEvent: number;
     distract: FormArray;
@@ -30,7 +31,8 @@ export class McqEditSnippetComponent implements OnInit {
                 private categoryService: CategoryService,
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
-                private messageService: MessageService) {
+                private messageService: MessageService,
+                private problemHelpersService: ProblemHelpersService) {
     }
 
     ngOnInit(): void {
@@ -45,70 +47,38 @@ export class McqEditSnippetComponent implements OnInit {
             });
 
         this.distract = new FormArray([]);
-
-        this.MCQFormData = this.formBuilder.group({
-            title: new FormControl(''),
-            difficulty: new FormControl(''),
-            course: new FormControl(''),
-            event: new FormControl(''),
-            text: new FormControl(''),
-            answer: new FormControl(''),
-            category: new FormControl(''),
-            variables: new FormControl(''),
-            visible_distractor_count: new FormControl(''),
-            is_verified: new FormControl(true),
-            choices: new FormControl(''),
-        });
-
-        this.MCQFormData.controls.title.setValue(this.QuestionDetails.title);
-        this.MCQFormData.controls.difficulty.setValue(this.QuestionDetails.difficulty);
-        this.MCQFormData.controls.category.setValue(this.QuestionDetails.category);
-        this.MCQFormData.controls.course.setValue(this.QuestionDetails.event?.course);
-        this.MCQFormData.controls.event.setValue(this.selectedEvent);
-        this.variables = this.QuestionDetails.variables;
-        const outputArray = [];
-        // tslint:disable-next-line:forin
-        for (const choice in this.QuestionDetails.choices) {
-            outputArray.push({
-                id: choice,
-                value: this.QuestionDetails.choices[choice]
-            });
-            this.choiceArray = outputArray;
-            this.distract.push(new FormControl(this.QuestionDetails.choices[choice]));
-        }
+        this.convertChoicesToArray(this.QuestionDetails?.choices);
         this.correctAnswer = this.choiceArray[this.choiceArray
             .findIndex(x => x.id === this.QuestionDetails.answer)];
         this.distract.removeAt(this.distract.value.findIndex(item => item === this.correctAnswer.value));
-        this.MCQFormData.controls.text.setValue(this.QuestionDetails.text);
-        this.MCQFormData.controls.answer.setValue(this.correctAnswer.value);
-        this.MCQFormData.controls.visible_distractor_count.setValue(this.QuestionDetails.visible_distractor_count);
+        this.variables = this.QuestionDetails.variables;
 
+        this.MCQFormData = this.formBuilder.group({
+            title: new FormControl(this.QuestionDetails?.title),
+            difficulty: new FormControl(this.QuestionDetails?.difficulty),
+            course: new FormControl(this.QuestionDetails.event?.course),
+            event: new FormControl(this.selectedEvent),
+            text: new FormControl(this.QuestionDetails?.text),
+            answer: new FormControl(this.correctAnswer.value),
+            category: new FormControl(this.QuestionDetails?.category),
+            variables: new FormControl(''),
+            visible_distractor_count: new FormControl(this.QuestionDetails?.visible_distractor_count.toString()),
+            is_verified: new FormControl(true),
+            choices: new FormControl(''),
+        });
     }
 
     onSubmit(FormData) {
-        let mcqChoices = this.distract.value;
-        mcqChoices.unshift(FormData.answer);
-        mcqChoices = this.arrayToObject(mcqChoices);
-        const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === FormData.answer);
-        const submissionRequest = {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
-            answer: correctAnswer,
-            category: FormData.category,
-            variables: this.variables,
-            visible_distractor_count: FormData.visible_distractor_count,
-            choices: mcqChoices
-        };
+        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(FormData, this.distract, this.variables);
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.addSuccess('The Question has been Updated Successfully.');
                 console.log(response);
+                window.scroll(0, 0);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
+                window.scroll(0, 0);
             });
     }
 
@@ -136,19 +106,16 @@ export class McqEditSnippetComponent implements OnInit {
         this.distract.removeAt(index);
     }
 
-    getNextLetter(char) {
-        let code = char.charCodeAt(0);
-        code++;
-        return String.fromCharCode(code);
-    }
-
-    arrayToObject(choicesArray: string[]) {
-        const choices = {};
-        let id = 'a';
-        for (const choice of choicesArray) {
-            choices[id] = choice;
-            id = this.getNextLetter(id);
+    convertChoicesToArray(choices: {}) {
+        const outputArray = [];
+        // tslint:disable-next-line:forin
+        for (const choice in choices) {
+            outputArray.push({
+                id: choice,
+                value: choices[choice]
+            });
+            this.choiceArray = outputArray;
+            this.distract.push(new FormControl(choices[choice]));
         }
-        return choices;
     }
 }
