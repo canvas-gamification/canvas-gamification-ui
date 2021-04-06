@@ -4,6 +4,7 @@ import {environment} from '@environments/environment';
 import {RegisterService} from '@app/_services/api/accounts/register.service';
 import {MessageService} from '@app/_services/message.service';
 import {ConfirmPasswordValidator} from '@app/_helpers/confirm-password.validator';
+import {MESSAGE_TYPES} from '@app/_models';
 
 @Component({
     selector: 'app-register',
@@ -37,12 +38,12 @@ export class RegisterComponent implements OnInit {
         this.register.PostRegistration(FormData)
             .subscribe(response => {
                 this.FormData.reset();
-                this.messageService.addSuccess('You have successfully registered.');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully registered.');
                 console.log(response);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
-                this.messageService.add(error.responseText);
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
             });
     }
 

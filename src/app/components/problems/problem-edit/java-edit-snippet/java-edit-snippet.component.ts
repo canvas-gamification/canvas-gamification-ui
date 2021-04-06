@@ -4,7 +4,7 @@ import {CategoryService} from '@app/_services/api/category.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
-import {Category, Course} from '@app/_models';
+import {Category, Course, MESSAGE_TYPES} from '@app/_models';
 import {CourseEvent} from '@app/_models/courseEvent';
 import {forkJoin} from 'rxjs';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
@@ -62,11 +62,11 @@ export class JavaEditSnippetComponent implements OnInit {
         const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(FormData, this.variables, this.inputFileNames);
         this.questionService.putJavaQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
-                this.messageService.addSuccess('The Question has been Updated Successfully.');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
                 console.log(response);
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(error.responseText);
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
                 console.log({error});
                 window.scroll(0, 0);

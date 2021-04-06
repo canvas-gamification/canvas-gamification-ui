@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ContactService} from '@app/_services/api/contact.service';
 import {MessageService} from '@app/_services/message.service';
 import {environment} from '@environments/environment';
+import {MESSAGE_TYPES} from '@app/_models';
 
 @Component({
     selector: 'app-contact',
@@ -30,12 +31,12 @@ export class ContactComponent implements OnInit {
         this.contact.PostMessage(FormData)
             .subscribe(response => {
                 this.FormData.reset();
-                this.messageService.addSuccess('Your comment have been successfully sent!');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your comment have been successfully sent!');
                 console.log(response);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
-                this.messageService.add(error.responseText);
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
             });
     }
 }

@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConsentService} from '@app/_services/api/accounts/consent.service';
 import {MessageService} from '@app/_services/message.service';
 import {Router, NavigationExtras, ActivatedRoute} from '@angular/router';
+import {MESSAGE_TYPES} from '@app/_models';
 
 @Component({
     selector: 'app-consent-form',
@@ -32,12 +33,12 @@ export class ConsentFormComponent implements OnInit {
         this.consent.PostConsent(FormData)
             .subscribe(response => {
                 this.router.navigate(['../profile'], {relativeTo: this.route});
-                this.messageService.addSuccess('You have successfully consented!');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully consented!');
                 console.log(response);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
-                this.messageService.add(error.responseText);
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
             });
     }
 

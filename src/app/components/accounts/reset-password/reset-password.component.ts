@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ResetPasswordService} from '@app/_services/api/accounts/reset-password.service';
 import {MessageService} from '@app/_services/message.service';
+import {MESSAGE_TYPES} from '@app/_models';
 
 @Component({
     selector: 'app-reset-password',
@@ -27,12 +28,12 @@ export class ResetPasswordComponent implements OnInit {
         this.password.PutPasswordReset(FormData)
             .subscribe(response => {
                 this.FormData.reset();
-                this.messageService.addSuccess('Your password has been updated successfully!');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your password has been updated successfully!');
                 console.log(response);
             }, error => {
                 console.warn(error.responseText);
                 console.log({error});
-                this.messageService.add(error.responseText);
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
             });
     }
 
