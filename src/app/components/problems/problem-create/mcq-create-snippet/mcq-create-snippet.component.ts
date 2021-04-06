@@ -4,7 +4,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import {CourseService} from '@app/_services/api/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {Category, Course} from '@app/_models';
+import {Category, Course, MESSAGE_TYPES} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseEvent} from '@app/_models/courseEvent';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
@@ -74,10 +74,11 @@ export class McqCreateSnippetComponent implements OnInit {
         const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(FormData, this.distract, this.variables);
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
             .subscribe(response => {
-                this.messageService.addSuccess('The Question has been Created Successfully.');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Created Successfully.');
                 console.log(response);
                 window.scroll(0, 0);
             }, error => {
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
                 console.log({error});
                 window.scroll(0, 0);

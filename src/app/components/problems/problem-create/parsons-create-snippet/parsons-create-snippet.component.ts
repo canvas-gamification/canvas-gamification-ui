@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Category, Course} from '@app/_models';
+import {Category, Course, MESSAGE_TYPES} from '@app/_models';
 import {CourseEvent} from '@app/_models/courseEvent';
 import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
@@ -56,10 +56,11 @@ export class ParsonsCreateSnippetComponent implements OnInit {
         const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(FormData, this.variables);
         this.questionService.postParsonsQuestion(submissionRequest)
             .subscribe(response => {
-                this.messageService.addSuccess('The Question has been Created Successfully.');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Created Successfully.');
                 console.log(response);
                 window.scroll(0, 0);
             }, error => {
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
                 console.log({error});
                 window.scroll(0, 0);

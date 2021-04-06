@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CourseService} from '@app/_services/api/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
-import {Category, Course} from '@app/_models';
+import {Category, Course, MESSAGE_TYPES} from '@app/_models';
 import {CourseEvent} from '@app/_models/courseEvent';
 import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
@@ -72,10 +72,11 @@ export class McqEditSnippetComponent implements OnInit {
         const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(FormData, this.distract, this.variables);
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
-                this.messageService.addSuccess('The Question has been Updated Successfully.');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
                 console.log(response);
                 window.scroll(0, 0);
             }, error => {
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
                 console.log({error});
                 window.scroll(0, 0);

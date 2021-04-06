@@ -6,6 +6,7 @@ import {QuestionSubmission} from '@app/_models/questionSubmission';
 import {FormBuilder} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import * as indentString from 'indent-string';
+import {MESSAGE_TYPES} from '@app/_models';
 
 class ContainerObject {
     constructor(public value: string) {
@@ -90,13 +91,14 @@ export class ParsonsViewSnippetComponent implements OnInit {
     onSubmit() {
         this.questionService.postQuestionSubmission({question: this.QuestionDetails.id, solution: this.code})
             .subscribe(response => {
-                this.messageService.addSuccess('The Question has been Submitted Successfully.');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
                 this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe(result => {
                     this.previousSubmissions = result;
                 });
                 console.log(response);
                 window.scroll(0, 0);
             }, error => {
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
                 console.log({error});
                 window.scroll(0, 0);
