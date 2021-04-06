@@ -7,3 +7,4 @@ export * from './token_value';
 export * from './uqj';
 export * from './action';
 export * from './course';
+export * from './alert_message';
