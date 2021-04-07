@@ -6,7 +6,8 @@
     <div class="card-body">
         <p class="card-text">Available Tokens: <span id="available_tokens">{{ courseReg.total_tokens_received }}</span>
         </p>
-        <p class="card-text" id="remaining_tokens_text" [class.red-text]="invalid">
+        <p class="card-text" id="remaining_tokens_text" [class.text-danger]="invalid"
+           [class.font-weight-bold]="invalid">
             Remaining Tokens:<span id="remaining_tokens">{{ currentTotal }}</span></p>
     </div>
 </div>
@@ -43,7 +44,8 @@
                                    [ngModelOptions]="{standalone: true}"
                                    type="number" min="0" [attr.max]="tokenUse.option.maximum_number_of_use"
                                    (input)="typingChanges(tokenUse, $event.target.value)">
-                            <!--Issue: option related things in this input tags are undefined. Why?-->
+                            <!--TODO: value seems to not be defined above - look into this-->
+                            <!--TODO: option related things in this input tags are undefined. Why?-->
                             <button class="btn btn-success action-icon" (click)="incrementAction(tokenUse)">
                                 <fa-icon [icon]=faPlus class="fa button-icon fa-plus"></fa-icon>
                             </button>
@@ -55,8 +57,9 @@
         <ng-template #tableEmpty>
             <tr>
                 <td colspan="5" class="bg-info">
-                    <p class="text-center text-light m-0">There are currently no options for token use in this
-                        course.</p>
+                    <p class="text-center text-light m-0">
+                        There are currently no options for token use in this course.
+                    </p>
                 </td>
             </tr>
         </ng-template>

@@ -30,6 +30,7 @@ export class TokenUseSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        // TODO: why keep track of previous token actions?
         this.courseReg.token_uses.forEach(tokenUse => {
             this.currentTokenActions[tokenUse.option.id] = tokenUse.num_used;
             this.prevTokenActions[tokenUse.option.id] = tokenUse.num_used;
@@ -40,6 +41,8 @@ export class TokenUseSnippetComponent implements OnInit {
     }
 
     canSave() {
+        // TODO: perhaps name this better, what it really does is update a value, it's never used in the context of "can save" only as an
+        //  "update invalid status"
         this.invalid = this.currentTotal < 0;
         return this.invalid;
     }
@@ -58,6 +61,7 @@ export class TokenUseSnippetComponent implements OnInit {
     }
 
     // This is messy... but it somehow handles null as well? Is this a really dumb way of doing this?
+    // TODO: definitely revise this code. (a) ensure it works, well and (b) you should be 100% confident in (a)
     changeTokenUse(tokenUse: TokenUse, newVal: number) {
         // Handles user typing a change... basically change the linked value to what it was earlier, and redo the change properly
         if (this.currentTokenActions[tokenUse.option.id] !== this.prevTokenActions[tokenUse.option.id]) {
@@ -86,7 +90,9 @@ export class TokenUseSnippetComponent implements OnInit {
 
     confirmChanges() {
         this.tokenUseService.useTokens(this.currentTokenActions, this.courseId).subscribe(apiResponse => {
-            const display = apiResponse.success || window.location.reload();
+            if (!apiResponse.success) {
+                window.location.reload();
+            }
         });
     }
 }

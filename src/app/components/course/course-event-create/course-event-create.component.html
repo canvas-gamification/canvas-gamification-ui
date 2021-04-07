@@ -1,44 +1,45 @@
-<div id="mainContainer" class="container page-content m-3">
-    <div class="w-50 m-auto">
-        <form id="new-event">
-            <div class="row mb-3">
-                <h2 class="form-label"><label for="id-name">Event Name</label></h2>
-                <input id="id-name" type="text" name="name" required class="form-control" [(ngModel)]="eventName"
-                       (input)="checkCanSubmit()">
-            </div>
-            <div class="row mb-3">
-                <h2 class="form-label"><label for="id-type">Event type</label></h2>
-                <select id="id-type" name="type" required class="form-control" [(ngModel)]="eventType"
-                        (change)="checkCanSubmit()">
-                    <option value="" selected></option>
-                    <option value="ASSIGNMENT">Assignment</option>
-                    <option value="EXAM">Exam</option>
-                    <option value="PRACTICE">Practice</option>
-                </select>
-            </div>
-            <div class="row mb-3">
-                <h2 class="form-label"><label for="id-name">Counts for tokens</label></h2>
-                <p>
-                    <input id="id-count-for-tokens" name="count_for_tokens" type="checkbox"
-                           [(ngModel)]="countsForTokens">
-                </p>
-            </div>
-            <div class="row mb-3">
-                <h2 class="form-label"><label for="id-name">Start time</label></h2>
-                <input id="id-start_date" type="datetime" required name="start_date" class="form-control"
-                       [(ngModel)]="startTime" (input)="checkCanSubmit()">
-            </div>
-            <div class="row mb-3">
-                <h2 class="form-label"><label for="id-name">End time</label></h2>
-                <input id="id-end_date" type="datetime" required name="end_date" class="form-control"
-                       [attr.min]="minDateISO" [(ngModel)]="endTime" (input)="checkCanSubmit()">
-            </div>
-            <div class="row mb-3">
-                <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course/view', courseId]">Back</a>
-                <input id="id-submit" type="submit" name="submit" class="btn btn-primary my-2 mr-3"
-                       (click)="submitEvent()" [disabled]="invalid">
-            </div>
-        </form>
-    </div>
+<div id="mainContainer" class="container">
+    <h2 class="my-3">
+        Create Event
+    </h2>
+    <!--TODO: Add aria-labels throughout form (on Opey)-->
+    <form id="new-event" class="form">
+        <div class="form-group">
+            <label for="id-name">Event Name</label>
+            <input id="id-name" type="text" name="name" required class="form-control" [(ngModel)]="eventName"
+                   (input)="checkCanSubmit()">
+        </div>
+        <div class="form-group">
+            <label for="id-type">Event type</label>
+            <select id="id-type" name="type" required class="form-control" [(ngModel)]="eventType"
+                    (change)="checkCanSubmit()">
+                <option value="" selected></option>
+                <!--TODO: these options should be loaded automatically from the event types constant (i.e. *ngFor)-->
+                <option value="ASSIGNMENT">Assignment</option>
+                <option value="EXAM">Exam</option>
+                <option value="PRACTICE">Practice</option>
+            </select>
+        </div>
+        <div class="form-check mb-3">
+            <input id="id-count-for-tokens" name="count_for_tokens" type="checkbox" class="form-check-input"
+                   [(ngModel)]="countsForTokens">
+            <label for="id-name" class="form-check-label">Counts for tokens</label>
+        </div>
+        <div class="form-group">
+            <label for="id-name">Start Date & Time</label>
+            <input id="id-start_date" type="datetime" required name="start_date" class="form-control"
+                   [(ngModel)]="startTime" (input)="checkCanSubmit()">
+        </div>
+        <div class="form-group">
+            <label for="id-name">End Date & Time</label>
+            <input id="id-end_date" type="datetime" required name="end_date" class="form-control"
+                   [attr.min]="minDateISO" [(ngModel)]="endTime" (input)="checkCanSubmit()">
+        </div>
+        <div class="form-group">
+            <!--TODO: it's bad form (get it) that these are (a) not <button>s but also aren't even the same tag as each other-->
+            <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course/view', courseId]">Back</a>
+            <input id="id-submit" type="submit" name="submit" class="btn btn-primary my-2 mr-3"
+                   (click)="submitEvent()" [disabled]="invalid">
+        </div>
+    </form>
 </div>
-<!--TODO: Change label to aria-labels-->
