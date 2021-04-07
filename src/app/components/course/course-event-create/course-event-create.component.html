@@ -35,12 +35,10 @@
                        id="start-date-id" name="startPicker"
                        (input)="checkCanSubmit()">
 
-                <mat-datepicker-toggle matSuffix [for]="startPicker">
-                </mat-datepicker-toggle>
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                 <ngx-mat-datetime-picker #startPicker
                                          [showSeconds]="false"
-                                         [stepHour]="1" [stepMinute]="1"
-                                         [stepSecond]="1">
+                                         [stepHour]="1" [stepMinute]="1">
                 </ngx-mat-datetime-picker>
             </mat-form-field>
             <!--<input id="id-start_date" type="datetime" required name="start_date" class="form-control"
@@ -60,8 +58,7 @@
                 </mat-datepicker-toggle>
                 <ngx-mat-datetime-picker #endPicker
                                          [showSeconds]="false"
-                                         [stepHour]="1" [stepMinute]="1"
-                                         [stepSecond]="1">
+                                         [stepHour]="1" [stepMinute]="1">
                 </ngx-mat-datetime-picker>
             </mat-form-field>
             <!--<input id="id-end_date" type="datetime" required name="end_date" class="form-control"
