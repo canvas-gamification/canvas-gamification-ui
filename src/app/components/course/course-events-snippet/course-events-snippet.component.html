@@ -29,7 +29,7 @@
                 </ng-template>
                 <td>
                     <div class="btn-container">
-                        <ng-container *ngIf="event.is_allowed_to_open; else notAllowedOpen">
+                        <ng-container *ngIf="event.is_allowed_to_open || teacherForClass; else notAllowedOpen">
                             <!--Fill in this href later-->
                             <a class="btn btn-primary mr-3"
                                [routerLink]="['/course', courseId, 'event', event.id]">{{ getEventButtonText(event) }}</a>
