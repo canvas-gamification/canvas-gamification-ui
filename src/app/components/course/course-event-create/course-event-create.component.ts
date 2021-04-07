@@ -85,7 +85,7 @@ export class CourseEventCreateComponent implements OnInit {
 
     checkCanSubmit(): void {
         if (this.eventName && this.eventType && this.startTime && this.endTime) {
-            if (this.eventName.length > 0 && this.eventType.length > 0 && this.endTime > this.startTime) {
+            if (this.eventName.length > 0 && this.eventType.length > 0 && this.endTime > this.startTime && this.endTime > this.minDate) {
                 this.invalid = false;
                 return;
             }

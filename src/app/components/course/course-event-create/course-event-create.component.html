@@ -32,12 +32,13 @@
                        placeholder="Choose a date"
                        [disabled]="false"
                        [(ngModel)]="startTime"
-                       id="start-date-id" name="startPicker">
+                       id="start-date-id" name="startPicker"
+                       (input)="checkCanSubmit()">
 
                 <mat-datepicker-toggle matSuffix [for]="startPicker">
                 </mat-datepicker-toggle>
                 <ngx-mat-datetime-picker #startPicker
-                                         [showSeconds]="true"
+                                         [showSeconds]="false"
                                          [stepHour]="1" [stepMinute]="1"
                                          [stepSecond]="1">
                 </ngx-mat-datetime-picker>
@@ -53,11 +54,12 @@
                        placeholder="Choose a date"
                        [disabled]="false"
                        [(ngModel)]="endTime" [min]="minDate"
-                       id="end-date-id" name="endPicker">
+                       id="end-date-id" name="endPicker"
+                       (input)="checkCanSubmit()">
                 <mat-datepicker-toggle matSuffix [for]="endPicker">
                 </mat-datepicker-toggle>
                 <ngx-mat-datetime-picker #endPicker
-                                         [showSeconds]="true"
+                                         [showSeconds]="false"
                                          [stepHour]="1" [stepMinute]="1"
                                          [stepSecond]="1">
                 </ngx-mat-datetime-picker>
