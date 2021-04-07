@@ -12,7 +12,7 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
 export class CourseEventCreateComponent implements OnInit {
 
     courseId: number;
-    minDateISO: string;
+    minDate: Date;
     eventId: number;
     invalid: boolean;
 
@@ -53,7 +53,7 @@ export class CourseEventCreateComponent implements OnInit {
     // TODO: Set the mindate to a higher number?
     getMinDate(): void {
         const d = new Date();
-        this.minDateISO = d.toISOString().split('.')[0];
+        this.minDate = d;
     }
 
     retrieveFormData(): CourseEvent {
@@ -84,9 +84,7 @@ export class CourseEventCreateComponent implements OnInit {
     }
 
     checkCanSubmit(): void {
-        console.log('authenticating');
         if (this.eventName && this.eventType && this.startTime && this.endTime) {
-            console.log('all variables are non null');
             if (this.eventName.length > 0 && this.eventType.length > 0 && this.endTime > this.startTime) {
                 this.invalid = false;
                 return;

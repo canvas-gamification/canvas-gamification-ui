@@ -17,21 +17,52 @@
                 </select>
             </div>
             <div class="row mb-3">
-                <h2 class="form-label"><label for="id-name">Counts for tokens</label></h2>
+                <h2 class="form-label"><label for="id-count-for-tokens">Counts for tokens</label></h2>
                 <p>
                     <input id="id-count-for-tokens" name="count_for_tokens" type="checkbox"
                            [(ngModel)]="countsForTokens">
                 </p>
             </div>
             <div class="row mb-3">
-                <h2 class="form-label"><label for="id-name">Start time</label></h2>
-                <input id="id-start_date" type="datetime" required name="start_date" class="form-control"
-                       [(ngModel)]="startTime" (input)="checkCanSubmit()">
+                <h2 class="form-label"><label for="start-date-id">Start time</label></h2>
+                <mat-form-field>
+                    <input matInput [ngxMatDatetimePicker]="startPicker"
+                           placeholder="Choose a date"
+                           [disabled]="false"
+                           [(ngModel)]="startTime"
+                           id="start-date-id" name="startPicker">
+
+                    <mat-datepicker-toggle matSuffix [for]="startPicker">
+                    </mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #startPicker
+                                             [showSeconds]="true"
+                                             [stepHour]="1" [stepMinute]="1"
+                                             [stepSecond]="1">
+                    </ngx-mat-datetime-picker>
+                </mat-form-field>
+
+                <!--<input id="id-start_date" type="datetime" required name="start_date" class="form-control"
+                       [(ngModel)]="startTime" (input)="checkCanSubmit()"> -->
             </div>
             <div class="row mb-3">
-                <h2 class="form-label"><label for="id-name">End time</label></h2>
-                <input id="id-end_date" type="datetime" required name="end_date" class="form-control"
-                       [attr.min]="minDateISO" [(ngModel)]="endTime" (input)="checkCanSubmit()">
+                <h2 class="form-label"><label for="end-date-id">End time</label></h2>
+                <mat-form-field>
+                    <input matInput [ngxMatDatetimePicker]="endPicker"
+                           placeholder="Choose a date"
+                           [disabled]="false"
+                           [(ngModel)]="endTime" [min]="minDate"
+                           id="end-date-id" name="endPicker">
+                    <mat-datepicker-toggle matSuffix [for]="endPicker">
+                    </mat-datepicker-toggle>
+                    <ngx-mat-datetime-picker #endPicker
+                                             [showSeconds]="true"
+                                             [stepHour]="1" [stepMinute]="1"
+                                             [stepSecond]="1"
+                    >
+                    </ngx-mat-datetime-picker>
+                </mat-form-field>
+                <!--<input id="id-end_date" type="datetime" required name="end_date" class="form-control"
+                       [attr.min]="minDateISO" [(ngModel)]="endTime" (input)="checkCanSubmit()"> -->
             </div>
             <div class="row mb-3">
                 <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course/view', courseId]">Back</a>

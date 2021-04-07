@@ -70,6 +70,8 @@ import {ParsonsCreateSnippetComponent} from './components/problems/problem-creat
 import {VariableViewComponent} from './components/problems/problem-view/variable-view/variable-view.component';
 import {JsonEditorComponent} from './components/problems/json-editor/json-editor.component';
 import { SubmissionViewComponent } from './components/problems/problem-view/submission-view/submission-view.component';
+import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
     declarations: [
@@ -149,6 +151,17 @@ import { SubmissionViewComponent } from './components/problems/problem-view/subm
         DragulaModule.forRoot(),
         CKEditorModule,
         AceEditorModule,
+        BrowserModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatDatepickerModule,
+        MatInputModule,
+        NgxMatTimepickerModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        NgxMatDatetimePickerModule,
+        NgxMatNativeDateModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
