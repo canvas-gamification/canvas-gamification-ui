@@ -1,7 +1,7 @@
 <!--this overarching *ngIf is simply to avoid errors when the page tries to load before the API response is received-->
 <ng-container *ngIf="uqjs">
     <div [class.container]="eventId">
-        <h1 *ngIf="eventId" class="mb-3 mt-5">{{ event.name }} Questions</h1>
+        <h2 *ngIf="eventId" class="mb-3 mt-5">{{ event.name }} Questions</h2>
         <table class="table table-hover mt-3" data-toggle="table">
             <thead class="thead-light text-dark">
             <tr>
@@ -38,7 +38,7 @@
                             </td>
                         </ng-container>
                         <td>
-                            <!--TODO: CHECK THESE WORK AFTER MERGING WITH CARSON-->
+                            <!--TODO: Update to link to proper problem routing -->
                             <a class="btn btn-primary mr-3"
                                [routerLink]="['/course/question', uqj.question.id]">Open</a>
                             <ng-container *ngIf="user.is_teacher">
@@ -53,11 +53,13 @@
             <ng-template #tableEmpty>
                 <tr>
                     <td [attr.colspan]="eventId ? 7 : 6" class="bg-info">
-                        <p *ngIf="eventId; else inCourse" class="text-center text-light m-0">There currently aren't any
-                            questions in this course.</p>
+                        <p *ngIf="eventId; else inCourse" class="text-center text-light m-0">
+                            There aren't currently any questions in this event.
+                        </p>
                         <ng-template #inCourse>
-                            <p class="text-center text-light m-0">There currently aren't any questions in this
-                                course.</p>
+                            <p class="text-center text-light m-0">
+                                There aren't currently any questions in this course.
+                            </p>
                         </ng-template>
                     </td>
                 </tr>

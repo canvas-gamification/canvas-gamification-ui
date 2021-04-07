@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {Course, CourseRegistrationRequest, CourseRegistrationResponse, RegistrationStatus} from '@app/_models';
+import {APIResponse, Course, CourseRegistrationRequest, CourseRegistrationResponse, MESSAGE_TYPES, RegistrationStatus} from '@app/_models';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {environment} from '@environments/environment';
+import {MessageService} from '@app/_services/message.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,44 +15,37 @@ export class CourseService {
         environment.apiBaseUrl
     ).toString();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private messageService: MessageService, ) {
     }
 
-    // TODO: should the type by the same as the response it generates?
     register(courseId: number, data: CourseRegistrationRequest): any {
         return this.http
             .post<CourseRegistrationResponse>(`${this.courseUrl}/${courseId}/register/`, data)
-            .pipe(
-                catchError(
-                    this.handleError<CourseRegistrationResponse>(
-                        `courseRegister`, {success: false, bad_request: true}
-                    )
-                )
-            );
+            .pipe(catchError(this.handleError<CourseRegistrationResponse>(
+                `courseRegister`, {success: false, bad_request: true})));
     }
 
     registerVerify(courseId: number, data: CourseRegistrationRequest): any {
         return this.http
             .post<CourseRegistrationResponse>(`${this.courseUrl}/${courseId}/verify/`, data)
-            .pipe(
-                catchError(
-                    this.handleError<CourseRegistrationResponse>(
-                        `courseRegisterVerify`, {success: false, bad_request: true}
-                    )
-                )
-            );
+            .pipe(catchError(this.handleError<CourseRegistrationResponse>(
+                `courseRegisterVerify`, {success: false, bad_request: true})));
     }
 
     getCourseRegistrationStatus(courseId: number): Observable<RegistrationStatus> {
         return this.http
             .get<RegistrationStatus>(`${this.courseUrl}/${courseId}/get-registration-status`)
-            .pipe(
-                catchError(
-                    this.handleError<RegistrationStatus>(
-                        `getCourseRegistrationStatus`
-                    )
-                )
-            );
+            .pipe(catchError(this.handleError<RegistrationStatus>(
+                `getCourseRegistrationStatus`
+            )));
+    }
+
+    validateEvent(courseId: number, eventId: number, needsToBeRegistered = true): any {
+        return this.http
+            .get<APIResponse>(`${this.courseUrl}/${courseId}/validate-event/${eventId}/?registered=${needsToBeRegistered}`)
+            .pipe(catchError(this.handleError<APIResponse>(
+                `validateEvent`, {success: false, bad_request: true})));
     }
 
     /**
@@ -82,13 +76,7 @@ export class CourseService {
 
         return this.http
             .get<Course[]>(this.courseUrl, {params})
-            .pipe(
-                catchError(
-                    this.handleError<Course[]>(
-                        `getCourses`
-                    )
-                )
-            );
+            .pipe(catchError(this.handleError<Course[]>(`getCourses`)));
     }
 
 
@@ -110,13 +98,7 @@ export class CourseService {
         const url = `${this.courseUrl}/${courseId}`;
         return this.http
             .get<Course>(url, {params})
-            .pipe(
-                catchError(
-                    this.handleError<Course>(
-                        `getCourse`
-                    )
-                )
-            );
+            .pipe(catchError(this.handleError<Course>(`getCourse`)));
     }
 
     /**
@@ -128,7 +110,10 @@ export class CourseService {
     private handleError<T>(operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
             console.error(error); // log to console instead
-            // Let the app keep running by returning an empty result.
+            if (operation === 'validateEvent') {
+                this.messageService.add(
+                    MESSAGE_TYPES.DANGER, 'You don\'t have the correct permissions to access that course or event!');
+            }
             return of(result as T);
         };
     }

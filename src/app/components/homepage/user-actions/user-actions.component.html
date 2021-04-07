@@ -1,30 +1,30 @@
 <div *ngIf="userActions; else noActions" class="container-fluid">
-  <table class="table table-bordered table-striped table-hover no-text-wrap-table">
-    <thead>
-    <tr>
-      <th >Description</th>
-      <th >Token&nbsp;Change</th>
-      <th >Date</th>
-      <th >Status</th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-container *ngFor="let action of userActions">
-      <tr>
-        <td [innerHTML]="action.description"></td>
-        <td>{{ formatTokenChange(action.token_change) }}</td>
-        <td>{{ action.time_created | date:'LLL. dd, YYYY, hh:MM a' }}</td>
-        <td>{{ action.status }}</td>
-      </tr>
-    </ng-container>
-    </tbody>
-  </table>
-  <div class="d-flex justify-content-center mt-md-3">
-    <button *ngIf="canChange.prev" class="btn btn-primary mr-1" (click)="changePage(false)">←</button>
-    <button *ngIf="canChange.next" class="btn btn-primary ml-1" (click)="changePage(true)">→</button>
-  </div>
+    <table class="table table-bordered table-striped table-hover no-text-wrap-table">
+        <thead>
+        <tr>
+            <th>Description</th>
+            <th>Token&nbsp;Change</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let action of userActions">
+            <tr>
+                <td [innerHTML]="getRouterLink(action.description)"></td>
+                <td>{{ formatTokenChange(action.token_change) }}</td>
+                <td>{{ action.time_created | date:'LLL. dd, YYYY, hh:MM a' }}</td>
+                <td>{{ action.status }}</td>
+            </tr>
+        </ng-container>
+        </tbody>
+    </table>
+    <div class="d-flex justify-content-center mt-md-3">
+        <button *ngIf="canChange.prev" class="btn btn-primary mr-1" (click)="changePage(false)">←</button>
+        <button *ngIf="canChange.next" class="btn btn-primary ml-1" (click)="changePage(true)">→</button>
+    </div>
 </div>
 
 <ng-template #noActions>
-  <p>No recent Actions</p>
+    <p>No recent Actions</p>
 </ng-template>

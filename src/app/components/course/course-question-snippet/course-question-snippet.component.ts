@@ -1,10 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CourseEvent, Question, UQJ, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UqjService} from '@app/_services/api/uqj.service';
 import {forkJoin} from 'rxjs';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {CourseService} from '@app/_services/api/course/course.service';
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -17,23 +18,36 @@ export class CourseQuestionSnippetComponent implements OnInit {
     user: User;
     event: CourseEvent;
     eventId: number;
+    courseId: number;
 
     constructor(private authenticationService: AuthenticationService,
+                private router: Router,
                 private route: ActivatedRoute,
                 private uqjService: UqjService,
-                private courseEventService: CourseEventService, ) {
+                private courseEventService: CourseEventService,
+                private courseService: CourseService, ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
-        if (this.route.snapshot.paramMap.get('eventId')) { // if this snippet is an event-view
-            this.eventId = +this.route.snapshot.paramMap.get('eventId'); // the '+' casts this to a number from a string
-            forkJoin({
-                event: this.courseEventService.getCourseEvent(this.eventId),
-                uqjs: this.uqjService.getUQJs({filters: {question__event: this.eventId}}),
-            }).subscribe(result => {
-                this.event = result.event;
-                this.uqjs = result.uqjs.results;
+        this.courseId = +this.route.snapshot.paramMap.get('courseId') || null; // the '+' casts this to a number from a string
+        this.eventId = +this.route.snapshot.paramMap.get('eventId') || null; // the '+' casts this to a number from a string
+        if (this.eventId && this.courseId) { // if this snippet is an event-view
+            const needsToBeRegistered = this.user.is_student;
+            this.courseService.validateEvent(this.courseId, this.eventId, needsToBeRegistered).subscribe(response => {
+                if (response.success) {
+                    forkJoin({
+                        event: this.courseEventService.getCourseEvent(this.eventId),
+                        uqjs: this.uqjService.getUQJs({filters: {question__event: this.eventId}}),
+                    }).subscribe(result => {
+                        this.event = result.event;
+                        this.uqjs = result.uqjs.results;
+                    });
+                } else {
+                    this.router.navigate(['course/view', this.courseId]).then(r => {
+                        console.log(`Navigating to course homepage... - ${r}`);
+                    });
+                }
             });
         }
     }
