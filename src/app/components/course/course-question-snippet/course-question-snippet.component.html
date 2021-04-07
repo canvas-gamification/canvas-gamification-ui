@@ -40,10 +40,10 @@
                         <td>
                             <!--TODO: Update to link to proper problem routing -->
                             <a class="btn btn-primary mr-3"
-                               [routerLink]="['/course/question', uqj.question.id]">Open</a>
+                               [routerLink]="['/problem', uqj.question.id]">Open</a>
                             <ng-container *ngIf="user.is_teacher">
                                 <a class="btn btn-warning mr-3"
-                                   [routerLink]="['/course/question/edit', uqj.question.id]">Edit</a>
+                                   [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
                             </ng-container>
 
                         </td>
