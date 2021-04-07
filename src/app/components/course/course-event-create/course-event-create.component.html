@@ -15,9 +15,13 @@
                     (change)="checkCanSubmit()">
                 <option value="" selected></option>
                 <!--TODO: these options should be loaded automatically from the event types constant (i.e. *ngFor)-->
+                <ng-container *ngFor="let item of localEventTypes | keyvalue">
+                    <option [value]="item.key">{{item.value.name}}</option>
+                </ng-container>
+                <!--
                 <option value="ASSIGNMENT">Assignment</option>
                 <option value="EXAM">Exam</option>
-                <option value="PRACTICE">Practice</option>
+                <option value="PRACTICE">Practice</option> -->
             </select>
         </div>
         <div class="form-check mb-3">

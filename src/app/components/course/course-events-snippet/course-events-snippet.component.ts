@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CourseEvent, User} from '@app/_models';
+import {CourseEvent, User, EVENT_TYPES} from '@app/_models';
 import {formatDate} from '@angular/common';
 
 @Component({
@@ -20,20 +20,10 @@ export class CourseEventsSnippetComponent implements OnInit {
 
     getEventButtonText(event: CourseEvent): string {
         if (this.teacherForClass) {
-            let strAppend = event.type.toLowerCase();
-            strAppend = strAppend.charAt(0).toUpperCase() + strAppend.substr(1, strAppend.length);
+            const strAppend = EVENT_TYPES[event.type].name;
             return 'Open ' + strAppend;
         } else {
-            if (event.type === 'ASSIGNMENT') {
-                return 'Complete Assignment';
-            } else if (event.type === 'PRACTICE') {
-                return 'Start Practice';
-            } else if (event.type === 'EXAM') {
-                return 'Take Exam';
-            } else // Should never happen
-            {
-                return 'Open';
-            }
+            return EVENT_TYPES[event.type].buttonText;
         }
     }
 

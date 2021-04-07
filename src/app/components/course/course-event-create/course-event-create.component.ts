@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {CourseEvent} from '@app/_models';
+import {CourseEvent, EVENT_TYPES} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 
 
@@ -10,7 +10,7 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
     styleUrls: ['./course-event-create.component.scss']
 })
 export class CourseEventCreateComponent implements OnInit {
-
+    localEventTypes = EVENT_TYPES;
     courseId: number;
     minDate: Date;
     eventId: number;
@@ -47,7 +47,6 @@ export class CourseEventCreateComponent implements OnInit {
             this.countsForTokens = false; // needs a default value specifically
             this.invalid = true;
         }
-
     }
 
     // TODO: Set the mindate to a higher number?
