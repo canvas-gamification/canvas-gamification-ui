@@ -53,11 +53,13 @@
             <ng-template #tableEmpty>
                 <tr>
                     <td [attr.colspan]="eventId ? 7 : 6" class="bg-info">
-                        <p *ngIf="eventId; else inCourse" class="text-center text-light m-0">There currently aren't any
-                            questions in this course.</p>
+                        <p *ngIf="eventId; else inCourse" class="text-center text-light m-0">
+                            There aren't currently any questions in this event.
+                        </p>
                         <ng-template #inCourse>
-                            <p class="text-center text-light m-0">There currently aren't any questions in this
-                                course.</p>
+                            <p class="text-center text-light m-0">
+                                There aren't currently any questions in this course.
+                            </p>
                         </ng-template>
                     </td>
                 </tr>
