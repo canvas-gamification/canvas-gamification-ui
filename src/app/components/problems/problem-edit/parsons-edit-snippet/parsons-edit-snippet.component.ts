@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
-import {Category, Course} from '@app/_models';
+import {Category, Course, MESSAGE_TYPES} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {CourseService} from '@app/_services/api/course/course.service';
@@ -65,10 +65,11 @@ export class ParsonsEditSnippetComponent implements OnInit {
         const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(FormData, this.variables);
         this.questionService.putParsonsQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
-                this.messageService.addSuccess('The Question has been Updated Successfully.');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
                 console.log(response);
                 window.scroll(0, 0);
             }, error => {
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
                 console.log({error});
                 window.scroll(0, 0);

@@ -3,6 +3,7 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
+import {MESSAGE_TYPES} from '@app/_models';
 
 @Component({
   selector: 'app-problem-delete',
@@ -25,12 +26,13 @@ export class ProblemDeleteComponent implements OnInit {
     });
     this.questionService.deleteQuestion(this.userId)
       .subscribe(response => {
-        this.messageService.addSuccess('The Question has been Deleted Successfully.');
+        this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Deleted Successfully.');
         this.router.navigate(['../../../problems'], {relativeTo: this.route});
         console.log(response);
       }, error => {
         console.warn(error.responseText);
         console.log({error});
+        this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
         this.router.navigate(['../../../problems'], {relativeTo: this.route});
       });
   }

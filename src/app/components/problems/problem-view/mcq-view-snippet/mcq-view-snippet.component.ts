@@ -4,6 +4,7 @@ import {QuestionSubmission} from '@app/_models/questionSubmission';
 import {MessageService} from '@app/_services/message.service';
 import {forkJoin} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {MESSAGE_TYPES} from '@app/_models';
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -46,13 +47,14 @@ export class McqViewSnippetComponent implements OnInit {
     onSubmit(FormData) {
         this.questionService.postQuestionSubmission(FormData)
             .subscribe(response => {
-                this.messageService.addSuccess('The Question has been Submitted Successfully.');
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
                 this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe(result => {
                     this.previousSubmissions = result;
                 });
                 console.log(response);
                 window.scroll(0, 0);
             }, error => {
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
                 console.log({error});
                 window.scroll(0, 0);
