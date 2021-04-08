@@ -19,10 +19,14 @@ export class UqjService {
     }
 
     getUQJs(options?): Observable<PaginatedResult<UQJ>> {
-        const {page = 1, page_size = 100} = options ? options : {};
+        const {filters = {}, ordering = {}, page = 1, page_size = 50} = options ? options : {};
         let params = new HttpParams()
             .set('page', page)
             .set('page_size', page_size);
+
+        for (const field of Object.keys(filters)) {
+            params = params.set(`${field}`, String(filters[field]));
+        }
 
         if (options?.recent ?? false) {
             params = params.set('ordering', '-last_viewed');

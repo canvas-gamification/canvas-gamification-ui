@@ -1,0 +1,73 @@
+<ng-container *ngIf="teacherForClass">
+    <h3 class="card-text red-text">Warning: You are logged in as a teacher! Token uses will not do anything for
+        you!</h3>
+</ng-container>
+<div class="card border-secondary" style="width: 18rem;">
+    <div class="card-body">
+        <p class="card-text">Available Tokens: <span id="available_tokens">{{ courseReg.total_tokens_received }}</span>
+        </p>
+        <p class="card-text" id="remaining_tokens_text" [class.text-danger]="invalid"
+           [class.font-weight-bold]="invalid">
+            Remaining Tokens:<span id="remaining_tokens">{{ currentTotal }}</span></p>
+    </div>
+</div>
+<form class="mt-3" method="post">
+    <table class="table table-hover" data-toggle="table">
+        <thead class="thead-light text-dark">
+        <tr>
+            <th scope="col">Assignment&nbsp;Name</th>
+            <th scope="col">Tokens&nbsp;Required</th>
+            <th scope="col">Extra&nbsp;Grade&nbsp;Given</th>
+            <th scope="col">Max&nbsp;Use</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngIf="courseReg.token_uses; else tableEmpty">
+            <ng-container *ngFor="let tokenUse of courseReg.token_uses; index as i">
+                <tr>
+                    <td>{{ tokenUse.option.assignment_name }}</td>
+                    <td id="req_tokens_{{ tokenUse.option.id }}">{{ tokenUse.option.tokens_required }}</td>
+                    <td>{{ tokenUse.option.points_given }}</td>
+                    <td>{{ tokenUse.option.maximum_number_of_use }}</td>
+                    <td>
+                        <form class="form-inline">
+                            <button class="btn btn-danger action-icon" (click)="decrementAction(tokenUse)">
+                                <fa-icon [icon]=faMinus class="fa button-icon fa-minus"></fa-icon>
+                            </button>
+                            <label class="sr-only" [attr.for]="'tokenUseAction' + tokenUse.option.id">Number of token
+                                use
+                                option {{ tokenUse.option.id }} to use</label>
+                            <input class="form-control input-sm mx-sm-2 token-input no-spin-button"
+                                   [attr.id]="'tokenUseAction' + tokenUse.option.id"
+                                   [(ngModel)]="currentTokenActions[tokenUse.option.id]"
+                                   [ngModelOptions]="{standalone: true}"
+                                   type="number" min="0" [attr.max]="tokenUse.option.maximum_number_of_use"
+                                   (input)="typingChanges(tokenUse, $event.target.value)">
+                            <!--TODO: value seems to not be defined above - look into this-->
+                            <!--TODO: option related things in this input tags are undefined. Why?-->
+                            <button class="btn btn-success action-icon" (click)="incrementAction(tokenUse)">
+                                <fa-icon [icon]=faPlus class="fa button-icon fa-plus"></fa-icon>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-container>
+        <ng-template #tableEmpty>
+            <tr>
+                <td colspan="5" class="bg-info">
+                    <p class="text-center text-light m-0">
+                        There are currently no options for token use in this course.
+                    </p>
+                </td>
+            </tr>
+        </ng-template>
+        </tbody>
+    </table>
+    <button class="my-1 btn btn-primary" id="submit_button" (click)="confirmChanges()" [disabled]="invalid">Confirm
+        Changes
+    </button>
+</form>
+
+

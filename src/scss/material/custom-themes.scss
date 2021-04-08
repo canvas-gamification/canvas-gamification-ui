@@ -1,0 +1,59 @@
+@import '~@angular/material/theming';
+@import 'variables';
+
+@mixin custom-stepper-theme() {
+    .mat-step-icon-state-done {
+        background-color: $green !important;
+    }
+
+    .mat-step-icon-state-number {
+        background-color: $blue !important;
+    }
+
+    .mat-horizontal-stepper-header {
+        pointer-events: none;
+    }
+}
+
+@mixin custom-table-theme() {
+    .mat-sort, .mat-table {
+        .mat-header-row, thead {
+            .mat-sort-header-container, .mat-sort-header {
+                height: 2rem;
+
+                &:hover {
+                    .mat-sort-header-arrow {
+                        opacity: 1 !important;
+                    }
+                }
+
+                .mat-sort-header-arrow {
+                    opacity: 0.2 !important;
+                }
+            }
+
+            .mat-sort-header-content, th {
+                font-weight: normal;
+            }
+
+            .mat-sort-header-sorted {
+                .mat-sort-header-arrow {
+                    opacity: 1 !important;
+                }
+            }
+
+            .mat-header-cell, th {
+                font-size: 1rem;
+            }
+        }
+
+        .mat-cell, .mat-header-cell, td, th {
+            vertical-align: middle !important;
+        }
+
+        tr.mat-row {
+            height: 4rem;
+        }
+    }
+
+}

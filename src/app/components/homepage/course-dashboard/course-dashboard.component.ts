@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {CourseService} from '@app/_services/api/course.service';
+import {Component, OnInit} from '@angular/core';
+import {CourseService} from '@app/_services/api/course/course.service';
 import {Course, STATUS} from '@app/_models';
 
 @Component({
@@ -10,11 +10,12 @@ import {Course, STATUS} from '@app/_models';
 export class CourseDashboardComponent implements OnInit {
   activeCourses: Course[];
 
-  constructor( private courseService: CourseService) { }
+  constructor(private courseService: CourseService) {
+  }
 
   ngOnInit(): void {
     this.courseService
-      .getCourses({registered: true})
+      .getCourses(true, {ordering: {name: true}})
       ?.subscribe((courses) => {
         this.activeCourses = courses.filter(course => {
           return course.status === STATUS.active;

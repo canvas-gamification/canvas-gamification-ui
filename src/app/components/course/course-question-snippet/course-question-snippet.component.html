@@ -1,0 +1,64 @@
+<!--this overarching *ngIf is simply to avoid errors when the page tries to load before the API response is received-->
+<ng-container *ngIf="uqjs">
+    <div [class.container]="eventId">
+        <h2 *ngIf="eventId" class="mb-3 mt-5">{{ event.name }} Questions</h2>
+        <table class="table table-hover mt-3" data-toggle="table">
+            <thead class="thead-light text-dark">
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Sub&nbsp;Category</th>
+                <th scope="col">Format</th>
+                <th scope="col">Tokens Earned</th>
+                <th scope="col">Status</th>
+                <ng-container *ngIf="eventId">
+                    <th scope="col">Num&nbsp;Attempts</th>
+                </ng-container>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="uqjs.length; else tableEmpty">
+                <ng-container *ngFor="let uqj of uqjs; index as i">
+                    <!--TODO: why are we setting the class here? Also why do we want a '.' in the class name?-->
+                    <tr [attr.class]="'.Question' + uqj.id">
+                        <td>{{ uqj.question.parent_category_name }}</td>
+                        <td>{{ uqj.question.category_name }}</td>
+                        <td>{{ uqj.question.type_name }}</td>
+                        <td>{{ uqj.formatted_current_tokens_received }}</td>
+                        <td>{{ getStatus(uqj) }}</td>
+                        <ng-container *ngIf="eventId">
+                            <td>
+                                {{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed }}
+                            </td>
+                        </ng-container>
+                        <td>
+                            <!--TODO: Update to link to proper problem routing (for after the router refactor)-->
+                            <a class="btn btn-primary mr-3"
+                               [routerLink]="['/problem', uqj.question.id]">Open</a>
+                            <ng-container *ngIf="user.is_teacher">
+                                <a class="btn btn-warning mr-3"
+                                   [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
+                            </ng-container>
+
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-container>
+            <ng-template #tableEmpty>
+                <tr>
+                    <td [attr.colspan]="eventId ? 7 : 6" class="bg-info">
+                        <p *ngIf="eventId; else inCourse" class="text-center text-light m-0">
+                            There aren't currently any questions in this event.
+                        </p>
+                        <ng-template #inCourse>
+                            <p class="text-center text-light m-0">
+                                There aren't currently any questions in this course.
+                            </p>
+                        </ng-template>
+                    </td>
+                </tr>
+            </ng-template>
+            </tbody>
+        </table>
+    </div>
+</ng-container>

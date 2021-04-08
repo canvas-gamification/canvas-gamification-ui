@@ -13,6 +13,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HeaderComponent} from './components/header/header.component';
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
 import {MatCardModule} from '@angular/material/card';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatTableModule} from '@angular/material/table';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 import {TopicsComponent} from './components/topics/topics.component';
 import {RecaptchaModule, RecaptchaFormsModule} from 'ng-recaptcha';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -27,15 +32,23 @@ import {UserActionsComponent} from './components/homepage/user-actions/user-acti
 import {RecentViewedQuestionsComponent} from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
 import {CourseDashboardComponent} from './components/homepage/course-dashboard/course-dashboard.component';
 import {InactiveCoursesComponent} from './components/homepage/inactive-courses/inactive-courses.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 import {RegisterComponent} from './components/accounts/register/register.component';
 import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
 import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
 import {ConsentFormComponent} from './components/accounts/consent-form/consent-form.component';
 import {TermsAndConditionsSnippetComponent} from './components/accounts/terms-and-conditions-snippet/terms-and-conditions-snippet.component';
 import {FaqComponent} from './components/faq/faq.component';
+import {CourseListComponent} from './components/course/course-list/course-list.component';
+import {CourseComponent} from './components/course/course.component';
+import {CourseEventsSnippetComponent} from './components/course/course-events-snippet/course-events-snippet.component';
+import {TokenUseSnippetComponent} from './components/course/token-use-snippet/token-use-snippet.component';
+import {CourseQuestionSnippetComponent} from './components/course/course-question-snippet/course-question-snippet.component';
+import {MatButtonModule} from '@angular/material/button';
+import {CourseEventCreateComponent} from './components/course/course-event-create/course-event-create.component';
+import {CourseRegisterComponent} from './components/course/course-registration/course-register.component';
 import {MatSortModule} from '@angular/material/sort';
 import {ProblemSetComponent} from './components/problems/problem-set/problem-set.component';
-import {MatPaginatorModule} from '@angular/material/paginator';
 import {ProblemViewComponent} from './components/problems/problem-view/problem-view.component';
 import {ProblemEditComponent} from './components/problems/problem-edit/problem-edit.component';
 import {CommonModule} from '@angular/common';
@@ -57,6 +70,8 @@ import {ParsonsCreateSnippetComponent} from './components/problems/problem-creat
 import {VariableViewComponent} from './components/problems/problem-view/variable-view/variable-view.component';
 import {JsonEditorComponent} from './components/problems/json-editor/json-editor.component';
 import { SubmissionViewComponent } from './components/problems/problem-view/submission-view/submission-view.component';
+import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
     declarations: [
@@ -79,14 +94,21 @@ import { SubmissionViewComponent } from './components/problems/problem-view/subm
         RecentViewedQuestionsComponent,
         CourseDashboardComponent,
         InactiveCoursesComponent,
-        ProblemViewComponent,
-        ProblemEditComponent,
-        ProblemDeleteComponent,
         RegisterComponent,
         ProfileDetailsComponent,
         ResetPasswordComponent,
         ConsentFormComponent,
         TermsAndConditionsSnippetComponent,
+        CourseListComponent,
+        CourseRegisterComponent,
+        CourseComponent,
+        CourseEventsSnippetComponent,
+        TokenUseSnippetComponent,
+        CourseQuestionSnippetComponent,
+        CourseEventCreateComponent,
+        ProblemViewComponent,
+        ProblemEditComponent,
+        ProblemDeleteComponent,
         ProblemCreateComponent,
         AceComponent,
         McqViewSnippetComponent,
@@ -118,12 +140,28 @@ import { SubmissionViewComponent } from './components/problems/problem-view/subm
         FontAwesomeModule,
         FormsModule,
         MatPaginatorModule,
+        MatSortModule,
+        MatFormFieldModule,
+        MatProgressBarModule,
+        MatTableModule,
+        MatStepperModule,
+        MatInputModule,
+        MatButtonModule,
         CommonModule,
         DragulaModule.forRoot(),
         CKEditorModule,
         AceEditorModule,
-        MatSortModule,
-
+        BrowserModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatDatepickerModule,
+        MatInputModule,
+        NgxMatTimepickerModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        NgxMatDatetimePickerModule,
+        NgxMatNativeDateModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

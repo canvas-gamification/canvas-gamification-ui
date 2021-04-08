@@ -16,7 +16,12 @@ import {ResetPasswordComponent} from './components/accounts/reset-password/reset
 import {ConsentFormComponent} from '@app/components/accounts/consent-form/consent-form.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
+import {CourseListComponent} from '@app/components/course/course-list/course-list.component';
+import {CourseComponent} from '@app/components/course/course.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
+import {CourseEventCreateComponent} from '@app/components/course/course-event-create/course-event-create.component';
+import {CourseQuestionSnippetComponent} from '@app/components/course/course-question-snippet/course-question-snippet.component';
+import {CourseRegisterComponent} from '@app/components/course/course-registration/course-register.component';
 import {ProblemViewComponent} from '@app/components/problems/problem-view/problem-view.component';
 import {ProblemEditComponent} from '@app/components/problems/problem-edit/problem-edit.component';
 import {ProblemDeleteComponent} from '@app/components/problems/problem-delete/problem-delete.component';
@@ -88,6 +93,37 @@ const routes: Routes = [
     {
         path: 'accounts/consent-form',
         component: ConsentFormComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course',
+        pathMatch: 'full',
+        component: CourseListComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/register/:courseId',
+        component: CourseRegisterComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/view/:courseId',
+        component: CourseComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/:courseId/new-event',
+        component: CourseEventCreateComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/:courseId/new-event/:eventId',
+        component: CourseEventCreateComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'course/:courseId/event/:eventId',
+        component: CourseQuestionSnippetComponent,
         canActivate: [AuthGuard]
     },
     {
