@@ -38,6 +38,11 @@
                 <a class="nav-link" id="tokens-tab" data-toggle="tab" href="#tokens" role="tab" aria-controls="tokens"
                    aria-selected="false">Token Use</a>
             </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="leader-board-tab" data-toggle="tab" href="#leader-board" role="tab"
+                   aria-controls="leader-board"
+                   aria-selected="false">Leader&nbsp;Board</a>
+            </li>
         </ul>
         <div class="tab-content" id="myTabContent">
             <ng-container *ngIf="user.is_teacher">
@@ -60,6 +65,11 @@
                 <div class="hover-shadow p-3">
                     <app-token-use-snippet [courseReg]="courseReg"
                                            [teacherForClass]="teacherForClass"></app-token-use-snippet>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="leader-board" role="tabpanel" aria-labelledby="leader-board-tab">
+                <div class="hover-shadow p-3">
+                    <app-leader-board [leaderBoard]="course.leader_board"></app-leader-board>
                 </div>
             </div>
         </div>

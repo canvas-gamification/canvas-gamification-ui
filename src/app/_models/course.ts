@@ -19,6 +19,10 @@ export interface Course {
     question_set: any;
     uqjs: UQJ[];
     course_reg: CourseRegistration;
+    leader_board: [{
+        name: string,
+        token: number,
+    }];
 }
 
 export const STATUS = {

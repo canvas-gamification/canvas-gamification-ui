@@ -25,7 +25,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 private route: ActivatedRoute,
                 private uqjService: UqjService,
                 private courseEventService: CourseEventService,
-                private courseService: CourseService,) {
+                private courseService: CourseService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
@@ -44,7 +44,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                         this.uqjs = result.uqjs.results;
                     });
                 } else {
-                    this.router.navigate(['course/view', this.courseId]).then(r => {});
+                    this.router.navigate(['course/view', this.courseId]).then();
                 }
             });
         }
