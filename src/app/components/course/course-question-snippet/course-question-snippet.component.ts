@@ -25,13 +25,13 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 private route: ActivatedRoute,
                 private uqjService: UqjService,
                 private courseEventService: CourseEventService,
-                private courseService: CourseService, ) {
+                private courseService: CourseService,) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
-        this.courseId = +this.route.snapshot.paramMap.get('courseId') || null; // the '+' casts this to a number from a string
-        this.eventId = +this.route.snapshot.paramMap.get('eventId') || null; // the '+' casts this to a number from a string
+        this.courseId = +this.route.snapshot.paramMap.get('courseId') || null;
+        this.eventId = +this.route.snapshot.paramMap.get('eventId') || null;
         if (this.eventId && this.courseId) { // if this snippet is an event-view
             const needsToBeRegistered = this.user.is_student;
             this.courseService.validateEvent(this.courseId, this.eventId, needsToBeRegistered).subscribe(response => {
@@ -44,9 +44,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                         this.uqjs = result.uqjs.results;
                     });
                 } else {
-                    this.router.navigate(['course/view', this.courseId]).then(r => {
-                        console.log(`Navigating to course homepage... - ${r}`);
-                    });
+                    this.router.navigate(['course/view', this.courseId]).then(r => {});
                 }
             });
         }
