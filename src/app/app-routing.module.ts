@@ -26,6 +26,7 @@ import {ProblemViewComponent} from '@app/components/problems/problem-view/proble
 import {ProblemEditComponent} from '@app/components/problems/problem-edit/problem-edit.component';
 import {ProblemDeleteComponent} from '@app/components/problems/problem-delete/problem-delete.component';
 import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
+import {ProblemSubmissionComponent} from '@app/components/problems/problem-submission/problem-submission.component';
 
 
 const routes: Routes = [
@@ -144,6 +145,11 @@ const routes: Routes = [
     {
         path: 'problem/:id/delete',
         component: ProblemDeleteComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'problem/:id/submission',
+        component: ProblemSubmissionComponent,
         canActivate: [AuthGuard]
     },
     {
