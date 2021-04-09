@@ -8,6 +8,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
+import {CourseEventService} from '@app/_services/api/course/course-event.service';
 
 @Component({
     selector: 'app-mcq-edit-snippet',
@@ -32,19 +33,32 @@ export class McqEditSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private messageService: MessageService,
-                private problemHelpersService: ProblemHelpersService) {
+                private problemHelpersService: ProblemHelpersService,
+                private courseEventService: CourseEventService) {
     }
 
     ngOnInit(): void {
-        const coursesObservable = this.courseService.getCourses();
-        const categoriesObservable = this.categoryService.getCategories();
+        if (this.QuestionDetails.event) {
+            const coursesObservable = this.courseService.getCourses();
+            const categoriesObservable = this.categoryService.getCategories();
+            const eventObservable = this.courseEventService.getCourseEvent(this.QuestionDetails?.event);
 
-        forkJoin([coursesObservable, categoriesObservable])
-            .subscribe(result => {
-                this.courses = result[0];
-                this.categories = result[1];
-                this.courseSelectedById(this.QuestionDetails.event?.course);
-            });
+            forkJoin([coursesObservable, categoriesObservable, eventObservable])
+                .subscribe(result => {
+                    this.courses = result[0];
+                    this.categories = result[1];
+                    this.courseSelectedById(result[2].course);
+                });
+        } else {
+            const coursesObservable = this.courseService.getCourses();
+            const categoriesObservable = this.categoryService.getCategories();
+
+            forkJoin([coursesObservable, categoriesObservable])
+                .subscribe(result => {
+                    this.courses = result[0];
+                    this.categories = result[1];
+                });
+        }
 
         this.distract = new FormArray([]);
         this.convertChoicesToArray(this.QuestionDetails?.choices);
@@ -56,8 +70,8 @@ export class McqEditSnippetComponent implements OnInit {
         this.MCQFormData = this.formBuilder.group({
             title: new FormControl(this.QuestionDetails?.title),
             difficulty: new FormControl(this.QuestionDetails?.difficulty),
-            course: new FormControl(this.QuestionDetails.event?.course),
-            event: new FormControl(this.selectedEvent),
+            course: new FormControl(this?.selectedCourse),
+            event: new FormControl(this?.selectedEvent),
             text: new FormControl(this.QuestionDetails?.text),
             answer: new FormControl(this.correctAnswer.value),
             category: new FormControl(this.QuestionDetails?.category),
@@ -93,7 +107,9 @@ export class McqEditSnippetComponent implements OnInit {
             this.courses.forEach(course => {
                 if (course.course_id === this.selectedCourse) {
                     this.events = course.events;
-                    this.selectedEvent = this.QuestionDetails.event.id;
+                    this.selectedEvent = this.QuestionDetails.event;
+                    this.MCQFormData.controls.course.setValue(this.selectedCourse);
+                    this.MCQFormData.controls.event.setValue(this.selectedEvent);
                 }
             });
         }
