@@ -33,9 +33,8 @@ export class ActivationEmailComponent implements OnInit {
                 console.log(response);
                 this.router.navigate(['/accounts/login']);
             }, error => {
-                console.warn(error.responseText);
                 console.log({error});
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                this.messageService.add(MESSAGE_TYPES.DANGER, error);
                 this.router.navigate(['/accounts/login']);
             });
     }
