@@ -6,14 +6,14 @@
     <form id="new-event" class="form">
         <div class="form-group">
             <label for="id-name">Event Name</label>
-            <input id="id-name" type="text" name="name" required class="form-control" [(ngModel)]="eventName"
-                   (input)="checkCanSubmit()">
+            <input id="id-name" type="text" name="name" required class="form-control" placeholder="Event Name..."
+                   [(ngModel)]="eventName" (input)="checkCanSubmit()">
         </div>
         <div class="form-group">
             <label for="id-type">Event type</label>
-            <select id="id-type" name="type" required class="form-control" [(ngModel)]="eventType"
-                    (change)="checkCanSubmit()">
-                <option value="" selected></option>
+            <select id="id-type" name="type" class="form-control" [(ngModel)]="eventType"
+                    (change)="checkCanSubmit()" required>
+                <option value="" disabled selected>Select Event Type...</option>
                 <!--TODO: these options should be loaded automatically from the event types constant (i.e. *ngFor)-->
                 <ng-container *ngFor="let item of localEventTypes | keyvalue">
                     <option [value]="item.key">{{item.value.name}}</option>
@@ -24,10 +24,10 @@
                 <option value="PRACTICE">Practice</option> -->
             </select>
         </div>
-        <div class="form-check mb-3">
+        <div class="form-check my-5">
             <input id="id-count-for-tokens" name="count_for_tokens" type="checkbox" class="form-check-input"
                    [(ngModel)]="countsForTokens">
-            <label for="id-name" class="form-check-label">Counts for tokens</label>
+            <label for="id-count-for-tokens" class="form-check-label">Counts for tokens</label>
         </div>
         <div class="form-group">
             <label for="id-name">Start Date & Time</label>
@@ -41,7 +41,7 @@
 
                 <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
                 <ngx-mat-datetime-picker #startPicker
-                                         [showSeconds]="false"
+                                         [showSeconds]="false" [touchUi]="true"
                                          [stepHour]="1" [stepMinute]="1">
                 </ngx-mat-datetime-picker>
             </mat-form-field>
@@ -61,7 +61,7 @@
                 <mat-datepicker-toggle matSuffix [for]="endPicker">
                 </mat-datepicker-toggle>
                 <ngx-mat-datetime-picker #endPicker
-                                         [showSeconds]="false"
+                                         [showSeconds]="false" [touchUi]="true"
                                          [stepHour]="1" [stepMinute]="1">
                 </ngx-mat-datetime-picker>
             </mat-form-field>
