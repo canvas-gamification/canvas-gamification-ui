@@ -12,6 +12,7 @@
                 <th>Tokens Received</th>
                 <th>Time Submitted</th>
                 <th>Status</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -22,6 +23,7 @@
                 <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
                 <td>{{submission.submission_time | date:'medium'}}</td>
                 <td>{{submission.status}}</td>
+                <td><a class="btn btn-primary" routerLink="/problem/submission/{{submission.pk}}">Details</a></td>
             </tr>
             </tbody>
         </table>

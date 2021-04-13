@@ -16,7 +16,15 @@ export class CourseService {
     ).toString();
 
     constructor(private http: HttpClient,
-                private messageService: MessageService, ) {
+                private messageService: MessageService,) {
+    }
+
+    getUserStats(courseId: number, categoryId: number): Observable<any> {
+        return this.http
+            .get<any>(`${this.courseUrl}/${courseId}/user-stats/${categoryId}`)
+            .pipe(catchError(this.handleError<any>(
+                `getUserStats`
+            )));
     }
 
     register(courseId: number, data: CourseRegistrationRequest): any {

@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {QuestionService} from '@app/_services/api/question.service';
 import {DragulaService} from 'ng2-dragula';
 import {forkJoin} from 'rxjs';
-import {QuestionSubmission} from '@app/_models/questionSubmission';
+import {QuestionSubmission} from '@app/_models/question_submission';
 import {FormBuilder} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import * as indentString from 'indent-string';
@@ -95,12 +95,10 @@ export class ParsonsViewSnippetComponent implements OnInit {
                 this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe(result => {
                     this.previousSubmissions = result;
                 });
-                console.log(response);
                 window.scroll(0, 0);
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
-                console.log({error});
                 window.scroll(0, 0);
             });
     }

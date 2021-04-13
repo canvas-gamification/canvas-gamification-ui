@@ -8,6 +8,7 @@ import {Category, Course, MESSAGE_TYPES} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
+import {CourseEventService} from '@app/_services/api/course/course-event.service';
 
 @Component({
     selector: 'app-java-edit-snippet',
@@ -30,28 +31,40 @@ export class JavaEditSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private messageService: MessageService,
-                private problemHelpersService: ProblemHelpersService) {
+                private problemHelpersService: ProblemHelpersService,
+                private courseEventService: CourseEventService) {
     }
 
     ngOnInit(): void {
+        if (this.QuestionDetails.event) {
+            const coursesObservable = this.courseService.getCourses();
+            const categoriesObservable = this.categoryService.getCategories();
+            const eventObservable = this.courseEventService.getCourseEvent(this.QuestionDetails?.event);
 
-        const coursesObservable = this.courseService.getCourses();
-        const categoriesObservable = this.categoryService.getCategories();
+            forkJoin([coursesObservable, categoriesObservable, eventObservable])
+                .subscribe(result => {
+                    this.courses = result[0];
+                    this.categories = result[1];
+                    this.courseSelectedById(result[2].course);
+                });
+        } else {
+            const coursesObservable = this.courseService.getCourses();
+            const categoriesObservable = this.categoryService.getCategories();
 
-        forkJoin([coursesObservable, categoriesObservable])
-            .subscribe(result => {
-                this.courses = result[0];
-                this.categories = result[1];
-            });
+            forkJoin([coursesObservable, categoriesObservable])
+                .subscribe(result => {
+                    this.courses = result[0];
+                    this.categories = result[1];
+                });
+        }
 
-        this.courseSelectedById(this.QuestionDetails.event.course);
         this.inputFileNames = this.QuestionDetails?.input_file_names;
 
         this.JavaFormData = this.formBuilder.group({
             title: new FormControl(this.QuestionDetails?.title),
             difficulty: new FormControl(this.QuestionDetails?.difficulty),
             category: new FormControl(this.QuestionDetails?.category),
-            course: new FormControl(this.QuestionDetails?.event.course),
+            course: new FormControl(this.selectedCourse),
             event: new FormControl(this.selectedEvent),
             text: new FormControl(this.QuestionDetails?.text),
             junit_template: new FormControl(this.QuestionDetails?.junit_template),
@@ -63,12 +76,10 @@ export class JavaEditSnippetComponent implements OnInit {
         this.questionService.putJavaQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
-                console.log(response);
                 window.scroll(0, 0);
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
-                console.log({error});
                 window.scroll(0, 0);
             });
     }
@@ -83,9 +94,11 @@ export class JavaEditSnippetComponent implements OnInit {
             this.courses.forEach(course => {
                 if (course.course_id === this.selectedCourse) {
                     this.events = course.events;
-                    this.selectedEvent = this.QuestionDetails.event.id;
                 }
             });
+            this.selectedEvent = this.QuestionDetails.event;
+            this.JavaFormData.controls.course.setValue(this.selectedCourse);
+            this.JavaFormData.controls.event.setValue(this.selectedEvent);
         }
     }
 }

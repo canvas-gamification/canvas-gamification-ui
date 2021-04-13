@@ -42,14 +42,11 @@ export class ProfileDetailsComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        console.log(FormData);
         this.profile.PutProfileDetails(FormData, this.UserDetails[0].id)
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your profile has been updated successfully!');
-                console.log(response);
             }, error => {
                 console.warn(error.responseText);
-                console.log({error});
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
             });
     }
@@ -63,10 +60,8 @@ export class ProfileDetailsComponent implements OnInit {
             date: ''
         }).subscribe(response => {
             this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your consent has been withdrawn successfully!');
-            console.log(response);
         }, error => {
             console.warn(error.responseText);
-            console.log({error});
             this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
         });
         this.UserConsent = false;

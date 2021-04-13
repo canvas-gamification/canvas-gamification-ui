@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProblemDeleteComponent } from './problem-delete.component';
+import { SubmissionSnippetComponent } from './submission-snippet.component';
 
-describe('ProblemDeleteComponent', () => {
-  let component: ProblemDeleteComponent;
-  let fixture: ComponentFixture<ProblemDeleteComponent>;
+describe('SubmissionSnippetComponent', () => {
+  let component: SubmissionSnippetComponent;
+  let fixture: ComponentFixture<SubmissionSnippetComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProblemDeleteComponent ]
+      declarations: [ SubmissionSnippetComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProblemDeleteComponent);
+    fixture = TestBed.createComponent(SubmissionSnippetComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
