@@ -64,8 +64,8 @@ export class JavaEditSnippetComponent implements OnInit {
             title: new FormControl(this.QuestionDetails?.title),
             difficulty: new FormControl(this.QuestionDetails?.difficulty),
             category: new FormControl(this.QuestionDetails?.category),
-            course: new FormControl(this?.selectedCourse),
-            event: new FormControl(this?.selectedEvent),
+            course: new FormControl(this.selectedCourse),
+            event: new FormControl(this.selectedEvent),
             text: new FormControl(this.QuestionDetails?.text),
             junit_template: new FormControl(this.QuestionDetails?.junit_template),
         });

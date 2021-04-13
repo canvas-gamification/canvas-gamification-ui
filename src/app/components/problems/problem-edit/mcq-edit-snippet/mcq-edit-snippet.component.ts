@@ -70,8 +70,8 @@ export class McqEditSnippetComponent implements OnInit {
         this.MCQFormData = this.formBuilder.group({
             title: new FormControl(this.QuestionDetails?.title),
             difficulty: new FormControl(this.QuestionDetails?.difficulty),
-            course: new FormControl(this?.selectedCourse),
-            event: new FormControl(this?.selectedEvent),
+            course: new FormControl(this.selectedCourse),
+            event: new FormControl(this.selectedEvent),
             text: new FormControl(this.QuestionDetails?.text),
             answer: new FormControl(this.correctAnswer.value),
             category: new FormControl(this.QuestionDetails?.category),
