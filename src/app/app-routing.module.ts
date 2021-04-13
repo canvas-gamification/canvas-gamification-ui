@@ -58,7 +58,7 @@ const routes: Routes = [
         component: TokenValuesComponent
     },
     {
-        path: 'user-stats',
+        path: 'course/:courseId/category/:categoryId',
         component: UserStatsComponent
     },
     {

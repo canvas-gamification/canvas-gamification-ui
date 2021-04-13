@@ -19,6 +19,14 @@ export class CourseService {
                 private messageService: MessageService, ) {
     }
 
+    getUserStats(courseId: number, categoryId: number): Observable<any> {
+        return this.http
+            .get<any>(`${this.courseUrl}/${courseId}/user-stats/${categoryId}`)
+            .pipe(catchError(this.handleError<any>(
+                `getUserStats`
+            )));
+    }
+
     register(courseId: number, data: CourseRegistrationRequest): any {
         return this.http
             .post<CourseRegistrationResponse>(`${this.courseUrl}/${courseId}/register/`, data)

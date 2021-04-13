@@ -32,7 +32,7 @@ export class ConceptMapGraph {
     const maxLineLength = Math.max(...label.split('\n').map(x => x.length));
 
     const letterSize = 16;
-    const width = 1.5 * (letterSize * (0.6 * maxLineLength + 1));
+    const width = 1.2 * (letterSize * (0.6 * maxLineLength + 1));
     const height = 1.5 * ((label.split('\n').length + 1) * letterSize);
 
     return new joint.shapes.standard.Ellipse({
@@ -44,7 +44,8 @@ export class ConceptMapGraph {
         label: {
           text: label,
           'font-size': letterSize,
-          'font-family': 'monospace',
+            'font-weight': 'light',
+          'font-family': 'sans-serif',
           cursor: 'pointer',
         },
         body: {
@@ -105,7 +106,7 @@ export class ConceptMapGraph {
     const links = [];
 
     _.each(adjacencyList, (category) => {
-      const label = category.name.replaceAll(' ', '\n') + '\n\nAverage Success:\n' + category.avgSuccess + '%';
+      const label = category.name.replaceAll(' ', '\n') + '\n\nAverage Success:\n' + Math.round(category.avgSuccess) + '%';
       elements.push(this.makeElement(category.pk, label));
 
       _.each(category.nextCategories, (childElementId) => {
