@@ -73,6 +73,7 @@ import {SubmissionViewComponent} from './components/problems/problem-view/submis
 import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
+import { ActivationEmailComponent } from './components/accounts/activation-email/activation-email.component';
 
 @NgModule({
     declarations: [
@@ -125,6 +126,7 @@ import {LeaderBoardComponent} from './components/course/leader-board/leader-boar
         JsonEditorComponent,
         SubmissionViewComponent,
         LeaderBoardComponent,
+        ActivationEmailComponent,
     ],
     imports: [
         BrowserModule,
