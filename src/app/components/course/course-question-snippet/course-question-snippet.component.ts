@@ -70,7 +70,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         else if (status.localeCompare('Partially Solved') === 0){
             return ' warning';
         }
-        else if (status.localeCompare('Unsolved') === 0){
+        else if (status.localeCompare('Wrong') === 0){
             return ' danger';
         }
         return '';
