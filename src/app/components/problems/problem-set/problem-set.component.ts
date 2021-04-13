@@ -65,17 +65,17 @@ export class ProblemSetComponent implements OnInit {
             options = {
                 page: this.pageEvent.pageIndex + 1,
                 page_size: this.pageEvent.pageSize,
-                search: this.filterQueryString.search,
-                difficulty: this.filterQueryString.difficulty,
-                category: this.filterQueryString.category,
-                is_sample: this.filterQueryString.is_sample
+                search: this.filterQueryString?.search,
+                difficulty: this.filterQueryString?.difficulty,
+                category: this.filterQueryString?.category,
+                is_sample: this.filterQueryString?.is_sample
             };
         } else {
             options = {
-                search: this.filterQueryString.search,
-                difficulty: this.filterQueryString.difficulty,
-                category: this.filterQueryString.category,
-                is_sample: this.filterQueryString.is_sample
+                search: this.filterQueryString?.search,
+                difficulty: this.filterQueryString?.difficulty,
+                category: this.filterQueryString?.category,
+                is_sample: this.filterQueryString?.is_sample
             };
         }
         this.questionService.getQuestions(options).subscribe(paginatedQuestions => {

@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {QuestionService} from '@app/_services/api/question.service';
 import {DragulaService} from 'ng2-dragula';
 import {forkJoin} from 'rxjs';
-import {QuestionSubmission} from '@app/_models/questionSubmission';
+import {QuestionSubmission} from '@app/_models/question_submission';
 import {FormBuilder} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import * as indentString from 'indent-string';

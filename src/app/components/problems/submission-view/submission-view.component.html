@@ -1,0 +1,121 @@
+<div class="card my-3">
+    <div class="card-header">
+        <h2>Submission Details</h2>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                Question
+            </th>
+            <th>
+                Time Submitted
+            </th>
+            <ng-container *ngIf="submission?.question?.is_exam_and_open; else statusHeader">
+                <th>
+                    Grade
+                </th>
+            </ng-container>
+            <ng-template #statusHeader>
+                <th>
+                    Status
+                </th>
+            </ng-template>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                {{ submission?.question?.title }}
+            </td>
+            <td>
+                {{ submission?.submission_time }}
+            </td>
+            <ng-container *ngIf="submission?.question?.is_exam_and_open; else statusCell">
+                <td>
+                    {{ submission?.grade }}
+                </td>
+            </ng-container>
+            <ng-template #statusCell>
+                <td>
+                    {{ submission?.status }}
+                </td>
+            </ng-template>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="card my-3" *ngIf="submission?.no_file_answer">
+    <div class="card-header"><h2> Code </h2></div>
+    <div class="card-body">
+            <pre>
+                <code class="language-java ts-2">{{ submission?.answer }}</code>
+            </pre>
+    </div>
+</div>
+
+<div class="card my-3" *ngFor="let item of answerFiles">
+    <div class="card-header"><h2> {{ item.name }} </h2></div>
+    <div class="card-body">
+            <pre>
+                <code class="language-java ts-2">{{ item.code }}</code>
+            </pre>
+    </div>
+</div>
+
+<div class="card my-3">
+    <div class="card-header"><h2>Compile Output</h2></div>
+    <div class="card-body">
+        <div class="my-3">
+            <ng-container *ngIf="submission?.get_decoded_stderr; else successCompile">
+                <p>The following error occurred: </p>
+                <pre>
+                    {{ submission?.get_decoded_stderr }}
+                </pre>
+            </ng-container>
+            <ng-template #successCompile>
+                <p>Compiled successfully!</p>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<div class="card my-3" *ngIf="!submission?.question?.is_exam">
+    <div class="card-header"><h2>Your Feedback</h2></div>
+    <div class="card-body">
+        <ng-container *ngIf="submission?.get_decoded_results; else noFeedback">
+            <div>
+                <h5>Score: {{ submission?.get_formatted_test_results }}</h5>
+            </div>
+            <div>
+                <h5>Tokens Received: {{ submission?.formatted_tokens_received }}</h5>
+            </div>
+            <div>
+                <ng-container *ngIf="submission?.get_passed_test_results">
+                    <h5>What went well:</h5>
+                    <ul>
+                        <li *ngFor="let result of submission?.get_passed_test_results">{{ result.name }}</li>
+                    </ul>
+                </ng-container>
+                <ng-container *ngIf="submission?.get_failed_test_results">
+                    <h5>Still needs some work: </h5>
+                    <ul>
+                        <li *ngFor="let result of submission?.get_failed_test_results">{{ result.message }}</li>
+                    </ul>
+                    <p>If there are multiple issues, attempt to fix the first issue as that might solve
+                        subsequent issues</p>
+                </ng-container>
+            </div>
+        </ng-container>
+        <ng-template #noFeedback>
+            <p>No feedback</p>
+            <p>This is usually due to compilation error or your answer is still being evaluated, see compile
+                output or refresh the page</p>
+        </ng-template>
+    </div>
+</div>
+
+<a class="btn btn-info" routerLink="/problem/{{submission?.question?.id}}">
+    Re-Attempt
+</a>
