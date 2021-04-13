@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
-import {CourseRegistration} from '@app/_models';
+import {CourseRegistration, User} from '@app/_models';
 import {TokenUseService} from '@app/_services/api/token-use.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenUse} from '@app/_models/token_use';
+import {AuthenticationService} from '@app/_services/api/authentication';
 
 @Component({
     selector: 'app-token-use-snippet',
@@ -12,7 +13,7 @@ import {TokenUse} from '@app/_models/token_use';
 })
 export class TokenUseSnippetComponent implements OnInit {
     @Input() courseReg: CourseRegistration;
-    @Input() teacherForClass: boolean;
+    user: User;
 
     currentTokenActions = {};
     prevTokenActions = {};
@@ -25,8 +26,10 @@ export class TokenUseSnippetComponent implements OnInit {
     faPlus = faPlus;
 
     constructor(private tokenUseService: TokenUseService,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private authenticationService: AuthenticationService) {
         this.courseId = this.route.snapshot.params.courseId;
+        this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
