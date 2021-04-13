@@ -1,3 +1,19 @@
-.table td {
-    vertical-align: middle;
+@import "variables";
+
+.table {
+    td {
+        vertical-align: middle;
+    }
+    tbody{
+        .success{
+            background-color: rgba($success,0.3);
+        }
+        .warning{
+            background-color: rgba($warning,0.3);
+        }
+        .danger{
+            background-color: rgba($danger,0.3);
+        }
+    }
 }
+

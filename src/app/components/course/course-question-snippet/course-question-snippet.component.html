@@ -20,7 +20,7 @@
             <ng-container *ngIf="uqjs.length; else tableEmpty">
                 <ng-container *ngFor="let uqj of uqjs; index as i">
                     <!--TODO: why are we setting the class here? Also why do we want a '.' in the class name?-->
-                    <tr [attr.class]="'.Question' + uqj.id">
+                    <tr [attr.class]="'.Question' + uqj.id + highlight(getStatus(uqj))">
                         <td>{{ uqj.question.parent_category_name }}</td>
                         <td>{{ uqj.question.category_name }}</td>
                         <td>{{ uqj.question.type_name }}</td>

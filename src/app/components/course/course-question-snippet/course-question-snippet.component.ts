@@ -62,4 +62,17 @@ export class CourseQuestionSnippetComponent implements OnInit {
             return 'Not submitted';
         }
     }
+
+    highlight(status: string) {
+        if (status.localeCompare('Solved') === 0){
+            return ' success';
+        }
+        else if (status.localeCompare('Partially Solved') === 0){
+            return ' warning';
+        }
+        else if (status.localeCompare('Unsolved') === 0){
+            return ' danger';
+        }
+        return '';
+    }
 }
