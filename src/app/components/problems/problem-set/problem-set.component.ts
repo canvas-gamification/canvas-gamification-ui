@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Question} from '@app/_models';
+import {MESSAGE_TYPES, Question} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
+import {MessageService} from '@app/_services/message.service';
 
 @Component({
     selector: 'app-problem-set',
@@ -30,7 +31,9 @@ export class ProblemSetComponent implements OnInit {
     // Filtering
     filterQueryString;
 
-    constructor(private builder: FormBuilder, private questionService: QuestionService) {
+    constructor(private builder: FormBuilder,
+                private questionService: QuestionService,
+                private messageService: MessageService) {
     }
 
     ngOnInit(): void {
@@ -120,6 +123,20 @@ export class ProblemSetComponent implements OnInit {
     applyFilter(FormData) {
         this.filterQueryString = FormData;
         this.update();
+    }
+
+    deleteQuestion(questionId): void {
+        this.questionService.deleteQuestion(questionId)
+            .subscribe(response => {
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Deleted Successfully.');
+                this.update();
+                window.scroll(0, 0);
+            }, error => {
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                console.warn(error.responseText);
+                console.log({error});
+                window.scroll(0, 0);
+            });
     }
 }
 
