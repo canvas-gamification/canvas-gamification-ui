@@ -130,7 +130,6 @@ export class ProblemSetComponent implements OnInit {
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Deleted Successfully.');
                 this.update();
-                console.log(response);
                 window.scroll(0, 0);
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
