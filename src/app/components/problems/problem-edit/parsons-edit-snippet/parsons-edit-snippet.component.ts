@@ -97,11 +97,11 @@ export class ParsonsEditSnippetComponent implements OnInit {
             this.courses.forEach(course => {
                 if (course.course_id === this.selectedCourse) {
                     this.events = course.events;
-                    this.selectedEvent = this.QuestionDetails.event;
-                    this.ParsonsFormData.controls.course.setValue(this.selectedCourse);
-                    this.ParsonsFormData.controls.event.setValue(this.selectedEvent);
                 }
             });
+            this.selectedEvent = this.QuestionDetails.event;
+            this.ParsonsFormData.controls.course.setValue(this.selectedCourse);
+            this.ParsonsFormData.controls.event.setValue(this.selectedEvent);
         }
     }
 }

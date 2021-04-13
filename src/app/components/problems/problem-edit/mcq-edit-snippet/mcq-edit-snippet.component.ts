@@ -107,11 +107,11 @@ export class McqEditSnippetComponent implements OnInit {
             this.courses.forEach(course => {
                 if (course.course_id === this.selectedCourse) {
                     this.events = course.events;
-                    this.selectedEvent = this.QuestionDetails.event;
-                    this.MCQFormData.controls.course.setValue(this.selectedCourse);
-                    this.MCQFormData.controls.event.setValue(this.selectedEvent);
                 }
             });
+            this.selectedEvent = this.QuestionDetails.event;
+            this.MCQFormData.controls.course.setValue(this.selectedCourse);
+            this.MCQFormData.controls.event.setValue(this.selectedEvent);
         }
     }
 
