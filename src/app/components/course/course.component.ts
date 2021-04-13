@@ -33,5 +33,4 @@ export class CourseComponent implements OnInit {
                 this.courseReg = course.course_reg;
             });
     }
-
 }

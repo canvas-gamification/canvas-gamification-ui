@@ -40,14 +40,7 @@ export class TokenUseSnippetComponent implements OnInit {
         });
         // Should always make invalid false unless some truly funky situations are happening
         this.currentTotal = this.courseReg.available_tokens;
-        this.canSave();
-    }
-
-    canSave() {
-        // TODO: perhaps name this better, what it really does is update a value, it's never used in the context of "can save" only as an
-        //  "update invalid status"
         this.invalid = this.currentTotal < 0;
-        return this.invalid;
     }
 
     formatFloat(value: number, fractionDigits: number): string {
@@ -84,7 +77,7 @@ export class TokenUseSnippetComponent implements OnInit {
             this.prevTokenActions[tokenUse.option.id] = newVal;
             this.currentTotal -= change * tokenUse.option.tokens_required;
         }
-        this.canSave();
+        this.invalid = this.currentTotal < 0;
     }
 
     typingChanges(tokenUse: TokenUse, newVal: number) {
