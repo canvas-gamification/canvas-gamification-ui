@@ -85,7 +85,7 @@
                 <a routerLink="/problem/{{question.id}}/edit">
                     <fa-icon class="action-icon" id="faPencilAlt" [icon]="faPencilAlt"></fa-icon>
                 </a>
-                <a routerLink="/problem/{{question.id}}/delete">
+                <a [routerLink]="" (click)="deleteQuestion(question.id)">
                     <fa-icon class="action-icon" id="faTrashAlt" [icon]="faTrashAlt"></fa-icon>
                 </a>
             </div>

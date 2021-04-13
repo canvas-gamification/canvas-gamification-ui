@@ -52,7 +52,6 @@ import {ProblemSetComponent} from './components/problems/problem-set/problem-set
 import {ProblemViewComponent} from './components/problems/problem-view/problem-view.component';
 import {ProblemEditComponent} from './components/problems/problem-edit/problem-edit.component';
 import {CommonModule} from '@angular/common';
-import {ProblemDeleteComponent} from './components/problems/problem-delete/problem-delete.component';
 import {ProblemCreateComponent} from './components/problems/problem-create/problem-create.component';
 import {DragulaModule} from 'ng2-dragula';
 import {CKEditorModule} from 'ckeditor4-angular';
@@ -111,7 +110,6 @@ import { ActivationEmailComponent } from './components/accounts/activation-email
         CourseEventCreateComponent,
         ProblemViewComponent,
         ProblemEditComponent,
-        ProblemDeleteComponent,
         ProblemCreateComponent,
         AceComponent,
         McqViewSnippetComponent,
