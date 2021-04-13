@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {QuestionService} from '@app/_services/api/question.service';
 import {forkJoin} from 'rxjs';
-import {QuestionSubmission} from '@app/_models/questionSubmission';
+import {QuestionSubmission} from '@app/_models/question_submission';
 import {MessageService} from '@app/_services/message.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MESSAGE_TYPES} from '@app/_models';

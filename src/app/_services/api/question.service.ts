@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {Question, UQJ} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
 import {map} from 'rxjs/operators';
-import {QuestionSubmission} from '@app/_models/questionSubmission';
+import {QuestionSubmission} from '@app/_models/question_submission';
 
 @Injectable({
     providedIn: 'root'

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {QuestionService} from '@app/_services/api/question.service';
-import {QuestionSubmission} from '@app/_models/questionSubmission';
+import {QuestionSubmission} from '@app/_models/question_submission';
 import {MessageService} from '@app/_services/message.service';
 import {forkJoin} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';

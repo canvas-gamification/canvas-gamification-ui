@@ -26,6 +26,8 @@ import {ProblemViewComponent} from '@app/components/problems/problem-view/proble
 import {ProblemEditComponent} from '@app/components/problems/problem-edit/problem-edit.component';
 import {ProblemDeleteComponent} from '@app/components/problems/problem-delete/problem-delete.component';
 import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
+import {ActivationEmailComponent} from '@app/components/accounts/activation-email/activation-email.component';
+import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 
 
 const routes: Routes = [
@@ -96,6 +98,10 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'accounts/activate/:uuid/:token',
+        component: ActivationEmailComponent,
+    },
+    {
         path: 'course',
         pathMatch: 'full',
         component: CourseListComponent,
@@ -151,6 +157,11 @@ const routes: Routes = [
         component: ProblemCreateComponent,
         canActivate: [AuthGuard]
     },
+    {
+        path: 'problem/submission/:id',
+        component: SubmissionViewComponent,
+        canActivate: [AuthGuard]
+    }
 ];
 
 @NgModule({
