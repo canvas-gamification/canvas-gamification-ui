@@ -1,3 +1,5 @@
+import {Question} from '@app/_models/question';
+
 export interface QuestionSubmission {
     pk: number;
     submission_time: Date;
@@ -9,4 +11,6 @@ export interface QuestionSubmission {
     status: string;
     tokens_received: number;
     token_value: number;
+    answer_files: {};
+    question: Question;
 }

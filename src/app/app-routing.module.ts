@@ -26,7 +26,7 @@ import {ProblemViewComponent} from '@app/components/problems/problem-view/proble
 import {ProblemEditComponent} from '@app/components/problems/problem-edit/problem-edit.component';
 import {ProblemDeleteComponent} from '@app/components/problems/problem-delete/problem-delete.component';
 import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
-import {ProblemSubmissionComponent} from '@app/components/problems/problem-submission/problem-submission.component';
+import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 
 
 const routes: Routes = [
@@ -148,15 +148,15 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'problem/:id/submission',
-        component: ProblemSubmissionComponent,
-        canActivate: [AuthGuard]
-    },
-    {
         path: 'problem/create/:type',
         component: ProblemCreateComponent,
         canActivate: [AuthGuard]
     },
+    {
+        path: 'problem/submission/:id',
+        component: SubmissionViewComponent,
+        canActivate: [AuthGuard]
+    }
 ];
 
 @NgModule({

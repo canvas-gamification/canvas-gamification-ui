@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {QuestionSubmission} from '@app/_models/questionSubmission';
 
 @Component({
-    selector: 'app-submission-view',
-    templateUrl: './submission-view.component.html',
-    styleUrls: ['./submission-view.component.scss']
+    selector: 'app-submission-snippet',
+    templateUrl: './submission-snippet.component.html',
+    styleUrls: ['./submission-snippet.component.scss']
 })
-export class SubmissionViewComponent implements OnInit {
+export class SubmissionSnippetComponent implements OnInit {
     @Input() previousSubmissions: QuestionSubmission[];
 
     constructor() {
