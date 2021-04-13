@@ -1,6 +1,4 @@
 <ng-container *ngIf="user.is_teacher">
-    <!--TODO: verify all hrefs have been replaced with their correct and respective routerLinks-->
-    <!--TODO: remove all unneeded comments after finishing their respective tasks-->
     <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
     <!--TODO: Consider if this button should still even be here-->
     <a class="btn btn-primary my-2" href="#">Import an Event</a>
@@ -30,15 +28,14 @@
                 <td>
                     <div class="btn-container">
                         <ng-container *ngIf="event.is_allowed_to_open || user.is_teacher; else notAllowedOpen">
-                            <!--Fill in this href later-->
                             <a class="btn btn-primary mr-3"
                                [routerLink]="['/course', courseId, 'event', event.id]">{{ getEventButtonText(event) }}</a>
                         </ng-container>
-                        <ng-template #notAllowedOpen> <!--Not sure where to link this yet-->
+                        <ng-template #notAllowedOpen>
+                            <!--Link to nowhere if you can't open. It's disabled however-->
                             <a class="btn btn-outline-info open-btn mr-3 disabled"
                                href="#">{{ getEventButtonText(event) }}</a>
                         </ng-template>
-                        <!--Fill in this href later-->
                         <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn"
                            [routerLink]="['/course', courseId, 'new-event', event.id]">Edit</a>
                     </div>

@@ -1,4 +1,4 @@
-<ng-container *ngIf="teacherForClass">
+<ng-container *ngIf="user.is_teacher">
     <h3 class="card-text red-text">Warning: You are logged in as a teacher! Token uses will not do anything for
         you!</h3>
 </ng-container>
@@ -44,8 +44,7 @@
                                    [ngModelOptions]="{standalone: true}"
                                    type="number" min="0" [attr.max]="tokenUse.option.maximum_number_of_use"
                                    (input)="typingChanges(tokenUse, $event.target.value)">
-                            <!--TODO: value seems to not be defined above - look into this-->
-                            <!--TODO: option related things in this input tags are undefined. Why?-->
+                            <!--TODO: Webstorm thinks .value is undefined, but it is sent as intended. Why?-->
                             <button class="btn btn-success action-icon" (click)="incrementAction(tokenUse)">
                                 <fa-icon [icon]=faPlus class="fa button-icon fa-plus"></fa-icon>
                             </button>
