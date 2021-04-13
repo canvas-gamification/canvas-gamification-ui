@@ -65,13 +65,13 @@ export class CourseQuestionSnippetComponent implements OnInit {
 
     highlight(status: string) {
         if (status.localeCompare('Solved') === 0){
-            return ' success';
+            return 'highlight-success';
         }
         else if (status.localeCompare('Partially Solved') === 0){
-            return ' warning';
+            return 'highlight-warning';
         }
         else if (status.localeCompare('Wrong') === 0){
-            return ' danger';
+            return 'highlight-danger';
         }
         return '';
     }

@@ -1,19 +1,3 @@
-@import "variables";
+@use "mixins";
 
-.table {
-    td {
-        vertical-align: middle;
-    }
-    tbody{
-        .success{
-            background-color: rgba($success,0.3);
-        }
-        .warning{
-            background-color: rgba($warning,0.3);
-        }
-        .danger{
-            background-color: rgba($danger,0.3);
-        }
-    }
-}
-
+@include mixins.highlight-table();

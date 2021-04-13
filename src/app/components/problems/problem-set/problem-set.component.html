@@ -78,7 +78,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let question of questions">
+      <ng-container *ngFor="let question of questions">
+          <tr [attr.class] = highlight(question.status)>
         <td>{{question.id}}</td>
         <td>{{question.title}}</td>
         <td>{{question.author_name}}</td>
@@ -101,7 +102,8 @@
                 </a>
             </div>
         </td>
-      </tr>
+          </tr>
+      </ng-container>
       </tbody>
     </table>
     <mat-paginator
