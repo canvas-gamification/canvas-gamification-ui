@@ -137,8 +137,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'problem/:id',
-        component: ProblemViewComponent,
+        path: 'course/:cid',
+        children: [
+            {path: 'problem/:id', component: ProblemViewComponent},
+            {path: 'event/:eid/problem/:id', component: ProblemViewComponent}
+        ],
         canActivate: [AuthGuard]
     },
     {
