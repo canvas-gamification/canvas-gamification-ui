@@ -24,15 +24,12 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        console.log(FormData);
         this.password.PutPasswordReset(FormData)
             .subscribe(response => {
                 this.FormData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your password has been updated successfully!');
-                console.log(response);
             }, error => {
                 console.warn(error.responseText);
-                console.log({error});
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
             });
     }

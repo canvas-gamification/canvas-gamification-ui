@@ -48,7 +48,6 @@ export class TokenValuesComponent implements OnInit {
     try {
       return this.tokenValueTable.get('categoryRows') as FormArray;
     } catch (e) {
-      console.log(e);
       return this.formBuilder.array([]);
     }
   }

@@ -134,7 +134,6 @@ export class ProblemSetComponent implements OnInit {
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
-                console.log({error});
                 window.scroll(0, 0);
             });
     }

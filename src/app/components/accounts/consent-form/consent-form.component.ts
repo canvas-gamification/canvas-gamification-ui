@@ -29,15 +29,12 @@ export class ConsentFormComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        console.log(FormData);
         this.consent.PostConsent(FormData)
             .subscribe(response => {
                 this.router.navigate(['../profile'], {relativeTo: this.route});
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully consented!');
-                console.log(response);
             }, error => {
                 console.warn(error.responseText);
-                console.log({error});
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
             });
     }

@@ -76,12 +76,10 @@ export class JavaEditSnippetComponent implements OnInit {
         this.questionService.putJavaQuestion(submissionRequest, this.QuestionDetails.id)
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
-                console.log(response);
                 window.scroll(0, 0);
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
-                console.log({error});
                 window.scroll(0, 0);
             });
     }

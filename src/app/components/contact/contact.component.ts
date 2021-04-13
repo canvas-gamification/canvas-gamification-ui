@@ -27,15 +27,12 @@ export class ContactComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        console.log(FormData);
         this.contact.PostMessage(FormData)
             .subscribe(response => {
                 this.FormData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your comment have been successfully sent!');
-                console.log(response);
             }, error => {
                 console.warn(error.responseText);
-                console.log({error});
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
             });
     }

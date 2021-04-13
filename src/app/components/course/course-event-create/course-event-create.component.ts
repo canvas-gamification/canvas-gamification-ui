@@ -74,7 +74,6 @@ export class CourseEventCreateComponent implements OnInit {
         } else { // Creating a brand new event
             this.courseEventService.addCourseEvent(ourEvent).subscribe(
                 newEvent => {
-                    console.log(newEvent);
                     this.router.navigate(['course/view', this.courseId]);
                 }
             );
