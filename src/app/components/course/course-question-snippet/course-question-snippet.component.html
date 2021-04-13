@@ -33,9 +33,16 @@
                         </ng-container>
                         <td>
                             <!--TODO: Update to link to proper problem routing (for after the router refactor)-->
-                            <a class="btn btn-primary mr-3"
-                               [routerLink]="['/problem', uqj.question.id]">Open</a>
+                            <ng-container *ngIf="eventId; else noEvent">
+                                <a class="btn btn-primary mr-3"
+                                   [routerLink]="['/course', courseId, 'event', this.eventId, 'problem', uqj.question.id]">Open</a>
+                            </ng-container>
+                            <ng-template #noEvent>
+                                <a class="btn btn-primary mr-3"
+                                   [routerLink]="['/course', courseId, 'problem', uqj.question.id]">Open</a>
+                            </ng-template>
                             <ng-container *ngIf="user.is_teacher">
+                                <!--TODO: Edit and view have radically different routes-->
                                 <a class="btn btn-warning mr-3"
                                    [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
                             </ng-container>
