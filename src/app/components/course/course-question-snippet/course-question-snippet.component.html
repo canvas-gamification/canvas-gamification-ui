@@ -19,8 +19,7 @@
             <tbody>
             <ng-container *ngIf="uqjs.length; else tableEmpty">
                 <ng-container *ngFor="let uqj of uqjs; index as i">
-                    <!--TODO: why are we setting the class here? Also why do we want a '.' in the class name?-->
-                    <tr [attr.class]="'.Question' + uqj.id">
+                    <tr>
                         <td>{{ uqj.question.parent_category_name }}</td>
                         <td>{{ uqj.question.category_name }}</td>
                         <td>{{ uqj.question.type_name }}</td>
@@ -32,7 +31,6 @@
                             </td>
                         </ng-container>
                         <td>
-                            <!--TODO: Update to link to proper problem routing (for after the router refactor)-->
                             <ng-container *ngIf="eventId; else noEvent">
                                 <a class="btn btn-primary mr-3"
                                    [routerLink]="['/course', courseId, 'event', this.eventId, 'problem', uqj.question.id]">Open</a>
@@ -42,7 +40,7 @@
                                    [routerLink]="['/course', courseId, 'problem', uqj.question.id]">Open</a>
                             </ng-template>
                             <ng-container *ngIf="user.is_teacher">
-                                <!--TODO: Edit and view have radically different routes-->
+                                <!--TODO: Edit and view have radically different routes? Is this ok?-->
                                 <a class="btn btn-warning mr-3"
                                    [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
                             </ng-container>
