@@ -1,9 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
-import {CourseRegistration} from '@app/_models';
+import {CourseRegistration, User} from '@app/_models';
 import {TokenUseService} from '@app/_services/api/token-use.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenUse} from '@app/_models/token_use';
+import {AuthenticationService} from '@app/_services/api/authentication';
 
 @Component({
     selector: 'app-token-use-snippet',
@@ -12,7 +13,7 @@ import {TokenUse} from '@app/_models/token_use';
 })
 export class TokenUseSnippetComponent implements OnInit {
     @Input() courseReg: CourseRegistration;
-    @Input() teacherForClass: boolean;
+    user: User;
 
     currentTokenActions = {};
     prevTokenActions = {};
@@ -25,33 +26,27 @@ export class TokenUseSnippetComponent implements OnInit {
     faPlus = faPlus;
 
     constructor(private tokenUseService: TokenUseService,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private authenticationService: AuthenticationService) {
         this.courseId = this.route.snapshot.params.courseId;
+        this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
-        // TODO: why keep track of previous token actions?
         this.courseReg.token_uses.forEach(tokenUse => {
             this.currentTokenActions[tokenUse.option.id] = tokenUse.num_used;
+            // Have to keep track of previous to detect changes when user types, due to double binding
             this.prevTokenActions[tokenUse.option.id] = tokenUse.num_used;
         });
         // Should always make invalid false unless some truly funky situations are happening
         this.currentTotal = this.courseReg.available_tokens;
-        this.canSave();
-    }
-
-    canSave() {
-        // TODO: perhaps name this better, what it really does is update a value, it's never used in the context of "can save" only as an
-        //  "update invalid status"
         this.invalid = this.currentTotal < 0;
-        return this.invalid;
     }
 
     formatFloat(value: number, fractionDigits: number): string {
         return value.toFixed(fractionDigits);
     }
 
-    // Is this actually safe? I'm not 100% sure
     incrementAction(tokenUse: TokenUse) {
         this.changeTokenUse(tokenUse, this.currentTokenActions[tokenUse.option.id] + 1);
     }
@@ -60,10 +55,9 @@ export class TokenUseSnippetComponent implements OnInit {
         this.changeTokenUse(tokenUse, this.currentTokenActions[tokenUse.option.id] - 1);
     }
 
-    // This is messy... but it somehow handles null as well? Is this a really dumb way of doing this?
-    // TODO: definitely revise this code. (a) ensure it works, well and (b) you should be 100% confident in (a)
     changeTokenUse(tokenUse: TokenUse, newVal: number) {
         // Handles user typing a change... basically change the linked value to what it was earlier, and redo the change properly
+        // Since input is double bound, if user types a change and this event is called, you can't get the delta with the previous value
         if (this.currentTokenActions[tokenUse.option.id] !== this.prevTokenActions[tokenUse.option.id]) {
             const temp = this.currentTokenActions[tokenUse.option.id];
             this.currentTokenActions[tokenUse.option.id] = this.prevTokenActions[tokenUse.option.id];
@@ -81,7 +75,7 @@ export class TokenUseSnippetComponent implements OnInit {
             this.prevTokenActions[tokenUse.option.id] = newVal;
             this.currentTotal -= change * tokenUse.option.tokens_required;
         }
-        this.canSave();
+        this.invalid = this.currentTotal < 0;
     }
 
     typingChanges(tokenUse: TokenUse, newVal: number) {

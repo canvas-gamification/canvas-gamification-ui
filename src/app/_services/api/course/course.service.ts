@@ -16,7 +16,7 @@ export class CourseService {
     ).toString();
 
     constructor(private http: HttpClient,
-                private messageService: MessageService, ) {
+                private messageService: MessageService,) {
     }
 
     getUserStats(courseId: number, categoryId: number): Observable<any> {

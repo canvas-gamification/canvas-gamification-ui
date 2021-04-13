@@ -40,12 +40,10 @@ export class JavaViewSnippetComponent implements OnInit {
                 this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe(result => {
                     this.previousSubmissions = result;
                 });
-                console.log(response);
                 window.scroll(0, 0);
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
                 console.warn(error.responseText);
-                console.log({error});
                 window.scroll(0, 0);
             });
     }

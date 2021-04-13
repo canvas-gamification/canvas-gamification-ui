@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Question, UQJ} from '@app/_models';
+import {Question} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
 import {map} from 'rxjs/operators';
 import {QuestionSubmission} from '@app/_models/question_submission';

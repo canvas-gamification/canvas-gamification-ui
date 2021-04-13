@@ -51,8 +51,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
     }
 
     getStatus(uqj: UQJ): string {
-        if (!uqj.question.event || !uqj.question.event.is_exam) { // If the event exists
-            // TODO: couldn't the condition just be if(uqj.question.event)? What was this supposed to do?
+        // If the event exists, or if it is a non event, return default status text
+        if (!uqj.question.event || !uqj.question.event.is_exam) {
             return uqj.status;
         }
 

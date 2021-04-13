@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CourseEvent, EVENT_TYPES} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 
@@ -23,7 +23,7 @@ export class CourseEventCreateComponent implements OnInit {
     startTime: Date;
     endTime: Date;
 
-    constructor(private route: ActivatedRoute, private courseEventService: CourseEventService) {
+    constructor(private route: ActivatedRoute, private courseEventService: CourseEventService, private router: Router) {
     }
 
     // TODO: Reroute if you try and navigate to a page like this without clicking the button?
@@ -43,16 +43,15 @@ export class CourseEventCreateComponent implements OnInit {
                     this.checkCanSubmit();
                 }
             );
+            this.checkCanSubmit();
         } else {
             this.countsForTokens = false; // needs a default value specifically
             this.invalid = true;
         }
     }
 
-    // TODO: Set the mindate to a higher number?
     getMinDate(): void {
-        const d = new Date();
-        this.minDate = d;
+        this.minDate = new Date();
     }
 
     retrieveFormData(): CourseEvent {
@@ -75,8 +74,7 @@ export class CourseEventCreateComponent implements OnInit {
         } else { // Creating a brand new event
             this.courseEventService.addCourseEvent(ourEvent).subscribe(
                 newEvent => {
-                    console.log(newEvent);
-                    // TODO: router.navigate(['event/', newEvent.id])
+                    this.router.navigate(['course/view', this.courseId]);
                 }
             );
         }

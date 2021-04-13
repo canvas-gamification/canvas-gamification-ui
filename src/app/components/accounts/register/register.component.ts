@@ -34,15 +34,12 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit(FormData: FormArray) {
-        console.log(FormData);
         this.register.PostRegistration(FormData)
             .subscribe(response => {
                 this.FormData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully registered.');
-                console.log(response);
             }, error => {
                 console.warn(error.responseText);
-                console.log({error});
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
             });
     }
