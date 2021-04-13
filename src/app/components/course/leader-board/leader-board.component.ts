@@ -16,7 +16,10 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
 
     // Table data
     displayedColumns: string[] = ['name', 'token'];
-    leaderBoardData: MatTableDataSource<{}>;
+    leaderBoardData: MatTableDataSource<{
+        name: string,
+        token: number,
+    }>;
     @ViewChild(MatSort) matSort: MatSort;
 
     constructor() {

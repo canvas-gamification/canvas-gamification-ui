@@ -74,6 +74,7 @@ import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModu
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
+import { ActivationEmailComponent } from './components/accounts/activation-email/activation-email.component';
 
 @NgModule({
     declarations: [
@@ -127,6 +128,7 @@ import {SubmissionViewComponent} from '@app/components/problems/submission-view/
         SubmissionSnippetComponent,
         LeaderBoardComponent,
         SubmissionViewComponent,
+        ActivationEmailComponent,
     ],
     imports: [
         BrowserModule,

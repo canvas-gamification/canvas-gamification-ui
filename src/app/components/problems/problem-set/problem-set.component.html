@@ -90,13 +90,13 @@
         <td>{{question.success_rate}}</td>
         <td>
             <div style="white-space: nowrap; display: flex">
-                <a routerLink="../problem/{{question.id}}">
+                <a routerLink="/problem/{{question.id}}">
                     <fa-icon class="action-icon" id="faEye" [icon]="faEye"></fa-icon>
                 </a>
-                <a href="../problem/{{question.id}}/edit">
+                <a routerLink="/problem/{{question.id}}/edit">
                     <fa-icon class="action-icon" id="faPencilAlt" [icon]="faPencilAlt"></fa-icon>
                 </a>
-                <a href="../problem/{{question.id}}/delete">
+                <a routerLink="/problem/{{question.id}}/delete">
                     <fa-icon class="action-icon" id="faTrashAlt" [icon]="faTrashAlt"></fa-icon>
                 </a>
             </div>
