@@ -52,7 +52,6 @@ import {ProblemSetComponent} from './components/problems/problem-set/problem-set
 import {ProblemViewComponent} from './components/problems/problem-view/problem-view.component';
 import {ProblemEditComponent} from './components/problems/problem-edit/problem-edit.component';
 import {CommonModule} from '@angular/common';
-import {ProblemDeleteComponent} from './components/problems/problem-delete/problem-delete.component';
 import {ProblemCreateComponent} from './components/problems/problem-create/problem-create.component';
 import {DragulaModule} from 'ng2-dragula';
 import {CKEditorModule} from 'ckeditor4-angular';
@@ -69,10 +68,11 @@ import {JavaCreateSnippetComponent} from './components/problems/problem-create/j
 import {ParsonsCreateSnippetComponent} from './components/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component';
 import {VariableViewComponent} from './components/problems/problem-view/variable-view/variable-view.component';
 import {JsonEditorComponent} from './components/problems/json-editor/json-editor.component';
-import {SubmissionViewComponent} from './components/problems/problem-view/submission-view/submission-view.component';
+import {SubmissionSnippetComponent} from './components/problems/problem-view/submission-snippet/submission-snippet.component';
 import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
+import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 import { ActivationEmailComponent } from './components/accounts/activation-email/activation-email.component';
 
 @NgModule({
@@ -110,7 +110,6 @@ import { ActivationEmailComponent } from './components/accounts/activation-email
         CourseEventCreateComponent,
         ProblemViewComponent,
         ProblemEditComponent,
-        ProblemDeleteComponent,
         ProblemCreateComponent,
         AceComponent,
         McqViewSnippetComponent,
@@ -124,8 +123,9 @@ import { ActivationEmailComponent } from './components/accounts/activation-email
         ParsonsCreateSnippetComponent,
         VariableViewComponent,
         JsonEditorComponent,
-        SubmissionViewComponent,
+        SubmissionSnippetComponent,
         LeaderBoardComponent,
+        SubmissionViewComponent,
         ActivationEmailComponent,
     ],
     imports: [

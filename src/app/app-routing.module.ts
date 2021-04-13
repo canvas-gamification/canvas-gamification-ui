@@ -24,9 +24,9 @@ import {CourseQuestionSnippetComponent} from '@app/components/course/course-ques
 import {CourseRegisterComponent} from '@app/components/course/course-registration/course-register.component';
 import {ProblemViewComponent} from '@app/components/problems/problem-view/problem-view.component';
 import {ProblemEditComponent} from '@app/components/problems/problem-edit/problem-edit.component';
-import {ProblemDeleteComponent} from '@app/components/problems/problem-delete/problem-delete.component';
 import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
 import {ActivationEmailComponent} from '@app/components/accounts/activation-email/activation-email.component';
+import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 
 
 const routes: Routes = [
@@ -57,7 +57,7 @@ const routes: Routes = [
         component: TokenValuesComponent
     },
     {
-        path: 'user-stats',
+        path: 'course/:courseId/category/:categoryId',
         component: UserStatsComponent
     },
     {
@@ -150,15 +150,15 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'problem/:id/delete',
-        component: ProblemDeleteComponent,
-        canActivate: [AuthGuard]
-    },
-    {
         path: 'problem/create/:type',
         component: ProblemCreateComponent,
         canActivate: [AuthGuard]
     },
+    {
+        path: 'problem/submission/:id',
+        component: SubmissionViewComponent,
+        canActivate: [AuthGuard]
+    }
 ];
 
 @NgModule({
