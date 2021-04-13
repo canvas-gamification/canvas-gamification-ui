@@ -19,7 +19,7 @@
             <tbody>
             <ng-container *ngIf="uqjs.length; else tableEmpty">
                 <ng-container *ngFor="let uqj of uqjs; index as i">
-                    <tr>
+                    <tr [attr.class]=highlight(getStatus(uqj))>
                         <td>{{ uqj.question.parent_category_name }}</td>
                         <td>{{ uqj.question.category_name }}</td>
                         <td>{{ uqj.question.type_name }}</td>

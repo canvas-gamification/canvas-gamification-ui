@@ -1,42 +1,48 @@
+@use "mixins";
+
+@include mixins.highlight-table();
+
 header {
-  background: #EEEEEE;
+    background: #EEEEEE;
 }
 
 table {
-  border: 1px solid #dee2e6;
-  background: white;
+    border: 1px solid #dee2e6;
+    background: white;
 }
 
 td, th {
-  border: 1px solid #dee2e6;
+    border: 1px solid #dee2e6;
 }
 
 a {
-  margin: auto;
-  text-align: center;
-  vertical-align: middle;
+    margin: auto;
+    text-align: center;
+    vertical-align: middle;
 
-  #faEye {
-    color: white;
-    background-color: #007bff;
-  }
+    #faEye {
+        color: white;
+        background-color: #007bff;
+    }
 
-  #faPencilAlt {
-    color: black;
-    background-color: antiquewhite;
-  }
+    #faPencilAlt {
+        color: black;
+        background-color: antiquewhite;
+    }
 
-  #faTrashAlt {
-    color: white;
-    background-color: #dc3545;
-  }
+    #faTrashAlt {
+        color: white;
+        background-color: #dc3545;
+    }
 }
 
 .action-icon {
-  line-height: 1.25rem;
-  display: inline-block;
-  font-size: 1.25rem;
-  text-align: center;
-  padding: 0.55rem;
-  border-radius: 5px;
+    line-height: 1.25rem;
+    display: inline-block;
+    font-size: 1.25rem;
+    text-align: center;
+    padding: 0.55rem;
+    border-radius: 5px;
 }
+
+

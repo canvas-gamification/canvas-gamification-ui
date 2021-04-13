@@ -28,6 +28,7 @@ export interface Question {
   junit_template: string;
   lines: any[];
   additional_file_name: any;
+  status: string;
   is_open: boolean;
   is_exam: boolean;
   is_exam_and_open: boolean;
