@@ -16,7 +16,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let submission of previousSubmissions; let i = index">
+                <tr *ngFor="let submission of previousSubmissions; let i = index" [attr.class]=highlight(submission.status)>
                     <td>{{i + 1}}</td>
                     <td>{{submission.answer}}</td>
                     <td>{{submission.grade.toFixed(2)}}</td>
@@ -40,7 +40,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let submission of previousSubmissions; let i = index">
+                <tr *ngFor="let submission of previousSubmissions; let i = index" [attr.class]=highlight(submission.status)>
                     <td>{{i + 1}}</td>
                     <td>{{submission.grade.toFixed(2)}}</td>
                     <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>

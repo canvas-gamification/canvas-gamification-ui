@@ -16,4 +16,13 @@ export class SubmissionSnippetComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    highlight(status: string) {
+        if (status.localeCompare('Correct') === 0) {
+            return 'highlight-success';
+        } else if (status.localeCompare('Wrong') === 0) {
+            return 'highlight-danger';
+        }
+        return '';
+    }
+
 }
