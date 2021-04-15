@@ -137,8 +137,20 @@ export class ProblemSetComponent implements OnInit {
                 window.scroll(0, 0);
             });
     }
+
+    highlight(status: string) {
+        if (status.localeCompare('Solved') === 0) {
+            return 'highlight-success';
+        } else if (status.localeCompare('Partially Solved') === 0) {
+            return 'highlight-warning';
+        } else if (status.localeCompare('Wrong') === 0) {
+            return 'highlight-danger';
+        }
+        return '';
+    }
 }
 
 function compare(a: number | string, b: number | string, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
+

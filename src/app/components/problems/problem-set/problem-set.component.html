@@ -67,30 +67,32 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let question of questions">
-        <td>{{question.id}}</td>
-        <td>{{question.title}}</td>
-        <td>{{question.author_name}}</td>
-        <td>{{question.event_name}}</td>
-        <td>{{question.parent_category_name}}</td>
-        <td>{{question.category_name}}</td>
-        <td>{{question.difficulty}}</td>
-        <td>{{question.token_value}}</td>
-        <td>{{question.success_rate}}</td>
-        <td>
-            <div style="white-space: nowrap; display: flex">
-                <a routerLink="/problem/{{question.id}}">
-                    <fa-icon class="action-icon" id="faEye" [icon]="faEye"></fa-icon>
-                </a>
-                <a routerLink="/problem/{{question.id}}/edit">
-                    <fa-icon class="action-icon" id="faPencilAlt" [icon]="faPencilAlt"></fa-icon>
-                </a>
-                <a [routerLink]="" (click)="deleteQuestion(question.id)">
-                    <fa-icon class="action-icon" id="faTrashAlt" [icon]="faTrashAlt"></fa-icon>
-                </a>
-            </div>
-        </td>
-    </tr>
+    <ng-container *ngFor="let question of questions">
+        <tr [attr.class]=highlight(question.status)>
+            <td>{{question.id}}</td>
+            <td>{{question.title}}</td>
+            <td>{{question.author_name}}</td>
+            <td>{{question.event_name}}</td>
+            <td>{{question.parent_category_name}}</td>
+            <td>{{question.category_name}}</td>
+            <td>{{question.difficulty}}</td>
+            <td>{{question.token_value}}</td>
+            <td>{{question.success_rate}}</td>
+            <td>
+                <div style="white-space: nowrap; display: flex">
+                    <a routerLink="/problem/{{question.id}}">
+                        <fa-icon class="action-icon" id="faEye" [icon]="faEye"></fa-icon>
+                    </a>
+                    <a routerLink="/problem/{{question.id}}/edit">
+                        <fa-icon class="action-icon" id="faPencilAlt" [icon]="faPencilAlt"></fa-icon>
+                    </a>
+                    <a [routerLink]="" (click)="deleteQuestion(question.id)">
+                        <fa-icon class="action-icon" id="faTrashAlt" [icon]="faTrashAlt"></fa-icon>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </ng-container>
     </tbody>
 </table>
 <mat-paginator
@@ -100,3 +102,4 @@
     (page)="newPageEvent($event)"
 >
 </mat-paginator>
+
