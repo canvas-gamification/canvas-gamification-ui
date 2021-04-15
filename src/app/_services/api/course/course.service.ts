@@ -11,7 +11,7 @@ import {MessageService} from '@app/_services/message.service';
 })
 export class CourseService {
     private courseUrl = new URL(
-        '/api/course',
+        '/api/course/',
         environment.apiBaseUrl
     ).toString();
 
@@ -21,7 +21,7 @@ export class CourseService {
 
     getUserStats(courseId: number, categoryId: number): Observable<any> {
         return this.http
-            .get<any>(`${this.courseUrl}/${courseId}/user-stats/${categoryId}`)
+            .get<any>(`${this.courseUrl}${courseId}/user-stats/${categoryId}`)
             .pipe(catchError(this.handleError<any>(
                 `getUserStats`
             )));
@@ -29,21 +29,21 @@ export class CourseService {
 
     register(courseId: number, data: CourseRegistrationRequest): any {
         return this.http
-            .post<CourseRegistrationResponse>(`${this.courseUrl}/${courseId}/register/`, data)
+            .post<CourseRegistrationResponse>(`${this.courseUrl}${courseId}/register/`, data)
             .pipe(catchError(this.handleError<CourseRegistrationResponse>(
                 `courseRegister`, {success: false, bad_request: true})));
     }
 
     registerVerify(courseId: number, data: CourseRegistrationRequest): any {
         return this.http
-            .post<CourseRegistrationResponse>(`${this.courseUrl}/${courseId}/verify/`, data)
+            .post<CourseRegistrationResponse>(`${this.courseUrl}${courseId}/verify/`, data)
             .pipe(catchError(this.handleError<CourseRegistrationResponse>(
                 `courseRegisterVerify`, {success: false, bad_request: true})));
     }
 
     getCourseRegistrationStatus(courseId: number): Observable<RegistrationStatus> {
         return this.http
-            .get<RegistrationStatus>(`${this.courseUrl}/${courseId}/get-registration-status`)
+            .get<RegistrationStatus>(`${this.courseUrl}${courseId}/get-registration-status`)
             .pipe(catchError(this.handleError<RegistrationStatus>(
                 `getCourseRegistrationStatus`
             )));
@@ -51,7 +51,7 @@ export class CourseService {
 
     validateEvent(courseId: number, eventId: number, needsToBeRegistered = true): any {
         return this.http
-            .get<APIResponse>(`${this.courseUrl}/${courseId}/validate-event/${eventId}/?registered=${needsToBeRegistered}`)
+            .get<APIResponse>(`${this.courseUrl}${courseId}/validate-event/${eventId}/?registered=${needsToBeRegistered}`)
             .pipe(catchError(this.handleError<APIResponse>(
                 `validateEvent`, {success: false, bad_request: true})));
     }
@@ -103,7 +103,7 @@ export class CourseService {
             params = params.set(`${field}`, String(filters[field]));
         }
 
-        const url = `${this.courseUrl}/${courseId}`;
+        const url = `${this.courseUrl}${courseId}`;
         return this.http
             .get<Course>(url, {params})
             .pipe(catchError(this.handleError<Course>(`getCourse`)));

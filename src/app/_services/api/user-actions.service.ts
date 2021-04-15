@@ -11,7 +11,7 @@ import {PaginatedResult} from '@app/_models/paginatedResult';
 })
 export class UserActionsService {
   private userActionUrl = new URL(
-    '/api/user-actions',
+    '/api/user-actions/',
     environment.apiBaseUrl
   ).toString();
 
@@ -42,7 +42,7 @@ export class UserActionsService {
   getUserAction(actionId: any): Observable<Action> {
     const params = new HttpParams();
 
-    const url = `${this.userActionUrl}/${actionId}`;
+    const url = `${this.userActionUrl}${actionId}/`;
     return this.http
       .get<Action>(url, {params})
       .pipe(

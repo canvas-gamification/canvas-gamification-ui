@@ -11,7 +11,7 @@ import {PaginatedResult} from '@app/_models/paginatedResult';
 })
 export class UqjService {
     private userUqjUrl = new URL(
-        '/api/uqj',
+        '/api/uqj/',
         environment.apiBaseUrl
     ).toString();
 
@@ -46,7 +46,7 @@ export class UqjService {
     getUQJ(uqjId: any): Observable<UQJ> {
         const params = new HttpParams();
 
-        const url = `${this.userUqjUrl}/${uqjId}`;
+        const url = `${this.userUqjUrl}${uqjId}/`;
         return this.http
             .get<UQJ>(url, {params})
             .pipe(

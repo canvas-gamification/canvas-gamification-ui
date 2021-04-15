@@ -10,7 +10,7 @@ import {environment} from '@environments/environment';
 })
 export class CourseRegistrationService {
     private courseRegistrationUrl = new URL(
-        '/api/course-registration',
+        '/api/course-registration/',
         environment.apiBaseUrl
     ).toString();
 
@@ -65,7 +65,7 @@ export class CourseRegistrationService {
             params = params.set(`${field}`, String(filters[field]));
         }
 
-        const url = `${this.courseRegistrationUrl}/${courseRegistrationId}`;
+        const url = `${this.courseRegistrationUrl}${courseRegistrationId}`;
         return this.http
             .get<CourseRegistration>(url, {params})
             .pipe(

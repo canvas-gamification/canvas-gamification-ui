@@ -10,7 +10,7 @@ import {catchError} from 'rxjs/operators';
 })
 export class TokenUseService {
     private tokenUseUrl = new URL(
-        '/api/token-use',
+        '/api/token-use/',
         environment.apiBaseUrl
     ).toString();
 

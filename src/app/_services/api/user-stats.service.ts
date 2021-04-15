@@ -10,7 +10,7 @@ import {environment} from '@environments/environment';
 })
 export class UserStatsService {
     private userStatsUrl = new URL(
-        '/api/user-stats',
+        '/api/user-stats/',
         environment.apiBaseUrl
     ).toString();
 
@@ -18,7 +18,7 @@ export class UserStatsService {
     }
 
     getUserStat(userStatId: number): Observable<UserStats> {
-        const url = `${this.userStatsUrl}/${userStatId}`;
+        const url = `${this.userStatsUrl}${userStatId}`;
         return this.http
             .get<UserStats>(url)
             .pipe(catchError(this.handleError<UserStats>(`getUserStat`)));
