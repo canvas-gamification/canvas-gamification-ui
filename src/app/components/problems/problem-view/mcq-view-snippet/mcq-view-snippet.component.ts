@@ -14,6 +14,7 @@ import {MESSAGE_TYPES} from '@app/_models';
 export class McqViewSnippetComponent implements OnInit {
     @Input() QuestionDetails;
     @Input() UQJDetails;
+    @Input() questionType;
     FormData: FormGroup;
     previousSubmissions: QuestionSubmission[];
     choiceArray: any[];

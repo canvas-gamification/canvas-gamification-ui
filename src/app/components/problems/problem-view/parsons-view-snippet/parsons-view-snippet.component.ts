@@ -21,6 +21,7 @@ class ContainerObject {
 export class ParsonsViewSnippetComponent implements OnInit {
     @Input() QuestionDetails;
     @Input() UQJDetails;
+    @Input() questionType;
     code = '';
     PARSONS_LINES = 'PARSONS_LINES';
     parsonLines: any[];

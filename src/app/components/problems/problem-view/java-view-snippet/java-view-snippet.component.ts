@@ -14,6 +14,7 @@ import {MESSAGE_TYPES} from '@app/_models';
 export class JavaViewSnippetComponent implements OnInit {
     @Input() QuestionDetails;
     @Input() UQJDetails;
+    @Input() questionType;
     previousSubmissions: QuestionSubmission[];
     inputFileNames = new Array<{name: string, template: string}>();
 

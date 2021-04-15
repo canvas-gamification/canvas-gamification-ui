@@ -17,11 +17,11 @@
     </tbody>
 </table>
 <ng-container *ngIf="questionType === 'multiple choice question'">
-    <app-mcq-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails"></app-mcq-view-snippet>
+    <app-mcq-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails" [questionType]="questionType"></app-mcq-view-snippet>
 </ng-container>
 <ng-container *ngIf="questionType === 'java question'">
-    <app-java-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails"></app-java-view-snippet>
+    <app-java-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails" [questionType]="questionType"></app-java-view-snippet>
 </ng-container>
 <ng-container *ngIf="questionType === 'parsons question'">
-    <app-parsons-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails"></app-parsons-view-snippet>
+    <app-parsons-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails" [questionType]="questionType"></app-parsons-view-snippet>
 </ng-container>
