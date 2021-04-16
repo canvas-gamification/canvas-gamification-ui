@@ -38,7 +38,9 @@
 </ng-container>
 
 <!--Question Variables (Admin Only)-->
-<app-variable-view *ngIf="user.isAdmin()" [variables]="UQJDetails.variables" [variableErrors]="UQJDetails.variables_errors"></app-variable-view>
+<ng-container *ngIf="user && UQJDetails">
+<app-variable-view *ngIf="user.is_teacher" [variables]="UQJDetails.variables" [variableErrors]="UQJDetails.variables_errors"></app-variable-view>
+</ng-container>
 
 <!--Previous Submissions-->
 <app-submission-snippet [previousSubmissions]="previousSubmissions"></app-submission-snippet>
