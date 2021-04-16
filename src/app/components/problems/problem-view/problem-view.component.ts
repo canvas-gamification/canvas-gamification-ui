@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {QuestionService} from '@app/_services/api/question.service';
-import {forkJoin, Subscription} from 'rxjs';
-import {Question, UQJ} from '@app/_models';
+import {UQJ} from '@app/_models';
 import {UqjService} from '@app/_services/api/uqj.service';
+import {QuestionSubmission} from '@app/_models/question_submission';
+import {SubmissionService} from '@app/_services/api/problem/submission.service';
 
 @Component({
     selector: 'app-problem-view',
@@ -12,27 +12,22 @@ import {UqjService} from '@app/_services/api/uqj.service';
 })
 export class ProblemViewComponent implements OnInit {
 
-    constructor(private route: ActivatedRoute, private uqjService: UqjService, private questionService: QuestionService) {
+    constructor(private route: ActivatedRoute,
+                private uqjService: UqjService,
+                private submissionService: SubmissionService) {
     }
 
-    private routeSub: Subscription;
     UQJDetails: UQJ;
-    QuestionDetails: Question;
-    questionId: number;
-    questionType: string;
-    inputFileNames: any[];
-
+    previousSubmissions: QuestionSubmission[];
 
     ngOnInit(): void {
-        this.routeSub = this.route.params.subscribe(params => {
-            this.questionId = params.id;
+        const questionId = this.route.snapshot.params.id;
+        this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
+            this.UQJDetails = uqj;
         });
-        const uqjObservable = this.uqjService.getUQJByQuestion(this.questionId);
-        const questionObservable = this.questionService.getQuestion(this.questionId);
-        forkJoin([uqjObservable, questionObservable]).subscribe(result => {
-            this.UQJDetails = result[0];
-            this.QuestionDetails = result[1];
-            this.questionType = this.questionService.getQuestionType(this.QuestionDetails);
+
+        this.submissionService.getPreviousSubmissions(questionId).subscribe(submissions => {
+            this.previousSubmissions = submissions;
         });
     }
 }

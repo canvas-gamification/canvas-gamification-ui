@@ -26,7 +26,6 @@ export class ParsonsViewSnippetComponent implements OnInit {
     parsonLines: any[];
     parsonAnswerLines: any[];
     variables: any[];
-    previousSubmissions: QuestionSubmission[];
 
     constructor(private questionService: QuestionService,
                 private dragulaService: DragulaService,
@@ -35,11 +34,6 @@ export class ParsonsViewSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const previousSubmissionsObservable = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
-        forkJoin([previousSubmissionsObservable])
-            .subscribe(result => {
-                this.previousSubmissions = result[0];
-            });
         this.parsonLines = [];
         for (const line of this.QuestionDetails.lines) {
             this.parsonLines.push(new ContainerObject(line));
@@ -76,7 +70,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
     removeLeftContainerIndents(): void {
         const tempParsonLines = this.parsonLines;
         tempParsonLines.forEach(line => {
-           line.value = line.value.trim();
+            line.value = line.value.trim();
         });
     }
 
@@ -92,9 +86,6 @@ export class ParsonsViewSnippetComponent implements OnInit {
         this.questionService.postQuestionSubmission({question: this.QuestionDetails.id, solution: this.code})
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
-                this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe(result => {
-                    this.previousSubmissions = result;
-                });
                 window.scroll(0, 0);
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);

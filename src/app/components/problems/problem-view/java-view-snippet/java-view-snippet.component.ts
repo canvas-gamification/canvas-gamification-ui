@@ -1,10 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {QuestionService} from '@app/_services/api/question.service';
-import {forkJoin} from 'rxjs';
-import {QuestionSubmission} from '@app/_models/question_submission';
 import {MessageService} from '@app/_services/message.service';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {MESSAGE_TYPES} from '@app/_models';
+import {FormBuilder} from '@angular/forms';
+import {MESSAGE_TYPES, UQJ} from '@app/_models';
 
 @Component({
     selector: 'app-java-view-snippet',
@@ -12,21 +10,14 @@ import {MESSAGE_TYPES} from '@app/_models';
     styleUrls: ['./java-view-snippet.component.scss']
 })
 export class JavaViewSnippetComponent implements OnInit {
-    @Input() QuestionDetails;
-    @Input() UQJDetails;
-    previousSubmissions: QuestionSubmission[];
-    inputFileNames = new Array<{name: string, template: string}>();
+    @Input() UQJDetails: UQJ;
+    inputFileNames = new Array<{ name: string, template: string }>();
 
     constructor(private questionService: QuestionService, private messageService: MessageService, private formBuilder: FormBuilder) {
     }
 
     ngOnInit(): void {
-        this.inputFileNames = this.QuestionDetails.input_file_names;
-        const previousSubmissionsObservable = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
-        forkJoin([previousSubmissionsObservable])
-            .subscribe(result => {
-                this.previousSubmissions = result[0];
-            });
+        this.inputFileNames = this.UQJDetails.question.input_file_names;
     }
 
     onSubmit() {
@@ -34,12 +25,9 @@ export class JavaViewSnippetComponent implements OnInit {
         this.inputFileNames.forEach(file => {
             codeSolution[file.name] = file.template;
         });
-        this.questionService.postQuestionSubmission({question: this.QuestionDetails.id, solution: codeSolution})
+        this.questionService.postQuestionSubmission({question: this.UQJDetails.question.id, solution: codeSolution})
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
-                this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe(result => {
-                    this.previousSubmissions = result;
-                });
                 window.scroll(0, 0);
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
@@ -47,5 +35,4 @@ export class JavaViewSnippetComponent implements OnInit {
                 window.scroll(0, 0);
             });
     }
-
 }

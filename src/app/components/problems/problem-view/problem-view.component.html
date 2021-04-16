@@ -1,3 +1,4 @@
+<!--Question Details-->
 <table class="table table-hover table-bordered">
     <thead>
     <tr>
@@ -9,19 +10,35 @@
     </thead>
     <tbody>
     <tr>
-        <td>{{QuestionDetails?.parent_category_name}} :: {{QuestionDetails?.category_name}}</td>
-        <td>{{QuestionDetails?.token_value}}</td>
+        <td>{{UQJDetails?.question?.parent_category_name}} :: {{UQJDetails?.question?.category_name}}</td>
+        <td>{{UQJDetails?.question?.token_value}}</td>
         <td>Not in API</td>
-        <td>{{QuestionDetails?.max_submission_allowed}}</td>
+        <td>{{UQJDetails?.question?.max_submission_allowed}}</td>
     </tr>
     </tbody>
 </table>
-<ng-container *ngIf="questionType === 'multiple choice question'">
-    <app-mcq-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails"></app-mcq-view-snippet>
+
+<!--Question Text-->
+<div class="card my-1">
+    <div class="card-header">
+        <h1>{{UQJDetails?.question?.title}}</h1>
+    </div>
+    <div class="card-body" [innerHTML]="UQJDetails?.question?.text"></div>
+</div>
+
+<!--Question Submission Form-->
+<ng-container *ngIf="UQJDetails?.question?.type_name === 'multiple choice question'">
+    <app-mcq-view-snippet [UQJDetails]="UQJDetails"></app-mcq-view-snippet>
 </ng-container>
-<ng-container *ngIf="questionType === 'java question'">
-    <app-java-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails"></app-java-view-snippet>
+<ng-container *ngIf="UQJDetails?.question?.type_name === 'java question'">
+    <app-java-view-snippet [UQJDetails]="UQJDetails"></app-java-view-snippet>
 </ng-container>
-<ng-container *ngIf="questionType === 'parsons question'">
-    <app-parsons-view-snippet [QuestionDetails]="QuestionDetails" [UQJDetails]="UQJDetails"></app-parsons-view-snippet>
+<ng-container *ngIf="UQJDetails?.question?.type_name === 'parsons question'">
+    <app-parsons-view-snippet [UQJDetails]="UQJDetails"></app-parsons-view-snippet>
 </ng-container>
+
+<!--Question Variables (Admin Only)-->
+<app-variable-view [variables]="UQJDetails.variables" [variableErrors]="UQJDetails.variables_errors"></app-variable-view>
+
+<!--Previous Submissions-->
+<app-submission-snippet [previousSubmissions]="previousSubmissions"></app-submission-snippet>

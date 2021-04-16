@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {QuestionSubmission} from '@app/_models/question_submission';
 
@@ -15,5 +15,10 @@ export class SubmissionService {
 
     getSubmission(id: number): Observable<QuestionSubmission> {
         return this.http.get<QuestionSubmission>(`${this.submissionUrl}${id}`);
+    }
+
+    getPreviousSubmissions(id: number): Observable<QuestionSubmission[]> {
+        const params = new HttpParams().set('question', String(id));
+        return this.http.get<QuestionSubmission[]>(this.submissionUrl, {params});
     }
 }
