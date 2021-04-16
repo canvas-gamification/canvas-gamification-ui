@@ -18,7 +18,7 @@ export class JavaViewSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.inputFileNames = this.uqj.question.input_file_names;
+        this.inputFileNames = this.uqj.input_files;
     }
 
     onSubmit() {
