@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {QuestionService} from '@app/_services/api/question.service';
 import {DragulaService} from 'ng2-dragula';
 import {FormBuilder} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import * as indentString from 'indent-string';
 import {MESSAGE_TYPES, UQJ} from '@app/_models';
+import {SubmissionService} from '@app/_services/api/problem/submission.service';
 
 class ContainerObject {
     constructor(public value: string) {
@@ -23,7 +23,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
     parsonLines: any[];
     parsonAnswerLines: any[];
 
-    constructor(private questionService: QuestionService,
+    constructor(private submissionService: SubmissionService,
                 private dragulaService: DragulaService,
                 private formBuilder: FormBuilder,
                 private messageService: MessageService) {
@@ -78,7 +78,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
     }
 
     onSubmit() {
-        this.questionService.postQuestionSubmission({question: this.uqj.question.id, solution: this.code})
+        this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: this.code})
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
                 window.scroll(0, 0);
@@ -88,5 +88,4 @@ export class ParsonsViewSnippetComponent implements OnInit {
                 window.scroll(0, 0);
             });
     }
-
 }

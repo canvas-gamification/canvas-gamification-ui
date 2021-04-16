@@ -14,7 +14,6 @@ export class QuestionService {
     private multipleChoiceQuestionUrl = new URL('/api/multiple-choice-question/', environment.apiBaseUrl).toString();
     private javaQuestionUrl = new URL('/api/java-question/', environment.apiBaseUrl).toString();
     private parsonsQuestionUrl = new URL('/api/parsons-question/', environment.apiBaseUrl).toString();
-    private answerSubmissionUrl = new URL('api/submission/submit/', environment.apiBaseUrl).toString();
 
     constructor(private http: HttpClient) {
     }
@@ -132,21 +131,6 @@ export class QuestionService {
 
     postParsonsQuestion(input: any) {
         return this.http.post(this.parsonsQuestionUrl, input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: any) => {
-                    return error;
-                }
-            )
-        );
-    }
-
-    postQuestionSubmission(input: any) {
-        return this.http.post(this.answerSubmissionUrl, input, {responseType: 'text'}).pipe(
             map(
                 (response) => {
                     if (response) {

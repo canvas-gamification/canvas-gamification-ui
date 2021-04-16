@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MESSAGE_TYPES, UQJ} from '@app/_models';
+import {SubmissionService} from '@app/_services/api/problem/submission.service';
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -14,7 +14,7 @@ export class McqViewSnippetComponent implements OnInit {
     FormData: FormGroup;
     choiceArray: any[];
 
-    constructor(private questionService: QuestionService,
+    constructor(private submissionService: SubmissionService,
                 private messageService: MessageService,
                 private formBuilder: FormBuilder) {
     }
@@ -36,7 +36,7 @@ export class McqViewSnippetComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        this.questionService.postQuestionSubmission(FormData)
+        this.submissionService.postQuestionSubmission(FormData)
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
                 window.scroll(0, 0);
