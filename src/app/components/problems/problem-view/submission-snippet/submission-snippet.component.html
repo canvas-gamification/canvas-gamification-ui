@@ -3,53 +3,48 @@
         <h1>My Past Submissions</h1>
     </div>
     <div class="card-body">
-        <ng-container *ngIf="questionType === 'multiple choice question'; else elseBlock">
-            <table class="table table-hover table-bordered">
-                <thead>
-                <tr>
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <ng-container *ngIf="previousSubmissions[0].show_answer; else headElseBlock">
                     <th>#</th>
                     <th>Answer</th>
                     <th>Grade</th>
                     <th>Tokens Received</th>
                     <th>Time Submitted</th>
                     <th>Status</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let submission of previousSubmissions; let i = index" [attr.class]=highlight(submission.status)>
-                    <td>{{i + 1}}</td>
-                    <td><div innerHTML="{{submission.answer_display}}"></div></td>
-                    <td>{{submission.grade.toFixed(2)}}</td>
-                    <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
-                    <td>{{submission.submission_time | date:'medium'}}</td>
-                    <td>{{submission.status}}</td>
-                </tr>
-                </tbody>
-            </table>
-        </ng-container>
-        <ng-template #elseBlock>
-            <table class="table table-hover table-bordered">
-                <thead>
-                <tr>
+                </ng-container>
+                <ng-template #headElseBlock>
                     <th>#</th>
                     <th>Grade</th>
                     <th>Tokens Received</th>
                     <th>Time Submitted</th>
                     <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let submission of previousSubmissions; let i = index" [attr.class]=highlight(submission.status)>
+                    <th>Details</th>
+                </ng-template>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let submission of previousSubmissions; let i = index"
+                [attr.class]=highlight(submission.status_color)>
+                <ng-container *ngIf="submission.show_answer; else elseBlock">
+                    <td>{{i + 1}}</td>
+                    <td innerHTML="{{submission.answer_display}}"></td>
+                    <td>{{submission.grade.toFixed(2)}}</td>
+                    <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
+                    <td>{{submission.submission_time | date:'medium'}}</td>
+                    <td>{{submission.status}}</td>
+                </ng-container>
+                <ng-template #elseBlock>
                     <td>{{i + 1}}</td>
                     <td>{{submission.grade.toFixed(2)}}</td>
                     <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
                     <td>{{submission.submission_time | date:'medium'}}</td>
                     <td>{{submission.status}}</td>
                     <td><a class="btn btn-primary" routerLink="/problem/submission/{{submission.pk}}">Details</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </ng-template>
+                </ng-template>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

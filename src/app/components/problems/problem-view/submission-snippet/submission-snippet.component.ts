@@ -8,18 +8,18 @@ import {QuestionSubmission} from '@app/_models/question_submission';
 })
 export class SubmissionSnippetComponent implements OnInit {
     @Input() previousSubmissions: QuestionSubmission[];
-    @Input() questionType: string;
 
     constructor() {
     }
 
     ngOnInit(): void {
+        this.previousSubmissions.reverse();
     }
 
     highlight(status: string) {
-        if (status.localeCompare('Correct') === 0) {
+        if (status.localeCompare('success') === 0) {
             return 'highlight-success';
-        } else if (status.localeCompare('Wrong') === 0) {
+        } else if (status.localeCompare('danger') === 0) {
             return 'highlight-danger';
         }
         return '';
