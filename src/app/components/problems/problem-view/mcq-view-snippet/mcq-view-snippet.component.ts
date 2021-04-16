@@ -1,10 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {QuestionService} from '@app/_services/api/question.service';
-import {QuestionSubmission} from '@app/_models/question_submission';
 import {MessageService} from '@app/_services/message.service';
-import {forkJoin} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {MESSAGE_TYPES} from '@app/_models';
+import {MESSAGE_TYPES, UQJ} from '@app/_models';
+import {SubmissionService} from '@app/_services/api/problem/submission.service';
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -12,46 +10,35 @@ import {MESSAGE_TYPES} from '@app/_models';
     styleUrls: ['./mcq-view-snippet.component.scss']
 })
 export class McqViewSnippetComponent implements OnInit {
-    @Input() QuestionDetails;
-    @Input() UQJDetails;
-    @Input() questionType;
+    @Input() uqj: UQJ;
     FormData: FormGroup;
-    previousSubmissions: QuestionSubmission[];
     choiceArray: any[];
 
-    constructor(private questionService: QuestionService,
+    constructor(private submissionService: SubmissionService,
                 private messageService: MessageService,
                 private formBuilder: FormBuilder) {
     }
 
     ngOnInit(): void {
         this.FormData = this.formBuilder.group({
-            question: new FormControl(this.QuestionDetails.id),
+            question: new FormControl(this.uqj.question.id),
             solution: new FormControl('')
         });
-        const previousSubmissionsObservable = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
-        forkJoin([previousSubmissionsObservable])
-            .subscribe(result => {
-                this.previousSubmissions = result[0];
-            });
+
         const outputArray = [];
-        // tslint:disable-next-line:forin
-        for (const choice in this.UQJDetails.rendered_choices) {
+        for (const choice in this.uqj.rendered_choices) {
             outputArray.push({
                 id: choice,
-                value: this.UQJDetails.rendered_choices[choice]
+                value: this.uqj.rendered_choices[choice]
             });
             this.choiceArray = outputArray;
         }
     }
 
     onSubmit(FormData) {
-        this.questionService.postQuestionSubmission(FormData)
+        this.submissionService.postQuestionSubmission(FormData)
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
-                this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe(result => {
-                    this.previousSubmissions = result;
-                });
                 window.scroll(0, 0);
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);

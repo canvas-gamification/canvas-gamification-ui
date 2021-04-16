@@ -1,12 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {QuestionService} from '@app/_services/api/question.service';
 import {DragulaService} from 'ng2-dragula';
-import {forkJoin} from 'rxjs';
-import {QuestionSubmission} from '@app/_models/question_submission';
 import {FormBuilder} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import * as indentString from 'indent-string';
-import {MESSAGE_TYPES} from '@app/_models';
+import {MESSAGE_TYPES, UQJ} from '@app/_models';
+import {SubmissionService} from '@app/_services/api/problem/submission.service';
 
 class ContainerObject {
     constructor(public value: string) {
@@ -19,34 +17,24 @@ class ContainerObject {
     styleUrls: ['./parsons-view-snippet.component.scss']
 })
 export class ParsonsViewSnippetComponent implements OnInit {
-    @Input() QuestionDetails;
-    @Input() UQJDetails;
-    @Input() questionType;
+    @Input() uqj: UQJ;
     code = '';
     PARSONS_LINES = 'PARSONS_LINES';
     parsonLines: any[];
     parsonAnswerLines: any[];
-    variables: any[];
-    previousSubmissions: QuestionSubmission[];
 
-    constructor(private questionService: QuestionService,
+    constructor(private submissionService: SubmissionService,
                 private dragulaService: DragulaService,
                 private formBuilder: FormBuilder,
                 private messageService: MessageService) {
     }
 
     ngOnInit(): void {
-        const previousSubmissionsObservable = this.questionService.getPreviousSubmissions(this.QuestionDetails.id);
-        forkJoin([previousSubmissionsObservable])
-            .subscribe(result => {
-                this.previousSubmissions = result[0];
-            });
         this.parsonLines = [];
-        for (const line of this.QuestionDetails.lines) {
+        for (const line of this.uqj.rendered_lines) {
             this.parsonLines.push(new ContainerObject(line));
         }
         this.parsonAnswerLines = [];
-        this.variables = this.QuestionDetails.variables;
         this.dragulaService.createGroup(this.PARSONS_LINES, {});
 
         this.dragulaService.drop().subscribe((value) => {
@@ -77,7 +65,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
     removeLeftContainerIndents(): void {
         const tempParsonLines = this.parsonLines;
         tempParsonLines.forEach(line => {
-           line.value = line.value.trim();
+            line.value = line.value.trim();
         });
     }
 
@@ -90,12 +78,9 @@ export class ParsonsViewSnippetComponent implements OnInit {
     }
 
     onSubmit() {
-        this.questionService.postQuestionSubmission({question: this.QuestionDetails.id, solution: this.code})
+        this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: this.code})
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
-                this.questionService.getPreviousSubmissions(this.QuestionDetails.id).subscribe(result => {
-                    this.previousSubmissions = result;
-                });
                 window.scroll(0, 0);
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
@@ -103,5 +88,4 @@ export class ParsonsViewSnippetComponent implements OnInit {
                 window.scroll(0, 0);
             });
     }
-
 }

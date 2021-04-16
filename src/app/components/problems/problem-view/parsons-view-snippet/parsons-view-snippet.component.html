@@ -1,11 +1,5 @@
 <div class="card my-1">
     <div class="card-header">
-        <h1>{{QuestionDetails?.title}}</h1>
-    </div>
-    <div class="card-body" [innerHTML]="QuestionDetails?.text"></div>
-</div>
-<div class="card my-1">
-    <div class="card-header">
         <h1>My Answer</h1>
     </div>
     <div class="container">
@@ -35,5 +29,3 @@
         </form>
     </div>
 </div>
-<app-variable-view [variables]="UQJDetails.variables" [variableErrors]="UQJDetails.variables_errors"></app-variable-view>
-<app-submission-snippet [previousSubmissions]="previousSubmissions" [questionType]="questionType"></app-submission-snippet>
