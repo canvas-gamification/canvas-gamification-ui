@@ -17,7 +17,7 @@ class ContainerObject {
     styleUrls: ['./parsons-view-snippet.component.scss']
 })
 export class ParsonsViewSnippetComponent implements OnInit {
-    @Input() UQJDetails: UQJ;
+    @Input() uqj: UQJ;
     code = '';
     PARSONS_LINES = 'PARSONS_LINES';
     parsonLines: any[];
@@ -31,7 +31,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
 
     ngOnInit(): void {
         this.parsonLines = [];
-        for (const line of this.UQJDetails.rendered_lines) {
+        for (const line of this.uqj.rendered_lines) {
             this.parsonLines.push(new ContainerObject(line));
         }
         this.parsonAnswerLines = [];
@@ -78,7 +78,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
     }
 
     onSubmit() {
-        this.questionService.postQuestionSubmission({question: this.UQJDetails.question.id, solution: this.code})
+        this.questionService.postQuestionSubmission({question: this.uqj.question.id, solution: this.code})
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
                 window.scroll(0, 0);

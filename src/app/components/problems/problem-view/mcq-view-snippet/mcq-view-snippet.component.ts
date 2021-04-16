@@ -10,7 +10,7 @@ import {MESSAGE_TYPES, UQJ} from '@app/_models';
     styleUrls: ['./mcq-view-snippet.component.scss']
 })
 export class McqViewSnippetComponent implements OnInit {
-    @Input() UQJDetails: UQJ;
+    @Input() uqj: UQJ;
     FormData: FormGroup;
     choiceArray: any[];
 
@@ -21,15 +21,15 @@ export class McqViewSnippetComponent implements OnInit {
 
     ngOnInit(): void {
         this.FormData = this.formBuilder.group({
-            question: new FormControl(this.UQJDetails.question.id),
+            question: new FormControl(this.uqj.question.id),
             solution: new FormControl('')
         });
 
         const outputArray = [];
-        for (const choice in this.UQJDetails.rendered_choices) {
+        for (const choice in this.uqj.rendered_choices) {
             outputArray.push({
                 id: choice,
-                value: this.UQJDetails.rendered_choices[choice]
+                value: this.uqj.rendered_choices[choice]
             });
             this.choiceArray = outputArray;
         }

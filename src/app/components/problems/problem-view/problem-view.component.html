@@ -10,10 +10,10 @@
     </thead>
     <tbody>
     <tr>
-        <td>{{UQJDetails?.question?.parent_category_name}} :: {{UQJDetails?.question?.category_name}}</td>
-        <td>{{UQJDetails?.question?.token_value}}</td>
-        <td>{{UQJDetails?.status}}</td>
-        <td>{{UQJDetails?.question?.max_submission_allowed}}</td>
+        <td>{{uqj?.question?.parent_category_name}} :: {{uqj?.question?.category_name}}</td>
+        <td>{{uqj?.question?.token_value}}</td>
+        <td>{{uqj?.status}}</td>
+        <td>{{uqj?.question?.max_submission_allowed}}</td>
     </tr>
     </tbody>
 </table>
@@ -21,25 +21,25 @@
 <!--Question Text-->
 <div class="card my-1">
     <div class="card-header">
-        <h1>{{UQJDetails?.question?.title}}</h1>
+        <h1>{{uqj?.question?.title}}</h1>
     </div>
-    <div class="card-body" [innerHTML]="UQJDetails?.question?.text"></div>
+    <div class="card-body" [innerHTML]="uqj?.question?.text"></div>
 </div>
 
 <!--Question Submission Form-->
-<ng-container *ngIf="UQJDetails?.question?.type_name === 'multiple choice question'">
-    <app-mcq-view-snippet [UQJDetails]="UQJDetails"></app-mcq-view-snippet>
+<ng-container *ngIf="uqj?.question?.type_name === 'multiple choice question'">
+    <app-mcq-view-snippet [uqj]="uqj"></app-mcq-view-snippet>
 </ng-container>
-<ng-container *ngIf="UQJDetails?.question?.type_name === 'java question'">
-    <app-java-view-snippet [UQJDetails]="UQJDetails"></app-java-view-snippet>
+<ng-container *ngIf="uqj?.question?.type_name === 'java question'">
+    <app-java-view-snippet [uqj]="uqj"></app-java-view-snippet>
 </ng-container>
-<ng-container *ngIf="UQJDetails?.question?.type_name === 'parsons question'">
-    <app-parsons-view-snippet [UQJDetails]="UQJDetails"></app-parsons-view-snippet>
+<ng-container *ngIf="uqj?.question?.type_name === 'parsons question'">
+    <app-parsons-view-snippet [uqj]="uqj"></app-parsons-view-snippet>
 </ng-container>
 
 <!--Question Variables (Admin Only)-->
-<ng-container *ngIf="user && UQJDetails">
-<app-variable-view *ngIf="user.is_teacher" [variables]="UQJDetails.variables" [variableErrors]="UQJDetails.variables_errors"></app-variable-view>
+<ng-container *ngIf="user && uqj">
+<app-variable-view *ngIf="user.is_teacher" [variables]="uqj.variables" [variableErrors]="uqj.variables_errors"></app-variable-view>
 </ng-container>
 
 <!--Previous Submissions-->

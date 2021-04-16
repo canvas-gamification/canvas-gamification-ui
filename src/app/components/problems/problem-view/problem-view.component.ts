@@ -19,14 +19,14 @@ export class ProblemViewComponent implements OnInit {
                 private authenticationService: AuthenticationService) {
     }
 
-    UQJDetails: UQJ;
+    uqj: UQJ;
     previousSubmissions: QuestionSubmission[];
     user: User;
 
     ngOnInit(): void {
         const questionId = this.route.snapshot.params.id;
         this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
-            this.UQJDetails = uqj;
+            this.uqj = uqj;
         });
 
         this.submissionService.getPreviousSubmissions(questionId).subscribe(submissions => {
