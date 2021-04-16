@@ -12,7 +12,7 @@
     <tr>
         <td>{{UQJDetails?.question?.parent_category_name}} :: {{UQJDetails?.question?.category_name}}</td>
         <td>{{UQJDetails?.question?.token_value}}</td>
-        <td>Not in API</td>
+        <td>{{UQJDetails?.status}}</td>
         <td>{{UQJDetails?.question?.max_submission_allowed}}</td>
     </tr>
     </tbody>
@@ -43,4 +43,6 @@
 </ng-container>
 
 <!--Previous Submissions-->
+<ng-container *ngIf="previousSubmissions">
 <app-submission-snippet [previousSubmissions]="previousSubmissions"></app-submission-snippet>
+</ng-container>
