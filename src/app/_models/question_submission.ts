@@ -21,4 +21,5 @@ export interface QuestionSubmission {
     get_failed_test_results: {name: string; message: string}[];
     get_num_tests: number;
     formatted_tokens_received: string;
+    answer_display: string;
 }

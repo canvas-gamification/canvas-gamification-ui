@@ -18,7 +18,7 @@
                 <tbody>
                 <tr *ngFor="let submission of previousSubmissions; let i = index" [attr.class]=highlight(submission.status)>
                     <td>{{i + 1}}</td>
-                    <td>{{submission.answer}}</td>
+                    <td><div innerHTML="{{submission.answer_display}}"></div></td>
                     <td>{{submission.grade.toFixed(2)}}</td>
                     <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
                     <td>{{submission.submission_time | date:'medium'}}</td>
