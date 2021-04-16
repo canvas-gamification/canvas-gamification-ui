@@ -8,6 +8,7 @@ import {Sort} from '@angular/material/sort';
 import {MessageService} from '@app/_services/message.service';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-problem-set',
@@ -33,11 +34,15 @@ export class ProblemSetComponent implements OnInit {
     // Filtering
     filterQueryString;
 
+    // Modal
+    deleteQuestionId: number;
+
     paramChanged: Subject<{}> = new Subject<{}>();
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
-                private messageService: MessageService) {
+                private messageService: MessageService,
+                private modalService: NgbModal) {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
                 this.questions = paginatedQuestions.results;
@@ -99,8 +104,8 @@ export class ProblemSetComponent implements OnInit {
         this.update();
     }
 
-    deleteQuestion(questionId): void {
-        this.questionService.deleteQuestion(questionId)
+    deleteQuestion(): void {
+        this.questionService.deleteQuestion(this.deleteQuestionId)
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Deleted Successfully.');
                 this.update();
@@ -121,6 +126,11 @@ export class ProblemSetComponent implements OnInit {
             return 'highlight-danger';
         }
         return '';
+    }
+
+    open(content, questionId) {
+        this.deleteQuestionId = questionId;
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
     }
 }
 

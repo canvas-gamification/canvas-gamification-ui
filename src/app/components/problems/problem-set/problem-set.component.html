@@ -86,7 +86,7 @@
                     <a routerLink="/problem/{{question.id}}/edit">
                         <fa-icon class="action-icon" id="faPencilAlt" [icon]="faPencilAlt"></fa-icon>
                     </a>
-                    <a [routerLink]="" (click)="deleteQuestion(question.id)">
+                    <a [routerLink]="" (click)="open(deleteModal, question.id)">
                         <fa-icon class="action-icon" id="faTrashAlt" [icon]="faTrashAlt"></fa-icon>
                     </a>
                 </div>
@@ -102,4 +102,21 @@
     (page)="newPageEvent($event)"
 >
 </mat-paginator>
+<ng-template #deleteModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete Question</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Are you sure that you would like to delete this question?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-outline-danger" (click)="deleteQuestion(); modal.close('Save click')">
+            Confirm
+        </button>
+    </div>
+</ng-template>
 
