@@ -1,0 +1,42 @@
+@import '~highlight.js/styles/github.css';
+
+/** Line numbers styles */
+.hljs {
+    margin: 0 1em;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    transition: border ease 1s;
+}
+
+.hljs-ln {
+    padding: 8px 0;
+
+    tr {
+        &:first-child td {
+            padding-top: 8px !important;
+        }
+
+        &:last-child td {
+            padding-bottom: 8px !important;
+        }
+    }
+}
+
+
+/* for block of numbers */
+td.hljs-ln-numbers {
+    user-select: none;
+    text-align: center;
+    border-right: 1px solid gray;
+    vertical-align: top;
+    padding-right: 8px !important;
+    padding-left: 8px !important;
+}
+
+/* for block of code */
+td.hljs-ln-code {
+    padding-left: 8px !important;
+}
+
+

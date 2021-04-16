@@ -73,7 +73,8 @@ import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModu
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
-import { ActivationEmailComponent } from './components/accounts/activation-email/activation-email.component';
+import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
+import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 
 @NgModule({
     declarations: [
@@ -166,10 +167,21 @@ import { ActivationEmailComponent } from './components/accounts/activation-email
         MatButtonModule,
         NgxMatDatetimePickerModule,
         NgxMatNativeDateModule,
+        HighlightModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+        {
+            provide: HIGHLIGHT_OPTIONS,
+            useValue: {
+                coreLibraryLoader: () => import('highlight.js/lib/core'),
+                lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
+                languages: {
+                    java: () => import('highlight.js/lib/languages/java')
+                }
+            }
+        }
     ],
     bootstrap: [AppComponent]
 })

@@ -50,7 +50,7 @@
     <div class="card-header"><h2> Code </h2></div>
     <div class="card-body">
             <pre>
-                <code class="language-java ts-2">{{ submission?.answer }}</code>
+                <code [highlight]="submission?.answer" [lineNumbers]="true"></code>
             </pre>
     </div>
 </div>
@@ -59,7 +59,7 @@
     <div class="card-header"><h2> {{ item.name }} </h2></div>
     <div class="card-body">
             <pre>
-                <code class="language-java ts-2">{{ item.code }}</code>
+                <code [highlight]="item.code" [lineNumbers]="true"></code>
             </pre>
     </div>
 </div>
