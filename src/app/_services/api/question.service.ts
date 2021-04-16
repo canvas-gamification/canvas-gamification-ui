@@ -5,7 +5,6 @@ import {Observable} from 'rxjs';
 import {Question} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
 import {map} from 'rxjs/operators';
-import {QuestionSubmission} from '@app/_models/question_submission';
 
 @Injectable({
     providedIn: 'root'
@@ -15,8 +14,6 @@ export class QuestionService {
     private multipleChoiceQuestionUrl = new URL('/api/multiple-choice-question/', environment.apiBaseUrl).toString();
     private javaQuestionUrl = new URL('/api/java-question/', environment.apiBaseUrl).toString();
     private parsonsQuestionUrl = new URL('/api/parsons-question/', environment.apiBaseUrl).toString();
-    private submissionUrl = new URL('api/submission/', environment.apiBaseUrl).toString();
-    private answerSubmissionUrl = new URL('api/submission/submit/', environment.apiBaseUrl).toString();
 
     constructor(private http: HttpClient) {
     }
@@ -38,36 +35,12 @@ export class QuestionService {
         return this.http.get<Question>(this.questionServiceUrl + id + '/');
     }
 
-    getJavaQuestion(id: number): Observable<Question> {
-        return this.http.get<Question>(this.javaQuestionUrl + id + '/');
-    }
-
     getQuestionType(question: Question) {
         return question.type_name;
     }
 
-    getPreviousSubmissions(id: number): Observable<QuestionSubmission[]> {
-        const params = new HttpParams().set('question', String(id));
-        return this.http.get<QuestionSubmission[]>(this.submissionUrl, {params});
-    }
-
     deleteQuestion(id: number) {
         return this.http.delete(this.questionServiceUrl + id + '/', {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: any) => {
-                    return error;
-                }
-            )
-        );
-    }
-
-    putQuestion(input: any, id: number) {
-        return this.http.put(this.questionServiceUrl + id + '/', input, {responseType: 'text'}).pipe(
             map(
                 (response) => {
                     if (response) {
@@ -158,21 +131,6 @@ export class QuestionService {
 
     postParsonsQuestion(input: any) {
         return this.http.post(this.parsonsQuestionUrl, input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: any) => {
-                    return error;
-                }
-            )
-        );
-    }
-
-    postQuestionSubmission(input: any) {
-        return this.http.post(this.answerSubmissionUrl, input, {responseType: 'text'}).pipe(
             map(
                 (response) => {
                     if (response) {
