@@ -19,7 +19,7 @@ export class TokenUseService {
 
     useTokens(tokenActions, courseId: number): Observable<APIResponse> {
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
-        const url = `${this.tokenUseUrl}/use/${courseId}/`;
+        const url = `${this.tokenUseUrl}use/${courseId}/`;
         return this.http.post<APIResponse>(url, tokenActions, {headers})
             .pipe(
                 catchError(
