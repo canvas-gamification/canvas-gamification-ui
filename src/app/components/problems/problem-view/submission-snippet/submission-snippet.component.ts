@@ -15,14 +15,4 @@ export class SubmissionSnippetComponent implements OnInit {
     ngOnInit(): void {
         this.previousSubmissions.reverse();
     }
-
-    highlight(status: string) {
-        if (status.localeCompare('success') === 0) {
-            return 'highlight-success';
-        } else if (status.localeCompare('danger') === 0) {
-            return 'highlight-danger';
-        }
-        return '';
-    }
-
 }
