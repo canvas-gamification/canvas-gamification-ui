@@ -13,6 +13,6 @@ export class SubmissionSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.previousSubmissions.reverse();
     }
-
 }

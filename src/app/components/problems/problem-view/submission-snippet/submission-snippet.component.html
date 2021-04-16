@@ -7,23 +7,26 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Answer</th>
+                <th *ngIf="previousSubmissions[0].show_answer">Answer</th>
                 <th>Grade</th>
                 <th>Tokens Received</th>
                 <th>Time Submitted</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th *ngIf="previousSubmissions[0].show_detail">Details</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let submission of previousSubmissions; let i = index">
+            <tr *ngFor="let submission of previousSubmissions; let i = index"
+                [attr.class]="'highlight-'+submission.status_color">
                 <td>{{i + 1}}</td>
-                <td>{{submission.answer}}</td>
+                <td *ngIf="submission.show_answer" [innerHTML]="submission.answer_display"></td>
                 <td>{{submission.grade.toFixed(2)}}</td>
                 <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
                 <td>{{submission.submission_time | date:'medium'}}</td>
                 <td>{{submission.status}}</td>
-                <td><a class="btn btn-primary" routerLink="/problem/submission/{{submission.pk}}">Details</a></td>
+                <td *ngIf="submission.show_detail">
+                    <a class="btn btn-primary" routerLink="/problem/submission/{{submission.pk}}">Details</a>
+                </td>
             </tr>
             </tbody>
         </table>
