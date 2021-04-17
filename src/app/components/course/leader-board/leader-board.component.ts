@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 
@@ -7,7 +7,7 @@ import {MatSort} from '@angular/material/sort';
     templateUrl: './leader-board.component.html',
     styleUrls: ['./leader-board.component.scss']
 })
-export class LeaderBoardComponent implements OnInit, AfterViewInit {
+export class LeaderBoardComponent implements OnInit {
 
     @Input() leaderBoard: [{
         name: string,
@@ -26,9 +26,6 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-    }
-
-    ngAfterViewInit(): void {
         this.leaderBoardData = new MatTableDataSource(this.leaderBoard);
         this.leaderBoardData.sort = this.matSort;
     }
