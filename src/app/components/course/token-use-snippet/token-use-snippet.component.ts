@@ -83,10 +83,14 @@ export class TokenUseSnippetComponent implements OnInit {
     }
 
     confirmChanges() {
-        this.tokenUseService.useTokens(this.currentTokenActions, this.courseId).subscribe(apiResponse => {
-            if (!apiResponse.success) {
-                window.location.reload();
-            }
-        });
+        this.invalid = this.currentTotal < 0;
+        if (!this.invalid) {
+            this.tokenUseService.useTokens(this.currentTokenActions, this.courseId).subscribe(apiResponse => {
+                if (!apiResponse.success) {
+                    window.location.reload();
+                }
+            });
+        }
+
     }
 }
