@@ -1,10 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
-import {CourseRegistration, User} from '@app/_models';
+import {CourseRegistration, MESSAGE_TYPES, User} from '@app/_models';
 import {TokenUseService} from '@app/_services/api/token-use.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenUse} from '@app/_models/token_use';
 import {AuthenticationService} from '@app/_services/api/authentication';
+import {MessageService} from '@app/_services/message.service';
 
 @Component({
     selector: 'app-token-use-snippet',
@@ -27,7 +28,8 @@ export class TokenUseSnippetComponent implements OnInit {
 
     constructor(private tokenUseService: TokenUseService,
                 private route: ActivatedRoute,
-                private authenticationService: AuthenticationService) {
+                private authenticationService: AuthenticationService,
+                private messageService: MessageService) {
         this.courseId = this.route.snapshot.params.courseId;
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
@@ -90,6 +92,9 @@ export class TokenUseSnippetComponent implements OnInit {
                     window.location.reload();
                 }
             });
+            this.messageService.addSuccess('Token usees saved!.');
+        }else{
+            this.messageService.add(MESSAGE_TYPES.WARNING, 'Could not update token uses!');
         }
 
     }
