@@ -45,10 +45,6 @@ export class TokenUseSnippetComponent implements OnInit {
         this.invalid = this.currentTotal < 0;
     }
 
-    formatFloat(value: number, fractionDigits: number): string {
-        return value.toFixed(fractionDigits);
-    }
-
     incrementAction(tokenUse: TokenUse) {
         this.changeTokenUse(tokenUse, this.currentTokenActions[tokenUse.option.id] + 1);
     }
@@ -80,7 +76,7 @@ export class TokenUseSnippetComponent implements OnInit {
         this.invalid = this.currentTotal < 0;
     }
 
-    typingChanges(tokenUse: TokenUse, newVal: number) {
+    typingChanges(tokenUse: TokenUse) {
         this.changeTokenUse(tokenUse, this.currentTokenActions[tokenUse.option.id]);
     }
 
@@ -89,13 +85,12 @@ export class TokenUseSnippetComponent implements OnInit {
         if (!this.invalid) {
             this.tokenUseService.useTokens(this.currentTokenActions, this.courseId).subscribe(apiResponse => {
                 if (!apiResponse.success) {
-                    window.location.reload();
+                    this.messageService.add(MESSAGE_TYPES.DANGER, 'Could not update token uses!');
                 }
             });
-            this.messageService.addSuccess('Token uses saved!.');
-        }else{
-            this.messageService.add(MESSAGE_TYPES.WARNING, 'Could not update token uses!');
+            this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Token uses saved!.');
+        } else {
+            this.messageService.add(MESSAGE_TYPES.DANGER, 'Could not update token uses!');
         }
-
     }
 }
