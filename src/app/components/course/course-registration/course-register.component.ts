@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {MessageService} from '@app/_services/message.service';
-import {CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
+import {CourseRegistrationResponse, REGISTRATION_STATUS, MESSAGE_TYPES} from '@app/_models';
 
 const STEPPER_STAGES = {
     ENTER_NAME: 0,
@@ -151,7 +151,8 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     sendErrorMessage(): void {
-        this.messageService.add('danger', 'Something went wrong. Check that your inputted values are accurate and try again.');
+        this.messageService.add(MESSAGE_TYPES.DANGER,
+            'Something went wrong. Check that your inputted values are accurate and try again.');
     }
 
     reset(): void {
