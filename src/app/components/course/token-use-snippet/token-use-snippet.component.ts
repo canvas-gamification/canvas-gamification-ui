@@ -14,14 +14,15 @@ import {MessageService} from '@app/_services/message.service';
 })
 export class TokenUseSnippetComponent implements OnInit {
     @Input() courseReg: CourseRegistration;
+
+    tokenUses: {
+        [index: number]: TokenUse;
+    } = {};
+
     user: User;
 
-    currentTokenActions = {};
-    prevTokenActions = {};
-    courseId: number;
-
     invalid: boolean;
-    currentTotal: number;
+    remainingTokens: number;
 
     faMinus = faMinus;
     faPlus = faPlus;
@@ -30,58 +31,37 @@ export class TokenUseSnippetComponent implements OnInit {
                 private route: ActivatedRoute,
                 private authenticationService: AuthenticationService,
                 private messageService: MessageService) {
-        this.courseId = this.route.snapshot.params.courseId;
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
         this.courseReg.token_uses.forEach(tokenUse => {
-            this.currentTokenActions[tokenUse.option.id] = tokenUse.num_used;
-            // Have to keep track of previous to detect changes when user types, due to double binding
-            this.prevTokenActions[tokenUse.option.id] = tokenUse.num_used;
+            this.tokenUses[tokenUse.option.id] = tokenUse;
         });
-        // Should always make invalid false unless some truly funky situations are happening
-        this.currentTotal = this.courseReg.available_tokens;
-        this.invalid = this.currentTotal < 0;
+        this.calculateCurrentTotal();
     }
 
-    incrementAction(tokenUse: TokenUse) {
-        this.changeTokenUse(tokenUse, this.currentTokenActions[tokenUse.option.id] + 1);
+    useToken(tokenUse: TokenUse, val: number) {
+        tokenUse.num_used += val;
+        this.calculateCurrentTotal();
     }
 
-    decrementAction(tokenUse: TokenUse) {
-        this.changeTokenUse(tokenUse, this.currentTokenActions[tokenUse.option.id] - 1);
-    }
-
-    changeTokenUse(tokenUse: TokenUse, newVal: number) {
-        // Handles user typing a change... basically change the linked value to what it was earlier, and redo the change properly
-        // Since input is double bound, if user types a change and this event is called, you can't get the delta with the previous value
-        if (this.currentTokenActions[tokenUse.option.id] !== this.prevTokenActions[tokenUse.option.id]) {
-            const temp = this.currentTokenActions[tokenUse.option.id];
-            this.currentTokenActions[tokenUse.option.id] = this.prevTokenActions[tokenUse.option.id];
-            this.changeTokenUse(tokenUse, temp);
+    calculateCurrentTotal() {
+        this.remainingTokens = this.courseReg.total_tokens_received;
+        for (const optionId in this.tokenUses) {
+            this.remainingTokens -= this.tokenUses[optionId].num_used * this.tokenUses[optionId].option.tokens_required;
         }
-        const change = newVal - this.currentTokenActions[tokenUse.option.id];
-        if (newVal > tokenUse.option.maximum_number_of_use) {
-            this.changeTokenUse(tokenUse, tokenUse.option.maximum_number_of_use);
-            return;
-        } else if (newVal < 0) {
-            this.changeTokenUse(tokenUse, 0);
-            return;
-        } else {
-            this.currentTokenActions[tokenUse.option.id] = newVal;
-            this.prevTokenActions[tokenUse.option.id] = newVal;
-            this.currentTotal -= change * tokenUse.option.tokens_required;
-        }
-        this.invalid = this.currentTotal < 0;
-    }
-
-    typingChanges(tokenUse: TokenUse) {
-        this.changeTokenUse(tokenUse, this.currentTokenActions[tokenUse.option.id]);
+        this.invalid = this.remainingTokens < 0;
     }
 
     confirmChanges() {
-        this.tokenUseService.useTokens(this.currentTokenActions, this.courseId).subscribe(() => {
+        const courseId = this.route.snapshot.params.courseId;
+        const data = {};
+        for (const optionId in this.tokenUses) {
+            data[optionId] = this.tokenUses[optionId].num_used;
+        }
+
+        this.tokenUseService.useTokens(data, courseId).subscribe(() => {
             this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Token uses saved!.');
         });
     }
