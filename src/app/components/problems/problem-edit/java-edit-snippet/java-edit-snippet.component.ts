@@ -92,7 +92,7 @@ export class JavaEditSnippetComponent implements OnInit {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
-                if (course.course_id === this.selectedCourse) {
+                if (course.id === this.selectedCourse) {
                     this.events = course.events;
                 }
             });

@@ -5,7 +5,6 @@ export interface Course {
     mock: boolean;
     name: string;
     url: string;
-    course_id: number;
     token: string;
     allow_registration: boolean;
     visible_to_students: boolean;

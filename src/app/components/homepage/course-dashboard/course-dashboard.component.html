@@ -2,7 +2,7 @@
 <div class="row" *ngIf="activeCourses; else noActiveCourses">
     <ng-container *ngFor="let course of activeCourses; index as i">
         <div class="d-flex col-md-4 mb-4">
-            <div class="card flex-fill" [attr.id]="'courseCard'+course.course_id">
+            <div class="card flex-fill" [attr.id]="'courseCard'+course.id">
                 <span class="sr-only">Card for course {{ course.name }}</span>
                 <div class="card-block-top"></div>
                 <div class="card-body">

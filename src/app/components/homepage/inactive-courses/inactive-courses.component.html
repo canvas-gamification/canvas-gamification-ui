@@ -9,7 +9,7 @@
     </thead>
     <tbody>
     <ng-container *ngFor="let course of inactiveCourses; index as i">
-      <tr [attr.id]="'inactiveCourseRow'+course.course_id">
+      <tr [attr.id]="'inactiveCourseRow'+course.id">
         <td>{{course.name}}</td>
         <td>{{course.status}}</td>
       </tr>
