@@ -81,17 +81,8 @@ export class TokenUseSnippetComponent implements OnInit {
     }
 
     confirmChanges() {
-        this.invalid = this.currentTotal < 0;
-        if (!this.invalid) {
-            this.tokenUseService.useTokens(this.currentTokenActions, this.courseId).subscribe(apiResponse => {
-                if (!apiResponse.success) {
-                    this.messageService.add(MESSAGE_TYPES.DANGER, 'Could not update token uses!');
-                }
-            });
+        this.tokenUseService.useTokens(this.currentTokenActions, this.courseId).subscribe(() => {
             this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Token uses saved!.');
-        } else {
-            this.messageService.add(MESSAGE_TYPES.DANGER, 'Could not update token uses!');
-        }
-
+        });
     }
 }
