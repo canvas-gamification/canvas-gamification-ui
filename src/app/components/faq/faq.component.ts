@@ -10,7 +10,6 @@ import {Faq} from '@app/_models/faq';
 export class FaqComponent implements OnInit {
 
     faqs: Faq[];
-    emptyObservable = true;
 
     constructor(public faqService: FaqService) {
     }
@@ -20,7 +19,6 @@ export class FaqComponent implements OnInit {
             .getFaqs()
             .subscribe((faqs) => {
                 this.faqs = faqs;
-                this.emptyObservable = !faqs.length;
             });
     }
 
