@@ -12,7 +12,6 @@ import {CourseRegistrationService} from '@app/_services/api/course/course-regist
 })
 export class CourseComponent implements OnInit {
     course: Course;
-    courseReg: CourseRegistration;
     courseId: number;
     user: User;
 
@@ -30,7 +29,6 @@ export class CourseComponent implements OnInit {
             .getCourse(this.courseId, needsToBeRegistered, {ordering: {name: true}})
             .subscribe(course => {
                 this.course = course;
-                this.courseReg = course.course_reg;
             });
     }
 }

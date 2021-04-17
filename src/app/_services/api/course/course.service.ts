@@ -103,7 +103,7 @@ export class CourseService {
             params = params.set(`${field}`, String(filters[field]));
         }
 
-        const url = `${this.courseUrl}${courseId}`;
+        const url = `${this.courseUrl}${courseId}/`;
         return this.http
             .get<Course>(url, {params})
             .pipe(catchError(this.handleError<Course>(`getCourse`)));
