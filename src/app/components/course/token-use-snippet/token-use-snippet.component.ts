@@ -92,5 +92,6 @@ export class TokenUseSnippetComponent implements OnInit {
         } else {
             this.messageService.add(MESSAGE_TYPES.DANGER, 'Could not update token uses!');
         }
+
     }
 }
