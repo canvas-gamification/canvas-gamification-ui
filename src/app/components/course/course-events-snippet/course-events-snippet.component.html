@@ -23,7 +23,7 @@
                 <td>{{ event.end_date | date: 'LLL. dd, YYYY, hh:MM a'  }}</td>
                 <td *ngIf="isExamAndOpen(event); else totalEventGrade">Not Available Yet</td>
                 <ng-template #totalEventGrade>
-                    <td>{{ event.total_event_grade }}%</td>
+                    <td>{{ event.total_event_grade | number: '1.0-1' }}%</td>
                 </ng-template>
                 <td>
                     <div class="btn-container">

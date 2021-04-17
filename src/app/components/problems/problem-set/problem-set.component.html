@@ -76,8 +76,8 @@
             <td>{{question.parent_category_name}}</td>
             <td>{{question.category_name}}</td>
             <td>{{question.difficulty}}</td>
-            <td>{{question.token_value}}</td>
-            <td>{{question.success_rate}}</td>
+            <td>{{question.token_value | number: '1.0-1'}}</td>
+            <td>{{question.success_rate | number: '1.0-1'}}</td>
             <td>
                 <div style="white-space: nowrap; display: flex">
                     <a routerLink="/problem/{{question.id}}">
