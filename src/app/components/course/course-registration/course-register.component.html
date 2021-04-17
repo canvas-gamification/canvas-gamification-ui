@@ -1,7 +1,9 @@
 <div class="container">
     <!--    TODO: inform user of which course they are registering for (by name) in this page-->
-    TODO: show who they are registered as
     <h1 class="my-5">Course Registration</h1>
+    <div class="alert alert-info" role="alert">
+        Note: You can only register in courses that you are also registered in on Canvas!
+    </div>
     <mat-horizontal-stepper #stepper [selectedIndex]="selectedIndex" class="border-success" linear>
         <mat-step [stepControl]="nameForm" [editable]="editable" [completed]="completed || verification"
                   errorMessage="Name is required">
