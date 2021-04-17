@@ -1,16 +1,27 @@
-<div class="container">
+<h1 class="my-5">Frequently Asked Questions</h1>
+<ng-container *ngIf="faqs?.length; else noFaqs">
     <ng-container *ngFor="let faq of faqs; index as i">
         <div class="card">
             <div class="card-header" [attr.id]="'heading'+i">
-                <h2 class="mb-0" type="button" data-toggle="collapse" [attr.data-target] = "'#FaqAnswer'+i"
-                    aria-expanded="false" [attr.aria-controls]="'FaqAnswer'+i">
+                <h2 class="mb-0 faq-heading" data-toggle="collapse" [attr.data-target]="'#faq_answer_'+i"
+                    aria-expanded="false" [attr.aria-controls]="'faq_answer_'+i">
                     {{ faq.question }}
                 </h2>
             </div>
-            <div [attr.id]="'FaqAnswer'+i" class="collapse multi-collapse" [attr.aria-labelledby]="'heading'+i">
+            <div [attr.id]="'faq_answer_'+i" class="collapse multi-collapse" [attr.aria-labelledby]="'heading'+i">
                 <div class="card-body" [innerHTML]="faq.answer"></div>
             </div>
         </div>
     </ng-container>
-</div>
+</ng-container>
+<ng-template #noFaqs>
+    <div class="jumbotron">
+        <p class="text-md-center">Looks like there are no FAQs to show you!</p>
+        <div class="row">
+            <div class="col text-center">
+                <button class="btn btn-primary" [routerLink]="['/homepage']">Go to Homepage</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
 
