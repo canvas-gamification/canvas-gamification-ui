@@ -92,7 +92,7 @@ export class TokenUseSnippetComponent implements OnInit {
                     window.location.reload();
                 }
             });
-            this.messageService.addSuccess('Token usees saved!.');
+            this.messageService.addSuccess('Token uses saved!.');
         }else{
             this.messageService.add(MESSAGE_TYPES.WARNING, 'Could not update token uses!');
         }
