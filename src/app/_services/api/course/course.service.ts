@@ -16,12 +16,12 @@ export class CourseService {
     ).toString();
 
     constructor(private http: HttpClient,
-                private messageService: MessageService,) {
+                private messageService: MessageService) {
     }
 
     getUserStats(courseId: number, categoryId: number): Observable<any> {
         return this.http
-            .get<any>(`${this.courseUrl}${courseId}/user-stats/${categoryId}`)
+            .get<any>(`${this.courseUrl}${courseId}/user-stats/${categoryId}/`)
             .pipe(catchError(this.handleError<any>(
                 `getUserStats`
             )));
@@ -43,7 +43,7 @@ export class CourseService {
 
     getCourseRegistrationStatus(courseId: number): Observable<RegistrationStatus> {
         return this.http
-            .get<RegistrationStatus>(`${this.courseUrl}${courseId}/get-registration-status`)
+            .get<RegistrationStatus>(`${this.courseUrl}${courseId}/get-registration-status/`)
             .pipe(catchError(this.handleError<RegistrationStatus>(
                 `getCourseRegistrationStatus`
             )));

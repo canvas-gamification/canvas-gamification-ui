@@ -10,7 +10,7 @@ import {MultipleChoiceQuestion} from '../../_models/multiple_choice_question';
 })
 export class SampleQuestionService {
 
-  private sampleMultipleChoiceQuestionsUrl = new URL('/api/sample-multiple-choice-question', environment.apiBaseUrl).toString();
+  private sampleMultipleChoiceQuestionsUrl = new URL('/api/sample-multiple-choice-question/', environment.apiBaseUrl).toString();
 
   constructor(private http: HttpClient, private messageService: MessageService) {
   }

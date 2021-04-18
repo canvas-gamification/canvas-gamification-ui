@@ -65,7 +65,7 @@ export class CourseRegistrationService {
             params = params.set(`${field}`, String(filters[field]));
         }
 
-        const url = `${this.courseRegistrationUrl}${courseRegistrationId}`;
+        const url = `${this.courseRegistrationUrl}${courseRegistrationId}/`;
         return this.http
             .get<CourseRegistration>(url, {params})
             .pipe(

@@ -18,7 +18,7 @@ export class UserStatsService {
     }
 
     getUserStat(userStatId: number): Observable<UserStats> {
-        const url = `${this.userStatsUrl}${userStatId}`;
+        const url = `${this.userStatsUrl}${userStatId}/`;
         return this.http
             .get<UserStats>(url)
             .pipe(catchError(this.handleError<UserStats>(`getUserStat`)));

@@ -23,7 +23,7 @@ export class TokenValuesService {
     }
 
     updateTokenValue(tokenValue: TokenValue): Observable<TokenValue> {
-        return this.http.put<TokenValue>(this.tokenValuesUrl + tokenValue.pk + '/', tokenValue + '/').pipe(
+        return this.http.put<TokenValue>(this.tokenValuesUrl + tokenValue.pk + '/', tokenValue).pipe(
             catchError(this.handleError<TokenValue>('updateTokenValue', tokenValue))
         );
     }

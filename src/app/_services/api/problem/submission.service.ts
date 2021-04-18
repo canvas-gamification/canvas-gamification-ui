@@ -16,7 +16,7 @@ export class SubmissionService {
     }
 
     getSubmission(id: number): Observable<QuestionSubmission> {
-        return this.http.get<QuestionSubmission>(`${this.submissionUrl}${id}`);
+        return this.http.get<QuestionSubmission>(`${this.submissionUrl}${id}/`);
     }
 
     getPreviousSubmissions(id: number): Observable<QuestionSubmission[]> {
