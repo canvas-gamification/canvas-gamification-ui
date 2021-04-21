@@ -1,65 +1,47 @@
 <div class="token-values-page container-fluid mt-md-5">
-  <div class="mx-auto">
-    <h1 class="my-md-2">Token Values</h1>
-<form [formGroup]="tokenValueTable">
-	<table class="table table-lg table-bordered table-hover" style="width:100%">
-		<thead class="thead-light">
-    <tr>
-			<th class="header-topic" >Category Name</th>
-			<th >Easy</th>
-			<th >Medium</th>
-      <th >Hard</th>
-      <th></th>
-    </tr>
-		</thead>
-		<tbody class="table-striped">
-    <ng-container *ngFor="let category of topLevelCategoryList">
-      <tr [class.table-primary]="expanded[category.name]" (click)="toggleChildTopics(category)">
-        <th>
-          <span class="expanded-icon">
-            <fa-icon [icon]=faCaretRight *ngIf="!expanded[category.name]"></fa-icon>
-            <fa-icon [icon]=faCaretDown *ngIf="expanded[category.name]"></fa-icon>
-          </span>
-          {{ category.name }}
-        </th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <ng-container *ngIf="expanded[category.name]">
-        <ng-container formArrayName="categoryRows" *ngFor="let subcat of formControl.controls; let i = index">
-          <ng-container *ngIf="isSubCategory(subcat.get('categoryPk').value, category.name)">
-          <tr class="subcat-row" [formGroupName]="i">
-            <td class="subcat-name"><span class="heavy-indent">{{ subcat.get('Category_Name').value }}</span></td>
-            <td>
-              <label>
-                <input class="input" type="text" formControlName="Easy">
-              </label>
-            </td>
-            <td>
-              <label>
-                <input class="input" type="text" formControlName="Medium">
-              </label>
-            </td>
-            <td>
-              <label>
-                <input class="input" type="text" formControlName="Hard">
-              </label>
-            </td>
-            <td>
-              <input class="input" type="hidden" formControlName="Token_Id">
-            </td>
-          </tr>
-          </ng-container>
-        </ng-container>
-      </ng-container>
-    </ng-container>
-		</tbody>
-	</table>
-  <div class="action-container text-center">
-      <button class="btn btn-primary" type="submit" (click)="submitForm()">Submit</button>
+    <div class="mx-auto">
+        <h1 class="my-md-2">Token Values</h1>
+        <table class="table table-lg table-bordered table-hover" style="width:100%">
+            <thead class="thead-light">
+            <tr>
+                <th class="header-topic">Category Name</th>
+                <th *ngFor="let difficulty of difficulties">{{difficulty[1]}}</th>
+            </tr>
+            </thead>
+            <tbody class="table-striped">
+            <ng-container *ngFor="let tokenValue of tokenValues">
+                <tr [class.table-primary]="expanded[tokenValue.category_name]"
+                    (click)="toggleExpand(tokenValue.category_name)">
+                    <th>
+                            <span class="expanded-icon">
+                                <fa-icon [icon]=faCaretRight *ngIf="!expanded[tokenValue.category_name]"></fa-icon>
+                                <fa-icon [icon]=faCaretDown *ngIf="expanded[tokenValue.category_name]"></fa-icon>
+                            </span>
+                        {{ tokenValue.category_name }}
+                    </th>
+                    <td *ngFor="let _ of tokenValue.token_values"></td>
+                </tr>
+                <ng-container *ngIf="expanded[tokenValue.category_name]">
+                    <ng-container *ngFor="let childTokenValue of tokenValue.children; let i = index">
+                        <ng-container>
+                            <tr class="subcat-row">
+                                <td class="subcat-name"><span
+                                    class="heavy-indent">{{childTokenValue.category_name}}</span>
+                                </td>
+                                <td *ngFor="let tokenValueObject of childTokenValue.token_values">
+                                    <label>
+                                        <input class="input" type="number" [(ngModel)]="tokenValueObject.value">
+                                    </label>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+            </tbody>
+        </table>
+        <div class="action-container text-center">
+            <button class="btn btn-primary" type="submit" (click)="submit()">Submit</button>
+        </div>
     </div>
-</form>
-  </div>
 </div>
