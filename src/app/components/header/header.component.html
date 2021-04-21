@@ -35,6 +35,9 @@
                     <a class="dropdown-item" routerLink="problem/create/parsons">Parsons Problem</a>
                 </div>
             </li>
+            <li class="nav-item" *ngIf="user?.is_teacher">
+                <a [class.active]="isActive('token-values')" class="nav-link" routerLink="token-values">Token&nbsp;Values</a>
+            </li>
             <li class="nav-item">
                 <a [class.active]="isActive('faq')" class="nav-link" routerLink="faq">FAQ</a>
             </li>
