@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {TokenValue} from '@app/_models';
+import {NestedTokenValue, TokenValue} from '@app/_models';
 import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
@@ -22,10 +22,20 @@ export class TokenValuesService {
             .pipe(catchError(this.handleError<TokenValue[]>('getTokenValues', [])));
     }
 
+    getNestedTokenValues(): Observable<NestedTokenValue[]> {
+        return this.http.get<NestedTokenValue[]>(`${this.tokenValuesUrl}nested/`)
+            .pipe(catchError(this.handleError<NestedTokenValue[]>('getNestedTokenValues', [])));
+    }
+
     updateTokenValue(tokenValue: TokenValue): Observable<TokenValue> {
         return this.http.put<TokenValue>(this.tokenValuesUrl + tokenValue.pk + '/', tokenValue).pipe(
             catchError(this.handleError<TokenValue>('updateTokenValue', tokenValue))
         );
+    }
+
+    updateBulk(data: { id: number, value: number }[]): Observable<any> {
+        return this.http.patch<any>(`${this.tokenValuesUrl}update-bulk/`, {data})
+            .pipe(catchError(this.handleError<any>('updateBulk')));
     }
 
     /**
