@@ -14,7 +14,7 @@ export class TopicsComponent implements OnInit {
   categories: Category[];
   topLevelCategories: Category[];
   expanded: {} = {};
-  subcats: {} = {};
+  subcats: {[index: number]: Category} = {};
 
   faCaretRight = faCaretRight;
   faCaretDown = faCaretDown;
