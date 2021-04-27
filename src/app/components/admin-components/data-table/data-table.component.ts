@@ -30,12 +30,14 @@ export class DataTableComponent implements OnInit {
         }
     }
     sortData(sort: Sort){
+        if (!this.sortedData){ // If there is no data
+            return;
+        }
         const tempData = this.sortedData.slice();
         if (!sort.active || sort.direction === '') {
             this.sortedData = tempData;
             return;
         }
-        console.log(sort.active);
         this.sortedData = tempData.sort((a, b) => {
             const isAsc = sort.direction === 'asc';
             return this.compare(a[sort.active], b[sort.active], isAsc);

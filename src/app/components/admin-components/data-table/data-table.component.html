@@ -1,20 +1,31 @@
 <div>
-    <ng-container *ngIf="data">
-        <table matSort (matSortChange)="sortData($event)" class="table table-hover table-bordered">
-            <thead>
-            <tr>
-                <ng-container *ngFor="let head of headers; index as i">
-                    <th [mat-sort-header]="'col'+i" scope="col">{{head}}</th>
-                </ng-container>
-            </tr>
-            </thead>
-                <ng-container *ngFor="let row of sortedData" >
-                    <tr>
+    <table matSort (matSortChange)="sortData($event)" class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <ng-container *ngFor="let head of headers; index as i">
+                <th [mat-sort-header]="'col'+i" scope="col">{{head}}</th>
+            </ng-container>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngIf="sortedData; else tableEmpty">
+            <ng-container *ngFor="let row of sortedData">
+                <tr>
                     <ng-container *ngFor="let item of row | keyvalue">
                         <td>{{item.value}}</td>
                     </ng-container>
-                    </tr>
-                </ng-container>
-        </table>
-    </ng-container>
+                </tr>
+            </ng-container>
+        </ng-container>
+        <ng-template #tableEmpty>
+            <tr>
+                <td [attr.colspan]="headers ? headers.length : 6" class="bg-info">
+                    <p class="text-center text-light m-0">
+                        No data was sent to this table.
+                    </p>
+                </td>
+            </tr>
+        </ng-template>
+        </tbody>
+    </table>
 </div>
