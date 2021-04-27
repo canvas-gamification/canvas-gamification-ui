@@ -27,6 +27,7 @@ import {ProblemEditComponent} from '@app/components/problems/problem-edit/proble
 import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
 import {ActivationEmailComponent} from '@app/components/accounts/activation-email/activation-email.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
+import {AdminComponent} from '@app/components/admin/admin.component';
 
 
 const routes: Routes = [
@@ -162,6 +163,11 @@ const routes: Routes = [
     {
         path: 'problem/submission/:id',
         component: SubmissionViewComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'admin',
+        component: AdminComponent,
         canActivate: [AuthGuard]
     }
 ];

@@ -75,6 +75,7 @@ import {LeaderBoardComponent} from './components/course/leader-board/leader-boar
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
     declarations: [
@@ -128,6 +129,7 @@ import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
         LeaderBoardComponent,
         SubmissionViewComponent,
         ActivationEmailComponent,
+        AdminComponent,
     ],
     imports: [
         BrowserModule,
