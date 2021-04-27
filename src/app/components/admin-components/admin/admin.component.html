@@ -1,7 +1,8 @@
 <div>
+    {{courseId}}
     <h1>Question Stats</h1>
     <app-data-table [data]="data" [headers]="headers"></app-data-table>
     <h1>User stats</h1>
-    <app-data-table [headers]="headers"></app-data-table>
+    <app-data-table [headers]="questionHeaders" [data]="questionData"></app-data-table>
 </div>
 
