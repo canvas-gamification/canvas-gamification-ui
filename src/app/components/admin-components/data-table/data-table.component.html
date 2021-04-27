@@ -1,1 +1,20 @@
-<p>data-table works!</p>
+<div>
+    <ng-container *ngIf="data">
+        <table matSort (matSortChange)="sortData($event)" class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <ng-container *ngFor="let head of headers">
+                    <th mat-sort-header="default" scope="col">{{head}}</th>
+                </ng-container>
+            </tr>
+            </thead>
+                <ng-container *ngFor="let row of data">
+                    <tr>
+                    <ng-container *ngFor="let item of row">
+                        <td>{{item}}</td>
+                    </ng-container>
+                    </tr>
+                </ng-container>
+        </table>
+    </ng-container>
+</div>
