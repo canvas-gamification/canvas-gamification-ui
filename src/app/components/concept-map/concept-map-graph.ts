@@ -4,6 +4,7 @@ import * as $ from 'backbone';
 import dagre from 'dagre';
 import graphlib from 'graphlib';
 import * as joint from 'jointjs';
+import {Category} from '@app/_models';
 
 export class ConceptMapGraph {
   graph;
@@ -100,16 +101,17 @@ export class ConceptMapGraph {
     });
   }
 
-  makeCellsFromAdjacencyList(adjacencyList) {
+  makeCellsFromAdjacencyList(adjacencyList: Category[]) {
 
     const elements = [];
     const links = [];
 
     _.each(adjacencyList, (category) => {
-      const label = category.name.replaceAll(' ', '\n') + '\n\nAverage Success:\n' + Math.round(category.avgSuccess) + '%';
+      // @ts-ignore
+      const label = category.name.replaceAll(' ', '\n') + '\n\nAverage Success:\n' + Math.round(category.average_success) + '%';
       elements.push(this.makeElement(category.pk, label));
 
-      _.each(category.nextCategories, (childElementId) => {
+      _.each(category.next_category_ids, (childElementId) => {
         links.push(this.makeLink(category.pk, childElementId));
       });
     });
@@ -117,7 +119,7 @@ export class ConceptMapGraph {
     return elements.concat(links);
   }
 
-  buildGraphFromAdjacencyList(adj) {
+  buildGraphFromAdjacencyList(adj: Category[]) {
     const cells = this.makeCellsFromAdjacencyList(adj);
     this.graph.resetCells(cells);
     joint.layout.DirectedGraph.layout(this.graph, {

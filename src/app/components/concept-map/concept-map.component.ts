@@ -23,10 +23,10 @@ export class ConceptMapComponent implements OnInit {
                 private authenticationService: AuthenticationService,
                 private messageService: MessageService,
                 private router: Router) {
-        this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit() {
+        this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.categoryService.getCategories().subscribe(categories => {
             this.rawCategories = categories;
             this.conceptMapGraph = new ConceptMapGraph((cellId) => {
@@ -41,7 +41,7 @@ export class ConceptMapComponent implements OnInit {
     }
 
     renderGraph() {
-        const adj = [];
+        const adj: Category[] = [];
         this.rawCategories.filter(category => category.parent === this.parentNode)
             .forEach(category => {
                 adj.push(category);
