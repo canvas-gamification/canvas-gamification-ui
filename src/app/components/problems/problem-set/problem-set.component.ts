@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MESSAGE_TYPES, Question} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
@@ -9,6 +8,7 @@ import {MessageService} from '@app/_services/message.service';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-problem-set',
@@ -17,10 +17,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class ProblemSetComponent implements OnInit {
     FormData: FormGroup;
-    faEye = faEye;
-    faPencilAlt = faPencilAlt;
-    faTrashAlt = faTrashAlt;
     questions: Question[];
+    questionsSource: any;
 
     // Pagination
     questionsLength: number;
@@ -38,6 +36,8 @@ export class ProblemSetComponent implements OnInit {
     deleteQuestionId: number;
 
     paramChanged: Subject<{}> = new Subject<{}>();
+    displayedColumns: string[] = ['id', 'title', 'author', 'event__name', 'category__parent__name', 'category__name',
+        'difficulty', 'token_value', 'avg_success', 'actions'];
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
@@ -46,6 +46,7 @@ export class ProblemSetComponent implements OnInit {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
                 this.questions = paginatedQuestions.results;
+                this.questionsSource = new MatTableDataSource(this.questions);
                 this.questionsLength = paginatedQuestions.count;
             });
         });
@@ -53,7 +54,6 @@ export class ProblemSetComponent implements OnInit {
 
     ngOnInit(): void {
         this.initialize();
-
         this.FormData = this.builder.group({
             search: new FormControl(''),
             difficulty: new FormControl(''),
@@ -69,6 +69,7 @@ export class ProblemSetComponent implements OnInit {
             this.questionsLength = paginatedQuestions.count;
             this.pageSize = paginatedQuestions.results.length;
             this.questions = paginatedQuestions.results;
+            this.questionsSource = new MatTableDataSource(this.questions);
         });
     }
 

@@ -2,34 +2,12 @@
 
 @include mixins.highlight-table();
 
+.action-tray {
+    white-space: nowrap;
+    display: flex;
+}
 a {
     margin: auto;
     text-align: center;
     vertical-align: middle;
-
-    #faEye {
-        color: white;
-        background-color: #007bff;
-    }
-
-    #faPencilAlt {
-        color: black;
-        background-color: antiquewhite;
-    }
-
-    #faTrashAlt {
-        color: white;
-        background-color: #dc3545;
-    }
 }
-
-.action-icon {
-    line-height: 1.25rem;
-    display: inline-block;
-    font-size: 1.25rem;
-    text-align: center;
-    padding: 0.55rem;
-    border-radius: 5px;
-}
-
-
