@@ -58,6 +58,7 @@ export class ProblemSetComponent implements OnInit {
             search: new FormControl(''),
             difficulty: new FormControl(''),
             category: new FormControl(''),
+            // TODO: Add filtering by status
             // status: new FormControl(''),
             is_sample: new FormControl('')
         });
@@ -99,8 +100,8 @@ export class ProblemSetComponent implements OnInit {
         this.update();
     }
 
-    applyFilter(data) {
-        this.filterQueryString = data;
+    applyFilter() {
+        this.filterQueryString = this.FormData.value;
         this.update();
     }
 

@@ -2,19 +2,6 @@
 
 @include mixins.highlight-table();
 
-header {
-    background: #EEEEEE;
-}
-
-table {
-    border: 1px solid #dee2e6;
-    background: white;
-}
-
-td, th {
-    border: 1px solid #dee2e6;
-}
-
 a {
     margin: auto;
     text-align: center;
