@@ -1,5 +1,7 @@
+<h1 class="my-md-2">Problem Set</h1>
+<h2 class="my-md-2">Filters:</h2>
 <form [formGroup]="FormData" (ngSubmit)="applyFilter()">
-    <div class="d-lg-flex justify-content-between">
+    <div class="d-lg-flex justify-content-between filters">
         <mat-form-field appearance="outline">
             <mat-label>Search in Question Name</mat-label>
             <input formControlName="search" matInput>
@@ -47,7 +49,9 @@
                 <mat-option value="false">No</mat-option>
             </mat-select>
         </mat-form-field>
-        <button mat-flat-button class="btn-primary" type="submit">Apply Filter</button>
+        <div>
+            <button mat-flat-button class="btn-primary" type="submit">Apply Filter</button>
+        </div>
     </div>
 </form>
 <table mat-table [dataSource]="questionsSource" matSort (matSortChange)="sortData($event)" matSortDisableClear
@@ -103,13 +107,13 @@
         <td mat-cell *matCellDef="let question">
             <div class="action-tray">
                 <a mat-flat-button class="btn-primary" routerLink="/problem/{{question.id}}">
-                    <mat-icon>visibility</mat-icon>
+                    <fa-icon class="action-icon" id="faEye" [icon]="faEye"></fa-icon>
                 </a>
                 <a mat-flat-button class="btn-secondary" routerLink="/problem/{{question.id}}/edit">
-                    <mat-icon>edit</mat-icon>
+                    <fa-icon class="action-icon" id="faPencilAlt" [icon]="faPencilAlt"></fa-icon>
                 </a>
                 <a mat-flat-button class="btn-danger" [routerLink]="" (click)="open(deleteModal, question.id)">
-                    <mat-icon>delete</mat-icon>
+                    <fa-icon class="action-icon" id="faTrashAlt" [icon]="faTrashAlt"></fa-icon>
                 </a>
             </div>
         </td>

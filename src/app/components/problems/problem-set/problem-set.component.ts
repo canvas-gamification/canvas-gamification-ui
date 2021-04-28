@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {MESSAGE_TYPES, Question} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
 import {PageEvent} from '@angular/material/paginator';
@@ -17,6 +18,9 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class ProblemSetComponent implements OnInit {
     FormData: FormGroup;
+    faEye = faEye;
+    faPencilAlt = faPencilAlt;
+    faTrashAlt = faTrashAlt;
     questions: Question[];
     questionsSource: any;
 
