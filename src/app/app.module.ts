@@ -79,6 +79,7 @@ import { AdminComponent } from './components/admin-components/admin/admin.compon
 import { DataTableComponent } from './components/admin-components/data-table/data-table.component';
 import { QuestionCountComponent } from './components/admin-components/question-count/question-count.component';
 import { CategoryStatsComponent } from './components/admin-components/category-stats/category-stats.component';
+import { AdminUserStatsComponent } from './components/admin-components/admin-user-stats/admin-user-stats.component';
 
 @NgModule({
     declarations: [
@@ -136,6 +137,7 @@ import { CategoryStatsComponent } from './components/admin-components/category-s
         DataTableComponent,
         QuestionCountComponent,
         CategoryStatsComponent,
+        AdminUserStatsComponent,
     ],
     imports: [
         BrowserModule,

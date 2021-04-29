@@ -19,8 +19,8 @@
                     {{ categoryStat.category.name }}
                 </th>
                 <td>{{ categoryStat.category.numQuestions }}</td>
-                <td *ngIf="categoryStat.category.avgSuccess">{{ categoryStat.category.avgSuccess }}%</td>
-                <td *ngIf="!categoryStat.category.avgSuccess">-</td>
+                <td *ngIf="categoryStat.category.average_success">{{ categoryStat.category.average_success }}%</td>
+                <td *ngIf="!categoryStat.category.average_success">-</td>
             </tr>
             <ng-container *ngIf="expanded[categoryStat.category.name]">
                 <ng-container *ngFor="let subcat of categoryStat.children">
