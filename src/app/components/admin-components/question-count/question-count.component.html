@@ -4,6 +4,7 @@
         <tr>
             <th [mat-sort-header]="'name'" scope="col">Question Type</th>
             <th [mat-sort-header]="'count'" scope="col">Number of Questions</th>
+            <th [mat-sort-header]="'success-rate'" scope="col">Success Rate</th>
         </tr>
         </thead>
         <tbody>
@@ -13,6 +14,7 @@
                 <tr>
                     <td>{{row.name}}</td>
                     <td>{{row.count}}</td>
+                    <td>placeholder</td>
                 </tr>
             </ng-container>
         </ng-container>
