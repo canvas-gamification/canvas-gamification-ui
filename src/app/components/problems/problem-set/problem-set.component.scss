@@ -1,16 +1,37 @@
 @use "mixins";
+@use "variables";
+@use 'bootstrap';
 
 @include mixins.highlight-table();
+@include mixins.hover-shadow();
+
 
 .action-tray {
     white-space: nowrap;
-    display: flex;
-}
-a {
-    margin: auto;
-    text-align: center;
-    vertical-align: middle;
-}
-.filters{
-    width: 75%;
+
+    a {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .action-icon {
+        line-height: 1.25rem;
+        display: inline-block;
+        font-size: 1.25rem;
+        text-align: center;
+        padding: 0.55rem;
+        border-radius: 0.3rem;
+    }
+
+    .faEye {
+        background-color: variables.$primary;
+    }
+
+    .faPencilAlt {
+        background-color: variables.$cream;
+    }
+
+    .faTrashAlt {
+        background-color: variables.$danger;
+    }
 }
