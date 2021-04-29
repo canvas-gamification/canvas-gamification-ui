@@ -11,16 +11,6 @@ import {CategoryStats} from '@app/_models/category_stats';
     styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-    headers = ['A', 'B'];
-    data = [
-        [5, 'C'],
-        [3, 'A'],
-        [10, 'B']
-    ];
-
-    questionHeaders = ['Question Type', 'Number of Questions', 'Attempts', 'Correct', 'Success Rate'];
-    questionData: object[][];
-
     questionAPIData: QuestionCount[];
     categoryAPIData: CategoryStats[];
 
@@ -29,7 +19,6 @@ export class AdminComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.questionData = [['Pizza', 3, 5, 3, 3 / 5]];
         this.questionCountService
             .getQuestionCounts()
             .subscribe((questionCounts) => {

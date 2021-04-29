@@ -78,6 +78,7 @@ import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import { AdminComponent } from './components/admin-components/admin/admin.component';
 import { DataTableComponent } from './components/admin-components/data-table/data-table.component';
 import { QuestionCountComponent } from './components/admin-components/question-count/question-count.component';
+import { CategoryStatsComponent } from './components/admin-components/category-stats/category-stats.component';
 
 @NgModule({
     declarations: [
@@ -134,6 +135,7 @@ import { QuestionCountComponent } from './components/admin-components/question-c
         AdminComponent,
         DataTableComponent,
         QuestionCountComponent,
+        CategoryStatsComponent,
     ],
     imports: [
         BrowserModule,
