@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CategoryStats} from '@app/_models/category_stats';
-import {Category} from '@app/_models';
+import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-category-stats',
@@ -10,14 +10,17 @@ import {Category} from '@app/_models';
 export class CategoryStatsComponent implements OnInit {
     @Input() categoryStatData: CategoryStats[];
     expanded: {} = {};
+    faCaretRight = faCaretRight;
+    faCaretDown = faCaretDown;
 
     constructor() {}
 
     ngOnInit(): void {
     }
 
-    toggleChildTopics(category: Category): void {
-        this.expanded[category.name] = !this.expanded[category.name];
+    toggleChildTopics(categoryStat: CategoryStats): void {
+        this.expanded[categoryStat.category.name] = !this.expanded[categoryStat.category.name];
+        console.log(this.categoryStatData);
     }
 
 }
