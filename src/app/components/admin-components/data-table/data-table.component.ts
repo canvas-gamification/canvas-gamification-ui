@@ -29,6 +29,7 @@ export class DataTableComponent implements OnInit {
             }
         }
     }
+
     sortData(sort: Sort){
         if (!this.sortedData){ // If there is no data
             return;

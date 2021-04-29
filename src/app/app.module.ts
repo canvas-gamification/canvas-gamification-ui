@@ -77,6 +77,7 @@ import {ActivationEmailComponent} from './components/accounts/activation-email/a
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import { AdminComponent } from './components/admin-components/admin/admin.component';
 import { DataTableComponent } from './components/admin-components/data-table/data-table.component';
+import { QuestionCountComponent } from './components/admin-components/question-count/question-count.component';
 
 @NgModule({
     declarations: [
@@ -132,6 +133,7 @@ import { DataTableComponent } from './components/admin-components/data-table/dat
         ActivationEmailComponent,
         AdminComponent,
         DataTableComponent,
+        QuestionCountComponent,
     ],
     imports: [
         BrowserModule,

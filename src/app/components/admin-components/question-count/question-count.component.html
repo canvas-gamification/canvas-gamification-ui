@@ -1,0 +1,30 @@
+<div>
+    <table matSort (matSortChange)="sortData($event)" class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th [mat-sort-header]="'name'" scope="col">Question Type</th>
+            <th [mat-sort-header]="'count'" scope="col">Number of Questions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngIf="questionCountData; else tableEmpty">
+            <ng-container *ngFor="let row of questionCountData">
+
+                <tr>
+                    <td>{{row.name}}</td>
+                    <td>{{row.count}}</td>
+                </tr>
+            </ng-container>
+        </ng-container>
+        <ng-template #tableEmpty>
+            <tr>
+                <td colspan="2" class="bg-info">
+                    <p class="text-center text-light m-0">
+                        No data was sent to this table.
+                    </p>
+                </td>
+            </tr>
+        </ng-template>
+        </tbody>
+    </table>
+</div>

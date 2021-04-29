@@ -1,6 +1,6 @@
 <div>
     <h1>Question Stats</h1>
-    <app-data-table [data]="data" [headers]="headers"></app-data-table>
+    <app-question-count [questionCountData]="questionAPIData"></app-question-count>
     <h1>User stats</h1>
     <app-data-table [headers]="questionHeaders" [data]="questionData"></app-data-table>
     <button (click)="printData()">Nani</button>
