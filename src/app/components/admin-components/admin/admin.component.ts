@@ -5,6 +5,7 @@ import {QuestionCountService} from '@app/_services/api/admin/question-count.serv
 import {QuestionCount} from '@app/_models/question_counts';
 import {CategoryStats} from '@app/_models/category_stats';
 import {UserStatsService} from '@app/_services/api/user-stats.service';
+import {UserStats} from '@app/_models';
 
 @Component({
     selector: 'app-admin',
@@ -14,9 +15,10 @@ import {UserStatsService} from '@app/_services/api/user-stats.service';
 export class AdminComponent implements OnInit {
     questionAPIData: QuestionCount[];
     categoryAPIData: CategoryStats[];
+    userStatAPIData: UserStats[];
 
-    constructor(public categoryStatsService: CategoryStatsService,
-                public questionCountService: QuestionCountService,
+    constructor(private categoryStatsService: CategoryStatsService,
+                private questionCountService: QuestionCountService,
                 private userStatsService: UserStatsService) {
     }
 
@@ -31,11 +33,17 @@ export class AdminComponent implements OnInit {
             .subscribe((categoryStats) => {
                 this.categoryAPIData = categoryStats;
             });
+        this.userStatsService
+            .getAllUserStat()
+            .subscribe((userStats) => {
+                this.userStatAPIData = userStats;
+            });
     }
 
     printData(): void {
         console.log(this.questionAPIData);
         console.log(this.categoryAPIData);
+        console.log(this.userStatAPIData);
     }
 
 }
