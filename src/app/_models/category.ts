@@ -3,8 +3,8 @@ export interface Category {
     name: string;
     description: string;
     parent: number;
-    numQuestions: number;
-    avgSuccess: number;
-    nextCategories: number[];
+    question_count: number;
+    average_success: number;
+    next_category_ids: number[];
     full_name: string;
 }
