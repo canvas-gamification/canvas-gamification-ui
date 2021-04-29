@@ -20,7 +20,6 @@ export class CategoryStatsComponent implements OnInit {
 
     toggleChildTopics(categoryStat: CategoryStats): void {
         this.expanded[categoryStat.category.name] = !this.expanded[categoryStat.category.name];
-        console.log(this.categoryStatData);
     }
 
 }
