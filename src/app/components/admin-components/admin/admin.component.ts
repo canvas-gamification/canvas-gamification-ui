@@ -4,6 +4,7 @@ import {CategoryStatsService} from '@app/_services/api/admin/category-stats.serv
 import {QuestionCountService} from '@app/_services/api/admin/question-count.service';
 import {QuestionCount} from '@app/_models/question_counts';
 import {CategoryStats} from '@app/_models/category_stats';
+import {UserStatsService} from '@app/_services/api/user-stats.service';
 
 @Component({
     selector: 'app-admin',
@@ -15,7 +16,8 @@ export class AdminComponent implements OnInit {
     categoryAPIData: CategoryStats[];
 
     constructor(public categoryStatsService: CategoryStatsService,
-                public questionCountService: QuestionCountService) {
+                public questionCountService: QuestionCountService,
+                private userStatsService: UserStatsService) {
     }
 
     ngOnInit(): void {
