@@ -5,6 +5,8 @@ import {RegisterService} from '@app/_services/api/accounts/register.service';
 import {MessageService} from '@app/_services/message.service';
 import {ConfirmPasswordValidator} from '@app/_helpers/confirm-password.validator';
 import {MESSAGE_TYPES} from '@app/_models';
+import {AuthenticationService} from '@app/_services/api/authentication';
+import {first} from 'rxjs/operators';
 
 @Component({
     selector: 'app-register',

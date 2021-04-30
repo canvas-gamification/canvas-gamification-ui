@@ -30,7 +30,7 @@ export class ActivationEmailComponent implements OnInit {
         this.registerService.PostActivation(this.uuid, this.token)
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have activated your account successfully.');
-                this.router.navigate(['/accounts/login']);
+                this.router.navigate(['/accounts/consent-form']);
             }, error => {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error);
                 this.router.navigate(['/accounts/login']);
