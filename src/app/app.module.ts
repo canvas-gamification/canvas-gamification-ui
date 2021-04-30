@@ -78,7 +78,6 @@ import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import { AdminComponent } from './components/admin-components/admin/admin.component';
 import { QuestionCountComponent } from './components/admin-components/question-count/question-count.component';
 import { CategoryStatsComponent } from './components/admin-components/category-stats/category-stats.component';
-import { AdminUserStatsComponent } from './components/admin-components/admin-user-stats/admin-user-stats.component';
 
 @NgModule({
     declarations: [
@@ -135,7 +134,6 @@ import { AdminUserStatsComponent } from './components/admin-components/admin-use
         AdminComponent,
         QuestionCountComponent,
         CategoryStatsComponent,
-        AdminUserStatsComponent,
     ],
     imports: [
         BrowserModule,
