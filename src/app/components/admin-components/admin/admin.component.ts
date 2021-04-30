@@ -39,11 +39,4 @@ export class AdminComponent implements OnInit {
                 this.userStatAPIData = userStats;
             });
     }
-
-    printData(): void {
-        console.log(this.questionAPIData);
-        console.log(this.categoryAPIData);
-        console.log(this.userStatAPIData);
-    }
-
 }

@@ -76,7 +76,6 @@ import {SubmissionViewComponent} from '@app/components/problems/submission-view/
 import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import { AdminComponent } from './components/admin-components/admin/admin.component';
-import { DataTableComponent } from './components/admin-components/data-table/data-table.component';
 import { QuestionCountComponent } from './components/admin-components/question-count/question-count.component';
 import { CategoryStatsComponent } from './components/admin-components/category-stats/category-stats.component';
 import { AdminUserStatsComponent } from './components/admin-components/admin-user-stats/admin-user-stats.component';
@@ -134,7 +133,6 @@ import { AdminUserStatsComponent } from './components/admin-components/admin-use
         SubmissionViewComponent,
         ActivationEmailComponent,
         AdminComponent,
-        DataTableComponent,
         QuestionCountComponent,
         CategoryStatsComponent,
         AdminUserStatsComponent,
