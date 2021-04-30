@@ -3,9 +3,9 @@
         <caption class="sr-only">Topics covered in Canvas Gamification</caption>
         <thead class="thead-light">
         <tr>
-            <th class="header-topic" >Topic</th>
-            <th >Available Questions</th>
-            <th >Average Success Rate</th>
+            <th class="header-topic">Topic</th>
+            <th>Available Questions</th>
+            <th>Average Success Rate</th>
         </tr>
         </thead>
         <tbody class="table-striped">
@@ -25,10 +25,11 @@
             <ng-container *ngIf="expanded[categoryStat.category.name]">
                 <ng-container *ngFor="let subcat of categoryStat.children">
                     <tr class="subcat-row">
-                        <td class="subcat-name"><span class="heavy-indent">{{ subcat.name }}</span></td>
-                        <td>{{ subcat.question_count }}</td>
-                        <td *ngIf="subcat.average_success">{{ categoryStat.category.average_success }}%</td>
-                        <td *ngIf="!subcat.average_success">-</td>
+                        <!--If I don't do this subcat.category I get the wrong data... but tsLint thinks type is wrong?-->
+                        <td class="subcat-name"><span class="heavy-indent">{{ subcat.category.name }}</span></td>
+                        <td>{{ subcat.category.question_count }}</td>
+                        <td *ngIf="subcat.category.question_count">{{ subcat.category.average_success }}%</td>
+                        <td *ngIf="!subcat.category.question_count">-</td>
                     </tr>
                 </ng-container>
             </ng-container>
