@@ -39,8 +39,8 @@ export class RegisterComponent implements OnInit {
                 this.FormData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully registered.');
             }, error => {
-                console.warn(error.responseText);
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                console.warn(error);
+                this.messageService.add(MESSAGE_TYPES.DANGER, error);
             });
     }
 
