@@ -24,12 +24,6 @@ export class UserStatsService {
             .pipe(catchError(this.handleError<UserStats>(`getUserStat`)));
     }
 
-    getAllUserStat(): Observable<UserStats[]> {
-        return this.http
-            .get<UserStats[]>(this.userStatsUrl)
-            .pipe(catchError(this.handleError<UserStats[]>('getUserStats', [])));
-    }
-
     /**
      * Handle Http operation that failed.
      * Let the app continue.
