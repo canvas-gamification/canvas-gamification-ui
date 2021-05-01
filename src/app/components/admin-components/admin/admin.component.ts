@@ -1,11 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {CategoryStatsService} from '@app/_services/api/admin/category-stats.service';
-import {QuestionCountService} from '@app/_services/api/admin/question-count.service';
 import {QuestionCount} from '@app/_models/question_counts';
 import {CategoryStats} from '@app/_models/category_stats';
-import {UserStatsService} from '@app/_services/api/user-stats.service';
-import {UserStats} from '@app/_models';
+import {AdminService} from '@app/_services/api/admin.service';
 
 @Component({
     selector: 'app-admin',
@@ -16,17 +12,16 @@ export class AdminComponent implements OnInit {
     questionData: QuestionCount[];
     categoryData: CategoryStats[];
 
-    constructor(private categoryStatsService: CategoryStatsService,
-                private questionCountService: QuestionCountService) {
+    constructor(private adminService: AdminService) {
     }
 
     ngOnInit(): void {
-        this.questionCountService
+        this.adminService
             .getQuestionCounts()
             .subscribe((questionCounts) => {
                 this.questionData = questionCounts;
             });
-        this.categoryStatsService
+        this.adminService
             .getCategoryStats()
             .subscribe((categoryStats) => {
                 this.categoryData = categoryStats;

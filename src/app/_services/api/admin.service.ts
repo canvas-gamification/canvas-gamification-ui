@@ -1,17 +1,26 @@
 import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
-import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
+import {CategoryStats} from '@app/_models/category_stats';
 import {catchError} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 import {QuestionCount} from '@app/_models/question_counts';
 
 @Injectable({
     providedIn: 'root'
 })
-export class QuestionCountService {
+export class AdminService {
+    private categoryStatsUrl = new URL('/api/admin/category-stats/', environment.apiBaseUrl).toString();
     private questionCountUrl = new URL('/api/admin/question-count/', environment.apiBaseUrl).toString();
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
+
+    getCategoryStats(): Observable<CategoryStats[]> {
+        return this.http
+            .get<CategoryStats[]>(this.categoryStatsUrl)
+            .pipe(catchError(this.handleError<CategoryStats[]>('getCategoryStats', [])));
+    }
 
     getQuestionCounts(): Observable<QuestionCount[]> {
         return this.http
@@ -28,4 +37,5 @@ export class QuestionCountService {
             return of(result as T);
         };
     }
+
 }
