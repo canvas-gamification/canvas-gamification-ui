@@ -26,19 +26,27 @@
 }
 
 @mixin highlight-table() {
-    .table {
-        tbody {
-            .highlight-success {
-                background-color: rgba($success, 0.3);
-            }
+    .highlight-success {
+        background-color: rgba($success, 0.3);
 
-            .highlight-warning {
-                background-color: rgba($warning, 0.3);
-            }
+        &:hover {
+            background-color: rgba($success, 0.6);
+        }
+    }
 
-            .highlight-danger {
-                background-color: rgba($danger, 0.3);
-            }
+    .highlight-warning {
+        background-color: rgba($warning, 0.3);
+
+        &:hover {
+            background-color: rgba($warning, 0.6);
+        }
+    }
+
+    .highlight-danger {
+        background-color: rgba($danger, 0.3);
+
+        &:hover {
+            background-color: rgba($danger, 0.6);
         }
     }
 }

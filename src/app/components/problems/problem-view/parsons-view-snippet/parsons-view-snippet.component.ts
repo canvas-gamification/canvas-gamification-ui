@@ -35,6 +35,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
             this.parsonLines.push(new ContainerObject(line));
         }
         this.parsonAnswerLines = [];
+        this.removeLeftContainerIndents();
         this.dragulaService.createGroup(this.PARSONS_LINES, {});
 
         this.dragulaService.drop().subscribe((value) => {
@@ -51,13 +52,13 @@ export class ParsonsViewSnippetComponent implements OnInit {
             const tempLine = line.value.trim();
             line.value = tempLine;
             if (tempLine.charAt(tempLine.length - 1) === '{') {
-                line.value = indentString(tempLine, count);
+                line.value = indentString(tempLine, count, {indent: '    '});
                 count++;
             } else if (tempLine.charAt(tempLine.length - 1) === '}') {
                 count--;
-                line.value = indentString(tempLine, count);
+                line.value = indentString(tempLine, count, {indent: '    '});
             } else if (count > 0) {
-                line.value = indentString(tempLine, count);
+                line.value = indentString(tempLine, count, {indent: '    '});
             }
         });
     }

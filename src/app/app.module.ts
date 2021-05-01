@@ -78,6 +78,7 @@ import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import { AdminComponent } from './components/admin-components/admin/admin.component';
 import { QuestionCountComponent } from './components/admin-components/question-count/question-count.component';
 import { CategoryStatsComponent } from './components/admin-components/category-stats/category-stats.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
     declarations: [
@@ -174,6 +175,7 @@ import { CategoryStatsComponent } from './components/admin-components/category-s
         NgxMatDatetimePickerModule,
         NgxMatNativeDateModule,
         HighlightModule,
+        MatSelectModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
