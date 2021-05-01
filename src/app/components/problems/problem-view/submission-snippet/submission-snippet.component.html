@@ -7,12 +7,12 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th *ngIf="previousSubmissions[0].show_answer">Answer</th>
+                <th *ngIf="previousSubmissions[0]?.show_answer">Answer</th>
                 <th>Grade</th>
                 <th>Tokens Received</th>
                 <th>Time Submitted</th>
                 <th>Status</th>
-                <th *ngIf="previousSubmissions[0].show_detail">Details</th>
+                <th *ngIf="previousSubmissions[0]?.show_detail">Details</th>
             </tr>
             </thead>
             <tbody>
