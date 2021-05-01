@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CategoryStats} from '@app/_models/category_stats';
+import {NestedCategories} from '@app/_models/category';
 import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import {Sort} from '@angular/material/sort';
 
@@ -9,7 +9,7 @@ import {Sort} from '@angular/material/sort';
     styleUrls: ['./category-stats.component.scss']
 })
 export class CategoryStatsComponent implements OnInit {
-    @Input() categoryStatData: CategoryStats[];
+    @Input() categoryStatData: NestedCategories[];
     expanded: {} = {};
     faCaretRight = faCaretRight;
     faCaretDown = faCaretDown;
@@ -37,7 +37,7 @@ export class CategoryStatsComponent implements OnInit {
         return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
-    toggleChildTopics(categoryStat: CategoryStats): void {
+    toggleChildTopics(categoryStat: NestedCategories): void {
         this.expanded[categoryStat.category.name] = !this.expanded[categoryStat.category.name];
     }
 

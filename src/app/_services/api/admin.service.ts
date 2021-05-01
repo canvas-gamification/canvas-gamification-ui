@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import {Observable, of} from 'rxjs';
-import {CategoryStats} from '@app/_models/category_stats';
+import {NestedCategories} from '@app/_models/category';
 import {catchError} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {QuestionCount} from '@app/_models/question_counts';
@@ -16,10 +16,10 @@ export class AdminService {
     constructor(private http: HttpClient) {
     }
 
-    getCategoryStats(): Observable<CategoryStats[]> {
+    getCategoryStats(): Observable<NestedCategories[]> {
         return this.http
-            .get<CategoryStats[]>(this.categoryStatsUrl)
-            .pipe(catchError(this.handleError<CategoryStats[]>('getCategoryStats', [])));
+            .get<NestedCategories[]>(this.categoryStatsUrl)
+            .pipe(catchError(this.handleError<NestedCategories[]>('getCategoryStats', [])));
     }
 
     getQuestionCounts(): Observable<QuestionCount[]> {
