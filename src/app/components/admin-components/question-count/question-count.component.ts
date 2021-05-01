@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {QuestionCount} from '@app/_models/question_counts';
 import {Sort} from '@angular/material/sort';
+import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import {CategoryStats} from '@app/_models/category_stats';
 
 @Component({
     selector: 'app-question-count',
@@ -9,6 +11,9 @@ import {Sort} from '@angular/material/sort';
 })
 export class QuestionCountComponent implements OnInit {
     @Input() questionCountData: QuestionCount[];
+    expanded: {} = {};
+    faCaretRight = faCaretRight;
+    faCaretDown = faCaretDown;
 
     constructor() {
     }
@@ -35,4 +40,7 @@ export class QuestionCountComponent implements OnInit {
         return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
+    toggleChildTopics(questionCount: QuestionCount): void {
+        this.expanded[questionCount.name] = !this.expanded[questionCount.name];
+    }
 }
