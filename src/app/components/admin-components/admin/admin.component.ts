@@ -13,30 +13,23 @@ import {UserStats} from '@app/_models';
     styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-    questionAPIData: QuestionCount[];
-    categoryAPIData: CategoryStats[];
-    userStatAPIData: UserStats[];
+    questionData: QuestionCount[];
+    categoryData: CategoryStats[];
 
     constructor(private categoryStatsService: CategoryStatsService,
-                private questionCountService: QuestionCountService,
-                private userStatsService: UserStatsService) {
+                private questionCountService: QuestionCountService) {
     }
 
     ngOnInit(): void {
         this.questionCountService
             .getQuestionCounts()
             .subscribe((questionCounts) => {
-                this.questionAPIData = questionCounts;
+                this.questionData = questionCounts;
             });
         this.categoryStatsService
             .getCategoryStats()
             .subscribe((categoryStats) => {
-                this.categoryAPIData = categoryStats;
-            });
-        this.userStatsService
-            .getAllUserStat()
-            .subscribe((userStats) => {
-                this.userStatAPIData = userStats;
+                this.categoryData = categoryStats;
             });
     }
 }
