@@ -1,9 +1,6 @@
 export interface QuestionCount{
     name: string;
     count: number;
-    count_per_difficulty: DifficultyCount[];
+    count_per_difficulty: {count: number; difficutly: string; }[];
 }
-interface DifficultyCount{
-    count: number;
-    difficulty: string;
-}
+
