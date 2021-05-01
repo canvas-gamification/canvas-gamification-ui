@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionCount} from '@app/_models/question_counts';
-import {CategoryStats} from '@app/_models/category_stats';
+import {NestedCategories} from '@app/_models/category';
 import {AdminService} from '@app/_services/api/admin.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {AdminService} from '@app/_services/api/admin.service';
 })
 export class AdminComponent implements OnInit {
     questionData: QuestionCount[];
-    categoryData: CategoryStats[];
+    categoryData: NestedCategories[];
 
     constructor(private adminService: AdminService) {
     }

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {QuestionCount} from '@app/_models/question_counts';
 import {Sort} from '@angular/material/sort';
-import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import {faCaretRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'app-question-count',

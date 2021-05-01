@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NestedCategories} from '@app/_models/category';
-import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import {faCaretRight, faCaretDown} from '@fortawesome/free-solid-svg-icons';
 import {Sort} from '@angular/material/sort';
 
 @Component({
@@ -14,9 +14,11 @@ export class CategoryStatsComponent implements OnInit {
     faCaretRight = faCaretRight;
     faCaretDown = faCaretDown;
 
-    constructor() {}
+    constructor() {
+    }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+    }
 
     sortData(sort: Sort) {
         if (!this.categoryStatData) { // If there is no data
