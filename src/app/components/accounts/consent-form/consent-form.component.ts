@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConsentService} from '@app/_services/api/accounts/consent.service';
 import {MessageService} from '@app/_services/message.service';
-import {Router, NavigationExtras, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {MESSAGE_TYPES} from '@app/_models';
 
 @Component({
@@ -13,8 +13,10 @@ import {MESSAGE_TYPES} from '@app/_models';
 export class ConsentFormComponent implements OnInit {
     FormData: FormGroup;
 
-    constructor(private router: Router, private route: ActivatedRoute,
-                private builder: FormBuilder, private consent: ConsentService,
+    constructor(private router: Router,
+                private route: ActivatedRoute,
+                private builder: FormBuilder,
+                private consentService: ConsentService,
                 private messageService: MessageService) {
     }
 
@@ -29,7 +31,7 @@ export class ConsentFormComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        this.consent.PostConsent(FormData)
+        this.consentService.postConsent(FormData)
             .subscribe(response => {
                 this.router.navigate(['../profile'], {relativeTo: this.route});
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully consented!');
@@ -37,6 +39,21 @@ export class ConsentFormComponent implements OnInit {
                 console.warn(error.responseText);
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
             });
+    }
+
+    declineConsent() {
+        this.consentService.postConsent({
+            consent: false,
+            legal_first_name: '',
+            legal_last_name: '',
+            student_number: '',
+            date: ''
+        }).subscribe(response => {
+            this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You successfully declined to consent.');
+        }, error => {
+            console.warn(error);
+            this.messageService.add(MESSAGE_TYPES.DANGER, error);
+        });
     }
 
 }
