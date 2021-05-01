@@ -1,5 +1,4 @@
 <div>
-    <h1>Question Type/Difficultly Information</h1>
     <table class="table table-lg table-bordered table-hover" style="width:100%" matSort (matSortChange)="sortData($event)">
         <caption class="sr-only">Question Difficultly Information</caption>
         <thead class="thead-light">
@@ -36,7 +35,7 @@
         </ng-container>
         <ng-template #tableEmpty>
             <tr>
-                <td colspan="2" class="bg-info">
+                <td colspan="3" class="bg-info">
                     <p class="text-center text-light m-0">
                         No data was sent to this table.
                     </p>
