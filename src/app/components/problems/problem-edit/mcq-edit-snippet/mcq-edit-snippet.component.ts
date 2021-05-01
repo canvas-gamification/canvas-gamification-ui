@@ -123,7 +123,6 @@ export class McqEditSnippetComponent implements OnInit {
 
     convertChoicesToArray(choices: {}) {
         const outputArray = [];
-        // tslint:disable-next-line:forin
         for (const choice in choices) {
             outputArray.push({
                 id: choice,
