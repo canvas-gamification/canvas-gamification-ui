@@ -29,7 +29,7 @@ export class ConsentFormComponent implements OnInit {
     }
 
     onSubmit(FormData) {
-        this.consent.PostConsent(FormData)
+        this.consent.postConsent(FormData)
             .subscribe(response => {
                 this.router.navigate(['../profile'], {relativeTo: this.route});
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully consented!');

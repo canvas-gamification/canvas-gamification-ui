@@ -6,43 +6,43 @@ import {Observable} from 'rxjs';
 import {UserConsent} from '@app/_models/user_consent';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ConsentService {
-  private consentAPIUrl = new URL('/api/user-consent/', environment.apiBaseUrl).toString();
+    private consentAPIUrl = new URL('/api/user-consent/', environment.apiBaseUrl).toString();
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  PostConsent(input: any) {
-    return this.http.post(this.consentAPIUrl, input, {responseType: 'text'}).pipe(
-      map((response) => {
-          if (response) {
-            return response;
-          }
-        },
-        (error: any) => {
-          return error;
-        }
-      )
-    );
-  }
+    postConsent(input: any) {
+        return this.http.post(this.consentAPIUrl, input, {responseType: 'text'}).pipe(
+            map((response) => {
+                    if (response) {
+                        return response;
+                    }
+                },
+                (error: any) => {
+                    return error;
+                }
+            )
+        );
+    }
 
-  WithdrawConsent(input: any) {
-    return this.http.post(this.consentAPIUrl, input, {responseType: 'text'}).pipe(
-      map((response) => {
-          if (response) {
-            return response;
-          }
-        },
-        (error: any) => {
-          return error;
-        }
-      )
-    );
-  }
+    withdrawConsent(input: any) {
+        return this.http.post(this.consentAPIUrl, input, {responseType: 'text'}).pipe(
+            map((response) => {
+                    if (response) {
+                        return response;
+                    }
+                },
+                (error: any) => {
+                    return error;
+                }
+            )
+        );
+    }
 
-  GetConsent(): Observable<UserConsent[]> {
-    return this.http.get<UserConsent[]>(this.consentAPIUrl);
-  }
+    getConsent(): Observable<UserConsent[]> {
+        return this.http.get<UserConsent[]>(this.consentAPIUrl);
+    }
 }
