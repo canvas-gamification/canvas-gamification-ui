@@ -3,7 +3,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {environment} from '@environments/environment';
 import {RegisterService} from '@app/_services/api/accounts/register.service';
 import {MessageService} from '@app/_services/message.service';
-import {ConfirmPasswordValidator} from '@app/_helpers/confirm-password.validator';
+import {confirmPasswordValidator} from '@app/_helpers/confirm-password.validator';
 import {MESSAGE_TYPES} from '@app/_models';
 
 @Component({
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
             password2: new FormControl(null, [Validators.required]),
             recaptcha_key: new FormControl(null, [Validators.required])
         }, {
-            validator: ConfirmPasswordValidator('password', 'password2')
+            validator: confirmPasswordValidator,
         });
     }
 
