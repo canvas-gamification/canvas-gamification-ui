@@ -47,18 +47,7 @@
                         "style": "camelCase"
                     }
                 ],
-                "@typescript-eslint/explicit-member-accessibility": [
-                    "off",
-                    {
-                        "accessibility": "explicit"
-                    }
-                ],
-                "arrow-parens": [
-                    "off",
-                    "always"
-                ],
-                "guard-for-in": "off",
-                "import/order": "off"
+                "guard-for-in": "off"
             }
         },
         {
