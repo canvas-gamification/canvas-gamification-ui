@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CategoryStats} from '@app/_models/category_stats';
 import { faCaretRight, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import {Sort} from '@angular/material/sort';
 
 @Component({
     selector: 'app-category-stats',
@@ -15,7 +16,25 @@ export class CategoryStatsComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit(): void {
+    ngOnInit(): void {}
+
+    sortData(sort: Sort) {
+        if (!this.categoryStatData) { // If there is no data
+            return;
+        }
+        const tempData = this.categoryStatData.slice();
+        if (!sort.active || sort.direction === '') {
+            this.categoryStatData = tempData;
+            return;
+        }
+        this.categoryStatData = tempData.sort((a, b) => {
+            const isAsc = sort.direction === 'asc';
+            return this.compare(a.category[sort.active], b.category[sort.active], isAsc);
+        });
+    }
+
+    compare(a: number | string, b: number | string, isAsc: boolean) {
+        return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }
 
     toggleChildTopics(categoryStat: CategoryStats): void {
