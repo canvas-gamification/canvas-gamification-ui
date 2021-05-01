@@ -35,6 +35,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
             this.parsonLines.push(new ContainerObject(line));
         }
         this.parsonAnswerLines = [];
+        this.removeLeftContainerIndents();
         this.dragulaService.createGroup(this.PARSONS_LINES, {});
 
         this.dragulaService.drop().subscribe((value) => {
