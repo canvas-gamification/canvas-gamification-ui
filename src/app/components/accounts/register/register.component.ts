@@ -16,6 +16,7 @@ import {first} from 'rxjs/operators';
 export class RegisterComponent implements OnInit {
     FormData: FormGroup;
     siteKey: string = environment.siteKey;
+    formSubmitted: boolean = false;
 
     constructor(private builder: FormBuilder, private register: RegisterService, private messageService: MessageService) {
     }
@@ -40,6 +41,7 @@ export class RegisterComponent implements OnInit {
             .subscribe(response => {
                 this.FormData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully registered.');
+                this.formSubmitted = true;
             }, error => {
                 console.warn(error);
                 this.messageService.add(MESSAGE_TYPES.DANGER, error);
