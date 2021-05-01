@@ -42,7 +42,7 @@ export class ConsentFormComponent implements OnInit {
     }
 
     declineConsent() {
-        this.consentService.withdrawConsent({
+        this.consentService.postConsent({
             consent: false,
             legal_first_name: '',
             legal_last_name: '',

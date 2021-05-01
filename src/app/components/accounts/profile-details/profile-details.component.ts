@@ -52,7 +52,7 @@ export class ProfileDetailsComponent implements OnInit {
     }
 
     withdraw() {
-        this.consentService.withdrawConsent({
+        this.consentService.postConsent({
             consent: false,
             legal_first_name: '',
             legal_last_name: '',

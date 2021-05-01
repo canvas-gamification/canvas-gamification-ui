@@ -28,20 +28,6 @@ export class ConsentService {
         );
     }
 
-    withdrawConsent(input: any) {
-        return this.http.post(this.consentAPIUrl, input, {responseType: 'text'}).pipe(
-            map((response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: any) => {
-                    return error;
-                }
-            )
-        );
-    }
-
     getConsent(): Observable<UserConsent[]> {
         return this.http.get<UserConsent[]>(this.consentAPIUrl);
     }
