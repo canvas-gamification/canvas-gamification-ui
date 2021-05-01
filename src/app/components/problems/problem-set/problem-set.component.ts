@@ -22,7 +22,7 @@ export class ProblemSetComponent implements OnInit {
     faPencilAlt = faPencilAlt;
     faTrashAlt = faTrashAlt;
     questions: Question[];
-    questionsSource: any;
+    questionsSource: MatTableDataSource<Question>;
 
     // Pagination
     questionsLength: number;
@@ -50,7 +50,7 @@ export class ProblemSetComponent implements OnInit {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
                 this.questions = paginatedQuestions.results;
-                this.questionsSource = new MatTableDataSource(this.questions);
+                this.questionsSource = new MatTableDataSource<Question>(this.questions);
                 this.questionsLength = paginatedQuestions.count;
             });
         });
