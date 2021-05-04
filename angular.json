@@ -117,6 +117,7 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "src/scss/material/global-material-theme.scss",
                             "src/scss/styles.scss"
                         ],
                         "scripts": []
