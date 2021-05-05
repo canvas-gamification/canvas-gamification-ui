@@ -41,14 +41,11 @@
                     opacity: 1 !important;
                 }
             }
-
-            .mat-header-cell, th {
-                font-size: 1rem;
-            }
         }
 
         .mat-cell, .mat-header-cell, td, th {
             vertical-align: middle !important;
+            font-size: 1rem;
         }
 
         tr.mat-row {
