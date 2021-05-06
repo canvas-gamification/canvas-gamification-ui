@@ -4,7 +4,7 @@ import {ConsentService} from '@app/_services/api/accounts/consent.service';
 import {MessageService} from '@app/_services/message.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {MESSAGE_TYPES} from '@app/_models';
-import {DatePipe} from "@angular/common";
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-consent-form',
