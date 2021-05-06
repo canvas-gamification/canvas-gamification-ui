@@ -51,7 +51,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {ProblemSetComponent} from './components/problems/problem-set/problem-set.component';
 import {ProblemViewComponent} from './components/problems/problem-view/problem-view.component';
 import {ProblemEditComponent} from './components/problems/problem-edit/problem-edit.component';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {ProblemCreateComponent} from './components/problems/problem-create/problem-create.component';
 import {DragulaModule} from 'ng2-dragula';
 import {CKEditorModule} from 'ckeditor4-angular';
@@ -69,7 +69,11 @@ import {ParsonsCreateSnippetComponent} from './components/problems/problem-creat
 import {VariableViewComponent} from './components/problems/problem-view/variable-view/variable-view.component';
 import {JsonEditorComponent} from './components/problems/json-editor/json-editor.component';
 import {SubmissionSnippetComponent} from './components/problems/problem-view/submission-snippet/submission-snippet.component';
-import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
+import {
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
@@ -183,7 +187,8 @@ import {MatSelectModule} from '@angular/material/select';
                     java: () => import('highlight.js/lib/languages/java')
                 }
             }
-        }
+        },
+        DatePipe
     ],
     bootstrap: [AppComponent]
 })

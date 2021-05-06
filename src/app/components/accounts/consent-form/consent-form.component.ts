@@ -4,6 +4,7 @@ import {ConsentService} from '@app/_services/api/accounts/consent.service';
 import {MessageService} from '@app/_services/message.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {MESSAGE_TYPES} from '@app/_models';
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-consent-form',
@@ -12,21 +13,24 @@ import {MESSAGE_TYPES} from '@app/_models';
 })
 export class ConsentFormComponent implements OnInit {
     FormData: FormGroup;
+    currentDate: string;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private builder: FormBuilder,
                 private consentService: ConsentService,
-                private messageService: MessageService) {
+                private messageService: MessageService,
+                private datePipe: DatePipe) {
     }
 
     ngOnInit(): void {
+        this.currentDate = this.datePipe.transform(new Date(), 'MM/dd/yyyy');
         this.FormData = this.builder.group({
             consent: true,
             legal_first_name: new FormControl('', [Validators.required]),
             legal_last_name: new FormControl('', [Validators.required]),
             student_number: new FormControl('', [Validators.required]),
-            date: new FormControl('', [Validators.required])
+            date: new FormControl(this.currentDate, [Validators.required])
         });
     }
 
@@ -35,9 +39,11 @@ export class ConsentFormComponent implements OnInit {
             .subscribe(response => {
                 this.router.navigate(['../profile'], {relativeTo: this.route});
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully consented!');
+                window.scroll(0, 0);
             }, error => {
                 console.warn(error.responseText);
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                window.scroll(0, 0);
             });
     }
 
