@@ -4,7 +4,6 @@ import {ConsentService} from '@app/_services/api/accounts/consent.service';
 import {MessageService} from '@app/_services/message.service';
 import {Router, ActivatedRoute} from '@angular/router';
 import {MESSAGE_TYPES} from '@app/_models';
-import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-consent-form',
@@ -13,24 +12,21 @@ import {DatePipe} from '@angular/common';
 })
 export class ConsentFormComponent implements OnInit {
     FormData: FormGroup;
-    currentDate: string;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private builder: FormBuilder,
                 private consentService: ConsentService,
-                private messageService: MessageService,
-                private datePipe: DatePipe) {
+                private messageService: MessageService) {
     }
 
     ngOnInit(): void {
-        this.currentDate = this.datePipe.transform(new Date(), 'MM/dd/yyyy');
         this.FormData = this.builder.group({
             consent: true,
             legal_first_name: new FormControl('', [Validators.required]),
             legal_last_name: new FormControl('', [Validators.required]),
             student_number: new FormControl('', [Validators.required]),
-            date: new FormControl(this.currentDate, [Validators.required])
+            date: new FormControl(new Date().toDateString(), [Validators.required])
         });
     }
 

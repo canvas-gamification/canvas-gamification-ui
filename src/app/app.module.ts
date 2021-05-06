@@ -187,8 +187,7 @@ import {MatSelectModule} from '@angular/material/select';
                     java: () => import('highlight.js/lib/languages/java')
                 }
             }
-        },
-        DatePipe
+        }
     ],
     bootstrap: [AppComponent]
 })
