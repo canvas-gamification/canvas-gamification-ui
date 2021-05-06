@@ -57,6 +57,8 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 });
         }
 
+        this.variables = this.QuestionDetails?.variables;
+
         this.ParsonsFormData = this.formBuilder.group({
             title: new FormControl(this.QuestionDetails?.title),
             difficulty: new FormControl(this.QuestionDetails?.difficulty),
