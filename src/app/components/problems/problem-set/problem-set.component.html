@@ -56,47 +56,47 @@
 
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="id">#</th>
-        <td mat-cell *matCellDef="let question"> {{question.id}} </td>
+        <td mat-cell *matCellDef="let question"> {{question.id || 'N/A'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="title">Question Name</th>
-        <td mat-cell *matCellDef="let question"> {{question.title}} </td>
+        <td mat-cell *matCellDef="let question"> {{question.title || 'N/A'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="author">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="author">Author</th>
-        <td mat-cell *matCellDef="let question"> {{question.author_name}} </td>
+        <td mat-cell *matCellDef="let question"> {{question.author_name || 'No Author'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="event__name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="event__name">Event</th>
-        <td mat-cell *matCellDef="let question"> {{question.event_name}} </td>
+        <td mat-cell *matCellDef="let question"> {{question.event_name || 'N/A'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="category__parent__name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="category__parent__name">Category</th>
-        <td mat-cell *matCellDef="let question"> {{question.parent_category_name}} </td>
+        <td mat-cell *matCellDef="let question"> {{question.parent_category_name || 'N/A'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="category__name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="category__name">Sub-Category</th>
-        <td mat-cell *matCellDef="let question"> {{question.category_name}} </td>
+        <td mat-cell *matCellDef="let question"> {{question.category_name || 'N/A'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="difficulty">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="difficulty">Difficulty</th>
-        <td mat-cell *matCellDef="let question"> {{question.difficulty}} </td>
+        <td mat-cell *matCellDef="let question"> {{question.difficulty || 'N/A'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="token_value">
         <th mat-header-cell *matHeaderCellDef>Token Value</th>
-        <td mat-cell *matCellDef="let question">{{question.token_value | number: '1.0-1'}}</td>
+        <td mat-cell *matCellDef="let question">{{question.token_value | number: '1.0-1' || 'N/A'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="avg_success">
         <th mat-header-cell *matHeaderCellDef>Avg Success</th>
-        <td mat-cell *matCellDef="let question">{{question.success_rate | number: '1.0-1'}}</td>
+        <td mat-cell *matCellDef="let question">{{question.success_rate | number: '1.0-1' || 'N/A'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
