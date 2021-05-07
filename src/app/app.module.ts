@@ -51,7 +51,7 @@ import {MatSortModule} from '@angular/material/sort';
 import {ProblemSetComponent} from './components/problems/problem-set/problem-set.component';
 import {ProblemViewComponent} from './components/problems/problem-view/problem-view.component';
 import {ProblemEditComponent} from './components/problems/problem-edit/problem-edit.component';
-import {CommonModule, DatePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {ProblemCreateComponent} from './components/problems/problem-create/problem-create.component';
 import {DragulaModule} from 'ng2-dragula';
 import {CKEditorModule} from 'ckeditor4-angular';
