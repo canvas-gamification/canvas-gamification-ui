@@ -3,7 +3,13 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CourseEvent, MESSAGE_TYPES} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {MessageService} from '@app/_services/message.service';
+import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 
+const DateValidator: ValidatorFn = (formGroup: FormGroup) => {
+    const start = formGroup.get('startPicker').value;
+    const end = formGroup.get('endPicker').value;
+    return start > end ? {forbiddenDateRange: {startDate: start, endDate: end}} : null;
+};
 
 @Component({
     selector: 'app-course-event-create',
@@ -14,20 +20,23 @@ export class CourseEventCreateEditComponent implements OnInit {
     localEventTypes: any;
     courseId: number;
     eventId: number;
-    invalid: boolean;
+    FormData: FormGroup;
 
-    // Two way bound variables on inputs
-    eventName: string;
-    eventType: string;
-    countsForTokens: boolean;
-    startTime: Date;
-    endTime: Date;
-
-    constructor(private route: ActivatedRoute, private courseEventService: CourseEventService, private messageService: MessageService,
+    constructor(private route: ActivatedRoute,
+                private builder: FormBuilder,
+                private courseEventService: CourseEventService,
+                private messageService: MessageService,
                 private router: Router) {
     }
 
     ngOnInit(): void {
+        this.FormData = this.builder.group({
+            name: new FormControl('', [Validators.required]),
+            type: new FormControl('', [Validators.required]),
+            countForTokens: new FormControl('', [Validators.required]),
+            startPicker: new FormControl(new Date(), [Validators.required]),
+            endPicker: new FormControl(new Date(), [Validators.required])
+        }, {validator: DateValidator});
         this.courseEventService.getEventTypes().subscribe(response => this.localEventTypes = response);
         // Convert to number
         this.courseId = +this.route.snapshot.paramMap.get('courseId');
@@ -35,35 +44,32 @@ export class CourseEventCreateEditComponent implements OnInit {
             this.eventId = +this.route.snapshot.paramMap.get('eventId');
             this.courseEventService.getCourseEvent(this.eventId).subscribe(
                 event => {
-                    this.eventName = event.name;
-                    this.eventType = event.type;
-                    this.startTime = new Date(event.start_date);
-                    this.endTime = new Date(event.end_date);
-                    this.countsForTokens = event.count_for_tokens;
-                    this.checkCanSubmit();
+                    this.FormData.patchValue({
+                        name: event.name,
+                        type: event.type,
+                        countForTokens: event.count_for_tokens,
+                        startPicker: new Date(event.start_date),
+                        endPicker: new Date(event.end_date),
+                    });
                 }
             );
-            this.checkCanSubmit();
-        } else {
-            this.countsForTokens = false; // needs a default value specifically
-            this.invalid = true;
         }
     }
 
-    retrieveFormData(): CourseEvent {
+    formatFormData(formData): CourseEvent {
         return {
-            id: this.eventId,
-            name: this.eventName,
-            type: this.eventType,
-            count_for_tokens: this.countsForTokens,
-            start_date: this.startTime,
-            end_date: this.endTime,
+            id: formData.eventId,
+            name: formData.eventName,
+            type: formData.eventType,
+            count_for_tokens: formData.countsForTokens,
+            start_date: formData.startTime,
+            end_date: formData.endTime,
             course: this.courseId
         };
     }
 
-    submitEvent(): void {
-        const ourEvent: CourseEvent = this.retrieveFormData();
+    submitEvent(formData): void {
+        const ourEvent: CourseEvent = this.formatFormData(formData);
 
         if (this.eventId) { // If this is a previously existing event
             this.courseEventService.updateCourseEvent(ourEvent).subscribe(() => {
@@ -87,13 +93,5 @@ export class CourseEventCreateEditComponent implements OnInit {
                 }
             );
         }
-    }
-
-    checkCanSubmit(): void {
-        if (this.eventName?.length > 0 && this.eventType?.length > 0 && this.endTime > this.startTime) {
-            this.invalid = false;
-            return;
-        }
-        this.invalid = true;
     }
 }
