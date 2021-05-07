@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CourseEvent, MESSAGE_TYPES} from '@app/_models';
+import {CourseEvent, MESSAGE_TYPES, EventType} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {MessageService} from '@app/_services/message.service';
 import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
@@ -17,7 +17,7 @@ const DateValidator: ValidatorFn = (formGroup: FormGroup) => {
     styleUrls: ['./course-event-create-edit.component.scss']
 })
 export class CourseEventCreateEditComponent implements OnInit {
-    localEventTypes: any;
+    localEventTypes: EventType[];
     courseId: number;
     eventId: number;
     FormData: FormGroup;

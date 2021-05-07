@@ -13,8 +13,8 @@
             <label for="id-type">Event type</label>
             <select id="id-type" name="type" formControlName="type" class="form-control">
                 <option value="" disabled selected>Select Event Type...</option>
-                <ng-container *ngFor="let item of localEventTypes | keyvalue">
-                    <option [value]="item.key">{{item.value}}</option>
+                <ng-container *ngFor="let item of localEventTypes">
+                    <option [value]="item[0]">{{item[1]}}</option>
                 </ng-container>
             </select>
         </div>
