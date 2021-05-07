@@ -48,9 +48,14 @@
                                             siteKey="{{siteKey}}">
                                 </re-captcha>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block" [disabled]="!FormData.valid">
-                                Register
+                            <button type="submit" class="btn btn-primary btn-block" *ngIf="!isLoading; else loadingSpinner">
+                                <div>Register</div>
                             </button>
+                            <ng-template #loadingSpinner>
+                                <div class="form-row justify-content-center">
+                                    <mat-spinner [diameter]="65"></mat-spinner>
+                                </div>
+                            </ng-template>
                             <div class="mt-4 text-center">
                                 Already have an account? <a routerLink="../login">Login</a>
                             </div>
