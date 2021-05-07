@@ -27,7 +27,7 @@
                         <td>{{ getStatus(uqj) || 'No Status'}}</td>
                         <ng-container *ngIf="eventId">
                             <td>
-                                {{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed || 'No Attempts'}}
+                                {{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed}}
                             </td>
                         </ng-container>
                         <td>

@@ -20,7 +20,7 @@
             <tr>
                 <td>{{ event.name  || 'N/A'}}</td>
                 <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
-                <td>{{ event.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'N0 Date'}}</td>
+                <td>{{ event.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
                 <td *ngIf="isExamAndOpen(event); else totalEventGrade">Not Available Yet</td>
                 <ng-template #totalEventGrade>
                     <td>{{ event.total_event_grade | number: '1.0-1'  || 'No Grade'}}%</td>
