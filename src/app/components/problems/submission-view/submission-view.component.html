@@ -26,19 +26,19 @@
         <tbody>
         <tr>
             <td>
-                {{ submission?.question?.title }}
+                {{ submission?.question?.title || 'No Title'}}
             </td>
             <td>
-                {{ submission?.submission_time }}
+                {{ submission?.submission_time || 'No Time'}}
             </td>
             <ng-container *ngIf="submission?.question?.is_exam_and_open; else statusCell">
                 <td>
-                    {{ submission?.grade }}
+                    {{ submission?.grade || 'No Grade'}}
                 </td>
             </ng-container>
             <ng-template #statusCell>
                 <td>
-                    {{ submission?.status }}
+                    {{ submission?.status || 'No Status'}}
                 </td>
             </ng-template>
         </tr>

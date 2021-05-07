@@ -18,12 +18,12 @@
             <tbody>
             <tr *ngFor="let submission of previousSubmissions; let i = index"
                 [attr.class]="'highlight-'+submission.status_color">
-                <td>{{i + 1}}</td>
+                <td>{{i + 1 || 'No ID'}}</td>
                 <td *ngIf="submission.show_answer" [innerHTML]="submission.answer_display"></td>
-                <td>{{submission.grade.toFixed(2)}}</td>
-                <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
-                <td>{{submission.submission_time | date:'medium'}}</td>
-                <td>{{submission.status}}</td>
+                <td>{{submission.grade.toFixed(2) || 'No Grade'}}</td>
+                <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2) || 'No Tokens'}}</td>
+                <td>{{submission.submission_time | date:'medium' || 'No Date'}}</td>
+                <td>{{submission.status || 'No Status'}}</td>
                 <td *ngIf="submission.show_detail">
                     <a class="btn btn-primary" routerLink="/problem/submission/{{submission.pk}}">Details</a>
                 </td>
