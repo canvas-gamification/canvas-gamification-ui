@@ -13,7 +13,6 @@ import {MessageService} from '@app/_services/message.service';
 export class CourseEventCreateEditComponent implements OnInit {
     localEventTypes = EVENT_TYPES;
     courseId: number;
-    minDate: Date;
     eventId: number;
     invalid: boolean;
 
@@ -29,7 +28,6 @@ export class CourseEventCreateEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getMinDate();
         // Convert to number
         this.courseId = +this.route.snapshot.paramMap.get('courseId');
         if (this.route.snapshot.paramMap.get('eventId')) {
@@ -49,10 +47,6 @@ export class CourseEventCreateEditComponent implements OnInit {
             this.countsForTokens = false; // needs a default value specifically
             this.invalid = true;
         }
-    }
-
-    getMinDate(): void {
-        this.minDate = new Date();
     }
 
     retrieveFormData(): CourseEvent {
