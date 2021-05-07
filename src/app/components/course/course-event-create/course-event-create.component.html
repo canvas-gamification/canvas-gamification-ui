@@ -47,7 +47,7 @@
                 <input matInput [ngxMatDatetimePicker]="endPicker"
                        placeholder="Choose a date"
                        [disabled]="false"
-                       [(ngModel)]="endTime" [min]="minDate"
+                       [(ngModel)]="endTime"
                        id="end-date-id" name="endPicker"
                        (ngModelChange)="checkCanSubmit()">
                 <mat-datepicker-toggle matSuffix [for]="endPicker">

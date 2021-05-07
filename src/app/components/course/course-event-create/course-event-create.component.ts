@@ -26,7 +26,6 @@ export class CourseEventCreateComponent implements OnInit {
     constructor(private route: ActivatedRoute, private courseEventService: CourseEventService, private router: Router) {
     }
 
-    // TODO: Reroute if you try and navigate to a page like this without clicking the button?
     ngOnInit(): void {
         this.getMinDate();
         // Convert to number
@@ -37,8 +36,8 @@ export class CourseEventCreateComponent implements OnInit {
                 event => {
                     this.eventName = event.name;
                     this.eventType = event.type;
-                    this.startTime = event.start_date;
-                    this.endTime = event.end_date;
+                    this.startTime = new Date(event.start_date);
+                    this.endTime = new Date(event.end_date);
                     this.countsForTokens = event.count_for_tokens;
                     this.checkCanSubmit();
                 }
@@ -81,11 +80,9 @@ export class CourseEventCreateComponent implements OnInit {
     }
 
     checkCanSubmit(): void {
-        if (this.eventName && this.eventType && this.startTime && this.endTime) {
-            if (this.eventName.length > 0 && this.eventType.length > 0 && this.endTime > this.startTime && this.endTime > this.minDate) {
-                this.invalid = false;
-                return;
-            }
+        if (this.eventName?.length > 0 && this.eventType?.length > 0 && this.endTime > this.startTime) {
+            this.invalid = false;
+            return;
         }
         this.invalid = true;
     }
