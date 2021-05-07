@@ -1,15 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CourseEvent, EVENT_TYPES} from '@app/_models';
+import {CourseEvent, EVENT_TYPES, MESSAGE_TYPES} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {MessageService} from '@app/_services/message.service';
 
 
 @Component({
     selector: 'app-course-event-create',
-    templateUrl: './course-event-create.component.html',
-    styleUrls: ['./course-event-create.component.scss']
+    templateUrl: './course-event-create-edit.component.html',
+    styleUrls: ['./course-event-create-edit.component.scss']
 })
-export class CourseEventCreateComponent implements OnInit {
+export class CourseEventCreateEditComponent implements OnInit {
     localEventTypes = EVENT_TYPES;
     courseId: number;
     minDate: Date;
@@ -23,7 +24,8 @@ export class CourseEventCreateComponent implements OnInit {
     startTime: Date;
     endTime: Date;
 
-    constructor(private route: ActivatedRoute, private courseEventService: CourseEventService, private router: Router) {
+    constructor(private route: ActivatedRoute, private courseEventService: CourseEventService, private messageService: MessageService,
+                private router: Router) {
     }
 
     ngOnInit(): void {
@@ -69,11 +71,24 @@ export class CourseEventCreateComponent implements OnInit {
         const ourEvent: CourseEvent = this.retrieveFormData();
 
         if (this.eventId) { // If this is a previously existing event
-            this.courseEventService.updateCourseEvent(ourEvent).subscribe();
+            this.courseEventService.updateCourseEvent(ourEvent).subscribe(response => {
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Event has been updated Successfully.');
+                window.scroll(0, 0);
+            }, error => {
+                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                console.warn(error.responseText);
+                window.scroll(0, 0);
+            });
         } else { // Creating a brand new event
             this.courseEventService.addCourseEvent(ourEvent).subscribe(
                 newEvent => {
                     this.router.navigate(['course/view', this.courseId]);
+                    this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Event has been added Successfully.');
+                    window.scroll(0, 0);
+                }, error => {
+                    this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                    console.warn(error.responseText);
+                    window.scroll(0, 0);
                 }
             );
         }
