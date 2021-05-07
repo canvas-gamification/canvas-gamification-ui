@@ -40,6 +40,14 @@ export class CourseEventService {
         );
     }
 
+    getEventTypes(): Observable<any> {
+        return this.http
+            .get<any>(`${this.courseEventUrl}get-event-types/`)
+            .pipe(catchError(this.handleError<any>(
+                `getEventTypes`
+            )));
+    }
+
     /**
      * Handle Http operation that failed.
      * Let the app continue.

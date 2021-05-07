@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CourseEvent, User, EVENT_TYPES} from '@app/_models';
-import {formatDate} from '@angular/common';
+import {CourseEvent, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
+import {CourseEventService} from '@app/_services/api/course/course-event.service';
 
 @Component({
     selector: 'app-course-events-snippet',
@@ -11,21 +11,20 @@ import {AuthenticationService} from '@app/_services/api/authentication';
 export class CourseEventsSnippetComponent implements OnInit {
     @Input() events: CourseEvent[];
     @Input() courseId: number;
+    eventTypes: any;
     user: User;
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService, private courseEventService: CourseEventService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
+        this.courseEventService.getEventTypes().subscribe(response => this.eventTypes = response);
     }
 
     ngOnInit(): void {
     }
 
     getEventButtonText(event: CourseEvent): string {
-        if (this.user.is_teacher) {
-            const strAppend = EVENT_TYPES[event.type].name;
-            return 'Open ' + strAppend;
-        } else {
-            return EVENT_TYPES[event.type].buttonText;
+        if (this.eventTypes) {
+            return ((this.user.is_teacher) ? 'Open ' : 'Do ') + this.eventTypes[event.type];
         }
     }
 

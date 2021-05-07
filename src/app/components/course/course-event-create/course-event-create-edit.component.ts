@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CourseEvent, EVENT_TYPES, MESSAGE_TYPES} from '@app/_models';
+import {CourseEvent, MESSAGE_TYPES} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {MessageService} from '@app/_services/message.service';
 
@@ -11,7 +11,7 @@ import {MessageService} from '@app/_services/message.service';
     styleUrls: ['./course-event-create-edit.component.scss']
 })
 export class CourseEventCreateEditComponent implements OnInit {
-    localEventTypes = EVENT_TYPES;
+    localEventTypes: any;
     courseId: number;
     eventId: number;
     invalid: boolean;
@@ -28,6 +28,7 @@ export class CourseEventCreateEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.courseEventService.getEventTypes().subscribe(response => this.localEventTypes = response);
         // Convert to number
         this.courseId = +this.route.snapshot.paramMap.get('courseId');
         if (this.route.snapshot.paramMap.get('eventId')) {
@@ -65,7 +66,7 @@ export class CourseEventCreateEditComponent implements OnInit {
         const ourEvent: CourseEvent = this.retrieveFormData();
 
         if (this.eventId) { // If this is a previously existing event
-            this.courseEventService.updateCourseEvent(ourEvent).subscribe(response => {
+            this.courseEventService.updateCourseEvent(ourEvent).subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Event has been updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
@@ -75,7 +76,7 @@ export class CourseEventCreateEditComponent implements OnInit {
             });
         } else { // Creating a brand new event
             this.courseEventService.addCourseEvent(ourEvent).subscribe(
-                newEvent => {
+                () => {
                     this.router.navigate(['course/view', this.courseId]);
                     this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Event has been added Successfully.');
                     window.scroll(0, 0);

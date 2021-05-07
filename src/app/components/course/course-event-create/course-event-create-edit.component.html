@@ -15,7 +15,7 @@
                     (change)="checkCanSubmit()" required>
                 <option value="" disabled selected>Select Event Type...</option>
                 <ng-container *ngFor="let item of localEventTypes | keyvalue">
-                    <option [value]="item.key">{{item.value.name}}</option>
+                    <option [value]="item.key">{{item.value}}</option>
                 </ng-container>
             </select>
         </div>
