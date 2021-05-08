@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseService} from '@app/_services/api/course/course.service';
-import {Course, CourseRegistration, User} from '@app/_models';
+import {Course, User} from '@app/_models';
 import {ActivatedRoute} from '@angular/router';
 import {CourseRegistrationService} from '@app/_services/api/course/course-registration.service';
 
