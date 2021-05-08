@@ -69,7 +69,11 @@ import {ParsonsCreateSnippetComponent} from './components/problems/problem-creat
 import {VariableViewComponent} from './components/problems/problem-view/variable-view/variable-view.component';
 import {JsonEditorComponent} from './components/problems/json-editor/json-editor.component';
 import {SubmissionSnippetComponent} from './components/problems/problem-view/submission-snippet/submission-snippet.component';
-import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
+import {
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
