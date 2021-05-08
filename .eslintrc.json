@@ -1,8 +1,5 @@
 {
     "root": true,
-    "ignorePatterns": [
-        "projects/**/*"
-    ],
     "overrides": [
         {
             "files": [
@@ -11,43 +8,19 @@
             "parserOptions": {
                 "project": [
                     "tsconfig.json",
+                    "tsconfig.spec.json",
                     "e2e/tsconfig.json"
                 ],
                 "createDefaultProgram": true
             },
             "extends": [
-                "plugin:@angular-eslint/ng-cli-compat",
-                "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@angular-eslint/all",
                 "plugin:@angular-eslint/template/process-inline-templates"
             ],
             "rules": {
-                "@typescript-eslint/typedef": [
-                    "error",
-                    {
-                        "arrowParameter": true,
-                        "variableDeclaration": true,
-                        "propertyDeclaration": true,
-                        "parameter": true,
-                        "memberVariableDeclaration": true
-                    }
-                ],
-                "@angular-eslint/component-selector": [
-                    "error",
-                    {
-                        "type": "element",
-                        "prefix": "app",
-                        "style": "kebab-case"
-                    }
-                ],
-                "@angular-eslint/directive-selector": [
-                    "error",
-                    {
-                        "type": "attribute",
-                        "prefix": "app",
-                        "style": "camelCase"
-                    }
-                ],
-                "guard-for-in": "off"
+                "guard-for-in": "off",
+                "indent": ["error", 4]
             }
         },
         {
