@@ -4,7 +4,8 @@
 </ng-container>
 <div class="card border-secondary" style="width: 18rem;">
     <div class="card-body">
-        <p class="card-text">Available Tokens: <span id="available_tokens">{{ courseReg.total_tokens_received | number: '1.0-1' }}</span>
+        <p class="card-text">Available Tokens: <span
+            id="available_tokens">{{ courseReg.total_tokens_received | number: '1.0-1' }}</span>
         </p>
         <p class="card-text" id="remaining_tokens_text" [class.text-danger]="invalid"
            [class.font-weight-bold]="invalid">
@@ -26,10 +27,10 @@
         <ng-container *ngIf="courseReg.token_uses; else tableEmpty">
             <ng-container *ngFor="let tokenUse of courseReg.token_uses; index as i">
                 <tr>
-                    <td>{{ tokenUse.option.assignment_name }}</td>
-                    <td id="req_tokens_{{ tokenUse.option.id }}">{{ tokenUse.option.tokens_required }}</td>
-                    <td>{{ tokenUse.option.points_given }}</td>
-                    <td>{{ tokenUse.option.maximum_number_of_use }}</td>
+                    <td>{{ tokenUse.option.assignment_name || 'No Name' }}</td>
+                    <td id="req_tokens_{{ tokenUse.option.id }}">{{ tokenUse.option.tokens_required || 'No Value' }}</td>
+                    <td>{{ tokenUse.option.points_given || 'No Points'}}</td>
+                    <td>{{ tokenUse.option.maximum_number_of_use || 'No Value'}}</td>
                     <td>
                         <form class="form-inline">
                             <button class="btn btn-danger action-icon" (click)="useToken(tokenUse, -1)">

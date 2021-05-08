@@ -10,10 +10,10 @@
     </thead>
     <tbody>
     <tr>
-        <td>{{uqj?.question?.parent_category_name}} :: {{uqj?.question?.category_name}}</td>
-        <td>{{uqj?.question?.token_value}}</td>
-        <td>{{uqj?.status}}</td>
-        <td>{{uqj?.question?.max_submission_allowed}}</td>
+        <td>{{ uqj?.question?.full_category_name || 'No Category'}}</td>
+        <td>{{uqj?.question?.token_value || 'No Token Value'}}</td>
+        <td>{{uqj?.status || 'No Status'}}</td>
+        <td>{{uqj?.question?.max_submission_allowed || 'No Value'}}</td>
     </tr>
     </tbody>
 </table>
@@ -39,10 +39,11 @@
 
 <!--Question Variables (Admin Only)-->
 <ng-container *ngIf="user && uqj">
-<app-variable-view *ngIf="user.is_teacher" [variables]="uqj.variables" [variableErrors]="uqj.variables_errors"></app-variable-view>
+    <app-variable-view *ngIf="user.is_teacher" [variables]="uqj.variables"
+                       [variableErrors]="uqj.variables_errors"></app-variable-view>
 </ng-container>
 
 <!--Previous Submissions-->
 <ng-container *ngIf="previousSubmissions">
-<app-submission-snippet [previousSubmissions]="previousSubmissions"></app-submission-snippet>
+    <app-submission-snippet [previousSubmissions]="previousSubmissions"></app-submission-snippet>
 </ng-container>

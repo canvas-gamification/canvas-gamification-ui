@@ -11,12 +11,12 @@
     </thead>
     <tbody>
     <tr>
-        <td>{{ course?.id }}</td>
-        <td>{{ course?.name }}</td>
-        <td>{{ course?.url }}</td>
-        <td>{{ course?.name }}</td>
-        <td>{{ course?.start_date | date: 'LLL. dd, YYYY, hh:MM a'}}</td>
-        <td>{{ course?.end_date | date: 'LLL. dd, YYYY, hh:MM a'}}</td>
+        <td>{{ course?.id || 'No ID' }}</td>
+        <td>{{ course?.name || 'No Name' }}</td>
+        <td>{{ course?.url || 'No URL' }}</td>
+        <td>{{ course?.name || 'No Name'}}</td>
+        <td>{{ course?.start_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
+        <td>{{ course?.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
     </tr>
     </tbody>
 </table>
