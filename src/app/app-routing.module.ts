@@ -19,7 +19,7 @@ import {HomepageComponent} from './components/homepage/homepage.component';
 import {CourseListComponent} from '@app/components/course/course-list/course-list.component';
 import {CourseComponent} from '@app/components/course/course.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
-import {CourseEventCreateComponent} from '@app/components/course/course-event-create/course-event-create.component';
+import {CourseEventCreateEditComponent} from '@app/components/course/course-event-create/course-event-create-edit.component';
 import {CourseQuestionSnippetComponent} from '@app/components/course/course-question-snippet/course-question-snippet.component';
 import {CourseRegisterComponent} from '@app/components/course/course-registration/course-register.component';
 import {ProblemViewComponent} from '@app/components/problems/problem-view/problem-view.component';
@@ -118,12 +118,12 @@ const routes: Routes = [
     },
     {
         path: 'course/:courseId/new-event',
-        component: CourseEventCreateComponent,
+        component: CourseEventCreateEditComponent,
         canActivate: [AuthGuard]
     },
     {
         path: 'course/:courseId/new-event/:eventId',
-        component: CourseEventCreateComponent,
+        component: CourseEventCreateEditComponent,
         canActivate: [AuthGuard]
     },
     {

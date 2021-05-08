@@ -45,7 +45,7 @@ import {CourseEventsSnippetComponent} from './components/course/course-events-sn
 import {TokenUseSnippetComponent} from './components/course/token-use-snippet/token-use-snippet.component';
 import {CourseQuestionSnippetComponent} from './components/course/course-question-snippet/course-question-snippet.component';
 import {MatButtonModule} from '@angular/material/button';
-import {CourseEventCreateComponent} from './components/course/course-event-create/course-event-create.component';
+import {CourseEventCreateEditComponent} from './components/course/course-event-create/course-event-create-edit.component';
 import {CourseRegisterComponent} from './components/course/course-registration/course-register.component';
 import {MatSortModule} from '@angular/material/sort';
 import {ProblemSetComponent} from './components/problems/problem-set/problem-set.component';
@@ -69,13 +69,18 @@ import {ParsonsCreateSnippetComponent} from './components/problems/problem-creat
 import {VariableViewComponent} from './components/problems/problem-view/variable-view/variable-view.component';
 import {JsonEditorComponent} from './components/problems/json-editor/json-editor.component';
 import {SubmissionSnippetComponent} from './components/problems/problem-view/submission-snippet/submission-snippet.component';
-import {NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule} from '@angular-material-components/datetime-picker';
+import {
+    NgxMatDatetimePickerModule,
+    NgxMatNativeDateModule,
+    NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -109,7 +114,7 @@ import {MatSelectModule} from '@angular/material/select';
         CourseEventsSnippetComponent,
         TokenUseSnippetComponent,
         CourseQuestionSnippetComponent,
-        CourseEventCreateComponent,
+        CourseEventCreateEditComponent,
         ProblemViewComponent,
         ProblemEditComponent,
         ProblemCreateComponent,
@@ -153,6 +158,7 @@ import {MatSelectModule} from '@angular/material/select';
         MatStepperModule,
         MatInputModule,
         MatButtonModule,
+        MatProgressSpinnerModule,
         CommonModule,
         DragulaModule.forRoot(),
         CKEditorModule,

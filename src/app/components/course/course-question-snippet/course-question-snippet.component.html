@@ -20,14 +20,14 @@
             <ng-container *ngIf="uqjs.length; else tableEmpty">
                 <ng-container *ngFor="let uqj of uqjs; index as i">
                     <tr [attr.class]=highlight(getStatus(uqj))>
-                        <td>{{ uqj.question.parent_category_name }}</td>
-                        <td>{{ uqj.question.category_name }}</td>
-                        <td>{{ uqj.question.type_name }}</td>
-                        <td>{{ uqj.formatted_current_tokens_received }}</td>
-                        <td>{{ getStatus(uqj) }}</td>
+                        <td>{{ uqj.question.parent_category_name || 'No Category' }}</td>
+                        <td>{{ uqj.question.category_name || 'No Sub-Category'}}</td>
+                        <td>{{ uqj.question.type_name || 'No Type'}}</td>
+                        <td>{{ uqj.formatted_current_tokens_received || 'No Tokens' }}</td>
+                        <td>{{ getStatus(uqj) || 'No Status'}}</td>
                         <ng-container *ngIf="eventId">
                             <td>
-                                {{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed }}
+                                {{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed}}
                             </td>
                         </ng-container>
                         <td>

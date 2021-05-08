@@ -59,6 +59,7 @@ export class JavaEditSnippetComponent implements OnInit {
         }
 
         this.inputFileNames = this.QuestionDetails?.input_file_names;
+        this.variables = this.QuestionDetails?.variables;
 
         this.JavaFormData = this.formBuilder.group({
             title: new FormControl(this.QuestionDetails?.title),

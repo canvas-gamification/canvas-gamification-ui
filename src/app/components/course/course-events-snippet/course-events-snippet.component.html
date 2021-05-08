@@ -18,12 +18,12 @@
     <ng-container *ngIf="events; else tableEmpty">
         <ng-container *ngFor="let event of events; index as i">
             <tr>
-                <td>{{ event.name }}</td>
-                <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a' }}</td>
-                <td>{{ event.end_date | date: 'LLL. dd, YYYY, hh:MM a'  }}</td>
+                <td>{{ event.name  || 'N/A'}}</td>
+                <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
+                <td>{{ event.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
                 <td *ngIf="isExamAndOpen(event); else totalEventGrade">Not Available Yet</td>
                 <ng-template #totalEventGrade>
-                    <td>{{ event.total_event_grade | number: '1.0-1' }}%</td>
+                    <td>{{ event.total_event_grade | number: '1.0-1'  || 'No Grade'}}%</td>
                 </ng-template>
                 <td>
                     <div class="btn-container">

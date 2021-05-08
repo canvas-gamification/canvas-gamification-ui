@@ -26,7 +26,7 @@ export class ConsentFormComponent implements OnInit {
             legal_first_name: new FormControl('', [Validators.required]),
             legal_last_name: new FormControl('', [Validators.required]),
             student_number: new FormControl('', [Validators.required]),
-            date: new FormControl('', [Validators.required])
+            date: new FormControl(new Date().toDateString(), [Validators.required])
         });
     }
 
@@ -35,9 +35,11 @@ export class ConsentFormComponent implements OnInit {
             .subscribe(response => {
                 this.router.navigate(['../profile'], {relativeTo: this.route});
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully consented!');
+                window.scroll(0, 0);
             }, error => {
                 console.warn(error.responseText);
                 this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                window.scroll(0, 0);
             });
     }
 
