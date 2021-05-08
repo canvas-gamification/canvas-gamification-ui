@@ -22,6 +22,7 @@
                 "guard-for-in": "off",
                 "indent": ["error", 4],
                 "camelcase": "off",
+                "@angular-eslint/prefer-on-push-component-change-detection": "off",
                 "@typescript-eslint/naming-convention": [
                     "error",
                     {
