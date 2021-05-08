@@ -80,6 +80,7 @@ import {SubmissionViewComponent} from '@app/components/problems/submission-view/
 import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -157,6 +158,7 @@ import {MatSelectModule} from '@angular/material/select';
         MatStepperModule,
         MatInputModule,
         MatButtonModule,
+        MatProgressSpinnerModule,
         CommonModule,
         DragulaModule.forRoot(),
         CKEditorModule,
