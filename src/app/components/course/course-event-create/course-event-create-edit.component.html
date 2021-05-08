@@ -3,7 +3,7 @@
         Create Event
     </h2>
     <!--TODO: Add aria-labels throughout form (on Opey)-->
-    <form id="new-event" class="form" [formGroup]="FormData" (ngSubmit)="submitEvent(FormData.value)">
+    <form id="new-event" class="form" [formGroup]="FormData" (ngSubmit)="submitEvent(FormData)">
         <div class="form-group">
             <label for="id-name">Event Name</label>
             <input id="id-name" type="text" name="name" formControlName="name" class="form-control"
