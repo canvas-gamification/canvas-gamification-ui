@@ -18,6 +18,7 @@ export interface Question {
   is_sample: boolean;
   category_name: string;
   parent_category_name: string;
+  full_category_name: string;
   course_name: string;
   event_name: string;
   author_name: string;
