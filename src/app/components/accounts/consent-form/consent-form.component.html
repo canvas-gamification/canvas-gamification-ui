@@ -8,7 +8,7 @@
         <h2 class="card-header">Please Read our Informed Consent Form</h2>
         <app-terms-and-conditions-snippet></app-terms-and-conditions-snippet>
         <div class="card-body">
-          <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
+          <form [formGroup]="formData" (ngSubmit)="onSubmit(formData)">
             <div class="form-group">
               <label for="legal_last_name">Type in your last name:</label>
               <input type="text" class="form-control" name="legal_last_name"
