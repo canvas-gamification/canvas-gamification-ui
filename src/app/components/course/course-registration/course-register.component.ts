@@ -136,7 +136,7 @@ export class CourseRegisterComponent implements OnInit {
         );
     }
 
-    retrieveFormData(): any {
+    retrieveFormData(): { name: string, confirmed_name: string, student_number: number, code: number } {
         return {
             name: this.nameForm.get('nameControl').value || null,
             confirmed_name: this.serverGuessedName || null,

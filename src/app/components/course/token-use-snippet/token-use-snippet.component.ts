@@ -41,12 +41,12 @@ export class TokenUseSnippetComponent implements OnInit {
         this.calculateCurrentTotal();
     }
 
-    useToken(tokenUse: TokenUse, val: number) {
+    useToken(tokenUse: TokenUse, val: number): void {
         tokenUse.num_used += val;
         this.calculateCurrentTotal();
     }
 
-    calculateCurrentTotal() {
+    calculateCurrentTotal(): void {
         this.remainingTokens = this.courseReg.total_tokens_received;
         for (const optionId in this.tokenUses) {
             this.remainingTokens -= this.tokenUses[optionId].num_used * this.tokenUses[optionId].option.tokens_required;
@@ -54,7 +54,7 @@ export class TokenUseSnippetComponent implements OnInit {
         this.invalid = this.remainingTokens < 0;
     }
 
-    confirmChanges() {
+    confirmChanges(): void {
         const courseId = this.route.snapshot.params.courseId;
         const data = {};
         for (const optionId in this.tokenUses) {

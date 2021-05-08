@@ -12,7 +12,7 @@ import {Course, User} from '@app/_models';
     styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements AfterViewInit {
-    courseList: any;
+    courseList: MatTableDataSource<Course>;
     allCourses: Course[];
     displayedColumns: string[] = ['id', 'name', 'status', 'is_registered', 'actions'];
     user: User;
@@ -22,11 +22,11 @@ export class CourseListComponent implements AfterViewInit {
     constructor(private authenticationService: AuthenticationService,
                 private route: ActivatedRoute,
                 private courseService: CourseService, ) {
-        this.courseList = [];
+        this.courseList = new MatTableDataSource();
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit() : void {
         this.courseService.getCourses().subscribe((courses) => {
             this.allCourses = courses;
             this.courseList = new MatTableDataSource(courses);
