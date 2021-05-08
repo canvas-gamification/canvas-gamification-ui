@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConsentService} from '@app/_services/api/accounts/consent.service';
 import {MessageService} from '@app/_services/message.service';
@@ -8,11 +8,10 @@ import {MESSAGE_TYPES} from '@app/_models';
 @Component({
     selector: 'app-consent-form',
     templateUrl: './consent-form.component.html',
-    styleUrls: ['./consent-form.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./consent-form.component.scss']
 })
 export class ConsentFormComponent implements OnInit {
-    FormData: FormGroup;
+    formData: FormGroup;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -22,7 +21,7 @@ export class ConsentFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.FormData = this.builder.group({
+        this.formData = this.builder.group({
             consent: true,
             legal_first_name: new FormControl('', [Validators.required]),
             legal_last_name: new FormControl('', [Validators.required]),
@@ -31,8 +30,8 @@ export class ConsentFormComponent implements OnInit {
         });
     }
 
-    onSubmit(FormData: unknown): void {
-        this.consentService.postConsent(FormData)
+    onSubmit(formData: FormGroup): void {
+        this.consentService.postConsent(formData.value)
             .subscribe(() => {
                 this.router.navigate(['../profile'], {relativeTo: this.route}).then();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully consented!');

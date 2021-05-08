@@ -1,4 +1,4 @@
-﻿import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+﻿import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
@@ -9,8 +9,7 @@ import {ConsentService} from '@app/_services/api/accounts/consent.service';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;

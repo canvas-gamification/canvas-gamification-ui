@@ -7,7 +7,7 @@
       <div class="card">
         <h2 class="card-header">Profile</h2>
         <div class="card-body">
-          <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
+          <form [formGroup]="formData" (ngSubmit)="onSubmit(formData)">
             <div class="form-group">
               <label for="first_name">First Name:</label>
               <input type="text" class="form-control" name="first_name"
@@ -32,14 +32,14 @@
             Change Password
           </button>
           <hr>
-          <div *ngIf="!UserConsent">
+          <div *ngIf="!userConsent">
             <div class="my-1">You have not consented to our Informed Consent Form, if you wish to consent please click
               on
               the button below
             </div>
             <a routerLink="../consent-form" type="submit" class="btn btn-primary">Consent</a>
           </div>
-          <div *ngIf="UserConsent">
+          <div *ngIf="userConsent">
             <div class="my-1">You have consented to our Informed Consent Form, if you wish to withdraw please click on the
               button below
             </div>

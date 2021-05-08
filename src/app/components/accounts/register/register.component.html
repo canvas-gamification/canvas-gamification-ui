@@ -8,7 +8,7 @@
                 <ng-container *ngIf="!formSubmitted; else successfulSubmission">
                     <h2 class="card-header">Register</h2>
                     <div class="card-body">
-                        <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
+                        <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="email" class="form-control" name="email" aria-describedby="emailHelp"

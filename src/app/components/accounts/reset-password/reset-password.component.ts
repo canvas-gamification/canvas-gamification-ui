@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ResetPasswordService} from '@app/_services/api/accounts/reset-password.service';
 import {MessageService} from '@app/_services/message.service';
@@ -8,26 +8,25 @@ import {MESSAGE_TYPES} from '@app/_models';
     selector: 'app-reset-password',
     templateUrl: './reset-password.component.html',
     styleUrls: ['./reset-password.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResetPasswordComponent implements OnInit {
-    FormData: FormGroup;
+    formData: FormGroup;
 
     constructor(private builder: FormBuilder, private password: ResetPasswordService, private messageService: MessageService) {
     }
 
     ngOnInit(): void {
-        this.FormData = this.builder.group({
+        this.formData = this.builder.group({
             old_password: new FormControl('', [Validators.required]),
             password: new FormControl('', [Validators.required]),
             password2: new FormControl('', [Validators.required])
         });
     }
 
-    onSubmit(FormData: unknown): void {
-        this.password.PutPasswordReset(FormData)
+    onSubmit(formData: FormGroup): void {
+        this.password.PutPasswordReset(formData)
             .subscribe(() => {
-                this.FormData.reset();
+                this.formData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your password has been updated successfully!');
             }, error => {
                 console.warn(error.responseText);

@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {RegisterService} from '@app/_services/api/accounts/register.service';
@@ -8,8 +8,7 @@ import {MessageService} from '@app/_services/message.service';
 @Component({
     selector: 'app-activation-email',
     templateUrl: './activation-email.component.html',
-    styleUrls: ['./activation-email.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./activation-email.component.scss']
 })
 export class ActivationEmailComponent implements OnInit {
     private routeSub: Subscription;
