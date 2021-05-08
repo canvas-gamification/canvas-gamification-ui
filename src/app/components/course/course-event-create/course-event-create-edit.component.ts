@@ -1,19 +1,23 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CourseEvent, MESSAGE_TYPES, EventType} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {MessageService} from '@app/_services/message.service';
 import {AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
-const DateValidator: (controls: AbstractControl) => void = (controls: AbstractControl) => {
+const dateValidator: (controls: AbstractControl) => void = (controls: AbstractControl) => {
     const start = controls.get('startPicker');
     const end = controls.get('endPicker');
-    return start.value > end.value ? start.setErrors({forbiddenDateRange: {startDate: start.value, endDate: end.value}}) : null;
+    return start.value > end.value ? start.setErrors({
+        forbiddenDateRange: {
+            startDate: start.value,
+            endDate: end.value
+        }
+    }) : null;
 };
 
 @Component({
     selector: 'app-course-event-create',
-    changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './course-event-create-edit.component.html',
     styleUrls: ['./course-event-create-edit.component.scss']
 })
@@ -21,7 +25,7 @@ export class CourseEventCreateEditComponent implements OnInit {
     localEventTypes: EventType[];
     courseId: number;
     eventId: number;
-    FormData: FormGroup;
+    formData: FormGroup;
 
     constructor(private route: ActivatedRoute,
                 private builder: FormBuilder,
@@ -31,13 +35,13 @@ export class CourseEventCreateEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.FormData = this.builder.group({
+        this.formData = this.builder.group({
             name: new FormControl('', [Validators.required]),
             type: new FormControl('', [Validators.required]),
             countForTokens: new FormControl('', [Validators.required]),
             startPicker: new FormControl(new Date(), [Validators.required]),
             endPicker: new FormControl(new Date(), [Validators.required])
-        }, {validator: DateValidator} as AbstractControlOptions);
+        }, {validator: dateValidator} as AbstractControlOptions);
         this.courseEventService.getEventTypes().subscribe(response => this.localEventTypes = response);
         // Convert to number
         this.courseId = +this.route.snapshot.paramMap.get('courseId');
@@ -45,7 +49,7 @@ export class CourseEventCreateEditComponent implements OnInit {
             this.eventId = +this.route.snapshot.paramMap.get('eventId');
             this.courseEventService.getCourseEvent(this.eventId).subscribe(
                 event => {
-                    this.FormData.patchValue({
+                    this.formData.patchValue({
                         name: event.name,
                         type: event.type,
                         countForTokens: event.count_for_tokens,
