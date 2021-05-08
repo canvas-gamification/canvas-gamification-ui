@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProfileDetailsService} from '@app/_services/api/accounts/profile-details.service';
 import {MessageService} from '@app/_services/message.service';
@@ -9,7 +9,8 @@ import {Router} from '@angular/router';
 @Component({
     selector: 'app-profile-details',
     templateUrl: './profile-details.component.html',
-    styleUrls: ['./profile-details.component.scss']
+    styleUrls: ['./profile-details.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileDetailsComponent implements OnInit {
     FormData: FormGroup;
@@ -41,9 +42,9 @@ export class ProfileDetailsComponent implements OnInit {
         });
     }
 
-    onSubmit(FormData) {
+    onSubmit(FormData: unknown): void {
         this.profile.PutProfileDetails(FormData, this.UserDetails[0].id)
-            .subscribe(response => {
+            .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your profile has been updated successfully!');
             }, error => {
                 console.warn(error.responseText);
@@ -51,14 +52,14 @@ export class ProfileDetailsComponent implements OnInit {
             });
     }
 
-    withdraw() {
+    withdraw(): void {
         this.consentService.postConsent({
             consent: false,
             legal_first_name: '',
             legal_last_name: '',
             student_number: '',
             date: ''
-        }).subscribe(response => {
+        }).subscribe(() => {
             this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your consent has been withdrawn successfully!');
         }, error => {
             console.warn(error.responseText);

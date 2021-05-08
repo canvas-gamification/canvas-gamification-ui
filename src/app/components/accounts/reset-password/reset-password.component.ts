@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ResetPasswordService} from '@app/_services/api/accounts/reset-password.service';
 import {MessageService} from '@app/_services/message.service';
@@ -7,7 +7,8 @@ import {MESSAGE_TYPES} from '@app/_models';
 @Component({
     selector: 'app-reset-password',
     templateUrl: './reset-password.component.html',
-    styleUrls: ['./reset-password.component.scss']
+    styleUrls: ['./reset-password.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResetPasswordComponent implements OnInit {
     FormData: FormGroup;
@@ -23,9 +24,9 @@ export class ResetPasswordComponent implements OnInit {
         });
     }
 
-    onSubmit(FormData) {
+    onSubmit(FormData: unknown): void {
         this.password.PutPasswordReset(FormData)
-            .subscribe(response => {
+            .subscribe(() => {
                 this.FormData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your password has been updated successfully!');
             }, error => {

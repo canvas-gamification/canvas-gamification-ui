@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConsentService} from '@app/_services/api/accounts/consent.service';
 import {MessageService} from '@app/_services/message.service';
@@ -8,7 +8,8 @@ import {MESSAGE_TYPES} from '@app/_models';
 @Component({
     selector: 'app-consent-form',
     templateUrl: './consent-form.component.html',
-    styleUrls: ['./consent-form.component.scss']
+    styleUrls: ['./consent-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConsentFormComponent implements OnInit {
     FormData: FormGroup;
@@ -30,10 +31,10 @@ export class ConsentFormComponent implements OnInit {
         });
     }
 
-    onSubmit(FormData) {
+    onSubmit(FormData: unknown): void {
         this.consentService.postConsent(FormData)
-            .subscribe(response => {
-                this.router.navigate(['../profile'], {relativeTo: this.route});
+            .subscribe(() => {
+                this.router.navigate(['../profile'], {relativeTo: this.route}).then();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully consented!');
                 window.scroll(0, 0);
             }, error => {
@@ -43,14 +44,14 @@ export class ConsentFormComponent implements OnInit {
             });
     }
 
-    declineConsent() {
+    declineConsent(): void {
         this.consentService.postConsent({
             consent: false,
             legal_first_name: '',
             legal_last_name: '',
             student_number: '',
             date: ''
-        }).subscribe(response => {
+        }).subscribe(() => {
             this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You successfully declined to consent.');
         }, error => {
             console.warn(error);
