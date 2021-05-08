@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CourseEvent} from '@app/_models';
+import {CourseEvent, EventType} from '@app/_models';
 import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
@@ -38,6 +38,14 @@ export class CourseEventService {
         return this.http.put<CourseEvent>(`${this.courseEventUrl}${courseEvent.id}/`, courseEvent).pipe(
             catchError(this.handleError<CourseEvent>('updateCourseEvent', courseEvent))
         );
+    }
+
+    getEventTypes(): Observable<EventType[]> {
+        return this.http
+            .get<EventType[]>(`${this.courseEventUrl}get-event-types/`)
+            .pipe(catchError(this.handleError<EventType[]>(
+                `getEventTypes`
+            )));
     }
 
     /**

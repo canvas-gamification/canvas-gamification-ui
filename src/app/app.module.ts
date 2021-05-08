@@ -45,7 +45,7 @@ import {CourseEventsSnippetComponent} from './components/course/course-events-sn
 import {TokenUseSnippetComponent} from './components/course/token-use-snippet/token-use-snippet.component';
 import {CourseQuestionSnippetComponent} from './components/course/course-question-snippet/course-question-snippet.component';
 import {MatButtonModule} from '@angular/material/button';
-import {CourseEventCreateComponent} from './components/course/course-event-create/course-event-create.component';
+import {CourseEventCreateEditComponent} from './components/course/course-event-create/course-event-create-edit.component';
 import {CourseRegisterComponent} from './components/course/course-registration/course-register.component';
 import {MatSortModule} from '@angular/material/sort';
 import {ProblemSetComponent} from './components/problems/problem-set/problem-set.component';
@@ -114,7 +114,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         CourseEventsSnippetComponent,
         TokenUseSnippetComponent,
         CourseQuestionSnippetComponent,
-        CourseEventCreateComponent,
+        CourseEventCreateEditComponent,
         ProblemViewComponent,
         ProblemEditComponent,
         ProblemCreateComponent,
