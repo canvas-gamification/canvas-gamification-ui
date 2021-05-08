@@ -7,10 +7,10 @@ import {MessageService} from '@app/_services/message.service';
 import {CourseRegistrationResponse, REGISTRATION_STATUS, MESSAGE_TYPES} from '@app/_models';
 
 const STEPPER_STAGES = {
-    enterName: 0,
-    confirmIdentity: 1,
-    verification: 2,
-    registered: 3,
+    ENTER_NAME: 0,
+    CONFIRM_IDENTITY: 1,
+    VERIFICATION: 2,
+    REGISTERED: 3,
 };
 
 @Component({
@@ -84,9 +84,9 @@ export class CourseRegisterComponent implements OnInit {
         this.completed = status === REGISTRATION_STATUS.REGISTERED;
         this.verification = status === REGISTRATION_STATUS.AWAIT_VERIFICATION;
 
-        this.selectedIndex = status === REGISTRATION_STATUS.REGISTERED ? STEPPER_STAGES.registered :
-            status === REGISTRATION_STATUS.AWAIT_VERIFICATION ? STEPPER_STAGES.verification :
-                STEPPER_STAGES.enterName;
+        this.selectedIndex = status === REGISTRATION_STATUS.REGISTERED ? STEPPER_STAGES.REGISTERED :
+            status === REGISTRATION_STATUS.AWAIT_VERIFICATION ? STEPPER_STAGES.VERIFICATION :
+                STEPPER_STAGES.ENTER_NAME;
     }
 
     setRegistrationStage(courseRegResponse: CourseRegistrationResponse): void {
@@ -96,7 +96,7 @@ export class CourseRegisterComponent implements OnInit {
         if (courseRegResponse.success) {
             this.nextStep();
         } else {
-            if (this.stepper.selectedIndex === STEPPER_STAGES.enterName) {
+            if (this.stepper.selectedIndex === STEPPER_STAGES.ENTER_NAME) {
                 this.needsStudentNumber = true;
                 this.nextStep();
             }
