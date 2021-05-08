@@ -23,9 +23,14 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort) matSort: MatSort;
 
     constructor() {
+        this.leaderBoard = [{
+            name: 'Anonymous User',
+            token: null,
+        }];
     }
 
-    ngOnInit(): void {
+    ngOnInit() : void {
+        this.leaderBoardData = new MatTableDataSource();
     }
 
     ngAfterViewInit(): void {
