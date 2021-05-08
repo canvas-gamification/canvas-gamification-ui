@@ -43,7 +43,7 @@
                     // for out services
                     {
                         "selector": "memberLike",
-                        "format": ["camelCase", "snake_case"]
+                        "format": ["camelCase", "snake_case", "UPPER_CASE"]
                     }
                 ]
             }
