@@ -11,7 +11,7 @@ import {MESSAGE_TYPES} from '@app/_models';
     styleUrls: ['./consent-form.component.scss']
 })
 export class ConsentFormComponent implements OnInit {
-    FormData: FormGroup;
+    formData: FormGroup;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -21,7 +21,7 @@ export class ConsentFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.FormData = this.builder.group({
+        this.formData = this.builder.group({
             consent: true,
             legal_first_name: new FormControl('', [Validators.required]),
             legal_last_name: new FormControl('', [Validators.required]),
@@ -30,10 +30,10 @@ export class ConsentFormComponent implements OnInit {
         });
     }
 
-    onSubmit(FormData) {
-        this.consentService.postConsent(FormData)
-            .subscribe(response => {
-                this.router.navigate(['../profile'], {relativeTo: this.route});
+    onSubmit(formData: FormGroup): void {
+        this.consentService.postConsent(formData.value)
+            .subscribe(() => {
+                this.router.navigate(['../profile'], {relativeTo: this.route}).then();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully consented!');
                 window.scroll(0, 0);
             }, error => {
@@ -43,14 +43,14 @@ export class ConsentFormComponent implements OnInit {
             });
     }
 
-    declineConsent() {
+    declineConsent(): void {
         this.consentService.postConsent({
             consent: false,
             legal_first_name: '',
             legal_last_name: '',
             student_number: '',
             date: ''
-        }).subscribe(response => {
+        }).subscribe(() => {
             this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You successfully declined to consent.');
         }, error => {
             console.warn(error);

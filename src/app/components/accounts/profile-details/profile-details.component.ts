@@ -12,9 +12,9 @@ import {Router} from '@angular/router';
     styleUrls: ['./profile-details.component.scss']
 })
 export class ProfileDetailsComponent implements OnInit {
-    FormData: FormGroup;
-    UserConsent: boolean;
-    UserDetails: User;
+    formData: FormGroup;
+    userConsent: boolean;
+    userDetails: User;
 
     constructor(private router: Router,
                 private builder: FormBuilder,
@@ -24,26 +24,26 @@ export class ProfileDetailsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.FormData = this.builder.group({
+        this.formData = this.builder.group({
             first_name: new FormControl('', [Validators.required]),
             last_name: new FormControl('', [Validators.required]),
             email: new FormControl('', [Validators.required, Validators.email])
         });
 
         this.consentService.getConsent().subscribe(consents => {
-            this.UserConsent = consents[consents.length - 1].consent;
+            this.userConsent = consents[consents.length - 1].consent;
         });
         this.profile.GetProfileDetails().subscribe((details: User) => {
-            this.UserDetails = details;
-            this.FormData.controls.first_name.setValue(this.UserDetails[0].first_name);
-            this.FormData.controls.last_name.setValue(this.UserDetails[0].last_name);
-            this.FormData.controls.email.setValue(this.UserDetails[0].email);
+            this.userDetails = details;
+            this.formData.controls.first_name.setValue(this.userDetails[0].first_name);
+            this.formData.controls.last_name.setValue(this.userDetails[0].last_name);
+            this.formData.controls.email.setValue(this.userDetails[0].email);
         });
     }
 
-    onSubmit(FormData) {
-        this.profile.PutProfileDetails(FormData, this.UserDetails[0].id)
-            .subscribe(response => {
+    onSubmit(formData: FormGroup): void {
+        this.profile.PutProfileDetails(formData.value, this.userDetails[0].id)
+            .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your profile has been updated successfully!');
             }, error => {
                 console.warn(error.responseText);
@@ -51,19 +51,19 @@ export class ProfileDetailsComponent implements OnInit {
             });
     }
 
-    withdraw() {
+    withdraw(): void {
         this.consentService.postConsent({
             consent: false,
             legal_first_name: '',
             legal_last_name: '',
             student_number: '',
             date: ''
-        }).subscribe(response => {
+        }).subscribe(() => {
             this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your consent has been withdrawn successfully!');
         }, error => {
             console.warn(error.responseText);
             this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
         });
-        this.UserConsent = false;
+        this.userConsent = false;
     }
 }
