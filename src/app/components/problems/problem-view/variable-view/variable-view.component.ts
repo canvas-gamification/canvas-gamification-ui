@@ -16,7 +16,6 @@ export class VariableViewComponent implements OnInit {
     ngOnInit(): void {
         if (Object.keys(this.variables).length !== 0) {
             const array = [];
-            // tslint:disable-next-line:forin
             for (const variable in this.variables) {
                 array.push({
                     name: variable,

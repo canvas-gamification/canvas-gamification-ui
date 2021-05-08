@@ -1,0 +1,36 @@
+{
+    "root": true,
+    "overrides": [
+        {
+            "files": [
+                "*.ts"
+            ],
+            "parserOptions": {
+                "project": [
+                    "tsconfig.json",
+                    "tsconfig.spec.json",
+                    "e2e/tsconfig.json"
+                ],
+                "createDefaultProgram": true
+            },
+            "extends": [
+                "plugin:@typescript-eslint/recommended",
+                "plugin:@angular-eslint/all",
+                "plugin:@angular-eslint/template/process-inline-templates"
+            ],
+            "rules": {
+                "guard-for-in": "off",
+                "indent": ["error", 4]
+            }
+        },
+        {
+            "files": [
+                "*.html"
+            ],
+            "extends": [
+                "plugin:@angular-eslint/template/recommended"
+            ],
+            "rules": {}
+        }
+    ]
+}
