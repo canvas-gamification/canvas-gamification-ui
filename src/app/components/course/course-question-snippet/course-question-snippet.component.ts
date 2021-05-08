@@ -63,7 +63,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         }
     }
 
-    highlight(status: string) {
+    highlight(status: string) : string {
         if (status.localeCompare('Solved') === 0){
             return 'highlight-success';
         }

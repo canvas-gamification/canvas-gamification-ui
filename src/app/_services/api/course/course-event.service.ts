@@ -16,13 +16,13 @@ export class CourseEventService {
     ) {
     }
 
-    getCourseEvent(courseEventId): Observable<CourseEvent> {
+    getCourseEvent(courseEventId: number): Observable<CourseEvent> {
         return this.http
             .get<CourseEvent>(`${this.courseEventUrl}${courseEventId}/`)
             .pipe(catchError(this.handleError<CourseEvent>('getCourseEvent')));
     }
 
-    deleteCourseEvent(courseEventId): Observable<{}> {
+    deleteCourseEvent(courseEventId: number): Observable<CourseEvent> {
         return this.http
             .delete<CourseEvent>(`${this.courseEventUrl}${courseEventId}/`)
             .pipe(catchError(this.handleError<CourseEvent>('deleteCourseEvent')));
