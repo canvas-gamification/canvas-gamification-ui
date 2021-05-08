@@ -8,7 +8,9 @@
         "generate-output": "ng build --prod --output-path ../canvas-gamification/static/angular",
         "test": "ng test",
         "lint": "ng lint",
-        "e2e": "ng e2e"
+        "e2e": "ng e2e",
+        "build:ci": "ng build --prod --sourceMap=false --base-href canvas-gamification-ui",
+        "test:ci": "ng test --watch=false --code-coverage --source-map true"
     },
     "private": true,
     "dependencies": {
