@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {MESSAGE_TYPES, Question} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
 import {PageEvent} from '@angular/material/paginator';
@@ -9,6 +9,7 @@ import {MessageService} from '@app/_services/message.service';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
     selector: 'app-problem-set',
@@ -21,6 +22,7 @@ export class ProblemSetComponent implements OnInit {
     faPencilAlt = faPencilAlt;
     faTrashAlt = faTrashAlt;
     questions: Question[];
+    questionsSource: MatTableDataSource<Question>;
 
     // Pagination
     questionsLength: number;
@@ -38,6 +40,8 @@ export class ProblemSetComponent implements OnInit {
     deleteQuestionId: number;
 
     paramChanged: Subject<{}> = new Subject<{}>();
+    displayedColumns: string[] = ['id', 'title', 'author', 'event__name', 'category__parent__name', 'category__name',
+        'difficulty', 'token_value', 'avg_success', 'actions'];
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
@@ -46,6 +50,7 @@ export class ProblemSetComponent implements OnInit {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
                 this.questions = paginatedQuestions.results;
+                this.questionsSource = new MatTableDataSource<Question>(this.questions);
                 this.questionsLength = paginatedQuestions.count;
             });
         });
@@ -53,11 +58,11 @@ export class ProblemSetComponent implements OnInit {
 
     ngOnInit(): void {
         this.initialize();
-
         this.FormData = this.builder.group({
             search: new FormControl(''),
             difficulty: new FormControl(''),
             category: new FormControl(''),
+            // TODO: Add filtering by status
             // status: new FormControl(''),
             is_sample: new FormControl('')
         });
@@ -68,6 +73,7 @@ export class ProblemSetComponent implements OnInit {
             this.questionsLength = paginatedQuestions.count;
             this.pageSize = paginatedQuestions.results.length;
             this.questions = paginatedQuestions.results;
+            this.questionsSource = new MatTableDataSource(this.questions);
         });
     }
 
@@ -99,8 +105,8 @@ export class ProblemSetComponent implements OnInit {
         this.update();
     }
 
-    applyFilter(data) {
-        this.filterQueryString = data;
+    applyFilter() {
+        this.filterQueryString = this.FormData.value;
         this.update();
     }
 

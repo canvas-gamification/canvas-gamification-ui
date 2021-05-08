@@ -30,7 +30,7 @@ export class ProfileDetailsComponent implements OnInit {
             email: new FormControl('', [Validators.required, Validators.email])
         });
 
-        this.consentService.GetConsent().subscribe(consents => {
+        this.consentService.getConsent().subscribe(consents => {
             this.UserConsent = consents[consents.length - 1].consent;
         });
         this.profile.GetProfileDetails().subscribe((details: User) => {
@@ -52,7 +52,7 @@ export class ProfileDetailsComponent implements OnInit {
     }
 
     withdraw() {
-        this.consentService.WithdrawConsent({
+        this.consentService.postConsent({
             consent: false,
             legal_first_name: '',
             legal_last_name: '',

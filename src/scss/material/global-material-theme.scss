@@ -1,11 +1,42 @@
+@use './variables';
 @import '~@angular/material/theming';
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
-
 @import './material/custom-themes.scss';
+
+//The following map definitions might need to be changed if the colors demand it.
+@include mat-core();
+$md-primary: (
+    500 : $primary,
+    contrast: (
+        500 : #000000,
+    )
+);
+
+$md-secondary: (
+    500 : $secondary,
+    contrast: (
+        500 : #000000,
+    )
+);
+
+$md-warn: (
+    500 : $warning,
+    contrast: (
+        500 : #000000,
+    )
+);
+
+$app-primary: mat-palette($md-primary);
+$app-accent: mat-palette($md-secondary);
+$app-warn: mat-palette($md-secondary);
+
+$app-theme: mat-light-theme((
+    color: (
+        primary: $app-primary,
+        accent: $app-accent,
+        warn: $app-warn,
+    )
+));
+
+@include angular-material-theme($app-theme);
 @include custom-stepper-theme();
 @include custom-table-theme();

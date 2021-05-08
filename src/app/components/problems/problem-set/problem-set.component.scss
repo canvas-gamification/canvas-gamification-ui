@@ -1,48 +1,40 @@
 @use "mixins";
+@use "variables";
+@use 'bootstrap';
 
 @include mixins.highlight-table();
+@include mixins.hover-shadow();
 
-header {
-    background: #EEEEEE;
-}
 
-table {
-    border: 1px solid #dee2e6;
-    background: white;
-}
+.action-tray {
+    white-space: nowrap;
 
-td, th {
-    border: 1px solid #dee2e6;
-}
-
-a {
-    margin: auto;
-    text-align: center;
-    vertical-align: middle;
-
-    #faEye {
-        color: white;
-        background-color: #007bff;
+    a {
+        text-align: center;
+        vertical-align: middle;
     }
 
-    #faPencilAlt {
-        color: black;
-        background-color: antiquewhite;
+    .action-icon {
+        line-height: 1.25rem;
+        display: inline-block;
+        font-size: 1.25rem;
+        text-align: center;
+        padding: 0.55rem;
+        border-radius: 0.3rem;
+        width: 2.5rem;
+
     }
 
-    #faTrashAlt {
-        color: white;
-        background-color: #dc3545;
+    .faEye {
+        background-color: variables.$primary;
+    }
+
+    .faPencilAlt {
+        background-color: variables.$cream;
+    }
+
+    .faTrashAlt {
+        background-color: variables.$danger;
     }
 }
-
-.action-icon {
-    line-height: 1.25rem;
-    display: inline-block;
-    font-size: 1.25rem;
-    text-align: center;
-    padding: 0.55rem;
-    border-radius: 5px;
-}
-
 

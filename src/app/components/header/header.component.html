@@ -20,24 +20,30 @@
             <li class="nav-item">
                 <a [class.active]="isActive('course')" class="nav-link" routerLink="course">Courses</a>
             </li>
-            <li class="nav-item">
-                <a [class.active]="isActive('problems')" class="nav-link" routerLink="problems">Problem
-                    Set</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle float-md-right" href="#" id="newProblemDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    New Problem
-                </a>
-                <div class="dropdown-menu" aria-labelledby="newProblemDropdown">
-                    <a class="dropdown-item" routerLink="problem/create/MCQ">Multiple Choice Problem</a>
-                    <a class="dropdown-item" routerLink="problem/create/java">Java Problem</a>
-                    <a class="dropdown-item" routerLink="problem/create/parsons">Parsons Problem</a>
-                </div>
-            </li>
-            <li class="nav-item" *ngIf="user?.is_teacher">
-                <a [class.active]="isActive('token-values')" class="nav-link" routerLink="token-values">Token&nbsp;Values</a>
-            </li>
+            <ng-container *ngIf="user?.is_teacher">
+                <li class="nav-item">
+                    <a [class.active]="isActive('problems')" class="nav-link" routerLink="problems">Problem
+                        Set</a>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="user?.is_teacher">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle float-md-right" href="#" id="newProblemDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        New Problem
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="newProblemDropdown">
+                        <a class="dropdown-item" routerLink="problem/create/MCQ">Multiple Choice Problem</a>
+                        <a class="dropdown-item" routerLink="problem/create/java">Java Problem</a>
+                        <a class="dropdown-item" routerLink="problem/create/parsons">Parsons Problem</a>
+                    </div>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="user?.is_teacher">
+                <li class="nav-item">
+                    <a [class.active]="isActive('token-values')" class="nav-link" routerLink="token-values">Token&nbsp;Values</a>
+                </li>
+            </ng-container>
             <li class="nav-item">
                 <a [class.active]="isActive('faq')" class="nav-link" routerLink="faq">FAQ</a>
             </li>
@@ -81,11 +87,11 @@
                                 <a class="dropdown-item" routerLink="token-values">Token Values</a>
                                 <div class="dropdown-divider"></div>
                                 <h4 class="dropdown-header mb-0">New Problem</h4>
-                                <a class="dropdown-item" routerLink="course/new_problem_multiple_choice">Multiple Choice
+                                <a class="dropdown-item" routerLink="problem/create/MCQ">Multiple Choice
                                     Problem</a>
                                 <a class="dropdown-item" routerLink="course/new_problem_checkbox">Checkbox Problem</a>
-                                <a class="dropdown-item" routerLink="course/new_problem_java">Java Problem</a>
-                                <a class="dropdown-item" routerLink="course/new_problem_parsons">Parsons Problem</a>
+                                <a class="dropdown-item" routerLink="problem/create/java">Java Problem</a>
+                                <a class="dropdown-item" routerLink="problem/create/parsons">Parsons Problem</a>
                             </ng-container>
                         </div>
                     </li>

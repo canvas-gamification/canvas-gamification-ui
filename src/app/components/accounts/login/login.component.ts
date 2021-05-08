@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
 import {AuthenticationService} from '@app/_services/api/authentication';
+import {ConsentService} from '@app/_services/api/accounts/consent.service';
 
 @Component({
     selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        private consentService: ConsentService
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -53,9 +55,15 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe({
                 next: () => {
-                    // get return url from route parameters or default to '/'
-                    const returnUrl = this.route.snapshot.queryParams.returnUrl || '/homepage';
-                    this.router.navigate([returnUrl]);
+                    this.consentService.getConsent().subscribe((consents) => {
+                        if (consents.length === 0) {
+                            this.router.navigate(['/accounts/consent-form']);
+                        } else {
+                            // get return url from route parameters or default to '/'
+                            const returnUrl = this.route.snapshot.queryParams.returnUrl || '/homepage';
+                            this.router.navigate([returnUrl]);
+                        }
+                    });
                 },
                 error: error => {
                     this.error = error;
