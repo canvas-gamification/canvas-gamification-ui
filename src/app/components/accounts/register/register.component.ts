@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {environment} from '@environments/environment';
 import {RegisterService} from '@app/_services/api/accounts/register.service';
 import {MessageService} from '@app/_services/message.service';
 import {confirmPasswordValidator} from '@app/_helpers/confirm-password.validator';
 import {MESSAGE_TYPES} from '@app/_models';
-import {AuthenticationService} from '@app/_services/api/authentication';
-import {first} from 'rxjs/operators';
 
 @Component({
     selector: 'app-register',
@@ -14,34 +12,34 @@ import {first} from 'rxjs/operators';
     styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-    FormData: FormGroup;
+    formData: FormGroup;
     siteKey: string = environment.siteKey;
-    formSubmitted: boolean = false;
-    isLoading: boolean = false;
+    formSubmitted = false;
+    isLoading = false;
 
     constructor(private builder: FormBuilder, private register: RegisterService, private messageService: MessageService) {
     }
 
     ngOnInit(): void {
-        this.FormData = this.builder.group({
+        this.formData = this.builder.group({
             email: new FormControl(null, [Validators.required, Validators.email]),
             password: new FormControl(null, [Validators.required]),
             password2: new FormControl(null, [Validators.required]),
             recaptcha_key: new FormControl(null, [Validators.required])
         }, {
-            validator: confirmPasswordValidator,
+            validators: confirmPasswordValidator,
         });
     }
 
-    get f() {
-        return this.FormData.controls;
+    get f(): { [p: string]: AbstractControl } {
+        return this.formData.controls;
     }
 
-    onSubmit(FormData: FormArray) {
+    onSubmit(formData: FormArray): void {
         this.isLoading = true;
-        this.register.PostRegistration(FormData)
-            .subscribe(response => {
-                this.FormData.reset();
+        this.register.PostRegistration(formData)
+            .subscribe(() => {
+                this.formData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully registered.');
                 this.formSubmitted = true;
                 this.isLoading = false;
