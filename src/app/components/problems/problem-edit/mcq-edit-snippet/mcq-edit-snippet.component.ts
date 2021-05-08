@@ -65,7 +65,7 @@ export class McqEditSnippetComponent implements OnInit {
         this.correctAnswer = this.choiceArray[this.choiceArray
             .findIndex(x => x.id === this.QuestionDetails.answer)];
         this.distract.removeAt(this.distract.value.findIndex(item => item === this.correctAnswer.value));
-        this.variables = this.QuestionDetails.variables;
+        this.variables = this.QuestionDetails?.variables;
 
         this.MCQFormData = this.formBuilder.group({
             title: new FormControl(this.QuestionDetails?.title),
