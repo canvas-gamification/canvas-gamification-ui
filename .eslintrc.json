@@ -20,7 +20,32 @@
             ],
             "rules": {
                 "guard-for-in": "off",
-                "indent": ["error", 4]
+                "indent": ["error", 4],
+                "camelcase": "off",
+                "@angular-eslint/prefer-on-push-component-change-detection": "off",
+                "@typescript-eslint/naming-convention": [
+                    "error",
+                    {
+                        "selector": "default",
+                        "format": ["camelCase"]
+                    },
+                    {
+                        "selector": "variable",
+                        "format": ["camelCase", "UPPER_CASE"]
+                    },
+                    {
+                        "selector": "typeLike",
+                        "format": ["PascalCase"]
+                    },
+                    // This is only because our APIs are snake_case
+                    // No other member should be snake_case
+                    // Will be removed after we implement name convertion
+                    // for out services
+                    {
+                        "selector": "memberLike",
+                        "format": ["camelCase", "snake_case"]
+                    }
+                ]
             }
         },
         {
