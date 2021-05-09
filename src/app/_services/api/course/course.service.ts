@@ -116,8 +116,7 @@ export class CourseService {
      * @param result - optional value to return as the observable result
      */
     private handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
-            console.error(error); // log to console instead
+        return (): Observable<T> => {
             if (operation === 'validateEvent') {
                 this.messageService.add(
                     MESSAGE_TYPES.DANGER, 'You don\'t have the correct permissions to access that course or event!');

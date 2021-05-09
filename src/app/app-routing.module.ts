@@ -4,7 +4,6 @@ import {ContactComponent} from './components/contact/contact.component';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
 import {TopicsComponent} from './components/topics/topics.component';
-import {ConceptMapComponent} from './components/concept-map/concept-map.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';
@@ -27,6 +26,7 @@ import {ProblemEditComponent} from '@app/components/problems/problem-edit/proble
 import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
 import {ActivationEmailComponent} from '@app/components/accounts/activation-email/activation-email.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
+import {NotFoundComponent} from "@app/components/redirects/not-found/not-found.component";
 
 
 const routes: Routes = [
@@ -158,6 +158,15 @@ const routes: Routes = [
         path: 'problem/submission/:id',
         component: SubmissionViewComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: '404',
+        component: NotFoundComponent
+    },
+    {
+        // KEEP THIS ROUTE AT THE END
+        path: '**',
+        redirectTo: '/404'
     }
 ];
 
