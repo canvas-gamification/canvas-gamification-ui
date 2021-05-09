@@ -10,7 +10,8 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "build:ci": "ng build --prod --sourceMap=false --base-href canvas-gamification-ui",
-        "test:ci": "ng test --no-watch --code-coverage"
+        "test:ci": "ng test -- --no-watch --no-progress --browsers=ChromeHeadlessCI",
+        "e2e:ci": "ng e2e -- --protractor-config=e2e/protractor-ci.conf.js"
     },
     "private": true,
     "dependencies": {
