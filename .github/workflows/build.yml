@@ -86,9 +86,16 @@ jobs:
                 uses: actions/download-artifact@v1
                 with:
                     name: deploy_dist
-            -   name: Deploy to GitHub Pages
+            -   name: Deploy Code to GitHub Pages
                 uses: JamesIves/github-pages-deploy-action@releases/v3
                 with:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                     BRANCH: gh-pages
                     FOLDER: deploy_dist/canvas-gamification-ui
+            -   name: Deploy Coverage to GitHub Pages
+                uses: JamesIves/github-pages-deploy-action@releases/v3
+                with:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    BRANCH: gh-pages
+                    FOLDER: deploy_coverage
+                    TARGET-FOLER: coverage
