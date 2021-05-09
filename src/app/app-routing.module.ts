@@ -27,6 +27,7 @@ import {ProblemCreateComponent} from '@app/components/problems/problem-create/pr
 import {ActivationEmailComponent} from '@app/components/accounts/activation-email/activation-email.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 import {NotFoundComponent} from "@app/components/redirects/not-found/not-found.component";
+import {ForbiddenComponent} from "@app/components/redirects/forbidden/forbidden.component";
 
 
 const routes: Routes = [
@@ -162,6 +163,10 @@ const routes: Routes = [
     {
         path: '404',
         component: NotFoundComponent
+    },
+    {
+        path: '403',
+        component: ForbiddenComponent
     },
     {
         // KEEP THIS ROUTE AT THE END

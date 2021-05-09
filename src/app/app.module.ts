@@ -82,6 +82,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import { NotFoundComponent } from './components/redirects/not-found/not-found.component';
+import { ForbiddenComponent } from './components/redirects/forbidden/forbidden.component';
 
 @NgModule({
     declarations: [
@@ -137,6 +138,7 @@ import { NotFoundComponent } from './components/redirects/not-found/not-found.co
         SubmissionViewComponent,
         ActivationEmailComponent,
         NotFoundComponent,
+        ForbiddenComponent,
     ],
     imports: [
         BrowserModule,
