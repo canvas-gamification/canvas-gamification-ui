@@ -1,27 +1,27 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {JavaViewSnippetComponent} from './java-view-snippet.component';
-import {TestModule} from '../../../../../test/test.module';
-import {MOCK_UQJ} from '../../../../../test/mock';
+import {TestModule} from '@test/test.module';
+import {MOCK_UQJ} from '@test/mock';
 
 describe('JavaViewSnippetComponent', () => {
-    let component:    aViewSnippetComponent;
-    let fixture: C    nentFixture<JavaViewSnippetComponent>;
+    let component: JavaViewSnippetComponent;
+    let fixture: ComponentFixture<JavaViewSnippetComponent>;
 
-    beforeEach(asy    ) => {
-        await Test        igureTestingModule({
-            import            le]
-        }).compile        ts();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestModule]
+        }).compileComponents();
     });
 
-    befor    h(()
-        fixture =         createComponent(JavaViewSnippetComponent);
-        component         e.componentInstance;
-        component.        CK_UQJ;
-        fixture.de        ges();
+    beforeEach(() => {
+        fixture = TestBed.createComponent(JavaViewSnippetComponent);
+        component = fixture.componentInstance;
+        component.uqj = MOCK_UQJ;
+        fixture.detectChanges();
     });
 
-    it('s    d cre    , () => {
-        expect(com        toBeTruthy();
+    it('should create', () => {
+        expect(component).toBeTruthy();
     });
 });

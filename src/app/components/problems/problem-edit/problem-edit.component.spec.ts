@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ProblemEditComponent} from './problem-edit.component';
-import {TestModule} from '../../../../test/test.module';
+import {TestModule} from '@test/test.module';
 
 describe('ProblemEditComponent', () => {
     let component: ProblemEditComponent;

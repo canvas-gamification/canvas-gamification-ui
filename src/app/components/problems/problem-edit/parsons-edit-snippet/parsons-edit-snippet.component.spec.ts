@@ -1,27 +1,27 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ParsonsEditSnippetComponent} from './parsons-edit-snippet.component';
-import {TestModule} from '../../../../../test/test.module';
-import {MOCK_QUESTION} from '../../../../../test/mock';
+import {TestModule} from '@test/test.module';
+import {MOCK_QUESTION} from '@test/mock';
 
 describe('ParsonsEditSnippetComponent', () => {
-    let component:    sonsEditSnippetComponent;
-    let fixture: C    nentFixture<ParsonsEditSnippetComponent>;
+    let component: ParsonsEditSnippetComponent;
+    let fixture: ComponentFixture<ParsonsEditSnippetComponent>;
 
-    beforeEach(asy    ) => {
-        await Test        igureTestingModule({
-            import            le]
-        }).compile        ts();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestModule]
+        }).compileComponents();
     });
 
-    befor    h(()
-        fixture =         createComponent(ParsonsEditSnippetComponent);
-        component         e.componentInstance;
-        component.        Details = MOCK_QUESTION;
-        fixture.de        ges();
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ParsonsEditSnippetComponent);
+        component = fixture.componentInstance;
+        component.QuestionDetails = MOCK_QUESTION;
+        fixture.detectChanges();
     });
 
-    it('s    d cre    , () => {
-        expect(com        toBeTruthy();
+    it('should create', () => {
+        expect(component).toBeTruthy();
     });
 });
