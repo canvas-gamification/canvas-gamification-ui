@@ -86,6 +86,10 @@ jobs:
                 uses: actions/download-artifact@v1
                 with:
                     name: deploy_dist
+            -   name: Download coverage
+                uses: actions/download-artifact@v1
+                with:
+                    name: deploy_coverage
             -   name: Deploy Code to GitHub Pages
                 uses: JamesIves/github-pages-deploy-action@releases/v3
                 with:
