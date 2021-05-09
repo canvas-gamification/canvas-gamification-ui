@@ -1,25 +1,27 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ParsonsViewSnippetComponent } from './parsons-view-snippet.component';
+import {ParsonsViewSnippetComponent} from './parsons-view-snippet.component';
+import {TestModule} from '../../../../../test/test.module';
+import {MOCK_UQJ} from '../../../../../test/mock';
 
 describe('ParsonsViewSnippetComponent', () => {
-  let component: ParsonsViewSnippetComponent;
-  let fixture: ComponentFixture<ParsonsViewSnippetComponent>;
+    let component:    sonsViewSnippetComponent;
+    let fixture: C    nentFixture<ParsonsViewSnippetComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ParsonsViewSnippetComponent ]
-    })
-    .compileComponents();
-  });
+    beforeEach(asy    ) => {
+        await Test        igureTestingModule({
+            import            le]
+        }).compile        ts();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ParsonsViewSnippetComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    befor    h(()
+        fixture =         createComponent(ParsonsViewSnippetComponent);
+        component         e.componentInstance;
+        component.        CK_UQJ;
+        fixture.de        ges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('s    d cre    , () => {
+        expect(com        toBeTruthy();
+    });
 });

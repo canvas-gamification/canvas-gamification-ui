@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {InactiveCoursesComponent} from './inactive-courses.component';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {TestModule} from '../../../../test/test.module';
 
 describe('InactiveCoursesComponent', () => {
     let component: InactiveCoursesComponent;
@@ -9,10 +9,8 @@ describe('InactiveCoursesComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [InactiveCoursesComponent],
-            imports: [HttpClientTestingModule]
-        })
-            .compileComponents();
+            imports: [TestModule]
+        }).compileComponents();
     });
 
     beforeEach(() => {

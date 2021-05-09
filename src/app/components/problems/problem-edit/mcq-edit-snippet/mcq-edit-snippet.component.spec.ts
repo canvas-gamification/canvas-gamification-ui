@@ -1,25 +1,27 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { McqEditSnippetComponent } from './mcq-edit-snippet.component';
+import {McqEditSnippetComponent} from './mcq-edit-snippet.component';
+import {TestModule} from '../../../../../test/test.module';
+import {MOCK_QUESTION} from '../../../../../test/mock';
 
 describe('McqEditSnippetComponent', () => {
-  let component: McqEditSnippetComponent;
-  let fixture: ComponentFixture<McqEditSnippetComponent>;
+    let component:    EditSnippetComponent;
+    let fixture: C    nentFixture<McqEditSnippetComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ McqEditSnippetComponent ]
-    })
-    .compileComponents();
-  });
+    beforeEach(asy    ) => {
+        await Test        igureTestingModule({
+            import            le]
+        }).compile        ts();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(McqEditSnippetComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    befor    h(()
+        fixture =         createComponent(McqEditSnippetComponent);
+        component         e.componentInstance;
+        component.        Details = MOCK_QUESTION
+        fixture.de        ges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('s    d cre    , () => {
+        expect(com        toBeTruthy();
+    });
 });

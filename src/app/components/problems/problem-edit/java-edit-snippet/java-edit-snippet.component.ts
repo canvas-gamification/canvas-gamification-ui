@@ -9,6 +9,7 @@ import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-java-edit-snippet',
@@ -17,6 +18,7 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
 })
 export class JavaEditSnippetComponent implements OnInit {
     @Input() QuestionDetails;
+    public ckEditor = ClassicEditor
     JavaFormData: FormGroup;
     courses: Course[];
     events: CourseEvent[];

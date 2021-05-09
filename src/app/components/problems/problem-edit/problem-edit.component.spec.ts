@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ProblemEditComponent } from './problem-edit.component';
+import {ProblemEditComponent} from './problem-edit.component';
+import {TestModule} from '../../../../test/test.module';
 
 describe('ProblemEditComponent', () => {
-  let component: ProblemEditComponent;
-  let fixture: ComponentFixture<ProblemEditComponent>;
+    let component: ProblemEditComponent;
+    let fixture: ComponentFixture<ProblemEditComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ProblemEditComponent ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestModule]
+        }).compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ProblemEditComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ProblemEditComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

@@ -54,7 +54,6 @@ import {ProblemEditComponent} from './components/problems/problem-edit/problem-e
 import {CommonModule} from '@angular/common';
 import {ProblemCreateComponent} from './components/problems/problem-create/problem-create.component';
 import {DragulaModule} from 'ng2-dragula';
-import {CKEditorModule} from 'ckeditor4-angular';
 import {AceEditorModule} from 'ng2-ace-editor';
 import {AceComponent} from './components/problems/problem-view/ace/ace.component';
 import {McqViewSnippetComponent} from './components/problems/problem-view/mcq-view-snippet/mcq-view-snippet.component';
@@ -81,6 +80,7 @@ import {ActivationEmailComponent} from './components/accounts/activation-email/a
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
     declarations: [

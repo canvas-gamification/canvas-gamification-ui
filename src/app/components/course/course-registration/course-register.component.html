@@ -39,9 +39,8 @@
                     <ng-template matStepLabel>Confirm Identity</ng-template>
                     <mat-form-field>
                         <mat-label>Please confirm the following details.</mat-label>
-                        <input matInput placeholder="Ex. John Doe" formControlName="nameControl"
-                               [value]="serverGuessedName"
-                               disabled>
+                        <input matInput placeholder="Ex. John Doe" formControlName="confirmNameControl"
+                               [value]="serverGuessedName" disabled>
                     </mat-form-field>
                     <div>
                         <button class="btn btn-danger" (click)="reset()" mat-button>Back</button>

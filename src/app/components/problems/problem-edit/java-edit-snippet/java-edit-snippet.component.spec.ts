@@ -1,25 +1,27 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { JavaEditSnippetComponent } from './java-edit-snippet.component';
+import {JavaEditSnippetComponent} from './java-edit-snippet.component';
+import {TestModule} from '../../../../../test/test.module';
+import {MOCK_QUESTION} from '../../../../../test/mock';
 
 describe('JavaEditSnippetComponent', () => {
-  let component: JavaEditSnippetComponent;
-  let fixture: ComponentFixture<JavaEditSnippetComponent>;
+    let component:    aEditSnippetComponent;
+    let fixture: C    nentFixture<JavaEditSnippetComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ JavaEditSnippetComponent ]
-    })
-    .compileComponents();
-  });
+    beforeEach(asy    ) => {
+        await Test        igureTestingModule({
+            import            le]
+        }).compile        ts();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(JavaEditSnippetComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    befor    h(()
+        fixture =         createComponent(JavaEditSnippetComponent);
+        component         e.componentInstance;
+        component.        Details = MOCK_QUESTION;
+        fixture.de        ges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('s    d cre    , () => {
+        expect(com        toBeTruthy();
+    });
 });

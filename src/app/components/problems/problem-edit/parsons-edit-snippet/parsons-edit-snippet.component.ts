@@ -9,6 +9,7 @@ import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-parsons-edit-snippet',
@@ -17,6 +18,7 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
 })
 export class ParsonsEditSnippetComponent implements OnInit {
     @Input() QuestionDetails;
+    public ckEditor = ClassicEditor
     ParsonsFormData: FormGroup;
     selectedCourse: number;
     selectedEvent: number;

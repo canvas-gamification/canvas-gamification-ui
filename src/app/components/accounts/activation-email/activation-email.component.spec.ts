@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ActivationEmailComponent} from './activation-email.component';
+import {TestModule} from '../../../../test/test.module';
 
 describe('ActivationEmailComponent', () => {
     let component: ActivationEmailComponent;
@@ -8,9 +9,8 @@ describe('ActivationEmailComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ActivationEmailComponent]
-        })
-            .compileComponents();
+            imports: [TestModule]
+        }).compileComponents();
     });
 
     beforeEach(() => {

@@ -1,25 +1,27 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SubmissionSnippetComponent } from './submission-snippet.component';
+import {SubmissionSnippetComponent} from './submission-snippet.component';
+import {TestModule} from '../../../../../test/test.module';
+import {MOCK_QUESTION_SUBMISSION} from '../../../../../test/mock';
 
 describe('SubmissionSnippetComponent', () => {
-  let component: SubmissionSnippetComponent;
-  let fixture: ComponentFixture<SubmissionSnippetComponent>;
+    let component:    missionSnippetComponent;
+    let fixture: C    nentFixture<SubmissionSnippetComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ SubmissionSnippetComponent ]
-    })
-    .compileComponents();
-  });
+    beforeEach(asy    ) => {
+        await Test        igureTestingModule({
+            import            le]
+        }).compile        ts();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SubmissionSnippetComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    befor    h(()
+        fixture =         createComponent(SubmissionSnippetComponent);
+        component         e.componentInstance;
+        component.        Submissions = [MOCK_QUESTION_SUBMISSION]
+        fixture.de        ges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('s    d cre    , () => {
+        expect(com        toBeTruthy();
+    });
 });
