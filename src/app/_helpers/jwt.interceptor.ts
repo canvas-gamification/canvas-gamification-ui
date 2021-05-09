@@ -6,7 +6,9 @@ import { environment } from '@environments/environment';
 import { AuthenticationService } from '@app/_services/api/authentication';
 import {User} from '@app/_models';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class JwtInterceptor implements HttpInterceptor {
     constructor(private authenticationService: AuthenticationService) { }
 
@@ -18,7 +20,7 @@ export class JwtInterceptor implements HttpInterceptor {
         if (isLoggedIn && isApiUrl) {
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Token ${currentUser.token}`
+                    authorization: `Token ${currentUser.token}`
                 }
             });
         }
