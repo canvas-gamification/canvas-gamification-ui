@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
 
     onSubmit(formData: FormArray): void {
         this.isLoading = true;
-        this.register.PostRegistration(formData)
+        this.register.postRegistration(formData)
             .subscribe(() => {
                 this.formData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully registered.');

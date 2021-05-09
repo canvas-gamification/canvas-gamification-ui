@@ -2,27 +2,28 @@ import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {Observable} from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ResetPasswordService {
-  private ResetPasswordUrl = new URL('/api/reset-password/', environment.apiBaseUrl).toString();
+  private resetPasswordUrl = new URL('/api/reset-password/', environment.apiBaseUrl).toString();
 
   constructor(private http: HttpClient) { }
 
-  PutPasswordReset(input: any) {
-    return this.http.post(this.ResetPasswordUrl, input, {responseType: 'text'}).pipe(
-      map(
-        (response) => {
-          if (response) {
-            return response;
-          }
-        },
-        (error: any) => {
-          return error;
-        }
-      )
-    );
+  putPasswordReset(input: unknown) : Observable<string> {
+      return this.http.post(this.resetPasswordUrl, input, {responseType: 'text'}).pipe(
+          map(
+              (response) => {
+                  if (response) {
+                      return response;
+                  }
+              },
+              (error: never) => {
+                  return error;
+              }
+          )
+      );
   }
 }
