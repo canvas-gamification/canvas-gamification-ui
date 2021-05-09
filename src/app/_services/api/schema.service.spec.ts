@@ -1,16 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { SchemaService } from './schema.service';
+import {SchemaService} from './schema.service';
+import {TestModule} from '@test/test.module';
 
 describe('SchemaService', () => {
-  let service: SchemaService;
+    let service: SchemaService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SchemaService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [TestModule]
+        });
+        service = TestBed.inject(SchemaService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });

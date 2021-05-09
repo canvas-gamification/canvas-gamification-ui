@@ -1,6 +1,5 @@
 @use "mixins";
 @use "variables";
-@use 'bootstrap';
 
 @include mixins.highlight-table();
 @include mixins.hover-shadow();

@@ -1,1 +1,6 @@
-<ace-editor [(text)]="template" #editor style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;" (change)="addNewCodeItem(template)"></ace-editor>
+<ace-editor
+    #editor
+    [(text)]="template"
+    style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;"
+    (change)="addNewCodeItem(template)"
+></ace-editor>

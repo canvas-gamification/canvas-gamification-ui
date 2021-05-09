@@ -1,0 +1,101 @@
+name: build
+on:
+    push:
+    pull_request:
+        branches:
+            - master
+jobs:
+    lint:
+        name: Lint
+        strategy:
+            matrix:
+                os: [ ubuntu-latest, windows-latest, macos-latest ]
+                node: [ 12.x, 13.x, 14.x, 15.x ]
+        runs-on: ${{ matrix.os }}
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v1
+            -   name: Set Up Node
+                uses: actions/setup-node@v1
+                with:
+                    node-version: ${{ matrix.node }}
+            -   name: Install dependencies
+                run: npm ci
+            -   name: Lint
+                uses: wearerequired/lint-action@v1
+                with:
+                    eslint: true
+    test:
+        name: Test
+        strategy:
+            matrix:
+                os: [ ubuntu-latest, windows-latest, macos-latest ]
+                node: [ 12.x, 13.x, 14.x, 15.x ]
+        runs-on: ${{ matrix.os }}
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v1
+            -   name: Set Up Node
+                uses: actions/setup-node@v1
+                with:
+                    node-version: ${{ matrix.node }}
+            -   name: Install dependencies
+                run: npm ci
+            -   name: Test
+                run: npm run test:ci
+            -   name: Test e2e
+                run: npm run e2e:ci
+            -   name: Archive code coverage result
+                if: success() && startsWith(matrix.os, 'ubuntu') && startsWith(matrix.node, '15')
+                uses: actions/upload-artifact@v1
+                with:
+                    name: deploy_coverage
+                    path: coverage
+    build:
+        name: Build
+        needs:
+            - test
+#            temporarily build without lint
+#            - lint
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v1
+            -   name: Node 15.x
+                uses: actions/setup-node@v1
+                with:
+                    node-version: '15.x'
+            -   name: Install dependencies
+                run: npm ci
+            -   name: Build
+                run: npm run build:ci
+            -   name: Archive build
+                if: success()
+                uses: actions/upload-artifact@v1
+                with:
+                    name: deploy_dist
+                    path: dist
+    deploy:
+        runs-on: ubuntu-latest
+        needs: build
+        if: github.ref == 'refs/heads/master'
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v1
+            -   name: Download build
+                uses: actions/download-artifact@v1
+                with:
+                    name: deploy_dist
+            -   name: Deploy Code to GitHub Pages
+                uses: JamesIves/github-pages-deploy-action@releases/v3
+                with:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    BRANCH: gh-pages
+                    FOLDER: deploy_dist/canvas-gamification-ui
+            -   name: Deploy Coverage to GitHub Pages
+                uses: JamesIves/github-pages-deploy-action@releases/v3
+                with:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                    BRANCH: gh-pages
+                    FOLDER: deploy_coverage
+                    TARGET-FOLER: coverage

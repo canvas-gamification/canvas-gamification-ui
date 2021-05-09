@@ -1,16 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { UserActionsService } from './user-actions.service';
+import {UserActionsService} from './user-actions.service';
+import {TestModule} from '@test/test.module';
 
 describe('UserActionsService', () => {
-  let service: UserActionsService;
+    let service: UserActionsService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(UserActionsService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [TestModule]
+        });
+        service = TestBed.inject(UserActionsService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });

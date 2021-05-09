@@ -24,7 +24,7 @@ export class CourseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const needsToBeRegistered = this.user.is_student; // only impose that the user needs to be registered if they are a student
+        const needsToBeRegistered = this.user?.is_student; // only impose that the user needs to be registered if they are a student
         this.courseService
             .getCourse(this.courseId, needsToBeRegistered, {ordering: {name: true}})
             .subscribe(course => {
