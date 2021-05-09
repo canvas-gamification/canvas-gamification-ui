@@ -1,16 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { UqjService } from './uqj.service';
+import {UqjService} from './uqj.service';
+import {TestModule} from '@test/test.module';
 
 describe('UqjService', () => {
-  let service: UqjService;
+    let service: UqjService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(UqjService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [TestModule]
+        });
+        service = TestBed.inject(UqjService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });
