@@ -91,7 +91,8 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
         HeaderComponent,
         TopicsComponent,
         SampleQuestionsComponent,
-        ConceptMapComponent,
+        // Temporarily disable concept map due to optimization errors.
+        // ConceptMapComponent,
         UserStatsComponent,
         LoginComponent,
         TokenValuesComponent,

@@ -65,4 +65,5 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+(window as any).__Zone_disable_toString = true;
 (window as any).global = window;
