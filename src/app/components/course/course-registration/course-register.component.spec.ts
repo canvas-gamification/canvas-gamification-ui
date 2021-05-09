@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CourseRegisterComponent } from './course-register.component';
+import {CourseRegisterComponent} from './course-register.component';
+import {TestModule} from '../../../../test/test.module';
 
 describe('RegisterComponent', () => {
-  let component: CourseRegisterComponent;
-  let fixture: ComponentFixture<CourseRegisterComponent>;
+    let component: CourseRegisterComponent;
+    let fixture: ComponentFixture<CourseRegisterComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ CourseRegisterComponent ]
-    })
-    .compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestModule]
+        }).compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CourseRegisterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(CourseRegisterComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

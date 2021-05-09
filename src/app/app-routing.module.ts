@@ -48,11 +48,6 @@ const routes: Routes = [
         component: TopicsComponent
     },
     {
-        path: 'concept-map',
-        component: ConceptMapComponent,
-        canActivate: [AuthGuard]
-    },
-    {
         path: 'token-values',
         component: TokenValuesComponent
     },

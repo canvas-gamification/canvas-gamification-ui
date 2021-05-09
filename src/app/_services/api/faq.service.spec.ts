@@ -1,16 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { FaqService } from './faq.service';
+import {FaqService} from './faq.service';
+import {TestModule} from '@test/test.module';
 
 describe('FaqService', () => {
-  let service: FaqService;
+    let service: FaqService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(FaqService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [TestModule]
+        });
+        service = TestBed.inject(FaqService);
+    });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+    it('should be created', () => {
+        expect(service).toBeTruthy();
+    });
 });

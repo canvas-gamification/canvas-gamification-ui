@@ -9,6 +9,7 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-mcq-edit-snippet',
@@ -17,6 +18,7 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
 })
 export class McqEditSnippetComponent implements OnInit {
     @Input() QuestionDetails;
+    public ckEditor = ClassicEditor
     MCQFormData: FormGroup;
     courses: Course[];
     events: CourseEvent[];
@@ -128,8 +130,8 @@ export class McqEditSnippetComponent implements OnInit {
                 id: choice,
                 value: choices[choice]
             });
-            this.choiceArray = outputArray;
             this.distract.push(new FormControl(choices[choice]));
         }
+        this.choiceArray = outputArray;
     }
 }

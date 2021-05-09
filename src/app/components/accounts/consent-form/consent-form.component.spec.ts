@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ConsentFormComponent} from './consent-form.component';
+import {TestModule} from '../../../../test/test.module';
 
 describe('ConsentFormComponent', () => {
     let component: ConsentFormComponent;
@@ -8,9 +9,8 @@ describe('ConsentFormComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ConsentFormComponent]
-        })
-            .compileComponents();
+            imports: [TestModule]
+        }).compileComponents();
     });
 
     beforeEach(() => {
