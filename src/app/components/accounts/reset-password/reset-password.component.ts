@@ -24,7 +24,7 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     onSubmit(formData: FormGroup): void {
-        this.password.PutPasswordReset(formData)
+        this.password.putPasswordReset(formData.value)
             .subscribe(() => {
                 this.formData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your password has been updated successfully!');
