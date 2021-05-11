@@ -33,7 +33,7 @@ export class ProfileDetailsComponent implements OnInit {
         this.consentService.getConsent().subscribe(consents => {
             this.userConsent = consents[consents.length - 1].consent;
         });
-        this.profile.GetProfileDetails().subscribe((details: User) => {
+        this.profile.getProfileDetails().subscribe((details: User) => {
             this.userDetails = details;
             this.formData.controls.first_name.setValue(this.userDetails[0].first_name);
             this.formData.controls.last_name.setValue(this.userDetails[0].last_name);
@@ -42,7 +42,7 @@ export class ProfileDetailsComponent implements OnInit {
     }
 
     onSubmit(formData: FormGroup): void {
-        this.profile.PutProfileDetails(formData.value, this.userDetails[0].id)
+        this.profile.putProfileDetails(formData.value, this.userDetails[0].id)
             .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your profile has been updated successfully!');
             }, error => {
