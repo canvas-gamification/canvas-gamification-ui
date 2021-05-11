@@ -8,6 +8,7 @@ import {MessageService} from '@app/_services/message.service';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-java-create-snippet',
@@ -16,6 +17,7 @@ import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 })
 export class JavaCreateSnippetComponent implements OnInit {
     JavaFormData: FormGroup;
+    public ckEditor = ClassicEditor;
     courses: Course[];
     events: CourseEvent[];
     selectedCourse: number;

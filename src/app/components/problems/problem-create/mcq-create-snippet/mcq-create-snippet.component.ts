@@ -8,6 +8,7 @@ import {Category, Course, MESSAGE_TYPES} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseEvent} from '@app/_models/course_event';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -16,6 +17,7 @@ import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 })
 export class McqCreateSnippetComponent implements OnInit {
     MCQFormData: FormGroup;
+    public ckEditor = ClassicEditor
     distract: FormArray;
     courses: Course[];
     events: CourseEvent[];
