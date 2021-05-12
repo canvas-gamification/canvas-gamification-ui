@@ -20,8 +20,8 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiBaseUrl}/api/api-token-auth/`, { username, password })
+    login(username: string, password: string) : Observable<User> {
+        return this.http.post<User>(`${environment.apiBaseUrl}/api/api-token-auth/`, { username, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
@@ -30,7 +30,7 @@ export class AuthenticationService {
             }));
     }
 
-    logout() {
+    logout() : void {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
