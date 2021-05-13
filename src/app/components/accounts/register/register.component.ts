@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
     siteKey: string = environment.siteKey;
     formSubmitted = false;
     isLoading = false;
+    logoPath = 'assets/global/logo.jpg';
 
     constructor(private builder: FormBuilder, private register: RegisterService, private messageService: MessageService) {
     }
