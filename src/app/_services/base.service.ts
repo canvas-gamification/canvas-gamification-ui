@@ -13,7 +13,6 @@ export class BaseService {
     }
 
     getURL(...names: string[]): URL {
-        // generate BaseURL/api/names[0]/names[1]/.../names[-1]/
         let relativeURL = '';
         for (const id in names) {
             relativeURL += names[id].split('/').join('') + '/';
