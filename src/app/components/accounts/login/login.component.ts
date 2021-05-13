@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     error = '';
+    logoPath = 'assets/global/logo.jpg';
 
     constructor(
         private formBuilder: FormBuilder,

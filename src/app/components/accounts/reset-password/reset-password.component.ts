@@ -11,6 +11,7 @@ import {MESSAGE_TYPES} from '@app/_models';
 })
 export class ResetPasswordComponent implements OnInit {
     formData: FormGroup;
+    logoPath = 'assets/global/logo.jpg';
 
     constructor(private builder: FormBuilder, private password: ResetPasswordService, private messageService: MessageService) {
     }
