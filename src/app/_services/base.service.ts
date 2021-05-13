@@ -1,16 +1,23 @@
 import {Injectable} from '@angular/core';
-import {HttpParams} from "@angular/common/http";
+import {environment} from "@environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class BaseService {
-    getParamURL(url: string, params: { [key: string]: string | number | boolean }): string {
-        let httpParams = new HttpParams();
-        Object.entries(params).forEach(
-            ([key, value]) => httpParams = (httpParams.has(key)) ? httpParams : httpParams.append(key, String(value))
-        )
-        ;
-        return ((url.slice(-1) === '/')? url : url +'/') + httpParams.toString();
+    // Usage: this.baseService.addParams(this.baseService.getURL('course','edit','2'), {'param1':'1','param2':'false'});
+    addParams(url: URL, params: Record<string,string>): string{
+        const searchParams = new URLSearchParams(params).toString();
+        return url + searchParams;
+
+    }
+
+    getURL(...names: string[]): URL {
+        // generate BaseURL/api/names[0]/names[1]/.../names[-1]/
+        let relativeURL = '';
+        for (const id in names) {
+            relativeURL += names[id].split('/').join('') + '/';
+        }
+        return new URL(relativeURL, environment.apiBaseUrl+'/api/');
     }
 }
