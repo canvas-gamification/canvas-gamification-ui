@@ -81,6 +81,7 @@ import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
+import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
 
 @NgModule({
     declarations: [
@@ -135,6 +136,7 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
         LeaderBoardComponent,
         SubmissionViewComponent,
         ActivationEmailComponent,
+        CkEditorComponent,
     ],
     imports: [
         BrowserModule,

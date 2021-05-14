@@ -27,6 +27,7 @@ export class JavaEditSnippetComponent implements OnInit {
     selectedCourse: number;
     selectedEvent: number;
     inputFileNames: any;
+    questionText: string;
 
     constructor(private courseService: CourseService,
                 private categoryService: CategoryService,
@@ -62,6 +63,7 @@ export class JavaEditSnippetComponent implements OnInit {
 
         this.inputFileNames = this.QuestionDetails?.input_file_names;
         this.variables = this.QuestionDetails?.variables;
+        this.questionText = this.QuestionDetails?.text;
 
         this.JavaFormData = this.formBuilder.group({
             title: new FormControl(this.QuestionDetails?.title),
@@ -69,22 +71,22 @@ export class JavaEditSnippetComponent implements OnInit {
             category: new FormControl(this.QuestionDetails?.category),
             course: new FormControl(this.selectedCourse),
             event: new FormControl(this.selectedEvent),
-            text: new FormControl(this.QuestionDetails?.text),
             junit_template: new FormControl(this.QuestionDetails?.junit_template),
         });
     }
 
     onSubmit(FormData) {
-        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(FormData, this.variables, this.inputFileNames);
-        this.questionService.putJavaQuestion(submissionRequest, this.QuestionDetails.id)
-            .subscribe(response => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
-                window.scroll(0, 0);
-            }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
-                console.warn(error.responseText);
-                window.scroll(0, 0);
-            });
+        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(FormData, this.variables, this.inputFileNames, this.questionText);
+        console.log(submissionRequest);
+        // this.questionService.putJavaQuestion(submissionRequest, this.QuestionDetails.id)
+        //     .subscribe(response => {
+        //         this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
+        //         window.scroll(0, 0);
+        //     }, error => {
+        //         this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+        //         console.warn(error.responseText);
+        //         window.scroll(0, 0);
+        //     });
     }
 
     courseSelectedEvent(value) {

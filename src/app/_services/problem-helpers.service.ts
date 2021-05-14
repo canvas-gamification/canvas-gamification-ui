@@ -28,13 +28,13 @@ export class ProblemHelpersService {
         return submissionRequest;
     }
 
-    createJavaSubmissionRequest(FormData, variablesJSON, inputFileNames) {
+    createJavaSubmissionRequest(FormData, variablesJSON, inputFileNames, questionText) {
         return {
             title: FormData.title,
             difficulty: FormData.difficulty,
             course: FormData.course,
             event: FormData.event,
-            text: FormData.text,
+            text: questionText,
             category: FormData.category,
             variables: variablesJSON,
             junit_template: FormData.junit_template,
