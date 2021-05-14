@@ -18,7 +18,7 @@
 //     beforeEach(() => {
 //         fixture = TestBed.createComponent(JavaEditSnippetComponent);
 //         component = fixture.componentInstance;
-//         component.QuestionDetails = MOCK_QUESTION;
+//         component.questionDetails = MOCK_QUESTION;
 //         fixture.detectChanges();
 //     });
 //
