@@ -3,7 +3,7 @@
         <h1>Possible Answers</h1>
     </div>
     <div class="card-body">
-        <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
+        <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
             <div class="form-check" *ngFor="let choice of choiceArray">
                 <input class="form-check-input" name="solution" type="radio" id="answer-{{choice.id}}"
                        value="{{choice.id}}"  formControlName="solution">
