@@ -24,7 +24,7 @@ export class HeaderComponent {
         this.router.navigate(['../../'], {relativeTo: this.route}).then();
     }
 
-    isActive(navLink): boolean {
+    isActive(navLink : string): boolean {
         return window.location.pathname.slice(1) === navLink;
     }
 }
