@@ -34,7 +34,7 @@ export class TokenValuesComponent implements OnInit {
         this.difficultyService.getDifficulties().subscribe(difficulties => this.difficulties = difficulties);
     }
 
-    submit() {
+    submit() : void {
         const data: { id: number, value: number }[] = [];
         for (const nestedTokenValue of this.tokenValues) {
             for (const childNestedTokenValue of nestedTokenValue.children) {
@@ -53,7 +53,7 @@ export class TokenValuesComponent implements OnInit {
         });
     }
 
-    toggleExpand(categoryName: string) {
+    toggleExpand(categoryName: string) : void {
         this.expanded[categoryName] = !this.expanded[categoryName];
     }
 }
