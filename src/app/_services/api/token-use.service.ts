@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {Course, APIResponse} from '@app/_models';
+import {APIResponse} from '@app/_models';
 import {catchError} from 'rxjs/operators';
 
 @Injectable({
@@ -17,7 +17,9 @@ export class TokenUseService {
     constructor(private http: HttpClient) {
     }
 
-    useTokens(tokenActions, courseId: number): Observable<APIResponse> {
+    useTokens(tokenActions : unknown, courseId: number): Observable<APIResponse> {
+        //TODO: Need to see if there is a way to avoid suppress here
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const url = `${this.tokenUseUrl}use/${courseId}/`;
         return this.http.post<APIResponse>(url, tokenActions, {headers})
@@ -36,8 +38,8 @@ export class TokenUseService {
      * @param operation - name of the operation that failed
      * @param result - optional value to return as the observable result
      */
-    private handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
+    private handleError<T>(operation?, result?: T) {
+        return (error: string): Observable<T> => {
             // TODO: send the error to remote logging infrastructure
             console.error(error); // log to console instead
             // Let the app keep running by returning an empty result.

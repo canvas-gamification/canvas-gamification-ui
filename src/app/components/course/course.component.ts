@@ -3,7 +3,6 @@ import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {Course, User} from '@app/_models';
 import {ActivatedRoute} from '@angular/router';
-import {CourseRegistrationService} from '@app/_services/api/course/course-registration.service';
 
 @Component({
     selector: 'app-course',
@@ -17,7 +16,6 @@ export class CourseComponent implements OnInit {
 
     constructor(private authenticationService: AuthenticationService,
                 private courseService: CourseService,
-                private courseRegistrationService: CourseRegistrationService,
                 private route: ActivatedRoute) {
         this.courseId = this.route.snapshot.params.courseId;
         this.authenticationService.currentUser.subscribe(user => this.user = user);
@@ -26,7 +24,7 @@ export class CourseComponent implements OnInit {
     ngOnInit(): void {
         const needsToBeRegistered = this.user?.is_student; // only impose that the user needs to be registered if they are a student
         this.courseService
-            .getCourse(this.courseId, needsToBeRegistered, {ordering: {name: true}})
+            .getCourse(this.courseId, needsToBeRegistered)
             .subscribe(course => {
                 this.course = course;
             });

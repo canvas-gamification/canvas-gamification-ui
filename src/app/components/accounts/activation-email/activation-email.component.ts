@@ -27,7 +27,7 @@ export class ActivationEmailComponent implements OnInit {
             this.token = params.token;
         });
 
-        this.registerService.PostActivation(this.uuid, this.token)
+        this.registerService.postActivation(this.uuid, this.token)
             .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have activated your account successfully.');
                 this.router.navigate(['/accounts/login']).then();

@@ -26,8 +26,8 @@ export class ContactComponent implements OnInit {
         });
     }
 
-    onSubmit(formData : {fullname: string, email: string, comment: string, recaptcha_key: string}) : void {
-        this.contact.PostMessage(formData)
+    onSubmit(formData: { fullname: string, email: string, comment: string, recaptcha_key: string }) : void {
+        this.contact.postMessage(formData)
             .subscribe(() => {
                 this.formData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your comment have been successfully sent!');

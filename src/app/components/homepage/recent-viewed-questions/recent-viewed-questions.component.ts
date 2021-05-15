@@ -18,7 +18,7 @@ export class RecentViewedQuestionsComponent implements OnInit {
 
   ngOnInit(): void {
       this.uqjService
-          .getUQJs({recent: true, page_size: 5})
+          .getUQJs({recent: true, pageSize: 5})
           ?.subscribe((paginatedUqjs) => {
               this.uqjs = paginatedUqjs.results;
           });

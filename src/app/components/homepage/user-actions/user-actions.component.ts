@@ -19,7 +19,7 @@ export class UserActionsComponent implements OnInit {
 
     ngOnInit(): void {
         this.userActionService
-            .getUserActions({page: this.currentPage, page_size: this.perPage})
+            .getUserActions({page: this.currentPage, pageSize: this.perPage})
             ?.subscribe((paginatedActions) => {
                 this.userActions = paginatedActions.results;
                 this.canChange = {
@@ -32,7 +32,7 @@ export class UserActionsComponent implements OnInit {
     changePage(forward: boolean): void {
         const change = forward ? 1 : -1;
         this.userActionService
-            .getUserActions({page: this.currentPage + change, page_size: this.perPage})
+            .getUserActions({page: this.currentPage + change, pageSize: this.perPage})
             ?.subscribe((paginatedActions) => {
                 this.userActions = paginatedActions.results;
                 this.currentPage = this.currentPage + change;

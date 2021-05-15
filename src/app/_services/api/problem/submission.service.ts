@@ -24,7 +24,7 @@ export class SubmissionService {
         return this.http.get<QuestionSubmission[]>(this.submissionUrl, {params});
     }
 
-    postQuestionSubmission(input: any) {
+    postQuestionSubmission(input: { question: number, solution: unknown }) : Observable<string> {
         return this.http.post(this.answerSubmissionUrl, input, {responseType: 'text'}).pipe(
             map(
                 (response) => {
@@ -32,7 +32,7 @@ export class SubmissionService {
                         return response;
                     }
                 },
-                (error: any) => {
+                (error: unknown) => {
                     return error;
                 }
             )
