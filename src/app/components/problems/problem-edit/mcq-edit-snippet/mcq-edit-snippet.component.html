@@ -1,4 +1,4 @@
-<form [formGroup]="MCQFormData" (ngSubmit)="onSubmit(MCQFormData.value)">
+<form [formGroup]="mcqFormData" (ngSubmit)="onSubmit(mcqFormData)">
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqQuestionName">Question Name:</label>
@@ -42,13 +42,13 @@
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqQuestion">Question:</label>
-            <ckeditor [editor]="ckEditor" formControlName="text" id="mcqQuestion"></ckeditor>
+            <app-ck-editor [(value)]="questionText" id="mcqQuestion"></app-ck-editor>
         </div>
     </div>
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqCorrectAnswer">Correct Answer:</label>
-            <ckeditor [editor]="ckEditor" formControlName="answer" id="mcqCorrectAnswer"></ckeditor>
+            <app-ck-editor [(value)]="questionText" id="mcqCorrectAnswer"></app-ck-editor>
         </div>
     </div>
     <div class="form-row m-3 p-3">
@@ -74,7 +74,7 @@
                 <tbody>
                 <tr *ngFor="let control of distract.controls; index as i">
                     <td class="p-3">
-                        <ckeditor [editor]="ckEditor" [formControl]="distract.controls[i]"></ckeditor>
+                        <app-ck-editor [(value)]="distract.controls[i]"></app-ck-editor>
                     </td>
                     <td class="p-3">
                         <button type="button" class="btn btn-danger m-auto" (click)="removeChoice(i)">Remove</button>

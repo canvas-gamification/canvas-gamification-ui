@@ -9,7 +9,6 @@ import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-parsons-edit-snippet',
@@ -17,15 +16,15 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
     styleUrls: ['./parsons-edit-snippet.component.scss']
 })
 export class ParsonsEditSnippetComponent implements OnInit {
-    @Input() QuestionDetails;
-    public ckEditor = ClassicEditor
-    ParsonsFormData: FormGroup;
+    @Input() questionDetails;
+    parsonsFormData: FormGroup;
     selectedCourse: number;
     selectedEvent: number;
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
     variables: any[];
+    questionText: string;
 
     constructor(private formBuilder: FormBuilder,
                 private questionService: QuestionService,
@@ -37,10 +36,10 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.QuestionDetails.event) {
+        if (this.questionDetails.event) {
             const coursesObservable = this.courseService.getCourses();
             const categoriesObservable = this.categoryService.getCategories();
-            const eventObservable = this.courseEventService.getCourseEvent(this.QuestionDetails?.event);
+            const eventObservable = this.courseEventService.getCourseEvent(this.questionDetails?.event);
 
             forkJoin([coursesObservable, categoriesObservable, eventObservable])
                 .subscribe(result => {
@@ -59,29 +58,28 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 });
         }
 
-        this.variables = this.QuestionDetails?.variables;
-
-        this.ParsonsFormData = this.formBuilder.group({
-            title: new FormControl(this.QuestionDetails?.title),
-            difficulty: new FormControl(this.QuestionDetails?.difficulty),
-            category: new FormControl(this.QuestionDetails?.category),
+        this.variables = this.questionDetails?.variables;
+        this.questionText = this.questionDetails?.text;
+        this.parsonsFormData = this.formBuilder.group({
+            title: new FormControl(this.questionDetails?.title),
+            difficulty: new FormControl(this.questionDetails?.difficulty),
+            category: new FormControl(this.questionDetails?.category),
             course: new FormControl(this?.selectedCourse),
             event: new FormControl(this.selectedEvent),
-            text: new FormControl(this.QuestionDetails.text),
-            junit_template: new FormControl(this.QuestionDetails?.junit_template),
-            lines: new FormControl(this.QuestionDetails?.lines.join('\n')),
-            additional_file_name: new FormControl(this.QuestionDetails?.additional_file_name),
+            junit_template: new FormControl(this.questionDetails?.junit_template),
+            lines: new FormControl(this.questionDetails?.lines.join('\n')),
+            additional_file_name: new FormControl(this.questionDetails?.additional_file_name),
         });
     }
 
-    courseSelectedEvent(value) {
+    courseSelectedEvent(value): void {
         this.courseSelectedById(+value.target.value);
     }
 
-    onSubmit(FormData) {
-        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(FormData, this.variables);
-        this.questionService.putParsonsQuestion(submissionRequest, this.QuestionDetails.id)
-            .subscribe(response => {
+    onSubmit(formData: FormGroup): void {
+        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData.value, this.variables, this.questionText);
+        this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
+            .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
@@ -91,7 +89,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
             });
     }
 
-    courseSelectedById(courseId: number) {
+    courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
@@ -99,9 +97,9 @@ export class ParsonsEditSnippetComponent implements OnInit {
                     this.events = course.events;
                 }
             });
-            this.selectedEvent = this.QuestionDetails.event;
-            this.ParsonsFormData.controls.course.setValue(this.selectedCourse);
-            this.ParsonsFormData.controls.event.setValue(this.selectedEvent);
+            this.selectedEvent = this.questionDetails.event;
+            this.parsonsFormData.controls.course.setValue(this.selectedCourse);
+            this.parsonsFormData.controls.event.setValue(this.selectedEvent);
         }
     }
 }

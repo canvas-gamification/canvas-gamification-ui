@@ -9,7 +9,6 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-mcq-edit-snippet',
@@ -17,9 +16,9 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
     styleUrls: ['./mcq-edit-snippet.component.scss']
 })
 export class McqEditSnippetComponent implements OnInit {
-    @Input() QuestionDetails;
-    public ckEditor = ClassicEditor
-    MCQFormData: FormGroup;
+    @Input() questionDetails;
+    // public ckEditor = ClassicEditor
+    mcqFormData: FormGroup;
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
@@ -29,6 +28,8 @@ export class McqEditSnippetComponent implements OnInit {
     selectedCourse: number;
     selectedEvent: number;
     distract: FormArray;
+    questionText: string;
+    answerText: string;
 
     constructor(private courseService: CourseService,
                 private categoryService: CategoryService,
@@ -40,10 +41,10 @@ export class McqEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.QuestionDetails.event) {
+        if (this.questionDetails.event) {
             const coursesObservable = this.courseService.getCourses();
             const categoriesObservable = this.categoryService.getCategories();
-            const eventObservable = this.courseEventService.getCourseEvent(this.QuestionDetails?.event);
+            const eventObservable = this.courseEventService.getCourseEvent(this.questionDetails?.event);
 
             forkJoin([coursesObservable, categoriesObservable, eventObservable])
                 .subscribe(result => {
@@ -63,30 +64,29 @@ export class McqEditSnippetComponent implements OnInit {
         }
 
         this.distract = new FormArray([]);
-        this.convertChoicesToArray(this.QuestionDetails?.choices);
+        this.convertChoicesToArray(this.questionDetails?.choices);
         this.correctAnswer = this.choiceArray[this.choiceArray
-            .findIndex(x => x.id === this.QuestionDetails.answer)];
+            .findIndex(x => x.id === this.questionDetails.answer)];
         this.distract.removeAt(this.distract.value.findIndex(item => item === this.correctAnswer.value));
-        this.variables = this.QuestionDetails?.variables;
-
-        this.MCQFormData = this.formBuilder.group({
-            title: new FormControl(this.QuestionDetails?.title),
-            difficulty: new FormControl(this.QuestionDetails?.difficulty),
+        this.variables = this.questionDetails?.variables;
+        this.questionText = this.questionDetails?.text;
+        this.answerText = this.correctAnswer.value;
+        this.mcqFormData = this.formBuilder.group({
+            title: new FormControl(this.questionDetails?.title),
+            difficulty: new FormControl(this.questionDetails?.difficulty),
             course: new FormControl(this.selectedCourse),
             event: new FormControl(this.selectedEvent),
-            text: new FormControl(this.QuestionDetails?.text),
-            answer: new FormControl(this.correctAnswer.value),
-            category: new FormControl(this.QuestionDetails?.category),
+            category: new FormControl(this.questionDetails?.category),
             variables: new FormControl(''),
-            visible_distractor_count: new FormControl(this.QuestionDetails?.visible_distractor_count.toString()),
+            visible_distractor_count: new FormControl(this.questionDetails?.visible_distractor_count.toString()),
             is_verified: new FormControl(true),
             choices: new FormControl(''),
         });
     }
 
-    onSubmit(FormData) {
-        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(FormData, this.distract, this.variables);
-        this.questionService.putMultipleChoiceQuestion(submissionRequest, this.QuestionDetails.id)
+    onSubmit(formData: FormGroup): void {
+        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distract, this.variables, this.questionText, this.answerText);
+        this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(response => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
                 window.scroll(0, 0);
@@ -109,9 +109,9 @@ export class McqEditSnippetComponent implements OnInit {
                     this.events = course.events;
                 }
             });
-            this.selectedEvent = this.QuestionDetails.event;
-            this.MCQFormData.controls.course.setValue(this.selectedCourse);
-            this.MCQFormData.controls.event.setValue(this.selectedEvent);
+            this.selectedEvent = this.questionDetails.event;
+            this.mcqFormData.controls.course.setValue(this.selectedCourse);
+            this.mcqFormData.controls.event.setValue(this.selectedEvent);
         }
     }
 

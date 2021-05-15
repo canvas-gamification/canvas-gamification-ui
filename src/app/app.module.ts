@@ -80,8 +80,8 @@ import {ActivationEmailComponent} from './components/accounts/activation-email/a
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 
 @NgModule({
     declarations: [
@@ -162,7 +162,6 @@ import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
         MatProgressSpinnerModule,
         CommonModule,
         DragulaModule.forRoot(),
-        CKEditorModule,
         AceEditorModule,
         MatDatepickerModule,
         NgxMatTimepickerModule,
@@ -170,6 +169,7 @@ import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
         NgxMatNativeDateModule,
         HighlightModule,
         MatSelectModule,
+        CKEditorModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

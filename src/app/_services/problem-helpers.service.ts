@@ -5,55 +5,52 @@ import {Injectable} from '@angular/core';
 })
 export class ProblemHelpersService {
 
-    constructor() {
-    }
-
-    createMCQSubmissionRequest(FormData, choices, variablesJSON) {
+    createMCQSubmissionRequest(formData, choices, variablesJSON, questionText, questionAnswer) {
         let mcqChoices = choices.value;
-        mcqChoices.unshift(FormData.answer);
+        mcqChoices.unshift(questionAnswer);
         mcqChoices = this.arrayToObject(mcqChoices);
-        const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === FormData.answer);
+        const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === questionAnswer);
         const submissionRequest = {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
+            title: formData.title,
+            difficulty: formData.difficulty,
+            course: formData.course,
+            event: formData.event,
+            text: questionText,
             answer: correctAnswer,
-            category: FormData.category,
+            category: formData.category,
             variables: variablesJSON,
-            visible_distractor_count: FormData.visible_distractor_count,
+            visible_distractor_count: formData.visible_distractor_count,
             choices: mcqChoices
         };
         return submissionRequest;
     }
 
-    createJavaSubmissionRequest(FormData, variablesJSON, inputFileNames, questionText) {
+    createJavaSubmissionRequest(formData, variablesJSON, inputFileNames, questionText) {
         return {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
+            title: formData.title,
+            difficulty: formData.difficulty,
+            course: formData.course,
+            event: formData.event,
             text: questionText,
-            category: FormData.category,
+            category: formData.category,
             variables: variablesJSON,
-            junit_template: FormData.junit_template,
+            junit_template: formData.junit_template,
             input_file_names: inputFileNames,
         };
     }
 
-    createParsonsSubmissionRequest(FormData, variablesJSON) {
+    createParsonsSubmissionRequest(formData, variablesJSON, questionText) {
         return {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
-            category: FormData.category,
+            title: formData.title,
+            difficulty: formData.difficulty,
+            course: formData.course,
+            event: formData.event,
+            text: questionText,
+            category: formData.category,
             variables: variablesJSON,
-            lines: FormData.lines.split('\n'),
-            additional_file_name: FormData.additional_file_name,
-            junit_template: FormData.junit_template,
+            lines: formData.lines.split('\n'),
+            additional_file_name: formData.additional_file_name,
+            junit_template: formData.junit_template,
         };
     }
 
