@@ -19,7 +19,7 @@ export class UserActionsComponent implements OnInit {
 
     ngOnInit(): void {
         this.userActionService
-            .getUserActions({page: this.currentPage, page_size: this.perPage})
+            .getUserActions({page: this.currentPage, pageSize: this.perPage})
             ?.subscribe((paginatedActions) => {
                 this.userActions = paginatedActions.results;
                 this.canChange = {
@@ -32,7 +32,7 @@ export class UserActionsComponent implements OnInit {
     changePage(forward: boolean): void {
         const change = forward ? 1 : -1;
         this.userActionService
-            .getUserActions({page: this.currentPage + change, page_size: this.perPage})
+            .getUserActions({page: this.currentPage + change, pageSize: this.perPage})
             ?.subscribe((paginatedActions) => {
                 this.userActions = paginatedActions.results;
                 this.currentPage = this.currentPage + change;
@@ -43,11 +43,11 @@ export class UserActionsComponent implements OnInit {
             });
     }
 
-    formatTokenChange(tokenChange): string {
+    formatTokenChange(tokenChange : number): string {
         return `${tokenChange > 0 ? '+' : ''}${tokenChange.toFixed(2)}`;
     }
 
-    getRouterLink(link): string {
+    getRouterLink(link : string): string {
         // FIXME: Make this not trash. Change how actions are stored in DB
         const linkMatch = link.match(/href='([^']*)/)[1].split('/').splice(-2)[0];
         const questionName = link.replace(/(<([^>]+)>)/gi, '').split(' ').splice(-2).join(' ');

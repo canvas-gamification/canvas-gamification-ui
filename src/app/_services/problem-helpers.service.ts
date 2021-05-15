@@ -1,69 +1,127 @@
 import {Injectable} from '@angular/core';
+import {FormArray} from "@angular/forms";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProblemHelpersService {
 
-    constructor() {
-    }
-
-    createMCQSubmissionRequest(FormData, choices, variablesJSON) {
+    createMCQSubmissionRequest(formData: {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        text: string,
+        answer: string,
+        category: string,
+        choices: string,
+        visible_distractor_count: number,
+    }, choices: FormArray, variablesJSON: JSON[]): {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        text: string,
+        answer: string,
+        category: string,
+        variables: JSON[],
+        visible_distractor_count: number,
+        choices: FormArray
+    } {
         let mcqChoices = choices.value;
-        mcqChoices.unshift(FormData.answer);
+        mcqChoices.unshift(formData.answer);
         mcqChoices = this.arrayToObject(mcqChoices);
-        const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === FormData.answer);
-        const submissionRequest = {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
+        const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === formData.answer);
+        return {
+            title: formData.title,
+            difficulty: formData.difficulty,
+            course: formData.course,
+            event: formData.event,
+            text: formData.text,
             answer: correctAnswer,
-            category: FormData.category,
+            category: formData.category,
             variables: variablesJSON,
-            visible_distractor_count: FormData.visible_distractor_count,
+            visible_distractor_count: formData.visible_distractor_count,
             choices: mcqChoices
         };
-        return submissionRequest;
     }
 
-    createJavaSubmissionRequest(FormData, variablesJSON, inputFileNames) {
+    createJavaSubmissionRequest(formData: {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        text: string,
+        category: string,
+        junit_template: string,
+        input_file_names: JSON,
+    }, variablesJSON: JSON[], inputFileNames: JSON): {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        text: string,
+        category: string,
+        variables: JSON[],
+        junit_template: string,
+        input_file_names: JSON,
+    } {
         return {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
-            category: FormData.category,
+            title: formData.title,
+            difficulty: formData.difficulty,
+            course: formData.course,
+            event: formData.event,
+            text: formData.text,
+            category: formData.category,
             variables: variablesJSON,
-            junit_template: FormData.junit_template,
+            junit_template: formData.junit_template,
             input_file_names: inputFileNames,
         };
     }
 
-    createParsonsSubmissionRequest(FormData, variablesJSON) {
+    createParsonsSubmissionRequest(formData: {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        text: string,
+        category: string,
+        lines: string,
+        additional_file_name: string,
+        junit_template: string,
+    }, variablesJSON: JSON[]): {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        text: string,
+        category: string,
+        variables: JSON[],
+        lines: string[],
+        additional_file_name: string,
+        junit_template: string,
+    } {
         return {
-            title: FormData.title,
-            difficulty: FormData.difficulty,
-            course: FormData.course,
-            event: FormData.event,
-            text: FormData.text,
-            category: FormData.category,
+            title: formData.title,
+            difficulty: formData.difficulty,
+            course: formData.course,
+            event: formData.event,
+            text: formData.text,
+            category: formData.category,
             variables: variablesJSON,
-            lines: FormData.lines.split('\n'),
-            additional_file_name: FormData.additional_file_name,
-            junit_template: FormData.junit_template,
+            lines: formData.lines.split('\n'),
+            additional_file_name: formData.additional_file_name,
+            junit_template: formData.junit_template,
         };
     }
 
-    getNextLetter(char) {
+    getNextLetter(char: string): string {
         let code = char.charCodeAt(0);
         code++;
         return String.fromCharCode(code);
     }
 
-    arrayToObject(choicesArray: string[]) {
+    arrayToObject(choicesArray: string[]): { [id: string]: string } {
         const choices = {};
         let id = 'a';
         for (const choice of choicesArray) {

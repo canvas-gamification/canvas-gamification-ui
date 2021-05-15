@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {environment} from '@environments/environment';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class SchemaService {
     constructor(private http: HttpClient) {
     }
 
-    getSchema(name): Observable<any> {
+    getSchema(name : string): Observable<unknown> {
         return this.http.get(this.schemaUrl + name + '/');
     }
 }

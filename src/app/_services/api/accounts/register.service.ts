@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '@environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,12 @@ export class RegisterService {
     constructor(private http: HttpClient) {
     }
 
-    PostRegistration(input: any) {
+    postRegistration(input: {
+        email: string,
+        password: string,
+        password2: string,
+        recaptcha_key : string
+    } ) : Observable<string> {
         return this.http.post(this.registrationUrl, input, {responseType: 'text'}).pipe(
             map(
                 (response) => {
@@ -21,14 +27,14 @@ export class RegisterService {
                         return response;
                     }
                 },
-                (error: any) => {
+                (error: unknown) => {
                     return error;
                 }
             )
         );
     }
 
-    PostActivation(uuid: string, token: string) {
+    postActivation(uuid: string, token: string) : Observable<string> {
         return this.http.post(this.activationUrl, {uuid, token}, {responseType: 'text'}).pipe(
             map(
                 (response) => {
@@ -36,7 +42,7 @@ export class RegisterService {
                         return response;
                     }
                 },
-                (error: any) => {
+                (error: unknown) => {
                     return error;
                 }
             )
