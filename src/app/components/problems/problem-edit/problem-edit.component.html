@@ -1,10 +1,10 @@
 <ng-container *ngIf="questionType === 'multiple choice question'">
-    <app-mcq-edit-snippet [QuestionDetails]="QuestionDetails"></app-mcq-edit-snippet>
+    <app-mcq-edit-snippet [questionDetails]="questionDetails"></app-mcq-edit-snippet>
 </ng-container>
 <ng-container *ngIf="questionType === 'java question'">
-    <app-java-edit-snippet [QuestionDetails]="QuestionDetails"></app-java-edit-snippet>
+    <app-java-edit-snippet [questionDetails]="questionDetails"></app-java-edit-snippet>
 </ng-container>
 <ng-container *ngIf="questionType === 'parsons question'">
-    <app-parsons-edit-snippet [QuestionDetails]="QuestionDetails"></app-parsons-edit-snippet>
+    <app-parsons-edit-snippet [questionDetails]="questionDetails"></app-parsons-edit-snippet>
 </ng-container>
 

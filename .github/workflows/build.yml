@@ -15,6 +15,8 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v1
+            -   name: Cache node modules
+                uses: c-hive/gha-npm-cache@v1
             -   name: Set Up Node
                 uses: actions/setup-node@v1
                 with:
@@ -22,9 +24,7 @@ jobs:
             -   name: Install dependencies
                 run: npm ci
             -   name: Lint
-                uses: wearerequired/lint-action@v1
-                with:
-                    eslint: true
+                run: npm run lint
     test:
         name: Test
         strategy:
@@ -35,6 +35,8 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v1
+            -   name: Cache node modules
+                uses: c-hive/gha-npm-cache@v1
             -   name: Set Up Node
                 uses: actions/setup-node@v1
                 with:
@@ -55,12 +57,13 @@ jobs:
         name: Build
         needs:
             - test
-#            temporarily build without lint
-#            - lint
+            - lint
         runs-on: ubuntu-latest
         steps:
             -   name: Checkout
                 uses: actions/checkout@v1
+            -   name: Cache node modules
+                uses: c-hive/gha-npm-cache@v1
             -   name: Node 16.x
                 uses: actions/setup-node@v1
                 with:

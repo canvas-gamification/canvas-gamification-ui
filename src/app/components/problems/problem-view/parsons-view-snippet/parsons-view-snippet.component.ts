@@ -20,7 +20,10 @@ export class ParsonsViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
     code = '';
     PARSONS_LINES = 'PARSONS_LINES';
+    //TODO: See if Dragula Models can be strongly typed
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     parsonLines: any[];
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     parsonAnswerLines: any[];
 
     constructor(private submissionService: SubmissionService,
@@ -38,7 +41,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
         this.removeLeftContainerIndents();
         this.dragulaService.createGroup(this.PARSONS_LINES, {});
 
-        this.dragulaService.drop().subscribe((value) => {
+        this.dragulaService.drop().subscribe(() => {
             this.determineIndents();
             this.removeLeftContainerIndents();
             this.calculateSourceCode();
@@ -78,9 +81,9 @@ export class ParsonsViewSnippetComponent implements OnInit {
         });
     }
 
-    onSubmit() {
+    onSubmit() : void {
         this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: this.code})
-            .subscribe(response => {
+            .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
                 window.scroll(0, 0);
             }, error => {

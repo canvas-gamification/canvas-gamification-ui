@@ -11,8 +11,8 @@ import {SubmissionService} from '@app/_services/api/problem/submission.service';
 })
 export class McqViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
-    FormData: FormGroup;
-    choiceArray: any[];
+    formData: FormGroup;
+    choiceArray: { id: string, value: string }[];
 
     constructor(private submissionService: SubmissionService,
                 private messageService: MessageService,
@@ -20,7 +20,7 @@ export class McqViewSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.FormData = this.formBuilder.group({
+        this.formData = this.formBuilder.group({
             question: new FormControl(this.uqj.question.id),
             solution: new FormControl('')
         });
@@ -35,9 +35,9 @@ export class McqViewSnippetComponent implements OnInit {
         }
     }
 
-    onSubmit(FormData) {
-        this.submissionService.postQuestionSubmission(FormData)
-            .subscribe(response => {
+    onSubmit(formData : { question: number, solution: unknown }) : void {
+        this.submissionService.postQuestionSubmission(formData)
+            .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
                 window.scroll(0, 0);
             }, error => {

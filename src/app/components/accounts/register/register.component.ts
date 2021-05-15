@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
     siteKey: string = environment.siteKey;
     formSubmitted = false;
     isLoading = false;
+    logoPath = 'assets/global/logo.jpg';
 
     constructor(private builder: FormBuilder, private register: RegisterService, private messageService: MessageService) {
     }
@@ -37,7 +38,7 @@ export class RegisterComponent implements OnInit {
 
     onSubmit(formData: FormArray): void {
         this.isLoading = true;
-        this.register.postRegistration(formData)
+        this.register.postRegistration(formData.value)
             .subscribe(() => {
                 this.formData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully registered.');

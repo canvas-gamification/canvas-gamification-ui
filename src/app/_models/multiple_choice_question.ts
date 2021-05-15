@@ -7,6 +7,6 @@ export interface MultipleChoiceQuestion {
   category: number;
   difficulty: string;
   in_verified: boolean;
-  choices: object;
+  choices: {[index:string]: string};
   visible_distractor_count: number;
 }

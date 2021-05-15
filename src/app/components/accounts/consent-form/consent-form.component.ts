@@ -12,6 +12,7 @@ import {MESSAGE_TYPES} from '@app/_models';
 })
 export class ConsentFormComponent implements OnInit {
     formData: FormGroup;
+    logoPath = 'assets/global/logo.jpg';
 
     constructor(private router: Router,
                 private route: ActivatedRoute,

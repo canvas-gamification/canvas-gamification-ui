@@ -6,27 +6,18 @@ import {AlertMessage} from '@app/_models';
 })
 export class MessageService {
     // Example of a message object: {type: MESSAGE_TYPES.WARNING,
-    //                               message: 'This is an example warning message'}
+    //                               message: 'This is an example message'}
     messages: AlertMessage[] = [];
     successMessages: string[] = [];
 
-    constructor() {
-        this.messages = [];
-        this.successMessages = [];
-    }
-
-    add(type: string, message: string): void {
+    add(type: string, message: string) : void {
         this.messages.push({
             type,
             message,
         });
     }
 
-    addSuccess(message: string): void {
-        this.successMessages.push(message);
-    }
-
-    clear(): void {
+    clear() : void {
         this.messages = [];
         this.successMessages = [];
     }

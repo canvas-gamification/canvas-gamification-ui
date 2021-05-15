@@ -12,7 +12,11 @@ export class ResetPasswordService {
 
   constructor(private http: HttpClient) { }
 
-  putPasswordReset(input: unknown) : Observable<string> {
+  putPasswordReset(input: {
+      old_password: string,
+      password: string,
+      password2: string
+  }) : Observable<string> {
       return this.http.post(this.resetPasswordUrl, input, {responseType: 'text'}).pipe(
           map(
               (response) => {
@@ -20,7 +24,7 @@ export class ResetPasswordService {
                       return response;
                   }
               },
-              (error: never) => {
+              (error: unknown) => {
                   return error;
               }
           )

@@ -31,7 +31,7 @@ export const MOCK_QUESTION: Question = {
     id: 0,
     category: 0,
     status: '',
-    additional_file_name: [],
+    additional_file_name: '',
     answer: 'a',
     author: 0,
     author_name: '',
@@ -87,7 +87,7 @@ export const MOCK_UQJ: UQJ = {
     status_class: '',
     subcategory: '',
     tokens_received: 50,
-    variables: {},
+    variables: JSON.parse('{}'),
     variables_errors: []
 };
 

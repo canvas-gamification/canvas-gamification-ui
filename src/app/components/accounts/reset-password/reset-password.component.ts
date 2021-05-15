@@ -11,6 +11,7 @@ import {MESSAGE_TYPES} from '@app/_models';
 })
 export class ResetPasswordComponent implements OnInit {
     formData: FormGroup;
+    logoPath = 'assets/global/logo.jpg';
 
     constructor(private builder: FormBuilder, private password: ResetPasswordService, private messageService: MessageService) {
     }
@@ -24,7 +25,7 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     onSubmit(formData: FormGroup): void {
-        this.password.putPasswordReset(formData)
+        this.password.putPasswordReset(formData.value)
             .subscribe(() => {
                 this.formData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your password has been updated successfully!');

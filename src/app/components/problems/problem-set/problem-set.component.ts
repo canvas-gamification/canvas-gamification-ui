@@ -17,7 +17,7 @@ import {MatTableDataSource} from '@angular/material/table';
     styleUrls: ['./problem-set.component.scss']
 })
 export class ProblemSetComponent implements OnInit {
-    FormData: FormGroup;
+    formData: FormGroup;
     faEye = faEye;
     faPencilAlt = faPencilAlt;
     faTrashAlt = faTrashAlt;
@@ -39,7 +39,21 @@ export class ProblemSetComponent implements OnInit {
     // Modal
     deleteQuestionId: number;
 
-    paramChanged: Subject<{}> = new Subject<{}>();
+    paramChanged: Subject<{
+        page: number,
+        page_size: number,
+        search: string,
+        category: string,
+        difficulty: string,
+        is_sample: string,
+        ordering: string }> = new Subject<{
+        page: number,
+        page_size: number,
+        search: string,
+        category: string,
+        difficulty: string,
+        is_sample: string,
+        ordering: string }>();
     displayedColumns: string[] = ['id', 'title', 'author', 'event__name', 'category__parent__name', 'category__name',
         'difficulty', 'token_value', 'avg_success', 'actions'];
 
@@ -58,7 +72,7 @@ export class ProblemSetComponent implements OnInit {
 
     ngOnInit(): void {
         this.initialize();
-        this.FormData = this.builder.group({
+        this.formData = this.builder.group({
             search: new FormControl(''),
             difficulty: new FormControl(''),
             category: new FormControl(''),
@@ -77,7 +91,7 @@ export class ProblemSetComponent implements OnInit {
         });
     }
 
-    newPageEvent(event): void {
+    newPageEvent(event : PageEvent): void {
         this.pageEvent = event;
         this.update();
     }
@@ -94,7 +108,7 @@ export class ProblemSetComponent implements OnInit {
         this.paramChanged.next(options);
     }
 
-    sortData(sort: Sort) {
+    sortData(sort: Sort) : void {
         if (sort.direction === 'asc') {
             this.ordering = sort.active;
         } else if (sort.direction === 'desc') {
@@ -105,14 +119,14 @@ export class ProblemSetComponent implements OnInit {
         this.update();
     }
 
-    applyFilter() {
-        this.filterQueryString = this.FormData.value;
+    applyFilter() : void {
+        this.filterQueryString = this.formData.value;
         this.update();
     }
 
     deleteQuestion(): void {
         this.questionService.deleteQuestion(this.deleteQuestionId)
-            .subscribe(response => {
+            .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Deleted Successfully.');
                 this.update();
                 window.scroll(0, 0);
@@ -123,7 +137,7 @@ export class ProblemSetComponent implements OnInit {
             });
     }
 
-    highlight(status: string) {
+    highlight(status: string) : string {
         if (status.localeCompare('Solved') === 0) {
             return 'highlight-success';
         } else if (status.localeCompare('Partially Solved') === 0) {
@@ -134,9 +148,8 @@ export class ProblemSetComponent implements OnInit {
         return '';
     }
 
-    open(content, questionId) {
+    open(content : unknown, questionId : number) : void {
         this.deleteQuestionId = questionId;
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
     }
 }
-

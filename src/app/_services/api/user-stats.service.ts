@@ -30,8 +30,8 @@ export class UserStatsService {
      * @param operation - name of the operation that failed
      * @param result - optional value to return as the observable result
      */
-    private handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
+    private handleError<T>(operation?, result?: T) {
+        return (error: string): Observable<T> => {
             console.error(error); // log to console instead
 
             // Let the app keep running by returning an empty result.

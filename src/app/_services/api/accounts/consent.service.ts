@@ -14,14 +14,20 @@ export class ConsentService {
     constructor(private http: HttpClient) {
     }
 
-    postConsent(input: unknown) : Observable<string>{
+    postConsent(input: {
+        consent: boolean,
+        legal_first_name: string,
+        legal_last_name: string,
+        student_number: string,
+        date: string
+    }): Observable<string> {
         return this.http.post(this.consentAPIUrl, input, {responseType: 'text'}).pipe(
             map((response) => {
                 if (response) {
                     return response;
                 }
             },
-            (error: never) => {
+            (error: unknown) => {
                 return error;
             }
             )

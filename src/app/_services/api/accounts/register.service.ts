@@ -14,7 +14,12 @@ export class RegisterService {
     constructor(private http: HttpClient) {
     }
 
-    postRegistration(input: unknown) : Observable<string> {
+    postRegistration(input: {
+        email: string,
+        password: string,
+        password2: string,
+        recaptcha_key : string
+    } ) : Observable<string> {
         return this.http.post(this.registrationUrl, input, {responseType: 'text'}).pipe(
             map(
                 (response) => {
@@ -22,7 +27,7 @@ export class RegisterService {
                         return response;
                     }
                 },
-                (error: never) => {
+                (error: unknown) => {
                     return error;
                 }
             )
@@ -37,7 +42,7 @@ export class RegisterService {
                         return response;
                     }
                 },
-                (error: never) => {
+                (error: unknown) => {
                     return error;
                 }
             )

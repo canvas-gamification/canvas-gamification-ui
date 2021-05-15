@@ -8,6 +8,7 @@ import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-parsons-create-snippet',
@@ -15,12 +16,13 @@ import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
     styleUrls: ['./parsons-create-snippet.component.scss']
 })
 export class ParsonsCreateSnippetComponent implements OnInit {
-    ParsonsFormData: FormGroup;
+    parsonsFormData: FormGroup;
+    public ckEditor = ClassicEditor
     courses: Course[];
     events: CourseEvent[];
     selectedCourse: number;
     categories: Category[];
-    variables: any[];
+    variables: JSON[];
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
@@ -39,7 +41,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
             this.categories = result[1];
         });
 
-        this.ParsonsFormData = this.formBuilder.group({
+        this.parsonsFormData = this.formBuilder.group({
             title: new FormControl(''),
             difficulty: new FormControl(''),
             category: new FormControl(''),
@@ -52,10 +54,20 @@ export class ParsonsCreateSnippetComponent implements OnInit {
         });
     }
 
-    onSubmit(FormData) {
-        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(FormData, this.variables);
+    onSubmit(formData :  {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        text: string,
+        category: string,
+        lines: string,
+        additional_file_name: string,
+        junit_template: string,
+    }) : void {
+        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData, this.variables);
         this.questionService.postParsonsQuestion(submissionRequest)
-            .subscribe(response => {
+            .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Created Successfully.');
                 window.scroll(0, 0);
             }, error => {
@@ -66,11 +78,11 @@ export class ParsonsCreateSnippetComponent implements OnInit {
 
     }
 
-    courseSelectedEvent(value) {
-        this.courseSelectedById(+value.target.value);
+    courseSelectedEvent(value : Event) : void {
+        this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
-    courseSelectedById(courseId: number) {
+    courseSelectedById(courseId: number) : void {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {

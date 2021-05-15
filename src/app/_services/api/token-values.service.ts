@@ -33,9 +33,9 @@ export class TokenValuesService {
         );
     }
 
-    updateBulk(data: { id: number, value: number }[]): Observable<any> {
-        return this.http.patch<any>(`${this.tokenValuesUrl}update-bulk/`, {data})
-            .pipe(catchError(this.handleError<any>('updateBulk')));
+    updateBulk(data: { id: number, value: number }[]): Observable<unknown> {
+        return this.http.patch(`${this.tokenValuesUrl}update-bulk/`, {data})
+            .pipe(catchError(this.handleError('updateBulk')));
     }
 
     /**
@@ -44,11 +44,10 @@ export class TokenValuesService {
      * @param operation - name of the operation that failed
      * @param result - optional value to return as the observable result
      */
-    private handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
+    private handleError<T>(operation?, result?: T) {
+        return (error: string): Observable<T> => {
             // TODO: send the error to remote logging infrastructure
             console.error(error); // log to console instead
-
             // Let the app keep running by returning an empty result.
             return of(result as T);
         };

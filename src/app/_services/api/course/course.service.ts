@@ -1,6 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {APIResponse, Course, CourseRegistrationRequest, CourseRegistrationResponse, MESSAGE_TYPES, RegistrationStatus} from '@app/_models';
+import {
+    APIResponse,
+    Course,
+    CourseRegistrationRequest,
+    CourseRegistrationResponse,
+    MESSAGE_TYPES,
+    RegistrationStatus
+} from '@app/_models';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {environment} from '@environments/environment';
@@ -19,22 +26,22 @@ export class CourseService {
                 private messageService: MessageService) {
     }
 
-    getUserStats(courseId: number, categoryId: number): Observable<any> {
+    getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
         return this.http
-            .get<any>(`${this.courseUrl}${courseId}/user-stats/${categoryId}/`)
-            .pipe(catchError(this.handleError<any>(
+            .get<{ success_rate: number }>(`${this.courseUrl}${courseId}/user-stats/${categoryId}/`)
+            .pipe(catchError(this.handleError<{ success_rate: number }>(
                 `getUserStats`
             )));
     }
 
-    register(courseId: number, data: CourseRegistrationRequest): any {
+    register(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
         return this.http
             .post<CourseRegistrationResponse>(`${this.courseUrl}${courseId}/register/`, data)
             .pipe(catchError(this.handleError<CourseRegistrationResponse>(
                 `courseRegister`, {success: false, bad_request: true})));
     }
 
-    registerVerify(courseId: number, data: CourseRegistrationRequest): any {
+    registerVerify(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
         return this.http
             .post<CourseRegistrationResponse>(`${this.courseUrl}${courseId}/verify/`, data)
             .pipe(catchError(this.handleError<CourseRegistrationResponse>(
@@ -49,7 +56,7 @@ export class CourseService {
             )));
     }
 
-    validateEvent(courseId: number, eventId: number, needsToBeRegistered = true): any {
+    validateEvent(courseId: number, eventId: number, needsToBeRegistered = true): Observable<APIResponse> {
         return this.http
             .get<APIResponse>(`${this.courseUrl}${courseId}/validate-event/${eventId}/?registered=${needsToBeRegistered}`)
             .pipe(catchError(this.handleError<APIResponse>(
@@ -61,12 +68,17 @@ export class CourseService {
      * @param registered - Filter retrieved courses by if this user is registered in them or not
      * @param options - Object of options for this request
      */
-    getCourses(registered = false, options?: any): Observable<Course[]> {
-        const {filters = {}, ordering = {}, page = 1, page_size = 50} = options ? options : {};
+    getCourses(registered = false, options?: {
+        filters?: unknown,
+        ordering?: unknown,
+        page?: number,
+        pageSize?: number
+    }): Observable<Course[]> {
+        const {filters = {}, ordering = {}, page = 1, pageSize = 50} = options ? options : {};
         let params = new HttpParams()
             .set('registered', String(registered))
-            .set('page', page)
-            .set('page_size', page_size);
+            .set('page', String(page))
+            .set('page_size', String(pageSize));
 
         for (const field of Object.keys(filters)) {
             params = params.set(`${field}`, String(filters[field]));
@@ -94,7 +106,7 @@ export class CourseService {
      * @param registered - Filter retrieved courses by if this user is registered in them or not
      * @param options - Object of options for this request
      */
-    getCourse(courseId: number, registered = false, options?: any): Observable<Course> {
+    getCourse(courseId: number, registered = false, options?: { filters: unknown }): Observable<Course> {
         const {filters = {}} = options ? options : {};
         let params = new HttpParams()
             .set('registered', String(registered));
@@ -116,7 +128,8 @@ export class CourseService {
      * @param result - optional value to return as the observable result
      */
     private handleError<T>(operation = 'operation', result?: T) {
-        return (): Observable<T> => {
+        return (error: unknown): Observable<T> => {
+            console.error(error); // log to console instead
             if (operation === 'validateEvent') {
                 this.messageService.add(
                     MESSAGE_TYPES.DANGER, 'You don\'t have the correct permissions to access that course or event!');

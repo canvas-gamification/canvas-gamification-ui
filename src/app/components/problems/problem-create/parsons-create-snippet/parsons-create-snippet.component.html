@@ -1,4 +1,4 @@
-<form [formGroup]="ParsonsFormData" (ngSubmit)="onSubmit(ParsonsFormData.value)">
+<form [formGroup]="parsonsFormData" (ngSubmit)="onSubmit(parsonsFormData.value)">
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="parsonsQuestionName">Question Name:</label>
@@ -43,7 +43,7 @@
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="parsonsQuestion">Question:</label>
-            <ckeditor formControlName="text" id="parsonsQuestion"></ckeditor>
+            <ckeditor [editor]="ckEditor" formControlName="text" id="parsonsQuestion"></ckeditor>
         </div>
     </div>
     <div class="form-row m-3">

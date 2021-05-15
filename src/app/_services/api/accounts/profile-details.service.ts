@@ -14,7 +14,11 @@ export class ProfileDetailsService {
   constructor(private http: HttpClient) {
   }
 
-  putProfileDetails(input: unknown, id: number) : Observable<string>{
+  putProfileDetails(input: {
+      first_name: string,
+      last_name: string,
+      email: string
+  }, id: number) : Observable<string> {
       return this.http.put(this.profileDetailsUrl + id + '/', input, {responseType: 'text'}).pipe(
           map(
               (response) => {
@@ -22,7 +26,7 @@ export class ProfileDetailsService {
                       return response;
                   }
               },
-              (error: never) => {
+              (error: unknown) => {
                   return error;
               }
           )

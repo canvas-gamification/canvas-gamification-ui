@@ -15,6 +15,7 @@ export class ProfileDetailsComponent implements OnInit {
     formData: FormGroup;
     userConsent: boolean;
     userDetails: User;
+    logoPath = 'assets/global/logo.jpg';
 
     constructor(private router: Router,
                 private builder: FormBuilder,

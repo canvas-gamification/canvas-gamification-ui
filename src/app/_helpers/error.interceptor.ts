@@ -20,14 +20,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.authenticationService.logout();
                 this.router.navigate(['/accounts/login']).then();
             }
-            if(err.status === 404){
-                //redirect to 404 page
-                this.router.navigate(['404']).then();
-            }
-            if(err.status === 403){
-                //redirect to 403 page
-                this.router.navigate(['403']).then();
-            }
 
             const error: string = err.error.message || err.statusText;
             return throwError(error);
