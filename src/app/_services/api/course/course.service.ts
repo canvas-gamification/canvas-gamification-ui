@@ -9,51 +9,56 @@ import {
 } from '@app/_models';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
-import {BaseService} from "@app/_services/base.service";
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CourseService {
     constructor(private http: HttpClient,
-                private baseService: BaseService) {
+                private apiService: ApiService) {
     }
 
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
+        const url = this.apiService.getURL('course', courseId, 'user-stats', categoryId);
         return this.http
-            .get<{ success_rate: number }>(this.baseService.addParams(this.baseService.getURL('course', courseId, 'user-stats', categoryId)))
-            .pipe(catchError(this.baseService.handleError<{ success_rate: number }>('')));
+            .get<{ success_rate: number }>(url)
+            .pipe(catchError(this.apiService.handleError<{ success_rate: number }>('')));
     }
 
     register(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
+        const url = this.apiService.getURL('course', courseId, 'register');
         return this.http
-            .post<CourseRegistrationResponse>(this.baseService.addParams(this.baseService.getURL('course', courseId, 'register')), data)
-            .pipe(catchError(this.baseService.handleError<CourseRegistrationResponse>('', {
+            .post<CourseRegistrationResponse>(url, data)
+            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>('', {
                 success: false,
                 bad_request: true
             })));
     }
 
     registerVerify(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
+        const url = this.apiService.getURL('course', courseId, 'verify');
         return this.http
-            .post<CourseRegistrationResponse>(this.baseService.addParams(this.baseService.getURL('course', courseId, 'verify')), data)
-            .pipe(catchError(this.baseService.handleError<CourseRegistrationResponse>(``, {
+            .post<CourseRegistrationResponse>(url, data)
+            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>(``, {
                 success: false,
                 bad_request: true
             })));
     }
 
     getCourseRegistrationStatus(courseId: number): Observable<RegistrationStatus> {
+        const url = this.apiService.getURL('course', courseId, 'get-registration-status');
         return this.http
-            .get<RegistrationStatus>(this.baseService.addParams(this.baseService.getURL('course', courseId, 'get-registration-status')))
-            .pipe(catchError(this.baseService.handleError<RegistrationStatus>(``)));
+            .get<RegistrationStatus>(url)
+            .pipe(catchError(this.apiService.handleError<RegistrationStatus>(``)));
     }
 
     validateEvent(courseId: number, eventId: number, needsToBeRegistered = true): Observable<APIResponse> {
+        const url = this.apiService.getURL('course', courseId, 'validate-event', eventId);
+        const params = this.apiService.addParams({'registered': String(needsToBeRegistered)});
         return this.http
-            .get<APIResponse>(this.baseService.addParams(this.baseService.getURL('course', courseId, 'validate-event', eventId),
-                {'registered': String(needsToBeRegistered)}))
-            .pipe(catchError(this.baseService.handleError<APIResponse>(``, {success: false, bad_request: true})));
+            .get<APIResponse>(url,params)
+            .pipe(catchError(this.apiService.handleError<APIResponse>(``, {success: false, bad_request: true})));
     }
 
     /**
@@ -68,9 +73,9 @@ export class CourseService {
         pageSize?: number
     }): Observable<Course[]> {
         const {filters = {}, ordering = {}, page = 1, pageSize = 50} = options ? options : {};
-        const params = {'registered': String(registered), 'page': String(page), 'pageSize': String(pageSize)};
+        const searchParams = {'registered': String(registered), 'page': String(page), 'pageSize': String(pageSize)};
         for (const field of Object.keys(filters)) {
-            params[field] = String(filters[field]);
+            searchParams[field] = String(filters[field]);
         }
         const orderingFields = [];
         for (const field of Object.keys(ordering)) {
@@ -81,11 +86,13 @@ export class CourseService {
             }
         }
         if (orderingFields.length > 0) {
-            params['ordering'] = String(orderingFields.join());
+            searchParams['ordering'] = String(orderingFields.join());
         }
+        const url = this.apiService.getURL('course');
+        const params = this.apiService.addParams(searchParams);
         return this.http
-            .get<Course[]>(this.baseService.addParams(this.baseService.getURL('course'), params))
-            .pipe(catchError(this.baseService.handleError<Course[]>(``)));
+            .get<Course[]>(url, params)
+            .pipe(catchError(this.apiService.handleError<Course[]>(``)));
     }
 
 
@@ -97,12 +104,14 @@ export class CourseService {
      */
     getCourse(courseId: number, registered = false, options?: { filters: unknown }): Observable<Course> {
         const {filters = {}} = options ? options : {};
-        const params = {'registered': String(registered)};
+        const searchParams = {'registered': String(registered)};
         for (const field of Object.keys(filters)) {
-            params[field] = String(filters[field]);
+            searchParams[field] = String(filters[field]);
         }
+        const url = this.apiService.getURL('course', courseId);
+        const params = this.apiService.addParams(searchParams);
         return this.http
-            .get<Course>(this.baseService.addParams(this.baseService.getURL('course', courseId), params))
-            .pipe(catchError(this.baseService.handleError<Course>(``)));
+            .get<Course>(url, params)
+            .pipe(catchError(this.apiService.handleError<Course>(``)));
     }
 }

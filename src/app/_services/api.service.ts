@@ -3,27 +3,25 @@ import {environment} from "@environments/environment";
 import {Observable, of} from "rxjs";
 import {MESSAGE_TYPES} from "@app/_models";
 import {MessageService} from "@app/_services/message.service";
+import {HttpParams} from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
 })
-export class BaseService {
+export class ApiService {
     constructor(private messageService: MessageService) {
     }
 
-    // Usage: this.baseService.addParams(this.baseService.getURL('course','edit','2'), {'param1':'1','param2':'false'});
-    addParams(url: URL, params?: Record<string, string>): string {
-        const searchParams = new URLSearchParams(params).toString() + '/';
-        return url + '?' + searchParams;
-
+    addParams(params?: Record<string, string>): {params : HttpParams} {
+        return {params: new HttpParams(params)};
     }
 
-    getURL(...names: (string | number)[]): URL {
+    getURL(...names: (string | number)[]): string {
         let relativeURL = '';
         for (const id in names) {
             relativeURL += String(names[id]).split('/').join('') + '/';
         }
-        return new URL(relativeURL, environment.apiBaseUrl + '/api/');
+        return new URL(relativeURL, environment.apiBaseUrl + '/api/').toString();
     }
 
     /**
@@ -34,9 +32,8 @@ export class BaseService {
      */
     handleError<T>(message = 'An Unexpected Error Occurred', result?: T): any {
         message = message.length > 0 ? message : 'An Unexpected Error Occurred';
-        return (error: unknown): Observable<T> => {
-            console.error(error); // log to console
-            this.messageService.add(MESSAGE_TYPES.DANGER, message); // add message
+        return (): Observable<T> => {
+            this.messageService.add(MESSAGE_TYPES.DANGER, message);
             return of(result as T);
         };
     }
