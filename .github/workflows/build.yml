@@ -57,8 +57,7 @@ jobs:
         name: Build
         needs:
             - test
-#            temporarily build without lint
-#            - lint
+            - lint
         runs-on: ubuntu-latest
         steps:
             -   name: Checkout
