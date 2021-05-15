@@ -16,13 +16,7 @@ jobs:
             -   name: Checkout
                 uses: actions/checkout@v1
             -   name: Cache node modules
-                uses: actions/cache@v2
-                env:
-                    cache-name: cache-node-modules
-                with:
-                    path: ~/.npm
-                    key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-                    restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
+                uses: c-hive/gha-npm-cache@v1
             -   name: Set Up Node
                 uses: actions/setup-node@v1
                 with:
@@ -41,6 +35,8 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v1
+            -   name: Cache node modules
+                uses: c-hive/gha-npm-cache@v1
             -   name: Set Up Node
                 uses: actions/setup-node@v1
                 with:
@@ -67,6 +63,8 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v1
+            -   name: Cache node modules
+                uses: c-hive/gha-npm-cache@v1
             -   name: Node 16.x
                 uses: actions/setup-node@v1
                 with:
