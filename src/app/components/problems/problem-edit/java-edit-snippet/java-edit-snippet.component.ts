@@ -17,16 +17,16 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
     styleUrls: ['./java-edit-snippet.component.scss']
 })
 export class JavaEditSnippetComponent implements OnInit {
-    @Input() QuestionDetails;
+    @Input() questionDetails;
     public ckEditor = ClassicEditor
-    JavaFormData: FormGroup;
+    javaFormData: FormGroup;
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
-    variables: any[];
+    variables: JSON[];
     selectedCourse: number;
     selectedEvent: number;
-    inputFileNames: any;
+    inputFileNames: JSON;
 
     constructor(private courseService: CourseService,
                 private categoryService: CategoryService,
@@ -38,10 +38,10 @@ export class JavaEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.QuestionDetails.event) {
+        if (this.questionDetails.event) {
             const coursesObservable = this.courseService.getCourses();
             const categoriesObservable = this.categoryService.getCategories();
-            const eventObservable = this.courseEventService.getCourseEvent(this.QuestionDetails?.event);
+            const eventObservable = this.courseEventService.getCourseEvent(this.questionDetails?.event);
 
             forkJoin([coursesObservable, categoriesObservable, eventObservable])
                 .subscribe(result => {
@@ -60,24 +60,33 @@ export class JavaEditSnippetComponent implements OnInit {
                 });
         }
 
-        this.inputFileNames = this.QuestionDetails?.input_file_names;
-        this.variables = this.QuestionDetails?.variables;
+        this.inputFileNames = this.questionDetails?.input_file_names;
+        this.variables = this.questionDetails?.variables;
 
-        this.JavaFormData = this.formBuilder.group({
-            title: new FormControl(this.QuestionDetails?.title),
-            difficulty: new FormControl(this.QuestionDetails?.difficulty),
-            category: new FormControl(this.QuestionDetails?.category),
+        this.javaFormData = this.formBuilder.group({
+            title: new FormControl(this.questionDetails?.title),
+            difficulty: new FormControl(this.questionDetails?.difficulty),
+            category: new FormControl(this.questionDetails?.category),
             course: new FormControl(this.selectedCourse),
             event: new FormControl(this.selectedEvent),
-            text: new FormControl(this.QuestionDetails?.text),
-            junit_template: new FormControl(this.QuestionDetails?.junit_template),
+            text: new FormControl(this.questionDetails?.text),
+            junit_template: new FormControl(this.questionDetails?.junit_template),
         });
     }
 
-    onSubmit(FormData) {
-        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(FormData, this.variables, this.inputFileNames);
-        this.questionService.putJavaQuestion(submissionRequest, this.QuestionDetails.id)
-            .subscribe(response => {
+    onSubmit(formData : {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        text: string,
+        category: string,
+        junit_template: string,
+        input_file_names: JSON,
+    }) : void {
+        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData, this.variables, this.inputFileNames);
+        this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
+            .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
@@ -87,11 +96,11 @@ export class JavaEditSnippetComponent implements OnInit {
             });
     }
 
-    courseSelectedEvent(value) {
-        this.courseSelectedById(+value.target.value);
+    courseSelectedEvent(value : Event) : void {
+        this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
-    courseSelectedById(courseId: number) {
+    courseSelectedById(courseId: number) : void {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
@@ -99,9 +108,9 @@ export class JavaEditSnippetComponent implements OnInit {
                     this.events = course.events;
                 }
             });
-            this.selectedEvent = this.QuestionDetails.event;
-            this.JavaFormData.controls.course.setValue(this.selectedCourse);
-            this.JavaFormData.controls.event.setValue(this.selectedEvent);
+            this.selectedEvent = this.questionDetails.event;
+            this.javaFormData.controls.course.setValue(this.selectedCourse);
+            this.javaFormData.controls.event.setValue(this.selectedEvent);
         }
     }
 }

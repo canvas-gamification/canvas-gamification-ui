@@ -4,7 +4,6 @@ import {ContactComponent} from './components/contact/contact.component';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
 import {TopicsComponent} from './components/topics/topics.component';
-import {ConceptMapComponent} from './components/concept-map/concept-map.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {LoginComponent} from '@app/components/accounts/login';

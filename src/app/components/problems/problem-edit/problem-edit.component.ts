@@ -13,7 +13,7 @@ export class ProblemEditComponent implements OnInit {
     private routeSub: Subscription;
     questionId: number;
     questionType: string;
-    QuestionDetails: Question;
+    questionDetails: Question;
 
     constructor(private route: ActivatedRoute, private questionService: QuestionService) {
     }
@@ -26,8 +26,8 @@ export class ProblemEditComponent implements OnInit {
 
         forkJoin([questionDetailsObservable])
             .subscribe(result => {
-                this.QuestionDetails = result[0];
-                this.questionType = this.questionService.getQuestionType(this.QuestionDetails);
+                this.questionDetails = result[0];
+                this.questionType = this.questionService.getQuestionType(this.questionDetails);
             });
     }
 }

@@ -24,7 +24,7 @@ export class RecentViewedQuestionsComponent implements OnInit {
           });
   }
 
-  formatQuestion(question : Question): string {
+  formatQuestion(question: Question): string {
       return `${question.title} (${question.id})`;
   }
 

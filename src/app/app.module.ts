@@ -21,6 +21,8 @@ import {MatInputModule} from '@angular/material/input';
 import {TopicsComponent} from './components/topics/topics.component';
 import {RecaptchaModule, RecaptchaFormsModule} from 'ng-recaptcha';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+// TODO: Remove this suppress after fixing concept map
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {ConceptMapComponent} from './components/concept-map/concept-map.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';

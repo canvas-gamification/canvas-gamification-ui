@@ -9,9 +9,6 @@ import {QuestionSubmission} from '@app/_models/question_submission';
 export class SubmissionSnippetComponent implements OnInit {
     @Input() previousSubmissions: QuestionSubmission[];
 
-    constructor() {
-    }
-
     ngOnInit(): void {
         this.previousSubmissions.reverse();
     }

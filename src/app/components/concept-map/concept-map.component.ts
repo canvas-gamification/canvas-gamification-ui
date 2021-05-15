@@ -25,14 +25,14 @@ export class ConceptMapComponent implements OnInit {
                 private router: Router) {
     }
 
-    ngOnInit() {
+    ngOnInit() : void {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.categoryService.getCategories().subscribe(categories => {
             this.rawCategories = categories;
             this.conceptMapGraph = new ConceptMapGraph((cellId) => {
                 this.parentNode = cellId;
                 if (!this.isTopLevel(cellId)) {
-                    this.router.navigate(['course', this.currCourse.id, 'category', cellId]);
+                    this.router.navigate(['course', this.currCourse.id, 'category', cellId]).then();
                 }
                 this.renderGraph();
             });
@@ -40,7 +40,7 @@ export class ConceptMapComponent implements OnInit {
         });
     }
 
-    renderGraph() {
+    renderGraph() : void {
         const adj: Category[] = [];
         this.rawCategories.filter(category => category.parent === this.parentNode)
             .forEach(category => {
@@ -56,16 +56,16 @@ export class ConceptMapComponent implements OnInit {
         this.conceptMapGraph.buildGraphFromAdjacencyList(adj);
     }
 
-    reset() {
+    reset() : void{
         this.parentNode = null;
         this.renderGraph();
     }
 
-    update() {
+    update() : void{
         this.renderGraph();
     }
 
-    isTopLevel(categoryId: number) {
+    isTopLevel(categoryId: number) : boolean {
         return this.rawCategories.find(category => category.pk === categoryId).parent === null;
     }
 }
