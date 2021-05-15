@@ -22,13 +22,13 @@ export interface Question {
     course_name: string;
     event_name: string;
     author_name: string;
-    choices: any;
+    choices: {[index:string]: string};
     variables: [];
     input_file_names: [];
-    answer: any;
+    answer: string;
     junit_template: string;
-    lines: any[];
-    additional_file_name: any;
+    lines: string[];
+    additional_file_name: string;
     status: string;
     is_open: boolean;
     is_exam: boolean;
