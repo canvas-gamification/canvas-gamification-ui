@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import * as ClassicEditor from "@canvas-gamification/ckeditor5";
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
 @Component({
     selector: 'app-ck-editor',
@@ -11,8 +12,7 @@ export class CkEditorComponent {
     @Output() readonly valueChange = new EventEmitter<string>();
     public ckEditor = ClassicEditor;
 
-    changeValue(value: string): void {
-        this.valueChange.emit(value);
+    changeValue({ editor }: ChangeEvent): void {
+        this.valueChange.emit(editor.getData());
     }
-
 }
