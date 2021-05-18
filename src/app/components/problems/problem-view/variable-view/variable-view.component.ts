@@ -8,10 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class VariableViewComponent implements OnInit {
     @Input() variables;
     @Input() variableErrors;
-    generatedVariables: any[];
-
-    constructor() {
-    }
+    generatedVariables: { name: string, value: string }[];
 
     ngOnInit(): void {
         if (Object.keys(this.variables).length !== 0) {

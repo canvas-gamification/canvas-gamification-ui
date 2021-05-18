@@ -20,7 +20,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
     events: CourseEvent[];
     selectedCourse: number;
     categories: Category[];
-    variables: any[];
+    variables: JSON[];
     questionText: string;
 
     constructor(private questionService: QuestionService,
@@ -66,8 +66,8 @@ export class ParsonsCreateSnippetComponent implements OnInit {
 
     }
 
-    courseSelectedEvent(value): void {
-        this.courseSelectedById(+value.target.value);
+    courseSelectedEvent(value : Event) : void {
+        this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
     courseSelectedById(courseId: number): void {

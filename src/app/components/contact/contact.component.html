@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <h1 class="title">Contact Us!</h1>
-      <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
+      <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter Email"
@@ -24,7 +24,7 @@
 
           </re-captcha>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="!FormData.valid">Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!formData.valid">Submit</button>
       </form>
     </div>
   </div>

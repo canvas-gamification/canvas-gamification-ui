@@ -22,8 +22,8 @@ export class McqEditSnippetComponent implements OnInit {
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
-    variables: any[];
-    choiceArray: any[];
+    variables: JSON[];
+    choiceArray: { id: string, value: string }[];
     correctAnswer: { id: string, value: string };
     selectedCourse: number;
     selectedEvent: number;
@@ -87,7 +87,7 @@ export class McqEditSnippetComponent implements OnInit {
     onSubmit(formData: FormGroup): void {
         const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distract, this.variables, this.questionText, this.answerText);
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe(response => {
+            .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
@@ -97,11 +97,11 @@ export class McqEditSnippetComponent implements OnInit {
             });
     }
 
-    courseSelectedEvent(value) {
-        this.courseSelectedById(+value.target.value);
+    courseSelectedEvent(value: Event) : void {
+        this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
-    courseSelectedById(courseId: number) {
+    courseSelectedById(courseId: number) : void{
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
@@ -115,15 +115,15 @@ export class McqEditSnippetComponent implements OnInit {
         }
     }
 
-    addChoice() {
+    addChoice() : void {
         this.distract.push(new FormControl(''));
     }
 
-    removeChoice(index) {
+    removeChoice(index : number) : void {
         this.distract.removeAt(index);
     }
 
-    convertChoicesToArray(choices: {}) {
+    convertChoicesToArray(choices: { [id: string]: string}) : void {
         const outputArray = [];
         for (const choice in choices) {
             outputArray.push({

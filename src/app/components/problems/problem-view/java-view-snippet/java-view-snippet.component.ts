@@ -21,13 +21,13 @@ export class JavaViewSnippetComponent implements OnInit {
         this.inputFileNames = this.uqj.input_files;
     }
 
-    onSubmit() {
+    onSubmit() : void {
         const codeSolution = {};
         this.inputFileNames.forEach(file => {
             codeSolution[file.name] = file.template;
         });
         this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: codeSolution})
-            .subscribe(response => {
+            .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
                 window.scroll(0, 0);
             }, error => {

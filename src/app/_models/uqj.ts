@@ -17,10 +17,10 @@ export interface UQJ {
     num_attempts: number;
     formatted_current_tokens_received: string;
     is_allowed_to_submit: boolean;
-    variables: any;
+    variables: JSON;
     variables_errors: [];
     rendered_text: string;
-    rendered_choices: {};
+    rendered_choices: {[index: string]: string};
     rendered_lines: [];
     status_class: string;
     input_files: [];

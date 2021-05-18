@@ -21,7 +21,7 @@ export class McqCreateSnippetComponent implements OnInit {
     events: CourseEvent[];
     categories: Category[];
     selectedCourse: number;
-    variables: any[];
+    variables: JSON[];
     questionText: string;
     answerText: string;
 
@@ -55,8 +55,8 @@ export class McqCreateSnippetComponent implements OnInit {
         });
     }
 
-    courseSelectedEvent(value): void {
-        this.courseSelectedById(+value.target.value);
+    courseSelectedEvent(value: Event): void {
+        this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
     courseSelectedById(courseId: number): void {

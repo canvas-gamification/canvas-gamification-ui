@@ -20,8 +20,8 @@ export class JavaCreateSnippetComponent implements OnInit {
     events: CourseEvent[];
     selectedCourse: number;
     categories: Category[];
-    variables: any[];
-    inputFileNames: any;
+    variables: JSON[];
+    inputFileNames: JSON;
     questionText: string;
 
 
@@ -53,8 +53,8 @@ export class JavaCreateSnippetComponent implements OnInit {
         });
     }
 
-    courseSelectedEvent(value): void {
-        this.courseSelectedById(+value.target.value);
+    courseSelectedEvent(value: Event): void {
+        this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
     courseSelectedById(courseId: number): void {

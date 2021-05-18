@@ -21,10 +21,10 @@ export class JavaEditSnippetComponent implements OnInit {
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
-    variables: any[];
+    variables: JSON[];
     selectedCourse: number;
     selectedEvent: number;
-    inputFileNames: any;
+    inputFileNames: JSON;
     questionText: string;
 
     constructor(private courseService: CourseService,
@@ -75,7 +75,6 @@ export class JavaEditSnippetComponent implements OnInit {
 
     onSubmit(formData: FormGroup): void {
         const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData.value, this.variables, this.inputFileNames, this.questionText);
-        console.log(submissionRequest);
         this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
@@ -87,8 +86,8 @@ export class JavaEditSnippetComponent implements OnInit {
             });
     }
 
-    courseSelectedEvent(value): void {
-        this.courseSelectedById(+value.target.value);
+    courseSelectedEvent(value: Event): void {
+        this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
     courseSelectedById(courseId: number): void {

@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {SchemaService} from '@app/_services/api/schema.service';
 
-declare var JSONEditor: any;
+// eslint-disable-next-line @typescript-eslint/naming-convention
+declare let JSONEditor: any;
 
 @Component({
     selector: 'app-json-editor',
@@ -12,8 +13,8 @@ export class JsonEditorComponent implements OnInit {
 
     editor: any;
     @Input() name: string;
-    @Input() value: any[];
-    @Output() valueChange = new EventEmitter<any[]>();
+    @Input() value: JSON;
+    @Output() readonly valueChange = new EventEmitter<JSON>();
 
     constructor(private schemaService: SchemaService) {
     }
@@ -45,7 +46,7 @@ export class JsonEditorComponent implements OnInit {
         });
     }
 
-    changeValue(value) {
+    changeValue(value: JSON): void {
         this.valueChange.emit(value);
     }
 }

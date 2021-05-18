@@ -54,13 +54,13 @@ export class ProblemHelpersService {
         };
     }
 
-    getNextLetter(char) {
+    getNextLetter(char: string): string {
         let code = char.charCodeAt(0);
         code++;
         return String.fromCharCode(code);
     }
 
-    arrayToObject(choicesArray: string[]) {
+    arrayToObject(choicesArray: string[]): { [id: string]: string } {
         const choices = {};
         let id = 'a';
         for (const choice of choicesArray) {

@@ -23,7 +23,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
-    variables: any[];
+    variables: JSON[];
     questionText: string;
 
     constructor(private formBuilder: FormBuilder,
@@ -72,8 +72,8 @@ export class ParsonsEditSnippetComponent implements OnInit {
         });
     }
 
-    courseSelectedEvent(value): void {
-        this.courseSelectedById(+value.target.value);
+    courseSelectedEvent(value : Event) : void {
+        this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
     onSubmit(formData: FormGroup): void {

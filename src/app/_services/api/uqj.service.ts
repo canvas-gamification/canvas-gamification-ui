@@ -18,11 +18,17 @@ export class UqjService {
     constructor(private http: HttpClient) {
     }
 
-    getUQJs(options?): Observable<PaginatedResult<UQJ>> {
-        const {filters = {}, ordering = {}, page = 1, page_size = 50} = options ? options : {};
+    getUQJs(options?: {
+        filters?: unknown,
+        ordering?: unknown,
+        page?: number,
+        pageSize?: number,
+        recent?: boolean
+    }): Observable<PaginatedResult<UQJ>> {
+        const {filters = {}, page = 1, pageSize = 50} = options ? options : {};
         let params = new HttpParams()
-            .set('page', page)
-            .set('page_size', page_size);
+            .set('page', String(page))
+            .set('page_size', String(pageSize));
 
         for (const field of Object.keys(filters)) {
             params = params.set(`${field}`, String(filters[field]));
@@ -43,7 +49,7 @@ export class UqjService {
             );
     }
 
-    getUQJ(uqjId: any): Observable<UQJ> {
+    getUQJ(uqjId: number): Observable<UQJ> {
         const params = new HttpParams();
 
         const url = `${this.userUqjUrl}${uqjId}/`;
@@ -58,9 +64,9 @@ export class UqjService {
             );
     }
 
-    getUQJByQuestion(questionId: any): Observable<UQJ> {
+    getUQJByQuestion(questionId: number): Observable<UQJ> {
         const params = new HttpParams()
-            .set('question', questionId);
+            .set('question', String(questionId));
         const url = `${this.userUqjUrl}`;
         return this.http
             .get<PaginatedResult<UQJ>>(url, {params})
@@ -80,8 +86,8 @@ export class UqjService {
      * @param operation - name of the operation that failed
      * @param result - optional value to return as the observable result
      */
-    private handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
+    private handleError<T>(operation?, result?: T) {
+        return (error: string): Observable<T> => {
             // TODO: send the error to remote logging infrastructure
             console.error(error); // log to console instead
             // Let the app keep running by returning an empty result.
