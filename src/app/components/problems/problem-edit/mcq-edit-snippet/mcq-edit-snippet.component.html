@@ -48,7 +48,7 @@
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqCorrectAnswer">Correct Answer:</label>
-            <app-ck-editor [(value)]="questionText" id="mcqCorrectAnswer"></app-ck-editor>
+            <app-ck-editor [(value)]="answerText" id="mcqCorrectAnswer"></app-ck-editor>
         </div>
     </div>
     <div class="form-row m-3 p-3">
@@ -74,7 +74,8 @@
                 <tbody>
                 <tr *ngFor="let control of distract.controls; index as i">
                     <td class="p-3">
-                        <app-ck-editor [(value)]="distract.controls[i]"></app-ck-editor>
+                        <!-- This is behaving weird... -->
+<!--                        <app-ck-editor [(value)]="distract.controls[i].toString()"></app-ck-editor>-->
                     </td>
                     <td class="p-3">
                         <button type="button" class="btn btn-danger m-auto" (click)="removeChoice(i)">Remove</button>

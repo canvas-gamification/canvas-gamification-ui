@@ -22,7 +22,7 @@ export class McqEditSnippetComponent implements OnInit {
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
-    variables: JSON[];
+    variables: JSON;
     choiceArray: { id: string, value: string }[];
     correctAnswer: { id: string, value: string };
     selectedCourse: number;
