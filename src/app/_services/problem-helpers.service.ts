@@ -1,16 +1,26 @@
 import {Injectable} from '@angular/core';
+import {FormArray} from "@angular/forms";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProblemHelpersService {
 
-    createMCQSubmissionRequest(formData, choices, variablesJSON, questionText, questionAnswer) {
+    createMCQSubmissionRequest(formData: {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        answer: string,
+        category: string,
+        choices: string,
+        visible_distractor_count: number
+    }, choices: FormArray, variablesJSON: JSON[], questionText: string, questionAnswer: string) {
         let mcqChoices = choices.value;
         mcqChoices.unshift(questionAnswer);
         mcqChoices = this.arrayToObject(mcqChoices);
         const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === questionAnswer);
-        const submissionRequest = {
+        return {
             title: formData.title,
             difficulty: formData.difficulty,
             course: formData.course,
@@ -22,10 +32,16 @@ export class ProblemHelpersService {
             visible_distractor_count: formData.visible_distractor_count,
             choices: mcqChoices
         };
-        return submissionRequest;
     }
 
-    createJavaSubmissionRequest(formData, variablesJSON, inputFileNames, questionText) {
+    createJavaSubmissionRequest(formData: {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        category: string,
+        junit_template: string,
+    }, variablesJSON: JSON[], inputFileNames: JSON, questionText: string) {
         return {
             title: formData.title,
             difficulty: formData.difficulty,
@@ -39,7 +55,16 @@ export class ProblemHelpersService {
         };
     }
 
-    createParsonsSubmissionRequest(formData, variablesJSON, questionText) {
+    createParsonsSubmissionRequest(formData: {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        category: string,
+        lines: string,
+        additional_file_name: string,
+        junit_template: string
+    }, variablesJSON: JSON[], questionText: string) {
         return {
             title: formData.title,
             difficulty: formData.difficulty,

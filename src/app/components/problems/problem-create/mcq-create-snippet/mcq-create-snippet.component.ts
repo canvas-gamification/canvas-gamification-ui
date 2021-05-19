@@ -91,20 +91,4 @@ export class McqCreateSnippetComponent implements OnInit {
     removeChoice(index: number): void {
         this.distract.removeAt(index);
     }
-
-    getNextLetter(char): string {
-        let code = char.charCodeAt(0);
-        code++;
-        return String.fromCharCode(code);
-    }
-
-    arrayToObject(choicesArray: string[]) {
-        const choices = {};
-        let id = 'a';
-        for (const choice of choicesArray) {
-            choices[id] = choice;
-            id = this.getNextLetter(id);
-        }
-        return choices;
-    }
 }

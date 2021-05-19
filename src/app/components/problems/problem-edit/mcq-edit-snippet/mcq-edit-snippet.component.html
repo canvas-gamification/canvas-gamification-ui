@@ -75,7 +75,7 @@
                 <tr *ngFor="let control of distract.controls; index as i">
                     <td class="p-3">
                         <!-- This is behaving weird... -->
-<!--                        <app-ck-editor [(value)]="distract.controls[i].toString()"></app-ck-editor>-->
+<!--                        <app-ck-editor [(value)]="distract.controls[i]"></app-ck-editor>-->
                     </td>
                     <td class="p-3">
                         <button type="button" class="btn btn-danger m-auto" (click)="removeChoice(i)">Remove</button>
