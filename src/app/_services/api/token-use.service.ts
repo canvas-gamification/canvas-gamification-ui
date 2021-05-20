@@ -23,13 +23,7 @@ export class TokenUseService {
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const url = `${this.tokenUseUrl}use/${courseId}/`;
         return this.http.post<APIResponse>(url, tokenActions, {headers})
-            .pipe(
-                catchError(
-                    this.handleError<APIResponse>(
-                        `getCourses`
-                    )
-                )
-            );
+            .pipe(catchError(this.handleError<APIResponse>(`useTokens`)));
     }
 
     /**
