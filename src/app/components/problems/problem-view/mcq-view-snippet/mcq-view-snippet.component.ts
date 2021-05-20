@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MessageService} from '@app/_services/message.service';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {MESSAGE_TYPES, UQJ} from '@app/_models';
 import {SubmissionService} from '@app/_services/api/problem/submission.service';
 
@@ -22,7 +22,7 @@ export class McqViewSnippetComponent implements OnInit {
     ngOnInit(): void {
         this.formData = this.formBuilder.group({
             question: new FormControl(this.uqj.question.id),
-            solution: new FormControl(null)
+            solution: new FormControl(null, [Validators.required])
         });
 
         const outputArray = [];
@@ -36,21 +36,15 @@ export class McqViewSnippetComponent implements OnInit {
     }
 
     onSubmit(formData: { question: number, solution: unknown }): void {
-        if (formData.solution) {
-            this.submissionService.postQuestionSubmission(formData)
-                .subscribe(() => {
-                    this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
-                    window.scroll(0, 0);
-                }, error => {
-                    this.messageService.add(MESSAGE_TYPES.DANGER, error);
-                    console.warn(error.responseText);
-                    window.scroll(0, 0);
-                });
-        } else {
-            this.messageService.add(MESSAGE_TYPES.DANGER, 'Please make a selection before submitting.');
-            window.scroll(0, 0);
-        }
-
+        this.submissionService.postQuestionSubmission(formData)
+            .subscribe(() => {
+                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
+                window.scroll(0, 0);
+            }, error => {
+                this.messageService.add(MESSAGE_TYPES.DANGER, error);
+                console.warn(error.responseText);
+                window.scroll(0, 0);
+            });
     }
 
 }
