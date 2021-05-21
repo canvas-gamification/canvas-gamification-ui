@@ -11,6 +11,8 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MatTableDataSource} from '@angular/material/table';
 import {CategoryService} from "@app/_services/api/category.service";
+import {Difficulty} from "@app/_models/difficulty";
+import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
 
 @Component({
     selector: 'app-problem-set',
@@ -62,10 +64,12 @@ export class ProblemSetComponent implements OnInit {
     categories:  Category[];
     parentCategories : Category[];
     subCategories: Category[];
+    difficulties: Difficulty[];
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
                 private categoryService: CategoryService,
+                private difficultyService: DifficultyService,
                 private messageService: MessageService,
                 private modalService: NgbModal) {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
@@ -90,6 +94,7 @@ export class ProblemSetComponent implements OnInit {
             this.parentCategories = categories.filter(c => c.parent == null);
             this.categories = categories;
         });
+        this.difficultyService.getDifficulties().subscribe((difficulties) => this.difficulties = difficulties);
         this.formData.controls['parentCategory'].valueChanges.subscribe((value) => {
             const parentCategoryPK = this.categories.filter(c => c.name === value)[0].pk
             this.subCategories = this.categories.filter(c => c.parent === parentCategoryPK)

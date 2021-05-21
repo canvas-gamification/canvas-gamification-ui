@@ -9,9 +9,7 @@
             <label for="difficulty">Difficulty:</label>
             <select class="form-control" name="difficulty" formControlName="difficulty" id="difficulty">
                 <option value="">All</option>
-                <option value="EASY">EASY</option>
-                <option value="NORMAL">MEDIUM</option>
-                <option value="HARD">HARD</option>
+                <option *ngFor="let diff of difficulties" [value]="diff[0]">{{diff[0]}}</option>
             </select>
         </div>
         <div class="form-group col-2">
