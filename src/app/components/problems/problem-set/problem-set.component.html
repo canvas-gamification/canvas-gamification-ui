@@ -18,20 +18,14 @@
             <label for="category">Category:</label>
             <select class="form-control" name="category" formControlName="parentCategory" id="category">
                 <option value="">All</option>
-                <option value="Basics">Basics</option>
-                <option value="Pre-Defined Classes">Pre-Defined Classes</option>
-                <option value="Conditionals">Conditionals</option>
-                <option value="Loops">Loops</option>
-                <option value="Methods">Methods</option>
-                <option value="Arrays">Arrays</option>
-                <option value="Object Oriented Programming">Object Oriented Programming</option>
+                <option *ngFor="let cat of parentCategories" [value]="cat.name">{{cat.name}}</option>
             </select>
         </div>
         <div class="form-group col-2">
             <label for="subcategory">Sub-Category:</label>
             <select class="form-control" name="subcategory" id="subcategory" formControlName="subCategory">
                 <option value="">All</option>
-                <option *ngFor="let subcat of subcategories" [value]="subcat.name">{{subcat.name}}</option>
+                <option *ngFor="let subcat of subCategories" [value]="subcat.name">{{subcat.name}}</option>
             </select>
         </div>
         <div class="form-group col-2">

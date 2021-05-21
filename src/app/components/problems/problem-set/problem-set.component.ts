@@ -59,7 +59,9 @@ export class ProblemSetComponent implements OnInit {
         ordering: string }>();
     displayedColumns: string[] = ['id', 'title', 'author', 'event__name', 'category__parent__name', 'category__name',
         'difficulty', 'token_value', 'avg_success', 'actions'];
-    subcategories: Category[];
+    categories:  Category[];
+    parentCategories : Category[];
+    subCategories: Category[];
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
@@ -84,11 +86,13 @@ export class ProblemSetComponent implements OnInit {
             subCategory: new FormControl(''),
             is_sample: new FormControl('')
         });
+        this.categoryService.getCategories().subscribe((categories) => {
+            this.parentCategories = categories.filter(c => c.parent == null);
+            this.categories = categories;
+        });
         this.formData.controls['parentCategory'].valueChanges.subscribe((value) => {
-            this.categoryService.getCategories().subscribe((res) => {
-                const categoryPK = res.filter(c => c.name === value)[0].pk
-                this.subcategories = res.filter(c => c.parent === categoryPK)
-            })
+            const parentCategoryPK = this.categories.filter(c => c.name === value)[0].pk
+            this.subCategories = this.categories.filter(c => c.parent === parentCategoryPK)
         })
     }
 
