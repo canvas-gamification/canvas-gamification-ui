@@ -1,12 +1,8 @@
 # Canvas Gamification Ui
 
----
-
 This is the Angular implementation of the Canvas Gamification UI. The platform allows course instructors to provide questions to their students in the form of practices, assignments, quizzes, or exams.
 
 ## Main Features
-
----
 
 ### Supported Question Types
 - Multiple Choice
@@ -15,8 +11,6 @@ This is the Angular implementation of the Canvas Gamification UI. The platform a
 - Parsons
 
 ## Getting Started
-
----
 
 ### Dependencies
 - **Node:**
@@ -50,15 +44,11 @@ Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.pr
 
 ## Authors
 
----
-
 Keyvan Khademi
 - Email: [keyvankhademi@gmail.com](mailto:keyvankhademi@gmail.com)
 - GitHub: [keyvankhademi](https://github.com/keyvankhademi)
 
 ## Collaborators
-
----
 
 Opey Adeyemi
 - Email: [opeyadeyemi@gmail.com](mailto:opeyadeyemi@gmail.com)
