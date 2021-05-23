@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionService} from '@app/_services/api/question.service';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
@@ -16,7 +16,7 @@ import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 })
 export class McqCreateSnippetComponent implements OnInit {
     mcqFormData: FormGroup;
-    distract: FormArray;
+    distractors: { text: string }[];
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
@@ -42,7 +42,8 @@ export class McqCreateSnippetComponent implements OnInit {
             this.categories = result[1];
         });
 
-        this.distract = new FormArray([]);
+        this.distractors = [];
+        this.addChoice()
 
         this.mcqFormData = this.formBuilder.group({
             title: new FormControl(''),
@@ -71,7 +72,7 @@ export class McqCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(formData: FormGroup): void {
-        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distract, this.variables, this.questionText, this.answerText);
+        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
             .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Created Successfully.');
@@ -85,10 +86,10 @@ export class McqCreateSnippetComponent implements OnInit {
 
 
     addChoice(): void {
-        this.distract.push(new FormControl(''));
+        this.distractors.push({text: ''});
     }
 
     removeChoice(index: number): void {
-        this.distract.removeAt(index);
+        this.distractors.splice(index, 1)
     }
 }
