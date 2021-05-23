@@ -81,15 +81,16 @@ export class ParsonsViewSnippetComponent implements OnInit {
         });
     }
 
-    onSubmit() : void {
+    onSubmit(): void {
         this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: this.code})
             .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                this.messageService.add(MESSAGE_TYPES.DANGER, error);
                 console.warn(error.responseText);
                 window.scroll(0, 0);
             });
+
     }
 }
