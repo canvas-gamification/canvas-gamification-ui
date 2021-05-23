@@ -23,7 +23,8 @@ export class QuestionService {
         page: number,
         page_size: number,
         search: string,
-        category: string,
+        parentCategory: string,
+        subCategory : string,
         difficulty: string,
         is_sample: string,
         ordering: string }): Observable<PaginatedResult<Question>> {
@@ -31,7 +32,8 @@ export class QuestionService {
             page = 1,
             page_size: pageSize = 50,
             search = '',
-            category = '',
+            parentCategory = '',
+            subCategory = '',
             difficulty = '',
             is_sample: isSample = '',
             ordering = '',
@@ -40,7 +42,8 @@ export class QuestionService {
             .set('page', String(page))
             .set('page_size', String(pageSize))
             .set('search', search)
-            .set('category__parent__name', category)
+            .set('category__parent__name', parentCategory)
+            .set('category__name', subCategory)
             .set('difficulty', difficulty)
             .set('is_sample', isSample)
             .set('ordering', ordering);

@@ -72,6 +72,8 @@ jobs:
                 run: npm ci
             -   name: Build
                 run: npm run build:ci
+            -   name: Create 404.html
+                run: npm run copy
             -   name: Archive build
                 if: success()
                 uses: actions/upload-artifact@v1
