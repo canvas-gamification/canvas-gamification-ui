@@ -15,10 +15,9 @@ export class ProblemHelpersService {
         category: string,
         choices: string,
         visible_distractor_count: number
-    }, choices: FormArray, variablesJSON: JSON[], questionText: string, questionAnswer: string) {
-        let mcqChoices = choices.value;
-        mcqChoices.unshift(questionAnswer);
-        mcqChoices = this.arrayToObject(mcqChoices);
+    }, choices: string[], variablesJSON: JSON[], questionText: string, questionAnswer: string) {
+        choices.unshift(questionAnswer);
+        const mcqChoices = this.arrayToObject(choices);
         const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === questionAnswer);
         return {
             title: formData.title,

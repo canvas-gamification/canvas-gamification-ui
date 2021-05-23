@@ -14,7 +14,7 @@ export interface Question {
     token_value: number;
     success_rate: number;
     type_name: string;
-    event: CourseEvent;
+    event: CourseEvent | number;
     is_sample: boolean;
     category_name: string;
     parent_category_name: string;

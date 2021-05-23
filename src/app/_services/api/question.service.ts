@@ -81,7 +81,7 @@ export class QuestionService {
         category: string,
         variables: JSON[],
         visible_distractor_count: number,
-        choices: FormArray
+        choices: { [id: string]: string }
     }, id: number) : Observable<string> {
         return this.http.put(this.multipleChoiceQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
             map(

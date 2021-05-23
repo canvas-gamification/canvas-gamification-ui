@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
-import {Category, Course, MESSAGE_TYPES} from '@app/_models';
+import {Category, Course, MESSAGE_TYPES, Question} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {MessageService} from '@app/_services/message.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
@@ -16,18 +16,16 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
     styleUrls: ['./mcq-edit-snippet.component.scss']
 })
 export class McqEditSnippetComponent implements OnInit {
-    @Input() questionDetails;
+    @Input() questionDetails: Question;
     // public ckEditor = ClassicEditor
     mcqFormData: FormGroup;
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
     variables: JSON[];
-    choiceArray: { id: string, value: string }[];
-    correctAnswer: { id: string, value: string };
     selectedCourse: number;
     selectedEvent: number;
-    distract: FormArray;
+    distractors: string[];
     questionText: string;
     answerText: string;
 
@@ -41,7 +39,8 @@ export class McqEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.questionDetails.event) {
+        // TODO: refactor => typeof this.questionDetails.event === 'number'
+        if (this.questionDetails.event && typeof this.questionDetails.event === 'number') {
             const coursesObservable = this.courseService.getCourses();
             const categoriesObservable = this.categoryService.getCategories();
             const eventObservable = this.courseEventService.getCourseEvent(this.questionDetails?.event);
@@ -63,14 +62,9 @@ export class McqEditSnippetComponent implements OnInit {
                 });
         }
 
-        this.distract = new FormArray([]);
-        this.convertChoicesToArray(this.questionDetails?.choices);
-        this.correctAnswer = this.choiceArray[this.choiceArray
-            .findIndex(x => x.id === this.questionDetails.answer)];
-        this.distract.removeAt(this.distract.value.findIndex(item => item === this.correctAnswer.value));
+        this.convertChoices();
         this.variables = this.questionDetails?.variables;
         this.questionText = this.questionDetails?.text;
-        this.answerText = this.correctAnswer.value;
         this.mcqFormData = this.formBuilder.group({
             title: new FormControl(this.questionDetails?.title),
             difficulty: new FormControl(this.questionDetails?.difficulty),
@@ -85,7 +79,7 @@ export class McqEditSnippetComponent implements OnInit {
     }
 
     onSubmit(formData: FormGroup): void {
-        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distract, this.variables, this.questionText, this.answerText);
+        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors, this.variables, this.questionText, this.answerText);
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
@@ -97,11 +91,11 @@ export class McqEditSnippetComponent implements OnInit {
             });
     }
 
-    courseSelectedEvent(value: Event) : void {
+    courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
-    courseSelectedById(courseId: number) : void{
+    courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
@@ -109,29 +103,29 @@ export class McqEditSnippetComponent implements OnInit {
                     this.events = course.events;
                 }
             });
-            this.selectedEvent = this.questionDetails.event;
+            // TODO: refactor => typeof this.questionDetails.event === 'number'
+            if (typeof this.questionDetails.event === 'number')
+                this.selectedEvent = this.questionDetails.event;
             this.mcqFormData.controls.course.setValue(this.selectedCourse);
             this.mcqFormData.controls.event.setValue(this.selectedEvent);
         }
     }
 
-    addChoice() : void {
-        this.distract.push(new FormControl(''));
+    addChoice(): void {
+        this.distractors.push('');
     }
 
-    removeChoice(index : number) : void {
-        this.distract.removeAt(index);
+    removeChoice(index: number): void {
+        delete this.distractors[index];
     }
 
-    convertChoicesToArray(choices: { [id: string]: string}) : void {
-        const outputArray = [];
-        for (const choice in choices) {
-            outputArray.push({
-                id: choice,
-                value: choices[choice]
-            });
-            this.distract.push(new FormControl(choices[choice]));
+    convertChoices(): void {
+        this.distractors = []
+        for (const choice in this.questionDetails.choices) {
+            if (choice === this.questionDetails.answer)
+                this.answerText = this.questionDetails.choices[choice]
+            else
+                this.distractors.push(this.questionDetails.choices[choice]);
         }
-        this.choiceArray = outputArray;
     }
 }
