@@ -83,7 +83,10 @@ const routes: Routes = [
     {
         path: 'accounts/reset-password',
         component: ResetPasswordComponent,
-        canActivate: [AuthGuard]
+    },
+    {
+        path: 'accounts/reset-password/:uuid/:token',
+        component: ResetPasswordComponent,
     },
     {
         path: 'accounts/consent-form',
