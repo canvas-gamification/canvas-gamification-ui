@@ -17,7 +17,6 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
 })
 export class McqEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question;
-    // public ckEditor = ClassicEditor
     mcqFormData: FormGroup;
     courses: Course[];
     events: CourseEvent[];
@@ -25,7 +24,7 @@ export class McqEditSnippetComponent implements OnInit {
     variables: JSON[];
     selectedCourse: number;
     selectedEvent: number;
-    distractors: string[];
+    distractors: { text: string }[];
     questionText: string;
     answerText: string;
 
@@ -79,7 +78,7 @@ export class McqEditSnippetComponent implements OnInit {
     }
 
     onSubmit(formData: FormGroup): void {
-        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors, this.variables, this.questionText, this.answerText);
+        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
@@ -112,11 +111,11 @@ export class McqEditSnippetComponent implements OnInit {
     }
 
     addChoice(): void {
-        this.distractors.push('');
+        this.distractors.push({text: ''});
     }
 
     removeChoice(index: number): void {
-        delete this.distractors[index];
+        this.distractors.splice(index, 1)
     }
 
     convertChoices(): void {
@@ -125,7 +124,7 @@ export class McqEditSnippetComponent implements OnInit {
             if (choice === this.questionDetails.answer)
                 this.answerText = this.questionDetails.choices[choice]
             else
-                this.distractors.push(this.questionDetails.choices[choice]);
+                this.distractors.push({text: this.questionDetails.choices[choice]});
         }
     }
 }

@@ -74,7 +74,7 @@
                 <tbody>
                 <tr *ngFor="let _ of distractors; index as i">
                     <td class="p-3">
-                        <app-ck-editor [(value)]="distractors[i]"></app-ck-editor>
+                        <app-ck-editor [(value)]="distractors[i].text"></app-ck-editor>
                     </td>
                     <td class="p-3">
                         <button type="button" class="btn btn-danger m-auto" (click)="removeChoice(i)">Remove</button>
