@@ -8,7 +8,6 @@ import {MessageService} from '@app/_services/message.service';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-java-create-snippet',
@@ -17,13 +16,13 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 export class JavaCreateSnippetComponent implements OnInit {
     javaFormData: FormGroup;
-    public ckEditor = ClassicEditor;
     courses: Course[];
     events: CourseEvent[];
     selectedCourse: number;
     categories: Category[];
     variables: JSON[];
     inputFileNames: JSON;
+    questionText: string;
 
 
     constructor(private questionService: QuestionService,
@@ -49,17 +48,16 @@ export class JavaCreateSnippetComponent implements OnInit {
             category: new FormControl(''),
             course: new FormControl(''),
             event: new FormControl(''),
-            text: new FormControl(''),
             junit_template: new FormControl(''),
             input_file_names: new FormControl(''),
         });
     }
 
-    courseSelectedEvent(value : Event) : void {
+    courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
-    courseSelectedById(courseId: number) : void {
+    courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
@@ -70,17 +68,8 @@ export class JavaCreateSnippetComponent implements OnInit {
         }
     }
 
-    onSubmit(formData : {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        text: string,
-        category: string,
-        junit_template: string,
-        input_file_names: JSON,
-    }) : void {
-        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData, this.variables, this.inputFileNames);
+    onSubmit(formData: FormGroup): void {
+        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData.value, this.variables, this.inputFileNames, this.questionText);
         this.questionService.postJavaQuestion(submissionRequest)
             .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Created Successfully.');

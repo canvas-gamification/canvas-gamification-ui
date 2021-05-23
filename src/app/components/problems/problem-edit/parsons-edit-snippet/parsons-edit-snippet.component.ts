@@ -9,7 +9,6 @@ import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-parsons-edit-snippet',
@@ -18,7 +17,6 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 export class ParsonsEditSnippetComponent implements OnInit {
     @Input() questionDetails;
-    public ckEditor = ClassicEditor
     parsonsFormData: FormGroup;
     selectedCourse: number;
     selectedEvent: number;
@@ -26,6 +24,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
     events: CourseEvent[];
     categories: Category[];
     variables: JSON[];
+    questionText: string;
 
     constructor(private formBuilder: FormBuilder,
                 private questionService: QuestionService,
@@ -60,14 +59,13 @@ export class ParsonsEditSnippetComponent implements OnInit {
         }
 
         this.variables = this.questionDetails?.variables;
-
+        this.questionText = this.questionDetails?.text;
         this.parsonsFormData = this.formBuilder.group({
             title: new FormControl(this.questionDetails?.title),
             difficulty: new FormControl(this.questionDetails?.difficulty),
             category: new FormControl(this.questionDetails?.category),
             course: new FormControl(this?.selectedCourse),
             event: new FormControl(this.selectedEvent),
-            text: new FormControl(this.questionDetails.text),
             junit_template: new FormControl(this.questionDetails?.junit_template),
             lines: new FormControl(this.questionDetails?.lines.join('\n')),
             additional_file_name: new FormControl(this.questionDetails?.additional_file_name),
@@ -78,18 +76,8 @@ export class ParsonsEditSnippetComponent implements OnInit {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
-    onSubmit(formData: {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        text: string,
-        category: string,
-        lines: string,
-        additional_file_name: string,
-        junit_template: string,
-    }) : void {
-        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData, this.variables);
+    onSubmit(formData: FormGroup): void {
+        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData.value, this.variables, this.questionText);
         this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
@@ -101,7 +89,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
             });
     }
 
-    courseSelectedById(courseId: number) : void {
+    courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionService} from '@app/_services/api/question.service';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {MessageService} from '@app/_services/message.service';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
@@ -8,7 +8,6 @@ import {Category, Course, MESSAGE_TYPES} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseEvent} from '@app/_models/course_event';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -17,13 +16,14 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 export class McqCreateSnippetComponent implements OnInit {
     mcqFormData: FormGroup;
-    public ckEditor = ClassicEditor
-    distract: FormArray;
+    distractors: { text: string }[];
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
     selectedCourse: number;
     variables: JSON[];
+    questionText: string;
+    answerText: string;
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
@@ -42,26 +42,25 @@ export class McqCreateSnippetComponent implements OnInit {
             this.categories = result[1];
         });
 
-        this.distract = new FormArray([]);
+        this.distractors = [];
+        this.addChoice()
 
         this.mcqFormData = this.formBuilder.group({
             title: new FormControl(''),
             difficulty: new FormControl(''),
             course: new FormControl(''),
             event: new FormControl(''),
-            text: new FormControl(''),
-            answer: new FormControl(''),
             category: new FormControl(''),
             choices: new FormControl(''),
             visible_distractor_count: new FormControl(''),
         });
     }
 
-    courseSelectedEvent(value : Event) : void {
+    courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
-    courseSelectedById(courseId: number) : void {
+    courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
@@ -72,18 +71,8 @@ export class McqCreateSnippetComponent implements OnInit {
         }
     }
 
-    onSubmit(formData : {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        text: string,
-        answer: string,
-        category: string,
-        choices: string,
-        visible_distractor_count: number,
-    }) : void{
-        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData, this.distract, this.variables);
+    onSubmit(formData: FormGroup): void {
+        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
             .subscribe(() => {
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Created Successfully.');
@@ -96,11 +85,11 @@ export class McqCreateSnippetComponent implements OnInit {
     }
 
 
-    addChoice() : void{
-        this.distract.push(new FormControl(''));
+    addChoice(): void {
+        this.distractors.push({text: ''});
     }
 
-    removeChoice(index : number) : void {
-        this.distract.removeAt(index);
+    removeChoice(index: number): void {
+        this.distractors.splice(index, 1)
     }
 }
