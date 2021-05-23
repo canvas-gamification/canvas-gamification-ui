@@ -9,33 +9,21 @@
             <label for="difficulty">Difficulty:</label>
             <select class="form-control" name="difficulty" formControlName="difficulty" id="difficulty">
                 <option value="">All</option>
-                <option value="EASY">EASY</option>
-                <option value="NORMAL">MEDIUM</option>
-                <option value="HARD">HARD</option>
+                <option *ngFor="let diff of difficulties" [value]="diff[0]">{{diff[0]}}</option>
             </select>
         </div>
         <div class="form-group col-2">
             <label for="category">Category:</label>
-            <select class="form-control" name="category" formControlName="category" id="category">
+            <select class="form-control" name="category" formControlName="parentCategory" id="category">
                 <option value="">All</option>
-                <option value="Basics">Basics</option>
-                <option value="Pre-Defined Classes">Pre-Defined Classes</option>
-                <option value="Conditionals">Conditionals</option>
-                <option value="Loops">Loops</option>
-                <option value="Methods">Methods</option>
-                <option value="Arrays">Arrays</option>
-                <option value="Object Oriented Programming">Object Oriented Programming</option>
+                <option *ngFor="let cat of parentCategories" [value]="cat.name">{{cat.name}}</option>
             </select>
         </div>
         <div class="form-group col-2">
-            <label for="status">Status:</label>
-            <select disabled class="form-control" name="status" id="status" [value]="'All'">
-                <option value="All">All</option>
-                <option value="Solved">Solved</option>
-                <option value="Partially Correct">Partially Correct</option>
-                <option value="Unsolved">Unsolved</option>
-                <option value="Wrong">Wrong</option>
-                <option value="New">New</option>
+            <label for="subcategory">Sub-Category:</label>
+            <select class="form-control" name="subcategory" id="subcategory" formControlName="subCategory">
+                <option value="">All</option>
+                <option *ngFor="let subcat of subCategories" [value]="subcat.name">{{subcat.name}}</option>
             </select>
         </div>
         <div class="form-group col-2">

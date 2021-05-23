@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
-import {MESSAGE_TYPES, Question} from '@app/_models';
+import {Category, MESSAGE_TYPES, Question} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
@@ -10,6 +10,9 @@ import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MatTableDataSource} from '@angular/material/table';
+import {CategoryService} from "@app/_services/api/category.service";
+import {Difficulty} from "@app/_models/difficulty";
+import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
 
 @Component({
     selector: 'app-problem-set',
@@ -43,22 +46,30 @@ export class ProblemSetComponent implements OnInit {
         page: number,
         page_size: number,
         search: string,
-        category: string,
+        parentCategory: string,
+        subCategory: string,
         difficulty: string,
         is_sample: string,
         ordering: string }> = new Subject<{
         page: number,
         page_size: number,
         search: string,
-        category: string,
+        parentCategory: string,
+        subCategory: string,
         difficulty: string,
         is_sample: string,
         ordering: string }>();
     displayedColumns: string[] = ['id', 'title', 'author', 'event__name', 'category__parent__name', 'category__name',
         'difficulty', 'token_value', 'avg_success', 'actions'];
+    categories:  Category[];
+    parentCategories : Category[];
+    subCategories: Category[];
+    difficulties: Difficulty[];
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
+                private categoryService: CategoryService,
+                private difficultyService: DifficultyService,
                 private messageService: MessageService,
                 private modalService: NgbModal) {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
@@ -75,11 +86,19 @@ export class ProblemSetComponent implements OnInit {
         this.formData = this.builder.group({
             search: new FormControl(''),
             difficulty: new FormControl(''),
-            category: new FormControl(''),
-            // TODO: Add filtering by status
-            // status: new FormControl(''),
+            parentCategory: new FormControl(''),
+            subCategory: new FormControl(''),
             is_sample: new FormControl('')
         });
+        this.categoryService.getCategories().subscribe((categories) => {
+            this.parentCategories = categories.filter(c => c.parent == null);
+            this.categories = categories;
+        });
+        this.difficultyService.getDifficulties().subscribe((difficulties) => this.difficulties = difficulties);
+        this.formData.controls['parentCategory'].valueChanges.subscribe((value) => {
+            const parentCategoryPK = this.categories.filter(c => c.name === value)[0].pk
+            this.subCategories = this.categories.filter(c => c.parent === parentCategoryPK)
+        })
     }
 
     initialize(): void {
