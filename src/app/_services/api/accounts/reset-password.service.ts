@@ -14,8 +14,8 @@ export class ResetPasswordService {
     }
 
     putPasswordReset(input: {
-        uid: string
-        old_password: string,
+        uid: string,
+        token: string,
         password: string,
         password2: string
     }): Observable<string> {

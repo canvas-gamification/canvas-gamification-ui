@@ -31,15 +31,8 @@ export class ResetPasswordComponent implements OnInit {
         if (this.uuid && this.token) {
             this.emailSent = true;
             this.formData = this.builder.group({
-                old_password: new FormControl('', [Validators.required]),
                 password: new FormControl('', [Validators.required]),
                 password2: new FormControl('', [Validators.required])
-            });
-            this.resetPasswordService.validateToken(this.uuid, this.token).subscribe(() => {
-                this.toastr.success('Link is valid, please reset your password');
-            }, error => {
-                this.toastr.error(error);
-                this.formData.disable();
             });
         } else {
             this.formData = this.builder.group({
@@ -51,6 +44,7 @@ export class ResetPasswordComponent implements OnInit {
     onSubmit(formData: FormGroup): void {
         this.resetPasswordService.putPasswordReset({
             uid: this.uuid,
+            token: this.token,
             ...formData.value
         })
             .subscribe(() => {
