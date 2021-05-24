@@ -15,7 +15,7 @@ export class ResetPasswordComponent implements OnInit {
     logoPath = 'assets/global/logo.jpg';
     uuid: string;
     token: string;
-    emailSent  = false;
+    emailSent = false;
 
     constructor(private builder: FormBuilder,
                 private resetPasswordService: ResetPasswordService,
@@ -29,7 +29,7 @@ export class ResetPasswordComponent implements OnInit {
             this.uuid = params.uuid;
             this.token = params.token;
         });
-        if(this.uuid && this.token) {
+        if (this.uuid && this.token) {
             this.emailSent = true;
             this.formData = this.builder.group({
                 old_password: new FormControl('', [Validators.required]),
@@ -42,8 +42,7 @@ export class ResetPasswordComponent implements OnInit {
                 this.messageService.add(MESSAGE_TYPES.DANGER, error);
                 this.formData.disable();
             });
-        }
-        else{
+        } else {
             this.formData = this.builder.group({
                 email: new FormControl('', [Validators.required])
             });
@@ -51,7 +50,10 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     onSubmit(formData: FormGroup): void {
-        this.resetPasswordService.putPasswordReset(formData.value)
+        this.resetPasswordService.putPasswordReset({
+            uid: this.uuid,
+            ...formData.value
+        })
             .subscribe(() => {
                 this.formData.reset();
                 this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your password has been updated successfully!');
@@ -61,7 +63,7 @@ export class ResetPasswordComponent implements OnInit {
             });
     }
 
-    submitEmail(formData: FormGroup) : void {
+    submitEmail(formData: FormGroup): void {
         this.resetPasswordService.sendEmail(formData.get('email').value)
             .subscribe(() => {
                 this.formData.reset();

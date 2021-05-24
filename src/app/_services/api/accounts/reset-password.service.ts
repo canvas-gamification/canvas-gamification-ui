@@ -14,6 +14,7 @@ export class ResetPasswordService {
     }
 
     putPasswordReset(input: {
+        uid: string
         old_password: string,
         password: string,
         password2: string
