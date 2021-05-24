@@ -9,12 +9,12 @@ import {MultipleChoiceQuestion} from '@app/_models';
 })
 export class SampleQuestionService {
 
-  private sampleMultipleChoiceQuestionsUrl = new URL('/api/sample-multiple-choice-question/', environment.apiBaseUrl).toString();
+    private sampleMultipleChoiceQuestionsUrl = new URL('/api/sample-multiple-choice-question/', environment.apiBaseUrl).toString();
 
-  constructor(private http: HttpClient) {
-  }
+    constructor(private http: HttpClient) {
+    }
 
-  getSampleMultipleChoiceQuestions(): Observable<MultipleChoiceQuestion[]> {
-      return this.http.get<MultipleChoiceQuestion[]>(this.sampleMultipleChoiceQuestionsUrl);
-  }
+    getSampleMultipleChoiceQuestions(): Observable<MultipleChoiceQuestion[]> {
+        return this.http.get<MultipleChoiceQuestion[]>(this.sampleMultipleChoiceQuestionsUrl);
+    }
 }

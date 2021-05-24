@@ -12,7 +12,7 @@ export class SchemaService {
     constructor(private http: HttpClient) {
     }
 
-    getSchema(name : string): Observable<unknown> {
+    getSchema(name: string): Observable<unknown> {
         return this.http.get(this.schemaUrl + name + '/');
     }
 }

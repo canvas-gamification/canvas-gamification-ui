@@ -3,13 +3,12 @@ import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
-import {MessageService} from '@app/_services/message.service';
-import {Category, Course, MESSAGE_TYPES} from '@app/_models';
+import {ToastrService} from "ngx-toastr";
+import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-java-edit-snippet',
@@ -18,7 +17,6 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 export class JavaEditSnippetComponent implements OnInit {
     @Input() questionDetails;
-    public ckEditor = ClassicEditor
     javaFormData: FormGroup;
     courses: Course[];
     events: CourseEvent[];
@@ -27,12 +25,13 @@ export class JavaEditSnippetComponent implements OnInit {
     selectedCourse: number;
     selectedEvent: number;
     inputFileNames: JSON;
+    questionText: string;
 
     constructor(private courseService: CourseService,
                 private categoryService: CategoryService,
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private problemHelpersService: ProblemHelpersService,
                 private courseEventService: CourseEventService) {
     }
@@ -62,6 +61,7 @@ export class JavaEditSnippetComponent implements OnInit {
 
         this.inputFileNames = this.questionDetails?.input_file_names;
         this.variables = this.questionDetails?.variables;
+        this.questionText = this.questionDetails?.text;
 
         this.javaFormData = this.formBuilder.group({
             title: new FormControl(this.questionDetails?.title),
@@ -69,38 +69,28 @@ export class JavaEditSnippetComponent implements OnInit {
             category: new FormControl(this.questionDetails?.category),
             course: new FormControl(this.selectedCourse),
             event: new FormControl(this.selectedEvent),
-            text: new FormControl(this.questionDetails?.text),
             junit_template: new FormControl(this.questionDetails?.junit_template),
         });
     }
 
-    onSubmit(formData : {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        text: string,
-        category: string,
-        junit_template: string,
-        input_file_names: JSON,
-    }) : void {
-        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData, this.variables, this.inputFileNames);
+    onSubmit(formData: FormGroup): void {
+        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData.value, this.variables, this.inputFileNames, this.questionText);
         this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
+                this.toastr.success('The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
     }
 
-    courseSelectedEvent(value : Event) : void {
+    courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
-    courseSelectedById(courseId: number) : void {
+    courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {

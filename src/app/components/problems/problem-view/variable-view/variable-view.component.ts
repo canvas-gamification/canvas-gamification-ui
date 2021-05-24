@@ -20,8 +20,7 @@ export class VariableViewComponent implements OnInit {
                 });
                 this.generatedVariables = array;
             }
-        }
-        else {
+        } else {
             this.generatedVariables = [];
         }
     }

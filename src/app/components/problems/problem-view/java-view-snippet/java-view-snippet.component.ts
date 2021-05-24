@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MessageService} from '@app/_services/message.service';
-import {MESSAGE_TYPES, UQJ} from '@app/_models';
+import {ToastrService} from "ngx-toastr";
+import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/_services/api/problem/submission.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class JavaViewSnippetComponent implements OnInit {
     inputFileNames = new Array<{ name: string, template: string }>();
 
     constructor(
-        private messageService: MessageService,
+        private toastr: ToastrService,
         private submissionService: SubmissionService) {
     }
 
@@ -21,18 +21,18 @@ export class JavaViewSnippetComponent implements OnInit {
         this.inputFileNames = this.uqj.input_files;
     }
 
-    onSubmit() : void {
+    onSubmit(): void {
         const codeSolution = {};
         this.inputFileNames.forEach(file => {
             codeSolution[file.name] = file.template;
         });
         this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: codeSolution})
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
+                this.toastr.success('The Question has been Submitted Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
     }

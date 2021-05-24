@@ -14,7 +14,7 @@ export interface Question {
     token_value: number;
     success_rate: number;
     type_name: string;
-    event: CourseEvent;
+    event: CourseEvent | number;
     is_sample: boolean;
     category_name: string;
     parent_category_name: string;
@@ -22,7 +22,7 @@ export interface Question {
     course_name: string;
     event_name: string;
     author_name: string;
-    choices: {[index:string]: string};
+    choices: { [index: string]: string };
     variables: [];
     input_file_names: [];
     answer: string;

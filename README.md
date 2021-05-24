@@ -1,27 +1,59 @@
-# CanvasGamificationUi
+# Canvas Gamification Ui
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.2.
+This is the Angular implementation of the Canvas Gamification UI. The platform allows course instructors to provide questions to their students in the form of practices, assignments, quizzes, or exams.
 
-## Development server
+## Main Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Supported Question Types
+- Multiple Choice
+- Check Box
+- Java Coding
+- Parsons
 
-## Code scaffolding
+## Getting Started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Dependencies
+- **Node:**
+    - 16.1.0
+- **npm:**
+    - 7.12.0
+    
+### Local Development
+Clone the project from GitHub onto your local machine. Ensure an instance of the Canvas Gamification server is running locally. The Angular application interacts with the server using REST APIs. 
 
-## Build
+### Dependencies
+Install the dependencies specified in the `package.json` with `npm ci`.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Serving the Application
+Run the application using `npm run start`. A WebStorm run configuration can be setup to run the project directly from the IDE. Navigate to [http://localhost:4200](http://localhost:4200) to view the application.
 
-## Running unit tests
+### Code Scaffolding
+Run `ng generate component components/component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Linting the Project
+Run `npm run lint` to lint the project via [ESLint](https://eslint.org).
 
-## Running end-to-end tests
+### Building the Project
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Running Unit Tests
+Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Further help
+### Running end-to-end tests
+Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Authors
+
+Keyvan Khademi
+- Email: [keyvankhademi@gmail.com](mailto:keyvankhademi@gmail.com)
+- GitHub: [keyvankhademi](https://github.com/keyvankhademi)
+
+## Collaborators
+
+Opey Adeyemi
+- Email: [opeyadeyemi@gmail.com](mailto:opeyadeyemi@gmail.com)
+- GitHub: [opeyem1a](https://github.com/opeyem1a)
+
+Carson Ricca
+- Email: [carsonricca28@gmail.com](mailto:carsonricca28@gmail.com)
+- GitHub: [carson-ricca](https://github.com/carson-ricca)

@@ -8,22 +8,22 @@ import {UserActionsService} from '@app/_services/api/user-actions.service';
     styleUrls: ['./recent-user-actions.component.scss'],
 })
 export class RecentUserActionsComponent implements OnInit {
-  userActions: Action[];
+    userActions: Action[];
 
-  constructor(
-    private userActionService: UserActionsService,
-  ) {
-  }
+    constructor(
+        private userActionService: UserActionsService,
+    ) {
+    }
 
-  ngOnInit(): void {
-      this.userActionService
-          .getUserActions({recent: true, pageSize: 5})
-          ?.subscribe((paginatedActions) => {
-              this.userActions = paginatedActions.results;
-          });
-  }
+    ngOnInit(): void {
+        this.userActionService
+            .getUserActions({recent: true, pageSize: 5})
+            ?.subscribe((paginatedActions) => {
+                this.userActions = paginatedActions.results;
+            });
+    }
 
-  formatTokenChange(tokenChange : number): string {
-      return `${tokenChange > 0 ? '+' : ''}${tokenChange.toFixed(2)}`;
-  }
+    formatTokenChange(tokenChange: number): string {
+        return `${tokenChange > 0 ? '+' : ''}${tokenChange.toFixed(2)}`;
+    }
 }

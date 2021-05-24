@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {FormArray} from "@angular/forms";
 
 @Injectable({
     providedIn: 'root'
@@ -11,33 +10,20 @@ export class ProblemHelpersService {
         difficulty: string,
         course: string,
         event: string,
-        text: string,
         answer: string,
         category: string,
         choices: string,
-        visible_distractor_count: number,
-    }, choices: FormArray, variablesJSON: JSON[]): {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        text: string,
-        answer: string,
-        category: string,
-        variables: JSON[],
-        visible_distractor_count: number,
-        choices: FormArray
-    } {
-        let mcqChoices = choices.value;
-        mcqChoices.unshift(formData.answer);
-        mcqChoices = this.arrayToObject(mcqChoices);
-        const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === formData.answer);
+        visible_distractor_count: number
+    }, choices: string[], variablesJSON: JSON[], questionText: string, questionAnswer: string) {
+        choices.unshift(questionAnswer);
+        const mcqChoices = this.arrayToObject(choices);
+        const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === questionAnswer);
         return {
             title: formData.title,
             difficulty: formData.difficulty,
             course: formData.course,
             event: formData.event,
-            text: formData.text,
+            text: questionText,
             answer: correctAnswer,
             category: formData.category,
             variables: variablesJSON,
@@ -51,27 +37,15 @@ export class ProblemHelpersService {
         difficulty: string,
         course: string,
         event: string,
-        text: string,
         category: string,
         junit_template: string,
-        input_file_names: JSON,
-    }, variablesJSON: JSON[], inputFileNames: JSON): {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        text: string,
-        category: string,
-        variables: JSON[],
-        junit_template: string,
-        input_file_names: JSON,
-    } {
+    }, variablesJSON: JSON[], inputFileNames: JSON, questionText: string) {
         return {
             title: formData.title,
             difficulty: formData.difficulty,
             course: formData.course,
             event: formData.event,
-            text: formData.text,
+            text: questionText,
             category: formData.category,
             variables: variablesJSON,
             junit_template: formData.junit_template,
@@ -84,29 +58,17 @@ export class ProblemHelpersService {
         difficulty: string,
         course: string,
         event: string,
-        text: string,
         category: string,
         lines: string,
         additional_file_name: string,
-        junit_template: string,
-    }, variablesJSON: JSON[]): {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        text: string,
-        category: string,
-        variables: JSON[],
-        lines: string[],
-        additional_file_name: string,
-        junit_template: string,
-    } {
+        junit_template: string
+    }, variablesJSON: JSON[], questionText: string) {
         return {
             title: formData.title,
             difficulty: formData.difficulty,
             course: formData.course,
             event: formData.event,
-            text: formData.text,
+            text: questionText,
             category: formData.category,
             variables: variablesJSON,
             lines: formData.lines.split('\n'),

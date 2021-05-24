@@ -1,55 +1,57 @@
 <div class="profile">
-  <div class="row">
-    <div class="col-md-6 offset-md-3 mt-5 mb-5">
-      <div class="brand">
-        <img [src]="logoPath" alt="logo">
-      </div>
-      <div class="card">
-        <h2 class="card-header">Profile</h2>
-        <div class="card-body">
-          <form [formGroup]="formData" (ngSubmit)="onSubmit(formData)">
-            <div class="form-group">
-              <label for="first_name">First Name:</label>
-              <input type="text" class="form-control" name="first_name"
-                     formControlName="first_name" id="first_name">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 mt-5 mb-5">
+            <div class="brand">
+                <img [src]="logoPath" alt="logo">
             </div>
+            <div class="card">
+                <h2 class="card-header">Profile</h2>
+                <div class="card-body">
+                    <form [formGroup]="formData" (ngSubmit)="onSubmit(formData)">
+                        <div class="form-group">
+                            <label for="first_name">First Name:</label>
+                            <input type="text" class="form-control" name="first_name"
+                                   formControlName="first_name" id="first_name">
+                        </div>
 
-            <div class="form-group">
-              <label for="last_name">Last Name:</label>
-              <input type="text" class="form-control" name="last_name"
-                     formControlName="last_name" id="last_name">
-            </div>
+                        <div class="form-group">
+                            <label for="last_name">Last Name:</label>
+                            <input type="text" class="form-control" name="last_name"
+                                   formControlName="last_name" id="last_name">
+                        </div>
 
-            <div class="form-group">
-              <label for="email">Email:</label>
-              <input type="email" class="form-control" name="email"
-                     formControlName="email" id="email">
-            </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" name="email"
+                                   formControlName="email" id="email">
+                        </div>
 
-            <button type="submit" class="btn btn-primary">Update</button>
-          </form>
-          <button [routerLink]="'../reset-password'" class="btn btn-outline-warning my-1" onclick="">
-            Change Password
-          </button>
-          <hr>
-          <div *ngIf="!userConsent">
-            <div class="my-1">You have not consented to our Informed Consent Form, if you wish to consent please click
-              on
-              the button below
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                    <button [routerLink]="'../reset-password'" class="btn btn-outline-warning my-1" onclick="">
+                        Change Password
+                    </button>
+                    <hr>
+                    <div *ngIf="!userConsent">
+                        <div class="my-1">You have not consented to our Informed Consent Form, if you wish to consent
+                            please click
+                            on
+                            the button below
+                        </div>
+                        <a routerLink="../consent-form" type="submit" class="btn btn-primary">Consent</a>
+                    </div>
+                    <div *ngIf="userConsent">
+                        <div class="my-1">You have consented to our Informed Consent Form, if you wish to withdraw
+                            please click on the
+                            button below
+                        </div>
+                        <button type="button" class="btn btn-warning" (click)="withdraw()">
+                            Withdraw Your Consent
+                        </button>
+                    </div>
+                </div>
+
             </div>
-            <a routerLink="../consent-form" type="submit" class="btn btn-primary">Consent</a>
-          </div>
-          <div *ngIf="userConsent">
-            <div class="my-1">You have consented to our Informed Consent Form, if you wish to withdraw please click on the
-              button below
-            </div>
-            <button type="button" class="btn btn-warning" (click)="withdraw()">
-              Withdraw Your Consent
-            </button>
-          </div>
         </div>
-
-      </div>
     </div>
-  </div>
 </div>
