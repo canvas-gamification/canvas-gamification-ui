@@ -81,8 +81,8 @@ export class CourseEventCreateEditComponent implements OnInit {
                 this.toastr.success('The Event has been updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.toastr.error(error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
         } else { // Creating a brand new event
@@ -92,8 +92,8 @@ export class CourseEventCreateEditComponent implements OnInit {
                     this.toastr.success('The Event has been added Successfully.');
                     window.scroll(0, 0);
                 }, error => {
-                    this.toastr.error(error.responseText);
-                    console.warn(error.responseText);
+                    this.toastr.error(error);
+                    console.warn(error);
                     window.scroll(0, 0);
                 }
             );

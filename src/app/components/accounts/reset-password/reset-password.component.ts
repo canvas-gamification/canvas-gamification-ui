@@ -30,8 +30,8 @@ export class ResetPasswordComponent implements OnInit {
                 this.formData.reset();
                 this.toastr.success('Your password has been updated successfully!');
             }, error => {
-                console.warn(error.responseText);
-                this.toastr.error(error.responseText);
+                console.warn(error);
+                this.toastr.error(error);
             });
     }
 

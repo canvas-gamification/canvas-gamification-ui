@@ -47,8 +47,8 @@ export class ProfileDetailsComponent implements OnInit {
             .subscribe(() => {
                 this.toastr.success('Your profile has been updated successfully!');
             }, error => {
-                console.warn(error.responseText);
-                this.toastr.error(error.responseText);
+                console.warn(error);
+                this.toastr.error(error);
             });
     }
 
@@ -62,8 +62,8 @@ export class ProfileDetailsComponent implements OnInit {
         }).subscribe(() => {
             this.toastr.success('Your consent has been withdrawn successfully!');
         }, error => {
-            console.warn(error.responseText);
-            this.toastr.error(error.responseText);
+            console.warn(error);
+            this.toastr.error(error);
         });
         this.userConsent = false;
     }

@@ -32,8 +32,8 @@ export class ContactComponent implements OnInit {
                 this.formData.reset();
                 this.toastr.success('Your comment have been successfully sent!');
             }, error => {
-                console.warn(error.responseText);
-                this.toastr.error(error.responseText);
+                console.warn(error);
+                this.toastr.error(error);
             });
     }
 }

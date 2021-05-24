@@ -152,8 +152,8 @@ export class ProblemSetComponent implements OnInit {
                 this.update();
                 window.scroll(0, 0);
             }, error => {
-                this.toastr.error(error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
     }

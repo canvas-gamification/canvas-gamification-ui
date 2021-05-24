@@ -42,7 +42,7 @@ export class McqViewSnippetComponent implements OnInit {
                 window.scroll(0, 0);
             }, error => {
                 this.toastr.error(error);
-                console.warn(error.responseText);
+                console.warn(error);
                 window.scroll(0, 0);
             });
     }

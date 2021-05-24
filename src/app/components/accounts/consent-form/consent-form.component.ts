@@ -38,8 +38,8 @@ export class ConsentFormComponent implements OnInit {
                 this.toastr.success('You have successfully consented!');
                 window.scroll(0, 0);
             }, error => {
-                console.warn(error.responseText);
-                this.toastr.error(error.responseText);
+                console.warn(error);
+                this.toastr.error(error);
                 window.scroll(0, 0);
             });
     }

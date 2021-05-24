@@ -75,8 +75,8 @@ export class JavaCreateSnippetComponent implements OnInit {
                 this.toastr.success('The Question has been Created Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.toastr.error(error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
     }

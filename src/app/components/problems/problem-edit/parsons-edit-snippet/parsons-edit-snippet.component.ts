@@ -83,8 +83,8 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 this.toastr.success('The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.toastr.error(error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
     }
