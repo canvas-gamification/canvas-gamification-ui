@@ -8,22 +8,23 @@ import {Observable} from "rxjs";
     providedIn: 'root'
 })
 export class ContactService {
-  private contactUsAPIUrl = new URL('/api/contact-us/', environment.apiBaseUrl).toString();
+    private contactUsAPIUrl = new URL('/api/contact-us/', environment.apiBaseUrl).toString();
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+    }
 
-  postMessage(input: { fullname: string, email: string, comment: string, recaptcha_key: string }) : Observable<string>{
-      return this.http.post(this.contactUsAPIUrl, input, {responseType: 'text'}).pipe(
-          map(
-              (response) => {
-                  if (response) {
-                      return response;
-                  }
-              },
-              (error: unknown) => {
-                  return error;
-              }
-          )
-      );
-  }
+    postMessage(input: { fullname: string, email: string, comment: string, recaptcha_key: string }): Observable<string> {
+        return this.http.post(this.contactUsAPIUrl, input, {responseType: 'text'}).pipe(
+            map(
+                (response) => {
+                    if (response) {
+                        return response;
+                    }
+                },
+                (error: unknown) => {
+                    return error;
+                }
+            )
+        );
+    }
 }

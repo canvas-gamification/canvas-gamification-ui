@@ -5,13 +5,12 @@ import {
     Course,
     CourseRegistrationRequest,
     CourseRegistrationResponse,
-    MESSAGE_TYPES,
     RegistrationStatus
 } from '@app/_models';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {environment} from '@environments/environment';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +22,7 @@ export class CourseService {
     ).toString();
 
     constructor(private http: HttpClient,
-                private messageService: MessageService) {
+                private toastr: ToastrService) {
     }
 
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
@@ -131,8 +130,7 @@ export class CourseService {
         return (error: unknown): Observable<T> => {
             console.error(error); // log to console instead
             if (operation === 'validateEvent') {
-                this.messageService.add(
-                    MESSAGE_TYPES.DANGER, 'You don\'t have the correct permissions to access that course or event!');
+                this.toastr.error('You don\'t have the correct permissions to access that course or event!');
             }
             return of(result as T);
         };

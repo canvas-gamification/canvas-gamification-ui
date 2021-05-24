@@ -9,13 +9,13 @@ import {MultipleChoiceQuestion} from '@app/_models';
 })
 export class SampleQuestionsComponent implements OnInit {
 
-  multipleChoiceQuestions: MultipleChoiceQuestion[];
+    multipleChoiceQuestions: MultipleChoiceQuestion[];
 
-  constructor(private questionService: SampleQuestionService) {
-  }
+    constructor(private questionService: SampleQuestionService) {
+    }
 
-  ngOnInit(): void {
-      this.questionService.getSampleMultipleChoiceQuestions().subscribe(questions => this.multipleChoiceQuestions = questions);
-  }
+    ngOnInit(): void {
+        this.questionService.getSampleMultipleChoiceQuestions().subscribe(questions => this.multipleChoiceQuestions = questions);
+    }
 
 }

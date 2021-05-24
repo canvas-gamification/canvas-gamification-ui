@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatSort} from '@angular/material/sort';
@@ -21,12 +21,12 @@ export class CourseListComponent implements AfterViewInit {
 
     constructor(private authenticationService: AuthenticationService,
                 private route: ActivatedRoute,
-                private courseService: CourseService, ) {
+                private courseService: CourseService,) {
         this.courseList = new MatTableDataSource();
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
-    ngAfterViewInit() : void {
+    ngAfterViewInit(): void {
         this.courseService.getCourses().subscribe((courses) => {
             this.allCourses = courses;
             this.courseList = new MatTableDataSource(courses);

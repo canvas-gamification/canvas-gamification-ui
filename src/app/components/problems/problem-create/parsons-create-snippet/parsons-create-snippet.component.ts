@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Category, Course, MESSAGE_TYPES} from '@app/_models';
+import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {QuestionService} from '@app/_services/api/question.service';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
@@ -25,7 +25,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
                 private problemHelpersService: ProblemHelpersService) {
@@ -56,17 +56,17 @@ export class ParsonsCreateSnippetComponent implements OnInit {
         const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData.value, this.variables, this.questionText);
         this.questionService.postParsonsQuestion(submissionRequest)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Created Successfully.');
+                this.toastr.success('The Question has been Created Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
 
     }
 
-    courseSelectedEvent(value : Event) : void {
+    courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 

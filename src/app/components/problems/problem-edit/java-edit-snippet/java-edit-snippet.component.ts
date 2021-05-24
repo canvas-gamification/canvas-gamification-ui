@@ -3,8 +3,8 @@ import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
-import {MessageService} from '@app/_services/message.service';
-import {Category, Course, MESSAGE_TYPES} from '@app/_models';
+import {ToastrService} from "ngx-toastr";
+import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
@@ -31,7 +31,7 @@ export class JavaEditSnippetComponent implements OnInit {
                 private categoryService: CategoryService,
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private problemHelpersService: ProblemHelpersService,
                 private courseEventService: CourseEventService) {
     }
@@ -77,11 +77,11 @@ export class JavaEditSnippetComponent implements OnInit {
         const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData.value, this.variables, this.inputFileNames, this.questionText);
         this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
+                this.toastr.success('The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
     }
