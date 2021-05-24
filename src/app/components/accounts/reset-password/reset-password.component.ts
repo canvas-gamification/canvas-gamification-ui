@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ResetPasswordService} from '@app/_services/api/accounts/reset-password.service';
-import {MessageService} from '@app/_services/message.service';
-import {MESSAGE_TYPES} from '@app/_models';
+import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
@@ -19,7 +18,7 @@ export class ResetPasswordComponent implements OnInit {
 
     constructor(private builder: FormBuilder,
                 private resetPasswordService: ResetPasswordService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private route: ActivatedRoute,
                 private router: Router) {
     }
@@ -37,9 +36,9 @@ export class ResetPasswordComponent implements OnInit {
                 password2: new FormControl('', [Validators.required])
             });
             this.resetPasswordService.validateToken(this.uuid, this.token).subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Link is valid, please reset your password');
+                this.toastr.success('Link is valid, please reset your password');
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error);
+                this.toastr.error(error);
                 this.formData.disable();
             });
         } else {
@@ -56,10 +55,10 @@ export class ResetPasswordComponent implements OnInit {
         })
             .subscribe(() => {
                 this.formData.reset();
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your password has been updated successfully!');
+                this.toastr.success('Your password has been updated successfully!');
                 this.router.navigate(['/accounts/login']).then();
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                this.toastr.error(error);
             });
     }
 
@@ -67,9 +66,9 @@ export class ResetPasswordComponent implements OnInit {
         this.resetPasswordService.sendEmail(formData.get('email').value)
             .subscribe(() => {
                 this.formData.reset();
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'An email has been sent to you with a password reset link!');
+                this.toastr.success('An email has been sent to you with a password reset link!');
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText + '. Try checking the email you entered');
+                this.toastr.error(error + '. Try checking the email you entered');
             });
     }
 }
