@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {RegisterService} from '@app/_services/api/accounts/register.service';
-import {MESSAGE_TYPES} from '@app/_models';
-import {MessageService} from '@app/_services/message.service';
+
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-activation-email',
@@ -17,7 +17,7 @@ export class ActivationEmailComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private registerService: RegisterService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private router: Router) {
     }
 
@@ -29,10 +29,10 @@ export class ActivationEmailComponent implements OnInit {
 
         this.registerService.postActivation(this.uuid, this.token)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have activated your account successfully.');
+                this.toastr.success('You have activated your account successfully.');
                 this.router.navigate(['/accounts/login']).then();
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error);
+                this.toastr.error(error);
                 this.router.navigate(['/accounts/login']).then();
             });
     }

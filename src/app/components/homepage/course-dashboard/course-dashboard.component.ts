@@ -8,18 +8,18 @@ import {Course, STATUS} from '@app/_models';
     styleUrls: ['./course-dashboard.component.scss']
 })
 export class CourseDashboardComponent implements OnInit {
-  activeCourses: Course[];
+    activeCourses: Course[];
 
-  constructor(private courseService: CourseService) {
-  }
+    constructor(private courseService: CourseService) {
+    }
 
-  ngOnInit(): void {
-      this.courseService
-          .getCourses(true, {ordering: {name: true}})
-          ?.subscribe((courses) => {
-              this.activeCourses = courses.filter(course => {
-                  return course.status === STATUS.active;
-              });
-          });
-  }
+    ngOnInit(): void {
+        this.courseService
+            .getCourses(true, {ordering: {name: true}})
+            ?.subscribe((courses) => {
+                this.activeCourses = courses.filter(course => {
+                    return course.status === STATUS.active;
+                });
+            });
+    }
 }

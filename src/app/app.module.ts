@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {MessagesComponent} from './components/messages/messages.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,7 +18,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {TopicsComponent} from './components/topics/topics.component';
-import {RecaptchaModule, RecaptchaFormsModule} from 'ng-recaptcha';
+import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 // TODO: Remove this suppress after fixing concept map
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -82,12 +81,13 @@ import {ActivationEmailComponent} from './components/accounts/activation-email/a
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
+import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
     declarations: [
         AppComponent,
-        MessagesComponent,
         LandingPageComponent,
         ContactComponent,
         HeaderComponent,
@@ -137,6 +137,7 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
         LeaderBoardComponent,
         SubmissionViewComponent,
         ActivationEmailComponent,
+        CkEditorComponent,
     ],
     imports: [
         BrowserModule,
@@ -162,7 +163,6 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
         MatProgressSpinnerModule,
         CommonModule,
         DragulaModule.forRoot(),
-        CKEditorModule,
         AceEditorModule,
         MatDatepickerModule,
         NgxMatTimepickerModule,
@@ -170,6 +170,8 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
         NgxMatNativeDateModule,
         HighlightModule,
         MatSelectModule,
+        CKEditorModule,
+        ToastrModule.forRoot(),
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConsentService} from '@app/_services/api/accounts/consent.service';
-import {MessageService} from '@app/_services/message.service';
-import {Router, ActivatedRoute} from '@angular/router';
-import {MESSAGE_TYPES} from '@app/_models';
+import {ToastrService} from "ngx-toastr";
+import {ActivatedRoute, Router} from '@angular/router';
+
 
 @Component({
     selector: 'app-consent-form',
@@ -18,7 +18,7 @@ export class ConsentFormComponent implements OnInit {
                 private route: ActivatedRoute,
                 private builder: FormBuilder,
                 private consentService: ConsentService,
-                private messageService: MessageService) {
+                private toastr: ToastrService) {
     }
 
     ngOnInit(): void {
@@ -35,11 +35,11 @@ export class ConsentFormComponent implements OnInit {
         this.consentService.postConsent(formData.value)
             .subscribe(() => {
                 this.router.navigate(['../profile'], {relativeTo: this.route}).then();
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully consented!');
+                this.toastr.success('You have successfully consented!');
                 window.scroll(0, 0);
             }, error => {
-                console.warn(error.responseText);
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                console.warn(error);
+                this.toastr.error(error);
                 window.scroll(0, 0);
             });
     }
@@ -52,10 +52,10 @@ export class ConsentFormComponent implements OnInit {
             student_number: '',
             date: ''
         }).subscribe(() => {
-            this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You successfully declined to consent.');
+            this.toastr.success('You successfully declined to consent.');
         }, error => {
             console.warn(error);
-            this.messageService.add(MESSAGE_TYPES.DANGER, error);
+            this.toastr.error(error);
         });
     }
 

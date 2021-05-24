@@ -3,8 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {CourseService} from '@app/_services/api/course/course.service';
-import {MessageService} from '@app/_services/message.service';
-import {CourseRegistrationResponse, REGISTRATION_STATUS, MESSAGE_TYPES} from '@app/_models';
+import {ToastrService} from "ngx-toastr";
+import {CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
 
 const STEPPER_STAGES = {
     ENTER_NAME: 0,
@@ -42,7 +42,7 @@ export class CourseRegisterComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private formBuilder: FormBuilder,
                 private courseService: CourseService,
-                private messageService: MessageService) {
+                private toastr: ToastrService) {
         this.route.params.subscribe(params => {
             this.courseId = params.courseId;
         });
@@ -73,7 +73,7 @@ export class CourseRegisterComponent implements OnInit {
             courseRegistrationStatus => {
                 // the api only responds with a non-null message value if the user is blocked from registering, thus the "danger" type
                 if (courseRegistrationStatus.message) {
-                    this.messageService.add('danger', courseRegistrationStatus.message);
+                    this.toastr.error(courseRegistrationStatus.message)
                 }
                 this.initialStage(courseRegistrationStatus.status);
             }
@@ -151,8 +151,7 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     sendErrorMessage(): void {
-        this.messageService.add(MESSAGE_TYPES.DANGER,
-            'Something went wrong. Check that your inputted values are accurate and try again.');
+        this.toastr.error('Something went wrong. Check that your inputted values are accurate and try again.');
     }
 
     reset(): void {

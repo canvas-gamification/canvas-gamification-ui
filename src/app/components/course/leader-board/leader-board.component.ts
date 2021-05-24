@@ -29,7 +29,7 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
         }];
     }
 
-    ngOnInit() : void {
+    ngOnInit(): void {
         this.leaderBoardData = new MatTableDataSource();
     }
 

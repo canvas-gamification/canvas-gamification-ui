@@ -20,7 +20,7 @@ export interface UQJ {
     variables: JSON;
     variables_errors: [];
     rendered_text: string;
-    rendered_choices: {[index: string]: string};
+    rendered_choices: { [index: string]: string };
     rendered_lines: [];
     status_class: string;
     input_files: [];

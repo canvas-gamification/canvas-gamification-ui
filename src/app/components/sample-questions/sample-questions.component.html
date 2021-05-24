@@ -1,12 +1,12 @@
 <div class="card m-3" *ngFor="let question of multipleChoiceQuestions">
-  <div class="card-header"><h3 class="m-0">{{question.title}}</h3></div>
-  <div class="card-body">
-    <div class="card-title" innerHTML="{{question.text}}"></div>
-    <ul>
-      <li *ngFor="let choice of question.choices | keyvalue">
-        {{choice.key}}) {{choice.value}}
-      </li>
-    </ul>
-  </div>
-  <div class="card-footer text-muted">Correct Answer: {{question.answer}}</div>
+    <div class="card-header"><h3 class="m-0">{{question.title}}</h3></div>
+    <div class="card-body">
+        <div class="card-title" innerHTML="{{question.text}}"></div>
+        <ul>
+            <li *ngFor="let choice of question.choices | keyvalue">
+                {{choice.key}}) {{choice.value}}
+            </li>
+        </ul>
+    </div>
+    <div class="card-footer text-muted">Correct Answer: {{question.answer}}</div>
 </div>
