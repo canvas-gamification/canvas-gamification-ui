@@ -24,7 +24,7 @@ export class SubmissionService {
         return this.http.get<QuestionSubmission[]>(this.submissionUrl, {params});
     }
 
-    postQuestionSubmission(input: { question: number, solution: unknown }) : Observable<string> {
+    postQuestionSubmission(input: { question: number, solution: unknown }): Observable<string> {
         return this.http.post(this.answerSubmissionUrl, input, {responseType: 'text'}).pipe(
             map(
                 (response) => {

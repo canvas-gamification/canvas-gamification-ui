@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
-import {Category, Course, MESSAGE_TYPES, Question} from '@app/_models';
+import {Category, Course, Question} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 
@@ -32,7 +32,7 @@ export class McqEditSnippetComponent implements OnInit {
                 private categoryService: CategoryService,
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private problemHelpersService: ProblemHelpersService,
                 private courseEventService: CourseEventService) {
     }
@@ -81,10 +81,10 @@ export class McqEditSnippetComponent implements OnInit {
         const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
+                this.toastr.success('The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                this.toastr.error(error.responseText);
                 console.warn(error.responseText);
                 window.scroll(0, 0);
             });

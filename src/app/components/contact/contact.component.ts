@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ContactService} from '@app/_services/api/contact.service';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {environment} from '@environments/environment';
-import {MESSAGE_TYPES} from '@app/_models';
+
 
 @Component({
     selector: 'app-contact',
@@ -14,7 +14,7 @@ export class ContactComponent implements OnInit {
     formData: FormGroup;
     siteKey: string = environment.siteKey;
 
-    constructor(private builder: FormBuilder, private contact: ContactService, private messageService: MessageService) {
+    constructor(private builder: FormBuilder, private contact: ContactService, private toastr: ToastrService) {
     }
 
     ngOnInit(): void {
@@ -26,14 +26,14 @@ export class ContactComponent implements OnInit {
         });
     }
 
-    onSubmit(formData: { fullname: string, email: string, comment: string, recaptcha_key: string }) : void {
+    onSubmit(formData: { fullname: string, email: string, comment: string, recaptcha_key: string }): void {
         this.contact.postMessage(formData)
             .subscribe(() => {
                 this.formData.reset();
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your comment have been successfully sent!');
+                this.toastr.success('Your comment have been successfully sent!');
             }, error => {
                 console.warn(error.responseText);
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                this.toastr.error(error.responseText);
             });
     }
 }

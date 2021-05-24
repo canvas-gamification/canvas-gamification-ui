@@ -5,37 +5,37 @@
         <table class="table table-lg table-bordered table-hover" style="width:100%">
             <caption class="sr-only">Topics covered in Canvas Gamification</caption>
             <thead class="thead-light">
-                <tr>
-                    <th class="header-topic" >Topic</th>
-                    <th >Available Questions</th>
-                    <th >Average Success Rate</th>
-                </tr>
+            <tr>
+                <th class="header-topic">Topic</th>
+                <th>Available Questions</th>
+                <th>Average Success Rate</th>
+            </tr>
             </thead>
             <tbody class="table-striped">
-                <ng-container *ngFor="let category of topLevelCategories">
-                    <tr [class.table-primary]="expanded[category.name]" (click)="toggleChildTopics(category)">
-                        <th>
+            <ng-container *ngFor="let category of topLevelCategories">
+                <tr [class.table-primary]="expanded[category.name]" (click)="toggleChildTopics(category)">
+                    <th>
                             <span class="expanded-icon">
                                 <fa-icon [icon]=faCaretRight *ngIf="!expanded[category.name]"></fa-icon>
                                 <fa-icon [icon]=faCaretDown *ngIf="expanded[category.name]"></fa-icon>
                             </span>
-                            {{ category.name }}
-                        </th>
-                        <td>{{ category.question_count }}</td>
-                        <td *ngIf="category.average_success">{{ category.average_success }}%</td>
-                        <td *ngIf="!category.average_success">-</td>
-                    </tr>
-                    <ng-container *ngIf="expanded[category.name]">
-                        <ng-container *ngFor="let subcat of subcats[category.name]">
-                            <tr class="subcat-row">
-                                <td class="subcat-name"><span class="heavy-indent">{{ subcat.name }}</span></td>
-                                <td>{{ subcat.question_count }}</td>
-                                <td *ngIf="subcat.average_success">{{ category.average_success }}%</td>
-                                <td *ngIf="!subcat.average_success">-</td>
-                            </tr>
-                        </ng-container>
+                        {{ category.name }}
+                    </th>
+                    <td>{{ category.question_count }}</td>
+                    <td *ngIf="category.average_success">{{ category.average_success }}%</td>
+                    <td *ngIf="!category.average_success">-</td>
+                </tr>
+                <ng-container *ngIf="expanded[category.name]">
+                    <ng-container *ngFor="let subcat of subcats[category.name]">
+                        <tr class="subcat-row">
+                            <td class="subcat-name"><span class="heavy-indent">{{ subcat.name }}</span></td>
+                            <td>{{ subcat.question_count }}</td>
+                            <td *ngIf="subcat.average_success">{{ category.average_success }}%</td>
+                            <td *ngIf="!subcat.average_success">-</td>
+                        </tr>
                     </ng-container>
                 </ng-container>
+            </ng-container>
             </tbody>
         </table>
     </div>

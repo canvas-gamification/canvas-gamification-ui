@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
-import {Category, MESSAGE_TYPES, Question} from '@app/_models';
+import {Category, Question} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -50,7 +50,8 @@ export class ProblemSetComponent implements OnInit {
         subCategory: string,
         difficulty: string,
         is_sample: string,
-        ordering: string }> = new Subject<{
+        ordering: string
+    }> = new Subject<{
         page: number,
         page_size: number,
         search: string,
@@ -58,11 +59,12 @@ export class ProblemSetComponent implements OnInit {
         subCategory: string,
         difficulty: string,
         is_sample: string,
-        ordering: string }>();
+        ordering: string
+    }>();
     displayedColumns: string[] = ['id', 'title', 'author', 'event__name', 'category__parent__name', 'category__name',
         'difficulty', 'token_value', 'avg_success', 'actions'];
-    categories:  Category[];
-    parentCategories : Category[];
+    categories: Category[];
+    parentCategories: Category[];
     subCategories: Category[];
     difficulties: Difficulty[];
 
@@ -70,7 +72,7 @@ export class ProblemSetComponent implements OnInit {
                 private questionService: QuestionService,
                 private categoryService: CategoryService,
                 private difficultyService: DifficultyService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private modalService: NgbModal) {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
@@ -110,7 +112,7 @@ export class ProblemSetComponent implements OnInit {
         });
     }
 
-    newPageEvent(event : PageEvent): void {
+    newPageEvent(event: PageEvent): void {
         this.pageEvent = event;
         this.update();
     }
@@ -127,7 +129,7 @@ export class ProblemSetComponent implements OnInit {
         this.paramChanged.next(options);
     }
 
-    sortData(sort: Sort) : void {
+    sortData(sort: Sort): void {
         if (sort.direction === 'asc') {
             this.ordering = sort.active;
         } else if (sort.direction === 'desc') {
@@ -138,7 +140,7 @@ export class ProblemSetComponent implements OnInit {
         this.update();
     }
 
-    applyFilter() : void {
+    applyFilter(): void {
         this.filterQueryString = this.formData.value;
         this.update();
     }
@@ -146,17 +148,17 @@ export class ProblemSetComponent implements OnInit {
     deleteQuestion(): void {
         this.questionService.deleteQuestion(this.deleteQuestionId)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Deleted Successfully.');
+                this.toastr.success('The Question has been Deleted Successfully.');
                 this.update();
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                this.toastr.error(error.responseText);
                 console.warn(error.responseText);
                 window.scroll(0, 0);
             });
     }
 
-    highlight(status: string) : string {
+    highlight(status: string): string {
         if (status.localeCompare('Solved') === 0) {
             return 'highlight-success';
         } else if (status.localeCompare('Partially Solved') === 0) {
@@ -167,7 +169,7 @@ export class ProblemSetComponent implements OnInit {
         return '';
     }
 
-    open(content : unknown, questionId : number) : void {
+    open(content: unknown, questionId: number): void {
         this.deleteQuestionId = questionId;
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
     }

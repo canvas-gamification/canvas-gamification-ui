@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ProfileDetailsService} from '@app/_services/api/accounts/profile-details.service';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {ConsentService} from '@app/_services/api/accounts/consent.service';
-import {MESSAGE_TYPES, User} from '@app/_models';
+import {User} from '@app/_models';
 import {Router} from '@angular/router';
 
 @Component({
@@ -20,7 +20,7 @@ export class ProfileDetailsComponent implements OnInit {
     constructor(private router: Router,
                 private builder: FormBuilder,
                 private profile: ProfileDetailsService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private consentService: ConsentService) {
     }
 
@@ -45,10 +45,10 @@ export class ProfileDetailsComponent implements OnInit {
     onSubmit(formData: FormGroup): void {
         this.profile.putProfileDetails(formData.value, this.userDetails[0].id)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your profile has been updated successfully!');
+                this.toastr.success('Your profile has been updated successfully!');
             }, error => {
                 console.warn(error.responseText);
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                this.toastr.error(error.responseText);
             });
     }
 
@@ -60,10 +60,10 @@ export class ProfileDetailsComponent implements OnInit {
             student_number: '',
             date: ''
         }).subscribe(() => {
-            this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your consent has been withdrawn successfully!');
+            this.toastr.success('Your consent has been withdrawn successfully!');
         }, error => {
             console.warn(error.responseText);
-            this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+            this.toastr.error(error.responseText);
         });
         this.userConsent = false;
     }

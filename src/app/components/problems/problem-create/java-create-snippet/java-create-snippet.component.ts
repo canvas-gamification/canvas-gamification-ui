@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Category, Course, MESSAGE_TYPES} from '@app/_models';
+import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {QuestionService} from '@app/_services/api/question.service';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
@@ -27,7 +27,7 @@ export class JavaCreateSnippetComponent implements OnInit {
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
                 private problemHelpersService: ProblemHelpersService) {
@@ -72,10 +72,10 @@ export class JavaCreateSnippetComponent implements OnInit {
         const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData.value, this.variables, this.inputFileNames, this.questionText);
         this.questionService.postJavaQuestion(submissionRequest)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Created Successfully.');
+                this.toastr.success('The Question has been Created Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                this.toastr.error(error.responseText);
                 console.warn(error.responseText);
                 window.scroll(0, 0);
             });

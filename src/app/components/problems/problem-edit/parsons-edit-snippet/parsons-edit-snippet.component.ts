@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
-import {MessageService} from '@app/_services/message.service';
-import {Category, Course, MESSAGE_TYPES} from '@app/_models';
+import {ToastrService} from "ngx-toastr";
+import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {CourseService} from '@app/_services/api/course/course.service';
@@ -28,7 +28,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
                 private questionService: QuestionService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
                 private problemHelpersService: ProblemHelpersService,
@@ -72,7 +72,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
         });
     }
 
-    courseSelectedEvent(value : Event) : void {
+    courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
@@ -80,10 +80,10 @@ export class ParsonsEditSnippetComponent implements OnInit {
         const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData.value, this.variables, this.questionText);
         this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Updated Successfully.');
+                this.toastr.success('The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                this.toastr.error(error.responseText);
                 console.warn(error.responseText);
                 window.scroll(0, 0);
             });

@@ -22,7 +22,7 @@ export interface Question {
     course_name: string;
     event_name: string;
     author_name: string;
-    choices: {[index:string]: string};
+    choices: { [index: string]: string };
     variables: [];
     input_file_names: [];
     answer: string;

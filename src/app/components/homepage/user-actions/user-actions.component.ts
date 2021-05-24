@@ -43,11 +43,11 @@ export class UserActionsComponent implements OnInit {
             });
     }
 
-    formatTokenChange(tokenChange : number): string {
+    formatTokenChange(tokenChange: number): string {
         return `${tokenChange > 0 ? '+' : ''}${tokenChange.toFixed(2)}`;
     }
 
-    getRouterLink(link : string): string {
+    getRouterLink(link: string): string {
         // FIXME: Make this not trash. Change how actions are stored in DB
         const linkMatch = link.match(/href='([^']*)/)[1].split('/').splice(-2)[0];
         const questionName = link.replace(/(<([^>]+)>)/gi, '').split(' ').splice(-2).join(' ');

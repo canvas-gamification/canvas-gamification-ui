@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {MESSAGE_TYPES, UQJ} from '@app/_models';
+import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/_services/api/problem/submission.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class McqViewSnippetComponent implements OnInit {
     choiceArray: { id: string, value: string }[];
 
     constructor(private submissionService: SubmissionService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private formBuilder: FormBuilder) {
     }
 
@@ -38,10 +38,10 @@ export class McqViewSnippetComponent implements OnInit {
     onSubmit(formData: { question: number, solution: unknown }): void {
         this.submissionService.postQuestionSubmission(formData)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
+                this.toastr.success('The Question has been Submitted Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error);
+                this.toastr.error(error);
                 console.warn(error.responseText);
                 window.scroll(0, 0);
             });
