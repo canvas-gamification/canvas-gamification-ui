@@ -84,6 +84,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ToastrModule} from "ngx-toastr";
+import { ImportExportQuestionsComponent } from './components/import-export-questions/import-export-questions.component';
 
 @NgModule({
     declarations: [
@@ -138,6 +139,7 @@ import {ToastrModule} from "ngx-toastr";
         SubmissionViewComponent,
         ActivationEmailComponent,
         CkEditorComponent,
+        ImportExportQuestionsComponent,
     ],
     imports: [
         BrowserModule,
