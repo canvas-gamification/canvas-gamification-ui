@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
-import {Category, Question} from '@app/_models';
+import {Category, Question, User} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
@@ -13,6 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {CategoryService} from "@app/_services/api/category.service";
 import {Difficulty} from "@app/_models/difficulty";
 import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
+import {AuthenticationService} from "@app/_services/api/authentication";
 
 @Component({
     selector: 'app-problem-set',
@@ -26,6 +27,9 @@ export class ProblemSetComponent implements OnInit {
     faTrashAlt = faTrashAlt;
     questions: Question[];
     questionsSource: MatTableDataSource<Question>;
+
+    // User
+    user: User;
 
     // Pagination
     questionsLength: number;
@@ -72,6 +76,7 @@ export class ProblemSetComponent implements OnInit {
                 private questionService: QuestionService,
                 private categoryService: CategoryService,
                 private difficultyService: DifficultyService,
+                private authenticationService: AuthenticationService,
                 private toastr: ToastrService,
                 private modalService: NgbModal) {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
@@ -84,6 +89,7 @@ export class ProblemSetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.initialize();
         this.formData = this.builder.group({
             search: new FormControl(''),
