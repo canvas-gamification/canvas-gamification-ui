@@ -98,7 +98,8 @@
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                 </a>
                 <ng-container *ngIf="question.author_name === user?.username; else cannotDelete">
-                    <a class="action-icon btn btn-danger faTrashAlt" [routerLink]="" (click)="open(deleteModal, question.id)">
+                    <a class="action-icon btn btn-danger faTrashAlt" [routerLink]=""
+                       (click)="open(deleteModal, question.id)">
                         <fa-icon [icon]="faTrashAlt"></fa-icon>
                     </a>
                 </ng-container>
