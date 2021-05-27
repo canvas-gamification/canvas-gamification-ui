@@ -55,9 +55,9 @@ export class CourseService {
             )));
     }
 
-    validateEvent(courseId: number, eventId: number, needsToBeRegistered = true): Observable<APIResponse> {
+    validateEvent(courseId: number, eventId: number): Observable<APIResponse> {
         return this.http
-            .get<APIResponse>(`${this.courseUrl}${courseId}/validate-event/${eventId}/?registered=${needsToBeRegistered}`)
+            .get<APIResponse>(`${this.courseUrl}${courseId}/validate-event/${eventId}/`)
             .pipe(catchError(this.handleError<APIResponse>(
                 `validateEvent`, {success: false, bad_request: true})));
     }
