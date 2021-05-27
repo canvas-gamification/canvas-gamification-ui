@@ -1,4 +1,4 @@
-<form [formGroup]="javaFormData" (ngSubmit)="onSubmit(javaFormData.value)">
+<form [formGroup]="javaFormData" (ngSubmit)="onSubmit(javaFormData)">
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="javaQuestionName">Question Name:</label>
@@ -44,7 +44,7 @@
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="javaQuestion">Question:</label>
-            <ckeditor [editor]="ckEditor" formControlName="text" id="javaQuestion"></ckeditor>
+            <app-ck-editor [(value)]="questionText" id="javaQuestion"></app-ck-editor>
         </div>
     </div>
     <div class="form-row m-3">

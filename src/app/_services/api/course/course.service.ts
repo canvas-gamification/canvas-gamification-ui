@@ -10,13 +10,16 @@ import {
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CourseService {
-    constructor(private http: HttpClient,
-                private apiService: ApiService) {
+    constructor(
+        private http: HttpClient,
+        private apiService: ApiService,
+        private toastr: ToastrService) {
     }
 
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
@@ -53,11 +56,10 @@ export class CourseService {
             .pipe(catchError(this.apiService.handleError<RegistrationStatus>(``)));
     }
 
-    validateEvent(courseId: number, eventId: number, needsToBeRegistered = true): Observable<APIResponse> {
+    validateEvent(courseId: number, eventId: number): Observable<APIResponse> {
         const url = this.apiService.getURL('course', courseId, 'validate-event', eventId);
-        const params = this.apiService.addParams({'registered': String(needsToBeRegistered)});
         return this.http
-            .get<APIResponse>(url,params)
+            .get<APIResponse>(url)
             .pipe(catchError(this.apiService.handleError<APIResponse>(``, {success: false, bad_request: true})));
     }
 

@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import 'ace-builds/src-noconflict/ext-language_tools';
-import { config } from 'ace-builds';
+import {config} from 'ace-builds';
 
 @Component({
     selector: 'app-ace',

@@ -3,7 +3,6 @@ import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {MessagesComponent} from './components/messages/messages.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -19,11 +18,10 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {TopicsComponent} from './components/topics/topics.component';
-import {RecaptchaModule, RecaptchaFormsModule} from 'ng-recaptcha';
+import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 // TODO: Remove this suppress after fixing concept map
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import {ConceptMapComponent} from './components/concept-map/concept-map.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {LoginComponent} from './components/accounts/login';
@@ -82,14 +80,15 @@ import {ActivationEmailComponent} from './components/accounts/activation-email/a
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
-import { NotFoundComponent } from './components/redirects/not-found/not-found.component';
-import { ForbiddenComponent } from './components/redirects/forbidden/forbidden.component';
+import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import {ToastrModule} from "ngx-toastr";
+import {NotFoundComponent} from './components/redirects/not-found/not-found.component';
+import {ForbiddenComponent} from './components/redirects/forbidden/forbidden.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        MessagesComponent,
         LandingPageComponent,
         ContactComponent,
         HeaderComponent,
@@ -139,6 +138,7 @@ import { ForbiddenComponent } from './components/redirects/forbidden/forbidden.c
         LeaderBoardComponent,
         SubmissionViewComponent,
         ActivationEmailComponent,
+        CkEditorComponent,
         NotFoundComponent,
         ForbiddenComponent,
     ],
@@ -166,7 +166,6 @@ import { ForbiddenComponent } from './components/redirects/forbidden/forbidden.c
         MatProgressSpinnerModule,
         CommonModule,
         DragulaModule.forRoot(),
-        CKEditorModule,
         AceEditorModule,
         MatDatepickerModule,
         NgxMatTimepickerModule,
@@ -174,6 +173,8 @@ import { ForbiddenComponent } from './components/redirects/forbidden/forbidden.c
         NgxMatNativeDateModule,
         HighlightModule,
         MatSelectModule,
+        CKEditorModule,
+        ToastrModule.forRoot(),
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

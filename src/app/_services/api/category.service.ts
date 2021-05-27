@@ -20,7 +20,7 @@ export class CategoryService {
             .pipe(catchError(this.handleError<Category[]>('getCategories', [])));
     }
 
-    getCategory(categoryId : number): Observable<Category> {
+    getCategory(categoryId: number): Observable<Category> {
         return this.http
             .get<Category>(this.categoriesUrl + `${categoryId}/`)
             .pipe(catchError(this.handleError<Category>('getCategory')));

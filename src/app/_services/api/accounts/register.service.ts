@@ -18,8 +18,8 @@ export class RegisterService {
         email: string,
         password: string,
         password2: string,
-        recaptcha_key : string
-    } ) : Observable<string> {
+        recaptcha_key: string
+    }): Observable<string> {
         return this.http.post(this.registrationUrl, input, {responseType: 'text'}).pipe(
             map(
                 (response) => {
@@ -34,7 +34,7 @@ export class RegisterService {
         );
     }
 
-    postActivation(uuid: string, token: string) : Observable<string> {
+    postActivation(uuid: string, token: string): Observable<string> {
         return this.http.post(this.activationUrl, {uuid, token}, {responseType: 'text'}).pipe(
             map(
                 (response) => {

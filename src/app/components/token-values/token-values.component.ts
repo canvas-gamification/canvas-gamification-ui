@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {TokenValuesService} from '@app/_services/api/token-values.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {MESSAGE_TYPES, NestedTokenValue} from '@app/_models';
+import {NestedTokenValue} from '@app/_models';
 import {faCaretDown, faCaretRight} from '@fortawesome/free-solid-svg-icons';
 import {Difficulty} from '@app/_models/difficulty';
 import {DifficultyService} from '@app/_services/api/problem/difficulty.service';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-token-values',
@@ -26,7 +26,7 @@ export class TokenValuesComponent implements OnInit {
         private tokenValueService: TokenValuesService,
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,
-        private messageService: MessageService) {
+        private toastr: ToastrService) {
     }
 
     ngOnInit(): void {
@@ -34,7 +34,7 @@ export class TokenValuesComponent implements OnInit {
         this.difficultyService.getDifficulties().subscribe(difficulties => this.difficulties = difficulties);
     }
 
-    submit() : void {
+    submit(): void {
         const data: { id: number, value: number }[] = [];
         for (const nestedTokenValue of this.tokenValues) {
             for (const childNestedTokenValue of nestedTokenValue.children) {
@@ -48,12 +48,12 @@ export class TokenValuesComponent implements OnInit {
         }
 
         this.tokenValueService.updateBulk(data).subscribe(() => {
-            this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Token values updated successfully');
+            this.toastr.success('Token values updated successfully');
             window.scroll(0, 0);
         });
     }
 
-    toggleExpand(categoryName: string) : void {
+    toggleExpand(categoryName: string): void {
         this.expanded[categoryName] = !this.expanded[categoryName];
     }
 }

@@ -33,8 +33,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.courseId = +this.route.snapshot.paramMap.get('courseId') || null;
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null;
         if (this.eventId && this.courseId) { // if this snippet is an event-view
-            const needsToBeRegistered = this.user.is_student;
-            this.courseService.validateEvent(this.courseId, this.eventId, needsToBeRegistered).subscribe(response => {
+            this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {
                 if (response.success) {
                     forkJoin({
                         event: this.courseEventService.getCourseEvent(this.eventId),
@@ -54,25 +53,23 @@ export class CourseQuestionSnippetComponent implements OnInit {
 
     getStatus(uqj: UQJ): string {
         // If the event exists, or if it is a non event, return default status text
-        if (!uqj.question.event || !uqj.question.event.is_exam) {
+        if (!uqj.question.event || !uqj.question.is_exam) {
             return uqj.status;
         }
 
-        if (uqj.question.event.is_exam && uqj.num_attempts > 0) {
+        if (uqj.question.is_exam && uqj.num_attempts > 0) {
             return 'Submitted';
-        } else if (uqj.question.event.is_exam) {
+        } else if (uqj.question.is_exam) {
             return 'Not submitted';
         }
     }
 
-    highlight(status: string) : string {
-        if (status.localeCompare('Solved') === 0){
+    highlight(status: string): string {
+        if (status.localeCompare('Solved') === 0) {
             return 'highlight-success';
-        }
-        else if (status.localeCompare('Partially Solved') === 0){
+        } else if (status.localeCompare('Partially Solved') === 0) {
             return 'highlight-warning';
-        }
-        else if (status.localeCompare('Wrong') === 0){
+        } else if (status.localeCompare('Wrong') === 0) {
             return 'highlight-danger';
         }
         return '';

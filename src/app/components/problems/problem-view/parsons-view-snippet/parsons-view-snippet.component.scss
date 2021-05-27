@@ -6,15 +6,18 @@
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
     filter: alpha(opacity=80);
 }
+
 .gu-hide {
     display: none !important;
 }
+
 .gu-unselectable {
     -webkit-user-select: none !important;
     -moz-user-select: none !important;
     -ms-user-select: none !important;
     user-select: none !important;
 }
+
 .gu-transit {
     opacity: 0.2;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
@@ -28,7 +31,7 @@
     display: flow-root;
 }
 
-.container-object{
+.container-object {
     margin: 10px;
     padding: 0.1rem 1rem;
     background: rgb(210, 210, 210);

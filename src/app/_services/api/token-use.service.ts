@@ -17,19 +17,13 @@ export class TokenUseService {
     constructor(private http: HttpClient) {
     }
 
-    useTokens(tokenActions : unknown, courseId: number): Observable<APIResponse> {
+    useTokens(tokenActions: unknown, courseId: number): Observable<APIResponse> {
         //TODO: Need to see if there is a way to avoid suppress here
         // eslint-disable-next-line @typescript-eslint/naming-convention
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const url = `${this.tokenUseUrl}use/${courseId}/`;
         return this.http.post<APIResponse>(url, tokenActions, {headers})
-            .pipe(
-                catchError(
-                    this.handleError<APIResponse>(
-                        `getCourses`
-                    )
-                )
-            );
+            .pipe(catchError(this.handleError<APIResponse>(`useTokens`)));
     }
 
     /**

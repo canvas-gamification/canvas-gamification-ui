@@ -21,17 +21,18 @@ export class ConsentService {
         student_number: string,
         date: string
     }): Observable<string> {
-        return this.http.post(this.consentAPIUrl, input, {responseType: 'text'}).pipe(
-            map((response) => {
-                if (response) {
-                    return response;
-                }
-            },
-            (error: unknown) => {
-                return error;
-            }
-            )
-        );
+        return this
+            .http.post(this.consentAPIUrl, input, {responseType: 'text'})
+            .pipe(
+                map((response) => {
+                    if (response) {
+                        return response;
+                    }
+                },
+                (error: unknown) => {
+                    return error;
+                })
+            );
     }
 
     getConsent(): Observable<UserConsent[]> {

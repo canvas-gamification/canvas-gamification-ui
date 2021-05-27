@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ResetPasswordService} from '@app/_services/api/accounts/reset-password.service';
-import {MessageService} from '@app/_services/message.service';
-import {MESSAGE_TYPES} from '@app/_models';
+import {ToastrService} from "ngx-toastr";
+
 
 @Component({
     selector: 'app-reset-password',
@@ -13,7 +13,7 @@ export class ResetPasswordComponent implements OnInit {
     formData: FormGroup;
     logoPath = 'assets/global/logo.jpg';
 
-    constructor(private builder: FormBuilder, private password: ResetPasswordService, private messageService: MessageService) {
+    constructor(private builder: FormBuilder, private password: ResetPasswordService, private toastr: ToastrService) {
     }
 
     ngOnInit(): void {
@@ -28,10 +28,10 @@ export class ResetPasswordComponent implements OnInit {
         this.password.putPasswordReset(formData.value)
             .subscribe(() => {
                 this.formData.reset();
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'Your password has been updated successfully!');
+                this.toastr.success('Your password has been updated successfully!');
             }, error => {
-                console.warn(error.responseText);
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
+                console.warn(error);
+                this.toastr.error(error);
             });
     }
 

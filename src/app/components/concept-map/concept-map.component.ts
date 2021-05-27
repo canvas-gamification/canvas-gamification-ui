@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ConceptMapGraph} from './concept-map-graph';
 import {Category, Course, User} from '@app/_models';
 import {CategoryService} from '@app/_services/api/category.service';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {Router} from '@angular/router';
 import {AuthenticationService} from '@app/_services/api/authentication';
 
@@ -21,11 +21,11 @@ export class ConceptMapComponent implements OnInit {
 
     constructor(private categoryService: CategoryService,
                 private authenticationService: AuthenticationService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private router: Router) {
     }
 
-    ngOnInit() : void {
+    ngOnInit(): void {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.categoryService.getCategories().subscribe(categories => {
             this.rawCategories = categories;
@@ -40,7 +40,7 @@ export class ConceptMapComponent implements OnInit {
         });
     }
 
-    renderGraph() : void {
+    renderGraph(): void {
         const adj: Category[] = [];
         this.rawCategories.filter(category => category.parent === this.parentNode)
             .forEach(category => {
@@ -56,16 +56,16 @@ export class ConceptMapComponent implements OnInit {
         this.conceptMapGraph.buildGraphFromAdjacencyList(adj);
     }
 
-    reset() : void{
+    reset(): void {
         this.parentNode = null;
         this.renderGraph();
     }
 
-    update() : void{
+    update(): void {
         this.renderGraph();
     }
 
-    isTopLevel(categoryId: number) : boolean {
+    isTopLevel(categoryId: number): boolean {
         return this.rawCategories.find(category => category.pk === categoryId).parent === null;
     }
 }

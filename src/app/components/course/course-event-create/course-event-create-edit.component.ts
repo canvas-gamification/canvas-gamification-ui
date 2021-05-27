@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CourseEvent, MESSAGE_TYPES, EventType} from '@app/_models';
+import {CourseEvent, EventType} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 const dateValidator: (controls: AbstractControl) => void = (controls: AbstractControl) => {
@@ -30,7 +30,7 @@ export class CourseEventCreateEditComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private builder: FormBuilder,
                 private courseEventService: CourseEventService,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private router: Router) {
     }
 
@@ -78,22 +78,22 @@ export class CourseEventCreateEditComponent implements OnInit {
 
         if (this.eventId) { // If this is a previously existing event
             this.courseEventService.updateCourseEvent(ourEvent).subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Event has been updated Successfully.');
+                this.toastr.success('The Event has been updated Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
         } else { // Creating a brand new event
             this.courseEventService.addCourseEvent(ourEvent).subscribe(
                 () => {
                     this.router.navigate(['course/view', this.courseId]).then();
-                    this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Event has been added Successfully.');
+                    this.toastr.success('The Event has been added Successfully.');
                     window.scroll(0, 0);
                 }, error => {
-                    this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
-                    console.warn(error.responseText);
+                    this.toastr.error(error);
+                    console.warn(error);
                     window.scroll(0, 0);
                 }
             );

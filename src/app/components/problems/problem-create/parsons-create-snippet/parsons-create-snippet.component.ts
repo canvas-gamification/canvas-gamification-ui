@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Category, Course, MESSAGE_TYPES} from '@app/_models';
+import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {QuestionService} from '@app/_services/api/question.service';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
     selector: 'app-parsons-create-snippet',
@@ -17,16 +16,16 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 export class ParsonsCreateSnippetComponent implements OnInit {
     parsonsFormData: FormGroup;
-    public ckEditor = ClassicEditor
     courses: Course[];
     events: CourseEvent[];
     selectedCourse: number;
     categories: Category[];
     variables: JSON[];
+    questionText: string;
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
-                private messageService: MessageService,
+                private toastr: ToastrService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
                 private problemHelpersService: ProblemHelpersService) {
@@ -47,42 +46,31 @@ export class ParsonsCreateSnippetComponent implements OnInit {
             category: new FormControl(''),
             course: new FormControl(''),
             event: new FormControl(''),
-            text: new FormControl(''),
             junit_template: new FormControl(''),
             lines: new FormControl(''),
             additional_file_name: new FormControl(''),
         });
     }
 
-    onSubmit(formData :  {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        text: string,
-        category: string,
-        lines: string,
-        additional_file_name: string,
-        junit_template: string,
-    }) : void {
-        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData, this.variables);
+    onSubmit(formData: FormGroup): void {
+        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData.value, this.variables, this.questionText);
         this.questionService.postParsonsQuestion(submissionRequest)
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Created Successfully.');
+                this.toastr.success('The Question has been Created Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
 
     }
 
-    courseSelectedEvent(value : Event) : void {
+    courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
-    courseSelectedById(courseId: number) : void {
+    courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {

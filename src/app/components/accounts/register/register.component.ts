@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {environment} from '@environments/environment';
 import {RegisterService} from '@app/_services/api/accounts/register.service';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import {confirmPasswordValidator} from '@app/_helpers/confirm-password.validator';
-import {MESSAGE_TYPES} from '@app/_models';
+
 
 @Component({
     selector: 'app-register',
@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
     isLoading = false;
     logoPath = 'assets/global/logo.jpg';
 
-    constructor(private builder: FormBuilder, private register: RegisterService, private messageService: MessageService) {
+    constructor(private builder: FormBuilder, private register: RegisterService, private toastr: ToastrService) {
     }
 
     ngOnInit(): void {
@@ -41,12 +41,12 @@ export class RegisterComponent implements OnInit {
         this.register.postRegistration(formData.value)
             .subscribe(() => {
                 this.formData.reset();
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'You have successfully registered.');
+                this.toastr.success('You have successfully registered.');
                 this.formSubmitted = true;
                 this.isLoading = false;
             }, error => {
                 console.warn(error);
-                this.messageService.add(MESSAGE_TYPES.DANGER, error);
+                this.toastr.error(error);
                 this.isLoading = false;
             });
     }

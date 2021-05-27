@@ -48,7 +48,8 @@
                                             siteKey="{{siteKey}}">
                                 </re-captcha>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block" *ngIf="!isLoading; else loadingSpinner">
+                            <button type="submit" class="btn btn-primary btn-block"
+                                    *ngIf="!isLoading; else loadingSpinner">
                                 <div>Register</div>
                             </button>
                             <ng-template #loadingSpinner>

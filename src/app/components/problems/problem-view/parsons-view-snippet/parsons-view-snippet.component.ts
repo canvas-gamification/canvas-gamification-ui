@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {DragulaService} from 'ng2-dragula';
 import {FormBuilder} from '@angular/forms';
-import {MessageService} from '@app/_services/message.service';
+import {ToastrService} from "ngx-toastr";
 import * as indentString from 'indent-string';
-import {MESSAGE_TYPES, UQJ} from '@app/_models';
+import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/_services/api/problem/submission.service';
 
 class ContainerObject {
@@ -29,7 +29,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
     constructor(private submissionService: SubmissionService,
                 private dragulaService: DragulaService,
                 private formBuilder: FormBuilder,
-                private messageService: MessageService) {
+                private toastr: ToastrService) {
     }
 
     ngOnInit(): void {
@@ -81,15 +81,16 @@ export class ParsonsViewSnippetComponent implements OnInit {
         });
     }
 
-    onSubmit() : void {
+    onSubmit(): void {
         this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: this.code})
             .subscribe(() => {
-                this.messageService.add(MESSAGE_TYPES.SUCCESS, 'The Question has been Submitted Successfully.');
+                this.toastr.success('The Question has been Submitted Successfully.');
                 window.scroll(0, 0);
             }, error => {
-                this.messageService.add(MESSAGE_TYPES.DANGER, error.responseText);
-                console.warn(error.responseText);
+                this.toastr.error(error);
+                console.warn(error);
                 window.scroll(0, 0);
             });
+
     }
 }

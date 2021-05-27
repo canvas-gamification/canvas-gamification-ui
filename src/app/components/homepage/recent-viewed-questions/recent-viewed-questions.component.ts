@@ -9,23 +9,23 @@ import {Question} from "@app/_models";
     styleUrls: ['./recent-viewed-questions.component.scss']
 })
 export class RecentViewedQuestionsComponent implements OnInit {
-  uqjs: UQJ[];
+    uqjs: UQJ[];
 
-  constructor(
-    private uqjService: UqjService,
-  ) {
-  }
+    constructor(
+        private uqjService: UqjService,
+    ) {
+    }
 
-  ngOnInit(): void {
-      this.uqjService
-          .getUQJs({recent: true, pageSize: 5})
-          ?.subscribe((paginatedUqjs) => {
-              this.uqjs = paginatedUqjs.results;
-          });
-  }
+    ngOnInit(): void {
+        this.uqjService
+            .getUQJs({recent: true, pageSize: 5})
+            ?.subscribe((paginatedUqjs) => {
+                this.uqjs = paginatedUqjs.results;
+            });
+    }
 
-  formatQuestion(question: Question): string {
-      return `${question.title} (${question.id})`;
-  }
+    formatQuestion(question: Question): string {
+        return `${question.title} (${question.id})`;
+    }
 
 }

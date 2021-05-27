@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Course, STATUS} from '@app/_models';
 import {CourseService} from '@app/_services/api/course/course.service';
 
@@ -8,17 +8,18 @@ import {CourseService} from '@app/_services/api/course/course.service';
     styleUrls: ['./inactive-courses.component.scss']
 })
 export class InactiveCoursesComponent implements OnInit {
-  inactiveCourses: Course[];
+    inactiveCourses: Course[];
 
-  constructor( private courseService: CourseService) { }
+    constructor(private courseService: CourseService) {
+    }
 
-  ngOnInit(): void {
-      this.courseService
-          .getCourses(true, {ordering: {name: true}})
-          ?.subscribe((courses) => {
-              this.inactiveCourses = courses.filter(course => {
-                  return course.status !== STATUS.active;
-              });
-          });
-  }
+    ngOnInit(): void {
+        this.courseService
+            .getCourses(true, {ordering: {name: true}})
+            ?.subscribe((courses) => {
+                this.inactiveCourses = courses.filter(course => {
+                    return course.status !== STATUS.active;
+                });
+            });
+    }
 }
