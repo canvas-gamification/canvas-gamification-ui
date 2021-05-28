@@ -171,7 +171,7 @@ const routes: Routes = [
     {
         // KEEP THIS ROUTE AT THE END
         path: '**',
-        redirectTo: '/404'
+        component: NotFoundComponent
     }
 ];
 

@@ -37,7 +37,7 @@ export class ApiService {
         options?: {
             redirect403?: boolean,
             redirect404?: boolean,
-            redirect?: [string | number]
+            redirect?: (string | number)[]
             showMessage?: boolean
         }
     ): (error: HttpErrorResponse) => Observable<T> {
@@ -45,14 +45,14 @@ export class ApiService {
         return (error): Observable<T> => {
 
             if (redirect404 && error.status === 404)
-                this.router.navigate(['/404']).then();
+                this.router.navigate(['/404'], {skipLocationChange: true}).then();
             else if (redirect403 && error.status === 403)
-                this.router.navigate(['/403']).then();
+                this.router.navigate(['/403'], {skipLocationChange: true}).then();
             else if (redirect)
                 this.router.navigate(redirect).then()
 
             if (showMessage)
-                this.toastr.error(message? message : error.message);
+                this.toastr.error( message || error.statusText);
 
             return of(result as T);
         };
