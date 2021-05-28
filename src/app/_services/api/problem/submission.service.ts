@@ -11,6 +11,7 @@ import {map} from 'rxjs/operators';
 export class SubmissionService {
     private submissionUrl = new URL('api/submission/', environment.apiBaseUrl).toString();
     private answerSubmissionUrl = new URL('api/submission/submit/', environment.apiBaseUrl).toString();
+    private submissionOrdering = 'submission_time';
 
     constructor(private http: HttpClient) {
     }
@@ -20,7 +21,9 @@ export class SubmissionService {
     }
 
     getPreviousSubmissions(id: number): Observable<QuestionSubmission[]> {
-        const params = new HttpParams().set('question', String(id));
+        const params = new HttpParams()
+            .set('question', String(id))
+            .set('ordering', this.submissionOrdering);
         return this.http.get<QuestionSubmission[]>(this.submissionUrl, {params});
     }
 
