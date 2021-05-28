@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {FaqComponent} from './faq.component';
-import {TestModule} from '../../../test/test.module';
+import {TestModule} from '@test/test.module';
 
 describe('FaqComponent', () => {
     let component: FaqComponent;

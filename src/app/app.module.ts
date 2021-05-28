@@ -83,8 +83,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ToastrModule} from "ngx-toastr";
-import {NotFoundComponent} from './components/redirects/not-found/not-found.component';
-import {ForbiddenComponent} from './components/redirects/forbidden/forbidden.component';
+import {NotFoundComponent} from './components/general/not-found/not-found.component';
+import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
 
 @NgModule({
     declarations: [

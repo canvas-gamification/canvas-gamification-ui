@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ForbiddenComponent } from './forbidden.component';
+import {ForbiddenComponent} from './forbidden.component';
+import {TestModule} from "@test/test.module";
 
 describe('ForbiddenComponent', () => {
     let component: ForbiddenComponent;
@@ -8,9 +9,8 @@ describe('ForbiddenComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ ForbiddenComponent ]
-        })
-            .compileComponents();
+            imports: [TestModule]
+        }).compileComponents();
     });
 
     beforeEach(() => {
