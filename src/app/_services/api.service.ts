@@ -18,7 +18,7 @@ export class ApiService {
     getURL(...names: (string | number)[]): string {
         let relativeURL = '/api';
         for (const i in names) {
-            relativeURL = Location.joinWithSlash(relativeURL, names[i].toString())
+            relativeURL = Location.joinWithSlash(relativeURL, String(names[i]))
         }
         relativeURL = Location.joinWithSlash(relativeURL, '/')
         return new URL(relativeURL, environment.apiBaseUrl).toString();
