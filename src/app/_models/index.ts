@@ -13,6 +13,5 @@ export * from './token_use_option';
 export * from './token_value';
 export * from './global/api_response';
 export * from './course-registration/registration_status';
-export * from './global/alert_message';
 export * from './course-registration/course_registration_response';
 export * from './eventType';
