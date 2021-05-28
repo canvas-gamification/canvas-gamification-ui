@@ -10,7 +10,6 @@ import {
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
-import {ToastrService} from "ngx-toastr";
 
 @Injectable({
     providedIn: 'root'
@@ -18,8 +17,7 @@ import {ToastrService} from "ngx-toastr";
 export class CourseService {
     constructor(
         private http: HttpClient,
-        private apiService: ApiService,
-        private toastr: ToastrService) {
+        private apiService: ApiService) {
     }
 
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
@@ -91,9 +89,8 @@ export class CourseService {
             searchParams['ordering'] = String(orderingFields.join());
         }
         const url = this.apiService.getURL('course');
-        const params = this.apiService.addParams(searchParams);
         return this.http
-            .get<Course[]>(url, params)
+            .get<Course[]>(url, {params: searchParams})
             .pipe(catchError(this.apiService.handleError<Course[]>(``)));
     }
 
@@ -111,9 +108,8 @@ export class CourseService {
             searchParams[field] = String(filters[field]);
         }
         const url = this.apiService.getURL('course', courseId);
-        const params = this.apiService.addParams(searchParams);
         return this.http
-            .get<Course>(url, params)
+            .get<Course>(url, {params: searchParams})
             .pipe(catchError(this.apiService.handleError<Course>(``)));
     }
 }

@@ -4,6 +4,7 @@ import {Observable, of} from "rxjs";
 import {HttpParams} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {Location} from "@angular/common";
 
 @Injectable({
     providedIn: 'root'
@@ -14,16 +15,13 @@ export class ApiService {
         private toastr: ToastrService) {
     }
 
-    addParams(params?: Record<string, string>): { params: HttpParams } {
-        return {params: new HttpParams(params)};
-    }
-
     getURL(...names: (string | number)[]): string {
-        let relativeURL = '';
-        for (const id in names) {
-            relativeURL += String(names[id]).split('/').join('') + '/';
+        let relativeURL = '/api';
+        for (const i in names) {
+            relativeURL = Location.joinWithSlash(relativeURL, names[i].toString())
         }
-        return new URL(relativeURL, environment.apiBaseUrl + '/api/').toString();
+        relativeURL = Location.joinWithSlash(relativeURL, '/')
+        return new URL(relativeURL, environment.apiBaseUrl).toString();
     }
 
     /**
