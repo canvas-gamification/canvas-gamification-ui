@@ -117,20 +117,11 @@ export class CourseService {
     /**
      * Retrieve a specific course with it's info
      * @param courseId - Corresponds to the id of the course, NOT the course_id field
-     * @param registered - Filter retrieved courses by if this user is registered in them or not
-     * @param options - Object of options for this request
      */
-    getCourse(courseId: number, registered = false, options?: { filters: unknown }): Observable<Course> {
-        const {filters = {}} = options ? options : {};
-        let params = new HttpParams()
-            .set('registered', String(registered));
-
-        for (const field of Object.keys(filters)) {
-            params = params.set(`${field}`, String(filters[field]));
-        }
+    getCourse(courseId: number): Observable<Course> {
         const url = this.apiService.getURL('course', courseId);
         return this.http
-            .get<Course>(url, {params})
+            .get<Course>(url)
             .pipe(catchError(this.apiService.handleError<Course>(`Unable to load course`, null)));
     }
 }
