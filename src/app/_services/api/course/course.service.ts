@@ -20,13 +20,18 @@ export class CourseService {
         private apiService: ApiService) {
     }
 
+    // TODO: Fix this when refactoring the concept-map
+    // { success_rate: number } is not ok
+    // handle the error properly
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
         const url = this.apiService.getURL('course', courseId, 'user-stats', categoryId);
         return this.http
             .get<{ success_rate: number }>(url)
-            .pipe(catchError(this.apiService.handleError<{ success_rate: number }>('')));
+            .pipe(catchError(this.apiService.handleError<{ success_rate: number }>()));
     }
 
+    // TODO: Handling error of this function needs refactoring
+    // Error message should be sent from here
     register(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
         const url = this.apiService.getURL('course', courseId, 'register');
         return this.http
@@ -37,6 +42,8 @@ export class CourseService {
             })));
     }
 
+    // TODO: Handling error of this function needs refactoring
+    // Error message should be sent from here
     registerVerify(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
         const url = this.apiService.getURL('course', courseId, 'verify');
         return this.http
@@ -47,6 +54,8 @@ export class CourseService {
             })));
     }
 
+    // TODO: Handling error of this function needs refactoring
+    // Error message should be sent from here
     getCourseRegistrationStatus(courseId: number): Observable<RegistrationStatus> {
         const url = this.apiService.getURL('course', courseId, 'get-registration-status');
         return this.http
@@ -54,6 +63,8 @@ export class CourseService {
             .pipe(catchError(this.apiService.handleError<RegistrationStatus>(``)));
     }
 
+    // TODO: Handling error of this function needs refactoring
+    // Error message should be sent from here
     validateEvent(courseId: number, eventId: number): Observable<APIResponse> {
         const url = this.apiService.getURL('course', courseId, 'validate-event', eventId);
         return this.http
@@ -91,7 +102,11 @@ export class CourseService {
         const url = this.apiService.getURL('course');
         return this.http
             .get<Course[]>(url, {params: searchParams})
-            .pipe(catchError(this.apiService.handleError<Course[]>(``)));
+            .pipe(
+                catchError(
+                    this.apiService.handleError<Course[]>(`Unable to load courses.`, [])
+                )
+            );
     }
 
 
@@ -110,6 +125,6 @@ export class CourseService {
         const url = this.apiService.getURL('course', courseId);
         return this.http
             .get<Course>(url, {params: searchParams})
-            .pipe(catchError(this.apiService.handleError<Course>(``)));
+            .pipe(catchError(this.apiService.handleError<Course>(`Unable to load course`, null)));
     }
 }
