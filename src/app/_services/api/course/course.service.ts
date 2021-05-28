@@ -7,7 +7,7 @@ import {
     CourseRegistrationResponse,
     RegistrationStatus
 } from '@app/_models';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
 
@@ -84,10 +84,16 @@ export class CourseService {
         pageSize?: number
     }): Observable<Course[]> {
         const {filters = {}, ordering = {}, page = 1, pageSize = 50} = options ? options : {};
-        const searchParams = {'registered': String(registered), 'page': String(page), 'pageSize': String(pageSize)};
+        const url = this.apiService.getURL('course');
+        let params = new HttpParams()
+            .set('registered', String(registered))
+            .set('page', String(page))
+            .set('page_size', String(pageSize));
+
         for (const field of Object.keys(filters)) {
-            searchParams[field] = String(filters[field]);
+            params = params.set(`${field}`, String(filters[field]));
         }
+
         const orderingFields = [];
         for (const field of Object.keys(ordering)) {
             if (ordering[field]) {
@@ -96,12 +102,10 @@ export class CourseService {
                 orderingFields.push(`-${field}`);
             }
         }
-        if (orderingFields.length > 0) {
-            searchParams['ordering'] = String(orderingFields.join());
-        }
-        const url = this.apiService.getURL('course');
+        params = params.set(`ordering`, `${orderingFields.join()}`);
+
         return this.http
-            .get<Course[]>(url, {params: searchParams})
+            .get<Course[]>(url, {params})
             .pipe(
                 catchError(
                     this.apiService.handleError<Course[]>(`Unable to load courses.`, [])
@@ -118,13 +122,15 @@ export class CourseService {
      */
     getCourse(courseId: number, registered = false, options?: { filters: unknown }): Observable<Course> {
         const {filters = {}} = options ? options : {};
-        const searchParams = {'registered': String(registered)};
+        let params = new HttpParams()
+            .set('registered', String(registered));
+
         for (const field of Object.keys(filters)) {
-            searchParams[field] = String(filters[field]);
+            params = params.set(`${field}`, String(filters[field]));
         }
         const url = this.apiService.getURL('course', courseId);
         return this.http
-            .get<Course>(url, {params: searchParams})
+            .get<Course>(url, {params})
             .pipe(catchError(this.apiService.handleError<Course>(`Unable to load course`, null)));
     }
 }
