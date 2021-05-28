@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionService} from "@app/_services/api/question.service";
+import {Question} from "@app/_models";
 
 @Component({
     selector: 'app-import-export-questions',
@@ -7,6 +8,7 @@ import {QuestionService} from "@app/_services/api/question.service";
     styleUrls: ['./import-export-questions.component.scss']
 })
 export class ImportExportQuestionsComponent implements OnInit {
+    private parsedQuestions : Question[];
     private elem = {
         element: {
             dynamicDownload: null as HTMLElement
@@ -45,16 +47,19 @@ export class ImportExportQuestionsComponent implements OnInit {
 
     onFileChanged(target: EventTarget): void {
         const selectedFile = (<HTMLInputElement>target).files[0];
-        console.log(selectedFile);
         const fileReader = new FileReader();
         fileReader.readAsText(selectedFile, "UTF-8");
         fileReader.onload = () => {
             if (typeof fileReader.result === "string") {
-                console.log(JSON.parse(fileReader.result).results);
+                this.parsedQuestions = JSON.parse(fileReader.result);
             }
         }
         fileReader.onerror = (error) => {
             console.log(error);
         }
+    }
+
+    uploadQuestions() : void{
+        console.log(this.parsedQuestions);
     }
 }
