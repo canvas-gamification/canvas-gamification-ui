@@ -1,17 +1,16 @@
 import {Injectable} from '@angular/core';
-import {environment} from '@environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {User} from '@app/_models';
 import {Observable} from 'rxjs';
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProfileDetailsService {
-    private profileDetailsUrl = new URL('/api/update-profile/', environment.apiBaseUrl).toJSON();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
     putProfileDetails(input: {
@@ -19,21 +18,15 @@ export class ProfileDetailsService {
         last_name: string,
         email: string
     }, id: number): Observable<string> {
-        return this.http.put(this.profileDetailsUrl + id + '/', input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+        const url = this.apiService.getURL('update-profile', id);
+        return this.http
+            .put(url, input, {responseType: 'text'})
+            .pipe(catchError(this.apiService.handleError<string>(`There was a problem updating your profile details`)));
     }
 
     getProfileDetails(): Observable<User> {
-        return this.http.get<User>(this.profileDetailsUrl);
+        const url = this.apiService.getURL('update-profile');
+        return this.http.get<User>(url)
+            .pipe(catchError(this.apiService.handleError<User>(`There was a problem retrieving your profile details`)));
     }
 }
