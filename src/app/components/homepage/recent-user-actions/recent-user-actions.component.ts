@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Action} from '@app/_models/action';
 import {UserActionsService} from '@app/_services/api/user-actions.service';
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-recent-user-actions',
@@ -12,7 +13,7 @@ export class RecentUserActionsComponent implements OnInit {
 
     constructor(
         private userActionService: UserActionsService,
-    ) {
+        public sanitizer: DomSanitizer) {
     }
 
     ngOnInit(): void {

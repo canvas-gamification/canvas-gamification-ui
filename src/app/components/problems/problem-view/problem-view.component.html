@@ -23,7 +23,7 @@
     <div class="card-header">
         <h1>{{uqj?.question?.title}}</h1>
     </div>
-    <div class="card-body" [innerHTML]="uqj?.rendered_text"></div>
+    <div class="card-body" [innerHTML]="sanitizer.bypassSecurityTrustHtml(uqj?.rendered_text)"></div>
 </div>
 
 <!--Question Submission Form-->

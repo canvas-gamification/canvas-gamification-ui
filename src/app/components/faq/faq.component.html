@@ -9,7 +9,7 @@
                 </h2>
             </div>
             <div [attr.id]="'faq_answer_'+i" class="collapse multi-collapse" [attr.aria-labelledby]="'heading'+i">
-                <div class="card-body" [innerHTML]="faq.answer"></div>
+                <div class="card-body" [innerHTML]="sanitizer.bypassSecurityTrustHtml(faq.answer)"></div>
             </div>
         </div>
     </ng-container>

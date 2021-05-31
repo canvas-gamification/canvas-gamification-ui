@@ -19,7 +19,7 @@
             <tr *ngFor="let submission of previousSubmissions; let i = index"
                 [attr.class]="'highlight-'+submission.status_color">
                 <td>{{i + 1 || 'No ID'}}</td>
-                <td *ngIf="submission.show_answer" [innerHTML]="submission.answer_display"></td>
+                <td *ngIf="submission.show_answer" [innerHTML]="sanitizer.bypassSecurityTrustHtml(submission.answer_display)"></td>
                 <td>{{submission.grade.toFixed(2)}}</td>
                 <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
                 <td>{{submission.submission_time | date:'medium' || 'No Date'}}</td>

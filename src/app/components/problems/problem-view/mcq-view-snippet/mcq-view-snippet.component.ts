@@ -3,6 +3,7 @@ import {ToastrService} from "ngx-toastr";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/_services/api/problem/submission.service';
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -16,7 +17,8 @@ export class McqViewSnippetComponent implements OnInit {
 
     constructor(private submissionService: SubmissionService,
                 private toastr: ToastrService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                public sanitizer: DomSanitizer) {
     }
 
     ngOnInit(): void {
