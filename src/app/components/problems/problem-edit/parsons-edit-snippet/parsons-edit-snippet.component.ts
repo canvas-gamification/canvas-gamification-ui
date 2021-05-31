@@ -79,12 +79,9 @@ export class ParsonsEditSnippetComponent implements OnInit {
     onSubmit(formData: FormGroup): void {
         const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData.value, this.variables, this.questionText);
         this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe(() => {
-                this.toastr.success('The Question has been Updated Successfully.');
-                window.scroll(0, 0);
-            }, error => {
-                this.toastr.error(error);
-                console.warn(error);
+            .subscribe((result) => {
+                if(result.success != false)
+                    this.toastr.success('The Question has been updated Successfully.');
                 window.scroll(0, 0);
             });
     }

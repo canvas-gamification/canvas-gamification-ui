@@ -1,21 +1,17 @@
 import {Injectable} from '@angular/core';
-import {environment} from '@environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Question} from '@app/_models';
+import {APIResponse, Question} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
-import {map} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class QuestionService {
-    private questionServiceUrl = new URL('/api/questions/', environment.apiBaseUrl).toString();
-    private multipleChoiceQuestionUrl = new URL('/api/multiple-choice-question/', environment.apiBaseUrl).toString();
-    private javaQuestionUrl = new URL('/api/java-question/', environment.apiBaseUrl).toString();
-    private parsonsQuestionUrl = new URL('/api/parsons-question/', environment.apiBaseUrl).toString();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
     getQuestions(options?: {
@@ -28,6 +24,7 @@ export class QuestionService {
         is_sample: string,
         ordering: string
     }): Observable<PaginatedResult<Question>> {
+        const url = this.apiService.getURL('questions');
         const {
             page = 1,
             page_size: pageSize = 50,
@@ -48,11 +45,14 @@ export class QuestionService {
             .set('is_sample', isSample)
             .set('ordering', ordering);
 
-        return this.http.get<PaginatedResult<Question>>(this.questionServiceUrl, {params});
+        return this.http.get<PaginatedResult<Question>>(url, {params})
+            .pipe(catchError(this.apiService.handleError<PaginatedResult<Question>>('Error occurred while fetching questions')));
     }
 
     getQuestion(id: number): Observable<Question> {
-        return this.http.get<Question>(this.questionServiceUrl + id + '/');
+        const url = this.apiService.getURL('questions', id);
+        return this.http.get<Question>(url)
+            .pipe(catchError(this.apiService.handleError<Question>('Error occurred while fetching question')));
     }
 
     getQuestionType(question: Question): string {
@@ -60,18 +60,9 @@ export class QuestionService {
     }
 
     deleteQuestion(id: number): Observable<string> {
-        return this.http.delete(this.questionServiceUrl + id + '/', {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+        const url = this.apiService.getURL('questions', id);
+        return this.http.delete<string>(url)
+            .pipe(catchError(this.apiService.handleError<string>('Error occurred while deleting question')));
     }
 
     putMultipleChoiceQuestion(input: {
@@ -85,19 +76,11 @@ export class QuestionService {
         variables: JSON[],
         visible_distractor_count: number,
         choices: { [id: string]: string }
-    }, id: number): Observable<string> {
-        return this.http.put(this.multipleChoiceQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+    }, id: number): Observable<APIResponse> {
+        const url = this.apiService.getURL('multiple-choice-question', id);
+        return this.http.put<APIResponse>(url, input)
+            .pipe(catchError(this.apiService.handleError<APIResponse>(
+                'Error occurred while updating question', {success: false, bad_request: true})));
     }
 
     putJavaQuestion(input: {
@@ -110,19 +93,11 @@ export class QuestionService {
         variables: JSON[],
         junit_template: string,
         input_file_names: JSON,
-    }, id: number): Observable<string> {
-        return this.http.put(this.javaQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+    }, id: number): Observable<APIResponse> {
+        const url = this.apiService.getURL('java-question', id);
+        return this.http.put<APIResponse>(url, input)
+            .pipe(catchError(this.apiService.handleError<APIResponse>(
+                'Error occurred while updating question', {success: false, bad_request: true})));
     }
 
     putParsonsQuestion(input: {
@@ -136,19 +111,11 @@ export class QuestionService {
         lines: string[],
         additional_file_name: string,
         junit_template: string,
-    }, id: number): Observable<string> {
-        return this.http.put(this.parsonsQuestionUrl + id + '/', input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+    }, id: number): Observable<APIResponse> {
+        const url = this.apiService.getURL('parsons-question', id);
+        return this.http.put<APIResponse>(url, input)
+            .pipe(catchError(this.apiService.handleError<APIResponse>(
+                'Error occurred while updating question', {success: false, bad_request: true})));
     }
 
     postMultipleChoiceQuestion(input: {
@@ -162,19 +129,11 @@ export class QuestionService {
         variables: JSON[],
         visible_distractor_count: number,
         choices: { [id: string]: string }
-    }): Observable<string> {
-        return this.http.post(this.multipleChoiceQuestionUrl, input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+    }): Observable<APIResponse> {
+        const url = this.apiService.getURL('multiple-choice-question');
+        return this.http.post<APIResponse>(url, input)
+            .pipe(catchError(this.apiService.handleError<APIResponse>(
+                'Error occurred while adding question', {success: false, bad_request: true})));
     }
 
     postJavaQuestion(input: {
@@ -187,19 +146,11 @@ export class QuestionService {
         variables: JSON[],
         junit_template: string,
         input_file_names: JSON,
-    }): Observable<string> {
-        return this.http.post(this.javaQuestionUrl, input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+    }): Observable<APIResponse> {
+        const url = this.apiService.getURL('java-question');
+        return this.http.post<APIResponse>(url, input)
+            .pipe(catchError(this.apiService.handleError<APIResponse>(
+                'Error occurred while adding question', {success: false, bad_request: true})));
     }
 
     postParsonsQuestion(input: {
@@ -213,18 +164,10 @@ export class QuestionService {
         lines: string[],
         additional_file_name: string,
         junit_template: string,
-    }): Observable<string> {
-        return this.http.post(this.parsonsQuestionUrl, input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+    }): Observable<APIResponse> {
+        const url = this.apiService.getURL('parsons-question');
+        return this.http.post<APIResponse>(url, input)
+            .pipe(catchError(this.apiService.handleError<APIResponse>(
+                'Error occurred while adding question', {success: false, bad_request: true})));
     }
 }

@@ -74,12 +74,9 @@ export class McqCreateSnippetComponent implements OnInit {
     onSubmit(formData: FormGroup): void {
         const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
-            .subscribe(() => {
-                this.toastr.success('The Question has been Created Successfully.');
-                window.scroll(0, 0);
-            }, error => {
-                this.toastr.error(error);
-                console.warn(error);
+            .subscribe((result) => {
+                if(result.success != false)
+                    this.toastr.success('The Question has been Created Successfully.');
                 window.scroll(0, 0);
             });
     }

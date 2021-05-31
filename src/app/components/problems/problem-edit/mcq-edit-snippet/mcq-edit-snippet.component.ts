@@ -80,12 +80,9 @@ export class McqEditSnippetComponent implements OnInit {
     onSubmit(formData: FormGroup): void {
         const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe(() => {
-                this.toastr.success('The Question has been Updated Successfully.');
-                window.scroll(0, 0);
-            }, error => {
-                this.toastr.error(error);
-                console.warn(error);
+            .subscribe((result) => {
+                if(result.success != false)
+                    this.toastr.success('The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             });
     }
