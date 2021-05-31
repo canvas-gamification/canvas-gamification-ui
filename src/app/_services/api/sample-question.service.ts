@@ -1,20 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {environment} from '@environments/environment';
 import {MultipleChoiceQuestion} from '@app/_models';
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class SampleQuestionService {
 
-    private sampleMultipleChoiceQuestionsUrl = new URL('/api/sample-multiple-choice-question/', environment.apiBaseUrl).toString();
-
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
     getSampleMultipleChoiceQuestions(): Observable<MultipleChoiceQuestion[]> {
-        return this.http.get<MultipleChoiceQuestion[]>(this.sampleMultipleChoiceQuestionsUrl);
+        const url = this.apiService.getURL('sample-multiple-choice-question');
+        return this.http.get<MultipleChoiceQuestion[]>(url);
     }
 }
