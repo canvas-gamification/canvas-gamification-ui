@@ -1,21 +1,16 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {environment} from '@environments/environment';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {Action} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserActionsService {
-    private userActionUrl = new URL(
-        '/api/user-actions/',
-        environment.apiBaseUrl
-    ).toString();
-
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
     getUserActions(options?: {
@@ -33,45 +28,18 @@ export class UserActionsService {
         if (options?.recent ?? false) {
             params = params.set('ordering', '-time_modified');
         }
-
+        const url = this.apiService.getURL('user-actions');
         return this.http
-            .get<PaginatedResult<Action>>(this.userActionUrl, {params})
-            .pipe(
-                catchError(
-                    this.handleError<PaginatedResult<Action>>(
-                        `getAllUserActions`
-                    )
-                )
-            );
+            .get<PaginatedResult<Action>>(url, {params})
+            .pipe(catchError(this.apiService.handleError<PaginatedResult<Action>>(`Error occurred while fetching user actions`)));
     }
 
     getUserAction(actionId: number): Observable<Action> {
         const params = new HttpParams();
 
-        const url = `${this.userActionUrl}${actionId}/`;
+        const url = this.apiService.getURL('user-actions', actionId);
         return this.http
             .get<Action>(url, {params})
-            .pipe(
-                catchError(
-                    this.handleError<Action>(
-                        `getUserAction`
-                    )
-                )
-            );
-    }
-
-    /**
-     * Handle Http operation that failed.
-     * Let the app continue.
-     * @param operation - name of the operation that failed
-     * @param result - optional value to return as the observable result
-     */
-    private handleError<T>(operation?, result?: T) {
-        return (error: string): Observable<T> => {
-            // TODO: send the error to remote logging infrastructure
-            console.error(error); // log to console instead
-            // Let the app keep running by returning an empty result.
-            return of(result as T);
-        };
+            .pipe(catchError(this.apiService.handleError<Action>(`Error occurred while getting user action`)));
     }
 }
