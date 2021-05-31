@@ -1,31 +1,32 @@
 import {Injectable} from '@angular/core';
-import {environment} from '@environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {map} from 'rxjs/operators';
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class SubmissionService {
-    private submissionUrl = new URL('api/submission/', environment.apiBaseUrl).toString();
-    private answerSubmissionUrl = new URL('api/submission/submit/', environment.apiBaseUrl).toString();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
     getSubmission(id: number): Observable<QuestionSubmission> {
-        return this.http.get<QuestionSubmission>(`${this.submissionUrl}${id}/`);
+        const url = this.apiService.getURL('submission', id);
+        return this.http.get<QuestionSubmission>(url);
     }
 
     getPreviousSubmissions(id: number): Observable<QuestionSubmission[]> {
+        const url = this.apiService.getURL('submission');
         const params = new HttpParams().set('question', String(id));
-        return this.http.get<QuestionSubmission[]>(this.submissionUrl, {params});
+        return this.http.get<QuestionSubmission[]>(url, {params});
     }
 
     postQuestionSubmission(input: { question: number, solution: unknown }): Observable<string> {
-        return this.http.post(this.answerSubmissionUrl, input, {responseType: 'text'}).pipe(
+        const url = this.apiService.getURL('submission', 'submit');
+        return this.http.post(url, input, {responseType: 'text'}).pipe(
             map(
                 (response) => {
                     if (response) {
