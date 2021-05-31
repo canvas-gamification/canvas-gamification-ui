@@ -97,7 +97,7 @@
                 <a class="action-icon btn btn-warning faPencilAlt mr-2" routerLink="/problem/{{question.id}}/edit">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                 </a>
-                <ng-container *ngIf="question.author_name === user?.username; else cannotDelete">
+                <ng-container *ngIf="question.is_author; else cannotDelete">
                     <a class="action-icon btn btn-danger faTrashAlt" [routerLink]=""
                        (click)="open(deleteModal, question.id)">
                         <fa-icon [icon]="faTrashAlt"></fa-icon>
