@@ -18,6 +18,9 @@ export class TokenUseService {
         const headers = new HttpHeaders({'Content-Type': 'application/json'});
         const url = this.apiService.getURL('token-use', 'use', courseId);
         return this.http.post<APIResponse>(url, tokenActions, {headers})
-            .pipe(catchError(this.apiService.handleError<APIResponse>(`Error occurred while attempting to use tokens`)));
+            .pipe(catchError(this.apiService.handleError<APIResponse>(`Error occurred while attempting to use tokens`, {
+                success: false,
+                bad_request: true
+            })));
     }
 }

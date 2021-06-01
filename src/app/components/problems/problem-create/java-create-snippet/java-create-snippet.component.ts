@@ -74,7 +74,6 @@ export class JavaCreateSnippetComponent implements OnInit {
             .subscribe((result) => {
                 if(result.success != false)
                     this.toastr.success('The Question has been Created Successfully.');
-                window.scroll(0, 0);
             });
     }
 }

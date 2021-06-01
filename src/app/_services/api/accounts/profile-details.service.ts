@@ -17,11 +17,11 @@ export class ProfileDetailsService {
         first_name: string,
         last_name: string,
         email: string
-    }, id: number): Observable<string> {
+    }, id: number): Observable<User> {
         const url = this.apiService.getURL('update-profile', id);
         return this.http
-            .put(url, input, {responseType: 'text'})
-            .pipe(catchError(this.apiService.handleError<string>(`There was a problem updating your profile details`)));
+            .put<User>(url, input)
+            .pipe(catchError(this.apiService.handleError<User>(`There was a problem updating your profile details`)));
     }
 
     getProfileDetails(): Observable<User> {

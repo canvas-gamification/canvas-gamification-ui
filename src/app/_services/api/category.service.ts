@@ -17,7 +17,7 @@ export class CategoryService {
         const url = this.apiService.getURL('question-category');
         return this.http
             .get<Category[]>(url)
-            .pipe(catchError(this.apiService.handleError<Category[]>('Error occurred while fetching categories')));
+            .pipe(catchError(this.apiService.handleError<Category[]>('Error occurred while fetching categories',[])));
     }
 
     getCategory(categoryId: number): Observable<Category> {

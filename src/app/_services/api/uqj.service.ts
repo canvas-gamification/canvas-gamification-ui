@@ -36,7 +36,7 @@ export class UqjService {
 
         return this.http
             .get<PaginatedResult<UQJ>>(url, {params})
-            .pipe(catchError(this.apiService.handleError<PaginatedResult<UQJ>>(`Error occurred while fetching UQJs`)));
+            .pipe(catchError(this.apiService.handleError<PaginatedResult<UQJ>>(`Error occurred while fetching user-specific questions`)));
     }
 
     getUQJ(uqjId: number): Observable<UQJ> {
@@ -44,7 +44,7 @@ export class UqjService {
         const url = this.apiService.getURL('uqj', uqjId);
         return this.http
             .get<UQJ>(url, {params})
-            .pipe(catchError(this.apiService.handleError<UQJ>(`Error occurred while fetching UQJ`)));
+            .pipe(catchError(this.apiService.handleError<UQJ>(`Error occurred while fetching user-specific questions`)));
     }
 
     getUQJByQuestion(questionId: number): Observable<UQJ> {
@@ -54,6 +54,6 @@ export class UqjService {
         return this.http
             .get<PaginatedResult<UQJ>>(url, {params})
             .pipe(map(x => x.results[0]))
-            .pipe(catchError(this.apiService.handleError<UQJ>(`Error Occurred while fetching UQJ for this question`)));
+            .pipe(catchError(this.apiService.handleError<UQJ>(`Error Occurred while fetching user-specific data for this question`)));
     }
 }

@@ -22,12 +22,13 @@ export class ConsentService {
     }): Observable<UserConsent> {
         const url = this.apiService.getURL('user-consent');
         return this.http
-            .post<UserConsent>(url, input, {responseType: 'json'})
-            .pipe(catchError(this.apiService.handleError<UserConsent>(``)));
+            .post<UserConsent>(url, input)
+            .pipe(catchError(this.apiService.handleError<UserConsent>()));
     }
 
     getConsent(): Observable<UserConsent[]> {
         const url = this.apiService.getURL('user-consent');
-        return this.http.get<UserConsent[]>(url);
+        return this.http.get<UserConsent[]>(url)
+            .pipe(catchError(this.apiService.handleError<UserConsent[]>()));
     }
 }

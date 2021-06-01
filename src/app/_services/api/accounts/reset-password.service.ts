@@ -20,6 +20,9 @@ export class ResetPasswordService {
     }): Observable<APIResponse> {
         const url = this.apiService.getURL('reset-password');
         return this.http.post<APIResponse>(url, input)
-            .pipe(catchError(this.apiService.handleError<APIResponse>(``, {success: false, bad_request: true})));
+            .pipe(catchError(this.apiService.handleError<APIResponse>(`There was an error while changing your password`, {
+                success: false,
+                bad_request: true
+            })));
     }
 }

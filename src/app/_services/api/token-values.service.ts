@@ -20,13 +20,13 @@ export class TokenValuesService {
         const url = this.apiService.getURL('token-values');
         return this.http
             .get<TokenValue[]>(url)
-            .pipe(catchError(this.apiService.handleError<TokenValue[]>('Error occurred while fetching token values')));
+            .pipe(catchError(this.apiService.handleError<TokenValue[]>('Error occurred while fetching token values',[])));
     }
 
     getNestedTokenValues(): Observable<NestedTokenValue[]> {
         const url = this.apiService.getURL('token-values', 'nested');
         return this.http.get<NestedTokenValue[]>(url)
-            .pipe(catchError(this.apiService.handleError<NestedTokenValue[]>('Error occurred while fetching nested token values')));
+            .pipe(catchError(this.apiService.handleError<NestedTokenValue[]>('Error occurred while fetching nested token values',[])));
     }
 
     updateTokenValue(tokenValue: TokenValue): Observable<TokenValue> {

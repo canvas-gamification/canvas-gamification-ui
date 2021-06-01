@@ -46,6 +46,6 @@ export class CourseEventService {
         const url = this.apiService.getURL('event', 'get-event-types');
         return this.http
             .get<EventType[]>(url)
-            .pipe(catchError(this.apiService.handleError<EventType[]>(``)));
+            .pipe(catchError(this.apiService.handleError<EventType[]>(`Error occurred while fetching event types`)));
     }
 }
