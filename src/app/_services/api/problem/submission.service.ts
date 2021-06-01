@@ -11,22 +11,34 @@ import {map} from 'rxjs/operators';
 export class SubmissionService {
     private submissionUrl = new URL('api/submission/', environment.apiBaseUrl).toString();
     private answerSubmissionUrl = new URL('api/submission/submit/', environment.apiBaseUrl).toString();
-    private submissionOrdering = 'submission_time';
 
     constructor(private http: HttpClient) {
     }
 
+    /**
+     * Get a single submission
+     * @param id - The id of the question
+     */
     getSubmission(id: number): Observable<QuestionSubmission> {
         return this.http.get<QuestionSubmission>(`${this.submissionUrl}${id}/`);
     }
 
-    getPreviousSubmissions(id: number): Observable<QuestionSubmission[]> {
-        const params = new HttpParams()
-            .set('question', String(id))
-            .set('ordering', this.submissionOrdering);
+    /**
+     * Get previous submissions for a question.
+     * @param id - The id of the question
+     * @param options - An object of options for this request
+     */
+    getPreviousSubmissions(id: number, options?: { ordering?: string }): Observable<QuestionSubmission[]> {
+        let params = new HttpParams().set('question', String(id));
+        const {ordering = {}} = options ? options : {};
+        params = params.set('ordering', String(ordering));
         return this.http.get<QuestionSubmission[]>(this.submissionUrl, {params});
     }
 
+    /**
+     * Send a post request of the submission for a question
+     * @param input
+     */
     postQuestionSubmission(input: { question: number, solution: unknown }): Observable<string> {
         return this.http.post(this.answerSubmissionUrl, input, {responseType: 'text'}).pipe(
             map(
