@@ -43,9 +43,7 @@ export class CourseRegisterComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private courseService: CourseService,
                 private toastr: ToastrService) {
-        this.route.params.subscribe(params => {
-            this.courseId = params.courseId;
-        });
+        this.courseId = this.route.snapshot.params.courseId
         this.needsStudentNumber = false;
         this.verification = false;
         this.completed = false;
