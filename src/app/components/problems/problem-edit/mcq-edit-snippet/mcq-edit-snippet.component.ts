@@ -112,14 +112,14 @@ export class McqEditSnippetComponent implements OnInit {
     }
 
     removeChoice(index: number): void {
-        this.distractors.splice(index, 1)
+        this.distractors.splice(index, 1);
     }
 
     convertChoices(): void {
-        this.distractors = []
+        this.distractors = [];
         for (const choice in this.questionDetails.choices) {
             if (choice === this.questionDetails.answer)
-                this.answerText = this.questionDetails.choices[choice]
+                this.answerText = this.questionDetails.choices[choice];
             else
                 this.distractors.push({text: this.questionDetails.choices[choice]});
         }

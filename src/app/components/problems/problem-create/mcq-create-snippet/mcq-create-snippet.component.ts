@@ -43,7 +43,7 @@ export class McqCreateSnippetComponent implements OnInit {
         });
 
         this.distractors = [];
-        this.addChoice()
+        this.addChoice();
 
         this.mcqFormData = this.formBuilder.group({
             title: new FormControl(''),
@@ -87,6 +87,6 @@ export class McqCreateSnippetComponent implements OnInit {
     }
 
     removeChoice(index: number): void {
-        this.distractors.splice(index, 1)
+        this.distractors.splice(index, 1);
     }
 }

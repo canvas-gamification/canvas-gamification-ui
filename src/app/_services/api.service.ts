@@ -18,9 +18,9 @@ export class ApiService {
     getURL(...names: (string | number)[]): string {
         let relativeURL = '/api';
         for (const i in names) {
-            relativeURL = Location.joinWithSlash(relativeURL, String(names[i]))
+            relativeURL = Location.joinWithSlash(relativeURL, String(names[i]));
         }
-        relativeURL = Location.joinWithSlash(relativeURL, '/')
+        relativeURL = Location.joinWithSlash(relativeURL, '/');
         return new URL(relativeURL, environment.apiBaseUrl).toString();
     }
 
@@ -41,7 +41,7 @@ export class ApiService {
             showMessage?: boolean
         }
     ): (error: HttpErrorResponse) => Observable<T> {
-        const {redirect403 = false, redirect404 = false, redirect = [], showMessage = true} = options ? options : {}
+        const {redirect403 = false, redirect404 = false, redirect = [], showMessage = true} = options ? options : {};
         return (error): Observable<T> => {
 
             if (redirect404 && error.status === 404)
@@ -49,7 +49,7 @@ export class ApiService {
             else if (redirect403 && error.status === 403)
                 this.router.navigate(['/403'], {skipLocationChange: true}).then();
             else if (redirect)
-                this.router.navigate(redirect).then()
+                this.router.navigate(redirect).then();
 
             if (showMessage)
                 this.toastr.error( message || error.statusText);
