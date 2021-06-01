@@ -1,24 +1,19 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
+
+import {ChangePasswordService} from "@app/_services/api/accounts/change-password.service";
 import {TestModule} from '@test/test.module';
-import {ChangePasswordComponent} from "@app/components/accounts/change-password/change-password.component";
 
-describe('ChangePasswordComponent', () => {
-    let component: ChangePasswordComponent;
-    let fixture: ComponentFixture<ChangePasswordComponent>;
-
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            imports: [TestModule]
-        }).compileComponents();
-    });
+describe('ChangePasswordService', () => {
+    let service: ChangePasswordService;
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ChangePasswordComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
+        TestBed.configureTestingModule({
+            imports: [TestModule]
+        });
+        service = TestBed.inject(ChangePasswordService);
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
+    it('should be created', () => {
+        expect(service).toBeTruthy();
     });
 });
