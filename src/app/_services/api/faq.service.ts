@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Faq} from '@app/_models/faq';
+import {FAQ} from '@app/_models/faq';
 import {Observable, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
@@ -14,10 +14,10 @@ export class FaqService {
     constructor(private http: HttpClient) {
     }
 
-    getFaqs(): Observable<Faq[]> {
+    getFaqs(): Observable<FAQ[]> {
         return this.http
-            .get<Faq[]>(this.faqsUrl)
-            .pipe(catchError(this.handleError<Faq[]>('getFaq', [])));
+            .get<FAQ[]>(this.faqsUrl)
+            .pipe(catchError(this.handleError<FAQ[]>('getFaq', [])));
     }
 
     /**
