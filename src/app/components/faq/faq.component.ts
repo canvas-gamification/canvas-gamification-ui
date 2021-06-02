@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FaqService} from '@app/_services/api/faq.service';
-import {FAQ} from '@app/_models/FAQ';
+import {FAQ} from '@app/_models/faq';
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
