@@ -24,4 +24,5 @@ export interface UQJ {
     rendered_lines: [];
     status_class: string;
     input_files: [];
+    is_checkbox: boolean;
 }

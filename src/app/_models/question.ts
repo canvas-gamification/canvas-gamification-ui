@@ -34,4 +34,5 @@ export interface Question {
     is_exam: boolean;
     is_exam_and_open: boolean;
     visible_distractor_count: number;
+    is_checkbox: boolean;
 }
