@@ -64,6 +64,7 @@ export const MOCK_QUESTION: Question = {
     token_value: 5,
     type_name: '',
     visible_distractor_count: 1,
+    is_author: true
 };
 
 export const MOCK_UQJ: UQJ = {
