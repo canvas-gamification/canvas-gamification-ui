@@ -1,21 +1,16 @@
 import {Injectable} from '@angular/core';
-import {environment} from '@environments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {UQJ} from '@app/_models/uqj';
 import {PaginatedResult} from '@app/_models/paginatedResult';
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UqjService {
-    private userUqjUrl = new URL(
-        '/api/uqj/',
-        environment.apiBaseUrl
-    ).toString();
-
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
     getUQJs(options?: {
@@ -25,6 +20,7 @@ export class UqjService {
         pageSize?: number,
         recent?: boolean
     }): Observable<PaginatedResult<UQJ>> {
+        const url = this.apiService.getURL('uqj');
         const {filters = {}, page = 1, pageSize = 50} = options ? options : {};
         let params = new HttpParams()
             .set('page', String(page))
@@ -39,59 +35,25 @@ export class UqjService {
         }
 
         return this.http
-            .get<PaginatedResult<UQJ>>(this.userUqjUrl, {params})
-            .pipe(
-                catchError(
-                    this.handleError<PaginatedResult<UQJ>>(
-                        `getAllUserUQJ`
-                    )
-                )
-            );
+            .get<PaginatedResult<UQJ>>(url, {params})
+            .pipe(catchError(this.apiService.handleError<PaginatedResult<UQJ>>(`Error occurred while fetching user-specific questions`)));
     }
 
     getUQJ(uqjId: number): Observable<UQJ> {
         const params = new HttpParams();
-
-        const url = `${this.userUqjUrl}${uqjId}/`;
+        const url = this.apiService.getURL('uqj', uqjId);
         return this.http
             .get<UQJ>(url, {params})
-            .pipe(
-                catchError(
-                    this.handleError<UQJ>(
-                        `getUserUQJ`
-                    )
-                )
-            );
+            .pipe(catchError(this.apiService.handleError<UQJ>(`Error occurred while fetching user-specific questions`)));
     }
 
     getUQJByQuestion(questionId: number): Observable<UQJ> {
         const params = new HttpParams()
             .set('question', String(questionId));
-        const url = `${this.userUqjUrl}`;
+        const url = this.apiService.getURL('uqj');
         return this.http
             .get<PaginatedResult<UQJ>>(url, {params})
             .pipe(map(x => x.results[0]))
-            .pipe(
-                catchError(
-                    this.handleError<UQJ>(
-                        `getUserUQJ`
-                    )
-                )
-            );
-    }
-
-    /**
-     * Handle Http operation that failed.
-     * Let the app continue.
-     * @param operation - name of the operation that failed
-     * @param result - optional value to return as the observable result
-     */
-    private handleError<T>(operation?, result?: T) {
-        return (error: string): Observable<T> => {
-            // TODO: send the error to remote logging infrastructure
-            console.error(error); // log to console instead
-            // Let the app keep running by returning an empty result.
-            return of(result as T);
-        };
+            .pipe(catchError(this.apiService.handleError<UQJ>(`Error Occurred while fetching user-specific data for this question`)));
     }
 }

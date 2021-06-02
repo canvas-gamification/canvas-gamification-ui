@@ -80,12 +80,9 @@ export class McqEditSnippetComponent implements OnInit {
     onSubmit(formData: FormGroup): void {
         const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe(() => {
-                this.toastr.success('The Question has been Updated Successfully.');
-                window.scroll(0, 0);
-            }, error => {
-                this.toastr.error(error);
-                console.warn(error);
+            .subscribe((result) => {
+                if(result.success != false)
+                    this.toastr.success('The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             });
     }
@@ -115,14 +112,14 @@ export class McqEditSnippetComponent implements OnInit {
     }
 
     removeChoice(index: number): void {
-        this.distractors.splice(index, 1)
+        this.distractors.splice(index, 1);
     }
 
     convertChoices(): void {
-        this.distractors = []
+        this.distractors = [];
         for (const choice in this.questionDetails.choices) {
             if (choice === this.questionDetails.answer)
-                this.answerText = this.questionDetails.choices[choice]
+                this.answerText = this.questionDetails.choices[choice];
             else
                 this.distractors.push({text: this.questionDetails.choices[choice]});
         }

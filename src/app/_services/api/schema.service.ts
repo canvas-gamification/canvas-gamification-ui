@@ -1,18 +1,20 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '@environments/environment';
+import {ApiService} from "@app/_services/api.service";
+import {catchError} from "rxjs/operators";
 
 @Injectable({
     providedIn: 'root'
 })
 export class SchemaService {
-    private schemaUrl = new URL('/api/schema/', environment.apiBaseUrl).toString();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
     getSchema(name: string): Observable<unknown> {
-        return this.http.get(this.schemaUrl + name + '/');
+        const url = this.apiService.getURL('schema', name);
+        return this.http.get(url)
+            .pipe(catchError(this.apiService.handleError()));
     }
 }

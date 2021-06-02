@@ -1,4 +1,5 @@
 import {Question} from '@app/_models/question';
+import {SafeHtml} from "@angular/platform-browser";
 
 export interface QuestionSubmission {
     pk: number;
@@ -25,4 +26,5 @@ export interface QuestionSubmission {
     show_answer: boolean;
     show_detail: boolean;
     status_color: string;
+    safeAnswer: SafeHtml;
 }

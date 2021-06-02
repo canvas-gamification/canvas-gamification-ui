@@ -17,7 +17,7 @@ describe('SubmissionSnippetComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(SubmissionSnippetComponent);
         component = fixture.componentInstance;
-        component.previousSubmissions = [MOCK_QUESTION_SUBMISSION]
+        component.previousSubmissions = [MOCK_QUESTION_SUBMISSION];
         fixture.detectChanges();
     });
 

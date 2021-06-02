@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Action} from '@app/_models/action';
 import {UserActionsService} from '@app/_services/api/user-actions.service';
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-recent-user-actions',
@@ -12,7 +13,7 @@ export class RecentUserActionsComponent implements OnInit {
 
     constructor(
         private userActionService: UserActionsService,
-    ) {
+        private sanitizer: DomSanitizer) {
     }
 
     ngOnInit(): void {
@@ -20,6 +21,9 @@ export class RecentUserActionsComponent implements OnInit {
             .getUserActions({recent: true, pageSize: 5})
             ?.subscribe((paginatedActions) => {
                 this.userActions = paginatedActions.results;
+                this.userActions.forEach((userAction: Action) => {
+                    userAction.safeDescription = this.sanitizer.bypassSecurityTrustHtml(userAction.description);
+                });
             });
     }
 

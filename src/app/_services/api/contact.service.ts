@@ -1,30 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
-import {environment} from '@environments/environment';
+import {catchError} from 'rxjs/operators';
 import {Observable} from "rxjs";
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ContactService {
-    private contactUsAPIUrl = new URL('/api/contact-us/', environment.apiBaseUrl).toString();
-
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
     postMessage(input: { fullname: string, email: string, comment: string, recaptcha_key: string }): Observable<string> {
-        return this.http.post(this.contactUsAPIUrl, input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+        const url = this.apiService.getURL('contact-us');
+        return this.http.post<string>(url, input)
+            .pipe(catchError(this.apiService.handleError<string>('Error occurred while sending message')));
     }
 }
