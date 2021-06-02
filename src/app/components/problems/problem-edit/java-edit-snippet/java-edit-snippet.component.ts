@@ -76,12 +76,9 @@ export class JavaEditSnippetComponent implements OnInit {
     onSubmit(formData: FormGroup): void {
         const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData.value, this.variables, this.inputFileNames, this.questionText);
         this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe(() => {
-                this.toastr.success('The Question has been Updated Successfully.');
-                window.scroll(0, 0);
-            }, error => {
-                this.toastr.error(error);
-                console.warn(error);
+            .subscribe((result) => {
+                if(result.success != false)
+                    this.toastr.success('The Question has been updated Successfully.');
                 window.scroll(0, 0);
             });
     }

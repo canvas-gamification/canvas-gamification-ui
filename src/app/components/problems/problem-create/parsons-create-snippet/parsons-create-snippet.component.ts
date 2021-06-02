@@ -55,12 +55,9 @@ export class ParsonsCreateSnippetComponent implements OnInit {
     onSubmit(formData: FormGroup): void {
         const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData.value, this.variables, this.questionText);
         this.questionService.postParsonsQuestion(submissionRequest)
-            .subscribe(() => {
-                this.toastr.success('The Question has been Created Successfully.');
-                window.scroll(0, 0);
-            }, error => {
-                this.toastr.error(error);
-                console.warn(error);
+            .subscribe((result) => {
+                if(result.success != false)
+                    this.toastr.success('The Question has been Created Successfully.');
                 window.scroll(0, 0);
             });
 

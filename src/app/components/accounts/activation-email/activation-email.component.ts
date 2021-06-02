@@ -28,12 +28,11 @@ export class ActivationEmailComponent implements OnInit {
         });
 
         this.registerService.postActivation(this.uuid, this.token)
-            .subscribe(() => {
-                this.toastr.success('You have activated your account successfully.');
-                this.router.navigate(['/accounts/login']).then();
-            }, error => {
-                this.toastr.error(error);
-                this.router.navigate(['/accounts/login']).then();
+            .subscribe((result) => {
+                if (result.success) {
+                    this.toastr.success('You have activated your account successfully.');
+                    this.router.navigate(['/accounts/login']).then();
+                }
             });
     }
 

@@ -98,9 +98,9 @@ export class ProblemSetComponent implements OnInit {
         });
         this.difficultyService.getDifficulties().subscribe((difficulties) => this.difficulties = difficulties);
         this.formData.controls['parentCategory'].valueChanges.subscribe((value) => {
-            const parentCategoryPK = this.categories.filter(c => c.name === value)[0].pk
-            this.subCategories = this.categories.filter(c => c.parent === parentCategoryPK)
-        })
+            const parentCategoryPK = this.categories.filter(c => c.name === value)[0].pk;
+            this.subCategories = this.categories.filter(c => c.parent === parentCategoryPK);
+        });
     }
 
     initialize(): void {

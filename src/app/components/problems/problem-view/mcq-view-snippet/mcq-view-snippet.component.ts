@@ -40,13 +40,10 @@ export class McqViewSnippetComponent implements OnInit {
 
     onSubmit(formData: { question: number, solution: unknown }): void {
         this.submissionService.postQuestionSubmission(formData)
-            .subscribe(() => {
-                this.toastr.success('The Question has been Submitted Successfully.');
-                window.scroll(0, 0);
-            }, error => {
-                this.toastr.error(error);
-                console.warn(error);
-                window.scroll(0, 0);
+            .subscribe((result) => {
+                console.log(result);
+                if (result.success != false)
+                    this.toastr.success('The Question has been Submitted Successfully.');
             });
     }
 

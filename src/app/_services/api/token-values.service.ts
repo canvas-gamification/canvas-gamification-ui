@@ -1,55 +1,43 @@
 import {Injectable} from '@angular/core';
 import {NestedTokenValue, TokenValue} from '@app/_models';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
-import {environment} from '@environments/environment';
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root',
 })
 export class TokenValuesService {
-    private tokenValuesUrl = new URL('/api/token-values/', environment.apiBaseUrl).toString();
 
     constructor(
         private http: HttpClient,
+        private apiService: ApiService
     ) {
     }
 
     getTokenValues(): Observable<TokenValue[]> {
+        const url = this.apiService.getURL('token-values');
         return this.http
-            .get<TokenValue[]>(this.tokenValuesUrl)
-            .pipe(catchError(this.handleError<TokenValue[]>('getTokenValues', [])));
+            .get<TokenValue[]>(url)
+            .pipe(catchError(this.apiService.handleError<TokenValue[]>('Error occurred while fetching token values',[])));
     }
 
     getNestedTokenValues(): Observable<NestedTokenValue[]> {
-        return this.http.get<NestedTokenValue[]>(`${this.tokenValuesUrl}nested/`)
-            .pipe(catchError(this.handleError<NestedTokenValue[]>('getNestedTokenValues', [])));
+        const url = this.apiService.getURL('token-values', 'nested');
+        return this.http.get<NestedTokenValue[]>(url)
+            .pipe(catchError(this.apiService.handleError<NestedTokenValue[]>('Error occurred while fetching nested token values',[])));
     }
 
     updateTokenValue(tokenValue: TokenValue): Observable<TokenValue> {
-        return this.http.put<TokenValue>(this.tokenValuesUrl + tokenValue.pk + '/', tokenValue).pipe(
-            catchError(this.handleError<TokenValue>('updateTokenValue', tokenValue))
-        );
+        const url = this.apiService.getURL('token-values', tokenValue.pk);
+        return this.http.put<TokenValue>(url, tokenValue).pipe(
+            catchError(this.apiService.handleError<TokenValue>('Error occurred while updating token value')));
     }
 
     updateBulk(data: { id: number, value: number }[]): Observable<unknown> {
-        return this.http.patch(`${this.tokenValuesUrl}update-bulk/`, {data})
-            .pipe(catchError(this.handleError('updateBulk')));
-    }
-
-    /**
-     * Handle Http operation that failed.
-     * Let the app continue.
-     * @param operation - name of the operation that failed
-     * @param result - optional value to return as the observable result
-     */
-    private handleError<T>(operation?, result?: T) {
-        return (error: string): Observable<T> => {
-            // TODO: send the error to remote logging infrastructure
-            console.error(error); // log to console instead
-            // Let the app keep running by returning an empty result.
-            return of(result as T);
-        };
+        const url = this.apiService.getURL('token-values', 'update-bulk');
+        return this.http.patch(url, {data})
+            .pipe(catchError(this.apiService.handleError('Error occurred while updating token values')));
     }
 }
