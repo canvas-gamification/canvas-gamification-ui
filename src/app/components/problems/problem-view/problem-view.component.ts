@@ -29,7 +29,7 @@ export class ProblemViewComponent implements OnInit {
             this.uqj = uqj;
         });
 
-        this.submissionService.getPreviousSubmissions(questionId).subscribe(submissions => {
+        this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}).subscribe(submissions => {
             this.previousSubmissions = submissions;
         });
 

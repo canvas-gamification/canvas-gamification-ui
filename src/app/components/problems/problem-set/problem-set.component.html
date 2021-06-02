@@ -94,12 +94,20 @@
                 <a class="action-icon btn-primary faEye mr-2" routerLink="/problem/{{question.id}}">
                     <fa-icon [icon]="faEye"></fa-icon>
                 </a>
-                <a class="action-icon btn-warning faPencilAlt mr-2" routerLink="/problem/{{question.id}}/edit">
+                <a class="action-icon btn btn-warning faPencilAlt mr-2" routerLink="/problem/{{question.id}}/edit">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                 </a>
-                <a class="action-icon btn-danger faTrashAlt" [routerLink]="" (click)="open(deleteModal, question.id)">
-                    <fa-icon [icon]="faTrashAlt"></fa-icon>
-                </a>
+                <ng-container *ngIf="question.is_author; else cannotDelete">
+                    <a class="action-icon btn btn-danger faTrashAlt" [routerLink]=""
+                       (click)="open(deleteModal, question.id)">
+                        <fa-icon [icon]="faTrashAlt"></fa-icon>
+                    </a>
+                </ng-container>
+                <ng-template #cannotDelete>
+                    <a class="action-icon btn btn-danger faTrashAlt disabled" [routerLink]="">
+                        <fa-icon [icon]="faTrashAlt"></fa-icon>
+                    </a>
+                </ng-template>
             </div>
         </td>
     </ng-container>
