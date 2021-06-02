@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {QuestionSubmission} from '@app/_models/question_submission';
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-submission-snippet',
@@ -9,7 +10,13 @@ import {QuestionSubmission} from '@app/_models/question_submission';
 export class SubmissionSnippetComponent implements OnInit {
     @Input() previousSubmissions: QuestionSubmission[];
 
-    ngOnInit(): void {
-        this.previousSubmissions.reverse();
+    constructor(private sanitizer: DomSanitizer) {
     }
+
+    ngOnInit(): void {
+        this.previousSubmissions.forEach((previousSubmission) => {
+            previousSubmission.safeAnswer = this.sanitizer.bypassSecurityTrustHtml(previousSubmission.answer_display);
+        });
+    }
+
 }

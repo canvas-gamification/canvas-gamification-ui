@@ -117,4 +117,5 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     show_answer: false,
     show_detail: true,
     status_color: '',
+    safeAnswer: ''
 };
