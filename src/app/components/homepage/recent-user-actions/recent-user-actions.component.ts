@@ -13,7 +13,7 @@ export class RecentUserActionsComponent implements OnInit {
 
     constructor(
         private userActionService: UserActionsService,
-        public sanitizer: DomSanitizer) {
+        private sanitizer: DomSanitizer) {
     }
 
     ngOnInit(): void {
@@ -21,6 +21,9 @@ export class RecentUserActionsComponent implements OnInit {
             .getUserActions({recent: true, pageSize: 5})
             ?.subscribe((paginatedActions) => {
                 this.userActions = paginatedActions.results;
+                this.userActions.forEach((userAction: Action) => {
+                    userAction.safeDescription = this.sanitizer.bypassSecurityTrustHtml(userAction.description);
+                });
             });
     }
 

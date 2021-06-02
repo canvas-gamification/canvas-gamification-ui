@@ -3,7 +3,7 @@ import {ToastrService} from "ngx-toastr";
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/_services/api/problem/submission.service';
-import {DomSanitizer} from "@angular/platform-browser";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -13,12 +13,12 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class McqViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
     formData: FormGroup;
-    choiceArray: { id: string, value: string }[];
+    choiceArray: { id: string, value: string, safeValue: SafeHtml }[];
 
     constructor(private submissionService: SubmissionService,
                 private toastr: ToastrService,
                 private formBuilder: FormBuilder,
-                public sanitizer: DomSanitizer) {
+                private sanitizer: DomSanitizer) {
     }
 
     ngOnInit(): void {
@@ -31,7 +31,8 @@ export class McqViewSnippetComponent implements OnInit {
         for (const choice in this.uqj.rendered_choices) {
             outputArray.push({
                 id: choice,
-                value: this.uqj.rendered_choices[choice]
+                value: this.uqj.rendered_choices[choice],
+                safeValue: this.sanitizer.bypassSecurityTrustHtml(this.uqj.rendered_choices[choice])
             });
             this.choiceArray = outputArray;
         }

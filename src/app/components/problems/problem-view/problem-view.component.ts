@@ -5,7 +5,7 @@ import {UqjService} from '@app/_services/api/uqj.service';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {SubmissionService} from '@app/_services/api/problem/submission.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {DomSanitizer} from "@angular/platform-browser";
+import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-problem-view',
@@ -18,20 +18,22 @@ export class ProblemViewComponent implements OnInit {
                 private uqjService: UqjService,
                 private submissionService: SubmissionService,
                 private authenticationService: AuthenticationService,
-                public sanitizer: DomSanitizer) {
+                private sanitizer: DomSanitizer) {
     }
 
     uqj: UQJ;
     previousSubmissions: QuestionSubmission[];
     user: User;
+    safeRenderedText: SafeHtml;
 
     ngOnInit(): void {
         const questionId = this.route.snapshot.params.id;
         this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
             this.uqj = uqj;
+            this.safeRenderedText = this.sanitizer.bypassSecurityTrustHtml(this.uqj.rendered_text);
         });
 
-        this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}).subscribe(submissions => {
+        this.submissionService.getPreviousSubmissions(questionId, {ordering: '-submission_time'}).subscribe(submissions => {
             this.previousSubmissions = submissions;
         });
 

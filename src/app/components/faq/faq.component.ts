@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FaqService} from '@app/_services/api/faq.service';
-import {Faq} from '@app/_models/faq';
+import {FAQ} from '@app/_models/FAQ';
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
@@ -10,10 +10,9 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class FaqComponent implements OnInit {
 
-    faqs: Faq[];
-
+    faqs: FAQ[];
     constructor(public faqService: FaqService,
-                public sanitizer: DomSanitizer) {
+                private sanitizer: DomSanitizer) {
     }
 
     ngOnInit(): void {
@@ -21,6 +20,9 @@ export class FaqComponent implements OnInit {
             .getFaqs()
             .subscribe((faqs) => {
                 this.faqs = faqs;
+                this.faqs.forEach((faq: FAQ) => {
+                    faq.safeAnswer = this.sanitizer.bypassSecurityTrustHtml(faq.answer);
+                });
             });
     }
 
