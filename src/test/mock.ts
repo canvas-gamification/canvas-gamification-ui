@@ -64,6 +64,7 @@ export const MOCK_QUESTION: Question = {
     token_value: 5,
     type_name: '',
     visible_distractor_count: 1,
+    is_checkbox: false
 };
 
 export const MOCK_UQJ: UQJ = {
@@ -88,7 +89,8 @@ export const MOCK_UQJ: UQJ = {
     subcategory: '',
     tokens_received: 50,
     variables: JSON.parse('{}'),
-    variables_errors: []
+    variables_errors: [],
+    is_checkbox: false
 };
 
 export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
