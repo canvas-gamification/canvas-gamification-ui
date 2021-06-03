@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {QuestionService} from '@app/_services/api/question.service';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
@@ -15,8 +15,10 @@ import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
     styleUrls: ['./mcq-create-snippet.component.scss']
 })
 export class McqCreateSnippetComponent implements OnInit {
+    @Input() checkBox: boolean;
     mcqFormData: FormGroup;
     distractors: { text: string }[];
+    correctAnswers: { text: string }[];
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
@@ -43,7 +45,9 @@ export class McqCreateSnippetComponent implements OnInit {
         });
 
         this.distractors = [];
-        this.addChoice()
+        this.correctAnswers = [];
+        this.addChoice();
+        this.addAnswer();
 
         this.mcqFormData = this.formBuilder.group({
             title: new FormControl(''),
@@ -51,7 +55,6 @@ export class McqCreateSnippetComponent implements OnInit {
             course: new FormControl(''),
             event: new FormControl(''),
             category: new FormControl(''),
-            choices: new FormControl(''),
             visible_distractor_count: new FormControl(''),
         });
     }
@@ -72,7 +75,12 @@ export class McqCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(formData: FormGroup): void {
-        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
+        let submissionRequest;
+        if (!this.checkBox) {
+            submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
+        } else if (this.checkBox) {
+            submissionRequest = this.problemHelpersService.createCheckboxSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
+        }
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
             .subscribe(() => {
                 this.toastr.success('The Question has been Created Successfully.');
@@ -91,5 +99,13 @@ export class McqCreateSnippetComponent implements OnInit {
 
     removeChoice(index: number): void {
         this.distractors.splice(index, 1)
+    }
+
+    addAnswer(): void {
+        this.correctAnswers.push({text: ''});
+    }
+
+    removeAnswer(index: number): void {
+        this.correctAnswers.splice(index, 1);
     }
 }
