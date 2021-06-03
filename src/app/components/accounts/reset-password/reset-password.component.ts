@@ -34,7 +34,8 @@ export class ResetPasswordComponent implements OnInit {
                 password: new FormControl('', [Validators.required]),
                 password2: new FormControl('', [Validators.required])
             });
-        } else {
+        }
+        if (!this.emailSent) {
             this.formData = this.builder.group({
                 email: new FormControl('', [Validators.required])
             });
@@ -47,22 +48,22 @@ export class ResetPasswordComponent implements OnInit {
             token: this.token,
             ...formData.value
         })
-            .subscribe(() => {
-                this.formData.reset();
-                this.toastr.success('Your password has been updated successfully!');
-                this.router.navigate(['/accounts/login']).then();
-            }, error => {
-                this.toastr.error(error);
+            .subscribe((result) => {
+                if (result.success != false) {
+                    this.formData.reset();
+                    this.toastr.success('Your password has been updated successfully!');
+                    this.router.navigate(['/accounts/login']).then();
+                }
             });
     }
 
     submitEmail(formData: FormGroup): void {
-        this.resetPasswordService.sendEmail(formData.get('email').value)
-            .subscribe(() => {
-                this.formData.reset();
-                this.toastr.success('An email has been sent to you with a password reset link!');
-            }, error => {
-                this.toastr.error(error + '. Try checking the email you entered');
+        this.resetPasswordService.sendForgotPasswordEmail(formData.get('email').value)
+            .subscribe((result) => {
+                if (result.success != false) {
+                    this.formData.reset();
+                    this.toastr.success('An email has been sent to you with a password reset link!');
+                }
             });
     }
 }

@@ -27,33 +27,13 @@ export class ResetPasswordService {
             })));
     }
 
-    sendEmail(email: string): Observable<string> {
-        return this.http.post(`${this.resetPasswordUrl}send-email/`, {email}, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
-    }
+    sendForgotPasswordEmail(email: string): Observable<APIResponse> {
+        const url = this.apiService.getURL('reset-password', 'send-email');
+        return this.http.post<APIResponse>(url, {email})
+            .pipe(catchError(this.apiService.handleError<APIResponse>(`There was an error while sending your reset email`, {
+                success: false,
+                bad_request: true
+            })));
 
-    validateToken(uuid: string, token: string): Observable<string> {
-        return this.http.post(`${this.resetPasswordUrl}validate/`, {uuid, token}, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
     }
 }
