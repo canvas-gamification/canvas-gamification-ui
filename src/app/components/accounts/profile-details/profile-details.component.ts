@@ -46,9 +46,6 @@ export class ProfileDetailsComponent implements OnInit {
         this.profile.putProfileDetails(formData.value, this.userDetails[0].id)
             .subscribe(() => {
                 this.toastr.success('Your profile has been updated successfully!');
-            }, error => {
-                console.warn(error);
-                this.toastr.error(error);
             });
     }
 

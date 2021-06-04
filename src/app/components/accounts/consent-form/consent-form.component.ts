@@ -36,11 +36,9 @@ export class ConsentFormComponent implements OnInit {
             .subscribe(() => {
                 this.router.navigate(['../profile'], {relativeTo: this.route}).then();
                 this.toastr.success('You have successfully consented!');
-                window.scroll(0, 0);
             }, error => {
                 console.warn(error);
                 this.toastr.error(error);
-                window.scroll(0, 0);
             });
     }
 

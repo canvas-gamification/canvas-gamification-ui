@@ -64,6 +64,7 @@ export const MOCK_QUESTION: Question = {
     token_value: 5,
     type_name: '',
     visible_distractor_count: 1,
+    is_author: true
     is_checkbox: false
 };
 
@@ -118,4 +119,5 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     show_answer: false,
     show_detail: true,
     status_color: '',
+    safeAnswer: ''
 };

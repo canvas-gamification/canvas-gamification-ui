@@ -16,7 +16,7 @@ export class AceComponent implements AfterViewInit {
     ngAfterViewInit(): void {
         // Temporary fix the base path error of ace editor
         // Currently no solutions could be found
-        config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.4.8/src-noconflict/')
+        config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.4.8/src-noconflict/');
 
         this.editor.setTheme('monokai');
         this.editor.setMode('java');

@@ -21,6 +21,7 @@
             "rules": {
                 "guard-for-in": "off",
                 "indent": ["error", 4],
+                "semi": [2, "always"],
                 "camelcase": "off",
                 "@angular-eslint/prefer-on-push-component-change-detection": "off",
                 "@typescript-eslint/no-empty-interface": "off",
