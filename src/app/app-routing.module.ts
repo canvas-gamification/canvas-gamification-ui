@@ -28,7 +28,7 @@ import {ActivationEmailComponent} from '@app/components/accounts/activation-emai
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 import {NotFoundComponent} from "@app/components/general/not-found/not-found.component";
 import {ForbiddenComponent} from "@app/components/general/forbidden/forbidden.component";
-import {ImportExportQuestionsComponent} from "@app/components/import-export-questions/import-export-questions.component";
+import {ImportExportQuestionsComponent} from "@app/components/problems/import-export-questions/import-export-questions.component";
 
 
 const routes: Routes = [

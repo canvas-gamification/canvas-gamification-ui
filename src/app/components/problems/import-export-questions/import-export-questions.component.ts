@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionService} from "@app/_services/api/question.service";
 import {Question} from "@app/_models";
+import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {ToastrService} from "ngx-toastr";
+import {CategoryService} from "@app/_services/api/category.service";
+import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
 
 @Component({
     selector: 'app-import-export-questions',
@@ -9,40 +13,33 @@ import {Question} from "@app/_models";
 })
 export class ImportExportQuestionsComponent implements OnInit {
     private parsedQuestions : Question[];
-    private elem = {
-        element: {
-            dynamicDownload: null as HTMLElement
-        }
-    }
+    jsonUri: SafeUrl;
+    filename: string;
 
-    constructor(private questionService: QuestionService) {
+    constructor(private toastr: ToastrService,
+                private questionService: QuestionService,
+                private categoryService: CategoryService,
+                private difficultyService: DifficultyService,
+                private sanitizer: DomSanitizer) {
     }
 
     ngOnInit(): void {
-        console.log('');
-    }
 
-    downloadJson(): void {
+        this.filename = '';
         this.questionService.getQuestions().subscribe((result) => {
-            this.downloadHTMLTag({
-                fileName: 'questions.json',
+            this.generateJSONURI({
+                filename: 'questions.json',
                 text: JSON.stringify(result)
             });
         });
     }
 
-    private downloadHTMLTag(arg: {
-        fileName: string,
+    private generateJSONURI(arg: {
+        filename: string,
         text: string
     }) {
-        if (!this.elem.element.dynamicDownload) {
-            this.elem.element.dynamicDownload = document.createElement('a');
-        }
-        const element = this.elem.element.dynamicDownload;
-        const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
-        element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
-        element.setAttribute('download', arg.fileName);
-        element.dispatchEvent(new MouseEvent("click"));
+        this.filename = arg.filename;
+        this.jsonUri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(arg.text));
     }
 
     onFileChanged(target: EventTarget): void {
@@ -53,10 +50,11 @@ export class ImportExportQuestionsComponent implements OnInit {
             if (typeof fileReader.result === "string") {
                 this.parsedQuestions = JSON.parse(fileReader.result);
             }
-        }
+        };
         fileReader.onerror = (error) => {
             console.log(error);
-        }
+            this.toastr.error('Error occurred while reading file');
+        };
     }
 
     uploadQuestions() : void{
