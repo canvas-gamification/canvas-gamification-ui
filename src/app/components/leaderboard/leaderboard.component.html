@@ -1,1 +1,12 @@
+
 <p>leaderboard works!</p>
+<h1>{{ value }}</h1>
+
+
+<table *ngFor="let user of users">
+    <tr>
+        <td>{{user.user}}</td>
+        <td>{{user.tokens}}</td>
+    </tr>
+</table>
+
