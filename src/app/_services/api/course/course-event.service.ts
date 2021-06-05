@@ -1,65 +1,51 @@
 import {Injectable} from '@angular/core';
 import {CourseEvent, EventType} from '@app/_models';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
-import {environment} from '@environments/environment';
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root',
 })
 export class CourseEventService {
-    private courseEventUrl = new URL('/api/event/', environment.apiBaseUrl).toString();
-
     constructor(
         private http: HttpClient,
+        private apiService: ApiService
     ) {
     }
 
     getCourseEvent(courseEventId: number): Observable<CourseEvent> {
+        const url = this.apiService.getURL('event', courseEventId);
         return this.http
-            .get<CourseEvent>(`${this.courseEventUrl}${courseEventId}/`)
-            .pipe(catchError(this.handleError<CourseEvent>('getCourseEvent')));
+            .get<CourseEvent>(url)
+            .pipe(catchError(this.apiService.handleError<CourseEvent>(`Error occurred while fetching Course Event`)));
     }
 
     deleteCourseEvent(courseEventId: number): Observable<CourseEvent> {
+        const url = this.apiService.getURL('event', courseEventId);
         return this.http
-            .delete<CourseEvent>(`${this.courseEventUrl}${courseEventId}/`)
-            .pipe(catchError(this.handleError<CourseEvent>('deleteCourseEvent')));
+            .delete<CourseEvent>(url)
+            .pipe(catchError(this.apiService.handleError<CourseEvent>(`Error occurred while deleting Course Event`)));
     }
 
     addCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+        const url = this.apiService.getURL('event');
         return this.http
-            .post<CourseEvent>(this.courseEventUrl, courseEvent)
-            .pipe(catchError(this.handleError<CourseEvent>('addCourseEvent', courseEvent)));
+            .post<CourseEvent>(url, courseEvent)
+            .pipe(catchError(this.apiService.handleError<CourseEvent>(`Error occurred while adding Course Event`)));
     }
 
     updateCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
-        return this.http.put<CourseEvent>(`${this.courseEventUrl}${courseEvent.id}/`, courseEvent).pipe(
-            catchError(this.handleError<CourseEvent>('updateCourseEvent', courseEvent))
-        );
+        const url = this.apiService.getURL('event', courseEvent.id);
+        return this.http.put<CourseEvent>(url, courseEvent)
+            .pipe(catchError(this.apiService.handleError<CourseEvent>(`Error occurred while updating Course Event`)));
     }
 
     getEventTypes(): Observable<EventType[]> {
+        const url = this.apiService.getURL('event', 'get-event-types');
         return this.http
-            .get<EventType[]>(`${this.courseEventUrl}get-event-types/`)
-            .pipe(catchError(this.handleError<EventType[]>(
-                `getEventTypes`
-            )));
-    }
-
-    /**
-     * Handle Http operation that failed.
-     * Let the app continue.
-     * @param operation - name of the operation that failed
-     * @param result - optional value to return as the observable result
-     */
-    private handleError<T>(operation?, result?: T) {
-        return (error: string): Observable<T> => {
-            // TODO: send the error to remote logging infrastructure
-            console.error(error); // log to console instead
-            // Let the app keep running by returning an empty result.
-            return of(result as T);
-        };
+            .get<EventType[]>(url)
+            .pipe(catchError(this.apiService.handleError<EventType[]>(`Error occurred while fetching event types`)));
     }
 }

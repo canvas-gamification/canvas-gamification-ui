@@ -22,7 +22,6 @@ import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 // TODO: Remove this suppress after fixing concept map
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import {ConceptMapComponent} from './components/concept-map/concept-map.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {LoginComponent} from './components/accounts/login';
@@ -84,6 +83,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ToastrModule} from "ngx-toastr";
+import {NotFoundComponent} from './components/general/not-found/not-found.component';
+import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
 import { ImportExportQuestionsComponent } from './components/import-export-questions/import-export-questions.component';
 
 @NgModule({
@@ -139,6 +140,8 @@ import { ImportExportQuestionsComponent } from './components/import-export-quest
         SubmissionViewComponent,
         ActivationEmailComponent,
         CkEditorComponent,
+        NotFoundComponent,
+        ForbiddenComponent,
         ImportExportQuestionsComponent,
     ],
     imports: [

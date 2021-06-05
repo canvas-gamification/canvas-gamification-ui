@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {
     APIResponse,
     Course,
@@ -9,57 +9,67 @@ import {
 } from '@app/_models';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
-import {environment} from '@environments/environment';
-import {ToastrService} from "ngx-toastr";
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CourseService {
-    private courseUrl = new URL(
-        '/api/course/',
-        environment.apiBaseUrl
-    ).toString();
-
-    constructor(private http: HttpClient,
-                private toastr: ToastrService) {
+    constructor(
+        private http: HttpClient,
+        private apiService: ApiService) {
     }
 
+    // TODO: Fix this when refactoring the concept-map
+    // { success_rate: number } is not ok
+    // handle the error properly
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
+        const url = this.apiService.getURL('course', courseId, 'user-stats', categoryId);
         return this.http
-            .get<{ success_rate: number }>(`${this.courseUrl}${courseId}/user-stats/${categoryId}/`)
-            .pipe(catchError(this.handleError<{ success_rate: number }>(
-                `getUserStats`
-            )));
+            .get<{ success_rate: number }>(url)
+            .pipe(catchError(this.apiService.handleError<{ success_rate: number }>()));
     }
 
+    // TODO: Handling error of this function needs refactoring
+    // Error message should be sent from here
     register(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
+        const url = this.apiService.getURL('course', courseId, 'register');
         return this.http
-            .post<CourseRegistrationResponse>(`${this.courseUrl}${courseId}/register/`, data)
-            .pipe(catchError(this.handleError<CourseRegistrationResponse>(
-                `courseRegister`, {success: false, bad_request: true})));
+            .post<CourseRegistrationResponse>(url, data)
+            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>('', {
+                success: false,
+                bad_request: true
+            })));
     }
 
+    // TODO: Handling error of this function needs refactoring
+    // Error message should be sent from here
     registerVerify(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
+        const url = this.apiService.getURL('course', courseId, 'verify');
         return this.http
-            .post<CourseRegistrationResponse>(`${this.courseUrl}${courseId}/verify/`, data)
-            .pipe(catchError(this.handleError<CourseRegistrationResponse>(
-                `courseRegisterVerify`, {success: false, bad_request: true})));
+            .post<CourseRegistrationResponse>(url, data)
+            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>(``, {
+                success: false,
+                bad_request: true
+            })));
     }
 
+    // TODO: Handling error of this function needs refactoring
+    // Error message should be sent from here
     getCourseRegistrationStatus(courseId: number): Observable<RegistrationStatus> {
+        const url = this.apiService.getURL('course', courseId, 'get-registration-status');
         return this.http
-            .get<RegistrationStatus>(`${this.courseUrl}${courseId}/get-registration-status/`)
-            .pipe(catchError(this.handleError<RegistrationStatus>(
-                `getCourseRegistrationStatus`
-            )));
+            .get<RegistrationStatus>(url)
+            .pipe(catchError(this.apiService.handleError<RegistrationStatus>(``)));
     }
 
-    validateEvent(courseId: number, eventId: number, needsToBeRegistered = true): Observable<APIResponse> {
+    // TODO: Handling error of this function needs refactoring
+    // Error message should be sent from here
+    validateEvent(courseId: number, eventId: number): Observable<APIResponse> {
+        const url = this.apiService.getURL('course', courseId, 'validate-event', eventId);
         return this.http
-            .get<APIResponse>(`${this.courseUrl}${courseId}/validate-event/${eventId}/?registered=${needsToBeRegistered}`)
-            .pipe(catchError(this.handleError<APIResponse>(
-                `validateEvent`, {success: false, bad_request: true})));
+            .get<APIResponse>(url)
+            .pipe(catchError(this.apiService.handleError<APIResponse>(``, {success: false, bad_request: true})));
     }
 
     /**
@@ -74,6 +84,7 @@ export class CourseService {
         pageSize?: number
     }): Observable<Course[]> {
         const {filters = {}, ordering = {}, page = 1, pageSize = 50} = options ? options : {};
+        const url = this.apiService.getURL('course');
         let params = new HttpParams()
             .set('registered', String(registered))
             .set('page', String(page))
@@ -94,45 +105,23 @@ export class CourseService {
         params = params.set(`ordering`, `${orderingFields.join()}`);
 
         return this.http
-            .get<Course[]>(this.courseUrl, {params})
-            .pipe(catchError(this.handleError<Course[]>(`getCourses`)));
+            .get<Course[]>(url, {params})
+            .pipe(
+                catchError(
+                    this.apiService.handleError<Course[]>(`Unable to load courses.`, [])
+                )
+            );
     }
 
 
     /**
      * Retrieve a specific course with it's info
      * @param courseId - Corresponds to the id of the course, NOT the course_id field
-     * @param registered - Filter retrieved courses by if this user is registered in them or not
-     * @param options - Object of options for this request
      */
-    getCourse(courseId: number, registered = false, options?: { filters: unknown }): Observable<Course> {
-        const {filters = {}} = options ? options : {};
-        let params = new HttpParams()
-            .set('registered', String(registered));
-
-        for (const field of Object.keys(filters)) {
-            params = params.set(`${field}`, String(filters[field]));
-        }
-
-        const url = `${this.courseUrl}${courseId}/`;
+    getCourse(courseId: number): Observable<Course> {
+        const url = this.apiService.getURL('course', courseId);
         return this.http
-            .get<Course>(url, {params})
-            .pipe(catchError(this.handleError<Course>(`getCourse`)));
-    }
-
-    /**
-     * Handle Http operation that failed.
-     * Let the app continue.
-     * @param operation - name of the operation that failed
-     * @param result - optional value to return as the observable result
-     */
-    private handleError<T>(operation = 'operation', result?: T) {
-        return (error: unknown): Observable<T> => {
-            console.error(error); // log to console instead
-            if (operation === 'validateEvent') {
-                this.toastr.error('You don\'t have the correct permissions to access that course or event!');
-            }
-            return of(result as T);
-        };
+            .get<Course>(url)
+            .pipe(catchError(this.apiService.handleError<Course>(`Unable to load course`, null)));
     }
 }

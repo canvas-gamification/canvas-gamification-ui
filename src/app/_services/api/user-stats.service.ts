@@ -1,41 +1,21 @@
 import {Injectable} from '@angular/core';
 import {UserStats} from '@app/_models';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
-import {environment} from '@environments/environment';
+import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserStatsService {
-    private userStatsUrl = new URL(
-        '/api/user-stats/',
-        environment.apiBaseUrl
-    ).toString();
-
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
     getUserStat(userStatId: number): Observable<UserStats> {
-        const url = `${this.userStatsUrl}${userStatId}/`;
+        const url = this.apiService.getURL('user-stats', userStatId);
         return this.http
             .get<UserStats>(url)
-            .pipe(catchError(this.handleError<UserStats>(`getUserStat`)));
-    }
-
-    /**
-     * Handle Http operation that failed.
-     * Let the app continue.
-     * @param operation - name of the operation that failed
-     * @param result - optional value to return as the observable result
-     */
-    private handleError<T>(operation?, result?: T) {
-        return (error: string): Observable<T> => {
-            console.error(error); // log to console instead
-
-            // Let the app keep running by returning an empty result.
-            return of(result as T);
-        };
+            .pipe(catchError(this.apiService.handleError<UserStats>(`Error occurred while getting user stats`)));
     }
 }

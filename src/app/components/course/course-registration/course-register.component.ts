@@ -43,9 +43,7 @@ export class CourseRegisterComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private courseService: CourseService,
                 private toastr: ToastrService) {
-        this.route.params.subscribe(params => {
-            this.courseId = params.courseId;
-        });
+        this.courseId = this.route.snapshot.params.courseId;
         this.needsStudentNumber = false;
         this.verification = false;
         this.completed = false;
@@ -73,7 +71,7 @@ export class CourseRegisterComponent implements OnInit {
             courseRegistrationStatus => {
                 // the api only responds with a non-null message value if the user is blocked from registering, thus the "danger" type
                 if (courseRegistrationStatus.message) {
-                    this.toastr.error(courseRegistrationStatus.message)
+                    this.toastr.error(courseRegistrationStatus.message);
                 }
                 this.initialStage(courseRegistrationStatus.status);
             }

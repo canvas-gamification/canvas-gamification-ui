@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {FaqComponent} from './faq.component';
-import {TestModule} from '@test/test.module';
+import {NotFoundComponent} from './not-found.component';
+import {TestModule} from "@test/test.module";
 
-describe('FaqComponent', () => {
-    let component: FaqComponent;
-    let fixture: ComponentFixture<FaqComponent>;
+describe('NotFoundComponent', () => {
+    let component: NotFoundComponent;
+    let fixture: ComponentFixture<NotFoundComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('FaqComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(FaqComponent);
+        fixture = TestBed.createComponent(NotFoundComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

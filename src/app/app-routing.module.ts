@@ -26,6 +26,8 @@ import {ProblemEditComponent} from '@app/components/problems/problem-edit/proble
 import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
 import {ActivationEmailComponent} from '@app/components/accounts/activation-email/activation-email.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
+import {NotFoundComponent} from "@app/components/general/not-found/not-found.component";
+import {ForbiddenComponent} from "@app/components/general/forbidden/forbidden.component";
 import {ImportExportQuestionsComponent} from "@app/components/import-export-questions/import-export-questions.component";
 
 
@@ -163,6 +165,19 @@ const routes: Routes = [
         path: 'problems/import-export',
         component: ImportExportQuestionsComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: '404',
+        component: NotFoundComponent
+    },
+    {
+        path: '403',
+        component: ForbiddenComponent
+    },
+    {
+        // KEEP THIS ROUTE AT THE END
+        path: '**',
+        component: NotFoundComponent
     }
 ];
 

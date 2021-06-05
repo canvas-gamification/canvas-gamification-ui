@@ -1,17 +1,16 @@
 import {Injectable} from '@angular/core';
-import {environment} from '@environments/environment';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {Observable} from "rxjs";
+import {ApiService} from "@app/_services/api.service";
+import {APIResponse} from "@app/_models";
 
 @Injectable({
     providedIn: 'root'
 })
 export class RegisterService {
-    private registrationUrl = new URL('/api/register/', environment.apiBaseUrl).toJSON();
-    private activationUrl = new URL('/api/register/activate/', environment.apiBaseUrl).toString();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
     postRegistration(input: {
@@ -19,33 +18,18 @@ export class RegisterService {
         password: string,
         password2: string,
         recaptcha_key: string
-    }): Observable<string> {
-        return this.http.post(this.registrationUrl, input, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+    }): Observable<APIResponse> {
+        const url = this.apiService.getURL('register');
+        return this.http.post<APIResponse>(url, input)
+            .pipe(catchError(this.apiService.handleError<APIResponse>(`A problem occurred while registering`,
+                {success: false, bad_request: true})));
     }
 
-    postActivation(uuid: string, token: string): Observable<string> {
-        return this.http.post(this.activationUrl, {uuid, token}, {responseType: 'text'}).pipe(
-            map(
-                (response) => {
-                    if (response) {
-                        return response;
-                    }
-                },
-                (error: unknown) => {
-                    return error;
-                }
-            )
-        );
+    postActivation(uuid: string, token: string): Observable<APIResponse> {
+        const url = this.apiService.getURL('register', 'activate');
+        return this.http.post<APIResponse>(url, {uuid, token})
+            .pipe(catchError(this.apiService.handleError<APIResponse>(`There was an error during activation`,
+                {success: false, bad_request: true},
+                {redirect: ['accounts', 'login']})));
     }
 }

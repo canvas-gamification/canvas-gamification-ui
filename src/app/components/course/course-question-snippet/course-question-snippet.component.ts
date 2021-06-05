@@ -33,8 +33,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.courseId = +this.route.snapshot.paramMap.get('courseId') || null;
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null;
         if (this.eventId && this.courseId) { // if this snippet is an event-view
-            const needsToBeRegistered = this.user.is_student;
-            this.courseService.validateEvent(this.courseId, this.eventId, needsToBeRegistered).subscribe(response => {
+            this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {
                 if (response.success) {
                     forkJoin({
                         event: this.courseEventService.getCourseEvent(this.eventId),
