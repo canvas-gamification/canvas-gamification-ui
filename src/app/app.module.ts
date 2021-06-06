@@ -85,6 +85,7 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
+import { ChangePasswordComponent } from './components/accounts/change-password/change-password.component';
 
 @NgModule({
     declarations: [
@@ -141,6 +142,7 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         CkEditorComponent,
         NotFoundComponent,
         ForbiddenComponent,
+        ChangePasswordComponent,
     ],
     imports: [
         BrowserModule,

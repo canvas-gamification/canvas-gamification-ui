@@ -14,7 +14,8 @@ export class ResetPasswordService {
     }
 
     putPasswordReset(input: {
-        old_password: string,
+        uid: string,
+        token: string,
         password: string,
         password2: string
     }): Observable<APIResponse> {
@@ -24,5 +25,15 @@ export class ResetPasswordService {
                 success: false,
                 bad_request: true
             })));
+    }
+
+    sendForgotPasswordEmail(email: string): Observable<APIResponse> {
+        const url = this.apiService.getURL('reset-password', 'send-email');
+        return this.http.post<APIResponse>(url, {email})
+            .pipe(catchError(this.apiService.handleError<APIResponse>(`There was an error while sending your reset email`, {
+                success: false,
+                bad_request: true
+            })));
+
     }
 }
