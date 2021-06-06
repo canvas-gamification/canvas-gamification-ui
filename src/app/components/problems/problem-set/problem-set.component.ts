@@ -15,6 +15,7 @@ import {Difficulty} from "@app/_models/difficulty";
 import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {formatDate} from "@angular/common";
+import {PaginatedResult} from "@app/_models/paginatedResult";
 
 @Component({
     selector: 'app-problem-set',
@@ -73,7 +74,7 @@ export class ProblemSetComponent implements OnInit {
     //Import/Export Variables
     filename: string;
     jsonUri: SafeUrl;
-    private parsedQuestions : Question[];
+    private parsedQuestions: PaginatedResult<Question>;
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
@@ -89,7 +90,7 @@ export class ProblemSetComponent implements OnInit {
                 this.questionsLength = paginatedQuestions.count;
                 const timestamp = formatDate(new Date(), 'yyyy/MM/dd_HH:mm:ss', 'en');
                 this.generateJSONURI({
-                    filename: 'questions-' +timestamp+'.json',
+                    filename: 'questions-' + timestamp + '.json',
                     text: JSON.stringify(paginatedQuestions)
                 });
             });
@@ -124,7 +125,7 @@ export class ProblemSetComponent implements OnInit {
             this.questionsSource = new MatTableDataSource(this.questions);
             const timestamp = formatDate(new Date(), 'yyyy/MM/dd_HH:mm:ss', 'en');
             this.generateJSONURI({
-                filename: 'questions-' +timestamp+'.json',
+                filename: 'questions-' + timestamp + '.json',
                 text: JSON.stringify(paginatedQuestions)
             });
         });
@@ -216,6 +217,28 @@ export class ProblemSetComponent implements OnInit {
     }
 
     uploadQuestions(): void {
-        console.log(this.parsedQuestions);
+        const questions = this.parsedQuestions.results;
+        for (const question of questions) {
+            console.log(question);
+            if (question.type_name === 'multiple choice question') {
+                const input = {
+                    title: question.title,
+                    difficulty: question.difficulty,
+                    course: question.course_name,
+                    event: question.event_name,
+                    text: question.text,
+                    answer: question.answer,
+                    category: this.categories.filter(x => x.pk === question.category)[0].name,
+                    variables: question.variables,
+                    visible_distractor_count: question.visible_distractor_count,
+                    choices: question.choices
+                };
+                console.log(input);
+                this.questionService.postMultipleChoiceQuestion(input).subscribe((result) => {
+                    if (result.success != false)
+                        this.toastr.success('The Question has been added Successfully.');
+                });
+            }
+        }
     }
 }
