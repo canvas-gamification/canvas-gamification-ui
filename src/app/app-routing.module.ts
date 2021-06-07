@@ -28,7 +28,6 @@ import {ActivationEmailComponent} from '@app/components/accounts/activation-emai
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 import {NotFoundComponent} from "@app/components/general/not-found/not-found.component";
 import {ForbiddenComponent} from "@app/components/general/forbidden/forbidden.component";
-import {ImportExportQuestionsComponent} from "@app/components/problems/import-export-questions/import-export-questions.component";
 
 
 const routes: Routes = [
@@ -159,11 +158,6 @@ const routes: Routes = [
     {
         path: 'problem/submission/:id',
         component: SubmissionViewComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'problems/import-export',
-        component: ImportExportQuestionsComponent,
         canActivate: [AuthGuard]
     },
     {
