@@ -27,8 +27,14 @@ import {ProblemEditComponent} from '@app/components/problems/problem-edit/proble
 import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
 import {ActivationEmailComponent} from '@app/components/accounts/activation-email/activation-email.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
+<<<<<<< Updated upstream
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
+=======
+import {NotFoundComponent} from "@app/components/general/not-found/not-found.component";
+import {ForbiddenComponent} from "@app/components/general/forbidden/forbidden.component";
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+>>>>>>> Stashed changes
 
 
 const routes: Routes = [
@@ -65,6 +71,10 @@ const routes: Routes = [
         path: 'homepage',
         component: HomepageComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path: 'leaderboard',
+        component: LeaderboardComponent
     },
     {
         path: 'actions',

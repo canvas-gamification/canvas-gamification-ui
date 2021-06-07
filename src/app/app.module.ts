@@ -85,7 +85,11 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
+<<<<<<< Updated upstream
 import { ChangePasswordComponent } from './components/accounts/change-password/change-password.component';
+=======
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
+>>>>>>> Stashed changes
 
 @NgModule({
     declarations: [
@@ -142,7 +146,11 @@ import { ChangePasswordComponent } from './components/accounts/change-password/c
         CkEditorComponent,
         NotFoundComponent,
         ForbiddenComponent,
+<<<<<<< Updated upstream
         ChangePasswordComponent,
+=======
+        LeaderboardComponent,
+>>>>>>> Stashed changes
     ],
     imports: [
         BrowserModule,
