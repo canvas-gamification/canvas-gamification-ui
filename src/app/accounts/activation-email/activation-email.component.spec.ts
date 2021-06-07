@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ConsentFormComponent} from './consent-form.component';
-import {TestModule} from '../../../../test/test.module';
+import {ActivationEmailComponent} from './activation-email.component';
+import {TestModule} from '@test/test.module';
 
-describe('ConsentFormComponent', () => {
-    let component: ConsentFormComponent;
-    let fixture: ComponentFixture<ConsentFormComponent>;
+describe('ActivationEmailComponent', () => {
+    let component: ActivationEmailComponent;
+    let fixture: ComponentFixture<ActivationEmailComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('ConsentFormComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ConsentFormComponent);
+        fixture = TestBed.createComponent(ActivationEmailComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

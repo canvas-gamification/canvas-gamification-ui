@@ -1,10 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ChangePasswordComponent} from './change-password.component';
-import {TestModule} from '../../../../test/test.module';
 
-describe('ChangePasswordComponent', () => {
-    let component: ChangePasswordComponent;
-    let fixture: ComponentFixture<ChangePasswordComponent>;
+import {ProfileDetailsComponent} from './profile-details.component';
+import {TestModule} from '@test/test.module';
+
+describe('ProfileDetailsComponent', () => {
+    let component: ProfileDetailsComponent;
+    let fixture: ComponentFixture<ProfileDetailsComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -13,7 +14,7 @@ describe('ChangePasswordComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ChangePasswordComponent);
+        fixture = TestBed.createComponent(ProfileDetailsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

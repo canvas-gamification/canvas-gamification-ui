@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ActivationEmailComponent} from './activation-email.component';
-import {TestModule} from '../../../../test/test.module';
+import {TermsAndConditionsSnippetComponent} from './terms-and-conditions-snippet.component';
+import {TestModule} from '@test/test.module';
 
-describe('ActivationEmailComponent', () => {
-    let component: ActivationEmailComponent;
-    let fixture: ComponentFixture<ActivationEmailComponent>;
+describe('TermsAndConditionsSnippetComponent', () => {
+    let component: TermsAndConditionsSnippetComponent;
+    let fixture: ComponentFixture<TermsAndConditionsSnippetComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('ActivationEmailComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ActivationEmailComponent);
+        fixture = TestBed.createComponent(TermsAndConditionsSnippetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TermsAndConditionsSnippetComponent} from './terms-and-conditions-snippet.component';
-import {TestModule} from '../../../../test/test.module';
+import {ResetPasswordComponent} from './reset-password.component';
+import {TestModule} from '@test/test.module';
 
-describe('TermsAndConditionsSnippetComponent', () => {
-    let component: TermsAndConditionsSnippetComponent;
-    let fixture: ComponentFixture<TermsAndConditionsSnippetComponent>;
+describe('ResetPasswordComponent', () => {
+    let component: ResetPasswordComponent;
+    let fixture: ComponentFixture<ResetPasswordComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('TermsAndConditionsSnippetComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TermsAndConditionsSnippetComponent);
+        fixture = TestBed.createComponent(ResetPasswordComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
