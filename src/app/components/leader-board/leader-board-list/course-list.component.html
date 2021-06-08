@@ -1,0 +1,50 @@
+<div class="course-list-page">
+    <div class="mx-auto">
+        <h1 class="my-md-2">Course List</h1>
+        <table mat-table [dataSource]="courseList" matSort matSortActive="name"
+               matSortDirection="asc" matSortDisableClear class="table table-hover hover-shadow">
+
+            <!-- Index Column -->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
+                <td mat-cell *matCellDef="let element"> {{element.id || 'No ID'}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.name || 'No Name'}} </td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Course Status</th>
+                <td mat-cell *matCellDef="let element"> {{element.status || 'No Status'}} </td>
+            </ng-container>
+
+            <!-- Registered Column -->
+            <ng-container matColumnDef="is_registered">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Registration Status</th>
+                <td mat-cell *matCellDef="let element">
+                    <ng-container *ngIf="element.is_registered; else notRegistered">Registered</ng-container>
+                    <ng-template #notRegistered>Not Registered</ng-template>
+                </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions</th>
+                <td mat-cell class="actions" *matCellDef="let element">
+                    <a class="btn btn-primary mr-3" *ngIf="hasViewPermission(element.id)"
+                       routerLink="view/{{element.id}}">Open</a>
+                    <a class="btn btn-primary" *ngIf="!element.is_registered"
+                       routerLink="register/{{element.id}}">Register</a>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>
+
