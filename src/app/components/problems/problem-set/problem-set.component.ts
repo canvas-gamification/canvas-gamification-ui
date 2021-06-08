@@ -15,7 +15,7 @@ import {Difficulty} from "@app/_models/difficulty";
 import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {formatDate} from "@angular/common";
-import {PaginatedResult} from "@app/_models/paginatedResult";
+import {ImportExportService} from "@app/_services/api/import-export.service";
 
 @Component({
     selector: 'app-problem-set',
@@ -74,10 +74,11 @@ export class ProblemSetComponent implements OnInit {
     //Import/Export Variables
     filename: string;
     jsonUri: SafeUrl;
-    private parsedQuestions: PaginatedResult<Question>;
+    private parsedQuestions: Question[];
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
+                private importExportService: ImportExportService,
                 private categoryService: CategoryService,
                 private difficultyService: DifficultyService,
                 private toastr: ToastrService,
@@ -88,10 +89,12 @@ export class ProblemSetComponent implements OnInit {
                 this.questions = paginatedQuestions.results;
                 this.questionsSource = new MatTableDataSource<Question>(this.questions);
                 this.questionsLength = paginatedQuestions.count;
+            });
+            this.importExportService.downloadAllQuestions(options).subscribe(questions => {
                 const timestamp = formatDate(new Date(), 'yyyy/MM/dd_HH:mm:ss', 'en');
                 this.generateJSONURI({
                     filename: 'questions-' + timestamp + '.json',
-                    text: JSON.stringify(paginatedQuestions)
+                    text: JSON.stringify(questions)
                 });
             });
         });
@@ -123,10 +126,12 @@ export class ProblemSetComponent implements OnInit {
             this.pageSize = paginatedQuestions.results.length;
             this.questions = paginatedQuestions.results;
             this.questionsSource = new MatTableDataSource(this.questions);
+        });
+        this.importExportService.downloadAllQuestions().subscribe(questions => {
             const timestamp = formatDate(new Date(), 'yyyy/MM/dd_HH:mm:ss', 'en');
             this.generateJSONURI({
                 filename: 'questions-' + timestamp + '.json',
-                text: JSON.stringify(paginatedQuestions)
+                text: JSON.stringify(questions)
             });
         });
     }
@@ -217,28 +222,14 @@ export class ProblemSetComponent implements OnInit {
     }
 
     uploadQuestions(): void {
-        const questions = this.parsedQuestions.results;
+        const questions = this.parsedQuestions;
         for (const question of questions) {
-            console.log(question);
-            if (question.type_name === 'multiple choice question') {
-                const input = {
-                    title: question.title,
-                    difficulty: question.difficulty,
-                    course: question.course_name,
-                    event: question.event_name,
-                    text: question.text,
-                    answer: question.answer,
-                    category: this.categories.filter(x => x.pk === question.category)[0].name,
-                    variables: question.variables,
-                    visible_distractor_count: question.visible_distractor_count,
-                    choices: question.choices
-                };
-                console.log(input);
-                this.questionService.postMultipleChoiceQuestion(input).subscribe((result) => {
-                    if (result.success != false)
-                        this.toastr.success('The Question has been added Successfully.');
-                });
-            }
+            if (question.type_name === 'multiple choice question')
+                this.importExportService.uploadMCQuestion(question);
+            else if(question.type_name === 'parsons question')
+                this.importExportService.uploadParsonsQuestion(question);
+            else if(question.type_name === 'java question')
+                this.importExportService.uploadJavaQuestion(question);
         }
     }
 }
