@@ -32,7 +32,6 @@ export class RegisterComponent implements OnInit {
     onSubmit(): void {
         const data = RegisterForm.extractData(this.formGroup);
         this.isLoading = true;
-        console.log(data);
         this.register.postRegistration(data)
             .subscribe(() => {
                 this.formGroup.reset();

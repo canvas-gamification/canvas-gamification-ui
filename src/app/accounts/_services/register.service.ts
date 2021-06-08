@@ -7,7 +7,7 @@ import {APIResponse, User} from "@app/_models";
 import {RegisterFormData} from "@app/accounts/_forms/register.form";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: null
 })
 export class RegisterService {
 

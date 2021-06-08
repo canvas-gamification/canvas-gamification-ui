@@ -15,7 +15,6 @@ export class RegisterForm {
     }
 
     static extractData(form: FormGroup): RegisterFormData {
-        console.log(form.value);
         return form.value;
     }
 }

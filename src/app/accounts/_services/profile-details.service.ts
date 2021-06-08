@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: null
 })
 export class ProfileDetailsService {
 

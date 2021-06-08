@@ -6,7 +6,7 @@ import {UserConsent} from '@app/_models/user_consent';
 import {ApiService} from "@app/_services/api.service";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: null
 })
 export class ConsentService {
 
