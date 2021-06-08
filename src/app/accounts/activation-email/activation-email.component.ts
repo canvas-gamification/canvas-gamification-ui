@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {RegisterService} from '@app/_services/api/accounts/register.service';
+import {RegisterService} from '@app/accounts/_services/register.service';
 
 import {ToastrService} from "ngx-toastr";
 

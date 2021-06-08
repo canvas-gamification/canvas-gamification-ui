@@ -4,7 +4,7 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {first} from 'rxjs/operators';
 
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {ConsentService} from '@app/_services/api/accounts/consent.service';
+import {ConsentService} from '@app/accounts/_services/consent.service';
 
 @Component({
     selector: 'app-login',

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ProfileDetailsService} from '@app/_services/api/accounts/profile-details.service';
+import {ProfileDetailsService} from '@app/accounts/_services/profile-details.service';
 import {ToastrService} from "ngx-toastr";
-import {ConsentService} from '@app/_services/api/accounts/consent.service';
+import {ConsentService} from '@app/accounts/_services/consent.service';
 import {User} from '@app/_models';
 import {Router} from '@angular/router';
 

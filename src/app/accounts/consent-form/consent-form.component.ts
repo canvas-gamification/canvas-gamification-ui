@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ConsentService} from '@app/_services/api/accounts/consent.service';
+import {ConsentService} from '@app/accounts/_services/consent.service';
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from '@angular/router';
 

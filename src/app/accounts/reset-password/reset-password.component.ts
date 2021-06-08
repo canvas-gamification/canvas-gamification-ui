@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ResetPasswordService} from '@app/_services/api/accounts/reset-password.service';
+import {ResetPasswordService} from '@app/accounts/_services/reset-password.service';
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
 
