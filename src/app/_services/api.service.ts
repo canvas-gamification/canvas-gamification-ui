@@ -53,7 +53,9 @@ export class ApiService {
 
             if (showMessage)
                 this.toastr.error( message || error.statusText);
-
+            if (!result) {
+                throw error;
+            }
             return of(result as T);
         };
     }
