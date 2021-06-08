@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {LeaderBoardComponent} from './leader-board.component';
-import {TestModule} from '../../../../test/test.module';
+import {TestModule} from '../../../test/test.module';
 
 describe('LeaderBoardComponent', () => {
     let component: LeaderBoardComponent;

@@ -74,7 +74,7 @@ import {
     NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
+import {LeaderBoardComponent} from './components/leader-board/leader-board.component'
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
@@ -85,11 +85,9 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
-<<<<<<< Updated upstream
 import { ChangePasswordComponent } from './components/accounts/change-password/change-password.component';
-=======
-import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
->>>>>>> Stashed changes
+
+
 
 @NgModule({
     declarations: [
@@ -146,11 +144,7 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
         CkEditorComponent,
         NotFoundComponent,
         ForbiddenComponent,
-<<<<<<< Updated upstream
         ChangePasswordComponent,
-=======
-        LeaderboardComponent,
->>>>>>> Stashed changes
     ],
     imports: [
         BrowserModule,
