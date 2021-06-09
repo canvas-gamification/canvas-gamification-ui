@@ -4,6 +4,7 @@ import {catchError} from 'rxjs/operators';
 import {Observable} from "rxjs";
 import {ApiService} from "@app/_services/api.service";
 import {APIResponse} from "@app/_models";
+import {EmailFormData, PasswordFormData} from "@app/accounts/_forms/reset-password.form";
 
 @Injectable({
     providedIn: null
@@ -13,27 +14,15 @@ export class ResetPasswordService {
     constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
-    putPasswordReset(input: {
-        uid: string,
-        token: string,
-        password: string,
-        password2: string
-    }): Observable<APIResponse> {
+    putPasswordReset(input: PasswordFormData): Observable<APIResponse> {
         const url = this.apiService.getURL('reset-password');
         return this.http.post<APIResponse>(url, input)
-            .pipe(catchError(this.apiService.handleError<APIResponse>(`There was an error while changing your password`, {
-                success: false,
-                bad_request: true
-            })));
+            .pipe(catchError(this.apiService.handleFormError()));
     }
 
-    sendForgotPasswordEmail(email: string): Observable<APIResponse> {
+    sendForgotPasswordEmail(input: EmailFormData): Observable<APIResponse> {
         const url = this.apiService.getURL('reset-password', 'send-email');
-        return this.http.post<APIResponse>(url, {email})
-            .pipe(catchError(this.apiService.handleError<APIResponse>(`There was an error while sending your reset email`, {
-                success: false,
-                bad_request: true
-            })));
-
+        return this.http.post<APIResponse>(url, input)
+            .pipe(catchError(this.apiService.handleFormError()));
     }
 }

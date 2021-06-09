@@ -4,6 +4,7 @@ import {catchError} from 'rxjs/operators';
 import {User} from '@app/_models';
 import {Observable} from 'rxjs';
 import {ApiService} from "@app/_services/api.service";
+import {ProfileDetailsFormData} from "@app/accounts/_forms/profile-details.form";
 
 @Injectable({
     providedIn: null
@@ -13,20 +14,24 @@ export class ProfileDetailsService {
     constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
-    putProfileDetails(input: {
-        first_name: string,
-        last_name: string,
-        email: string
-    }, id: number): Observable<User> {
+    putProfileDetails(input: ProfileDetailsFormData, id: number): Observable<User> {
         const url = this.apiService.getURL('update-profile', id);
         return this.http
             .put<User>(url, input)
-            .pipe(catchError(this.apiService.handleError<User>(`There was a problem updating your profile details`)));
+            .pipe(catchError(this.apiService.handleFormError()));
     }
 
-    getProfileDetails(): Observable<User> {
-        const url = this.apiService.getURL('update-profile');
+    getProfileDetails(id: number): Observable<User> {
+        const url = this.apiService.getURL('update-profile', id);
         return this.http.get<User>(url)
-            .pipe(catchError(this.apiService.handleError<User>(`There was a problem retrieving your profile details`)));
+            .pipe(catchError(this.apiService.handleError<User>(
+                `There was a problem retrieving your profile details`,
+                null,
+                {
+                    redirect: ['accounts', 'login'],
+                    redirect404: true,
+                    redirect403: true,
+                    showMessage: true,
+                })));
     }
 }

@@ -13,21 +13,23 @@
                                 <label for="email">Email:</label>
                                 <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
                                        placeholder="Email"
-                                       formControlName="email" id="email">
-                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with
-                                    anyone else.</small>
+                                       formControlName="email" id="email"
+                                       [ngClass]="{ 'is-invalid': form.email.errors && form.email.touched }">
                                 <div *ngIf="form.email.touched && form.email.invalid"
-                                     class="alert alert-danger my-1">
+                                     class="invalid-feedback">
                                     <div *ngIf="form.email.errors.required">Email is Required.</div>
                                     <div *ngIf="form.email.errors.email">Email is not valid.</div>
                                 </div>
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                                    anyone else.</small>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password:</label>
                                 <input type="password" class="form-control" name="password" placeholder="Password"
-                                       formControlName="password" id="password">
+                                       formControlName="password" id="password"
+                                       [ngClass]="{ 'is-invalid': form.password.errors && form.password.touched }">
                                 <div *ngIf="form.password.touched && form.password.invalid"
-                                     class="alert alert-danger my-1">
+                                     class="invalid-feedback">
                                     <div *ngIf="form.password.errors.required">Password is Required.</div>
                                 </div>
                             </div>
@@ -41,9 +43,10 @@
                                 <label for="password2">Password Confirmation:</label>
                                 <input type="password" class="form-control" name="password2"
                                        placeholder="Confirm Password"
-                                       formControlName="password2" id="password2">
+                                       formControlName="password2" id="password2"
+                                       [ngClass]="{ 'is-invalid': form.password2.errors && form.password2.touched }">
                                 <div *ngIf="form.password2.touched && form.password2.invalid"
-                                     class="alert alert-danger my-1">
+                                     class="invalid-feedback">
                                     <div *ngIf="form.password2.errors.required">Password is Required.</div>
                                     <div *ngIf="form.password2.errors.confirmedValidator">Passwords must match.
                                     </div>

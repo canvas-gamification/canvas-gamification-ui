@@ -12,9 +12,10 @@
                         <div class="form-group">
                             <label for="legal_last_name">Type in your last name:</label>
                             <input type="text" class="form-control" name="legal_last_name"
-                                   formControlName="legal_last_name" id="legal_last_name">
+                                   formControlName="legal_last_name" id="legal_last_name"
+                                   [ngClass]="{ 'is-invalid': form.legal_last_name.errors && form.legal_last_name.touched }">
                             <div *ngIf="form.legal_last_name.touched && form.legal_last_name.invalid"
-                                 class="alert alert-danger my-1">
+                                 class="invalid-feedback">
                                 <div *ngIf="form.legal_last_name.errors.required">Last name is Required.</div>
                             </div>
                         </div>
@@ -22,9 +23,10 @@
                         <div class="form-group">
                             <label for="legal_first_name">Type in your first name:</label>
                             <input type="text" class="form-control" name="legal_first_name"
-                                   formControlName="legal_first_name" id="legal_first_name">
+                                   formControlName="legal_first_name" id="legal_first_name"
+                                   [ngClass]="{ 'is-invalid': form.legal_first_name.errors && form.legal_first_name.touched }">
                             <div *ngIf="form.legal_first_name.touched && form.legal_first_name.invalid"
-                                 class="alert alert-danger my-1">
+                                 class="invalid-feedback">
                                 <div *ngIf="form.legal_first_name.errors.required">First name is Required.</div>
                             </div>
                         </div>
@@ -34,9 +36,10 @@
                                 are students
                                 with the same first and last name):</label>
                             <input type="text" class="form-control" name="student_number"
-                                   formControlName="student_number" id="student_number">
+                                   formControlName="student_number" id="student_number"
+                                   [ngClass]="{ 'is-invalid': form.student_number.errors && form.student_number.touched }">
                             <div *ngIf="form.student_number.touched && form.student_number.invalid"
-                                 class="alert alert-danger my-1">
+                                 class="invalid-feedback">
                                 <div *ngIf="form.student_number.errors.required">Student number is Required.</div>
                             </div>
                         </div>
@@ -44,9 +47,10 @@
                         <div class="form-group">
                             <label for="date">Type in today's date:</label>
                             <input type="text" class="form-control" name="date"
-                                   formControlName="date" id="date">
+                                   formControlName="date" id="date"
+                                   [ngClass]="{ 'is-invalid': form.date.errors && form.date.touched }">
                             <div *ngIf="form.date.touched && form.date.invalid"
-                                 class="alert alert-danger my-1">
+                                 class="invalid-feedback">
                                 <div *ngIf="form.date.errors.required">Date is Required.</div>
                             </div>
                         </div>
