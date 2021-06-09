@@ -27,13 +27,15 @@ export class ActivationEmailComponent implements OnInit {
             this.token = params.token;
         });
 
-        this.registerService.postActivation(this.uuid, this.token)
-            .subscribe((result) => {
-                if (result.success) {
-                    this.toastr.success('You have activated your account successfully.');
-                    this.router.navigate(['/accounts/login']).then();
-                }
-            });
+        this.registerService.postActivation(this.uuid, this.token).subscribe(
+            () => {
+                this.toastr.success('You have activated your account successfully.');
+                this.router.navigate(['/accounts/login']).then();
+            },
+            () => {
+                this.router.navigate(['accounts', 'login']).then();
+            }
+        );
     }
 
 }

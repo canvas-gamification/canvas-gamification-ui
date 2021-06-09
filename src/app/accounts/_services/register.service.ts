@@ -22,8 +22,6 @@ export class RegisterService {
     postActivation(uuid: string, token: string): Observable<APIResponse> {
         const url = this.apiService.getURL('register', 'activate');
         return this.http.post<APIResponse>(url, {uuid, token})
-            .pipe(catchError(this.apiService.handleError<APIResponse>(`There was an error during activation`,
-                {success: false, bad_request: true},
-                {redirect: ['accounts', 'login']})));
+            .pipe(catchError(this.apiService.handleFormError()));
     }
 }
