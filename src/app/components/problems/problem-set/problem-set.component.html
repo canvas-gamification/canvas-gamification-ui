@@ -97,6 +97,9 @@
                 <a class="action-icon btn btn-warning faPencilAlt mr-2" routerLink="/problem/{{question.id}}/edit">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                 </a>
+                <a class="action-icon btn btn-secondary faDownload mr-2" [href]="getQuestionJson(question)" [download]="getFileName(question.id)">
+                    <fa-icon [icon]="faDownload"></fa-icon>
+                </a>
                 <ng-container *ngIf="question.is_author; else cannotDelete">
                     <a class="action-icon btn btn-danger faTrashAlt" [routerLink]=""
                        (click)="open(deleteModal, question.id)">

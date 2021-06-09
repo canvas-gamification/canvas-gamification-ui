@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {faEye, faPencilAlt, faTrashAlt, faDownload} from '@fortawesome/free-solid-svg-icons';
 import {Category, Question} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
 import {PageEvent} from '@angular/material/paginator';
@@ -27,6 +27,7 @@ export class ProblemSetComponent implements OnInit {
     faEye = faEye;
     faPencilAlt = faPencilAlt;
     faTrashAlt = faTrashAlt;
+    faDownload = faDownload;
     questions: Question[];
     questionsSource: MatTableDataSource<Question>;
 
@@ -206,6 +207,15 @@ export class ProblemSetComponent implements OnInit {
         this.jsonUri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(arg.text));
     }
 
+    getQuestionJson(question: Question): SafeUrl {
+        return this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(question)));
+    }
+
+    getFileName(id: number): string {
+        const timestamp = formatDate(new Date(), 'yyyy/MM/dd_HH:mm:ss', 'en');
+        return `question-${id}-${timestamp}.json`;
+    }
+
     onFileChanged(target: EventTarget): void {
         const selectedFile = (<HTMLInputElement>target).files[0];
         const fileReader = new FileReader();
@@ -223,13 +233,24 @@ export class ProblemSetComponent implements OnInit {
 
     uploadQuestions(): void {
         const questions = this.parsedQuestions;
-        for (const question of questions) {
-            if (question.type_name === 'multiple choice question')
-                this.importExportService.uploadMCQuestion(question);
-            else if(question.type_name === 'parsons question')
-                this.importExportService.uploadParsonsQuestion(question);
-            else if(question.type_name === 'java question')
-                this.importExportService.uploadJavaQuestion(question);
+        if (questions == null)
+            return;
+        if (typeof questions[Symbol.iterator] === 'function') {
+            for (const question of questions) {
+                this.uploadQuestion(question);
+            }
         }
+        else
+            this.uploadQuestion(questions as unknown as Question);
     }
+
+    uploadQuestion(question: Question): void {
+        if (question.type_name === 'multiple choice question')
+            this.importExportService.uploadMCQuestion(question);
+        else if (question.type_name === 'parsons question')
+            this.importExportService.uploadParsonsQuestion(question);
+        else if (question.type_name === 'java question')
+            this.importExportService.uploadJavaQuestion(question);
+    }
+
 }
