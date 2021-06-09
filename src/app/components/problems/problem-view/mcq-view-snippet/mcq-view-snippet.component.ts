@@ -45,6 +45,7 @@ export class McqViewSnippetComponent implements OnInit {
         } else {
             this.checkboxAnswers = [];
             this.checkboxFormData = this.formBuilder.group({
+                question: new FormControl(this.uqj.question.id),
                 solutions: new FormArray([])
             });
             this.addCheckboxesToForm();
@@ -61,13 +62,13 @@ export class McqViewSnippetComponent implements OnInit {
     }
 
     onCheckboxSubmit(): void {
-        const selectedCheckboxesValues: string[] = [];
-        this.checkboxAnswers.forEach((answer) => {
-            this.choiceArray.forEach(choice => {
-                if (choice.id === answer) {
-                    selectedCheckboxesValues.push(choice.value);
-                }
-            });
+        this.submissionService.postQuestionSubmission({
+            question: this.checkboxFormData.value.question,
+            solution: this.checkboxAnswers.sort().toString()
+        }).subscribe((result) => {
+            console.log(result);
+            if (result.success != false)
+                this.toastr.success('The Question has been Submitted Successfully.');
         });
     }
 
