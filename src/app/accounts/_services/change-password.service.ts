@@ -17,9 +17,6 @@ export class ChangePasswordService {
     putPasswordReset(input: ChangePasswordFormData): Observable<APIResponse> {
         const url = this.apiService.getURL('change-password');
         return this.http.post<APIResponse>(url, input)
-            .pipe(catchError(this.apiService.handleError<APIResponse>('Error occurred while changing password', {
-                success: false,
-                bad_request: true
-            })));
+            .pipe(catchError(this.apiService.handleFormError()));
     }
 }

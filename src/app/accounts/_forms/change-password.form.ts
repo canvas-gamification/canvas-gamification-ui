@@ -1,4 +1,5 @@
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {confirmPasswordValidator} from "@app/_helpers/confirm-password.validator";
 
 export class ChangePasswordForm {
     static createForm(): FormGroup {
@@ -6,7 +7,9 @@ export class ChangePasswordForm {
         return builder.group({
             old_password: new FormControl('', [Validators.required]),
             password: new FormControl('', [Validators.required]),
-            password2: new FormControl('', [Validators.required])
+            password2: new FormControl('', [Validators.required]),
+        }, {
+            validators: confirmPasswordValidator,
         });
     }
 
