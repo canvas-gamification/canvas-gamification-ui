@@ -50,13 +50,7 @@ export class ProfileDetailsComponent implements OnInit {
     }
 
     withdraw(): void {
-        this.consentService.postConsent({
-            consent: false,
-            legal_first_name: '',
-            legal_last_name: '',
-            student_number: '',
-            date: ''
-        }).subscribe(() => {
+        this.consentService.declineConsent().subscribe(() => {
             this.toastr.success('Your consent has been withdrawn successfully!');
         }, error => {
             console.warn(error);

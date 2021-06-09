@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {ConsentService} from '@app/accounts/_services/consent.service';
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from '@angular/router';
+import {ConsentForm} from "@app/accounts/_forms/consent.form";
 
 
 @Component({
@@ -11,7 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
     styleUrls: ['./consent-form.component.scss']
 })
 export class ConsentFormComponent implements OnInit {
-    formData: FormGroup;
+    formGroup: FormGroup;
     logoPath = 'assets/global/logo.jpg';
 
     constructor(private router: Router,
@@ -22,39 +23,31 @@ export class ConsentFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.formData = this.builder.group({
-            consent: true,
-            legal_first_name: new FormControl('', [Validators.required]),
-            legal_last_name: new FormControl('', [Validators.required]),
-            student_number: new FormControl('', [Validators.required]),
-            date: new FormControl(new Date().toDateString(), [Validators.required])
-        });
+        this.formGroup = ConsentForm.createForm();
     }
 
-    onSubmit(formData: FormGroup): void {
-        this.consentService.postConsent(formData.value)
-            .subscribe(() => {
-                this.router.navigate(['../profile'], {relativeTo: this.route}).then();
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
+    }
+
+    redirectToProfile(): void {
+        this.router.navigate(['accounts', 'profile']).then();
+    }
+
+    onSubmit(): void {
+        const data = ConsentForm.extractData(this.formGroup);
+        this.consentService.postConsent(data).subscribe(
+            () => {
                 this.toastr.success('You have successfully consented!');
-            }, error => {
-                console.warn(error);
-                this.toastr.error(error);
-            });
+                this.redirectToProfile();
+            }
+        );
     }
 
     declineConsent(): void {
-        this.consentService.postConsent({
-            consent: false,
-            legal_first_name: '',
-            legal_last_name: '',
-            student_number: '',
-            date: ''
-        }).subscribe(() => {
+        this.consentService.declineConsent().subscribe(() => {
             this.toastr.success('You successfully declined to consent.');
-        }, error => {
-            console.warn(error);
-            this.toastr.error(error);
+            this.redirectToProfile();
         });
     }
-
 }
