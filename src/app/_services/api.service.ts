@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from "@environments/environment";
-import {Observable, of} from "rxjs";
+import {Observable, of, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
@@ -52,11 +52,37 @@ export class ApiService {
                 this.router.navigate(redirect).then();
 
             if (showMessage)
-                this.toastr.error( message || error.statusText);
+                this.toastr.error(message || error.statusText);
             if (!result) {
-                throw error;
+                return throwError(error);
             }
             return of(result as T);
         };
     }
+
+    handleFormError(): (error: HttpErrorResponse) => Observable<never> {
+        const toastErrorObject = (error: unknown): void => {
+            if (typeof error === 'string') {
+                this.toastr.error(error);
+            } else if (Array.isArray(error)) {
+                error.forEach(toastErrorObject);
+            } else if (typeof error === 'object') {
+                for (const key in error) {
+                    if (error.hasOwnProperty(key))
+                        toastErrorObject(error[key]);
+                }
+            }
+        };
+
+        return (error): Observable<never> => {
+            const apiError = error.error;
+            if (!apiError) {
+                this.toastr.error('Something went wrong!');
+            } else {
+                toastErrorObject(apiError);
+            }
+            return throwError(error);
+        };
+    }
+
 }

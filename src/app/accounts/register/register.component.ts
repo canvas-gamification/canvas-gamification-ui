@@ -32,17 +32,14 @@ export class RegisterComponent implements OnInit {
     onSubmit(): void {
         const data = RegisterForm.extractData(this.formGroup);
         this.isLoading = true;
-        this.register.postRegistration(data)
-            .subscribe(() => {
-                this.formGroup.reset();
-                this.toastr.success('You have successfully registered.');
-                this.formSubmitted = true;
-                this.isLoading = false;
-            },
-            (error) => {
-                this.toastr.error(JSON.stringify(error.error));
-                this.isLoading = false;
-            });
+        this.register.postRegistration(data).subscribe(() => {
+            this.formGroup.reset();
+            this.toastr.success('You have successfully registered.');
+            this.formSubmitted = true;
+            this.isLoading = false;
+        },
+        () => {
+            this.isLoading = false;
+        });
     }
-
 }

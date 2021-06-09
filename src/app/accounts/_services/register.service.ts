@@ -16,8 +16,7 @@ export class RegisterService {
 
     postRegistration(input: RegisterFormData): Observable<User> {
         const url = this.apiService.getURL('register');
-        return this.http.post<User>(url, input)
-            .pipe(catchError(this.apiService.handleError<User>(`A problem occurred while registering`)));
+        return this.http.post<User>(url, input).pipe(catchError(this.apiService.handleFormError()));
     }
 
     postActivation(uuid: string, token: string): Observable<APIResponse> {
