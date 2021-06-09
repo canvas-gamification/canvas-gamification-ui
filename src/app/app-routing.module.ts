@@ -29,7 +29,7 @@ import {ActivationEmailComponent} from '@app/components/accounts/activation-emai
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
-import { LeaderBoardComponent } from './components/leader-board/leader-board.component';
+import {LeaderBoardComponent } from './components/leader-board/leader-board.component';
 
 
 

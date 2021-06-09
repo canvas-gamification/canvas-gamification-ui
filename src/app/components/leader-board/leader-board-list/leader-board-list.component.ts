@@ -14,7 +14,7 @@ import {Course, User} from '@app/_models';
 export class CourseListComponent implements AfterViewInit {
     courseList: MatTableDataSource<Course>;
     allCourses: Course[];
-    displayedColumns: string[] = ['id', 'name', 'status', 'is_registered', 'actions'];
+    displayedColumns: string[] = ['course_id', 'student_name', 'tokens', 'visable'];
     user: User;
 
     @ViewChild(MatSort) sort: MatSort;

@@ -1,40 +1,31 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {MatTableDataSource} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from '@app/_services/api/authentication';
+import {CourseService} from '@app/_services/api/course/course.service';
+import {Course, User,leader_board} from '@app/_models';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-leader-board',
     templateUrl: './leader-board.component.html',
     styleUrls: ['./leader-board.component.scss']
 })
-export class LeaderBoardComponent implements OnInit, AfterViewInit {
+export class LeaderBoardComponent implements OnInit {
+    course: leader_board;
+    courseId: number;
+    user: User;
 
-    @Input() leaderBoard: [{
-        name: string,
-        token: number,
-    }];
-
-    // Table data
-    displayedColumns: string[] = ['name', 'token'];
-    leaderBoardData: MatTableDataSource<{
-        name: string,
-        token: number,
-    }>;
-    @ViewChild(MatSort) matSort: MatSort;
-
-    constructor() {
-        this.leaderBoard = [{
-            name: 'Anonymous User',
-            token: null,
-        }];
+    constructor(private authenticationService: AuthenticationService,
+                private courseService: CourseService,
+                private route: ActivatedRoute) {
+        this.courseId = this.route.snapshot.params.courseId;
+        this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
-        this.leaderBoardData = new MatTableDataSource();
-    }
-
-    ngAfterViewInit(): void {
-        this.leaderBoardData = new MatTableDataSource(this.leaderBoard);
-        this.leaderBoardData.sort = this.matSort;
+        this.courseService
+            .getCourse(this.courseId)
+            .subscribe(course => {
+                this.leader_board = leaderboard;
+            });
     }
 }
