@@ -1,8 +1,8 @@
-<form [formGroup]="mcqFormData" (ngSubmit)="onSubmit(mcqFormData)">
+<form (ngSubmit)="onSubmit(mcqFormData)" [formGroup]="mcqFormData">
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqQuestionName">Question Name:</label>
-            <input class="form-control" formControlName="title" type="text" id="mcqQuestionName">
+            <input class="form-control" formControlName="title" id="mcqQuestionName" type="text">
         </div>
     </div>
     <div class="form-row m-3 p-3">
@@ -26,7 +26,7 @@
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqCourse">Course:</label>
-            <select class="form-control" formControlName="course" id="mcqCourse" (change)="courseSelectedEvent($event)">
+            <select (change)="courseSelectedEvent($event)" class="form-control" formControlName="course" id="mcqCourse">
                 <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
             </select>
         </div>
@@ -45,26 +45,54 @@
             <app-ck-editor [(value)]="questionText" id="mcqQuestion"></app-ck-editor>
         </div>
     </div>
-    <div class="form-row m-3 p-3">
-        <div class="col-md-6">
-            <label for="mcqCorrectAnswer">Correct Answer:</label>
-            <app-ck-editor [(value)]="answerText" id="mcqCorrectAnswer"></app-ck-editor>
+    <ng-container *ngIf="!questionDetails.is_checkbox">
+        <div class="form-row m-3 p-3">
+            <div class="col-md-6">
+                <label for="mcqCorrectAnswer">Correct Answer:</label>
+                <app-ck-editor [(value)]="answerText" id="mcqCorrectAnswer"></app-ck-editor>
+            </div>
         </div>
-    </div>
+    </ng-container>
+    <ng-container *ngIf="questionDetails.is_checkbox">
+        <div class="form-row m-3">
+            <div class="col-md-6">
+                <label for="mcqCorrectAnswers">Correct Answers:</label>
+                <table id="mcqCorrectAnswers">
+                    <tbody>
+                    <tr *ngFor="let _ of correctAnswers; index as i">
+                        <td class="p-3">
+                            <app-ck-editor [(value)]="correctAnswers[i].text"></app-ck-editor>
+                        </td>
+                        <td class="p-3">
+                            <button (click)="removeAnswer(i)" class="btn btn-danger m-auto" type="button">Remove
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tr>
+                        <td class="p-3" colspan="2">
+                            <button (click)="addAnswer()" class="btn btn-primary m-auto" type="button">Add Another
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </ng-container>
     <div class="form-row m-3 p-3">
         <div class="col-md-6>">
             <h3>Distract Answers:</h3>
             <label class="radio-inline mx-1">
-                <input name="visible_distractor_count" type="radio" value="999"
-                       formControlName="visible_distractor_count">All
+                <input formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
+                       value="999">All
             </label>
             <label class="radio-inline mx-1">
-                <input name="visible_distractor_count" type="radio" value="2"
-                       formControlName="visible_distractor_count">2
+                <input formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
+                       value="2">2
             </label>
             <label class="radio-inline mx-1">
-                <input name="visible_distractor_count" type="radio" value="3"
-                       formControlName="visible_distractor_count">3
+                <input formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
+                       value="3">3
             </label>
         </div>
     </div>
@@ -77,13 +105,13 @@
                         <app-ck-editor [(value)]="distractors[i].text"></app-ck-editor>
                     </td>
                     <td class="p-3">
-                        <button type="button" class="btn btn-danger m-auto" (click)="removeChoice(i)">Remove</button>
+                        <button (click)="removeChoice(i)" class="btn btn-danger m-auto" type="button">Remove</button>
                     </td>
                 </tr>
                 </tbody>
                 <tr>
-                    <td colspan="2" class="p-3">
-                        <button type="button" class="btn btn-primary m-auto" (click)="addChoice()">Add Another</button>
+                    <td class="p-3" colspan="2">
+                        <button (click)="addChoice()" class="btn btn-primary m-auto" type="button">Add Another</button>
                     </td>
                 </tr>
             </table>
