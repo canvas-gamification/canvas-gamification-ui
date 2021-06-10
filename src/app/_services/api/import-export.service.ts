@@ -54,13 +54,13 @@ export class ImportExportService {
             .pipe(catchError(this.apiService.handleError<Question[]>('Error occurred while fetching questions for download')));
     }
 
-    uploadMCQuestion(question: Question) : void {
-        const eventId = (typeof question.event === 'number')? question.event : question.event?.id;
+    uploadMCQuestion(question: Question): void {
+        const eventId = (typeof question.event === 'number') ? question.event : question.event?.id;
         const input = {
             title: question.title,
             difficulty: question.difficulty,
             course: question.course_name,
-            event: (String(eventId) === 'undefined')? null : String(eventId),
+            event: (String(eventId) === 'undefined') ? null : String(eventId),
             text: question.text,
             answer: question.answer,
             category: String(this.categories.filter(x => x.pk === question.category)[0].pk),
@@ -74,13 +74,13 @@ export class ImportExportService {
         });
     }
 
-    uploadParsonsQuestion(question: Question) : void {
-        const eventId = (typeof question.event === 'number')? question.event : question.event?.id;
+    uploadParsonsQuestion(question: Question): void {
+        const eventId = (typeof question.event === 'number') ? question.event : question.event?.id;
         const input = {
             title: question.title,
             difficulty: question.difficulty,
             course: question.course_name,
-            event: (String(eventId) === 'undefined')? null : String(eventId),
+            event: (String(eventId) === 'undefined') ? null : String(eventId),
             text: question.text,
             category: String(this.categories.filter(x => x.pk === question.category)[0].pk),
             variables: question.variables,
@@ -94,13 +94,13 @@ export class ImportExportService {
         });
     }
 
-    uploadJavaQuestion(question: Question) : void {
-        const eventId = (typeof question.event === 'number')? question.event : question.event?.id;
+    uploadJavaQuestion(question: Question): void {
+        const eventId = (typeof question.event === 'number') ? question.event : question.event?.id;
         const input = {
             title: question.title,
             difficulty: question.difficulty,
             course: question.course_name,
-            event: (String(eventId) === 'undefined')? null : String(eventId),
+            event: (String(eventId) === 'undefined') ? null : String(eventId),
             text: question.text,
             category: String(this.categories.filter(x => x.pk === question.category)[0].pk),
             variables: question.variables,

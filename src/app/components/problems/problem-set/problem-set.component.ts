@@ -76,6 +76,7 @@ export class ProblemSetComponent implements OnInit {
     filename: string;
     jsonUri: SafeUrl;
     private parsedQuestions: Question[];
+    private retrievedQuestions: Question[];
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
@@ -97,6 +98,7 @@ export class ProblemSetComponent implements OnInit {
                     filename: 'questions-' + timestamp + '.json',
                     text: JSON.stringify(questions)
                 });
+                this.retrievedQuestions = questions;
             });
         });
     }
@@ -134,6 +136,7 @@ export class ProblemSetComponent implements OnInit {
                 filename: 'questions-' + timestamp + '.json',
                 text: JSON.stringify(questions)
             });
+            this.retrievedQuestions = questions;
         });
     }
 
@@ -214,6 +217,10 @@ export class ProblemSetComponent implements OnInit {
     getFileName(id: number): string {
         const timestamp = formatDate(new Date(), 'yyyy/MM/dd_HH:mm:ss', 'en');
         return `question-${id}-${timestamp}.json`;
+    }
+
+    downloadQuestion(id: number) : SafeUrl {
+        return this.getQuestionJson(this.retrievedQuestions?.filter(c => c.id === id)[0]);
     }
 
     onFileChanged(target: EventTarget): void {
