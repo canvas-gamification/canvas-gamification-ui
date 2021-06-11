@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 
-import {CourseService} from './course.service';
+import {CourseService} from './leaderboard.service';
 import {TestModule} from '@test/test.module';
 
 describe('CourseService', () => {

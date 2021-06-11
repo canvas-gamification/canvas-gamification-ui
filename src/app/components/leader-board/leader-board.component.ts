@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {CourseService} from '@app/_services/api/course/course.service';
+import {LeaderBoardService} from '@app/_services/api/leaderboard/leaderboard.service';
 import {Course, User,leader_board} from '@app/_models';
 import {ActivatedRoute} from '@angular/router';
 
@@ -10,22 +10,22 @@ import {ActivatedRoute} from '@angular/router';
     styleUrls: ['./leader-board.component.scss']
 })
 export class LeaderBoardComponent implements OnInit {
-    course: leader_board;
+    leader_board: leader_board;
     courseId: number;
     user: User;
 
     constructor(private authenticationService: AuthenticationService,
-                private courseService: CourseService,
+                private leaderBoardService: LeaderBoardService,
                 private route: ActivatedRoute) {
         this.courseId = this.route.snapshot.params.courseId;
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
-        this.courseService
+        this.leaderBoardService
             .getCourse(this.courseId)
-            .subscribe(course => {
-                this.leader_board = leaderboard;
+            .subscribe(leader_board => {
+                this.courseId= this.courseId;
             });
     }
 }

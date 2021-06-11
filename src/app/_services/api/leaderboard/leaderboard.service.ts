@@ -14,7 +14,7 @@ import {ApiService} from "@app/_services/api.service";
 @Injectable({
     providedIn: 'root'
 })
-export class CourseService {
+export class LeaderBoardService {
     constructor(
         private http: HttpClient,
         private apiService: ApiService) {
