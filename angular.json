@@ -23,6 +23,9 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
                         "aot": true,
+                        "allowedCommonJsDependencies": [
+                            "dragula"
+                        ],
                         "assets": [
                             "src/favicon.ico",
                             "src/assets",
