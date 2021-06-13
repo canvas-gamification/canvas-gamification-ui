@@ -92,14 +92,6 @@ export class ProblemSetComponent implements OnInit {
                 this.questionsSource = new MatTableDataSource<Question>(this.questions);
                 this.questionsLength = paginatedQuestions.count;
             });
-            this.importExportService.downloadAllQuestions(options).subscribe(questions => {
-                const timestamp = formatDate(new Date(), 'yyyy/MM/dd_HH:mm:ss', 'en');
-                this.generateJSONURI({
-                    filename: 'questions-' + timestamp + '.json',
-                    text: JSON.stringify(questions)
-                });
-                this.retrievedQuestions = questions;
-            });
         });
     }
 
@@ -258,6 +250,8 @@ export class ProblemSetComponent implements OnInit {
             this.importExportService.uploadParsonsQuestion(question);
         else if (question.type_name === 'java question')
             this.importExportService.uploadJavaQuestion(question);
+        else
+            this.toastr.error('The question type is invalid');
     }
 
 }
