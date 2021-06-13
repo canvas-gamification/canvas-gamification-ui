@@ -48,7 +48,7 @@ export class ProblemHelpersService {
         correctAnswers.forEach((answer) => {
             correctAnswerKeys.push(Object.keys(checkboxChoices).find(key => checkboxChoices[key] === answer));
         });
-        const correctAnswer = correctAnswerKeys.reverse().toString();
+        const correctAnswer = correctAnswerKeys.toString();
         return {
             title: formData.title,
             difficulty: formData.difficulty,

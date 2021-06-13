@@ -19,9 +19,8 @@
             <tr *ngFor="let submission of previousSubmissions; let i = index"
                 [attr.class]="'highlight-'+submission.status_color">
                 <td>{{i + 1 || 'No ID'}}</td>
-                <td *ngIf="submission.show_answer && !submission.safeAnswers" [innerHTML]="submission.safeAnswer"></td>
-                <td *ngIf="submission.show_answer && submission.safeAnswers">
-                    <div *ngFor="let safeAnswer of submission.safeAnswers" [innerHTML]="safeAnswer"></div>
+                <td *ngIf="submission.show_answer">
+                    <div *ngFor="let safeAnswer of submission.safeAnswer" [innerHTML]="safeAnswer"></div>
                 </td>
                 <td>{{submission.grade.toFixed(2)}}</td>
                 <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>

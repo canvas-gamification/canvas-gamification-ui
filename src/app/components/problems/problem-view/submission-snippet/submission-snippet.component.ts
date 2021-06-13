@@ -15,14 +15,10 @@ export class SubmissionSnippetComponent implements OnInit {
 
     ngOnInit(): void {
         this.previousSubmissions.forEach((previousSubmission) => {
-            if (typeof previousSubmission.answer_display === 'string') {
-                previousSubmission.safeAnswer = this.sanitizer.bypassSecurityTrustHtml(previousSubmission.answer_display);
-            } else {
-                previousSubmission.safeAnswers = [];
-                previousSubmission.answer_display.forEach((answer) => {
-                    previousSubmission.safeAnswers.push(this.sanitizer.bypassSecurityTrustHtml(answer));
-                });
-            }
+            previousSubmission.safeAnswer = [];
+            previousSubmission.answer_display.forEach((answer) => {
+                previousSubmission.safeAnswer.push(this.sanitizer.bypassSecurityTrustHtml(answer));
+            });
         });
     }
 
