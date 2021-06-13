@@ -41,7 +41,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
         this.removeLeftContainerIndents();
         this.dragulaService.createGroup(this.PARSONS_LINES, {});
 
-        this.dragulaService.drop().subscribe(() => {
+        this.dragulaService.dragend().subscribe(() => {
             this.determineIndents();
             this.removeLeftContainerIndents();
             this.calculateSourceCode();
@@ -59,7 +59,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
                 count++;
             } else if (tempLine.charAt(tempLine.length - 1) === '}') {
                 count--;
-                line.value = indentString(tempLine, count, {indent: '    '});
+                line.value = indentString(tempLine, count >= 0 ? count : count = 0, {indent: '    '});
             } else if (count > 0) {
                 line.value = indentString(tempLine, count, {indent: '    '});
             }

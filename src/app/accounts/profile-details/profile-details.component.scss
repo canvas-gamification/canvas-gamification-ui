@@ -1,0 +1,20 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+}
+
+.brand {
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 40px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .05);
+    position: relative;
+    z-index: 1;
+}
+
+.brand img {
+    width: 100%;
+}

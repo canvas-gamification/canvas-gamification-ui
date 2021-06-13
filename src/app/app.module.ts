@@ -24,7 +24,6 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
-import {LoginComponent} from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {RecentUserActionsComponent} from './components/homepage/recent-user-actions/recent-user-actions.component';
@@ -33,11 +32,6 @@ import {RecentViewedQuestionsComponent} from './components/homepage/recent-viewe
 import {CourseDashboardComponent} from './components/homepage/course-dashboard/course-dashboard.component';
 import {InactiveCoursesComponent} from './components/homepage/inactive-courses/inactive-courses.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {RegisterComponent} from './components/accounts/register/register.component';
-import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
-import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
-import {ConsentFormComponent} from './components/accounts/consent-form/consent-form.component';
-import {TermsAndConditionsSnippetComponent} from './components/accounts/terms-and-conditions-snippet/terms-and-conditions-snippet.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {CourseListComponent} from './components/course/course-list/course-list.component';
 import {CourseComponent} from './components/course/course.component';
@@ -76,7 +70,6 @@ import {
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
-import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -97,7 +90,6 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         // Temporarily disable concept map due to optimization errors.
         // ConceptMapComponent,
         UserStatsComponent,
-        LoginComponent,
         TokenValuesComponent,
         FaqComponent,
         ProblemSetComponent,
@@ -107,11 +99,6 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         RecentViewedQuestionsComponent,
         CourseDashboardComponent,
         InactiveCoursesComponent,
-        RegisterComponent,
-        ProfileDetailsComponent,
-        ResetPasswordComponent,
-        ConsentFormComponent,
-        TermsAndConditionsSnippetComponent,
         CourseListComponent,
         CourseRegisterComponent,
         CourseComponent,
@@ -137,7 +124,6 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         SubmissionSnippetComponent,
         LeaderBoardComponent,
         SubmissionViewComponent,
-        ActivationEmailComponent,
         CkEditorComponent,
         NotFoundComponent,
         ForbiddenComponent,
