@@ -7,23 +7,36 @@
             <div class="card">
                 <h2 class="card-header">Profile</h2>
                 <div class="card-body">
-                    <form [formGroup]="formData" (ngSubmit)="onSubmit(formData)">
+                    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
                         <div class="form-group">
                             <label for="first_name">First Name:</label>
                             <input type="text" class="form-control" name="first_name"
-                                   formControlName="first_name" id="first_name">
+                                   formControlName="first_name" id="first_name"
+                                   [ngClass]="{ 'is-invalid': form.first_name.errors && form.first_name.touched }">
+                            <div *ngIf="form.first_name.errors" class="invalid-feedback">
+                                <div *ngIf="form.first_name.errors.required">First name is required</div>
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label for="last_name">Last Name:</label>
                             <input type="text" class="form-control" name="last_name"
-                                   formControlName="last_name" id="last_name">
+                                   formControlName="last_name" id="last_name"
+                                   [ngClass]="{ 'is-invalid': form.last_name.errors && form.last_name.touched }">
+                            <div *ngIf="form.last_name.errors" class="invalid-feedback">
+                                <div *ngIf="form.last_name.errors.required">Last name is required</div>
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email:</label>
                             <input type="email" class="form-control" name="email"
-                                   formControlName="email" id="email">
+                                   formControlName="email" id="email"
+                                   [ngClass]="{ 'is-invalid': form.email.errors && form.email.touched }">
+                            <div *ngIf="form.email.errors" class="invalid-feedback">
+                                <div *ngIf="form.email.errors.required">Email is required</div>
+                                <div *ngIf="form.email.errors.email">Email should be valid</div>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Update</button>

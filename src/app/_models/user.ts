@@ -9,4 +9,5 @@
     role: string;
     is_teacher: boolean;
     is_student: boolean;
+    has_consent: boolean;
 }

@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 
-import {ChangePasswordService} from "@app/_services/api/accounts/change-password.service";
+import {ChangePasswordService} from "@app/accounts/_services/change-password.service";
 import {TestModule} from '@test/test.module';
 
 describe('ChangePasswordService', () => {

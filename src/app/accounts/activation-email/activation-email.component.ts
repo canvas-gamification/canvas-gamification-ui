@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
-import {RegisterService} from '@app/_services/api/accounts/register.service';
+import {RegisterService} from '@app/accounts/_services/register.service';
 
 import {ToastrService} from "ngx-toastr";
 
@@ -27,13 +27,15 @@ export class ActivationEmailComponent implements OnInit {
             this.token = params.token;
         });
 
-        this.registerService.postActivation(this.uuid, this.token)
-            .subscribe((result) => {
-                if (result.success) {
-                    this.toastr.success('You have activated your account successfully.');
-                    this.router.navigate(['/accounts/login']).then();
-                }
-            });
+        this.registerService.postActivation(this.uuid, this.token).subscribe(
+            () => {
+                this.toastr.success('You have activated your account successfully.');
+                this.router.navigate(['/accounts/login']).then();
+            },
+            () => {
+                this.router.navigate(['accounts', 'login']).then();
+            }
+        );
     }
 
 }

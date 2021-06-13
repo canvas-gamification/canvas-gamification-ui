@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ResetPasswordService} from '@app/_services/api/accounts/reset-password.service';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
+import {ResetPasswordService} from '@app/accounts/_services/reset-password.service';
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ResetPasswordForm} from "@app/accounts/_forms/reset-password.form";
 
 @Component({
     selector: 'app-reset-password',
@@ -10,10 +11,8 @@ import {ActivatedRoute, Router} from "@angular/router";
     styleUrls: ['./reset-password.component.scss'],
 })
 export class ResetPasswordComponent implements OnInit {
-    formData: FormGroup;
+    formGroup: FormGroup;
     logoPath = 'assets/global/logo.jpg';
-    uuid: string;
-    token: string;
     emailSent = false;
 
     constructor(private builder: FormBuilder,
@@ -24,44 +23,35 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.uuid = this.route.snapshot.params.uuid;
-        this.token = this.route.snapshot.params.token;
-        if (this.uuid && this.token) {
+        const uuid = this.route.snapshot.params.uuid;
+        const token = this.route.snapshot.params.token;
+        if (uuid && token) {
             this.emailSent = true;
-            this.formData = this.builder.group({
-                password: new FormControl('', [Validators.required]),
-                password2: new FormControl('', [Validators.required])
-            });
+            this.formGroup = ResetPasswordForm.createPasswordForm(uuid, token);
         }
         if (!this.emailSent) {
-            this.formData = this.builder.group({
-                email: new FormControl('', [Validators.required])
-            });
+            this.formGroup = ResetPasswordForm.createEmailForm();
         }
     }
 
-    onSubmit(formData: FormGroup): void {
-        this.resetPasswordService.putPasswordReset({
-            uid: this.uuid,
-            token: this.token,
-            ...formData.value
-        })
-            .subscribe((result) => {
-                if (result.success != false) {
-                    this.formData.reset();
-                    this.toastr.success('Your password has been updated successfully!');
-                    this.router.navigate(['/accounts/login']).then();
-                }
-            });
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
     }
 
-    submitEmail(formData: FormGroup): void {
-        this.resetPasswordService.sendForgotPasswordEmail(formData.get('email').value)
-            .subscribe((result) => {
-                if (result.success != false) {
-                    this.formData.reset();
-                    this.toastr.success('An email has been sent to you with a password reset link!');
-                }
+    onSubmit(): void {
+        const data = ResetPasswordForm.extractPasswordFormData(this.formGroup);
+        this.resetPasswordService.putPasswordReset(data).subscribe(() => {
+            this.toastr.success('Your password has been updated successfully!');
+            this.router.navigate(['/accounts/login']).then();
+        });
+    }
+
+    submitEmail(): void {
+        const data = ResetPasswordForm.extractEmailFormData(this.formGroup);
+        this.resetPasswordService.sendForgotPasswordEmail(data)
+            .subscribe(() => {
+                this.formGroup.reset();
+                this.toastr.success('An email has been sent to you with a password reset link!');
             });
     }
 }

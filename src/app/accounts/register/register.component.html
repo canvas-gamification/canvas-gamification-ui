@@ -8,21 +8,29 @@
                 <ng-container *ngIf="!formSubmitted; else successfulSubmission">
                     <h2 class="card-header">Register</h2>
                     <div class="card-body">
-                        <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
+                        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
                                        placeholder="Email"
-                                       formControlName="email" id="email">
+                                       formControlName="email" id="email"
+                                       [ngClass]="{ 'is-invalid': form.email.errors && form.email.touched }">
+                                <div *ngIf="form.email.touched && form.email.invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.email.errors.required">Email is Required.</div>
+                                    <div *ngIf="form.email.errors.email">Email is not valid.</div>
+                                </div>
                                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with
                                     anyone else.</small>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password:</label>
                                 <input type="password" class="form-control" name="password" placeholder="Password"
-                                       formControlName="password" id="password">
-                                <div *ngIf="f.password.touched && f.password.invalid" class="alert alert-danger">
-                                    <div *ngIf="f.password.errors.required">Password is Required.</div>
+                                       formControlName="password" id="password"
+                                       [ngClass]="{ 'is-invalid': form.password.errors && form.password.touched }">
+                                <div *ngIf="form.password.touched && form.password.invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.password.errors.required">Password is Required.</div>
                                 </div>
                             </div>
                             <div class="alert alert-info">
@@ -35,11 +43,12 @@
                                 <label for="password2">Password Confirmation:</label>
                                 <input type="password" class="form-control" name="password2"
                                        placeholder="Confirm Password"
-                                       formControlName="password2" id="password2">
-                                <div *ngIf="f.password2.touched && f.password2.invalid"
-                                     class="alert alert-danger">
-                                    <div *ngIf="f.password2.errors.required">Password is Required.</div>
-                                    <div *ngIf="f.password2.errors.confirmedValidator">Passwords must match.
+                                       formControlName="password2" id="password2"
+                                       [ngClass]="{ 'is-invalid': form.password2.errors && form.password2.touched }">
+                                <div *ngIf="form.password2.touched && form.password2.invalid"
+                                     class="invalid-feedback">
+                                    <div *ngIf="form.password2.errors.required">Password is Required.</div>
+                                    <div *ngIf="form.password2.errors.confirmedValidator">Passwords must match.
                                     </div>
                                 </div>
                             </div>
@@ -48,9 +57,12 @@
                                             siteKey="{{siteKey}}">
                                 </re-captcha>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-block"
-                                    *ngIf="!isLoading; else loadingSpinner">
-                                <div>Register</div>
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-block"
+                                *ngIf="!isLoading; else loadingSpinner"
+                                [disabled]="formGroup.invalid">
+                                Register
                             </button>
                             <ng-template #loadingSpinner>
                                 <div class="form-row justify-content-center">
