@@ -7,7 +7,7 @@ import {APIResponse} from "@app/_models";
 import {EmailFormData, PasswordFormData} from "@app/accounts/_forms/reset-password.form";
 
 @Injectable({
-    providedIn: null
+    providedIn: 'root'
 })
 export class ResetPasswordService {
 

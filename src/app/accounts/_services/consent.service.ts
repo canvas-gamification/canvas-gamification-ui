@@ -7,7 +7,7 @@ import {ApiService} from "@app/_services/api.service";
 import {ConsentFormData} from "@app/accounts/_forms/consent.form";
 
 @Injectable({
-    providedIn: null
+    providedIn: 'root'
 })
 export class ConsentService {
 

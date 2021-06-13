@@ -25,7 +25,7 @@ export class ProfileDetailsComponent implements OnInit {
                 private toastr: ToastrService,
                 private consentService: ConsentService,
                 private authenticationService: AuthenticationService) {
-        this.userId = this.authenticationService.currentUserValue.id;
+        this.userId = this.authenticationService.currentUserValue?.id;
     }
 
     ngOnInit(): void {

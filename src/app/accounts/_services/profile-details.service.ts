@@ -7,7 +7,7 @@ import {ApiService} from "@app/_services/api.service";
 import {ProfileDetailsFormData} from "@app/accounts/_forms/profile-details.form";
 
 @Injectable({
-    providedIn: null
+    providedIn: 'root'
 })
 export class ProfileDetailsService {
 

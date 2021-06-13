@@ -7,7 +7,7 @@ import {APIResponse} from "@app/_models";
 import {ChangePasswordFormData} from "@app/accounts/_forms/change-password.form";
 
 @Injectable({
-    providedIn: null
+    providedIn: 'root'
 })
 export class ChangePasswordService {
 
