@@ -22,7 +22,7 @@
             </li>
             <ng-container *ngIf="user?.is_teacher">
                 <li class="nav-item">
-                    <a [class.active]="isActive('problems')" class="nav-link" routerLink="problems">Problem
+                    <a [class.active]="isActive('problems')" class="nav-link" [routerLink]="['problems']">Problem
                         Set</a>
                 </li>
             </ng-container>

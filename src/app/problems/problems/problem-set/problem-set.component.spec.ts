@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {AceComponent} from './ace.component';
-import {TestModule} from '../../../../../test/test.module';
+import {ProblemSetComponent} from './problem-set.component';
+import {TestModule} from '@test/test.module';
 
-describe('AceComponent', () => {
-    let component: AceComponent;
-    let fixture: ComponentFixture<AceComponent>;
+describe('ProblemSetComponent', () => {
+    let component: ProblemSetComponent;
+    let fixture: ComponentFixture<ProblemSetComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('AceComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(AceComponent);
+        fixture = TestBed.createComponent(ProblemSetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

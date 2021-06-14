@@ -42,26 +42,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {CourseEventCreateEditComponent} from './components/course/course-event-create/course-event-create-edit.component';
 import {CourseRegisterComponent} from './components/course/course-registration/course-register.component';
 import {MatSortModule} from '@angular/material/sort';
-import {ProblemSetComponent} from './components/problems/problem-set/problem-set.component';
-import {ProblemViewComponent} from './components/problems/problem-view/problem-view.component';
-import {ProblemEditComponent} from './components/problems/problem-edit/problem-edit.component';
 import {CommonModule} from '@angular/common';
-import {ProblemCreateComponent} from './components/problems/problem-create/problem-create.component';
-import {DragulaModule} from 'ng2-dragula';
-import {AceEditorModule} from 'ng2-ace-editor';
-import {AceComponent} from './components/problems/problem-view/ace/ace.component';
-import {McqViewSnippetComponent} from './components/problems/problem-view/mcq-view-snippet/mcq-view-snippet.component';
-import {JavaViewSnippetComponent} from './components/problems/problem-view/java-view-snippet/java-view-snippet.component';
-import {ParsonsViewSnippetComponent} from './components/problems/problem-view/parsons-view-snippet/parsons-view-snippet.component';
-import {ParsonsEditSnippetComponent} from './components/problems/problem-edit/parsons-edit-snippet/parsons-edit-snippet.component';
-import {McqEditSnippetComponent} from './components/problems/problem-edit/mcq-edit-snippet/mcq-edit-snippet.component';
-import {JavaEditSnippetComponent} from './components/problems/problem-edit/java-edit-snippet/java-edit-snippet.component';
-import {McqCreateSnippetComponent} from './components/problems/problem-create/mcq-create-snippet/mcq-create-snippet.component';
-import {JavaCreateSnippetComponent} from './components/problems/problem-create/java-create-snippet/java-create-snippet.component';
-import {ParsonsCreateSnippetComponent} from './components/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component';
-import {VariableViewComponent} from './components/problems/problem-view/variable-view/variable-view.component';
-import {JsonEditorComponent} from './components/problems/json-editor/json-editor.component';
-import {SubmissionSnippetComponent} from './components/problems/problem-view/submission-snippet/submission-snippet.component';
 import {
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
@@ -69,12 +50,9 @@ import {
 } from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
-import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
@@ -92,7 +70,6 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         UserStatsComponent,
         TokenValuesComponent,
         FaqComponent,
-        ProblemSetComponent,
         HomepageComponent,
         RecentUserActionsComponent,
         UserActionsComponent,
@@ -106,25 +83,7 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         TokenUseSnippetComponent,
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
-        ProblemViewComponent,
-        ProblemEditComponent,
-        ProblemCreateComponent,
-        AceComponent,
-        McqViewSnippetComponent,
-        JavaViewSnippetComponent,
-        ParsonsViewSnippetComponent,
-        ParsonsEditSnippetComponent,
-        McqEditSnippetComponent,
-        JavaEditSnippetComponent,
-        McqCreateSnippetComponent,
-        JavaCreateSnippetComponent,
-        ParsonsCreateSnippetComponent,
-        VariableViewComponent,
-        JsonEditorComponent,
-        SubmissionSnippetComponent,
         LeaderBoardComponent,
-        SubmissionViewComponent,
-        CkEditorComponent,
         NotFoundComponent,
         ForbiddenComponent,
     ],
@@ -151,15 +110,12 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         MatButtonModule,
         MatProgressSpinnerModule,
         CommonModule,
-        DragulaModule.forRoot(),
-        AceEditorModule,
         MatDatepickerModule,
         NgxMatTimepickerModule,
         NgxMatDatetimePickerModule,
         NgxMatNativeDateModule,
         HighlightModule,
         MatSelectModule,
-        CKEditorModule,
         ToastrModule.forRoot(),
     ],
     providers: [

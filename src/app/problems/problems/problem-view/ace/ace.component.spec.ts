@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {SubmissionViewComponent} from './submission-view.component';
-import {TestModule} from '../../../../test/test.module';
+import {AceComponent} from './ace.component';
+import {TestModule} from '@test/test.module';
 
-describe('SubmissionViewComponent', () => {
-    let component: SubmissionViewComponent;
-    let fixture: ComponentFixture<SubmissionViewComponent>;
+describe('AceComponent', () => {
+    let component: AceComponent;
+    let fixture: ComponentFixture<AceComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('SubmissionViewComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SubmissionViewComponent);
+        fixture = TestBed.createComponent(AceComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
