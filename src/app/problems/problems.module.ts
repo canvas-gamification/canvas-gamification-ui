@@ -30,6 +30,8 @@ import {JavaViewSnippetComponent} from "@app/problems/problems/problem-view/java
 import {VariableViewComponent} from "@app/problems/problems/problem-view/variable-view/variable-view.component";
 import {AccountsRoutingModule} from "@app/accounts/accounts-routing.module";
 import {ParsonsCreateSnippetComponent} from "@app/problems/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component";
+import {AppRoutingModule} from "@app/app-routing.module";
+import {ProblemsRoutingModule} from "@app/problems/problems-routing.module";
 
 
 @NgModule({
@@ -57,7 +59,6 @@ import {ParsonsCreateSnippetComponent} from "@app/problems/problems/problem-crea
     imports: [
         CommonModule,
         FormsModule,
-        AccountsRoutingModule,
         ReactiveFormsModule,
         CKEditorModule,
         MatPaginatorModule,
@@ -67,7 +68,7 @@ import {ParsonsCreateSnippetComponent} from "@app/problems/problems/problem-crea
         AceEditorModule,
         DragulaModule.forRoot(),
         HighlightModule,
-        ToastrModule.forRoot(),
+        ProblemsRoutingModule,
     ],
     providers: [
         {
