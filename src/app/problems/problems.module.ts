@@ -64,6 +64,7 @@ import {ProblemsRoutingModule} from "@app/problems/problems-routing.module";
         AceEditorModule,
         HighlightModule,
         ProblemsRoutingModule,
+        AceEditorModule,
     ],
     providers: [
         {
