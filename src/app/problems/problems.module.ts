@@ -9,7 +9,6 @@ import {ParsonsViewSnippetComponent} from "@app/problems/problems/problem-view/p
 import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SubmissionSnippetComponent} from "@app/problems/problems/problem-view/submission-snippet/submission-snippet.component";
-import {ToastrModule} from "ngx-toastr";
 import {McqCreateSnippetComponent} from "@app/problems/problems/problem-create/mcq-create-snippet/mcq-create-snippet.component";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
@@ -25,12 +24,9 @@ import {CkEditorComponent} from "@app/problems/problems/ck-editor/ck-editor.comp
 import {ParsonsEditSnippetComponent} from "@app/problems/problems/problem-edit/parsons-edit-snippet/parsons-edit-snippet.component";
 import {SubmissionViewComponent} from "@app/problems/problems/submission-view/submission-view.component";
 import {ProblemSetComponent} from "@app/problems/problems/problem-set/problem-set.component";
-import {DragulaModule} from "ng2-dragula";
 import {JavaViewSnippetComponent} from "@app/problems/problems/problem-view/java-view-snippet/java-view-snippet.component";
 import {VariableViewComponent} from "@app/problems/problems/problem-view/variable-view/variable-view.component";
-import {AccountsRoutingModule} from "@app/accounts/accounts-routing.module";
 import {ParsonsCreateSnippetComponent} from "@app/problems/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component";
-import {AppRoutingModule} from "@app/app-routing.module";
 import {ProblemsRoutingModule} from "@app/problems/problems-routing.module";
 
 
@@ -66,7 +62,6 @@ import {ProblemsRoutingModule} from "@app/problems/problems-routing.module";
         MatSortModule,
         MatTableModule,
         AceEditorModule,
-        DragulaModule.forRoot(),
         HighlightModule,
         ProblemsRoutingModule,
     ],
