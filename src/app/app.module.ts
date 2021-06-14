@@ -56,7 +56,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
-import {DragulaModule} from "ng2-dragula";
 
 @NgModule({
     declarations: [
@@ -118,7 +117,6 @@ import {DragulaModule} from "ng2-dragula";
         HighlightModule,
         MatSelectModule,
         ToastrModule.forRoot(),
-        DragulaModule.forRoot(),
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

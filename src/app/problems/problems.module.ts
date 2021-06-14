@@ -28,6 +28,7 @@ import {JavaViewSnippetComponent} from "@app/problems/problems/problem-view/java
 import {VariableViewComponent} from "@app/problems/problems/problem-view/variable-view/variable-view.component";
 import {ParsonsCreateSnippetComponent} from "@app/problems/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component";
 import {ProblemsRoutingModule} from "@app/problems/problems-routing.module";
+import {DragulaModule} from "ng2-dragula";
 
 
 @NgModule({
@@ -64,7 +65,7 @@ import {ProblemsRoutingModule} from "@app/problems/problems-routing.module";
         AceEditorModule,
         HighlightModule,
         ProblemsRoutingModule,
-        AceEditorModule,
+        DragulaModule.forRoot(),
     ],
     providers: [
         {
