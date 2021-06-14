@@ -13,7 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {CategoryService} from "@app/_services/api/category.service";
 import {Difficulty} from "@app/_models/difficulty";
 import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
-import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {DomSanitizer} from "@angular/platform-browser";
 import {formatDate} from "@angular/common";
 import {ImportExportService} from "@app/_services/api/import-export.service";
 
@@ -73,10 +73,7 @@ export class ProblemSetComponent implements OnInit {
     difficulties: Difficulty[];
 
     //Import/Export Variables
-    filename: string;
-    jsonUri: SafeUrl;
     private parsedQuestions: Question[];
-    private retrievedQuestions: Question[];
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
@@ -121,14 +118,6 @@ export class ProblemSetComponent implements OnInit {
             this.pageSize = paginatedQuestions.results.length;
             this.questions = paginatedQuestions.results;
             this.questionsSource = new MatTableDataSource(this.questions);
-        });
-        this.importExportService.downloadAllQuestions().subscribe(questions => {
-            const timestamp = formatDate(new Date(), 'yyyy/MM/dd_HH:mm:ss', 'en');
-            this.generateJSONURI({
-                filename: 'questions-' + timestamp + '.json',
-                text: JSON.stringify(questions)
-            });
-            this.retrievedQuestions = questions;
         });
     }
 
@@ -194,25 +183,40 @@ export class ProblemSetComponent implements OnInit {
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
     }
 
-    private generateJSONURI(arg: {
-        filename: string,
-        text: string
-    }) {
-        this.filename = arg.filename;
-        this.jsonUri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(arg.text));
-    }
-
-    getQuestionJson(question: Question): SafeUrl {
-        return this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(JSON.stringify(question)));
-    }
-
     getFileName(id: number): string {
         const timestamp = formatDate(new Date(), 'yyyy/MM/dd_HH:mm:ss', 'en');
         return `question-${id}-${timestamp}.json`;
     }
 
-    downloadQuestion(id: number) : SafeUrl {
-        return this.getQuestionJson(this.retrievedQuestions?.filter(c => c.id === id)[0]);
+    downloadQuestion(id: number): void {
+        this.questionService.getQuestion(id).subscribe(question => {
+            const tempElement = document.createElement('a');
+            tempElement.download = this.getFileName(id);
+            const blob = new Blob([JSON.stringify(question)], {type: 'application/json'});
+            const url = window.URL.createObjectURL(blob);
+            tempElement.href = String(url);
+            tempElement.click();
+        });
+    }
+
+    downloadAllQuestions(): void {
+        const options = {
+            ...this.filterQueryString,
+            ordering: this.ordering,
+        };
+        this.importExportService.downloadAllQuestions(options).subscribe(questions => {
+            if(questions.length > 0) {
+                const timestamp = formatDate(new Date(), 'yyyy/MM/dd_HH:mm:ss', 'en');
+                const tempElement = document.createElement('a');
+                tempElement.download = 'questions-' + timestamp + '.json';
+                const blob = new Blob([JSON.stringify(questions)], {type: 'application/json'});
+                const url = window.URL.createObjectURL(blob);
+                tempElement.href = String(url);
+                tempElement.click();
+            }
+            else
+                this.toastr.error('There are no questions to download!');
+        });
     }
 
     onFileChanged(target: EventTarget): void {
@@ -238,8 +242,7 @@ export class ProblemSetComponent implements OnInit {
             for (const question of questions) {
                 this.uploadQuestion(question);
             }
-        }
-        else
+        } else
             this.uploadQuestion(questions as unknown as Question);
     }
 
@@ -253,5 +256,4 @@ export class ProblemSetComponent implements OnInit {
         else
             this.toastr.error('The question type is invalid');
     }
-
 }
