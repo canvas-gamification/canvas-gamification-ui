@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {McqFormData} from "@app/problems/_models/mcq-form-data";
+import {JavaFormData} from "@app/problems/_models/java-form-data";
 
 @Injectable({
     providedIn: 'root'
@@ -48,14 +49,7 @@ export class ProblemHelpersService {
         };
     }
 
-    createJavaSubmissionRequest(formData: {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        category: string,
-        junit_template: string,
-    }, variablesJSON: JSON[], inputFileNames: JSON, questionText: string) {
+    createJavaSubmissionRequest(formData: JavaFormData, variablesJSON: JSON[], inputFileNames: JSON, questionText: string) {
         return {
             title: formData.title,
             difficulty: formData.difficulty,

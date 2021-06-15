@@ -9,7 +9,7 @@ export class McqForm {
             difficulty: new FormControl(null, [Validators.required]),
             course: new FormControl(null),
             event: new FormControl(null),
-            category: new FormControl(null, [Validators.required]),
+            category: new FormControl(null),
             visible_distractor_count: new FormControl(null, [Validators.required]),
         });
     }
@@ -21,7 +21,7 @@ export class McqForm {
             difficulty: new FormControl(data.difficulty, [Validators.required]),
             course: new FormControl(data.course),
             event: new FormControl(data.event),
-            category: new FormControl(data.category, [Validators.required]),
+            category: new FormControl(data.category),
             visible_distractor_count: new FormControl(data.visible_distractor_count.toString(), [Validators.required]),
         });
     }

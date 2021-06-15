@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
@@ -8,6 +8,7 @@ import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
+import {JavaForm} from "@app/problems/_forms/java-form";
 
 @Component({
     selector: 'app-java-create-snippet',
@@ -15,7 +16,7 @@ import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
     styleUrls: ['./java-create-snippet.component.scss']
 })
 export class JavaCreateSnippetComponent implements OnInit {
-    javaFormData: FormGroup;
+    formGroup: FormGroup;
     courses: Course[];
     events: CourseEvent[];
     selectedCourse: number;
@@ -33,23 +34,19 @@ export class JavaCreateSnippetComponent implements OnInit {
                 private problemHelpersService: ProblemHelpersService) {
     }
 
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
+    }
+
     ngOnInit(): void {
+        this.formGroup = JavaForm.createForm();
+
         const coursesObservable = this.courseService.getCourses();
         const categoriesObservable = this.categoryService.getCategories();
 
         forkJoin([coursesObservable, categoriesObservable]).subscribe(result => {
             this.courses = result[0];
             this.categories = result[1];
-        });
-
-        this.javaFormData = this.formBuilder.group({
-            title: new FormControl(''),
-            difficulty: new FormControl(''),
-            category: new FormControl(''),
-            course: new FormControl(''),
-            event: new FormControl(''),
-            junit_template: new FormControl(''),
-            input_file_names: new FormControl(''),
         });
     }
 
@@ -68,12 +65,16 @@ export class JavaCreateSnippetComponent implements OnInit {
         }
     }
 
-    onSubmit(formData: FormGroup): void {
-        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData.value, this.variables, this.inputFileNames, this.questionText);
+    onSubmit(): void {
+        const data = JavaForm.extractData(this.formGroup);
+        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(data, this.variables, this.inputFileNames, this.questionText);
         this.questionService.postJavaQuestion(submissionRequest)
-            .subscribe((result) => {
-                if(result.success != false)
-                    this.toastr.success('The Question has been Created Successfully.');
+            .subscribe(() => {
+                window.scroll(0, 0);
+                this.formGroup.reset();
+                this.toastr.success('The Question has been Created Successfully.');
+            }, (error) => {
+                this.toastr.error(error);
             });
     }
 }
