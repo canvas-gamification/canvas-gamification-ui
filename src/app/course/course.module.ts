@@ -17,7 +17,6 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {AceEditorModule} from "ng2-ace-editor";
 import {HighlightModule} from "ngx-highlightjs";
-import {DragulaModule} from "ng2-dragula";
 import {MatIconModule} from "@angular/material/icon";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatInputModule} from "@angular/material/input";
@@ -28,7 +27,6 @@ import {
     NgxMatTimepickerModule
 } from "@angular-material-components/datetime-picker";
 import {MatSelectModule} from "@angular/material/select";
-import {ToastrModule} from "ngx-toastr";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
@@ -63,8 +61,6 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
         FontAwesomeModule,
         AceEditorModule,
         HighlightModule,
-        DragulaModule.forRoot(),
-        ToastrModule.forRoot(),
     ]
 })
 export class CourseModule {
