@@ -1,32 +1,47 @@
-<form [formGroup]="mcqFormData" (ngSubmit)="onSubmit(mcqFormData)">
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="mcqQuestionName">Question Name:</label>
-            <input class="form-control" formControlName="title" type="text" id="mcqQuestionName">
+            <input [ngClass]="{'is-invalid': form.title.errors && form.title.touched}" class="form-control" formControlName="title" id="mcqQuestionName"
+                   type="text">
+            <div *ngIf="form.title.touched && form.title.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.title.errors.required">Question Name is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="mcqDifficulty">Difficulty</label>
-            <select class="form-control" formControlName="difficulty" id="mcqDifficulty">
+            <select [ngClass]="{'is-invalid': form.difficulty.errors && form.difficulty.touched}" class="form-control" formControlName="difficulty"
+                    id="mcqDifficulty">
                 <option value="EASY">EASY</option>
                 <option value="NORMAL">MEDIUM</option>
                 <option value="HARD">HARD</option>
             </select>
+            <div *ngIf="form.difficulty.touched && form.difficulty.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.difficulty.errors.required">Question Difficulty is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="mcqCategory">Category:</label>
-            <select class="form-control" formControlName="category" id="mcqCategory">
+            <select [ngClass]="{'is-invalid': form.category.errors && form.category.touched}" class="form-control" formControlName="category"
+                    id="mcqCategory">
                 <option *ngFor="let category of categories" value="{{category.pk}}">{{category.full_name}}</option>
             </select>
+            <div *ngIf="form.category.touched && form.category.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.category.errors.required">Question Category is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="mcqCourse">Course:</label>
-            <select class="form-control" formControlName="course" id="mcqCourse" (change)="courseSelectedEvent($event)">
+            <select (change)="courseSelectedEvent($event)" class="form-control" formControlName="course" id="mcqCourse">
                 <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
             </select>
         </div>
@@ -64,13 +79,15 @@
                             <app-ck-editor [(value)]="correctAnswers[i].text"></app-ck-editor>
                         </td>
                         <td class="p-3">
-                            <button type="button" class="btn btn-danger m-auto" (click)="removeAnswer(i)">Remove</button>
+                            <button (click)="removeAnswer(i)" class="btn btn-danger m-auto" type="button">Remove
+                            </button>
                         </td>
                     </tr>
                     </tbody>
                     <tr>
-                        <td colspan="2" class="p-3">
-                            <button type="button" class="btn btn-primary m-auto" (click)="addAnswer()">Add Another</button>
+                        <td class="p-3" colspan="2">
+                            <button (click)="addAnswer()" class="btn btn-primary m-auto" type="button">Add Another
+                            </button>
                         </td>
                     </tr>
                 </table>
@@ -81,17 +98,24 @@
         <div class="col-md-6>">
             <h3>Distract Answers:</h3>
             <label class="radio-inline mx-1">
-                <input name="visible_distractor_count" type="radio" value="999"
-                       formControlName="visible_distractor_count">All
+                <input [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}" formControlName="visible_distractor_count" name="visible_distractor_count"
+                       type="radio"
+                       value="999">All
             </label>
             <label class="radio-inline mx-1">
-                <input name="visible_distractor_count" type="radio" value="2"
-                       formControlName="visible_distractor_count">2
+                <input [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}" formControlName="visible_distractor_count" name="visible_distractor_count"
+                       type="radio"
+                       value="2">2
             </label>
             <label class="radio-inline mx-1">
-                <input name="visible_distractor_count" type="radio" value="3"
-                       formControlName="visible_distractor_count">3
+                <input [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}" formControlName="visible_distractor_count" name="visible_distractor_count"
+                       type="radio"
+                       value="3">3
             </label>
+            <div *ngIf="form.visible_distractor_count.touched && form.visible_distractor_count.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.visible_distractor_count.errors.required">Visible Distractor Count is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3">
@@ -103,13 +127,13 @@
                         <app-ck-editor [(value)]="distractors[i].text"></app-ck-editor>
                     </td>
                     <td class="p-3">
-                        <button type="button" class="btn btn-danger m-auto" (click)="removeChoice(i)">Remove</button>
+                        <button (click)="removeChoice(i)" class="btn btn-danger m-auto" type="button">Remove</button>
                     </td>
                 </tr>
                 </tbody>
                 <tr>
-                    <td colspan="2" class="p-3">
-                        <button type="button" class="btn btn-primary m-auto" (click)="addChoice()">Add Another</button>
+                    <td class="p-3" colspan="2">
+                        <button (click)="addChoice()" class="btn btn-primary m-auto" type="button">Add Another</button>
                     </td>
                 </tr>
             </table>
@@ -127,7 +151,7 @@
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
-            <button class="btn btn-success">Submit</button>
+            <button [disabled]="formGroup.invalid" class="btn btn-success">Submit</button>
         </div>
     </div>
 </form>

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {QuestionService} from '@app/_services/api/question.service';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
@@ -8,6 +8,7 @@ import {Category, Course} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseEvent} from '@app/_models/course_event';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
+import {McqCreateForm} from "@app/problems/_forms/mcq-create-form";
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -16,7 +17,7 @@ import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 })
 export class McqCreateSnippetComponent implements OnInit {
     @Input() checkBox: boolean;
-    mcqFormData: FormGroup;
+    formGroup: FormGroup;
     distractors: { text: string }[];
     correctAnswers: { text: string }[];
     courses: Course[];
@@ -35,7 +36,13 @@ export class McqCreateSnippetComponent implements OnInit {
                 private problemHelpersService: ProblemHelpersService) {
     }
 
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
+    }
+
     ngOnInit(): void {
+        this.formGroup = McqCreateForm.createForm();
+
         const coursesObservable = this.courseService.getCourses();
         const categoriesObservable = this.categoryService.getCategories();
 
@@ -48,15 +55,6 @@ export class McqCreateSnippetComponent implements OnInit {
         this.correctAnswers = [];
         this.addChoice();
         this.addAnswer();
-
-        this.mcqFormData = this.formBuilder.group({
-            title: new FormControl(''),
-            difficulty: new FormControl(''),
-            course: new FormControl(''),
-            event: new FormControl(''),
-            category: new FormControl(''),
-            visible_distractor_count: new FormControl(''),
-        });
     }
 
     courseSelectedEvent(value: Event): void {
@@ -74,18 +72,21 @@ export class McqCreateSnippetComponent implements OnInit {
         }
     }
 
-    onSubmit(formData: FormGroup): void {
+    onSubmit(): void {
+        const data = McqCreateForm.extractData(this.formGroup);
         let submissionRequest;
         if (!this.checkBox) {
-            submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
+            submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(data, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         } else if (this.checkBox) {
-            submissionRequest = this.problemHelpersService.createCheckboxSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
+            submissionRequest = this.problemHelpersService.createCheckboxSubmissionRequest(data, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
         }
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
-            .subscribe((result) => {
-                if(result.success != false)
-                    this.toastr.success('The Question has been Created Successfully.');
+            .subscribe(() => {
                 window.scroll(0, 0);
+                this.formGroup.reset();
+                this.toastr.success('The Question has been Created Successfully.');
+            }, (error) => {
+                this.toastr.error(error);
             });
     }
 

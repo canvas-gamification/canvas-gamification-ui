@@ -1,19 +1,12 @@
 import {Injectable} from '@angular/core';
+import {McqFormData} from "@app/problems/_models/mcq-form-data";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProblemHelpersService {
 
-    createMCQSubmissionRequest(formData: {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        answer: string,
-        category: string,
-        visible_distractor_count: number
-    }, choices: string[], variablesJSON: JSON[], questionText: string, questionAnswer: string) {
+    createMCQSubmissionRequest(formData: McqFormData, choices: string[], variablesJSON: JSON[], questionText: string, questionAnswer: string) {
         choices.unshift(questionAnswer);
         const mcqChoices = this.arrayToObject(choices);
         const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === questionAnswer);
