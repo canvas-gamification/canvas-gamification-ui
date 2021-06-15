@@ -25,6 +25,7 @@ export class McqEditSnippetComponent implements OnInit {
     selectedCourse: number;
     selectedEvent: number;
     distractors: { text: string }[];
+    correctAnswers: { text: string }[];
     questionText: string;
     answerText: string;
 
@@ -61,27 +62,32 @@ export class McqEditSnippetComponent implements OnInit {
                 });
         }
 
-        this.convertChoices();
-        this.variables = this.questionDetails?.variables;
-        this.questionText = this.questionDetails?.text;
+        this.questionDetails.is_checkbox ? this.convertChoices(true) : this.convertChoices();
+        this.variables = this.questionDetails.variables;
+        this.questionText = this.questionDetails.text;
         this.mcqFormData = this.formBuilder.group({
-            title: new FormControl(this.questionDetails?.title),
-            difficulty: new FormControl(this.questionDetails?.difficulty),
+            title: new FormControl(this.questionDetails.title),
+            difficulty: new FormControl(this.questionDetails.difficulty),
             course: new FormControl(this.selectedCourse),
             event: new FormControl(this.selectedEvent),
-            category: new FormControl(this.questionDetails?.category),
+            category: new FormControl(this.questionDetails.category),
             variables: new FormControl(''),
-            visible_distractor_count: new FormControl(this.questionDetails?.visible_distractor_count.toString()),
+            visible_distractor_count: new FormControl(this.questionDetails.visible_distractor_count.toString()),
             is_verified: new FormControl(true),
             choices: new FormControl(''),
         });
     }
 
     onSubmit(formData: FormGroup): void {
-        const submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
+        let submissionRequest;
+        if (!this.questionDetails.is_checkbox) {
+            submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
+        } else if (this.questionDetails.is_checkbox) {
+            submissionRequest = this.problemHelpersService.createCheckboxSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
+        }
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
             .subscribe((result) => {
-                if(result.success != false)
+                if (result.success != false)
                     this.toastr.success('The Question has been Updated Successfully.');
                 window.scroll(0, 0);
             });
@@ -115,13 +121,38 @@ export class McqEditSnippetComponent implements OnInit {
         this.distractors.splice(index, 1);
     }
 
-    convertChoices(): void {
-        this.distractors = [];
-        for (const choice in this.questionDetails.choices) {
-            if (choice === this.questionDetails.answer)
-                this.answerText = this.questionDetails.choices[choice];
-            else
-                this.distractors.push({text: this.questionDetails.choices[choice]});
+    addAnswer(): void {
+        this.correctAnswers.push({text: ''});
+    }
+
+    removeAnswer(index: number): void {
+        this.correctAnswers.splice(index, 1);
+    }
+
+    /**
+     * Converts choices and correctAnswers into array.
+     * @param isCheckbox - Optional parameter if the question is a checkbox question.
+     */
+    convertChoices(isCheckbox = false): void {
+        if (isCheckbox) {
+            this.correctAnswers = [];
+            this.distractors = [];
+            for (const choice in this.questionDetails.choices) {
+                if (this.questionDetails.answer.split(',').includes(choice)) {
+                    this.correctAnswers.push({text: this.questionDetails.choices[choice]});
+                } else {
+                    this.distractors.push({text: this.questionDetails.choices[choice]});
+                }
+            }
+
+        } else {
+            this.distractors = [];
+            for (const choice in this.questionDetails.choices) {
+                if (choice === this.questionDetails.answer)
+                    this.answerText = this.questionDetails.choices[choice];
+                else
+                    this.distractors.push({text: this.questionDetails.choices[choice]});
+            }
         }
     }
 }
