@@ -61,9 +61,9 @@
             <label for="parsonsLines">Lines:</label>
             <textarea [ngClass]="{'is-invalid': form.lines.errors && form.lines.touched}" class="form-control"
                       formControlName="lines" id="parsonsLines"></textarea>
-            <div *ngIf="form.difficulty.touched && form.difficulty.invalid"
+            <div *ngIf="form.lines.touched && form.lines.invalid"
                  class="invalid-feedback">
-                <div *ngIf="form.difficulty.errors.required">Question Difficulty is Required.</div>
+                <div *ngIf="form.lines.errors.required">Lines must be filled.</div>
             </div>
         </div>
         <div class="col-md-6">

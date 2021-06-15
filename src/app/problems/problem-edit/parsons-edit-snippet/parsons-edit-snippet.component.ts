@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {ToastrService} from "ngx-toastr";
 import {Category, Course} from '@app/_models';
@@ -9,6 +9,7 @@ import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {ParsonsForm} from "@app/problems/_forms/parsons-form";
 
 @Component({
     selector: 'app-parsons-edit-snippet',
@@ -17,7 +18,7 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
 })
 export class ParsonsEditSnippetComponent implements OnInit {
     @Input() questionDetails;
-    parsonsFormData: FormGroup;
+    formGroup: FormGroup;
     selectedCourse: number;
     selectedEvent: number;
     courses: Course[];
@@ -35,11 +36,15 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 private courseEventService: CourseEventService) {
     }
 
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
+    }
+
     ngOnInit(): void {
         if (this.questionDetails.event) {
             const coursesObservable = this.courseService.getCourses();
             const categoriesObservable = this.categoryService.getCategories();
-            const eventObservable = this.courseEventService.getCourseEvent(this.questionDetails?.event);
+            const eventObservable = this.courseEventService.getCourseEvent(this.questionDetails.event);
 
             forkJoin([coursesObservable, categoriesObservable, eventObservable])
                 .subscribe(result => {
@@ -58,17 +63,17 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 });
         }
 
-        this.variables = this.questionDetails?.variables;
-        this.questionText = this.questionDetails?.text;
-        this.parsonsFormData = this.formBuilder.group({
-            title: new FormControl(this.questionDetails?.title),
-            difficulty: new FormControl(this.questionDetails?.difficulty),
-            category: new FormControl(this.questionDetails?.category),
-            course: new FormControl(this?.selectedCourse),
-            event: new FormControl(this.selectedEvent),
-            junit_template: new FormControl(this.questionDetails?.junit_template),
-            lines: new FormControl(this.questionDetails?.lines.join('\n')),
-            additional_file_name: new FormControl(this.questionDetails?.additional_file_name),
+        this.variables = this.questionDetails.variables;
+        this.questionText = this.questionDetails.text;
+        this.formGroup = ParsonsForm.createFormWithData({
+            title: this.questionDetails.title,
+            difficulty: this.questionDetails.difficulty,
+            category: this.questionDetails.category,
+            course: this.selectedCourse,
+            event: this.selectedEvent,
+            junit_template: this.questionDetails?.junit_template,
+            lines: this.questionDetails.lines.join('\n'),
+            additional_file_name: this.questionDetails.additional_file_name,
         });
     }
 
@@ -76,13 +81,15 @@ export class ParsonsEditSnippetComponent implements OnInit {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
-    onSubmit(formData: FormGroup): void {
-        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData.value, this.variables, this.questionText);
+    onSubmit(): void {
+        const data = ParsonsForm.extractData(this.formGroup);
+        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(data, this.variables, this.questionText);
         this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
             .subscribe((result) => {
-                if(result.success != false)
-                    this.toastr.success('The Question has been updated Successfully.');
                 window.scroll(0, 0);
+                this.formGroup.reset();
+                if (result.success != false)
+                    this.toastr.success('The Question has been updated Successfully.');
             });
     }
 
@@ -95,8 +102,8 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 }
             });
             this.selectedEvent = this.questionDetails.event;
-            this.parsonsFormData.controls.course.setValue(this.selectedCourse);
-            this.parsonsFormData.controls.event.setValue(this.selectedEvent);
+            this.form.course.setValue(this.selectedCourse);
+            this.form.event.setValue(this.selectedEvent);
         }
     }
 }
