@@ -11,7 +11,7 @@ import {Course, User} from '@app/_models';
     templateUrl: './course-list.component.html',
     styleUrls: ['./course-list.component.scss']
 })
-export class CourseListComponent implements AfterViewInit {
+export class LeaderBoardListComponent implements AfterViewInit {
     courseList: MatTableDataSource<Course>;
     allCourses: Course[];
     displayedColumns: string[] = ['course_id', 'student_name', 'tokens', 'visable'];
