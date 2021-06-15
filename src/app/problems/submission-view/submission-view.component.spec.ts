@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {VariableViewComponent} from './variable-view.component';
-import {TestModule} from '../../../../../test/test.module';
+import {SubmissionViewComponent} from './submission-view.component';
+import {TestModule} from '@test/test.module';
 
-describe('VariableViewComponent', () => {
-    let component: VariableViewComponent;
-    let fixture: ComponentFixture<VariableViewComponent>;
+describe('SubmissionViewComponent', () => {
+    let component: SubmissionViewComponent;
+    let fixture: ComponentFixture<SubmissionViewComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,10 +14,8 @@ describe('VariableViewComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(VariableViewComponent);
+        fixture = TestBed.createComponent(SubmissionViewComponent);
         component = fixture.componentInstance;
-        component.variables = [];
-        component.variableErrors = [];
         fixture.detectChanges();
     });
 

@@ -1,12 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ParsonsViewSnippetComponent} from './parsons-view-snippet.component';
+import {JsonEditorComponent} from './json-editor.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_UQJ} from '@test/mock';
 
-describe('ParsonsViewSnippetComponent', () => {
-    let component: ParsonsViewSnippetComponent;
-    let fixture: ComponentFixture<ParsonsViewSnippetComponent>;
+describe('JsonEditorComponent', () => {
+    let component: JsonEditorComponent;
+    let fixture: ComponentFixture<JsonEditorComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -15,9 +14,8 @@ describe('ParsonsViewSnippetComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ParsonsViewSnippetComponent);
+        fixture = TestBed.createComponent(JsonEditorComponent);
         component = fixture.componentInstance;
-        component.uqj = MOCK_UQJ;
         fixture.detectChanges();
     });
 

@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ProblemViewComponent} from './problem-view.component';
-import {TestModule} from '../../../../test/test.module';
+import {TestModule} from '@test/test.module';
 
 describe('ProblemViewComponent', () => {
     let component: ProblemViewComponent;
