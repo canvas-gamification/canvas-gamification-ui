@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {Category, Question} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
@@ -13,6 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {CategoryService} from "@app/_services/api/category.service";
 import {Difficulty} from "@app/_models/difficulty";
 import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
+import {ProblemSetForm} from "@app/problems/_forms/problem-set-form";
 
 @Component({
     selector: 'app-problem-set',
@@ -20,7 +21,7 @@ import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
     styleUrls: ['./problem-set.component.scss']
 })
 export class ProblemSetComponent implements OnInit {
-    formData: FormGroup;
+    formGroup: FormGroup;
     faEye = faEye;
     faPencilAlt = faPencilAlt;
     faTrashAlt = faTrashAlt;
@@ -83,21 +84,19 @@ export class ProblemSetComponent implements OnInit {
         });
     }
 
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
+    }
+
     ngOnInit(): void {
         this.initialize();
-        this.formData = this.builder.group({
-            search: new FormControl(''),
-            difficulty: new FormControl(''),
-            parentCategory: new FormControl(''),
-            subCategory: new FormControl(''),
-            is_sample: new FormControl('')
-        });
+        this.formGroup = ProblemSetForm.createForm();
         this.categoryService.getCategories().subscribe((categories) => {
             this.parentCategories = categories.filter(c => c.parent == null);
             this.categories = categories;
         });
         this.difficultyService.getDifficulties().subscribe((difficulties) => this.difficulties = difficulties);
-        this.formData.controls['parentCategory'].valueChanges.subscribe((value) => {
+        this.form['parentCategory'].valueChanges.subscribe((value) => {
             const parentCategoryPK = this.categories.filter(c => c.name === value)[0].pk;
             this.subCategories = this.categories.filter(c => c.parent === parentCategoryPK);
         });
@@ -141,7 +140,7 @@ export class ProblemSetComponent implements OnInit {
     }
 
     applyFilter(): void {
-        this.filterQueryString = this.formData.value;
+        this.filterQueryString = this.formGroup.value;
         this.update();
     }
 
