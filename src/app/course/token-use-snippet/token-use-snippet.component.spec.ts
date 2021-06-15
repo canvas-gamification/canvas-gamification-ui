@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TokenUseSnippetComponent} from './token-use-snippet.component';
-import {TestModule} from '../../../../test/test.module';
+import {TestModule} from '@test/test.module';
 
 describe('TokenUseSnippetComponent', () => {
     let component: TokenUseSnippetComponent;

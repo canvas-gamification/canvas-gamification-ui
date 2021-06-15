@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CourseQuestionSnippetComponent} from './course-question-snippet.component';
-import {TestModule} from '../../../../test/test.module';
+import {LeaderBoardComponent} from './leader-board.component';
+import {TestModule} from '@test/test.module';
 
-describe('CourseQuestionSnippetComponent', () => {
-    let component: CourseQuestionSnippetComponent;
-    let fixture: ComponentFixture<CourseQuestionSnippetComponent>;
+describe('LeaderBoardComponent', () => {
+    let component: LeaderBoardComponent;
+    let fixture: ComponentFixture<LeaderBoardComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('CourseQuestionSnippetComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CourseQuestionSnippetComponent);
+        fixture = TestBed.createComponent(LeaderBoardComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
