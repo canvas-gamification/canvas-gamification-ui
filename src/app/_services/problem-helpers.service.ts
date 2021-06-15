@@ -24,15 +24,7 @@ export class ProblemHelpersService {
         };
     }
 
-    createCheckboxSubmissionRequest(formData: {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        answer: string,
-        category: string,
-        visible_distractor_count: number
-    }, choices: string[], variablesJSON: JSON[], questionText: string, correctAnswers: string[]) {
+    createCheckboxSubmissionRequest(formData: McqFormData, choices: string[], variablesJSON: JSON[], questionText: string, correctAnswers: string[]) {
         correctAnswers.forEach((answer) => {
             choices.unshift(answer);
         });

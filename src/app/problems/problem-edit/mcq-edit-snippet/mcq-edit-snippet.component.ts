@@ -4,11 +4,12 @@ import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
 import {Category, Course, Question} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {ToastrService} from "ngx-toastr";
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {McqForm} from "@app/problems/_forms/mcq-form";
 
 @Component({
     selector: 'app-mcq-edit-snippet',
@@ -17,7 +18,7 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
 })
 export class McqEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question;
-    mcqFormData: FormGroup;
+    formGroup: FormGroup;
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
@@ -36,6 +37,10 @@ export class McqEditSnippetComponent implements OnInit {
                 private toastr: ToastrService,
                 private problemHelpersService: ProblemHelpersService,
                 private courseEventService: CourseEventService) {
+    }
+
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
     }
 
     ngOnInit(): void {
@@ -65,31 +70,31 @@ export class McqEditSnippetComponent implements OnInit {
         this.questionDetails.is_checkbox ? this.convertChoices(true) : this.convertChoices();
         this.variables = this.questionDetails.variables;
         this.questionText = this.questionDetails.text;
-        this.mcqFormData = this.formBuilder.group({
-            title: new FormControl(this.questionDetails.title),
-            difficulty: new FormControl(this.questionDetails.difficulty),
-            course: new FormControl(this.selectedCourse),
-            event: new FormControl(this.selectedEvent),
-            category: new FormControl(this.questionDetails.category),
-            variables: new FormControl(''),
-            visible_distractor_count: new FormControl(this.questionDetails.visible_distractor_count.toString()),
-            is_verified: new FormControl(true),
-            choices: new FormControl(''),
+        this.formGroup = McqForm.createFormWithData({
+            title: this.questionDetails.title,
+            difficulty: this.questionDetails.difficulty,
+            course: this.selectedCourse,
+            event: this.selectedEvent,
+            category: this.questionDetails.category,
+            visible_distractor_count: this.questionDetails.visible_distractor_count,
         });
     }
 
-    onSubmit(formData: FormGroup): void {
+    onSubmit(): void {
+        const data = McqForm.extractData(this.formGroup);
         let submissionRequest;
         if (!this.questionDetails.is_checkbox) {
-            submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
+            submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(data, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         } else if (this.questionDetails.is_checkbox) {
-            submissionRequest = this.problemHelpersService.createCheckboxSubmissionRequest(formData.value, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
+            submissionRequest = this.problemHelpersService.createCheckboxSubmissionRequest(data, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
         }
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe((result) => {
-                if (result.success != false)
-                    this.toastr.success('The Question has been Updated Successfully.');
+            .subscribe(() => {
                 window.scroll(0, 0);
+                this.formGroup.reset();
+                this.toastr.success('The Question has been Updated Successfully.');
+            }, (error) => {
+                this.toastr.error(error);
             });
     }
 
@@ -108,8 +113,8 @@ export class McqEditSnippetComponent implements OnInit {
             // TODO: refactor => typeof this.questionDetails.event === 'number'
             if (typeof this.questionDetails.event === 'number')
                 this.selectedEvent = this.questionDetails.event;
-            this.mcqFormData.controls.course.setValue(this.selectedCourse);
-            this.mcqFormData.controls.event.setValue(this.selectedEvent);
+            this.form.course.setValue(this.selectedCourse);
+            this.form.event.setValue(this.selectedEvent);
         }
     }
 

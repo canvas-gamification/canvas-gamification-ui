@@ -8,7 +8,7 @@ import {Category, Course} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseEvent} from '@app/_models/course_event';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
-import {McqCreateForm} from "@app/problems/_forms/mcq-create-form";
+import {McqForm} from "@app/problems/_forms/mcq-form";
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -41,7 +41,7 @@ export class McqCreateSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.formGroup = McqCreateForm.createForm();
+        this.formGroup = McqForm.createForm();
 
         const coursesObservable = this.courseService.getCourses();
         const categoriesObservable = this.categoryService.getCategories();
@@ -73,7 +73,7 @@ export class McqCreateSnippetComponent implements OnInit {
     }
 
     onSubmit(): void {
-        const data = McqCreateForm.extractData(this.formGroup);
+        const data = McqForm.extractData(this.formGroup);
         let submissionRequest;
         if (!this.checkBox) {
             submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(data, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
