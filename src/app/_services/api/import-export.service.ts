@@ -50,70 +50,63 @@ export class ImportExportService {
     }
 
     uploadMCQuestion(question: Question): void {
-        this.categoryService.getCategory(question.category).subscribe(result => {
-            const eventId = (typeof question.event === 'number') ? question.event : question.event?.id;
-            const input = {
-                title: question.title,
-                difficulty: question.difficulty,
-                course: question.course_name,
-                event: (String(eventId) === 'undefined') ? null : String(eventId),
-                text: question.text,
-                answer: question.answer,
-                category: String(result.pk),
-                variables: question.variables,
-                visible_distractor_count: question.visible_distractor_count,
-                choices: question.choices
-            };
-            this.questionService.postMultipleChoiceQuestion(input).subscribe((result) => {
-                if (result.success != false)
-                    this.toastr.success('The Question has been added Successfully.');
-            });
+        const eventId = (typeof question.event === 'number') ? question.event : question.event?.id;
+        const input = {
+            title: question.title,
+            difficulty: question.difficulty,
+            course: question.course_name,
+            event: (String(eventId) === 'undefined') ? null : String(eventId),
+            text: question.text,
+            answer: question.answer,
+            category: String(question.category),
+            variables: question.variables,
+            visible_distractor_count: question.visible_distractor_count,
+            choices: question.choices
+        };
+        this.questionService.postMultipleChoiceQuestion(input).subscribe((result) => {
+            if (result.success != false)
+                this.toastr.success('The Question has been added Successfully.');
         });
 
     }
 
     uploadParsonsQuestion(question: Question): void {
-        this.categoryService.getCategory(question.category).subscribe(result => {
-            const eventId = (typeof question.event === 'number') ? question.event : question.event?.id;
-            const input = {
-                title: question.title,
-                difficulty: question.difficulty,
-                course: question.course_name,
-                event: (String(eventId) === 'undefined') ? null : String(eventId),
-                text: question.text,
-                category: String(result.pk),
-                variables: question.variables,
-                lines: question.lines,
-                additional_file_name: question.additional_file_name,
-                junit_template: question.junit_template
-            };
-            this.questionService.postParsonsQuestion(input).subscribe((result) => {
-                if (result.success != false)
-                    this.toastr.success('The Question has been added Successfully.');
-            });
+        const eventId = (typeof question.event === 'number') ? question.event : question.event?.id;
+        const input = {
+            title: question.title,
+            difficulty: question.difficulty,
+            course: question.course_name,
+            event: (String(eventId) === 'undefined') ? null : String(eventId),
+            text: question.text,
+            category: String(question.category),
+            variables: question.variables,
+            lines: question.lines,
+            additional_file_name: question.additional_file_name,
+            junit_template: question.junit_template
+        };
+        this.questionService.postParsonsQuestion(input).subscribe((result) => {
+            if (result.success != false)
+                this.toastr.success('The Question has been added Successfully.');
         });
 
     }
 
     uploadJavaQuestion(question: Question): void {
-        this.categoryService.getCategory(question.category).subscribe(result => {
-            const eventId = (typeof question.event === 'number') ? question.event : question.event?.id;
-            const input = {
-                title: question.title,
-                difficulty: question.difficulty,
-                course: question.course_name,
-                event: (String(eventId) === 'undefined') ? null : String(eventId),
-                text: question.text,
-                category: String(result.pk),
-                variables: question.variables,
-                junit_template: question.junit_template,
-                input_file_names: question.input_file_names
-            };
-            this.questionService.postJavaQuestion(input).subscribe((result) => {
-                if (result.success != false)
-                    this.toastr.success('The Question has been added Successfully.');
-            });
+        const eventId = (typeof question.event === 'number') ? question.event : question.event?.id;
+        const input = {
+            title: question.title,
+            difficulty: question.difficulty,
+            course: question.course_name,
+            event: (String(eventId) === 'undefined') ? null : String(eventId),
+            text: question.text,
+            category: String(question.category),
+            variables: question.variables,
+            junit_template: question.junit_template,
+            input_file_names: question.input_file_names
+        };
+        this.questionService.postJavaQuestion(input).subscribe((result) => {
+            if (result.success != false)
+                this.toastr.success('The Question has been added Successfully.');
         });
-
     }
 }
