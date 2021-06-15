@@ -1,18 +1,28 @@
-<form [formGroup]="parsonsFormData" (ngSubmit)="onSubmit(parsonsFormData)">
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="parsonsQuestionName">Question Name:</label>
-            <input class="form-control" formControlName="title" type="text" id="parsonsQuestionName">
+            <input [ngClass]="{'is-invalid': form.title.errors && form.title.touched}" class="form-control"
+                   formControlName="title" id="parsonsQuestionName" type="text">
+            <div *ngIf="form.title.touched && form.title.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.title.errors.required">Question Name is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="parsonsDifficulty">Difficulty</label>
-            <select class="form-control" formControlName="difficulty" id="parsonsDifficulty">
+            <select [ngClass]="{'is-invalid': form.difficulty.errors && form.difficulty.touched}" class="form-control"
+                    formControlName="difficulty" id="parsonsDifficulty">
                 <option value="EASY">EASY</option>
                 <option value="NORMAL">MEDIUM</option>
                 <option value="HARD">HARD</option>
             </select>
+            <div *ngIf="form.difficulty.touched && form.difficulty.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.difficulty.errors.required">Question Difficulty is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3">
@@ -26,8 +36,8 @@
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="parsonsCourse">Course:</label>
-            <select class="form-control" formControlName="course" id="parsonsCourse"
-                    (change)="courseSelectedEvent($event)">
+            <select (change)="courseSelectedEvent($event)" class="form-control" formControlName="course"
+                    id="parsonsCourse">
                 <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
             </select>
         </div>
@@ -49,7 +59,12 @@
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="parsonsLines">Lines:</label>
-            <textarea class="form-control" formControlName="lines" id="parsonsLines"></textarea>
+            <textarea [ngClass]="{'is-invalid': form.lines.errors && form.lines.touched}" class="form-control"
+                      formControlName="lines" id="parsonsLines"></textarea>
+            <div *ngIf="form.difficulty.touched && form.difficulty.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.difficulty.errors.required">Question Difficulty is Required.</div>
+            </div>
         </div>
         <div class="col-md-6">
             Paste the solution here. Possibly add extra lines at the end.
@@ -70,8 +85,8 @@
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="additionalFileName">User Code File Name</label>
-            <input type="text" class="form-control" formControlName="additional_file_name"
-                   id="additionalFileName"/>
+            <input class="form-control" formControlName="additional_file_name" id="additionalFileName"
+                   type="text"/>
         </div>
         <div class="col-md-6">
             Provide a file name to put the user code in it when compiling.
@@ -97,7 +112,7 @@
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
-            <button class="btn btn-success">Submit</button>
+            <button [disabled]="formGroup.invalid" class="btn btn-success">Submit</button>
         </div>
     </div>
 </form>

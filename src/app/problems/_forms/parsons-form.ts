@@ -1,9 +1,9 @@
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {JavaFormData} from "@app/problems/_models/java-form-data";
+import {ParsonsFormData} from "@app/problems/_models/parsons-form-data";
 
-export class JavaForm {
+export class ParsonsForm {
     /**
-     * Creates a FormGroup for a Java question.
+     * Creates a FormGroup for a Parsons question.
      */
     static createForm(): FormGroup {
         const builder = new FormBuilder();
@@ -14,14 +14,16 @@ export class JavaForm {
             course: new FormControl(null),
             event: new FormControl(null),
             junit_template: new FormControl(null),
+            lines: new FormControl(null, [Validators.required]),
+            additional_file_name: new FormControl(null),
         });
     }
 
     /**
-     * Creates a FormGroup for a Java question with existing data.
+     * Creates a FormGroup for a Parsons question with existing data.
      * @param data - The existing data for the question.
      */
-    static createFormWithData(data: JavaFormData): FormGroup {
+    static createFormWithData(data: ParsonsFormData): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
             title: new FormControl(data.title, [Validators.required]),
@@ -30,6 +32,8 @@ export class JavaForm {
             course: new FormControl(data.course),
             event: new FormControl(data.event),
             junit_template: new FormControl(data.junit_template),
+            lines: new FormControl(data.lines, [Validators.required]),
+            additional_file_name: new FormControl(data.additional_file_name),
         });
     }
 
@@ -37,7 +41,7 @@ export class JavaForm {
      * Extracts the data from the FormGroup.
      * @param form - The FormGroup for the question.
      */
-    static extractData(form: FormGroup): JavaFormData {
+    static extractData(form: FormGroup): ParsonsFormData {
         return form.value;
     }
 }

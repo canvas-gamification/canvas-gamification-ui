@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {McqFormData} from "@app/problems/_models/mcq-form-data";
 import {JavaFormData} from "@app/problems/_models/java-form-data";
+import {ParsonsFormData} from "@app/problems/_models/parsons-form-data";
 
 @Injectable({
     providedIn: 'root'
@@ -63,16 +64,7 @@ export class ProblemHelpersService {
         };
     }
 
-    createParsonsSubmissionRequest(formData: {
-        title: string,
-        difficulty: string,
-        course: string,
-        event: string,
-        category: string,
-        lines: string,
-        additional_file_name: string,
-        junit_template: string
-    }, variablesJSON: JSON[], questionText: string) {
+    createParsonsSubmissionRequest(formData: ParsonsFormData, variablesJSON: JSON[], questionText: string) {
         return {
             title: formData.title,
             difficulty: formData.difficulty,

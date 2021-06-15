@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {QuestionService} from '@app/_services/api/question.service';
@@ -8,6 +8,7 @@ import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
 import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
+import {ParsonsForm} from "@app/problems/_forms/parsons-form";
 
 @Component({
     selector: 'app-parsons-create-snippet',
@@ -15,7 +16,7 @@ import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
     styleUrls: ['./parsons-create-snippet.component.scss']
 })
 export class ParsonsCreateSnippetComponent implements OnInit {
-    parsonsFormData: FormGroup;
+    formGroup: FormGroup;
     courses: Course[];
     events: CourseEvent[];
     selectedCourse: number;
@@ -31,7 +32,13 @@ export class ParsonsCreateSnippetComponent implements OnInit {
                 private problemHelpersService: ProblemHelpersService) {
     }
 
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
+    }
+
     ngOnInit(): void {
+        this.formGroup = ParsonsForm.createForm();
+
         const categoriesObservable = this.categoryService.getCategories();
         const coursesObservable = this.courseService.getCourses();
 
@@ -39,26 +46,17 @@ export class ParsonsCreateSnippetComponent implements OnInit {
             this.courses = result[0];
             this.categories = result[1];
         });
-
-        this.parsonsFormData = this.formBuilder.group({
-            title: new FormControl(''),
-            difficulty: new FormControl(''),
-            category: new FormControl(''),
-            course: new FormControl(''),
-            event: new FormControl(''),
-            junit_template: new FormControl(''),
-            lines: new FormControl(''),
-            additional_file_name: new FormControl(''),
-        });
     }
 
-    onSubmit(formData: FormGroup): void {
-        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData.value, this.variables, this.questionText);
+    onSubmit(): void {
+        const data = ParsonsForm.extractData(this.formGroup);
+        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(data, this.variables, this.questionText);
         this.questionService.postParsonsQuestion(submissionRequest)
             .subscribe((result) => {
-                if(result.success != false)
-                    this.toastr.success('The Question has been Created Successfully.');
                 window.scroll(0, 0);
+                this.formGroup.reset();
+                if (result.success != false)
+                    this.toastr.success('The Question has been Created Successfully.');
             });
 
     }

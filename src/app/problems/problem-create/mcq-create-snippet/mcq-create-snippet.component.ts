@@ -84,7 +84,7 @@ export class McqCreateSnippetComponent implements OnInit {
             .subscribe((result) => {
                 window.scroll(0, 0);
                 this.formGroup.reset();
-                if (result.success)
+                if (result.success != false)
                     this.toastr.success('The Question has been Created Successfully.');
             });
     }
