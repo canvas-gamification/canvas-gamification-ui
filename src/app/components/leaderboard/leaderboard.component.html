@@ -1,12 +1,24 @@
 
 <p>leaderboard works!</p>
-<h1>{{ value }}</h1>
 
+<div class="container poduim-container">
+    <div class="row align-items-end">
+        <div class="col top-three-container second">{{topThree[1].user}} : {{topThree[1].tokens}}</div>
+        <div class="col top-three-container first">{{topThree[0].user}} : {{topThree[0].tokens}}</div>
+        <div class="col top-three-container third">{{topThree[2].user}} : {{topThree[2].tokens}}</div>
+    </div>
+    
+</div>
 
-<table *ngFor="let user of users">
-    <tr>
-        <td>{{user.user}}</td>
-        <td>{{user.tokens}}</td>
-    </tr>
-</table>
+<br>
+<br>
+<div class="container">
+    <table class="table table-hover" *ngFor="let user of users">
+        <tr>
+            <td>{{user.user}}</td>
+            <td>{{user.tokens}}</td>
+        </tr>
+    </table>
+</div>
+
 
