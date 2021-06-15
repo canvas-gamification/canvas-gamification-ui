@@ -12,7 +12,6 @@ export class ProblemHelpersService {
         event: string,
         answer: string,
         category: string,
-        choices: string,
         visible_distractor_count: number
     }, choices: string[], variablesJSON: JSON[], questionText: string, questionAnswer: string) {
         choices.unshift(questionAnswer);
@@ -29,6 +28,38 @@ export class ProblemHelpersService {
             variables: variablesJSON,
             visible_distractor_count: formData.visible_distractor_count,
             choices: mcqChoices
+        };
+    }
+
+    createCheckboxSubmissionRequest(formData: {
+        title: string,
+        difficulty: string,
+        course: string,
+        event: string,
+        answer: string,
+        category: string,
+        visible_distractor_count: number
+    }, choices: string[], variablesJSON: JSON[], questionText: string, correctAnswers: string[]) {
+        correctAnswers.forEach((answer) => {
+            choices.unshift(answer);
+        });
+        const checkboxChoices = this.arrayToObject(choices);
+        const correctAnswerKeys: string[] = [];
+        correctAnswers.forEach((answer) => {
+            correctAnswerKeys.push(Object.keys(checkboxChoices).find(key => checkboxChoices[key] === answer));
+        });
+        const correctAnswer = correctAnswerKeys.toString();
+        return {
+            title: formData.title,
+            difficulty: formData.difficulty,
+            course: formData.course,
+            event: formData.event,
+            text: questionText,
+            answer: correctAnswer,
+            category: formData.category,
+            variables: variablesJSON,
+            visible_distractor_count: formData.visible_distractor_count,
+            choices: checkboxChoices
         };
     }
 

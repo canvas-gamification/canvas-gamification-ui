@@ -1,7 +1,7 @@
 ﻿import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {User} from '@app/_models';
 import {ApiService} from "@app/_services/api.service";
 
@@ -27,7 +27,8 @@ export class AuthenticationService {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
                 return user;
-            }));
+            }))
+            .pipe(catchError(this.apiService.handleFormError()));
     }
 
     logout(): void {

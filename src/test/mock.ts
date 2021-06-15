@@ -64,7 +64,8 @@ export const MOCK_QUESTION: Question = {
     token_value: 5,
     type_name: '',
     visible_distractor_count: 1,
-    is_author: true
+    is_author: true,
+    is_checkbox: false,
 };
 
 export const MOCK_UQJ: UQJ = {
@@ -89,7 +90,8 @@ export const MOCK_UQJ: UQJ = {
     subcategory: '',
     tokens_received: 50,
     variables: JSON.parse('{}'),
-    variables_errors: []
+    variables_errors: [],
+    is_checkbox: false,
 };
 
 export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
@@ -97,7 +99,7 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     status: '',
     question: MOCK_QUESTION,
     pk: 0,
-    answer_display: '',
+    answer_display: [],
     tokens_received: 1,
     answer_files: {},
     finalized: true,
@@ -117,5 +119,5 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     show_answer: false,
     show_detail: true,
     status_color: '',
-    safeAnswer: ''
+    safeAnswer: [],
 };
