@@ -69,12 +69,11 @@ export class JavaCreateSnippetComponent implements OnInit {
         const data = JavaForm.extractData(this.formGroup);
         const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(data, this.variables, this.inputFileNames, this.questionText);
         this.questionService.postJavaQuestion(submissionRequest)
-            .subscribe(() => {
+            .subscribe((result) => {
                 window.scroll(0, 0);
                 this.formGroup.reset();
-                this.toastr.success('The Question has been Created Successfully.');
-            }, (error) => {
-                this.toastr.error(error);
+                if (result.success)
+                    this.toastr.success('The Question has been Created Successfully.');
             });
     }
 }

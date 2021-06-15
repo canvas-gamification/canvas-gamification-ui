@@ -2,6 +2,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {McqFormData} from "@app/problems/_models/mcq-form-data";
 
 export class McqForm {
+    /**
+     * Creates a FormGroup for a MCQ question.
+     */
     static createForm(): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
@@ -14,6 +17,10 @@ export class McqForm {
         });
     }
 
+    /**
+     * Creates a FormGroup for a MCQ question with existing data.
+     * @param data - The existing data for the question.
+     */
     static createFormWithData(data: McqFormData): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
@@ -26,6 +33,10 @@ export class McqForm {
         });
     }
 
+    /**
+     * Extracts the data from the FormGroup.
+     * @param form - The FormGroup for the question.
+     */
     static extractData(form: FormGroup): McqFormData {
         return form.value;
     }

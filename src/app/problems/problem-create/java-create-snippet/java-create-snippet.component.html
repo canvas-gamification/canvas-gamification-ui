@@ -88,7 +88,7 @@
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
-            <button class="btn btn-success">Submit</button>
+            <button [disabled]="formGroup.invalid" class="btn btn-success">Submit</button>
         </div>
     </div>
 </form>

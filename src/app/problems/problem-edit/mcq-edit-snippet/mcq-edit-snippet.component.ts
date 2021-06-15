@@ -89,12 +89,11 @@ export class McqEditSnippetComponent implements OnInit {
             submissionRequest = this.problemHelpersService.createCheckboxSubmissionRequest(data, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
         }
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe(() => {
+            .subscribe((result) => {
                 window.scroll(0, 0);
                 this.formGroup.reset();
-                this.toastr.success('The Question has been Updated Successfully.');
-            }, (error) => {
-                this.toastr.error(error);
+                if (result.success)
+                    this.toastr.success('The Question has been Updated Successfully.');
             });
     }
 

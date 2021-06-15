@@ -3,7 +3,6 @@ export interface JavaFormData {
     difficulty: string,
     course: number,
     event: number,
-    text: string,
     category: number,
     junit_template: string,
 }
