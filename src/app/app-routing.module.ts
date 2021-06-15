@@ -15,7 +15,7 @@ import {UserActionsComponent} from '@app/components/homepage/user-actions/user-a
 import {CourseEventCreateEditComponent} from '@app/components/course/course-event-create/course-event-create-edit.component';
 import {CourseQuestionSnippetComponent} from '@app/components/course/course-question-snippet/course-question-snippet.component';
 import {CourseRegisterComponent} from '@app/components/course/course-registration/course-register.component';
-import {ProblemViewComponent} from '@app/problems/problems/problem-view/problem-view.component';
+import {ProblemViewComponent} from '@app/problems/problem-view/problem-view.component';
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
 

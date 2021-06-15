@@ -2,6 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {AceComponent} from './ace.component';
 import {TestModule} from '@test/test.module';
+import {AceEditorModule} from "ng2-ace-editor";
 
 describe('AceComponent', () => {
     let component: AceComponent;
@@ -9,7 +10,8 @@ describe('AceComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule]
+            declarations: [AceComponent],
+            imports: [TestModule, AceEditorModule]
         }).compileComponents();
     });
 

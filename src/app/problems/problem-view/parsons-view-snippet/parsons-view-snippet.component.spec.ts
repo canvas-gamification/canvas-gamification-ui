@@ -3,6 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ParsonsViewSnippetComponent} from './parsons-view-snippet.component';
 import {TestModule} from '@test/test.module';
 import {MOCK_UQJ} from '@test/mock';
+import {DragulaModule} from "ng2-dragula";
 
 describe('ParsonsViewSnippetComponent', () => {
     let component: ParsonsViewSnippetComponent;
@@ -10,7 +11,8 @@ describe('ParsonsViewSnippetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule]
+            declarations: [ParsonsViewSnippetComponent],
+            imports: [TestModule, DragulaModule.forRoot()]
         }).compileComponents();
     });
 
