@@ -23,6 +23,9 @@ export class McqViewSnippetComponent implements OnInit {
                 private sanitizer: DomSanitizer) {
     }
 
+    /**
+     * Get the checkbox form controls as a FormArray.
+     */
     get checkboxesArray(): FormArray {
         return this.checkboxFormData.controls.solutions as FormArray;
     }
@@ -52,6 +55,9 @@ export class McqViewSnippetComponent implements OnInit {
         }
     }
 
+    /**
+     * Submit an answer to the question.
+     */
     onSubmit(formData: { question: number, solution: unknown }): void {
         this.submissionService.postQuestionSubmission(formData)
             .subscribe((result) => {
@@ -61,6 +67,9 @@ export class McqViewSnippetComponent implements OnInit {
             });
     }
 
+    /**
+     * Submit an answer for a checkbox question.
+     */
     onCheckboxSubmit(): void {
         this.submissionService.postQuestionSubmission({
             question: this.checkboxFormData.value.question,
@@ -72,6 +81,10 @@ export class McqViewSnippetComponent implements OnInit {
         });
     }
 
+    /**
+     * When the state of a checkbox changes (checked/!checked).
+     * @param e - The event that is sent on change.
+     */
     checkboxChanged(e: Event): void {
         const input = e.target as HTMLInputElement;
         if (input.checked) {
@@ -81,6 +94,10 @@ export class McqViewSnippetComponent implements OnInit {
         }
     }
 
+    /**
+     * Add checkboxes to the form.
+     * @private
+     */
     private addCheckboxesToForm(): void {
         this.choiceArray.forEach(() => this.checkboxesArray.push(new FormControl(false)));
     }

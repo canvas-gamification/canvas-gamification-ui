@@ -1,5 +1,5 @@
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {McqFormData} from "@app/problems/_models/mcq-form-data";
+import {McqFormData} from "@app/problems/_models/mcq/mcq-form-data";
 
 export class McqForm {
     /**

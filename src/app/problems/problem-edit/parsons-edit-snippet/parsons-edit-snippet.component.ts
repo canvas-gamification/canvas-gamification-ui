@@ -36,6 +36,9 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 private courseEventService: CourseEventService) {
     }
 
+    /**
+     * Method to get the form controls.
+     */
     get form(): { [p: string]: AbstractControl } {
         return this.formGroup.controls;
     }
@@ -77,10 +80,17 @@ export class ParsonsEditSnippetComponent implements OnInit {
         });
     }
 
+    /**
+     * Select a course from the given event.
+     * @param value - The event.
+     */
     courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
+    /**
+     * Form submission.
+     */
     onSubmit(): void {
         const data = ParsonsForm.extractData(this.formGroup);
         const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(data, this.variables, this.questionText);
@@ -93,6 +103,10 @@ export class ParsonsEditSnippetComponent implements OnInit {
             });
     }
 
+    /**
+     * Select a course.
+     * @param courseId - Id of the course to select.
+     */
     courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {

@@ -1,5 +1,5 @@
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ParsonsFormData} from "@app/problems/_models/parsons-form-data";
+import {ParsonsFormData} from "@app/problems/_models/parsons/parsons-form-data";
 
 export class ParsonsForm {
     /**

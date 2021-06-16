@@ -1,14 +1,25 @@
 import {Injectable} from '@angular/core';
-import {McqFormData} from "@app/problems/_models/mcq-form-data";
-import {JavaFormData} from "@app/problems/_models/java-form-data";
-import {ParsonsFormData} from "@app/problems/_models/parsons-form-data";
+import {McqFormData} from "@app/problems/_models/mcq/mcq-form-data";
+import {JavaFormData} from "@app/problems/_models/java/java-form-data";
+import {ParsonsFormData} from "@app/problems/_models/parsons/parsons-form-data";
+import {McqSubmissionRequest} from "@app/problems/_models/mcq/mcq-submission-request";
+import {JavaSubmissionRequest} from "@app/problems/_models/java/java-submission-request";
+import {ParsonsSubmissionRequest} from "@app/problems/_models/parsons/parsons-submission-request";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProblemHelpersService {
 
-    createMCQSubmissionRequest(formData: McqFormData, choices: string[], variablesJSON: JSON[], questionText: string, questionAnswer: string) {
+    /**
+     * Creates the submission request for a mcq.
+     * @param formData - Data from form.
+     * @param choices - Choices list.
+     * @param variablesJSON - Extra variables.
+     * @param questionText - The question text.
+     * @param questionAnswer - The question's answer.
+     */
+    createMCQSubmissionRequest(formData: McqFormData, choices: string[], variablesJSON: JSON[], questionText: string, questionAnswer: string): McqSubmissionRequest {
         choices.unshift(questionAnswer);
         const mcqChoices = this.arrayToObject(choices);
         const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === questionAnswer);
@@ -26,7 +37,15 @@ export class ProblemHelpersService {
         };
     }
 
-    createCheckboxSubmissionRequest(formData: McqFormData, choices: string[], variablesJSON: JSON[], questionText: string, correctAnswers: string[]) {
+    /**
+     * Creates the submission request for a checkbox question.
+     * @param formData - Data from form.
+     * @param choices - Choices list.
+     * @param variablesJSON - Extra variables.
+     * @param questionText - The question text.
+     * @param correctAnswers - The question's answers.
+     */
+    createCheckboxSubmissionRequest(formData: McqFormData, choices: string[], variablesJSON: JSON[], questionText: string, correctAnswers: string[]): McqSubmissionRequest {
         correctAnswers.forEach((answer) => {
             choices.unshift(answer);
         });
@@ -50,7 +69,14 @@ export class ProblemHelpersService {
         };
     }
 
-    createJavaSubmissionRequest(formData: JavaFormData, variablesJSON: JSON[], inputFileNames: JSON, questionText: string) {
+    /**
+     * Creates the submission request for a java question.
+     * @param formData - Data from form.
+     * @param variablesJSON - Extra variables.
+     * @param inputFileNames - The file-name and code for submission.
+     * @param questionText - The question text.
+     */
+    createJavaSubmissionRequest(formData: JavaFormData, variablesJSON: JSON[], inputFileNames: JSON, questionText: string): JavaSubmissionRequest {
         return {
             title: formData.title,
             difficulty: formData.difficulty,
@@ -64,7 +90,13 @@ export class ProblemHelpersService {
         };
     }
 
-    createParsonsSubmissionRequest(formData: ParsonsFormData, variablesJSON: JSON[], questionText: string) {
+    /**
+     * Creates the submission request for a parsons question.
+     * @param formData - Data from form.
+     * @param variablesJSON - Extra variables.
+     * @param questionText - The question text.
+     */
+    createParsonsSubmissionRequest(formData: ParsonsFormData, variablesJSON: JSON[], questionText: string): ParsonsSubmissionRequest {
         return {
             title: formData.title,
             difficulty: formData.difficulty,
@@ -79,12 +111,20 @@ export class ProblemHelpersService {
         };
     }
 
+    /**
+     * Helper method to get the next letter.
+     * @param char - Letter to get the following for.
+     */
     getNextLetter(char: string): string {
         let code = char.charCodeAt(0);
         code++;
         return String.fromCharCode(code);
     }
 
+    /**
+     * Helper function to turn an array into an object.
+     * @param choicesArray - The array to transform.
+     */
     arrayToObject(choicesArray: string[]): { [id: string]: string } {
         const choices = {};
         let id = 'a';

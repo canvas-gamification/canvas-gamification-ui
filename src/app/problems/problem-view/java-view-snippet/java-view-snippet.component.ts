@@ -21,6 +21,9 @@ export class JavaViewSnippetComponent implements OnInit {
         this.inputFileNames = this.uqj.input_files;
     }
 
+    /**
+     * Submit an answer to the question.
+     */
     onSubmit(): void {
         const codeSolution = {};
         this.inputFileNames.forEach(file => {

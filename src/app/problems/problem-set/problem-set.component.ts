@@ -84,6 +84,9 @@ export class ProblemSetComponent implements OnInit {
         });
     }
 
+    /**
+     * Method to get the form controls.
+     */
     get form(): { [p: string]: AbstractControl } {
         return this.formGroup.controls;
     }
@@ -102,6 +105,9 @@ export class ProblemSetComponent implements OnInit {
         });
     }
 
+    /**
+     * Get questions for problem-set.
+     */
     initialize(): void {
         this.questionService.getQuestions().subscribe(paginatedQuestions => {
             this.questionsLength = paginatedQuestions.count;
@@ -111,11 +117,18 @@ export class ProblemSetComponent implements OnInit {
         });
     }
 
+    /**
+     * New page for the problem-set.
+     * @param event
+     */
     newPageEvent(event: PageEvent): void {
         this.pageEvent = event;
         this.update();
     }
 
+    /**
+     * Update the current view of the problem-set.
+     */
     update(): void {
         const options = {
             ...(this.pageEvent && {
@@ -128,6 +141,10 @@ export class ProblemSetComponent implements OnInit {
         this.paramChanged.next(options);
     }
 
+    /**
+     * Helper method for sorting the questions.
+     * @param sort - The current sort state.
+     */
     sortData(sort: Sort): void {
         if (sort.direction === 'asc') {
             this.ordering = sort.active;
@@ -139,11 +156,17 @@ export class ProblemSetComponent implements OnInit {
         this.update();
     }
 
+    /**
+     * Apply the filters to the problem-set.
+     */
     applyFilter(): void {
         this.filterQueryString = this.formGroup.value;
         this.update();
     }
 
+    /**
+     * Delete a question from the problem-set.
+     */
     deleteQuestion(): void {
         this.questionService.deleteQuestion(this.deleteQuestionId)
             .subscribe(() => {
@@ -157,6 +180,10 @@ export class ProblemSetComponent implements OnInit {
             });
     }
 
+    /**
+     * Highlight a row.
+     * @param status
+     */
     highlight(status: string): string {
         if (status.localeCompare('Solved') === 0) {
             return 'highlight-success';
@@ -168,6 +195,11 @@ export class ProblemSetComponent implements OnInit {
         return '';
     }
 
+    /**
+     * Modal for confirming if you want to delete a question.
+     * @param content - The modal to open.
+     * @param questionId - The question to delete.
+     */
     open(content: unknown, questionId: number): void {
         this.deleteQuestionId = questionId;
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});

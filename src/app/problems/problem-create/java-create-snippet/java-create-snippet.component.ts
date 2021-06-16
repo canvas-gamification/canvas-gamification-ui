@@ -34,6 +34,9 @@ export class JavaCreateSnippetComponent implements OnInit {
                 private problemHelpersService: ProblemHelpersService) {
     }
 
+    /**
+     * Method to get the form controls.
+     */
     get form(): { [p: string]: AbstractControl } {
         return this.formGroup.controls;
     }
@@ -50,10 +53,18 @@ export class JavaCreateSnippetComponent implements OnInit {
         });
     }
 
+    /**
+     * Select a course from the given event.
+     * @param value - The event.
+     */
     courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
+    /**
+     * Select a course.
+     * @param courseId - Id of the course to select.
+     */
     courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
@@ -65,6 +76,9 @@ export class JavaCreateSnippetComponent implements OnInit {
         }
     }
 
+    /**
+     * Form submission.
+     */
     onSubmit(): void {
         const data = JavaForm.extractData(this.formGroup);
         const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(data, this.variables, this.inputFileNames, this.questionText);

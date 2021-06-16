@@ -37,6 +37,9 @@ export class JavaEditSnippetComponent implements OnInit {
                 private courseEventService: CourseEventService) {
     }
 
+    /**
+     * Method to get the form controls.
+     */
     get form(): { [p: string]: AbstractControl } {
         return this.formGroup.controls;
     }
@@ -78,6 +81,9 @@ export class JavaEditSnippetComponent implements OnInit {
         });
     }
 
+    /**
+     * Form submission.
+     */
     onSubmit(): void {
         const data = JavaForm.extractData(this.formGroup);
         const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(data, this.variables, this.inputFileNames, this.questionText);
@@ -85,15 +91,23 @@ export class JavaEditSnippetComponent implements OnInit {
             .subscribe((result) => {
                 window.scroll(0, 0);
                 this.formGroup.reset();
-                if(result.success != false)
+                if (result.success != false)
                     this.toastr.success('The Question has been updated Successfully.');
             });
     }
 
+    /**
+     * Select a course from the given event.
+     * @param value - The event.
+     */
     courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
+    /**
+     * Select a course.
+     * @param courseId - Id of the course to select.
+     */
     courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {

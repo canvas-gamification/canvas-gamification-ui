@@ -48,6 +48,9 @@ export class ParsonsViewSnippetComponent implements OnInit {
         });
     }
 
+    /**
+     * Determine indents for the parsons lines.
+     */
     determineIndents(): void {
         const tempParsonLines = this.parsonAnswerLines;
         let count = 0;
@@ -66,6 +69,9 @@ export class ParsonsViewSnippetComponent implements OnInit {
         });
     }
 
+    /**
+     * Remove indents from lines in the left container.
+     */
     removeLeftContainerIndents(): void {
         const tempParsonLines = this.parsonLines;
         tempParsonLines.forEach(line => {
@@ -73,6 +79,9 @@ export class ParsonsViewSnippetComponent implements OnInit {
         });
     }
 
+    /**
+     * Calculate the source code for question submission.
+     */
     calculateSourceCode(): void {
         this.code = '';
         const tempParsonLines = this.parsonAnswerLines;
@@ -81,6 +90,9 @@ export class ParsonsViewSnippetComponent implements OnInit {
         });
     }
 
+    /**
+     * Submit an answer to the question.
+     */
     onSubmit(): void {
         this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: this.code})
             .subscribe((result) => {

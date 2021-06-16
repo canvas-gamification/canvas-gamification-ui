@@ -36,6 +36,9 @@ export class McqCreateSnippetComponent implements OnInit {
                 private problemHelpersService: ProblemHelpersService) {
     }
 
+    /**
+     * Method to get the form controls.
+     */
     get form(): { [p: string]: AbstractControl } {
         return this.formGroup.controls;
     }
@@ -57,10 +60,18 @@ export class McqCreateSnippetComponent implements OnInit {
         this.addAnswer();
     }
 
+    /**
+     * Select a course from the given event.
+     * @param value - The event.
+     */
     courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
+    /**
+     * Select a course.
+     * @param courseId - Id of the course to select.
+     */
     courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
@@ -72,6 +83,9 @@ export class McqCreateSnippetComponent implements OnInit {
         }
     }
 
+    /**
+     * Form submission.
+     */
     onSubmit(): void {
         const data = McqForm.extractData(this.formGroup);
         let submissionRequest;
@@ -89,19 +103,32 @@ export class McqCreateSnippetComponent implements OnInit {
             });
     }
 
-
+    /**
+     * Add new distractor.
+     */
     addChoice(): void {
         this.distractors.push({text: ''});
     }
 
+    /**
+     * Remove a distractor.
+     * @param index - Distractor to remove.
+     */
     removeChoice(index: number): void {
         this.distractors.splice(index, 1);
     }
 
+    /**
+     * Add a new answer.
+     */
     addAnswer(): void {
         this.correctAnswers.push({text: ''});
     }
 
+    /**
+     * Remove an answer.
+     * @param index - Answer to remove.
+     */
     removeAnswer(index: number): void {
         this.correctAnswers.splice(index, 1);
     }

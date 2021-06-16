@@ -1,5 +1,5 @@
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {JavaFormData} from "@app/problems/_models/java-form-data";
+import {JavaFormData} from "@app/problems/_models/java/java-form-data";
 
 export class ProblemSetForm {
     /**
