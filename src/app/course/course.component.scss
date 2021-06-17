@@ -1,5 +1,5 @@
-@use '../../scss/mixins';
-@use '../../scss/variables';
+@use "src/scss/mixins";
+@use "src/scss/variables";
 
 @include mixins.hover-shadow();
 
