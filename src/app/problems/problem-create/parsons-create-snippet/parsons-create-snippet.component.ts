@@ -7,7 +7,7 @@ import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
-import {ParsonsForm} from "@app/problems/_forms/parsons-form";
+import {ParsonsForm} from "@app/problems/_forms/parsons.form";
 
 @Component({
     selector: 'app-parsons-create-snippet',

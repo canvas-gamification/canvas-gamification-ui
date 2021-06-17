@@ -7,7 +7,7 @@ import {QuestionService} from '@app/_services/api/question.service';
 import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {JavaForm} from "@app/problems/_forms/java-form";
+import {JavaForm} from "@app/problems/_forms/java.form";
 
 @Component({
     selector: 'app-java-create-snippet',

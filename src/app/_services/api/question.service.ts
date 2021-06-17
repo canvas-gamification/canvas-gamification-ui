@@ -5,10 +5,10 @@ import {APIResponse, Question} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
-import {ProblemSetFormData} from "@app/problems/_forms/problem-set-form";
-import {McqFormData} from "@app/problems/_forms/mcq-form";
-import {JavaFormData} from "@app/problems/_forms/java-form";
-import {ParsonsFormData} from "@app/problems/_forms/parsons-form";
+import {ProblemSetFormData} from "@app/problems/_forms/problem-set.form";
+import {McqFormData} from "@app/problems/_forms/mcq.form";
+import {JavaFormData} from "@app/problems/_forms/java.form";
+import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
 
 @Injectable({
     providedIn: 'root'

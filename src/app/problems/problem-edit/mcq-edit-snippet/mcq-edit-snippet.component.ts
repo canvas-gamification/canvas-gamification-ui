@@ -8,7 +8,7 @@ import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {ToastrService} from "ngx-toastr";
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
-import {McqForm} from "@app/problems/_forms/mcq-form";
+import {McqForm} from "@app/problems/_forms/mcq.form";
 
 @Component({
     selector: 'app-mcq-edit-snippet',

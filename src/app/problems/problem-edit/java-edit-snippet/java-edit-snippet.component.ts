@@ -8,7 +8,7 @@ import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
-import {JavaForm} from "@app/problems/_forms/java-form";
+import {JavaForm} from "@app/problems/_forms/java.form";
 
 @Component({
     selector: 'app-java-edit-snippet',

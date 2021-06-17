@@ -8,7 +8,7 @@ import {forkJoin} from 'rxjs';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
-import {ParsonsForm} from "@app/problems/_forms/parsons-form";
+import {ParsonsForm} from "@app/problems/_forms/parsons.form";
 
 @Component({
     selector: 'app-parsons-edit-snippet',
