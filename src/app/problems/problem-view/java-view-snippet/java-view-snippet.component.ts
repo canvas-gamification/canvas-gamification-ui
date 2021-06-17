@@ -30,9 +30,8 @@ export class JavaViewSnippetComponent implements OnInit {
             codeSolution[file.name] = file.template;
         });
         this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: codeSolution})
-            .subscribe((result) => {
-                if (result.success)
-                    this.toastr.success('The Question has been Submitted Successfully.');
+            .subscribe(() => {
+                this.toastr.success('The Question has been Submitted Successfully.');
             });
     }
 }

@@ -95,9 +95,8 @@ export class ParsonsViewSnippetComponent implements OnInit {
      */
     onSubmit(): void {
         this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: this.code})
-            .subscribe((result) => {
-                if (result.success)
-                    this.toastr.success('The Question has been Submitted Successfully.');
+            .subscribe(() => {
+                this.toastr.success('The Question has been Submitted Successfully.');
             });
 
     }

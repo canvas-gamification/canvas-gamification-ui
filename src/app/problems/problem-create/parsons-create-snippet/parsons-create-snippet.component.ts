@@ -7,7 +7,6 @@ import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
-import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {ParsonsForm} from "@app/problems/_forms/parsons-form";
 
 @Component({
@@ -28,8 +27,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private toastr: ToastrService,
                 private courseService: CourseService,
-                private categoryService: CategoryService,
-                private problemHelpersService: ProblemHelpersService) {
+                private categoryService: CategoryService) {
     }
 
     /**
@@ -55,14 +53,12 @@ export class ParsonsCreateSnippetComponent implements OnInit {
      * Form submission.
      */
     onSubmit(): void {
-        const data = ParsonsForm.extractData(this.formGroup);
-        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(data, this.variables, this.questionText);
+        const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.questionText);
         this.questionService.postParsonsQuestion(submissionRequest)
-            .subscribe((result) => {
+            .subscribe(() => {
                 window.scroll(0, 0);
                 this.formGroup.reset();
-                if (result.success != false)
-                    this.toastr.success('The Question has been Created Successfully.');
+                this.toastr.success('The Question has been Created Successfully.');
             });
 
     }

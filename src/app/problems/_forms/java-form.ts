@@ -1,5 +1,5 @@
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {JavaFormData} from "@app/problems/_models/java/java-form-data";
+import {Question} from "@app/_models";
 
 export class JavaForm {
     /**
@@ -19,25 +19,52 @@ export class JavaForm {
 
     /**
      * Creates a FormGroup for a Java question with existing data.
-     * @param data - The existing data for the question.
+     * @param question - The question object.
+     * @param event - The event.
+     * @param course - The course.
      */
-    static createFormWithData(data: JavaFormData): FormGroup {
+    static createFormWithData(question: Question, event: number, course: number): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
-            title: new FormControl(data.title, [Validators.required]),
-            difficulty: new FormControl(data.difficulty, [Validators.required]),
-            category: new FormControl(data.category),
-            course: new FormControl(data.course),
-            event: new FormControl(data.event),
-            junit_template: new FormControl(data.junit_template),
+            title: new FormControl(question.title, [Validators.required]),
+            difficulty: new FormControl(question.difficulty, [Validators.required]),
+            category: new FormControl(question.category),
+            course: new FormControl(course),
+            event: new FormControl(event),
+            junit_template: new FormControl(question.junit_template),
         });
     }
 
     /**
      * Extracts the data from the FormGroup.
      * @param form - The FormGroup for the question.
+     * @param variablesJSON - The variables in JSON format.
+     * @param inputFileNames - The file-name and code for submission.
+     * @param questionText - The question text.
      */
-    static extractData(form: FormGroup): JavaFormData {
-        return form.value;
+    static extractData(form: FormGroup, variablesJSON: JSON[], inputFileNames: JSON, questionText: string): JavaFormData {
+        return {
+            title: form.value.title,
+            difficulty: form.value.difficulty,
+            course: form.value.course,
+            event: form.value.event,
+            text: questionText,
+            category: form.value.category,
+            variables: variablesJSON,
+            junit_template: form.value.junit_template,
+            input_file_names: inputFileNames,
+        };
     }
+}
+
+export interface JavaFormData {
+    title: string,
+    difficulty: string,
+    course: number,
+    event: number,
+    text: string,
+    category: number,
+    variables: JSON[],
+    junit_template: string,
+    input_file_names: JSON,
 }

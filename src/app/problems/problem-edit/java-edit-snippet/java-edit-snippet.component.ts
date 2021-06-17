@@ -7,7 +7,6 @@ import {ToastrService} from "ngx-toastr";
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
-import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {JavaForm} from "@app/problems/_forms/java-form";
 
@@ -33,7 +32,6 @@ export class JavaEditSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private toastr: ToastrService,
-                private problemHelpersService: ProblemHelpersService,
                 private courseEventService: CourseEventService) {
     }
 
@@ -71,28 +69,19 @@ export class JavaEditSnippetComponent implements OnInit {
         this.variables = this.questionDetails?.variables;
         this.questionText = this.questionDetails?.text;
 
-        this.formGroup = JavaForm.createFormWithData({
-            title: this.questionDetails.title,
-            difficulty: this.questionDetails.difficulty,
-            category: this.questionDetails.category,
-            course: this.selectedCourse,
-            event: this.selectedEvent,
-            junit_template: this.questionDetails.junit_template,
-        });
+        this.formGroup = JavaForm.createFormWithData(this.questionDetails, this.selectedEvent, this.selectedCourse);
     }
 
     /**
      * Form submission.
      */
     onSubmit(): void {
-        const data = JavaForm.extractData(this.formGroup);
-        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(data, this.variables, this.inputFileNames, this.questionText);
+        const submissionRequest = JavaForm.extractData(this.formGroup, this.variables, this.inputFileNames, this.questionText);
         this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe((result) => {
+            .subscribe(() => {
                 window.scroll(0, 0);
                 this.formGroup.reset();
-                if (result.success != false)
-                    this.toastr.success('The Question has been updated Successfully.');
+                this.toastr.success('The Question has been updated Successfully.');
             });
     }
 

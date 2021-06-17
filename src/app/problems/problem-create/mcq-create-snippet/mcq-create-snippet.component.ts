@@ -7,7 +7,6 @@ import {CategoryService} from '@app/_services/api/category.service';
 import {Category, Course} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseEvent} from '@app/_models/course_event';
-import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {McqForm} from "@app/problems/_forms/mcq-form";
 
 @Component({
@@ -32,8 +31,7 @@ export class McqCreateSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private toastr: ToastrService,
                 private courseService: CourseService,
-                private categoryService: CategoryService,
-                private problemHelpersService: ProblemHelpersService) {
+                private categoryService: CategoryService) {
     }
 
     /**
@@ -87,19 +85,17 @@ export class McqCreateSnippetComponent implements OnInit {
      * Form submission.
      */
     onSubmit(): void {
-        const data = McqForm.extractData(this.formGroup);
         let submissionRequest;
         if (!this.checkBox) {
-            submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(data, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
+            submissionRequest = McqForm.extractMcqData(this.formGroup, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         } else if (this.checkBox) {
-            submissionRequest = this.problemHelpersService.createCheckboxSubmissionRequest(data, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
+            submissionRequest = McqForm.extractCheckboxData(this.formGroup, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
         }
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
-            .subscribe((result) => {
+            .subscribe(() => {
                 window.scroll(0, 0);
                 this.formGroup.reset();
-                if (result.success != false)
-                    this.toastr.success('The Question has been Created Successfully.');
+                this.toastr.success('The Question has been Created Successfully.');
             });
     }
 

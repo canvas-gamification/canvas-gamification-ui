@@ -7,7 +7,6 @@ import {CourseEvent} from '@app/_models/course_event';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {ToastrService} from "ngx-toastr";
-import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {McqForm} from "@app/problems/_forms/mcq-form";
 
@@ -35,7 +34,6 @@ export class McqEditSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private toastr: ToastrService,
-                private problemHelpersService: ProblemHelpersService,
                 private courseEventService: CourseEventService) {
     }
 
@@ -73,33 +71,24 @@ export class McqEditSnippetComponent implements OnInit {
         this.questionDetails.is_checkbox ? this.convertChoices(true) : this.convertChoices();
         this.variables = this.questionDetails.variables;
         this.questionText = this.questionDetails.text;
-        this.formGroup = McqForm.createFormWithData({
-            title: this.questionDetails.title,
-            difficulty: this.questionDetails.difficulty,
-            course: this.selectedCourse,
-            event: this.selectedEvent,
-            category: this.questionDetails.category,
-            visible_distractor_count: this.questionDetails.visible_distractor_count,
-        });
+        this.formGroup = McqForm.createFormWithData(this.questionDetails, this.selectedEvent, this.selectedCourse);
     }
 
     /**
      * Form submission.
      */
     onSubmit(): void {
-        const data = McqForm.extractData(this.formGroup);
         let submissionRequest;
         if (!this.questionDetails.is_checkbox) {
-            submissionRequest = this.problemHelpersService.createMCQSubmissionRequest(data, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
+            submissionRequest = McqForm.extractMcqData(this.formGroup, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
         } else if (this.questionDetails.is_checkbox) {
-            submissionRequest = this.problemHelpersService.createCheckboxSubmissionRequest(data, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
+            submissionRequest = McqForm.extractCheckboxData(this.formGroup, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
         }
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe((result) => {
+            .subscribe(() => {
                 window.scroll(0, 0);
                 this.formGroup.reset();
-                if (result.success != false)
-                    this.toastr.success('The Question has been Updated Successfully.');
+                this.toastr.success('The Question has been Updated Successfully.');
             });
     }
 

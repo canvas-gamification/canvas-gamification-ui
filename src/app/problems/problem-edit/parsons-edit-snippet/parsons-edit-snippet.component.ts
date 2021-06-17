@@ -7,7 +7,6 @@ import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {ParsonsForm} from "@app/problems/_forms/parsons-form";
 
@@ -32,7 +31,6 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 private toastr: ToastrService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
-                private problemHelpersService: ProblemHelpersService,
                 private courseEventService: CourseEventService) {
     }
 
@@ -68,16 +66,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
 
         this.variables = this.questionDetails.variables;
         this.questionText = this.questionDetails.text;
-        this.formGroup = ParsonsForm.createFormWithData({
-            title: this.questionDetails.title,
-            difficulty: this.questionDetails.difficulty,
-            category: this.questionDetails.category,
-            course: this.selectedCourse,
-            event: this.selectedEvent,
-            junit_template: this.questionDetails?.junit_template,
-            lines: this.questionDetails.lines.join('\n'),
-            additional_file_name: this.questionDetails.additional_file_name,
-        });
+        this.formGroup = ParsonsForm.createFormWithData(this.questionDetails, this.selectedEvent, this.selectedCourse);
     }
 
     /**
@@ -92,14 +81,12 @@ export class ParsonsEditSnippetComponent implements OnInit {
      * Form submission.
      */
     onSubmit(): void {
-        const data = ParsonsForm.extractData(this.formGroup);
-        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(data, this.variables, this.questionText);
+        const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.questionText);
         this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe((result) => {
+            .subscribe(() => {
                 window.scroll(0, 0);
                 this.formGroup.reset();
-                if (result.success != false)
-                    this.toastr.success('The Question has been updated Successfully.');
+                this.toastr.success('The Question has been updated Successfully.');
             });
     }
 
