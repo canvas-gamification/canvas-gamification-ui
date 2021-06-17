@@ -5,10 +5,10 @@ import {APIResponse, Question} from '@app/_models';
 import {PaginatedResult} from '@app/_models/paginatedResult';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
-import {McqRequestData} from "@app/problems/_models/mcq/mcq-request-data";
-import {JavaRequestData} from "@app/problems/_models/java/java-request-data";
-import {ParsonsRequestData} from "@app/problems/_models/parsons/parsons-request-data";
-import {ProblemSetOptions} from "@app/problems/_models/problem-set-options";
+import {ProblemSetFormData} from "@app/problems/_forms/problem-set-form";
+import {McqFormData} from "@app/problems/_forms/mcq-form";
+import {JavaFormData} from "@app/problems/_forms/java-form";
+import {ParsonsFormData} from "@app/problems/_forms/parsons-form";
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +22,7 @@ export class QuestionService {
      * Get all questions from the server, filter based on the options.
      * @param options - Filter options.
      */
-    getQuestions(options?: ProblemSetOptions): Observable<PaginatedResult<Question>> {
+    getQuestions(options?: ProblemSetFormData): Observable<PaginatedResult<Question>> {
         const url = this.apiService.getURL('questions');
         const {
             page = 1,
@@ -81,7 +81,7 @@ export class QuestionService {
      * @param input - The mcq object.
      * @param id - The question id.
      */
-    putMultipleChoiceQuestion(input: McqRequestData, id: number): Observable<APIResponse> {
+    putMultipleChoiceQuestion(input: McqFormData, id: number): Observable<APIResponse> {
         const url = this.apiService.getURL('multiple-choice-question', id);
         return this.http.put<APIResponse>(url, input)
             .pipe(catchError(this.apiService.handleError<APIResponse>(
@@ -93,7 +93,7 @@ export class QuestionService {
      * @param input - The java question object.
      * @param id - The question id.
      */
-    putJavaQuestion(input: JavaRequestData, id: number): Observable<APIResponse> {
+    putJavaQuestion(input: JavaFormData, id: number): Observable<APIResponse> {
         const url = this.apiService.getURL('java-question', id);
         return this.http.put<APIResponse>(url, input)
             .pipe(catchError(this.apiService.handleError<APIResponse>(
@@ -105,7 +105,7 @@ export class QuestionService {
      * @param input - The parsons question object.
      * @param id - The question id.
      */
-    putParsonsQuestion(input: ParsonsRequestData, id: number): Observable<APIResponse> {
+    putParsonsQuestion(input: ParsonsFormData, id: number): Observable<APIResponse> {
         const url = this.apiService.getURL('parsons-question', id);
         return this.http.put<APIResponse>(url, input)
             .pipe(catchError(this.apiService.handleError<APIResponse>(
@@ -116,7 +116,7 @@ export class QuestionService {
      * Create a multiple choice question.
      * @param input - The mcq object.
      */
-    postMultipleChoiceQuestion(input: McqRequestData): Observable<APIResponse> {
+    postMultipleChoiceQuestion(input: McqFormData): Observable<APIResponse> {
         const url = this.apiService.getURL('multiple-choice-question');
         return this.http.post<APIResponse>(url, input)
             .pipe(catchError(this.apiService.handleError<APIResponse>(
@@ -127,7 +127,7 @@ export class QuestionService {
      * Create a java question.
      * @param input - The java question object.
      */
-    postJavaQuestion(input: JavaRequestData): Observable<APIResponse> {
+    postJavaQuestion(input: JavaFormData): Observable<APIResponse> {
         const url = this.apiService.getURL('java-question');
         return this.http.post<APIResponse>(url, input)
             .pipe(catchError(this.apiService.handleError<APIResponse>(
@@ -138,7 +138,7 @@ export class QuestionService {
      * Create a parsons question.
      * @param input - The parsons question object.
      */
-    postParsonsQuestion(input: ParsonsRequestData): Observable<APIResponse> {
+    postParsonsQuestion(input: ParsonsFormData): Observable<APIResponse> {
         const url = this.apiService.getURL('parsons-question');
         return this.http.post<APIResponse>(url, input)
             .pipe(catchError(this.apiService.handleError<APIResponse>(
