@@ -37,9 +37,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 if (response.success) {
                     forkJoin({
                         event: this.courseEventService.getCourseEvent(this.eventId),
-                        //TODO: Need to see if there is a way to avoid suppress here
-                        // eslint-disable-next-line @typescript-eslint/naming-convention
-                        uqjs: this.uqjService.getUQJs({filters: {question__event: this.eventId}}),
+                        uqjs: this.uqjService.getUQJs({filters: {question_event: this.eventId}}),
                     }).subscribe(result => {
                         this.event = result.event;
                         this.uqjs = result.uqjs.results;
