@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {QuestionService} from '@app/_services/api/question.service';
@@ -7,7 +7,7 @@ import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
-import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
+import {ParsonsForm} from "@app/problems/_forms/parsons.form";
 
 @Component({
     selector: 'app-parsons-create-snippet',
@@ -15,7 +15,7 @@ import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
     styleUrls: ['./parsons-create-snippet.component.scss']
 })
 export class ParsonsCreateSnippetComponent implements OnInit {
-    parsonsFormData: FormGroup;
+    formGroup: FormGroup;
     courses: Course[];
     events: CourseEvent[];
     selectedCourse: number;
@@ -27,11 +27,19 @@ export class ParsonsCreateSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private toastr: ToastrService,
                 private courseService: CourseService,
-                private categoryService: CategoryService,
-                private problemHelpersService: ProblemHelpersService) {
+                private categoryService: CategoryService) {
+    }
+
+    /**
+     * Method to get the form controls.
+     */
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
     }
 
     ngOnInit(): void {
+        this.formGroup = ParsonsForm.createForm();
+
         const categoriesObservable = this.categoryService.getCategories();
         const coursesObservable = this.courseService.getCourses();
 
@@ -39,34 +47,34 @@ export class ParsonsCreateSnippetComponent implements OnInit {
             this.courses = result[0];
             this.categories = result[1];
         });
-
-        this.parsonsFormData = this.formBuilder.group({
-            title: new FormControl(''),
-            difficulty: new FormControl(''),
-            category: new FormControl(''),
-            course: new FormControl(''),
-            event: new FormControl(''),
-            junit_template: new FormControl(''),
-            lines: new FormControl(''),
-            additional_file_name: new FormControl(''),
-        });
     }
 
-    onSubmit(formData: FormGroup): void {
-        const submissionRequest = this.problemHelpersService.createParsonsSubmissionRequest(formData.value, this.variables, this.questionText);
+    /**
+     * Form submission.
+     */
+    onSubmit(): void {
+        const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.questionText);
         this.questionService.postParsonsQuestion(submissionRequest)
-            .subscribe((result) => {
-                if(result.success != false)
-                    this.toastr.success('The Question has been Created Successfully.');
+            .subscribe(() => {
                 window.scroll(0, 0);
+                this.formGroup.reset();
+                this.toastr.success('The Question has been Created Successfully.');
             });
 
     }
 
+    /**
+     * Select a course from the given event.
+     * @param value - The event.
+     */
     courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
+    /**
+     * Select a course.
+     * @param courseId - Id of the course to select.
+     */
     courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {

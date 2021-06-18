@@ -46,6 +46,10 @@ export class JsonEditorComponent implements OnInit {
         });
     }
 
+    /**
+     * Emitter for when the value in the editor changes.
+     * @param value - The new value.
+     */
     changeValue(value: JSON): void {
         this.valueChange.emit(value);
     }

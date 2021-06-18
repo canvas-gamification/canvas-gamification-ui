@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {Category, Question} from '@app/_models';
 import {QuestionService} from '@app/_services/api/question.service';
@@ -13,6 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {CategoryService} from "@app/_services/api/category.service";
 import {Difficulty} from "@app/_models/difficulty";
 import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
+import {ProblemSetForm} from "@app/problems/_forms/problem-set.form";
 
 @Component({
     selector: 'app-problem-set',
@@ -20,7 +21,7 @@ import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
     styleUrls: ['./problem-set.component.scss']
 })
 export class ProblemSetComponent implements OnInit {
-    formData: FormGroup;
+    formGroup: FormGroup;
     faEye = faEye;
     faPencilAlt = faPencilAlt;
     faTrashAlt = faTrashAlt;
@@ -83,26 +84,30 @@ export class ProblemSetComponent implements OnInit {
         });
     }
 
+    /**
+     * Method to get the form controls.
+     */
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
+    }
+
     ngOnInit(): void {
         this.initialize();
-        this.formData = this.builder.group({
-            search: new FormControl(''),
-            difficulty: new FormControl(''),
-            parentCategory: new FormControl(''),
-            subCategory: new FormControl(''),
-            is_sample: new FormControl('')
-        });
+        this.formGroup = ProblemSetForm.createForm();
         this.categoryService.getCategories().subscribe((categories) => {
             this.parentCategories = categories.filter(c => c.parent == null);
             this.categories = categories;
         });
         this.difficultyService.getDifficulties().subscribe((difficulties) => this.difficulties = difficulties);
-        this.formData.controls['parentCategory'].valueChanges.subscribe((value) => {
+        this.form['parentCategory'].valueChanges.subscribe((value) => {
             const parentCategoryPK = this.categories.filter(c => c.name === value)[0].pk;
             this.subCategories = this.categories.filter(c => c.parent === parentCategoryPK);
         });
     }
 
+    /**
+     * Get questions for problem-set.
+     */
     initialize(): void {
         this.questionService.getQuestions().subscribe(paginatedQuestions => {
             this.questionsLength = paginatedQuestions.count;
@@ -112,11 +117,18 @@ export class ProblemSetComponent implements OnInit {
         });
     }
 
+    /**
+     * New page for the problem-set.
+     * @param event
+     */
     newPageEvent(event: PageEvent): void {
         this.pageEvent = event;
         this.update();
     }
 
+    /**
+     * Update the current view of the problem-set.
+     */
     update(): void {
         const options = {
             ...(this.pageEvent && {
@@ -129,6 +141,10 @@ export class ProblemSetComponent implements OnInit {
         this.paramChanged.next(options);
     }
 
+    /**
+     * Helper method for sorting the questions.
+     * @param sort - The current sort state.
+     */
     sortData(sort: Sort): void {
         if (sort.direction === 'asc') {
             this.ordering = sort.active;
@@ -140,11 +156,17 @@ export class ProblemSetComponent implements OnInit {
         this.update();
     }
 
+    /**
+     * Apply the filters to the problem-set.
+     */
     applyFilter(): void {
-        this.filterQueryString = this.formData.value;
+        this.filterQueryString = this.formGroup.value;
         this.update();
     }
 
+    /**
+     * Delete a question from the problem-set.
+     */
     deleteQuestion(): void {
         this.questionService.deleteQuestion(this.deleteQuestionId)
             .subscribe(() => {
@@ -158,6 +180,10 @@ export class ProblemSetComponent implements OnInit {
             });
     }
 
+    /**
+     * Highlight a row.
+     * @param status
+     */
     highlight(status: string): string {
         if (status.localeCompare('Solved') === 0) {
             return 'highlight-success';
@@ -169,6 +195,11 @@ export class ProblemSetComponent implements OnInit {
         return '';
     }
 
+    /**
+     * Modal for confirming if you want to delete a question.
+     * @param content - The modal to open.
+     * @param questionId - The question to delete.
+     */
     open(content: unknown, questionId: number): void {
         this.deleteQuestionId = questionId;
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});

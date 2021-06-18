@@ -1,24 +1,35 @@
-<form (ngSubmit)="onSubmit(mcqFormData)" [formGroup]="mcqFormData">
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqQuestionName">Question Name:</label>
-            <input class="form-control" formControlName="title" id="mcqQuestionName" type="text">
+            <input [ngClass]="{'is-invalid': form.title.errors && form.title.touched}" class="form-control"
+                   formControlName="title" id="mcqQuestionName" type="text">
+            <div *ngIf="form.title.touched && form.title.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.title.errors.required">Question Name is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqDifficulty">Difficulty</label>
-            <select class="form-control" formControlName="difficulty" id="mcqDifficulty">
+            <select [ngClass]="{'is-invalid': form.difficulty.errors && form.difficulty.touched}" class="form-control"
+                    formControlName="difficulty" id="mcqDifficulty">
                 <option value="EASY">EASY</option>
                 <option value="NORMAL">MEDIUM</option>
                 <option value="HARD">HARD</option>
             </select>
+            <div *ngIf="form.difficulty.touched && form.difficulty.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.difficulty.errors.required">Question Difficulty is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqCategory">Category:</label>
-            <select class="form-control" formControlName="category" id="mcqCategory">
+            <select class="form-control"
+                    formControlName="category" id="mcqCategory">
                 <option *ngFor="let category of categories" value="{{category.pk}}">{{category.full_name}}</option>
             </select>
         </div>
@@ -83,17 +94,27 @@
         <div class="col-md-6>">
             <h3>Distract Answers:</h3>
             <label class="radio-inline mx-1">
-                <input formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
-                       value="999">All
+                <input
+                    [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
+                    formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
+                    value="999">All
             </label>
             <label class="radio-inline mx-1">
-                <input formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
-                       value="2">2
+                <input
+                    [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
+                    formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
+                    value="2">2
             </label>
             <label class="radio-inline mx-1">
-                <input formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
-                       value="3">3
+                <input
+                    [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
+                    formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
+                    value="3">3
             </label>
+            <div *ngIf="form.visible_distractor_count.touched && form.visible_distractor_count.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.visible_distractor_count.errors.required">Visible Distractor Count is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3">
