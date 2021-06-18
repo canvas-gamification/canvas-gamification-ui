@@ -19,6 +19,7 @@ export class LeaderboardComponent implements OnInit {
     this.leaderboardService
     .getCategories()
     .subscribe((users) => {
+      console.log(users);
       this.users = users.sort((a, b) => {
         if(a.tokens < b.tokens){
           return 1;

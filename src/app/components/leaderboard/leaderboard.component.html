@@ -1,11 +1,22 @@
 
-<p>leaderboard works!</p>
-
-<div class="container poduim-container">
-    <div class="row align-items-end">
-        <div class="col top-three-container second">{{topThree[1].user}} : {{topThree[1].tokens}}</div>
-        <div class="col top-three-container first">{{topThree[0].user}} : {{topThree[0].tokens}}</div>
-        <div class="col top-three-container third">{{topThree[2].user}} : {{topThree[2].tokens}}</div>
+<div class="container podium-container">
+    <div class="row align-items-end justify-content-around podium-row">
+        <div class="col-4 offset-2 podium-step-container second">
+            <div class="podium-step-info">
+                {{topThree[1].username}} : {{topThree[1].tokens}}
+            </div>
+            
+        </div>
+        <div class="col-4 offset-2 podium-step-container first">
+            <div class="podium-step-info">
+                {{topThree[0].username}} : {{topThree[0].tokens}}
+            </div>
+        </div>
+        <div class="col-4 offset-2 podium-step-container third">
+            <div class="podium-step-info">
+                {{topThree[2].username}} : {{topThree[2].tokens}}
+            </div>
+        </div>
     </div>
     
 </div>
@@ -15,7 +26,7 @@
 <div class="container">
     <table class="table table-hover" *ngFor="let user of users">
         <tr>
-            <td>{{user.user}}</td>
+            <td>{{user.username}}</td>
             <td>{{user.tokens}}</td>
         </tr>
     </table>

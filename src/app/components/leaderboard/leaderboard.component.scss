@@ -1,18 +1,24 @@
-.top-three-container {
-    display: inline-block;
-    text-align: center;
-    width: 100px;
+.podium-step-container {
+    border-radius: 1rem;
+    display: flex;
+    align-items:center;
+    justify-content: center;
     background-color: grey;
+
 }
 
-.top-three-container:hover {
-    background-color:white;
-    transform: scale(1.2);
+
+.podium-step-info {
+    background-color: white;
 }
 
 .podium-container {
+    margin: 5rem auto;
+    width: 100%;
     display:flex;
-    justify-content: baseline;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: baseline
 }
 
 .first {
