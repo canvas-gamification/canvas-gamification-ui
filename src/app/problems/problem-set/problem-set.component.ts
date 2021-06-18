@@ -13,7 +13,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {CategoryService} from "@app/_services/api/category.service";
 import {Difficulty} from "@app/_models/difficulty";
 import {DifficultyService} from "@app/problems/_services/difficulty.service";
-import {ProblemSetForm} from "@app/problems/_forms/problem-set-form";
+import {ProblemSetForm} from "@app/problems/_forms/problem-set.form";
 
 @Component({
     selector: 'app-problem-set',
