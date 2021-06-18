@@ -7,7 +7,7 @@ import {ApiService} from "@app/_services/api.service";
 import {APIResponse} from "@app/_models";
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: null
 })
 export class SubmissionService {
 
@@ -37,6 +37,7 @@ export class SubmissionService {
         return this.http.get<QuestionSubmission[]>(url, {params})
             .pipe(catchError(this.apiService.handleError<QuestionSubmission[]>('Error occurred while fetching submissions')));
     }
+
     /**
      * Send a post request of the submission for a question
      * @param input

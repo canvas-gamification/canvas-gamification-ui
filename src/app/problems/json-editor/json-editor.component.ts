@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SchemaService} from '@app/_services/api/schema.service';
+import {SchemaService} from '@app/problems/_services/schema.service';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 declare let JSONEditor: any;
@@ -7,10 +7,11 @@ declare let JSONEditor: any;
 @Component({
     selector: 'app-json-editor',
     templateUrl: './json-editor.component.html',
-    styleUrls: ['./json-editor.component.scss']
+    styleUrls: ['./json-editor.component.scss'],
+    providers: [SchemaService]
 })
 export class JsonEditorComponent implements OnInit {
-
+    // TODO - Determine the Proper Typing.
     editor: any;
     @Input() name: string;
     @Input() value: JSON;

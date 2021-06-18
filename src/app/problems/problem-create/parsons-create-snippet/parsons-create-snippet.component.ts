@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
-import {QuestionService} from '@app/_services/api/question.service';
+import {QuestionService} from '@app/problems/_services/question.service';
 import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
@@ -12,7 +12,8 @@ import {ParsonsForm} from "@app/problems/_forms/parsons.form";
 @Component({
     selector: 'app-parsons-create-snippet',
     templateUrl: './parsons-create-snippet.component.html',
-    styleUrls: ['./parsons-create-snippet.component.scss']
+    styleUrls: ['./parsons-create-snippet.component.scss'],
+    providers: [QuestionService]
 })
 export class ParsonsCreateSnippetComponent implements OnInit {
     formGroup: FormGroup;

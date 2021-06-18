@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ToastrService} from "ngx-toastr";
 import {UQJ} from '@app/_models';
-import {SubmissionService} from '@app/_services/api/problem/submission.service';
+import {SubmissionService} from '@app/problems/_services/submission.service';
 
 @Component({
     selector: 'app-java-view-snippet',
     templateUrl: './java-view-snippet.component.html',
-    styleUrls: ['./java-view-snippet.component.scss']
+    styleUrls: ['./java-view-snippet.component.scss'],
+    providers: [SubmissionService]
 })
 export class JavaViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;

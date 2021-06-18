@@ -2,12 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {forkJoin, Subscription} from 'rxjs';
 import {Question} from '@app/_models';
 import {ActivatedRoute} from '@angular/router';
-import {QuestionService} from '@app/_services/api/question.service';
+import {QuestionService} from '@app/problems/_services/question.service';
 
 @Component({
     selector: 'app-problem-edit',
     templateUrl: './problem-edit.component.html',
-    styleUrls: ['./problem-edit.component.scss']
+    styleUrls: ['./problem-edit.component.scss'],
+    providers: [QuestionService]
 })
 export class ProblemEditComponent implements OnInit {
     private routeSub: Subscription;

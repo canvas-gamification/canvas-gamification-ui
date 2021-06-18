@@ -13,6 +13,9 @@ export class DifficultyService {
     constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
+    /**
+     * Gets the difficulties from the API.
+     */
     getDifficulties(): Observable<Difficulty[]> {
         const url = this.apiService.getURL('difficulty');
         return this.http.get<Difficulty[]>(url)

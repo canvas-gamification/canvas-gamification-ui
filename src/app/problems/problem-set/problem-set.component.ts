@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {Category, Question} from '@app/_models';
-import {QuestionService} from '@app/_services/api/question.service';
+import {QuestionService} from '@app/problems/_services/question.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {ToastrService} from "ngx-toastr";
@@ -12,13 +12,14 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MatTableDataSource} from '@angular/material/table';
 import {CategoryService} from "@app/_services/api/category.service";
 import {Difficulty} from "@app/_models/difficulty";
-import {DifficultyService} from "@app/_services/api/problem/difficulty.service";
-import {ProblemSetForm} from "@app/problems/_forms/problem-set.form";
+import {DifficultyService} from "@app/problems/_services/difficulty.service";
+import {ProblemSetForm} from "@app/problems/_forms/problem-set-form";
 
 @Component({
     selector: 'app-problem-set',
     templateUrl: './problem-set.component.html',
-    styleUrls: ['./problem-set.component.scss']
+    styleUrls: ['./problem-set.component.scss'],
+    providers: [QuestionService]
 })
 export class ProblemSetComponent implements OnInit {
     formGroup: FormGroup;

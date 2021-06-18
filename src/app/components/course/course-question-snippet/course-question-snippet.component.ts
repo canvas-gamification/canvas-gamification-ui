@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CourseEvent, Question, UQJ, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UqjService} from '@app/_services/api/uqj.service';
+import {UqjService} from '@app/problems/_services/uqj.service';
 import {forkJoin} from 'rxjs';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {CourseService} from '@app/_services/api/course/course.service';
