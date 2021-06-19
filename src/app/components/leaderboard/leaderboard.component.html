@@ -1,20 +1,49 @@
 
 <div class="container podium-container">
-    <div class="row align-items-end justify-content-around podium-row">
-        <div class="col-4 offset-2 podium-step-container second">
-            <div class="podium-step-info">
-                {{topThree[1].username}} : {{topThree[1].tokens}}
+    <div class="podium-row">
+        <div class="podium-wrapper">
+            <div class="podium-step-container second">
+                <div class="podium-step-frontside" >
+                    <i class="fas fa-trophy fa-6x silver-trophy"></i>
+                    <div class="name">
+                        {{topThree[1].username}} 
+                    </div>
+                </div>
+                <div class="podium-step-backside"> <!--back of card-->
+                    <div class="score">
+                        {{topThree[1].tokens}}
+                    </div>
+                </div>
             </div>
-            
         </div>
-        <div class="col-4 offset-2 podium-step-container first">
-            <div class="podium-step-info">
-                {{topThree[0].username}} : {{topThree[0].tokens}}
+        <div class="podium-wrapper"><!--flip card-->
+            <div class="podium-step-container first"> <!--inner-->
+                <div class="podium-step-frontside"> <!--front of card-->
+                    <i class="fas fa-trophy fa-10x gold-trophy"></i>
+                        <div class="name">
+                            {{topThree[0].username}} 
+                        </div>
+                </div>
+                <div class="podium-step-backside"> <!--back of card-->
+                    <div class="score"> 
+                        {{topThree[0].tokens}}
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-4 offset-2 podium-step-container third">
-            <div class="podium-step-info">
-                {{topThree[2].username}} : {{topThree[2].tokens}}
+        <div class="podium-wrapper">
+            <div class="podium-step-container third">
+                <div class="podium-step-frontside" (click)="onClick()">
+                    <i class="fas fa-trophy fa-3x bronze-trophy"></i>
+                    <div class="name">
+                        {{topThree[2].username}} 
+                    </div>
+                </div>
+                <div class="podium-step-backside"> <!--back of card-->
+                    <div class="score">
+                        {{topThree[2].tokens}}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

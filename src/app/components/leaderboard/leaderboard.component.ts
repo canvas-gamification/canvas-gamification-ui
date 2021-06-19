@@ -35,7 +35,10 @@ export class LeaderboardComponent implements OnInit {
         
       }
     })
-    
+  }
+
+  onClick(): void {
+    console.log("clicked");
   }
 
 
