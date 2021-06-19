@@ -19,6 +19,8 @@ import {ProblemViewComponent} from '@app/problems/problem-view/problem-view.comp
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
 
+import {LeaderboardComponent} from "./components/leaderboard/leaderboard.component";
+
 
 const routes: Routes = [
     {path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)},
@@ -27,6 +29,11 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         component: LandingPageComponent,
+    },
+    {
+        path:'leaderboard',
+        pathMatch: 'full',
+        component: LeaderboardComponent,
     },
     {
         path: 'contact',
