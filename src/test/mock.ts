@@ -27,7 +27,7 @@ export const MOCK_COURSE_EVENT: CourseEvent = {
     type: '',
 };
 
-export const MOCK_QUESTION: Question = {
+export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
     status: '',
@@ -62,16 +62,59 @@ export const MOCK_QUESTION: Question = {
     time_modified: null,
     title: '',
     token_value: 5,
-    type_name: '',
+    type_name: 'multiple choice question',
     visible_distractor_count: 1,
     is_author: true,
     is_checkbox: false,
 };
 
+export const MOCK_CHECKBOX_QUESTION: Question = {
+    id: 1,
+    category: 0,
+    status: '',
+    additional_file_name: '',
+    answer: 'a,b',
+    author: 0,
+    author_name: '',
+    category_name: '',
+    choices: {
+        'a': 'sag',
+        'b': 'gav',
+        'c': 'foo',
+        'd': 'bar'
+    },
+    course_name: '',
+    difficulty: '',
+    event: MOCK_COURSE_EVENT,
+    event_name: '',
+    full_category_name: '',
+    input_file_names: [],
+    is_exam: false,
+    is_exam_and_open: false,
+    is_open: true,
+    is_sample: false,
+    is_verified: true,
+    junit_template: '',
+    lines: [],
+    variables: [],
+    max_submission_allowed: 5,
+    parent_category_name: '',
+    success_rate: 0,
+    text: '',
+    time_created: null,
+    time_modified: null,
+    title: '',
+    token_value: 5,
+    type_name: 'multiple choice question',
+    visible_distractor_count: 1,
+    is_author: true,
+    is_checkbox: true,
+};
+
 export const MOCK_UQJ: UQJ = {
     category: MOCK_CATEGORY,
     id: 0,
-    question: MOCK_QUESTION,
+    question: MOCK_MCQ_QUESTION,
     format: '',
     formatted_current_tokens_received: '',
     input_files: [],
@@ -97,7 +140,7 @@ export const MOCK_UQJ: UQJ = {
 export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     answer: '',
     status: '',
-    question: MOCK_QUESTION,
+    question: MOCK_MCQ_QUESTION,
     pk: 0,
     answer_display: [],
     tokens_received: 1,
