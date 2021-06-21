@@ -15,7 +15,6 @@ class ContainerObject {
     selector: 'app-parsons-view-snippet',
     templateUrl: './parsons-view-snippet.component.html',
     styleUrls: ['./parsons-view-snippet.component.scss'],
-    providers: [SubmissionService]
 })
 export class ParsonsViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;

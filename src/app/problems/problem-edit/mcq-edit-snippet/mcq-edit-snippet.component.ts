@@ -14,7 +14,6 @@ import {McqForm} from "@app/problems/_forms/mcq.form";
     selector: 'app-mcq-edit-snippet',
     templateUrl: './mcq-edit-snippet.component.html',
     styleUrls: ['./mcq-edit-snippet.component.scss'],
-    providers: [QuestionService]
 })
 export class McqEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question;

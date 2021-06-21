@@ -31,6 +31,9 @@ import {ProblemsRoutingModule} from "@app/problems/problems-routing.module";
 import {DragulaModule} from "ng2-dragula";
 import {DifficultyService} from "@app/problems/_services/difficulty.service";
 import {UqjService} from "@app/problems/_services/uqj.service";
+import {QuestionService} from "@app/problems/_services/question.service";
+import {SchemaService} from "@app/problems/_services/schema.service";
+import {SubmissionService} from "@app/problems/_services/submission.service";
 
 
 @NgModule({
@@ -72,6 +75,9 @@ import {UqjService} from "@app/problems/_services/uqj.service";
     providers: [
         DifficultyService,
         UqjService,
+        QuestionService,
+        SchemaService,
+        SubmissionService,
         {
             provide: HIGHLIGHT_OPTIONS,
             useValue: {

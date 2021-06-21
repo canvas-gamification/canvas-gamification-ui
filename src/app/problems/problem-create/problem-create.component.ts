@@ -7,7 +7,6 @@ import {QuestionService} from "@app/problems/_services/question.service";
     selector: 'app-problem-create',
     templateUrl: './problem-create.component.html',
     styleUrls: ['./problem-create.component.scss'],
-    providers: [QuestionService]
 })
 export class ProblemCreateComponent implements OnInit {
 

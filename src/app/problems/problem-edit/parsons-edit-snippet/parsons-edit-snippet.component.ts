@@ -14,7 +14,6 @@ import {ParsonsForm} from "@app/problems/_forms/parsons.form";
     selector: 'app-parsons-edit-snippet',
     templateUrl: './parsons-edit-snippet.component.html',
     styleUrls: ['./parsons-edit-snippet.component.scss'],
-    providers: [QuestionService]
 })
 export class ParsonsEditSnippetComponent implements OnInit {
     @Input() questionDetails;

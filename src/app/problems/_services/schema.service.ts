@@ -5,7 +5,7 @@ import {ApiService} from "@app/_services/api.service";
 import {catchError} from "rxjs/operators";
 
 @Injectable({
-    providedIn: null
+    providedIn: 'root'
 })
 export class SchemaService {
 

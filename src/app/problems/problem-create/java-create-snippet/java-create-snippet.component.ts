@@ -13,7 +13,6 @@ import {JavaForm} from "@app/problems/_forms/java.form";
     selector: 'app-java-create-snippet',
     templateUrl: './java-create-snippet.component.html',
     styleUrls: ['./java-create-snippet.component.scss'],
-    providers: [QuestionService]
 })
 export class JavaCreateSnippetComponent implements OnInit {
     formGroup: FormGroup;

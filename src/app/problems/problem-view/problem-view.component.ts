@@ -11,7 +11,6 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
     selector: 'app-problem-view',
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
-    providers: [SubmissionService]
 })
 export class ProblemViewComponent implements OnInit {
 

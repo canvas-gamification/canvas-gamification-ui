@@ -9,7 +9,6 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
     selector: 'app-mcq-view-snippet',
     templateUrl: './mcq-view-snippet.component.html',
     styleUrls: ['./mcq-view-snippet.component.scss'],
-    providers: [SubmissionService]
 })
 export class McqViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
