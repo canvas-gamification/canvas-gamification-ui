@@ -15,35 +15,24 @@ const routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'register/:courseId',
-        component: CourseRegisterComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'view/:courseId',
-        component: CourseComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/new-event',
-        component: CourseEventCreateEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/new-event/:eventId',
-        component: CourseEventCreateEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/event/:eventId',
-        component: CourseQuestionSnippetComponent,
-        canActivate: [AuthGuard]
-    },
-    {
         path: ':courseId',
+        component: CourseComponent,
         children: [
             {path: 'problem/:id', component: ProblemViewComponent},
-            {path: 'event/:eventId/problem/:id', component: ProblemViewComponent}
+            {path: 'register', component: CourseRegisterComponent},
+            {
+                path: 'new-event', component: CourseEventCreateEditComponent,
+                children: [
+                    {path: ':eventId', component: CourseEventCreateEditComponent}
+                ]
+            },
+            {
+                path: 'event/:eventId',
+                component: CourseQuestionSnippetComponent,
+                children: [
+                    {path: 'problem/:id', component: ProblemViewComponent}
+                ]
+            }
         ],
         canActivate: [AuthGuard]
     },
