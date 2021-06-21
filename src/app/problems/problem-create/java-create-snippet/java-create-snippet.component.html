@@ -1,18 +1,28 @@
-<form [formGroup]="javaFormData" (ngSubmit)="onSubmit(javaFormData)">
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="javaQuestionName">Question Name:</label>
-            <input class="form-control" formControlName="title" type="text" id="javaQuestionName">
+            <input [ngClass]="{'is-invalid': form.title.errors && form.title.touched}" class="form-control"
+                   formControlName="title" id="javaQuestionName" type="text">
+            <div *ngIf="form.title.touched && form.title.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.title.errors.required">Question Name is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="javaDifficulty">Difficulty</label>
-            <select class="form-control" formControlName="difficulty" id="javaDifficulty">
+            <select [ngClass]="{'is-invalid': form.difficulty.errors && form.difficulty.touched}" class="form-control"
+                    formControlName="difficulty" id="javaDifficulty">
                 <option value="EASY">EASY</option>
                 <option value="NORMAL">MEDIUM</option>
                 <option value="HARD">HARD</option>
             </select>
+            <div *ngIf="form.difficulty.touched && form.difficulty.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.difficulty.errors.required">Question Difficulty is Required.</div>
+            </div>
         </div>
     </div>
     <div class="form-row m-3">
@@ -26,8 +36,8 @@
     <div class="form-row m-3">
         <div class="col-md-6">
             <label for="javaCourse">Course:</label>
-            <select class="form-control" formControlName="course" id="javaCourse"
-                    (change)="courseSelectedEvent($event)">
+            <select (change)="courseSelectedEvent($event)" class="form-control" formControlName="course"
+                    id="javaCourse">
                 <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
             </select>
         </div>
@@ -78,7 +88,7 @@
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
-            <button class="btn btn-success">Submit</button>
+            <button [disabled]="formGroup.invalid" class="btn btn-success">Submit</button>
         </div>
     </div>
 </form>

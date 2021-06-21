@@ -31,6 +31,10 @@ export class AceComponent implements AfterViewInit {
         this.addNewCodeItem(this.template);
     }
 
+    /**
+     * Emits the new value of the code in the ace-editor.
+     * @param value - The new value to emit.
+     */
     addNewCodeItem(value: string): void {
         this.templateChange.emit(value);
     }

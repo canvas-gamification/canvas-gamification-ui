@@ -1,14 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/_services/api/question.service';
 import {ToastrService} from "ngx-toastr";
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
-import {ProblemHelpersService} from '@app/_services/problem-helpers.service';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {JavaForm} from "@app/problems/_forms/java.form";
 
 @Component({
     selector: 'app-java-edit-snippet',
@@ -17,7 +17,7 @@ import {CourseEventService} from '@app/_services/api/course/course-event.service
 })
 export class JavaEditSnippetComponent implements OnInit {
     @Input() questionDetails;
-    javaFormData: FormGroup;
+    formGroup: FormGroup;
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
@@ -32,8 +32,14 @@ export class JavaEditSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private toastr: ToastrService,
-                private problemHelpersService: ProblemHelpersService,
                 private courseEventService: CourseEventService) {
+    }
+
+    /**
+     * Method to get the form controls.
+     */
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
     }
 
     ngOnInit(): void {
@@ -63,30 +69,34 @@ export class JavaEditSnippetComponent implements OnInit {
         this.variables = this.questionDetails?.variables;
         this.questionText = this.questionDetails?.text;
 
-        this.javaFormData = this.formBuilder.group({
-            title: new FormControl(this.questionDetails?.title),
-            difficulty: new FormControl(this.questionDetails?.difficulty),
-            category: new FormControl(this.questionDetails?.category),
-            course: new FormControl(this.selectedCourse),
-            event: new FormControl(this.selectedEvent),
-            junit_template: new FormControl(this.questionDetails?.junit_template),
-        });
+        this.formGroup = JavaForm.createFormWithData(this.questionDetails, this.selectedEvent, this.selectedCourse);
     }
 
-    onSubmit(formData: FormGroup): void {
-        const submissionRequest = this.problemHelpersService.createJavaSubmissionRequest(formData.value, this.variables, this.inputFileNames, this.questionText);
+    /**
+     * Form submission.
+     */
+    onSubmit(): void {
+        const submissionRequest = JavaForm.extractData(this.formGroup, this.variables, this.inputFileNames, this.questionText);
         this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe((result) => {
-                if(result.success != false)
-                    this.toastr.success('The Question has been updated Successfully.');
+            .subscribe(() => {
                 window.scroll(0, 0);
+                this.formGroup.reset();
+                this.toastr.success('The Question has been updated Successfully.');
             });
     }
 
+    /**
+     * Select a course from the given event.
+     * @param value - The event.
+     */
     courseSelectedEvent(value: Event): void {
         this.courseSelectedById(+(value.target as HTMLInputElement).value);
     }
 
+    /**
+     * Select a course.
+     * @param courseId - Id of the course to select.
+     */
     courseSelectedById(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
@@ -96,8 +106,8 @@ export class JavaEditSnippetComponent implements OnInit {
                 }
             });
             this.selectedEvent = this.questionDetails.event;
-            this.javaFormData.controls.course.setValue(this.selectedCourse);
-            this.javaFormData.controls.event.setValue(this.selectedEvent);
+            this.form.course.setValue(this.selectedCourse);
+            this.form.event.setValue(this.selectedEvent);
         }
     }
 }

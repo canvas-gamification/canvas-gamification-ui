@@ -12,6 +12,10 @@ export class CkEditorComponent {
     @Output() readonly valueChange = new EventEmitter<string>();
     public ckEditor = ClassicEditor;
 
+    /**
+     * Emitter for when the text in the editor is changed.
+     * @param editor - The CKEditor event called when the text changes.
+     */
     changeValue({editor}: ChangeEvent): void {
         this.valueChange.emit(editor.getData());
     }
