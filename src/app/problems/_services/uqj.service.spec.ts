@@ -2,18 +2,62 @@ import {TestBed} from '@angular/core/testing';
 
 import {UqjService} from './uqj.service';
 import {TestModule} from '@test/test.module';
+import {ApiService} from "@app/_services/api.service";
+import {HttpTestingController} from "@angular/common/http/testing";
+import {UQJ} from "@app/_models";
+import {MOCK_UQJ, MOCK_UQJ2} from "@test/mock";
 
 describe('UqjService', () => {
-    let service: UqjService;
+    let uqjService: UqjService;
+    let apiService: ApiService;
+    let httpMock: HttpTestingController;
 
+    const mockUqjs: UQJ[] = [MOCK_UQJ, MOCK_UQJ2];
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [TestModule]
+            imports: [TestModule],
+            providers: [ApiService]
         });
-        service = TestBed.inject(UqjService);
+        uqjService = TestBed.inject(UqjService);
+        apiService = TestBed.inject(ApiService);
+        httpMock = TestBed.inject(HttpTestingController);
+    });
+
+    afterEach(() => {
+        httpMock.verify();
     });
 
     it('should be created', () => {
-        expect(service).toBeTruthy();
+        expect(uqjService).toBeTruthy();
+    });
+
+    it('getUQJs returns UQJs list', () => {
+        uqjService.getUQJs().subscribe((uqj) => {
+            expect(uqj.results.length).toEqual(3);
+            expect(uqj.results).toBe(mockUqjs);
+        });
+        const request = httpMock.expectOne('http://localhost:8000/api/uqj/?page=1&page_size=50');
+        expect(request.request.method).toBe('GET');
+        request.flush(mockUqjs);
+    });
+
+    it('getUQJ returns a single uqj', () => {
+        uqjService.getUQJ(1).subscribe((uqj) => {
+            expect(uqj.id).toEqual(1);
+            expect(uqj.is_checkbox).toBeTruthy();
+        });
+        const request = httpMock.expectOne(apiService.getURL('uqj', 1));
+        expect(request.request.method).toBe('GET');
+        request.flush(mockUqjs.find(uqj => uqj.id === 1));
+    });
+
+    it('getUQJByQuestion returns a uqj based on a question', () => {
+        uqjService.getUQJByQuestion(0).subscribe((uqj) => {
+            expect(uqj.id).toEqual(0);
+            expect(uqj.is_checkbox).toBeFalsy();
+        });
+        const request = httpMock.expectOne('http://localhost:8000/api/uqj/?question=0');
+        expect(request.request.method).toBe('GET');
+        request.flush(mockUqjs.find(uqj => uqj.question.id === 0));
     });
 });

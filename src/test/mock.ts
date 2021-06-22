@@ -137,6 +137,32 @@ export const MOCK_UQJ: UQJ = {
     is_checkbox: false,
 };
 
+export const MOCK_UQJ2: UQJ = {
+    category: MOCK_CATEGORY,
+    id: 1,
+    question: MOCK_CHECKBOX_QUESTION,
+    format: '',
+    formatted_current_tokens_received: '',
+    input_files: [],
+    is_allowed_to_submit: true,
+    is_partially_solved: false,
+    is_solved: true,
+    last_viewed: null,
+    num_attempts: 5,
+    opened_tutorial: false,
+    random_seed: 0,
+    rendered_choices: null,
+    rendered_lines: [],
+    rendered_text: '',
+    status: '',
+    status_class: '',
+    subcategory: '',
+    tokens_received: 50,
+    variables: JSON.parse('{}'),
+    variables_errors: [],
+    is_checkbox: true,
+};
+
 export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     answer: '',
     status: '',

@@ -6,6 +6,8 @@ import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 
 describe('SchemaService', () => {
+    // TODO - Determine a more specific type.
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     const mockSchemas: any = [
         {
             title: 'TestSchema',
