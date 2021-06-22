@@ -40,7 +40,7 @@ describe('SubmissionService', () => {
 
     it('getPreviousSubmissions returns submissions for a question', () => {
         submissionService.getPreviousSubmissions(MOCK_QUESTIONS[0].id).subscribe((submissions) => {
-            expect(submissions.length).toEqual(MOCK_SUBMISSIONS.filter(submission => submission.question.id === MOCK_QUESTIONS[0].id));
+            expect(submissions.length).toEqual(MOCK_SUBMISSIONS.filter(submission => submission.question.id === MOCK_QUESTIONS[0].id).length);
             expect(submissions[0]).toEqual(MOCK_SUBMISSIONS[0]);
         });
         const request = httpMock.expectOne('http://localhost:8000/api/submission/?question=0&ordering=%5Bobject%20Object%5D');
