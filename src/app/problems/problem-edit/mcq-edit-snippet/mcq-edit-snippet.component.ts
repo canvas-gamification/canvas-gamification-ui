@@ -5,7 +5,7 @@ import {forkJoin} from 'rxjs';
 import {Category, Course, Question} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
-import {QuestionService} from '@app/_services/api/question.service';
+import {QuestionService} from '@app/problems/_services/question.service';
 import {ToastrService} from "ngx-toastr";
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {McqForm} from "@app/problems/_forms/mcq.form";
@@ -13,7 +13,7 @@ import {McqForm} from "@app/problems/_forms/mcq.form";
 @Component({
     selector: 'app-mcq-edit-snippet',
     templateUrl: './mcq-edit-snippet.component.html',
-    styleUrls: ['./mcq-edit-snippet.component.scss']
+    styleUrls: ['./mcq-edit-snippet.component.scss'],
 })
 export class McqEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question;

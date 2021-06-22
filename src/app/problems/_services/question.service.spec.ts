@@ -1,16 +1,17 @@
 import {TestBed} from '@angular/core/testing';
 
-import {SchemaService} from './schema.service';
+import {QuestionService} from './question.service';
 import {TestModule} from '@test/test.module';
 
-describe('SchemaService', () => {
-    let service: SchemaService;
+describe('QuestionService', () => {
+    let service: QuestionService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [TestModule]
+            imports: [TestModule],
+            providers: [QuestionService]
         });
-        service = TestBed.inject(SchemaService);
+        service = TestBed.inject(QuestionService);
     });
 
     it('should be created', () => {
