@@ -5,14 +5,14 @@ import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 import {UQJ} from "@app/_models";
-import {MOCK_UQJ, MOCK_UQJ2} from "@test/mock";
+import {MOCK_UQJ, MOCK_UQJ_2} from "@test/mock";
 
 describe('UqjService', () => {
     let uqjService: UqjService;
     let apiService: ApiService;
     let httpMock: HttpTestingController;
 
-    const mockUqjs: UQJ[] = [MOCK_UQJ, MOCK_UQJ2];
+    const mockUqjs: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2];
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [TestModule],
