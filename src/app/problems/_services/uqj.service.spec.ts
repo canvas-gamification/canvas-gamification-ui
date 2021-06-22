@@ -41,6 +41,17 @@ describe('UqjService', () => {
         request.flush(mockUqjs);
     });
 
+    it('getUQJs with options returns list', () => {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        uqjService.getUQJs({filters: {question__event: 0}, recent: true}).subscribe((uqj) => {
+            expect(uqj.results.length).toEqual(3);
+            expect(uqj.results).toBe(mockUqjs);
+        });
+        const request = httpMock.expectOne('http://localhost:8000/api/uqj/?page=1&page_size=50&question__event=0&ordering=-last_viewed');
+        expect(request.request.method).toBe('GET');
+        request.flush(mockUqjs);
+    });
+
     it('getUQJ returns a single uqj', () => {
         uqjService.getUQJ(1).subscribe((uqj) => {
             expect(uqj.id).toEqual(1);
