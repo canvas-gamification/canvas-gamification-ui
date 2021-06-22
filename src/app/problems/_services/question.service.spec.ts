@@ -7,6 +7,8 @@ import {HttpTestingController} from "@angular/common/http/testing";
 import {Question} from "@app/_models";
 import {MOCK_CHECKBOX_QUESTION, MOCK_MCQ_QUESTION} from "@test/mock";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
+import {JavaFormData} from "@app/problems/_forms/java.form";
+import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
 
 describe('QuestionService', () => {
     let mockQuestions: Question[];
@@ -58,37 +60,109 @@ describe('QuestionService', () => {
     });
 
     it('deleteQuestion deletes a question', () => {
-        questionService.deleteQuestion(0).subscribe(() => {
-            expect(mockQuestions.length).toEqual(1);
-            expect(mockQuestions[0].id).toEqual(1);
+        questionService.deleteQuestion(0).subscribe((response) => {
+            expect(response).toEqual('Question Deleted');
         });
         const request = httpMock.expectOne(apiService.getURL('questions', 0));
         expect(request.request.method).toBe('DELETE');
-        request.flush(mockQuestions.splice(0, 1));
+        request.flush('Question Deleted');
     });
 
     it('putMultipleChoiceQuestion', () => {
-        const mockMcqFormData: McqFormData = {
-            title: 'This is a test.',
-            difficulty: 'EASY',
-            course: null,
-            event: null,
-            text: null,
-            answer: mockQuestions[0].answer,
-            category: null,
-            variables: null,
-            visible_distractor_count: mockQuestions[0].visible_distractor_count,
-            choices: null
-        };
-        questionService.putMultipleChoiceQuestion(mockMcqFormData, 0).subscribe((response) => {
+        questionService.putMultipleChoiceQuestion(createMockMcqFormData(), 0).subscribe((response) => {
             expect(response).toBeTruthy();
-            expect(mockQuestions[0].title).toEqual('This is a test.');
-            expect(mockQuestions[0].difficulty).toEqual('EASY');
         });
         const request = httpMock.expectOne(apiService.getURL('multiple-choice-question', 0));
         expect(request.request.method).toBe('PUT');
-        mockQuestions[0].title = mockMcqFormData.title;
-        mockQuestions[0].difficulty = mockMcqFormData.difficulty;
-        request.flush(mockQuestions[0]);
+        request.flush({success: true});
+    });
+
+    it('putJavaQuestion', () => {
+        questionService.putJavaQuestion(createMockJavaFormData(), 0).subscribe((response) => {
+            expect(response).toBeTruthy();
+        });
+        const request = httpMock.expectOne(apiService.getURL('java-question', 0));
+        expect(request.request.method).toBe('PUT');
+        request.flush({success: true});
+    });
+
+    it('putParsonsQuestion', () => {
+        questionService.putParsonsQuestion(createMockParsonsData(), 0).subscribe((response) => {
+            expect(response).toBeTruthy();
+        });
+        const request = httpMock.expectOne(apiService.getURL('parsons-question', 0));
+        expect(request.request.method).toBe('PUT');
+        request.flush({success: true});
+    });
+
+    it('postMultipleChoiceQuestion', () => {
+        questionService.postMultipleChoiceQuestion(createMockMcqFormData()).subscribe((response) => {
+            expect(response).toBeTruthy();
+        });
+        const request = httpMock.expectOne(apiService.getURL('multiple-choice-question'));
+        expect(request.request.method).toBe('POST');
+        request.flush({success: true});
+    });
+
+    it('postJavaQuestion', () => {
+        questionService.postJavaQuestion(createMockJavaFormData()).subscribe((response) => {
+            expect(response).toBeTruthy();
+        });
+        const request = httpMock.expectOne(apiService.getURL('java-question'));
+        expect(request.request.method).toBe('POST');
+        request.flush({success: true});
+    });
+
+    it('postParsonsQuestion', () => {
+        questionService.postParsonsQuestion(createMockParsonsData()).subscribe((response) => {
+            expect(response).toBeTruthy();
+        });
+        const request = httpMock.expectOne(apiService.getURL('parsons-question'));
+        expect(request.request.method).toBe('POST');
+        request.flush({success: true});
     });
 });
+
+function createMockMcqFormData(): McqFormData {
+    return {
+        title: 'This is a test.',
+        difficulty: 'EASY',
+        course: null,
+        event: null,
+        text: null,
+        answer: null,
+        category: null,
+        variables: null,
+        visible_distractor_count: null,
+        choices: null
+    };
+}
+
+function createMockJavaFormData(): JavaFormData {
+    return {
+        title: 'This is a test.',
+        difficulty: 'EASY',
+        course: null,
+        event: null,
+        text: null,
+        category: null,
+        variables: [],
+        junit_template: null,
+        input_file_names: null
+    };
+}
+
+function createMockParsonsData(): ParsonsFormData {
+    return {
+        title: 'This is a test.',
+        difficulty: 'EASY',
+        course: null,
+        event: null,
+        text: null,
+        category: null,
+        variables: null,
+        lines: null,
+        additional_file_name: null,
+        junit_template: null
+    };
+}
