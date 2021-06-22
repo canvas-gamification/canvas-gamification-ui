@@ -4,27 +4,9 @@ import {SchemaService} from './schema.service';
 import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
+import {MOCK_SCHEMAS} from "@test/mock";
 
 describe('SchemaService', () => {
-    // TODO - Determine a more specific type.
-    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-    const mockSchemas: any = [
-        {
-            title: 'TestSchema',
-            type: 'array',
-            format: 'table',
-            items: {
-                type: 'string',
-                title: 'Test'
-            }
-        },
-        {
-            title: 'TestSchema2',
-            type: 'array',
-            format: 'table',
-        }
-    ];
-
     let schemaService: SchemaService;
     let apiService: ApiService;
     let httpMock: HttpTestingController;
@@ -54,6 +36,6 @@ describe('SchemaService', () => {
         });
         const request = httpMock.expectOne(apiService.getURL('schema', 'TestSchema'));
         expect(request.request.method).toBe('GET');
-        request.flush(mockSchemas.find(schema => schema.title === 'TestSchema'));
+        request.flush(MOCK_SCHEMAS.find(schema => schema.title === 'TestSchema'));
     });
 });

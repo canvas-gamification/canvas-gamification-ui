@@ -1,5 +1,9 @@
 import {Category, CourseEvent, Question, UQJ} from '@app/_models';
 import {QuestionSubmission} from '@app/_models/question_submission';
+import {Difficulty} from "@app/_models/difficulty";
+import {McqFormData} from "@app/problems/_forms/mcq.form";
+import {JavaFormData} from "@app/problems/_forms/java.form";
+import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
 
 export const MOCK_CATEGORY: Category = {
     name: '',
@@ -218,3 +222,66 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     status_color: '',
     safeAnswer: [],
 };
+
+export const MOCK_DIFFICULTIES: Difficulty[] = [
+    ['EASY', 'EASY'],
+    ["NORMAL", 'MEDIUM'],
+    ['HARD', 'HARD'],
+];
+
+export const MOCK_MCQ_FORM_DATA: McqFormData = {
+    title: 'This is a test.',
+    difficulty: 'EASY',
+    course: null,
+    event: null,
+    text: null,
+    answer: null,
+    category: null,
+    variables: null,
+    visible_distractor_count: null,
+    choices: null
+};
+
+export const MOCK_JAVA_FORM_DATA: JavaFormData = {
+    title: 'This is a test.',
+    difficulty: 'EASY',
+    course: null,
+    event: null,
+    text: null,
+    category: null,
+    variables: [],
+    junit_template: null,
+    input_file_names: null
+};
+
+export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
+    title: 'This is a test.',
+    difficulty: 'EASY',
+    course: null,
+    event: null,
+    text: null,
+    category: null,
+    variables: null,
+    lines: null,
+    additional_file_name: null,
+    junit_template: null
+};
+
+// TODO - Determine a more specific type.
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
+export const MOCK_SCHEMAS: any = [
+    {
+        title: 'TestSchema',
+        type: 'array',
+        format: 'table',
+        items: {
+            type: 'string',
+            title: 'Test'
+        }
+    },
+    {
+        title: 'TestSchema2',
+        type: 'array',
+        format: 'table',
+    }
+];

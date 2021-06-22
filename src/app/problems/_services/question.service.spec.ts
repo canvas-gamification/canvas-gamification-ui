@@ -5,10 +5,13 @@ import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 import {Question} from "@app/_models";
-import {MOCK_CHECKBOX_QUESTION, MOCK_MCQ_QUESTION} from "@test/mock";
-import {McqFormData} from "@app/problems/_forms/mcq.form";
-import {JavaFormData} from "@app/problems/_forms/java.form";
-import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
+import {
+    MOCK_CHECKBOX_QUESTION,
+    MOCK_JAVA_FORM_DATA,
+    MOCK_MCQ_FORM_DATA,
+    MOCK_MCQ_QUESTION,
+    MOCK_PARSONS_FORM_DATA
+} from "@test/mock";
 
 describe('QuestionService', () => {
     let mockQuestions: Question[];
@@ -69,7 +72,7 @@ describe('QuestionService', () => {
     });
 
     it('putMultipleChoiceQuestion', () => {
-        questionService.putMultipleChoiceQuestion(createMockMcqFormData(), 0).subscribe((response) => {
+        questionService.putMultipleChoiceQuestion(MOCK_MCQ_FORM_DATA, 0).subscribe((response) => {
             expect(response).toBeTruthy();
         });
         const request = httpMock.expectOne(apiService.getURL('multiple-choice-question', 0));
@@ -78,7 +81,7 @@ describe('QuestionService', () => {
     });
 
     it('putJavaQuestion', () => {
-        questionService.putJavaQuestion(createMockJavaFormData(), 0).subscribe((response) => {
+        questionService.putJavaQuestion(MOCK_JAVA_FORM_DATA, 0).subscribe((response) => {
             expect(response).toBeTruthy();
         });
         const request = httpMock.expectOne(apiService.getURL('java-question', 0));
@@ -87,7 +90,7 @@ describe('QuestionService', () => {
     });
 
     it('putParsonsQuestion', () => {
-        questionService.putParsonsQuestion(createMockParsonsData(), 0).subscribe((response) => {
+        questionService.putParsonsQuestion(MOCK_PARSONS_FORM_DATA, 0).subscribe((response) => {
             expect(response).toBeTruthy();
         });
         const request = httpMock.expectOne(apiService.getURL('parsons-question', 0));
@@ -96,7 +99,7 @@ describe('QuestionService', () => {
     });
 
     it('postMultipleChoiceQuestion', () => {
-        questionService.postMultipleChoiceQuestion(createMockMcqFormData()).subscribe((response) => {
+        questionService.postMultipleChoiceQuestion(MOCK_MCQ_FORM_DATA).subscribe((response) => {
             expect(response).toBeTruthy();
         });
         const request = httpMock.expectOne(apiService.getURL('multiple-choice-question'));
@@ -105,7 +108,7 @@ describe('QuestionService', () => {
     });
 
     it('postJavaQuestion', () => {
-        questionService.postJavaQuestion(createMockJavaFormData()).subscribe((response) => {
+        questionService.postJavaQuestion(MOCK_JAVA_FORM_DATA).subscribe((response) => {
             expect(response).toBeTruthy();
         });
         const request = httpMock.expectOne(apiService.getURL('java-question'));
@@ -114,7 +117,7 @@ describe('QuestionService', () => {
     });
 
     it('postParsonsQuestion', () => {
-        questionService.postParsonsQuestion(createMockParsonsData()).subscribe((response) => {
+        questionService.postParsonsQuestion(MOCK_PARSONS_FORM_DATA).subscribe((response) => {
             expect(response).toBeTruthy();
         });
         const request = httpMock.expectOne(apiService.getURL('parsons-question'));
@@ -122,47 +125,3 @@ describe('QuestionService', () => {
         request.flush({success: true});
     });
 });
-
-function createMockMcqFormData(): McqFormData {
-    return {
-        title: 'This is a test.',
-        difficulty: 'EASY',
-        course: null,
-        event: null,
-        text: null,
-        answer: null,
-        category: null,
-        variables: null,
-        visible_distractor_count: null,
-        choices: null
-    };
-}
-
-function createMockJavaFormData(): JavaFormData {
-    return {
-        title: 'This is a test.',
-        difficulty: 'EASY',
-        course: null,
-        event: null,
-        text: null,
-        category: null,
-        variables: [],
-        junit_template: null,
-        input_file_names: null
-    };
-}
-
-function createMockParsonsData(): ParsonsFormData {
-    return {
-        title: 'This is a test.',
-        difficulty: 'EASY',
-        course: null,
-        event: null,
-        text: null,
-        category: null,
-        variables: null,
-        lines: null,
-        additional_file_name: null,
-        junit_template: null
-    };
-}

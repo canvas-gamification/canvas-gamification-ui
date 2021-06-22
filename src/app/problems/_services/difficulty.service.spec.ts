@@ -3,16 +3,10 @@ import {TestBed} from '@angular/core/testing';
 import {DifficultyService} from './difficulty.service';
 import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
-import {Difficulty} from "@app/_models/difficulty";
 import {HttpTestingController} from "@angular/common/http/testing";
+import {MOCK_DIFFICULTIES} from "@test/mock";
 
 describe('DifficultyService', () => {
-    const mockDifficulties: Difficulty[] = [
-        ['EASY', 'EASY'],
-        ["NORMAL", 'MEDIUM'],
-        ['HARD', 'HARD']
-    ];
-
     let difficultyService: DifficultyService;
     let apiService: ApiService;
     let httpMock: HttpTestingController;
@@ -37,10 +31,10 @@ describe('DifficultyService', () => {
     it('getDifficulties returns difficulties', () => {
         difficultyService.getDifficulties().subscribe((difficulties) => {
             expect(difficulties.length).toEqual(3);
-            expect(difficulties).toEqual(mockDifficulties);
+            expect(difficulties).toEqual(MOCK_DIFFICULTIES);
         });
         const request = httpMock.expectOne(apiService.getURL('difficulty'));
         expect(request.request.method).toBe('GET');
-        request.flush(mockDifficulties);
+        request.flush(MOCK_DIFFICULTIES);
     });
 });
