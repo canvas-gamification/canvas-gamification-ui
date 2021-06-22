@@ -8,7 +8,8 @@ describe('SubmissionService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [TestModule]
+            imports: [TestModule],
+            providers: [SubmissionService]
         });
         service = TestBed.inject(SubmissionService);
     });

@@ -13,6 +13,10 @@ export class UqjService {
     constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
+    /**
+     * Get all UQJs from the server that meet the filtering options.
+     * @param options - The options to filter the UQJs by.
+     */
     getUQJs(options?: {
         filters?: unknown,
         ordering?: unknown,
@@ -39,6 +43,10 @@ export class UqjService {
             .pipe(catchError(this.apiService.handleError<PaginatedResult<UQJ>>(`Error occurred while fetching user-specific questions`)));
     }
 
+    /**
+     * Get a single UQJ from the server.
+     * @param uqjId - The id of the UQJ to retrieve.
+     */
     getUQJ(uqjId: number): Observable<UQJ> {
         const params = new HttpParams();
         const url = this.apiService.getURL('uqj', uqjId);
@@ -47,6 +55,10 @@ export class UqjService {
             .pipe(catchError(this.apiService.handleError<UQJ>(`Error occurred while fetching user-specific questions`)));
     }
 
+    /**
+     * Get a single UQJ from the server - uses a question.
+     * @param questionId - The question id that we want to retrieve a UQJ for.
+     */
     getUQJByQuestion(questionId: number): Observable<UQJ> {
         const params = new HttpParams()
             .set('question', String(questionId));

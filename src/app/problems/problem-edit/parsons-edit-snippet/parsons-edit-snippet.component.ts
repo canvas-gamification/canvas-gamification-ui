@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
-import {QuestionService} from '@app/_services/api/question.service';
+import {QuestionService} from '@app/problems/_services/question.service';
 import {ToastrService} from "ngx-toastr";
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
@@ -13,7 +13,7 @@ import {ParsonsForm} from "@app/problems/_forms/parsons.form";
 @Component({
     selector: 'app-parsons-edit-snippet',
     templateUrl: './parsons-edit-snippet.component.html',
-    styleUrls: ['./parsons-edit-snippet.component.scss']
+    styleUrls: ['./parsons-edit-snippet.component.scss'],
 })
 export class ParsonsEditSnippetComponent implements OnInit {
     @Input() questionDetails;
