@@ -7,7 +7,6 @@ import {SubmissionService} from '@app/problems/_services/submission.service';
     selector: 'app-java-view-snippet',
     templateUrl: './java-view-snippet.component.html',
     styleUrls: ['./java-view-snippet.component.scss'],
-    providers: [SubmissionService]
 })
 export class JavaViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;

@@ -7,7 +7,6 @@ import {ActivatedRoute} from '@angular/router';
     selector: 'app-submission-view',
     templateUrl: './submission-view.component.html',
     styleUrls: ['./submission-view.component.scss'],
-    providers: [SubmissionService]
 })
 export class SubmissionViewComponent implements OnInit {
     submission: QuestionSubmission;

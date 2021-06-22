@@ -13,7 +13,6 @@ import {McqForm} from "@app/problems/_forms/mcq.form";
     selector: 'app-mcq-create-snippet',
     templateUrl: './mcq-create-snippet.component.html',
     styleUrls: ['./mcq-create-snippet.component.scss'],
-    providers: [QuestionService]
 })
 export class McqCreateSnippetComponent implements OnInit {
     @Input() checkBox: boolean;

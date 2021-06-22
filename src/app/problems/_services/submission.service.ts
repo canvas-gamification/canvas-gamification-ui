@@ -7,7 +7,7 @@ import {ApiService} from "@app/_services/api.service";
 import {APIResponse} from "@app/_models";
 
 @Injectable({
-    providedIn: null
+    providedIn: 'root'
 })
 export class SubmissionService {
 

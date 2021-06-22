@@ -8,7 +8,6 @@ declare let JSONEditor: any;
     selector: 'app-json-editor',
     templateUrl: './json-editor.component.html',
     styleUrls: ['./json-editor.component.scss'],
-    providers: [SchemaService]
 })
 export class JsonEditorComponent implements OnInit {
     // TODO - Determine the Proper Typing.

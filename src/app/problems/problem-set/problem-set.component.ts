@@ -19,7 +19,6 @@ import {ProblemSetForm} from "@app/problems/_forms/problem-set.form";
     selector: 'app-problem-set',
     templateUrl: './problem-set.component.html',
     styleUrls: ['./problem-set.component.scss'],
-    providers: [QuestionService]
 })
 export class ProblemSetComponent implements OnInit {
     formGroup: FormGroup;

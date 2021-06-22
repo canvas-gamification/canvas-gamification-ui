@@ -11,7 +11,7 @@ import {JavaFormData} from "@app/problems/_forms/java.form";
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
 
 @Injectable({
-    providedIn: null
+    providedIn: 'root'
 })
 export class QuestionService {
 

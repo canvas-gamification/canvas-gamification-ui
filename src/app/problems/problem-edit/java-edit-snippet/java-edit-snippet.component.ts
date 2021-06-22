@@ -14,7 +14,6 @@ import {JavaForm} from "@app/problems/_forms/java.form";
     selector: 'app-java-edit-snippet',
     templateUrl: './java-edit-snippet.component.html',
     styleUrls: ['./java-edit-snippet.component.scss'],
-    providers: [QuestionService]
 })
 export class JavaEditSnippetComponent implements OnInit {
     @Input() questionDetails;

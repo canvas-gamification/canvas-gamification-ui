@@ -13,7 +13,6 @@ import {ParsonsForm} from "@app/problems/_forms/parsons.form";
     selector: 'app-parsons-create-snippet',
     templateUrl: './parsons-create-snippet.component.html',
     styleUrls: ['./parsons-create-snippet.component.scss'],
-    providers: [QuestionService]
 })
 export class ParsonsCreateSnippetComponent implements OnInit {
     formGroup: FormGroup;

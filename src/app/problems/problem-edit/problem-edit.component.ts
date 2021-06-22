@@ -8,7 +8,6 @@ import {QuestionService} from '@app/problems/_services/question.service';
     selector: 'app-problem-edit',
     templateUrl: './problem-edit.component.html',
     styleUrls: ['./problem-edit.component.scss'],
-    providers: [QuestionService]
 })
 export class ProblemEditComponent implements OnInit {
     private routeSub: Subscription;
