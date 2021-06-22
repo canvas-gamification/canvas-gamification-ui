@@ -30,7 +30,7 @@ describe('DifficultyService', () => {
 
     it('getDifficulties returns difficulties', () => {
         difficultyService.getDifficulties().subscribe((difficulties) => {
-            expect(difficulties.length).toEqual(3);
+            expect(difficulties.length).toEqual(MOCK_DIFFICULTIES.length);
             expect(difficulties).toEqual(MOCK_DIFFICULTIES);
         });
         const request = httpMock.expectOne(apiService.getURL('difficulty'));

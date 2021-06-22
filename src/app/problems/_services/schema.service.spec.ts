@@ -7,6 +7,7 @@ import {HttpTestingController} from "@angular/common/http/testing";
 import {MOCK_SCHEMAS} from "@test/mock";
 
 describe('SchemaService', () => {
+    const mockSchemaTitle = 'TestSchema';
     let schemaService: SchemaService;
     let apiService: ApiService;
     let httpMock: HttpTestingController;
@@ -29,13 +30,11 @@ describe('SchemaService', () => {
     });
 
     it('getSchema returns schema', () => {
-        schemaService.getSchema('TestSchema').subscribe((schema) => {
-            expect(schema.title).toEqual('TestSchema');
-            expect(schema.type).toEqual('array');
-            expect(schema.format).toEqual('table');
+        schemaService.getSchema(mockSchemaTitle).subscribe((schema) => {
+            expect(schema).toEqual(MOCK_SCHEMAS.find(schema => schema.title === mockSchemaTitle));
         });
         const request = httpMock.expectOne(apiService.getURL('schema', 'TestSchema'));
         expect(request.request.method).toBe('GET');
-        request.flush(MOCK_SCHEMAS.find(schema => schema.title === 'TestSchema'));
+        request.flush(MOCK_SCHEMAS.find(schema => schema.title === mockSchemaTitle));
     });
 });

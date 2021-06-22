@@ -4,23 +4,14 @@ import {QuestionService} from './question.service';
 import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
-import {Question} from "@app/_models";
-import {
-    MOCK_CHECKBOX_QUESTION,
-    MOCK_JAVA_FORM_DATA,
-    MOCK_MCQ_FORM_DATA,
-    MOCK_MCQ_QUESTION,
-    MOCK_PARSONS_FORM_DATA
-} from "@test/mock";
+import {MOCK_JAVA_FORM_DATA, MOCK_MCQ_FORM_DATA, MOCK_PARSONS_FORM_DATA, MOCK_QUESTIONS} from "@test/mock";
 
 describe('QuestionService', () => {
-    let mockQuestions: Question[];
     let questionService: QuestionService;
     let apiService: ApiService;
     let httpMock: HttpTestingController;
 
     beforeEach(() => {
-        mockQuestions = [MOCK_MCQ_QUESTION, MOCK_CHECKBOX_QUESTION];
         TestBed.configureTestingModule({
             imports: [TestModule],
             providers: [QuestionService, ApiService]
@@ -40,26 +31,25 @@ describe('QuestionService', () => {
 
     it('getQuestions returns all questions', () => {
         questionService.getQuestions().subscribe((questions) => {
-            expect(questions.results.length).toEqual(2);
-            expect(questions.results).toEqual(mockQuestions);
+            expect(questions.results.length).toEqual(MOCK_QUESTIONS.length);
+            expect(questions.results).toEqual(MOCK_QUESTIONS);
         });
         const request = httpMock.expectOne('http://localhost:8000/api/questions/?page=1&page_size=50&search=&category__parent__name=&category__name=&difficulty=&is_sample=&ordering=');
         expect(request.request.method).toBe('GET');
-        request.flush(mockQuestions);
+        request.flush(MOCK_QUESTIONS);
     });
 
     it('getQuestion returns a single question', () => {
-        questionService.getQuestion(0).subscribe((question) => {
-            expect(question.id).toEqual(0);
-            expect(question.is_checkbox).toBeFalsy();
+        questionService.getQuestion(MOCK_QUESTIONS[0].id).subscribe((question) => {
+            expect(question).toEqual(MOCK_QUESTIONS[0]);
         });
-        const request = httpMock.expectOne(apiService.getURL('questions', 0));
+        const request = httpMock.expectOne(apiService.getURL('questions', MOCK_QUESTIONS[0].id));
         expect(request.request.method).toBe('GET');
-        request.flush(mockQuestions[0]);
+        request.flush(MOCK_QUESTIONS[0]);
     });
 
     it('getQuestionType returns the question type', () => {
-        expect(questionService.getQuestionType(mockQuestions[0])).toEqual('multiple choice question');
+        expect(questionService.getQuestionType(MOCK_QUESTIONS[0])).toEqual('multiple choice question');
     });
 
     it('deleteQuestion deletes a question', () => {

@@ -285,3 +285,9 @@ export const MOCK_SCHEMAS: any = [
         format: 'table',
     }
 ];
+
+export const MOCK_UQJS: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2];
+
+export const MOCK_QUESTIONS: Question[] = [MOCK_MCQ_QUESTION, MOCK_CHECKBOX_QUESTION];
+
+export const MOCK_SUBMISSIONS: QuestionSubmission[] = [MOCK_QUESTION_SUBMISSION, MOCK_QUESTION_SUBMISSION_2];

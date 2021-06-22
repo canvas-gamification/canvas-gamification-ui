@@ -4,15 +4,13 @@ import {UqjService} from './uqj.service';
 import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
-import {UQJ} from "@app/_models";
-import {MOCK_UQJ, MOCK_UQJ_2} from "@test/mock";
+import {MOCK_QUESTIONS, MOCK_UQJS} from "@test/mock";
 
 describe('UqjService', () => {
     let uqjService: UqjService;
     let apiService: ApiService;
     let httpMock: HttpTestingController;
 
-    const mockUqjs: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2];
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [TestModule],
@@ -33,42 +31,40 @@ describe('UqjService', () => {
 
     it('getUQJs returns UQJs list', () => {
         uqjService.getUQJs().subscribe((uqj) => {
-            expect(uqj.results.length).toEqual(3);
-            expect(uqj.results).toBe(mockUqjs);
+            expect(uqj.results.length).toEqual(MOCK_UQJS.length);
+            expect(uqj.results).toBe(MOCK_UQJS);
         });
         const request = httpMock.expectOne('http://localhost:8000/api/uqj/?page=1&page_size=50');
         expect(request.request.method).toBe('GET');
-        request.flush(mockUqjs);
+        request.flush(MOCK_UQJS);
     });
 
     it('getUQJs with options returns list', () => {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         uqjService.getUQJs({filters: {question__event: 0}, recent: true}).subscribe((uqj) => {
-            expect(uqj.results.length).toEqual(3);
-            expect(uqj.results).toBe(mockUqjs);
+            expect(uqj.results.length).toEqual(MOCK_UQJS.length);
+            expect(uqj.results).toBe(MOCK_UQJS);
         });
         const request = httpMock.expectOne('http://localhost:8000/api/uqj/?page=1&page_size=50&question__event=0&ordering=-last_viewed');
         expect(request.request.method).toBe('GET');
-        request.flush(mockUqjs);
+        request.flush(MOCK_UQJS);
     });
 
     it('getUQJ returns a single uqj', () => {
-        uqjService.getUQJ(1).subscribe((uqj) => {
-            expect(uqj.id).toEqual(1);
-            expect(uqj.is_checkbox).toBeTruthy();
+        uqjService.getUQJ(MOCK_UQJS[1].id).subscribe((uqj) => {
+            expect(uqj).toEqual(MOCK_UQJS[1]);
         });
-        const request = httpMock.expectOne(apiService.getURL('uqj', 1));
+        const request = httpMock.expectOne(apiService.getURL('uqj', MOCK_UQJS[1].id));
         expect(request.request.method).toBe('GET');
-        request.flush(mockUqjs.find(uqj => uqj.id === 1));
+        request.flush(MOCK_UQJS.find(uqj => uqj.id === MOCK_UQJS[1].id));
     });
 
     it('getUQJByQuestion returns a uqj based on a question', () => {
-        uqjService.getUQJByQuestion(0).subscribe((uqj) => {
-            expect(uqj.id).toEqual(0);
-            expect(uqj.is_checkbox).toBeFalsy();
+        uqjService.getUQJByQuestion(MOCK_QUESTIONS[0].id).subscribe((uqj) => {
+            expect(uqj).toEqual(MOCK_UQJS[0]);
         });
         const request = httpMock.expectOne('http://localhost:8000/api/uqj/?question=0');
         expect(request.request.method).toBe('GET');
-        request.flush(mockUqjs.find(uqj => uqj.question.id === 0));
+        request.flush(MOCK_UQJS.find(uqj => uqj.question.id === MOCK_QUESTIONS[0].id));
     });
 });
