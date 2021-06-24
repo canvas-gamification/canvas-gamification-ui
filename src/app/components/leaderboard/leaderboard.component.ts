@@ -41,6 +41,29 @@ export class LeaderboardComponent implements OnInit {
     console.log("clicked");
   }
 
+//  animate(){
+//  animateRow = document.getElementsByClassName("animate");
+//   var i;
+//   for (i =0; i < animateRow.length; i++){
+//       animateRow[i].addEventListener("mouseover", function(){
+//       document.getElementById("fireStill").src="assets/gif/icons8-fire.gif";
+//     })
+//       animateRow[i].addEventListener("mouseleave", function(){
+//       document.getElementById("fireStill").src="img src='assets/gif/fire-still.jpg";
+//     })
+//   }
+//  }
+
+ turnToGif(){
+      let fireImage = document.getElementById("fireStill") as HTMLImageElement;
+      fireImage.src="assets/gif/icons8-fire.gif";
+ }
+ 
+
+ turnToStatic(){
+   let snowImage = document.getElementById("fireStill") as HTMLImageElement
+   snowImage.src="img src='assets/gif/fire-still.jpg";
+ }
 
 
 }
