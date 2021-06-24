@@ -37,6 +37,7 @@ export class SubmissionService {
         return this.http.get<QuestionSubmission[]>(url, {params})
             .pipe(catchError(this.apiService.handleError<QuestionSubmission[]>('Error occurred while fetching submissions')));
     }
+
     /**
      * Send a post request of the submission for a question
      * @param input

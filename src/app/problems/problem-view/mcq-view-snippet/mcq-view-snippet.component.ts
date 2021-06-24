@@ -2,13 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ToastrService} from "ngx-toastr";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UQJ} from '@app/_models';
-import {SubmissionService} from '@app/_services/api/problem/submission.service';
+import {SubmissionService} from '@app/problems/_services/submission.service';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-mcq-view-snippet',
     templateUrl: './mcq-view-snippet.component.html',
-    styleUrls: ['./mcq-view-snippet.component.scss']
+    styleUrls: ['./mcq-view-snippet.component.scss'],
 })
 export class McqViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;

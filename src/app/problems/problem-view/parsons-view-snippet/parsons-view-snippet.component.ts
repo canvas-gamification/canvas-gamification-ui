@@ -4,7 +4,7 @@ import {FormBuilder} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
 import * as indentString from 'indent-string';
 import {UQJ} from '@app/_models';
-import {SubmissionService} from '@app/_services/api/problem/submission.service';
+import {SubmissionService} from '@app/problems/_services/submission.service';
 
 class ContainerObject {
     constructor(public value: string) {
@@ -14,7 +14,7 @@ class ContainerObject {
 @Component({
     selector: 'app-parsons-view-snippet',
     templateUrl: './parsons-view-snippet.component.html',
-    styleUrls: ['./parsons-view-snippet.component.scss']
+    styleUrls: ['./parsons-view-snippet.component.scss'],
 })
 export class ParsonsViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;

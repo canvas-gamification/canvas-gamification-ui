@@ -4,7 +4,7 @@ import {CategoryService} from '@app/_services/api/category.service';
 import {NestedTokenValue} from '@app/_models';
 import {faCaretDown, faCaretRight} from '@fortawesome/free-solid-svg-icons';
 import {Difficulty} from '@app/_models/difficulty';
-import {DifficultyService} from '@app/_services/api/problem/difficulty.service';
+import {DifficultyService} from '@app/problems/_services/difficulty.service';
 import {ToastrService} from "ngx-toastr";
 
 @Component({

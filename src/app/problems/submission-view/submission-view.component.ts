@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {SubmissionService} from '@app/_services/api/problem/submission.service';
+import {SubmissionService} from '@app/problems/_services/submission.service';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-submission-view',
     templateUrl: './submission-view.component.html',
-    styleUrls: ['./submission-view.component.scss']
+    styleUrls: ['./submission-view.component.scss'],
 })
 export class SubmissionViewComponent implements OnInit {
     submission: QuestionSubmission;

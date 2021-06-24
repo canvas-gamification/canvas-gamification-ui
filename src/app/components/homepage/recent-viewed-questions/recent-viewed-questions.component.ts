@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UQJ} from '@app/_models/uqj';
-import {UqjService} from '@app/_services/api/uqj.service';
+import {UqjService} from '@app/problems/_services/uqj.service';
 import {Question} from "@app/_models";
 
 @Component({

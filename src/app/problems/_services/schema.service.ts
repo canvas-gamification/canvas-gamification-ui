@@ -12,6 +12,10 @@ export class SchemaService {
     constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
+    /**
+     * Gets the schema for the json-editor from the server.
+     * @param name - The name of the schema to retrieve.
+     */
     getSchema(name: string): Observable<unknown> {
         const url = this.apiService.getURL('schema', name);
         return this.http.get(url)
