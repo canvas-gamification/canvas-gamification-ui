@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CourseService} from '@app/_services/api/course/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
-import {QuestionService} from '@app/_services/api/question.service';
+import {QuestionService} from '@app/problems/_services/question.service';
 import {ToastrService} from "ngx-toastr";
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
@@ -13,7 +13,7 @@ import {JavaForm} from "@app/problems/_forms/java.form";
 @Component({
     selector: 'app-java-edit-snippet',
     templateUrl: './java-edit-snippet.component.html',
-    styleUrls: ['./java-edit-snippet.component.scss']
+    styleUrls: ['./java-edit-snippet.component.scss'],
 })
 export class JavaEditSnippetComponent implements OnInit {
     @Input() questionDetails;

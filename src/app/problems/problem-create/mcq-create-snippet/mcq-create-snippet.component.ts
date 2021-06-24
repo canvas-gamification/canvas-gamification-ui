@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {QuestionService} from '@app/_services/api/question.service';
+import {QuestionService} from '@app/problems/_services/question.service';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/_services/api/course/course.service';
@@ -12,7 +12,7 @@ import {McqForm} from "@app/problems/_forms/mcq.form";
 @Component({
     selector: 'app-mcq-create-snippet',
     templateUrl: './mcq-create-snippet.component.html',
-    styleUrls: ['./mcq-create-snippet.component.scss']
+    styleUrls: ['./mcq-create-snippet.component.scss'],
 })
 export class McqCreateSnippetComponent implements OnInit {
     @Input() checkBox: boolean;

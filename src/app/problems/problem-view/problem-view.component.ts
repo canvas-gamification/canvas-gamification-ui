@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UQJ, User} from '@app/_models';
-import {UqjService} from '@app/_services/api/uqj.service';
+import {UqjService} from '@app/problems/_services/uqj.service';
 import {QuestionSubmission} from '@app/_models/question_submission';
-import {SubmissionService} from '@app/_services/api/problem/submission.service';
+import {SubmissionService} from '@app/problems/_services/submission.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-problem-view',
     templateUrl: './problem-view.component.html',
-    styleUrls: ['./problem-view.component.scss']
+    styleUrls: ['./problem-view.component.scss'],
 })
 export class ProblemViewComponent implements OnInit {
 
