@@ -55,12 +55,14 @@ export class LeaderboardComponent implements OnInit {
 //  }
 
  turnToGif(){
-      document.getElementById("fireStill").src="assets/gif/icons8-fire.gif";
+      let fireImage = document.getElementById("fireStill") as HTMLImageElement;
+      fireImage.src="assets/gif/icons8-fire.gif";
  }
  
 
  turnToStatic(){
-   document.getElementById("fireStill").src="img src='assets/gif/fire-still.jpg";
+   let snowImage = document.getElementById("fireStill") as HTMLImageElement
+   snowImage.src="img src='assets/gif/fire-still.jpg";
  }
 
 

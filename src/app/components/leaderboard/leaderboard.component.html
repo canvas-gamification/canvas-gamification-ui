@@ -1,83 +1,105 @@
 <div class="container podium-container">
-    <div class="podium-row">
-        <div class="podium-wrapper">
-            <div class="podium-step-container second">
-                <div class="podium-step-frontside">
-                    <i class="fas fa-trophy fa-6x silver-trophy"></i>
-                    <div class="name">
-                        {{topThree[1].username}}
-                    </div>
-                </div>
-                <div class="podium-step-backside">
-                    <!--back of card-->
-                    <div class="score">
-                        {{topThree[1].tokens}}
-                    </div>
+    <div class="podium-wrapper">
+        <div class="podium-step-container second">
+            <div class="podium-step-frontside">
+                <i class="fas fa-trophy fa-6x silver-trophy"></i>
+                <div class="name">
+                    {{topThree[1].username}}
                 </div>
             </div>
-        </div>
-        <div class="podium-wrapper">
-            <!--flip card-->
-            <div class="podium-step-container first">
-                <!--inner-->
-                <div class="podium-step-frontside">
-                    <!--front of card-->
-                    <i class="fas fa-trophy fa-10x gold-trophy"></i>
-                    <div class="name">
-                        {{topThree[0].username}}
-                    </div>
+            <div class="podium-step-backside">
+                <!--back of card-->
+                <div class="score">
+                    {{topThree[1].tokens}}
                 </div>
-                <div class="podium-step-backside">
-                    <!--back of card-->
-                    <div class="score">
-                        {{topThree[0].tokens}}
+                <div class="streak-display">
+                    <div *ngIf="topThree[1].hotStreak">
+                        <img src='assets/gif/icons8-fire.gif' class="streakIcon">
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="podium-wrapper">
-            <div class="podium-step-container third">
-                <div class="podium-step-frontside" (click)="onClick()">
-                    <i class="fas fa-trophy fa-3x bronze-trophy"></i>
-                    <div class="name">
-                        {{topThree[2].username}}
-                    </div>
-                </div>
-                <div class="podium-step-backside">
-                    <!--back of card-->
-                    <div class="score">
-                        {{topThree[2].tokens}}
+                    <div *ngIf="topThree[1].coldStreak">
+                        <img src='assets/gif/icons8-snow.gif' class="streakIcon">
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="podium-wrapper">
+        <!--flip card-->
+        <div class="podium-step-container first">
+            <!--inner-->
+            <div class="podium-step-frontside">
+                <!--front of card-->
+                <i class="fas fa-trophy fa-10x gold-trophy"></i>
+                <div class="name">
+                    {{topThree[0].username}}
+                </div>
+            </div>
+            <div class="podium-step-backside">
+                <!--back of card-->
+                <div class="score">
+                    {{topThree[0].tokens}}
+                </div>
+                <div class="streak-display">
+                    <div *ngIf="topThree[0].hotStreak">
+                        <img src='assets/gif/icons8-fire.gif' class="streakIcon">
+                    </div>
+                    <div *ngIf="topThree[0].coldStreak">
+                        <img src='assets/gif/icons8-snow.gif' class="streakIcon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="podium-wrapper">
+        <div class="podium-step-container third">
+            <div class="podium-step-frontside">
+                <i class="fas fa-trophy fa-3x bronze-trophy"></i>
+                <div class="name">
+                    {{topThree[2].username}}
+                </div>
+            </div>
+            <div class="podium-step-backside">
 
+                <!--back of card-->
+                <div class="score">
+                    {{topThree[2].tokens}}
+                </div>
+                <div class="streak-display">
+                    <div *ngIf="topThree[2].hotStreak">
+                        <img src='assets/gif/icons8-fire.gif' class="streakIcon">
+                    </div>
+                    <div *ngIf="topThree[2].coldStreak">
+                        <img src='assets/gif/icons8-snow.gif' class="streakIcon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <br>
 <br>
-<!-- <div class="container">
-    <table class="table table-hover" *ngFor="let user of users">
-        <tr>
-            <td>{{user.username}}</td>
-            <td>{{user.tokens}}</td>
-        </tr>
-    </table>
--->
-<!--backend was not working, so made a table just to test -->
-<div class="container">
-    <table class="table table-hover">
-        <tr class="animate">
-            <td>yeeet</td>
-            <td>215</td>
-            <td> <img src='assets/gif/fire-still.jpg' class="fireStill" onmouseover="this.src='assets/gif/icons8-fire.gif'" onmouseleave="this.src='assets/gif/fire-still.jpg'"> </td>
-        </tr>
-        <tr class="animate">
-            <td>yeethith</td>
-            <td>2</td>
-            <td> <img src='assets/gif/snow-still.jpg' class="snowStill" onmouseover="this.src='assets/gif/icons8-snow.gif'" onmouseleave="this.src='assets/gif/snow-still.jpg'"> </td>
-        </tr>
-    </table>
+
+
+<div class="container leaderboard-table" *ngFor="let user of users">
+    <div class="row align-items-center">
+
+        <div class="col-1 center-text">
+            {{user.username}}
+        </div>
+        <div class="col-1">
+            <div *ngIf="user.hotStreak" class="table-icon">
+                <img src='assets/gif/fire-still.png' onmouseover="this.src='assets/gif/icons8-fire.gif'"
+                    onmouseleave="this.src='assets/gif/fire-still.png'" class="smallStreakIcon">
+            </div>
+            <div *ngIf="user.coldStreak" class="table-icon">
+                <img src='assets/gif/snow-still.png' onmouseover="this.src='assets/gif/icons8-snow.gif'"
+                    onmouseleave="this.src='assets/gif/snow-still.png'" class="smallStreakIcon">
+            </div>
+        </div>
+        <div class="col-9 table-token-display">
+            {{user.tokens}}
+        </div>
+
+    </div>
 </div>
-<!-- <td> <img src='assets/gif/fire-still.jpg' class="fireStill"> <img src='assets/gif/icons8-fire.gif' class="fireMove"> </td> -->
