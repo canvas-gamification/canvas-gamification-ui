@@ -19,7 +19,6 @@ export class LeaderboardComponent implements OnInit {
     this.leaderboardService
     .getCategories()
     .subscribe((users) => {
-      console.log(users);
       this.users = users.sort((a, b) => {
         if(a.tokens < b.tokens){
           return 1;
@@ -41,29 +40,50 @@ export class LeaderboardComponent implements OnInit {
     console.log("clicked");
   }
 
-//  animate(){
-//  animateRow = document.getElementsByClassName("animate");
-//   var i;
-//   for (i =0; i < animateRow.length; i++){
-//       animateRow[i].addEventListener("mouseover", function(){
-//       document.getElementById("fireStill").src="assets/gif/icons8-fire.gif";
-//     })
-//       animateRow[i].addEventListener("mouseleave", function(){
-//       document.getElementById("fireStill").src="img src='assets/gif/fire-still.jpg";
-//     })
-//   }
+
+  //animate streak icon on mouseover
+//  turnToGif(){
+//       let fireImage = document.getElementById("fireStill") as HTMLImageElement;
+//       fireImage.src="assets/gif/icons8-fire.gif";
 //  }
 
- turnToGif(){
-      let fireImage = document.getElementById("fireStill") as HTMLImageElement;
-      fireImage.src="assets/gif/icons8-fire.gif";
- }
- 
+turnToGif(e: Event) : void {
+  let parent = e.target as HTMLElement;
+  console.log(`turntogif`);
+  if(parent.children[2].children[0]){
+    console.log('inside if');
+    let img = parent.children[2].children[0].children[0] as HTMLImageElement;
+    let fire: String = window.location.origin + '/assets/gif/fire-still.png';
+    let snow: String = window.location.origin + '/assets/gif/snow-still.png';
+    console.log(fire);
+    console.log(img.src);
+    if(img.src == fire){
+      img.src = 'assets/gif/fire.gif';
+    }
+    else if(img.src == snow) {
+      img.src = 'assets/gif/snow.gif';
+    }
+  }
+}
 
- turnToStatic(){
-   let snowImage = document.getElementById("fireStill") as HTMLImageElement
-   snowImage.src="img src='assets/gif/fire-still.jpg";
- }
+
+turnToStatic(e: Event) : void {
+  let parent = e.target as HTMLElement;
+  console.log(`turntostatic:`)
+  if(parent.children[2].children[0]){
+    let img = parent.children[2].children[0].children[0] as HTMLImageElement;
+    let fire: String = window.location.origin + '/assets/gif/fire.gif';
+    let snow: String = window.location.origin + '/assets/gif/snow.gif';
+    if(img.src == fire){
+      img.src = 'assets/gif/fire-still.png';
+    }
+    else if(img.src == snow) {
+      img.src = 'assets/gif/snow-still.png';
+    }
+  }
+}
+
+
 
 
 }
