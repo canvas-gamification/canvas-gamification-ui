@@ -7,9 +7,9 @@ import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.compone
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CategoryService} from "@app/_services/api/category.service";
-import {CategoryServiceMock} from "@app/problems/_tests/category.service.mock";
+import {CategoryServiceMock} from "@test/category.service.mock";
 import {CourseService} from "@app/_services/api/course/course.service";
-import {CourseServiceMock} from "@app/problems/_tests/course.service.mock";
+import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_tests/question.service.mock";
 import {MOCK_COURSE} from "@app/problems/_tests/mock";
