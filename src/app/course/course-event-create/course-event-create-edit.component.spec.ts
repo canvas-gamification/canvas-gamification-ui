@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CourseRegisterComponent} from './course-register.component';
-import {TestModule} from '../../../../test/test.module';
+import {CourseEventCreateEditComponent} from './course-event-create-edit.component';
+import {TestModule} from '@test/test.module';
 
-describe('RegisterComponent', () => {
-    let component: CourseRegisterComponent;
-    let fixture: ComponentFixture<CourseRegisterComponent>;
+describe('CourseEventCreateComponent', () => {
+    let component: CourseEventCreateEditComponent;
+    let fixture: ComponentFixture<CourseEventCreateEditComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('RegisterComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CourseRegisterComponent);
+        fixture = TestBed.createComponent(CourseEventCreateEditComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

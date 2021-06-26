@@ -9,13 +9,7 @@ import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {AuthGuard} from '@app/_helpers/auth.guard';
 import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
-import {CourseListComponent} from '@app/components/course/course-list/course-list.component';
-import {CourseComponent} from '@app/components/course/course.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
-import {CourseEventCreateEditComponent} from '@app/components/course/course-event-create/course-event-create-edit.component';
-import {CourseQuestionSnippetComponent} from '@app/components/course/course-question-snippet/course-question-snippet.component';
-import {CourseRegisterComponent} from '@app/components/course/course-registration/course-register.component';
-import {ProblemViewComponent} from '@app/problems/problem-view/problem-view.component';
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
 
@@ -23,6 +17,7 @@ import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.co
 const routes: Routes = [
     {path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)},
     {path: 'problems', loadChildren: () => import('./problems/problems.module').then(m => m.ProblemsModule)},
+    {path: 'course', loadChildren: () => import('./course/course.module').then(m => m.CourseModule)},
     {
         path: '',
         pathMatch: 'full',
@@ -60,45 +55,6 @@ const routes: Routes = [
     {
         path: 'faq',
         component: FaqComponent
-    },
-    {
-        path: 'course',
-        pathMatch: 'full',
-        component: CourseListComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'course/register/:courseId',
-        component: CourseRegisterComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'course/view/:courseId',
-        component: CourseComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'course/:courseId/new-event',
-        component: CourseEventCreateEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'course/:courseId/new-event/:eventId',
-        component: CourseEventCreateEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'course/:courseId/event/:eventId',
-        component: CourseQuestionSnippetComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'course/:courseId',
-        children: [
-            {path: 'problem/:id', component: ProblemViewComponent},
-            {path: 'event/:eventId/problem/:id', component: ProblemViewComponent}
-        ],
-        canActivate: [AuthGuard]
     },
     {
         path: '404',

@@ -33,14 +33,7 @@ import {CourseDashboardComponent} from './components/homepage/course-dashboard/c
 import {InactiveCoursesComponent} from './components/homepage/inactive-courses/inactive-courses.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {FaqComponent} from './components/faq/faq.component';
-import {CourseListComponent} from './components/course/course-list/course-list.component';
-import {CourseComponent} from './components/course/course.component';
-import {CourseEventsSnippetComponent} from './components/course/course-events-snippet/course-events-snippet.component';
-import {TokenUseSnippetComponent} from './components/course/token-use-snippet/token-use-snippet.component';
-import {CourseQuestionSnippetComponent} from './components/course/course-question-snippet/course-question-snippet.component';
 import {MatButtonModule} from '@angular/material/button';
-import {CourseEventCreateEditComponent} from './components/course/course-event-create/course-event-create-edit.component';
-import {CourseRegisterComponent} from './components/course/course-registration/course-register.component';
 import {MatSortModule} from '@angular/material/sort';
 import {CommonModule} from '@angular/common';
 import {
@@ -49,7 +42,6 @@ import {
     NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {LeaderBoardComponent} from './components/course/leader-board/leader-board.component';
 import {HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -76,14 +68,6 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         RecentViewedQuestionsComponent,
         CourseDashboardComponent,
         InactiveCoursesComponent,
-        CourseListComponent,
-        CourseRegisterComponent,
-        CourseComponent,
-        CourseEventsSnippetComponent,
-        TokenUseSnippetComponent,
-        CourseQuestionSnippetComponent,
-        CourseEventCreateEditComponent,
-        LeaderBoardComponent,
         NotFoundComponent,
         ForbiddenComponent,
     ],

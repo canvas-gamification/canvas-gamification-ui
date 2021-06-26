@@ -1,7 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TokenUseSnippetComponent} from './token-use-snippet.component';
-import {TestModule} from '../../../../test/test.module';
+import {TestModule} from '@test/test.module';
+import {CourseModule} from "@app/course/course.module";
 
 describe('TokenUseSnippetComponent', () => {
     let component: TokenUseSnippetComponent;
@@ -9,7 +10,8 @@ describe('TokenUseSnippetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule]
+            declarations: [TokenUseSnippetComponent],
+            imports: [TestModule, CourseModule]
         }).compileComponents();
     });
 
