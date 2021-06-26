@@ -16,7 +16,9 @@ export class SchemaService {
      * Gets the schema for the json-editor from the server.
      * @param name - The name of the schema to retrieve.
      */
-    getSchema(name: string): Observable<unknown> {
+    // TODO - Determine a more specific type.
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+    getSchema(name: string): Observable<any> {
         const url = this.apiService.getURL('schema', name);
         return this.http.get(url)
             .pipe(catchError(this.apiService.handleError()));
