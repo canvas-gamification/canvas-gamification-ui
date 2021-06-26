@@ -36,17 +36,6 @@ export class LeaderboardComponent implements OnInit {
     })
   }
 
-  onClick(): void {
-    console.log("clicked");
-  }
-
-
-  //animate streak icon on mouseover
-//  turnToGif(){
-//       let fireImage = document.getElementById("fireStill") as HTMLImageElement;
-//       fireImage.src="assets/gif/icons8-fire.gif";
-//  }
-
 turnToGif(e: Event) : void {
   let parent = e.target as HTMLElement;
   console.log(`turntogif`);
@@ -65,7 +54,6 @@ turnToGif(e: Event) : void {
     }
   }
 }
-
 
 turnToStatic(e: Event) : void {
   let parent = e.target as HTMLElement;

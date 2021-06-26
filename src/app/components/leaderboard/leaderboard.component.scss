@@ -169,29 +169,12 @@ $dark-bronze: #bf6517;
     @include backface-visibility;
 }
 
-
-// Podium icons
-// #region
-.gold-trophy {
-    color: $dark-gold;
-    margin: 2rem 0;
-
-}
-
-.silver-trophy {
-    color: darkgrey;
-    margin: 1rem 0;
-}
-
-.bronze-trophy {
-    color: $dark-bronze;
-    margin: 0.5rem 0;
-}
-
-// #endregion
-
 // Gold podium card
+.first-wrapper{
+    order: 2;
+}
 .first {
+
     height: 400px;
     border: $border;
     background-color: gold;
@@ -207,10 +190,20 @@ $dark-bronze: #bf6517;
         }
     }
 
+    .trophy {
+        color: $dark-gold;
+        margin: 2rem 0;
+    
+    }
+
 }
 
 // Silver podium card
+.second-wrapper {
+    order: 1;
+}
 .second {
+
     height: 350px;
     border: $border;
     background-color: silver;
@@ -225,10 +218,18 @@ $dark-bronze: #bf6517;
             background-color: darkgrey;
         }
     }
+    .trophy {
+        color: darkgrey;
+        margin: 1rem 0;
+    }
 }
 
 // Bronze podium card
+.third-wrapper {
+    order: 3;
+}
 .third {
+  
     height: 300px;
     border: $border;
     background-color: $bronze;
@@ -242,6 +243,11 @@ $dark-bronze: #bf6517;
         .name {
             background-color: $dark-bronze;
         }
+    }
+    
+    .trophy {
+        color: $dark-bronze;
+        margin: 0.5rem 0;
     }
 }
 

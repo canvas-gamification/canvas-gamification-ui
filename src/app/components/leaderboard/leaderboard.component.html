@@ -1,88 +1,30 @@
-<img src='assets/gif/fire.gif' class="streakIcon transparent-absolute">
-<img src='assets/gif/icons8-snow.gif' class="streakIcon transparent-absolute">
 
 
 <div class="container podium-container">
-    <div class="podium-wrapper">
-        <div class="podium-step-container second">
+    <!-- <img src='assets/gif/fire.gif' class="streakIcon transparent-absolute">
+    <img src='assets/gif/icons8-snow.gif' class="streakIcon transparent-absolute"> -->
+    <div class="podium-wrapper" *ngFor="let user of topThree let i = index"  
+     [ngClass]="{'first-wrapper' : i == 0, 'second-wrapper' : i == 1, 'third-wrapper' : i == 2}">
+        <div class="podium-step-container" [ngClass]="{'first' : i == 0, 'second' : i == 1, 'third' : i == 2}">
             <div class="podium-step-frontside">
-
                 <div class="name">
-                    {{topThree[1].username}}
+                    {{user.username}}
                 </div>
-                <i class="fas fa-trophy fa-8x silver-trophy"></i>
+                <i class="fas fa-trophy fa-6x trophy"></i>
                 <div class="score">
-                    {{topThree[1].tokens}}
+                    {{user.tokens}}
                 </div>
             </div>
             <div class="podium-step-backside">
                 <!--back of card-->
-
-                <div class="streak-display">
-                    <div *ngIf="topThree[1].hotStreak">
-                        <img src='asset
-                        .gif' class="streakIcon">
-                    </div>
-                    <div *ngIf="topThree[1].coldStreak">
-                        <img src='assets/gif/icons8-snow.gif' class="streakIcon">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="podium-wrapper">
-        <!--flip card-->
-        <div class="podium-step-container first">
-            <!--inner-->
-            <div class="podium-step-frontside">
-                <!--front of card-->
-                <div class="name">
-                    {{topThree[0].username}}
-                </div>
-                <i class="fas fa-trophy fa-10x gold-trophy"></i>
-                
                 <div class="score">
-                    {{topThree[0].tokens}}
-                </div>
-            </div>
-            <div class="podium-step-backside">
-                <!--back of card-->
-                <img src='assets/gif/fire.gif' class="streakIcon">
-                <div class="score">
-                    {{topThree[0].tokens}}
+                    {{user.tokens}}
                 </div>
                 <div class="streak-display">
-                    <div *ngIf="topThree[0].hotStreak">
+                    <div *ngIf="user.hotStreak">
                         <img src='assets/gif/fire.gif' class="streakIcon">
                     </div>
-                    <div *ngIf="topThree[0].coldStreak">
-                        <img src='assets/gif/icons8-snow.gif' class="streakIcon">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="podium-wrapper">
-        <div class="podium-step-container third">
-            <div class="podium-step-frontside">
-                <div class="name">
-                    {{topThree[2].username}}
-                </div>
-                <i class="fas fa-trophy fa-6x bronze-trophy"></i>
-                <div class="score">
-                    {{topThree[2].tokens}}
-                </div>
-            </div>
-            <div class="podium-step-backside">
-                <!--back of card-->
-                <div class="score">
-                    {{topThree[2].tokens}}
-                </div>
-                <div class="streak-display">
-                    <div *ngIf="topThree[2].hotStreak">
-                        <img src='assets/gif/fire.gif' class="streakIcon">
-                    </div>
-                    <div *ngIf="topThree[2].coldStreak">
+                    <div *ngIf="user.coldStreak">
                         <img src='assets/gif/snow.gif' class="streakIcon">
                     </div>
                 </div>
@@ -106,16 +48,17 @@
             Tokens
         </div>
     </div>
-    <div *ngFor="let user of users let i = index" class="row align-items-center justify-content-center" (mouseenter)="turnToGif($event)" (mouseleave)="turnToStatic($event)">
+    <div *ngFor="let user of users let i = index" class="row align-items-center justify-content-center"
+        (mouseenter)="turnToGif($event)" (mouseleave)="turnToStatic($event)">
         <div class="col-1">
             {{i + 4}}
         </div>
         <div class="col-1 center-text">
             {{user.username}}
         </div>
-        <div class="col-1" >
+        <div class="col-1">
             <div *ngIf="user.hotStreak" class="fire-table-icon">
-                <img src='assets/gif/fire-still.png'  class="smallStreakIcon">
+                <img src='assets/gif/fire-still.png' class="smallStreakIcon">
             </div>
             <div *ngIf="user.coldStreak" class="snow-table-icon">
                 <img src='assets/gif/snow-still.png' class="smallStreakIcon">
