@@ -1,36 +1,10 @@
-import {Category, Course, CourseEvent, CourseRegistration, Question, STATUS, UQJ} from '@app/_models';
+import {Question, UQJ} from '@app/_models';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {Difficulty} from "@app/_models/difficulty";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
 import {JavaFormData} from "@app/problems/_forms/java.form";
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
-
-export const MOCK_CATEGORY: Category = {
-    name: '',
-    average_success: 0,
-    description: '',
-    next_category_ids: [],
-    pk: 0,
-    full_name: '',
-    parent: 0,
-    question_count: 100,
-};
-export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY];
-
-export const MOCK_COURSE_EVENT: CourseEvent = {
-    id: 0,
-    course: 0,
-    name: '',
-    is_exam: false,
-    is_open: true,
-    count_for_tokens: true,
-    end_date: null,
-    has_edit_permission: false,
-    is_allowed_to_open: true,
-    start_date: null,
-    total_event_grade: 0,
-    type: '',
-};
+import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@test/mock";
 
 export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
@@ -373,12 +347,6 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     safeAnswer: [],
 };
 
-export const MOCK_DIFFICULTIES: Difficulty[] = [
-    ['EASY', 'EASY'],
-    ["NORMAL", 'MEDIUM'],
-    ['HARD', 'HARD'],
-];
-
 export const MOCK_MCQ_FORM_DATA: McqFormData = {
     title: 'This is a test.',
     difficulty: 'EASY',
@@ -417,6 +385,12 @@ export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
     junit_template: null
 };
 
+export const MOCK_DIFFICULTIES: Difficulty[] = [
+    ['EASY', 'EASY'],
+    ["NORMAL", 'MEDIUM'],
+    ['HARD', 'HARD'],
+];
+
 // TODO - Determine a more specific type.
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
 export const MOCK_SCHEMAS: any = [
@@ -450,24 +424,3 @@ export const MOCK_UQJS: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2, MOCK_UQJ_3, MOCK_UQJ_4];
 export const MOCK_QUESTIONS: Question[] = [MOCK_MCQ_QUESTION, MOCK_CHECKBOX_QUESTION, MOCK_JAVA_QUESTION, MOCK_PARSONS_QUESTION];
 
 export const MOCK_SUBMISSIONS: QuestionSubmission[] = [MOCK_QUESTION_SUBMISSION, MOCK_QUESTION_SUBMISSION_2];
-
-export const MOCK_COURSE: Course = {
-    id: 0,
-    mock: null,
-    name: 'Test Course',
-    url: null,
-    token: null,
-    allow_registration: true,
-    visible_to_students: true,
-    start_date: null,
-    end_date: null,
-    instructor: null,
-    status: STATUS.active,
-    is_registered: true,
-    events: [MOCK_COURSE_EVENT],
-    token_use_options: null,
-    question_set: null,
-    uqjs: MOCK_UQJS,
-    course_reg: null,
-    leader_board: null
-};

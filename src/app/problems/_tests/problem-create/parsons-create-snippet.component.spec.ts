@@ -12,7 +12,7 @@ import {CourseService} from "@app/_services/api/course/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_tests/question.service.mock";
-import {MOCK_COURSE} from "@app/problems/_tests/mock";
+import {MOCK_COURSES} from "@test/mock";
 
 describe('ParsonsCreateSnippetComponent', () => {
     let component: ParsonsCreateSnippetComponent;
@@ -42,7 +42,7 @@ describe('ParsonsCreateSnippetComponent', () => {
 
     it('courseSelectedById', () => {
         component.courseSelectedById(0);
-        expect(component.events).toEqual(MOCK_COURSE.events);
+        expect(component.events).toEqual(MOCK_COURSES[0].events);
     });
 
     it('parsons create question', () => {

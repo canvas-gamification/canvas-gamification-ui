@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
 import {Category} from "@app/_models";
-import {MOCK_CATEGORIES} from "@app/problems/_tests/mock";
+import {MOCK_CATEGORIES} from "@test/mock";
 
 @Injectable({
     providedIn: 'root',
