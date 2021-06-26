@@ -1,8 +1,8 @@
 
 
 <div class="container podium-container">
-    <img src='assets/gif/fire.gif' class="streakIcon transparent-absolute">
-    <img src='assets/gif/snow.gif' class="streakIcon transparent-absolute">
+    <!-- <img src='assets/gif/fire.gif' class="streakIcon transparent-absolute">
+    <img src='assets/gif/icons8-snow.gif' class="streakIcon transparent-absolute"> -->
     <div class="podium-wrapper" *ngFor="let user of topThree let i = index"  
      [ngClass]="{'first-wrapper' : i == 0, 'second-wrapper' : i == 1, 'third-wrapper' : i == 2}">
         <div class="podium-step-container" [ngClass]="{'first fa-10x' : i == 0, 'second fa-8x' : i == 1, 'third fa-6x' : i == 2}">
