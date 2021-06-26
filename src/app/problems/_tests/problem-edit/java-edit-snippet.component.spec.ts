@@ -1,11 +1,12 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ProblemViewComponent} from './problem-view.component';
+import {JavaEditSnippetComponent} from '../../problem-edit/java-edit-snippet/java-edit-snippet.component';
 import {TestModule} from '@test/test.module';
+import {MOCK_MCQ_QUESTION} from '@app/problems/_tests/mock';
 
-describe('ProblemViewComponent', () => {
-    let component: ProblemViewComponent;
-    let fixture: ComponentFixture<ProblemViewComponent>;
+describe('JavaEditSnippetComponent', () => {
+    let component: JavaEditSnippetComponent;
+    let fixture: ComponentFixture<JavaEditSnippetComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,8 +15,9 @@ describe('ProblemViewComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ProblemViewComponent);
+        fixture = TestBed.createComponent(JavaEditSnippetComponent);
         component = fixture.componentInstance;
+        component.questionDetails = MOCK_MCQ_QUESTION;
         fixture.detectChanges();
     });
 

@@ -1,23 +1,23 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {McqViewSnippetComponent} from './mcq-view-snippet.component';
+import {AceComponent} from '../../ace/ace.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_UQJ} from '@test/mock';
+import {AceEditorModule} from "ng2-ace-editor";
 
-describe('McqViewSnippetComponent', () => {
-    let component: McqViewSnippetComponent;
-    let fixture: ComponentFixture<McqViewSnippetComponent>;
+describe('AceComponent', () => {
+    let component: AceComponent;
+    let fixture: ComponentFixture<AceComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule]
+            declarations: [AceComponent],
+            imports: [TestModule, AceEditorModule]
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(McqViewSnippetComponent);
+        fixture = TestBed.createComponent(AceComponent);
         component = fixture.componentInstance;
-        component.uqj = MOCK_UQJ;
         fixture.detectChanges();
     });
 

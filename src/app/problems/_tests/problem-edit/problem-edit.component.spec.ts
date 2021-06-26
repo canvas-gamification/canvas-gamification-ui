@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ProblemCreateComponent} from './problem-create.component';
+import {ProblemEditComponent} from '../../problem-edit/problem-edit.component';
 import {TestModule} from '@test/test.module';
 
-describe('ProblemCreateComponent', () => {
-    let component: ProblemCreateComponent;
-    let fixture: ComponentFixture<ProblemCreateComponent>;
+describe('ProblemEditComponent', () => {
+    let component: ProblemEditComponent;
+    let fixture: ComponentFixture<ProblemEditComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('ProblemCreateComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ProblemCreateComponent);
+        fixture = TestBed.createComponent(ProblemEditComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

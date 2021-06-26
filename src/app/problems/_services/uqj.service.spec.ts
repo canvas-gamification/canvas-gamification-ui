@@ -4,7 +4,7 @@ import {UqjService} from './uqj.service';
 import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
-import {MOCK_QUESTIONS, MOCK_UQJS} from "@test/mock";
+import {MOCK_QUESTIONS, MOCK_UQJS} from "@app/problems/_tests/mock";
 
 describe('UqjService', () => {
     let uqjService: UqjService;

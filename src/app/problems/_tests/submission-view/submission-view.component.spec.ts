@@ -1,12 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {JavaViewSnippetComponent} from './java-view-snippet.component';
+import {SubmissionViewComponent} from '../../submission-view/submission-view.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_UQJ} from '@test/mock';
 
-describe('JavaViewSnippetComponent', () => {
-    let component: JavaViewSnippetComponent;
-    let fixture: ComponentFixture<JavaViewSnippetComponent>;
+describe('SubmissionViewComponent', () => {
+    let component: SubmissionViewComponent;
+    let fixture: ComponentFixture<SubmissionViewComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -15,9 +14,8 @@ describe('JavaViewSnippetComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(JavaViewSnippetComponent);
+        fixture = TestBed.createComponent(SubmissionViewComponent);
         component = fixture.componentInstance;
-        component.uqj = MOCK_UQJ;
         fixture.detectChanges();
     });
 

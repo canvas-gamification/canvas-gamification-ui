@@ -1,4 +1,4 @@
-import {Category, CourseEvent, Question, UQJ} from '@app/_models';
+import {Category, Course, CourseEvent, CourseRegistration, Question, STATUS, UQJ} from '@app/_models';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {Difficulty} from "@app/_models/difficulty";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
@@ -15,6 +15,7 @@ export const MOCK_CATEGORY: Category = {
     parent: 0,
     question_count: 100,
 };
+export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY];
 
 export const MOCK_COURSE_EVENT: CourseEvent = {
     id: 0,
@@ -115,6 +116,86 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     is_checkbox: true,
 };
 
+export const MOCK_JAVA_QUESTION: Question = {
+    id: 2,
+    category: 0,
+    status: '',
+    additional_file_name: '',
+    answer: '',
+    author: 0,
+    author_name: '',
+    category_name: '',
+    choices: null,
+    course_name: '',
+    difficulty: '',
+    event: MOCK_COURSE_EVENT,
+    event_name: '',
+    full_category_name: '',
+    input_file_names: [],
+    is_exam: false,
+    is_exam_and_open: false,
+    is_open: true,
+    is_sample: false,
+    is_verified: true,
+    junit_template: 'TEST JUNIT',
+    lines: [],
+    variables: [],
+    max_submission_allowed: 5,
+    parent_category_name: '',
+    success_rate: 0,
+    text: 'This is a Java question.',
+    time_created: null,
+    time_modified: null,
+    title: '',
+    token_value: 5,
+    type_name: 'java question',
+    visible_distractor_count: 1,
+    is_author: true,
+    is_checkbox: false,
+};
+
+export const MOCK_PARSONS_QUESTION: Question = {
+    id: 3,
+    category: 0,
+    status: '',
+    additional_file_name: '',
+    answer: '',
+    author: 0,
+    author_name: '',
+    category_name: '',
+    choices: null,
+    course_name: '',
+    difficulty: '',
+    event: MOCK_COURSE_EVENT,
+    event_name: '',
+    full_category_name: '',
+    input_file_names: [],
+    is_exam: false,
+    is_exam_and_open: false,
+    is_open: true,
+    is_sample: false,
+    is_verified: true,
+    junit_template: 'TEST JUNIT',
+    lines: [
+        "{",
+        "print()",
+        "}"
+    ],
+    variables: [],
+    max_submission_allowed: 5,
+    parent_category_name: '',
+    success_rate: 0,
+    text: 'This is a Java question.',
+    time_created: null,
+    time_modified: null,
+    title: '',
+    token_value: 5,
+    type_name: 'parsons question',
+    visible_distractor_count: 1,
+    is_author: true,
+    is_checkbox: false,
+};
+
 export const MOCK_UQJ: UQJ = {
     category: MOCK_CATEGORY,
     id: 0,
@@ -129,7 +210,10 @@ export const MOCK_UQJ: UQJ = {
     num_attempts: 5,
     opened_tutorial: false,
     random_seed: 0,
-    rendered_choices: null,
+    rendered_choices: {
+        'a': 'sag',
+        'b': 'gav'
+    },
     rendered_lines: [],
     rendered_text: '',
     status: '',
@@ -155,7 +239,12 @@ export const MOCK_UQJ_2: UQJ = {
     num_attempts: 5,
     opened_tutorial: false,
     random_seed: 0,
-    rendered_choices: null,
+    rendered_choices: {
+        'a': 'sag',
+        'b': 'gav',
+        'c': 'foo',
+        'd': 'bar'
+    },
     rendered_lines: [],
     rendered_text: '',
     status: '',
@@ -167,12 +256,73 @@ export const MOCK_UQJ_2: UQJ = {
     is_checkbox: true,
 };
 
+export const MOCK_UQJ_3: UQJ = {
+    category: MOCK_CATEGORY,
+    id: 2,
+    question: MOCK_JAVA_QUESTION,
+    format: '',
+    formatted_current_tokens_received: '',
+    input_files: [
+        {name: 'Test', template: 'Test Template'},
+        {name: 'Test2', template: ''}
+    ],
+    is_allowed_to_submit: true,
+    is_partially_solved: false,
+    is_solved: true,
+    last_viewed: null,
+    num_attempts: 5,
+    opened_tutorial: false,
+    random_seed: 0,
+    rendered_choices: null,
+    rendered_lines: [],
+    rendered_text: '',
+    status: '',
+    status_class: '',
+    subcategory: '',
+    tokens_received: 50,
+    variables: JSON.parse('{}'),
+    variables_errors: [],
+    is_checkbox: false,
+};
+
+export const MOCK_UQJ_4: UQJ = {
+    category: MOCK_CATEGORY,
+    id: 3,
+    question: MOCK_PARSONS_QUESTION,
+    format: '',
+    formatted_current_tokens_received: '',
+    input_files: [],
+    is_allowed_to_submit: true,
+    is_partially_solved: false,
+    is_solved: true,
+    last_viewed: null,
+    num_attempts: 5,
+    opened_tutorial: false,
+    random_seed: 0,
+    rendered_choices: null,
+    rendered_lines: [
+        "{",
+        "print()",
+        "}"
+    ],
+    rendered_text: '',
+    status: '',
+    status_class: '',
+    subcategory: '',
+    tokens_received: 50,
+    variables: JSON.parse('{}'),
+    variables_errors: [],
+    is_checkbox: false,
+};
+
 export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     answer: '',
     status: '',
     question: MOCK_MCQ_QUESTION,
     pk: 0,
-    answer_display: [],
+    answer_display: [
+        'This is an answer to a question.'
+    ],
     tokens_received: 1,
     answer_files: {},
     finalized: true,
@@ -286,8 +436,38 @@ export const MOCK_SCHEMAS: any = [
     }
 ];
 
-export const MOCK_UQJS: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2];
+export const MOCK_VARIABLES = [
+    {
+        "type": "int",
+        "name": "Test",
+        "min": "0",
+        "max": "1"
+    }
+];
 
-export const MOCK_QUESTIONS: Question[] = [MOCK_MCQ_QUESTION, MOCK_CHECKBOX_QUESTION];
+export const MOCK_UQJS: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2, MOCK_UQJ_3, MOCK_UQJ_4];
+
+export const MOCK_QUESTIONS: Question[] = [MOCK_MCQ_QUESTION, MOCK_CHECKBOX_QUESTION, MOCK_JAVA_QUESTION, MOCK_PARSONS_QUESTION];
 
 export const MOCK_SUBMISSIONS: QuestionSubmission[] = [MOCK_QUESTION_SUBMISSION, MOCK_QUESTION_SUBMISSION_2];
+
+export const MOCK_COURSE: Course = {
+    id: 0,
+    mock: null,
+    name: 'Test Course',
+    url: null,
+    token: null,
+    allow_registration: true,
+    visible_to_students: true,
+    start_date: null,
+    end_date: null,
+    instructor: null,
+    status: STATUS.active,
+    is_registered: true,
+    events: [MOCK_COURSE_EVENT],
+    token_use_options: null,
+    question_set: null,
+    uqjs: MOCK_UQJS,
+    course_reg: null,
+    leader_board: null
+};

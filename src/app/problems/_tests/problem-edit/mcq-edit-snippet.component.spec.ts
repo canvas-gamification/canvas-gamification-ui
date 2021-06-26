@@ -1,11 +1,12 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {VariableViewComponent} from './variable-view.component';
+import {McqEditSnippetComponent} from '../../problem-edit/mcq-edit-snippet/mcq-edit-snippet.component';
 import {TestModule} from '@test/test.module';
+import {MOCK_MCQ_QUESTION} from '@app/problems/_tests/mock';
 
-describe('VariableViewComponent', () => {
-    let component: VariableViewComponent;
-    let fixture: ComponentFixture<VariableViewComponent>;
+describe('McqEditSnippetComponent', () => {
+    let component: McqEditSnippetComponent;
+    let fixture: ComponentFixture<McqEditSnippetComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,10 +15,9 @@ describe('VariableViewComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(VariableViewComponent);
+        fixture = TestBed.createComponent(McqEditSnippetComponent);
         component = fixture.componentInstance;
-        component.variables = [];
-        component.variableErrors = [];
+        component.questionDetails = MOCK_MCQ_QUESTION;
         fixture.detectChanges();
     });
 
