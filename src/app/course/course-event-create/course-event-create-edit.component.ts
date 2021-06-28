@@ -3,18 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CourseEvent, EventType} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {ToastrService} from "ngx-toastr";
-import {AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-
-const dateValidator: (controls: AbstractControl) => void = (controls: AbstractControl) => {
-    const start = controls.get('startPicker');
-    const end = controls.get('endPicker');
-    return start.value > end.value ? start.setErrors({
-        forbiddenDateRange: {
-            startDate: start.value,
-            endDate: end.value
-        }
-    }) : null;
-};
+import {FormGroup} from '@angular/forms';
+import {CourseEventForm} from "@app/course/_forms/course-event.form";
 
 @Component({
     selector: 'app-course-event-create',
@@ -28,20 +18,13 @@ export class CourseEventCreateEditComponent implements OnInit {
     formData: FormGroup;
 
     constructor(private route: ActivatedRoute,
-                private builder: FormBuilder,
                 private courseEventService: CourseEventService,
                 private toastr: ToastrService,
                 private router: Router) {
     }
 
     ngOnInit(): void {
-        this.formData = this.builder.group({
-            name: new FormControl('', [Validators.required]),
-            type: new FormControl('', [Validators.required]),
-            countForTokens: new FormControl('', [Validators.required]),
-            startPicker: new FormControl(new Date(), [Validators.required]),
-            endPicker: new FormControl(new Date(), [Validators.required])
-        }, {validator: dateValidator} as AbstractControlOptions);
+        this.formData = CourseEventForm.createForm();
         this.courseEventService.getEventTypes().subscribe(response => this.localEventTypes = response);
         // Convert to number
         this.courseId = +this.route.snapshot.paramMap.get('courseId');
@@ -49,13 +32,7 @@ export class CourseEventCreateEditComponent implements OnInit {
             this.eventId = +this.route.snapshot.paramMap.get('eventId');
             this.courseEventService.getCourseEvent(this.eventId).subscribe(
                 event => {
-                    this.formData.patchValue({
-                        name: event.name,
-                        type: event.type,
-                        countForTokens: event.count_for_tokens,
-                        startPicker: new Date(event.start_date),
-                        endPicker: new Date(event.end_date),
-                    });
+                    this.formData = CourseEventForm.createFormWithData(event);
                 }
             );
         }
@@ -75,26 +52,19 @@ export class CourseEventCreateEditComponent implements OnInit {
 
     submitEvent(formData: FormGroup): void {
         const ourEvent: CourseEvent = this.formatFormData(formData);
-
         if (this.eventId) { // If this is a previously existing event
             this.courseEventService.updateCourseEvent(ourEvent).subscribe(() => {
                 this.toastr.success('The Event has been updated Successfully.');
-                window.scroll(0, 0);
             }, error => {
                 this.toastr.error(error);
-                console.warn(error);
-                window.scroll(0, 0);
             });
         } else { // Creating a brand new event
             this.courseEventService.addCourseEvent(ourEvent).subscribe(
                 () => {
                     this.router.navigate(['course/view', this.courseId]).then();
                     this.toastr.success('The Event has been added Successfully.');
-                    window.scroll(0, 0);
                 }, error => {
                     this.toastr.error(error);
-                    console.warn(error);
-                    window.scroll(0, 0);
                 }
             );
         }
