@@ -44,4 +44,21 @@ export class CourseEventForm {
             endPicker: new FormControl(new Date(event.end_date), [Validators.required])
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions);
     }
+
+    /**
+     * Returns the formatted form data ready to be sent to the backend
+     * @param formData - the data to be formatted, a FormGroup object
+     * @param courseId - the event's courseId
+     */
+    static formatFormData(formData: FormGroup, courseId: number): CourseEvent {
+        return {
+            id: formData.get('eventId').value,
+            name: formData.get('evenName').value,
+            type: formData.get('eventType').value,
+            count_for_tokens: formData.get('countsForTokens').value,
+            start_date: formData.get('startTime').value,
+            end_date: formData.get('endTime').value,
+            course: courseId
+        };
+    }
 }

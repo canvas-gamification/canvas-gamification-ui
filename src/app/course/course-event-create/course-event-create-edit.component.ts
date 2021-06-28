@@ -38,20 +38,13 @@ export class CourseEventCreateEditComponent implements OnInit {
         }
     }
 
-    formatFormData(formData: FormGroup): CourseEvent {
-        return {
-            id: formData.get('eventId').value,
-            name: formData.get('evenName').value,
-            type: formData.get('eventType').value,
-            count_for_tokens: formData.get('countsForTokens').value,
-            start_date: formData.get('startTime').value,
-            end_date: formData.get('endTime').value,
-            course: this.courseId
-        };
-    }
-
+    /**
+     * Sends the course event data to the server. Sends different requests based on whether the event being created
+     * is a new event or not.
+     * @param formData - grabs the components formData and creates a request based on that
+     */
     submitEvent(formData: FormGroup): void {
-        const ourEvent: CourseEvent = this.formatFormData(formData);
+        const ourEvent: CourseEvent = CourseEventForm.formatFormData(formData, this.courseId);
         if (this.eventId) { // If this is a previously existing event
             this.courseEventService.updateCourseEvent(ourEvent).subscribe(() => {
                 this.toastr.success('The Event has been updated Successfully.');
