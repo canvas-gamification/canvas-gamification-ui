@@ -2,9 +2,9 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {McqViewSnippetComponent} from '../../problem-view/mcq-view-snippet/mcq-view-snippet.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_UQJ, MOCK_UQJ_2} from '@app/problems/_tests/mock';
+import {MOCK_UQJ, MOCK_UQJ_2} from '@app/problems/_test/mock';
 import {SubmissionService} from "@app/problems/_services/submission.service";
-import {SubmissionServiceMock} from "@app/problems/_tests/submission.service.mock";
+import {SubmissionServiceMock} from "@app/problems/_test/submission.service.mock";
 
 let component: McqViewSnippetComponent;
 let fixture: ComponentFixture<McqViewSnippetComponent>;

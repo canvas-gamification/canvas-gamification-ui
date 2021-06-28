@@ -1,26 +1,26 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ParsonsCreateSnippetComponent} from '../../problem-create/parsons-create-snippet/parsons-create-snippet.component';
+import {JavaCreateSnippetComponent} from '../../problem-create/java-create-snippet/java-create-snippet.component';
 import {TestModule} from '@test/test.module';
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
-import {ReactiveFormsModule} from "@angular/forms";
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
 import {CourseService} from "@app/_services/api/course/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
-import {QuestionServiceMock} from "@app/problems/_tests/question.service.mock";
+import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
+import {ReactiveFormsModule} from "@angular/forms";
 import {MOCK_COURSES} from "@test/mock";
 
-describe('ParsonsCreateSnippetComponent', () => {
-    let component: ParsonsCreateSnippetComponent;
-    let fixture: ComponentFixture<ParsonsCreateSnippetComponent>;
+describe('JavaCreateSnippetComponent', () => {
+    let component: JavaCreateSnippetComponent;
+    let fixture: ComponentFixture<JavaCreateSnippetComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ParsonsCreateSnippetComponent, CkEditorComponent, JsonEditorComponent],
+            declarations: [JavaCreateSnippetComponent, CkEditorComponent, JsonEditorComponent],
             imports: [TestModule, CKEditorModule, ReactiveFormsModule],
             providers: [
                 {provide: CategoryService, useClass: CategoryServiceMock},
@@ -31,7 +31,7 @@ describe('ParsonsCreateSnippetComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ParsonsCreateSnippetComponent);
+        fixture = TestBed.createComponent(JavaCreateSnippetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -45,9 +45,8 @@ describe('ParsonsCreateSnippetComponent', () => {
         expect(component.events).toEqual(MOCK_COURSES[0].events);
     });
 
-    it('parsons create question', () => {
+    it('java create question', () => {
         component.formGroup.controls['title'].setValue('Test Title');
-        component.formGroup.controls['lines'].setValue('Test Line');
         component.onSubmit();
 
         // The formGroup is reset upon successful submission.

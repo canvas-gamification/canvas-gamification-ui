@@ -1,5 +1,5 @@
 import {Category, Course, CourseEvent, STATUS} from "@app/_models";
-import {MOCK_UQJS} from "@app/problems/_tests/mock";
+import {MOCK_UQJS} from "@app/problems/_test/mock";
 
 export const MOCK_CATEGORY: Category = {
     name: '',

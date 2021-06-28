@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SubmissionSnippetComponent} from '../../problem-view/submission-snippet/submission-snippet.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_QUESTION_SUBMISSION} from '@app/problems/_tests/mock';
+import {MOCK_QUESTION_SUBMISSION} from '@app/problems/_test/mock';
 
 describe('SubmissionSnippetComponent', () => {
     let component: SubmissionSnippetComponent;

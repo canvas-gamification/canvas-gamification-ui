@@ -11,7 +11,7 @@ import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {QuestionService} from "@app/problems/_services/question.service";
-import {QuestionServiceMock} from "@app/problems/_tests/question.service.mock";
+import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 import {MOCK_CATEGORIES, MOCK_COURSES} from "@test/mock";
 
 describe('McqCreateSnippetComponent', () => {
