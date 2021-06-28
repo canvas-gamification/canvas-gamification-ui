@@ -1,10 +1,9 @@
 import {TestBed} from '@angular/core/testing';
-
-import {DifficultyService} from './difficulty.service';
-import {TestModule} from '@test/test.module';
+import {DifficultyService} from '../../_services/difficulty.service';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 import {MOCK_DIFFICULTIES} from "@app/problems/_test/mock";
+import {TestModule} from "@test/test.module";
 
 describe('DifficultyService', () => {
     let difficultyService: DifficultyService;

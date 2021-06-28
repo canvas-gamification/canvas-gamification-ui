@@ -1,10 +1,9 @@
 import {TestBed} from '@angular/core/testing';
-
-import {SchemaService} from './schema.service';
-import {TestModule} from '@test/test.module';
+import {SchemaService} from '../../_services/schema.service';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 import {MOCK_SCHEMAS} from "@app/problems/_test/mock";
+import {TestModule} from "@test/test.module";
 
 describe('SchemaService', () => {
     const mockSchemaTitle = 'TestSchema';

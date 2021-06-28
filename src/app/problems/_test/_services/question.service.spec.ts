@@ -1,7 +1,5 @@
 import {TestBed} from '@angular/core/testing';
-
-import {QuestionService} from './question.service';
-import {TestModule} from '@test/test.module';
+import {QuestionService} from '../../_services/question.service';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 import {
@@ -10,6 +8,7 @@ import {
     MOCK_PARSONS_FORM_DATA,
     MOCK_QUESTIONS
 } from "@app/problems/_test/mock";
+import {TestModule} from "@test/test.module";
 
 describe('QuestionService', () => {
     let questionService: QuestionService;

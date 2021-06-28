@@ -1,10 +1,10 @@
 import {TestBed} from '@angular/core/testing';
 
-import {SubmissionService} from './submission.service';
-import {TestModule} from '@test/test.module';
+import {SubmissionService} from '../../_services/submission.service';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 import {MOCK_QUESTIONS, MOCK_SUBMISSIONS} from "@app/problems/_test/mock";
+import {TestModule} from "@test/test.module";
 
 describe('SubmissionService', () => {
     let submissionService: SubmissionService;
