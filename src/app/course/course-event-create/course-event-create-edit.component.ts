@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CourseEvent, EventType} from '@app/_models';
-import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {CourseEventService} from '@app/course/_services/course-event.service';
 import {ToastrService} from "ngx-toastr";
 import {AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 

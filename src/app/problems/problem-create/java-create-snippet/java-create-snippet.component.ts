@@ -5,7 +5,7 @@ import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {QuestionService} from '@app/problems/_services/question.service';
 import {ToastrService} from "ngx-toastr";
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {JavaForm} from "@app/problems/_forms/java.form";
 

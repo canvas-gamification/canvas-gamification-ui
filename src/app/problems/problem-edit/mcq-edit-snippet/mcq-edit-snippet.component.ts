@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
 import {Category, Course, Question} from '@app/_models';
@@ -7,7 +7,7 @@ import {CourseEvent} from '@app/_models/course_event';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/problems/_services/question.service';
 import {ToastrService} from "ngx-toastr";
-import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {CourseEventService} from '@app/course/_services/course-event.service';
 import {McqForm} from "@app/problems/_forms/mcq.form";
 
 @Component({
