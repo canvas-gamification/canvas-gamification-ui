@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CourseEvent, EventType} from '@app/_models';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {ToastrService} from "ngx-toastr";
-import {FormGroup} from '@angular/forms';
+import {AbstractControl, FormGroup} from '@angular/forms';
 import {CourseEventForm} from "@app/course/_forms/course-event.form";
 
 @Component({
@@ -36,6 +36,10 @@ export class CourseEventCreateEditComponent implements OnInit {
                 }
             );
         }
+    }
+
+    get form(): { [p: string]: AbstractControl } {
+        return this.formData.controls;
     }
 
     /**

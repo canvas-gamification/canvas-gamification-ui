@@ -1,19 +1,24 @@
-import {AbstractControl, AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {
+    AbstractControl,
+    AbstractControlOptions,
+    FormBuilder,
+    FormControl,
+    FormGroup, ValidationErrors,
+    ValidatorFn,
+    Validators
+} from "@angular/forms";
 import {CourseEvent} from "@app/_models";
 
 export class CourseEventForm {
     /**
      * Custom validator for date validity
      */
-    private static dateValidator: (controls: AbstractControl) => void = (controls: AbstractControl) => {
+    private static dateValidator: ValidatorFn = (controls: AbstractControl): ValidationErrors | null => {
         const start = controls.get('startPicker');
         const end = controls.get('endPicker');
-        return start.value > end.value ? start.setErrors({
-            forbiddenDateRange: {
-                startDate: start.value,
-                endDate: end.value
-            }
-        }) : null;
+        return start && end && start.value >= end.value ? {
+            forbiddenDateRange: true
+        } : null;
     };
 
     /**
@@ -22,9 +27,9 @@ export class CourseEventForm {
     static createForm(): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
-            name: new FormControl('', [Validators.required]),
+            name: new FormControl(null, [Validators.required]),
             type: new FormControl('', [Validators.required]),
-            countForTokens: new FormControl('', [Validators.required]),
+            countForTokens: new FormControl(false, [Validators.required]),
             startPicker: new FormControl(new Date(), [Validators.required]),
             endPicker: new FormControl(new Date(), [Validators.required])
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions);
