@@ -8,6 +8,7 @@ import {Category, Course} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseEvent} from '@app/_models/course_event';
 import {McqForm} from "@app/problems/_forms/mcq.form";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -26,12 +27,14 @@ export class McqCreateSnippetComponent implements OnInit {
     variables: JSON[];
     questionText: string;
     answerText: string;
+    returnUrl: string[];
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
                 private toastr: ToastrService,
                 private courseService: CourseService,
-                private categoryService: CategoryService) {
+                private categoryService: CategoryService,
+                private router: Router) {
     }
 
     /**
@@ -88,14 +91,14 @@ export class McqCreateSnippetComponent implements OnInit {
         let submissionRequest;
         if (!this.checkBox) {
             submissionRequest = McqForm.extractMcqData(this.formGroup, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
+            this.returnUrl = ['problems', 'create', 'MCQ'];
         } else if (this.checkBox) {
             submissionRequest = McqForm.extractCheckboxData(this.formGroup, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
+            this.returnUrl = ['problems', 'create', 'checkbox'];
         }
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
             .subscribe(() => {
-                window.scroll(0, 0);
-                this.formGroup.reset();
-                this.toastr.success('The Question has been Created Successfully.');
+                this.refresh();
             });
     }
 
@@ -127,5 +130,17 @@ export class McqCreateSnippetComponent implements OnInit {
      */
     removeAnswer(index: number): void {
         this.correctAnswers.splice(index, 1);
+    }
+
+    /**
+     * Refresh the page upon successful submission.
+     */
+    refresh(): void {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(this.returnUrl).then(() => {
+            window.scroll(0, 0);
+            this.toastr.success('The Question has been Created Successfully.');
+        });
     }
 }
