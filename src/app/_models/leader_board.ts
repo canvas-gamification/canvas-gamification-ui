@@ -4,3 +4,4 @@ export interface leader_board {
     tokens: number;
     visable: boolean;
 }
+
