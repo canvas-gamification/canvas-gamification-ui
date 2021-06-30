@@ -1,0 +1,31 @@
+<div class="card my-1">
+    <div class="card-header">
+        <h1>Possible Answers</h1>
+    </div>
+    <div class="card-body">
+        <ng-container *ngIf="!uqj.is_checkbox">
+            <form (ngSubmit)="onSubmit(formData.value)" [formGroup]="formData">
+                <div *ngFor="let choice of choiceArray" class="form-check">
+                    <input class="form-check-input" formControlName="solution" id="answer-{{choice.id}}" name="solution"
+                           type="radio" value="{{choice.id}}">
+                    <div [innerHTML]="choice.safeValue">
+                        <label class="form-check-label" for="answer-{{choice.id}}"></label>
+                    </div>
+                </div>
+                <button [disabled]="!formData.valid" class="btn btn-success" type="submit">Submit</button>
+            </form>
+        </ng-container>
+        <ng-container *ngIf="uqj.is_checkbox">
+            <form (ngSubmit)="onCheckboxSubmit()" [formGroup]="checkboxFormData">
+                <div *ngFor="let checkbox of checkboxesArray.controls; let i = index" class="form-check">
+                    <input (change)="checkboxChanged($event)" class="form-check-input" formArrayName="solutions"
+                           id="{{choiceArray[i].id}}" type="checkbox">
+                    <div [innerHTML]="choiceArray[i].safeValue">
+                        <label class="form-check-label" for="{{choiceArray[i].id}}"></label>
+                    </div>
+                </div>
+                <button class="btn btn-success" type="submit">Submit</button>
+            </form>
+        </ng-container>
+    </div>
+</div>

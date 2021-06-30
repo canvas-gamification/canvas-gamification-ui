@@ -1,0 +1,94 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="javaQuestionName">Question Name:</label>
+            <input [ngClass]="{'is-invalid': form.title.errors && form.title.touched}" class="form-control"
+                   formControlName="title" id="javaQuestionName" type="text">
+            <div *ngIf="form.title.touched && form.title.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.title.errors.required">Question Name is Required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="javaDifficulty">Difficulty</label>
+            <select [ngClass]="{'is-invalid': form.difficulty.errors && form.difficulty.touched}" class="form-control"
+                    formControlName="difficulty" id="javaDifficulty">
+                <option value="EASY">EASY</option>
+                <option value="NORMAL">MEDIUM</option>
+                <option value="HARD">HARD</option>
+            </select>
+            <div *ngIf="form.difficulty.touched && form.difficulty.invalid"
+                 class="invalid-feedback">
+                <div *ngIf="form.difficulty.errors.required">Question Difficulty is Required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="javaCategory">Category:</label>
+            <select class="form-control" formControlName="category" id="javaCategory">
+                <option *ngFor="let category of categories" value="{{category.pk}}">{{category.full_name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="javaCourse">Course:</label>
+            <select (change)="courseSelectedEvent($event)" class="form-control" formControlName="course"
+                    id="javaCourse">
+                <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="javaEvent">Event Name:</label>
+            <select class="form-control" formControlName="event" id="javaEvent">
+                <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="javaQuestion">Question:</label>
+            <app-ck-editor [(value)]="questionText" id="javaQuestion"></app-ck-editor>
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <label for="junit_template">JUnit Template:</label>
+            <textarea class="form-control" formControlName="junit_template" id="junit_template"></textarea>
+        </div>
+        <div class="col-md-6">
+            Please provide a JUnit template to evaluate the code.
+            Identify where to insert the solution by "code"
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <app-json-editor [(value)]="inputFileNames" [name]="'input_file_names'"></app-json-editor>
+        </div>
+        <div class="col-md-6">
+            Please provide the name of the
+            files students need to submit.
+            Each file will be compiled with the junit.
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <app-json-editor [(value)]="variables" [name]="'variables'"></app-json-editor>
+        </div>
+        <div class="col-md-6">
+            If you are not using variables,
+            please don't add any variables
+            and delete the existing ones.
+        </div>
+    </div>
+    <div class="form-row m-3">
+        <div class="col-md-6">
+            <button [disabled]="formGroup.invalid" class="btn btn-success">Submit</button>
+        </div>
+    </div>
+</form>

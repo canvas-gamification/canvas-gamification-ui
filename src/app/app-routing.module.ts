@@ -6,14 +6,7 @@ import {SampleQuestionsComponent} from './components/sample-questions/sample-que
 import {TopicsComponent} from './components/topics/topics.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
-import {LoginComponent} from '@app/components/accounts/login';
 import {AuthGuard} from '@app/_helpers/auth.guard';
-import {ProblemSetComponent} from '@app/components/problems/problem-set/problem-set.component';
-import {RegisterComponent} from './components/accounts/register/register.component';
-import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
-import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
-import {ChangePasswordComponent} from '@app/components/accounts/change-password/change-password.component';
-import {ConsentFormComponent} from '@app/components/accounts/consent-form/consent-form.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {CourseListComponent} from '@app/components/course/course-list/course-list.component';
@@ -22,22 +15,27 @@ import {UserActionsComponent} from '@app/components/homepage/user-actions/user-a
 import {CourseEventCreateEditComponent} from '@app/components/course/course-event-create/course-event-create-edit.component';
 import {CourseQuestionSnippetComponent} from '@app/components/course/course-question-snippet/course-question-snippet.component';
 import {CourseRegisterComponent} from '@app/components/course/course-registration/course-register.component';
-import {ProblemViewComponent} from '@app/components/problems/problem-view/problem-view.component';
-import {ProblemEditComponent} from '@app/components/problems/problem-edit/problem-edit.component';
-import {ProblemCreateComponent} from '@app/components/problems/problem-create/problem-create.component';
-import {ActivationEmailComponent} from '@app/components/accounts/activation-email/activation-email.component';
-import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
+import {ProblemViewComponent} from '@app/problems/problem-view/problem-view.component';
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
 import {LeaderBoardComponent } from './components/leader-board/leader-board.component';
 
 
+import {LeaderboardComponent} from "./components/leaderboard/leaderboard.component";
+
 
 const routes: Routes = [
+    {path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)},
+    {path: 'problems', loadChildren: () => import('./problems/problems.module').then(m => m.ProblemsModule)},
     {
         path: '',
         pathMatch: 'full',
         component: LandingPageComponent,
+    },
+    {
+        path:'leaderboard',
+        pathMatch: 'full',
+        component: LeaderboardComponent,
     },
     {
         path: 'contact',
@@ -60,10 +58,6 @@ const routes: Routes = [
         component: UserStatsComponent
     },
     {
-        path: 'accounts/login',
-        component: LoginComponent
-    },
-    {
         path: 'homepage',
         component: HomepageComponent,
         canActivate: [AuthGuard]
@@ -81,37 +75,6 @@ const routes: Routes = [
     {
         path: 'faq',
         component: FaqComponent
-    },
-    {
-        path: 'accounts/register',
-        component: RegisterComponent
-    },
-    {
-        path: 'accounts/profile',
-        component: ProfileDetailsComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'accounts/change-password',
-        component: ChangePasswordComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'accounts/reset-password',
-        component: ResetPasswordComponent,
-    },
-    {
-        path: 'accounts/reset-password/:uuid/:token',
-        component: ResetPasswordComponent,
-    },
-    {
-        path: 'accounts/consent-form',
-        component: ConsentFormComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'accounts/activate/:uuid/:token',
-        component: ActivationEmailComponent,
     },
     {
         path: 'course',
@@ -145,36 +108,11 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: 'problems',
-        component: ProblemSetComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'problem/:id',
-        component: ProblemViewComponent,
-        canActivate: [AuthGuard],
-    },
-    {
         path: 'course/:courseId',
         children: [
             {path: 'problem/:id', component: ProblemViewComponent},
             {path: 'event/:eventId/problem/:id', component: ProblemViewComponent}
         ],
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'problem/:id/edit',
-        component: ProblemEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'problem/create/:type',
-        component: ProblemCreateComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: 'problem/submission/:id',
-        component: SubmissionViewComponent,
         canActivate: [AuthGuard]
     },
     {

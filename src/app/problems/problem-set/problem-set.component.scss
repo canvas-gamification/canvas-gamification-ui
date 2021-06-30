@@ -1,0 +1,39 @@
+@use "src/scss/mixins";
+@use "src/scss/variables";
+
+@include mixins.highlight-table();
+@include mixins.hover-shadow();
+
+
+.action-tray {
+    white-space: nowrap;
+
+    a {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .action-icon {
+        line-height: 1.25rem;
+        display: inline-block;
+        font-size: 1.25rem;
+        text-align: center;
+        padding: 0.55rem;
+        border-radius: 0.3rem;
+        width: 2.5rem;
+
+    }
+
+    .faEye {
+        background-color: variables.$primary;
+    }
+
+    .faPencilAlt {
+        background-color: variables.$cream;
+    }
+
+    .faTrashAlt {
+        background-color: variables.$danger;
+    }
+}
+

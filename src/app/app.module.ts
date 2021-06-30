@@ -24,7 +24,6 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
-import {LoginComponent} from './components/accounts/login';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {RecentUserActionsComponent} from './components/homepage/recent-user-actions/recent-user-actions.component';
@@ -33,11 +32,6 @@ import {RecentViewedQuestionsComponent} from './components/homepage/recent-viewe
 import {CourseDashboardComponent} from './components/homepage/course-dashboard/course-dashboard.component';
 import {InactiveCoursesComponent} from './components/homepage/inactive-courses/inactive-courses.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
-import {RegisterComponent} from './components/accounts/register/register.component';
-import {ProfileDetailsComponent} from './components/accounts/profile-details/profile-details.component';
-import {ResetPasswordComponent} from './components/accounts/reset-password/reset-password.component';
-import {ConsentFormComponent} from './components/accounts/consent-form/consent-form.component';
-import {TermsAndConditionsSnippetComponent} from './components/accounts/terms-and-conditions-snippet/terms-and-conditions-snippet.component';
 import {FaqComponent} from './components/faq/faq.component';
 import {CourseListComponent} from './components/course/course-list/course-list.component';
 import {CourseComponent} from './components/course/course.component';
@@ -48,26 +42,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {CourseEventCreateEditComponent} from './components/course/course-event-create/course-event-create-edit.component';
 import {CourseRegisterComponent} from './components/course/course-registration/course-register.component';
 import {MatSortModule} from '@angular/material/sort';
-import {ProblemSetComponent} from './components/problems/problem-set/problem-set.component';
-import {ProblemViewComponent} from './components/problems/problem-view/problem-view.component';
-import {ProblemEditComponent} from './components/problems/problem-edit/problem-edit.component';
 import {CommonModule} from '@angular/common';
-import {ProblemCreateComponent} from './components/problems/problem-create/problem-create.component';
-import {DragulaModule} from 'ng2-dragula';
-import {AceEditorModule} from 'ng2-ace-editor';
-import {AceComponent} from './components/problems/problem-view/ace/ace.component';
-import {McqViewSnippetComponent} from './components/problems/problem-view/mcq-view-snippet/mcq-view-snippet.component';
-import {JavaViewSnippetComponent} from './components/problems/problem-view/java-view-snippet/java-view-snippet.component';
-import {ParsonsViewSnippetComponent} from './components/problems/problem-view/parsons-view-snippet/parsons-view-snippet.component';
-import {ParsonsEditSnippetComponent} from './components/problems/problem-edit/parsons-edit-snippet/parsons-edit-snippet.component';
-import {McqEditSnippetComponent} from './components/problems/problem-edit/mcq-edit-snippet/mcq-edit-snippet.component';
-import {JavaEditSnippetComponent} from './components/problems/problem-edit/java-edit-snippet/java-edit-snippet.component';
-import {McqCreateSnippetComponent} from './components/problems/problem-create/mcq-create-snippet/mcq-create-snippet.component';
-import {JavaCreateSnippetComponent} from './components/problems/problem-create/java-create-snippet/java-create-snippet.component';
-import {ParsonsCreateSnippetComponent} from './components/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component';
-import {VariableViewComponent} from './components/problems/problem-view/variable-view/variable-view.component';
-import {JsonEditorComponent} from './components/problems/json-editor/json-editor.component';
-import {SubmissionSnippetComponent} from './components/problems/problem-view/submission-snippet/submission-snippet.component';
 import {
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
@@ -80,12 +55,10 @@ import {ActivationEmailComponent} from './components/accounts/activation-email/a
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {CkEditorComponent} from './components/ck-editor/ck-editor.component';
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
-import { ChangePasswordComponent } from './components/accounts/change-password/change-password.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 
 
@@ -100,21 +73,14 @@ import { ChangePasswordComponent } from './components/accounts/change-password/c
         // Temporarily disable concept map due to optimization errors.
         // ConceptMapComponent,
         UserStatsComponent,
-        LoginComponent,
         TokenValuesComponent,
         FaqComponent,
-        ProblemSetComponent,
         HomepageComponent,
         RecentUserActionsComponent,
         UserActionsComponent,
         RecentViewedQuestionsComponent,
         CourseDashboardComponent,
         InactiveCoursesComponent,
-        RegisterComponent,
-        ProfileDetailsComponent,
-        ResetPasswordComponent,
-        ConsentFormComponent,
-        TermsAndConditionsSnippetComponent,
         CourseListComponent,
         CourseRegisterComponent,
         CourseComponent,
@@ -122,29 +88,10 @@ import { ChangePasswordComponent } from './components/accounts/change-password/c
         TokenUseSnippetComponent,
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
-        ProblemViewComponent,
-        ProblemEditComponent,
-        ProblemCreateComponent,
-        AceComponent,
-        McqViewSnippetComponent,
-        JavaViewSnippetComponent,
-        ParsonsViewSnippetComponent,
-        ParsonsEditSnippetComponent,
-        McqEditSnippetComponent,
-        JavaEditSnippetComponent,
-        McqCreateSnippetComponent,
-        JavaCreateSnippetComponent,
-        ParsonsCreateSnippetComponent,
-        VariableViewComponent,
-        JsonEditorComponent,
-        SubmissionSnippetComponent,
         LeaderBoardComponent,
-        SubmissionViewComponent,
-        ActivationEmailComponent,
-        CkEditorComponent,
         NotFoundComponent,
         ForbiddenComponent,
-        ChangePasswordComponent,
+        LeaderboardComponent,
     ],
     imports: [
         BrowserModule,
@@ -169,30 +116,17 @@ import { ChangePasswordComponent } from './components/accounts/change-password/c
         MatButtonModule,
         MatProgressSpinnerModule,
         CommonModule,
-        DragulaModule.forRoot(),
-        AceEditorModule,
         MatDatepickerModule,
         NgxMatTimepickerModule,
         NgxMatDatetimePickerModule,
         NgxMatNativeDateModule,
         HighlightModule,
         MatSelectModule,
-        CKEditorModule,
         ToastrModule.forRoot(),
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-        {
-            provide: HIGHLIGHT_OPTIONS,
-            useValue: {
-                coreLibraryLoader: () => import('highlight.js/lib/core'),
-                lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
-                languages: {
-                    java: () => import('highlight.js/lib/languages/java')
-                }
-            }
-        }
     ],
     bootstrap: [AppComponent]
 })

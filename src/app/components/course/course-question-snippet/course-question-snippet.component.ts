@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CourseEvent, Question, UQJ, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UqjService} from '@app/_services/api/uqj.service';
+import {UqjService} from '@app/problems/_services/uqj.service';
 import {forkJoin} from 'rxjs';
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {CourseService} from '@app/_services/api/course/course.service';
@@ -37,9 +37,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 if (response.success) {
                     forkJoin({
                         event: this.courseEventService.getCourseEvent(this.eventId),
-                        //TODO: Need to see if there is a way to avoid suppress here
-                        // eslint-disable-next-line @typescript-eslint/naming-convention
-                        uqjs: this.uqjService.getUQJs({filters: {question__event: this.eventId}}),
+                        uqjs: this.uqjService.getUQJs({filters: {question_event: this.eventId}}),
                     }).subscribe(result => {
                         this.event = result.event;
                         this.uqjs = result.uqjs.results;

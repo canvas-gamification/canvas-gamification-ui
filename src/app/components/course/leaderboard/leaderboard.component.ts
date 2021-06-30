@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
+
 import {LeaderBoardService} from '@app/_services/api/leaderboard.service';
 //import {TestModel} from '@app/_models/test_model';
 import { LeaderBoard } from '@app/_models';
@@ -10,6 +11,7 @@ import { LeaderBoard } from '@app/_models';
   styleUrls: ['./leaderboard.component.scss']
 })
 export class LeaderboardComponent implements OnInit {
+
   leaderBoard: LeaderBoard[];
   leaderBoardId: number;
   value = "Hello World!";
@@ -40,6 +42,7 @@ export class LeaderboardComponent implements OnInit {
         
     //   }
     // })
+
   }
 
 turnToGif(e: Event) : void {
