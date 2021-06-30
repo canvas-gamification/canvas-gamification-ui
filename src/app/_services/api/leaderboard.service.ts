@@ -1,36 +1,41 @@
-import {Injectable} from '@angular/core';
 
-import {Observable, of} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
-import {environment} from '@environments/environment';
-import {TestModel} from '@app/_models/test_model';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import{
+  LeaderBoard,
+
+} from '@app/_models';
+
+
+import { HttpClient } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+import { environment } from '@environments/environment';
+//import { TestModel } from '@app/_models/test_model';
+import { ApiService } from '../api.service';
 
 @Injectable({
-    providedIn: 'root'
-  })
-  export class LeaderboardService {
-    private testUrl = new URL('/api/apitest/', environment.apiBaseUrl).toString();
+  providedIn: 'root'
+})
+export class LeaderBoardService {
+  private url = new URL('/api/leaderboard', environment.apiBaseUrl).toString();
 
-    constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private apiService: ApiService) {
 
-    getCategories(): Observable<TestModel[]> {
-      return this.http
-          .get<TestModel[]>(this.testUrl)
-          .pipe(catchError(this.handleError<TestModel[]>('getTest', [])));
   }
-      /**
-       * Handle Http operation that failed.
-       * Let the app continue.
-       * @param operation - name of the operation that failed
-       * @param result - optional value to return as the observable result
-       */
-      private handleError<T>(operation?, result?: T) {
-        return (error: string): Observable<T> => {
-            // TODO: send the error to remote logging infrastructure
-            console.error(error); // log to console instead
-            // Let the app keep running by returning an empty result.
-            return of(result as T);
-        };
-    }
+
+  getLeaderBoard(leaderBoardId:number): Observable<LeaderBoard[]> {
+    //const url = this.apiService.getURL('leader_board', leaderBoardId);
+    return this.http
+      .get<LeaderBoard[]>(this.url)
+      .pipe(catchError(this.apiService.handleError<LeaderBoard[]>(`Unable to load leader board`, null)));
+  }
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+
 }
