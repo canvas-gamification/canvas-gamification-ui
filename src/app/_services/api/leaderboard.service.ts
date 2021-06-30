@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import{
   LeaderBoard,
-  Course,
-  RegistrationStatus
+
 } from '@app/_models';
 
 
-import { HttpClient , HttpParams} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 //import { TestModel } from '@app/_models/test_model';
@@ -16,8 +15,8 @@ import { ApiService } from '../api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LeaderboardService {
-  private testUrl = new URL('/api/apitest/', environment.apiBaseUrl).toString();
+export class LeaderBoardService {
+  private url = new URL('/api/leaderboard', environment.apiBaseUrl).toString();
 
   constructor(
     private http: HttpClient,
@@ -25,11 +24,11 @@ export class LeaderboardService {
 
   }
 
-  getLeaderBoard(leaderBoardId:number): Observable<LeaderBoard> {
-    const url = this.apiService.getURL('leader_board', leaderBoardId);
+  getLeaderBoard(leaderBoardId:number): Observable<LeaderBoard[]> {
+    //const url = this.apiService.getURL('leader_board', leaderBoardId);
     return this.http
-      .get<LeaderBoard>(url)
-      .pipe(catchError(this.apiService.handleError<LeaderBoard>(`Unable to load leader board`, null)));
+      .get<LeaderBoard[]>(this.url)
+      .pipe(catchError(this.apiService.handleError<LeaderBoard[]>(`Unable to load leader board`, null)));
   }
   /**
    * Handle Http operation that failed.
