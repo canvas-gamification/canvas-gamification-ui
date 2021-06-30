@@ -9,7 +9,7 @@ import {
     MOCK_MCQ_FORM_DATA,
     MOCK_PARSONS_FORM_DATA,
     MOCK_QUESTIONS
-} from "@app/problems/_tests/mock";
+} from "@app/problems/_test/mock";
 
 describe('QuestionService', () => {
     let questionService: QuestionService;

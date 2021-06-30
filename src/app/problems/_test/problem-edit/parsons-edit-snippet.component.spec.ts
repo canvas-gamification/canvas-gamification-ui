@@ -1,12 +1,12 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {McqEditSnippetComponent} from '../../problem-edit/mcq-edit-snippet/mcq-edit-snippet.component';
+import {ParsonsEditSnippetComponent} from '../../problem-edit/parsons-edit-snippet/parsons-edit-snippet.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_MCQ_QUESTION} from '@app/problems/_tests/mock';
+import {MOCK_MCQ_QUESTION} from '@app/problems/_test/mock';
 
-describe('McqEditSnippetComponent', () => {
-    let component: McqEditSnippetComponent;
-    let fixture: ComponentFixture<McqEditSnippetComponent>;
+describe('ParsonsEditSnippetComponent', () => {
+    let component: ParsonsEditSnippetComponent;
+    let fixture: ComponentFixture<ParsonsEditSnippetComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -15,7 +15,7 @@ describe('McqEditSnippetComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(McqEditSnippetComponent);
+        fixture = TestBed.createComponent(ParsonsEditSnippetComponent);
         component = fixture.componentInstance;
         component.questionDetails = MOCK_MCQ_QUESTION;
         fixture.detectChanges();

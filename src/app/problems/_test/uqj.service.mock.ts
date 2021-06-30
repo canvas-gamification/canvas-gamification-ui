@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {UQJ} from "@app/_models";
-import {MOCK_UQJS} from "@app/problems/_tests/mock";
+import {MOCK_UQJS} from "@app/problems/_test/mock";
 import {Observable, of} from "rxjs";
 
 @Injectable({

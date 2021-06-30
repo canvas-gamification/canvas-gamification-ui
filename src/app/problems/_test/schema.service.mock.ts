@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
-import {MOCK_SCHEMAS} from "@app/problems/_tests/mock";
+import {MOCK_SCHEMAS} from "@app/problems/_test/mock";
 
 @Injectable({
     providedIn: 'root'

@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {VariableViewComponent} from '../../problem-view/variable-view/variable-view.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_VARIABLES} from "@app/problems/_tests/mock";
+import {MOCK_VARIABLES} from "@app/problems/_test/mock";
 
 describe('VariableViewComponent', () => {
     let component: VariableViewComponent;

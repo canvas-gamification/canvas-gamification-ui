@@ -2,9 +2,9 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {JavaViewSnippetComponent} from '../../problem-view/java-view-snippet/java-view-snippet.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_UQJ_3, MOCK_UQJS} from '@app/problems/_tests/mock';
+import {MOCK_UQJ_3, MOCK_UQJS} from '@app/problems/_test/mock';
 import {SubmissionService} from "@app/problems/_services/submission.service";
-import {SubmissionServiceMock} from "@app/problems/_tests/submission.service.mock";
+import {SubmissionServiceMock} from "@app/problems/_test/submission.service.mock";
 
 describe('JavaViewSnippetComponent', () => {
     let component: JavaViewSnippetComponent;

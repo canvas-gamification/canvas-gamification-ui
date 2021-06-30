@@ -6,13 +6,13 @@ import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
 import {CourseService} from "@app/_services/api/course/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
-import {MOCK_CATEGORIES, MOCK_COURSE} from "@app/problems/_tests/mock";
+import {MOCK_CATEGORIES, MOCK_COURSE} from "@app/problems/_test/mock";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {QuestionService} from "@app/problems/_services/question.service";
-import {QuestionServiceMock} from "@app/problems/_tests/question.service.mock";
+import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 
 describe('McqCreateSnippetComponent', () => {
     let component: McqCreateSnippetComponent;
