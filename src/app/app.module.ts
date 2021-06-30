@@ -49,9 +49,9 @@ import {
     NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {LeaderBoardComponent} from './components/leader-board/leader-board.component'
-import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
-import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
+
+//import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
+//import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -88,7 +88,6 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
         TokenUseSnippetComponent,
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
-        LeaderBoardComponent,
         NotFoundComponent,
         ForbiddenComponent,
         LeaderboardComponent,
