@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {LeaderboardService} from '@app/_services/api/leaderboard.service';
-import {TestModel} from '@app/_models/test_model';
+//import {TestModel} from '@app/_models/test_model';
 import { LeaderBoard } from '@app/_models';
 
 @Component({
@@ -13,8 +13,8 @@ export class LeaderboardComponent implements OnInit {
   leaderBoard: LeaderBoard;
   leaderBoardId: number;
   value = "Hello World!";
-  users: TestModel[];
-  topThree : TestModel[] = Array();
+  //users: TestModel[];
+  //topThree : TestModel[] = Array();
   constructor(private leaderboardService: LeaderboardService) { }
 
   ngOnInit(): void {

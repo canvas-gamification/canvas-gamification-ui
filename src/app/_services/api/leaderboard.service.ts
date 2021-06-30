@@ -10,7 +10,7 @@ import{
 import { HttpClient , HttpParams} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
-import { TestModel } from '@app/_models/test_model';
+//import { TestModel } from '@app/_models/test_model';
 import { ApiService } from '../api.service';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class LeaderboardService {
     const url = this.apiService.getURL('leader_board', leaderBoardId);
     return this.http
       .get<LeaderBoard>(url)
-      .pipe(catchError(this.apiService.handleError<Course>(`Unable to load leader board`, null)));
+      .pipe(catchError(this.apiService.handleError<LeaderBoard>(`Unable to load leader board`, null)));
   }
   /**
    * Handle Http operation that failed.
