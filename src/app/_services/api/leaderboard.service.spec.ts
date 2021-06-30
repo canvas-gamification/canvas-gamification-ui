@@ -1,22 +1,19 @@
-import {
-    TestBed
-} from '@angular/core/testing';
 
-import {
-    LeaderboardService
-} from './leaderboard.service';
-import {
-    TestModule
-} from '@test/test.module';
+import {TestBed} from '@angular/core/testing';
 
-describe('LeaderboardService', () => {
-    let service: LeaderboardService;
+import {LeaderBoardService} from './leaderboard.service';
+import {TestModule} from '@test/test.module';
+
+describe('CourseService', () => {
+    let service: LeaderBoardService;
+
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [TestModule]
         });
-        service = TestBed.inject(LeaderboardService);
+        service = TestBed.inject(LeaderBoardService);
+
     });
 
     it('should be created', () => {
