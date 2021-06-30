@@ -6,16 +6,28 @@ import {JavaFormData} from "@app/problems/_forms/java.form";
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
 
 export const MOCK_CATEGORY: Category = {
-    name: '',
+    name: 'Test',
     average_success: 0,
     description: '',
     next_category_ids: [],
     pk: 0,
     full_name: '',
+    parent: null,
+    question_count: 100,
+};
+
+export const MOCK_CATEGORY_2: Category = {
+    name: 'Test #2',
+    average_success: 0,
+    description: '',
+    next_category_ids: [],
+    pk: 1,
+    full_name: '',
     parent: 0,
     question_count: 100,
 };
-export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY];
+
+export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY, MOCK_CATEGORY_2];
 
 export const MOCK_COURSE_EVENT: CourseEvent = {
     id: 0,
@@ -35,7 +47,7 @@ export const MOCK_COURSE_EVENT: CourseEvent = {
 export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
-    status: '',
+    status: 'Solved',
     additional_file_name: '',
     answer: 'a',
     author: 0,
@@ -76,7 +88,7 @@ export const MOCK_MCQ_QUESTION: Question = {
 export const MOCK_CHECKBOX_QUESTION: Question = {
     id: 1,
     category: 0,
-    status: '',
+    status: 'Partially Solved',
     additional_file_name: '',
     answer: 'a,b',
     author: 0,
@@ -119,7 +131,7 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
 export const MOCK_JAVA_QUESTION: Question = {
     id: 2,
     category: 0,
-    status: '',
+    status: 'Wrong',
     additional_file_name: '',
     answer: '',
     author: 0,

@@ -5,11 +5,23 @@ import {APIResponse, Question} from "@app/_models";
 import {JavaFormData} from "@app/problems/_forms/java.form";
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
 import {MOCK_QUESTIONS} from "@app/problems/_test/mock";
+import {ProblemSetFormData} from "@app/problems/_forms/problem-set.form";
+import {PaginatedResult} from "@app/_models/paginatedResult";
 
 @Injectable({
     providedIn: 'root'
 })
 export class QuestionServiceMock {
+    getQuestions(options?: ProblemSetFormData): Observable<PaginatedResult<Question>> {
+        const questions: PaginatedResult<Question> = {
+            count: 4,
+            next: '',
+            previous: '',
+            results: MOCK_QUESTIONS
+        };
+        return of(questions);
+    }
+
     getQuestion(id: number): Observable<Question> {
         return of(MOCK_QUESTIONS.find(question => question.id === id));
     }
@@ -39,6 +51,10 @@ export class QuestionServiceMock {
     }
 
     putParsonsQuestion(input: ParsonsFormData, id: number): Observable<APIResponse> {
+        return of({success: true});
+    }
+
+    deleteQuestion(id: number): Observable<APIResponse> {
         return of({success: true});
     }
 }
