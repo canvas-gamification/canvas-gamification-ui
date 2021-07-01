@@ -32,19 +32,18 @@ export class ConceptMapGraph {
         const maxLineLength = Math.max(...label.split('\n').map(x => x.length));
 
         const letterSize = 16;
-        const width = 1.2 * (letterSize * (0.6 * maxLineLength + 1));
+        const width = 1.5 * (letterSize * (0.6 * maxLineLength + 1));
         const height = 1.5 * ((label.split('\n').length + 1) * letterSize);
 
         return new joint.shapes.standard.Ellipse({
             id,
             size: {width, height},
-            strokeDasharray: '10,2',
-            fill: '#42f575',
+            fill: '#41A4FF',
             attrs: {
                 label: {
                     text: label,
                     'font-size': letterSize,
-                    'font-weight': 'light',
+                    'font-weight': 'bold',
                     'font-family': 'sans-serif',
                     cursor: 'pointer',
                 },
@@ -53,8 +52,7 @@ export class ConceptMapGraph {
                     rx: 10, ry: 10,
                     stroke: '#000000',
                     cursor: 'pointer',
-                    strokeDasharray: '10,2',
-                    fill: '#42f575',
+                    fill: '#41A4FF',
                 },
             }
         });
