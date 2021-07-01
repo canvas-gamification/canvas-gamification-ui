@@ -71,8 +71,6 @@ export class ConceptMapGraph {
             router: {
                 name: 'manhattan',
                 args: {
-                    step: 10,
-                    padding: 20,
                     maxAllowedDirectionChange: 360,
                     perpendicular: false,
                     startDirections: ['right', 'top', 'bottom'],
