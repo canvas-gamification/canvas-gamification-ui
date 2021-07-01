@@ -28,6 +28,7 @@ import {
 } from "@angular-material-components/datetime-picker";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
         LeaderBoardComponent,
+        ConceptMapComponent
     ],
     imports: [
         CommonModule,
