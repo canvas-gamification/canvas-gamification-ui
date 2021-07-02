@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class ConceptMapComponent implements OnInit {
     rawCategories: Category[];
-    parentNode = 1;
+    parentNode: number = null;
     conceptMapGraph: ConceptMapGraph;
 
     @Input() currCourse: Course;
