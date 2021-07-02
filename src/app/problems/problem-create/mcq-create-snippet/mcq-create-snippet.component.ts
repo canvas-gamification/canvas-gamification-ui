@@ -26,6 +26,7 @@ export class McqCreateSnippetComponent implements OnInit {
     variables: JSON[];
     questionText: string;
     answerText: string;
+    isPractice = false;
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
@@ -127,5 +128,16 @@ export class McqCreateSnippetComponent implements OnInit {
      */
     removeAnswer(index: number): void {
         this.correctAnswers.splice(index, 1);
+    }
+
+    /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form['course'].setValue(null);
+        this.form['event'].setValue(null);
     }
 }
