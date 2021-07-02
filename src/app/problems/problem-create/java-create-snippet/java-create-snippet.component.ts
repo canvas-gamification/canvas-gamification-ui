@@ -23,7 +23,7 @@ export class JavaCreateSnippetComponent implements OnInit {
     variables: JSON[];
     inputFileNames: JSON;
     questionText: string;
-
+    isPractice = false;
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
@@ -72,6 +72,17 @@ export class JavaCreateSnippetComponent implements OnInit {
                 }
             });
         }
+    }
+
+    /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form['course'].setValue(null);
+        this.form['event'].setValue(null);
     }
 
     /**
