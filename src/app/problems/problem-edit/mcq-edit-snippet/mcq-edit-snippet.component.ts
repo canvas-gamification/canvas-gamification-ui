@@ -28,6 +28,7 @@ export class McqEditSnippetComponent implements OnInit {
     correctAnswers: { text: string }[];
     questionText: string;
     answerText: string;
+    isPractice: boolean;
 
     constructor(private courseService: CourseService,
                 private categoryService: CategoryService,
@@ -56,6 +57,7 @@ export class McqEditSnippetComponent implements OnInit {
                     this.courses = result[0];
                     this.categories = result[1];
                     this.courseSelectedById(result[2].course);
+                    this.isPractice = false;
                 });
         } else {
             const coursesObservable = this.courseService.getCourses();
@@ -65,6 +67,7 @@ export class McqEditSnippetComponent implements OnInit {
                 .subscribe(result => {
                     this.courses = result[0];
                     this.categories = result[1];
+                    this.isPractice = true;
                 });
         }
 
@@ -175,5 +178,16 @@ export class McqEditSnippetComponent implements OnInit {
                     this.distractors.push({text: this.questionDetails.choices[choice]});
             }
         }
+    }
+
+    /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form.course.setValue(null);
+        this.form.event.setValue(null);
     }
 }

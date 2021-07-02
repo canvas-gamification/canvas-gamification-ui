@@ -36,20 +36,32 @@
     </div>
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
-            <label for="mcqCourse">Course:</label>
-            <select (change)="courseSelectedEvent($event)" class="form-control" formControlName="course" id="mcqCourse">
-                <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
-            </select>
+            <div class="form-check">
+                <input (change)="practiceCheckboxChanged($event)" [checked]="isPractice" class="form-check-input"
+                       id="practiceCheckbox" type="checkbox">
+                <label class="form-check-label" for="practiceCheckbox">Practice Question</label>
+            </div>
         </div>
     </div>
-    <div class="form-row m-3 p-3">
-        <div class="col-md-6">
-            <label for="mcqEvent">Event Name:</label>
-            <select class="form-control" formControlName="event" id="mcqEvent">
-                <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
-            </select>
+    <ng-container *ngIf="!isPractice">
+        <div class="form-row m-3 p-3">
+            <div class="col-md-6">
+                <label for="mcqCourse">Course:</label>
+                <select (change)="courseSelectedEvent($event)" class="form-control" formControlName="course"
+                        id="mcqCourse">
+                    <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
+                </select>
+            </div>
         </div>
-    </div>
+        <div class="form-row m-3 p-3">
+            <div class="col-md-6">
+                <label for="mcqEvent">Event Name:</label>
+                <select class="form-control" formControlName="event" id="mcqEvent">
+                    <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
+                </select>
+            </div>
+        </div>
+    </ng-container>
     <div class="form-row m-3 p-3">
         <div class="col-md-6">
             <label for="mcqQuestion">Question:</label>

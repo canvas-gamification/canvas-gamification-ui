@@ -94,7 +94,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
     practiceCheckboxChanged(e: Event): void {
         const input = e.target as HTMLInputElement;
         this.isPractice = input.checked;
-        this.form['course'].setValue(null);
-        this.form['event'].setValue(null);
+        this.form.course.setValue(null);
+        this.form.course.setValue(null);
     }
 }

@@ -26,6 +26,7 @@ export class JavaEditSnippetComponent implements OnInit {
     selectedEvent: number;
     inputFileNames: JSON;
     questionText: string;
+    isPractice: boolean;
 
     constructor(private courseService: CourseService,
                 private categoryService: CategoryService,
@@ -53,6 +54,7 @@ export class JavaEditSnippetComponent implements OnInit {
                     this.courses = result[0];
                     this.categories = result[1];
                     this.courseSelectedById(result[2].course);
+                    this.isPractice = false;
                 });
         } else {
             const coursesObservable = this.courseService.getCourses();
@@ -62,6 +64,7 @@ export class JavaEditSnippetComponent implements OnInit {
                 .subscribe(result => {
                     this.courses = result[0];
                     this.categories = result[1];
+                    this.isPractice = true;
                 });
         }
 
@@ -109,5 +112,16 @@ export class JavaEditSnippetComponent implements OnInit {
             this.form.course.setValue(this.selectedCourse);
             this.form.event.setValue(this.selectedEvent);
         }
+    }
+
+    /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form.course.setValue(null);
+        this.form.event.setValue(null);
     }
 }

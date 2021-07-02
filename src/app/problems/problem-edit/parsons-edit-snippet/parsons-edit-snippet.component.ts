@@ -25,6 +25,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
     categories: Category[];
     variables: JSON[];
     questionText: string;
+    isPractice: boolean;
 
     constructor(private formBuilder: FormBuilder,
                 private questionService: QuestionService,
@@ -52,6 +53,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
                     this.courses = result[0];
                     this.categories = result[1];
                     this.courseSelectedById(result[2].course);
+                    this.isPractice = false;
                 });
         } else {
             const coursesObservable = this.courseService.getCourses();
@@ -61,6 +63,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 .subscribe(result => {
                     this.courses = result[0];
                     this.categories = result[1];
+                    this.isPractice = true;
                 });
         }
 
@@ -106,5 +109,16 @@ export class ParsonsEditSnippetComponent implements OnInit {
             this.form.course.setValue(this.selectedCourse);
             this.form.event.setValue(this.selectedEvent);
         }
+    }
+
+    /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form.course.setValue(null);
+        this.form.event.setValue(null);
     }
 }
