@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class ConceptMapComponent implements OnInit {
     rawCategories: Category[];
-    parentNode: number = null;
+    parentNode = 0;
     conceptMapGraph: ConceptMapGraph;
 
     @Input() currCourse: Course;
@@ -33,6 +33,7 @@ export class ConceptMapComponent implements OnInit {
                 this.renderGraph();
             });
             this.renderGraph();
+            this.reset();
         });
     }
 
@@ -42,22 +43,11 @@ export class ConceptMapComponent implements OnInit {
             .forEach(category => {
                 adj.push(category);
             });
-
-        if (!adj) {
-            this.parentNode = null;
-            this.renderGraph();
-            return;
-        }
-
         this.conceptMapGraph.buildGraphFromAdjacencyList(adj);
     }
 
     reset(): void {
         this.parentNode = null;
-        this.renderGraph();
-    }
-
-    update(): void {
         this.renderGraph();
     }
 
