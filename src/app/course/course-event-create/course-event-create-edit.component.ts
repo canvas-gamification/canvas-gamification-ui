@@ -14,7 +14,7 @@ import {CourseEventForm} from "@app/course/_forms/course-event.form";
 export class CourseEventCreateEditComponent implements OnInit {
     localEventTypes: EventType[];
     courseId: number;
-    eventId: number;
+    eventId: number = null;
     formData: FormGroup;
 
     constructor(private route: ActivatedRoute,
@@ -48,7 +48,7 @@ export class CourseEventCreateEditComponent implements OnInit {
      * @param formData - grabs the components formData and creates a request based on that
      */
     submitEvent(formData: FormGroup): void {
-        const ourEvent: CourseEvent = CourseEventForm.formatFormData(formData, this.courseId);
+        const ourEvent: CourseEvent = CourseEventForm.formatFormData(formData, this.courseId, this.eventId);
         if (this.eventId) { // If this is a previously existing event
             this.courseEventService.updateCourseEvent(ourEvent).subscribe(() => {
                 this.toastr.success('The Event has been updated Successfully.');
@@ -58,7 +58,7 @@ export class CourseEventCreateEditComponent implements OnInit {
         } else { // Creating a brand new event
             this.courseEventService.addCourseEvent(ourEvent).subscribe(
                 () => {
-                    this.router.navigate(['course/view', this.courseId]).then();
+                    this.router.navigate(['course', this.courseId]).then();
                     this.toastr.success('The Event has been added Successfully.');
                 }, error => {
                     this.toastr.error(error);

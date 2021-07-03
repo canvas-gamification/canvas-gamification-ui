@@ -54,15 +54,16 @@ export class CourseEventForm {
      * Returns the formatted form data ready to be sent to the backend
      * @param formData - the data to be formatted, a FormGroup object
      * @param courseId - the event's courseId
+     * @param eventId - the event's ID if it already exists
      */
-    static formatFormData(formData: FormGroup, courseId: number): CourseEvent {
+    static formatFormData(formData: FormGroup, courseId: number, eventId: number): CourseEvent {
         return {
-            id: formData.get('eventId').value,
-            name: formData.get('evenName').value,
-            type: formData.get('eventType').value,
-            count_for_tokens: formData.get('countsForTokens').value,
-            start_date: formData.get('startTime').value,
-            end_date: formData.get('endTime').value,
+            id: eventId,
+            name: formData.get('name').value,
+            type: formData.get('type').value,
+            count_for_tokens: formData.get('countForTokens').value,
+            start_date: formData.get('startPicker').value,
+            end_date: formData.get('endPicker').value,
             course: courseId
         };
     }
