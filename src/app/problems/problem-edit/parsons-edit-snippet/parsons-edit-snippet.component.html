@@ -59,23 +59,12 @@
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
-            <label for="parsonsLines">Lines:</label>
-            <textarea [ngClass]="{'is-invalid': form.lines.errors && form.lines.touched}" class="form-control"
-                      formControlName="lines" id="parsonsLines"></textarea>
-        </div>
-        <div class="col-md-6">
-            Paste the solution here. Possibly add extra lines at the end.
-            Lines will be extracted and shuffled.
-        </div>
-    </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
             <label for="parsons_junit_template">JUnit Template:</label>
             <textarea class="form-control" formControlName="junit_template"
                       id="parsons_junit_template"></textarea>
-            <div *ngIf="form.lines.touched && form.lines.invalid"
+            <div *ngIf="form.junit_template.touched && form.junit_template.invalid"
                  class="invalid-feedback">
-                <div *ngIf="form.lines.errors.required">Lines must be filled.</div>
+                <div *ngIf="form.junit_template.errors.required">Lines must be filled.</div>
             </div>
         </div>
         <div class="col-md-6">
@@ -85,20 +74,26 @@
     </div>
     <div class="form-row m-3">
         <div class="col-md-6">
-            <label for="additionalFileName">User Code File Name</label>
-            <input class="form-control" formControlName="additional_file_name" id="additionalFileName"
-                   type="text"/>
+            <app-json-editor [(value)]="this.inputFiles" [name]="'parsons_input_files'"></app-json-editor>
         </div>
         <div class="col-md-6">
-            Provide a file name to put the user code in it when compiling.
-            Leave empty if the user code is not a complete java program.
-            This has no interference with code tag in the Junit template, you can use both.
-            By providing a name here a file with that name will be created in the same directory
-            of your Junit code and will be compiled with you Junit code.
-
-            This name usually should be the exact name of the Java class with .java extension.
-            For example if the solution has a public class Calculator, the file name should be
-            Calculator.java
+            <p>
+                Specify whether each file should be compiled or not. If it is compile then
+                the file name is used to put the user code in it when compiling.
+                By providing a name here a file with that name will be created in the same directory
+                of your Junit code and will be compiled with you Junit code.
+                This name usually should be the exact name of the Java class with .java extension.
+                For example if the solution has a public class Calculator, the file name should be
+                Calculator.java.
+            </p>
+            <p>
+                Regardless of if the file is compiled or not, you can paste the file in your Junit
+                by using {{"{{"}}file_name{{"}"}}{{"}"}}.
+            </p>
+            <p>
+                Paste the solution in the lines. Possibly add extra lines at the end.
+                Lines will be extracted and shuffled.
+            </p>
         </div>
     </div>
     <div class="form-row m-3">

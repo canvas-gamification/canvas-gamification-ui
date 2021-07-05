@@ -25,15 +25,18 @@ export class ParsonsEditSnippetComponent implements OnInit {
     events: CourseEvent[];
     categories: Category[];
     variables: JSON[];
+    inputFiles: { name: string, compile: boolean, lines: string }[]
     questionText: string;
 
-    constructor(private formBuilder: FormBuilder,
-                private questionService: QuestionService,
-                private toastr: ToastrService,
-                private courseService: CourseService,
-                private categoryService: CategoryService,
-                private courseEventService: CourseEventService,
-                private router: Router) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private questionService: QuestionService,
+        private toastr: ToastrService,
+        private courseService: CourseService,
+        private categoryService: CategoryService,
+        private courseEventService: CourseEventService,
+        private router: Router
+    ) {
     }
 
     /**
@@ -66,6 +69,11 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 });
         }
 
+        this.inputFiles = this.questionDetails.input_files.map(inputFile => ({
+            name: inputFile.name,
+            compile: inputFile.compile,
+            lines: inputFile.lines.join('\n')
+        }));
         this.variables = this.questionDetails.variables;
         this.questionText = this.questionDetails.text;
         this.formGroup = ParsonsForm.createFormWithData(this.questionDetails, this.selectedEvent, this.selectedCourse);
@@ -83,7 +91,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
      * Form submission.
      */
     onSubmit(): void {
-        const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.questionText);
+        const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.inputFiles, this.questionText);
         this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
                 this.refresh();

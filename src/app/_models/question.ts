@@ -27,8 +27,7 @@ export interface Question {
     input_file_names: [];
     answer: string;
     junit_template: string;
-    lines: string[];
-    additional_file_name: string;
+    input_files: InputFiles,
     status: string;
     is_open: boolean;
     is_exam: boolean;
@@ -37,3 +36,9 @@ export interface Question {
     is_checkbox: boolean;
     is_author: boolean;
 }
+
+export interface InputFiles extends Array<{
+    name: string,
+    compile: boolean,
+    lines: string[],
+}> {}
