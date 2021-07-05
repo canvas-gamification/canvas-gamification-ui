@@ -103,7 +103,6 @@ export class JavaCreateSnippetComponent implements OnInit {
      * Refresh the page upon successful submission.
      */
     refresh(): void {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(['problems', 'create', 'java']).then(() => {
             window.scroll(0, 0);
