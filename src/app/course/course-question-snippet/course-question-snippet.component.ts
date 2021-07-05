@@ -4,8 +4,8 @@ import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UqjService} from '@app/problems/_services/uqj.service';
 import {forkJoin} from 'rxjs';
-import {CourseEventService} from '@app/_services/api/course/course-event.service';
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseEventService} from '@app/course/_services/course-event.service';
+import {CourseService} from '@app/course/_services/course.service';
 
 @Component({
     selector: 'app-course-question-snippet',

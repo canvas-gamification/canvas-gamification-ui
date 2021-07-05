@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {QuestionService} from '@app/problems/_services/question.service';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {Category, Course} from '@app/_models';
 import {forkJoin} from 'rxjs';
