@@ -9,16 +9,18 @@ import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
-import {CourseService} from "@app/_services/api/course/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
-import {CourseEventService} from "@app/_services/api/course/course-event.service";
 import {CourseEventServiceMock} from "@app/problems/_test/course-event.service.mock";
+import {CourseService} from "@app/course/_services/course.service";
+import {CourseEventService} from "@app/course/_services/course-event.service";
+import {Router} from "@angular/router";
 
 describe('McqEditSnippetComponent', () => {
     let component: McqEditSnippetComponent;
     let fixture: ComponentFixture<McqEditSnippetComponent>;
+    let router: Router;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -34,6 +36,8 @@ describe('McqEditSnippetComponent', () => {
     });
     describe('mcq - edit', () => {
         beforeEach(() => {
+            router = TestBed.inject(Router);
+            spyOn(router, 'navigate');
             fixture = TestBed.createComponent(McqEditSnippetComponent);
             component = fixture.componentInstance;
             component.questionDetails = MOCK_MCQ_QUESTION;
@@ -66,14 +70,14 @@ describe('McqEditSnippetComponent', () => {
 
         it('mcq update', () => {
             component.onSubmit();
-
-            // The formGroup is reset upon successful submission.
-            expect(component.formGroup.controls['title'].value).toBe(null);
+            expect(router.navigate).toHaveBeenCalledOnceWith(['problems', '0', 'edit']);
         });
     });
 
     describe('checkbox - edit', () => {
         beforeEach(() => {
+            router = TestBed.inject(Router);
+            spyOn(router, 'navigate');
             fixture = TestBed.createComponent(McqEditSnippetComponent);
             component = fixture.componentInstance;
             component.questionDetails = MOCK_CHECKBOX_QUESTION;
@@ -96,9 +100,7 @@ describe('McqEditSnippetComponent', () => {
 
         it('checkbox update', () => {
             component.onSubmit();
-
-            // The formGroup is reset upon successful submission.
-            expect(component.formGroup.controls['title'].value).toBe(null);
+            expect(router.navigate).toHaveBeenCalledOnceWith(['problems', '1', 'edit']);
         });
     });
 

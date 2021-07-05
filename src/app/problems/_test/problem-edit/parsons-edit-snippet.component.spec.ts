@@ -9,16 +9,18 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
-import {CourseService} from "@app/_services/api/course/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
-import {CourseEventService} from "@app/_services/api/course/course-event.service";
 import {CourseEventServiceMock} from "@app/problems/_test/course-event.service.mock";
+import {CourseService} from "@app/course/_services/course.service";
+import {CourseEventService} from "@app/course/_services/course-event.service";
+import {Router} from "@angular/router";
 
 describe('ParsonsEditSnippetComponent', () => {
     let component: ParsonsEditSnippetComponent;
     let fixture: ComponentFixture<ParsonsEditSnippetComponent>;
+    let router: Router;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -34,6 +36,8 @@ describe('ParsonsEditSnippetComponent', () => {
 
     describe('parsons - with event', () => {
         beforeEach(() => {
+            router = TestBed.inject(Router);
+            spyOn(router, 'navigate');
             fixture = TestBed.createComponent(ParsonsEditSnippetComponent);
             component = fixture.componentInstance;
             component.questionDetails = MOCK_PARSONS_QUESTION;
@@ -51,9 +55,7 @@ describe('ParsonsEditSnippetComponent', () => {
 
         it('parsons update', () => {
             component.onSubmit();
-
-            // The formGroup is reset upon successful submission.
-            expect(component.formGroup.controls['title'].value).toBe(null);
+            expect(router.navigate).toHaveBeenCalledOnceWith(['problems', '3', 'edit']);
         });
     });
 
