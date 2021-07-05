@@ -28,6 +28,9 @@ import {
 } from "@angular-material-components/datetime-picker";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {CourseService} from "@app/course/_services/course.service";
+import {CourseEventService} from "@app/course/_services/course-event.service";
+import {TokenUseService} from "@app/course/_services/token-use.service";
 
 @NgModule({
     declarations: [
@@ -61,6 +64,11 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
         FontAwesomeModule,
         AceEditorModule,
         HighlightModule,
+    ],
+    providers:[
+        CourseService,
+        CourseEventService,
+        TokenUseService
     ]
 })
 export class CourseModule {

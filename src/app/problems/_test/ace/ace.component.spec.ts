@@ -1,23 +1,23 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {JavaViewSnippetComponent} from './java-view-snippet.component';
+import {AceComponent} from '../../ace/ace.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_UQJ} from '@test/mock';
+import {AceEditorModule} from "ng2-ace-editor";
 
-describe('JavaViewSnippetComponent', () => {
-    let component: JavaViewSnippetComponent;
-    let fixture: ComponentFixture<JavaViewSnippetComponent>;
+describe('AceComponent', () => {
+    let component: AceComponent;
+    let fixture: ComponentFixture<AceComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule]
+            declarations: [AceComponent],
+            imports: [TestModule, AceEditorModule]
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(JavaViewSnippetComponent);
+        fixture = TestBed.createComponent(AceComponent);
         component = fixture.componentInstance;
-        component.uqj = MOCK_UQJ;
         fixture.detectChanges();
     });
 

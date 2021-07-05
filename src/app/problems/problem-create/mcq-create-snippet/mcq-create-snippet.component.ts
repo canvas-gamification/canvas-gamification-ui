@@ -2,12 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {QuestionService} from '@app/problems/_services/question.service';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {ToastrService} from "ngx-toastr";
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {Category, Course} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseEvent} from '@app/_models/course_event';
 import {McqForm} from "@app/problems/_forms/mcq.form";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -26,13 +27,15 @@ export class McqCreateSnippetComponent implements OnInit {
     variables: JSON[];
     questionText: string;
     answerText: string;
+    returnUrl: string[];
     isPractice = false;
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
                 private toastr: ToastrService,
                 private courseService: CourseService,
-                private categoryService: CategoryService) {
+                private categoryService: CategoryService,
+                private router: Router) {
     }
 
     /**
@@ -89,14 +92,14 @@ export class McqCreateSnippetComponent implements OnInit {
         let submissionRequest;
         if (!this.checkBox) {
             submissionRequest = McqForm.extractMcqData(this.formGroup, this.distractors.map(x => x.text), this.variables, this.questionText, this.answerText);
+            this.returnUrl = ['problems', 'create', 'MCQ'];
         } else if (this.checkBox) {
             submissionRequest = McqForm.extractCheckboxData(this.formGroup, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
+            this.returnUrl = ['problems', 'create', 'checkbox'];
         }
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
             .subscribe(() => {
-                window.scroll(0, 0);
-                this.formGroup.reset();
-                this.toastr.success('The Question has been Created Successfully.');
+                this.refresh();
             });
     }
 
@@ -139,5 +142,17 @@ export class McqCreateSnippetComponent implements OnInit {
         this.isPractice = input.checked;
         this.form.course.setValue(null);
         this.form.event.setValue(null);
+    }
+
+    /**
+     * Refresh the page upon successful submission.
+     */
+    refresh(): void {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(this.returnUrl).then(() => {
+            window.scroll(0, 0);
+            this.toastr.success('The Question has been Created Successfully.');
+        });
     }
 }

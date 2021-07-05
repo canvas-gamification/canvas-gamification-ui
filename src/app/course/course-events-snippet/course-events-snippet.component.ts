@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CourseEvent, EventType, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {CourseEventService} from '@app/course/_services/course-event.service';
 
 @Component({
     selector: 'app-course-events-snippet',

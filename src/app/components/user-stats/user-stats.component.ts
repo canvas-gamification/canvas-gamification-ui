@@ -4,7 +4,7 @@ import {UserStatsService} from '@app/_services/api/user-stats.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {Category} from '@app/_models';
 import {forkJoin} from 'rxjs';
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseService} from '@app/course/_services/course.service';
 
 @Component({
     selector: 'app-user-stats',

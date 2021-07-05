@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {CourseRegistration, User} from '@app/_models';
-import {TokenUseService} from '@app/_services/api/token-use.service';
+import {TokenUseService} from '@app/course/_services/token-use.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenUse} from '@app/_models/token_use';
 import {AuthenticationService} from '@app/_services/api/authentication';

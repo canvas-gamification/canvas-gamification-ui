@@ -5,9 +5,10 @@ import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
 import {QuestionService} from '@app/problems/_services/question.service';
 import {ToastrService} from "ngx-toastr";
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {JavaForm} from "@app/problems/_forms/java.form";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-java-create-snippet',
@@ -29,7 +30,8 @@ export class JavaCreateSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private toastr: ToastrService,
                 private courseService: CourseService,
-                private categoryService: CategoryService) {
+                private categoryService: CategoryService,
+                private router: Router) {
     }
 
     /**
@@ -92,9 +94,20 @@ export class JavaCreateSnippetComponent implements OnInit {
         const submissionRequest = JavaForm.extractData(this.formGroup, this.variables, this.inputFileNames, this.questionText);
         this.questionService.postJavaQuestion(submissionRequest)
             .subscribe(() => {
-                window.scroll(0, 0);
-                this.formGroup.reset();
-                this.toastr.success('The Question has been Created Successfully.');
+                this.refresh();
             });
+    }
+
+
+    /**
+     * Refresh the page upon successful submission.
+     */
+    refresh(): void {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['problems', 'create', 'java']).then(() => {
+            window.scroll(0, 0);
+            this.toastr.success('The Question has been Created Successfully.');
+        });
     }
 }

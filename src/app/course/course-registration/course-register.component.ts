@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseService} from '@app/course/_services/course.service';
 import {ToastrService} from "ngx-toastr";
 import {CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
+import {CourseRegisterForm} from "@app/course/_forms/register.form";
 
 const STEPPER_STAGES = {
     ENTER_NAME: 0,
@@ -40,7 +41,6 @@ export class CourseRegisterComponent implements OnInit {
     editable: boolean;
 
     constructor(private route: ActivatedRoute,
-                private formBuilder: FormBuilder,
                 private courseService: CourseService,
                 private toastr: ToastrService) {
         this.courseId = this.route.snapshot.params.courseId;
@@ -51,18 +51,10 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.nameForm = this.formBuilder.group({
-            nameControl: ['', Validators.required]
-        });
-        this.confirmNameForm = this.formBuilder.group({
-            confirmNameControl: ['']
-        });
-        this.studentNumberForm = this.formBuilder.group({
-            studentNumberControl: ['', Validators.required]
-        });
-        this.verifyForm = this.formBuilder.group({
-            verifyControl: ['', Validators.required]
-        });
+        this.nameForm = CourseRegisterForm.createNameForm();
+        this.confirmNameForm = CourseRegisterForm.createConfirmNameForm();
+        this.studentNumberForm = CourseRegisterForm.createStudentNumberForm();
+        this.verifyForm = CourseRegisterForm.createVerifyForm();
         this.getRegistrationStatus();
     }
 
