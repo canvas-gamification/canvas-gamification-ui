@@ -15,9 +15,7 @@ import {ToastrService} from "ngx-toastr";
 export class TokenUseSnippetComponent implements OnInit {
     @Input() courseReg: CourseRegistration;
 
-    tokenUses: {
-        [index: number]: TokenUse;
-    } = {};
+    tokenUses: TokenUse[];
 
     user: User;
 
@@ -35,9 +33,7 @@ export class TokenUseSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courseReg.token_uses.forEach(tokenUse => {
-            this.tokenUses[tokenUse.option.id] = tokenUse;
-        });
+        this.tokenUses = this.courseReg.token_uses;
         this.calculateCurrentTotal();
     }
 
@@ -57,12 +53,10 @@ export class TokenUseSnippetComponent implements OnInit {
     confirmChanges(): void {
         const courseId = this.route.snapshot.params.courseId;
         const data = {};
-        for (const optionId in this.tokenUses) {
-            data[optionId] = this.tokenUses[optionId].num_used;
-        }
-
-        this.tokenUseService.useTokens(data, courseId).subscribe(() => {
-            this.toastr.success('Token uses saved!.');
+        this.tokenUses.forEach(tokenUse => data[tokenUse.option.id] = tokenUse.num_used);
+        this.tokenUseService.useTokens(data, courseId).subscribe((result) => {
+            if (result.success != false)
+                this.toastr.success('Token uses saved!');
         });
     }
 }
