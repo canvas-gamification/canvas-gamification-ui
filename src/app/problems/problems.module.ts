@@ -1,4 +1,5 @@
 import {ProblemCreateComponent} from "@app/problems/problem-create/problem-create.component";
+import {HIGHLIGHT_OPTIONS, HighlightModule} from "ngx-highlightjs";
 import {JavaCreateSnippetComponent} from "@app/problems/problem-create/java-create-snippet/java-create-snippet.component";
 import {McqViewSnippetComponent} from "@app/problems/problem-view/mcq-view-snippet/mcq-view-snippet.component";
 import {JavaEditSnippetComponent} from "@app/problems/problem-edit/java-edit-snippet/java-edit-snippet.component";
@@ -33,8 +34,6 @@ import {UqjService} from "@app/problems/_services/uqj.service";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {SchemaService} from "@app/problems/_services/schema.service";
 import {SubmissionService} from "@app/problems/_services/submission.service";
-import {HIGHLIGHT_OPTIONS, HighlightModule} from "ngx-highlightjs";
-
 
 @NgModule({
     declarations: [
