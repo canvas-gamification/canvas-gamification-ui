@@ -5,14 +5,15 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
-import { TestModel } from '@app/_models/test_model';
+// import { TestModel } from '@app/_models/test_model';
 import { ApiService } from '../api.service';
+import { LeaderBoardStudents } from '@app/_models/leader_board';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class LeaderBoardService {
-  private url = new URL('/api/apitest', environment.apiBaseUrl).toString();
+  private url = new URL('/api/leaderboard-students', environment.apiBaseUrl).toString();
 
   constructor(
     private http: HttpClient,
@@ -20,11 +21,11 @@ export class LeaderBoardService {
 
   }
 
-  getLeaderBoard(): Observable<TestModel[]> {
+  getLeaderBoard(): Observable<LeaderBoardStudents[]> {
 
-    return this.http
-      .get<TestModel[]>(this.url)
-      .pipe(catchError(this.apiService.handleError<TestModel[]>(`Unable to load leader board`, null)));
+      return this.http
+          .get<LeaderBoardStudents[]>(this.url)
+          .pipe(catchError(this.apiService.handleError<LeaderBoardStudents[]>(`Unable to load leader board`, null)));
   }
   /**
    * Handle Http operation that failed.

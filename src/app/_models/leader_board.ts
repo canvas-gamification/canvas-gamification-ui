@@ -1,6 +1,7 @@
-export interface LeaderBoard{
-    course_id: number;
-    student_id: number;
-    tokens: number;
-    visable: boolean;
+export interface LeaderBoardStudents{
+    student_name: string;
+    token_value: number;
+    team_number: number;
+    streak_value: number;
+    leaderboard_name: string;
 }
