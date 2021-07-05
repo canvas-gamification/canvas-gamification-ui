@@ -1,7 +1,7 @@
 export interface LeaderBoardStudents{
     student_name: string;
-    token_value: number;
+    tokens: number;
     team_number: number;
     streak_value: number;
-    leaderboard_name: string;
+    //leaderboard_name: string;
 }

@@ -8,11 +8,11 @@
         <div class="podium-step-container" [ngClass]="{'first fa-10x' : i == 0, 'second fa-8x' : i == 1, 'third fa-6x' : i == 2}">
             <div class="podium-step-frontside">
                 <div class="name">
-                    {{user.username}}
+                    {{user.student}}
                 </div>
                 <i class="fas fa-trophy trophy"></i>
                 <div class="score">
-                    {{user.tokens}}
+                    {{user.token_value}}
                 </div>
             </div>
             <div class="podium-step-backside">
@@ -63,7 +63,7 @@
             {{i + 4}}
         </div>
         <div class="col-2">
-            {{user.username}}
+            {{user.student}}
         </div>
         <div class="col-3 center-text">
             <div *ngIf="user.streak > 2" class="fire-table-icon">
@@ -82,7 +82,7 @@
             <div class="col-3 table-team center-text"></div>
         </ng-template>
         <div class="col table-token-display">
-            {{user.tokens}}
+            {{user.token_value}}
         </div>
     </div>
 </div>
