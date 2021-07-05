@@ -164,4 +164,11 @@ export class McqCreateSnippetComponent implements OnInit {
         }
         return !this.isPractice && this.form.course.value !== null && this.form.event.value !== null;
     }
+
+    isChoicesValid(): boolean {
+        if (this.checkBox && this.correctAnswers !== [] && this.distractors !== []) {
+            return true;
+        }
+        return !this.checkBox && this.answerText !== '' && this.distractors !== [];
+    }
 }
