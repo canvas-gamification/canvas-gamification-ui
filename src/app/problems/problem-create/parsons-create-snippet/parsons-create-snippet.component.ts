@@ -108,4 +108,14 @@ export class ParsonsCreateSnippetComponent implements OnInit {
             this.toastr.success('The Question has been Created Successfully.');
         });
     }
+
+    /**
+     * Check to see if values not in the formGroup are valid.
+     */
+    isValid(): boolean {
+        if (this.isPractice && this.form.course.value === null && this.form.event.value === null) {
+            return true;
+        }
+        return !this.isPractice && this.form.course.value !== null && this.form.event.value !== null;
+    }
 }
