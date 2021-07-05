@@ -9,6 +9,7 @@ import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {JavaForm} from "@app/problems/_forms/java.form";
 import {Router} from "@angular/router";
+import * as _ from "lodash";
 
 @Component({
     selector: 'app-java-create-snippet',
@@ -113,10 +114,32 @@ export class JavaCreateSnippetComponent implements OnInit {
     /**
      * Check to see if values not in the formGroup are valid.
      */
-    isValid(): boolean {
-        if (this.isPractice && this.form.course.value === null && this.form.event.value === null) {
-            return true;
+    isFormGroupValid(): boolean {
+        if (this.isPractice) {
+            return this.form.course.value === null && this.form.event.value === null;
+        } else {
+            return this.form.course.value !== null && this.form.event.value !== null;
         }
-        return !this.isPractice && this.form.course.value !== null && this.form.event.value !== null;
+    }
+
+    /**
+     * Check to see if questionText is valid.
+     */
+    isQuestionValid(): boolean {
+        return this.questionText !== '';
+    }
+
+    /**
+     * Check if submissions files is valid.
+     */
+    isSubmissionFilesValid(): boolean {
+        return !_.isEmpty(this.inputFileNames);
+    }
+
+    /**
+     * Check if submission is ready.
+     */
+    isSubmissionValid(): boolean {
+        return this.isQuestionValid() && this.isSubmissionFilesValid() && this.isFormGroupValid();
     }
 }

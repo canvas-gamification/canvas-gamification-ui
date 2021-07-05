@@ -136,10 +136,25 @@ export class ParsonsEditSnippetComponent implements OnInit {
     /**
      * Check to see if values not in the formGroup are valid.
      */
-    isValid(): boolean {
-        if (this.isPractice && this.form.course.value === null && this.form.event.value === null) {
-            return true;
+    isFormGroupValid(): boolean {
+        if (this.isPractice) {
+            return this.form.course.value === null && this.form.event.value === null;
+        } else {
+            return this.form.course.value !== null && this.form.event.value !== null;
         }
-        return !this.isPractice && this.form.course.value !== null && this.form.event.value !== null;
+    }
+
+    /**
+     * Check to see if questionText is valid.
+     */
+    isQuestionValid(): boolean {
+        return this.questionText !== '';
+    }
+
+    /**
+     * Verify if submission is ready.
+     */
+    isSubmissionValid(): boolean {
+        return this.isFormGroupValid() && this.isQuestionValid();
     }
 }

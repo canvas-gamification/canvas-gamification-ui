@@ -159,10 +159,11 @@ export class McqCreateSnippetComponent implements OnInit {
      * Check to see if values not in the formGroup are valid.
      */
     isFormGroupValid(): boolean {
-        if (this.isPractice && this.form.course.value === null && this.form.event.value === null) {
-            return true;
+        if (this.isPractice) {
+            return this.form.course.value === null && this.form.event.value === null;
+        } else {
+            return this.form.course.value !== null && this.form.event.value !== null;
         }
-        return !this.isPractice && this.form.course.value !== null && this.form.event.value !== null;
     }
 
     /**
