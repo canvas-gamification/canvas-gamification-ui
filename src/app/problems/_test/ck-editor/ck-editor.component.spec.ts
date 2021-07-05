@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CkEditorComponent} from './ck-editor.component';
+import {CkEditorComponent} from '../../ck-editor/ck-editor.component';
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 
 describe('CkEditorComponent', () => {
     let component: CkEditorComponent;
@@ -8,9 +9,9 @@ describe('CkEditorComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [CkEditorComponent]
-        })
-            .compileComponents();
+            declarations: [CkEditorComponent],
+            imports: [CKEditorModule]
+        }).compileComponents();
     });
 
     beforeEach(() => {
