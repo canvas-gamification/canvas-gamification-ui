@@ -9,6 +9,7 @@ import {QuestionService} from '@app/problems/_services/question.service';
 import {ToastrService} from "ngx-toastr";
 import {CourseEventService} from '@app/_services/api/course/course-event.service';
 import {McqForm} from "@app/problems/_forms/mcq.form";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-mcq-edit-snippet',
@@ -34,7 +35,8 @@ export class McqEditSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private toastr: ToastrService,
-                private courseEventService: CourseEventService) {
+                private courseEventService: CourseEventService,
+                private router: Router) {
     }
 
     /**
@@ -86,9 +88,7 @@ export class McqEditSnippetComponent implements OnInit {
         }
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
-                window.scroll(0, 0);
-                this.formGroup.reset();
-                this.toastr.success('The Question has been Updated Successfully.');
+                this.refresh();
             });
     }
 
@@ -175,5 +175,17 @@ export class McqEditSnippetComponent implements OnInit {
                     this.distractors.push({text: this.questionDetails.choices[choice]});
             }
         }
+    }
+
+    /**
+     * Refresh the page upon successful submission.
+     */
+    refresh(): void {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['problems', this.questionDetails.id.toString(), 'edit']).then(() => {
+            window.scroll(0, 0);
+            this.toastr.success('The Question has been Updated Successfully.');
+        });
     }
 }
