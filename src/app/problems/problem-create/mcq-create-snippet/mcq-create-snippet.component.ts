@@ -136,7 +136,6 @@ export class McqCreateSnippetComponent implements OnInit {
      * Refresh the page upon successful submission.
      */
     refresh(): void {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(this.returnUrl).then(() => {
             window.scroll(0, 0);

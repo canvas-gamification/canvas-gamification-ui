@@ -7,16 +7,18 @@ import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.compone
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
-import {CourseService} from "@app/_services/api/course/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MOCK_COURSE} from "@app/problems/_test/mock";
+import {CourseService} from "@app/course/_services/course.service";
+import {Router} from "@angular/router";
 
 describe('JavaCreateSnippetComponent', () => {
     let component: JavaCreateSnippetComponent;
     let fixture: ComponentFixture<JavaCreateSnippetComponent>;
+    let router: Router;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -31,6 +33,8 @@ describe('JavaCreateSnippetComponent', () => {
     });
 
     beforeEach(() => {
+        router = TestBed.inject(Router);
+        spyOn(router, 'navigate');
         fixture = TestBed.createComponent(JavaCreateSnippetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -46,10 +50,7 @@ describe('JavaCreateSnippetComponent', () => {
     });
 
     it('java create question', () => {
-        component.formGroup.controls['title'].setValue('Test Title');
         component.onSubmit();
-
-        // The formGroup is reset upon successful submission.
-        expect(component.formGroup.controls['title'].value).toBe(null);
+        expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'java']);
     });
 });
