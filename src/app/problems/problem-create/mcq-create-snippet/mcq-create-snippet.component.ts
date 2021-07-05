@@ -158,17 +158,35 @@ export class McqCreateSnippetComponent implements OnInit {
     /**
      * Check to see if values not in the formGroup are valid.
      */
-    isValid(): boolean {
+    isFormGroupValid(): boolean {
         if (this.isPractice && this.form.course.value === null && this.form.event.value === null) {
             return true;
         }
         return !this.isPractice && this.form.course.value !== null && this.form.event.value !== null;
     }
 
+    /**
+     * Check to see if the choices are valid.
+     */
     isChoicesValid(): boolean {
-        if (this.checkBox && this.correctAnswers !== [] && this.distractors !== []) {
-            return true;
+        if (this.checkBox) {
+            return this.correctAnswers !== [] && this.distractors !== [];
+        } else {
+            return this.answerText !== '' && this.distractors !== [];
         }
-        return !this.checkBox && this.answerText !== '' && this.distractors !== [];
+    }
+
+    /**
+     * Check to see if questionText is valid.
+     */
+    isQuestionValid(): boolean {
+        return this.questionText !== '';
+    }
+
+    /**
+     * Combines the validity checks into a single method.
+     */
+    isSubmissionValid(): boolean {
+        return this.isFormGroupValid() && this.isChoicesValid() && this.isQuestionValid();
     }
 }
