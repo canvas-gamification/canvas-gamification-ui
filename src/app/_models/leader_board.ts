@@ -1,6 +1,6 @@
 export interface LeaderBoardStudents{
     student_name: string;
-    tokens: number;
+    token_value: number;
     team_number: number;
     streak_value: number;
     //leaderboard_name: string;

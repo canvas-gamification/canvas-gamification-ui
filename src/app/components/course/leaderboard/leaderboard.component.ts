@@ -24,10 +24,10 @@ export class LeaderboardComponent implements OnInit {
           .subscribe((users) => {
               console.log(users);
               this.users = users.sort((a, b) => {
-                  if(a.tokens < b.tokens){
+                  if(a.token_value < b.token_value){
                       return 1;
                   }
-                  if(a.tokens > b.tokens){
+                  if(a.token_value > b.token_value){
                       return -1;
                   }
                   return 0;
