@@ -1,4 +1,4 @@
-import {CourseRegistration, TokenUseOption} from "@app/_models";
+import {CourseRegistration, EventType, TokenUseOption} from "@app/_models";
 import {TokenUse} from "@app/_models/token_use";
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
@@ -41,3 +41,5 @@ export const MOCK_COURSE_REGISTRATION: CourseRegistration = {
     token_uses: [MOCK_TOKEN_USE1, MOCK_TOKEN_USE2],
     total_tokens_received: 50
 };
+
+export const MOCK_EVENT_TYPES: EventType[] = [["PRACTICE", "PRACTICE"], ["ASSIGNMENT", "ASSIGNMENT"], ["EXAM", "EXAM"]];
