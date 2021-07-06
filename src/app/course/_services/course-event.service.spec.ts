@@ -21,6 +21,9 @@ describe('CourseEventService', () => {
         apiService = TestBed.inject(ApiService);
         httpMock = TestBed.inject(HttpTestingController);
     });
+    afterEach(() => {
+        httpMock.verify();
+    });
 
     it('should be created', () => {
         expect(courseEventService).toBeTruthy();

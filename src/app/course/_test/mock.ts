@@ -1,5 +1,13 @@
-import {CourseRegistration, EventType, TokenUseOption} from "@app/_models";
+import {
+    Course,
+    CourseRegistration,
+    CourseRegistrationRequest,
+    CourseRegistrationResponse,
+    EventType, REGISTRATION_STATUS, RegistrationStatus, STATUS,
+    TokenUseOption
+} from "@app/_models";
 import {TokenUse} from "@app/_models/token_use";
+import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     id: 1,
@@ -43,3 +51,73 @@ export const MOCK_COURSE_REGISTRATION: CourseRegistration = {
 };
 
 export const MOCK_EVENT_TYPES: EventType[] = [["PRACTICE", "PRACTICE"], ["ASSIGNMENT", "ASSIGNMENT"], ["EXAM", "EXAM"]];
+
+export const MOCK_USER_STATS: { success_rate: number } = {
+    success_rate: 0.5
+};
+
+export const MOCK_COURSE_REGISTRATION_REQUEST: CourseRegistrationRequest = {
+    name: 'Test Student',
+    confirmed_name: 'Test Student',
+    student_number: 123,
+    code: 111
+};
+
+export const MOCK_COURSE_REGISTRATION_RESPONSE: CourseRegistrationResponse = {
+    success: true,
+    name: 'Test Student',
+    guessed_name: 'Test Student',
+    confirmed_name: 'Test Student',
+    student_number: 123,
+    code: 111,
+    attempts_remaining: 2,
+};
+
+export const MOCK_REGISTRATION_STATUS: RegistrationStatus = {
+    status: REGISTRATION_STATUS.REGISTERED,
+    message: null
+};
+
+export const MOCK_COURSE1: Course = {
+    id: 0,
+    mock: null,
+    name: 'Test Course',
+    url: null,
+    token: null,
+    allow_registration: true,
+    visible_to_students: true,
+    start_date: null,
+    end_date: null,
+    instructor: null,
+    status: STATUS.active,
+    is_registered: true,
+    events: [MOCK_COURSE_EVENT],
+    token_use_options: null,
+    question_set: null,
+    uqjs: null,
+    course_reg: null,
+    leader_board: null
+};
+
+export const MOCK_COURSE2: Course = {
+    id: 1,
+    mock: null,
+    name: 'Test Course 2',
+    url: null,
+    token: null,
+    allow_registration: true,
+    visible_to_students: true,
+    start_date: null,
+    end_date: null,
+    instructor: null,
+    status: STATUS.active,
+    is_registered: true,
+    events: null,
+    token_use_options: null,
+    question_set: null,
+    uqjs: null,
+    course_reg: null,
+    leader_board: null
+};
+
+export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2];
