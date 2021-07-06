@@ -10,7 +10,6 @@ import {QuestionService} from '@app/problems/_services/question.service';
     styleUrls: ['./problem-edit.component.scss'],
 })
 export class ProblemEditComponent implements OnInit {
-    private routeSub: Subscription;
     questionId: number;
     questionType: string;
     questionDetails: Question;
@@ -19,10 +18,8 @@ export class ProblemEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.routeSub = this.route.params.subscribe(params => {
-            this.questionId = params.id;
-        });
-        const questionDetailsObservable = this.questionService.getQuestion(this.questionId);
+        const questionId = this.route.snapshot.params.id;
+        const questionDetailsObservable = this.questionService.getQuestion(questionId);
 
         forkJoin([questionDetailsObservable])
             .subscribe(result => {

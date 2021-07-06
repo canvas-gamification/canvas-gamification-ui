@@ -5,10 +5,11 @@ import {ToastrService} from "ngx-toastr";
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {CourseEventService} from '@app/course/_services/course-event.service';
 import {ParsonsForm} from "@app/problems/_forms/parsons.form";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-parsons-edit-snippet',
@@ -31,7 +32,8 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 private toastr: ToastrService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
-                private courseEventService: CourseEventService) {
+                private courseEventService: CourseEventService,
+                private router: Router) {
     }
 
     /**
@@ -84,9 +86,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
         const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.questionText);
         this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
-                window.scroll(0, 0);
-                this.formGroup.reset();
-                this.toastr.success('The Question has been updated Successfully.');
+                this.refresh();
             });
     }
 
@@ -106,5 +106,16 @@ export class ParsonsEditSnippetComponent implements OnInit {
             this.form.course.setValue(this.selectedCourse);
             this.form.event.setValue(this.selectedEvent);
         }
+    }
+
+    /**
+     * Refresh the page upon successful submission.
+     */
+    refresh(): void {
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['problems', this.questionDetails.id.toString(), 'edit']).then(() => {
+            window.scroll(0, 0);
+            this.toastr.success('The Question has been Updated Successfully.');
+        });
     }
 }

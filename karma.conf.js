@@ -35,6 +35,8 @@ module.exports = function (config) {
                 base: 'ChromeHeadless',
                 flags: ['--no-sandbox']
             }
-        }
+        },
+        browserNoActivityTimeout: 60000,
+        browserDisconnectTimeout: 60000
     });
 };

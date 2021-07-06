@@ -33,14 +33,7 @@ import {CourseDashboardComponent} from './components/homepage/course-dashboard/c
 import {InactiveCoursesComponent} from './components/homepage/inactive-courses/inactive-courses.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {FaqComponent} from './components/faq/faq.component';
-import {CourseListComponent} from './components/course/course-list/course-list.component';
-import {CourseComponent} from './components/course/course.component';
-import {CourseEventsSnippetComponent} from './components/course/course-events-snippet/course-events-snippet.component';
-import {TokenUseSnippetComponent} from './components/course/token-use-snippet/token-use-snippet.component';
-import {CourseQuestionSnippetComponent} from './components/course/course-question-snippet/course-question-snippet.component';
 import {MatButtonModule} from '@angular/material/button';
-import {CourseEventCreateEditComponent} from './components/course/course-event-create/course-event-create-edit.component';
-import {CourseRegisterComponent} from './components/course/course-registration/course-register.component';
 import {MatSortModule} from '@angular/material/sort';
 import {CommonModule} from '@angular/common';
 import {
@@ -49,9 +42,6 @@ import {
     NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
-//import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
-//import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -81,13 +71,6 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
         RecentViewedQuestionsComponent,
         CourseDashboardComponent,
         InactiveCoursesComponent,
-        CourseListComponent,
-        CourseRegisterComponent,
-        CourseComponent,
-        CourseEventsSnippetComponent,
-        TokenUseSnippetComponent,
-        CourseQuestionSnippetComponent,
-        CourseEventCreateEditComponent,
         NotFoundComponent,
         ForbiddenComponent,
         LeaderboardComponent,
@@ -122,10 +105,21 @@ import { LeaderboardComponent } from './components/leaderboard/leaderboard.compo
         HighlightModule,
         MatSelectModule,
         ToastrModule.forRoot(),
+        HighlightModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+        {
+            provide: HIGHLIGHT_OPTIONS,
+            useValue: {
+                coreLibraryLoader: () => import('highlight.js/lib/core'),
+                lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
+                languages: {
+                    java: () => import('highlight.js/lib/languages/java')
+                }
+            }
+        }
     ],
     bootstrap: [AppComponent]
 })
