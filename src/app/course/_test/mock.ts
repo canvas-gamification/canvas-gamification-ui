@@ -140,6 +140,11 @@ export const MOCK_VERIFY_STEP1: CourseRegistrationRequest = {
     code: 52
 };
 
+export const MOCK_VERIFY_STEP1FAIL: CourseRegistrationRequest = {
+    name: "Firstname Lastname",
+    code: 0
+};
+
 export const MOCK_VERIFY_SUCCESS: CourseRegistrationResponse = {
     attempts_remaining: 2,
     success: true
@@ -147,10 +152,5 @@ export const MOCK_VERIFY_SUCCESS: CourseRegistrationResponse = {
 
 export const MOCK_VERIFY_FAIL: CourseRegistrationResponse = {
     attempts_remaining: 2,
-    success: false
-};
-
-export const MOCK_VERIFY_FAIL2: CourseRegistrationResponse = {
-    attempts_remaining: 0,
     success: false
 };

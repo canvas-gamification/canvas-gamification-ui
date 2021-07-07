@@ -4,7 +4,7 @@ import {FormGroup} from '@angular/forms';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {CourseService} from '@app/course/_services/course.service';
 import {ToastrService} from "ngx-toastr";
-import {CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
+import {CourseRegistrationRequest, CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
 import {CourseRegisterForm} from "@app/course/_forms/register.form";
 
 const STEPPER_STAGES = {
@@ -99,6 +99,7 @@ export class CourseRegisterComponent implements OnInit {
         if (!data.name && !data.student_number) {
             return;
         }
+        console.log(data);
         this.courseService.register(this.courseId, data).subscribe(
             courseRegResponse => {
                 if (courseRegResponse.bad_request) {
@@ -126,11 +127,11 @@ export class CourseRegisterComponent implements OnInit {
         );
     }
 
-    retrieveFormData(): { name: string, confirmed_name: string, student_number: number, code: number } {
+    retrieveFormData(): CourseRegistrationRequest {
         return {
             name: this.nameForm.get('nameControl').value || null,
             confirmed_name: this.serverGuessedName || null,
-            student_number: this.studentNumberForm.get('studentNumberControl').value || null,
+            student_number: String(this.studentNumberForm.get('studentNumberControl').value) || null,
             code: this.verifyForm.get('verifyControl').value || null,
         };
     }
