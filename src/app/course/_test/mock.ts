@@ -121,3 +121,36 @@ export const MOCK_COURSE2: Course = {
 };
 
 export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2];
+
+export const MOCK_IDENTIFICATION_STEP1: CourseRegistrationRequest = {
+    name: "Firstname Lastname"
+};
+
+export const MOCK_IDENTIFICATION_STEP2: CourseRegistrationRequest = {
+    name: "Multiple Student"
+};
+
+export const MOCK_CONFIRM_STEP1: CourseRegistrationRequest = {
+    name: "Firstname Lastname",
+    confirmed_name: "Firstname Lastname"
+};
+
+export const MOCK_VERIFY_STEP1: CourseRegistrationRequest = {
+    name: "Firstname Lastname",
+    code: 52
+};
+
+export const MOCK_VERIFY_SUCCESS: CourseRegistrationResponse = {
+    attempts_remaining: 2,
+    success: true
+};
+
+export const MOCK_VERIFY_FAIL: CourseRegistrationResponse = {
+    attempts_remaining: 2,
+    success: false
+};
+
+export const MOCK_VERIFY_FAIL2: CourseRegistrationResponse = {
+    attempts_remaining: 0,
+    success: false
+};
