@@ -1,0 +1,37 @@
+<h3>This will be turned into the event cards</h3>
+<div class="row" *ngIf="activeCourses; else noActiveCourses">
+    <ng-container *ngFor="let course of activeCourses; index as i">
+        <div class="d-flex col-md-4 mb-4">
+            <div class="card flex-fill" [attr.id]="'courseCard'+course.id">
+                <span class="sr-only">Card for course {{ course.name }}</span>
+                <div class="card-block-top"></div>
+                <div class="card-body">
+                    <h5 class="card-title">{{course.name}}</h5>
+                    <a [routerLink]="['/course/view', course.id]" class="btn btn-primary">Open</a>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="activeCourses.length <= 3">
+        <div class="d-flex col-md-4 mb-4">
+            <div class="card card-register-new flex-fill">
+                <span class="sr-only">Card for Register New Course</span>
+                <div class="card-block-top"></div>
+                <div class="card-body">
+                    <h5 class="card-title">Looking for more courses?</h5>
+                    <a class="btn btn-outline-primary" [routerLink]="['/course']">Registration</a>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+<ng-template #noActiveCourses>
+    <div class="jumbotron">
+        <p class="text-md-center">Looks like you don't have any active courses. Not to worry, you can register here:</p>
+        <div class="row">
+            <div class="col text-center">
+                <a class="btn btn-primary" routerLink="courses">Register into Courses</a>
+            </div>
+        </div>
+    </div>
+</ng-template>

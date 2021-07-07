@@ -8,6 +8,7 @@ import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/co
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component";
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component";
+import {CourseDashboardComponent} from "@app/course/course-dashboard/course-dashboard.component";
 import {CourseRoutingModule} from "@app/course/course-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
@@ -21,6 +22,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+
 import {
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
@@ -42,6 +44,7 @@ import {TokenUseService} from "@app/course/_services/token-use.service";
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
         LeaderBoardComponent,
+        CourseDashboardComponent,
     ],
     imports: [
         CommonModule,

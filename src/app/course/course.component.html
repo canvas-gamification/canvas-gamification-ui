@@ -1,4 +1,19 @@
-<table class="table table-bordered table-light mt-5 hover-shadow">
+
+<div class="left">
+
+    <div class= "left-component">
+        <app-course-dashboard></app-course-dashboard>
+    </div>
+    
+    <div class= "left-component">
+        <ng-container *ngIf="course">
+            <app-leader-board [leaderBoard]="course?.leader_board"></app-leader-board>
+        </ng-container>
+        </div>
+    
+    </div>
+
+<!-- <table class="table table-bordered table-light mt-5 hover-shadow">
     <thead class="thead-dark">
     <tr>
         <th scope="col">ID</th>
@@ -19,8 +34,8 @@
         <td>{{ course?.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
     </tr>
     </tbody>
-</table>
-
+</table> -->
+<div class= "right">
 <ul class="nav nav-tabs mt-5" role="tablist">
     <ng-container *ngIf="user?.is_teacher">
         <li class="nav-item" role="presentation">
@@ -77,10 +92,11 @@
         </div>
     </div>
 </div>
+</div>
 
-<ng-container *ngIf="course">
+<!-- <ng-container *ngIf="course">
     <app-leader-board [leaderBoard]="course?.leader_board"></app-leader-board>
-</ng-container>
+</ng-container> -->
 
 
 
