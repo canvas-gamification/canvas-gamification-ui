@@ -11,7 +11,7 @@ import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 import {ReactiveFormsModule} from "@angular/forms";
-import {MOCK_COURSE} from "@app/problems/_test/mock";
+import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 import {CourseService} from "@app/course/_services/course.service";
 import {Router} from "@angular/router";
 
@@ -53,4 +53,36 @@ describe('JavaCreateSnippetComponent', () => {
         component.onSubmit();
         expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'java']);
     });
+
+    it('required fields - invalid', () => {
+        expect(fixture.debugElement.nativeElement.querySelector('#submit').disabled).toBeTruthy();
+    });
+
+    it('isSubmissionValid - invalid', () => {
+        component.isPractice = true;
+        component.form.course.setValue(MOCK_COURSE);
+        component.form.event.setValue(MOCK_COURSE_EVENT);
+        fixture.detectChanges();
+        expect(component.isSubmissionValid()).toBeFalsy();
+    });
+
+    it('isSubmissionValid - valid', () => {
+        component.isPractice = false;
+        component.form.title.setValue('Test');
+        component.form.difficulty.setValue('Easy');
+        component.form.category.setValue('Test');
+        component.form.course.setValue(MOCK_COURSE);
+        component.form.event.setValue(MOCK_COURSE_EVENT);
+        component.questionText = 'Test';
+        component.inputFileNames = JSON.parse('{"a": "a"}');
+        fixture.detectChanges();
+        expect(component.isSubmissionValid()).toBeTruthy();
+    });
+
+    // TODO - Determine how to test this.
+    // it('click practice checkbox', () => {
+    //     fixture.debugElement.nativeElement.querySelector('#practiceCheckbox').click();
+    //     fixture.detectChanges();
+    //     expect(component.isPractice).toBeTruthy();
+    // });
 });

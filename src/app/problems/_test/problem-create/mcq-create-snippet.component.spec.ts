@@ -5,7 +5,7 @@ import {TestModule} from '@test/test.module';
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
 import {CourseServiceMock} from "@test/course.service.mock";
-import {MOCK_CATEGORIES, MOCK_COURSE} from "@app/problems/_test/mock";
+import {MOCK_CATEGORIES, MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
@@ -80,4 +80,57 @@ describe('McqCreateSnippetComponent', () => {
         component.courseSelectedById(0);
         expect(component.events).toEqual(MOCK_COURSE.events);
     });
+
+    it('required fields - invalid', () => {
+        expect(fixture.debugElement.nativeElement.querySelector('#submit').disabled).toBeTruthy();
+    });
+
+    it('isSubmissionValid - mcq - invalid', () => {
+        expect(component.isSubmissionValid()).toBeFalsy();
+    });
+
+    it('isSubmissionValid - checkbox - invalid', () => {
+        component.isPractice = true;
+        component.form.course.setValue(MOCK_COURSE);
+        component.form.event.setValue(MOCK_COURSE_EVENT);
+        fixture.detectChanges();
+        expect(component.isSubmissionValid()).toBeFalsy();
+    });
+
+    it('isSubmissionValid - mcq - valid', () => {
+        component.checkBox = false;
+        component.form.title.setValue('Test');
+        component.form.difficulty.setValue('Easy');
+        component.form.category.setValue('Test');
+        component.form.visible_distractor_count.setValue('Test');
+        component.form.course.setValue(MOCK_COURSE);
+        component.form.event.setValue(MOCK_COURSE_EVENT);
+        component.answerText = 'Test';
+        component.distractors.push({text: ''});
+        component.questionText = 'Test';
+        fixture.detectChanges();
+        expect(component.isSubmissionValid()).toBeTruthy();
+    });
+
+    it('isSubmissionValid - checkbox - valid', () => {
+        component.checkBox = true;
+        component.form.title.setValue('Test');
+        component.form.difficulty.setValue('Easy');
+        component.form.category.setValue('Test');
+        component.form.visible_distractor_count.setValue('Test');
+        component.form.course.setValue(MOCK_COURSE);
+        component.form.event.setValue(MOCK_COURSE_EVENT);
+        component.correctAnswers.push({text: ''});
+        component.distractors.push({text: ''});
+        component.questionText = 'Test';
+        fixture.detectChanges();
+        expect(component.isSubmissionValid()).toBeTruthy();
+    });
+
+    // TODO - Determine how to test this.
+    // it('click practice checkbox', () => {
+    //     fixture.debugElement.nativeElement.querySelector('#practiceCheckbox').click();
+    //     fixture.detectChanges();
+    //     expect(component.isPractice).toBeTruthy();
+    // });
 });
