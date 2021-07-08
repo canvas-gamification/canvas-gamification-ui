@@ -14,8 +14,11 @@
     </div>
 
     <div class="right">
-        <app-course-tokens [courseReg]="course?.course_reg"></app-course-tokens>
+        <app-course-tokens [courseReg]="course?.course_reg" class="token-module"></app-course-tokens>
+        <app-course-questions [questions]="course?.question_set" [uqjs]="course?.uqjs" class="question-module"></app-course-questions>
     </div>
+
+
 
 <!-- <table class="table table-bordered table-light mt-5 hover-shadow">
     <thead class="thead-dark">

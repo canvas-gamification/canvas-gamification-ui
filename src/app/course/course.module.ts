@@ -12,6 +12,7 @@ import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.compon
 //new folders for coursePageLayout here
 import {CourseDashboardComponent} from "@app/course/course-dashboard/course-dashboard.component";
 import {CourseTokensComponent} from "@app/course/course-tokens/course-tokens.component";
+import { CourseQuestionsComponent } from './course-questions/course-questions.component';
 
 import {CourseRoutingModule} from "@app/course/course-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -38,6 +39,7 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 
+
 @NgModule({
     declarations: [
         CourseListComponent,
@@ -51,6 +53,7 @@ import {TokenUseService} from "@app/course/_services/token-use.service";
         //new folders for coursePageLayout here
         CourseDashboardComponent,
         CourseTokensComponent,
+        CourseQuestionsComponent,
     ],
     imports: [
         CommonModule,
