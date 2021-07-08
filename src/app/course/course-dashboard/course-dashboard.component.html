@@ -18,6 +18,7 @@
             </div>
         </div>
     </ng-container>
+
     <!-- <ng-container *ngIf="events.length <= 3">
         <div class="d-flex col-md-4 mb-4">
             <div class="card card-register-new flex-fill">
@@ -29,9 +30,18 @@
                 </div>
             </div>
         </div>
+    </ng-container> -->
+
+    <ng-container *ngIf="user?.is_teacher">
+        <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
+        <!--TODO: Consider if this button should still even be here-->
+        <a class="btn btn-primary my-2" href="#">Import an Event</a>
     </ng-container>
-</div> -->
-<!-- <ng-template #noActiveEvents>
+
+    
+    <!--
+</div> 
+ <ng-template #noActiveEvents>
     <div class="jumbotron">
         <p class="text-md-center">Looks like you don't have any active courses. Not to worry, you can register here:</p>
         <div class="row">
@@ -41,3 +51,4 @@
         </div>
     </div>
 </ng-template> -->
+
