@@ -8,7 +8,11 @@ import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/co
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component";
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component";
+
+//new folders for coursePageLayout here
 import {CourseDashboardComponent} from "@app/course/course-dashboard/course-dashboard.component";
+import {CourseTokensComponent} from "@app/course/course-tokens/course-tokens.component";
+
 import {CourseRoutingModule} from "@app/course/course-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
@@ -44,7 +48,9 @@ import {TokenUseService} from "@app/course/_services/token-use.service";
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
         LeaderBoardComponent,
+        //new folders for coursePageLayout here
         CourseDashboardComponent,
+        CourseTokensComponent,
     ],
     imports: [
         CommonModule,

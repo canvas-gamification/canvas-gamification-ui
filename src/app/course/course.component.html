@@ -13,6 +13,10 @@
     
     </div>
 
+    <div class="right">
+        <app-course-tokens [courseReg]="course?.course_reg"></app-course-tokens>
+    </div>
+
 <!-- <table class="table table-bordered table-light mt-5 hover-shadow">
     <thead class="thead-dark">
     <tr>
@@ -36,6 +40,7 @@
     </tbody>
 </table> -->
 <div class= "right">
+
 <ul class="nav nav-tabs mt-5" role="tablist">
     <ng-container *ngIf="user?.is_teacher">
         <li class="nav-item" role="presentation">
