@@ -9,7 +9,7 @@
                     <h5 class="card-title">{{event.name}}</h5>
                     <!-- <a [routerLink]="['/course/view', course.id]" class="btn btn-primary">Open</a> -->
                     <div class="btn-container">
-                    <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
+                    <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher">
                         <a class="btn btn-primary mr-3"
                            [routerLink]="['/course', courseId, 'event', event.id]">{{ getEventButtonText(event) }}</a>
                     </ng-container>

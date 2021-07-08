@@ -1,28 +1,26 @@
+<div class="row">
+    <div class="left">
 
-<div class="left">
-
-    <div class= "left-component">
-        <app-course-dashboard [events]="course?.events" [courseId]="courseId"></app-course-dashboard>
-    </div>
+        <div class= "left-component">
+            <app-course-dashboard [events]="course?.events" [courseId]="courseId"></app-course-dashboard>
+        </div>
     
-    <div class= "left-component">
-        <ng-container *ngIf="course">
-            <app-leader-board [leaderBoard]="course?.leader_board"></app-leader-board>
-        </ng-container>
+        <div class= "left-component">
+            <ng-container *ngIf="course">
+                <app-leader-board [leaderBoard]="course?.leader_board"></app-leader-board>
+            </ng-container>
         </div>
     
     </div>
 
     <div class="right">
         <div class="module">
-        <app-course-tokens [courseReg]="course?.course_reg" class="token-module"></app-course-tokens>
+            <app-course-tokens [courseReg]="course?.course_reg" class="token-module"></app-course-tokens>
         </div>
+        
         <div class="module">
-        <app-course-questions [questions]="course?.question_set" [uqjs]="course?.uqjs" class="question-module"></app-course-questions>
+            <app-course-questions [questions]="course?.question_set" [uqjs]="course?.uqjs" class="question-module"></app-course-questions>
         </div>
-    </div>
-
-
 
 <!-- <table class="table table-bordered table-light mt-5 hover-shadow">
     <thead class="thead-dark">
@@ -46,9 +44,8 @@
     </tr>
     </tbody>
 </table> -->
-<div class= "right">
-
-<ul class="nav nav-tabs mt-5" role="tablist">
+        <div class="module">
+            <ul class="nav nav-tabs mt-5" role="tablist">
     <!-- <ng-container *ngIf="user?.is_teacher">
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="problem-set-tab" data-toggle="tab" href="#problem-set" role="tab"
@@ -63,23 +60,23 @@
         <a class="nav-link" id="tokens-tab" data-toggle="tab" href="#tokens" role="tab" aria-controls="tokens"
            aria-selected="false">Token Use</a>
     </li> -->
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="concept-map-tab" data-toggle="tab" href="#concept-map" role="tab"
-           aria-controls="concept-map"
-           aria-selected="false">Concepts</a>
-    </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-    <ng-container *ngIf="user?.is_teacher">
-        <div class="tab-pane fade" id="problem-set" role="tabpanel" aria-labelledby="problem-set-tab">
-            <div class="hover-shadow p-3">
-                <ng-container *ngIf="course">
-                    <app-course-question-snippet [questions]="course?.question_set" [uqjs]="course?.uqjs">
-                    </app-course-question-snippet>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="concept-map-tab" data-toggle="tab" href="#concept-map" role="tab"
+                    aria-controls="concept-map"
+                    aria-selected="false">Concepts</a>
+                </li>
+            </ul>
+            <div id="myTabContent">
+                <ng-container *ngIf="user?.is_teacher">
+                    <div class="tab-pane fade" id="problem-set" role="tabpanel" aria-labelledby="problem-set-tab">
+                        <div class="hover-shadow p-3">
+                            <ng-container *ngIf="course">
+                                <app-course-question-snippet [questions]="course?.question_set" [uqjs]="course?.uqjs">
+                                </app-course-question-snippet>
+                            </ng-container>
+                        </div>
+                    </div>
                 </ng-container>
-            </div>
-        </div>
-    </ng-container>
     <!-- <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
         <div class="hover-shadow p-3">
             <ng-container *ngIf="course">
@@ -88,22 +85,23 @@
             </ng-container>
         </div>
     </div> -->
-    <div class="tab-pane fade" id="tokens" role="tabpanel" aria-labelledby="tokens-tab">
-        <div class="hover-shadow p-3">
-            <ng-container *ngIf="course">
-                <app-token-use-snippet [courseReg]="course?.course_reg"></app-token-use-snippet>
-            </ng-container>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="concept-map" role="tabpanel" aria-labelledby="concept-map-tab">
-        <div class="hover-shadow p-3">
-            <ng-container *ngIf="course">
+                <div class="tab-pane fade" id="tokens" role="tabpanel" aria-labelledby="tokens-tab">
+                    <div class="hover-shadow p-3">
+                        <ng-container *ngIf="course">
+                            <app-token-use-snippet [courseReg]="course?.course_reg"></app-token-use-snippet>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="concept-map" role="tabpanel" aria-labelledby="concept-map-tab">
+                    <div class="hover-shadow p-3">
+                        <ng-container *ngIf="course">
                 <!--                Temporarily disable concept map due to optimization errors-->
                 <!--                <app-concept-map [currCourse]="course"></app-concept-map>-->
-            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 </div>
 
 <!-- <ng-container *ngIf="course">

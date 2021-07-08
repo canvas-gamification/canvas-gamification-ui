@@ -9,20 +9,32 @@
     }
 }
 
+.row:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
 .left{
-    width: 60%;
+    width: 70%;
     float:left;
-    margin:0;
 }
 
 .right{
-    width:40%;
-    float:right;
-    margin-bottom: 1rem;
-    padding: 1rem;
-
-    .token-module, .question-module{
-        padding: 1rem;
-    }
+    float:left;
+    width: 30%;
 }
 
+.left-component{
+    //border: 1px solid rgba(27, 27, 27, 0.125);
+    //border-radius: 0.25rem;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.module{
+    border: 1px solid rgba(27, 27, 27, 0.125);
+    border-radius: 0.25rem;
+    padding: 20px;
+    margin-top: 20px;
+}
