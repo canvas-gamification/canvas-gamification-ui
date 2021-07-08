@@ -19,24 +19,28 @@
         </div>
     </ng-container>
 
-    <!-- <ng-container *ngIf="events.length <= 3">
+    <ng-container *ngIf="events.length <= 3">
         <div class="d-flex col-md-4 mb-4">
             <div class="card card-register-new flex-fill">
                 <span class="sr-only">Card for New Event</span>
                 <div class="card-block-top"></div>
                 <div class="card-body">
-                    <h5 class="card-title">Looking for more courses?</h5>
-                    <a class="btn btn-outline-primary" [routerLink]="['/course']">Registration</a>
+                    <h5 class="card-title">Looking for more events?</h5>
+                    <ng-container *ngIf="user?.is_teacher">
+                        <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
+                        <!--TODO: Consider if this button should still even be here-->
+                        <!-- <a class="btn btn-primary my-2" href="#">Import an Event</a> -->
+                    </ng-container>
                 </div>
             </div>
         </div>
-    </ng-container> -->
-
-    <ng-container *ngIf="user?.is_teacher">
-        <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
-        <!--TODO: Consider if this button should still even be here-->
-        <a class="btn btn-primary my-2" href="#">Import an Event</a>
     </ng-container>
+
+    <!-- <ng-container *ngIf="user?.is_teacher">
+        <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
+        TODO: Consider if this button should still even be here
+        <a class="btn btn-primary my-2" href="#">Import an Event</a>
+    </ng-container> -->
 
     
     <!--

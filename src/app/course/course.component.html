@@ -14,8 +14,12 @@
     </div>
 
     <div class="right">
+        <div class="module">
         <app-course-tokens [courseReg]="course?.course_reg" class="token-module"></app-course-tokens>
+        </div>
+        <div class="module">
         <app-course-questions [questions]="course?.question_set" [uqjs]="course?.uqjs" class="question-module"></app-course-questions>
+        </div>
     </div>
 
 
@@ -45,20 +49,20 @@
 <div class= "right">
 
 <ul class="nav nav-tabs mt-5" role="tablist">
-    <ng-container *ngIf="user?.is_teacher">
+    <!-- <ng-container *ngIf="user?.is_teacher">
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="problem-set-tab" data-toggle="tab" href="#problem-set" role="tab"
                aria-controls="problem-set" aria-selected="true">Questions</a>
         </li>
-    </ng-container>
-    <li class="nav-item" role="presentation">
+    </ng-container> -->
+    <!-- <li class="nav-item" role="presentation">
         <a class="nav-link active" id="events-tab" data-toggle="tab" href="#events" role="tab"
            aria-controls="events" aria-selected="true">Events</a>
-    </li>
-    <li class="nav-item" role="presentation">
+    </li> -->
+    <!-- <li class="nav-item" role="presentation">
         <a class="nav-link" id="tokens-tab" data-toggle="tab" href="#tokens" role="tab" aria-controls="tokens"
            aria-selected="false">Token Use</a>
-    </li>
+    </li> -->
     <li class="nav-item" role="presentation">
         <a class="nav-link" id="concept-map-tab" data-toggle="tab" href="#concept-map" role="tab"
            aria-controls="concept-map"
@@ -76,14 +80,14 @@
             </div>
         </div>
     </ng-container>
-    <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
+    <!-- <div class="tab-pane fade show active" id="events" role="tabpanel" aria-labelledby="events-tab">
         <div class="hover-shadow p-3">
             <ng-container *ngIf="course">
                 <app-course-events-snippet [events]="course?.events" [courseId]="courseId">
                 </app-course-events-snippet>
             </ng-container>
         </div>
-    </div>
+    </div> -->
     <div class="tab-pane fade" id="tokens" role="tabpanel" aria-labelledby="tokens-tab">
         <div class="hover-shadow p-3">
             <ng-container *ngIf="course">

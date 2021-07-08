@@ -45,19 +45,19 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
                 this.users = users;
                 console.log(this.users);
 
-                // this.users = users.sort((a, b) => {
-                //     if (a.token_value < b.token_value) {
-                //         return 1;
-                //     }
-                //     if (a.token_value > b.token_value) {
-                //         return -1;
-                //     }
-                //     return 0;
-                // });
+                this.users = users.sort((a, b) => {
+                    if (a.token_value < b.token_value) {
+                        return 1;
+                    }
+                    if (a.token_value > b.token_value) {
+                        return -1;
+                    }
+                    return 0;
+                });
 
-                // for (let i = 0; i < 3; i++) {
-                //     this.topThree.push(this.users.shift());
-                // }
+                for (let i = 0; i < 3; i++) {
+                    this.topThree.push(this.users.shift());
+                }
             });
 
     }
