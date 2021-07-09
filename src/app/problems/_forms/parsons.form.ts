@@ -10,10 +10,10 @@ export class ParsonsForm {
         return builder.group({
             title: new FormControl(null, [Validators.required]),
             difficulty: new FormControl(null, [Validators.required]),
-            category: new FormControl(null),
+            category: new FormControl(null, [Validators.required]),
             course: new FormControl(null),
             event: new FormControl(null),
-            junit_template: new FormControl(null),
+            junit_template: new FormControl(null, [Validators.required]),
             lines: new FormControl(null, [Validators.required]),
             additional_file_name: new FormControl(null),
         });
@@ -30,10 +30,10 @@ export class ParsonsForm {
         return builder.group({
             title: new FormControl(question.title, [Validators.required]),
             difficulty: new FormControl(question.difficulty, [Validators.required]),
-            category: new FormControl(question.category),
+            category: new FormControl(question.category, [Validators.required]),
             course: new FormControl(course),
             event: new FormControl(event),
-            junit_template: new FormControl(question.junit_template),
+            junit_template: new FormControl(question.junit_template, [Validators.required]),
             lines: new FormControl(question.lines.join('\n'), [Validators.required]),
             additional_file_name: new FormControl(question.additional_file_name),
         });

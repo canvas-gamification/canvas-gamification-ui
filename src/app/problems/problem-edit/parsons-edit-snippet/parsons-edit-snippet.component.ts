@@ -5,10 +5,11 @@ import {ToastrService} from "ngx-toastr";
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {CourseEventService} from '@app/course/_services/course-event.service';
 import {ParsonsForm} from "@app/problems/_forms/parsons.form";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-parsons-edit-snippet',
@@ -25,13 +26,15 @@ export class ParsonsEditSnippetComponent implements OnInit {
     categories: Category[];
     variables: JSON[];
     questionText: string;
+    isPractice: boolean;
 
     constructor(private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private toastr: ToastrService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
-                private courseEventService: CourseEventService) {
+                private courseEventService: CourseEventService,
+                private router: Router) {
     }
 
     /**
@@ -52,6 +55,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
                     this.courses = result[0];
                     this.categories = result[1];
                     this.courseSelectedById(result[2].course);
+                    this.isPractice = false;
                 });
         } else {
             const coursesObservable = this.courseService.getCourses();
@@ -61,6 +65,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 .subscribe(result => {
                     this.courses = result[0];
                     this.categories = result[1];
+                    this.isPractice = true;
                 });
         }
 
@@ -84,9 +89,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
         const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.questionText);
         this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
-                window.scroll(0, 0);
-                this.formGroup.reset();
-                this.toastr.success('The Question has been updated Successfully.');
+                this.refresh();
             });
     }
 
@@ -106,5 +109,52 @@ export class ParsonsEditSnippetComponent implements OnInit {
             this.form.course.setValue(this.selectedCourse);
             this.form.event.setValue(this.selectedEvent);
         }
+    }
+
+    /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form.course.setValue(null);
+        this.form.event.setValue(null);
+    }
+
+    /**
+     * Refresh the page upon successful submission.
+     */
+    refresh(): void {
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['problems', this.questionDetails.id.toString(), 'edit']).then(() => {
+            window.scroll(0, 0);
+            this.toastr.success('The Question has been Updated Successfully.');
+        });
+    }
+
+    /**
+     * Check to see if values not in the formGroup are valid.
+     */
+    isFormGroupValid(): boolean {
+        if (this.isPractice) {
+            return this.form.course.value === null && this.form.event.value === null;
+        } else {
+            return this.form.course.value !== null && this.form.event.value !== null;
+        }
+    }
+
+    /**
+     * Check to see if questionText is valid.
+     */
+    isQuestionValid(): boolean {
+        return this.questionText !== '';
+    }
+
+    /**
+     * Verify if submission is ready.
+     */
+    isSubmissionValid(): boolean {
+        return this.isFormGroupValid() && this.isQuestionValid();
     }
 }

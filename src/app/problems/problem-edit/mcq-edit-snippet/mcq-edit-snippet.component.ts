@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CourseService} from '@app/_services/api/course/course.service';
+import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
 import {Category, Course, Question} from '@app/_models';
@@ -7,8 +7,9 @@ import {CourseEvent} from '@app/_models/course_event';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/problems/_services/question.service';
 import {ToastrService} from "ngx-toastr";
-import {CourseEventService} from '@app/_services/api/course/course-event.service';
+import {CourseEventService} from '@app/course/_services/course-event.service';
 import {McqForm} from "@app/problems/_forms/mcq.form";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-mcq-edit-snippet',
@@ -28,13 +29,15 @@ export class McqEditSnippetComponent implements OnInit {
     correctAnswers: { text: string }[];
     questionText: string;
     answerText: string;
+    isPractice: boolean;
 
     constructor(private courseService: CourseService,
                 private categoryService: CategoryService,
                 private formBuilder: FormBuilder,
                 private questionService: QuestionService,
                 private toastr: ToastrService,
-                private courseEventService: CourseEventService) {
+                private courseEventService: CourseEventService,
+                private router: Router) {
     }
 
     /**
@@ -56,6 +59,7 @@ export class McqEditSnippetComponent implements OnInit {
                     this.courses = result[0];
                     this.categories = result[1];
                     this.courseSelectedById(result[2].course);
+                    this.isPractice = false;
                 });
         } else {
             const coursesObservable = this.courseService.getCourses();
@@ -65,6 +69,7 @@ export class McqEditSnippetComponent implements OnInit {
                 .subscribe(result => {
                     this.courses = result[0];
                     this.categories = result[1];
+                    this.isPractice = true;
                 });
         }
 
@@ -86,9 +91,7 @@ export class McqEditSnippetComponent implements OnInit {
         }
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
-                window.scroll(0, 0);
-                this.formGroup.reset();
-                this.toastr.success('The Question has been Updated Successfully.');
+                this.refresh();
             });
     }
 
@@ -175,5 +178,63 @@ export class McqEditSnippetComponent implements OnInit {
                     this.distractors.push({text: this.questionDetails.choices[choice]});
             }
         }
+    }
+
+    /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form.course.setValue(null);
+        this.form.event.setValue(null);
+    }
+
+    /**
+     * Refresh the page upon successful submission.
+     */
+    refresh(): void {
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate(['problems', this.questionDetails.id.toString(), 'edit']).then(() => {
+            window.scroll(0, 0);
+            this.toastr.success('The Question has been Updated Successfully.');
+        });
+    }
+
+    /**
+     * Check to see if values not in the formGroup are valid.
+     */
+    isFormGroupValid(): boolean {
+        if (this.isPractice) {
+            return this.form.course.value === null && this.form.event.value === null;
+        } else {
+            return this.form.course.value !== null && this.form.event.value !== null;
+        }
+    }
+
+    /**
+     * Check to see if the choices are valid.
+     */
+    isChoicesValid(): boolean {
+        if (this.questionDetails.is_checkbox) {
+            return this.correctAnswers !== [] && this.distractors !== [];
+        } else {
+            return this.answerText !== '' && this.distractors !== [];
+        }
+    }
+
+    /**
+     * Check to see if questionText is valid.
+     */
+    isQuestionValid(): boolean {
+        return this.questionText !== '';
+    }
+
+    /**
+     * Combines the validity checks into a single method.
+     */
+    isSubmissionValid(): boolean {
+        return this.isFormGroupValid() && this.isChoicesValid() && this.isQuestionValid();
     }
 }
