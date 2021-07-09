@@ -31,6 +31,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
+import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import {TokenUseService} from "@app/course/_services/token-use.service";
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
         LeaderBoardComponent,
+        ConceptMapComponent
     ],
     imports: [
         CommonModule,

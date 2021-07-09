@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ConceptMapGraph} from './concept-map-graph';
-import {Category, Course, User} from '@app/_models';
+import {Category, Course} from '@app/_models';
 import {CategoryService} from '@app/_services/api/category.service';
 import {ToastrService} from "ngx-toastr";
 import {Router} from '@angular/router';
-import {AuthenticationService} from '@app/_services/api/authentication';
 
 @Component({
     selector: 'app-concept-map',
@@ -12,7 +11,6 @@ import {AuthenticationService} from '@app/_services/api/authentication';
     styleUrls: ['./concept-map.component.scss']
 })
 export class ConceptMapComponent implements OnInit {
-    user: User;
     rawCategories: Category[];
     parentNode: number = null;
     conceptMapGraph: ConceptMapGraph;
@@ -20,13 +18,11 @@ export class ConceptMapComponent implements OnInit {
     @Input() currCourse: Course;
 
     constructor(private categoryService: CategoryService,
-                private authenticationService: AuthenticationService,
                 private toastr: ToastrService,
                 private router: Router) {
     }
 
     ngOnInit(): void {
-        this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.categoryService.getCategories().subscribe(categories => {
             this.rawCategories = categories;
             this.conceptMapGraph = new ConceptMapGraph((cellId) => {
@@ -58,10 +54,6 @@ export class ConceptMapComponent implements OnInit {
 
     reset(): void {
         this.parentNode = null;
-        this.renderGraph();
-    }
-
-    update(): void {
         this.renderGraph();
     }
 
