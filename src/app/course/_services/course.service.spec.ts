@@ -5,10 +5,14 @@ import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 import {
+    MOCK_CONFIRM_RESPONSE1, MOCK_CONFIRM_RESPONSE2_FAIL, MOCK_CONFIRM_RESPONSE2_SUCCESS,
+    MOCK_CONFIRM_STEP1, MOCK_CONFIRM_STEP2_FAIL, MOCK_CONFIRM_STEP2_SUCCESS,
     MOCK_COURSE1,
-    MOCK_COURSE_REGISTRATION_REQUEST,
-    MOCK_COURSE_REGISTRATION_RESPONSE, MOCK_COURSES, MOCK_REGISTRATION_STATUS,
-    MOCK_USER_STATS
+    MOCK_COURSES,
+    MOCK_IDENTIFICATION_RESPONSE1, MOCK_IDENTIFICATION_RESPONSE2,
+    MOCK_IDENTIFICATION_STEP1, MOCK_IDENTIFICATION_STEP2,
+    MOCK_REGISTRATION_STATUS,
+    MOCK_USER_STATS, MOCK_VERIFY_FAIL, MOCK_VERIFY_STEP1, MOCK_VERIFY_STEP1_FAIL, MOCK_VERIFY_SUCCESS
 } from "@app/course/_test/mock";
 
 describe('CourseService', () => {
@@ -34,21 +38,12 @@ describe('CourseService', () => {
     });
 
     it('getCourseEvent should return a single courseEvent', () => {
-        courseService.getUserStats(0,1).subscribe((userStats) => {
+        courseService.getUserStats(0, 1).subscribe((userStats) => {
             expect(userStats).toEqual(MOCK_USER_STATS);
         });
         const request = httpMock.expectOne(apiService.getURL('course', 0, 'user-stats', 1));
         expect(request.request.method).toBe('GET');
         request.flush(MOCK_USER_STATS);
-    });
-
-    it('register method should work', () => {
-        courseService.register(0, MOCK_COURSE_REGISTRATION_REQUEST).subscribe((response) => {
-            expect(response).toEqual(MOCK_COURSE_REGISTRATION_RESPONSE);
-        });
-        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'));
-        expect(request.request.method).toBe('POST');
-        request.flush(MOCK_COURSE_REGISTRATION_RESPONSE);
     });
 
     it('getCourseRegistrationStatus', () => {
@@ -85,5 +80,68 @@ describe('CourseService', () => {
         const request = httpMock.expectOne(apiService.getURL('course', 0));
         expect(request.request.method).toBe('GET');
         request.flush(MOCK_COURSE1);
+    });
+
+    it('register method should work for single student', () => {
+        courseService.register(0, MOCK_IDENTIFICATION_STEP1).subscribe((response) => {
+            expect(response).toEqual(MOCK_IDENTIFICATION_RESPONSE1);
+        });
+        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'));
+        expect(request.request.method).toBe('POST');
+        request.flush(MOCK_IDENTIFICATION_RESPONSE1);
+    });
+
+    it('register method should work for single student when confirming name', () => {
+        courseService.register(0, MOCK_CONFIRM_STEP1).subscribe((response) => {
+            expect(response).toEqual(MOCK_CONFIRM_RESPONSE1);
+        });
+        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'));
+        expect(request.request.method).toBe('POST');
+        request.flush(MOCK_CONFIRM_RESPONSE1);
+    });
+
+    it('register method should work for multiple students with same name', () => {
+        courseService.register(0, MOCK_IDENTIFICATION_STEP2).subscribe((response) => {
+            expect(response).toEqual(MOCK_IDENTIFICATION_RESPONSE2);
+        });
+        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'));
+        expect(request.request.method).toBe('POST');
+        request.flush(MOCK_IDENTIFICATION_RESPONSE2);
+    });
+
+    it('register method should work for single student when confirming with correct student number', () => {
+        courseService.register(0, MOCK_CONFIRM_STEP2_SUCCESS).subscribe((response) => {
+            expect(response).toEqual(MOCK_CONFIRM_RESPONSE2_SUCCESS);
+        });
+        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'));
+        expect(request.request.method).toBe('POST');
+        request.flush(MOCK_CONFIRM_RESPONSE2_SUCCESS);
+    });
+
+    it('register method should work for single student when confirming with incorrect student number', () => {
+        courseService.register(0, MOCK_CONFIRM_STEP2_FAIL).subscribe((response) => {
+            expect(response).toEqual(MOCK_CONFIRM_RESPONSE2_FAIL);
+        });
+        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'));
+        expect(request.request.method).toBe('POST');
+        request.flush(MOCK_CONFIRM_RESPONSE2_FAIL);
+    });
+
+    it('verify method should work for single student with correct code', () => {
+        courseService.registerVerify(0, MOCK_VERIFY_STEP1).subscribe((response) => {
+            expect(response).toEqual(MOCK_VERIFY_SUCCESS);
+        });
+        const request = httpMock.expectOne(apiService.getURL('course', 0, 'verify'));
+        expect(request.request.method).toBe('POST');
+        request.flush(MOCK_VERIFY_SUCCESS);
+    });
+
+    it('verify method should work for single student with incorrect code', () => {
+        courseService.registerVerify(0, MOCK_VERIFY_STEP1_FAIL).subscribe((response) => {
+            expect(response).toEqual(MOCK_VERIFY_FAIL);
+        });
+        const request = httpMock.expectOne(apiService.getURL('course', 0, 'verify'));
+        expect(request.request.method).toBe('POST');
+        request.flush(MOCK_VERIFY_FAIL);
     });
 });

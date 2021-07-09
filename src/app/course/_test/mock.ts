@@ -56,23 +56,6 @@ export const MOCK_USER_STATS: { success_rate: number } = {
     success_rate: 0.5
 };
 
-export const MOCK_COURSE_REGISTRATION_REQUEST: CourseRegistrationRequest = {
-    name: 'Test Student',
-    confirmed_name: 'Test Student',
-    student_number: 123,
-    code: 111
-};
-
-export const MOCK_COURSE_REGISTRATION_RESPONSE: CourseRegistrationResponse = {
-    success: true,
-    name: 'Test Student',
-    guessed_name: 'Test Student',
-    confirmed_name: 'Test Student',
-    student_number: 123,
-    code: 111,
-    attempts_remaining: 2,
-};
-
 export const MOCK_REGISTRATION_STATUS: RegistrationStatus = {
     status: REGISTRATION_STATUS.REGISTERED,
     message: null
@@ -122,17 +105,31 @@ export const MOCK_COURSE2: Course = {
 
 export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2];
 
+export const MOCK_COURSE_REGISTRATION_RESPONSE: CourseRegistrationResponse = {
+    success: true,
+    name: 'Test Student',
+    guessed_name: 'Test Student',
+    confirmed_name: 'Test Student',
+    student_number: 123,
+    code: 111,
+    attempts_remaining: 2,
+};
+
+//Data for case where there is only one student
 export const MOCK_IDENTIFICATION_STEP1: CourseRegistrationRequest = {
     name: "Firstname Lastname"
 };
 
-export const MOCK_IDENTIFICATION_STEP2: CourseRegistrationRequest = {
-    name: "Multiple Student"
+export const MOCK_IDENTIFICATION_RESPONSE1: CourseRegistrationResponse = {
+    success: true,
+    guessed_name: 'Firstname Lastname',
 };
-
 export const MOCK_CONFIRM_STEP1: CourseRegistrationRequest = {
     name: "Firstname Lastname",
     confirmed_name: "Firstname Lastname"
+};
+export const MOCK_CONFIRM_RESPONSE1: CourseRegistrationResponse = {
+    success: true,
 };
 
 export const MOCK_VERIFY_STEP1: CourseRegistrationRequest = {
@@ -140,7 +137,7 @@ export const MOCK_VERIFY_STEP1: CourseRegistrationRequest = {
     code: 52
 };
 
-export const MOCK_VERIFY_STEP1FAIL: CourseRegistrationRequest = {
+export const MOCK_VERIFY_STEP1_FAIL: CourseRegistrationRequest = {
     name: "Firstname Lastname",
     code: 0
 };
@@ -154,3 +151,30 @@ export const MOCK_VERIFY_FAIL: CourseRegistrationResponse = {
     attempts_remaining: 2,
     success: false
 };
+
+//Data for case where multiple students have same name
+export const MOCK_IDENTIFICATION_STEP2: CourseRegistrationRequest = {
+    name: "Multiple Student"
+};
+
+export const MOCK_IDENTIFICATION_RESPONSE2: CourseRegistrationResponse = {
+    success: false,
+    guessed_name: null,
+};
+export const MOCK_CONFIRM_STEP2_SUCCESS: CourseRegistrationRequest = {
+    name: "Multiple Student",
+    student_number: "12345678"
+};
+export const MOCK_CONFIRM_RESPONSE2_SUCCESS: CourseRegistrationResponse = {
+    success: true,
+};
+export const MOCK_CONFIRM_STEP2_FAIL: CourseRegistrationRequest = {
+    name: "Multiple Student",
+    student_number: "0"
+};
+export const MOCK_CONFIRM_RESPONSE2_FAIL: CourseRegistrationResponse = {
+    success: false,
+    bad_request: true
+};
+
+

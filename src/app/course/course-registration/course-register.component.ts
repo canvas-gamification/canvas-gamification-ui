@@ -99,7 +99,6 @@ export class CourseRegisterComponent implements OnInit {
         if (!data.name && !data.student_number) {
             return;
         }
-        console.log(data);
         this.courseService.register(this.courseId, data).subscribe(
             courseRegResponse => {
                 if (courseRegResponse.bad_request) {
