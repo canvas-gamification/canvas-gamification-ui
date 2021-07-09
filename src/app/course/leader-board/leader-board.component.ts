@@ -25,12 +25,14 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
 
     @Input() leaderBoard: [{
         name: string,
+        //team: string;
         token: number,
     }];
 
     displayedColumns: string[] = ['rank', 'name', 'token'];
     leaderBoardData : MatTableDataSource<{
         name: string,
+        //team: string;
         token: number,
     }>;
     @ViewChild(MatSort) matSort: MatSort;

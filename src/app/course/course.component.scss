@@ -16,23 +16,21 @@
 }
 
 .left{
-    width: 70%;
+    width: 65%;
     float:left;
 }
 
 .right{
     float:left;
-    width: 30%;
+    width: 35%;
 }
 
-.left-component{
-    //border: 1px solid rgba(27, 27, 27, 0.125);
-    //border-radius: 0.25rem;
+.left-modules{
     padding: 20px;
     margin-top: 20px;
 }
 
-.module{
+.right-modules{
     border: 1px solid rgba(27, 27, 27, 0.125);
     border-radius: 0.25rem;
     padding: 20px;
