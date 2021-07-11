@@ -1,7 +1,10 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CourseListComponent} from './course-list.component';
+import {CourseListComponent} from '../../course-list/course-list.component';
 import {TestModule} from '@test/test.module';
+import {CourseService} from "@app/course/_services/course.service";
+import {CourseServiceMock} from "@test/course.service.mock";
+import {MOCK_COURSE} from "@app/problems/_test/mock";
 
 describe('CourseListComponent', () => {
     let component: CourseListComponent;
@@ -9,7 +12,11 @@ describe('CourseListComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule]
+            imports: [TestModule],
+            declarations: [CourseListComponent],
+            providers: [
+                {provide: CourseService, useClass: CourseServiceMock}
+            ]
         }).compileComponents();
     });
 
@@ -21,5 +28,10 @@ describe('CourseListComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('courses should be loaded after view init', () => {
+        component.ngAfterViewInit();
+        expect(component.allCourses).toEqual([MOCK_COURSE]);
     });
 });
