@@ -10,4 +10,7 @@ export class CourseServiceMock {
     getCourses(): Observable<Course[]> {
         return of([MOCK_COURSE]);
     }
+    getCourse(courseId: number): Observable<Course> {
+        return of(MOCK_COURSE);
+    }
 }
