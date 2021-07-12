@@ -71,6 +71,11 @@ import {SubmissionService} from "@app/problems/_services/submission.service";
         ProblemsRoutingModule,
         DragulaModule.forRoot(),
     ],
+    exports: [
+        McqViewSnippetComponent,
+        JavaViewSnippetComponent,
+        ParsonsViewSnippetComponent
+    ],
     providers: [
         DifficultyService,
         UqjService,
