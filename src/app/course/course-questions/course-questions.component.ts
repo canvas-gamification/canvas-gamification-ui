@@ -64,12 +64,16 @@ export class CourseQuestionsComponent implements OnInit {
 
   highlight(status: string): string {
       if (status.localeCompare('Solved') === 0) {
+          console.log
           return 'highlight-success';
       } else if (status.localeCompare('Partially Solved') === 0) {
           return 'highlight-warning';
       } else if (status.localeCompare('Wrong') === 0) {
           return 'highlight-danger';
       }
-      return '';
+    //   } else if (status.localeCompare('New') === 0) {
+    //     return 'highlight-default';
+    // }
+      return 'highlight-defualt';
   }
 }
