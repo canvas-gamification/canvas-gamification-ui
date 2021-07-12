@@ -16,13 +16,13 @@
 }
 
 .left{
-    width: 65%;
+    width: 60%;
     float:left;
 }
 
 .right{
     float:left;
-    width: 35%;
+    width: 40%;
 }
 
 .left-modules{
@@ -31,8 +31,11 @@
 }
 
 .right-modules{
+    display: inline-block;
     border: 1px solid rgba(27, 27, 27, 0.125);
     border-radius: 0.25rem;
     padding: 20px;
     margin-top: 20px;
+    margin-right: 1rem;
+    width: 100%
 }
