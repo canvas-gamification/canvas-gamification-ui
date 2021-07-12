@@ -24,18 +24,17 @@ import {
   templateUrl: './course-team.component.html',
   styleUrls: ['./course-team.component.scss']
 })
-export class CourseTeamComponent implements OnInit {
+export class CourseTeamComponent implements OnInit, AfterViewInit {
 
 
-  displayedColumns: string[] = ['rank', 'name', 'token'];
-  teamLeaderBoardData: MatTableDataSource < {
+  displayedColumns: string[] = ['name', 'tokens'];
+  teamListData: MatTableDataSource < {
       name: string,
       tokens: number,
-  } > ;
+  }> ;
   @ViewChild(MatSort) matSort: MatSort;
 
 
-  teamTopThree: Team[] = [];
   teams: Team[] = [];
   constructor(private teamLeaderboardService: TeamLeaderBoardService) {}
 
@@ -46,27 +45,18 @@ export class CourseTeamComponent implements OnInit {
       this.teamLeaderboardService
           .getTeams()
           .subscribe((teams) => {
+            console.log(teams);
+            
+            this.teams = teams;
 
-              this.teams = teams.sort((a, b) => {
-                  if (a.tokens < b.tokens) {
-                      return 1;
-                  }
-                  if (a.tokens > b.tokens) {
-                      return -1
-                  }
-                  return 0;
-              });
+            console.log(this.teams);
 
-              for (let i = 0; i < 3; i++) {
-                  if (this.teams[0]) {
-                      this.teamTopThree.push(this.teams.shift());
-                  } else {
-                      break;
-                  }
-              }
-              this.teamLeaderBoardData = new MatTableDataSource(this.teams);
           });
           
 
+  }
+
+  ngAfterViewInit(): void {
+    this.teamListData = new MatTableDataSource(this.teams)
   }
 }
