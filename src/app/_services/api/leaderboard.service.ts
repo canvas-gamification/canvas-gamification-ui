@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 // import { TestModel } from '@app/_models/test_model';
-import { ApiService } from '../api.service';
+import { ApiService } from '@app/_services/api.service';
 import { LeaderBoardStudents } from '@app/_models/leader_board';
 
 @Injectable({

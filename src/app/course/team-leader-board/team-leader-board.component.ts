@@ -11,8 +11,12 @@ import {
 import {
     MatSort
 } from '@angular/material/sort';
-import { LeaderBoardStudents} from '@app/_models/leader_board';
-import { LeaderBoardService } from '@app/_services/api/leaderboard.service';
+import {
+    Team
+} from "@app/_models/team"
+import {
+    TeamLeaderBoardService
+} from '@app/course/_services/team-leader-board.service';
 
 @Component({
     selector: 'app-team-leader-board',
@@ -24,52 +28,52 @@ export class TeamLeaderBoardComponent implements OnInit, AfterViewInit {
 
     displayedColumns: string[] = ['rank', 'name', 'token'];
     teamLeaderBoardData: MatTableDataSource < {
-        student_name: string,
-        token_value: number,
+        name: string,
+        tokens: number,
     } > ;
     @ViewChild(MatSort) matSort: MatSort;
 
 
-    teamTopThree: LeaderBoardStudents[] = [];
-    teamUsers: LeaderBoardStudents[] = [];
-    constructor(private leaderboardService: LeaderBoardService) {}
+    teamTopThree: Team[] = [];
+    teams: Team[] = [];
+    constructor(private teamLeaderboardService: TeamLeaderBoardService) {}
 
 
 
     ngOnInit(): void {
 
-        this.leaderboardService
-            .getLeaderBoard()
-            .subscribe((users) => {
-                
-                this.teamUsers = users.sort((a, b) => {
-                    if (a.token_value < b.token_value) {
+        this.teamLeaderboardService
+            .getTeams()
+            .subscribe((teams) => {
+
+                this.teams = teams.sort((a, b) => {
+                    if (a.tokens < b.tokens) {
                         return 1;
                     }
-                    if (a.token_value > b.token_value) {
-                        return -1;
+                    if (a.tokens > b.tokens) {
+                        return -1
                     }
                     return 0;
                 });
 
                 for (let i = 0; i < 3; i++) {
-                    this.teamTopThree.push(this.teamUsers.shift());
+                    if (this.teams[0]) {
+                        this.teamTopThree.push(this.teams.shift());
+                    } else {
+                        break;
+                    }
                 }
-                console.log(this.teamTopThree);
-                console.log(this.teamUsers);
-                this.teamLeaderBoardData = new MatTableDataSource(this.teamUsers);
+                this.teamLeaderBoardData = new MatTableDataSource(this.teams);
             });
-
+            
 
     }
 
 
 
     ngAfterViewInit(): void {
-        // intialize the datasource for the matTable from leaderBoard
-        console.log(this.teamUsers);
-        
 
+        
 
     }
 
