@@ -8,6 +8,7 @@ import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/co
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component";
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component";
+import { TeamLeaderBoardComponent } from './team-leader-board/team-leader-board.component';
 
 //new folders for coursePageLayout here
 import {CourseDashboardComponent} from "@app/course/course-dashboard/course-dashboard.component";
@@ -50,6 +51,7 @@ import {TokenUseService} from "@app/course/_services/token-use.service";
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
         LeaderBoardComponent,
+        TeamLeaderBoardComponent,
         //new folders for coursePageLayout here
         CourseDashboardComponent,
         CourseTokensComponent,

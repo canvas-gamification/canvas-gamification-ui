@@ -15,35 +15,17 @@ import { LeaderBoardStudents} from '@app/_models/leader_board';
 import { LeaderBoardService } from '@app/_services/api/leaderboard.service';
 
 @Component({
-    selector: 'app-leader-board',
-    templateUrl: './leader-board.component.html',
-    styleUrls: ['./leader-board.component.scss']
+    selector: 'app-team-leader-board',
+    templateUrl: './team-leader-board.component.html',
+    styleUrls: ['./team-leader-board.component.scss']
 })
-export class LeaderBoardComponent implements OnInit, AfterViewInit {
-
-
-
-    // Array of objects
-    // Storing the top three users and their number of tokens
-    topThree: {
-        name: string,
-        token: number
-    } [] = [];
-
-    // Array of objects
-    // Storing all users in the leaderboard
-    // Passed down from the course component
-    @Input() leaderBoard: {
-        name: string,
-        token: number,
-    } [];
-
+export class TeamLeaderBoardComponent implements OnInit, AfterViewInit {
 
 
     displayedColumns: string[] = ['rank', 'name', 'token'];
-    leaderBoardData: MatTableDataSource < {
-        name: string,
-        token: number,
+    teamLeaderBoardData: MatTableDataSource < {
+        student_name: string,
+        token_value: number,
     } > ;
     @ViewChild(MatSort) matSort: MatSort;
 
@@ -59,7 +41,7 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
         this.leaderboardService
             .getLeaderBoard()
             .subscribe((users) => {
-                console.log(users);
+                
                 this.teamUsers = users.sort((a, b) => {
                     if (a.token_value < b.token_value) {
                         return 1;
@@ -73,27 +55,11 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
                 for (let i = 0; i < 3; i++) {
                     this.teamTopThree.push(this.teamUsers.shift());
                 }
+                console.log(this.teamTopThree);
+                console.log(this.teamUsers);
+                this.teamLeaderBoardData = new MatTableDataSource(this.teamUsers);
             });
 
-        // Sort the input leaderboard in descending order based on number of tokens
-        this.leaderBoard = this.leaderBoard.sort((a, b) => {
-            if (a.token < b.token) {
-                return 1;
-            }
-            if (a.token > b.token) {
-                return -1;
-            }
-            return 0;
-        });
-
-        // Pop the top three users from leaderBoard and store them in topThree
-        for (let i = 0; i < 3; i++) {
-            if (this.leaderBoard[0]) {
-                this.topThree.push(this.leaderBoard.shift());
-            } else {
-                break;
-            }
-        }
 
     }
 
@@ -101,7 +67,8 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit(): void {
         // intialize the datasource for the matTable from leaderBoard
-        this.leaderBoardData = new MatTableDataSource(this.leaderBoard);
+        console.log(this.teamUsers);
+        
 
 
     }
