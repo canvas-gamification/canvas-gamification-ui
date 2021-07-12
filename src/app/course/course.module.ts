@@ -39,6 +39,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
+import { CourseTeamComponent } from './course-team/course-team.component';
+import { CourseCreateTeamComponent } from './course-create-team/course-create-team.component';
+
 
 
 @NgModule({
@@ -56,6 +59,8 @@ import {TokenUseService} from "@app/course/_services/token-use.service";
         CourseDashboardComponent,
         CourseTokensComponent,
         CourseQuestionsComponent,
+        CourseTeamComponent,
+        CourseCreateTeamComponent,
     ],
     imports: [
         CommonModule,

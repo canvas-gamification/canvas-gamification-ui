@@ -23,7 +23,7 @@ import {
     templateUrl: './team-leader-board.component.html',
     styleUrls: ['./team-leader-board.component.scss']
 })
-export class TeamLeaderBoardComponent implements OnInit, AfterViewInit {
+export class TeamLeaderBoardComponent implements OnInit {
 
 
     displayedColumns: string[] = ['rank', 'name', 'token'];
@@ -70,12 +70,6 @@ export class TeamLeaderBoardComponent implements OnInit, AfterViewInit {
     }
 
 
-
-    ngAfterViewInit(): void {
-
-        
-
-    }
 
     // ! Methods to animate and unanimate the streak icons
     // ! Not currently in use

@@ -23,7 +23,7 @@
                     aria-labelledby="student-leaderboard-tab">
                     <div class="hover-shadow p-3">
                         <ng-container *ngIf="course">
-                            <app-leader-board [leaderBoard]="course?.leader_board"></app-leader-board>
+                            <app-leader-board ></app-leader-board>
                         </ng-container>
                     </div>
                 </div>
@@ -49,6 +49,50 @@
             <h3>Questions</h3>
             <app-course-questions [questions]="course?.question_set" [uqjs]="course?.uqjs" class="question-module">
             </app-course-questions>
+        </div>
+
+        <div class="right-modules">
+            <h3>Team</h3>
+            <app-course-team [leaderBoard]="course?.leader_board"></app-course-team>
+        </div>
+
+        <div class="right-modules">
+            <h3>Create Team</h3>
+            <app-course-create-team></app-course-create-team>
+        </div>
+
+        <div class="right-modules">
+
+            <ul class="nav nav-tabs mt-5" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="teams-tab" data-toggle="tab" href="#teams"
+                        role="tab" aria-controls="teams-tab" aria-selected="true">Individual</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="create-team-tab" data-toggle="tab" href="#create-team" role="tab"
+                        aria-controls="teams-tab" aria-selected="false">Team</a>
+                </li>
+            </ul>
+
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="teams" role="tabpanel"
+                    aria-labelledby="teams-tab">
+                    <div class="hover-shadow p-3">
+                        <ng-container *ngIf="course">
+                            <app-course-team [leaderBoard]="course?.leader_board"></app-course-team>>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="create-team" role="tabpanel"
+                    aria-labelledby="create-team-tab">
+                    <div class="hover-shadow p-3">
+                        <ng-container *ngIf="course">
+                            <app-course-create-team></app-course-create-team>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="right-modules">
