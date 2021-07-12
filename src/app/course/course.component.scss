@@ -3,6 +3,8 @@
 
 @include mixins.hover-shadow();
 
+$big-drop-shadow: 5px 5px 26px -6px rgba(0, 0, 0, 0.75);
+
 .tab-content {
     div {
         background-color: #fff;
@@ -16,23 +18,30 @@
 }
 
 .left{
-    width: 65%;
+    width: 60%;
     float:left;
 }
 
 .right{
     float:left;
-    width: 35%;
+    width: 40%;
 }
 
 .left-modules{
     padding: 20px;
     margin-top: 20px;
+    border: 1px solid rgba(27, 27, 27, 0.125);
+    border-radius: 0.25rem;
+    box-shadow:$big-drop-shadow;
 }
 
 .right-modules{
+    display: inline-block;
     border: 1px solid rgba(27, 27, 27, 0.125);
     border-radius: 0.25rem;
     padding: 20px;
     margin-top: 20px;
+    margin-right: 1rem;
+    width: 100%;
+    box-shadow: $big-drop-shadow;
 }

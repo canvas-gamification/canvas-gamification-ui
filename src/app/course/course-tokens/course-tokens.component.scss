@@ -1,8 +1,9 @@
 
 
 .container{
-    //float:right;
-    //border: 1px solid grey;
-    //border-radius: 2rem;
+    overflow: hidden;
+    display:flex;
+    align-self: flex-end;
+    padding: 1rem;
 }
 
