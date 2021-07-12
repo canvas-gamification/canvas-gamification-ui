@@ -23,7 +23,7 @@
                     aria-labelledby="student-leaderboard-tab">
                     <div class="hover-shadow p-3">
                         <ng-container *ngIf="course">
-                            <app-leader-board ></app-leader-board>
+                            <app-leader-board [leaderBoard]="course?.leader_board"></app-leader-board>
                         </ng-container>
                     </div>
                 </div>
