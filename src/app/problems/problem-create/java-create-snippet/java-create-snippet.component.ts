@@ -9,6 +9,7 @@ import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {JavaForm} from "@app/problems/_forms/java.form";
 import {Router} from "@angular/router";
+import * as _ from "lodash";
 
 @Component({
     selector: 'app-java-create-snippet',
@@ -24,7 +25,7 @@ export class JavaCreateSnippetComponent implements OnInit {
     variables: JSON[];
     inputFileNames: JSON;
     questionText: string;
-
+    isPractice = false;
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
@@ -77,6 +78,17 @@ export class JavaCreateSnippetComponent implements OnInit {
     }
 
     /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form.course.setValue(null);
+        this.form.event.setValue(null);
+    }
+
+    /**
      * Form submission.
      */
     onSubmit(): void {
@@ -97,5 +109,37 @@ export class JavaCreateSnippetComponent implements OnInit {
             window.scroll(0, 0);
             this.toastr.success('The Question has been Created Successfully.');
         });
+    }
+
+    /**
+     * Check to see if values not in the formGroup are valid.
+     */
+    isFormGroupValid(): boolean {
+        if (this.isPractice) {
+            return this.form.course.value === null && this.form.event.value === null;
+        } else {
+            return this.form.course.value !== null && this.form.event.value !== null;
+        }
+    }
+
+    /**
+     * Check to see if questionText is valid.
+     */
+    isQuestionValid(): boolean {
+        return this.questionText !== '';
+    }
+
+    /**
+     * Check if submissions files is valid.
+     */
+    isSubmissionFilesValid(): boolean {
+        return !_.isEmpty(this.inputFileNames);
+    }
+
+    /**
+     * Check if submission is ready.
+     */
+    isSubmissionValid(): boolean {
+        return this.isQuestionValid() && this.isSubmissionFilesValid() && this.isFormGroupValid();
     }
 }

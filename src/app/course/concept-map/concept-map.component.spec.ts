@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ConceptMapComponent} from './concept-map.component';
-import {TestModule} from '../../../test/test.module';
+import {TestModule} from '@test/test.module';
 
 describe('ConceptMapComponent', () => {
     let component: ConceptMapComponent;

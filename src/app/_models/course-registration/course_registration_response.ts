@@ -12,6 +12,6 @@ export interface CourseRegistrationResponse extends APIResponse {
 export interface CourseRegistrationRequest {
     name?: string;
     confirmed_name?: string;
-    student_number?: number;
+    student_number?: number | string;
     code?: number;
 }

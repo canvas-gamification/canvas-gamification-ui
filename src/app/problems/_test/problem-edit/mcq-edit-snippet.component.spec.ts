@@ -2,7 +2,13 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {McqEditSnippetComponent} from '../../problem-edit/mcq-edit-snippet/mcq-edit-snippet.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_CATEGORIES, MOCK_CHECKBOX_QUESTION, MOCK_COURSE, MOCK_MCQ_QUESTION} from '@app/problems/_test/mock';
+import {
+    MOCK_CATEGORIES,
+    MOCK_CHECKBOX_QUESTION,
+    MOCK_COURSE,
+    MOCK_COURSE_EVENT,
+    MOCK_MCQ_QUESTION
+} from '@app/problems/_test/mock';
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
@@ -72,6 +78,20 @@ describe('McqEditSnippetComponent', () => {
             component.onSubmit();
             expect(router.navigate).toHaveBeenCalledOnceWith(['problems', '0', 'edit']);
         });
+
+        it('required fields - invalid', () => {
+            expect(fixture.debugElement.nativeElement.querySelector('#submit').disabled).toBeTruthy();
+        });
+
+        it('isSubmissionValid - mcq - invalid', () => {
+            expect(component.isSubmissionValid()).toBeFalsy();
+        });
+
+        it('isSubmissionValid - mcq - valid', () => {
+            component.questionText = 'Test';
+            fixture.detectChanges();
+            expect(component.isSubmissionValid()).toBeTruthy();
+        });
     });
 
     describe('checkbox - edit', () => {
@@ -101,6 +121,27 @@ describe('McqEditSnippetComponent', () => {
         it('checkbox update', () => {
             component.onSubmit();
             expect(router.navigate).toHaveBeenCalledOnceWith(['problems', '1', 'edit']);
+        });
+
+        it('isSubmissionValid - checkbox - valid', () => {
+            component.questionText = 'Test';
+            fixture.detectChanges();
+            expect(component.isSubmissionValid()).toBeTruthy();
+        });
+
+        // TODO - Determine how to test this.
+        // it('click practice checkbox', () => {
+        //     fixture.debugElement.nativeElement.querySelector('#practiceCheckbox').click();
+        //     fixture.detectChanges();
+        //     expect(component.isPractice).toBeFalsy();
+        // });
+
+        it('isSubmissionValid - checkbox - invalid', () => {
+            component.isPractice = true;
+            component.form.course.setValue(MOCK_COURSE);
+            component.form.event.setValue(MOCK_COURSE_EVENT);
+            fixture.detectChanges();
+            expect(component.isSubmissionValid()).toBeFalsy();
         });
     });
 

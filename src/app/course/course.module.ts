@@ -43,6 +43,7 @@ import { CourseTeamComponent } from './course-team/course-team.component';
 import { CourseCreateTeamComponent } from './course-create-team/course-create-team.component';
 
 
+import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 
 @NgModule({
     declarations: [
@@ -61,6 +62,7 @@ import { CourseCreateTeamComponent } from './course-create-team/course-create-te
         CourseQuestionsComponent,
         CourseTeamComponent,
         CourseCreateTeamComponent,
+        ConceptMapComponent
     ],
     imports: [
         CommonModule,
