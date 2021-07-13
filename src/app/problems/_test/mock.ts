@@ -401,7 +401,8 @@ export const MOCK_MCQ_FORM_DATA: McqFormData = {
     category: null,
     variables: null,
     visible_distractor_count: null,
-    choices: null
+    choices: null,
+    question_status: 'CRE'
 };
 
 export const MOCK_JAVA_FORM_DATA: JavaFormData = {
@@ -413,7 +414,8 @@ export const MOCK_JAVA_FORM_DATA: JavaFormData = {
     category: null,
     variables: [],
     junit_template: null,
-    input_file_names: null
+    input_file_names: null,
+    question_status: 'CRE'
 };
 
 export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
@@ -426,7 +428,8 @@ export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
     variables: null,
     lines: null,
     additional_file_name: null,
-    junit_template: null
+    junit_template: null,
+    question_status: 'CRE'
 };
 
 // TODO - Determine a more specific type.
