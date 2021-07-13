@@ -62,6 +62,9 @@
                 <div>
                     <button class="btn btn-success" (click)="verifyStepSubmit()" mat-button>Submit</button>
                 </div>
+                <div *ngIf="attemptsRemaining < 1" class="alert-danger alert">
+                    You don't have any attempts remaining! Contact your instructor.
+                </div>
             </form>
         </mat-step>
 
