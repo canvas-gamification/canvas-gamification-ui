@@ -1,40 +1,12 @@
-
 <div class="container podium-container">
-    <img src='assets/gif/fire.gif' class="streakIcon transparent-absolute">
-    <img src='assets/gif/snow.gif' class="streakIcon transparent-absolute">
     <div class="podium-wrapper" *ngFor="let user of topThree let i = index"
-        [ngClass]="{'first-wrapper' : i == 0, 'second-wrapper' : i == 1, 'third-wrapper' : i == 2}">
-        <div class="podium-step-container"
-            [ngClass]="{'first fa-10x' : i == 0, 'second fa-8x' : i == 1, 'third fa-6x' : i == 2}">
-            <div class="podium-step-frontside">
-                <div class="name">
-                    {{user.name}}
-                </div>
-                <i class="fas fa-trophy trophy"></i>
-                <div class="score">
-                    {{user.token}}
-                </div>
-            </div>
-            <div class="podium-step-backside">
-                <!--back of card-->
-                <div class="streak">
-                    {{user.streak}}
-                </div>
-                <div class="streak-display">
-                    <div *ngIf="user.streak > 2">
-                        <img src='assets/gif/fire.gif' class="streakIcon">
-                    </div>
-                    <div *ngIf="user.streak < -2">
-                        <img src='assets/gif/snow.gif' class="streakIcon">
-                    </div>
-                </div>
-                <div *ngIf="user.team; else elseBlock" class='team'>
-                    {{user.team}}
-                </div>
-                <ng-template #elseBlock>
-                    <div class="team"></div>
-                </ng-template>
-            </div>
+        [ngClass]="{'first' : i == 0, 'second' : i == 1, 'third' : i == 2}">
+        <div class="podium-content">
+            <h2 class="podium-title">
+                {{user.name | titlecase}}
+            </h2>
+            <p class="podium-body">Place: {{ i + 1}}</p>
+            <p class="podium-body">Tokens: {{user.token || 'No Tokens'}}</p>
         </div>
     </div>
 </div>
@@ -42,12 +14,12 @@
 <table mat-table [dataSource]="leaderBoardData" matSort matSortActive="token" matSortDirection="desc"
     matSortDisableClear class="table table-hover hover-shadow">
     <ng-container matColumnDef="rank">
-        <th mat-header-cell *matHeaderCellDef >Rank</th>
+        <th mat-header-cell *matHeaderCellDef>Rank</th>
         <td mat-cell *matCellDef="let i = index">{{i + 4}}</td>
     </ng-container>
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef  >Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.name || 'Anon'}}</td>
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element"> {{(element.name | titlecase)  || 'Anon'}}</td>
     </ng-container>
     <ng-container matColumnDef="token">
         <th mat-header-cell *matHeaderCellDef>Tokens</th>

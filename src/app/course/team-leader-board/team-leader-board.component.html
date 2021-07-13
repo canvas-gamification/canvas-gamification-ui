@@ -1,40 +1,13 @@
 <h3>Team Leaderboard</h3>
 <div class="container podium-container">
-    <img src='assets/gif/fire.gif' class="streakIcon transparent-absolute">
-    <img src='assets/gif/snow.gif' class="streakIcon transparent-absolute">
     <div class="podium-wrapper" *ngFor="let team of teamTopThree let i = index"
-        [ngClass]="{'first-wrapper' : i == 0, 'second-wrapper' : i == 1, 'third-wrapper' : i == 2}">
-        <div class="podium-step-container"
-            [ngClass]="{'first fa-10x' : i == 0, 'second fa-8x' : i == 1, 'third fa-6x' : i == 2}">
-            <div class="podium-step-frontside">
-                <div class="name">
-                    {{team.name}}
-                </div>
-                <i class="fas fa-trophy trophy"></i>
-                <div class="score">
-                    {{team.tokens}}
-                </div>
-            </div>
-            <div class="podium-step-backside">
-                <!--back of card-->
-                <div class="streak">
-                    {{team.streak}}
-                </div>
-                <div class="streak-display">
-                    <div *ngIf="team.streak > 2">
-                        <img src='assets/gif/fire.gif' class="streakIcon">
-                    </div>
-                    <div *ngIf="team.streak < -2">
-                        <img src='assets/gif/snow.gif' class="streakIcon">
-                    </div>
-                </div>
-                <div *ngIf="team.team; else elseBlock" class='team'>
-                    {{team.name}}
-                </div>
-                <ng-template #elseBlock>
-                    <div class="team"></div>
-                </ng-template>
-            </div>
+        [ngClass]="{'first' : i == 0, 'second' : i == 1, 'third' : i == 2}">
+        <div class="podium-content">
+            <h2 class="podium-title">
+                {{team.name | titlecase}}
+            </h2>
+            <p class="podium-body">Place: {{ i + 1}}</p>
+            <p class="podium-body">Tokens: {{team.tokens || 'No Tokens'}}</p>
         </div>
     </div>
 </div>
