@@ -27,7 +27,7 @@ $big-drop-shadow: 5px 5px 26px -6px rgba(0, 0, 0, 0.75);
     width: 40%;
 }
 
-.left-modules{
+.left-module{
     padding: 20px;
     margin-top: 20px;
     border: 1px solid rgba(27, 27, 27, 0.125);
@@ -35,7 +35,7 @@ $big-drop-shadow: 5px 5px 26px -6px rgba(0, 0, 0, 0.75);
     box-shadow:$big-drop-shadow;
 }
 
-.right-modules{
+.right-module{
     display: inline-block;
     border: 1px solid rgba(27, 27, 27, 0.125);
     border-radius: 0.25rem;
@@ -44,4 +44,15 @@ $big-drop-shadow: 5px 5px 26px -6px rgba(0, 0, 0, 0.75);
     margin-right: 1rem;
     width: 100%;
     box-shadow: $big-drop-shadow;
+    overflow-y: auto;
+}
+
+.concept-map-container {
+    max-width: 100%;
+    max-height: 600px;
+    border-radius: 0.25rem;
+    box-shadow:$big-drop-shadow;
+    margin: 0 auto;
+    z-index: -10;
+    overflow: scroll;
 }
