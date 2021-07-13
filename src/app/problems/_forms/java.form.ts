@@ -53,6 +53,7 @@ export class JavaForm {
             variables: variablesJSON,
             junit_template: form.value.junit_template,
             input_file_names: inputFileNames,
+            question_status: 'CRE'
         };
     }
 }
@@ -67,4 +68,5 @@ export interface JavaFormData {
     variables: JSON[],
     junit_template: string,
     input_file_names: JSON,
+    question_status: string,
 }

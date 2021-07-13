@@ -57,6 +57,7 @@ export class ParsonsForm {
             lines: form.value.lines.split('\n'),
             additional_file_name: form.value.additional_file_name,
             junit_template: form.value.junit_template,
+            question_status: 'CRE'
         };
     }
 }
@@ -72,4 +73,5 @@ export interface ParsonsFormData {
     lines: string[],
     additional_file_name: string,
     junit_template: string,
+    question_status: string,
 }

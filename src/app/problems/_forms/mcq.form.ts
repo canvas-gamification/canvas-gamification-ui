@@ -57,7 +57,8 @@ export class McqForm {
             category: form.value.category,
             variables: variablesJSON,
             visible_distractor_count: form.value.visible_distractor_count,
-            choices: mcqChoices
+            choices: mcqChoices,
+            question_status: 'CRE'
         };
     }
 
@@ -89,7 +90,8 @@ export class McqForm {
             category: form.value.category,
             variables: variablesJSON,
             visible_distractor_count: form.value.visible_distractor_count,
-            choices: checkboxChoices
+            choices: checkboxChoices,
+            question_status: 'CRE'
         };
     }
 
@@ -129,4 +131,5 @@ export interface McqFormData {
     variables: JSON[],
     visible_distractor_count: number,
     choices: { [id: string]: string },
+    question_status: string,
 }
