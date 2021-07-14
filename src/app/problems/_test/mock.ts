@@ -31,7 +31,7 @@ export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY, MOCK_CATEGORY_2];
 
 export const MOCK_COURSE_EVENT: CourseEvent = {
     id: 0,
-    course: 0,
+    course_id: 0,
     name: '',
     is_exam: false,
     is_open: true,
