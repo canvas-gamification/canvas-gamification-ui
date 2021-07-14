@@ -1,4 +1,4 @@
-import {Category, Course, CourseEvent, CourseRegistration, Question, STATUS, UQJ} from '@app/_models';
+import {Category, Course, CourseEvent, Question, STATUS, UQJ} from '@app/_models';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {Difficulty} from "@app/_models/difficulty";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
@@ -32,6 +32,7 @@ export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY, MOCK_CATEGORY_2];
 export const MOCK_COURSE_EVENT: CourseEvent = {
     id: 0,
     course: 0,
+    course_id: 0,
     name: '',
     is_exam: false,
     is_open: true,

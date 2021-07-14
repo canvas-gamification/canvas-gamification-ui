@@ -56,9 +56,9 @@ export class CourseEventService {
             .pipe(catchError(this.apiService.handleError<CourseEvent[]>(`Error occurred while fetching events`)));
     }
 
-    postDuplicateEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+    postDuplicateEvent(courseEvent: CourseEvent): Observable<APIResponse> {
         const url = this.apiService.getURL('event', 'duplicate-event');
-        return this.http.post<CourseEvent>(url, courseEvent)
-            .pipe(catchError(this.apiService.handleError<CourseEvent>(`Error occurred during question import.`)));
+        return this.http.post<APIResponse>(url, courseEvent)
+            .pipe(catchError(this.apiService.handleError<APIResponse>(`Error occurred during question import.`)));
     }
 }

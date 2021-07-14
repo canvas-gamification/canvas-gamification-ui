@@ -3,6 +3,7 @@ import {CourseEvent, EventType, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseEventService} from '@app/course/_services/course-event.service';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-course-events-snippet',
@@ -19,6 +20,7 @@ export class CourseEventsSnippetComponent implements OnInit {
 
     constructor(private authenticationService: AuthenticationService,
                 private courseEventService: CourseEventService,
+                private toastr: ToastrService,
                 private modalService: NgbModal) {
     }
 
@@ -58,6 +60,6 @@ export class CourseEventsSnippetComponent implements OnInit {
     }
 
     duplicateEvent(event: CourseEvent): void {
-        this.courseEventService.postDuplicateEvent(event);
+        this.courseEventService.postDuplicateEvent(event).subscribe(() => this.toastr.success('The Event has been added Successfully.'));
     }
 }
