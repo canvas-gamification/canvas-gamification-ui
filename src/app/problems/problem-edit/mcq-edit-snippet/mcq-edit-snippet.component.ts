@@ -58,7 +58,7 @@ export class McqEditSnippetComponent implements OnInit {
                 .subscribe(result => {
                     this.courses = result[0];
                     this.categories = result[1];
-                    this.courseSelectedById(result[2].course);
+                    this.courseSelectedById(result[2].course_id);
                     this.isPractice = false;
                 });
         } else {

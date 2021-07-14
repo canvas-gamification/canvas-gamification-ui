@@ -48,4 +48,11 @@ export class CourseEventService {
             .get<EventType[]>(url)
             .pipe(catchError(this.apiService.handleError<EventType[]>(`Error occurred while fetching event types`)));
     }
+
+    getAllEvents(): Observable<CourseEvent[]> {
+        const url = this.apiService.getURL('event', 'get-all-events');
+        return this.http
+            .get<CourseEvent[]>(url)
+            .pipe(catchError(this.apiService.handleError<CourseEvent[]>(`Error occurred while fetching events`)));
+    }
 }
