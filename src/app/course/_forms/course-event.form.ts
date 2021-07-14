@@ -64,7 +64,7 @@ export class CourseEventForm {
             count_for_tokens: formData.get('countForTokens').value,
             start_date: formData.get('startPicker').value,
             end_date: formData.get('endPicker').value,
-            course_id: courseId
+            course: courseId
         };
     }
 }

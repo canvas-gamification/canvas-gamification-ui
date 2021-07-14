@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CourseEvent, EventType} from '@app/_models';
+import {APIResponse, CourseEvent, EventType} from '@app/_models';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
@@ -54,5 +54,11 @@ export class CourseEventService {
         return this.http
             .get<CourseEvent[]>(url)
             .pipe(catchError(this.apiService.handleError<CourseEvent[]>(`Error occurred while fetching events`)));
+    }
+
+    postDuplicateEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+        const url = this.apiService.getURL('event', 'duplicate-event');
+        return this.http.post<CourseEvent>(url, courseEvent)
+            .pipe(catchError(this.apiService.handleError<CourseEvent>(`Error occurred during question import.`)));
     }
 }
