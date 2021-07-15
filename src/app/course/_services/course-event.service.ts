@@ -50,7 +50,7 @@ export class CourseEventService {
     }
 
     getAllEvents(): Observable<CourseEvent[]> {
-        const url = this.apiService.getURL('event', 'get-all-events');
+        const url = this.apiService.getURL('event');
         return this.http
             .get<CourseEvent[]>(url)
             .pipe(catchError(this.apiService.handleError<CourseEvent[]>(`Error occurred while fetching events`)));
