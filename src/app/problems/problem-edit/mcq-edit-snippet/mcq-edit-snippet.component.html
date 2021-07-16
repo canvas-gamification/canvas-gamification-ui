@@ -170,13 +170,14 @@
             </div>
         </div>
         <div class="form-row m-3">
-            <div class="col-md-12">
-                <app-json-editor [(value)]="this.variables" [name]="'variables'"></app-json-editor>
-            </div>
-            <div class="col-md-12">
+            <div class="h5 ml-3 pb-2">Variables:</div>
+            <div class="col-md-12 ml-3 text-muted">
                 If you are not using variables,
                 please don't add any variables
                 and delete the existing ones.
+            </div>
+            <div class="col-md-12 p-0">
+                <app-json-editor [(value)]="this.variables" [name]="'variables'"></app-json-editor>
             </div>
         </div>
         <div class="form-row m-3">
