@@ -59,7 +59,7 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
     }
 
-    duplicateEvent(event: CourseEvent): void {
-        this.courseEventService.postDuplicateEvent(event).subscribe(() => this.toastr.success('The Event has been added Successfully.'));
+    duplicateEvent(event: CourseEvent, courseId: number): void {
+        this.courseEventService.postDuplicateEvent(event, courseId).subscribe(() => this.toastr.success('The Event has been added Successfully.'));
     }
 }
