@@ -65,7 +65,6 @@ export class CourseEventForm {
             start_date: formData.get('startPicker').value,
             end_date: formData.get('endPicker').value,
             course: courseId,
-            course_id: courseId
         };
     }
 }
