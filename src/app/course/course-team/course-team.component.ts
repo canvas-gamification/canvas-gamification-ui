@@ -3,7 +3,6 @@ import {
   OnInit,
   Input,
   ViewChild,
-  AfterViewInit
 } from '@angular/core';
 import {
   MatTableDataSource
@@ -24,7 +23,7 @@ import {
   templateUrl: './course-team.component.html',
   styleUrls: ['./course-team.component.scss']
 })
-export class CourseTeamComponent implements OnInit, AfterViewInit {
+export class CourseTeamComponent implements OnInit {
 
 
   displayedColumns: string[] = ['name', 'tokens'];
@@ -50,13 +49,11 @@ export class CourseTeamComponent implements OnInit, AfterViewInit {
             this.teams = teams;
 
             console.log(this.teams);
-
+            this.teamListData = new MatTableDataSource(this.teams)
           });
           
 
   }
 
-  ngAfterViewInit(): void {
-    this.teamListData = new MatTableDataSource(this.teams)
-  }
+
 }
