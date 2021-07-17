@@ -25,7 +25,7 @@ import {
 })
 export class CourseTeamComponent implements OnInit {
 
-
+  @Input() courseId: number;
   displayedColumns: string[] = ['name', 'tokens'];
   teamListData: MatTableDataSource < {
       name: string,

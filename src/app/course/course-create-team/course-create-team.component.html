@@ -2,7 +2,6 @@
     <h2 class="my-3">
         Create Team
     </h2>
-    <!--TODO: Add aria-labels throughout form (on Opey)-->
     <form id="new-team" class="form" [formGroup]="formData" (ngSubmit)="submitEvent(formData)">
         <div class="form-group">
             <label for="id-team-name">Team Name</label>
@@ -10,6 +9,12 @@
                    placeholder="Team Name..." [ngClass]="{ 'is-invalid': form.name.errors && form.name.touched }">
             <div *ngIf="form.name.errors" class="invalid-feedback">
                 <div *ngIf="form.name.errors.required">Team Name is required</div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId]">Back</button>
+                <button id="id-submit" type="submit" [disabled]="formData.invalid" name="submit"
+                        class="btn btn-primary my-2 mr-3">Submit
+                </button>
             </div>
         </div>
     </form>
