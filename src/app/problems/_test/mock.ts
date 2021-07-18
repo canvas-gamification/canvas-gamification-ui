@@ -1,4 +1,4 @@
-import {Category, Course, CourseEvent, CourseRegistration, Question, STATUS, UQJ} from '@app/_models';
+import {Category, Course, CourseEvent, Question, STATUS, UQJ} from '@app/_models';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {Difficulty} from "@app/_models/difficulty";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
