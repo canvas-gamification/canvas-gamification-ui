@@ -44,7 +44,7 @@
             <div class="form-check">
                 <input (change)="practiceCheckboxChanged($event)" [checked]="isPractice" class="form-check-input"
                        id="practiceCheckbox" type="checkbox">
-                <label class="form-check-label h5 pb-2" for="practiceCheckbox" >Practice Question</label>
+                <label class="form-check-label h5 pb-2" for="practiceCheckbox">Practice Question</label>
             </div>
         </div>
     </div>
@@ -86,7 +86,11 @@
     </div>
     <div class="form-row m-3 p-3">
         <div class="col-md-12">
-            <label for="parsons_junit_template">JUnit Template:</label>
+            <label for="parsons_junit_template" class="h5 pb-2">JUnit Template:</label>
+            <div class="text-muted">
+                Please provide a JUnit template to evaluate the code.
+                Identify where to insert the solution using the word "code"
+            </div>
             <textarea [ngClass]="{'is-invalid': form.junit_template.errors && form.junit_template.touched}"
                       class="form-control" formControlName="junit_template"
                       id="parsons_junit_template"></textarea>
@@ -97,37 +101,40 @@
         </div>
     </div>
     <div class="form-row m-3 p-3">
-        <div class="col-md-12">
-            <app-json-editor [(value)]="this.inputFiles" [name]="'parsons_input_files'"></app-json-editor>
-        </div>
-        <div class="col-md-6">
+        <div class="h5 ml-3 pb-2">Submitted Files:</div>
+        <div class="col-md-12 ml-3 text-muted">
             <p>
-                Specify whether each file should be compiled or not. If it is compile then
+                Specify whether each file should be compiled or not. If it is compiled then
                 the file name is used to put the user code in it when compiling.
                 By providing a name here a file with that name will be created in the same directory
-                of your Junit code and will be compiled with you Junit code.
-                This name usually should be the exact name of the Java class with .java extension.
+                of your Junit code and will be compiled with your Junit code.
+                This name is usually the exact name of your Java class with .java extension.
                 For example if the solution has a public class Calculator, the file name should be
                 Calculator.java.
             </p>
             <p>
-                Regardless of if the file is compiled or not, you can paste the file in your Junit
+                Regardless of whether the file is compiled or not, you can paste the file in your Junit test
                 by using {{"{{"}}file_name{{"}"}}{{"}"}}.
             </p>
             <p>
-                Paste the solution in the lines. Possibly add extra lines at the end.
+                Paste the solution in the lines field. Possibly add extra lines at the end.
                 Lines will be extracted and shuffled.
             </p>
         </div>
-    </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <app-json-editor [(value)]="variables" [name]="'variables'"></app-json-editor>
+        <div class="col-md-12">
+            <app-json-editor [(value)]="this.inputFiles" [name]="'parsons_input_files'"></app-json-editor>
         </div>
-        <div class="col-md-6">
+
+    </div>
+    <div class="form-row m-3 p-3">
+        <div class="h5 ml-3 pb-2">Variables:</div>
+        <div class="col-md-12 ml-3 text-muted">
             If you are not using variables,
             please don't add any variables
             and delete the existing ones.
+        </div>
+        <div class="col-md-12">
+            <app-json-editor [(value)]="variables" [name]="'variables'"></app-json-editor>
         </div>
     </div>
     <div class="form-row m-3 p-3">

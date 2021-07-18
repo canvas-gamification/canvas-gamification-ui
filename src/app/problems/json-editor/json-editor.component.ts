@@ -22,7 +22,7 @@ export class JsonEditorComponent implements OnInit {
     ngOnInit(): void {
         const element = document.getElementById('editor');
         //change ID to make sure each editor is separated
-        element.id = 'editor-' + Math.floor(Math.random() * 1000);
+        element.id = name;
         this.schemaService.getSchema(this.name).subscribe(schema => {
             this.editor = new JSONEditor(element, {
                 schema,
