@@ -27,6 +27,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
     variables: JSON[];
     inputFiles: { name: string, compile: boolean, lines: string }[]
     questionText: string;
+    isPractice: boolean;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -57,6 +58,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
                     this.courses = result[0];
                     this.categories = result[1];
                     this.courseSelectedById(result[2].course);
+                    this.isPractice = false;
                 });
         } else {
             const coursesObservable = this.courseService.getCourses();
@@ -66,6 +68,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 .subscribe(result => {
                     this.courses = result[0];
                     this.categories = result[1];
+                    this.isPractice = true;
                 });
         }
 
@@ -117,14 +120,49 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form.course.setValue(null);
+        this.form.event.setValue(null);
+    }
+
+    /**
      * Refresh the page upon successful submission.
      */
     refresh(): void {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(['problems', this.questionDetails.id.toString(), 'edit']).then(() => {
             window.scroll(0, 0);
             this.toastr.success('The Question has been Updated Successfully.');
         });
+    }
+
+    /**
+     * Check to see if values not in the formGroup are valid.
+     */
+    isFormGroupValid(): boolean {
+        if (this.isPractice) {
+            return this.form.course.value === null && this.form.event.value === null;
+        } else {
+            return this.form.course.value !== null && this.form.event.value !== null;
+        }
+    }
+
+    /**
+     * Check to see if questionText is valid.
+     */
+    isQuestionValid(): boolean {
+        return this.questionText !== '';
+    }
+
+    /**
+     * Verify if submission is ready.
+     */
+    isSubmissionValid(): boolean {
+        return this.isFormGroupValid() && this.isQuestionValid();
     }
 }

@@ -29,6 +29,7 @@ export class McqEditSnippetComponent implements OnInit {
     correctAnswers: { text: string }[];
     questionText: string;
     answerText: string;
+    isPractice: boolean;
 
     constructor(private courseService: CourseService,
                 private categoryService: CategoryService,
@@ -58,6 +59,7 @@ export class McqEditSnippetComponent implements OnInit {
                     this.courses = result[0];
                     this.categories = result[1];
                     this.courseSelectedById(result[2].course);
+                    this.isPractice = false;
                 });
         } else {
             const coursesObservable = this.courseService.getCourses();
@@ -67,6 +69,7 @@ export class McqEditSnippetComponent implements OnInit {
                 .subscribe(result => {
                     this.courses = result[0];
                     this.categories = result[1];
+                    this.isPractice = true;
                 });
         }
 
@@ -178,14 +181,60 @@ export class McqEditSnippetComponent implements OnInit {
     }
 
     /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form.course.setValue(null);
+        this.form.event.setValue(null);
+    }
+
+    /**
      * Refresh the page upon successful submission.
      */
     refresh(): void {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(['problems', this.questionDetails.id.toString(), 'edit']).then(() => {
             window.scroll(0, 0);
             this.toastr.success('The Question has been Updated Successfully.');
         });
+    }
+
+    /**
+     * Check to see if values not in the formGroup are valid.
+     */
+    isFormGroupValid(): boolean {
+        if (this.isPractice) {
+            return this.form.course.value === null && this.form.event.value === null;
+        } else {
+            return this.form.course.value !== null && this.form.event.value !== null;
+        }
+    }
+
+    /**
+     * Check to see if the choices are valid.
+     */
+    isChoicesValid(): boolean {
+        if (this.questionDetails.is_checkbox) {
+            return this.correctAnswers !== [] && this.distractors !== [];
+        } else {
+            return this.answerText !== '' && this.distractors !== [];
+        }
+    }
+
+    /**
+     * Check to see if questionText is valid.
+     */
+    isQuestionValid(): boolean {
+        return this.questionText !== '';
+    }
+
+    /**
+     * Combines the validity checks into a single method.
+     */
+    isSubmissionValid(): boolean {
+        return this.isFormGroupValid() && this.isChoicesValid() && this.isQuestionValid();
     }
 }

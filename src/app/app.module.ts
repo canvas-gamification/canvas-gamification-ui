@@ -20,8 +20,6 @@ import {MatInputModule} from '@angular/material/input';
 import {TopicsComponent} from './components/topics/topics.component';
 import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-// TODO: Remove this suppress after fixing concept map
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
@@ -42,7 +40,7 @@ import {
     NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {HighlightModule} from 'ngx-highlightjs';
+import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ToastrModule} from "ngx-toastr";
@@ -57,8 +55,6 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         HeaderComponent,
         TopicsComponent,
         SampleQuestionsComponent,
-        // Temporarily disable concept map due to optimization errors.
-        // ConceptMapComponent,
         UserStatsComponent,
         TokenValuesComponent,
         FaqComponent,
@@ -101,10 +97,21 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         HighlightModule,
         MatSelectModule,
         ToastrModule.forRoot(),
+        HighlightModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+        {
+            provide: HIGHLIGHT_OPTIONS,
+            useValue: {
+                coreLibraryLoader: () => import('highlight.js/lib/core'),
+                lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
+                languages: {
+                    java: () => import('highlight.js/lib/languages/java')
+                }
+            }
+        }
     ],
     bootstrap: [AppComponent]
 })

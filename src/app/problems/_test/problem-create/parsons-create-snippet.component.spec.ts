@@ -8,15 +8,17 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
-import {CourseService} from "@app/_services/api/course/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
-import {MOCK_COURSE} from "@app/problems/_test/mock";
+import {MOCK_COURSE, MOCK_COURSE_EVENT, MOCK_JAVA_QUESTION, MOCK_PARSONS_QUESTION} from "@app/problems/_test/mock";
+import {CourseService} from "@app/course/_services/course.service";
+import {Router} from "@angular/router";
 
 describe('ParsonsCreateSnippetComponent', () => {
     let component: ParsonsCreateSnippetComponent;
     let fixture: ComponentFixture<ParsonsCreateSnippetComponent>;
+    let router: Router;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -31,6 +33,8 @@ describe('ParsonsCreateSnippetComponent', () => {
     });
 
     beforeEach(() => {
+        router = TestBed.inject(Router);
+        spyOn(router, 'navigate');
         fixture = TestBed.createComponent(ParsonsCreateSnippetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -46,11 +50,41 @@ describe('ParsonsCreateSnippetComponent', () => {
     });
 
     it('parsons create question', () => {
-        component.formGroup.controls['title'].setValue('Test Title');
-        component.formGroup.controls['lines'].setValue('Test Line');
+        component.form.lines.setValue('Test Line');
         component.onSubmit();
+        expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'parsons']);
+    });
 
-        // The formGroup is reset upon successful submission.
-        expect(component.formGroup.controls['title'].value).toBe(null);
+    it('required fields - invalid', () => {
+        expect(fixture.debugElement.nativeElement.querySelector('#submit').disabled).toBeTruthy();
+    });
+
+    // TODO - Determine how to test this.
+    // it('click practice checkbox', () => {
+    //     fixture.debugElement.nativeElement.querySelector('#practiceCheckbox').click();
+    //     fixture.detectChanges();
+    //     expect(component.isPractice).toBeTruthy();
+    // });
+
+    it('isSubmissionValid - invalid', () => {
+        component.isPractice = true;
+        component.form.course.setValue(MOCK_COURSE);
+        component.form.event.setValue(MOCK_COURSE_EVENT);
+        fixture.detectChanges();
+        expect(component.isSubmissionValid()).toBeFalsy();
+    });
+
+    it('isSubmissionValid - valid', () => {
+        component.isPractice = false;
+        component.form.title.setValue('Test');
+        component.form.difficulty.setValue('Easy');
+        component.form.category.setValue('Test');
+        component.form.course.setValue(MOCK_COURSE);
+        component.form.event.setValue(MOCK_COURSE_EVENT);
+        component.form.junit_template.setValue('Test');
+        component.form.lines.setValue('Test\nTest');
+        component.questionText = 'Test';
+        fixture.detectChanges();
+        expect(component.isSubmissionValid()).toBeTruthy();
     });
 });

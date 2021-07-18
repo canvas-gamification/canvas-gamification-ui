@@ -36,7 +36,6 @@ import {SchemaService} from "@app/problems/_services/schema.service";
 import {SubmissionService} from "@app/problems/_services/submission.service";
 import { ParsonsLinesComponent } from './problem-view/parsons-lines/parsons-lines.component';
 
-
 @NgModule({
     declarations: [
         ProblemSetComponent,

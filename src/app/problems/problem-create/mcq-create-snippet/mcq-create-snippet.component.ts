@@ -28,6 +28,7 @@ export class McqCreateSnippetComponent implements OnInit {
     questionText: string;
     answerText: string;
     returnUrl: string[];
+    isPractice = false;
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
@@ -133,14 +134,60 @@ export class McqCreateSnippetComponent implements OnInit {
     }
 
     /**
+     * Keeps track of the state of the practiceCheckbox
+     * @param e - The event sent when the checkbox is clicked.
+     */
+    practiceCheckboxChanged(e: Event): void {
+        const input = e.target as HTMLInputElement;
+        this.isPractice = input.checked;
+        this.form.course.setValue(null);
+        this.form.event.setValue(null);
+    }
+
+    /**
      * Refresh the page upon successful submission.
      */
     refresh(): void {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(this.returnUrl).then(() => {
             window.scroll(0, 0);
             this.toastr.success('The Question has been Created Successfully.');
         });
+    }
+
+    /**
+     * Check to see if values not in the formGroup are valid.
+     */
+    isFormGroupValid(): boolean {
+        if (this.isPractice) {
+            return this.form.course.value === null && this.form.event.value === null;
+        } else {
+            return this.form.course.value !== null && this.form.event.value !== null;
+        }
+    }
+
+    /**
+     * Check to see if the choices are valid.
+     */
+    isChoicesValid(): boolean {
+        if (this.checkBox) {
+            return this.correctAnswers !== [] && this.distractors !== [];
+        } else {
+            return this.answerText !== '' && this.distractors !== [];
+        }
+    }
+
+    /**
+     * Check to see if questionText is valid.
+     */
+    isQuestionValid(): boolean {
+        return this.questionText !== '';
+    }
+
+    /**
+     * Combines the validity checks into a single method.
+     */
+    isSubmissionValid(): boolean {
+        return this.isFormGroupValid() && this.isChoicesValid() && this.isQuestionValid();
     }
 }
