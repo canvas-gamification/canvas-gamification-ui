@@ -23,7 +23,7 @@ export interface UQJ {
     rendered_choices: { [index: string]: string };
     rendered_lines: ParsonsFile[];
     status_class: string;
-    input_files: { name: string, template: string }[];
+    input_files: { name: string, compile: boolean, template: string }[];
     is_checkbox: boolean;
 }
 

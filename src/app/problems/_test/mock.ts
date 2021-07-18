@@ -61,7 +61,6 @@ export const MOCK_MCQ_QUESTION: Question = {
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
-    input_file_names: [],
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -103,7 +102,6 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
-    input_file_names: [],
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -140,7 +138,6 @@ export const MOCK_JAVA_QUESTION: Question = {
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
-    input_file_names: [],
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -177,7 +174,6 @@ export const MOCK_PARSONS_QUESTION: Question = {
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
-    input_file_names: [],
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -271,8 +267,16 @@ export const MOCK_UQJ_3: UQJ = {
     format: '',
     formatted_current_tokens_received: '',
     input_files: [
-        {name: 'Test', template: 'Test Template'},
-        {name: 'Test2', template: ''}
+        {
+            name: 'Test',
+            compile: true,
+            template: 'Test Template',
+        },
+        {
+            name: 'Test2',
+            compile: false,
+            template: '',
+        }
     ],
     is_allowed_to_submit: true,
     is_partially_solved: false,
@@ -408,7 +412,7 @@ export const MOCK_JAVA_FORM_DATA: JavaFormData = {
     category: null,
     variables: [],
     junit_template: null,
-    input_file_names: null
+    input_files: null
 };
 
 export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {

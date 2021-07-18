@@ -24,7 +24,6 @@ export interface Question {
     author_name: string;
     choices: { [index: string]: string };
     variables: [];
-    input_file_names: [];
     answer: string;
     junit_template: string;
     input_files: InputFiles,
@@ -40,5 +39,6 @@ export interface Question {
 export interface InputFiles extends Array<{
     name: string,
     compile: boolean,
-    lines: string[],
+    lines?: string[],
+    template?: string,
 }> {}
