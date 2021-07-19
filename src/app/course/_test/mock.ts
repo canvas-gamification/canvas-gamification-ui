@@ -94,7 +94,7 @@ export const MOCK_COURSE2: Course = {
     end_date: null,
     instructor: null,
     status: STATUS.active,
-    is_registered: false,
+    is_registered: true,
     events: null,
     token_use_options: null,
     question_set: null,

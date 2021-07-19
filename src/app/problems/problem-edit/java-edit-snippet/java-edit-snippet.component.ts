@@ -26,7 +26,7 @@ export class JavaEditSnippetComponent implements OnInit {
     variables: JSON[];
     selectedCourse: number;
     selectedEvent: number;
-    inputFileNames: JSON;
+    inputFiles: JSON;
     questionText: string;
     isPractice: boolean;
 
@@ -71,7 +71,7 @@ export class JavaEditSnippetComponent implements OnInit {
                 });
         }
 
-        this.inputFileNames = this.questionDetails?.input_file_names;
+        this.inputFiles = this.questionDetails?.input_files;
         this.variables = this.questionDetails?.variables;
         this.questionText = this.questionDetails?.text;
 
@@ -82,7 +82,7 @@ export class JavaEditSnippetComponent implements OnInit {
      * Form submission.
      */
     onSubmit(): void {
-        const submissionRequest = JavaForm.extractData(this.formGroup, this.variables, this.inputFileNames, this.questionText);
+        const submissionRequest = JavaForm.extractData(this.formGroup, this.variables, this.inputFiles, this.questionText);
         this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
             .subscribe(() => {
                 this.refresh();
@@ -159,7 +159,7 @@ export class JavaEditSnippetComponent implements OnInit {
      * Check if submissions files is valid.
      */
     isSubmissionFilesValid(): boolean {
-        return !_.isEmpty(this.inputFileNames);
+        return !_.isEmpty(this.inputFiles);
     }
 
     /**
