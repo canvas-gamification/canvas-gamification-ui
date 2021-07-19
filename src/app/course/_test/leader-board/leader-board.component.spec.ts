@@ -1,20 +1,21 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CourseEventCreateEditComponent} from './course-event-create-edit.component';
+import {LeaderBoardComponent} from '../../leader-board/leader-board.component';
 import {TestModule} from '@test/test.module';
 
-describe('CourseEventCreateComponent', () => {
-    let component: CourseEventCreateEditComponent;
-    let fixture: ComponentFixture<CourseEventCreateEditComponent>;
+describe('LeaderBoardComponent', () => {
+    let component: LeaderBoardComponent;
+    let fixture: ComponentFixture<LeaderBoardComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule]
+            imports: [TestModule],
+            declarations: [LeaderBoardComponent]
         }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CourseEventCreateEditComponent);
+        fixture = TestBed.createComponent(LeaderBoardComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
