@@ -56,6 +56,11 @@ export class CourseEventService {
             .pipe(catchError(this.apiService.handleError<CourseEvent[]>(`Error occurred while fetching events`)));
     }
 
+    /**
+     * Makes a post request to import an existing event into the current course.
+     * @param courseEvent - The event to import.
+     * @param courseId - The course to import it into.
+     */
     postDuplicateEvent(courseEvent: CourseEvent, courseId: number): Observable<HttpResponse<unknown>> {
         const url = this.apiService.getURL('event', 'duplicate-event');
         return this.http.post<HttpResponse<unknown>>(url, {
