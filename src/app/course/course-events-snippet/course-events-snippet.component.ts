@@ -59,7 +59,16 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
     }
 
+    /**
+     * Duplicates the selected event.
+     * @param event - The event to duplicate/import.
+     * @param courseId - The course you are importing the event into.
+     */
     duplicateEvent(event: CourseEvent, courseId: number): void {
-        this.courseEventService.postDuplicateEvent(event, courseId).subscribe(() => this.toastr.success('The Event has been added Successfully.'));
+        this.courseEventService.postDuplicateEvent(event, courseId).subscribe((response) => {
+            if (response.status === 201) {
+                this.toastr.success('The Event has been Imported Successfully.');
+            }
+        });
     }
 }
