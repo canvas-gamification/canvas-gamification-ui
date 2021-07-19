@@ -48,7 +48,6 @@ export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
     status: 'Solved',
-    additional_file_name: '',
     answer: 'a',
     author: 0,
     author_name: '',
@@ -62,14 +61,12 @@ export const MOCK_MCQ_QUESTION: Question = {
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
-    input_file_names: [],
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
     is_sample: false,
     is_verified: true,
     junit_template: '',
-    lines: [],
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
@@ -83,13 +80,13 @@ export const MOCK_MCQ_QUESTION: Question = {
     visible_distractor_count: 1,
     is_author: true,
     is_checkbox: false,
+    input_files: null,
 };
 
 export const MOCK_CHECKBOX_QUESTION: Question = {
     id: 1,
     category: 0,
     status: 'Partially Solved',
-    additional_file_name: '',
     answer: 'a,b',
     author: 0,
     author_name: '',
@@ -105,14 +102,12 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
-    input_file_names: [],
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
     is_sample: false,
     is_verified: true,
     junit_template: '',
-    lines: [],
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
@@ -126,13 +121,13 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     visible_distractor_count: 1,
     is_author: true,
     is_checkbox: true,
+    input_files: null,
 };
 
 export const MOCK_JAVA_QUESTION: Question = {
     id: 2,
     category: 0,
     status: 'Wrong',
-    additional_file_name: '',
     answer: '',
     author: 0,
     author_name: '',
@@ -143,14 +138,12 @@ export const MOCK_JAVA_QUESTION: Question = {
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
-    input_file_names: [],
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
     is_sample: false,
     is_verified: true,
     junit_template: 'TEST JUNIT',
-    lines: [],
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
@@ -164,13 +157,13 @@ export const MOCK_JAVA_QUESTION: Question = {
     visible_distractor_count: 0,
     is_author: true,
     is_checkbox: false,
+    input_files: null,
 };
 
 export const MOCK_PARSONS_QUESTION: Question = {
     id: 3,
     category: 0,
     status: '',
-    additional_file_name: '',
     answer: '',
     author: 0,
     author_name: '',
@@ -181,18 +174,12 @@ export const MOCK_PARSONS_QUESTION: Question = {
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
-    input_file_names: [],
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
     is_sample: false,
     is_verified: true,
     junit_template: 'TEST JUNIT',
-    lines: [
-        "{",
-        "print()",
-        "}"
-    ],
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
@@ -206,6 +193,11 @@ export const MOCK_PARSONS_QUESTION: Question = {
     visible_distractor_count: 0,
     is_author: true,
     is_checkbox: false,
+    input_files: [{
+        name: 'test',
+        lines: ['a', 'b', 'c'],
+        compile: true,
+    }]
 };
 
 export const MOCK_UQJ: UQJ = {
@@ -275,8 +267,16 @@ export const MOCK_UQJ_3: UQJ = {
     format: '',
     formatted_current_tokens_received: '',
     input_files: [
-        {name: 'Test', template: 'Test Template'},
-        {name: 'Test2', template: ''}
+        {
+            name: 'Test',
+            compile: true,
+            template: 'Test Template',
+        },
+        {
+            name: 'Test2',
+            compile: false,
+            template: '',
+        }
     ],
     is_allowed_to_submit: true,
     is_partially_solved: false,
@@ -312,11 +312,10 @@ export const MOCK_UQJ_4: UQJ = {
     opened_tutorial: false,
     random_seed: 0,
     rendered_choices: null,
-    rendered_lines: [
-        "{",
-        "print()",
-        "}"
-    ],
+    rendered_lines: [{
+        name: 'test',
+        lines: ['a', 'b', 'c']
+    }],
     rendered_text: '',
     status: '',
     status_class: '',
@@ -413,7 +412,7 @@ export const MOCK_JAVA_FORM_DATA: JavaFormData = {
     category: null,
     variables: [],
     junit_template: null,
-    input_file_names: null
+    input_files: null
 };
 
 export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
@@ -424,9 +423,12 @@ export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
     text: null,
     category: null,
     variables: null,
-    lines: null,
-    additional_file_name: null,
-    junit_template: null
+    junit_template: null,
+    input_files: [{
+        name: 'test',
+        lines: ['a', 'b', 'c'],
+        compile: true,
+    }]
 };
 
 // TODO - Determine a more specific type.

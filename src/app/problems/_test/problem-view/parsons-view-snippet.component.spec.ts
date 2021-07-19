@@ -30,16 +30,16 @@ describe('ParsonsViewSnippetComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('parsonsLines should be set', () => {
-        expect(component.parsonLines.length).toEqual(MOCK_UQJ_4.rendered_lines.length);
-    });
-
-    it('determineIndents and calculate sourceCode', () => {
-        component.parsonAnswerLines = component.parsonLines;
-        component.determineIndents();
-        component.calculateSourceCode();
-        expect(component.code).toEqual('{\n' +
-            '    print()\n' +
-            '}\n');
-    });
+    // it('parsonsLines should be set', () => {
+    //     expect(component.parsonLines.length).toEqual(MOCK_UQJ_4.rendered_lines.length);
+    // });
+    //
+    // it('determineIndents and calculate sourceCode', () => {
+    //     component.parsonAnswerLines = component.parsonLines;
+    //     component.determineIndents();
+    //     component.calculateSourceCode();
+    //     expect(component.code).toEqual('{\n' +
+    //         '    print()\n' +
+    //         '}\n');
+    // });
 });

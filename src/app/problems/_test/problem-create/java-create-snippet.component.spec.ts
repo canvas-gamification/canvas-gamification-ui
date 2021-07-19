@@ -74,7 +74,7 @@ describe('JavaCreateSnippetComponent', () => {
         component.form.course.setValue(MOCK_COURSE);
         component.form.event.setValue(MOCK_COURSE_EVENT);
         component.questionText = 'Test';
-        component.inputFileNames = JSON.parse('{"a": "a"}');
+        component.inputFiles = JSON.parse('{"a": "a"}');
         fixture.detectChanges();
         expect(component.isSubmissionValid()).toBeTruthy();
     });
