@@ -21,6 +21,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
     events: CourseEvent[];
     selectedCourse: number;
     categories: Category[];
+    inputFiles: { name: string, compile: boolean, lines: string }[];
     variables: JSON[];
     questionText: string;
     isPractice = false;
@@ -56,7 +57,7 @@ export class ParsonsCreateSnippetComponent implements OnInit {
      * Form submission.
      */
     onSubmit(): void {
-        const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.questionText);
+        const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.inputFiles, this.questionText);
         this.questionService.postParsonsQuestion(submissionRequest)
             .subscribe(() => {
                 this.refresh();

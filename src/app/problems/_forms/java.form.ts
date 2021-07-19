@@ -39,10 +39,10 @@ export class JavaForm {
      * Extracts the data from the FormGroup.
      * @param form - The FormGroup for the question.
      * @param variablesJSON - The variables in JSON format.
-     * @param inputFileNames - The file-name and code for submission.
+     * @param inputFiles - The file-name and code for submission.
      * @param questionText - The question text.
      */
-    static extractData(form: FormGroup, variablesJSON: JSON[], inputFileNames: JSON, questionText: string): JavaFormData {
+    static extractData(form: FormGroup, variablesJSON: JSON[], inputFiles: JSON, questionText: string): JavaFormData {
         return {
             title: form.value.title,
             difficulty: form.value.difficulty,
@@ -52,7 +52,7 @@ export class JavaForm {
             category: form.value.category,
             variables: variablesJSON,
             junit_template: form.value.junit_template,
-            input_file_names: inputFileNames,
+            input_files: inputFiles,
         };
     }
 }
@@ -66,5 +66,5 @@ export interface JavaFormData {
     category: number,
     variables: JSON[],
     junit_template: string,
-    input_file_names: JSON,
+    input_files: JSON,
 }
