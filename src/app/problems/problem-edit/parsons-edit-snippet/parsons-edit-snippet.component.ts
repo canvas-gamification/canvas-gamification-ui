@@ -48,7 +48,8 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.questionDetails.event) {
+        // TODO: refactor => typeof this.questionDetails.event === 'number'
+        if (this.questionDetails.event && typeof this.questionDetails.event === 'number') {
             const coursesObservable = this.courseService.getCourses();
             const categoriesObservable = this.categoryService.getCategories();
             const eventObservable = this.courseEventService.getCourseEvent(this.questionDetails.event);
@@ -57,7 +58,8 @@ export class ParsonsEditSnippetComponent implements OnInit {
                 .subscribe(result => {
                     this.courses = result[0];
                     this.categories = result[1];
-                    this.courseSelectedById(result[2].course);
+                    this.setCourse(result[2].course);
+                    this.setEvent(result[2].id);
                     this.isPractice = false;
                 });
         } else {
@@ -83,14 +85,6 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     /**
-     * Select a course from the given event.
-     * @param value - The event.
-     */
-    courseSelectedEvent(value: Event): void {
-        this.courseSelectedById(+(value.target as HTMLInputElement).value);
-    }
-
-    /**
      * Form submission.
      */
     onSubmit(): void {
@@ -102,10 +96,26 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     /**
-     * Select a course.
-     * @param courseId - Id of the course to select.
+     * Select a course from the given DOM event.
+     * @param value - The DOM event.
      */
-    courseSelectedById(courseId: number): void {
+    courseSelectionChanged(value: Event): void {
+        this.setCourse(+(value.target as HTMLInputElement).value);
+    }
+
+    /**
+     * Select a event from the given DOM event.
+     * @param value
+     */
+    eventSelectionChanged(value: Event): void {
+        this.setEvent(+(value.target as HTMLInputElement).value);
+    }
+
+    /**
+     * Set the course.
+     * @param courseId - The course's id.
+     */
+    setCourse(courseId: number): void {
         this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
@@ -113,10 +123,18 @@ export class ParsonsEditSnippetComponent implements OnInit {
                     this.events = course.events;
                 }
             });
-            this.selectedEvent = this.questionDetails.event;
+            this.setEvent(null);
             this.form.course.setValue(this.selectedCourse);
-            this.form.event.setValue(this.selectedEvent);
         }
+    }
+
+    /**
+     * Set the event.
+     * @param event - The event object to set.
+     */
+    setEvent(event: number): void {
+        this.selectedEvent = event;
+        this.form.event.setValue(this.selectedEvent);
     }
 
     /**
