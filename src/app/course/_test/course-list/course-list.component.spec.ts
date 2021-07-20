@@ -6,6 +6,7 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {MOCK_COURSE} from "@app/problems/_test/mock";
 import {MOCK_COURSE1, MOCK_COURSE2, MOCK_COURSES, MOCK_USER_STUDENT, MOCK_USER_TEACHER} from "@app/course/_test/mock";
+import {MatTableModule} from "@angular/material/table";
 
 describe('CourseListComponent', () => {
     let component: CourseListComponent;
@@ -13,7 +14,7 @@ describe('CourseListComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule],
+            imports: [TestModule, MatTableModule],
             declarations: [CourseListComponent],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock}
