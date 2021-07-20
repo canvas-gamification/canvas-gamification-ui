@@ -23,7 +23,7 @@ export class JavaCreateSnippetComponent implements OnInit {
     selectedCourse: number;
     categories: Category[];
     variables: JSON[];
-    inputFileNames: JSON;
+    inputFiles: JSON;
     questionText: string;
     isPractice = false;
 
@@ -92,7 +92,7 @@ export class JavaCreateSnippetComponent implements OnInit {
      * Form submission.
      */
     onSubmit(): void {
-        const submissionRequest = JavaForm.extractData(this.formGroup, this.variables, this.inputFileNames, this.questionText);
+        const submissionRequest = JavaForm.extractData(this.formGroup, this.variables, this.inputFiles, this.questionText);
         this.questionService.postJavaQuestion(submissionRequest)
             .subscribe(() => {
                 this.refresh();
@@ -133,7 +133,7 @@ export class JavaCreateSnippetComponent implements OnInit {
      * Check if submissions files is valid.
      */
     isSubmissionFilesValid(): boolean {
-        return !_.isEmpty(this.inputFileNames);
+        return !_.isEmpty(this.inputFiles);
     }
 
     /**

@@ -34,6 +34,7 @@ import {UqjService} from "@app/problems/_services/uqj.service";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {SchemaService} from "@app/problems/_services/schema.service";
 import {SubmissionService} from "@app/problems/_services/submission.service";
+import { ParsonsLinesComponent } from './problem-view/parsons-lines/parsons-lines.component';
 
 @NgModule({
     declarations: [
@@ -56,6 +57,7 @@ import {SubmissionService} from "@app/problems/_services/submission.service";
         SubmissionSnippetComponent,
         SubmissionViewComponent,
         CkEditorComponent,
+        ParsonsLinesComponent,
     ],
     imports: [
         CommonModule,

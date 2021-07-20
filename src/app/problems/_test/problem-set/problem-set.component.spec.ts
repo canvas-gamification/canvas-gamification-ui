@@ -13,6 +13,7 @@ import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AppRoutingModule} from "@app/app-routing.module";
+import {MOCK_DIFFICULTIES} from "@app/problems/_test/mock";
 
 describe('ProblemSetComponent', () => {
     let component: ProblemSetComponent;
@@ -79,5 +80,9 @@ describe('ProblemSetComponent', () => {
     it('open delete modal', () => {
         component.open('', 0);
         expect(component.deleteQuestionId).toEqual(0);
+    });
+
+    it('getDifficultyDisplay', () => {
+        expect(component.getDifficultyDisplay('NORMAL')).toEqual(MOCK_DIFFICULTIES[1][1]);
     });
 });

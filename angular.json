@@ -25,7 +25,11 @@
                         "aot": true,
                         "allowedCommonJsDependencies": [
                             "dragula",
-                            "lodash"
+                            "lodash",
+                            "graphlib",
+                            "dagre",
+                            "jquery",
+                            "backbone"
                         ],
                         "assets": [
                             "src/favicon.ico",

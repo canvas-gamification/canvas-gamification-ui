@@ -70,7 +70,7 @@ describe('JavaEditSnippetComponent', () => {
 
         it('isSubmissionValid - valid', () => {
             component.questionText = 'Test';
-            component.inputFileNames = JSON.parse('{"a": "a"}');
+            component.inputFiles = JSON.parse('{"a": "a"}');
             fixture.detectChanges();
             expect(component.isSubmissionValid()).toBeTruthy();
         });

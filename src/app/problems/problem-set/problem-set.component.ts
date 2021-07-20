@@ -204,4 +204,18 @@ export class ProblemSetComponent implements OnInit {
         this.deleteQuestionId = questionId;
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
     }
+
+    /**
+     * Function to get the correct display of the difficulty type.
+     * @param difficulty - The difficulty to get the display value for.
+     */
+    getDifficultyDisplay(difficulty: string): string {
+        let difficultyDisplay: string;
+        this.difficulties.forEach((difficultyArray) => {
+            if (difficultyArray[0] === difficulty) {
+                difficultyDisplay = difficultyArray[1];
+            }
+        });
+        return difficultyDisplay;
+    }
 }
