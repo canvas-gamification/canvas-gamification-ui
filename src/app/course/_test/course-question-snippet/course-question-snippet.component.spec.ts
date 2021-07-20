@@ -82,7 +82,6 @@ describe('CourseQuestionSnippetComponent INVALID EVENT', () => {
 
     beforeEach(() => {
         fixture = TestBed.createComponent(CourseQuestionSnippetComponent);
-        router = TestBed.inject(Router);
         component = fixture.componentInstance;
         component.user = MOCK_USER_TEACHER;
         fixture.detectChanges();
