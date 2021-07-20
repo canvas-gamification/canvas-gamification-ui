@@ -48,9 +48,15 @@ describe('ParsonsEditSnippetComponent', () => {
             expect(component).toBeTruthy();
         });
 
-        it('courseSelectedById', () => {
-            component.courseSelectedById(0);
+        it('setCourse', () => {
+            component.setCourse(0);
             expect(component.events).toEqual(MOCK_COURSE.events);
+            expect(component.form.event.value).toBeNull();
+        });
+
+        it('setEvent', () => {
+            component.setEvent(1);
+            expect(component.form.event.value).toEqual(MOCK_COURSE_EVENT.id);
         });
 
         it('parsons update', () => {
