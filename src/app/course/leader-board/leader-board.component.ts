@@ -56,25 +56,6 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
 
-        this.leaderboardService
-            .getLeaderBoard()
-            .subscribe((users) => {
-                console.log(users);
-                this.teamUsers = users.sort((a, b) => {
-                    if (a.token_value < b.token_value) {
-                        return 1;
-                    }
-                    if (a.token_value > b.token_value) {
-                        return -1;
-                    }
-                    return 0;
-                });
-
-                for (let i = 0; i < 3; i++) {
-                    this.teamTopThree.push(this.teamUsers.shift());
-                }
-            });
-
         // Sort the input leaderboard in descending order based on number of tokens
         this.leaderBoard = this.leaderBoard.sort((a, b) => {
             if (a.token < b.token) {
