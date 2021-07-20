@@ -28,4 +28,12 @@ export class TeamLeaderBoardService {
         )
       );
   }
+
+  addTeam(team: Team): Observable<Team> {
+    const url = this.apiService.getURL('team');
+    console.log(team);
+    return this.http
+        .post<Team>(url, team)
+        .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while adding Team`)));
+}
 }

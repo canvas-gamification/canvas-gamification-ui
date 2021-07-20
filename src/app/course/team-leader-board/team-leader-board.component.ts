@@ -29,7 +29,7 @@ export class TeamLeaderBoardComponent implements OnInit {
     displayedColumns: string[] = ['rank', 'name', 'token'];
     teamLeaderBoardData: MatTableDataSource < {
         name: string,
-        tokens: number,
+        tokens?: number,
     } > ;
     @ViewChild(MatSort) matSort: MatSort;
 

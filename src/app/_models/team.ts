@@ -1,7 +1,8 @@
 
 
 export interface Team {
-    id: number;
+    id?: number;
     name: string;
-    tokens: number;
+    tokens?: number;
+    course_id: number;
 }

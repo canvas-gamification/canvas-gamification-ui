@@ -5,12 +5,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
-  MatTableDataSource
-} from '@angular/material/table';
-import {
-  MatSort
-} from '@angular/material/sort';
-import {
   Team
 } from "@app/_models/team"
 import {
@@ -26,13 +20,7 @@ import {
 export class CourseTeamComponent implements OnInit {
 
   @Input() courseId: number;
-  displayedColumns: string[] = ['name', 'tokens'];
-  teamListData: MatTableDataSource < {
-      name: string,
-      tokens: number,
-  }> ;
-  @ViewChild(MatSort) matSort: MatSort;
-
+  displayedColumns: string[] = ['name'];
 
   teams: Team[] = [];
   constructor(private teamLeaderboardService: TeamLeaderBoardService) {}
@@ -49,7 +37,6 @@ export class CourseTeamComponent implements OnInit {
             this.teams = teams;
 
             console.log(this.teams);
-            this.teamListData = new MatTableDataSource(this.teams)
           });
           
 
