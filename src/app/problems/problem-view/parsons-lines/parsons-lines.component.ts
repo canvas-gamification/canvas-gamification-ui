@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ParsonsFile} from "@app/_models";
 import * as indentString from "indent-string";
 import {DragulaService} from "ng2-dragula";
@@ -8,7 +8,7 @@ import {DragulaService} from "ng2-dragula";
     templateUrl: './parsons-lines.component.html',
     styleUrls: ['./parsons-lines.component.scss']
 })
-export class ParsonsLinesComponent implements OnInit {
+export class ParsonsLinesComponent implements OnInit, OnDestroy {
     @Input() file: ParsonsFile
     @Output() readonly code = new EventEmitter<string>();
 
@@ -32,6 +32,10 @@ export class ParsonsLinesComponent implements OnInit {
             this.removeLeftContainerIndents();
             this.calculateSourceCode();
         });
+    }
+
+    ngOnDestroy(): void {
+        this.dragulaService.destroy(this.file.name);
     }
 
     /**
