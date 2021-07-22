@@ -54,10 +54,11 @@
         <div class="form-row m-3 p-3">
             <div class="col-md-12">
                 <label for="mcqCourse" class="h5 pb-2">Course:</label>
-                <select (change)="courseSelectedEvent($event)"
+                <select (change)="courseSelectionChanged($event)"
                         [ngClass]="{'is-invalid': form.course.value === null && form.course.touched}"
                         class="form-control" formControlName="course"
                         id="mcqCourse">
+                    <option [ngValue]="null" disabled>------</option>
                     <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
                 </select>
                 <div *ngIf="form.course.touched && form.course.value === null"
@@ -69,8 +70,9 @@
         <div class="form-row m-3 p-3">
             <div class="col-md-12">
                 <label for="mcqEvent" class="h5 pb-2">Event Name:</label>
-                <select [ngClass]="{'is-invalid': form.event.value === null && form.event.touched}"
+                <select (change)="eventSelectionChanged($event)" [ngClass]="{'is-invalid': form.event.value === null && form.event.touched}"
                         class="form-control" formControlName="event" id="mcqEvent">
+                    <option [ngValue]="null" disabled>------</option>
                     <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
                 </select>
                 <div *ngIf="form.event.touched && form.event.value === null"
