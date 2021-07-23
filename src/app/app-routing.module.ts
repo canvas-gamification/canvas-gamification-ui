@@ -12,7 +12,7 @@ import {HomepageComponent} from './components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
-
+import {AdminComponent} from "@app/components/admin/admin.component";
 
 const routes: Routes = [
     {path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)},
@@ -55,6 +55,10 @@ const routes: Routes = [
     {
         path: 'faq',
         component: FaqComponent
+    },
+    {
+        path: 'admin',
+        component: AdminComponent
     },
     {
         path: '404',

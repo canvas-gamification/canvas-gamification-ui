@@ -46,6 +46,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
+import { AdminComponent } from './components/admin/admin.component';
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
     declarations: [
@@ -66,6 +68,7 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         InactiveCoursesComponent,
         NotFoundComponent,
         ForbiddenComponent,
+        AdminComponent,
     ],
     imports: [
         BrowserModule,
@@ -98,6 +101,7 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         MatSelectModule,
         ToastrModule.forRoot(),
         HighlightModule,
+        MatExpansionModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
