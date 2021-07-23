@@ -1,0 +1,92 @@
+<mat-expansion-panel class="card m-3">
+    <mat-expansion-panel-header>
+        <mat-panel-title>All students' information</mat-panel-title>
+    </mat-expansion-panel-header>
+    <form [formGroup]="formGroup" (ngSubmit)="applyFilter()">
+        <div class="form-row">
+            <div class="form-group col-2">
+                <label for="role">Role:</label>
+                <select class="form-control" name="role" formControlName="role" id="role">
+                    <option value="">All</option>
+                    <option value="Student">{{"Student"}}</option>
+                    <option value="Teacher">{{"Teacher"}}</option>
+                </select>
+            </div>
+            <div class="form-group col-3">
+                <button type="submit" class="btn btn-primary float-left">Go</button>
+            </div>
+        </div>
+    </form>
+    <div class="card m-3" *ngFor="let user of userList">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{"User id: " + user.id}}</mat-panel-title>
+                <mat-panel-description>{{"Username: " + user.username}}</mat-panel-description>
+            </mat-expansion-panel-header>
+            {{"Email: " + user.email}} <br>
+            {{"First name: " + user.first_name}} <br>
+            {{"Last name: " + user.last_name}} <br>
+            {{"Role: " + user.role}}
+        </mat-expansion-panel>
+    </div>
+</mat-expansion-panel>
+
+<mat-expansion-panel class="card m-3">
+    <mat-expansion-panel-header>
+        <mat-panel-title>Students of courses</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="card m-3" *ngFor="let user of userCourseList">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{"User id: " + user.id}}</mat-panel-title>
+                <mat-panel-description>{{"Username: " + user.username}}</mat-panel-description>
+            </mat-expansion-panel-header>
+            {{"Email: " + user.email}} <br>
+            {{"First name: " + user.first_name}} <br>
+            {{"Last name: " + user.last_name}} <br>
+            {{"Role: " + user.role}} <br>
+        </mat-expansion-panel>
+    </div>
+</mat-expansion-panel>
+
+<mat-expansion-panel class="card m-3">
+    <mat-expansion-panel-header>
+        <mat-panel-title>Questions' category</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="card m-3" *ngFor="let c of categoryList">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{"Category name: " + c.name}}</mat-panel-title>
+                <mat-panel-description>{{"Pk: " + c.pk}}</mat-panel-description>
+            </mat-expansion-panel-header>
+            {{"Primary key: " + c.pk}} <br>
+            {{"Description: " + c.description}} <br>
+            {{"Parent's primary key" + c.parent}} <br>
+            {{"Number of question: " + c.question_count}} <br>
+            {{"Rate of success: " + c.average_success}} <br>
+            {{"Next categories' primary key: " + c.next_category_ids}} <br>
+            {{"Full name: " + c.full_name}}
+        </mat-expansion-panel>
+    </div>
+</mat-expansion-panel>
+
+<mat-expansion-panel class="card m-3">
+    <mat-expansion-panel-header>
+        <mat-panel-title>All questions</mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="card m-3" *ngFor="let q of questionList">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{q.title}}</mat-panel-title>
+                <mat-panel-description>{{"Id: " + q.id}}</mat-panel-description>
+            </mat-expansion-panel-header>
+            {{"Text: " + q.text}} <br>
+            {{"Maximum number of submission: " + q.max_submission_allowed}} <br>
+            {{"Time created: " + q.time_created}} <br>
+            {{"Category name: " + q.type_name}} <br>
+            {{"Difficulty: " + q.difficulty}} <br>
+            {{"Token value: " + q.token_value}}
+        </mat-expansion-panel>
+    </div>
+</mat-expansion-panel>
+
