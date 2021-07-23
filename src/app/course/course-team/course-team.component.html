@@ -1,21 +1,3 @@
-<!-- <table mat-table [dataSource]="teamListData" class="table table-hover hover-shadow">
-
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef >Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.name || 'Anon'}}</td>
-    </ng-container>
-    <ng-container matColumnDef="tokens">
-        <th mat-header-cell *matHeaderCellDef >Tokens</th>
-        <td mat-cell *matCellDef="let element"> {{element.tokens || 'No Tokens'}}</td>
-    </ng-container> 
-    <ng-container matColumnDef="join">
-        <th mat-header-cell *matHeaderCellDef>Join</th>
-        <td mat-cell>Join</td> 
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table> -->
 
 <ng-container>
     <a class="btn btn-primary my-2 mr-3"  [routerLink]="['/course', courseId, 'new-team']">Create A Team</a>
@@ -33,12 +15,11 @@
             <ng-container *ngFor="let team of teams; index as i">
                 <tr>
                     <td>{{ team.name || 'N/A'}}</td>
-                    <td>         
-                        <div class="btn-container">
-                            <ng-container>
-                                <a class="btn btn-primary mr-3" href="#">Join</a>
-                            </ng-container>
-                        </div>
+                    <td>{{ team.id || 'N/A' }}</td>
+                    <td>     
+                        <button type="submit" name="submit"
+                                class="btn btn-primary my-2 mr-3">Join
+                        </button>
                     </td>
                 </tr>
             </ng-container>
