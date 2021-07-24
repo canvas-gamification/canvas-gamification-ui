@@ -35,6 +35,21 @@
     <mat-expansion-panel-header>
         <mat-panel-title>Students of courses</mat-panel-title>
     </mat-expansion-panel-header>
+    <form [formGroup]="formGroup" (ngSubmit)="applyFilter()">
+        <div class="form-row">
+            <div class="form-group col-2">
+                <label for="courseName">Course Name:</label>
+                <select class="form-control" name="courseName" formControlName="courseName" id="courseName">
+                    <option value="">All</option>
+                    <option *ngFor="let name of courseNamesList" [value]="name.name">{{name.name}}</option>
+
+                </select>
+            </div>
+            <div class="form-group col-3">
+                <button type="submit" class="btn btn-primary float-left">Go</button>
+            </div>
+        </div>
+    </form>
     <div class="card m-3" *ngFor="let user of userCourseList">
         <mat-expansion-panel>
             <mat-expansion-panel-header>

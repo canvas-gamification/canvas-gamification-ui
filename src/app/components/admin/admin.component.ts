@@ -3,6 +3,7 @@ import {AdminService} from '@app/_services/api/admin.service';
 import {User} from '@app/_models/user';
 import {Question} from "@app/_models/question";
 import {Category} from '@app/_models/category';
+import {Course} from "@app/_models/course";
 import {MatTableDataSource} from "@angular/material/table";
 import {Subject} from "rxjs";
 import {FormGroup} from "@angular/forms";
@@ -20,6 +21,7 @@ export class AdminComponent implements OnInit {
     userCourseList : User[];
     categoryList: Category[];
     questionList: Question[];
+    courseNamesList : Course[];
     questionsSource: MatTableDataSource<Question>;
     questionsLength: number;
     filterQueryString;
@@ -29,8 +31,10 @@ export class AdminComponent implements OnInit {
      */
     paramChanged: Subject<{
         role: string;
+        courseName: string;
     }> = new Subject<{
         role: string;
+        courseName: string;
     }>();
     applyFilter(): void {
         this.filterQueryString = this.formGroup.value;
@@ -49,6 +53,7 @@ export class AdminComponent implements OnInit {
         this.formGroup = AdminForm.createForm();
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.listUserService.getAllUser(options).subscribe(users => this.userList = users);
+            this.listUserService.getAllCourseUser(options).subscribe(usersCourse => this.userCourseList = usersCourse);
         });
     }
 
@@ -61,6 +66,8 @@ export class AdminComponent implements OnInit {
             this.questionsSource = new MatTableDataSource<Question>(this.questionList);
             this.questionsLength = paginatedQuestions.count;
         });
+        this.listUserService.getCourseNames().subscribe(courseNames => this.courseNamesList = courseNames);
+
     }
 
 }
