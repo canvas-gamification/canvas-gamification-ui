@@ -5,21 +5,24 @@
 <hr/>
 <table class="table table-hover mt-1" data-toggle="table">
     <thead class="thead-light text-dark">
-    <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Actions</th>
-    </tr>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Actions</th>
+        </tr>
     </thead>
     <tbody>
         <ng-container>
             <ng-container *ngFor="let team of teams; index as i">
                 <tr>
                     <td>{{ team.name || 'N/A'}}</td>
-                    <td>{{ team.id || 'N/A' }}</td>
-                    <td>     
-                        <button type="submit" name="submit"
-                                class="btn btn-primary my-2 mr-3">Join
-                        </button>
+                    <td>
+                        <button type="submit" value={{team.id}} class="btn btn-primary my-2 mr-3" 
+                            (click)="joinHandler($event)" *ngIf="teamRegistration.teamId!=team.id; else leaveTeam">Join</button>
+                        <ng-template #leaveTeam>
+                            <button type="submit" value={{team.id}} class="btn btn-primary my-2 mr-3" 
+                                (click)="leaveHandler($event)">Leave</button>
+                        </ng-template>
+                        
                     </td>
                 </tr>
             </ng-container>

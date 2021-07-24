@@ -1,22 +1,8 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ViewChild,
-    AfterViewInit
-} from '@angular/core';
-import {
-    MatTableDataSource
-} from '@angular/material/table';
-import {
-    MatSort
-} from '@angular/material/sort';
-import {
-    Team
-} from "@app/_models/team"
-import {
-    TeamLeaderBoardService
-} from '@app/course/_services/team-leader-board.service';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import {Team} from "@app/_models/team";
+import {TeamLeaderBoardService} from '@app/course/_services/team-leader-board.service';
 
 @Component({
     selector: 'app-team-leader-board',
@@ -26,6 +12,7 @@ import {
 export class TeamLeaderBoardComponent implements OnInit {
 
 
+    @Input() courseId: number;
     displayedColumns: string[] = ['rank', 'name', 'token'];
     teamLeaderBoardData: MatTableDataSource < {
         name?: string,
@@ -43,7 +30,7 @@ export class TeamLeaderBoardComponent implements OnInit {
     ngOnInit(): void {
 
         this.teamLeaderboardService
-            .getTeams()
+            .getTeams((String)(this.courseId))
             .subscribe((teams) => {
 
                 this.teams = teams.sort((a, b) => {
@@ -51,7 +38,7 @@ export class TeamLeaderBoardComponent implements OnInit {
                         return 1;
                     }
                     if (a.tokens > b.tokens) {
-                        return -1
+                        return -1;
                     }
                     return 0;
                 });

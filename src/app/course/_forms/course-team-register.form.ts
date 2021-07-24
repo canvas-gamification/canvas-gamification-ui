@@ -1,12 +1,4 @@
-import {
-    AbstractControl,
-    AbstractControlOptions,
-    FormBuilder,
-    FormControl,
-    FormGroup, ValidationErrors,
-    ValidatorFn,
-    Validators
-} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup,  Validators} from "@angular/forms";
 import {Team} from "@app/_models/team";
 
 export class CourseTeamRegisterForm {
