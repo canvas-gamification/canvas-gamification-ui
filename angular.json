@@ -24,7 +24,12 @@
                         "tsConfig": "tsconfig.app.json",
                         "aot": true,
                         "allowedCommonJsDependencies": [
-                            "dragula"
+                            "dragula",
+                            "lodash",
+                            "graphlib",
+                            "dagre",
+                            "jquery",
+                            "backbone"
                         ],
                         "assets": [
                             "src/favicon.ico",

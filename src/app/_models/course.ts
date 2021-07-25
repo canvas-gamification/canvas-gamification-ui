@@ -14,8 +14,8 @@ export interface Course {
     status: string;
     is_registered: boolean;
     events: CourseEvent[];
-    token_use_options: never;
-    question_set: never;
+    token_use_options: unknown;
+    question_set: unknown;
     uqjs: UQJ[];
     course_reg: CourseRegistration;
     leader_board: [{

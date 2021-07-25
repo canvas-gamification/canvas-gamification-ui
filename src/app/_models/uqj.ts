@@ -21,8 +21,13 @@ export interface UQJ {
     variables_errors: [];
     rendered_text: string;
     rendered_choices: { [index: string]: string };
-    rendered_lines: [];
+    rendered_lines: ParsonsFile[];
     status_class: string;
-    input_files: [];
+    input_files: { name: string, compile: boolean, template: string }[];
     is_checkbox: boolean;
+}
+
+export interface ParsonsFile {
+    name: string,
+    lines: string[],
 }

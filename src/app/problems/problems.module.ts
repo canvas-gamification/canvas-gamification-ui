@@ -29,7 +29,12 @@ import {VariableViewComponent} from "@app/problems/problem-view/variable-view/va
 import {ParsonsCreateSnippetComponent} from "@app/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component";
 import {ProblemsRoutingModule} from "@app/problems/problems-routing.module";
 import {DragulaModule} from "ng2-dragula";
-
+import {DifficultyService} from "@app/problems/_services/difficulty.service";
+import {UqjService} from "@app/problems/_services/uqj.service";
+import {QuestionService} from "@app/problems/_services/question.service";
+import {SchemaService} from "@app/problems/_services/schema.service";
+import {SubmissionService} from "@app/problems/_services/submission.service";
+import { ParsonsLinesComponent } from './problem-view/parsons-lines/parsons-lines.component';
 
 @NgModule({
     declarations: [
@@ -52,6 +57,7 @@ import {DragulaModule} from "ng2-dragula";
         SubmissionSnippetComponent,
         SubmissionViewComponent,
         CkEditorComponent,
+        ParsonsLinesComponent,
     ],
     imports: [
         CommonModule,
@@ -68,6 +74,11 @@ import {DragulaModule} from "ng2-dragula";
         DragulaModule.forRoot(),
     ],
     providers: [
+        DifficultyService,
+        UqjService,
+        QuestionService,
+        SchemaService,
+        SubmissionService,
         {
             provide: HIGHLIGHT_OPTIONS,
             useValue: {

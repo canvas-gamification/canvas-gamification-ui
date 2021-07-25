@@ -5,7 +5,7 @@ import {Subscription} from 'rxjs';
 @Component({
     selector: 'app-problem-create',
     templateUrl: './problem-create.component.html',
-    styleUrls: ['./problem-create.component.scss']
+    styleUrls: ['./problem-create.component.scss'],
 })
 export class ProblemCreateComponent implements OnInit {
 
