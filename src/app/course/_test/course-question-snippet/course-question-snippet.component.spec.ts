@@ -8,8 +8,8 @@ import {CourseEventService} from "@app/course/_services/course-event.service";
 import {CourseEventServiceMock} from "@app/problems/_test/course-event.service.mock";
 import {UqjService} from "@app/problems/_services/uqj.service";
 import {UqjServiceMock} from "@app/problems/_test/uqj.service.mock";
-import {ActivatedRoute, convertToParamMap, Router, RouterModule} from "@angular/router";
-import {MOCK_USER_TEACHER} from "@app/course/_test/mock";
+import {ActivatedRoute, convertToParamMap, RouterModule} from "@angular/router";
+import {MOCK_USER_TEACHER, MOCK_UQJ, MOCK_UQJ2} from "@app/course/_test/mock";
 import {RouterTestingModule} from "@angular/router/testing";
 
 describe('CourseQuestionSnippetComponent VALID EVENT', () => {
@@ -52,6 +52,17 @@ describe('CourseQuestionSnippetComponent VALID EVENT', () => {
     it('should load up all the UQJs, and the event', () => {
         expect(component.event).toBeTruthy();
         expect(component.uqjs).toBeTruthy();
+    });
+
+    it('getStatus should work when UQJ is an exam', () => {
+        expect(component.getStatus(MOCK_UQJ)).toEqual('Submitted');
+        expect(component.getStatus(MOCK_UQJ2)).toEqual('Not Submitted');
+    });
+
+    it('highlight should work', () => {
+        expect(component.highlight('Solved')).toEqual('highlight-success');
+        expect(component.highlight('Partially Solved')).toEqual('highlight-warning');
+        expect(component.highlight('Wrong')).toEqual('highlight-danger');
     });
 });
 describe('CourseQuestionSnippetComponent INVALID EVENT', () => {

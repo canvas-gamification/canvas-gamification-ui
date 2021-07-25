@@ -58,7 +58,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         if (uqj.question.is_exam && uqj.num_attempts > 0) {
             return 'Submitted';
         } else if (uqj.question.is_exam) {
-            return 'Not submitted';
+            return 'Not Submitted';
         }
     }
 
