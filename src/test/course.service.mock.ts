@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable, of} from "rxjs";
-import {APIResponse, Course} from "@app/_models";
+import {APIResponse, Course, REGISTRATION_STATUS, RegistrationStatus} from "@app/_models";
 import {MOCK_COURSE} from "@app/problems/_test/mock";
 import {MOCK_COURSE1} from "@app/course/_test/mock";
 
@@ -22,5 +22,9 @@ export class CourseServiceMock {
             return of({success: false, bad_request: true});
         else
             return of({success: true, bad_request: false});
+    }
+
+    getCourseRegistrationStatus(courseId: number): Observable<RegistrationStatus> {
+        return of({status: REGISTRATION_STATUS.NOT_REGISTERED, message: null});
     }
 }
