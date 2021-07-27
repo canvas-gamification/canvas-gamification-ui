@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TeamLeaderBoardComponent } from './team-leader-board.component';
+import {TeamLeaderBoardComponent} from './team-leader-board.component';
 
 describe('LeaderboardComponent', () => {
     let component: TeamLeaderBoardComponent;
@@ -8,7 +8,7 @@ describe('LeaderboardComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ TeamLeaderBoardComponent ]
+            declarations: [TeamLeaderBoardComponent]
         })
             .compileComponents();
     });

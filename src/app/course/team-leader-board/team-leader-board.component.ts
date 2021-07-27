@@ -1,7 +1,10 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
+// Angular Imports
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
+// Model Imports
 import {Team} from "@app/_models/team";
+// Services Imports
 import {TeamLeaderBoardService} from '@app/course/_services/team-leader-board.service';
 
 @Component({
@@ -11,21 +14,19 @@ import {TeamLeaderBoardService} from '@app/course/_services/team-leader-board.se
 })
 export class TeamLeaderBoardComponent implements OnInit {
 
-
     @Input() courseId: number;
     displayedColumns: string[] = ['rank', 'name', 'token'];
-    teamLeaderBoardData: MatTableDataSource < {
+    teamLeaderBoardData: MatTableDataSource<{
         name?: string,
         tokens?: number,
-    } > ;
+    }>;
     @ViewChild(MatSort) matSort: MatSort;
-
 
     teamTopThree: Team[] = [];
     teams: Team[] = [];
-    constructor(private teamLeaderboardService: TeamLeaderBoardService) {}
 
-
+    constructor(private teamLeaderboardService: TeamLeaderBoardService) {
+    }
 
     ngOnInit(): void {
 
@@ -52,9 +53,5 @@ export class TeamLeaderBoardComponent implements OnInit {
                 }
                 this.teamLeaderBoardData = new MatTableDataSource(this.teams);
             });
-            
-
     }
-
-
 }

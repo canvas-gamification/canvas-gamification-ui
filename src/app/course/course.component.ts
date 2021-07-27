@@ -1,8 +1,11 @@
+// Angular Imports
 import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+// Model Imports
+import {Course, User} from '@app/_models';
+// Services Imports
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseService} from '@app/course/_services/course.service';
-import {Course, User} from '@app/_models';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-course',

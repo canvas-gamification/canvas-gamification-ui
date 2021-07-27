@@ -1,7 +1,6 @@
-
 <div class="container podium-container">
-    <div class="podium-wrapper" *ngFor="let team of teamTopThree let i = index"
-        [ngClass]="{'first' : i == 0, 'second' : i == 1, 'third' : i == 2}">
+    <div *ngFor="let team of teamTopThree let i = index" [ngClass]="{'first' : i == 0, 'second' : i == 1, 'third' : i == 2}"
+         class="podium-wrapper">
         <div class="podium-content">
             <h2 class="podium-title">
                 {{team.name | titlecase}}
@@ -12,21 +11,21 @@
     </div>
 </div>
 
-<table mat-table [dataSource]="teamLeaderBoardData" matSort matSortActive="token" matSortDirection="desc"
-    matSortDisableClear class="table table-hover hover-shadow">
+<table [dataSource]="teamLeaderBoardData" class="table table-hover hover-shadow" mat-table matSort matSortActive="token"
+       matSortDirection="desc" matSortDisableClear>
     <ng-container matColumnDef="rank">
-        <th mat-header-cell *matHeaderCellDef >Rank</th>
-        <td mat-cell *matCellDef="let i = index">{{i + 4}}</td>
+        <th *matHeaderCellDef mat-header-cell>Rank</th>
+        <td *matCellDef="let i = index" mat-cell>{{i + 4}}</td>
     </ng-container>
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef  >Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.name || 'Anon'}}</td>
+        <th *matHeaderCellDef mat-header-cell>Name</th>
+        <td *matCellDef="let element" mat-cell> {{element.name || 'Anon'}}</td>
     </ng-container>
     <ng-container matColumnDef="token">
-        <th mat-header-cell *matHeaderCellDef>Tokens</th>
-        <td mat-cell *matCellDef="let element"> {{element.tokens || 'No Tokens'}}</td>
+        <th *matHeaderCellDef mat-header-cell>Tokens</th>
+        <td *matCellDef="let element" mat-cell> {{element.tokens || 'No Tokens'}}</td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
 </table>

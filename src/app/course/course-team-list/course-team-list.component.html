@@ -1,0 +1,32 @@
+<ng-container>
+    <a [routerLink]="['/course', courseId, 'new-team']" class="btn btn-primary my-2 mr-3">Create A Team</a>
+</ng-container>
+<hr/>
+<table class="table table-hover mt-1" data-toggle="table">
+    <thead class="thead-light text-dark">
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container>
+        <ng-container *ngFor="let team of teams; index as i">
+            <tr>
+                <td>{{ team.name || 'N/A'}}</td>
+                <td>
+                    <button (click)="joinHandler($event)" *ngIf="teamRegistration.team_id!=team.id; else leaveTeam" class="btn btn-primary my-2 mr-3"
+                            type="submit" value={{team.id}}>Join
+                    </button>
+                    <ng-template #leaveTeam>
+                        <button (click)="leaveHandler($event)" class="btn btn-primary my-2 mr-3" type="submit"
+                                value={{team.id}}>Leave
+                        </button>
+                    </ng-template>
+                </td>
+            </tr>
+        </ng-container>
+    </ng-container>
+    </tbody>
+</table>
+

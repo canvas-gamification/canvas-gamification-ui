@@ -1,23 +1,25 @@
-import {Component, OnInit, Input} from '@angular/core';
+// Angular Imports
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {FormGroup} from '@angular/forms';
+// Model Imports
 import {User} from "@app/_models/user";
 import {Team} from "@app/_models/team";
 import {TeamRegistration} from "@app/_models/team_registration";
-import {TeamLeaderBoardService} from '@app/course/_services/team-leader-board.service';
-import {ToastrService} from "ngx-toastr";
-import {FormGroup} from '@angular/forms';
+// Form Imports
 import {CourseTeamRegisterForm} from '@app/course/_forms/course-team-register.form';
-
+// Services Imports
+import {TeamLeaderBoardService} from '@app/course/_services/team-leader-board.service';
+//Library Imports
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-course-team',
-    templateUrl: './course-team.component.html',
-    styleUrls: ['./course-team.component.scss']
+    templateUrl: './course-team-list.component.html',
+    styleUrls: ['./course-team-list.component.scss']
 })
-export class CourseTeamComponent implements OnInit {
+export class CourseTeamListComponent implements OnInit {
 
-
-    
     // Course Id passed from course.component
     @Input() courseId: number;
     @Input() user: User;
@@ -27,11 +29,12 @@ export class CourseTeamComponent implements OnInit {
 
     // Form group used to pass necessary data for registration
     formData: FormGroup;
-    
+
     constructor(private route: ActivatedRoute,
-        private teamLeaderBoardService: TeamLeaderBoardService,
-        private toastr: ToastrService,
-        private router: Router) {}
+                private teamLeaderBoardService: TeamLeaderBoardService,
+                private toastr: ToastrService,
+                private router: Router) {
+    }
 
     ngOnInit(): void {
         // initialize formData
@@ -49,7 +52,6 @@ export class CourseTeamComponent implements OnInit {
             .subscribe((registration) => {
                 console.log(registration);
                 this.teamRegistration = registration;
-                
             });
     }
 

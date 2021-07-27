@@ -1,10 +1,11 @@
-import {Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
+// Angular Imports
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
-import {
-    MatSort
-} from '@angular/material/sort';
-import { LeaderBoardStudents} from '@app/_models/leader_board';
-import { LeaderBoardService } from '@app//course/_services/leaderboard.service';
+import {MatSort} from '@angular/material/sort';
+// Model Imports
+import {LeaderBoardStudents} from '@app/_models/leader_board';
+// Services Imports
+import {LeaderBoardService} from '@app//course/_services/leaderboard.service';
 
 @Component({
     selector: 'app-leader-board',
@@ -12,8 +13,6 @@ import { LeaderBoardService } from '@app//course/_services/leaderboard.service';
     styleUrls: ['./leader-board.component.scss']
 })
 export class LeaderBoardComponent implements OnInit, AfterViewInit {
-
-
 
     // Array of objects
     // Storing the top three users and their number of tokens
@@ -30,21 +29,18 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
         token: number,
     } [];
 
-
-
     displayedColumns: string[] = ['rank', 'name', 'token'];
-    leaderBoardData: MatTableDataSource < {
+    leaderBoardData: MatTableDataSource<{
         name: string,
         token: number,
-    } > ;
+    }>;
     @ViewChild(MatSort) matSort: MatSort;
-
 
     teamTopThree: LeaderBoardStudents[] = [];
     teamUsers: LeaderBoardStudents[] = [];
-    constructor(private leaderboardService: LeaderBoardService) {}
 
-
+    constructor(private leaderboardService: LeaderBoardService) {
+    }
 
     ngOnInit(): void {
 
@@ -67,46 +63,10 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
                 break;
             }
         }
-
     }
-
-
 
     ngAfterViewInit(): void {
         // intialize the datasource for the matTable from leaderBoard
         this.leaderBoardData = new MatTableDataSource(this.leaderBoard);
-
-
     }
-
-    // ! Methods to animate and unanimate the streak icons
-    // ! Not currently in use
-    // turnToGif(e: Event): void {
-    //     const parent = e.target as HTMLElement;
-    //     if (parent.children[2].children[0]) {
-    //         const img = parent.children[2].children[0].children[0] as HTMLImageElement;
-    //         const fire: string = window.location.origin + '/assets/gif/fire-still.png';
-    //         const snow: string = window.location.origin + '/assets/gif/snow-still.png';
-    //         if (img.src == fire) {
-    //             img.src = 'assets/gif/fire.gif';
-    //         } else if (img.src == snow) {
-    //             img.src = 'assets/gif/snow.gif';
-    //         }
-    //     }
-    // }
-
-    // turnToStatic(e: Event): void {
-    //     const parent = e.target as HTMLElement;
-    //     if (parent.children[2].children[0]) {
-    //         const img = parent.children[2].children[0].children[0] as HTMLImageElement;
-    //         const fire: string = window.location.origin + '/assets/gif/fire.gif';
-    //         const snow: string = window.location.origin + '/assets/gif/snow.gif';
-    //         if (img.src == fire) {
-    //             img.src = 'assets/gif/fire-still.png';
-    //         } else if (img.src == snow) {
-    //             img.src = 'assets/gif/snow-still.png';
-    //         }
-    //     }
-    // }
-
 }
