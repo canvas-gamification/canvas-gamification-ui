@@ -1,18 +1,10 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    ViewChild,
-    AfterViewInit
-} from '@angular/core';
-import {
-    MatTableDataSource
-} from '@angular/material/table';
+import {Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
+import {MatTableDataSource} from '@angular/material/table';
 import {
     MatSort
 } from '@angular/material/sort';
 import { LeaderBoardStudents} from '@app/_models/leader_board';
-import { LeaderBoardService } from '@app/_services/api/leaderboard.service';
+import { LeaderBoardService } from '@app//course/_services/leaderboard.service';
 
 @Component({
     selector: 'app-leader-board',
