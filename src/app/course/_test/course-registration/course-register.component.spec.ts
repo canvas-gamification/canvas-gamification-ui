@@ -1,7 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CourseRegisterComponent} from './course-register.component';
+import {CourseRegisterComponent, STEPPER_STAGES} from '../../course-registration/course-register.component';
 import {TestModule} from '@test/test.module';
+import {REGISTRATION_STATUS} from "@app/_models";
 
 describe('RegisterComponent', () => {
     let component: CourseRegisterComponent;
@@ -21,5 +22,12 @@ describe('RegisterComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('initialStage should work', () => {
+        component.initialStage(REGISTRATION_STATUS.REGISTERED);
+        expect(component.completed).toBeTrue();
+        expect(component.verification).toBeFalse();
+        expect(component.selectedIndex).toEqual(STEPPER_STAGES.REGISTERED);
     });
 });

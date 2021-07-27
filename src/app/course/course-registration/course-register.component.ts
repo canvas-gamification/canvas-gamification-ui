@@ -7,7 +7,7 @@ import {ToastrService} from "ngx-toastr";
 import {CourseRegistrationRequest, CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
 import {CourseRegisterForm} from "@app/course/_forms/register.form";
 
-const STEPPER_STAGES = {
+export const STEPPER_STAGES = {
     ENTER_NAME: 0,
     CONFIRM_IDENTITY: 1,
     VERIFICATION: 2,
