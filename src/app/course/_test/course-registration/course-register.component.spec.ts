@@ -96,4 +96,18 @@ describe('RegisterComponent', () => {
         expect(component.needsStudentNumber).toBeTrue();
         expect(component.nextStep).toHaveBeenCalled();
     });
+
+    it('registerStepSubmit should work', () => {
+        spyOn(component, 'setRegistrationStage');
+        component.nameForm.get('nameControl').setValue('Test');
+        component.registerStepSubmit();
+        expect(component.setRegistrationStage).toHaveBeenCalledOnceWith({success: true});
+    });
+
+    it('verifyStepSubmit should work', () => {
+        spyOn(component, 'setRegistrationStage');
+        component.verifyForm.get('verifyControl').setValue('1234');
+        component.verifyStepSubmit();
+        expect(component.setRegistrationStage).toHaveBeenCalledOnceWith({success: true});
+    });
 });

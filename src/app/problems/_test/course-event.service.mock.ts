@@ -8,7 +8,15 @@ export class CourseEventServiceMock {
         return of(MOCK_COURSE_EVENT);
     }
 
-    getEventTypes() : Observable<EventType[]> {
+    getEventTypes(): Observable<EventType[]> {
         return of(MOCK_EVENT_TYPES);
+    }
+
+    addCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+        return of(MOCK_COURSE_EVENT);
+    }
+
+    updateCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+        return of(MOCK_COURSE_EVENT);
     }
 }
