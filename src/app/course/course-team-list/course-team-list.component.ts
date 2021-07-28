@@ -14,7 +14,7 @@ import {TeamLeaderBoardService} from '@app/course/_services/team-leader-board.se
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-    selector: 'app-course-team',
+    selector: 'app-course-team-list',
     templateUrl: './course-team-list.component.html',
     styleUrls: ['./course-team-list.component.scss']
 })

@@ -1,12 +1,6 @@
-import {
-    AbstractControl,
-    AbstractControlOptions,
-    FormBuilder,
-    FormControl,
-    FormGroup, ValidationErrors,
-    ValidatorFn,
-    Validators
-} from "@angular/forms";
+// Angular Imports
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+// Model Imports
 import {Team} from "@app/_models/team";
 
 export class CourseTeamForm {
@@ -20,7 +14,6 @@ export class CourseTeamForm {
             name: new FormControl(null, [Validators.required]),
         });
     }
-
 
     /**
      * Returns the formatted form data ready to be sent to the backend

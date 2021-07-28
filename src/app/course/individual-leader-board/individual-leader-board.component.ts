@@ -3,16 +3,15 @@ import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core'
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 // Model Imports
-import {LeaderBoardStudents} from '@app/_models/leader_board';
-// Services Imports
-import {LeaderBoardService} from '@app//course/_services/leaderboard.service';
+import {LeaderBoardStudent} from '@app/_models';
 
 @Component({
-    selector: 'app-leader-board',
-    templateUrl: './leader-board.component.html',
-    styleUrls: ['./leader-board.component.scss']
+    selector: 'app-individual-leader-board',
+    templateUrl: './individual-leader-board.component.html',
+    styleUrls: ['./individual-leader-board.component.scss']
 })
-export class LeaderBoardComponent implements OnInit, AfterViewInit {
+
+export class IndividualLeaderBoardComponent implements OnInit, AfterViewInit {
 
     // Array of objects
     // Storing the top three users and their number of tokens
@@ -36,11 +35,8 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
     }>;
     @ViewChild(MatSort) matSort: MatSort;
 
-    teamTopThree: LeaderBoardStudents[] = [];
-    teamUsers: LeaderBoardStudents[] = [];
-
-    constructor(private leaderboardService: LeaderBoardService) {
-    }
+    teamTopThree: LeaderBoardStudent[] = [];
+    teamUsers: LeaderBoardStudent[] = [];
 
     ngOnInit(): void {
 
@@ -66,7 +62,7 @@ export class LeaderBoardComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        // intialize the datasource for the matTable from leaderBoard
+        // initialize the datasource for the matTable from leaderBoard
         this.leaderBoardData = new MatTableDataSource(this.leaderBoard);
     }
 }

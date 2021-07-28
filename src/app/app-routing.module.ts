@@ -12,7 +12,7 @@ import {HomepageComponent} from './components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
-import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component";
+import {IndividualLeaderBoardComponent} from "@app/course/individual-leader-board/individual-leader-board.component";
 
 
 const routes: Routes = [
@@ -27,7 +27,7 @@ const routes: Routes = [
     {
         path:'leaderboard',
         pathMatch: 'full',
-        component: LeaderBoardComponent,
+        component: IndividualLeaderBoardComponent,
     },
     {
         path: 'contact',
@@ -53,7 +53,7 @@ const routes: Routes = [
         path: 'homepage',
         component: HomepageComponent,
         canActivate: [AuthGuard]
-    }, 
+    },
     {
         path: 'actions',
         component: UserActionsComponent

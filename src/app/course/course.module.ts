@@ -7,7 +7,7 @@ import {CourseComponent} from "@app/course/course.component";
 import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/course-events-snippet.component";
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component";
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
-import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component";
+import {IndividualLeaderBoardComponent} from "@app/course/individual-leader-board/individual-leader-board.component";
 import { TeamLeaderBoardComponent } from './team-leader-board/team-leader-board.component';
 
 
@@ -36,7 +36,7 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import { CourseTeamListComponent } from './course-team-list/course-team-list.component';
-import { CourseCreateTeamComponent } from './course-create-team/course-create-team.component';
+import { CourseTeamCreateComponent } from './course-team-create/course-team-create.component';
 
 
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
@@ -50,10 +50,10 @@ import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component
         TokenUseSnippetComponent,
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
-        LeaderBoardComponent,
+        IndividualLeaderBoardComponent,
         TeamLeaderBoardComponent,
         CourseTeamListComponent,
-        CourseCreateTeamComponent,
+        CourseTeamCreateComponent,
         ConceptMapComponent
     ],
     imports: [
