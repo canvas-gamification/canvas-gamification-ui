@@ -47,9 +47,6 @@ import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
 
-
-
-
 @NgModule({
     declarations: [
         AppComponent,

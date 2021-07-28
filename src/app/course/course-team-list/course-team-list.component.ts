@@ -3,8 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup} from '@angular/forms';
 // Model Imports
-import {User} from "@app/_models/user";
-import {Team} from "@app/_models/team";
+import {User, Team} from "@app/_models";
 import {TeamRegistration} from "@app/_models/team_registration";
 // Form Imports
 import {CourseTeamRegisterForm} from '@app/course/_forms/course-team-register.form';

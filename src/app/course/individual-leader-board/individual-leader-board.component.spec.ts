@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {IndividualLeaderBoardComponent} from './individual-leader-board.component';
+import {TestModule} from "@test/test.module";
 
 describe('LeaderboardComponent', () => {
     let component: IndividualLeaderBoardComponent;
@@ -8,7 +9,8 @@ describe('LeaderboardComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [IndividualLeaderBoardComponent]
+            declarations: [IndividualLeaderBoardComponent],
+            imports: [TestModule]
         })
             .compileComponents();
     });
