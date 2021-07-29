@@ -26,7 +26,6 @@ const routes: Routes = [
     },
     {
         path:'leaderboard',
-        pathMatch: 'full',
         component: IndividualLeaderBoardComponent,
     },
     {

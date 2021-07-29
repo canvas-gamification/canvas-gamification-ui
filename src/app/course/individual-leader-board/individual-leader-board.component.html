@@ -1,5 +1,5 @@
 <div class="container podium-container">
-    <div *ngFor="let user of topThree let i = index" [ngClass]="{'first' : i == 0, 'second' : i == 1, 'third' : i == 2}"
+    <div *ngFor="let user of topThree; let i = index" [ngClass]="{'first' : i == 0, 'second' : i == 1, 'third' : i == 2}"
          class="podium-wrapper">
         <div class="podium-content">
             <h2 class="podium-title">

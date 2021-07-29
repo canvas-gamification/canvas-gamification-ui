@@ -57,7 +57,6 @@ export class TeamLeaderBoardService {
      */
     addTeam(courseId: number, team: Team): Observable < Team > {
         const url = this.apiService.getURL('team', courseId, 'create_team');
-        console.log(team);
         return this.http
             .post <Team> (url, team)
             .pipe(catchError(this.apiService.handleError < Team > (`Error occurred while creating Team`)));
@@ -69,7 +68,6 @@ export class TeamLeaderBoardService {
      */
     joinTeam(team: Team): Observable < Team > {
         const url = this.apiService.getURL('team', team.team_id, 'join_team');
-        console.log(team);
         return this.http
             .post <Team> (url, team)
             .pipe(catchError(this.apiService.handleError < Team > (`Error occurred while registering for the Team`)));
@@ -81,7 +79,6 @@ export class TeamLeaderBoardService {
      */
     leaveTeam(team: Team): Observable < Team > {
         const url = this.apiService.getURL('team', team.team_id, 'leave_team');
-        console.log(team);
         return this.http
             .post <Team> (url, team)
             .pipe(catchError(this.apiService.handleError < Team > (`Error occurred while leaving this Team`)));

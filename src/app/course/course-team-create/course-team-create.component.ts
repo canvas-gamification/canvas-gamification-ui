@@ -43,8 +43,6 @@ export class CourseTeamCreateComponent implements OnInit {
     submitEvent(formData: FormGroup): void {
 
         const ourTeam: Team = CourseTeamForm.formatFormData(formData, this.courseId);
-        console.log(ourTeam);
-        //
         this.teamLeaderBoardService.addTeam(this.courseId, ourTeam).subscribe(
             () => {
                 this.router.navigate(['course', this.courseId]).then();

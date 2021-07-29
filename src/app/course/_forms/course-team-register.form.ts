@@ -21,7 +21,6 @@ export class CourseTeamRegisterForm {
      * @param courseId - the event's courseId
      */
     static formatFormData(formData: FormGroup, courseId: number): Team {
-        console.log(formData);
         return {
             team_id: formData.get('team_id').value,
             course_id: courseId

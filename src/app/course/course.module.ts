@@ -9,8 +9,6 @@ import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {IndividualLeaderBoardComponent} from "@app/course/individual-leader-board/individual-leader-board.component";
 import { TeamLeaderBoardComponent } from './team-leader-board/team-leader-board.component';
-
-
 import {CourseRoutingModule} from "@app/course/course-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
@@ -24,7 +22,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-
 import {
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
@@ -37,8 +34,6 @@ import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import { CourseTeamListComponent } from './course-team-list/course-team-list.component';
 import { CourseTeamCreateComponent } from './course-team-create/course-team-create.component';
-
-
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 
 @NgModule({
