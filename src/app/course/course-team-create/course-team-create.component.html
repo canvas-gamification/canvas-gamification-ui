@@ -13,7 +13,7 @@
             <div class="form-group">
                 <button [routerLink]="['/course', courseId]" class="btn btn-primary my-2 mr-3">Back</button>
                 <button class="btn btn-primary my-2 mr-3" id="id-submit" name="submit"
-                        type="submit">Submit
+                        type="submit" [disabled]="!formData.valid">Submit
                 </button>
             </div>
         </div>

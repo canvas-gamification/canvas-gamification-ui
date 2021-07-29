@@ -21,7 +21,7 @@ export class TeamLeaderBoardService {
      * Makes call to 'team' API endpoint to retrieve all teams in the specified course
      * @param courseId - teams belonging to this course will be returned
      */
-    getTeams(courseId: string): Observable < Team[] > {
+    getTeams(courseId: number): Observable < Team[] > {
         const url = this.apiService.getURL('team');
         const params = new HttpParams()
             .set('courseId', String(courseId));
@@ -40,7 +40,7 @@ export class TeamLeaderBoardService {
      * @param courseId the course's Id
      * @param userId - the user's Id
      */
-    getTeamRegistration(courseId: number, userId: string): Observable <TeamRegistration> {
+    getTeamRegistration(courseId: number, userId: number): Observable <TeamRegistration> {
         const url = this.apiService.getURL('team', courseId, 'get_team_registration');
         const params = new HttpParams()
             .set('userId', String(userId));

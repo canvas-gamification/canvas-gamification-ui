@@ -15,7 +15,7 @@ import {TeamLeaderBoardService} from '@app/course/_services/team-leader-board.se
 export class TeamLeaderBoardComponent implements OnInit {
 
     @Input() courseId: number;
-    displayedColumns: string[] = ['rank', 'name', 'token'];
+    displayedColumns = ['rank', 'name', 'token'];
     teamLeaderBoardData: MatTableDataSource<{
         name?: string,
         tokens?: number,
@@ -31,7 +31,7 @@ export class TeamLeaderBoardComponent implements OnInit {
     ngOnInit(): void {
 
         this.teamLeaderboardService
-            .getTeams((String)(this.courseId))
+            .getTeams((this.courseId))
             .subscribe((teams) => {
 
                 this.teams = teams.sort((a, b) => {

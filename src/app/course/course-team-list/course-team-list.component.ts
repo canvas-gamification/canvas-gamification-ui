@@ -40,13 +40,13 @@ export class CourseTeamListComponent implements OnInit {
         this.formData = CourseTeamRegisterForm.createForm();
 
         this.teamLeaderBoardService
-            .getTeams((String)(this.courseId))
+            .getTeams((this.courseId))
             .subscribe((teams) => {
                 this.teams = teams;
             });
 
         this.teamLeaderBoardService
-            .getTeamRegistration(this.courseId, (String)(this.user.id))
+            .getTeamRegistration(this.courseId, (this.user.id))
             .subscribe((registration) => {
                 this.teamRegistration = registration;
             });
@@ -55,7 +55,7 @@ export class CourseTeamListComponent implements OnInit {
     //call the service to join a team upon submission of the form (clicking on the Join button)
     submitEvent(formData: FormGroup): void {
 
-        const ourTeam: Team = CourseTeamRegisterForm.formatFormData(formData, this.courseId);
+        const ourTeam = CourseTeamRegisterForm.formatFormData(formData, this.courseId);
 
         this.teamLeaderBoardService.joinTeam(ourTeam).subscribe(
             () => {
@@ -69,7 +69,7 @@ export class CourseTeamListComponent implements OnInit {
 
     joinHandler(event: any): void {
 
-        const targetTeam: Team = {
+        const targetTeam = {
             team_id: event.target.value,
             course_id: this.courseId
         };
@@ -85,7 +85,7 @@ export class CourseTeamListComponent implements OnInit {
 
     leaveHandler(event: any): void {
 
-        const targetTeam: Team = {
+        const targetTeam = {
             team_id: event.target.value,
             course_id: this.courseId
         };
