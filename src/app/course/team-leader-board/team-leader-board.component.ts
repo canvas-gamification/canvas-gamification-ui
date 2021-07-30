@@ -34,24 +34,28 @@ export class TeamLeaderBoardComponent implements OnInit {
             .getTeams((this.courseId))
             .subscribe((teams) => {
 
-                this.teams = teams.sort((a, b) => {
-                    if (a.tokens < b.tokens) {
-                        return 1;
-                    }
-                    if (a.tokens > b.tokens) {
-                        return -1;
-                    }
-                    return 0;
-                });
-
-                for (let i = 0; i < 3; i++) {
-                    if (this.teams[0]) {
-                        this.teamTopThree.push(this.teams.shift());
-                    } else {
-                        break;
-                    }
-                }
+                this.leaderBoardSort(teams);
                 this.teamLeaderBoardData = new MatTableDataSource(this.teams);
             });
+    }
+
+    leaderBoardSort(teams: Team[]) {
+        this.teams = teams.sort((a, b) => {
+            if (a.tokens < b.tokens) {
+                return 1;
+            }
+            if (a.tokens > b.tokens) {
+                return -1;
+            }
+            return 0;
+        });
+
+        for (let i = 0; i < 3; i++) {
+            if (this.teams[0]) {
+                this.teamTopThree.push(this.teams.shift());
+            } else {
+                break;
+            }
+        }
     }
 }

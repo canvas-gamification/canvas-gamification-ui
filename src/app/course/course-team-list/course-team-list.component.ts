@@ -52,7 +52,10 @@ export class CourseTeamListComponent implements OnInit {
             });
     }
 
-    //call the service to join a team upon submission of the form (clicking on the Join button)
+    /**
+     * call the service to join a team upon submission of the form (clicking on the Join button)
+     * @param formData 
+     */
     submitEvent(formData: FormGroup): void {
 
         const ourTeam = CourseTeamRegisterForm.formatFormData(formData, this.courseId);
