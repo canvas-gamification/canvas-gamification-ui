@@ -14,25 +14,20 @@ import {TeamRegistration} from "@app/_models/team_registration";
 export class TeamLeaderBoardService {
     constructor(
         private http: HttpClient,
-        private apiService: ApiService
-    ) {}
+        private apiService: ApiService) {
+    }
 
     /**
      * Makes call to 'team' API endpoint to retrieve all teams in the specified course
      * @param courseId - teams belonging to this course will be returned
      */
-    getTeams(courseId: number): Observable < Team[] > {
+    getTeams(courseId: number): Observable<Team[]> {
         const url = this.apiService.getURL('team');
-        const params = new HttpParams()
-            .set('courseId', String(courseId));
+        const params = new HttpParams().set('courseId', String(courseId));
 
         return this.http
-            .get <Team[]> (url, {params})
-            .pipe(
-                catchError(
-                    this.apiService.handleError < Team[] > (`unable to load teams.`, [])
-                )
-            );
+            .get <Team[]>(url, {params})
+            .pipe(catchError(this.apiService.handleError <Team[]>(`unable to load teams.`, [])));
     }
 
     /**
@@ -40,13 +35,11 @@ export class TeamLeaderBoardService {
      * @param courseId the course's Id
      * @param userId - the user's Id
      */
-    getTeamRegistration(courseId: number, userId: number): Observable <TeamRegistration> {
+    getTeamRegistration(courseId: number): Observable<TeamRegistration> {
         const url = this.apiService.getURL('team', courseId, 'get_team_registration');
-        const params = new HttpParams()
-            .set('userId', String(userId));
-
+        
         return this.http
-            .get <TeamRegistration>(url, {params})
+            .get <TeamRegistration>(url)
             .pipe(catchError(this.apiService.handleError<TeamRegistration>(`Error occurred while retrieving team registrations`)));
     }
 
@@ -55,32 +48,32 @@ export class TeamLeaderBoardService {
      * @param courseId - Course which the team will belong to
      * @param team - The data to be passed to the API, a Team Object
      */
-    addTeam(courseId: number, team: Team): Observable < Team > {
-        const url = this.apiService.getURL('team', courseId, 'create_team');
+    addTeam(team: Team): Observable<Team> {
+        const url = this.apiService.getURL('team');
         return this.http
-            .post <Team> (url, team)
-            .pipe(catchError(this.apiService.handleError < Team > (`Error occurred while creating Team`)));
+            .post <Team>(url, team)
+            .pipe(catchError(this.apiService.handleError <Team>(`Error occurred while creating Team`)));
     }
 
     /**
      * Makes call to 'team' API endpoint to add user to this team
      * @param team - data to be sent to API, a Team Object
      */
-    joinTeam(team: Team): Observable < Team > {
-        const url = this.apiService.getURL('team', team.team_id, 'join_team');
+    joinTeam(team: Team): Observable<Team> {
+        const url = this.apiService.getURL('team', team.team_id);
         return this.http
-            .post <Team> (url, team)
-            .pipe(catchError(this.apiService.handleError < Team > (`Error occurred while registering for the Team`)));
+            .put <Team>(url, team)
+            .pipe(catchError(this.apiService.handleError <Team>(`Error occurred while registering for the Team`)));
     }
 
     /**
      * Makes call to 'team' API endpoint to remove the user from this team
      * @param team - data to be sent to API, a Team Object
      */
-    leaveTeam(team: Team): Observable < Team > {
-        const url = this.apiService.getURL('team', team.team_id, 'leave_team');
+    leaveTeam(team: Team): Observable<Team> {
+        const url = this.apiService.getURL('team', team.team_id);
         return this.http
-            .post <Team> (url, team)
-            .pipe(catchError(this.apiService.handleError < Team > (`Error occurred while leaving this Team`)));
+            .delete<Team>(url)
+            .pipe(catchError(this.apiService.handleError <Team>(`Error occurred while leaving this Team`)));
     }
 }

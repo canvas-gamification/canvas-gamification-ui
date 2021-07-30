@@ -10,7 +10,7 @@ import {TeamLeaderBoardService} from '@app/course/_services/team-leader-board.se
 @Component({
     selector: 'app-team-leader-board',
     templateUrl: './team-leader-board.component.html',
-    styleUrls: ['./team-leader-board.component.scss']
+    styleUrls: ['../individual-leader-board/individual-leader-board.component.scss']
 })
 export class TeamLeaderBoardComponent implements OnInit {
 
@@ -35,11 +35,16 @@ export class TeamLeaderBoardComponent implements OnInit {
             .subscribe((teams) => {
 
                 this.leaderBoardSort(teams);
+                this.podiumSort()
                 this.teamLeaderBoardData = new MatTableDataSource(this.teams);
             });
     }
 
-    leaderBoardSort(teams: Team[]) {
+    /**
+     * Sorts teams by descending from highest to lowest token values 
+     * @param teams 
+     */
+    leaderBoardSort(teams: Team[]) : void {
         this.teams = teams.sort((a, b) => {
             if (a.tokens < b.tokens) {
                 return 1;
@@ -50,6 +55,12 @@ export class TeamLeaderBoardComponent implements OnInit {
             return 0;
         });
 
+    }
+
+    /**
+     * Gets the top three teams on this leaderboard
+     */
+    podiumSort() : void {
         for (let i = 0; i < 3; i++) {
             if (this.teams[0]) {
                 this.teamTopThree.push(this.teams.shift());

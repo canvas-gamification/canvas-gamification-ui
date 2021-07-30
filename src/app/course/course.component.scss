@@ -1,28 +1,2 @@
-@use "src/scss/mixins";
-@use "src/scss/variables";
 
-@include mixins.hover-shadow();
 
-$big-drop-shadow: 5px 5px 26px -6px rgba(0, 0, 0, 0.75);
-
-.tab-content {
-    div {
-        background-color: #fff;
-    }
-}
-
-.row:after{
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.concept-map-container {
-    max-width: 100%;
-    max-height: 600px;
-    border-radius: 0.25rem;
-    box-shadow:$big-drop-shadow;
-    margin: 0 auto;
-    z-index: -10;
-    overflow: scroll;
-}

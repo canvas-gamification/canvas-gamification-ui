@@ -40,44 +40,32 @@ export class CourseTeamListComponent implements OnInit {
         this.formData = CourseTeamRegisterForm.createForm();
 
         this.teamLeaderBoardService
-            .getTeams((this.courseId))
+            .getTeams(this.courseId)
             .subscribe((teams) => {
                 this.teams = teams;
             });
 
         this.teamLeaderBoardService
-            .getTeamRegistration(this.courseId, (this.user.id))
+            .getTeamRegistration(this.courseId)
             .subscribe((registration) => {
                 this.teamRegistration = registration;
             });
     }
 
     /**
-     * call the service to join a team upon submission of the form (clicking on the Join button)
-     * @param formData 
+     *  Handles event trigger when user clicks on a 'join' button
+     *  submits a update request to the API through the teamLeaderBoardService
+     * @param event - event to be handled
      */
-    submitEvent(formData: FormGroup): void {
-
-        const ourTeam = CourseTeamRegisterForm.formatFormData(formData, this.courseId);
-
-        this.teamLeaderBoardService.joinTeam(ourTeam).subscribe(
-            () => {
-                this.router.navigate(['course', this.courseId]).then();
-                this.toastr.success('The user has been added  to the team successfully.');
-            }, error => {
-                this.toastr.error(error);
-            }
-        );
-    }
-
     joinHandler(event: any): void {
 
         const targetTeam = {
             team_id: event.target.value,
             course_id: this.courseId
         };
-        this.teamLeaderBoardService.joinTeam(targetTeam).subscribe(
-            () => {
+        this.teamLeaderBoardService
+            .joinTeam(targetTeam)
+            .subscribe(() => {
                 this.router.navigate(['course', this.courseId]).then();
                 this.toastr.success('The user has been added  to the team successfully.');
             }, error => {
@@ -86,14 +74,20 @@ export class CourseTeamListComponent implements OnInit {
         );
     }
 
+    /**
+     * Handles event trigger when user clicks on a 'leave' button
+     * submits a delete request to the API through the teamLeaderBoardService
+     * @param event - event to be handled
+     */
     leaveHandler(event: any): void {
 
         const targetTeam = {
             team_id: event.target.value,
             course_id: this.courseId
         };
-        this.teamLeaderBoardService.leaveTeam(targetTeam).subscribe(
-            () => {
+        this.teamLeaderBoardService
+            .leaveTeam(targetTeam)
+            .subscribe(() => {
                 this.router.navigate(['course', this.courseId]).then();
                 this.toastr.success('The user has left the team successfully.');
             }, error => {

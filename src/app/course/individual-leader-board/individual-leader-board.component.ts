@@ -28,20 +28,29 @@ export class IndividualLeaderBoardComponent implements OnInit, AfterViewInit {
         token: number,
     } [];
 
-    displayedColumns: string[] = ['rank', 'name', 'token'];
+    displayedColumns = ['rank', 'name', 'token'];
     leaderBoardData: MatTableDataSource<{
         name: string,
         token: number,
     }>;
     @ViewChild(MatSort) matSort: MatSort;
 
-    teamTopThree: LeaderBoardStudent[] = [];
-    teamUsers: LeaderBoardStudent[] = [];
-
     ngOnInit(): void {
 
-        // Sort the input leaderboard in descending order based on number of tokens
-        this.leaderBoard = this.leaderBoard.sort((a, b) => {
+        this.leaderBoardSort(this.leaderBoard);
+        this.podiumSort();
+    }
+
+    ngAfterViewInit(): void {
+        // initialize the datasource for the matTable from leaderBoard
+        this.leaderBoardData = new MatTableDataSource(this.leaderBoard);
+    }
+    /**
+     * Sort the input leaderboard in descending order based on number of tokens
+     * @param leaderBoard - array of user, token pairs to be sorted
+     */
+    leaderBoardSort(leaderBoard : {name: string, token: number} []) {
+        this.leaderBoard = leaderBoard.sort((a, b) => {
             if (a.token < b.token) {
                 return 1;
             }
@@ -50,8 +59,11 @@ export class IndividualLeaderBoardComponent implements OnInit, AfterViewInit {
             }
             return 0;
         });
-
-        // Pop the top three users from leaderBoard and store them in topThree
+    }
+    /**
+     * Gets the top three teams on this leaderboard
+     */
+    podiumSort() : void {
         for (let i = 0; i < 3; i++) {
             if (this.leaderBoard[0]) {
                 this.topThree.push(this.leaderBoard.shift());
@@ -60,9 +72,5 @@ export class IndividualLeaderBoardComponent implements OnInit, AfterViewInit {
             }
         }
     }
-
-    ngAfterViewInit(): void {
-        // initialize the datasource for the matTable from leaderBoard
-        this.leaderBoardData = new MatTableDataSource(this.leaderBoard);
-    }
+    
 }
