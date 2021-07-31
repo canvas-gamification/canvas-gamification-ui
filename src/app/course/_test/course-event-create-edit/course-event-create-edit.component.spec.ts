@@ -69,6 +69,7 @@ describe('CourseEventCreateComponent without EventId', () => {
     let component: CourseEventCreateEditComponent;
     let fixture: ComponentFixture<CourseEventCreateEditComponent>;
     let router: Router;
+    let toastr: ToastrService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -98,6 +99,8 @@ describe('CourseEventCreateComponent without EventId', () => {
     beforeEach(() => {
         router = TestBed.inject(Router);
         spyOn(router, 'navigate');
+        toastr = TestBed.inject(ToastrService);
+        spyOn(toastr, 'success');
         fixture = TestBed.createComponent(CourseEventCreateEditComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -109,6 +112,7 @@ describe('CourseEventCreateComponent without EventId', () => {
 
     it('submitEvent should work without eventId', () => {
         component.submitEvent(component.formData);
+        expect(toastr.success).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith(['course', 1]);
     });
 });
