@@ -50,3 +50,31 @@ describe('ConceptMapComponent', () => {
         expect(component.isTopLevel(1)).toBeFalsy();
     });
 });
+
+describe('ConceptMapComponent without spy', () => {
+    let component: ConceptMapComponent;
+    let fixture: ComponentFixture<ConceptMapComponent>;
+
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [TestModule],
+            declarations: [ConceptMapComponent],
+            providers: [
+                {provide: CategoryService, useClass: CategoryServiceMock}
+            ]
+        }).compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ConceptMapComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('renderGraph should work with valid parentId', () => {
+        component.parentNode = 0;
+        spyOn(component.conceptMapGraph, 'buildGraphFromAdjacencyList');
+        component.renderGraph();
+        expect(component.conceptMapGraph.buildGraphFromAdjacencyList).toHaveBeenCalled();
+    });
+});
