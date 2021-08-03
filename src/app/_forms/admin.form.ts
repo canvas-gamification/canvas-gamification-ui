@@ -8,6 +8,9 @@ export class AdminForm {
         const builder = new FormBuilder();
         return builder.group({
             role: new FormControl(''),
+
+            courseName : new FormControl(''),
+
         });
     }
 
@@ -21,4 +24,7 @@ export class AdminForm {
 }
 export interface ListUserFormData {
     role: string,
+
+    courseName : string,
+
 }
