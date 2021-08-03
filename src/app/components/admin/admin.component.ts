@@ -41,7 +41,6 @@ export class AdminComponent implements OnInit {
      */
     paramChanged: Subject<{
         role: string;
-
         courseName: string;
     }> = new Subject<{
         role: string;
