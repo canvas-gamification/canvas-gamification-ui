@@ -1,0 +1,20 @@
+<mat-expansion-panel class="card m-3">
+    <mat-expansion-panel-header>
+        <mat-panel-title>Students of courses</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="card m-3" *ngFor="let user of userList; let i = index">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{"User id: " + user.id}}</mat-panel-title>
+                <mat-panel-description>{{"Username: " + user.username}}</mat-panel-description>
+            </mat-expansion-panel-header>
+            {{"Email: " + user.email}} <br>
+            {{"First name: " + user.first_name}} <br>
+            {{"Last name: " + user.last_name}} <br>
+            {{"Role: " + user.role}} <br>
+            {{"Block status: " + registrationList[i].is_blocked}} <br>
+            {{"Verify status: " + registrationList[i].is_verified}}
+        </mat-expansion-panel>
+    </div>
+</mat-expansion-panel>

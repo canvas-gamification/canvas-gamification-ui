@@ -9,6 +9,8 @@ import {Subject} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {AdminForm} from "@app/_forms/admin.form";
+import {AuthenticationService} from '@app/_services/api/authentication';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
     selector: 'app-admin',
@@ -26,6 +28,7 @@ export class AdminComponent implements OnInit {
     questionsLength: number;
     filterQueryString;
     formGroup: FormGroup;
+    courseId: number;
     /**
      * Apply the filters to the problem-set.
      */
@@ -49,12 +52,16 @@ export class AdminComponent implements OnInit {
 
     /**
      */
-    constructor(private listUserService: AdminService) {
+    constructor(private listUserService: AdminService,
+                private authenticationService: AuthenticationService,
+                private route: ActivatedRoute) {
         this.formGroup = AdminForm.createForm();
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.listUserService.getAllUser(options).subscribe(users => this.userList = users);
             this.listUserService.getAllCourseUser(options).subscribe(usersCourse => this.userCourseList = usersCourse);
         });
+        this.courseId = this.route.snapshot.params.courseId;
+
     }
 
     ngOnInit(): void {
