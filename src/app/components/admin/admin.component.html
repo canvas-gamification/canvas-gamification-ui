@@ -35,6 +35,7 @@
     <mat-expansion-panel-header>
         <mat-panel-title>Students of courses</mat-panel-title>
     </mat-expansion-panel-header>
+
     <form [formGroup]="formGroup" (ngSubmit)="applyFilter()">
         <div class="form-row">
             <div class="form-group col-2">
@@ -50,6 +51,7 @@
             </div>
         </div>
     </form>
+
     <div class="card m-3" *ngFor="let user of userCourseList">
         <mat-expansion-panel>
             <mat-expansion-panel-header>

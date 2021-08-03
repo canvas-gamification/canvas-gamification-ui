@@ -3,12 +3,15 @@ import {AdminService} from '@app/_services/api/admin.service';
 import {User} from '@app/_models/user';
 import {Question} from "@app/_models/question";
 import {Category} from '@app/_models/category';
+
 import {Course} from "@app/_models/course";
+
 import {MatTableDataSource} from "@angular/material/table";
 import {Subject} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {AdminForm} from "@app/_forms/admin.form";
+
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from "@angular/router";
 
@@ -23,21 +26,27 @@ export class AdminComponent implements OnInit {
     userCourseList : User[];
     categoryList: Category[];
     questionList: Question[];
+
     courseNamesList : Course[];
+
     questionsSource: MatTableDataSource<Question>;
     questionsLength: number;
     filterQueryString;
     formGroup: FormGroup;
+
     courseId: number;
+
     /**
      * Apply the filters to the problem-set.
      */
     paramChanged: Subject<{
         role: string;
+
         courseName: string;
     }> = new Subject<{
         role: string;
         courseName: string;
+
     }>();
     applyFilter(): void {
         this.filterQueryString = this.formGroup.value;
@@ -52,6 +61,7 @@ export class AdminComponent implements OnInit {
 
     /**
      */
+
     constructor(private listUserService: AdminService,
                 private authenticationService: AuthenticationService,
                 private route: ActivatedRoute) {
@@ -73,7 +83,9 @@ export class AdminComponent implements OnInit {
             this.questionsSource = new MatTableDataSource<Question>(this.questionList);
             this.questionsLength = paginatedQuestions.count;
         });
+
         this.listUserService.getCourseNames().subscribe(courseNames => this.courseNamesList = courseNames);
+
 
     }
 

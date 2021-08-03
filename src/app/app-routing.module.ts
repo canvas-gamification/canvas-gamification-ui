@@ -60,6 +60,7 @@ const routes: Routes = [
         path: 'admin',
         component: AdminComponent,
         canActivate: [AuthGuard]
+
     },
     {
         path: '404',
