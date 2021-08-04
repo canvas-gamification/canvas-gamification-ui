@@ -49,6 +49,10 @@ export class CourseQuestionSnippetComponent implements OnInit {
         }
     }
 
+    /**
+     * Returns the status text based on the UQJ object passed
+     * @param uqj - the UQJ object to be checked
+     */
     getStatus(uqj: UQJ): string {
         // If the event exists, or if it is a non event, return default status text
         if (!uqj.question.event || !uqj.question.is_exam) {
@@ -62,6 +66,10 @@ export class CourseQuestionSnippetComponent implements OnInit {
         }
     }
 
+    /**
+     * Return the CSS class corresponding to the completion status of the UQJ
+     * @param status - the status text to be checked
+     */
     highlight(status: string): string {
         if (status.localeCompare('Solved') === 0) {
             return 'highlight-success';
