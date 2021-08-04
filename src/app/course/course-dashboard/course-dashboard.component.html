@@ -13,7 +13,8 @@
             {{"First name: " + user.first_name}} <br>
             {{"Last name: " + user.last_name}} <br>
             {{"Role: " + user.role}} <br>
-            {{"Block status: " + registrationList[i].is_blocked}} <br>
+            {{"Block status: " +  registrationList[i].is_blocked}}
+            <button type="button" class="btn btn-outline-dark" (click)="updateBlockStatus(registrationList[i])">Toggle status</button> <br>
             {{"Verify status: " + registrationList[i].is_verified}}
         </mat-expansion-panel>
     </div>

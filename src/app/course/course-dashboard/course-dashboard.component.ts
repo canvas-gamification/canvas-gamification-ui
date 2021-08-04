@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
 import {CourseRegistration, User} from '@app/_models';
 import {CourseDashboardServiceService} from "@app/course/_services/course-dashboard.service";
-import {Subject} from "rxjs";
+import {ToastrService} from "ngx-toastr";
+
 @Component({
     selector: 'app-course-dashboard',
     templateUrl: './course-dashboard.component.html',
@@ -13,23 +14,13 @@ import {Subject} from "rxjs";
 export class CourseDashboardComponent implements OnInit {
     courseId: number;
     user: User;
-    userList : User[];
-    registrationList : CourseRegistration[];
-    filterQueryString;
-    paramChanged: Subject<{
-        id:number;
-    }> = new Subject<{
-        id:number;
-    }>();
-    update(): void {
-        const options = {
-            ...this.filterQueryString,
-        };
-        this.paramChanged.next(options);
-    }
+    userList: User[];
+    registrationList: CourseRegistration[];
+    variable: boolean;
 
     constructor(private authenticationService: AuthenticationService,
                 private courseService: CourseDashboardServiceService,
+                private toastr: ToastrService,
                 private route: ActivatedRoute) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.courseId = this.route.snapshot.params.courseId;
@@ -48,6 +39,30 @@ export class CourseDashboardComponent implements OnInit {
                 this.registrationList = registrations;
             });
 
+    }
+
+    updateBlockStatus(courseReg: CourseRegistration): void {
+        const updatedCourseRegistration: CourseRegistration = {
+            id: courseReg.id,
+            canvas_user_id: courseReg.canvas_user_id,
+            is_verified: courseReg.is_verified,
+            is_blocked: !courseReg.is_blocked,
+            token_uses: courseReg.token_uses,
+            total_tokens_received: courseReg.total_tokens_received,
+            available_tokens: courseReg.available_tokens,
+        };
+        this.courseService.updateBlockStatus(updatedCourseRegistration)
+            .subscribe(() => {
+                this.toastr.success('The block has been changed successfully.');
+                this.courseService
+                    .getCourseRegistration(this.courseId)
+                    .subscribe(registrations => {
+                        this.registrationList = registrations;
+                    });
+            }, error => {
+                this.toastr.error(error);
+                console.warn(error);
+            });
     }
 
 }
