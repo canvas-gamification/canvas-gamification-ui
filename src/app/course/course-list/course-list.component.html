@@ -39,8 +39,6 @@
                        [routerLink]="[element.id]">Open</a>
                     <a class="btn btn-primary mr-3" *ngIf="!element.is_registered"
                        [routerLink]="[element.id, 'register']">Register</a>
-                    <a class="btn btn-primary mr-3" *ngIf="hasViewPermission(element.id)"
-                       [routerLink]="[element.id, 'admin']">Dashboard</a>
                 </td>
             </ng-container>
 

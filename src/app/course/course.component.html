@@ -7,6 +7,7 @@
         <th scope="col">Canvas&nbsp;Course&nbsp;Name</th>
         <th scope="col">Start&nbsp;Date</th>
         <th scope="col">End&nbsp;Date</th>
+        <th scope="col">Dashboard</th>
     </tr>
     </thead>
     <tbody>
@@ -17,6 +18,10 @@
         <td>{{ course?.name || 'No Name'}}</td>
         <td>{{ course?.start_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
         <td>{{ course?.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
+        <td >
+            <a class="btn btn-primary mr-3" *ngIf="user?.is_teacher"
+               [routerLink]="['admin']">Dashboard</a>
+        </td>
     </tr>
     </tbody>
 </table>
