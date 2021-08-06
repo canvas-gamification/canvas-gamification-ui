@@ -3,6 +3,7 @@ import {QuestionSubmission} from "@app/_models/question_submission";
 import {MOCK_SUBMISSIONS} from "@app/problems/_test/mock";
 import {APIResponse} from "@app/_models";
 import {Observable, of} from "rxjs";
+import {HttpResponse} from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,7 @@ export class SubmissionServiceMock {
         return of(MOCK_SUBMISSIONS.filter(submission => submission.question.id === id));
     }
 
-    postQuestionSubmission(input: { question: number, solution: string }): Observable<APIResponse> {
-        return of({success: true});
+    postQuestionSubmission(input: { question: number, solution: string }): Observable<HttpResponse<unknown>> {
+        return of(new HttpResponse({status: 200}));
     }
 }

@@ -118,8 +118,9 @@ export class McqCreateSnippetComponent implements OnInit {
             this.returnUrl = ['problems', 'create', 'checkbox'];
         }
         this.questionService.postMultipleChoiceQuestion(submissionRequest)
-            .subscribe(() => {
-                this.refresh();
+            .subscribe((response) => {
+                if (response.status === 201)
+                    this.refresh();
             });
     }
 

@@ -10,6 +10,7 @@ import {
     MOCK_PARSONS_FORM_DATA,
     MOCK_QUESTIONS
 } from "@app/problems/_test/mock";
+import {HttpResponse} from "@angular/common/http";
 
 describe('QuestionService', () => {
     let questionService: QuestionService;
@@ -59,64 +60,65 @@ describe('QuestionService', () => {
 
     it('deleteQuestion deletes a question', () => {
         questionService.deleteQuestion(0).subscribe((response) => {
-            expect(response).toEqual('Question Deleted');
+            expect(response.status).toEqual(200);
         });
         const request = httpMock.expectOne(apiService.getURL('questions', 0));
         expect(request.request.method).toBe('DELETE');
-        request.flush('Question Deleted');
+        request.flush({}, {status: 200, statusText: 'Ok'});
     });
 
     it('putMultipleChoiceQuestion', () => {
         questionService.putMultipleChoiceQuestion(MOCK_MCQ_FORM_DATA, 0).subscribe((response) => {
-            expect(response).toBeTruthy();
+            console.log(response);
+            expect(response.status).toEqual(200);
         });
         const request = httpMock.expectOne(apiService.getURL('multiple-choice-question', 0));
         expect(request.request.method).toBe('PUT');
-        request.flush({success: true});
+        request.flush({}, {status: 200, statusText: 'Ok'});
     });
 
     it('putJavaQuestion', () => {
         questionService.putJavaQuestion(MOCK_JAVA_FORM_DATA, 0).subscribe((response) => {
-            expect(response).toBeTruthy();
+            expect(response.status).toEqual(200);
         });
         const request = httpMock.expectOne(apiService.getURL('java-question', 0));
         expect(request.request.method).toBe('PUT');
-        request.flush({success: true});
+        request.flush({}, {status: 200, statusText: 'Ok'});
     });
 
     it('putParsonsQuestion', () => {
         questionService.putParsonsQuestion(MOCK_PARSONS_FORM_DATA, 0).subscribe((response) => {
-            expect(response).toBeTruthy();
+            expect(response.status).toEqual(200);
         });
         const request = httpMock.expectOne(apiService.getURL('parsons-question', 0));
         expect(request.request.method).toBe('PUT');
-        request.flush({success: true});
+        request.flush({}, {status: 200, statusText: 'Ok'});
     });
 
     it('postMultipleChoiceQuestion', () => {
         questionService.postMultipleChoiceQuestion(MOCK_MCQ_FORM_DATA).subscribe((response) => {
-            expect(response).toBeTruthy();
+            expect(response.status).toEqual(201);
         });
         const request = httpMock.expectOne(apiService.getURL('multiple-choice-question'));
         expect(request.request.method).toBe('POST');
-        request.flush({success: true});
+        request.flush({}, {status: 201, statusText: 'Created'});
     });
 
     it('postJavaQuestion', () => {
         questionService.postJavaQuestion(MOCK_JAVA_FORM_DATA).subscribe((response) => {
-            expect(response).toBeTruthy();
+            expect(response.status).toEqual(201);
         });
         const request = httpMock.expectOne(apiService.getURL('java-question'));
         expect(request.request.method).toBe('POST');
-        request.flush({success: true});
+        request.flush({}, {status: 201, statusText: 'Created'});
     });
 
     it('postParsonsQuestion', () => {
         questionService.postParsonsQuestion(MOCK_PARSONS_FORM_DATA).subscribe((response) => {
-            expect(response).toBeTruthy();
+            expect(response.status).toEqual(201);
         });
         const request = httpMock.expectOne(apiService.getURL('parsons-question'));
         expect(request.request.method).toBe('POST');
-        request.flush({success: true});
+        request.flush({}, {status: 201, statusText: 'Created'});
     });
 });

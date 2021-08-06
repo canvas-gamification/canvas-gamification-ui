@@ -114,8 +114,9 @@ export class JavaCreateSnippetComponent implements OnInit {
     onSubmit(): void {
         const submissionRequest = JavaForm.extractData(this.formGroup, this.variables, this.inputFiles, this.questionText);
         this.questionService.postJavaQuestion(submissionRequest)
-            .subscribe(() => {
-                this.refresh();
+            .subscribe((response) => {
+                if (response.status === 201)
+                    this.refresh();
             });
     }
 
