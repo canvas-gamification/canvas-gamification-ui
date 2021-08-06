@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {QuestionSubmission} from "@app/_models/question_submission";
 import {MOCK_SUBMISSIONS} from "@app/problems/_test/mock";
-import {APIResponse} from "@app/_models";
 import {Observable, of} from "rxjs";
 import {HttpResponse} from "@angular/common/http";
 
