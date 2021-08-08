@@ -8,6 +8,7 @@ import {Category} from '@app/_models';
 export class ConceptMapGraph {
     graph;
     paper;
+    scrollingPosition: { x: number, y: number };
 
     constructor(onclick: (number) => unknown) {
         this.graph = new joint.dia.Graph();
@@ -26,6 +27,17 @@ export class ConceptMapGraph {
                 onclick(cellView.model.id);
             }
         });
+        this.paper.on('blank:pointerdown', (event, x, y) => {
+            this.scrollingPosition = {x: x, y: y};
+        });
+        this.paper.on('blank:pointerup cell:pointerup', () => {
+            this.scrollingPosition = null;
+        });
+        document.getElementById('paper').onmousemove = (event) => {
+            if (this.scrollingPosition)
+                this.paper.translate(event.offsetX - this.scrollingPosition.x,
+                    event.offsetY - this.scrollingPosition.y);
+        };
     }
 
     makeElement(id: number, label: string): joint.shapes.standard.Ellipse {
