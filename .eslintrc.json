@@ -58,6 +58,14 @@
                 "plugin:@angular-eslint/template/recommended"
             ],
             "rules": {}
+        },
+        {
+            "files": [
+                "*.mock.ts"
+            ],
+            "rules": {
+                "@typescript-eslint/no-unused-vars": "off"
+            }
         }
     ]
 }
