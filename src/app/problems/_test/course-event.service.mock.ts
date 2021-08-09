@@ -17,7 +17,7 @@ export class CourseEventServiceMock {
         return of([MOCK_COURSE_EVENT]);
     }
 
-    postDuplicateEvent(event: CourseEvent, courseId: number): Observable<HttpResponse<unknown>> {
+    importCourseEvent(event: CourseEvent, courseId: number): Observable<HttpResponse<unknown>> {
         return of(new HttpResponse());
     }
 }

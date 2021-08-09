@@ -38,7 +38,7 @@ describe('CourseEventsSnippetComponent', () => {
 
     // TODO - Need to determine how to test toastr across application.
     it('duplicate an event', () => {
-        component.duplicateEvent(MOCK_COURSE_EVENT, MOCK_COURSE1.id);
+        component.importCourseEvent(MOCK_COURSE_EVENT, MOCK_COURSE1.id);
         fixture.detectChanges();
     });
 

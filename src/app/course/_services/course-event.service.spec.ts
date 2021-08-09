@@ -84,11 +84,11 @@ describe('CourseEventService', () => {
         request.flush([MOCK_COURSE_EVENT]);
     });
 
-    it('duplicateEvent', () => {
-        courseEventService.postDuplicateEvent(MOCK_COURSE_EVENT, MOCK_COURSE1.id).subscribe((response) => {
+    it('import a courseEvent by clicking the import button', () => {
+        courseEventService.importCourseEvent(MOCK_COURSE_EVENT, MOCK_COURSE1.id).subscribe((response) => {
             expect(response.status).toBeTruthy();
         });
-        const request = httpMock.expectOne(apiService.getURL('event', 'duplicate-event'));
+        const request = httpMock.expectOne(apiService.getURL('event', 'import-event'));
         expect(request.request.method).toBe('POST');
         request.flush(new HttpResponse());
     });

@@ -64,8 +64,8 @@ export class CourseEventsSnippetComponent implements OnInit {
      * @param event - The event to duplicate/import.
      * @param courseId - The course you are importing the event into.
      */
-    duplicateEvent(event: CourseEvent, courseId: number): void {
-        this.courseEventService.postDuplicateEvent(event, courseId).subscribe((response) => {
+    importCourseEvent(event: CourseEvent, courseId: number): void {
+        this.courseEventService.importCourseEvent(event, courseId).subscribe((response) => {
             if (response.status === 201) {
                 this.toastr.success('The Event has been Imported Successfully.');
             }

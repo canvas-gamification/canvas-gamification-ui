@@ -64,8 +64,8 @@ export class CourseEventService {
      * @param courseEvent - The event to import.
      * @param courseId - The course to import it into.
      */
-    postDuplicateEvent(courseEvent: CourseEvent, courseId: number): Observable<HttpResponse<unknown>> {
-        const url = this.apiService.getURL('event', 'duplicate-event');
+    importCourseEvent(courseEvent: CourseEvent, courseId: number): Observable<HttpResponse<unknown>> {
+        const url = this.apiService.getURL('event', 'import-event');
         return this.http.post<HttpResponse<unknown>>(url, {
             event: courseEvent.id,
             course: courseId
