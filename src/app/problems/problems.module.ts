@@ -76,7 +76,9 @@ import { ParsonsLinesComponent } from './problem-view/parsons-lines/parsons-line
     exports: [
         McqViewSnippetComponent,
         JavaViewSnippetComponent,
-        ParsonsViewSnippetComponent
+        ParsonsViewSnippetComponent,
+        AceComponent,
+        ParsonsLinesComponent
     ],
     providers: [
         DifficultyService,

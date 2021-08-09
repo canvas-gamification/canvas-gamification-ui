@@ -42,7 +42,7 @@ const routes: Routes = [
     },
     {
         path: 'course/:courseId/category/:categoryId',
-        component: UserStatsComponent
+        component: ProblemPracticeComponent
     },
     {
         path: 'homepage',
@@ -52,10 +52,6 @@ const routes: Routes = [
     {
         path: 'actions',
         component: UserActionsComponent
-    },
-    {
-        path: 'practice',
-        component: ProblemPracticeComponent
     },
     {
         path: 'faq',

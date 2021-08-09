@@ -1,4 +1,11 @@
-<form (ngSubmit)="applyFilter()" [formGroup]="formGroup">
+<h2 class="my-2">{{category.name}}</h2>
+<div class="card my-3">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">Your Success: {{userSuccessRate || 'N/A'}}</li>
+        <li class="list-group-item">Average Success: {{category.average_success || 'N/A'}}</li>
+    </ul>
+</div>
+<form (ngSubmit)="applyFilter()" [formGroup]="difficultyFormData">
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="difficulty">Difficulty:</label>
@@ -12,21 +19,103 @@
         </div>
     </div>
 </form>
+<!--Question Details-->
+<table class="table table-hover table-bordered">
+    <thead>
+    <tr>
+        <th>Category</th>
+        <th>Tokens Value</th>
+        <th>Status</th>
+        <th>Num Attempts</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{currentUqj?.question?.full_category_name || 'No Category'}}</td>
+        <td>{{currentUqj?.question?.token_value || 'No Token Value'}}</td>
+        <td>{{currentUqj?.status || 'No Status'}}</td>
+        <td>{{currentUqj?.question?.max_submission_allowed || 'No Value'}}</td>
+    </tr>
+    </tbody>
+</table>
+
+<!--Question Text-->
 <div class="card my-1">
     <div class="card-header">
         <h1>{{currentUqj?.question?.title}}</h1>
     </div>
+    <div class="card-body" [innerHTML]="safeRenderedText"></div>
+</div>
+<div class="card my-1">
+    <div class="card-header">
+        <h1>Answers</h1>
+    </div>
     <div class="card-body">
         <ng-container *ngIf="currentUqj?.question?.type_name === 'multiple choice question'">
-            <app-mcq-view-snippet [uqj]="currentUqj"></app-mcq-view-snippet>
+            <ng-container *ngIf="!currentUqj.is_checkbox">
+                <form [formGroup]="mcqFormData">
+                    <div *ngFor="let choice of choiceArray" class="form-check">
+                        <input class="form-check-input" formControlName="solution" id="answer-{{choice.id}}"
+                               name="solution"
+                               type="radio" value="{{choice.id}}">
+                        <div [innerHTML]="choice.safeValue">
+                            <label class="form-check-label" for="answer-{{choice.id}}"></label>
+                        </div>
+                    </div>
+                </form>
+            </ng-container>
+            <ng-container *ngIf="currentUqj.is_checkbox">
+                <form [formGroup]="checkboxFormData">
+                    <div *ngFor="let checkbox of checkboxesArray.controls; let i = index" class="form-check">
+                        <input (change)="checkboxChanged($event)" class="form-check-input" formArrayName="solutions"
+                               id="{{choiceArray[i].id}}" type="checkbox">
+                        <div [innerHTML]="choiceArray[i].safeValue">
+                            <label class="form-check-label" for="{{choiceArray[i].id}}"></label>
+                        </div>
+                    </div>
+                </form>
+            </ng-container>
         </ng-container>
         <ng-container *ngIf="currentUqj?.question?.type_name === 'java question'">
-            <app-java-view-snippet [uqj]="currentUqj"></app-java-view-snippet>
+            Submit the required files.
+            <div *ngFor="let input of inputFileNames">
+                <ul class="nav nav-tabs" id="submission" role="tablist">
+                    <li class="nav-item">{{input.name}}
+                        <a class="nav-link" href="#" role="tab"></a>
+                    </li>
+                </ul>
+                <div class="tab-content" role="tabpanel">
+                    <div class="tab-panel">
+                        <div>{{input.name}}</div>
+                        <div class="form-group">
+                            <div style="position: relative; height: 30rem">
+                                <app-ace [(template)]="input.template"></app-ace>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ng-container>
         <ng-container *ngIf="currentUqj?.question?.type_name === 'parsons question'">
-            <app-parsons-view-snippet [uqj]="currentUqj"></app-parsons-view-snippet>
+            <div class="container">
+                <div class="card-body">
+                    <ng-container *ngFor="let file of files">
+                        <app-parsons-lines (code)="file.solution = $event" [file]="file"></app-parsons-lines>
+                    </ng-container>
+                </div>
+            </div>
         </ng-container>
-        <button (click)="skipQuestion()" class="btn btn-outline-primary">Skip Question</button>
+        <div class="form-row">
+            <div class="col-md-3">
+                <button (click)="previousQuestion()" class="btn btn-outline-primary m-3">Back</button>
+            </div>
+            <div class="col-md-6">
+                <button (click)="skipQuestion()" class="btn btn-outline-primary m-3 float-right">Skip Question</button>
+            </div>
+            <div class="col-md-3">
+                <button (click)="onSubmit()" class="btn btn-success m-3">Submit</button>
+            </div>
+        </div>
     </div>
 </div>
 
