@@ -38,7 +38,5 @@ export class CourseListComponent implements AfterViewInit {
         return this.user.is_teacher || !!this.allCourses.find(course => course.id === courseId)?.is_registered;
     }
 
-    hasDashboardPermission(courseId: number): boolean {
-        return this.user.is_teacher && this.allCourses.find(course => course.id === courseId)?.is_registered;
-    }
+
 }

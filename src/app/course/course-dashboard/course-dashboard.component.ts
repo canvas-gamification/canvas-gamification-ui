@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
-import {CourseRegistration, User} from '@app/_models';
+import {Course, CourseRegistration, User} from '@app/_models';
 import {CourseDashboardServiceService} from "@app/course/_services/course-dashboard.service";
 import {ToastrService} from "ngx-toastr";
 import {Subject} from "rxjs";
@@ -17,6 +17,7 @@ export class CourseDashboardComponent implements OnInit {
     courseId: number;
     userId: number;
     user: User;
+
     userList: User[];
     registrationList: CourseRegistration[];
     variable: boolean;
