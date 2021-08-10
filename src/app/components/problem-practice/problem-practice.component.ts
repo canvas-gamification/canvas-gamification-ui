@@ -75,7 +75,7 @@ export class ProblemPracticeComponent implements OnInit {
         const difficultyObservable = this.difficultyService.getDifficulties();
 
         forkJoin([uqjObservable, difficultyObservable, categoryObservable, userStatsObservable]).subscribe((result) => {
-            this.uqjs = result[0].results.filter(uqj => uqj.question.event === null);
+            this.uqjs = result[0].results.filter(uqj => uqj.question.is_practice);
             this.difficulties = result[1];
             this.category = result[2];
             this.userSuccessRate = result[3].success_rate;
