@@ -4,6 +4,8 @@ import {ActivatedRoute} from '@angular/router';
 import {CourseRegistration, User} from '@app/_models';
 import {CourseDashboardServiceService} from "@app/course/_services/course-dashboard.service";
 import {ToastrService} from "ngx-toastr";
+import {Subject} from "rxjs";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
     selector: 'app-course-dashboard',
@@ -13,10 +15,36 @@ import {ToastrService} from "ngx-toastr";
 
 export class CourseDashboardComponent implements OnInit {
     courseId: number;
+    userId: number;
     user: User;
     userList: User[];
     registrationList: CourseRegistration[];
     variable: boolean;
+
+    filterQueryString;
+
+    pageSize: number;
+    pageEvent: PageEvent;
+
+    paramChanged: Subject<{
+        page: number,
+        page_size: number,
+        search: string,
+        parentCategory: string,
+        subCategory: string,
+        difficulty: string,
+        is_sample: string,
+        ordering: string
+    }> = new Subject<{
+        page: number,
+        page_size: number,
+        search: string,
+        parentCategory: string,
+        subCategory: string,
+        difficulty: string,
+        is_sample: string,
+        ordering: string
+    }>();
 
     constructor(private authenticationService: AuthenticationService,
                 private courseService: CourseDashboardServiceService,
@@ -65,4 +93,31 @@ export class CourseDashboardComponent implements OnInit {
             });
     }
 
+    unregisterUser(id: number): void {
+        this.courseService.unregisterUser(id)
+            .subscribe(() => {
+                this.toastr.success('The Question has been Deleted Successfully.');
+                this.update();
+                window.scroll(0, 0);
+            }, error => {
+                this.toastr.error(error);
+                console.warn(error);
+                window.scroll(0, 0);
+            });
+    }
+
+    update(): void {
+        const options = {
+            ...(this.pageEvent && {
+                page: this.pageEvent.pageIndex + 1,
+                page_size: this.pageEvent.pageSize,
+            }),
+            ...this.filterQueryString
+        };
+        this.paramChanged.next(options);
+    }
+
+    hasViewPermission(userId: number): boolean {
+        return this.user.is_teacher || !!this.registrationList.find(course => course.canvas_user_id === userId);
+    }
 }
