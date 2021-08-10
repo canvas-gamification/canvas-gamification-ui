@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CourseRegistration, User} from '@app/_models';
 import {CourseDashboardServiceService} from "@app/course/_services/course-dashboard.service";
 import {ToastrService} from "ngx-toastr";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
     selector: 'app-course-dashboard',
@@ -21,7 +22,8 @@ export class CourseDashboardComponent implements OnInit {
     constructor(private authenticationService: AuthenticationService,
                 private courseService: CourseDashboardServiceService,
                 private toastr: ToastrService,
-                private route: ActivatedRoute) {
+                private route: ActivatedRoute,
+                private modalService: NgbModal) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.courseId = this.route.snapshot.params.courseId;
     }
@@ -38,22 +40,22 @@ export class CourseDashboardComponent implements OnInit {
             .subscribe(registrations => {
                 this.registrationList = registrations;
             });
-
     }
 
-    updateBlockStatus(courseReg: CourseRegistration): void {
+    changeStatus(courseReg: CourseRegistration, blockStatus: boolean, verifyStatus: boolean): void {
         const updatedCourseRegistration: CourseRegistration = {
             id: courseReg.id,
             canvas_user_id: courseReg.canvas_user_id,
-            is_verified: courseReg.is_verified,
-            is_blocked: !courseReg.is_blocked,
+            is_verified: verifyStatus,
+            is_blocked: blockStatus,
             token_uses: courseReg.token_uses,
             total_tokens_received: courseReg.total_tokens_received,
             available_tokens: courseReg.available_tokens,
+            user_id: courseReg.user_id,
         };
         this.courseService.updateBlockStatus(updatedCourseRegistration)
             .subscribe(() => {
-                this.toastr.success('The block has been changed successfully.');
+                this.toastr.success('The block status has been changed successfully.');
                 this.courseService
                     .getCourseRegistration(this.courseId)
                     .subscribe(registrations => {
@@ -65,4 +67,15 @@ export class CourseDashboardComponent implements OnInit {
             });
     }
 
+    getBlockStatus(id: number): boolean {
+        return this.registrationList.filter(reg => reg.user_id === id)[0].is_blocked;
+    }
+
+    getVerifyStatus(id: number): boolean {
+        return this.registrationList.filter(reg => reg.user_id === id)[0].is_verified;
+    }
+
+    open(content: unknown): void {
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true, scrollable: true, size : "xl"});
+    }
 }

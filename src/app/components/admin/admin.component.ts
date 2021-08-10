@@ -1,17 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AdminService} from '@app/_services/api/admin.service';
 import {User} from '@app/_models/user';
 import {Question} from "@app/_models/question";
 import {Category} from '@app/_models/category';
-
 import {Course} from "@app/_models/course";
-
 import {MatTableDataSource} from "@angular/material/table";
 import {Subject} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {AdminForm} from "@app/_forms/admin.form";
-
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from "@angular/router";
 
@@ -22,18 +19,15 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class AdminComponent implements OnInit {
 
-    userList : User[];
-    userCourseList : User[];
+    userList: User[];
+    userCourseList: User[];
     categoryList: Category[];
     questionList: Question[];
-
-    courseNamesList : Course[];
-
+    courseNamesList: Course[];
     questionsSource: MatTableDataSource<Question>;
     questionsLength: number;
     filterQueryString;
     formGroup: FormGroup;
-
     courseId: number;
 
     /**
@@ -47,10 +41,12 @@ export class AdminComponent implements OnInit {
         courseName: string;
 
     }>();
+
     applyFilter(): void {
         this.filterQueryString = this.formGroup.value;
         this.update();
     }
+
     update(): void {
         const options = {
             ...this.filterQueryString,
