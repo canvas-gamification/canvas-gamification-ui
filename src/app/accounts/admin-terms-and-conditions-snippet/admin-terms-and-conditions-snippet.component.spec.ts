@@ -1,11 +1,11 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TermsAndConditionsSnippetComponent} from './terms-and-conditions-snippet.component';
+import {AdminTermsAndConditionsSnippetComponent} from './admin-terms-and-conditions-snippet.component';
 import {TestModule} from '@test/test.module';
 
-describe('TermsAndConditionsSnippetComponent', () => {
-    let component: TermsAndConditionsSnippetComponent;
-    let fixture: ComponentFixture<TermsAndConditionsSnippetComponent>;
+describe('AdminTermsAndConditionsSnippetComponent', () => {
+    let component: AdminTermsAndConditionsSnippetComponent;
+    let fixture: ComponentFixture<AdminTermsAndConditionsSnippetComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('TermsAndConditionsSnippetComponent', () => {
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TermsAndConditionsSnippetComponent);
+        fixture = TestBed.createComponent(AdminTermsAndConditionsSnippetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
