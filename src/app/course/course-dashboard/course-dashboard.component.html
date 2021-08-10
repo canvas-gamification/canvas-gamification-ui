@@ -9,6 +9,7 @@
         <th scope="col">Role</th>
         <th scope="col">Block status</th>
         <th scope="col">Verify status</th>
+        <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody *ngFor="let user of userList; let i = index">
@@ -21,6 +22,7 @@
             <button type="button" class="btn btn-outline-dark" (click)="updateBlockStatus(registrationList[i])">Toggle status</button>
         </td>
         <td>{{ registrationList[i].is_verified }}</td>
+        <td><button type="button" class="btn btn-outline-dark" (click)="unregisterUser(user.id)">Unregister</button></td>
     </tr>
     </tbody>
 </table>
