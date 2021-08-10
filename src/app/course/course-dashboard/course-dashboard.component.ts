@@ -106,7 +106,8 @@ export class CourseDashboardComponent implements OnInit {
 
     open(content: unknown): void {
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true, scrollable: true, size : "xl"});
-
+    }
+    
     unregisterUser(id: number): void {
         this.courseService.unregisterUser(id)
             .subscribe(() => {
