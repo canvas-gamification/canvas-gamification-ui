@@ -1,6 +1,5 @@
-
--->
 <button type="button" class="btn btn-outline-primary" (click)="open(dropDownAdd)">Register New Student</button>
+
 <table class="table table-bordered table-light mt-5 hover-shadow">
     <caption>List of Students currently enrolled</caption>
     <thead class="thead-light">
@@ -31,6 +30,7 @@
                 status
             </button>
         </td>
+        <td><button type="button" class="btn btn-outline-dark" (click)="unregisterUser(user.id)">Unregister</button></td>
     </tr>
     </tbody>
 </table>
