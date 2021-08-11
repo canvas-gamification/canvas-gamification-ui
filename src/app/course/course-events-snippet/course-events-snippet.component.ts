@@ -26,12 +26,20 @@ export class CourseEventsSnippetComponent implements OnInit {
         });
     }
 
+    /**
+     * Returns the button text based on the type of event & user
+     * @param event - the object for which the button text is needed
+     */
     getEventButtonText(event: CourseEvent): string {
         if (this.eventTypes) {
             return ((this.user.is_teacher) ? 'Open ' : 'Do ') + this.eventTypesMap.get(event.type);
         }
     }
 
+    /**
+     * Returns whether the specified event is an open exam
+     * @param event - event object to check
+     */
     isExamAndOpen(event: CourseEvent): boolean {
         return event.is_open && event.is_exam;
     }
