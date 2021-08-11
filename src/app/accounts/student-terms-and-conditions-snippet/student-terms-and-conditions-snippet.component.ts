@@ -1,15 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-student-terms-and-conditions-snippet',
-  templateUrl: './student-terms-and-conditions-snippet.component.html',
-  styleUrls: ['./student-terms-and-conditions-snippet.component.scss']
+    selector: 'app-student-terms-and-conditions-snippet',
+    templateUrl: './student-terms-and-conditions-snippet.component.html',
+    styleUrls: ['./student-terms-and-conditions-snippet.component.scss']
 })
-export class StudentTermsAndConditionsSnippetComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class StudentTermsAndConditionsSnippetComponent {
 }
