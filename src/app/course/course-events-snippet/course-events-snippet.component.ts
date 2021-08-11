@@ -33,8 +33,8 @@ export class CourseEventsSnippetComponent implements OnInit {
     }
 
     /**
-     * Determines the text for the button based on the user's role and event.
-     * @param event - The event to check the user against.
+     * Returns the button text based on the type of event & user
+     * @param event - the object for which the button text is needed
      */
     getEventButtonText(event: CourseEvent): string {
         if (this.eventTypes) {
@@ -43,8 +43,8 @@ export class CourseEventsSnippetComponent implements OnInit {
     }
 
     /**
-     * Determines if the current event is an exam that is also open.
-     * @param event - The event to check.
+     * Returns whether the specified event is an open exam
+     * @param event - event object to check
      */
     isExamAndOpen(event: CourseEvent): boolean {
         return event.is_open && event.is_exam;

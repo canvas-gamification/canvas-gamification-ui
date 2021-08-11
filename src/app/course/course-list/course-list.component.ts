@@ -34,6 +34,10 @@ export class CourseListComponent implements AfterViewInit {
         });
     }
 
+    /**
+     * returns a boolean indicating whether the currently logged in user can view the course or not
+     * @param courseId
+     */
     hasViewPermission(courseId: number): boolean {
         return this.user.is_teacher || !!this.allCourses.find(course => course.id === courseId)?.is_registered;
     }

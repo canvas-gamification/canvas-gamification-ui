@@ -32,7 +32,8 @@
                             <label for="email">Email:</label>
                             <input type="email" class="form-control" name="email"
                                    formControlName="email" id="email"
-                                   [ngClass]="{ 'is-invalid': form.email.errors && form.email.touched }">
+                                   [ngClass]="{ 'is-invalid': form.email.errors && form.email.touched }"
+                                   disabled>
                             <div *ngIf="form.email.errors" class="invalid-feedback">
                                 <div *ngIf="form.email.errors.required">Email is required</div>
                                 <div *ngIf="form.email.errors.email">Email should be valid</div>

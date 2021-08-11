@@ -20,4 +20,12 @@ export class CourseEventServiceMock {
     importCourseEvent(event: CourseEvent, courseId: number): Observable<HttpResponse<unknown>> {
         return of(new HttpResponse());
     }
+
+    addCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+        return of(MOCK_COURSE_EVENT);
+    }
+
+    updateCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+        return of(MOCK_COURSE_EVENT);
+    }
 }
