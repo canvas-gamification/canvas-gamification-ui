@@ -14,11 +14,33 @@
                 </ng-container>
                 <div class="card-body">
                     <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+                        <ng-container *ngIf="user.is_student">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           id="submittedWork" type="checkbox"
+                                           formControlName="access_submitted_course_work">
+                                    <label class="form-check-label" for="submittedWork">I am willing to
+                                        provide access to my submitted course work.</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           id="grades" type="checkbox" formControlName="access_course_grades">
+                                    <label class="form-check-label" for="submittedWork">I am willing to provide
+                                        access to my course grades associated with the submitted work.</label>
+                                </div>
+                            </div>
+                        </ng-container>
                         <div class="form-group">
                             <label for="legal_last_name">Type in your last name:</label>
-                            <input [ngClass]="{ 'is-invalid': form.legal_last_name.errors && form.legal_last_name.touched }" class="form-control" formControlName="legal_last_name"
-                                   id="legal_last_name" name="legal_last_name"
-                                   type="text">
+                            <input
+                                [ngClass]="{ 'is-invalid': form.legal_last_name.errors && form.legal_last_name.touched }"
+                                class="form-control" formControlName="legal_last_name"
+                                id="legal_last_name" name="legal_last_name"
+                                type="text">
                             <div *ngIf="form.legal_last_name.touched && form.legal_last_name.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.legal_last_name.errors.required">Last name is Required.</div>
@@ -27,9 +49,11 @@
 
                         <div class="form-group">
                             <label for="legal_first_name">Type in your first name:</label>
-                            <input [ngClass]="{ 'is-invalid': form.legal_first_name.errors && form.legal_first_name.touched }" class="form-control" formControlName="legal_first_name"
-                                   id="legal_first_name" name="legal_first_name"
-                                   type="text">
+                            <input
+                                [ngClass]="{ 'is-invalid': form.legal_first_name.errors && form.legal_first_name.touched }"
+                                class="form-control" formControlName="legal_first_name"
+                                id="legal_first_name" name="legal_first_name"
+                                type="text">
                             <div *ngIf="form.legal_first_name.touched && form.legal_first_name.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.legal_first_name.errors.required">First name is Required.</div>
@@ -40,9 +64,11 @@
                             <label for="student_number">Type in your student number (this is only needed in case there
                                 are students
                                 with the same first and last name):</label>
-                            <input [ngClass]="{ 'is-invalid': form.student_number.errors && form.student_number.touched }" class="form-control" formControlName="student_number"
-                                   id="student_number" name="student_number"
-                                   type="text">
+                            <input
+                                [ngClass]="{ 'is-invalid': form.student_number.errors && form.student_number.touched }"
+                                class="form-control" formControlName="student_number"
+                                id="student_number" name="student_number"
+                                type="text">
                             <div *ngIf="form.student_number.touched && form.student_number.invalid"
                                  class="invalid-feedback">
                                 <div *ngIf="form.student_number.errors.required">Student number is Required.</div>
@@ -51,7 +77,8 @@
 
                         <div class="form-group">
                             <label for="date">Type in today's date:</label>
-                            <input [ngClass]="{ 'is-invalid': form.date.errors && form.date.touched }" class="form-control" formControlName="date"
+                            <input [ngClass]="{ 'is-invalid': form.date.errors && form.date.touched }"
+                                   class="form-control" formControlName="date"
                                    id="date" name="date"
                                    type="text">
                             <div *ngIf="form.date.touched && form.date.invalid"
@@ -64,7 +91,8 @@
                             <button [disabled]="formGroup.invalid" class="btn btn-primary float-right mx-2"
                                     type="submit">I Consent
                             </button>
-                            <button (click)="declineConsent()" class="btn btn-primary float-right mx-2" routerLink="../profile"
+                            <button (click)="declineConsent()" class="btn btn-primary float-right mx-2"
+                                    routerLink="../profile"
                                     type="button">I Do Not Consent
                             </button>
                         </div>

@@ -28,7 +28,11 @@ export class ConsentFormComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.formGroup = ConsentForm.createForm();
+        if (this.user.is_student) {
+            this.formGroup = ConsentForm.createStudentForm();
+        } else {
+            this.formGroup = ConsentForm.createAdminForm();
+        }
     }
 
     get form(): { [p: string]: AbstractControl } {
