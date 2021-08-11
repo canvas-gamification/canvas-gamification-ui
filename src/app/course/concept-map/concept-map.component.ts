@@ -16,8 +16,6 @@ export class ConceptMapComponent implements OnInit {
     conceptMapGraph: ConceptMapGraph;
 
     @Input() currCourse: Course;
-    scrolling: { x: number, y: number };
-    paper: HTMLElement = null;
 
     constructor(private categoryService: CategoryService,
                 private toastr: ToastrService,
