@@ -4,8 +4,8 @@ import {CourseEventsSnippetComponent} from '../../course-events-snippet/course-e
 import {TestModule} from '@test/test.module';
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {CourseEventServiceMock} from "@app/problems/_test/course-event.service.mock";
-import {MOCK_EVENT_TYPES, MOCK_USER_STUDENT, MOCK_USER_TEACHER} from "@app/course/_test/mock";
-import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
+import {MOCK_COURSE1, MOCK_EVENT_TYPES, MOCK_USER_STUDENT, MOCK_USER_TEACHER} from "@app/course/_test/mock";
+import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 
 describe('CourseEventsSnippetComponent', () => {
     let component: CourseEventsSnippetComponent;
@@ -47,5 +47,16 @@ describe('CourseEventsSnippetComponent', () => {
         component.eventTypesMap = new Map(MOCK_EVENT_TYPES.map(([k, v]) => [k, v]));
         //Only need to check the first word since it is the only thing that is different between student/teacher
         expect(component.getEventButtonText(MOCK_COURSE_EVENT).split(' ')[0]).toEqual('Open');
+    });
+
+    it('open modal', () => {
+        component.open('');
+        expect(component.courseEvents).toEqual([MOCK_COURSE_EVENT]);
+    });
+
+    // TODO - Need to determine how to test toastr across application.
+    it('duplicate an event', () => {
+        component.importCourseEvent(MOCK_COURSE_EVENT, MOCK_COURSE.id);
+        fixture.detectChanges();
     });
 });
