@@ -86,9 +86,8 @@ export class JavaEditSnippetComponent implements OnInit {
     onSubmit(): void {
         const submissionRequest = JavaForm.extractData(this.formGroup, this.variables, this.inputFiles, this.questionText);
         this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe((response) => {
-                if (response.status === 200)
-                    this.refresh();
+            .subscribe(() => {
+                this.refresh();
             });
     }
 

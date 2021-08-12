@@ -43,12 +43,10 @@ export class ResetPasswordComponent implements OnInit {
      */
     onSubmit(): void {
         const data = ResetPasswordForm.extractPasswordFormData(this.formGroup);
-        this.resetPasswordService.putPasswordReset(data).subscribe((response) => {
-            if (response.status === 201) {
-                this.router.navigate(['/accounts/login']).then(() => {
-                    this.toastr.success('Your password has been updated successfully!');
-                });
-            }
+        this.resetPasswordService.putPasswordReset(data).subscribe(() => {
+            this.router.navigate(['/accounts/login']).then(() => {
+                this.toastr.success('Your password has been updated successfully!');
+            });
         });
     }
 
@@ -58,11 +56,9 @@ export class ResetPasswordComponent implements OnInit {
     submitEmail(): void {
         const data = ResetPasswordForm.extractEmailFormData(this.formGroup);
         this.resetPasswordService.sendForgotPasswordEmail(data)
-            .subscribe((response) => {
-                if (response.status === 200) {
-                    this.formGroup.reset();
-                    this.toastr.success('An email has been sent to you with a password reset link!');
-                }
+            .subscribe(() => {
+                this.formGroup.reset();
+                this.toastr.success('An email has been sent to you with a password reset link!');
             });
     }
 }

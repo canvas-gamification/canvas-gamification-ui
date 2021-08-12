@@ -91,9 +91,8 @@ export class McqEditSnippetComponent implements OnInit {
             submissionRequest = McqForm.extractCheckboxData(this.formGroup, this.distractors.map(x => x.text), this.variables, this.questionText, this.correctAnswers.map(x => x.text));
         }
         this.questionService.putMultipleChoiceQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe((response) => {
-                if (response.status === 200)
-                    this.refresh();
+            .subscribe(() => {
+                this.refresh();
             });
     }
 

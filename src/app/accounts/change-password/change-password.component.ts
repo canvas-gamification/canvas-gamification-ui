@@ -27,11 +27,9 @@ export class ChangePasswordComponent implements OnInit {
     onSubmit(): void {
         const data = ChangePasswordForm.extractData(this.formGroup);
         this.password.putPasswordReset(data)
-            .subscribe((response) => {
-                if (response.status === 201) {
-                    this.formGroup.reset();
-                    this.toastr.success('Your password has been updated successfully!');
-                }
+            .subscribe(() => {
+                this.formGroup.reset();
+                this.toastr.success('Your password has been updated successfully!');
             });
     }
 

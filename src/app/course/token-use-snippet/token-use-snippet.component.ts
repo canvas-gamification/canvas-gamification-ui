@@ -54,9 +54,8 @@ export class TokenUseSnippetComponent implements OnInit {
         const courseId = this.route.snapshot.params.courseId;
         const data = {};
         this.tokenUses.forEach(tokenUse => data[tokenUse.option.id] = tokenUse.num_used);
-        this.tokenUseService.useTokens(data, courseId).subscribe((response) => {
-            if (response.status === 200)
-                this.toastr.success('Token uses saved!');
+        this.tokenUseService.useTokens(data, courseId).subscribe(() => {
+            this.toastr.success('Token uses saved!');
         });
     }
 }

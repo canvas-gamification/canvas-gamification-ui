@@ -44,6 +44,6 @@ export class SubmissionService {
     postQuestionSubmission(input: { question: number, solution: unknown }): Observable<HttpResponse<unknown>> {
         const url = this.apiService.getURL('submission', 'submit');
         return this.http.post<HttpResponse<unknown>>(url, input, {observe: 'response'})
-            .pipe(catchError(this.apiService.handleQuestionSubmissionError()));
+            .pipe(catchError(this.apiService.handleFormError()));
     }
 }

@@ -90,9 +90,8 @@ export class ParsonsEditSnippetComponent implements OnInit {
     onSubmit(): void {
         const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.inputFiles, this.questionText);
         this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
-            .subscribe((response) => {
-                if (response.status === 200)
-                    this.refresh();
+            .subscribe(() => {
+                this.refresh();
             });
     }
 

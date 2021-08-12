@@ -60,9 +60,8 @@ export class ParsonsCreateSnippetComponent implements OnInit {
     onSubmit(): void {
         const submissionRequest = ParsonsForm.extractData(this.formGroup, this.variables, this.inputFiles, this.questionText);
         this.questionService.postParsonsQuestion(submissionRequest)
-            .subscribe((response) => {
-                if (response.status === 201)
-                    this.refresh();
+            .subscribe(() => {
+                this.refresh();
             });
 
     }

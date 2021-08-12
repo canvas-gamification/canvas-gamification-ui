@@ -28,11 +28,10 @@ export class ActivationEmailComponent implements OnInit {
         });
 
         this.registerService.postActivation(this.uuid, this.token).subscribe(
-            (response) => {
-                if (response.status === 200) {
-                    this.toastr.success('You have activated your account successfully.');
-                    this.router.navigate(['/accounts/login']).then();
-                }
+            () => {
+                this.toastr.success('You have activated your account successfully.');
+                this.router.navigate(['/accounts/login']).then();
+
             },
             () => {
                 this.router.navigate(['accounts', 'login']).then();

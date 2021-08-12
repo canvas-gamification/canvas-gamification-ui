@@ -84,15 +84,4 @@ export class ApiService {
             return throwError(error);
         };
     }
-
-    handleQuestionSubmissionError(): (error: HttpErrorResponse) => Observable<never> {
-        return (error): Observable<never> => {
-            if (error.status === 400) {
-                this.toastr.error('You have already submitted this answer!');
-            } else if (error.status === 401) {
-                this.toastr.error('You are not allowed to submit.');
-            }
-            return throwError(error);
-        };
-    }
 }
