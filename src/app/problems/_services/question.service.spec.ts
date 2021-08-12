@@ -10,7 +10,6 @@ import {
     MOCK_PARSONS_FORM_DATA,
     MOCK_QUESTIONS
 } from "@app/problems/_test/mock";
-import {HttpResponse} from "@angular/common/http";
 
 describe('QuestionService', () => {
     let questionService: QuestionService;
