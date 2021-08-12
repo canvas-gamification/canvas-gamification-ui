@@ -55,6 +55,6 @@ describe('SubmissionService', () => {
         });
         const request = httpMock.expectOne(apiService.getURL('submission', 'submit'));
         expect(request.request.method).toBe('POST');
-        request.flush({}, {status: 200, statusText: 'Ok'});
+        request.flush({status: 200});
     });
 });
