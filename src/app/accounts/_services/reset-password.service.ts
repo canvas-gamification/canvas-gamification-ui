@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaderResponse} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {Observable} from "rxjs";
 import {ApiService} from "@app/_services/api.service";
@@ -17,9 +17,9 @@ export class ResetPasswordService {
      * Update password.
      * @param input - New password form data.
      */
-    putPasswordReset(input: PasswordFormData): Observable<HttpResponse<unknown>> {
+    putPasswordReset(input: PasswordFormData): Observable<HttpHeaderResponse> {
         const url = this.apiService.getURL('reset-password');
-        return this.http.post<HttpResponse<unknown>>(url, input, {observe: 'response'})
+        return this.http.post<HttpHeaderResponse>(url, input)
             .pipe(catchError(this.apiService.handleFormError()));
     }
 
@@ -27,9 +27,9 @@ export class ResetPasswordService {
      * Send an email with a reset password link.
      * @param input - Email form data.
      */
-    sendForgotPasswordEmail(input: EmailFormData): Observable<HttpResponse<unknown>> {
+    sendForgotPasswordEmail(input: EmailFormData): Observable<HttpHeaderResponse> {
         const url = this.apiService.getURL('reset-password', 'send-email');
-        return this.http.post<HttpResponse<unknown>>(url, input, {observe: 'response'})
+        return this.http.post<HttpHeaderResponse>(url, input)
             .pipe(catchError(this.apiService.handleFormError()));
     }
 }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaderResponse, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {catchError} from 'rxjs/operators';
@@ -41,9 +41,9 @@ export class SubmissionService {
      * Send a post request of the submission for a question
      * @param input
      */
-    postQuestionSubmission(input: { question: number, solution: unknown }): Observable<HttpResponse<unknown>> {
+    postQuestionSubmission(input: { question: number, solution: unknown }): Observable<HttpHeaderResponse> {
         const url = this.apiService.getURL('submission', 'submit');
-        return this.http.post<HttpResponse<unknown>>(url, input, {observe: 'response'})
+        return this.http.post<HttpHeaderResponse>(url, input)
             .pipe(catchError(this.apiService.handleFormError()));
     }
 }
