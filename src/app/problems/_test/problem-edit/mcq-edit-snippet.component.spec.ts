@@ -22,11 +22,13 @@ import {CourseEventServiceMock} from "@app/problems/_test/course-event.service.m
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 describe('McqEditSnippetComponent', () => {
     let component: McqEditSnippetComponent;
     let fixture: ComponentFixture<McqEditSnippetComponent>;
     let router: Router;
+    let toastr: ToastrService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -44,6 +46,8 @@ describe('McqEditSnippetComponent', () => {
         beforeEach(() => {
             router = TestBed.inject(Router);
             spyOn(router, 'navigate');
+            toastr = TestBed.inject(ToastrService);
+            spyOn(toastr, 'success');
             fixture = TestBed.createComponent(McqEditSnippetComponent);
             component = fixture.componentInstance;
             component.questionDetails = MOCK_MCQ_QUESTION;
@@ -54,12 +58,12 @@ describe('McqEditSnippetComponent', () => {
             expect(component).toBeTruthy();
         });
 
-        it('courses and categories set', () => {
+        it('should set courses and categories', () => {
             expect(component.courses).toEqual([MOCK_COURSE]);
             expect(component.categories).toEqual(MOCK_CATEGORIES);
         });
 
-        it('add and remove choice', () => {
+        it('should add/remove choice', () => {
             expect(component.distractors.length).toEqual(1);
 
             component.addChoice();
@@ -69,38 +73,39 @@ describe('McqEditSnippetComponent', () => {
             expect(component.distractors.length).toEqual(1);
         });
 
-        it('setCourse', () => {
+        it('should set course', () => {
             component.setCourse(0);
             expect(component.events).toEqual(MOCK_COURSE.events);
             expect(component.form.event.value).toBeNull();
         });
 
-        it('setEvent', () => {
+        it('should set event', () => {
             component.setEvent(1);
             expect(component.form.event.value).toEqual(MOCK_COURSE_EVENT.id);
         });
 
-        it('mcq update', () => {
+        it('should update mcq', () => {
             component.onSubmit();
+            expect(toastr.success).toHaveBeenCalled();
             expect(router.navigate).toHaveBeenCalledOnceWith(['problems', '0', 'edit']);
         });
 
-        it('required fields - invalid', () => {
+        it('should be invalid without required fields', () => {
             expect(fixture.debugElement.nativeElement.querySelector('#submit').disabled).toBeTruthy();
         });
 
-        it('isSubmissionValid - mcq - invalid', () => {
+        it('should be invalid mcq submission', () => {
             expect(component.isSubmissionValid()).toBeFalsy();
         });
 
-        it('isSubmissionValid - mcq - valid', () => {
+        it('should be valid mcq submission', () => {
             component.questionText = 'Test';
             fixture.detectChanges();
             expect(component.isSubmissionValid()).toBeTruthy();
         });
     });
 
-    describe('checkbox - edit', () => {
+    describe('checkbox question - edit', () => {
         beforeEach(() => {
             router = TestBed.inject(Router);
             spyOn(router, 'navigate');
@@ -114,7 +119,7 @@ describe('McqEditSnippetComponent', () => {
             expect(component).toBeTruthy();
         });
 
-        it('add and remove answers', () => {
+        it('should add/remove answers', () => {
             expect(component.correctAnswers.length).toEqual(2);
 
             component.addAnswer();
@@ -124,12 +129,12 @@ describe('McqEditSnippetComponent', () => {
             expect(component.correctAnswers.length).toEqual(2);
         });
 
-        it('checkbox update', () => {
+        it('should update checkbox question', () => {
             component.onSubmit();
             expect(router.navigate).toHaveBeenCalledOnceWith(['problems', '1', 'edit']);
         });
 
-        it('isSubmissionValid - checkbox - valid', () => {
+        it('should be valid checkbox submission', () => {
             component.questionText = 'Test';
             fixture.detectChanges();
             expect(component.isSubmissionValid()).toBeTruthy();
@@ -142,7 +147,7 @@ describe('McqEditSnippetComponent', () => {
         //     expect(component.isPractice).toBeFalsy();
         // });
 
-        it('isSubmissionValid - checkbox - invalid', () => {
+        it('should be invalid checkbox submission', () => {
             component.isPractice = true;
             component.form.course.setValue(MOCK_COURSE);
             component.form.event.setValue(MOCK_COURSE_EVENT);
@@ -151,7 +156,7 @@ describe('McqEditSnippetComponent', () => {
         });
     });
 
-    describe('mcq - number event', () => {
+    describe('mcq - with number event', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(McqEditSnippetComponent);
             component = fixture.componentInstance;
