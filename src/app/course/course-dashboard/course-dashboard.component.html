@@ -1,4 +1,5 @@
-<button type="button" class="btn btn-outline-primary">Register New Student</button>
+<button type="button" class="btn btn-outline-primary" (click)="open(dropDownAdd)">Register New Student</button>
+
 <table class="table table-bordered table-light mt-5 hover-shadow">
     <caption>List of Students currently enrolled</caption>
     <thead class="thead-light">
@@ -17,10 +18,33 @@
         <td>{{ user.first_name || '' }}</td>
         <td>{{ user.last_name || 'N' }}</td>
         <td>{{ user.role || ''}}</td>
-        <td>{{ registrationList[i].is_blocked }}
-            <button type="button" class="btn btn-outline-dark" (click)="updateBlockStatus(registrationList[i])">Toggle status</button>
+        <td>{{ getBlockStatus(user.id) }}
+            <button type="button" class="btn btn-outline-dark float-right"
+                    (click)="changeStatus(registrationList[i],!getBlockStatus(user.id),getVerifyStatus(user.id))">Toggle
+                status
+            </button>
         </td>
-        <td>{{ registrationList[i].is_verified }}</td>
+        <td>{{ getVerifyStatus(user.id) }}
+            <button type="button" class="btn btn-outline-dark float-right"
+                    (click)="changeStatus(registrationList[i],getBlockStatus(user.id),!getVerifyStatus(user.id))">Toggle
+                status
+            </button>
+        </td>
+        <td><button type="button" class="btn btn-outline-dark" (click)="unregisterUser(user.id)">Unregister</button></td>
     </tr>
     </tbody>
 </table>
+
+<ng-template #dropDownAdd let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Select a user to add</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+    </div>
+</ng-template>

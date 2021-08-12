@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {ChangePasswordService} from "@app/accounts/_services/change-password.service";
 import {ToastrService} from "ngx-toastr";
 import {ChangePasswordForm} from "@app/accounts/_forms/change-password.form";

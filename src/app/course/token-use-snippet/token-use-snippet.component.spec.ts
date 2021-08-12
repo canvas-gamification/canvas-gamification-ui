@@ -25,7 +25,8 @@ describe('TokenUseSnippetComponent', () => {
             is_blocked: false,
             is_verified: true,
             token_uses: [],
-            total_tokens_received: 50
+            total_tokens_received: 50,
+            user_id: 1
         };
         fixture.detectChanges();
     });
