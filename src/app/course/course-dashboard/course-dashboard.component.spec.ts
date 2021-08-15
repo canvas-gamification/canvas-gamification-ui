@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CourseDashboardComponent } from './course-dashboard.component';
+import {CourseDashboardComponent} from './course-dashboard.component';
 
 describe('CourseDashboardComponent', () => {
     let component: CourseDashboardComponent;
@@ -8,7 +8,7 @@ describe('CourseDashboardComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ CourseDashboardComponent ]
+            declarations: [CourseDashboardComponent]
         })
             .compileComponents();
     });

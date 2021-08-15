@@ -34,6 +34,7 @@ import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 import {CourseDashboardComponent} from "@app/course/course-dashboard/course-dashboard.component";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
     declarations: [
@@ -70,6 +71,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
         AceEditorModule,
         HighlightModule,
         MatExpansionModule,
+        MatCheckboxModule,
     ],
     providers:[
         CourseService,
