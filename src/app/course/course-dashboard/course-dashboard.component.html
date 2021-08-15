@@ -1,28 +1,37 @@
 <button type="button" class="btn btn-outline-primary">Register New Student</button>
-<table class="table table-bordered table-light mt-5 hover-shadow">
-    <caption>List of Students currently enrolled</caption>
-    <thead class="thead-light">
-    <tr>
-        <th scope="col">Email</th>
-        <th scope="col">First name</th>
-        <th scope="col">Last name:</th>
-        <th scope="col">Role</th>
-        <th scope="col">Block status</th>
-        <th scope="col">Verify status</th>
-        <th scope="col">Action</th>
-    </tr>
-    </thead>
-    <tbody *ngFor="let user of userList; let i = index">
-    <tr>
-        <td>{{ user.email || 'No ID' }}</td>
-        <td>{{ user.first_name || '' }}</td>
-        <td>{{ user.last_name || 'N' }}</td>
-        <td>{{ user.role || ''}}</td>
-        <td>{{ registrationList[i].is_blocked }}
-            <button type="button" class="btn btn-outline-dark" (click)="updateBlockStatus(registrationList[i])">Toggle status</button>
-        </td>
-        <td>{{ registrationList[i].is_verified }}</td>
-        <td><button type="button" class="btn btn-outline-dark" (click)="unregisterUser(user.id)">Unregister</button></td>
-    </tr>
-    </tbody>
-</table>
+<div class="mx-auto">
+    <h1 class="my-md-2">Course List</h1>
+    <table class="table table-bordered table-light mt-5 hover-shadow">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name:</th>
+            <th scope="col">Role</th>
+            <th scope="col">Block status</th>
+            <th scope="col">Verify status</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody *ngFor="let user of userList; let i = index">
+        <tr>
+            <td>{{ user.email || 'No ID' }}</td>
+            <td>{{ user.first_name || '' }}</td>
+            <td>{{ user.last_name || 'N' }}</td>
+            <td>{{ user.role || ''}}</td>
+            <td>{{ registrationList[i].is_blocked }}
+                <button type="button" class="btn btn-outline-dark" (click)="updateBlockStatus(registrationList[i])">
+                    Toggle Status
+                </button>
+            </td>
+            <td>{{ registrationList[i].is_verified }}</td>
+            <td>
+                <button type="button" class="btn btn-outline-dark" (click)="unregisterUser(registrationList[i].id)">
+                    Unregister
+                </button>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>

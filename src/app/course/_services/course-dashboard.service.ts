@@ -41,10 +41,10 @@ export class CourseDashboardServiceService {
             .pipe(catchError(this.apiService.handleError<CourseRegistration>('Error occurred while changing status')));
     }
 
-    unregisterUser(id: number): Observable<string> {
-        const url = this.apiService.getURL('list-course-user', id);
+    unregisterUser(courseRegId: number): Observable<string> {
+        const url = this.apiService.getURL('course-registration', courseRegId);
         return this.http.delete<string>(url)
-            .pipe(catchError(this.apiService.handleError<string>('Error occurred while deleting question')));
+            .pipe(catchError(this.apiService.handleError<string>('Error occurred while deleting user')));
     }
 
 

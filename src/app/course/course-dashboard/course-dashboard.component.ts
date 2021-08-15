@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
-import {Course, CourseRegistration, User} from '@app/_models';
+import {CourseRegistration, User} from '@app/_models';
 import {CourseDashboardServiceService} from "@app/course/_services/course-dashboard.service";
 import {ToastrService} from "ngx-toastr";
 import {Subject} from "rxjs";
@@ -17,6 +17,8 @@ export class CourseDashboardComponent implements OnInit {
     courseId: number;
     userId: number;
     user: User;
+    courseReg: CourseRegistration;
+    id: number;
 
     userList: User[];
     registrationList: CourseRegistration[];
@@ -56,6 +58,7 @@ export class CourseDashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
         this.courseService
             .getCourseDashboard(this.courseId)
             .subscribe(users => {
@@ -67,6 +70,7 @@ export class CourseDashboardComponent implements OnInit {
             .subscribe(registrations => {
                 this.registrationList = registrations;
             });
+
 
     }
 
@@ -94,17 +98,21 @@ export class CourseDashboardComponent implements OnInit {
             });
     }
 
-    unregisterUser(id: number): void {
-        this.courseService.unregisterUser(id)
+    unregisterUser(courseRegId:number): void {
+        this.courseService.unregisterUser(courseRegId)
             .subscribe(() => {
-                this.toastr.success('The Question has been Deleted Successfully.');
-                this.update();
-                window.scroll(0, 0);
+                this.toastr.success('The block has been changed successfully.');
+                this.courseService
+                    .getCourseDashboard(this.courseId)
+                    .subscribe(users => {
+                        this.userList = users;
+                    });
             }, error => {
                 this.toastr.error(error);
                 console.warn(error);
-                window.scroll(0, 0);
             });
+
+
     }
 
     update(): void {
