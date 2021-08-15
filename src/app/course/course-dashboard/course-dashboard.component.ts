@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
-import {Course, CourseRegistration, User} from '@app/_models';
+import {CourseRegistration, User} from '@app/_models';
 import {CourseDashboardServiceService} from "@app/course/_services/course-dashboard.service";
 import {ToastrService} from "ngx-toastr";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Subject} from "rxjs";
-import {PageEvent} from "@angular/material/paginator";
 
 @Component({
     selector: 'app-course-dashboard',
@@ -24,29 +22,6 @@ export class CourseDashboardComponent implements OnInit {
     variable: boolean;
 
     filterQueryString;
-
-    pageSize: number;
-    pageEvent: PageEvent;
-
-    paramChanged: Subject<{
-        page: number,
-        page_size: number,
-        search: string,
-        parentCategory: string,
-        subCategory: string,
-        difficulty: string,
-        is_sample: string,
-        ordering: string
-    }> = new Subject<{
-        page: number,
-        page_size: number,
-        search: string,
-        parentCategory: string,
-        subCategory: string,
-        difficulty: string,
-        is_sample: string,
-        ordering: string
-    }>();
 
     constructor(private authenticationService: AuthenticationService,
                 private courseService: CourseDashboardServiceService,
@@ -107,29 +82,15 @@ export class CourseDashboardComponent implements OnInit {
     open(content: unknown): void {
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true, scrollable: true, size : "xl"});
     }
-    
+
     unregisterUser(id: number): void {
         this.courseService.unregisterUser(id)
             .subscribe(() => {
-                this.toastr.success('The Question has been Deleted Successfully.');
-                this.update();
-                window.scroll(0, 0);
+                this.toastr.success('The user has been unregistered Successfully.');
             }, error => {
                 this.toastr.error(error);
                 console.warn(error);
-                window.scroll(0, 0);
             });
-    }
-
-    update(): void {
-        const options = {
-            ...(this.pageEvent && {
-                page: this.pageEvent.pageIndex + 1,
-                page_size: this.pageEvent.pageSize,
-            }),
-            ...this.filterQueryString
-        };
-        this.paramChanged.next(options);
     }
 
     hasViewPermission(userId: number): boolean {
