@@ -83,10 +83,15 @@ export class CourseDashboardComponent implements OnInit {
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true, scrollable: true, size : "xl"});
     }
 
-    unregisterUser(id: number): void {
-        this.courseService.unregisterUser(id)
+    unregisterUser(courseRegId:number): void {
+        this.courseService.unregisterUser(courseRegId)
             .subscribe(() => {
-                this.toastr.success('The user has been unregistered Successfully.');
+                this.toastr.success('The block has been changed successfully.');
+                this.courseService
+                    .getCourseDashboard(this.courseId)
+                    .subscribe(users => {
+                        this.userList = users;
+                    });
             }, error => {
                 this.toastr.error(error);
                 console.warn(error);
