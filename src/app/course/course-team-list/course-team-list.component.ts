@@ -57,10 +57,10 @@ export class CourseTeamListComponent implements OnInit {
      *  submits a update request to the API through the teamLeaderBoardService
      * @param event - event to be handled
      */
-    joinHandler(event: any): void {
+    joinHandler(event: Event): void {
 
         const targetTeam = {
-            team_id: event.target.value,
+            team_id: +(event.target as HTMLInputElement).value,
             course_id: this.courseId
         };
         this.teamLeaderBoardService
@@ -79,10 +79,10 @@ export class CourseTeamListComponent implements OnInit {
      * submits a delete request to the API through the teamLeaderBoardService
      * @param event - event to be handled
      */
-    leaveHandler(event: any): void {
+    leaveHandler(event: Event): void {
 
         const targetTeam = {
-            team_id: event.target.value,
+            team_id: +(event.target as HTMLInputElement).value,
             course_id: this.courseId
         };
         this.teamLeaderBoardService
