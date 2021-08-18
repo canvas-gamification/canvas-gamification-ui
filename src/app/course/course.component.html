@@ -1,4 +1,4 @@
-    <table class="table table-bordered table-light mt-5 hover-shadow">
+<table class="table table-bordered table-light mt-5 hover-shadow">
     <thead class="thead-dark">
     <tr>
         <th scope="col">ID</th>
@@ -7,8 +7,7 @@
         <th scope="col">Canvas&nbsp;Course&nbsp;Name</th>
         <th scope="col">Start&nbsp;Date</th>
         <th scope="col">End&nbsp;Date</th>
-        <th scope="col" *ngIf= course?.is_registered
-        >Dashboard</th>
+        <th scope="col" *ngIf="course?.is_registered && this.user.is_teacher">Dashboard</th>
     </tr>
     </thead>
     <tbody>
@@ -19,8 +18,8 @@
         <td>{{ course?.name || 'No Name'}}</td>
         <td>{{ course?.start_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
         <td>{{ course?.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
-        <td >
-            <a class="btn btn-primary mr-3" *ngIf= course?.is_registered
+        <td *ngIf="course?.is_registered && this.user.is_teacher">
+            <a class="btn btn-primary mr-3"
                [routerLink]="['admin']">Dashboard</a>
         </td>
     </tr>
