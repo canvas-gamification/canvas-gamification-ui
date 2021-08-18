@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
-import {Course, CourseRegistration, User} from '@app/_models';
+import {CourseRegistration, User} from '@app/_models';
 import {CourseDashboardServiceService} from "@app/course/_services/course-dashboard.service";
 import {ToastrService} from "ngx-toastr";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {Subject} from "rxjs";
-import {PageEvent} from "@angular/material/paginator";
 
 @Component({
     selector: 'app-course-dashboard',
@@ -24,29 +22,6 @@ export class CourseDashboardComponent implements OnInit {
     variable: boolean;
 
     filterQueryString;
-
-    pageSize: number;
-    pageEvent: PageEvent;
-
-    paramChanged: Subject<{
-        page: number,
-        page_size: number,
-        search: string,
-        parentCategory: string,
-        subCategory: string,
-        difficulty: string,
-        is_sample: string,
-        ordering: string
-    }> = new Subject<{
-        page: number,
-        page_size: number,
-        search: string,
-        parentCategory: string,
-        subCategory: string,
-        difficulty: string,
-        is_sample: string,
-        ordering: string
-    }>();
 
     constructor(private authenticationService: AuthenticationService,
                 private courseService: CourseDashboardServiceService,
@@ -69,7 +44,6 @@ export class CourseDashboardComponent implements OnInit {
             .subscribe(registrations => {
                 this.registrationList = registrations;
             });
-
     }
 
     changeStatus(courseReg: CourseRegistration, blockStatus: boolean, verifyStatus: boolean): void {
@@ -97,7 +71,7 @@ export class CourseDashboardComponent implements OnInit {
             });
     }
 
-    getBlockStatus(id: number):boolean {
+    getBlockStatus(id: number): boolean {
         return this.registrationList.filter(reg => reg.user_id === id)[0].is_blocked;
     }
 
@@ -122,17 +96,6 @@ export class CourseDashboardComponent implements OnInit {
                 this.toastr.error(error);
                 console.warn(error);
             });
-    }
-
-    update(): void {
-        const options = {
-            ...(this.pageEvent && {
-                page: this.pageEvent.pageIndex + 1,
-                page_size: this.pageEvent.pageSize,
-            }),
-            ...this.filterQueryString
-        };
-        this.paramChanged.next(options);
     }
 
     hasViewPermission(userId: number): boolean {
