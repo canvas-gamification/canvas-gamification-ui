@@ -1,4 +1,4 @@
 export interface TeamRegistration {
-    team_id: number;
+    team: number;
     user_id: number;
 }

@@ -47,8 +47,6 @@ export class CourseTeamCreateComponent implements OnInit {
             () => {
                 this.router.navigate(['course', this.courseId]).then();
                 this.toastr.success('The Team has been added Successfully.');
-            }, error => {
-                this.toastr.error(error);
             }
         );
     }

@@ -3,7 +3,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup} from '@angular/forms';
 // Model Imports
-import {User, Team} from "@app/_models";
+import {Team, User} from "@app/_models";
 import {TeamRegistration} from "@app/_models/team_registration";
 // Form Imports
 import {CourseTeamRegisterForm} from '@app/course/_forms/course-team-register.form';
@@ -43,13 +43,17 @@ export class CourseTeamListComponent implements OnInit {
             .getTeams(this.courseId)
             .subscribe((teams) => {
                 this.teams = teams;
+                console.log(this.teams);
             });
 
         this.teamLeaderBoardService
             .getTeamRegistration(this.courseId)
             .subscribe((registration) => {
                 this.teamRegistration = registration;
+                console.log(this.teamRegistration);
             });
+
+
     }
 
     /**
@@ -60,18 +64,15 @@ export class CourseTeamListComponent implements OnInit {
     joinHandler(event: Event): void {
 
         const targetTeam = {
-            team_id: +(event.target as HTMLInputElement).value,
+            id: +(event.target as HTMLInputElement).value,
             course_id: this.courseId
         };
         this.teamLeaderBoardService
             .joinTeam(targetTeam)
             .subscribe(() => {
-                this.router.navigate(['course', this.courseId]).then();
-                this.toastr.success('The user has been added  to the team successfully.');
-            }, error => {
-                this.toastr.error(error);
-            }
-        );
+                window.location.reload();
+            });
+
     }
 
     /**
@@ -82,17 +83,13 @@ export class CourseTeamListComponent implements OnInit {
     leaveHandler(event: Event): void {
 
         const targetTeam = {
-            team_id: +(event.target as HTMLInputElement).value,
+            id: +(event.target as HTMLInputElement).value,
             course_id: this.courseId
         };
         this.teamLeaderBoardService
             .leaveTeam(targetTeam)
             .subscribe(() => {
-                this.router.navigate(['course', this.courseId]).then();
-                this.toastr.success('The user has left the team successfully.');
-            }, error => {
-                this.toastr.error(error);
-            }
-        );
+                window.location.reload();
+            });
     }
 }

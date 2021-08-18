@@ -22,7 +22,7 @@ export class CourseTeamRegisterForm {
      */
     static formatFormData(formData: FormGroup, courseId: number): Team {
         return {
-            team_id: formData.get('team_id').value,
+            id: formData.get('team_id').value,
             course_id: courseId
         };
     }

@@ -15,7 +15,7 @@
             <tr>
                 <td>{{ team.name || 'N/A'}}</td>
                 <td>
-                    <button (click)="joinHandler($event)" *ngIf="teamRegistration.team_id!=team.id; else leaveTeam" class="btn btn-primary my-2 mr-3"
+                    <button (click)="joinHandler($event)" *ngIf="teamRegistration.team!=team.id; else leaveTeam" class="btn btn-primary my-2 mr-3"
                             type="submit" value={{team.id}}>Join
                     </button>
                     <ng-template #leaveTeam>

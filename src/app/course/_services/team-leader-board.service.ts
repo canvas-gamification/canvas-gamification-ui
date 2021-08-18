@@ -37,7 +37,7 @@ export class TeamLeaderBoardService {
      */
     getTeamRegistration(courseId: number): Observable<TeamRegistration> {
         const url = this.apiService.getURL('team', courseId, 'get_team_registration');
-        
+
         return this.http
             .get <TeamRegistration>(url)
             .pipe(catchError(this.apiService.handleError<TeamRegistration>(`Error occurred while retrieving team registrations`)));
@@ -60,7 +60,7 @@ export class TeamLeaderBoardService {
      * @param team - data to be sent to API, a Team Object
      */
     joinTeam(team: Team): Observable<Team> {
-        const url = this.apiService.getURL('team', team.team_id);
+        const url = this.apiService.getURL('team', team.id);
         return this.http
             .put <Team>(url, team)
             .pipe(catchError(this.apiService.handleError <Team>(`Error occurred while registering for the Team`)));
@@ -71,7 +71,7 @@ export class TeamLeaderBoardService {
      * @param team - data to be sent to API, a Team Object
      */
     leaveTeam(team: Team): Observable<Team> {
-        const url = this.apiService.getURL('team', team.team_id);
+        const url = this.apiService.getURL('team', team.id);
         return this.http
             .delete<Team>(url)
             .pipe(catchError(this.apiService.handleError <Team>(`Error occurred while leaving this Team`)));
