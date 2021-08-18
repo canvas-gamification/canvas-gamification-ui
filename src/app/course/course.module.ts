@@ -8,7 +8,7 @@ import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/co
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component";
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {IndividualLeaderBoardComponent} from "@app/course/individual-leader-board/individual-leader-board.component";
-import { TeamLeaderBoardComponent } from './team-leader-board/team-leader-board.component';
+import {TeamLeaderBoardComponent} from './team-leader-board/team-leader-board.component';
 import {CourseRoutingModule} from "@app/course/course-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
@@ -32,8 +32,8 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
-import { CourseTeamListComponent } from './course-team-list/course-team-list.component';
-import { CourseTeamCreateComponent } from './course-team-create/course-team-create.component';
+import {CourseTeamListComponent} from './course-team-list/course-team-list.component';
+import {CourseTeamCreateComponent} from './course-team-create/course-team-create.component';
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 
 @NgModule({
@@ -73,7 +73,7 @@ import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component
         AceEditorModule,
         HighlightModule,
     ],
-    providers:[
+    providers: [
         CourseService,
         CourseEventService,
         TokenUseService

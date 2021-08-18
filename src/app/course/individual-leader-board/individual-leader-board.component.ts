@@ -2,8 +2,8 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
+
 // Model Imports
-import {LeaderBoardStudent} from '@app/_models';
 
 @Component({
     selector: 'app-individual-leader-board',
@@ -45,11 +45,12 @@ export class IndividualLeaderBoardComponent implements OnInit, AfterViewInit {
         // initialize the datasource for the matTable from leaderBoard
         this.leaderBoardData = new MatTableDataSource(this.leaderBoard);
     }
+
     /**
      * Sort the input leaderboard in descending order based on number of tokens
      * @param leaderBoard - array of user, token pairs to be sorted
      */
-    leaderBoardSort(leaderBoard : {name: string, token: number} []) {
+    leaderBoardSort(leaderBoard: { name: string, token: number } []): void {
         this.leaderBoard = leaderBoard.sort((a, b) => {
             if (a.token < b.token) {
                 return 1;
@@ -60,10 +61,11 @@ export class IndividualLeaderBoardComponent implements OnInit, AfterViewInit {
             return 0;
         });
     }
+
     /**
      * Gets the top three teams on this leaderboard
      */
-    podiumSort() : void {
+    podiumSort(): void {
         for (let i = 0; i < 3; i++) {
             if (this.leaderBoard[0]) {
                 this.topThree.push(this.leaderBoard.shift());
@@ -72,5 +74,5 @@ export class IndividualLeaderBoardComponent implements OnInit, AfterViewInit {
             }
         }
     }
-    
+
 }

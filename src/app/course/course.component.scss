@@ -1,2 +1,11 @@
+@use "src/scss/mixins";
+@use "src/scss/variables";
 
+@include mixins.hover-shadow();
+
+.tab-content {
+    div {
+        background-color: #fff;
+    }
+}
 

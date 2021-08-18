@@ -16,10 +16,7 @@ export class TeamLeaderBoardComponent implements OnInit {
 
     @Input() courseId: number;
     displayedColumns = ['rank', 'name', 'token'];
-    teamLeaderBoardData: MatTableDataSource<{
-        name?: string,
-        tokens?: number,
-    }>;
+    teamLeaderBoardData: MatTableDataSource<{ name? : string, tokens?: number}>;
     @ViewChild(MatSort) matSort: MatSort;
 
     teamTopThree: Team[] = [];
@@ -35,14 +32,14 @@ export class TeamLeaderBoardComponent implements OnInit {
             .subscribe((teams) => {
 
                 this.leaderBoardSort(teams);
-                this.podiumSort()
+                this.podiumSort();
                 this.teamLeaderBoardData = new MatTableDataSource(this.teams);
             });
     }
 
     /**
-     * Sorts teams by descending from highest to lowest token values 
-     * @param teams 
+     * Sorts teams by descending from highest to lowest token values
+     * @param teams
      */
     leaderBoardSort(teams: Team[]) : void {
         this.teams = teams.sort((a, b) => {

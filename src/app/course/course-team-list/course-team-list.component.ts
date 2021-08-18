@@ -2,6 +2,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup} from '@angular/forms';
+import {forkJoin} from 'rxjs';
 // Model Imports
 import {Team, User} from "@app/_models";
 import {TeamRegistration} from "@app/_models/team_registration";
@@ -9,8 +10,7 @@ import {TeamRegistration} from "@app/_models/team_registration";
 import {CourseTeamRegisterForm} from '@app/course/_forms/course-team-register.form';
 // Services Imports
 import {TeamLeaderBoardService} from '@app/course/_services/team-leader-board.service';
-//Library Imports
-import {ToastrService} from "ngx-toastr";
+
 
 @Component({
     selector: 'app-course-team-list',
@@ -31,7 +31,6 @@ export class CourseTeamListComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private teamLeaderBoardService: TeamLeaderBoardService,
-                private toastr: ToastrService,
                 private router: Router) {
     }
 
@@ -39,20 +38,14 @@ export class CourseTeamListComponent implements OnInit {
         // initialize formData
         this.formData = CourseTeamRegisterForm.createForm();
 
-        this.teamLeaderBoardService
-            .getTeams(this.courseId)
-            .subscribe((teams) => {
-                this.teams = teams;
-                console.log(this.teams);
-            });
 
-        this.teamLeaderBoardService
-            .getTeamRegistration(this.courseId)
-            .subscribe((registration) => {
-                this.teamRegistration = registration;
-                console.log(this.teamRegistration);
-            });
-
+        forkJoin({
+            teams: this.teamLeaderBoardService.getTeams(this.courseId),
+            teamRegistration: this.teamLeaderBoardService.getTeamRegistration(this.courseId)
+        }).subscribe(result => {
+            this.teams = result.teams;
+            this.teamRegistration = result.teamRegistration;
+        });
 
     }
 
