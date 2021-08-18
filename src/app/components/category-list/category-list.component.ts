@@ -26,13 +26,8 @@ export class CategoryListComponent implements OnInit {
         this.categoryService
             .getCategories()
             .subscribe((categories) => {
-                this.topLevelCategories = categories.filter(c => c.parent == null);
                 this.categories = categories;
             });
     }
 
-    toggleChildTopics(category: Category): void {
-        this.expanded[category.name] = !this.expanded[category.name];
-        this.subcats[category.name] = this.categories.filter(c => c.parent === category.pk);
-    }
 }
