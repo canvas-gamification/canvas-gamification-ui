@@ -31,7 +31,7 @@ export class AdminComponent implements OnInit {
     courseId: number;
 
     /**
-     * Apply the filters to the problem-set.
+     * Apply the filters to the admin.
      */
     paramChanged: Subject<{
         role: string;

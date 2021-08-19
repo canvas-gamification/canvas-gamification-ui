@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {User} from '@app/_models/user';
 import {Category} from '@app/_models/category';
 import {Question} from "@app/_models/question";
-
 import {Course} from "@app/_models/course";
-
 import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';

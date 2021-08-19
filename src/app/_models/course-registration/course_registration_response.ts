@@ -15,3 +15,17 @@ export interface CourseRegistrationRequest {
     student_number?: number | string;
     code?: number;
 }
+
+export interface CourseDashboardRegistrationResponse extends APIResponse {
+    id?: number;
+    username?: string;
+    first_name?: string;
+    last_name?: string;
+    email?: string;
+    token?: string;
+    tokens?: number;
+    role?: string;
+    is_teacher?: boolean;
+    is_student?: boolean;
+    has_consent?: boolean;
+}

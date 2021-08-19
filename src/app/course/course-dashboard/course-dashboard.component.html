@@ -1,4 +1,17 @@
-<button type="button" class="btn btn-outline-primary" (click)="open(dropDownAdd)">Register New Student</button>
+<button type="button" class="btn btn-outline-primary mb-4" (click)="addOpen(dropDownAdd); retrieveStudentNotIn()">Register New Student</button>
+
+<form [formGroup]="formGroup" (ngSubmit)="applyFilter()">
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label for="name">Search first or last name:</label>
+            <input type="text" class="form-control" name="name" formControlName="name" id="name"
+                   placeholder="Search a name..">
+        </div>
+        <div class="form-group col-1 mt-auto">
+            <button type="submit" class="btn btn-primary float-right">Go</button>
+        </div>
+    </div>
+</form>
 
 <table class="table table-bordered table-light mt-5 hover-shadow">
     <caption>List of Students currently enrolled</caption>
@@ -14,38 +27,105 @@
     </tr>
     </thead>
     <tbody *ngFor="let user of userList; let i = index">
-    <tr>
-        <td>{{ user.email || 'No ID' }}</td>
-        <td>{{ user.first_name || '' }}</td>
-        <td>{{ user.last_name || 'N' }}</td>
-        <td>{{ user.role || ''}}</td>
-        <td>{{ getBlockStatus(user.id) }}
-            <button type="button" class="btn btn-outline-dark float-right"
-                    (click)="changeStatus(registrationList[i],!getBlockStatus(user.id),getVerifyStatus(user.id))">Toggle
-                status
-            </button>
-        </td>
-        <td>{{ getVerifyStatus(user.id) }}
-            <button type="button" class="btn btn-outline-dark float-right"
-                    (click)="changeStatus(registrationList[i],getBlockStatus(user.id),!getVerifyStatus(user.id))">Toggle
-                status
-            </button>
-        </td>
-        <td><button type="button" class="btn btn-outline-dark" (click)="unregisterUser(registrationList[i].id)">Unregister</button></td>
-    </tr>
+    <ng-container *ngIf=registrationList>
+        <tr>
+            <td>{{ user.email || 'No ID' }}</td>
+            <td>{{ user.first_name || 'No first name' }}</td>
+            <td>{{ user.last_name || 'No last name' }}</td>
+            <td>{{ user.role || ''}}</td>
+            <td>
+                <button type="button" class="btn btn-outline-dark float-none bg-success"
+                        *ngIf="!getBlockStatus(user.id)"
+                        (click)="changeStatus(registrationList[i],!getBlockStatus(user.id),getVerifyStatus(user.id))">Block
+                </button>
+                <button type="button" class="btn btn-outline-dark float-none bg-danger"
+                        *ngIf="getBlockStatus(user.id)"
+                        (click)="changeStatus(registrationList[i],!getBlockStatus(user.id),getVerifyStatus(user.id))">
+                    Unblock
+                </button>
+            </td>
+            <td *ngIf="!getVerifyStatus(user.id)">
+                <button type="button" class="btn btn-outline-dark float-none"
+                        (click)="changeStatus(registrationList[i],getBlockStatus(user.id),!getVerifyStatus(user.id))">Verify
+                    user
+                </button>
+            </td>
+            <td *ngIf="getVerifyStatus(user.id)">User Verified</td>
+            <td>
+                <button type="button" class="btn btn-outline-dark bg-warning"
+                        (click)="unregisterOpen(unregisterModal, registrationList[i].id)">
+                    Unregister
+                </button>
+            </td>
+        </tr>
+    </ng-container>
     </tbody>
 </table>
 
 <ng-template #dropDownAdd let-modal>
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Select a user to add</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <h4 class="modal-title" id="add">Select a user to add</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
+    <form class="ml-4 mt-4" [formGroup]="formGroup" (ngSubmit)="applyFilter()">
+        <div class="form-row">
+            <div class="form-group col-3">
+                <label for="modalName">Search first or last name:</label>
+                <input type="text" class="form-control" name="modalName" formControlName="modalName" id="modalName"
+                       placeholder="Search a name..">
+            </div>
+            <div class="form-group col-1 mt-auto">
+                <button type="submit" class="btn btn-primary float-right">Go</button>
+            </div>
+        </div>
+    </form>
     <div class="modal-body">
-
+        <table class="table table-bordered table-light mt-5 hover-shadow">
+            <caption>List of Students not enrolled</caption>
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">Email</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Role</th>
+                <th scope="col">Register:</th>
+            </tr>
+            </thead>
+            <tbody *ngFor="let user of unregisteredUsers">
+            <tr>
+                <td>{{ user.email}}</td>
+                <td>{{ user.first_name || 'No first name' }}</td>
+                <td>{{ user.last_name || 'No last name' }}</td>
+                <td>{{ user.username}}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <button type="button" class="btn btn-outline-dark" (click)="register(user)">Register</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
     <div class="modal-footer">
+    </div>
+</ng-template>
+
+<ng-template #unregisterModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="unregister">Unregister User</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Are you sure that you would like to unregister this user?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Cancel</button>
+        <button type="button" class="btn btn-outline-danger" (click)="unregisterUser(); modal.close('Save click')">
+            Confirm
+        </button>
     </div>
 </ng-template>
