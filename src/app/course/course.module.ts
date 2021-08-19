@@ -35,6 +35,7 @@ import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component
 import {CourseDashboardComponent} from "@app/course/course-dashboard/course-dashboard.component";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {CategoryListSnippetComponent} from "@app/course/category-list-snippet/category-list-snippet.component";
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         CourseEventCreateEditComponent,
         LeaderBoardComponent,
         ConceptMapComponent,
+        CategoryListSnippetComponent,
         CourseDashboardComponent
     ],
     imports: [

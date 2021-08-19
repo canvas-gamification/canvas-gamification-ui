@@ -26,6 +26,7 @@ export class CourseDashboardComponent implements OnInit {
     userId: number;
     user: User;
     unregisteredUsers: User[];
+    course: Course;
     userList: User[];
     allUserList: User[];
     registrationList: CourseRegistration[];
@@ -42,18 +43,6 @@ export class CourseDashboardComponent implements OnInit {
         name: string;
         modalName: string;
     }>();
-
-    update(): void {
-        const options = {
-            ...this.filterQueryString,
-        };
-        this.paramChanged.next(options);
-    }
-
-    applyFilter(): void {
-        this.filterQueryString = this.formGroup.value;
-        this.update();
-    }
 
     constructor(private builder: FormBuilder,
                 private adminService: AdminService,
@@ -76,7 +65,24 @@ export class CourseDashboardComponent implements OnInit {
         });
     }
 
+    update(): void {
+        const options = {
+            ...this.filterQueryString,
+        };
+        this.paramChanged.next(options);
+    }
+
+    applyFilter(): void {
+        this.filterQueryString = this.formGroup.value;
+        this.update();
+    }
+
     ngOnInit(): void {
+        this.courseService
+            .getCourse(this.courseId)
+            .subscribe(course => {
+                this.course = course;
+            });
         this.courseDashboardService
             .getCourseDashboard(this.courseId)
             .subscribe(users => {

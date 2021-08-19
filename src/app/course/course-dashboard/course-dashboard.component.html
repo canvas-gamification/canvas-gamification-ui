@@ -1,67 +1,95 @@
-<button type="button" class="btn btn-outline-primary mb-4" (click)="addOpen(dropDownAdd); retrieveStudentNotIn()">Register New Student</button>
+<ul class="nav nav-tabs mt-5" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="student-list-tab" data-toggle="tab" href="#student-list" role="tab"
+           aria-controls="student-list"
+           aria-selected="false">Student List</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="category-list-tab" data-toggle="tab" href="#category-list" role="tab"
+           aria-controls="category-list"
+           aria-selected="false">Category List</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="student-list" role="tabpanel" aria-labelledby="student-list-tab">
+        <div class="hover-shadow p-3">
+            <button type="button" class="btn btn-outline-primary mb-4"
+                    (click)="addOpen(dropDownAdd); retrieveStudentNotIn()">Register New Student
+            </button>
 
-<form [formGroup]="formGroup" (ngSubmit)="applyFilter()">
-    <div class="form-row">
-        <div class="form-group col-3">
-            <label for="name">Search first or last name:</label>
-            <input type="text" class="form-control" name="name" formControlName="name" id="name"
-                   placeholder="Search a name..">
-        </div>
-        <div class="form-group col-1 mt-auto">
-            <button type="submit" class="btn btn-primary float-right">Go</button>
+            <form [formGroup]="formGroup" (ngSubmit)="applyFilter()">
+                <div class="form-row">
+                    <div class="form-group col-3">
+                        <label for="name">Search first or last name:</label>
+                        <input type="text" class="form-control" name="name" formControlName="name" id="name"
+                               placeholder="Search a name..">
+                    </div>
+                    <div class="form-group col-1 mt-auto">
+                        <button type="submit" class="btn btn-primary float-right">Go</button>
+                    </div>
+                </div>
+            </form>
+
+            <table class="table table-bordered table-light mt-5 hover-shadow">
+                <caption>List of Students currently enrolled</caption>
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name:</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Block status</th>
+                    <th scope="col">Verify status</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let user of userList; let i = index">
+                <ng-container *ngIf=registrationList>
+                    <tr>
+                        <td>{{ user.email || 'No ID' }}</td>
+                        <td>{{ user.first_name || 'No first name' }}</td>
+                        <td>{{ user.last_name || 'No last name' }}</td>
+                        <td>{{ user.role || ''}}</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-dark float-none bg-success"
+                                    *ngIf="!getBlockStatus(user.id)"
+                                    (click)="changeStatus(registrationList[i],!getBlockStatus(user.id),getVerifyStatus(user.id))">
+                                Block
+                            </button>
+                            <button type="button" class="btn btn-outline-dark float-none bg-danger"
+                                    *ngIf="getBlockStatus(user.id)"
+                                    (click)="changeStatus(registrationList[i],!getBlockStatus(user.id),getVerifyStatus(user.id))">
+                                Unblock
+                            </button>
+                        </td>
+                        <td *ngIf="!getVerifyStatus(user.id)">
+                            <button type="button" class="btn btn-outline-dark float-none"
+                                    (click)="changeStatus(registrationList[i],getBlockStatus(user.id),!getVerifyStatus(user.id))">
+                                Verify
+                                user
+                            </button>
+                        </td>
+                        <td *ngIf="getVerifyStatus(user.id)">User Verified</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-dark bg-warning"
+                                    (click)="unregisterOpen(unregisterModal, registrationList[i].id)">
+                                Unregister
+                            </button>
+                        </td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
         </div>
     </div>
-</form>
-
-<table class="table table-bordered table-light mt-5 hover-shadow">
-    <caption>List of Students currently enrolled</caption>
-    <thead class="thead-light">
-    <tr>
-        <th scope="col">Email</th>
-        <th scope="col">First name</th>
-        <th scope="col">Last name:</th>
-        <th scope="col">Role</th>
-        <th scope="col">Block status</th>
-        <th scope="col">Verify status</th>
-        <th scope="col">Action</th>
-    </tr>
-    </thead>
-    <tbody *ngFor="let user of userList; let i = index">
-    <ng-container *ngIf=registrationList>
-        <tr>
-            <td>{{ user.email || 'No ID' }}</td>
-            <td>{{ user.first_name || 'No first name' }}</td>
-            <td>{{ user.last_name || 'No last name' }}</td>
-            <td>{{ user.role || ''}}</td>
-            <td>
-                <button type="button" class="btn btn-outline-dark float-none bg-success"
-                        *ngIf="!getBlockStatus(user.id)"
-                        (click)="changeStatus(registrationList[i],!getBlockStatus(user.id),getVerifyStatus(user.id))">Block
-                </button>
-                <button type="button" class="btn btn-outline-dark float-none bg-danger"
-                        *ngIf="getBlockStatus(user.id)"
-                        (click)="changeStatus(registrationList[i],!getBlockStatus(user.id),getVerifyStatus(user.id))">
-                    Unblock
-                </button>
-            </td>
-            <td *ngIf="!getVerifyStatus(user.id)">
-                <button type="button" class="btn btn-outline-dark float-none"
-                        (click)="changeStatus(registrationList[i],getBlockStatus(user.id),!getVerifyStatus(user.id))">Verify
-                    user
-                </button>
-            </td>
-            <td *ngIf="getVerifyStatus(user.id)">User Verified</td>
-            <td>
-                <button type="button" class="btn btn-outline-dark bg-warning"
-                        (click)="unregisterOpen(unregisterModal, registrationList[i].id)">
-                    Unregister
-                </button>
-            </td>
-        </tr>
-    </ng-container>
-    </tbody>
-</table>
-
+    <div class="tab-pane fade" id="category-list" role="tabpanel" aria-labelledby="category-list-tab">
+        <div class="hover-shadow p-3">
+            <ng-container *ngIf="course">
+                <app-category-list-snippet></app-category-list-snippet>
+            </ng-container>
+        </div>
+    </div>
+</div>
 <ng-template #dropDownAdd let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="add">Select a user to add</h4>
