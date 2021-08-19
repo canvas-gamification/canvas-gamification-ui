@@ -11,14 +11,17 @@ html {
 table th,
 table tr,
 table td {
-    font-size: 1rem;
-    padding: 2rem;
+    font-size: 1.25rem;
+    padding: 1.5rem;
     vertical-align: middle;
+    font-weight: normal;
 }
 
 thead th {
-    height: 5rem;
+    height: 3.5rem;
     text-align: center;
+    background-color: gainsboro;
+    color: #495057;
 }
 
 thead th.header-topic {
@@ -28,11 +31,11 @@ thead th.header-topic {
 tbody th,
 tbody tr,
 tbody td {
-    height: 7rem;
+    height: 2.5rem;
 }
 
 table td {
-    text-align: center;
+    text-align: left;
 }
 
 tbody tr {

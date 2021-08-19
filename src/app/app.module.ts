@@ -48,7 +48,6 @@ import {NotFoundComponent} from './components/general/not-found/not-found.compon
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
 import { AdminComponent } from './components/admin/admin.component';
 import {MatExpansionModule} from "@angular/material/expansion";
-import { CategoryListComponent } from './components/category-list/category-list.component';
 
 @NgModule({
     declarations: [
@@ -70,7 +69,6 @@ import { CategoryListComponent } from './components/category-list/category-list.
         NotFoundComponent,
         ForbiddenComponent,
         AdminComponent,
-        CategoryListComponent,
     ],
     imports: [
         BrowserModule,

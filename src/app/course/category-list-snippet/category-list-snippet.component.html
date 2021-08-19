@@ -13,10 +13,6 @@
             <ng-container *ngFor="let category of categories">
                 <tr [class.table-primary]="expanded[category.name]">
                     <th>
-                            <span class="expanded-icon">
-                                <fa-icon [icon]=faCaretRight *ngIf="!expanded[category.name]"></fa-icon>
-                                <fa-icon [icon]=faCaretDown *ngIf="expanded[category.name]"></fa-icon>
-                            </span>
                         {{ category.name }}
                     </th>
                 </tr>

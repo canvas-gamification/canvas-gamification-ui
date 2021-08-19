@@ -13,7 +13,6 @@ import {UserActionsComponent} from '@app/components/homepage/user-actions/user-a
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
 import {AdminComponent} from "@app/components/admin/admin.component";
-import {CategoryListComponent} from "./components/category-list/category-list.component";
 
 const routes: Routes = [
     {path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)},
@@ -35,10 +34,6 @@ const routes: Routes = [
     {
         path: 'topics',
         component: TopicsComponent
-    },
-    {
-        path: 'category-list',
-        component: CategoryListComponent
     },
     {
         path: 'token-values',
