@@ -22,9 +22,6 @@ export interface Course {
         name: string,
         token: number,
     }];
-    categoryList: [{
-        categories: string
-    }];
 }
 
 export const STATUS = {
