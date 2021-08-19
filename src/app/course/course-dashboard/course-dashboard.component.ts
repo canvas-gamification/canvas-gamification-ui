@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
-import {CourseRegistration, User} from '@app/_models';
+import {Course, CourseRegistration, User} from '@app/_models';
 import {CourseDashboardServiceService} from "@app/course/_services/course-dashboard.service";
 import {ToastrService} from "ngx-toastr";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {CourseService} from "@app/course/_services/course.service";
 
 @Component({
     selector: 'app-course-dashboard',
@@ -16,6 +17,7 @@ export class CourseDashboardComponent implements OnInit {
     courseId: number;
     userId: number;
     user: User;
+    course: Course;
 
     userList: User[];
     registrationList: CourseRegistration[];
@@ -25,6 +27,7 @@ export class CourseDashboardComponent implements OnInit {
 
     constructor(private authenticationService: AuthenticationService,
                 private courseService: CourseDashboardServiceService,
+                private courseSS: CourseService,
                 private toastr: ToastrService,
                 private route: ActivatedRoute,
                 private modalService: NgbModal) {
@@ -33,6 +36,11 @@ export class CourseDashboardComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.courseSS
+            .getCourse(this.courseId)
+            .subscribe(course => {
+                this.course = course;
+            });
         this.courseService
             .getCourseDashboard(this.courseId)
             .subscribe(users => {

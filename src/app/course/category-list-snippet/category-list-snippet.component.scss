@@ -1,0 +1,60 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+}
+
+.topics-page {
+    padding: 0 7rem 0 7rem;
+}
+
+table th,
+table tr,
+table td {
+    font-size: 1.25rem;
+    padding: 1.5rem;
+    vertical-align: middle;
+    font-weight: normal;
+}
+
+thead th {
+    height: 3.5rem;
+    text-align: center;
+    background-color: gainsboro;
+    color: #495057;
+}
+
+thead th.header-topic {
+    text-align: left;
+}
+
+tbody th,
+tbody tr,
+tbody td {
+    height: 2.5rem;
+}
+
+table td {
+    text-align: left;
+}
+
+tbody tr {
+    cursor: pointer;
+}
+
+.subcat-row {
+    opacity: 0.75;
+}
+
+tbody tr .subcat-name {
+    text-align: left;
+}
+
+.expanded-icon {
+    display: inline-block;
+    width: 1.5rem;
+}
+
+.heavy-indent {
+    padding-left: 2.5rem;
+}
