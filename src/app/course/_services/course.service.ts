@@ -3,6 +3,8 @@ import {Observable} from 'rxjs';
 import {
     APIResponse,
     Course,
+    User,
+    CourseDashboardRegistrationResponse,
     CourseRegistrationRequest,
     CourseRegistrationResponse,
     RegistrationStatus
@@ -123,5 +125,15 @@ export class CourseService {
         return this.http
             .get<Course>(url)
             .pipe(catchError(this.apiService.handleError<Course>(`Unable to load course`, null)));
+    }
+
+    dashboardRegister(courseId: number, data: User): Observable<CourseDashboardRegistrationResponse> {
+        const url = this.apiService.getURL('course-unregistered', courseId, 'register');
+        return this.http
+            .post<CourseDashboardRegistrationResponse>(url, data)
+            .pipe(catchError(this.apiService.handleError<CourseDashboardRegistrationResponse>('', {
+                success: false,
+                bad_request: true
+            })));
     }
 }
