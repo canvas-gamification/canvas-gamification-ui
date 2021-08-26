@@ -75,4 +75,35 @@ export class IndividualLeaderBoardComponent implements OnInit, AfterViewInit {
         }
     }
 
+    // ! Methods to animate and unanimate the streak icons
+    // ! Not currently in use 
+    // turnToGif(e: Event): void {
+    //     const parent = e.target as HTMLElement;
+    //     if (parent.children[2].children[0]) {
+    //         const img = parent.children[2].children[0].children[0] as HTMLImageElement;
+    //         const fire: string = window.location.origin + '/assets/gif/fire-still.png';
+    //         const snow: string = window.location.origin + '/assets/gif/snow-still.png';
+    //         if (img.src == fire) {
+    //             img.src = 'assets/gif/fire.gif';
+    //         } else if (img.src == snow) {
+    //             img.src = 'assets/gif/snow.gif';
+    //         }
+    //     }
+    // }
+
+    // turnToStatic(e: Event): void {
+    //     const parent = e.target as HTMLElement;
+    //     if (parent.children[2].children[0]) {
+    //         const img = parent.children[2].children[0].children[0] as HTMLImageElement;
+    //         const fire: string = window.location.origin + '/assets/gif/fire.gif';
+    //         const snow: string = window.location.origin + '/assets/gif/snow.gif';
+    //         if (img.src == fire) {
+    //             img.src = 'assets/gif/fire-still.png';
+    //         } else if (img.src == snow) {
+    //             img.src = 'assets/gif/snow-still.png';
+    //         }
+    //     }
+    // }
+
+
 }
