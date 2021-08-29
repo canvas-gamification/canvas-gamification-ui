@@ -24,7 +24,7 @@ describe('VariableViewComponent', () => {
             fixture.detectChanges();
         });
 
-        it('should create - with variables', () => {
+        it('should create with variables', () => {
             expect(component).toBeTruthy();
             expect(component.generatedVariables.length).toEqual(1);
         });
@@ -39,7 +39,7 @@ describe('VariableViewComponent', () => {
             fixture.detectChanges();
         });
 
-        it('should create - without variables', () => {
+        it('should create without variables', () => {
             expect(component).toBeTruthy();
             expect(component.generatedVariables).toEqual([]);
         });

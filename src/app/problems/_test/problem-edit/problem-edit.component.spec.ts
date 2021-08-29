@@ -51,7 +51,7 @@ describe('ProblemEditComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('questionDetails should be set', () => {
+    it('should set questionDetails', () => {
         expect(component.questionDetails).toEqual(MOCK_QUESTIONS[0]);
     });
 });

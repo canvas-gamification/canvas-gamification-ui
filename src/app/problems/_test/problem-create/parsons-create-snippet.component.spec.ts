@@ -14,11 +14,13 @@ import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 import {CourseService} from "@app/course/_services/course.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 describe('ParsonsCreateSnippetComponent', () => {
     let component: ParsonsCreateSnippetComponent;
     let fixture: ComponentFixture<ParsonsCreateSnippetComponent>;
     let router: Router;
+    let toastr: ToastrService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -35,6 +37,8 @@ describe('ParsonsCreateSnippetComponent', () => {
     beforeEach(() => {
         router = TestBed.inject(Router);
         spyOn(router, 'navigate');
+        toastr = TestBed.inject(ToastrService);
+        spyOn(toastr, 'success');
         fixture = TestBed.createComponent(ParsonsCreateSnippetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -44,18 +48,18 @@ describe('ParsonsCreateSnippetComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('setCourse', () => {
+    it('should set course', () => {
         component.setCourse(0);
         expect(component.events).toEqual(MOCK_COURSE.events);
         expect(component.form.event.value).toBeNull();
     });
 
-    it('setEvent', () => {
+    it('should set event', () => {
         component.setEvent(1);
         expect(component.form.event.value).toEqual(MOCK_COURSE_EVENT.id);
     });
 
-    it('parsons create question', () => {
+    it('should create parsons question', () => {
         component.form.title.setValue('Test Title');
         component.inputFiles = [{
             name: 'Test',
@@ -63,10 +67,11 @@ describe('ParsonsCreateSnippetComponent', () => {
             lines: 'a\nb\nc\n',
         }];
         component.onSubmit();
+        expect(toastr.success).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'parsons']);
     });
 
-    it('required fields - invalid', () => {
+    it('should be invalid without all required fields', () => {
         expect(fixture.debugElement.nativeElement.querySelector('#submit').disabled).toBeTruthy();
     });
 
@@ -77,7 +82,7 @@ describe('ParsonsCreateSnippetComponent', () => {
     //     expect(component.isPractice).toBeTruthy();
     // });
 
-    it('isSubmissionValid - invalid', () => {
+    it('should be invalid submission', () => {
         component.isPractice = true;
         component.form.course.setValue(MOCK_COURSE);
         component.form.event.setValue(MOCK_COURSE_EVENT);
@@ -85,7 +90,7 @@ describe('ParsonsCreateSnippetComponent', () => {
         expect(component.isSubmissionValid()).toBeFalsy();
     });
 
-    it('isSubmissionValid - valid', () => {
+    it('should be valid submission', () => {
         component.isPractice = false;
         component.form.title.setValue('Test');
         component.form.difficulty.setValue('Easy');

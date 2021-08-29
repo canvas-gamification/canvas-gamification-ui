@@ -14,10 +14,12 @@ import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AppRoutingModule} from "@app/app-routing.module";
 import {MOCK_DIFFICULTIES} from "@app/problems/_test/mock";
+import {ToastrService} from "ngx-toastr";
 
 describe('ProblemSetComponent', () => {
     let component: ProblemSetComponent;
     let fixture: ComponentFixture<ProblemSetComponent>;
+    let toastr: ToastrService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -32,6 +34,8 @@ describe('ProblemSetComponent', () => {
     });
 
     beforeEach(() => {
+        toastr = TestBed.inject(ToastrService);
+        spyOn(toastr, 'success');
         fixture = TestBed.createComponent(ProblemSetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -41,7 +45,7 @@ describe('ProblemSetComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('change parent category', () => {
+    it('should change parent category', () => {
         const select: HTMLSelectElement = fixture.debugElement.nativeElement.querySelector('#category');
         select.value = select.options[1].value;
         select.dispatchEvent(new Event('change'));
@@ -49,7 +53,7 @@ describe('ProblemSetComponent', () => {
         expect(component.subCategories.length).toEqual(1);
     });
 
-    it('testing sort method', () => {
+    it('should sort', () => {
         component.sortData({active: 'ascending', direction: 'asc'});
         expect(component.ordering).toEqual('ascending');
 
@@ -60,7 +64,7 @@ describe('ProblemSetComponent', () => {
         expect(component.ordering).toEqual('');
     });
 
-    it('applyFilter', () => {
+    it('should apply filter', () => {
         component.formGroup.controls['difficulty'].setValue('');
         component.formGroup.controls['is_sample'].setValue('');
         component.formGroup.controls['parentCategory'].setValue('');
@@ -71,18 +75,18 @@ describe('ProblemSetComponent', () => {
         expect(component.filterQueryString === component.formGroup.value);
     });
 
-    it('delete a question', () => {
+    it('should delete a question', () => {
         component.deleteQuestionId = 0;
         component.deleteQuestion();
-        // TODO - Determine that this has occurred.
+        expect(toastr.success).toHaveBeenCalled();
     });
 
-    it('open delete modal', () => {
+    it('should open delete modal', () => {
         component.open('', 0);
         expect(component.deleteQuestionId).toEqual(0);
     });
 
-    it('getDifficultyDisplay', () => {
+    it('should get the difficulty display', () => {
         expect(component.getDifficultyDisplay('NORMAL')).toEqual(MOCK_DIFFICULTIES[1][1]);
     });
 });

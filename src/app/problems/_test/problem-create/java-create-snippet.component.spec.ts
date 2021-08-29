@@ -14,11 +14,13 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 import {CourseService} from "@app/course/_services/course.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 describe('JavaCreateSnippetComponent', () => {
     let component: JavaCreateSnippetComponent;
     let fixture: ComponentFixture<JavaCreateSnippetComponent>;
     let router: Router;
+    let toastr: ToastrService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -35,6 +37,8 @@ describe('JavaCreateSnippetComponent', () => {
     beforeEach(() => {
         router = TestBed.inject(Router);
         spyOn(router, 'navigate');
+        toastr = TestBed.inject(ToastrService);
+        spyOn(toastr, 'success');
         fixture = TestBed.createComponent(JavaCreateSnippetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -44,27 +48,28 @@ describe('JavaCreateSnippetComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('setCourse', () => {
+    it('should set course', () => {
         component.setCourse(0);
         expect(component.events).toEqual(MOCK_COURSE.events);
         expect(component.form.event.value).toBeNull();
     });
 
-    it('setEvent', () => {
+    it('should set event', () => {
         component.setEvent(1);
         expect(component.form.event.value).toEqual(MOCK_COURSE_EVENT.id);
     });
 
-    it('java create question', () => {
+    it('should create java question', () => {
         component.onSubmit();
+        expect(toastr.success).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'java']);
     });
 
-    it('required fields - invalid', () => {
+    it('should not be able to submit with invalid form', () => {
         expect(fixture.debugElement.nativeElement.querySelector('#submit').disabled).toBeTruthy();
     });
 
-    it('isSubmissionValid - invalid', () => {
+    it('should be invalid submission', () => {
         component.isPractice = true;
         component.form.course.setValue(MOCK_COURSE);
         component.form.event.setValue(MOCK_COURSE_EVENT);
@@ -72,7 +77,7 @@ describe('JavaCreateSnippetComponent', () => {
         expect(component.isSubmissionValid()).toBeFalsy();
     });
 
-    it('isSubmissionValid - valid', () => {
+    it('should have a valid submission', () => {
         component.isPractice = false;
         component.form.title.setValue('Test');
         component.form.difficulty.setValue('Easy');

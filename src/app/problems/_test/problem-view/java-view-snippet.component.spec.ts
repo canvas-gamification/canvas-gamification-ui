@@ -29,7 +29,7 @@ describe('JavaViewSnippetComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('inputFileNames is set', () => {
+    it('should set inputFileNames', () => {
         expect(component.inputFileNames).toEqual(MOCK_UQJS.find(uqj => uqj.id === 2).input_files);
     });
 });
