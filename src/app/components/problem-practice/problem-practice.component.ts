@@ -12,6 +12,7 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CategoryService} from "@app/_services/api/category.service";
 import {PracticeDifficultyForm} from "@app/components/problem-practice/practice-difficulty.form";
 import {ActivatedRoute} from "@angular/router";
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-problem-practice',
@@ -23,7 +24,8 @@ export class ProblemPracticeComponent implements OnInit {
     difficultyFormData: FormGroup;
     uqjs: UQJ[];
     filteredUqjs: UQJ[];
-    currentUqj: UQJ;
+    currentUqj: UQJ = null;
+    previousUqj: UQJ = null;
     difficulties: Difficulty[];
     safeRenderedText: SafeHtml;
 
@@ -75,14 +77,12 @@ export class ProblemPracticeComponent implements OnInit {
         const difficultyObservable = this.difficultyService.getDifficulties();
 
         forkJoin([uqjObservable, difficultyObservable, categoryObservable, userStatsObservable]).subscribe((result) => {
-            this.uqjs = result[0].results.filter(uqj => uqj.question.is_practice);
+            this.uqjs = result[0].results.filter(uqj => uqj.question.is_practice && uqj.question.category === this.categoryId && !uqj.is_solved);
             this.difficulties = result[1];
             this.category = result[2];
             this.userSuccessRate = result[3].success_rate;
             this.filteredUqjs = this.uqjs;
-            this.currentUqj = this.filteredUqjs[this.filteredUqjs.length - 1];
-            this.safeRenderedText = this.sanitizer.bypassSecurityTrustHtml(this.currentUqj.rendered_text);
-            this.loadQuestion(this.currentUqj.question.type_name);
+            this.setupCurrentUqj(true);
         });
     }
 
@@ -90,20 +90,26 @@ export class ProblemPracticeComponent implements OnInit {
      * Skip the current question and move to the next one.
      */
     skipQuestion(): void {
-        const skippedUqj = this.filteredUqjs.pop();
-        this.filteredUqjs.unshift(skippedUqj);
-        this.currentUqj = this.filteredUqjs[this.filteredUqjs.length - 1];
-        this.safeRenderedText = this.sanitizer.bypassSecurityTrustHtml(this.currentUqj.rendered_text);
-        this.loadQuestion(this.currentUqj.question.type_name);
+        if (this.filteredUqjs.length === 1) {
+            this.previousUqj = null;
+            this.currentUqj = this.filteredUqjs[0];
+            this.toastr.error('This is the final question available to practice.');
+        } else {
+            this.setupCurrentUqj(true);
+        }
     }
 
     /**
      * Return to the previous unsolved question.
      */
     previousQuestion(): void {
-        this.currentUqj = this.filteredUqjs[0];
-        this.safeRenderedText = this.sanitizer.bypassSecurityTrustHtml(this.currentUqj.rendered_text);
-        this.loadQuestion(this.currentUqj.question.type_name);
+        if (this.filteredUqjs.length === 1) {
+            this.previousUqj = null;
+            this.currentUqj = this.filteredUqjs[0];
+            this.toastr.error('This is the final question available to practice.');
+        } else {
+            this.setupCurrentUqj(false);
+        }
     }
 
     /**
@@ -111,8 +117,32 @@ export class ProblemPracticeComponent implements OnInit {
      */
     applyFilter(): void {
         this.difficultyFormData.value.difficulty === '' ? this.filteredUqjs = this.uqjs : this.filteredUqjs = this.uqjs.filter((uqj) => uqj.question.difficulty === this.difficultyFormData.value.difficulty);
-        this.currentUqj = this.filteredUqjs[this.filteredUqjs.length - 1];
-        this.loadQuestion(this.currentUqj.question.type_name);
+        if (this.filteredUqjs.length) {
+            this.setupCurrentUqj(true);
+        } else {
+            this.currentUqj = undefined;
+        }
+    }
+
+    /**
+     * Prepare the current uqj
+     */
+    setupCurrentUqj(nextQuestion: boolean): void {
+        if (nextQuestion) {
+            this.previousUqj = this.currentUqj;
+            this.currentUqj = _.sample(this.filteredUqjs);
+            while (this.previousUqj === this.currentUqj) {
+                this.currentUqj = _.sample(this.filteredUqjs);
+            }
+            this.safeRenderedText = this.sanitizer.bypassSecurityTrustHtml(this.currentUqj.rendered_text);
+            this.loadQuestion(this.currentUqj.question.type_name);
+        } else {
+            const tempQuestion = this.previousUqj;
+            this.currentUqj = this.previousUqj;
+            this.previousUqj = tempQuestion;
+            this.safeRenderedText = this.sanitizer.bypassSecurityTrustHtml(this.currentUqj.rendered_text);
+            this.loadQuestion(this.currentUqj.question.type_name);
+        }
     }
 
     /**
@@ -151,6 +181,10 @@ export class ProblemPracticeComponent implements OnInit {
         this.submissionService.postQuestionSubmission(formData)
             .subscribe(() => {
                 this.toastr.success('The Question has been Submitted Successfully.');
+                this.previousUqj = null;
+                this.filteredUqjs = this.filteredUqjs.filter((uqj => uqj.id !== this.currentUqj.id));
+                this.uqjs = this.uqjs.filter((uqj => uqj.id !== this.currentUqj.id));
+                this.setupCurrentUqj(true);
             });
     }
 

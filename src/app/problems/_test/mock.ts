@@ -81,6 +81,7 @@ export const MOCK_MCQ_QUESTION: Question = {
     is_author: true,
     is_checkbox: false,
     input_files: null,
+    is_practice: false,
 };
 
 export const MOCK_CHECKBOX_QUESTION: Question = {
@@ -122,6 +123,7 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     is_author: true,
     is_checkbox: true,
     input_files: null,
+    is_practice: false,
 };
 
 export const MOCK_JAVA_QUESTION: Question = {
@@ -158,6 +160,7 @@ export const MOCK_JAVA_QUESTION: Question = {
     is_author: true,
     is_checkbox: false,
     input_files: null,
+    is_practice: false,
 };
 
 export const MOCK_PARSONS_QUESTION: Question = {
@@ -197,7 +200,8 @@ export const MOCK_PARSONS_QUESTION: Question = {
         name: 'test',
         lines: ['a', 'b', 'c'],
         compile: true,
-    }]
+    }],
+    is_practice: false,
 };
 
 export const MOCK_UQJ: UQJ = {
