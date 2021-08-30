@@ -5,6 +5,7 @@ import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 import {MOCK_QUESTIONS, MOCK_SUBMISSIONS} from "@app/problems/_test/mock";
+import {HttpResponse} from "@angular/common/http";
 
 describe('SubmissionService', () => {
     let submissionService: SubmissionService;
@@ -50,10 +51,10 @@ describe('SubmissionService', () => {
 
     it('postQuestionSubmission makes request successfully', () => {
         submissionService.postQuestionSubmission({question: 0, solution: ''}).subscribe((response) => {
-            expect(response.success).toBeTruthy();
+            expect(response.status).toEqual(200);
         });
         const request = httpMock.expectOne(apiService.getURL('submission', 'submit'));
         expect(request.request.method).toBe('POST');
-        request.flush({success: true});
+        request.flush({status: 200});
     });
 });

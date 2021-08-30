@@ -36,6 +36,9 @@ export class ConceptMapComponent implements OnInit {
         });
     }
 
+    /**
+    * Renders the concept map using the categories fetched from the API
+     */
     renderGraph(): void {
         const adj: Category[] = [];
         this.rawCategories.filter(category => category.parent === this.parentNode)
@@ -52,11 +55,18 @@ export class ConceptMapComponent implements OnInit {
         this.conceptMapGraph.buildGraphFromAdjacencyList(adj);
     }
 
+    /**
+    * Resets the graph to the top level and re-renders the graph
+     */
     reset(): void {
         this.parentNode = null;
         this.renderGraph();
     }
 
+    /**
+    * Returns a boolean value indicating whether the category passed to the function is a top level category or not
+    * @param categoryId - unique category ID to be checked
+     */
     isTopLevel(categoryId: number): boolean {
         return this.rawCategories.find(category => category.pk === categoryId).parent === null;
     }

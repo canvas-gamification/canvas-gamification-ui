@@ -173,10 +173,6 @@ export class ProblemSetComponent implements OnInit {
                 this.toastr.success('The Question has been Deleted Successfully.');
                 this.update();
                 window.scroll(0, 0);
-            }, error => {
-                this.toastr.error(error);
-                console.warn(error);
-                window.scroll(0, 0);
             });
     }
 

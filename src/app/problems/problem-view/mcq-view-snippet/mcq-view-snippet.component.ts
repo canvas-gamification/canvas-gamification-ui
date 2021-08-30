@@ -60,8 +60,7 @@ export class McqViewSnippetComponent implements OnInit {
      */
     onSubmit(formData: { question: number, solution: unknown }): void {
         this.submissionService.postQuestionSubmission(formData)
-            .subscribe((result) => {
-                console.log(result);
+            .subscribe(() => {
                 this.toastr.success('The Question has been Submitted Successfully.');
             });
     }
@@ -73,8 +72,7 @@ export class McqViewSnippetComponent implements OnInit {
         this.submissionService.postQuestionSubmission({
             question: this.checkboxFormData.value.question,
             solution: this.checkboxAnswers.sort().toString()
-        }).subscribe((result) => {
-            console.log(result);
+        }).subscribe(() => {
             this.toastr.success('The Question has been Submitted Successfully.');
         });
     }
