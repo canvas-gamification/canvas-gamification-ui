@@ -8,4 +8,6 @@ export interface Action {
     status: string;
     time_created: Date;
     time_modified: Date;
+    object_type: string;
+    verb: string;
 }

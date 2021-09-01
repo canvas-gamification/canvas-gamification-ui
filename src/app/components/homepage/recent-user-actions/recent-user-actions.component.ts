@@ -19,7 +19,7 @@ export class RecentUserActionsComponent implements OnInit {
     ngOnInit(): void {
         this.userActionService
             .getUserActions({recent: true, pageSize: 5})
-            ?.subscribe((paginatedActions) => {
+            .subscribe((paginatedActions) => {
                 this.userActions = paginatedActions.results;
                 this.userActions.forEach((userAction: Action) => {
                     userAction.safeDescription = this.sanitizer.bypassSecurityTrustHtml(userAction.description);
