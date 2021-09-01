@@ -18,7 +18,7 @@ export class RecentUserActionsComponent implements OnInit {
 
     ngOnInit(): void {
         this.userActionService
-            .getUserActions({recent: true, pageSize: 5})
+            .getUserActions({recent: true, page_size: 5})
             .subscribe((paginatedActions) => {
                 this.userActions = paginatedActions.results;
                 this.userActions.forEach((userAction: Action) => {

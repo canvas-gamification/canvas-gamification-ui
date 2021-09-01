@@ -24,7 +24,8 @@
 
         <ng-container matColumnDef="time_created">
             <th mat-header-cell *matHeaderCellDef mat-sort-header="time_created">Date</th>
-            <td mat-cell *matCellDef="let action">{{action.time_created | date:'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
+            <td mat-cell
+                *matCellDef="let action">{{action.time_created | date:'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="verb">

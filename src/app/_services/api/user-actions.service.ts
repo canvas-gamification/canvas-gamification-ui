@@ -17,12 +17,12 @@ export class UserActionsService {
         filters?: unknown,
         ordering?: string,
         page?: number,
-        pageSize?: number,
+        page_size?: number,
         recent?: boolean
     }): Observable<PaginatedResult<Action>> {
         const {
             page = 1,
-            pageSize = 100,
+            page_size: pageSize = 100,
             ordering = ''
         } = options ? options : {};
         let params = new HttpParams()
