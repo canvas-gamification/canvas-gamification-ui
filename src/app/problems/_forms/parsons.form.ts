@@ -46,7 +46,7 @@ export class ParsonsForm {
      */
     static extractData(
         form: FormGroup, variablesJSON: JSON[],
-        inputFiles: {name: string, compile: boolean, lines: string}[],
+        inputFiles: { name: string, compile: boolean, lines: string }[],
         questionText: string
     ): ParsonsFormData {
         return {
