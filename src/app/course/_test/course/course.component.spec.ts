@@ -23,6 +23,7 @@ describe('CourseComponent', () => {
                 ConceptMapComponent,
                 CourseEventsSnippetComponent,
                 LeaderBoardComponent,
+                TokenUseSnippetComponent
             ],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock},

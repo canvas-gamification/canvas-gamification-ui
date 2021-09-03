@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {forkJoin, Subscription} from 'rxjs';
+import {forkJoin} from 'rxjs';
 import {Question} from '@app/_models';
 import {ActivatedRoute} from '@angular/router';
 import {QuestionService} from '@app/problems/_services/question.service';
