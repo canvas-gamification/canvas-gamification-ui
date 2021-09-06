@@ -5,9 +5,9 @@ Do these before submitting an issue
 - [ ] Attach the appropriate label(s) to the issue before submission
 
 ## Description
-Describe the issue in detail here.
+Describe the bug in detail here.
 
-### Steps to Reproduce (if applicable):
+### Steps to Reproduce Bug:
 Describe how to replicate the issue most reliably if applicable.
 1. [Step 1]
 2. [Step 2]
