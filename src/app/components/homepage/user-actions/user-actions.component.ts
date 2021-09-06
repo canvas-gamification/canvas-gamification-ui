@@ -63,13 +63,6 @@ export class UserActionsComponent implements OnInit {
         return `${tokenChange > 0 ? '+' : ''}${tokenChange.toFixed(2)}`;
     }
 
-    getRouterLink(link: string): string {
-        // FIXME: Make this not trash. Change how actions are stored in DB
-        const linkMatch = link.match(/href='([^']*)/)[1].split('/').splice(-2)[0];
-        const questionName = link.replace(/(<([^>]+)>)/gi, '').split(' ').splice(-2).join(' ');
-        return `<a href="problem/${linkMatch}">${questionName}</a>`;
-    }
-
     /**
      * Helper method for sorting the user actions.
      * @param sort - The current sort state.
@@ -96,7 +89,6 @@ export class UserActionsComponent implements OnInit {
             }),
             ordering: this.ordering,
         };
-        console.log(options);
         this.paramChanged.next(options);
     }
 
