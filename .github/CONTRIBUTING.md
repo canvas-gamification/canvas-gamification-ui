@@ -2,7 +2,7 @@
 Thank you for your interest in contributing to our project! We really appreciate your efforts. Below, we have listed some rules and methods on how to contribute to the project that will ensure your changes are considered properly.
 
 ## Getting started:
-Here is a basic overview of the workflow we recommend you follow when trying to contribute to our repository:
+Here is a basic overview of the workflow that we recommend you adhere to when trying to contribute to our repository:
 1. Fork this repository and work on a feature you would like to implement/bug you would like to fix.
 2. Once you have finished implementing your changes, and are satisfied with your work, send us a pull request.
 3. After we receive your pull request, it will be reviewed to ensure your code meets our standards and once there are no issues, your changes can be merged into the repository!
