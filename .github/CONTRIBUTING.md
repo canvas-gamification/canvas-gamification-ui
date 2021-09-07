@@ -24,10 +24,13 @@ So now you've implemented the feature or fixed the bug that you have raised an i
 
 Before you make a pull request, make sure your code is solid and works on every browser/OS. Here's a brief checklist on how you can make sure your code is up to standard:
 - [ ] Make sure your code has the latest commits from `canvas-gamification-ui:master` and any merge conflicts are resolved
+- [ ] Make sure your code is covered by Karma's coverage and is atleast yellow, but ideally green. Make sure you do the best you can to test all possible scenarios that might arise from your implementation.
 - [ ] Make sure your code is linted through ESLint. To do so manually, enter `npm run lint` into a terminal window in the project's root folder. You should have no errors/warnings displayed on ESLint's report.
-- [ ] Run unit tests on your code and make sure they all pass. To do so, type `npm run test` intoa terminal window in the project's root folder.
+- [ ] Run unit tests on your code and make sure they all pass. To do so, type `npm run test` into a terminal window in the project's root folder. 
 - [ ] Ensure your code is free from unnecessary redundancies, and that you follow [Angular/TypeScript naming conventions and coding style](https://angular.io/guide/styleguide). There isn't a specific test for this that you can run, but we trust you to be responsible for this part :)
 - [ ] Once you push your changes to the remote repository, you should see a Github Workflow being run. Ensure that your latest commit passes all checks in the workflow and you should be good to go!
+
+**Note:** If you change the functionality of a feature in a way that makes the original tests for that feature fail, then make sure to update the existing tests so that they accurately test the updated functionality that you implemented.
 
 Once you have finished all of these tasks and are confident your code will work, you can submit a pull request from your fork to our `master` branch. You have to fill out the pull request template and make sure you attach the appropriate labels to the pull request as well.
 
