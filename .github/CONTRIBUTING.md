@@ -17,6 +17,8 @@ Now that you have created an issue, fork the repository and make your changes to
 
 Make sure that your system is set up for local development. You can refer to the [README](https://github.com/canvas-gamification/canvas-gamification-ui#readme), or the [Wiki](https://github.com/canvas-gamification/canvas-gamification-ui/wiki) to get started.
 
+Make sure you write comprehensive unit tests for every feature you implement. Refer to Angular's [official testing strategies](https://angular.io/guide/testing) and use the examples in the repositories to build your tests. Testing strategies are different for [Components](https://angular.io/guide/testing-components-basics) and for [Services](https://angular.io/guide/testing-services), so keep that in mind while writing tests for your code.
+
 ### Step 3: Make a Pull Request
 So now you've implemented the feature or fixed the bug that you have raised an issue for. You're only a few steps away from having your code merged into the master branch!
 
