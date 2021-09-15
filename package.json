@@ -12,7 +12,7 @@
         "generate-output": "ng build --prod --output-path ../canvas-gamification/static/angular",
         "test": "ng test --no-watch --code-coverage --browsers=ChromeHeadless",
         "lint": "ng lint",
-        "pre-e2e": "webdriver-manager update --versions.chrome=89.0.4389.23",
+        "pre-e2e": "node ./node_modules/.bin/webdriver-manager update --versions.chrome=92.0.4515.107",
         "e2e": "ng e2e",
         "build:ci": "ng build --prod --sourceMap=false --base-href /canvas-gamification-ui/",
         "test:ci": "ng test -- --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI",
