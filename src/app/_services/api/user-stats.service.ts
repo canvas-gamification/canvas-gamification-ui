@@ -18,4 +18,11 @@ export class UserStatsService {
             .get<UserStats>(url)
             .pipe(catchError(this.apiService.handleError<UserStats>(`Error occurred while getting user stats`)));
     }
+
+    getUserDifficultyStats(categoryId: number): Observable<{ category: number, difficulty: string, avgSuccess: number }[]> {
+        const url = this.apiService.getURL('user-stats', 'difficulty', categoryId);
+        return this.http
+            .get<{ category: number, difficulty: string, avgSuccess: number }[]>(url)
+            .pipe(catchError(this.apiService.handleError<{ category: number, difficulty: string, avgSuccess: number }[]>(`Error occurred while getting user stats`)));
+    }
 }

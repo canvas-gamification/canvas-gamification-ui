@@ -13,6 +13,7 @@ import {CategoryService} from "@app/_services/api/category.service";
 import {PracticeDifficultyForm} from "@app/components/problem-practice/practice-difficulty.form";
 import {ActivatedRoute} from "@angular/router";
 import * as _ from 'lodash';
+import {UserStatsService} from "@app/_services/api/user-stats.service";
 
 @Component({
     selector: 'app-problem-practice',
@@ -47,7 +48,7 @@ export class ProblemPracticeComponent implements OnInit {
     categoryId: number;
     category: Category;
     courseId: number;
-    userSuccessRate: number;
+    userDifficultyStats: { category: number, difficulty: string, avgSuccess: number }[];
 
     constructor(private route: ActivatedRoute,
                 private uqjService: UqjService,
@@ -57,6 +58,7 @@ export class ProblemPracticeComponent implements OnInit {
                 private submissionService: SubmissionService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
+                private userStatsService: UserStatsService,
                 private toastr: ToastrService) {
         this.categoryId = +this.route.snapshot.paramMap.get('categoryId');
         this.courseId = +this.route.snapshot.paramMap.get('courseId');
@@ -71,7 +73,7 @@ export class ProblemPracticeComponent implements OnInit {
 
     ngOnInit(): void {
         this.difficultyFormData = PracticeDifficultyForm.createForm();
-        const userStatsObservable = this.courseService.getUserStats(this.courseId, this.categoryId);
+        const userStatsObservable = this.userStatsService.getUserDifficultyStats(this.categoryId);
         const categoryObservable = this.categoryService.getCategory(this.categoryId);
         const uqjObservable = this.uqjService.getUQJs();
         const difficultyObservable = this.difficultyService.getDifficulties();
@@ -80,7 +82,7 @@ export class ProblemPracticeComponent implements OnInit {
             this.uqjs = result[0].results.filter(uqj => uqj.question.is_practice && uqj.question.category === this.categoryId && !uqj.is_solved);
             this.difficulties = result[1];
             this.category = result[2];
-            this.userSuccessRate = result[3].success_rate;
+            this.userDifficultyStats = result[3];
             this.filteredUqjs = this.uqjs;
             this.setupCurrentUqj(true);
         });
