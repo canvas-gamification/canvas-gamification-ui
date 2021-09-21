@@ -46,7 +46,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
-import {ProblemPracticeComponent} from "@app/components/problem-practice/problem-practice.component";
 import {ProblemsModule} from "@app/problems/problems.module";
 
 @NgModule({
@@ -68,7 +67,6 @@ import {ProblemsModule} from "@app/problems/problems.module";
         InactiveCoursesComponent,
         NotFoundComponent,
         ForbiddenComponent,
-        ProblemPracticeComponent,
     ],
     imports: [
         BrowserModule,

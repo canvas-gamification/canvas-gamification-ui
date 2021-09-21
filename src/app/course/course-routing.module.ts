@@ -7,6 +7,7 @@ import {CourseComponent} from "@app/course/course.component";
 import {CourseEventCreateEditComponent} from "@app/course/course-event-create/course-event-create-edit.component";
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
+import {ProblemPracticeComponent} from "@app/problems/problem-practice/problem-practice.component";
 
 const routes = [
     {
@@ -49,6 +50,11 @@ const routes = [
         component: ProblemViewComponent,
         canActivate: [AuthGuard]
     },
+    {
+        path: ':courseId/category/:categoryId',
+        component: ProblemPracticeComponent,
+        canActivate: [AuthGuard]
+    }
 ];
 
 @NgModule({

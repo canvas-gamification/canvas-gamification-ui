@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {ProblemPracticeComponent} from "@app/components/problem-practice/problem-practice.component";
+import {ProblemPracticeComponent} from "@app/problems/problem-practice/problem-practice.component";
 import {SubmissionService} from "@app/problems/_services/submission.service";
 import {SubmissionServiceMock} from "@app/problems/_test/submission.service.mock";
 import {TestModule} from "@test/test.module";
@@ -15,10 +15,8 @@ import {DifficultyServiceMock} from "@app/problems/_test/difficulty.service.mock
 import {
     MOCK_CATEGORIES,
     MOCK_DIFFICULTIES,
-    MOCK_UQJ,
     MOCK_UQJ_5,
-    MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8,
-    MOCK_UQJS
+    MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8
 } from "@app/problems/_test/mock";
 import {ToastrService} from "ngx-toastr";
 

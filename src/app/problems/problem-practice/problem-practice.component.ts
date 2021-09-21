@@ -10,7 +10,7 @@ import {ToastrService} from "ngx-toastr";
 import {forkJoin} from "rxjs";
 import {CourseService} from "@app/course/_services/course.service";
 import {CategoryService} from "@app/_services/api/category.service";
-import {PracticeDifficultyForm} from "@app/components/problem-practice/practice-difficulty.form";
+import {PracticeDifficultyForm} from "@app/problems/_forms/practice-difficulty.form";
 import {ActivatedRoute} from "@angular/router";
 import * as _ from 'lodash';
 import {UserStatsService} from "@app/_services/api/user-stats.service";
