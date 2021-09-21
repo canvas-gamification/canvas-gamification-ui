@@ -14,6 +14,7 @@ export class ParsonsForm {
             course: new FormControl(null),
             event: new FormControl(null),
             junit_template: new FormControl(null, [Validators.required]),
+            is_verified: new FormControl(false),
         });
     }
 
@@ -32,6 +33,7 @@ export class ParsonsForm {
             course: new FormControl(course),
             event: new FormControl(event),
             junit_template: new FormControl(question.junit_template, [Validators.required]),
+            is_verified: new FormControl(question.is_verified),
         });
     }
 
@@ -44,7 +46,7 @@ export class ParsonsForm {
      */
     static extractData(
         form: FormGroup, variablesJSON: JSON[],
-        inputFiles: {name: string, compile: boolean, lines: string}[],
+        inputFiles: { name: string, compile: boolean, lines: string }[],
         questionText: string
     ): ParsonsFormData {
         return {
@@ -60,7 +62,8 @@ export class ParsonsForm {
                 name: inputFile.name,
                 compile: inputFile.compile,
                 lines: inputFile.lines.split('\n')
-            }))
+            })),
+            is_verified: form.value.is_verified,
         };
     }
 }
@@ -75,4 +78,5 @@ export interface ParsonsFormData {
     variables: JSON[],
     junit_template: string,
     input_files: InputFiles,
+    is_verified: boolean,
 }

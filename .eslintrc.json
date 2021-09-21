@@ -20,24 +20,44 @@
             ],
             "rules": {
                 "guard-for-in": "off",
-                "indent": ["error", 4],
-                "semi": [2, "always"],
+                "indent": [
+                    "error",
+                    4
+                ],
+                "semi": [
+                    2,
+                    "always"
+                ],
                 "camelcase": "off",
+                "@typescript-eslint/no-unused-vars": [
+                    "error",
+                    {
+                        "vars": "local",
+                        "caughtErrors": "none"
+                    }
+                ],
                 "@angular-eslint/prefer-on-push-component-change-detection": "off",
                 "@typescript-eslint/no-empty-interface": "off",
                 "@typescript-eslint/naming-convention": [
                     "error",
                     {
                         "selector": "default",
-                        "format": ["camelCase"]
+                        "format": [
+                            "camelCase"
+                        ]
                     },
                     {
                         "selector": "variable",
-                        "format": ["camelCase", "UPPER_CASE"]
+                        "format": [
+                            "camelCase",
+                            "UPPER_CASE"
+                        ]
                     },
                     {
                         "selector": "typeLike",
-                        "format": ["PascalCase"]
+                        "format": [
+                            "PascalCase"
+                        ]
                     },
                     // This is only because our APIs are snake_case
                     // No other member should be snake_case
@@ -45,7 +65,11 @@
                     // for out services
                     {
                         "selector": "memberLike",
-                        "format": ["camelCase", "snake_case", "UPPER_CASE"]
+                        "format": [
+                            "camelCase",
+                            "snake_case",
+                            "UPPER_CASE"
+                        ]
                     }
                 ]
             }

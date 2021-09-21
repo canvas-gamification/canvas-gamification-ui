@@ -4,7 +4,7 @@ import {CourseEventsSnippetComponent} from '../../course-events-snippet/course-e
 import {TestModule} from '@test/test.module';
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {CourseEventServiceMock} from "@app/problems/_test/course-event.service.mock";
-import {MOCK_COURSE1, MOCK_EVENT_TYPES, MOCK_USER_STUDENT, MOCK_USER_TEACHER} from "@app/course/_test/mock";
+import {MOCK_EVENT_TYPES, MOCK_USER_STUDENT, MOCK_USER_TEACHER} from "@app/course/_test/mock";
 import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 
 describe('CourseEventsSnippetComponent', () => {
