@@ -690,7 +690,8 @@ export const MOCK_MCQ_FORM_DATA: McqFormData = {
     category: null,
     variables: null,
     visible_distractor_count: null,
-    choices: null
+    choices: null,
+    is_verified: true
 };
 
 export const MOCK_JAVA_FORM_DATA: JavaFormData = {
@@ -702,7 +703,8 @@ export const MOCK_JAVA_FORM_DATA: JavaFormData = {
     category: null,
     variables: [],
     junit_template: null,
-    input_files: null
+    input_files: null,
+    is_verified: true
 };
 
 export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
@@ -718,7 +720,8 @@ export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
         name: 'test',
         lines: ['a', 'b', 'c'],
         compile: true,
-    }]
+    }],
+    is_verified: true
 };
 
 // TODO - Determine a more specific type.
