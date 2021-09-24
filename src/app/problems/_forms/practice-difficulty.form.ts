@@ -7,7 +7,7 @@ export class PracticeDifficultyForm {
     static createForm(): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
-            difficulty: new FormControl('')
+            difficulty: new FormControl('EASY')
         });
     }
 }

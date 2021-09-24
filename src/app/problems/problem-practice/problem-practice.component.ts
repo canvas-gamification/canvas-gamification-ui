@@ -49,6 +49,8 @@ export class ProblemPracticeComponent implements OnInit {
     category: Category;
     courseId: number;
     userDifficultyStats: { category: number, difficulty: string, avgSuccess: number }[];
+    userSuccessRate: number;
+    categoryUserSuccessRate: number;
 
     constructor(private route: ActivatedRoute,
                 private uqjService: UqjService,
@@ -77,14 +79,16 @@ export class ProblemPracticeComponent implements OnInit {
         const categoryObservable = this.categoryService.getCategory(this.categoryId);
         const uqjObservable = this.uqjService.getUQJs();
         const difficultyObservable = this.difficultyService.getDifficulties();
+        const categoryStatsObservable = this.courseService.getUserStats(this.courseId, this.categoryId);
 
-        forkJoin([uqjObservable, difficultyObservable, categoryObservable, userStatsObservable]).subscribe((result) => {
+        forkJoin([uqjObservable, difficultyObservable, categoryObservable, userStatsObservable, categoryStatsObservable]).subscribe((result) => {
             this.uqjs = result[0].results.filter(uqj => uqj.question.is_practice && uqj.question.category === this.categoryId && !uqj.is_solved);
             this.difficulties = result[1];
             this.category = result[2];
             this.userDifficultyStats = result[3];
+            this.categoryUserSuccessRate = result[4].success_rate;
             this.filteredUqjs = this.uqjs;
-            this.setupCurrentUqj(true);
+            this.applyFilter();
         });
     }
 
@@ -119,6 +123,7 @@ export class ProblemPracticeComponent implements OnInit {
      */
     applyFilter(): void {
         this.difficultyFormData.value.difficulty === '' ? this.filteredUqjs = this.uqjs : this.filteredUqjs = this.uqjs.filter((uqj) => uqj.question.difficulty === this.difficultyFormData.value.difficulty);
+        this.calculateUserSuccessRate();
         if (this.filteredUqjs.length) {
             this.setupCurrentUqj(true);
         } else {
@@ -245,6 +250,23 @@ export class ProblemPracticeComponent implements OnInit {
                 ...file,
                 solution: '',
             }));
+        }
+    }
+
+    /**
+     * Determines what success rate to show to the user.
+     */
+    calculateUserSuccessRate(): void {
+        if (this.difficultyFormData.value.difficulty === "EASY") {
+            this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficultyFormData.value.difficulty).avgSuccess;
+        } else if (this.difficultyFormData.value.difficulty === "NORMAL") {
+            this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficultyFormData.value.difficulty).avgSuccess;
+        } else if (this.difficultyFormData.value.difficulty === "HARD") {
+            this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficultyFormData.value.difficulty).avgSuccess;
+        } else if (this.difficultyFormData.value.difficulty === '') {
+            this.userSuccessRate = this.categoryUserSuccessRate;
+        } else {
+            this.userSuccessRate = 0;
         }
     }
 

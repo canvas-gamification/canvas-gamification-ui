@@ -20,7 +20,6 @@ import {MatInputModule} from '@angular/material/input';
 import {TopicsComponent} from './components/topics/topics.component';
 import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 import {HomepageComponent} from './components/homepage/homepage.component';
@@ -56,7 +55,6 @@ import {ProblemsModule} from "@app/problems/problems.module";
         HeaderComponent,
         TopicsComponent,
         SampleQuestionsComponent,
-        UserStatsComponent,
         TokenValuesComponent,
         FaqComponent,
         HomepageComponent,
