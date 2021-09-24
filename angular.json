@@ -45,7 +45,8 @@
                             "node_modules/jointjs/css/layout.css",
                             "node_modules/dragula/dist/dragula.css",
                             "src/scss/material/global-material-theme.scss",
-                            "src/scss/styles.scss"
+                            "src/scss/styles.scss",
+                            "node_modules/@nebular/theme/styles/prebuilt/default.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
