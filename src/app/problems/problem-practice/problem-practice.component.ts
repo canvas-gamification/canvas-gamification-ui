@@ -14,6 +14,7 @@ import {PracticeDifficultyForm} from "@app/problems/_forms/practice-difficulty.f
 import {ActivatedRoute} from "@angular/router";
 import * as _ from 'lodash';
 import {UserStatsService} from "@app/_services/api/user-stats.service";
+import {UserDifficultyStats} from "@app/_models/user_difficulty_stats";
 
 @Component({
     selector: 'app-problem-practice',
@@ -48,7 +49,7 @@ export class ProblemPracticeComponent implements OnInit {
     categoryId: number;
     category: Category;
     courseId: number;
-    userDifficultyStats: { category: number, difficulty: string, avgSuccess: number }[];
+    userDifficultyStats: UserDifficultyStats[];
     userSuccessRate: number;
     categoryUserSuccessRate: number;
 

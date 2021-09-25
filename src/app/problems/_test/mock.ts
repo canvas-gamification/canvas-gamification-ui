@@ -4,6 +4,7 @@ import {Difficulty} from "@app/_models/difficulty";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
 import {JavaFormData} from "@app/problems/_forms/java.form";
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
+import {UserDifficultyStats} from "@app/_models/user_difficulty_stats";
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
@@ -57,7 +58,7 @@ export const MOCK_MCQ_QUESTION: Question = {
         'b': 'gav'
     },
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
@@ -99,7 +100,7 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
         'd': 'bar'
     },
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
@@ -136,7 +137,7 @@ export const MOCK_JAVA_QUESTION: Question = {
     category_name: '',
     choices: null,
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
@@ -173,7 +174,7 @@ export const MOCK_PARSONS_QUESTION: Question = {
     category_name: '',
     choices: null,
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
@@ -214,7 +215,7 @@ export const MOCK_PRACTICE_JAVA_QUESTION: Question = {
     category_name: '',
     choices: null,
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: null,
     event_name: '',
     full_category_name: '',
@@ -251,7 +252,7 @@ export const MOCK_PRACTICE_PARSONS_QUESTION: Question = {
     category_name: '',
     choices: null,
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: null,
     event_name: '',
     full_category_name: '',
@@ -295,7 +296,7 @@ export const MOCK_PRACTICE_MCQ_QUESTION: Question = {
         'b': 'gav'
     },
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: null,
     event_name: '',
     full_category_name: '',
@@ -337,7 +338,7 @@ export const MOCK_PRACTICE_CHECKBOX_QUESTION: Question = {
         'd': 'bar'
     },
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: null,
     event_name: '',
     full_category_name: '',
@@ -778,3 +779,9 @@ export const MOCK_COURSE: Course = {
     course_reg: null,
     leader_board: null
 };
+
+export const MOCK_USER_DIFFICULTY_STATS: UserDifficultyStats[] = [
+    {category: 0, difficulty: 'EASY', avgSuccess: 1},
+    {category: 0, difficulty: 'NORMAL', avgSuccess: 1},
+    {category: 0, difficulty: 'HARD', avgSuccess: 1}
+];

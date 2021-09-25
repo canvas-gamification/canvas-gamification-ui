@@ -19,6 +19,8 @@ import {
     MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8
 } from "@app/problems/_test/mock";
 import {ToastrService} from "ngx-toastr";
+import {UserStatsService} from "@app/_services/api/user-stats.service";
+import {UserStatsServiceMock} from "@test/user-stats.service.mock";
 
 
 describe('ProblemPracticeComponent', () => {
@@ -35,6 +37,7 @@ describe('ProblemPracticeComponent', () => {
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},
                 {provide: DifficultyService, useClass: DifficultyServiceMock},
+                {provide: UserStatsService, useClass: UserStatsServiceMock},
                 {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
@@ -73,7 +76,7 @@ describe('ProblemPracticeComponent', () => {
         expect(component.uqjs).toEqual([MOCK_UQJ_5, MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8]);
         expect(component.difficulties).toEqual(MOCK_DIFFICULTIES);
         expect(component.category).toEqual(MOCK_CATEGORIES.find(category => category.pk === 0));
-        // expect(component.userSuccessRate).toEqual(1);
+        expect(component.userSuccessRate).toEqual(1);
         expect(component.filteredUqjs).toEqual([MOCK_UQJ_5, MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8]);
     });
 
