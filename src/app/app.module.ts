@@ -46,7 +46,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
-import {NbThemeModule} from '@nebular/theme';
+import {NbLayoutModule, NbThemeModule} from '@nebular/theme';
 
 
 @NgModule({
@@ -101,6 +101,7 @@ import {NbThemeModule} from '@nebular/theme';
         ToastrModule.forRoot(),
         HighlightModule,
         NbThemeModule.forRoot(),
+        NbLayoutModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

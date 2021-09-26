@@ -32,6 +32,7 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
+import {NbButtonModule, NbCardModule, NbInputModule, NbLayoutModule, NbStepperModule} from "@nebular/theme";
 
 @NgModule({
     declarations: [
@@ -66,6 +67,11 @@ import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component
         FontAwesomeModule,
         AceEditorModule,
         HighlightModule,
+        NbStepperModule,
+        NbCardModule,
+        NbButtonModule,
+        NbLayoutModule,
+        NbInputModule,
     ],
     providers:[
         CourseService,
