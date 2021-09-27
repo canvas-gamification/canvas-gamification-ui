@@ -1,9 +1,9 @@
 const config = require('./protractor.conf').config;
 
 config.capabilities = {
-    browserName: 'ChromeHeadless',
+    browserName: 'ChromeHeadlessCI',
     chromeOptions: {
-        args: ['--headless', '--no-sandbox', '--disable-gpu']
+        args: ['--headless', '--no-sandbox']
     }
 };
 
