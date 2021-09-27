@@ -14,11 +14,13 @@ import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 import {CourseService} from "@app/course/_services/course.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 describe('McqCreateSnippetComponent', () => {
     let component: McqCreateSnippetComponent;
     let fixture: ComponentFixture<McqCreateSnippetComponent>;
     let router: Router;
+    let toastr: ToastrService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -33,6 +35,8 @@ describe('McqCreateSnippetComponent', () => {
     });
 
     beforeEach(() => {
+        toastr = TestBed.inject(ToastrService);
+        spyOn(toastr, 'success');
         router = TestBed.inject(Router);
         spyOn(router, 'navigate');
         fixture = TestBed.createComponent(McqCreateSnippetComponent);
@@ -44,12 +48,12 @@ describe('McqCreateSnippetComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('courses and categories set', () => {
+    it('should set courses and categories', () => {
         expect(component.courses).toEqual([MOCK_COURSE]);
         expect(component.categories).toEqual(MOCK_CATEGORIES);
     });
 
-    it('add and remove choice and answer', () => {
+    it('should add and remove choice/answer', () => {
         expect(component.correctAnswers.length).toEqual(1);
         expect(component.distractors.length).toEqual(1);
 
@@ -64,38 +68,40 @@ describe('McqCreateSnippetComponent', () => {
         expect(component.distractors.length).toEqual(1);
     });
 
-    it('mcq create', () => {
+    it('should create mcq', () => {
         component.checkBox = false;
         component.onSubmit();
+        expect(toastr.success).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'MCQ']);
     });
 
-    it('checkbox create', () => {
+    it('should create checkbox question', () => {
         component.checkBox = true;
         component.onSubmit();
+        expect(toastr.success).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'checkbox']);
     });
 
-    it('setCourse', () => {
+    it('should set the course', () => {
         component.setCourse(0);
         expect(component.events).toEqual(MOCK_COURSE.events);
         expect(component.form.event.value).toBeNull();
     });
 
-    it('setEvent', () => {
+    it('should set the event', () => {
         component.setEvent(1);
         expect(component.form.event.value).toEqual(MOCK_COURSE_EVENT.id);
     });
 
-    it('required fields - invalid', () => {
+    it('should be invalid if required fields are empty', () => {
         expect(fixture.debugElement.nativeElement.querySelector('#submit').disabled).toBeTruthy();
     });
 
-    it('isSubmissionValid - mcq - invalid', () => {
+    it('should be invalid if MCQ does not have all required data', () => {
         expect(component.isSubmissionValid()).toBeFalsy();
     });
 
-    it('isSubmissionValid - checkbox - invalid', () => {
+    it('should be invalid if checkbox fields are invalid', () => {
         component.isPractice = true;
         component.form.course.setValue(MOCK_COURSE);
         component.form.event.setValue(MOCK_COURSE_EVENT);
@@ -103,7 +109,7 @@ describe('McqCreateSnippetComponent', () => {
         expect(component.isSubmissionValid()).toBeFalsy();
     });
 
-    it('isSubmissionValid - mcq - valid', () => {
+    it('should be valid if all MCQ required fields are filled', () => {
         component.checkBox = false;
         component.form.title.setValue('Test');
         component.form.difficulty.setValue('Easy');
@@ -118,7 +124,7 @@ describe('McqCreateSnippetComponent', () => {
         expect(component.isSubmissionValid()).toBeTruthy();
     });
 
-    it('isSubmissionValid - checkbox - valid', () => {
+    it('should be valid if all checkbox required fields are filled', () => {
         component.checkBox = true;
         component.form.title.setValue('Test');
         component.form.difficulty.setValue('Easy');

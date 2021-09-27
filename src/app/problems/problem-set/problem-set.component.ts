@@ -87,7 +87,7 @@ export class ProblemSetComponent implements OnInit {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
                 this.questions = paginatedQuestions.results;
-                this.questionsSource = new MatTableDataSource<Question>(this.questions);
+                this.questionsSource = new MatTableDataSource(this.questions);
                 this.questionsLength = paginatedQuestions.count;
             });
         });
@@ -181,10 +181,6 @@ export class ProblemSetComponent implements OnInit {
             .subscribe(() => {
                 this.toastr.success('The Question has been Deleted Successfully.');
                 this.update();
-                window.scroll(0, 0);
-            }, error => {
-                this.toastr.error(error);
-                console.warn(error);
                 window.scroll(0, 0);
             });
     }

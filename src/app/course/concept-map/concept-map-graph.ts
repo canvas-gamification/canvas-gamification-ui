@@ -8,14 +8,15 @@ import {Category} from '@app/_models';
 export class ConceptMapGraph {
     graph;
     paper;
+    scrollingPosition: { x: number, y: number };
 
     constructor(onclick: (number) => unknown) {
         this.graph = new joint.dia.Graph();
 
         this.paper = new joint.dia.Paper({
             el: jQuery('#paper'),
-            width: 2000,
-            height: 2000,
+            width: '100%',
+            height: 1000,
             model: this.graph,
             gridSize: 20,
             interactive: false,
@@ -26,13 +27,24 @@ export class ConceptMapGraph {
                 onclick(cellView.model.id);
             }
         });
+        this.paper.on('blank:pointerdown', (event, x, y) => {
+            this.scrollingPosition = {x: x, y: y};
+        });
+        this.paper.on('blank:pointerup cell:pointerup', () => {
+            this.scrollingPosition = null;
+        });
+        document.getElementById('paper').onmousemove = (event) => {
+            if (this.scrollingPosition)
+                this.paper.translate(event.offsetX - this.scrollingPosition.x,
+                    event.offsetY - this.scrollingPosition.y);
+        };
     }
 
     makeElement(id: number, label: string): joint.shapes.standard.Ellipse {
         const maxLineLength = Math.max(...label.split('\n').map(x => x.length));
 
         const letterSize = 16;
-        const width = 1.5 * (letterSize * (0.6 * maxLineLength + 1));
+        const width = 1.3 * (letterSize * (0.6 * maxLineLength + 1));
         const height = 1.5 * ((label.split('\n').length + 1) * letterSize);
 
         return new joint.shapes.standard.Ellipse({
@@ -82,12 +94,6 @@ export class ConceptMapGraph {
                 line: {
                     stroke: 'black',
                     cursor: 'default',
-                    targetMarker: {
-                        type: 'path',
-                        d: 'M 10 -5 0 0 10 5',
-                        fill: 'rgba(0,0,0,0)',
-                        'stroke-width': 1.75
-                    }
                 },
                 wrapper: {
                     cursor: 'default'
