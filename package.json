@@ -12,10 +12,11 @@
         "generate-output": "ng build --prod --output-path ../canvas-gamification/static/angular",
         "test": "ng test --no-watch --code-coverage --browsers=ChromeHeadless",
         "lint": "ng lint",
+        "pre-e2e": "webdriver-manager update --versions.chrome=93.0.4577.82",
         "e2e": "ng e2e",
         "build:ci": "ng build --prod --sourceMap=false --base-href /canvas-gamification-ui/",
         "test:ci": "ng test -- --no-watch --no-progress --code-coverage --browsers=ChromeHeadlessCI",
-        "e2e:ci": "ng e2e -- --protractor-config=e2e/protractor-ci.conf.js",
+        "e2e:ci": "ng e2e -- --protractor-config=e2e/protractor-ci.conf.js --webdriver-update false",
         "copy": "cat dist/canvas-gamification-ui/index.html > dist/canvas-gamification-ui/404.html"
     },
     "private": true,
