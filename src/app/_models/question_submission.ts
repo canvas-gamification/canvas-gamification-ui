@@ -17,6 +17,7 @@ export interface QuestionSubmission {
     no_file_answer: boolean;
     get_decoded_stderr: string;
     get_decoded_results: string[];
+    get_status_message: string;
     get_formatted_test_results: string;
     get_passed_test_results: { name: string; message: string }[];
     get_failed_test_results: { name: string; message: string }[];
