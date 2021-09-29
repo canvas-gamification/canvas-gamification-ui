@@ -46,6 +46,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
+import {TuiRootModule} from '@taiga-ui/core';
 
 @NgModule({
     declarations: [
@@ -98,6 +99,7 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         MatSelectModule,
         ToastrModule.forRoot(),
         HighlightModule,
+        TuiRootModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
