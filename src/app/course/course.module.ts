@@ -32,6 +32,17 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
+import {TuiFieldErrorModule, TuiInputModule, TuiStepperModule} from "@taiga-ui/kit";
+import {
+    TuiButtonModule,
+    TuiErrorModule,
+    TuiLoaderModule,
+    TuiNotificationModule,
+    TuiTextfieldControllerModule
+} from "@taiga-ui/core";
+import {TextMaskModule} from "angular2-text-mask";
+import { CourseRegistrationStepperComponent } from './course-registration/course-registration-stepper/course-registration-stepper.component';
+import { CourseRegistrationStepComponent } from './course-registration/course-registration-step/course-registration-step.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +54,9 @@ import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
         LeaderBoardComponent,
-        ConceptMapComponent
+        ConceptMapComponent,
+        CourseRegistrationStepperComponent,
+        CourseRegistrationStepComponent
     ],
     imports: [
         CommonModule,
@@ -66,6 +79,15 @@ import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component
         FontAwesomeModule,
         AceEditorModule,
         HighlightModule,
+        TuiStepperModule,
+        TuiInputModule,
+        TuiTextfieldControllerModule,
+        TuiFieldErrorModule,
+        TuiButtonModule,
+        TextMaskModule,
+        TuiNotificationModule,
+        TuiErrorModule,
+        TuiLoaderModule
     ],
     providers:[
         CourseService,

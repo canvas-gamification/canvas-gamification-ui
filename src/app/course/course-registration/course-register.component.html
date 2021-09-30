@@ -1,79 +1,116 @@
-<div class="container">
-    <!--    TODO: inform user of which course they are registering for (by name) in this page-->
-    <h1 class="my-5">Course Registration</h1>
-    <div class="alert alert-info" role="alert">
-        Note: You can only register in courses that you are also registered in on Canvas!
-    </div>
-    <mat-horizontal-stepper #stepper [selectedIndex]="selectedIndex" class="border-success" linear>
-        <mat-step [stepControl]="nameForm" [editable]="editable" [completed]="completed || verification"
-                  errorMessage="Name is required">
-            <form [formGroup]="nameForm">
-                <ng-template matStepLabel>Identification</ng-template>
-                <mat-form-field class="w-50">
-                    <mat-label>Your full name as it appears on Canvas</mat-label>
-                    <input matInput placeholder="Ex. John Doe" formControlName="nameControl" required>
-                </mat-form-field>
-                <div>
-                    <button class="btn btn-success" (click)="registerStepSubmit()" mat-button>Submit</button>
-                </div>
-            </form>
-        </mat-step>
-
-        <mat-step [stepControl]="needsStudentNumber ? studentNumberForm : confirmNameForm"
-                  [editable]="editable" [completed]="completed || verification"
-                  errorMessage="Student Number is required">
-            <form [formGroup]="needsStudentNumber ? studentNumberForm : confirmNameForm">
-                <ng-container *ngIf="needsStudentNumber; else confirmNameOnly">
-                    <ng-template matStepLabel>Confirm Identity</ng-template>
-                    <mat-form-field>
-                        <mat-label>Student Number</mat-label>
-                        <input type="number" matInput formControlName="studentNumberControl" placeholder="Ex. 12345678"
-                               required>
-                    </mat-form-field>
-                    <div>
-                        <button class="btn btn-danger" (click)="reset()" mat-button>Back</button>
-                        <button class="btn btn-success" (click)="registerStepSubmit()" mat-button>Submit</button>
+<section class="tui-container tui-container_adaptive">
+    <h1 class="tui-text_h3 tui-space_vertical-9">Register Course</h1>
+    <ng-container *ngIf="registered">
+        <tui-notification status="success">
+            You are already registered in this course
+        </tui-notification>
+        <div class="tui-form__buttons">
+            <a tuiButton class="tui-form__button" type="button" [routerLink]="['/course', courseId]" size="m">
+                Open Course
+            </a>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="!registered">
+        <app-course-registration-stepper [steps]="['Enter Name', 'Confirm Identity', 'Verification', 'Registered']"
+                                         #stepper>
+            <app-course-registration-step [stepNumber]="0" [stepper]="stepper">
+                <form [formGroup]="nameForm" (ngSubmit)="onNameFormSubmit()">
+                    <div class="tui-space_top-5">
+                        <tui-input formControlName="nameControl"
+                                   [tuiTextfieldCleaner]="true">
+                            Enter your full name as it appears on Canvas&nbsp;<span class="tui-required"></span>
+                        </tui-input>
+                        <tui-field-error formControlName="nameControl"></tui-field-error>
                     </div>
-                </ng-container>
-                <ng-template #confirmNameOnly>
-                    <ng-template matStepLabel>Confirm Identity</ng-template>
-                    <mat-form-field>
-                        <mat-label>Please confirm the following details.</mat-label>
-                        <input matInput placeholder="Ex. John Doe" formControlName="confirmNameControl"
-                               [value]="serverGuessedName" disabled>
-                    </mat-form-field>
-                    <div>
-                        <button class="btn btn-danger" (click)="reset()" mat-button>Back</button>
-                        <button class="btn btn-success" (click)="registerStepSubmit()" mat-button>Confirm</button>
+                    <div class="tui-form__buttons">
+                        <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                                [disabled]="true">
+                            Prev
+                        </button>
+                        <button tuiButton class="tui-form__button" type="submit" size="m"
+                                [showLoader]="loadingContent">
+                            Next
+                        </button>
                     </div>
-                </ng-template>
-            </form>
-        </mat-step>
-
-        <mat-step [stepControl]="verifyForm" [editable]="editable" [completed]="completed"
-                  errorMessage="Verification is required">
-            <form [formGroup]="verifyForm">
-                <ng-template matStepLabel>Verification</ng-template>
-                <mat-form-field>
-                    <mat-label>Verification Code</mat-label>
-                    <input matInput placeholder="Ex. 1234" formControlName="verifyControl" required>
-                </mat-form-field>
-                <p *ngIf="attemptsRemaining">Attempts Remaining: {{ attemptsRemaining }}</p>
-                <div>
-                    <button class="btn btn-success" (click)="verifyStepSubmit()" mat-button>Submit</button>
+                </form>
+            </app-course-registration-step>
+            <app-course-registration-step [stepNumber]="1" [stepper]="stepper">
+                <form [formGroup]="needsStudentNumber ? studentNumberForm : confirmNameForm"
+                      (ngSubmit)="onConfirmationFormSubmit()">
+                    <ng-container *ngIf="needsStudentNumber">
+                        <div class="tui-space_top-5">
+                            <tui-input formControlName="studentNumberControl"
+                                       [tuiTextfieldCleaner]="true">
+                                Student Number&nbsp;<span class="tui-required"></span>
+                            </tui-input>
+                            <tui-field-error formControlName="studentNumberControl"></tui-field-error>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!needsStudentNumber">
+                        <div class="tui-space_top-5">
+                            <tui-input formControlName="confirmNameControl"
+                                       [tuiTextfieldCleaner]="true"
+                                       [readOnly]="true">
+                                Please confirm that this is your name.&nbsp;<span class="tui-required"></span>
+                            </tui-input>
+                            <tui-field-error formControlName="confirmNameControl"></tui-field-error>
+                        </div>
+                    </ng-container>
+                    <div class="tui-form__buttons">
+                        <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                                (click)="stepper.setPrevStep()">Prev
+                        </button>
+                        <button tuiButton class="tui-form__button" type="submit" size="m"
+                                [showLoader]="loadingContent">
+                            Next
+                        </button>
+                    </div>
+                </form>
+            </app-course-registration-step>
+            <app-course-registration-step [stepNumber]="2" [stepper]="stepper">
+                <form [formGroup]="verifyForm" (ngSubmit)="onVerificationFormSubmit()">
+                    <div class="tui-space_top-5">
+                        <tui-input formControlName="verifyControl"
+                                   [tuiTextfieldCleaner]="true" [textMask]="verificationNumberMask">
+                            Verification Code&nbsp;<span class="tui-required"></span>
+                        </tui-input>
+                        <tui-field-error formControlName="verifyControl"></tui-field-error>
+                    </div>
+                    <div class="tui-space_top-3">
+                        <tui-notification *ngIf="attemptsRemaining" status="error">
+                            <span *ngIf="attemptsRemaining >= 1">
+                                Attempts Remaining: {{ attemptsRemaining }}
+                            </span>
+                            <span *ngIf="attemptsRemaining < 1">
+                                You don't have any attempts remaining! Contact your instructor.
+                            </span>
+                        </tui-notification>
+                    </div>
+                    <div class="tui-form__buttons">
+                        <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                                [disabled]="true">
+                            Prev
+                        </button>
+                        <button tuiButton class="tui-form__button" type="submit" size="m"
+                                [showLoader]="loadingContent">
+                            Next
+                        </button>
+                    </div>
+                </form>
+            </app-course-registration-step>
+            <app-course-registration-step [stepNumber]="3" [stepper]="stepper">
+                <p class="tui-space_top-5">Registration Complete.</p>
+                <div class="tui-form__buttons">
+                    <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                            [disabled]="true">
+                        Prev
+                    </button>
+                    <a tuiButton class="tui-form__button" type="button" [routerLink]="['/course', courseId]"
+                       size="m">
+                        Open Course
+                    </a>
                 </div>
-                <div *ngIf="attemptsRemaining < 1" class="alert-danger alert">
-                    You don't have any attempts remaining! Contact your instructor.
-                </div>
-            </form>
-        </mat-step>
-
-        <mat-step [editable]="editable" [completed]="completed">
-            <ng-template matStepLabel>Done</ng-template>
-            <p>Registration Complete.</p>
-            <div>
-                <a class="btn btn-primary" mat-button [routerLink]="['/course', courseId]">Open Course</a>
-            </div>
-        </mat-step>
-    </mat-horizontal-stepper>
-</div>
+            </app-course-registration-step>
+        </app-course-registration-stepper>
+    </ng-container>
+</section>
