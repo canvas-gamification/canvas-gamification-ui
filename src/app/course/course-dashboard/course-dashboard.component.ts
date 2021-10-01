@@ -28,7 +28,6 @@ export class CourseDashboardComponent implements OnInit {
     unregisteredUsers: User[];
     course: Course;
     userList: User[];
-    allUserList: User[];
     registrationList: CourseRegistration[];
     variable: boolean;
     filterQueryString;
@@ -58,9 +57,6 @@ export class CourseDashboardComponent implements OnInit {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.courseDashboardService.getCourseDashboardFilter(this.courseId, options).subscribe(users => {
                 this.userList = users;
-            });
-            this.courseDashboardService.getUnregisteredStudents(this.courseId, options).subscribe(unregisteredUsers => {
-                this.unregisteredUsers = unregisteredUsers;
             });
         });
     }
@@ -92,11 +88,6 @@ export class CourseDashboardComponent implements OnInit {
             .getCourseRegistration(this.courseId)
             .subscribe(registrations => {
                 this.registrationList = registrations;
-            });
-        this.courseDashboardService
-            .getAllUser()
-            .subscribe(users => {
-                this.allUserList = users;
             });
     }
 
@@ -166,19 +157,9 @@ export class CourseDashboardComponent implements OnInit {
                 } else {
                     this.toastr.success('The student has been added to the course.');
                     this.updateDashboard();
-                    this.retrieveStudentNotIn();
                 }
             }
         );
-    }
-
-    retrieveStudentNotIn(): void {
-        this.courseDashboardService
-            .getUnregisteredStudents(this.courseId)
-            .subscribe(unregisteredUsers => {
-                this.unregisteredUsers = unregisteredUsers;
-            });
-        //this.unregisteredUsers = this.allUserList.filter(({ id: id1 }) => !this.userList.some(({ id: id2 }) => id2 === id1));
     }
 
     hasViewPermission(userId: number): boolean {

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
 import {CourseRegistration, User} from "@app/_models";
 import {CourseDashboardFormData} from "@app/course/_forms/course-dashboard.form";
@@ -15,20 +15,15 @@ export class CourseDashboardService {
     }
 
     getCourseDashboard(options: number): Observable<User[]> {
-        const url = this.apiService.getURL('list-course-user');
+        const url = this.apiService.getURL('course-registration');
 
         const params = new HttpParams()
-            .set('canvascourseregistration__course__id', String(options));
+            .set('course__id', String(options));
 
         return this.http
-            .get<User[]>(url, {params})
+            .get<CourseRegistration>(url, {params})
+            .pipe(map(x => x.user))
             .pipe(catchError(this.apiService.handleError<User[]>('Error occurred while fetching database', null)));
-    }
-
-    getAllUser(): Observable<User[]> {
-        const url = this.apiService.getURL('list-user');
-        return this.http.get<User[]>(url)
-            .pipe(catchError(this.apiService.handleError<User[]>('Error occurred while fetching database')));
     }
 
     getCourseRegistration(options: number): Observable<CourseRegistration[]> {
@@ -55,27 +50,13 @@ export class CourseDashboardService {
     }
 
     getCourseDashboardFilter(id: number, options?: CourseDashboardFormData ): Observable<User[]> {
-        const url = this.apiService.getURL('list-course-user');
+        const url = this.apiService.getURL('course-registration');
         const {
             name  = '',
         } = options ? options : {};
         const params = new HttpParams()
             .set('search', name)
-            .set('canvascourseregistration__course__id', String(id));
-
-        return this.http.get<User[]>(url, {params})
-            .pipe(catchError(this.apiService.handleError<User[]>('Error occurred while fetching database')));
-    }
-
-    getUnregisteredStudents(courseId: number, options?: CourseDashboardFormData): Observable<User[]> {
-        const {
-            modalName  = '',
-        } = options ? options : {};
-        const params = new HttpParams()
-            .set('search', modalName)
-            .set('canvascourseregistration__course__id__not', String(courseId));
-
-        const url = this.apiService.getURL('list-user');
+            .set('course__id', String(id));
         return this.http.get<User[]>(url, {params})
             .pipe(catchError(this.apiService.handleError<User[]>('Error occurred while fetching database')));
     }

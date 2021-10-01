@@ -37,7 +37,7 @@ export class UqjService {
         if (options?.recent ?? false) {
             params = params.set('ordering', '-last_viewed');
         }
-
+        console.log(params);
         return this.http
             .get<PaginatedResult<UQJ>>(url, {params})
             .pipe(catchError(this.apiService.handleError<PaginatedResult<UQJ>>(`Error occurred while fetching user-specific questions`)));
@@ -67,5 +67,15 @@ export class UqjService {
             .get<PaginatedResult<UQJ>>(url, {params})
             .pipe(map(x => x.results[0]))
             .pipe(catchError(this.apiService.handleError<UQJ>(`Error Occurred while fetching user-specific data for this question`)));
+    }
+
+    /**
+     * Update the favourite status of the uqj.
+     */
+    updateFavourite(uqj : UQJ): void {
+        const url = this.apiService.getURL('uqj', uqj.id);
+        this.http.put<UQJ>(url, uqj)
+            .pipe(catchError(this.apiService.handleError<UQJ>('Error occurred while favorite the question')));
+        console.log(url);
     }
 }

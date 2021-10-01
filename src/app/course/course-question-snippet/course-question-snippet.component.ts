@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CourseEvent, Question, UQJ, User} from '@app/_models';
+import {ToastrService} from "ngx-toastr";
+import {Category, CourseEvent, ParsonsFile, Question, UQJ, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UqjService} from '@app/problems/_services/uqj.service';
@@ -25,13 +26,15 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 private route: ActivatedRoute,
                 private uqjService: UqjService,
                 private courseEventService: CourseEventService,
-                private courseService: CourseService) {
+                private courseService: CourseService,
+                private toastr: ToastrService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
         this.courseId = +this.route.snapshot.paramMap.get('courseId') || null;
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null;
+        console.log(this.eventId);
         if (this.eventId && this.courseId) { // if this snippet is an event-view
             this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {
                 if (response.success) {
@@ -71,5 +74,13 @@ export class CourseQuestionSnippetComponent implements OnInit {
             return 'highlight-danger';
         }
         return '';
+    }
+
+    switchFavourite(uqj: UQJ, favouriteStatus: boolean): void{
+        console.log(this.uqjs);
+        const updatedUqj : UQJ = {
+            ...uqj, is_favourite : !favouriteStatus
+        };
+        this.uqjService.updateFavourite(updatedUqj);
     }
 }
