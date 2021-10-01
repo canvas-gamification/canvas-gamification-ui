@@ -1,12 +1,13 @@
 import {Injectable} from "@angular/core";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
 import {Observable, of} from "rxjs";
-import {APIResponse, Question} from "@app/_models";
+import {Question} from "@app/_models";
 import {JavaFormData} from "@app/problems/_forms/java.form";
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
-import {MOCK_QUESTIONS} from "@app/problems/_test/mock";
+import {MOCK_JAVA_QUESTION, MOCK_MCQ_QUESTION, MOCK_PARSONS_QUESTION, MOCK_QUESTIONS} from "@app/problems/_test/mock";
 import {ProblemSetFormData} from "@app/problems/_forms/problem-set.form";
 import {PaginatedResult} from "@app/_models/paginatedResult";
+import {HttpResponse} from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
@@ -30,31 +31,31 @@ export class QuestionServiceMock {
         return question.type_name;
     }
 
-    postMultipleChoiceQuestion(input: McqFormData): Observable<APIResponse> {
-        return of({success: true});
+    postMultipleChoiceQuestion(input: McqFormData): Observable<HttpResponse<Question>> {
+        return of(new HttpResponse({body: MOCK_MCQ_QUESTION, status: 201}));
     }
 
-    postJavaQuestion(input: JavaFormData): Observable<APIResponse> {
-        return of({success: true});
+    postJavaQuestion(input: JavaFormData): Observable<HttpResponse<Question>> {
+        return of(new HttpResponse({body: MOCK_JAVA_QUESTION, status: 201}));
     }
 
-    postParsonsQuestion(input: ParsonsFormData): Observable<APIResponse> {
-        return of({success: true});
+    postParsonsQuestion(input: ParsonsFormData): Observable<HttpResponse<Question>> {
+        return of(new HttpResponse({body: MOCK_PARSONS_QUESTION, status: 201}));
     }
 
-    putMultipleChoiceQuestion(input: McqFormData, id: number): Observable<APIResponse> {
-        return of({success: true});
+    putMultipleChoiceQuestion(input: McqFormData, id: number): Observable<HttpResponse<Question>> {
+        return of(new HttpResponse({body: MOCK_MCQ_QUESTION, status: 200}));
     }
 
-    putJavaQuestion(input: JavaFormData, id: number): Observable<APIResponse> {
-        return of({success: true});
+    putJavaQuestion(input: JavaFormData, id: number): Observable<HttpResponse<Question>> {
+        return of(new HttpResponse({body: MOCK_JAVA_QUESTION, status: 200}));
     }
 
-    putParsonsQuestion(input: ParsonsFormData, id: number): Observable<APIResponse> {
-        return of({success: true});
+    putParsonsQuestion(input: ParsonsFormData, id: number): Observable<HttpResponse<Question>> {
+        return of(new HttpResponse({body: MOCK_PARSONS_QUESTION, status: 200}));
     }
 
-    deleteQuestion(id: number): Observable<APIResponse> {
-        return of({success: true});
+    deleteQuestion(id: number): Observable<HttpResponse<Question>> {
+        return of(new HttpResponse({body: MOCK_MCQ_QUESTION, status: 200}));
     }
 }

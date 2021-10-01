@@ -32,7 +32,7 @@ describe('McqViewSnippetComponent - MCQ', () => {
         expect(component).toBeTruthy();
     });
 
-    it('choiceArray should be set', () => {
+    it('should set choiceArray', () => {
         expect(component.choiceArray.length).toEqual(2);
     });
 });
@@ -49,7 +49,7 @@ describe('McqViewSnippetComponent - Checkbox', () => {
         expect(component).toBeTruthy();
     });
 
-    it('onClicking a checkbox.', () => {
+    it('should update answers for checkbox question', () => {
         expect(component.checkboxAnswers.length).toEqual(0);
         fixture.debugElement.nativeElement.querySelector('#a').click();
         fixture.detectChanges();

@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaderResponse} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {Observable} from "rxjs";
 import {ApiService} from "@app/_services/api.service";
-import {APIResponse, User} from "@app/_models";
+import {User} from "@app/_models";
 import {RegisterFormData} from "@app/accounts/_forms/register.form";
 
 @Injectable({
@@ -19,9 +19,9 @@ export class RegisterService {
         return this.http.post<User>(url, input).pipe(catchError(this.apiService.handleFormError()));
     }
 
-    postActivation(uuid: string, token: string): Observable<APIResponse> {
+    postActivation(uuid: string, token: string): Observable<HttpHeaderResponse> {
         const url = this.apiService.getURL('register', 'activate');
-        return this.http.post<APIResponse>(url, {uuid, token})
+        return this.http.post<HttpHeaderResponse>(url, {uuid, token})
             .pipe(catchError(this.apiService.handleFormError()));
     }
 }

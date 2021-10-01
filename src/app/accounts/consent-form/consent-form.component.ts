@@ -4,6 +4,8 @@ import {ConsentService} from '@app/accounts/_services/consent.service';
 import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConsentForm} from "@app/accounts/_forms/consent.form";
+import {AuthenticationService} from "@app/_services/api/authentication";
+import {User} from "@app/_models";
 
 
 @Component({
@@ -14,16 +16,23 @@ import {ConsentForm} from "@app/accounts/_forms/consent.form";
 export class ConsentFormComponent implements OnInit {
     formGroup: FormGroup;
     logoPath = 'assets/global/logo.jpg';
+    user: User;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
                 private builder: FormBuilder,
                 private consentService: ConsentService,
+                private authenticationService: AuthenticationService,
                 private toastr: ToastrService) {
+        this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
-        this.formGroup = ConsentForm.createForm();
+        if (this.user.is_student) {
+            this.formGroup = ConsentForm.createStudentForm();
+        } else {
+            this.formGroup = ConsentForm.createAdminForm();
+        }
     }
 
     get form(): { [p: string]: AbstractControl } {
