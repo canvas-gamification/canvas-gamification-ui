@@ -7,7 +7,7 @@ import {ToastrService} from "ngx-toastr";
 import {CourseRegistrationRequest, CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
 import {CourseRegisterForm} from "@app/course/_forms/register.form";
 
-const STEPPER_STAGES = {
+export const STEPPER_STAGES = {
     ENTER_NAME: 0,
     CONFIRM_IDENTITY: 1,
     VERIFICATION: 2,
@@ -58,6 +58,9 @@ export class CourseRegisterComponent implements OnInit {
         this.getRegistrationStatus();
     }
 
+    /**
+     * Retrieve the current user's registration status for the current course
+     */
     getRegistrationStatus(): void {
         this.courseService.getCourseRegistrationStatus(this.courseId).subscribe(
             courseRegistrationStatus => {
@@ -70,6 +73,10 @@ export class CourseRegisterComponent implements OnInit {
         );
     }
 
+    /**
+     * Set the initial stage of the stepper depending on the registration status of the user
+     * @param status - the registration status retreived from the API
+     */
     initialStage(status: string): void {
         this.completed = status === REGISTRATION_STATUS.REGISTERED;
         this.verification = status === REGISTRATION_STATUS.AWAIT_VERIFICATION;
@@ -79,6 +86,10 @@ export class CourseRegisterComponent implements OnInit {
                 STEPPER_STAGES.ENTER_NAME;
     }
 
+    /**
+     * Set the stepper stage based on the course registration response object sent from the API
+     * @param courseRegResponse - the backend course registration response object
+     */
     setRegistrationStage(courseRegResponse: CourseRegistrationResponse): void {
         this.serverGuessedName = courseRegResponse?.guessed_name;
         this.attemptsRemaining = courseRegResponse?.attempts_remaining;
@@ -93,6 +104,9 @@ export class CourseRegisterComponent implements OnInit {
         }
     }
 
+    /**
+     * Method to submit the registration step
+     */
     registerStepSubmit(): void {
         const data = this.retrieveFormData();
         this.needsStudentNumber = false; // IMPORTANT
@@ -110,6 +124,9 @@ export class CourseRegisterComponent implements OnInit {
         );
     }
 
+    /**
+     * Method to submit the verify step
+     */
     verifyStepSubmit(): void {
         const data = this.retrieveFormData();
         if (!data.code) {
@@ -126,6 +143,9 @@ export class CourseRegisterComponent implements OnInit {
         );
     }
 
+    /**
+     * Returns the formatted form data ready to send to the API
+     */
     retrieveFormData(): CourseRegistrationRequest {
         return {
             name: this.nameForm.get('nameControl').value || null,
@@ -135,15 +155,24 @@ export class CourseRegisterComponent implements OnInit {
         };
     }
 
+    /**
+     * Proceeds to the next step
+     */
     nextStep(): void {
         this.stepper.selected.completed = true;
         this.stepper.next();
     }
 
+    /**
+     * Sends out a toastr error message
+     */
     sendErrorMessage(): void {
         this.toastr.error('Something went wrong. Check that your inputted values are accurate and try again.');
     }
 
+    /**
+     * Resets the stepper and clears all values
+     */
     reset(): void {
         this.serverGuessedName = null;
         this.stepper.reset();

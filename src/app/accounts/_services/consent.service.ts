@@ -30,6 +30,8 @@ export class ConsentService {
     declineConsent(): Observable<UserConsent> {
         return this.postConsent({
             consent: false,
+            access_submitted_course_work: false,
+            access_course_grades: false,
             legal_first_name: '-',
             legal_last_name: '-',
             student_number: '-',

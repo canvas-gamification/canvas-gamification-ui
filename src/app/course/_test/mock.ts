@@ -3,11 +3,11 @@ import {
     CourseRegistration,
     CourseRegistrationRequest,
     CourseRegistrationResponse,
-    EventType, REGISTRATION_STATUS, RegistrationStatus, STATUS,
-    TokenUseOption
+    EventType, Question, REGISTRATION_STATUS, RegistrationStatus, STATUS,
+    TokenUseOption, UQJ, User
 } from "@app/_models";
 import {TokenUse} from "@app/_models/token_use";
-import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
+import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     id: 1,
@@ -95,7 +95,7 @@ export const MOCK_COURSE2: Course = {
     end_date: null,
     instructor: null,
     status: STATUS.active,
-    is_registered: true,
+    is_registered: false,
     events: null,
     token_use_options: null,
     question_set: null,
@@ -178,4 +178,127 @@ export const MOCK_CONFIRM_RESPONSE2_FAIL: CourseRegistrationResponse = {
     bad_request: true
 };
 
+export const MOCK_USER_STUDENT: User = {
+    id: 0,
+    username: 'student@test.com',
+    first_name: 'Firstname',
+    last_name: 'Lastname',
+    email: 'student@test.com',
+    token: null,
+    tokens: 0,
+    role: 'student',
+    is_teacher: false,
+    is_student: true,
+    has_consent: true
+};
 
+export const MOCK_USER_TEACHER: User = {
+    id: 1,
+    username: 'teacher@test.com',
+    first_name: 'FirstnameTeach',
+    last_name: 'LastnameTeach',
+    email: 'teacher@test.com',
+    token: null,
+    tokens: 0,
+    role: 'teacher',
+    is_teacher: true,
+    is_student: false,
+    has_consent: true
+};
+
+export const MOCK_MCQ_QUESTION: Question = {
+    id: 0,
+    category: 0,
+    status: 'Solved',
+    answer: 'a',
+    author: 0,
+    author_name: '',
+    category_name: '',
+    choices: {
+        'a': 'sag',
+        'b': 'gav'
+    },
+    course_name: '',
+    difficulty: '',
+    event: MOCK_COURSE_EVENT,
+    event_name: '',
+    full_category_name: '',
+    is_exam: true,
+    is_exam_and_open: true,
+    is_open: true,
+    is_sample: false,
+    is_verified: true,
+    junit_template: '',
+    variables: [],
+    max_submission_allowed: 5,
+    parent_category_name: '',
+    success_rate: 0,
+    text: '',
+    time_created: null,
+    time_modified: null,
+    title: '',
+    token_value: 5,
+    type_name: 'multiple choice question',
+    visible_distractor_count: 1,
+    is_author: true,
+    is_checkbox: false,
+    input_files: null,
+};
+
+export const MOCK_UQJ: UQJ = {
+    category: MOCK_CATEGORY,
+    id: 0,
+    question: MOCK_MCQ_QUESTION,
+    format: '',
+    formatted_current_tokens_received: '',
+    input_files: [],
+    is_allowed_to_submit: true,
+    is_partially_solved: false,
+    is_solved: true,
+    last_viewed: null,
+    num_attempts: 5,
+    opened_tutorial: false,
+    random_seed: 0,
+    rendered_choices: {
+        'a': 'sag',
+        'b': 'gav'
+    },
+    rendered_lines: [],
+    rendered_text: '',
+    status: '',
+    status_class: '',
+    subcategory: '',
+    tokens_received: 50,
+    variables: JSON.parse('{}'),
+    variables_errors: [],
+    is_checkbox: false,
+};
+
+export const MOCK_UQJ2: UQJ = {
+    category: MOCK_CATEGORY,
+    id: 0,
+    question: MOCK_MCQ_QUESTION,
+    format: '',
+    formatted_current_tokens_received: '',
+    input_files: [],
+    is_allowed_to_submit: true,
+    is_partially_solved: false,
+    is_solved: true,
+    last_viewed: null,
+    num_attempts: 0,
+    opened_tutorial: false,
+    random_seed: 0,
+    rendered_choices: {
+        'a': 'sag',
+        'b': 'gav'
+    },
+    rendered_lines: [],
+    rendered_text: '',
+    status: '',
+    status_class: '',
+    subcategory: '',
+    tokens_received: 50,
+    variables: JSON.parse('{}'),
+    variables_errors: [],
+    is_checkbox: false,
+};

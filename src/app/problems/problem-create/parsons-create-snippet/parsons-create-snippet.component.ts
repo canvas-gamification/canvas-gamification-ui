@@ -123,10 +123,10 @@ export class ParsonsCreateSnippetComponent implements OnInit {
      * Refresh the page upon successful submission.
      */
     refresh(): void {
+        this.toastr.success('The Question has been Created Successfully.');
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(['problems', 'create', 'parsons']).then(() => {
             window.scroll(0, 0);
-            this.toastr.success('The Question has been Created Successfully.');
         });
     }
 

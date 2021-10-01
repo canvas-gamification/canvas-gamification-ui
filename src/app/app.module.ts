@@ -46,8 +46,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
-import { AdminComponent } from './components/admin/admin.component';
-import {MatExpansionModule} from "@angular/material/expansion";
+import {TuiRootModule} from '@taiga-ui/core';
 
 @NgModule({
     declarations: [
@@ -68,7 +67,6 @@ import {MatExpansionModule} from "@angular/material/expansion";
         InactiveCoursesComponent,
         NotFoundComponent,
         ForbiddenComponent,
-        AdminComponent,
     ],
     imports: [
         BrowserModule,
@@ -101,7 +99,7 @@ import {MatExpansionModule} from "@angular/material/expansion";
         MatSelectModule,
         ToastrModule.forRoot(),
         HighlightModule,
-        MatExpansionModule,
+        TuiRootModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

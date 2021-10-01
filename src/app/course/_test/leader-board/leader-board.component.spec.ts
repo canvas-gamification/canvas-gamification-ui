@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {LeaderBoardComponent} from './leader-board.component';
+import {LeaderBoardComponent} from '../../leader-board/leader-board.component';
 import {TestModule} from '@test/test.module';
 
 describe('LeaderBoardComponent', () => {
@@ -9,7 +9,8 @@ describe('LeaderBoardComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule]
+            imports: [TestModule],
+            declarations: [LeaderBoardComponent]
         }).compileComponents();
     });
 

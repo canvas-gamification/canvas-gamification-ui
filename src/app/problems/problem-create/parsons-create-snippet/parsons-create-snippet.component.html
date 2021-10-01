@@ -42,6 +42,14 @@
     <div class="form-row m-3 p-3">
         <div class="col-md-12">
             <div class="form-check">
+                <input class="form-check-input" id="isVerified" type="checkbox" formControlName="is_verified">
+                <label class="form-check-label h5 pb-2" for="isVerified">Is Verified</label>
+            </div>
+        </div>
+    </div>
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <div class="form-check">
                 <input (change)="practiceCheckboxChanged($event)" [checked]="isPractice" class="form-check-input"
                        id="practiceCheckbox" type="checkbox">
                 <label class="form-check-label h5 pb-2" for="practiceCheckbox">Practice Question</label>

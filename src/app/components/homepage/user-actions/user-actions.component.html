@@ -1,28 +1,52 @@
 <div *ngIf="userActions; else noActions" class="container-fluid">
-    <table class="table table-bordered table-striped table-hover no-text-wrap-table">
-        <thead>
-        <tr>
-            <th>Description</th>
-            <th>Token&nbsp;Change</th>
-            <th>Date</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-container *ngFor="let action of userActions">
-            <tr>
-                <td [innerHTML]="getRouterLink(action.description)"></td>
-                <td>{{ formatTokenChange(action.token_change) || 'No Value'}}</td>
-                <td>{{ action.time_created | date:'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
-                <td>{{ action.status || 'No Status'}}</td>
-            </tr>
+    <table mat-table [dataSource]="actionsSource" matSort (matSortChange)="sortData($event)" matSortDisableClear
+           class="table table-hover hover-shadow">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="id">#</th>
+            <td mat-cell *matCellDef="let action">{{action.id || 'No ID'}}</td>
         </ng-container>
-        </tbody>
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let action">{{action.description || 'No Description'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="object_type">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="object_type">Type</th>
+            <td mat-cell *matCellDef="let action">{{action.object_type || 'No Type'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="status">Status</th>
+            <td mat-cell *matCellDef="let action">{{action.status || 'No Status'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="time_created">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="time_created">Date</th>
+            <td mat-cell
+                *matCellDef="let action">{{action.time_created | date:'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="verb">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header="verb">Action</th>
+            <td mat-cell *matCellDef="let action">{{action.verb || 'No Action'}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="tokens">
+            <th mat-header-cell *matHeaderCellDef>Tokens</th>
+            <td mat-cell *matCellDef="let action">{{formatTokenChange(action.token_change) || formatTokenChange(0)}}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <div class="d-flex justify-content-center mt-md-3">
-        <button *ngIf="canChange.prev" class="btn btn-primary mr-1" (click)="changePage(false)">←</button>
-        <button *ngIf="canChange.next" class="btn btn-primary ml-1" (click)="changePage(true)">→</button>
-    </div>
+    <mat-paginator
+        [length]="actionsLength"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="newPageEvent($event)">
+    </mat-paginator>
 </div>
 
 <ng-template #noActions>

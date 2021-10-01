@@ -16,22 +16,20 @@ export class ChangePasswordComponent implements OnInit {
     constructor(private builder: FormBuilder, private password: ChangePasswordService, private toastr: ToastrService) {
     }
 
-    ngOnInit(): void {
-        this.formGroup = ChangePasswordForm.createForm();
-    }
-
     get form(): { [p: string]: AbstractControl } {
         return this.formGroup.controls;
+    }
+
+    ngOnInit(): void {
+        this.formGroup = ChangePasswordForm.createForm();
     }
 
     onSubmit(): void {
         const data = ChangePasswordForm.extractData(this.formGroup);
         this.password.putPasswordReset(data)
-            .subscribe((result) => {
-                if (result.success != false) {
-                    this.formGroup.reset();
-                    this.toastr.success('Your password has been updated successfully!');
-                }
+            .subscribe(() => {
+                this.formGroup.reset();
+                this.toastr.success('Your password has been updated successfully!');
             });
     }
 

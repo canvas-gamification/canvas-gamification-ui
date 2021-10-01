@@ -14,6 +14,7 @@ export class JavaForm {
             course: new FormControl(null),
             event: new FormControl(null),
             junit_template: new FormControl(null, [Validators.required]),
+            is_verified: new FormControl(false),
         });
     }
 
@@ -32,6 +33,7 @@ export class JavaForm {
             course: new FormControl(course),
             event: new FormControl(event),
             junit_template: new FormControl(question.junit_template, [Validators.required]),
+            is_verified: new FormControl(question.is_verified),
         });
     }
 
@@ -53,6 +55,7 @@ export class JavaForm {
             variables: variablesJSON,
             junit_template: form.value.junit_template,
             input_files: inputFiles,
+            is_verified: form.value.is_verified,
         };
     }
 }
@@ -67,4 +70,5 @@ export interface JavaFormData {
     variables: JSON[],
     junit_template: string,
     input_files: JSON,
+    is_verified: boolean,
 }

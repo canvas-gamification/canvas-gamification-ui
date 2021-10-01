@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaderResponse} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {Observable} from "rxjs";
 import {ApiService} from "@app/_services/api.service";
-import {APIResponse} from "@app/_models";
 import {EmailFormData, PasswordFormData} from "@app/accounts/_forms/reset-password.form";
 
 @Injectable({
@@ -14,15 +13,23 @@ export class ResetPasswordService {
     constructor(private http: HttpClient, private apiService: ApiService) {
     }
 
-    putPasswordReset(input: PasswordFormData): Observable<APIResponse> {
+    /**
+     * Update password.
+     * @param input - New password form data.
+     */
+    putPasswordReset(input: PasswordFormData): Observable<HttpHeaderResponse> {
         const url = this.apiService.getURL('reset-password');
-        return this.http.post<APIResponse>(url, input)
+        return this.http.post<HttpHeaderResponse>(url, input)
             .pipe(catchError(this.apiService.handleFormError()));
     }
 
-    sendForgotPasswordEmail(input: EmailFormData): Observable<APIResponse> {
+    /**
+     * Send an email with a reset password link.
+     * @param input - Email form data.
+     */
+    sendForgotPasswordEmail(input: EmailFormData): Observable<HttpHeaderResponse> {
         const url = this.apiService.getURL('reset-password', 'send-email');
-        return this.http.post<APIResponse>(url, input)
+        return this.http.post<HttpHeaderResponse>(url, input)
             .pipe(catchError(this.apiService.handleFormError()));
     }
 }
