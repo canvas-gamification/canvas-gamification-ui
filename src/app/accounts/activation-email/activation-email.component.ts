@@ -11,9 +11,9 @@ import {ToastrService} from "ngx-toastr";
     styleUrls: ['./activation-email.component.scss']
 })
 export class ActivationEmailComponent implements OnInit {
-    private routeSub: Subscription;
     uuid: string;
     token: string;
+    private routeSub: Subscription;
 
     constructor(private route: ActivatedRoute,
                 private registerService: RegisterService,
@@ -31,6 +31,7 @@ export class ActivationEmailComponent implements OnInit {
             () => {
                 this.toastr.success('You have activated your account successfully.');
                 this.router.navigate(['/accounts/login']).then();
+
             },
             () => {
                 this.router.navigate(['accounts', 'login']).then();

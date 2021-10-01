@@ -58,8 +58,8 @@ export class CourseEventCreateEditComponent implements OnInit {
         } else { // Creating a brand new event
             this.courseEventService.addCourseEvent(ourEvent).subscribe(
                 () => {
-                    this.router.navigate(['course', this.courseId]).then();
                     this.toastr.success('The Event has been added Successfully.');
+                    this.router.navigate(['course', this.courseId]).then();
                 }, error => {
                     this.toastr.error(error);
                 }

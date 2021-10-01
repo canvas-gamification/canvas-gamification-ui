@@ -22,6 +22,10 @@ export class ResetPasswordComponent implements OnInit {
                 private router: Router) {
     }
 
+    get form(): { [p: string]: AbstractControl } {
+        return this.formGroup.controls;
+    }
+
     ngOnInit(): void {
         const uuid = this.route.snapshot.params.uuid;
         const token = this.route.snapshot.params.token;
@@ -34,18 +38,21 @@ export class ResetPasswordComponent implements OnInit {
         }
     }
 
-    get form(): { [p: string]: AbstractControl } {
-        return this.formGroup.controls;
-    }
-
+    /**
+     * Submit new password form.
+     */
     onSubmit(): void {
         const data = ResetPasswordForm.extractPasswordFormData(this.formGroup);
         this.resetPasswordService.putPasswordReset(data).subscribe(() => {
-            this.toastr.success('Your password has been updated successfully!');
-            this.router.navigate(['/accounts/login']).then();
+            this.router.navigate(['/accounts/login']).then(() => {
+                this.toastr.success('Your password has been updated successfully!');
+            });
         });
     }
 
+    /**
+     * Send email.
+     */
     submitEmail(): void {
         const data = ResetPasswordForm.extractEmailFormData(this.formGroup);
         this.resetPasswordService.sendForgotPasswordEmail(data)

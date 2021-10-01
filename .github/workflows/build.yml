@@ -7,7 +7,7 @@ jobs:
         strategy:
             matrix:
                 os: [ ubuntu-latest, windows-latest, macos-latest ]
-                node: [ 16.x ]
+                node: [ 16.1.0 ]
         runs-on: ${{ matrix.os }}
         steps:
             -   name: Checkout
@@ -27,7 +27,7 @@ jobs:
         strategy:
             matrix:
                 os: [ ubuntu-latest, windows-latest, macos-latest ]
-                node: [ 16.x ]
+                node: [ 16.1.0 ]
         runs-on: ${{ matrix.os }}
         steps:
             -   name: Checkout
@@ -43,7 +43,9 @@ jobs:
             -   name: Test
                 run: npm run test:ci
             -   name: Test e2e
-                run: npm run e2e:ci
+                run: |
+                    npm run e2e:ci:init
+                    npm run e2e:ci
             -   name: Archive code coverage result
                 if: success() && startsWith(matrix.os, 'ubuntu') && startsWith(matrix.node, '16')
                 uses: actions/upload-artifact@v1
