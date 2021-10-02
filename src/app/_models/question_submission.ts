@@ -1,6 +1,15 @@
 import {Question} from '@app/_models/question';
 import {SafeHtml} from "@angular/platform-browser";
 
+export enum StatusMessage {
+    IN_QUEUE = 'In Queue',
+    PROCESSING = 'Processing',
+    ACCEPTED = 'Accepted',
+    WRONG = 'Wrong Answer',
+    TIME_LIMIT_EXCEEDED = 'Time Limit Exceeded',
+    COMPILATION_ERROR = 'Compilation Error'
+}
+
 export interface QuestionSubmission {
     pk: number;
     submission_time: Date;
@@ -17,7 +26,7 @@ export interface QuestionSubmission {
     no_file_answer: boolean;
     get_decoded_stderr: string;
     get_decoded_results: string[];
-    get_status_message: string;
+    get_status_message: StatusMessage;
     get_formatted_test_results: string;
     get_passed_test_results: { name: string; message: string }[];
     get_failed_test_results: { name: string; message: string }[];

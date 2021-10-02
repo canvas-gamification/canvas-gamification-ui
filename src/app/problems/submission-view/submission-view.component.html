@@ -77,7 +77,7 @@
             <ng-template #successCompile>
                 <p>Compiled successfully!</p>
             </ng-template>
-            <ng-container>
+            <ng-container *ngIf="errorMessage">
                 Message: {{ submission?.get_status_message }}
             </ng-container>
         </div>
