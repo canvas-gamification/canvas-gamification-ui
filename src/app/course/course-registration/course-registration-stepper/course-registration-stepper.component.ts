@@ -1,25 +1,32 @@
-import {Component, Input, QueryList, ViewChild, ViewChildren} from '@angular/core';
-import {TuiStepComponent, TuiStepperComponent} from "@taiga-ui/kit";
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    Input,
+    QueryList,
+    ViewChildren
+} from '@angular/core';
+import {TuiStepComponent} from "@taiga-ui/kit";
+import {CourseRegistrationStepComponent} from "@app/course/course-registration/course-registration-step/course-registration-step.component";
 
 @Component({
     selector: 'app-course-registration-stepper',
     templateUrl: './course-registration-stepper.component.html',
-    styleUrls: ['./course-registration-stepper.component.scss']
+    styleUrls: ['./course-registration-stepper.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseRegistrationStepperComponent {
+export class CourseRegistrationStepperComponent implements AfterViewInit {
     @Input()
-    steps: string[];
-
-    @ViewChild('stepperHeader')
-    stepperComponent!: TuiStepperComponent;
+    steps: string[] = [];
+    currentStep = 0;
     @ViewChildren('headerStep')
-    stepComponents!: QueryList<TuiStepComponent>;
+    tuiStepComponents!: QueryList<TuiStepComponent>;
+    @ContentChildren(CourseRegistrationStepComponent)
+    stepComponents!: QueryList<CourseRegistrationStepComponent>;
 
-    /**
-     * Get the current stepper number
-     */
-    getCurrentStepNumber(): number {
-        return this.stepperComponent.activeItemIndex;
+    ngAfterViewInit(): void {
+        this.setStep(this.currentStep);
     }
 
     /**
@@ -27,7 +34,7 @@ export class CourseRegistrationStepperComponent {
      * @param stepNumber
      */
     getStep(stepNumber: number): TuiStepComponent {
-        return this.stepComponents.toArray()[stepNumber];
+        return this.tuiStepComponents.toArray()[stepNumber];
     }
 
     /**
@@ -36,22 +43,23 @@ export class CourseRegistrationStepperComponent {
      * @private
      */
     private setStep(stepNumber: number): void {
-        this.stepperComponent.activate(stepNumber);
+        this.currentStep = stepNumber;
+        this.stepComponents.toArray().forEach((stepComponent, index) => stepComponent.visible = stepNumber === index);
     }
 
     /**
      * Set the step to be the next step
      */
     setNextStep(): void {
-        this.setStepComplete(this.getCurrentStepNumber());
-        this.setStep(this.getCurrentStepNumber() + 1);
+        this.setStepComplete(this.currentStep);
+        this.setStep(this.currentStep + 1);
     }
 
     /**
      * Set the step to be the previous step
      */
     setPrevStep(): void {
-        this.setStep(this.getCurrentStepNumber() - 1);
+        this.setStep(this.currentStep - 1);
     }
 
     /**

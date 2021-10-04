@@ -1,5 +1,4 @@
-import {Component, Input} from '@angular/core';
-import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component";
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'app-course-registration-step',
@@ -7,14 +6,5 @@ import {CourseRegistrationStepperComponent} from "@app/course/course-registratio
     styleUrls: ['./course-registration-step.component.scss']
 })
 export class CourseRegistrationStepComponent {
-    @Input()
-    stepNumber: number;
-    @Input()
-    stepper: CourseRegistrationStepperComponent;
-
-    showStep(): boolean {
-        if (this.stepper)
-            return this.stepper.getCurrentStepNumber() === this.stepNumber;
-        return false;
-    }
+    visible = false;
 }

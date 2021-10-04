@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormGroup} from '@angular/forms';
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import {CourseService} from '@app/course/_services/course.service';
 import {ToastrService} from "ngx-toastr";
 import {CourseRegistrationRequest, CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
@@ -18,11 +17,7 @@ export const STEPPER_STAGES = {
 @Component({
     selector: 'app-register',
     templateUrl: './course-register.component.html',
-    styleUrls: ['./course-register.component.scss'],
-    providers: [{
-        provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false, showError: true}
-    }],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./course-register.component.scss']
 })
 export class CourseRegisterComponent implements OnInit {
     @ViewChild('stepper')
@@ -47,8 +42,7 @@ export class CourseRegisterComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private courseService: CourseService,
-                private toastr: ToastrService,
-                private changeDetector : ChangeDetectorRef) {
+                private toastr: ToastrService) {
         this.courseId = this.route.snapshot.params.courseId;
         this.needsStudentNumber = false;
         this.loadingContent = false;
@@ -78,7 +72,6 @@ export class CourseRegisterComponent implements OnInit {
                 } else {
                     this.registered = false;
                 }
-                this.changeDetector.detectChanges();
             }
         );
     }
@@ -128,7 +121,6 @@ export class CourseRegisterComponent implements OnInit {
                     this.setStepperStatusFromRegistration(courseRegResponse);
                 }
                 this.loadingContent = false;
-                this.changeDetector.detectChanges();
             }
         );
     }
@@ -146,7 +138,6 @@ export class CourseRegisterComponent implements OnInit {
                     this.setStepperStatusFromRegistration(courseRegResponse);
                 }
                 this.loadingContent = false;
-                this.changeDetector.detectChanges();
             }
         );
     }
@@ -163,7 +154,7 @@ export class CourseRegisterComponent implements OnInit {
         if (courseRegResponse.success) {
             this.stepper.setNextStep();
         } else {
-            if (this.stepper.getCurrentStepNumber() === STEPPER_STAGES.ENTER_NAME) {
+            if (this.stepper.currentStep === STEPPER_STAGES.ENTER_NAME) {
                 this.needsStudentNumber = true;
                 this.stepper.setNextStep();
             }

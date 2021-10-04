@@ -3,7 +3,6 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {CourseRegistrationStepperComponent} from '../../../course-registration/course-registration-stepper/course-registration-stepper.component';
 import {TestModule} from "@test/test.module";
 import {TuiStepComponent, TuiStepperComponent, TuiStepperModule} from "@taiga-ui/kit";
-import {ElementRef} from "@angular/core";
 
 describe('CourseRegistrationStepperComponent', () => {
     let component: CourseRegistrationStepperComponent;
@@ -28,15 +27,15 @@ describe('CourseRegistrationStepperComponent', () => {
     });
 
     it('should get correct step number', () => {
-        component.stepperComponent.activeItemIndex = 0;
+        component.currentStep = 0;
         fixture.detectChanges();
-        expect(component.getCurrentStepNumber()).toEqual(0);
+        expect(component.currentStep).toEqual(0);
     });
 
     it('should get existing taiga step components', () => {
-        expect(component.getStep(0)).toEqual(jasmine.any(ElementRef));
-        expect(component.getStep(1)).toEqual(jasmine.any(ElementRef));
-        expect(component.getStep(2)).toEqual(jasmine.any(ElementRef));
+        expect(component.getStep(0)).toEqual(jasmine.any(TuiStepComponent));
+        expect(component.getStep(1)).toEqual(jasmine.any(TuiStepComponent));
+        expect(component.getStep(2)).toEqual(jasmine.any(TuiStepComponent));
     });
 
     it('should not get out of index taiga step component', () => {
@@ -45,15 +44,15 @@ describe('CourseRegistrationStepperComponent', () => {
 
     it('should set next step', () => {
         spyOn(component, 'setStepComplete');
-        expect(component.getCurrentStepNumber()).toEqual(0);
+        expect(component.currentStep).toEqual(0);
         component.setNextStep();
-        expect(component.getCurrentStepNumber()).toEqual(1);
+        expect(component.currentStep).toEqual(1);
         expect(component.setStepComplete).toHaveBeenCalled();
     });
 
     it('should set previous step', () => {
         component.setPrevStep();
-        expect(component.getCurrentStepNumber()).toEqual(-1);
+        expect(component.currentStep).toEqual(-1);
     });
 
     it('should mark step as complete', () => {

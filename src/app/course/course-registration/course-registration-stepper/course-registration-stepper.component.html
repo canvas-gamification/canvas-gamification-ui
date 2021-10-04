@@ -1,4 +1,4 @@
-<tui-stepper [activeItemIndex]="0" #stepperHeader>
+<tui-stepper [(activeItemIndex)]="currentStep" #stepperHeader>
     <button *ngFor="let step of steps"
             tuiStep
             [disabled]="true"

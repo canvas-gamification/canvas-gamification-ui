@@ -13,7 +13,7 @@
     <ng-container *ngIf="!registered">
         <app-course-registration-stepper [steps]="['Enter Name', 'Confirm Identity', 'Verification', 'Registered']"
                                          #stepper>
-            <app-course-registration-step [stepNumber]="0" [stepper]="stepper">
+            <app-course-registration-step>
                 <form [formGroup]="nameForm" (ngSubmit)="onNameFormSubmit()">
                     <div class="tui-space_top-5">
                         <tui-input formControlName="nameControl"
@@ -34,7 +34,7 @@
                     </div>
                 </form>
             </app-course-registration-step>
-            <app-course-registration-step [stepNumber]="1" [stepper]="stepper">
+            <app-course-registration-step>
                 <form [formGroup]="needsStudentNumber ? studentNumberForm : confirmNameForm"
                       (ngSubmit)="onConfirmationFormSubmit()">
                     <ng-container *ngIf="needsStudentNumber">
@@ -67,7 +67,7 @@
                     </div>
                 </form>
             </app-course-registration-step>
-            <app-course-registration-step [stepNumber]="2" [stepper]="stepper">
+            <app-course-registration-step>
                 <form [formGroup]="verifyForm" (ngSubmit)="onVerificationFormSubmit()">
                     <div class="tui-space_top-5">
                         <tui-input formControlName="verifyControl"
@@ -98,7 +98,7 @@
                     </div>
                 </form>
             </app-course-registration-step>
-            <app-course-registration-step [stepNumber]="3" [stepper]="stepper">
+            <app-course-registration-step>
                 <p class="tui-space_top-5">Registration Complete.</p>
                 <div class="tui-form__buttons">
                     <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"

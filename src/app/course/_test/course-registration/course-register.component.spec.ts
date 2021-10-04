@@ -16,9 +16,7 @@ import {
     MOCK_VERIFY_STEP1,
     MOCK_VERIFY_SUCCESS
 } from "@app/course/_test/mock";
-import {TuiStepperModule} from "@taiga-ui/kit";
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component";
-import {CourseRegistrationStepComponent} from "@app/course/course-registration/course-registration-step/course-registration-step.component";
 
 describe('CourseRegisterComponent', () => {
     let component: CourseRegisterComponent;
@@ -27,8 +25,8 @@ describe('CourseRegisterComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, TuiStepperModule, ReactiveFormsModule],
-            declarations: [CourseRegisterComponent, CourseRegistrationStepperComponent, CourseRegistrationStepComponent],
+            imports: [TestModule, ReactiveFormsModule],
+            declarations: [CourseRegisterComponent, CourseRegistrationStepperComponent, CourseRegistrationStepperComponent],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock},
                 {
@@ -57,7 +55,7 @@ describe('CourseRegisterComponent', () => {
     });
 
     it('should get correct step number', () => {
-        expect(component.stepper.getCurrentStepNumber()).toEqual(0);
+        expect(component.stepper.currentStep).toEqual(0);
     });
 
     it('should get registration status on init', () => {
