@@ -7,7 +7,15 @@ export enum StatusMessage {
     ACCEPTED = 'Accepted',
     WRONG = 'Wrong Answer',
     TIME_LIMIT_EXCEEDED = 'Time Limit Exceeded',
-    COMPILATION_ERROR = 'Compilation Error'
+    COMPILATION_ERROR = 'Compilation Error',
+    RUNTIME_ERROR_SIGSEGV = 'Runtime Error (SIGSEGV)',
+    RUNTIME_ERROR_SIGXFSZ = 'Runtime Error (SIGXFSZ)',
+    RUNTIME_ERROR_SIGFPE = 'Runtime Error (SIGFPE)',
+    RUNTIME_ERROR_SIGABRT = 'Runtime Error (SIGABRT)',
+    RUNTIME_ERROR_NZEC = 'Runtime Error (NZEC)',
+    RUNTIME_ERROR_OTHER = 'Runtime Error (Other)',
+    INTERNAL_ERROR = 'Internal Error',
+    EXEC_FORMAT_ERROR = 'Exec Format Error',
 }
 
 export interface QuestionSubmission {
