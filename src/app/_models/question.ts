@@ -20,6 +20,7 @@ export interface Question {
     parent_category_name: string;
     full_category_name: string;
     course_name: string;
+    course: number;
     event_name: string;
     author_name: string;
     choices: { [index: string]: string };
@@ -41,4 +42,5 @@ export interface InputFiles extends Array<{
     compile: boolean,
     lines?: string[],
     template?: string,
-}> {}
+}> {
+}

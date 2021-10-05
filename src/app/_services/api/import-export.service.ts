@@ -5,8 +5,8 @@ import {Observable} from "rxjs";
 import {Question} from "@app/_models";
 import {catchError} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
-import {QuestionService} from "@app/_services/api/question.service";
 import {CategoryService} from "@app/_services/api/category.service";
+import {QuestionService} from "@app/problems/_services/question.service";
 
 @Injectable({
     providedIn: 'root'
@@ -54,23 +54,23 @@ export class ImportExportService {
         const input = {
             title: question.title,
             difficulty: question.difficulty,
-            course: question.course_name,
-            event: (String(eventId) === 'undefined') ? null : String(eventId),
+            course: question.course,
+            event: eventId,
             text: question.text,
             answer: question.answer,
-            category: String(question.category),
+            category: question.category,
             variables: question.variables,
             visible_distractor_count: question.visible_distractor_count,
+            is_verified: true,
             choices: question.choices
         };
-        this.questionService.postMultipleChoiceQuestion(input).subscribe((result) => {
-            if (result.success != false)
-                this.toastr.success('The Question has been added Successfully.');
+        this.questionService.postMultipleChoiceQuestion(input).subscribe(() => {
+            this.toastr.success('The Question has been added Successfully.');
         });
 
     }
 
-    uploadParsonsQuestion(question: Question): void {
+    /*uploadParsonsQuestion(question: Question): void {
         const eventId = (typeof question.event === 'number') ? question.event : question.event?.id;
         const input = {
             title: question.title,
@@ -84,9 +84,8 @@ export class ImportExportService {
             additional_file_name: question.additional_file_name,
             junit_template: question.junit_template
         };
-        this.questionService.postParsonsQuestion(input).subscribe((result) => {
-            if (result.success != false)
-                this.toastr.success('The Question has been added Successfully.');
+        this.questionService.postParsonsQuestion(input).subscribe(() => {
+            this.toastr.success('The Question has been added Successfully.');
         });
 
     }
@@ -104,9 +103,8 @@ export class ImportExportService {
             junit_template: question.junit_template,
             input_file_names: question.input_file_names
         };
-        this.questionService.postJavaQuestion(input).subscribe((result) => {
-            if (result.success != false)
-                this.toastr.success('The Question has been added Successfully.');
+        this.questionService.postJavaQuestion(input).subscribe(() => {
+            this.toastr.success('The Question has been added Successfully.');
         });
-    }
+    }*/
 }

@@ -56,6 +56,7 @@ export const MOCK_MCQ_QUESTION: Question = {
         'a': 'sag',
         'b': 'gav'
     },
+    course: 0,
     course_name: '',
     difficulty: '',
     event: MOCK_COURSE_EVENT,
@@ -97,6 +98,7 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
         'c': 'foo',
         'd': 'bar'
     },
+    course: 0,
     course_name: '',
     difficulty: '',
     event: MOCK_COURSE_EVENT,
@@ -133,6 +135,7 @@ export const MOCK_JAVA_QUESTION: Question = {
     author_name: '',
     category_name: '',
     choices: null,
+    course: 0,
     course_name: '',
     difficulty: '',
     event: MOCK_COURSE_EVENT,
@@ -169,6 +172,7 @@ export const MOCK_PARSONS_QUESTION: Question = {
     author_name: '',
     category_name: '',
     choices: null,
+    course: 0,
     course_name: '',
     difficulty: '',
     event: MOCK_COURSE_EVENT,

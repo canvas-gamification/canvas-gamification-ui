@@ -290,10 +290,10 @@ export class ProblemSetComponent implements OnInit {
     uploadQuestion(question: Question): void {
         if (question.type_name === 'multiple choice question')
             this.importExportService.uploadMCQuestion(question);
-        else if (question.type_name === 'parsons question')
+        /*else if (question.type_name === 'parsons question')
             this.importExportService.uploadParsonsQuestion(question);
         else if (question.type_name === 'java question')
-            this.importExportService.uploadJavaQuestion(question);
+            this.importExportService.uploadJavaQuestion(question);*/
         else
             this.toastr.error('The question type is invalid');
     }

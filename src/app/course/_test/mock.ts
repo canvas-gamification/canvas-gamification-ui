@@ -211,6 +211,7 @@ export const MOCK_MCQ_QUESTION: Question = {
     status: 'Solved',
     answer: 'a',
     author: 0,
+    course: 0,
     author_name: '',
     category_name: '',
     choices: {
