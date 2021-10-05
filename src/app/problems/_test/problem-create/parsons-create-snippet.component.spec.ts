@@ -14,13 +14,13 @@ import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 import {CourseService} from "@app/course/_services/course.service";
 import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotificationsService} from "@taiga-ui/core";
 
 describe('ParsonsCreateSnippetComponent', () => {
     let component: ParsonsCreateSnippetComponent;
     let fixture: ComponentFixture<ParsonsCreateSnippetComponent>;
     let router: Router;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -37,8 +37,8 @@ describe('ParsonsCreateSnippetComponent', () => {
     beforeEach(() => {
         router = TestBed.inject(Router);
         spyOn(router, 'navigate');
-        toastr = TestBed.inject(ToastrService);
-        spyOn(toastr, 'success');
+        notificationService = TestBed.inject(TuiNotificationsService);
+        spyOn(notificationService, 'show');
         fixture = TestBed.createComponent(ParsonsCreateSnippetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -67,7 +67,7 @@ describe('ParsonsCreateSnippetComponent', () => {
             lines: 'a\nb\nc\n',
         }];
         component.onSubmit();
-        expect(toastr.success).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'parsons']);
     });
 

@@ -43,10 +43,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
-import {TuiRootModule} from '@taiga-ui/core';
+import {TuiButtonModule, TuiNotificationsModule, TuiRootModule} from '@taiga-ui/core';
 
 @NgModule({
     declarations: [
@@ -97,9 +96,10 @@ import {TuiRootModule} from '@taiga-ui/core';
         NgxMatNativeDateModule,
         HighlightModule,
         MatSelectModule,
-        ToastrModule.forRoot(),
         HighlightModule,
         TuiRootModule,
+        TuiNotificationsModule,
+        TuiButtonModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

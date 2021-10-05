@@ -2,13 +2,3 @@
 @import 'mixins';
 @import 'highlight';
 @import "bootstrap";
-@import '~ngx-toastr/toastr-bs4-alert';
-
-body {
-    font-size: 2rem;
-    font-family: Arial, serif;
-    background-color: $gray-100;
-}
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

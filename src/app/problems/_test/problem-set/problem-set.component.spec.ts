@@ -14,12 +14,12 @@ import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AppRoutingModule} from "@app/app-routing.module";
 import {MOCK_DIFFICULTIES} from "@app/problems/_test/mock";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotificationsService} from "@taiga-ui/core";
 
 describe('ProblemSetComponent', () => {
     let component: ProblemSetComponent;
     let fixture: ComponentFixture<ProblemSetComponent>;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -34,8 +34,8 @@ describe('ProblemSetComponent', () => {
     });
 
     beforeEach(() => {
-        toastr = TestBed.inject(ToastrService);
-        spyOn(toastr, 'success');
+        notificationService = TestBed.inject(TuiNotificationsService);
+        spyOn(notificationService, 'show');
         fixture = TestBed.createComponent(ProblemSetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -78,7 +78,7 @@ describe('ProblemSetComponent', () => {
     it('should delete a question', () => {
         component.deleteQuestionId = 0;
         component.deleteQuestion();
-        expect(toastr.success).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
     });
 
     it('should open delete modal', () => {

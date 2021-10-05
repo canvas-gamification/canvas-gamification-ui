@@ -8,13 +8,13 @@ import {CourseServiceMock} from "@test/course.service.mock";
 import {MatStepperModule} from "@angular/material/stepper";
 import {ActivatedRoute} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
-import {ToastrService} from "ngx-toastr";
 import {MOCK_IDENTIFICATION_RESPONSE1, MOCK_VERIFY_FAIL} from "@app/course/_test/mock";
+import {TuiNotificationsService} from "@taiga-ui/core";
 
 describe('RegisterComponent', () => {
     let component: CourseRegisterComponent;
     let fixture: ComponentFixture<CourseRegisterComponent>;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -36,8 +36,8 @@ describe('RegisterComponent', () => {
     });
 
     beforeEach(() => {
-        toastr = TestBed.inject(ToastrService);
-        spyOn(toastr, 'error');
+        notificationService = TestBed.inject(TuiNotificationsService);
+        spyOn(notificationService, 'show');
         fixture = TestBed.createComponent(CourseRegisterComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -80,7 +80,7 @@ describe('RegisterComponent', () => {
 
     it('sendErrorMessage should work', () => {
         component.sendErrorMessage();
-        expect(toastr.error).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
     });
 
     it('setRegistrationStage should work', () => {

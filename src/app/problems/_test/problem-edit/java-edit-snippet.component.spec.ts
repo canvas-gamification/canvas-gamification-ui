@@ -16,13 +16,13 @@ import {CourseEventServiceMock} from "@app/problems/_test/course-event.service.m
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotificationsService} from "@taiga-ui/core";
 
 describe('JavaEditSnippetComponent', () => {
     let component: JavaEditSnippetComponent;
     let fixture: ComponentFixture<JavaEditSnippetComponent>;
     let router: Router;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -39,8 +39,8 @@ describe('JavaEditSnippetComponent', () => {
         beforeEach(() => {
             router = TestBed.inject(Router);
             spyOn(router, 'navigate');
-            toastr = TestBed.inject(ToastrService);
-            spyOn(toastr, 'success');
+            notificationService = TestBed.inject(TuiNotificationsService);
+            spyOn(notificationService, 'show');
             fixture = TestBed.createComponent(JavaEditSnippetComponent);
             component = fixture.componentInstance;
             component.questionDetails = MOCK_JAVA_QUESTION;
@@ -64,7 +64,7 @@ describe('JavaEditSnippetComponent', () => {
 
         it('should update java question', () => {
             component.onSubmit();
-            expect(toastr.success).toHaveBeenCalled();
+            expect(notificationService.show).toHaveBeenCalled();
             expect(router.navigate).toHaveBeenCalledOnceWith(['problems', '2', 'edit']);
         });
 

@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {RegisterService} from '@app/accounts/_services/register.service';
-
-import {ToastrService} from "ngx-toastr";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-activation-email',
@@ -17,8 +16,8 @@ export class ActivationEmailComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private registerService: RegisterService,
-                private toastr: ToastrService,
-                private router: Router) {
+                private router: Router,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     ngOnInit(): void {
@@ -29,7 +28,10 @@ export class ActivationEmailComponent implements OnInit {
 
         this.registerService.postActivation(this.uuid, this.token).subscribe(
             () => {
-                this.toastr.success('You have activated your account successfully.');
+                this.notificationsService
+                    .show('You have activated your account successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
                 this.router.navigate(['/accounts/login']).then();
 
             },
