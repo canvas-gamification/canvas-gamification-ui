@@ -15,6 +15,8 @@ import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 import {CourseService} from "@app/course/_services/course.service";
 import {Router} from "@angular/router";
 import {TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
+import {delay} from "rxjs/operators";
 
 describe('ParsonsCreateSnippetComponent', () => {
     let component: ParsonsCreateSnippetComponent;
@@ -38,7 +40,9 @@ describe('ParsonsCreateSnippetComponent', () => {
         router = TestBed.inject(Router);
         spyOn(router, 'navigate');
         notificationService = TestBed.inject(TuiNotificationsService);
-        spyOn(notificationService, 'show');
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of().pipe(delay(100));
+        });
         fixture = TestBed.createComponent(ParsonsCreateSnippetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

@@ -10,6 +10,8 @@ import {Router} from "@angular/router";
 import {ConsentService} from "@app/accounts/_services/consent.service";
 import {ConsentServiceMock} from "@app/accounts/_test/consent.service.mock";
 import {TuiNotificationsService} from '@taiga-ui/core';
+import {delay} from "rxjs/operators";
+import {of} from "rxjs";
 
 describe('ConsentFormComponent', () => {
     let component: ConsentFormComponent;
@@ -31,7 +33,9 @@ describe('ConsentFormComponent', () => {
     describe('The user is an admin', () => {
         beforeEach(() => {
             notificationService = TestBed.inject(TuiNotificationsService);
-            spyOn(notificationService, 'show');
+            spyOn(notificationService, 'show').and.callFake(() => {
+                return of().pipe(delay(100));
+            });
             router = TestBed.inject(Router);
             spyOn(router, 'navigate');
             fixture = TestBed.createComponent(ConsentFormComponent);

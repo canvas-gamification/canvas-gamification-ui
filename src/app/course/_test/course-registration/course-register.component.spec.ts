@@ -10,6 +10,8 @@ import {ActivatedRoute} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MOCK_IDENTIFICATION_RESPONSE1, MOCK_VERIFY_FAIL} from "@app/course/_test/mock";
 import {TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
+import {delay} from "rxjs/operators";
 
 describe('RegisterComponent', () => {
     let component: CourseRegisterComponent;
@@ -37,7 +39,9 @@ describe('RegisterComponent', () => {
 
     beforeEach(() => {
         notificationService = TestBed.inject(TuiNotificationsService);
-        spyOn(notificationService, 'show');
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of().pipe(delay(100));
+        });
         fixture = TestBed.createComponent(CourseRegisterComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
