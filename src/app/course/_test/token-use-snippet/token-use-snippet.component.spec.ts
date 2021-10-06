@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TokenUseSnippetComponent} from '../../token-use-snippet/token-use-snippet.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_COURSE_REGISTRATION, MOCK_TOKEN_USE1, MOCK_TOKEN_USE2} from "@app/course/_test/mock";
+import {MOCK_COURSE_REGISTRATION, MOCK_TOKEN_USE1} from "@app/course/_test/mock";
 import {ActivatedRoute} from "@angular/router";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {TokenUseServiceMock} from "@app/course/_test/token-use.service.mock";
