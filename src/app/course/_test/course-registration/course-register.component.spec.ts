@@ -5,7 +5,7 @@ import {TestModule} from '@test/test.module';
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {ActivatedRoute} from "@angular/router";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {
     MOCK_CONFIRM_RESPONSE1,
@@ -17,6 +17,9 @@ import {
     MOCK_VERIFY_SUCCESS
 } from "@app/course/_test/mock";
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component";
+import {CourseRegistrationStepComponent} from "@app/course/course-registration/course-registration-step/course-registration-step.component";
+import {TuiFieldErrorModule, TuiInputModule, TuiStepperModule} from "@taiga-ui/kit";
+import {TuiTextfieldControllerModule} from "@taiga-ui/core";
 
 describe('CourseRegisterComponent', () => {
     let component: CourseRegisterComponent;
@@ -25,8 +28,8 @@ describe('CourseRegisterComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, ReactiveFormsModule],
-            declarations: [CourseRegisterComponent, CourseRegistrationStepperComponent, CourseRegistrationStepperComponent],
+            imports: [TestModule, ReactiveFormsModule, TuiStepperModule, TuiInputModule, TuiTextfieldControllerModule, TuiFieldErrorModule],
+            declarations: [CourseRegisterComponent, CourseRegistrationStepperComponent, CourseRegistrationStepComponent],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock},
                 {

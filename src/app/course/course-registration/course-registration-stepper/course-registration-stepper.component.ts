@@ -1,6 +1,7 @@
 import {
+    AfterContentInit,
     AfterViewInit,
-    ChangeDetectionStrategy,
+    ChangeDetectionStrategy, ChangeDetectorRef,
     Component,
     ContentChildren,
     Input,
@@ -16,7 +17,7 @@ import {CourseRegistrationStepComponent} from "@app/course/course-registration/c
     styleUrls: ['./course-registration-stepper.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseRegistrationStepperComponent implements AfterViewInit {
+export class CourseRegistrationStepperComponent implements AfterContentInit {
     @Input()
     steps: string[] = [];
     currentStep = 0;
@@ -25,7 +26,10 @@ export class CourseRegistrationStepperComponent implements AfterViewInit {
     @ContentChildren(CourseRegistrationStepComponent)
     stepComponents!: QueryList<CourseRegistrationStepComponent>;
 
-    ngAfterViewInit(): void {
+    constructor(private changeDetector: ChangeDetectorRef) {
+    }
+
+    ngAfterContentInit(): void {
         this.setStep(this.currentStep);
     }
 
@@ -53,6 +57,7 @@ export class CourseRegistrationStepperComponent implements AfterViewInit {
     setNextStep(): void {
         this.setStepComplete(this.currentStep);
         this.setStep(this.currentStep + 1);
+        this.changeDetector.detectChanges();
     }
 
     /**
@@ -60,6 +65,7 @@ export class CourseRegistrationStepperComponent implements AfterViewInit {
      */
     setPrevStep(): void {
         this.setStep(this.currentStep - 1);
+        this.changeDetector.detectChanges();
     }
 
     /**
