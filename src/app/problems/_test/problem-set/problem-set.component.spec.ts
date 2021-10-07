@@ -15,6 +15,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AppRoutingModule} from "@app/app-routing.module";
 import {MOCK_DIFFICULTIES} from "@app/problems/_test/mock";
 import {TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
 
 describe('ProblemSetComponent', () => {
     let component: ProblemSetComponent;
@@ -35,7 +36,9 @@ describe('ProblemSetComponent', () => {
 
     beforeEach(() => {
         notificationService = TestBed.inject(TuiNotificationsService);
-        spyOn(notificationService, 'show');
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of();
+        });
         fixture = TestBed.createComponent(ProblemSetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

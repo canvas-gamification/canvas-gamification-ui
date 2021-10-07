@@ -11,6 +11,7 @@ import {NgxMatDatetimePickerModule} from "@angular-material-components/datetime-
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
 
 describe('CourseEventCreateComponent with EventId', () => {
     let component: CourseEventCreateEditComponent;
@@ -45,7 +46,9 @@ describe('CourseEventCreateComponent with EventId', () => {
 
     beforeEach(() => {
         notificationService = TestBed.inject(TuiNotificationsService);
-        spyOn(notificationService, 'show');
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of();
+        });
         fixture = TestBed.createComponent(CourseEventCreateEditComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -100,7 +103,9 @@ describe('CourseEventCreateComponent without EventId', () => {
         router = TestBed.inject(Router);
         spyOn(router, 'navigate');
         notificationService = TestBed.inject(TuiNotificationsService);
-        spyOn(notificationService, 'show');
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of();
+        });
         fixture = TestBed.createComponent(CourseEventCreateEditComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
