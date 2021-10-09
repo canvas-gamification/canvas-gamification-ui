@@ -1,8 +1,4 @@
-import {
-    FormBuilder, FormControl,
-    FormGroup,
-    Validators
-} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 export class CourseRegisterForm {
     /**
