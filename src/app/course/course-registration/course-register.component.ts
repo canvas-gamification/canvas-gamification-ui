@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormGroup} from '@angular/forms';
 import {CourseService} from '@app/course/_services/course.service';
@@ -42,7 +42,8 @@ export class CourseRegisterComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private courseService: CourseService,
-                private toastr: ToastrService) {
+                private toastr: ToastrService,
+                private changeDetector: ChangeDetectorRef) {
         this.courseId = this.route.snapshot.params.courseId;
         this.needsStudentNumber = false;
         this.loadingContent = false;
@@ -82,9 +83,9 @@ export class CourseRegisterComponent implements OnInit {
     onNameFormSubmit(): void {
         this.resetFormValues();
         const data = this.generateCourseRegistrationRequest();
+        if (!data.name) return;
         this.needsStudentNumber = false;
         this.loadingContent = true;
-        if (!data.name) return;
         this.registerAndUpdateStepper(data);
     }
 
@@ -93,8 +94,8 @@ export class CourseRegisterComponent implements OnInit {
      */
     onConfirmationFormSubmit(): void {
         const data = this.generateCourseRegistrationRequest();
-        this.loadingContent = true;
         if (!data.name && !data.student_number) return;
+        this.loadingContent = true;
         this.registerAndUpdateStepper(data);
     }
 
@@ -103,8 +104,8 @@ export class CourseRegisterComponent implements OnInit {
      */
     onVerificationFormSubmit(): void {
         const data = this.generateCourseRegistrationRequest();
-        this.loadingContent = true;
         if (!data.code) return;
+        this.loadingContent = true;
         this.verifyRegistrationAndUpdateStepper(data);
     }
 
@@ -120,7 +121,7 @@ export class CourseRegisterComponent implements OnInit {
                 } else {
                     this.setStepperStatusFromRegistration(courseRegResponse);
                 }
-                this.loadingContent = false;
+                this.cleanUpLoadingContent();
             }
         );
     }
@@ -137,9 +138,18 @@ export class CourseRegisterComponent implements OnInit {
                 } else {
                     this.setStepperStatusFromRegistration(courseRegResponse);
                 }
-                this.loadingContent = false;
+                this.cleanUpLoadingContent();
             }
         );
+    }
+
+    /**
+     * Set the loadingContent variable to false after server actions have been completed
+     * Detect changes to update the buttons states to avoid ExpressionChangedAfterItHasBeenCheckedError's
+     */
+    cleanUpLoadingContent(): void {
+        this.loadingContent = false;
+        this.changeDetector.detectChanges();
     }
 
     /**

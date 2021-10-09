@@ -1,23 +1,32 @@
 import {
+    AfterContentChecked,
     AfterContentInit,
-    AfterViewInit,
-    ChangeDetectionStrategy, ChangeDetectorRef,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChildren,
     Input,
     QueryList,
     ViewChildren
 } from '@angular/core';
-import {TuiStepComponent} from "@taiga-ui/kit";
+import {TUI_VALIDATION_ERRORS, TuiStepComponent} from "@taiga-ui/kit";
 import {CourseRegistrationStepComponent} from "@app/course/course-registration/course-registration-step/course-registration-step.component";
 
 @Component({
     selector: 'app-course-registration-stepper',
     templateUrl: './course-registration-stepper.component.html',
     styleUrls: ['./course-registration-stepper.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'This field is required!'
+            },
+        },
+    ],
 })
-export class CourseRegistrationStepperComponent implements AfterContentInit {
+export class CourseRegistrationStepperComponent implements AfterContentInit, AfterContentChecked {
     @Input()
     steps: string[] = [];
     currentStep = 0;
@@ -31,6 +40,10 @@ export class CourseRegistrationStepperComponent implements AfterContentInit {
 
     ngAfterContentInit(): void {
         this.setStep(this.currentStep);
+    }
+
+    ngAfterContentChecked(): void {
+        this.changeDetector.detectChanges();
     }
 
     /**
@@ -57,7 +70,6 @@ export class CourseRegistrationStepperComponent implements AfterContentInit {
     setNextStep(): void {
         this.setStepComplete(this.currentStep);
         this.setStep(this.currentStep + 1);
-        this.changeDetector.detectChanges();
     }
 
     /**
@@ -65,7 +77,6 @@ export class CourseRegistrationStepperComponent implements AfterContentInit {
      */
     setPrevStep(): void {
         this.setStep(this.currentStep - 1);
-        this.changeDetector.detectChanges();
     }
 
     /**

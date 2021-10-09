@@ -5,12 +5,13 @@ import {TestModule} from '@test/test.module';
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {ActivatedRoute} from "@angular/router";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 import {
     MOCK_CONFIRM_RESPONSE1,
     MOCK_CONFIRM_STEP1,
     MOCK_CONFIRM_STEP2_SUCCESS,
+    MOCK_IDENTIFICATION_RESPONSE2,
     MOCK_IDENTIFICATION_STEP1,
     MOCK_IDENTIFICATION_STEP2,
     MOCK_VERIFY_STEP1,
@@ -105,42 +106,26 @@ describe('CourseRegisterComponent', () => {
         expect(component.stepper.setNextStep).toHaveBeenCalled();
     });
 
+    it('should set stepper status multiple student', () => {
+        spyOn(component.stepper, 'setNextStep');
+        component.setStepperStatusFromRegistration(MOCK_IDENTIFICATION_RESPONSE2);
+        expect(component.needsStudentNumber).toBeTrue();
+        expect(component.stepper.setNextStep).toHaveBeenCalled();
+    });
+
     it('should reset form values', () => {
         component.resetFormValues();
         expect(component.serverGuessedName).toBeNull();
     });
 
-    it('should submit name form data with single student', () => {
-        spyOn(component, 'generateCourseRegistrationRequest');
-        spyOn(component, 'registerAndUpdateStepper');
-        spyOn(component, 'resetFormValues');
-        component.nameForm.get('nameControl').setValue(MOCK_IDENTIFICATION_STEP1.name);
-        component.onNameFormSubmit();
-        expect(component.resetFormValues).toHaveBeenCalled();
-        expect(component.generateCourseRegistrationRequest).toHaveBeenCalled();
-        expect(component.registerAndUpdateStepper).toHaveBeenCalledWith(component.generateCourseRegistrationRequest());
-        expect(component.needsStudentNumber).toBeFalse();
-    });
-
-    it('should submit name form data with multiple student', () => {
+    it('should activate name form submission', () => {
         spyOn(component, 'registerAndUpdateStepper');
         component.nameForm.get('nameControl').setValue(MOCK_IDENTIFICATION_STEP2.name);
         component.onNameFormSubmit();
         expect(component.registerAndUpdateStepper).toHaveBeenCalledWith(component.generateCourseRegistrationRequest());
-        expect(component.needsStudentNumber).toBeTrue();
     });
 
-    it('should submit confirm name with guessed name', () => {
-        spyOn(component, 'generateCourseRegistrationRequest');
-        spyOn(component, 'registerAndUpdateStepper');
-        component.nameForm.get('nameControl').setValue(MOCK_CONFIRM_STEP1.name);
-        component.confirmNameForm.get('confirmNameControl').setValue(MOCK_CONFIRM_STEP1.confirmed_name);
-        component.onConfirmationFormSubmit();
-        expect(component.generateCourseRegistrationRequest).toHaveBeenCalled();
-        expect(component.registerAndUpdateStepper).toHaveBeenCalledWith(component.generateCourseRegistrationRequest());
-    });
-
-    it('should submit confirm name with student number', () => {
+    it('should activate confirmation form submission', () => {
         spyOn(component, 'registerAndUpdateStepper');
         component.nameForm.get('nameControl').setValue(MOCK_CONFIRM_STEP2_SUCCESS.name);
         component.studentNumberForm.get('studentNumberControl').setValue(MOCK_CONFIRM_STEP2_SUCCESS.student_number);
@@ -148,14 +133,12 @@ describe('CourseRegisterComponent', () => {
         expect(component.registerAndUpdateStepper).toHaveBeenCalledWith(component.generateCourseRegistrationRequest());
     });
 
-    it('should submit verification', () => {
-        spyOn(component, 'generateCourseRegistrationRequest');
+    it('should activate verification form submission', () => {
         spyOn(component, 'verifyRegistrationAndUpdateStepper');
-        component.nameForm.get('nameControl').setValue(MOCK_CONFIRM_STEP1.name);
-        component.confirmNameForm.get('confirmNameControl').setValue(MOCK_CONFIRM_STEP1.confirmed_name);
+        component.nameForm.get('nameControl').setValue(MOCK_VERIFY_STEP1.name);
+        component.confirmNameForm.get('confirmNameControl').setValue(MOCK_VERIFY_STEP1.name);
         component.verifyForm.get('verifyControl').setValue(MOCK_VERIFY_STEP1.code);
         component.onVerificationFormSubmit();
-        expect(component.generateCourseRegistrationRequest).toHaveBeenCalled();
         expect(component.verifyRegistrationAndUpdateStepper).toHaveBeenCalledWith(component.generateCourseRegistrationRequest());
     });
 });
