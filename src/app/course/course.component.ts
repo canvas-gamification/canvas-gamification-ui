@@ -11,7 +11,6 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CourseComponent implements OnInit {
     course: Course;
-    allCourses: Course[];
     courseId: number;
     user: User;
 

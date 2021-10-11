@@ -80,11 +80,4 @@ export class CourseQuestionSnippetComponent implements OnInit {
         }
         return '';
     }
-
-    switchFavourite(uqj: UQJ, favouriteStatus: boolean): void{
-        const updatedUqj : UQJ = {
-            ...uqj, is_favourite : !favouriteStatus
-        };
-        this.uqjService.updateFavourite(updatedUqj);
-    }
 }

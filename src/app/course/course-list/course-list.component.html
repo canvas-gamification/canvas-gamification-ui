@@ -37,7 +37,7 @@
                 <td mat-cell class="actions" *matCellDef="let element">
                     <a class="btn btn-primary mr-3" *ngIf="hasViewPermission(element.id)"
                        [routerLink]="[element.id]">Open</a>
-                    <a class="btn btn-primary mr-3" *ngIf="!element.is_registered"
+                    <a class="btn btn-primary" *ngIf="!element.is_registered"
                        [routerLink]="[element.id, 'register']">Register</a>
                 </td>
             </ng-container>

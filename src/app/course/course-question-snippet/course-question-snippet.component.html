@@ -44,20 +44,6 @@
                                 <a class="btn btn-warning mr-3"
                                    [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
                             </ng-container>
-                            <ng-container *ngIf = "uqj.is_favourite">
-                                <button type="button" class="red-icon" mat-icon-button color="accent"
-                                        (click)="switchFavourite(uqj, uqj.is_favourite)">
-                                    <mat-icon>favorite</mat-icon>
-                                </button>
-                            </ng-container>
-                            <ng-container *ngIf = "!uqj.is_favourite">
-                                <button type="button" class="gray-icon" mat-icon-button color="accent"
-                                        (click)="switchFavourite(uqj, uqj.is_favourite)">
-                                    <mat-icon>favorite</mat-icon>
-                                </button>
-                            </ng-container>
-
-
                         </td>
                     </tr>
                 </ng-container>

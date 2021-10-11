@@ -108,23 +108,6 @@ export class CourseDashboardComponent implements OnInit {
             });
     }
 
-    register(registeredUser: User): void {
-        this.courseService.dashboardRegister(this.courseId, registeredUser).subscribe(
-            courseRegResponse => {
-                if (courseRegResponse.bad_request) {
-                    this.toastr.error('Something went wrong. Please make sure that the student is not in the course.');
-                } else {
-                    this.toastr.success('The student has been added to the course.');
-                    this.updateDashboard();
-                }
-            }
-        );
-    }
-
-    hasViewPermission(userId: number): boolean {
-        return this.user.is_teacher || !!this.registrationList.find(course => course.canvas_user_id === userId);
-    }
-
     updateDashboard(): void {
         this.courseDashboardService
             .getCourseUsers(this.courseId)
