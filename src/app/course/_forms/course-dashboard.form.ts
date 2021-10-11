@@ -8,7 +8,6 @@ export class CourseDashboardForm {
         const builder = new FormBuilder();
         return builder.group({
             name: new FormControl(''),
-            modalName: new FormControl('')
         });
     }
 
@@ -23,5 +22,4 @@ export class CourseDashboardForm {
 
 export interface CourseDashboardFormData {
     name: string,
-    modalName: string,
 }

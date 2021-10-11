@@ -13,11 +13,8 @@
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="student-list" role="tabpanel" aria-labelledby="student-list-tab">
         <div class="hover-shadow p-3">
-            <button type="button" class="btn btn-outline-primary mb-4"
-                    (click)="addOpen(dropDownAdd)">Register New Student
-            </button>
-
-            <form [formGroup]="formGroup" (ngSubmit)="applyFilter()">
+        <div [ngClass]="'search'">
+            <form [formGroup]="formGroup" (ngSubmit)="applyFilter()" [ngClass]="'search-name'">
                 <div class="form-row">
                     <div class="form-group col-3">
                         <label for="name">Search first or last name:</label>
@@ -29,50 +26,44 @@
                     </div>
                 </div>
             </form>
+        </div>
 
             <table class="table table-bordered table-light mt-5 hover-shadow">
                 <caption>List of Students currently enrolled</caption>
                 <thead class="thead-light">
                 <tr>
-                    <th scope="col">Email</th>
-                    <th scope="col">First name</th>
-                    <th scope="col">Last name:</th>
-                    <th scope="col">Role</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Name</th>
                     <th scope="col">Block status</th>
                     <th scope="col">Verify status</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
-                <tbody *ngFor="let user of userList; let i = index">
-                <ng-container *ngIf=registrationList>
+                <tbody *ngFor="let registration of registrationList">
+                <ng-container>
                     <tr>
-                        <td>{{ user.email || 'No ID' }}</td>
-                        <td>{{ user.first_name || 'No first name' }}</td>
-                        <td>{{ user.last_name || 'No last name' }}</td>
-                        <td>{{ user.role || ''}}</td>
+                        <td>{{ registration.username || 'No username found' }}</td>
+                        <td>{{ registration.name || 'No name found' }}</td>
                         <td>
-                            <button type="button" class="btn btn-outline-dark float-none bg-success"
-                                    *ngIf="!getBlockStatus(user.id)"
-                                    (click)="changeStatus(registrationList[i],!getBlockStatus(user.id),getVerifyStatus(user.id))">
-                                Block
-                            </button>
-                            <button type="button" class="btn btn-outline-dark float-none bg-danger"
-                                    *ngIf="getBlockStatus(user.id)"
-                                    (click)="changeStatus(registrationList[i],!getBlockStatus(user.id),getVerifyStatus(user.id))">
-                                Unblock
+                            <button type="button" [ngClass]="registration.is_blocked?
+                            'btn btn-outline-dark red-button' : 'btn btn-outline-dark green-button'"
+                                    (click)="changeStatus(registration.id, !registration.is_blocked,
+                                    registration.is_verified)">
+                                {{registration.is_blocked? "Unblocked" : "Blocked"}}
                             </button>
                         </td>
-                        <td *ngIf="!getVerifyStatus(user.id)">
+                        <td *ngIf="!registration.is_verified">
                             <button type="button" class="btn btn-outline-dark float-none"
-                                    (click)="changeStatus(registrationList[i],getBlockStatus(user.id),!getVerifyStatus(user.id))">
+                                    (click)="changeStatus(registration.id, registration.is_blocked,
+                                    !registration.is_verified)">
                                 Verify
                                 user
                             </button>
                         </td>
-                        <td *ngIf="getVerifyStatus(user.id)">User Verified</td>
+                        <td *ngIf="registration.is_verified">User Verified</td>
                         <td>
                             <button type="button" class="btn btn-outline-dark bg-warning"
-                                    (click)="unregisterOpen(unregisterModal, registrationList[i].id)">
+                                    (click)="unregisterOpen(unregisterModal)">
                                 Unregister
                             </button>
                         </td>
@@ -90,43 +81,6 @@
         </div>
     </div>
 </div>
-<ng-template #dropDownAdd let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="add">Select a user to add</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <table class="table table-bordered table-light mt-5 hover-shadow">
-            <caption>List of Students not enrolled</caption>
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">Email</th>
-                <th scope="col">First name</th>
-                <th scope="col">Last name</th>
-                <th scope="col">Username</th>
-                <th scope="col">Role</th>
-                <th scope="col">Register:</th>
-            </tr>
-            </thead>
-            <tbody *ngFor="let user of unregisteredUsers">
-            <tr>
-                <td>{{ user.email}}</td>
-                <td>{{ user.first_name || 'No first name' }}</td>
-                <td>{{ user.last_name || 'No last name' }}</td>
-                <td>{{ user.username}}</td>
-                <td>{{ user.role }}</td>
-                <td>
-                    <button type="button" class="btn btn-outline-dark" (click)="register(user)">Register</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="modal-footer">
-    </div>
-</ng-template>
 
 <ng-template #unregisterModal let-modal>
     <div class="modal-header">
@@ -140,6 +94,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Cancel</button>
+        <!--TO DO:  wait for backend to implement unregister action. Need to talk with Keyvan more about the idea -->
         <button type="button" class="btn btn-outline-danger" (click)="unregisterUser(); modal.close('Save click')">
             Confirm
         </button>

@@ -5,10 +5,9 @@ import {Course, CourseRegistration, User} from '@app/_models';
 import {CourseDashboardService} from "@app/course/_services/course-dashboard.service";
 import {ToastrService} from "ngx-toastr";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
+import {AbstractControl, FormGroup} from "@angular/forms";
 import {CourseDashboardForm} from "@app/course/_forms/course-dashboard.form";
 import {debounceTime, distinctUntilChanged} from "rxjs/operators";
-import {AdminService} from "@app/_services/api/admin.service";
 import {CourseService} from "@app/course/_services/course.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {Subject} from "rxjs";
@@ -25,27 +24,17 @@ export class CourseDashboardComponent implements OnInit {
     courseId: number;
     userId: number;
     user: User;
-    unregisteredUsers: User[];
     course: Course;
-    userList: User[];
     registrationList: CourseRegistration[];
-    variable: boolean;
     filterQueryString;
-    userCourseList: User[];
-    courseRegId: number;
-    courseNamesList: Course[];
 
     paramChanged: Subject<{
         name: string;
-        modalName: string;
     }> = new Subject<{
         name: string;
-        modalName: string;
     }>();
 
-    constructor(private builder: FormBuilder,
-                private adminService: AdminService,
-                private authenticationService: AuthenticationService,
+    constructor(private authenticationService: AuthenticationService,
                 private courseDashboardService: CourseDashboardService,
                 private courseService: CourseService,
                 private toastr: ToastrService,
@@ -55,8 +44,8 @@ export class CourseDashboardComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.courseId = this.route.snapshot.params.courseId;
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
-            this.courseDashboardService.getCourseDashboardFilter(this.courseId, options).subscribe(users => {
-                this.userList = users;
+            this.courseDashboardService.getCourseUsersFilter(this.courseId, options).subscribe(registrations => {
+                this.registrationList = registrations;
             });
         });
     }
@@ -80,12 +69,7 @@ export class CourseDashboardComponent implements OnInit {
                 this.course = course;
             });
         this.courseDashboardService
-            .getCourseDashboard(this.courseId)
-            .subscribe(users => {
-                this.userList = users;
-            });
-        this.courseDashboardService
-            .getCourseRegistration(this.courseId)
+            .getCourseUsers(this.courseId)
             .subscribe(registrations => {
                 this.registrationList = registrations;
             });
@@ -95,18 +79,10 @@ export class CourseDashboardComponent implements OnInit {
         return this.formGroup.controls;
     }
 
-    changeStatus(courseReg: CourseRegistration, blockStatus: boolean, verifyStatus: boolean): void {
-        const updatedCourseRegistration: CourseRegistration = {
-            id: courseReg.id,
-            canvas_user_id: courseReg.canvas_user_id,
-            is_verified: verifyStatus,
-            is_blocked: blockStatus,
-            token_uses: courseReg.token_uses,
-            total_tokens_received: courseReg.total_tokens_received,
-            available_tokens: courseReg.available_tokens,
-            user_id: courseReg.user_id,
-        };
-        this.courseDashboardService.updateBlockStatus(updatedCourseRegistration)
+    changeStatus(registrationId: number, blockStatus: boolean, verifyStatus: boolean): void {
+        const data : { id: number, blockStatus: boolean, verifyStatus: boolean } =
+                        {id: registrationId, blockStatus: blockStatus, verifyStatus: verifyStatus};
+        this.courseDashboardService.updateStatus(data, this.courseId)
             .subscribe(() => {
                 this.toastr.success('The block status has been changed successfully.');
                 this.updateDashboard();
@@ -116,30 +92,13 @@ export class CourseDashboardComponent implements OnInit {
             });
     }
 
-    getBlockStatus(id: number): boolean {
-        return this.registrationList.filter(reg => reg.user_id === id)[0].is_blocked;
-    }
-
-    getVerifyStatus(id: number): boolean {
-        return this.registrationList.filter(reg => reg.user_id === id)[0].is_verified;
-    }
-
-    addOpen(content: unknown): void {
-        this.modalService.open(content, {
-            ariaLabelledBy: 'modal-basic-title',
-            centered: true,
-            scrollable: true,
-            size: "xl"
-        });
-    }
-
-    unregisterOpen(content: unknown, regId: number): void {
-        this.courseRegId = regId;
+    unregisterOpen(content: unknown): void {
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
     }
 
+    // To do: wait for backend to implement unregister action. Need to talk with Keyvan more about the idea
     unregisterUser(): void {
-        this.courseDashboardService.unregisterUser(this.courseRegId)
+        this.courseDashboardService.unregisterUser(this.courseId)
             .subscribe(() => {
                 this.toastr.success('The student has been unregistered.');
                 this.updateDashboard();
@@ -168,15 +127,9 @@ export class CourseDashboardComponent implements OnInit {
 
     updateDashboard(): void {
         this.courseDashboardService
-            .getCourseDashboard(this.courseId)
+            .getCourseUsers(this.courseId)
             .subscribe(users => {
-                this.userList = users;
-            });
-
-        this.courseDashboardService
-            .getCourseRegistration(this.courseId)
-            .subscribe(registrations => {
-                this.registrationList = registrations;
+                this.registrationList = users;
             });
     }
 }
