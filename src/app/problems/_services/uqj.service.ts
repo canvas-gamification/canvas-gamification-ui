@@ -69,10 +69,12 @@ export class UqjService {
             .pipe(catchError(this.apiService.handleError<UQJ>(`Error Occurred while fetching user-specific data for this question`)));
     }
 
-    updateFavourite(uqj : UQJ): void {
-        const url = this.apiService.getURL('uqj', 1);
-        this.http.put<UQJ>(url, uqj)
-            .pipe(catchError(this.apiService.handleError<UQJ>('Error occurred while favorite the question')));
+    updateFavourite(data: {id: number, status: boolean}): Observable<UQJ> {
+        console.log(data);
+        const id = data.id;
+        const url = this.apiService.getURL('uqj', id, 'switch-favorite');
         console.log(url);
+        return this.http.post<UQJ>(url, data)
+            .pipe(catchError(this.apiService.handleError<UQJ>('Error occurred while adding to favourites')));
     }
 }
