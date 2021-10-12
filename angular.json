@@ -29,7 +29,8 @@
                             "graphlib",
                             "dagre",
                             "jquery",
-                            "backbone"
+                            "backbone",
+                            "angular2-text-mask"
                         ],
                         "assets": [
                             "src/favicon.ico",
