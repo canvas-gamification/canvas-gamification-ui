@@ -6,12 +6,21 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ConsentForm} from "@app/accounts/_forms/consent.form";
 import {AuthenticationService} from "@app/_services/api/authentication";
 import {User} from "@app/_models";
+import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
 
 
 @Component({
     selector: 'app-consent-form',
     templateUrl: './consent-form.component.html',
-    styleUrls: ['./consent-form.component.scss']
+    styleUrls: ['./consent-form.component.scss'],
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'This field is required!'
+            },
+        },
+    ],
 })
 export class ConsentFormComponent implements OnInit {
     formGroup: FormGroup;
