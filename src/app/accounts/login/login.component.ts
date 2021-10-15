@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
 
     onSubmit(): void {
         this.loading = true;
-
         this.authenticationService.login(this.form.username.value, this.form.password.value)
             .pipe(first())
             .subscribe({
@@ -60,7 +59,6 @@ export class LoginComponent implements OnInit {
                         const returnUrl = this.route.snapshot.queryParams.returnUrl || '/homepage';
                         this.router.navigate([returnUrl]).then();
                     }
-
                 },
                 error: error => {
                     this.error = error;
