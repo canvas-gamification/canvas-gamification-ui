@@ -3,8 +3,8 @@
         <div class="tui-space_auto tui-space_vertical-10 consent-brand">
             <img [src]="logoPath" alt="logo">
         </div>
-        <h1>Please Read our Informed Consent Form</h1>
-        <p>Thank you for your email confirmation. Your Account has been successfully activated.</p>
+        <h1 class="tui-text_h3">Please Read our Informed Consent Form</h1>
+        <p class="tui-space_bottom-4">Thank you for your email confirmation. Your Account has been successfully activated.</p>
         <ng-container *ngIf="user.is_teacher">
             <app-admin-terms-and-conditions-snippet></app-admin-terms-and-conditions-snippet>
         </ng-container>
