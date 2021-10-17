@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
-import {Course, CourseRegistration, User} from '@app/_models';
+import {Course, CourseRegistration, CourseRegistrationStatus, User} from '@app/_models';
 import {CourseDashboardService} from "@app/course/_services/course-dashboard.service";
 import {ToastrService} from "ngx-toastr";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -9,7 +9,6 @@ import {AbstractControl, FormGroup} from "@angular/forms";
 import {CourseDashboardForm} from "@app/course/_forms/course-dashboard.form";
 import {debounceTime, distinctUntilChanged} from "rxjs/operators";
 import {CourseService} from "@app/course/_services/course.service";
-import {MatTableDataSource} from "@angular/material/table";
 import {Subject} from "rxjs";
 
 @Component({
@@ -19,7 +18,6 @@ import {Subject} from "rxjs";
 })
 
 export class CourseDashboardComponent implements OnInit {
-    courseList: MatTableDataSource<Course>;
     formGroup: FormGroup;
     courseId: number;
     userId: number;
@@ -80,12 +78,11 @@ export class CourseDashboardComponent implements OnInit {
     }
 
     changeStatus(registrationId: number, blockStatus: boolean, verifyStatus: boolean): void {
-        const data : { id: number, blockStatus: boolean, verifyStatus: boolean } =
-                        {id: registrationId, blockStatus: blockStatus, verifyStatus: verifyStatus};
+        const data : CourseRegistrationStatus = {id: registrationId, blockStatus: blockStatus, verifyStatus: verifyStatus};
         this.courseDashboardService.updateStatus(data, this.courseId)
             .subscribe(() => {
                 this.toastr.success('The block status has been changed successfully.');
-                this.updateDashboard();
+                this.update();
             }, error => {
                 this.toastr.error(error);
                 console.warn(error);
@@ -101,18 +98,11 @@ export class CourseDashboardComponent implements OnInit {
         this.courseDashboardService.unregisterUser(this.courseId)
             .subscribe(() => {
                 this.toastr.success('The student has been unregistered.');
-                this.updateDashboard();
+                this.update();
             }, error => {
                 this.toastr.error(error);
                 console.warn(error);
             });
     }
 
-    updateDashboard(): void {
-        this.courseDashboardService
-            .getCourseUsers(this.courseId)
-            .subscribe(users => {
-                this.registrationList = users;
-            });
-    }
 }

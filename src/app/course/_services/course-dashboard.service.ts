@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
-import {CourseRegistration} from "@app/_models";
+import {CourseRegistration, CourseRegistrationStatus} from "@app/_models";
 import {CourseDashboardFormData} from "@app/course/_forms/course-dashboard.form";
 
 @Injectable({
@@ -21,7 +21,7 @@ export class CourseDashboardService {
             .pipe(catchError(this.apiService.handleError<CourseRegistration[]>('Error occurred while fetching database', null)));
     }
 
-    updateStatus(data: { id: number, blockStatus: boolean, verifyStatus: boolean }, courseId : number): Observable<CourseRegistration> {
+    updateStatus(data: CourseRegistrationStatus, courseId : number): Observable<CourseRegistration> {
         const url = this.apiService.getURL('course-admin', courseId, 'change-status');
         return this.http.post<CourseRegistration>(url, data)
             .pipe(catchError(this.apiService.handleError<CourseRegistration>('Error occurred while changing status')));
