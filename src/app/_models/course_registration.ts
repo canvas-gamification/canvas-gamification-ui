@@ -8,4 +8,7 @@ export interface CourseRegistration {
     token_uses: TokenUse[];
     total_tokens_received: number;
     available_tokens: number;
+    user_id? : number;
+    username?: string;
+    name?: string;
 }

@@ -13,7 +13,6 @@ import {UserActionsComponent} from '@app/components/homepage/user-actions/user-a
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
 
-
 const routes: Routes = [
     {path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)},
     {path: 'problems', loadChildren: () => import('./problems/problems.module').then(m => m.ProblemsModule)},

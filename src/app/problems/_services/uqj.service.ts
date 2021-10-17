@@ -37,7 +37,6 @@ export class UqjService {
         if (options?.recent ?? false) {
             params = params.set('ordering', '-last_viewed');
         }
-
         return this.http
             .get<PaginatedResult<UQJ>>(url, {params})
             .pipe(catchError(this.apiService.handleError<PaginatedResult<UQJ>>(`Error occurred while fetching user-specific questions`)));

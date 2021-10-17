@@ -32,6 +32,10 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
+import {CourseDashboardComponent} from "@app/course/course-dashboard/course-dashboard.component";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {CategoryListSnippetComponent} from "@app/course/category-list-snippet/category-list-snippet.component";
 
 @NgModule({
     declarations: [
@@ -43,7 +47,9 @@ import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
         LeaderBoardComponent,
-        ConceptMapComponent
+        ConceptMapComponent,
+        CategoryListSnippetComponent,
+        CourseDashboardComponent
     ],
     imports: [
         CommonModule,
@@ -66,6 +72,8 @@ import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component
         FontAwesomeModule,
         AceEditorModule,
         HighlightModule,
+        MatExpansionModule,
+        MatCheckboxModule,
     ],
     providers:[
         CourseService,
