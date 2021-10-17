@@ -1,3 +1,9 @@
 @use "src/scss/mixins";
 
 @include mixins.highlight-table();
+.red-icon {
+    color: red;
+}
+.gray-icon {
+    color: gray;
+}
