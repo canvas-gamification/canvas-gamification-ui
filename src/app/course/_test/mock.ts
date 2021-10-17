@@ -2,7 +2,7 @@ import {
     Course,
     CourseRegistration,
     CourseRegistrationRequest,
-    CourseRegistrationResponse,
+    CourseRegistrationResponse, CourseRegistrationStatus,
     EventType, Question, REGISTRATION_STATUS, RegistrationStatus, STATUS,
     TokenUseOption, UQJ, User
 } from "@app/_models";
@@ -47,7 +47,17 @@ export const MOCK_COURSE_REGISTRATION: CourseRegistration = {
     is_blocked: false,
     is_verified: true,
     token_uses: [MOCK_TOKEN_USE1, MOCK_TOKEN_USE2],
-    total_tokens_received: 50
+    total_tokens_received: 50,
+    user_id : 0,
+    username: 'Test User',
+    name: 'Test User'
+};
+
+export const MOCK_REGISTRATION_UPDATE_DATA: CourseRegistrationStatus = {
+    id: 1,
+    blockStatus: true,
+    verifyStatus: true
+
 };
 
 export const MOCK_EVENT_TYPES: EventType[] = [["PRACTICE", "PRACTICE"], ["ASSIGNMENT", "ASSIGNMENT"], ["EXAM", "EXAM"]];

@@ -1,18 +1,54 @@
 import {TestBed} from '@angular/core/testing';
 import {CourseDashboardService} from './course-dashboard.service';
 import {TestModule} from '@test/test.module';
+import {ApiService} from "@app/_services/api.service";
+import {HttpTestingController} from "@angular/common/http/testing";
+import {MOCK_COURSE_REGISTRATION, MOCK_REGISTRATION_UPDATE_DATA} from "@app/course/_test/mock";
 
 describe('TestService', () => {
-    let service: CourseDashboardService;
+    let courseDashboardService: CourseDashboardService;
+    let apiService: ApiService;
+    let httpMock: HttpTestingController;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [TestModule]
         });
-        service = TestBed.inject(CourseDashboardService);
+        courseDashboardService = TestBed.inject(CourseDashboardService);
+        apiService = TestBed.inject(ApiService);
+        httpMock = TestBed.inject(HttpTestingController);
+    });
+    afterEach(() => {
+        httpMock.verify();
     });
 
     it('should be created', () => {
-        expect(service).toBeTruthy();
+        expect(courseDashboardService).toBeTruthy();
+    });
+
+    it('getCourseUsers should return a list of users', () => {
+        courseDashboardService.getCourseUsers(0).subscribe((users) => {
+            expect(users).toEqual([MOCK_COURSE_REGISTRATION]);
+        });
+        const request = httpMock.expectOne(apiService.getURL('course-admin', 0, 'registered-users'));
+        expect(request.request.method).toBe('GET');
+        request.flush([MOCK_COURSE_REGISTRATION]);
+    });
+
+    it('updateStatus should update a new Course Event', () => {
+        courseDashboardService.updateStatus(MOCK_REGISTRATION_UPDATE_DATA, 1).subscribe((response) => {
+            expect(response).toBeTruthy();
+        });
+        const request = httpMock.expectOne(apiService.getURL('course-admin', MOCK_REGISTRATION_UPDATE_DATA.id, 'change-status'));
+        expect(request.request.method).toBe('PUT');
+    });
+
+    it('getCourseUsersFilter should return a list of users', () => {
+        courseDashboardService.getCourseUsersFilter(0).subscribe((users) => {
+            expect(users).toEqual([MOCK_COURSE_REGISTRATION]);
+        });
+        const request = httpMock.expectOne(apiService.getURL('course-admin', 0, 'registered-users'));
+        expect(request.request.method).toBe('GET');
+        request.flush([MOCK_COURSE_REGISTRATION]);
     });
 });
