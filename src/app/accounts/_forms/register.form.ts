@@ -6,8 +6,8 @@ export class RegisterForm {
         const builder = new FormBuilder();
         return builder.group({
             email: new FormControl(null, [Validators.required, Validators.email]),
-            password: new FormControl(null, [Validators.required]),
-            password2: new FormControl(null, [Validators.required]),
+            password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
+            password2: new FormControl(null, [Validators.required,  Validators.minLength(8)]),
             recaptcha_key: new FormControl(null, [Validators.required])
         }, {
             validators: confirmPasswordValidator,
