@@ -47,6 +47,7 @@ import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
 import {TuiRootModule} from '@taiga-ui/core';
+import {AdminComponent} from './admin/admin.component';
 
 @NgModule({
     declarations: [
@@ -67,6 +68,7 @@ import {TuiRootModule} from '@taiga-ui/core';
         InactiveCoursesComponent,
         NotFoundComponent,
         ForbiddenComponent,
+        AdminComponent,
     ],
     imports: [
         BrowserModule,
