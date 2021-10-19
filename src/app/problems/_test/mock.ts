@@ -227,6 +227,7 @@ export const MOCK_UQJ: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+    is_favourite: false,
 };
 
 export const MOCK_UQJ_2: UQJ = {
@@ -258,6 +259,7 @@ export const MOCK_UQJ_2: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: true,
+    is_favourite: true,
 };
 
 export const MOCK_UQJ_3: UQJ = {
@@ -295,6 +297,7 @@ export const MOCK_UQJ_3: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+    is_favourite: true,
 };
 
 export const MOCK_UQJ_4: UQJ = {
@@ -324,6 +327,7 @@ export const MOCK_UQJ_4: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+    is_favourite: false,
 };
 
 export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {

@@ -64,6 +64,13 @@ describe('CourseQuestionSnippetComponent VALID EVENT', () => {
         expect(component.highlight('Partially Solved')).toEqual('highlight-warning');
         expect(component.highlight('Wrong')).toEqual('highlight-danger');
     });
+
+    it('switch favorite should work', () => {
+        const data = {uqj: MOCK_UQJ, favouriteStatus: true};
+        UqjService.updateFavourite(data).subscribe((response) =>{
+            expect(response).toBeTruthy();
+        });
+    });
 });
 describe('CourseQuestionSnippetComponent INVALID EVENT', () => {
     let component: CourseQuestionSnippetComponent;

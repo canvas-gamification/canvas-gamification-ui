@@ -271,6 +271,7 @@ export const MOCK_UQJ: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+    is_favourite: false,
 };
 
 export const MOCK_UQJ2: UQJ = {
@@ -300,4 +301,5 @@ export const MOCK_UQJ2: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+    is_favourite: true,
 };
