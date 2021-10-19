@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {ProfileDetailsService} from '@app/accounts/_services/profile-details.service';
 import {ToastrService} from "ngx-toastr";
@@ -7,24 +7,34 @@ import {User} from '@app/_models';
 import {Router} from '@angular/router';
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form";
 import {AuthenticationService} from "@app/_services/api/authentication";
+import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
 
 @Component({
     selector: 'app-profile-details',
     templateUrl: './profile-details.component.html',
-    styleUrls: ['./profile-details.component.scss']
+    styleUrls: ['./profile-details.component.scss'],
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'This field is required!',
+                email: 'Enter a valid email address!',
+            },
+        },
+    ],
 })
-export class ProfileDetailsComponent implements OnInit {
+export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
     formGroup: FormGroup;
     userConsent: boolean;
     userDetails: User;
     userId: number;
-    logoPath = 'assets/global/logo.jpg';
 
     constructor(private router: Router,
                 private profile: ProfileDetailsService,
                 private toastr: ToastrService,
                 private consentService: ConsentService,
-                private authenticationService: AuthenticationService) {
+                private authenticationService: AuthenticationService,
+                private changeDetector: ChangeDetectorRef) {
         this.userId = this.authenticationService.currentUserValue?.id;
     }
 
@@ -37,6 +47,10 @@ export class ProfileDetailsComponent implements OnInit {
             this.userDetails = details;
             ProfileDetailsForm.updateData(this.formGroup, details);
         });
+    }
+
+    ngAfterContentChecked(): void {
+        this.changeDetector.detectChanges();
     }
 
     get form(): { [p: string]: AbstractControl } {

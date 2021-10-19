@@ -51,7 +51,18 @@ export const MOCK_ADMIN_CONSENT: UserConsent = {
     legal_last_name: "",
     student_number: "",
     user: MOCK_ADMIN
+};
 
+export const MOCK_CONSENT_DECLINE: UserConsent = {
+    consent: false,
+    access_submitted_course_work: false,
+    access_course_grades: false,
+    legal_first_name: '-',
+    legal_last_name: '-',
+    student_number: '-',
+    date: new Date().toDateString(),
+    user: undefined,
+    created_at: undefined
 };
 
 export const MOCK_PASSWORD_FORM_DATA: PasswordFormData = {

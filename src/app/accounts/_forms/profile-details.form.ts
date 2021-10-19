@@ -11,7 +11,6 @@ export class ProfileDetailsForm {
     }
 
     static updateData(form: FormGroup, data: ProfileDetailsFormData): void {
-        console.log(data);
         form.controls.first_name.setValue(data.first_name);
         form.controls.last_name.setValue(data.last_name);
         form.controls.email.setValue(data.email);
