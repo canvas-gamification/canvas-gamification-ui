@@ -19,7 +19,8 @@ import {RegisterService} from "@app/accounts/_services/register.service";
 import {ResetPasswordService} from "@app/accounts/_services/reset-password.service";
 import { StudentTermsAndConditionsSnippetComponent } from './student-terms-and-conditions-snippet/student-terms-and-conditions-snippet.component';
 import {TuiFieldErrorModule, TuiInputModule, TuiInputPasswordModule} from "@taiga-ui/kit";
-import {TuiButtonModule, TuiNotificationModule} from "@taiga-ui/core";
+import {TuiButtonModule, TuiLinkModule, TuiNotificationModule} from "@taiga-ui/core";
+
 
 @NgModule({
     declarations: [
@@ -43,9 +44,10 @@ import {TuiButtonModule, TuiNotificationModule} from "@taiga-ui/core";
         MatProgressSpinnerModule,
         TuiInputModule,
         TuiFieldErrorModule,
+        TuiInputPasswordModule,
+        TuiLinkModule,
         TuiButtonModule,
         TuiNotificationModule,
-        TuiInputPasswordModule,
     ],
     providers: [
         ChangePasswordService,
