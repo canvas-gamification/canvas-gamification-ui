@@ -5,41 +5,25 @@
     <table class="table">
         <thead>
         <tr>
-            <th>
-                Question
-            </th>
-            <th>
-                Time Submitted
-            </th>
+            <th>Question</th>
+            <th>Time Submitted</th>
             <ng-container *ngIf="submission?.question?.is_exam_and_open; else statusHeader">
-                <th>
-                    Grade
-                </th>
+                <th>Grade</th>
             </ng-container>
             <ng-template #statusHeader>
-                <th>
-                    Status
-                </th>
+                <th>Status</th>
             </ng-template>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>
-                {{ submission?.question?.title || 'No Title'}}
-            </td>
-            <td>
-                {{ submission?.submission_time || 'No Time'}}
-            </td>
+            <td>{{ submission?.question?.title || 'No Title'}}</td>
+            <td>{{ submission?.submission_time || 'No Time'}}</td>
             <ng-container *ngIf="submission?.question?.is_exam_and_open; else statusCell">
-                <td>
-                    {{ submission?.grade || 'No Grade'}}
-                </td>
+                <td>{{ submission?.grade || 'No Grade'}}</td>
             </ng-container>
             <ng-template #statusCell>
-                <td>
-                    {{ submission?.status || 'No Status'}}
-                </td>
+                <td>{{ submission?.status || 'No Status'}}</td>
             </ng-template>
         </tr>
         </tbody>
@@ -81,41 +65,49 @@
     </div>
 </div>
 
-<div class="card my-3" *ngIf="!submission?.question?.is_exam">
-    <div class="card-header"><h2>Your Feedback</h2></div>
-    <div class="card-body">
-        <ng-container *ngIf="submission?.get_decoded_results; else noFeedback">
-            <div>
-                <h5>Score: {{ submission?.get_formatted_test_results }}</h5>
-            </div>
-            <div>
-                <h5>Tokens Received: {{ submission?.formatted_tokens_received }}</h5>
-            </div>
-            <div>
-                <ng-container *ngIf="submission?.get_passed_test_results">
-                    <h5>What went well:</h5>
-                    <ul>
-                        <li *ngFor="let result of submission?.get_passed_test_results">{{ result.name }}</li>
-                    </ul>
-                </ng-container>
-                <ng-container *ngIf="submission?.get_failed_test_results">
-                    <h5>Still needs some work: </h5>
-                    <ul>
-                        <li *ngFor="let result of submission?.get_failed_test_results">{{ result.message }}</li>
-                    </ul>
-                    <p>If there are multiple issues, attempt to fix the first issue as that might solve
-                        subsequent issues</p>
-                </ng-container>
-            </div>
-        </ng-container>
-        <ng-template #noFeedback>
-            <p>No feedback</p>
-            <p>This is usually due to compilation error or your answer is still being evaluated, see compile
-                output or refresh the page</p>
-        </ng-template>
+<ng-container *ngIf="!submission?.question?.is_exam_and_open; else examInProgress">
+    <div class="card my-3">
+        <div class="card-header"><h2>Your Feedback</h2></div>
+        <div class="card-body">
+            <ng-container *ngIf="submission?.get_decoded_results; else noFeedback">
+                <div>
+                    <h5>Score: {{ submission?.get_formatted_test_results }}</h5>
+                </div>
+                <div>
+                    <h5>Tokens Received: {{ submission?.formatted_tokens_received }}</h5>
+                </div>
+                <div>
+                    <ng-container *ngIf="submission?.get_passed_test_results">
+                        <h5>What went well:</h5>
+                        <ul>
+                            <li *ngFor="let result of submission?.get_passed_test_results">{{ result.name }}</li>
+                        </ul>
+                    </ng-container>
+                    <ng-container *ngIf="submission?.get_failed_test_results">
+                        <h5>Still needs some work: </h5>
+                        <ul>
+                            <li *ngFor="let result of submission?.get_failed_test_results">{{ result.message }}</li>
+                        </ul>
+                        <p>If there are multiple issues, attempt to fix the first issue as that might solve
+                            subsequent issues</p>
+                    </ng-container>
+                </div>
+            </ng-container>
+            <ng-template #noFeedback>
+                <p>No feedback</p>
+                <p>This is usually due to compilation error or your answer is still being evaluated, see compile
+                    output or refresh the page</p>
+            </ng-template>
+        </div>
     </div>
-</div>
+</ng-container>
+<ng-template #examInProgress>
+    <div class="card my-3">
+        <div class="card-header"><h2>The Exam is Still in Progress</h2></div>
+        <div class="card-body">
+            Your results will be available to view following the completion of the exam.
+        </div>
+    </div>
+</ng-template>
 
-<a class="btn btn-info" [routerLink]="['/problems', submission?.question?.id]">
-    Re-Attempt
-</a>
+<a class="btn btn-info" [routerLink]="['/problems', submission?.question?.id]">Re-Attempt</a>
