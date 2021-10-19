@@ -44,9 +44,9 @@ import {TuiButtonModule, TuiLinkModule, TuiNotificationModule} from "@taiga-ui/c
         TuiInputModule,
         TuiFieldErrorModule,
         TuiInputPasswordModule,
-        TuiLinkModule,
-        TuiButtonModule,
         TuiNotificationModule,
+        TuiButtonModule,
+        TuiLinkModule,
     ],
     providers: [
         ChangePasswordService,
