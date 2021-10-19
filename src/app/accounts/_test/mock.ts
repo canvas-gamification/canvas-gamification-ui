@@ -27,6 +27,19 @@ export const MOCK_STUDENT: User = {
     username: ""
 };
 
+export const MOCK_STUDENT_HAS_CONSENT: User = {
+    email: "",
+    first_name: "",
+    has_consent: true,
+    id: 1,
+    is_student: true,
+    is_teacher: false,
+    last_name: "",
+    role: "",
+    tokens: 0,
+    username: ""
+};
+
 export const MOCK_ADMIN_CONSENT: UserConsent = {
     access_course_grades: false,
     access_submitted_course_work: false,
