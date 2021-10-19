@@ -21,6 +21,7 @@ import { StudentTermsAndConditionsSnippetComponent } from './student-terms-and-c
 import {TuiFieldErrorModule, TuiInputModule, TuiInputPasswordModule} from "@taiga-ui/kit";
 import {TuiButtonModule, TuiLinkModule, TuiNotificationModule} from "@taiga-ui/core";
 
+
 @NgModule({
     declarations: [
         LoginComponent,
