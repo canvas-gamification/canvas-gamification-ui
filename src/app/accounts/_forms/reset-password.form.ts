@@ -9,12 +9,12 @@ export class ResetPasswordForm {
         });
     }
 
-    static createPasswordForm(uid: string, token: string): FormGroup {
+    static createPasswordForm(uuid: string, token: string): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
-            password: new FormControl('', [Validators.required]),
-            password2: new FormControl('', [Validators.required]),
-            uid,
+            password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+            password2: new FormControl('', [Validators.required, Validators.minLength(8)]),
+            uuid,
             token,
         },{
             validators: confirmPasswordValidator,

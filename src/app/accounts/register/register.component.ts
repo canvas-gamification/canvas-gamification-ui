@@ -4,12 +4,24 @@ import {environment} from '@environments/environment';
 import {RegisterService} from '@app/accounts/_services/register.service';
 import {ToastrService} from "ngx-toastr";
 import {RegisterForm} from "@app/accounts/_forms/register.form";
+import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
 
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
-    styleUrls: ['./register.component.scss']
+    styleUrls: ['./register.component.scss'],
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'This field is required!',
+                email: 'Enter a valid email address!',
+                minlength: 'Password must contain at least 8 characters.',
+                confirmedValidator: 'Passwords must match!'
+            },
+        },
+    ],
 })
 export class RegisterComponent implements OnInit {
     formGroup: FormGroup;

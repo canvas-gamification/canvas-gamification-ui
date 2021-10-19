@@ -1,5 +1,6 @@
 import {User} from "@app/_models";
 import {UserConsent} from "@app/_models/user_consent";
+import {EmailFormData, PasswordFormData} from "@app/accounts/_forms/reset-password.form";
 
 export const MOCK_ADMIN: User = {
     email: "",
@@ -51,4 +52,15 @@ export const MOCK_ADMIN_CONSENT: UserConsent = {
     student_number: "",
     user: MOCK_ADMIN
 
+};
+
+export const MOCK_PASSWORD_FORM_DATA: PasswordFormData = {
+    password: 'password',
+    password2: 'password',
+    uuid: '123',
+    token: 'token'
+};
+
+export const MOCK_EMAIL_FORM_DATA: EmailFormData = {
+    email: 'email@email.com'
 };

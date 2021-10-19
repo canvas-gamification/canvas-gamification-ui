@@ -22,6 +22,7 @@ import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIsland
 import {TuiButtonModule, TuiTextfieldControllerModule, TuiLinkModule, TuiNotificationModule} from "@taiga-ui/core";
 
 
+
 @NgModule({
     declarations: [
         LoginComponent,
@@ -45,12 +46,12 @@ import {TuiButtonModule, TuiTextfieldControllerModule, TuiLinkModule, TuiNotific
         TuiInputModule,
         TuiFieldErrorModule,
         TuiInputPasswordModule,
-        TuiLinkModule,
-        TuiButtonModule,
         TuiNotificationModule,
         TuiTextfieldControllerModule,
         TuiCheckboxLabeledModule,
         TuiIslandModule,
+        TuiButtonModule,
+        TuiLinkModule,
     ],
     providers: [
         ChangePasswordService,
