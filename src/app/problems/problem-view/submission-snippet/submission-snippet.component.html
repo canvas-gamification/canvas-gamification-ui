@@ -16,20 +16,37 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let submission of previousSubmissions; let i = index"
-                [attr.class]="'highlight-'+submission.status_color">
-                <td>{{i + 1 || 'No ID'}}</td>
-                <td *ngIf="submission.show_answer">
-                    <div *ngFor="let safeAnswer of submission.safeAnswer" [innerHTML]="safeAnswer"></div>
-                </td>
-                <td>{{submission.grade.toFixed(2)}}</td>
-                <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
-                <td>{{submission.submission_time | date:'medium' || 'No Date'}}</td>
-                <td>{{submission.status || 'No Status'}}</td>
-                <td *ngIf="submission.show_detail">
-                    <a class="btn btn-primary" [routerLink]="['/problems', 'submission', submission.pk]">Details</a>
-                </td>
-            </tr>
+            <ng-container *ngIf="previousSubmissions[0].question.is_exam_and_open; else displaySubmissionDetails">
+                <tr *ngFor="let submission of previousSubmissions; let i = index">
+                    <td>{{i + 1 || 'No ID'}}</td>
+                    <td *ngIf="submission.show_answer">
+                        <div *ngFor="let safeAnswer of submission.safeAnswer" [innerHTML]="safeAnswer"></div>
+                    </td>
+                    <td>N/A</td>
+                    <td>N/A</td>
+                    <td>{{submission.submission_time | date:'medium' || 'No Date'}}</td>
+                    <td>{{submission.status || 'No Status'}}</td>
+                    <td *ngIf="submission.show_detail">
+                        <a class="btn btn-primary" [routerLink]="['/problems', 'submission', submission.pk]">Details</a>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-template #displaySubmissionDetails>
+                <tr *ngFor="let submission of previousSubmissions; let i = index"
+                    [attr.class]="'highlight-'+submission.status_color">
+                    <td>{{i + 1 || 'No ID'}}</td>
+                    <td *ngIf="submission.show_answer">
+                        <div *ngFor="let safeAnswer of submission.safeAnswer" [innerHTML]="safeAnswer"></div>
+                    </td>
+                    <td>{{submission.grade.toFixed(2)}}</td>
+                    <td>{{submission.tokens_received.toFixed(2)}}/{{submission.token_value.toFixed(2)}}</td>
+                    <td>{{submission.submission_time | date:'medium' || 'No Date'}}</td>
+                    <td>{{submission.status || 'No Status'}}</td>
+                    <td *ngIf="submission.show_detail">
+                        <a class="btn btn-primary" [routerLink]="['/problems', 'submission', submission.pk]">Details</a>
+                    </td>
+                </tr>
+            </ng-template>
             </tbody>
         </table>
     </div>
