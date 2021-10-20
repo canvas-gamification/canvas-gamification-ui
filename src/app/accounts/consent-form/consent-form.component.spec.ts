@@ -10,6 +10,7 @@ import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {ConsentService} from "@app/accounts/_services/consent.service";
 import {ConsentServiceMock} from "@app/accounts/_test/consent.service.mock";
+import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
 
 describe('ConsentFormComponent', () => {
     let component: ConsentFormComponent;
@@ -24,7 +25,7 @@ describe('ConsentFormComponent', () => {
                 AdminTermsAndConditionsSnippetComponent,
                 StudentTermsAndConditionsSnippetComponent
             ],
-            imports: [TestModule, ReactiveFormsModule],
+            imports: [TestModule, ReactiveFormsModule, TuiIslandModule, TuiInputModule, TuiFieldErrorModule, TuiCheckboxLabeledModule],
             providers: [{provide: ConsentService, useClass: ConsentServiceMock}]
         }).compileComponents();
     });
