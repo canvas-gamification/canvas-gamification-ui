@@ -16,7 +16,6 @@ export class CourseDashboardService {
 
     getCourseUsers(courseId : number): Observable<CourseRegistration[]> {
         const url = this.apiService.getURL('course-admin', courseId, 'registered-users');
-
         return this.http.get<CourseRegistration[]>(url)
             .pipe(catchError(this.apiService.handleError<CourseRegistration[]>('Error occurred while fetching database', null)));
     }
@@ -43,6 +42,13 @@ export class CourseDashboardService {
         const url = this.apiService.getURL('course-registration', courseRegId);
         return this.http.delete<string>(url)
             .pipe(catchError(this.apiService.handleError<string>('Error occurred while deleting user')));
+    }
+
+    registerUser(data: { username:string }, courseId: number): Observable<CourseRegistration> {
+        const url = this.apiService.getURL('course-admin', courseId, 'register-user');
+        console.log(url);
+        return this.http.post<CourseRegistration>(url, data)
+            .pipe(catchError(this.apiService.handleError<CourseRegistration>('Student does not exist or has already registered.')));
     }
 
 }

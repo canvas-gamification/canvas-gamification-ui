@@ -28,8 +28,10 @@ export class CourseDashboardComponent implements OnInit {
 
     paramChanged: Subject<{
         name: string;
+        username: string;
     }> = new Subject<{
         name: string;
+        username: string;
     }>();
 
     constructor(private authenticationService: AuthenticationService,
@@ -105,4 +107,14 @@ export class CourseDashboardComponent implements OnInit {
             });
     }
 
+    registerUser(formData: FormGroup): void {
+        const data : { username: string } = {username: formData.value.username};
+        this.courseDashboardService.registerUser(data, this.courseId)
+            .subscribe( () => {
+                this.toastr.success('The student has been registered.');
+                this.update();
+            }, error => {
+                console.warn(error);
+            });
+    }
 }

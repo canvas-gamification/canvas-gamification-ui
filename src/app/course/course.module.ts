@@ -58,7 +58,7 @@ import {CourseRegistrationStepComponent} from './course-registration/course-regi
         LeaderBoardComponent,
         ConceptMapComponent,
         CategoryListSnippetComponent,
-        CourseDashboardComponent
+        CourseDashboardComponent,
         CourseRegistrationStepperComponent,
         CourseRegistrationStepComponent
     ],
