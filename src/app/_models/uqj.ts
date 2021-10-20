@@ -9,7 +9,6 @@ export interface UQJ {
     tokens_received: number;
     is_solved: boolean;
     is_partially_solved: boolean;
-    is_favourite: boolean;
     format: string;
     category: Category;
     subcategory: string;

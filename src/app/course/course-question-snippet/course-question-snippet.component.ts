@@ -6,7 +6,6 @@ import {UqjService} from '@app/problems/_services/uqj.service';
 import {forkJoin} from 'rxjs';
 import {CourseEventService} from '@app/course/_services/course-event.service';
 import {CourseService} from '@app/course/_services/course.service';
-import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -25,7 +24,6 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 private router: Router,
                 private route: ActivatedRoute,
                 private uqjService: UqjService,
-                private toastr: ToastrService,
                 private courseEventService: CourseEventService,
                 private courseService: CourseService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
@@ -81,14 +79,5 @@ export class CourseQuestionSnippetComponent implements OnInit {
             return 'highlight-danger';
         }
         return '';
-    }
-
-    switchFavourite(uqj: UQJ, favoriteStatus: boolean): void{
-        const data : {id: number, status: boolean} = {id: uqj.id, status: !favoriteStatus};
-        this.uqjService.updateFavourite(data)
-            .subscribe(() => {
-                this.toastr.success('The action was performed successfully.');
-            });
-
     }
 }
