@@ -8,3 +8,8 @@ export interface Category {
     next_category_ids: number[];
     full_name: string;
 }
+
+export interface NestedCategories {
+    category: Category;
+    children: NestedCategories[];
+}
