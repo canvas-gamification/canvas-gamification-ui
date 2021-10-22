@@ -3,3 +3,7 @@
 @import 'highlight';
 @import "bootstrap";
 @import '~ngx-toastr/toastr-bs4-alert';
+
+body {
+    background: var(--tui-base-01);
+}

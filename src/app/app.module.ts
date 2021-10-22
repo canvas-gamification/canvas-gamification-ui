@@ -46,7 +46,19 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
-import {TuiRootModule} from '@taiga-ui/core';
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiDropdownControllerModule,
+    TuiHostedDropdownModule,
+    TuiLinkModule,
+    TuiRootModule,
+    TuiSvgModule,
+    TuiThemeNightModule
+} from '@taiga-ui/core';
+import {TuiAvatarModule, TuiDropdownHoverModule, TuiToggleModule} from "@taiga-ui/kit";
+import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
+import {TuiActiveZoneModule} from "@taiga-ui/cdk";
 
 @NgModule({
     declarations: [
@@ -100,6 +112,18 @@ import {TuiRootModule} from '@taiga-ui/core';
         ToastrModule.forRoot(),
         HighlightModule,
         TuiRootModule,
+        TuiThemeNightModule,
+        TuiToggleModule,
+        TuiLinkModule,
+        TuiHostedDropdownModule,
+        TuiDropdownHoverModule,
+        TuiDataListModule,
+        TuiButtonModule,
+        TuiAvatarModule,
+        TuiSvgModule,
+        TuiDropdownControllerModule,
+        TuiSidebarModule,
+        TuiActiveZoneModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
