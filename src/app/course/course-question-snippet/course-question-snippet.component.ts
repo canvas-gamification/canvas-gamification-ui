@@ -131,6 +131,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
             this.toastr.success('The action was performed successfully.');
             this.reportedQuestions.push(this.question.id);
         });
+        this.formGroup.reset();
     }
 
 }
