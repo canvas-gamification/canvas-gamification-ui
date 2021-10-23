@@ -6,6 +6,10 @@ import {UqjService} from '@app/problems/_services/uqj.service';
 import {forkJoin} from 'rxjs';
 import {CourseEventService} from '@app/course/_services/course-event.service';
 import {CourseService} from '@app/course/_services/course.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {QuestionReportForm} from "@app/course/_forms/Question-Report.form";
+import {FormGroup} from "@angular/forms";
+import {QuestionReport} from "@app/_models/Question_Report";
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -19,19 +23,26 @@ export class CourseQuestionSnippetComponent implements OnInit {
     event: CourseEvent;
     eventId: number;
     courseId: number;
+    questionId: number;
+    userId: number;
+    formGroup: FormGroup;
+    questionReport: QuestionReport;
 
     constructor(private authenticationService: AuthenticationService,
                 private router: Router,
                 private route: ActivatedRoute,
                 private uqjService: UqjService,
                 private courseEventService: CourseEventService,
-                private courseService: CourseService) {
+                private courseService: CourseService,
+                private modalService: NgbModal ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
+
     }
 
     ngOnInit(): void {
         this.courseId = +this.route.snapshot.paramMap.get('courseId') || null;
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null;
+        this.formGroup = QuestionReportForm.createForm();
         if (this.eventId && this.courseId) { // if this snippet is an event-view
             this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {
                 if (response.success) {
@@ -80,4 +91,16 @@ export class CourseQuestionSnippetComponent implements OnInit {
         }
         return '';
     }
+
+    reportStatus(content: unknown, uqj: UQJ): void {
+        this.userId = this.user.id;
+        this.questionId = uqj.question.id;
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
+    }
+
+    reportQuestion(): void {
+        this.questionReport = {report: this.formGroup.get('description').value, report_details: this.formGroup.get('description_text').value};
+        console.log(this.questionReport.report);
+    }
+
 }

@@ -44,11 +44,56 @@
                                 <a class="btn btn-warning mr-3"
                                    [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
                             </ng-container>
-
+                            <ng-container *ngIf = "true">
+                                <button type="button" mat-icon-button
+                                        (click)="reportStatus(reportModal,uqj)">
+                                    <mat-icon>outlined_flag</mat-icon>
+                                </button>
+                            </ng-container>
+                            <ng-container *ngIf = "false">
+                                <button type="button" mat-icon-button
+                                        (click)="reportStatus(reportModal,uqj)">
+                                    <mat-icon>flag</mat-icon>
+                                </button>
+                            </ng-container>
                         </td>
                     </tr>
                 </ng-container>
             </ng-container>
+            <ng-template #reportModal let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Report Question</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <form [formGroup]="formGroup" (ngSubmit)="reportQuestion()">
+                <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="description">Report Reason:</label>
+                            <select class="form-control" name="description" formControlName="description" id="description">
+                                <option value="TYPO_TEXT">There is a typo in the question instructions</option>
+                                <option value="TYPO_ANSWER">There is a typo in one of the multiple-choice answers</option>
+                                <option value="RIGHT_SOLUTION_MARKED_WRONG">My solution is definitely correct but it did not get full marks</option>
+                                <option value="WRONG_SOLUTION_MARKED_RIGHT">My solution is incorrect but it received full marks</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" name="description_text" formControlName="description_text" id="description_text"></textarea>
+                        </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss()">Cancel</button>
+                    <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">
+                        Report
+                    </button>
+                </div>
+                </form>
+            </ng-template>
+
             <ng-template #tableEmpty>
                 <tr>
                     <td [attr.colspan]="eventId ? 7 : 6" class="bg-info">
