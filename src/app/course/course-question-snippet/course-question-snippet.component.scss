@@ -1,3 +1,7 @@
 @use "src/scss/mixins";
 
 @include mixins.highlight-table();
+
+textarea[name="description_text"] {
+    resize: none;
+}

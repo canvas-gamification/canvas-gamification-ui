@@ -87,7 +87,6 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <!--<button type="button" class="btn btn-outline-danger" (click)="modal.dismiss()">Cancel</button>-->
                     <ng-container *ngIf = "reportedQuestions.includes(question.id)">
                         <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click');deleteReport()">
                             Delete Report
