@@ -10,6 +10,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {QuestionReportForm} from "@app/course/_forms/Question-Report.form";
 import {FormGroup} from "@angular/forms";
 import {QuestionReport} from "@app/_models/Question_Report";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -23,7 +24,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     event: CourseEvent;
     eventId: number;
     courseId: number;
-    questionId: number;
+    question: Question;
     userId: number;
     formGroup: FormGroup;
     questionReport: QuestionReport;
@@ -34,7 +35,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 private uqjService: UqjService,
                 private courseEventService: CourseEventService,
                 private courseService: CourseService,
-                private modalService: NgbModal ) {
+                private modalService: NgbModal,
+                private toastr: ToastrService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
 
     }
@@ -94,13 +96,18 @@ export class CourseQuestionSnippetComponent implements OnInit {
 
     reportStatus(content: unknown, uqj: UQJ): void {
         this.userId = this.user.id;
-        this.questionId = uqj.question.id;
+        this.question = uqj.question;
+
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
     }
 
     reportQuestion(): void {
-        this.questionReport = {report: this.formGroup.get('description').value, report_details: this.formGroup.get('description_text').value};
-        console.log(this.questionReport.report);
+        const data: {user: User, question: Question, report: string, report_details: string} = {user: this.user,
+            question: this.question, report: this.formGroup.get('description').value,
+            report_details: this.formGroup.get('description_text').value};
+        this.courseService.sendReport(data).subscribe(() => {
+            this.toastr.success('The action was performed successfully.');
+        });
     }
 
 }

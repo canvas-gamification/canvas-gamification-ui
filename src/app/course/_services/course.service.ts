@@ -4,12 +4,14 @@ import {
     APIResponse,
     Course,
     CourseRegistrationRequest,
-    CourseRegistrationResponse,
-    RegistrationStatus
+    CourseRegistrationResponse, Question,
+    RegistrationStatus, User,
+
 } from '@app/_models';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
+import {QuestionReport} from "@app/_models/Question_Report";
 
 @Injectable({
     providedIn: 'root'
@@ -123,5 +125,13 @@ export class CourseService {
         return this.http
             .get<Course>(url)
             .pipe(catchError(this.apiService.handleError<Course>(`Unable to load course`, null)));
+    }
+
+    sendReport(data: {user: User, question: Question, report: string, report_details: string}): Observable<QuestionReport> {
+        const url = this.apiService.getURL('question-report','add-report');
+        //console.log("the URL is: " + url);
+        return this.http
+            .post<QuestionReport>(url, data)
+            .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while creating a report')));
     }
 }
