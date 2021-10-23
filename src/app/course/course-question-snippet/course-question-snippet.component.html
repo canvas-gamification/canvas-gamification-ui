@@ -46,14 +46,14 @@
                             </ng-container>
                             <ng-container *ngIf = "!reportedQuestions.includes(uqj.question.id)">
                                 <button type="button" mat-icon-button
-                                        (click)="reportStatus(reportModal,true, uqj)">
+                                        (click)="createModal(reportModal,true, uqj)">
                                         <!--(click)="reportCheck(uqj)">-->
                                     <mat-icon>outlined_flag</mat-icon>
                                 </button>
                             </ng-container>
                             <ng-container *ngIf = "reportedQuestions.includes(uqj.question.id)">
                                 <button type="button" mat-icon-button
-                                        (click)="reportStatus(existsModal,false, uqj)">
+                                        (click)="createModal(reportModal,false, uqj)">
                                     <mat-icon>flag</mat-icon>
                                 </button>
                             </ng-container>
@@ -61,17 +61,6 @@
                     </tr>
                 </ng-container>
             </ng-container>
-            <ng-template #existsModal let-modal>
-                <div class="modal-header">
-                    <h4 class="modal-title" id="modal-exists-report">Report Question</h4>
-                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                    <div class="modal-body">
-                        bro its a success.
-                    </div>
-            </ng-template>
 
 
             <ng-template #reportModal let-modal>
@@ -83,7 +72,6 @@
                 </div>
                 <form [formGroup]="formGroup" (ngSubmit)="reportQuestion()">
                 <div class="modal-body">
-
                         <div class="form-group">
                             <label for="description">Report Reason:</label>
                             <select class="form-control" name="description" formControlName="description" id="description">
@@ -97,13 +85,22 @@
                         <div class="form-group">
                             <textarea class="form-control" name="description_text" formControlName="description_text" id="description_text"></textarea>
                         </div>
-
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" (click)="modal.dismiss()">Cancel</button>
-                    <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">
-                        Report
-                    </button>
+                    <!--<button type="button" class="btn btn-outline-danger" (click)="modal.dismiss()">Cancel</button>-->
+                    <ng-container *ngIf = "reportedQuestions.includes(question.id)">
+                        <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click');deleteReport()">
+                            Delete Report
+                        </button>
+                        <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">
+                            Change Report
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf = "!reportedQuestions.includes(question.id)">
+                        <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">
+                            Report
+                        </button>
+                    </ng-container>
                 </div>
                 </form>
             </ng-template>

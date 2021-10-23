@@ -96,6 +96,24 @@ export class CourseQuestionSnippetComponent implements OnInit {
         return '';
     }
 
+    deleteReport() :void {
+        this.courseService.deleteReport(this.userId, this.question.id).subscribe(() => {
+            this.toastr.success('The report was deleted.');
+            this.reportedQuestions = this.reportedQuestions.filter(e => e !== this.question.id);
+        });
+    }
+
+    getReport(uqj: UQJ): void{
+        this.userId = this.user.id;
+        this.question = uqj.question;
+        this.courseService.getReport(this.userId, this.question.id).subscribe(response => {
+            console.log(response.report);
+            this.formGroup.setValue({
+                description: response.report,
+                description_text: response.report_details
+            });
+        });
+    }
 
     reportCheck(uqjs: UQJ[]): number[]{
         const num = [];
@@ -113,15 +131,18 @@ export class CourseQuestionSnippetComponent implements OnInit {
         return num;
     }
 
-    reportStatus(content: unknown, exists: boolean, uqj: UQJ): void {
+    createModal(content: unknown, exists: boolean, uqj: UQJ): void {
         this.question = uqj.question;
+        this.formGroup.reset();
         if (exists) {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
         }
         else {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
+            this.getReport(uqj);
         }
     }
+
 
     reportQuestion(): void {
         const data: {user: User, question: Question, report: string, report_details: string} = {user: this.user,
@@ -131,7 +152,5 @@ export class CourseQuestionSnippetComponent implements OnInit {
             this.toastr.success('The action was performed successfully.');
             this.reportedQuestions.push(this.question.id);
         });
-        this.formGroup.reset();
     }
-
 }
