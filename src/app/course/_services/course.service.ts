@@ -127,6 +127,16 @@ export class CourseService {
             .pipe(catchError(this.apiService.handleError<Course>(`Unable to load course`, null)));
     }
 
+    getReport(userId: number, questionId: number): Observable<QuestionReport> {
+        const url = this.apiService.getURL('question-report','get-report');
+        const params = new HttpParams()
+            .set('question', String(questionId))
+            .set('user', String(userId));
+        return this.http
+            .get<QuestionReport>(url,{params})
+            .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while fetching a report')));
+    }
+
     sendReport(data: {user: User, question: Question, report: string, report_details: string}): Observable<QuestionReport> {
         const url = this.apiService.getURL('question-report','add-report');
         //console.log("the URL is: " + url);

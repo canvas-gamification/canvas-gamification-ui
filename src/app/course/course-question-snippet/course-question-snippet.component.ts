@@ -28,6 +28,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     userId: number;
     formGroup: FormGroup;
     questionReport: QuestionReport;
+    reportedQuestions : number[];
 
     constructor(private authenticationService: AuthenticationService,
                 private router: Router,
@@ -60,6 +61,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 }
             });
         }
+        this.reportedQuestions = this.reportCheck(this.uqjs);
     }
 
     /**
@@ -94,11 +96,31 @@ export class CourseQuestionSnippetComponent implements OnInit {
         return '';
     }
 
-    reportStatus(content: unknown, uqj: UQJ): void {
-        this.userId = this.user.id;
-        this.question = uqj.question;
 
-        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
+    reportCheck(uqjs: UQJ[]): number[]{
+        const num = [];
+        this.userId = this.user.id;
+        for (const uqj of uqjs){
+            this.question = uqj.question;
+            this.courseService.getReport(this.userId, this.question.id).subscribe(response => {
+                if(response.report != null){
+                    if(uqj.question.id !== undefined){
+                        num.push(uqj.question.id);
+                    }
+                }
+            });
+        }
+        return num;
+    }
+
+    reportStatus(content: unknown, exists: boolean, uqj: UQJ): void {
+        this.question = uqj.question;
+        if (exists) {
+            this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
+        }
+        else {
+            this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
+        }
     }
 
     reportQuestion(): void {
@@ -107,6 +129,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
             report_details: this.formGroup.get('description_text').value};
         this.courseService.sendReport(data).subscribe(() => {
             this.toastr.success('The action was performed successfully.');
+            this.reportedQuestions.push(this.question.id);
         });
     }
 
