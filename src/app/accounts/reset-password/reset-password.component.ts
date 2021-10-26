@@ -3,12 +3,24 @@ import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {ResetPasswordService} from '@app/accounts/_services/reset-password.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ResetPasswordForm} from "@app/accounts/_forms/reset-password.form";
+import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-reset-password',
     templateUrl: './reset-password.component.html',
     styleUrls: ['./reset-password.component.scss'],
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'This field is required!',
+                email: 'Enter a valid email address!',
+                minlength: 'Password must contain at least 8 characters.',
+                confirmedValidator: 'Passwords must match!'
+            },
+        },
+    ],
 })
 export class ResetPasswordComponent implements OnInit {
     formGroup: FormGroup;

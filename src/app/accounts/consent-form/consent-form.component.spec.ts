@@ -9,6 +9,7 @@ import {StudentTermsAndConditionsSnippetComponent} from "@app/accounts/student-t
 import {Router} from "@angular/router";
 import {ConsentService} from "@app/accounts/_services/consent.service";
 import {ConsentServiceMock} from "@app/accounts/_test/consent.service.mock";
+import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
 import {TuiNotificationsService} from '@taiga-ui/core';
 import {of} from "rxjs";
 
@@ -25,7 +26,7 @@ describe('ConsentFormComponent', () => {
                 AdminTermsAndConditionsSnippetComponent,
                 StudentTermsAndConditionsSnippetComponent
             ],
-            imports: [TestModule, ReactiveFormsModule],
+            imports: [TestModule, ReactiveFormsModule, TuiIslandModule, TuiInputModule, TuiFieldErrorModule, TuiCheckboxLabeledModule],
             providers: [{provide: ConsentService, useClass: ConsentServiceMock}]
         }).compileComponents();
     });
