@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ToastrService} from "ngx-toastr";
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {ParsonsFile, UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-parsons-view-snippet',
@@ -13,7 +13,8 @@ export class ParsonsViewSnippetComponent implements OnInit {
 
     files: (ParsonsFile & { solution: string })[]
 
-    constructor(private submissionService: SubmissionService, private toastr: ToastrService) {
+    constructor(private submissionService: SubmissionService,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     ngOnInit(): void {
@@ -35,7 +36,10 @@ export class ParsonsViewSnippetComponent implements OnInit {
             question: this.uqj.question.id,
             solution: solution,
         }).subscribe(() => {
-            this.toastr.success('The Question has been Submitted Successfully.');
+            this.notificationsService
+                .show('The Question has been Submitted Successfully.', {
+                    status: TuiNotification.Success
+                }).subscribe();
         });
     }
 }

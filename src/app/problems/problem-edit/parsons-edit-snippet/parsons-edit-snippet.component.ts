@@ -1,7 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/problems/_services/question.service';
-import {ToastrService} from "ngx-toastr";
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {forkJoin} from 'rxjs';
@@ -10,6 +9,7 @@ import {CategoryService} from '@app/_services/api/category.service';
 import {CourseEventService} from '@app/course/_services/course-event.service';
 import {ParsonsForm} from "@app/problems/_forms/parsons.form";
 import {Router} from "@angular/router";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-parsons-edit-snippet',
@@ -32,11 +32,11 @@ export class ParsonsEditSnippetComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private questionService: QuestionService,
-        private toastr: ToastrService,
         private courseService: CourseService,
         private categoryService: CategoryService,
         private courseEventService: CourseEventService,
-        private router: Router
+        private router: Router,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
     ) {
     }
 
@@ -152,7 +152,10 @@ export class ParsonsEditSnippetComponent implements OnInit {
      * Refresh the page upon successful submission.
      */
     refresh(): void {
-        this.toastr.success('The Question has been Updated Successfully.');
+        this.notificationsService
+            .show('The Question has been Updated Successfully.', {
+                status: TuiNotification.Success
+            }).subscribe();
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(['problems', this.questionDetails.id.toString(), 'edit']).then(() => {
             window.scroll(0, 0);

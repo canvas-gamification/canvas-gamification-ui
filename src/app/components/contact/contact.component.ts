@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ContactService} from '@app/_services/api/contact.service';
-import {ToastrService} from "ngx-toastr";
 import {environment} from '@environments/environment';
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 
 @Component({
@@ -14,7 +14,9 @@ export class ContactComponent implements OnInit {
     formData: FormGroup;
     siteKey: string = environment.siteKey;
 
-    constructor(private builder: FormBuilder, private contact: ContactService, private toastr: ToastrService) {
+    constructor(private builder: FormBuilder,
+                private contact: ContactService,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     ngOnInit(): void {
@@ -30,10 +32,16 @@ export class ContactComponent implements OnInit {
         this.contact.postMessage(formData)
             .subscribe(() => {
                 this.formData.reset();
-                this.toastr.success('Your comment have been successfully sent!');
+                this.notificationsService
+                    .show('Your comment have been successfully sent!', {
+                        status: TuiNotification.Success
+                    }).subscribe();
             }, error => {
                 console.warn(error);
-                this.toastr.error(error);
+                this.notificationsService
+                    .show(error, {
+                        status: TuiNotification.Error
+                    }).subscribe();
             });
     }
 }

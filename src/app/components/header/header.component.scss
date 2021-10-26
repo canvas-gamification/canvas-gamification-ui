@@ -1,16 +1,135 @@
-.fixed-top {
-    position: relative !important;
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+@import 'mixins';
+
+.header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 4rem;
+    padding: 0 1rem;
+    background: var(--tui-base-01);
+    border-bottom: 1px solid var(--tui-base-03);
+    @include shadow(6);
+    z-index: 1;
+
+    &-sidebar {
+        display: none;
+
+        @include screen-sm() {
+            display: block;
+        }
+
+        &_nav {
+            display: flex;
+            flex-direction: column;
+
+            a {
+                color: var(--tui-font-text);
+                font: var(--tui-font-heading-6);
+                padding: 1rem;
+                border-bottom: 1px solid var(--tui-base-03);
+            }
+
+            .header-logo {
+                margin-left: 0;
+                border-bottom: 1px solid var(--tui-base-03);
+
+                a {
+                    padding: 0.47rem 1rem;
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+
+    &-logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 0.25rem;
+
+        img {
+            width: 2.5rem;
+            height: auto;
+            border-radius: 999px;
+            margin-top: 0.3rem;
+        }
+
+        span {
+            @include screen-sm() {
+                display: none;
+            }
+            @include screen-md() {
+                display: none;
+            }
+        }
+    }
+
+    &-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 2.5rem;
+
+        @include screen-sm() {
+            display: none;
+        }
+        @include screen-md() {
+            margin-left: 0.5rem;
+        }
+
+        a {
+            color: var(--tui-text_h6);
+            font: var(--tui-font-text-m);
+            margin-right: 1.5rem;
+
+            &:hover {
+                color: var(--tui-primary);
+            }
+        }
+
+        .active {
+            position: relative;
+
+            &:after {
+                width: 100%;
+                height: 0.5rem;
+                background-color: var(--tui-primary);
+                position: absolute;
+                bottom: -0.5rem;
+            }
+        }
+    }
+
+    &-user {
+        margin-left: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        &_dropdown {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            font: var(--tui-font-text-m);
+            border: none;
+            background-color: transparent;
+            cursor: pointer;
+        }
+    }
+
 }
 
-nav {
-    height: 5rem;
+.icon {
+    @include transition(transform);
+    transition-duration: 300ms;
 
-    .navbar-brand {
-        padding: 1rem 0;
-
-        .nav-item {
-            color: white;
-        }
+    &_rotated {
+        transform: rotate(180deg);
     }
 }
 

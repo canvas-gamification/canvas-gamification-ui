@@ -1,13 +1,13 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {ProfileDetailsService} from '@app/accounts/_services/profile-details.service';
-import {ToastrService} from "ngx-toastr";
 import {ConsentService} from '@app/accounts/_services/consent.service';
 import {User} from '@app/_models';
 import {Router} from '@angular/router';
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form";
 import {AuthenticationService} from "@app/_services/api/authentication";
 import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-profile-details',
@@ -31,10 +31,10 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
 
     constructor(private router: Router,
                 private profile: ProfileDetailsService,
-                private toastr: ToastrService,
                 private consentService: ConsentService,
                 private authenticationService: AuthenticationService,
-                private changeDetector: ChangeDetectorRef) {
+                private changeDetector: ChangeDetectorRef,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
         this.userId = this.authenticationService.currentUserValue?.id;
     }
 
@@ -61,13 +61,19 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
         const data = ProfileDetailsForm.extractData(this.formGroup);
         this.profile.putProfileDetails(data, this.userDetails.id)
             .subscribe(() => {
-                this.toastr.success('Your profile has been updated successfully!');
+                this.notificationsService
+                    .show('Your profile has been updated successfully!', {
+                        status: TuiNotification.Success
+                    }).subscribe();
             });
     }
 
     withdraw(): void {
         this.consentService.declineConsent().subscribe(() => {
-            this.toastr.success('Your consent has been withdrawn successfully!');
+            this.notificationsService
+                .show('Your consent has been withdrawn successfully!', {
+                    status: TuiNotification.Success
+                }).subscribe();
         });
         this.userConsent = false;
     }

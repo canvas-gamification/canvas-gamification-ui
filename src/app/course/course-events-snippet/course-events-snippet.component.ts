@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {CourseEvent, EventType, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseEventService} from '@app/course/_services/course-event.service';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-course-events-snippet',
@@ -20,8 +20,8 @@ export class CourseEventsSnippetComponent implements OnInit {
 
     constructor(private authenticationService: AuthenticationService,
                 private courseEventService: CourseEventService,
-                private toastr: ToastrService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     ngOnInit(): void {
@@ -67,7 +67,10 @@ export class CourseEventsSnippetComponent implements OnInit {
     importCourseEvent(event: CourseEvent, courseId: number): void {
         this.courseEventService.importCourseEvent(event, courseId).subscribe((response) => {
             if (response.status === 201) {
-                this.toastr.success('The Event has been Imported Successfully.');
+                this.notificationsService
+                    .show('The Event has been Imported Successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
             }
         });
     }

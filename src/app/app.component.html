@@ -1,5 +1,6 @@
+<tui-theme-night *ngIf="headerComponent.isNightMode()"></tui-theme-night>
 <tui-root>
-    <app-header></app-header>
+    <app-header #headerComponent></app-header>
 
     <main class="page-content">
         <div class="container-fluid">

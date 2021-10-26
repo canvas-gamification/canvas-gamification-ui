@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 import {Category, Question} from '@app/_models';
 import {QuestionService} from '@app/problems/_services/question.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
-import {ToastrService} from "ngx-toastr";
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -14,6 +13,7 @@ import {CategoryService} from "@app/_services/api/category.service";
 import {Difficulty} from "@app/_models/difficulty";
 import {DifficultyService} from "@app/problems/_services/difficulty.service";
 import {ProblemSetForm} from "@app/problems/_forms/problem-set.form";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-problem-set',
@@ -73,8 +73,8 @@ export class ProblemSetComponent implements OnInit {
                 private questionService: QuestionService,
                 private categoryService: CategoryService,
                 private difficultyService: DifficultyService,
-                private toastr: ToastrService,
-                private modalService: NgbModal) {
+                private modalService: NgbModal,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
                 this.questions = paginatedQuestions.results;
@@ -170,7 +170,10 @@ export class ProblemSetComponent implements OnInit {
     deleteQuestion(): void {
         this.questionService.deleteQuestion(this.deleteQuestionId)
             .subscribe(() => {
-                this.toastr.success('The Question has been Deleted Successfully.');
+                this.notificationsService
+                    .show('The Question has been Deleted Successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
                 this.update();
                 window.scroll(0, 0);
             });

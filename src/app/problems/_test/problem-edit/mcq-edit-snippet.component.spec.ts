@@ -22,13 +22,14 @@ import {CourseEventServiceMock} from "@app/problems/_test/course-event.service.m
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
 
 describe('McqEditSnippetComponent', () => {
     let component: McqEditSnippetComponent;
     let fixture: ComponentFixture<McqEditSnippetComponent>;
     let router: Router;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -46,8 +47,10 @@ describe('McqEditSnippetComponent', () => {
         beforeEach(() => {
             router = TestBed.inject(Router);
             spyOn(router, 'navigate');
-            toastr = TestBed.inject(ToastrService);
-            spyOn(toastr, 'success');
+            notificationService = TestBed.inject(TuiNotificationsService);
+            spyOn(notificationService, 'show').and.callFake(() => {
+                return of();
+            });
             fixture = TestBed.createComponent(McqEditSnippetComponent);
             component = fixture.componentInstance;
             component.questionDetails = MOCK_MCQ_QUESTION;
@@ -86,7 +89,7 @@ describe('McqEditSnippetComponent', () => {
 
         it('should update mcq', () => {
             component.onSubmit();
-            expect(toastr.success).toHaveBeenCalled();
+            expect(notificationService.show).toHaveBeenCalled();
             expect(router.navigate).toHaveBeenCalledOnceWith(['problems', '0', 'edit']);
         });
 
