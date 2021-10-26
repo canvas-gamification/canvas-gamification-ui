@@ -31,3 +31,7 @@ export const STATUS = {
     blocked: 'Blocked',
 };
 
+export interface ViewCourse {
+    name: string;
+    course_id: number;
+}

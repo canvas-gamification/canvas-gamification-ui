@@ -15,7 +15,7 @@ export class CategoryStatsService {
     }
 
     getCategoryStats(): Observable<NestedCategories[]> {
-        const url = this.apiService.getURL('category-stats');
+        const url = this.apiService.getURL('admin/category-stats');
         return this.http
             .get<NestedCategories[]>(url)
             .pipe(catchError(this.apiService.handleError<NestedCategories[]>('Unable to get category stats', [])));
