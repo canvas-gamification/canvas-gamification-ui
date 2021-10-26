@@ -10,12 +10,13 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgxMatDatetimePickerModule} from "@angular-material-components/datetime-picker";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
 
 describe('CourseEventCreateComponent with EventId', () => {
     let component: CourseEventCreateEditComponent;
     let fixture: ComponentFixture<CourseEventCreateEditComponent>;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -44,8 +45,10 @@ describe('CourseEventCreateComponent with EventId', () => {
     });
 
     beforeEach(() => {
-        toastr = TestBed.inject(ToastrService);
-        spyOn(toastr, 'success');
+        notificationService = TestBed.inject(TuiNotificationsService);
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of();
+        });
         fixture = TestBed.createComponent(CourseEventCreateEditComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -61,7 +64,7 @@ describe('CourseEventCreateComponent with EventId', () => {
 
     it('submitEvent should work with eventId', () => {
         component.submitEvent(component.formData);
-        expect(toastr.success).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
     });
 });
 
@@ -69,7 +72,7 @@ describe('CourseEventCreateComponent without EventId', () => {
     let component: CourseEventCreateEditComponent;
     let fixture: ComponentFixture<CourseEventCreateEditComponent>;
     let router: Router;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -99,8 +102,10 @@ describe('CourseEventCreateComponent without EventId', () => {
     beforeEach(() => {
         router = TestBed.inject(Router);
         spyOn(router, 'navigate');
-        toastr = TestBed.inject(ToastrService);
-        spyOn(toastr, 'success');
+        notificationService = TestBed.inject(TuiNotificationsService);
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of();
+        });
         fixture = TestBed.createComponent(CourseEventCreateEditComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -112,7 +117,7 @@ describe('CourseEventCreateComponent without EventId', () => {
 
     it('submitEvent should work without eventId', () => {
         component.submitEvent(component.formData);
-        expect(toastr.success).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith(['course', 1]);
     });
 });

@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {QuestionService} from '@app/problems/_services/question.service';
-import {ToastrService} from "ngx-toastr";
 import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {forkJoin} from 'rxjs';
 import {ParsonsForm} from "@app/problems/_forms/parsons.form";
 import {Router} from "@angular/router";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-parsons-create-snippet',
@@ -29,10 +29,10 @@ export class ParsonsCreateSnippetComponent implements OnInit {
 
     constructor(private questionService: QuestionService,
                 private formBuilder: FormBuilder,
-                private toastr: ToastrService,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
-                private router: Router) {
+                private router: Router,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     /**
@@ -123,7 +123,10 @@ export class ParsonsCreateSnippetComponent implements OnInit {
      * Refresh the page upon successful submission.
      */
     refresh(): void {
-        this.toastr.success('The Question has been Created Successfully.');
+        this.notificationsService
+            .show('The Question has been Created Successfully.', {
+                status: TuiNotification.Success
+            }).subscribe();
         this.router.onSameUrlNavigation = 'reload';
         this.router.navigate(['problems', 'create', 'parsons']).then(() => {
             window.scroll(0, 0);

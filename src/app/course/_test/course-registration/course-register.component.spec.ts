@@ -6,7 +6,6 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {ActivatedRoute} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
-import {ToastrService} from "ngx-toastr";
 import {
     MOCK_CONFIRM_RESPONSE1,
     MOCK_CONFIRM_STEP1,
@@ -20,12 +19,13 @@ import {
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component";
 import {CourseRegistrationStepComponent} from "@app/course/course-registration/course-registration-step/course-registration-step.component";
 import {TuiFieldErrorModule, TuiInputModule, TuiStepperModule} from "@taiga-ui/kit";
-import {TuiTextfieldControllerModule} from "@taiga-ui/core";
+import {TuiTextfieldControllerModule, TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
 
 describe('CourseRegisterComponent', () => {
     let component: CourseRegisterComponent;
     let fixture: ComponentFixture<CourseRegisterComponent>;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -47,8 +47,10 @@ describe('CourseRegisterComponent', () => {
     });
 
     beforeEach(() => {
-        toastr = TestBed.inject(ToastrService);
-        spyOn(toastr, 'error');
+        notificationService = TestBed.inject(TuiNotificationsService);
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of();
+        });
         fixture = TestBed.createComponent(CourseRegisterComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -80,7 +82,7 @@ describe('CourseRegisterComponent', () => {
 
     it('should send an error message', () => {
         component.sendErrorMessage();
-        expect(toastr.error).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
     });
 
     it('should register', () => {

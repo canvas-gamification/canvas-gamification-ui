@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {CourseRegistration, User} from '@app/_models';
 import {TokenUseService} from '@app/course/_services/token-use.service';
 import {ActivatedRoute} from '@angular/router';
 import {TokenUse} from '@app/_models/token_use';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {ToastrService} from "ngx-toastr";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-token-use-snippet',
@@ -28,7 +28,7 @@ export class TokenUseSnippetComponent implements OnInit {
     constructor(private tokenUseService: TokenUseService,
                 private route: ActivatedRoute,
                 private authenticationService: AuthenticationService,
-                private toastr: ToastrService) {
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
@@ -66,7 +66,10 @@ export class TokenUseSnippetComponent implements OnInit {
         const data = {};
         this.tokenUses.forEach(tokenUse => data[tokenUse.option.id] = tokenUse.num_used);
         this.tokenUseService.useTokens(data, courseId).subscribe(() => {
-            this.toastr.success('Token uses saved!');
+            this.notificationsService
+                .show('Token uses saved!', {
+                    status: TuiNotification.Success
+                }).subscribe();
         });
     }
 }

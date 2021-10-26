@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ToastrService} from "ngx-toastr";
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-java-view-snippet',
@@ -13,8 +13,8 @@ export class JavaViewSnippetComponent implements OnInit {
     inputFileNames = new Array<{ name: string, template: string }>();
 
     constructor(
-        private toastr: ToastrService,
-        private submissionService: SubmissionService) {
+        private submissionService: SubmissionService,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     ngOnInit(): void {
@@ -31,7 +31,10 @@ export class JavaViewSnippetComponent implements OnInit {
         });
         this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: codeSolution})
             .subscribe(() => {
-                this.toastr.success('The Question has been Submitted Successfully.');
+                this.notificationsService
+                    .show('The Question has been Submitted Successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
             });
     }
 }

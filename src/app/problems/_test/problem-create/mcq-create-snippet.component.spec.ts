@@ -14,13 +14,14 @@ import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
 import {CourseService} from "@app/course/_services/course.service";
 import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
 
 describe('McqCreateSnippetComponent', () => {
     let component: McqCreateSnippetComponent;
     let fixture: ComponentFixture<McqCreateSnippetComponent>;
     let router: Router;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -35,8 +36,10 @@ describe('McqCreateSnippetComponent', () => {
     });
 
     beforeEach(() => {
-        toastr = TestBed.inject(ToastrService);
-        spyOn(toastr, 'success');
+        notificationService = TestBed.inject(TuiNotificationsService);
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of();
+        });
         router = TestBed.inject(Router);
         spyOn(router, 'navigate');
         fixture = TestBed.createComponent(McqCreateSnippetComponent);
@@ -71,14 +74,14 @@ describe('McqCreateSnippetComponent', () => {
     it('should create mcq', () => {
         component.checkBox = false;
         component.onSubmit();
-        expect(toastr.success).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'MCQ']);
     });
 
     it('should create checkbox question', () => {
         component.checkBox = true;
         component.onSubmit();
-        expect(toastr.success).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'checkbox']);
     });
 
