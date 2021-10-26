@@ -8,6 +8,7 @@ import {UqjService} from "@app/problems/_services/uqj.service";
 import {UqjServiceMock} from "@app/problems/_test/uqj.service.mock";
 import {ActivatedRoute} from "@angular/router";
 import {MOCK_SUBMISSIONS, MOCK_UQJS} from "@app/problems/_test/mock";
+import {MOCK_UQJ} from "@app/course/_test/mock";
 
 describe('ProblemViewComponent', () => {
     let component: ProblemViewComponent;
@@ -49,5 +50,12 @@ describe('ProblemViewComponent', () => {
     it('should have one submission', async () => {
         expect(component.previousSubmissions.length).toEqual(1);
         expect(component.previousSubmissions[0]).toEqual(MOCK_SUBMISSIONS.find(submission => submission.question.id === 0));
+    });
+
+    it('switch favorite should work', () => {
+        const data = {uqj: MOCK_UQJ, favouriteStatus: true};
+        UqjService.updateFavourite(data).subscribe((response) =>{
+            expect(response).toBeTruthy();
+        });
     });
 });

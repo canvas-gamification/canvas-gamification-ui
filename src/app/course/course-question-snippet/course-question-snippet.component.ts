@@ -7,6 +7,7 @@ import {forkJoin} from 'rxjs';
 import {CourseEventService} from '@app/course/_services/course-event.service';
 import {CourseService} from '@app/course/_services/course.service';
 import {ToastrService} from "ngx-toastr";
+import {QuestionService} from "@app/problems/_services/question.service";
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -20,6 +21,9 @@ export class CourseQuestionSnippetComponent implements OnInit {
     event: CourseEvent;
     eventId: number;
     courseId: number;
+    status: string;
+    favorite: number;
+    countFavoriteList: number[] = [];
 
     constructor(private authenticationService: AuthenticationService,
                 private router: Router,
@@ -27,13 +31,18 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 private uqjService: UqjService,
                 private toastr: ToastrService,
                 private courseEventService: CourseEventService,
-                private courseService: CourseService) {
+                private courseService: CourseService,
+                private questionService: QuestionService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
     ngOnInit(): void {
         this.courseId = +this.route.snapshot.paramMap.get('courseId') || null;
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null;
+
+        for (const uqj of this.uqjs){
+            this.getFavoriteCount(uqj.question.id);
+        }
         if (this.eventId && this.courseId) { // if this snippet is an event-view
             this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {
                 if (response.success) {
@@ -83,12 +92,20 @@ export class CourseQuestionSnippetComponent implements OnInit {
         return '';
     }
 
-    switchFavourite(uqj: UQJ, favoriteStatus: boolean): void{
-        const data : {id: number, status: boolean} = {id: uqj.id, status: !favoriteStatus};
+    switchFavourite(uqj: UQJ, favoriteStatus: boolean): void {
+        const data: { id: number, status: boolean } = {id: uqj.id, status: !favoriteStatus};
         this.uqjService.updateFavourite(data)
             .subscribe(() => {
                 this.toastr.success('The action was performed successfully.');
             });
+    }
 
+    getFavoriteCount(questionId: number): void {
+        forkJoin({
+            favorite: this.questionService.countFavorite(questionId)
+        }).subscribe(result => {
+            this.favorite = result.favorite;
+            this.countFavoriteList.push(this.favorite);
+        });
     }
 }

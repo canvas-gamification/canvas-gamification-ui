@@ -71,6 +71,7 @@ describe('CourseQuestionSnippetComponent VALID EVENT', () => {
             expect(response).toBeTruthy();
         });
     });
+
 });
 describe('CourseQuestionSnippetComponent INVALID EVENT', () => {
     let component: CourseQuestionSnippetComponent;

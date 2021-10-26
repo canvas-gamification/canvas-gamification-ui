@@ -6,6 +6,7 @@
         <th>Tokens Value</th>
         <th>Status</th>
         <th>Num Attempts</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -14,6 +15,13 @@
         <td>{{uqj?.question?.token_value || 'No Token Value'}}</td>
         <td>{{uqj?.status || 'No Status'}}</td>
         <td>{{uqj?.question?.max_submission_allowed || 'No Value'}}</td>
+        <td>
+            <button type="button" class = "btn btn-outline-" [ngClass]="uqj.is_favourite ? 'red-icon' : 'gray-icon'"
+                    mat-icon-button color="accent" (click)="switchFavourite(uqj, uqj.is_favourite)">
+                <mat-icon>favorite</mat-icon>
+            </button>
+            {{favorite}}
+        </td>
     </tr>
     </tbody>
 </table>

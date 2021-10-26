@@ -4,7 +4,7 @@ import {UqjService} from './uqj.service';
 import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
-import {MOCK_QUESTIONS, MOCK_UQJS} from "@app/problems/_test/mock";
+import {MOCK_QUESTIONS, MOCK_UQJS, MOCK_UQJ} from "@app/problems/_test/mock";
 
 describe('UqjService', () => {
     let uqjService: UqjService;
@@ -66,5 +66,14 @@ describe('UqjService', () => {
         const request = httpMock.expectOne('http://localhost:8000/api/uqj/?question=0');
         expect(request.request.method).toBe('GET');
         request.flush(MOCK_UQJS.find(uqj => uqj.question.id === MOCK_QUESTIONS[0].id));
+    });
+
+    it('register method should work for single student', () => {
+        uqjService.updateFavourite({id: MOCK_UQJ.id, status: MOCK_UQJ.is_favourite}).subscribe((response) => {
+            expect(response);
+        });
+        const request = httpMock.expectOne(apiService.getURL('uqj-generic', 'switch-favorite'));
+        expect(request.request.method).toBe('POST');
+        request.flush({id: MOCK_UQJ.id, status: MOCK_UQJ.is_favourite});
     });
 });
