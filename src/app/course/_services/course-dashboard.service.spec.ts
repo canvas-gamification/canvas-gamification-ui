@@ -10,6 +10,7 @@ describe('TestService', () => {
     let apiService: ApiService;
     let httpMock: HttpTestingController;
 
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [TestModule]
@@ -36,10 +37,10 @@ describe('TestService', () => {
     });
 
     it('updateStatus should update a new Course Event', () => {
-        courseDashboardService.updateStatus(MOCK_REGISTRATION_UPDATE_DATA, 1).subscribe((response) => {
+        courseDashboardService.updateStatus(MOCK_REGISTRATION_UPDATE_DATA).subscribe((response) => {
             expect(response).toBeTruthy();
         });
-        const request = httpMock.expectOne(apiService.getURL('course-admin', MOCK_REGISTRATION_UPDATE_DATA.id, 'change-status'));
+        const request = httpMock.expectOne(apiService.getURL('course-admin', 'change-status'));
         expect(request.request.method).toBe('POST');
     });
 
@@ -50,5 +51,21 @@ describe('TestService', () => {
         const request = httpMock.expectOne('http://localhost:8000/api/course-admin/0/registered-users/?search=');
         expect(request.request.method).toBe('GET');
         request.flush([MOCK_COURSE_REGISTRATION]);
+    });
+
+    it('unregisterUser should update a new Course Event', () => {
+        courseDashboardService.updateRegistration(MOCK_REGISTRATION_UPDATE_DATA).subscribe((response) => {
+            expect(response).toBeTruthy();
+        });
+        const request = httpMock.expectOne(apiService.getURL('course-admin', 'change-registration'));
+        expect(request.request.method).toBe('POST');
+    });
+
+    it('RegisterUser should update a new Course Event', () => {
+        courseDashboardService.registerUser(MOCK_REGISTRATION_UPDATE_DATA, 0).subscribe((response) => {
+            expect(response).toBeTruthy();
+        });
+        const request = httpMock.expectOne(apiService.getURL('course-admin', 0, 'register-user'));
+        expect(request.request.method).toBe('POST');
     });
 });

@@ -3,7 +3,7 @@ import {CourseDashboardComponent} from '../../course-dashboard/course-dashboard.
 import {TestModule} from "@test/test.module";
 import {CourseDashboardService} from "@app/course/_services/course-dashboard.service";
 import {CourseDashboardServiceMock} from "@app/course/_test/course-dashboard.service.mock";
-import {MOCK_COURSE_REGISTRATION} from "@app/course/_test/mock";
+import {MOCK_COURSE_REGISTRATION, MOCK_REGISTRATION_UPDATE_DATA} from "@app/course/_test/mock";
 import {ToastrService} from "ngx-toastr";
 
 describe('CourseDashboardComponent', () => {
@@ -45,8 +45,17 @@ describe('CourseDashboardComponent', () => {
     });
 
     it('changeStatus should work', () => {
-        component.changeStatus(1, true, true);
+        component.changeStatus(1, MOCK_REGISTRATION_UPDATE_DATA.status);
         expect(toastr.success).toHaveBeenCalled();
     });
 
+    it('unregisterUser should work', () => {
+        component.changeRegistration(1, MOCK_REGISTRATION_UPDATE_DATA.status);
+        expect(toastr.success).toHaveBeenCalled();
+    });
+
+    it('registerUser should work', () => {
+        component.registerUser(MOCK_REGISTRATION_UPDATE_DATA.username);
+        expect(toastr.success).toHaveBeenCalled();
+    });
 });

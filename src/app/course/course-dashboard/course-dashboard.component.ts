@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
-import {Course, CourseRegistration, CourseRegistrationStatus, User} from '@app/_models';
+import {Course, CourseRegistration, User, CourseRegistrationData} from '@app/_models';
 import {CourseDashboardService} from "@app/course/_services/course-dashboard.service";
 import {ToastrService} from "ngx-toastr";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AbstractControl, FormGroup} from "@angular/forms";
 import {CourseDashboardForm} from "@app/course/_forms/course-dashboard.form";
 import {debounceTime, distinctUntilChanged} from "rxjs/operators";
@@ -16,6 +15,7 @@ import {Subject} from "rxjs";
     templateUrl: './course-dashboard.component.html',
     styleUrls: ['./course-dashboard.component.scss']
 })
+
 
 export class CourseDashboardComponent implements OnInit {
     formGroup: FormGroup;
@@ -38,8 +38,7 @@ export class CourseDashboardComponent implements OnInit {
                 private courseDashboardService: CourseDashboardService,
                 private courseService: CourseService,
                 private toastr: ToastrService,
-                private route: ActivatedRoute,
-                private modalService: NgbModal) {
+                private route: ActivatedRoute) {
         this.formGroup = CourseDashboardForm.createForm();
         this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.courseId = this.route.snapshot.params.courseId;
@@ -79,9 +78,9 @@ export class CourseDashboardComponent implements OnInit {
         return this.formGroup.controls;
     }
 
-    changeStatus(registrationId: number, blockStatus: boolean, verifyStatus: boolean): void {
-        const data : CourseRegistrationStatus = {id: registrationId, blockStatus: blockStatus, verifyStatus: verifyStatus};
-        this.courseDashboardService.updateStatus(data, this.courseId)
+    changeStatus(registrationId: number, status: string): void {
+        const data : CourseRegistrationData = {id: registrationId, status: status};
+        this.courseDashboardService.updateStatus(data)
             .subscribe(() => {
                 this.toastr.success('The block status has been changed successfully.');
                 this.update();
@@ -91,13 +90,10 @@ export class CourseDashboardComponent implements OnInit {
             });
     }
 
-    unregisterOpen(content: unknown): void {
-        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
-    }
-
     // To do: wait for backend to implement unregister action. Need to talk with Keyvan more about the idea
-    unregisterUser(): void {
-        this.courseDashboardService.unregisterUser(this.courseId)
+    changeRegistration(registrationId: number, status: string): void {
+        const data : CourseRegistrationData = {id: registrationId, status: status};
+        this.courseDashboardService.updateRegistration(data)
             .subscribe(() => {
                 this.toastr.success('The student has been unregistered.');
                 this.update();
@@ -107,8 +103,8 @@ export class CourseDashboardComponent implements OnInit {
             });
     }
 
-    registerUser(formData: FormGroup): void {
-        const data : { username: string } = {username: formData.value.username};
+    registerUser(username: string): void {
+        const data : CourseRegistrationData = {username: username};
         this.courseDashboardService.registerUser(data, this.courseId)
             .subscribe( () => {
                 this.toastr.success('The student has been registered.');

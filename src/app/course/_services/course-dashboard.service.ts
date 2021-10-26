@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
-import {CourseRegistration, CourseRegistrationStatus} from "@app/_models";
+import {CourseRegistration, CourseRegistrationData} from "@app/_models";
 import {CourseDashboardFormData} from "@app/course/_forms/course-dashboard.form";
 
 @Injectable({
@@ -20,8 +20,8 @@ export class CourseDashboardService {
             .pipe(catchError(this.apiService.handleError<CourseRegistration[]>('Error occurred while fetching database', null)));
     }
 
-    updateStatus(data: CourseRegistrationStatus, courseId : number): Observable<CourseRegistration> {
-        const url = this.apiService.getURL('course-admin', courseId, 'change-status');
+    updateStatus(data: CourseRegistrationData): Observable<CourseRegistration> {
+        const url = this.apiService.getURL('course-admin', 'change-status');
         return this.http.post<CourseRegistration>(url, data)
             .pipe(catchError(this.apiService.handleError<CourseRegistration>('Error occurred while changing status')));
     }
@@ -38,15 +38,14 @@ export class CourseDashboardService {
     }
 
     // To do: wait for backend to implement unregister action. Need to talk with Keyvan more about the idea
-    unregisterUser(courseRegId: number): Observable<string> {
-        const url = this.apiService.getURL('course-registration', courseRegId);
-        return this.http.delete<string>(url)
-            .pipe(catchError(this.apiService.handleError<string>('Error occurred while deleting user')));
+    updateRegistration(data : CourseRegistrationData): Observable<CourseRegistration> {
+        const url = this.apiService.getURL('course-admin', 'change-registration');
+        return this.http.post<CourseRegistration>(url, data)
+            .pipe(catchError(this.apiService.handleError<CourseRegistration>('Error occurred while deleting user')));
     }
 
-    registerUser(data: { username:string }, courseId: number): Observable<CourseRegistration> {
+    registerUser(data: CourseRegistrationData, courseId: number): Observable<CourseRegistration> {
         const url = this.apiService.getURL('course-admin', courseId, 'register-user');
-        console.log(url);
         return this.http.post<CourseRegistration>(url, data)
             .pipe(catchError(this.apiService.handleError<CourseRegistration>('Student does not exist or has already registered.')));
     }
