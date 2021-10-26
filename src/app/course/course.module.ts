@@ -32,6 +32,8 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
+import {CourseDashboardComponent} from "@app/course/course-dashboard/course-dashboard.component";
+import {CategoryListSnippetComponent} from "@app/course/category-list-snippet/category-list-snippet.component";
 import {TuiFieldErrorModule, TuiInputModule, TuiStepperModule} from "@taiga-ui/kit";
 import {
     TuiButtonModule,
@@ -55,6 +57,8 @@ import {CourseRegistrationStepComponent} from './course-registration/course-regi
         CourseEventCreateEditComponent,
         LeaderBoardComponent,
         ConceptMapComponent,
+        CategoryListSnippetComponent,
+        CourseDashboardComponent,
         CourseRegistrationStepperComponent,
         CourseRegistrationStepComponent
     ],
