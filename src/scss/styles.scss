@@ -2,3 +2,7 @@
 @import 'mixins';
 @import 'highlight';
 @import "bootstrap";
+
+body {
+    background: var(--tui-base-01);
+}
