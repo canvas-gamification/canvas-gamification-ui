@@ -1,5 +1,23 @@
 @import 'variables';
 
+@mixin screen-sm() {
+    @media screen and (max-width: 767px) {
+        @content;
+    }
+}
+
+@mixin screen-md() {
+    @media screen and (min-width: 768px) and (max-width: 1279px) {
+        @content;
+    }
+}
+
+@mixin screen-lg() {
+    @media screen and (min-width: 1280px) {
+        @content;
+    }
+}
+
 @mixin transition($property) {
     -webkit-transition: $property;
     -moz-transition: $property;
