@@ -28,7 +28,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     userId: number;
     formGroup: FormGroup;
     questionReport: QuestionReport;
-    reportedQuestions : number[];
+    reportedQuestions: number[];
 
     constructor(private authenticationService: AuthenticationService,
                 private router: Router,
@@ -96,14 +96,14 @@ export class CourseQuestionSnippetComponent implements OnInit {
         return '';
     }
 
-    deleteReport() :void {
+    deleteReport(): void {
         this.courseService.deleteReport(this.userId, this.question.id).subscribe(() => {
             this.toastr.success('The report was deleted.');
             this.reportedQuestions = this.reportedQuestions.filter(e => e !== this.question.id);
         });
     }
 
-    getReport(uqj: UQJ): void{
+    getReport(uqj: UQJ): void {
         this.userId = this.user.id;
         this.question = uqj.question;
         this.courseService.getReport(this.userId, this.question.id).subscribe(response => {
@@ -115,14 +115,14 @@ export class CourseQuestionSnippetComponent implements OnInit {
         });
     }
 
-    reportCheck(uqjs: UQJ[]): number[]{
+    reportCheck(uqjs: UQJ[]): number[] {
         const num = [];
         this.userId = this.user.id;
-        for (const uqj of uqjs){
+        for (const uqj of uqjs) {
             this.question = uqj.question;
             this.courseService.getReport(this.userId, this.question.id).subscribe(response => {
-                if(response.report != null){
-                    if(uqj.question.id !== undefined){
+                if (response.report != null) {
+                    if (uqj.question.id !== undefined) {
                         num.push(uqj.question.id);
                     }
                 }
@@ -136,18 +136,18 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.formGroup.reset();
         if (exists) {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
-        }
-        else {
+        } else {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
             this.getReport(uqj);
         }
     }
 
-
     reportQuestion(): void {
-        const data: {user: User, question: Question, report: string, report_details: string} = {user: this.user,
+        const data: { user: User, question: Question, report: string, report_details: string } = {
+            user: this.user,
             question: this.question, report: this.formGroup.get('description').value,
-            report_details: this.formGroup.get('description_text').value};
+            report_details: this.formGroup.get('description_text').value
+        };
         this.courseService.sendReport(data).subscribe(() => {
             this.toastr.success('The action was performed successfully.');
             this.reportedQuestions.push(this.question.id);

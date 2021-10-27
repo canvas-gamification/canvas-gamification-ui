@@ -139,7 +139,6 @@ export class CourseService {
 
     sendReport(data: {user: User, question: Question, report: string, report_details: string}): Observable<QuestionReport> {
         const url = this.apiService.getURL('question-report','add-report');
-        //console.log("the URL is: " + url);
         return this.http
             .post<QuestionReport>(url, data)
             .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while creating a report')));

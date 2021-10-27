@@ -44,14 +44,14 @@
                                 <a class="btn btn-warning mr-3"
                                    [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
                             </ng-container>
-                            <ng-container *ngIf = "!reportedQuestions.includes(uqj.question.id)">
+                            <ng-container *ngIf="!reportedQuestions.includes(uqj.question.id)">
                                 <button type="button" mat-icon-button
                                         (click)="createModal(reportModal,true, uqj)">
-                                        <!--(click)="reportCheck(uqj)">-->
+                                    <!--(click)="reportCheck(uqj)">-->
                                     <mat-icon>outlined_flag</mat-icon>
                                 </button>
                             </ng-container>
-                            <ng-container *ngIf = "reportedQuestions.includes(uqj.question.id)">
+                            <ng-container *ngIf="reportedQuestions.includes(uqj.question.id)">
                                 <button type="button" mat-icon-button
                                         (click)="createModal(reportModal,false, uqj)">
                                     <mat-icon>flag</mat-icon>
@@ -71,36 +71,44 @@
                     </button>
                 </div>
                 <form [formGroup]="formGroup" (ngSubmit)="reportQuestion()">
-                <div class="modal-body">
+                    <div class="modal-body">
                         <div class="form-group">
                             <label for="description">Report Reason:</label>
-                            <select class="form-control" name="description" formControlName="description" id="description">
+                            <select class="form-control" name="description" formControlName="description"
+                                    id="description">
                                 <option value="TYPO_TEXT">There is a typo in the question instructions</option>
-                                <option value="TYPO_ANSWER">There is a typo in one of the multiple-choice answers</option>
-                                <option value="RIGHT_SOLUTION_MARKED_WRONG">My solution is definitely correct but it did not get full marks</option>
-                                <option value="WRONG_SOLUTION_MARKED_RIGHT">My solution is incorrect but it received full marks</option>
+                                <option value="TYPO_ANSWER">There is a typo in one of the multiple-choice answers
+                                </option>
+                                <option value="RIGHT_SOLUTION_MARKED_WRONG">My solution is definitely correct but it did
+                                    not get full marks
+                                </option>
+                                <option value="WRONG_SOLUTION_MARKED_RIGHT">My solution is incorrect but it received
+                                    full marks
+                                </option>
                                 <option value="OTHER">Other</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" name="description_text" formControlName="description_text" id="description_text"></textarea>
+                            <textarea class="form-control" name="description_text" formControlName="description_text"
+                                      id="description_text"></textarea>
                         </div>
-                </div>
-                <div class="modal-footer">
-                    <ng-container *ngIf = "reportedQuestions.includes(question.id)">
-                        <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click');deleteReport()">
-                            Delete Report
-                        </button>
-                        <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">
-                            Change Report
-                        </button>
-                    </ng-container>
-                    <ng-container *ngIf = "!reportedQuestions.includes(question.id)">
-                        <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">
-                            Report
-                        </button>
-                    </ng-container>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <ng-container *ngIf="reportedQuestions.includes(question.id)">
+                            <button type="button" class="btn btn-outline-danger"
+                                    (click)="modal.close('Save click');deleteReport()">
+                                Delete Report
+                            </button>
+                            <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">
+                                Change Report
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="!reportedQuestions.includes(question.id)">
+                            <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">
+                                Report
+                            </button>
+                        </ng-container>
+                    </div>
                 </form>
             </ng-template>
 
