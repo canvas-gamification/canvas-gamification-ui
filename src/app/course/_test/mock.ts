@@ -1,10 +1,17 @@
 import {
     Course,
     CourseRegistration,
+    CourseRegistrationData,
     CourseRegistrationRequest,
     CourseRegistrationResponse,
-    EventType, Question, REGISTRATION_STATUS, RegistrationStatus, STATUS,
-    TokenUseOption, UQJ, User
+    EventType,
+    Question,
+    REGISTRATION_STATUS,
+    RegistrationStatus,
+    STATUS,
+    TokenUseOption,
+    UQJ,
+    User,
 } from "@app/_models";
 import {TokenUse} from "@app/_models/token_use";
 import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
@@ -44,10 +51,18 @@ export const MOCK_COURSE_REGISTRATION: CourseRegistration = {
     id: 1,
     available_tokens: 100,
     canvas_user_id: 1,
-    is_blocked: false,
-    is_verified: true,
+    status: 'UNREGISTERED',
     token_uses: [MOCK_TOKEN_USE1, MOCK_TOKEN_USE2],
-    total_tokens_received: 50
+    total_tokens_received: 50,
+    user_id : 0,
+    username: 'Test User',
+    name: 'Test User'
+};
+
+export const MOCK_REGISTRATION_UPDATE_DATA: CourseRegistrationData = {
+    id: 1,
+    status: 'UNREGISTERED',
+    username: 'Test User'
 };
 
 export const MOCK_EVENT_TYPES: EventType[] = [["PRACTICE", "PRACTICE"], ["ASSIGNMENT", "ASSIGNMENT"], ["EXAM", "EXAM"]];
