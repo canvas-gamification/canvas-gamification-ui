@@ -60,7 +60,7 @@
                         <td>
                             <button type="button" *ngIf="registration.status != 'BLOCKED'" [ngClass]="(registration.status == 'UNREGISTERED')?
                             'btn btn-outline-dark btn-success mr-2' : 'btn btn-outline-dark bg-warning mr-2'"
-                                    (click)="changeRegistration(registration.id, registration.status)">
+                                    (click)="changeStatus(registration.id, registration.status == 'UNREGISTERED' ? 'VERIFIED' : 'UNREGISTERED')">
                                 {{registration.status == 'UNREGISTERED' ? "Register" : "Unregister"}}
                             </button>
                             <button type="button" [ngClass]="registration.status == 'BLOCKED'?

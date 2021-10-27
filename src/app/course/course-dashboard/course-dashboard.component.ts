@@ -90,19 +90,6 @@ export class CourseDashboardComponent implements OnInit {
             });
     }
 
-    // To do: wait for backend to implement unregister action. Need to talk with Keyvan more about the idea
-    changeRegistration(registrationId: number, status: string): void {
-        const data : CourseRegistrationData = {id: registrationId, status: status};
-        this.courseDashboardService.updateRegistration(data)
-            .subscribe(() => {
-                this.toastr.success('The student has been unregistered.');
-                this.update();
-            }, error => {
-                this.toastr.error(error);
-                console.warn(error);
-            });
-    }
-
     registerUser(username: string): void {
         const data : CourseRegistrationData = {username: username};
         this.courseDashboardService.registerUser(data, this.courseId)

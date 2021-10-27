@@ -37,13 +37,6 @@ export class CourseDashboardService {
             .pipe(catchError(this.apiService.handleError<CourseRegistration[]>('Error occurred while fetching database')));
     }
 
-    // To do: wait for backend to implement unregister action. Need to talk with Keyvan more about the idea
-    updateRegistration(data : CourseRegistrationData): Observable<CourseRegistration> {
-        const url = this.apiService.getURL('course-admin', 'change-registration');
-        return this.http.post<CourseRegistration>(url, data)
-            .pipe(catchError(this.apiService.handleError<CourseRegistration>('Error occurred while deleting user')));
-    }
-
     registerUser(data: CourseRegistrationData, courseId: number): Observable<CourseRegistration> {
         const url = this.apiService.getURL('course-admin', courseId, 'register-user');
         return this.http.post<CourseRegistration>(url, data)
