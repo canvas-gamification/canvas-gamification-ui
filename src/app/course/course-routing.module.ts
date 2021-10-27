@@ -1,3 +1,4 @@
+
 import {AuthGuard} from "@app/_helpers/auth.guard";
 import {NgModule} from "@angular/core";
 import {RouterModule} from "@angular/router";
@@ -48,7 +49,7 @@ const routes = [
         path: ':courseId/event/:eventId/problem/:id',
         component: ProblemViewComponent,
         canActivate: [AuthGuard]
-    },
+    }
 ];
 
 @NgModule({

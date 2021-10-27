@@ -1,3 +1,4 @@
+
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CourseEventCreateEditComponent} from "@app/course/course-event-create/course-event-create-edit.component";

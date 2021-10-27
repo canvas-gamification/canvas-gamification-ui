@@ -1,3 +1,4 @@
+ 
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -47,6 +48,8 @@ import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
 import {TuiRootModule} from '@taiga-ui/core';
+import { ComponentNameComponent } from './components/component-name/component-name.component';
+
 
 @NgModule({
     declarations: [
@@ -67,6 +70,7 @@ import {TuiRootModule} from '@taiga-ui/core';
         InactiveCoursesComponent,
         NotFoundComponent,
         ForbiddenComponent,
+        ComponentNameComponent
     ],
     imports: [
         BrowserModule,
