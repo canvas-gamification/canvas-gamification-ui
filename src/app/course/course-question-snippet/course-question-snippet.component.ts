@@ -155,8 +155,9 @@ export class CourseQuestionSnippetComponent implements OnInit {
     }
 
     isSubmissionValid(): boolean {
-        if (this.formGroup.get('description').value == null) {
+        if (this.formGroup.get('description').value == null || (this.formGroup.get('description').value == 'OTHER'
+            && this.formGroup.get('description_text').value == null)) {
             return true;
-        }
-    }
+        };
+    };
 }
