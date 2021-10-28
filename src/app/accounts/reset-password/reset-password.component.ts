@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {ResetPasswordService} from '@app/accounts/_services/reset-password.service';
-import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ResetPasswordForm} from "@app/accounts/_forms/reset-password.form";
 import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-reset-password',
@@ -29,9 +29,9 @@ export class ResetPasswordComponent implements OnInit {
 
     constructor(private builder: FormBuilder,
                 private resetPasswordService: ResetPasswordService,
-                private toastr: ToastrService,
                 private route: ActivatedRoute,
-                private router: Router) {
+                private router: Router,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     get form(): { [p: string]: AbstractControl } {
@@ -57,7 +57,10 @@ export class ResetPasswordComponent implements OnInit {
         const data = ResetPasswordForm.extractPasswordFormData(this.formGroup);
         this.resetPasswordService.putPasswordReset(data).subscribe(() => {
             this.router.navigate(['/accounts/login']).then(() => {
-                this.toastr.success('Your password has been updated successfully!');
+                this.notificationsService
+                    .show('Your password has been updated successfully!', {
+                        status: TuiNotification.Success
+                    }).subscribe();
             });
         });
     }
@@ -70,7 +73,10 @@ export class ResetPasswordComponent implements OnInit {
         this.resetPasswordService.sendForgotPasswordEmail(data)
             .subscribe(() => {
                 this.formGroup.reset();
-                this.toastr.success('An email has been sent to you with a password reset link!');
+                this.notificationsService
+                    .show('An email has been sent to you with a password reset link!', {
+                        status: TuiNotification.Info
+                    }).subscribe();
             });
     }
 }

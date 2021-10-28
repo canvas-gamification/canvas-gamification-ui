@@ -2,7 +2,6 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ConceptMapGraph} from './concept-map-graph';
 import {Category, Course} from '@app/_models';
 import {CategoryService} from '@app/_services/api/category.service';
-import {ToastrService} from "ngx-toastr";
 import {Router} from '@angular/router';
 
 @Component({
@@ -18,7 +17,6 @@ export class ConceptMapComponent implements OnInit {
     @Input() currCourse: Course;
 
     constructor(private categoryService: CategoryService,
-                private toastr: ToastrService,
                 private router: Router) {
     }
 

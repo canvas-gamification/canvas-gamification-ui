@@ -1,11 +1,11 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FormGroup} from '@angular/forms';
 import {CourseService} from '@app/course/_services/course.service';
-import {ToastrService} from "ngx-toastr";
 import {CourseRegistrationRequest, CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
 import {CourseRegisterForm} from "@app/course/_forms/register.form";
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 export const STEPPER_STAGES = {
     ENTER_NAME: 0,
@@ -42,8 +42,8 @@ export class CourseRegisterComponent implements OnInit {
 
     constructor(private route: ActivatedRoute,
                 private courseService: CourseService,
-                private toastr: ToastrService,
-                private changeDetector: ChangeDetectorRef) {
+                private changeDetector: ChangeDetectorRef,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
         this.courseId = this.route.snapshot.params.courseId;
         this.needsStudentNumber = false;
         this.loadingContent = false;
@@ -65,10 +65,16 @@ export class CourseRegisterComponent implements OnInit {
             courseRegistrationStatus => {
                 // the api only responds with a non-null message value if the user is blocked from registering, thus the "danger" type
                 if (courseRegistrationStatus.message) {
-                    this.toastr.error(courseRegistrationStatus.message);
+                    this.notificationsService
+                        .show(courseRegistrationStatus.message, {
+                            status: TuiNotification.Error
+                        }).subscribe();
                 }
                 if (courseRegistrationStatus.status === REGISTRATION_STATUS.REGISTERED) {
-                    this.toastr.success('You have already successfully registered in this course!');
+                    this.notificationsService
+                        .show('You have already successfully registered in this course!', {
+                            status: TuiNotification.Success
+                        }).subscribe();
                     this.registered = true;
                 } else {
                     this.registered = false;
@@ -184,10 +190,13 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     /**
-     * Sends out a toastr error message
+     * Sends out a notification error message
      */
     sendErrorMessage(): void {
-        this.toastr.error('Something went wrong. Check that your inputted values are accurate and try again.');
+        this.notificationsService
+            .show('Something went wrong. Check that your inputted values are accurate and try again.', {
+                status: TuiNotification.Error
+            }).subscribe();
     }
 
     /**

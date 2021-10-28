@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ToastrService} from "ngx-toastr";
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -18,9 +18,9 @@ export class McqViewSnippetComponent implements OnInit {
     checkboxAnswers: string[];
 
     constructor(private submissionService: SubmissionService,
-                private toastr: ToastrService,
                 private formBuilder: FormBuilder,
-                private sanitizer: DomSanitizer) {
+                private sanitizer: DomSanitizer,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     /**
@@ -61,7 +61,10 @@ export class McqViewSnippetComponent implements OnInit {
     onSubmit(formData: { question: number, solution: unknown }): void {
         this.submissionService.postQuestionSubmission(formData)
             .subscribe(() => {
-                this.toastr.success('The Question has been Submitted Successfully.');
+                this.notificationsService
+                    .show('The Question has been Submitted Successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
             });
     }
 
@@ -73,7 +76,10 @@ export class McqViewSnippetComponent implements OnInit {
             question: this.checkboxFormData.value.question,
             solution: this.checkboxAnswers.sort().toString()
         }).subscribe(() => {
-            this.toastr.success('The Question has been Submitted Successfully.');
+            this.notificationsService
+                .show('The Question has been Submitted Successfully.', {
+                    status: TuiNotification.Success
+                }).subscribe();
         });
     }
 
