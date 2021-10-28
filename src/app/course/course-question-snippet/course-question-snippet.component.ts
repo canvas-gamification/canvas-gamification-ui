@@ -153,4 +153,10 @@ export class CourseQuestionSnippetComponent implements OnInit {
             this.reportedQuestions.push(this.question.id);
         });
     }
+
+    isSubmissionValid(): boolean {
+        if (this.formGroup.get('description').value == null) {
+            return true;
+        }
+    }
 }

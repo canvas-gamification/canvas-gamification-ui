@@ -1,4 +1,4 @@
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 export class QuestionReportForm {
     /**
@@ -7,7 +7,7 @@ export class QuestionReportForm {
     static createForm(): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
-            description: new FormControl(''),
+            description: new FormControl('', Validators.required),
             description_text: new FormControl(''),
         });
     }

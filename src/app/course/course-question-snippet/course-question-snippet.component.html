@@ -104,7 +104,8 @@
                             </button>
                         </ng-container>
                         <ng-container *ngIf="!reportedQuestions.includes(question.id)">
-                            <button type="submit" class="btn btn-outline-success" (click)="modal.close('Save click')">
+                            <button type="submit" [disabled]="isSubmissionValid()" class="btn btn-outline-success"
+                                    (click)="modal.close('Save click')">
                                 Report
                             </button>
                         </ng-container>
