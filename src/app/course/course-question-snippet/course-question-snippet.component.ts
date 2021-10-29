@@ -63,7 +63,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 }
             });
         }
-        this.reportedQuestions = this.reportCheck(this.uqjs);
+        this.reportedQuestions = this.checkReportStatus(this.uqjs);
     }
 
     /**
@@ -98,6 +98,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         return '';
     }
 
+    // TODO: replace toastr with taiga UI
     deleteReport(): void {
         this.questionReportSerivce.deleteReport(this.userId, this.question.id).subscribe(() => {
             this.toastr.success('The report was deleted.');
@@ -105,11 +106,9 @@ export class CourseQuestionSnippetComponent implements OnInit {
         });
     }
 
-    getReport(uqj: UQJ): void {
+    fillReport(): void {
         this.userId = this.user.id;
-        this.question = uqj.question;
         this.questionReportSerivce.getReport(this.userId, this.question.id).subscribe(response => {
-            console.log(response.report);
             this.formGroup.setValue({
                 description: response.report,
                 description_text: response.report_details
@@ -117,20 +116,17 @@ export class CourseQuestionSnippetComponent implements OnInit {
         });
     }
 
-    reportCheck(uqjs: UQJ[]): number[] {
-        const num = [];
+    checkReportStatus(uqjs: UQJ[]): number[] {
+        const question_ids = [];
         this.userId = this.user.id;
         for (const uqj of uqjs) {
-            this.question = uqj.question;
-            this.questionReportSerivce.getReport(this.userId, this.question.id).subscribe(response => {
-                if (response.report != null) {
-                    if (uqj.question.id !== undefined) {
-                        num.push(uqj.question.id);
-                    }
+            this.questionReportSerivce.getReport(this.userId, uqj.question.id).subscribe(response => {
+                if (uqj.question.id !== undefined) {
+                    question_ids.push(uqj.question.id);
                 }
             });
         }
-        return num;
+        return question_ids;
     }
 
     createModal(content: unknown, exists: boolean, uqj: UQJ): void {
@@ -140,10 +136,11 @@ export class CourseQuestionSnippetComponent implements OnInit {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
         } else {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
-            this.getReport(uqj);
+            this.fillReport();
         }
     }
 
+    // TODO: replace toastr with taiga UI
     reportQuestion(): void {
         const data: { user: User, question: Question, report: string, report_details: string } = {
             user: this.user,
@@ -156,10 +153,12 @@ export class CourseQuestionSnippetComponent implements OnInit {
         });
     }
 
+    // TODO: replace checking for decription field
     isSubmissionValid(): boolean {
         if (this.formGroup.get('description').value == null || (this.formGroup.get('description').value == 'OTHER'
             && this.formGroup.get('description_text').value == null)) {
             return true;
-        };
+        }
+        ;
     };
 }
