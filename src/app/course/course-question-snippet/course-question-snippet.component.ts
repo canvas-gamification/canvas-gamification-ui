@@ -117,16 +117,18 @@ export class CourseQuestionSnippetComponent implements OnInit {
     }
 
     checkReportStatus(uqjs: UQJ[]): number[] {
-        const question_ids = [];
+        const questionids = [];
         this.userId = this.user.id;
         for (const uqj of uqjs) {
             this.questionReportSerivce.getReport(this.userId, uqj.question.id).subscribe(response => {
-                if (uqj.question.id !== undefined) {
-                    question_ids.push(uqj.question.id);
+                if(response.report != null) {
+                    if (uqj.question.id !== undefined) {
+                        questionids.push(uqj.question.id);
+                    }
                 }
             });
         }
-        return question_ids;
+        return questionids;
     }
 
     createModal(content: unknown, exists: boolean, uqj: UQJ): void {
@@ -159,6 +161,5 @@ export class CourseQuestionSnippetComponent implements OnInit {
             && this.formGroup.get('description_text').value == null)) {
             return true;
         }
-        ;
-    };
+    }
 }
