@@ -11,6 +11,7 @@ import {QuestionReportForm} from "@app/course/_forms/Question-Report.form";
 import {FormGroup} from "@angular/forms";
 import {QuestionReport} from "@app/_models/Question_Report";
 import {ToastrService} from "ngx-toastr";
+import {QuestionReportService} from "@app/course/_services/question-report.service";
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -37,7 +38,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 private courseEventService: CourseEventService,
                 private courseService: CourseService,
                 private modalService: NgbModal,
-                private toastr: ToastrService) {
+                private toastr: ToastrService,
+                private questionReportSerivce: QuestionReportService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
 
     }
@@ -97,7 +99,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     }
 
     deleteReport(): void {
-        this.courseService.deleteReport(this.userId, this.question.id).subscribe(() => {
+        this.questionReportSerivce.deleteReport(this.userId, this.question.id).subscribe(() => {
             this.toastr.success('The report was deleted.');
             this.reportedQuestions = this.reportedQuestions.filter(e => e !== this.question.id);
         });
@@ -106,7 +108,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     getReport(uqj: UQJ): void {
         this.userId = this.user.id;
         this.question = uqj.question;
-        this.courseService.getReport(this.userId, this.question.id).subscribe(response => {
+        this.questionReportSerivce.getReport(this.userId, this.question.id).subscribe(response => {
             console.log(response.report);
             this.formGroup.setValue({
                 description: response.report,
@@ -120,7 +122,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.userId = this.user.id;
         for (const uqj of uqjs) {
             this.question = uqj.question;
-            this.courseService.getReport(this.userId, this.question.id).subscribe(response => {
+            this.questionReportSerivce.getReport(this.userId, this.question.id).subscribe(response => {
                 if (response.report != null) {
                     if (uqj.question.id !== undefined) {
                         num.push(uqj.question.id);
@@ -148,7 +150,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
             question: this.question, report: this.formGroup.get('description').value,
             report_details: this.formGroup.get('description_text').value
         };
-        this.courseService.sendReport(data).subscribe(() => {
+        this.questionReportSerivce.sendReport(data).subscribe(() => {
             this.toastr.success('The action was performed successfully.');
             this.reportedQuestions.push(this.question.id);
         });
