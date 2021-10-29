@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
 import {Course, CourseRegistration, User, CourseRegistrationData} from '@app/_models';
 import {CourseDashboardService} from "@app/course/_services/course-dashboard.service";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 import {AbstractControl, FormGroup} from "@angular/forms";
 import {CourseDashboardForm} from "@app/course/_forms/course-dashboard.form";
 import {debounceTime, distinctUntilChanged} from "rxjs/operators";
@@ -37,7 +37,7 @@ export class CourseDashboardComponent implements OnInit {
     constructor(private authenticationService: AuthenticationService,
                 private courseDashboardService: CourseDashboardService,
                 private courseService: CourseService,
-                private toastr: ToastrService,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
                 private route: ActivatedRoute) {
         this.formGroup = CourseDashboardForm.createForm();
         this.authenticationService.currentUser.subscribe(user => this.user = user);
@@ -82,11 +82,16 @@ export class CourseDashboardComponent implements OnInit {
         const data : CourseRegistrationData = {id: registrationId, status: status};
         this.courseDashboardService.updateStatus(data)
             .subscribe(() => {
-                this.toastr.success('The block status has been changed successfully.');
+                this.notificationsService
+                    .show('The status has been changed successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
                 this.update();
             }, error => {
-                this.toastr.error(error);
-                console.warn(error);
+                this.notificationsService
+                    .show(error, {
+                        status: TuiNotification.Error
+                    }).subscribe();
             });
     }
 
@@ -94,10 +99,16 @@ export class CourseDashboardComponent implements OnInit {
         const data : CourseRegistrationData = {username: username};
         this.courseDashboardService.registerUser(data, this.courseId)
             .subscribe( () => {
-                this.toastr.success('The student has been registered.');
+                this.notificationsService
+                    .show('The student has been registered.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
                 this.update();
             }, error => {
-                console.warn(error);
+                this.notificationsService
+                    .show(error, {
+                        status: TuiNotification.Error
+                    }).subscribe();
             });
     }
 }

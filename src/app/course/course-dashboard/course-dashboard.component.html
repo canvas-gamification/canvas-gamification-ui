@@ -9,21 +9,21 @@
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="student-list" role="tabpanel" aria-labelledby="student-list-tab">
         <div class="hover-shadow p-3">
-        <div [ngStyle]="{'display' : 'flex', 'width' : '130%'}" >
-            <form [formGroup]="formGroup" (ngSubmit)="applyFilter()" [ngStyle]="{'flex' : 'auto'}">
-                <div class="form-row">
-                    <div class="form-group col-3">
+        <div>
+            <form [formGroup]="formGroup" (ngSubmit)="applyFilter()"  [ngStyle]= "{'display':'inline-block', 'width' : '50%'}">
+                <div class="form-row" [ngStyle]= "{'width' : '200%'}">
+                    <div class="form-group col-3" >
                         <label for="name">Search first or last name:</label>
                         <input type="text" class="form-control" name="name" formControlName="name" id="name"
                                placeholder="Search a name..">
                     </div>
-                    <div class="form-group col-1 mt-auto">
+                    <div class="form-group col-1 mt-auto" >
                         <button type="submit" class="btn btn-primary float-right">Go</button>
                     </div>
                 </div>
-            </form>
-            <form [formGroup]="formGroup" (ngSubmit)="registerUser(formGroup.value.username)" [ngClass]="'search-name'">
-                <div class="form-row">
+            </form >
+            <form [formGroup]="formGroup" (ngSubmit)="registerUser(formGroup.value.username)" [ngStyle]= "{'display':'inline-block', 'width' : '50%'}">
+                <div class="form-row" [ngStyle]= "{'width' : '200%'}">
                     <div class="form-group col-3">
                         <label for="username">Search username for registration:</label>
                         <input type="text" class="form-control" name="username" formControlName="username" id="username"
