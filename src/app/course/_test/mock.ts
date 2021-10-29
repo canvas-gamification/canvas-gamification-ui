@@ -8,6 +8,7 @@ import {
 } from "@app/_models";
 import {TokenUse} from "@app/_models/token_use";
 import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
+import {QuestionReport} from "@app/_models/question_report";
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     id: 1,
@@ -301,3 +302,18 @@ export const MOCK_UQJ2: UQJ = {
     variables_errors: [],
     is_checkbox: false,
 };
+
+export const MOCK_QUESTION_REPORT: QuestionReport = {
+    user_id: 1,
+    question_id: 1,
+    report: "TYPO_TEXT",
+    report_details: "Array is not spelled correctly.",
+};
+
+export const MOCK_QUESTION_REPORT2: QuestionReport = {
+    user_id: 1,
+    question_id: 1,
+    report: "TYPO_ANSWER",
+    report_details: "The answer should be a float not an integer.",
+};
+

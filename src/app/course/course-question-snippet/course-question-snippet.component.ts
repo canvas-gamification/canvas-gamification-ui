@@ -9,7 +9,7 @@ import {CourseService} from '@app/course/_services/course.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {QuestionReportForm} from "@app/course/_forms/Question-Report.form";
 import {FormGroup} from "@angular/forms";
-import {QuestionReport} from "@app/_models/Question_Report";
+import {QuestionReport} from "@app/_models/question_report";
 import {ToastrService} from "ngx-toastr";
 import {QuestionReportService} from "@app/course/_services/question-report.service";
 

@@ -4,7 +4,7 @@ import {Question, User} from '@app/_models';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
-import {QuestionReport} from "@app/_models/Question_Report";
+import {QuestionReport} from "@app/_models/question_report";
 
 @Injectable({
     providedIn: 'root'
