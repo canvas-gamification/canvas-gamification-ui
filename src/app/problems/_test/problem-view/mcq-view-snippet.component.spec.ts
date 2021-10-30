@@ -4,7 +4,7 @@ import {McqViewSnippetComponent} from '../../problem-view/mcq-view-snippet/mcq-v
 import {TestModule} from '@test/test.module';
 import {MOCK_UQJ, MOCK_UQJ_2} from '@app/problems/_test/mock';
 import {SubmissionService} from "@app/problems/_services/submission.service";
-import {SubmissionServiceMock} from "@app/problems/_test/submission.service.mock";
+import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.service.mock";
 
 let component: McqViewSnippetComponent;
 let fixture: ComponentFixture<McqViewSnippetComponent>;

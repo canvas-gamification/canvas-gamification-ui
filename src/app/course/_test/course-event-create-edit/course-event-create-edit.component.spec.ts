@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CourseEventCreateEditComponent} from '../../course-event-create/course-event-create-edit.component';
 import {TestModule} from '@test/test.module';
-import {CourseEventServiceMock} from "@app/problems/_test/course-event.service.mock";
+import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event.service.mock";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {ActivatedRoute, convertToParamMap, Router, RouterModule} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
