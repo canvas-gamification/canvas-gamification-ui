@@ -11,7 +11,7 @@ import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {QuestionService} from "@app/problems/_services/question.service";
-import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
+import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock";
 import {CourseService} from "@app/course/_services/course.service";
 import {Router} from "@angular/router";
 import {TuiNotificationsService} from "@taiga-ui/core";

@@ -5,7 +5,7 @@ import {TestModule} from '@test/test.module';
 import {DragulaModule} from "ng2-dragula";
 import {MOCK_UQJ_4} from "@app/problems/_test/mock";
 import {SubmissionService} from "@app/problems/_services/submission.service";
-import {SubmissionServiceMock} from "@app/problems/_test/submission.service.mock";
+import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.service.mock";
 
 describe('ParsonsViewSnippetComponent', () => {
     let component: ParsonsViewSnippetComponent;

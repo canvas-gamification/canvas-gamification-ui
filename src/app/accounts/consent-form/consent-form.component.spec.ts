@@ -8,7 +8,7 @@ import {AdminTermsAndConditionsSnippetComponent} from "@app/accounts/admin-terms
 import {StudentTermsAndConditionsSnippetComponent} from "@app/accounts/student-terms-and-conditions-snippet/student-terms-and-conditions-snippet.component";
 import {Router} from "@angular/router";
 import {ConsentService} from "@app/accounts/_services/consent.service";
-import {ConsentServiceMock} from "@app/accounts/_test/consent.service.mock";
+import {ConsentServiceMock} from "@app/accounts/_test/_services/consent.service.mock";
 import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
 import {TuiNotificationsService} from '@taiga-ui/core';
 import {of} from "rxjs";

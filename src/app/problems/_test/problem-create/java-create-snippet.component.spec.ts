@@ -9,7 +9,7 @@ import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
-import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
+import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 import {CourseService} from "@app/course/_services/course.service";
