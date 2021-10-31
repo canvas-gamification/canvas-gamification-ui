@@ -47,8 +47,10 @@
                             }
                         ],
                         "styles": [
+                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "node_modules/jointjs/css/layout.css",
                             "node_modules/dragula/dist/dragula.css",
+                            "src/scss/material/global-material-theme.scss",
                             "src/scss/styles.scss",
                             "node_modules/@taiga-ui/core/styles/taiga-ui-global.less",
                             "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less"
