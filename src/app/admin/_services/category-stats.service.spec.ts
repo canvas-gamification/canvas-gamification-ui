@@ -34,7 +34,7 @@ describe('CategoryStatsService', () => {
             expect(categoryStats).toEqual([MOCK_NESTED_CATEGORY_2]);
             expect(categoryStats[0].children).toEqual([MOCK_NESTED_CATEGORY]);
         });
-        const request = httpMock.expectOne(apiService.getURL('category-stats'));
+        const request = httpMock.expectOne(apiService.getURL('admin/category-stats'));
         expect(request.request.method).toBe('GET');
         request.flush([MOCK_NESTED_CATEGORY_2]);
     });

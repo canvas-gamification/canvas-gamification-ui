@@ -33,7 +33,7 @@ describe('QuestionCountService', () => {
         service.getQuestionCount().subscribe((questionCounts) => {
             expect(questionCounts).toEqual([MOCK_QUESTION_COUNT]);
         });
-        const request = httpMock.expectOne(apiService.getURL('question-count'));
+        const request = httpMock.expectOne(apiService.getURL('admin/question-count'));
         expect(request.request.method).toBe('GET');
         request.flush([MOCK_QUESTION_COUNT]);
     });

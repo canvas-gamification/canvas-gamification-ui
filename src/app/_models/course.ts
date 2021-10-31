@@ -32,6 +32,10 @@ export const STATUS = {
 };
 
 export interface ViewCourse {
-    name: string;
     course_id: number;
+    name: string;
+    url: string;
+    canvas_name: string;
+    start_date: string;
+    end_date: string;
 }

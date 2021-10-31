@@ -1,4 +1,4 @@
-import {Category, NestedCategories, QuestionCount} from "@app/_models";
+import {Category, NestedCategories, QuestionCount, ViewCourse} from "@app/_models";
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
@@ -34,4 +34,13 @@ export const MOCK_QUESTION_COUNT: QuestionCount = {
             difficulty: 'MEDIUM'
         }
     ]
+};
+
+export const MOCK_VIEW_COURSE: ViewCourse = {
+    course_id: 1,
+    name: 'Course',
+    url: '',
+    canvas_name: 'Canvas Course',
+    start_date: '',
+    end_date: ''
 };

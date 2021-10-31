@@ -1,4 +1,9 @@
 .sticky {
     position: sticky;
-    top: 3rem;
+    top: 5rem;
+}
+
+.overflow-scroll {
+    height: calc(100vh - 8rem);
+    overflow-y: scroll;
 }
