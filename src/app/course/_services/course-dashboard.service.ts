@@ -30,9 +30,11 @@ export class CourseDashboardService {
         const url = this.apiService.getURL('course-admin', courseId, 'registered-users');
         const {
             name  = '',
+            ordering = '',
         } = options ? options : {};
         const params = new HttpParams()
-            .set('search', name);
+            .set('search', name)
+            .set('ordering', ordering);
         return this.http.get<CourseRegistration[]>(url, {params})
             .pipe(catchError(this.apiService.handleError<CourseRegistration[]>('Error occurred while fetching database')));
     }

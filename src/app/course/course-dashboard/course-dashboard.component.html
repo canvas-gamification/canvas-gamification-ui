@@ -36,43 +36,48 @@
             </form>
         </div>
 
-            <table class="table table-bordered table-light mt-5 hover-shadow">
+            <table mat-table [dataSource]="registrationsSource" matSort (matSortChange)="sortData($event)" matSortDisableClear
+                   class="table table-hover hover-shadow">
                 <caption>List of Students currently enrolled</caption>
-                <thead class="thead-light">
-                <tr>
-                    <th scope="col">Username</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Status</th>
 
-                    <th scope="col">Action</th>
-                </tr>
-                </thead>
-                <tbody *ngFor="let registration of registrationList">
-                <ng-container>
-                    <tr>
-                        <td>{{ registration.username || 'No username found' }}</td>
-                        <td>{{ registration.name || 'No name found' }}</td>
-                        <td> {{registration.status}}</td>
-                        <td>
-                            <button type="button" *ngIf="registration.status != 'BLOCKED'" [ngClass]="(registration.status == 'UNREGISTERED')?
-                            'btn btn-outline-dark btn-success mr-2' : 'btn btn-outline-dark bg-warning mr-2'"
-                                    (click)="changeStatus(registration.id, registration.status == 'UNREGISTERED' ? 'VERIFIED' : 'UNREGISTERED')">
-                                {{registration.status == 'UNREGISTERED' ? "Register" : "Unregister"}}
-                            </button>
-                            <button type="button" [ngClass]="registration.status == 'BLOCKED'?
-                            'btn btn-outline-dark btn-danger mr-2' : 'btn btn-outline-dark btn-success mr-2'"
-                                    (click)="changeStatus(registration.id, registration.status == 'BLOCKED'? 'VERIFIED' : 'BLOCKED')">
-                                {{registration.status == 'BLOCKED'? "Unblock" : "Block"}}
-                            </button>
-                            <button type="button" class="btn btn-outline-dark bg-info mr-2"
-                                    (click)="changeStatus(registration.id, 'VERIFIED')" *ngIf="registration.status == 'PENDING_VERIFICATION'">
-                                Verify
-                                user
-                            </button>
-                        </td>
-                    </tr>
+                <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="user__username">Username</th>
+                    <td mat-cell *matCellDef="let registration"> {{registration.username || 'No username found'}} </td>
                 </ng-container>
-                </tbody>
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="user__first_name">Name</th>
+                    <td mat-cell *matCellDef="let registration"> {{registration.name || 'No name found'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="status">Status</th>
+                    <td mat-cell *matCellDef="let registration"> {{registration.status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let registration">
+                        <button type="button" *ngIf="registration.status != 'BLOCKED'" [ngClass]="(registration.status == 'UNREGISTERED')?
+                            'btn btn-outline-dark btn-success mr-2' : 'btn btn-outline-dark bg-warning mr-2'"
+                                (click)="changeStatus(registration.id, registration.status == 'UNREGISTERED' ? 'VERIFIED' : 'UNREGISTERED')">
+                            {{registration.status == 'UNREGISTERED' ? "Register" : "Unregister"}}
+                        </button>
+                        <button type="button" [ngClass]="registration.status == 'BLOCKED'?
+                            'btn btn-outline-dark btn-danger mr-2' : 'btn btn-outline-dark btn-success mr-2'"
+                                (click)="changeStatus(registration.id, registration.status == 'BLOCKED'? 'VERIFIED' : 'BLOCKED')">
+                            {{registration.status == 'BLOCKED'? "Unblock" : "Block"}}
+                        </button>
+                        <button type="button" class="btn btn-outline-dark bg-info mr-2"
+                                (click)="changeStatus(registration.id, 'VERIFIED')" *ngIf="registration.status == 'PENDING_VERIFICATION'">
+                            Verify
+                            user
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         </div>
     </div>

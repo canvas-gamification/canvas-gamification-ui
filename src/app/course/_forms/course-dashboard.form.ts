@@ -9,6 +9,7 @@ export class CourseDashboardForm {
         return builder.group({
             name: new FormControl(''),
             username: new FormControl(''),
+            ordering: new FormControl(''),
         });
     }
 
@@ -24,4 +25,5 @@ export class CourseDashboardForm {
 export interface CourseDashboardFormData {
     name: string,
     username: string,
+    ordering: string,
 }
