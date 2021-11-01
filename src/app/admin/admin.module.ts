@@ -12,7 +12,7 @@ import {
     TuiTabsModule
 } from "@taiga-ui/kit";
 import {FormsModule} from "@angular/forms";
-import {TuiLoaderModule, TuiTextfieldControllerModule} from "@taiga-ui/core";
+import {TuiLoaderModule, TuiScrollbarModule, TuiTextfieldControllerModule} from "@taiga-ui/core";
 import {TuiRingChartModule} from "@taiga-ui/addon-charts";
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
 import {ViewCoursesComponent} from './view-courses/view-courses.component';
@@ -38,7 +38,8 @@ import {ViewCoursesComponent} from './view-courses/view-courses.component';
         TuiRingChartModule,
         TuiFilterPipeModule,
         TuiTabsModule,
-        TuiTextfieldControllerModule
+        TuiTextfieldControllerModule,
+        TuiScrollbarModule
     ]
 })
 export class AdminModule {

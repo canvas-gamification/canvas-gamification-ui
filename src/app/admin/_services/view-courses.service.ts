@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ApiService} from "@app/_services/api.service";
 import {Observable} from "rxjs";
-import {ViewCourse} from "@app/_models";
+import {AdminCourse} from "@app/_models";
 import {catchError} from "rxjs/operators";
 
 @Injectable({
@@ -14,10 +14,10 @@ export class ViewCoursesService {
                 private apiService: ApiService) {
     }
 
-    viewCourses(): Observable<ViewCourse[]> {
-        const url = this.apiService.getURL('admin/view-courses');
+    viewCourses(): Observable<AdminCourse[]> {
+        const url = this.apiService.getURL('admin/courses');
         return this.http
-            .get<ViewCourse[]>(url)
-            .pipe(catchError(this.apiService.handleError<ViewCourse[]>('Unable to get courses', [])));
+            .get<AdminCourse[]>(url)
+            .pipe(catchError(this.apiService.handleError<AdminCourse[]>('Unable to get courses', [])));
     }
 }

@@ -26,11 +26,11 @@ describe('ViewCoursesService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should get courses details', () => {
-        service.viewCourses().subscribe((viewCourses) => {
-            expect(viewCourses).toEqual([MOCK_VIEW_COURSE]);
+    it('should get courses', () => {
+        service.viewCourses().subscribe((courses) => {
+            expect(courses).toEqual([MOCK_VIEW_COURSE]);
         });
-        const request = httpMock.expectOne(apiService.getURL('admin/view-courses'));
+        const request = httpMock.expectOne(apiService.getURL('admin/courses'));
         expect(request.request.method).toBe('GET');
         request.flush([MOCK_VIEW_COURSE]);
     });

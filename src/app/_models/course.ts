@@ -31,11 +31,10 @@ export const STATUS = {
     blocked: 'Blocked',
 };
 
-export interface ViewCourse {
+export interface AdminCourse {
     course_id: number;
     name: string;
     url: string;
-    canvas_name: string;
     start_date: string;
     end_date: string;
 }
