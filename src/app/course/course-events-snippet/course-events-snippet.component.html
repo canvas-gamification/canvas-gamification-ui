@@ -1,22 +1,38 @@
 <ng-container *ngIf="user?.is_teacher">
-    <a [routerLink]="['/course', courseId, 'new-event']" class="btn btn-primary my-2 mr-3">Add an Event</a>
-    <a (click)="open(importEventModal)" [routerLink]="" class="btn btn-primary my-2">Import an Event</a>
+    <a
+        tuiButton
+        appearance="primary"
+        size="m"
+        icon="tuiIconPlus"
+        [routerLink]="['/course', courseId, 'new-event']"
+    >
+        Add an Event
+    </a>
+    <button
+        tuiButton
+        appearance="primary"
+        size="m"
+        icon="tuiIconDownload"
+        (click)="openEventImportDialog()"
+    >
+        Import an Event
+    </button>
 </ng-container>
 <hr/>
-<table class="table table-hover mt-1" data-toggle="table">
-    <thead class="thead-light text-dark">
-    <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Start&nbsp;Date</th>
-        <th scope="col">End&nbsp;Date</th>
-        <th scope="col">Grade</th>
-        <th scope="col">Actions</th>
+<table tuiTable>
+    <thead tuiThead>
+    <tr tuiThGroup>
+        <th tuiTh *tuiHead="'name'">Name</th>
+        <th tuiTh *tuiHead="'start_date'">Start&nbsp;Date</th>
+        <th tuiTh *tuiHead="'end_date'">End&nbsp;Date</th>
+        <th tuiTh *tuiHead="'grade'">Grade</th>
+        <th tuiTh *tuiHead="'actions'">Actions</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody tuiTbody>
     <ng-container *ngIf="events; else tableEmpty">
         <ng-container *ngFor="let event of events; index as i">
-            <tr>
+            <tr tuiTr *tuiRow="let event of events; index as i">
                 <td>{{ event.name || 'N/A'}}</td>
                 <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
                 <td>{{ event.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
@@ -51,38 +67,40 @@
     </ng-template>
     </tbody>
 </table>
-<ng-template #importEventModal let-modal>
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-basic-title">Select Event to Import</h3>
-        <button (click)="modal.dismiss()" aria-label="Close" class="close" type="button">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <table class="table table-bordered table-hover">
-            <thead>
-            <tr>
-                <th class="text-center" scope="col">Id</th>
-                <th class="text-center" scope="col">Name</th>
-                <th class="text-center" scope="col">Type</th>
-                <th class="text-center" scope="col">Course Id</th>
-                <th class="text-center" scope="col">Action</th>
+<ng-template
+    let-observer
+    [tuiDialogOptions]="{ label: 'Select an Event to Import', size: 'l' }"
+    [(tuiDialog)]="openImportDialog"
+>
+    <ng-container *ngIf="courseEvents">
+        <table tuiTable [columns]="courseEventHeadings" class="table tui-space_top-8">
+            <thead tuiThead>
+            <tr tuiThGroup>
+                <th *tuiHead="'id'" tuiTh>Id</th>
+                <th *tuiHead="'name'" tuiTh>Name</th>
+                <th *tuiHead="'type'" tuiTh>Type</th>
+                <th *tuiHead="'course'" tuiTh>Course Id</th>
+                <th *tuiHead="'actions'" tuiTh [sorter]="null">Actions</th>
             </tr>
             </thead>
-            <tbody>
-            <tr *ngFor="let event of courseEvents">
-                <td class="text-center">{{event.id || 'None'}}</td>
-                <td class="text-center">{{event.name || 'None'}}</td>
-                <td class="text-center">{{event.type || 'None'}}</td>
-                <td class="text-center">{{event.course || 'None'}}</td>
-                <td class="text-center">
-                    <button class="btn btn-success" type="button" (click)="importCourseEvent(event, courseId)">Import</button>
+            <tbody tuiTbody [data]="courseEvents">
+            <tr tuiTr *tuiRow="let event of courseEvents">
+                <td tuiTd *tuiCell="'actions'">
+                    <button
+                        tuiButton
+                        appearance="primary"
+                        size="s"
+                        icon="tuiIconDownload"
+                        (click)="importCourseEvent(event, courseId)"
+                    >
+                        Import
+                    </button>
                 </td>
             </tr>
             </tbody>
         </table>
-    </div>
-    <div class="modal-footer">
-        <button (click)="modal.dismiss()" class="btn btn-outline-primary" type="button">Close</button>
-    </div>
+    </ng-container>
+    <button tuiButton type="button" size="m" class="tui-space_top-4" (click)="observer.complete()">
+        Cancel
+    </button>
 </ng-template>

@@ -2,8 +2,7 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {CourseEvent, EventType, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseEventService} from '@app/course/_services/course-event.service';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-course-events-snippet',
@@ -17,10 +16,12 @@ export class CourseEventsSnippetComponent implements OnInit {
     eventTypesMap: Map<string, string>;
     user: User;
     courseEvents: CourseEvent[];
+    courseEventHeadings: string[];
+    openImportDialog = false;
 
     constructor(private authenticationService: AuthenticationService,
                 private courseEventService: CourseEventService,
-                private modalService: NgbModal,
+                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
@@ -51,12 +52,14 @@ export class CourseEventsSnippetComponent implements OnInit {
     }
 
     /**
-     * Opens a given modal.
-     * @param content - The modal to open.
+     * Opens a dialog with event import dialog.
      */
-    open(content: unknown): void {
-        this.courseEventService.getAllEvents().subscribe(events => this.courseEvents = events);
-        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
+    openEventImportDialog(): void {
+        this.courseEventService.getAllEvents().subscribe(events => {
+            this.courseEvents = events;
+            this.courseEventHeadings = ['id', 'name', 'type', 'course', 'actions'];
+        });
+        this.openImportDialog = true;
     }
 
     /**

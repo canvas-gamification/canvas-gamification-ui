@@ -54,7 +54,7 @@ describe('CourseEventsSnippetComponent', () => {
     });
 
     it('open modal', () => {
-        component.open('content');
+        component.openDialog('content');
         expect(component.courseEvents).toEqual([MOCK_COURSE_EVENT]);
         expect(modalService.open).toHaveBeenCalledOnceWith('content', {
             ariaLabelledBy: 'modal-basic-title',

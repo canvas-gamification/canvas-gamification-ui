@@ -36,20 +36,21 @@ import {
     TuiFieldErrorModule,
     TuiInputModule,
     TuiIslandModule,
-    TuiStepperModule,
+    TuiStepperModule, TuiTabsModule,
     TuiTagModule
 } from "@taiga-ui/kit";
 import {
-    TuiButtonModule,
-    TuiErrorModule,
+    TuiButtonModule, TuiCalendarModule, TuiDialogModule,
+    TuiErrorModule, TuiLinkModule,
     TuiLoaderModule,
-    TuiNotificationModule,
+    TuiNotificationModule, TuiSvgModule,
     TuiTextfieldControllerModule
 } from "@taiga-ui/core";
 import {TextMaskModule} from "angular2-text-mask";
 import {CourseRegistrationStepperComponent} from './course-registration/course-registration-stepper/course-registration-stepper.component';
 import {CourseRegistrationStepComponent} from './course-registration/course-registration-step/course-registration-step.component';
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
+import {TuiTableModule} from "@taiga-ui/addon-table";
 
 @NgModule({
     declarations: [
@@ -97,9 +98,15 @@ import {TuiFilterPipeModule} from "@taiga-ui/cdk";
         TuiLoaderModule,
         TuiIslandModule,
         TuiTagModule,
-        TuiFilterPipeModule
+        TuiFilterPipeModule,
+        TuiLinkModule,
+        TuiCalendarModule,
+        TuiTabsModule,
+        TuiSvgModule,
+        TuiDialogModule,
+        TuiTableModule
     ],
-    providers:[
+    providers: [
         CourseService,
         CourseEventService,
         TokenUseService

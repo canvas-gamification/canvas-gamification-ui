@@ -1,10 +1,12 @@
-@use "src/scss/mixins";
-@use "src/scss/variables";
+@import 'mixins';
 
-@include mixins.hover-shadow();
+.heading-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
-.tab-content {
-    div {
-        background-color: #fff;
+    @include screen-sm() {
+        flex-direction: column;
     }
 }

@@ -42,6 +42,7 @@
         "@ng-bootstrap/ng-bootstrap": "^8.0.0",
         "@ng-web-apis/mutation-observer": "^1.1.0",
         "@taiga-ui/addon-mobile": "^2.20.0",
+        "@taiga-ui/addon-table": "^2.20.0",
         "@taiga-ui/cdk": "^2.20.0",
         "@taiga-ui/core": "^2.20.0",
         "@taiga-ui/icons": "^2.20.0",

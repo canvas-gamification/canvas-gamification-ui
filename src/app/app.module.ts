@@ -54,7 +54,7 @@ import {
     TuiRootModule,
     TuiSvgModule,
     TuiThemeNightModule,
-    TuiNotificationsModule
+    TuiNotificationsModule, TuiDialogModule
 } from '@taiga-ui/core';
 import {TuiAvatarModule, TuiDropdownHoverModule, TuiToggleModule} from "@taiga-ui/kit";
 import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
@@ -124,6 +124,7 @@ import {TuiActiveZoneModule} from "@taiga-ui/cdk";
         TuiSidebarModule,
         TuiActiveZoneModule,
         TuiNotificationsModule,
+        TuiDialogModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
