@@ -45,8 +45,8 @@
                                    [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
                             </ng-container>
                             <ng-container>
-                                <button type="button" [ngClass] = "uqj.is_favourite ? 'red-icon':'gray-icon'"
-                                        mat-icon-button color="accent" (click)="switchFavourite(uqj, uqj.is_favourite)">
+                                <button type="button" [ngClass] = "uqj.is_favorite ? 'red-icon':'gray-icon'"
+                                        mat-icon-button color="accent" (click)="switchFavorite(uqj, uqj.is_favorite)">
                                     <mat-icon>favorite</mat-icon>
                                 </button>
                             </ng-container>

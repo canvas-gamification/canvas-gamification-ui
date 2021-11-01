@@ -49,9 +49,9 @@ export class ProblemViewComponent implements OnInit {
         });
     }
 
-    switchFavourite(uqj: UQJ, favoriteStatus: boolean): void{
+    switchFavorite(uqj: UQJ, favoriteStatus: boolean): void{
         const data : {id: number, status: boolean} = {id: uqj.id, status: !favoriteStatus};
-        this.uqjService.updateFavourite(data)
+        this.uqjService.updateFavorite(data)
             .subscribe(() => {
                 this.toastr.success('The action was performed successfully.');
             });

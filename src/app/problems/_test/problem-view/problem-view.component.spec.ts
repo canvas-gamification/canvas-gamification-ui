@@ -53,8 +53,8 @@ describe('ProblemViewComponent', () => {
     });
 
     it('switch favorite should work', () => {
-        const data = {uqj: MOCK_UQJ, favouriteStatus: true};
-        UqjService.updateFavourite(data).subscribe((response) =>{
+        const data = {id: MOCK_UQJ.id, status: true};
+        UqjServiceMock.updateFavourite(data).subscribe((response) =>{
             expect(response).toBeTruthy();
         });
     });

@@ -16,8 +16,8 @@
         <td>{{uqj?.status || 'No Status'}}</td>
         <td>{{uqj?.question?.max_submission_allowed || 'No Value'}}</td>
         <td>
-            <button type="button" class = "btn btn-outline-" [ngClass]="uqj.is_favourite ? 'red-icon' : 'gray-icon'"
-                    mat-icon-button color="accent" (click)="switchFavourite(uqj, uqj.is_favourite)">
+            <button type="button" class = "btn btn-outline-" [ngClass]="uqj.is_favorite ? 'red-icon' : 'gray-icon'"
+                    mat-icon-button color="accent" (click)="switchFavorite(uqj, uqj.is_favorite)">
                 <mat-icon>favorite</mat-icon>
             </button>
             {{favorite}}

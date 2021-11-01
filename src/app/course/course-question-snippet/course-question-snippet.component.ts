@@ -40,9 +40,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.courseId = +this.route.snapshot.paramMap.get('courseId') || null;
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null;
 
-        for (const uqj of this.uqjs){
-            this.getFavoriteCount(uqj.question.id);
-        }
+
         if (this.eventId && this.courseId) { // if this snippet is an event-view
             this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {
                 if (response.success) {
@@ -92,20 +90,13 @@ export class CourseQuestionSnippetComponent implements OnInit {
         return '';
     }
 
-    switchFavourite(uqj: UQJ, favoriteStatus: boolean): void {
+    switchFavorite(uqj: UQJ, favoriteStatus: boolean): void {
         const data: { id: number, status: boolean } = {id: uqj.id, status: !favoriteStatus};
-        this.uqjService.updateFavourite(data)
+        this.uqjService.updateFavorite(data)
             .subscribe(() => {
                 this.toastr.success('The action was performed successfully.');
             });
     }
 
-    getFavoriteCount(questionId: number): void {
-        forkJoin({
-            favorite: this.questionService.countFavorite(questionId)
-        }).subscribe(result => {
-            this.favorite = result.favorite;
-            this.countFavoriteList.push(this.favorite);
-        });
-    }
+
 }
