@@ -15,15 +15,15 @@ import {FormsModule} from "@angular/forms";
 import {TuiLoaderModule, TuiScrollbarModule, TuiTextfieldControllerModule} from "@taiga-ui/core";
 import {TuiRingChartModule} from "@taiga-ui/addon-charts";
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
-import {ViewCoursesComponent} from './view-courses/view-courses.component';
+import {CoursesComponent} from './courses/courses.component';
 
 
 @NgModule({
-    declarations: [QuestionCountComponent, CategoryStatsComponent, ViewCoursesComponent],
+    declarations: [QuestionCountComponent, CategoryStatsComponent, CoursesComponent],
     exports: [
         QuestionCountComponent,
         CategoryStatsComponent,
-        ViewCoursesComponent
+        CoursesComponent
     ],
     imports: [
         CommonModule,

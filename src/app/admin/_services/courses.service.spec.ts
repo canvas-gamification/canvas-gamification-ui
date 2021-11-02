@@ -1,23 +1,22 @@
 import {TestBed} from '@angular/core/testing';
 
-import {ViewCoursesService} from './view-courses.service';
+import {CoursesService} from './courses.service';
 import {MOCK_VIEW_COURSE} from "@app/admin/_test/mock";
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 import {TestModule} from "@test/test.module";
-import {QuestionCountService} from "@app/admin/_services/question-count.service";
 
 describe('ViewCoursesService', () => {
-    let service: ViewCoursesService;
+    let service: CoursesService;
     let apiService: ApiService;
     let httpMock: HttpTestingController;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [TestModule],
-            providers: [QuestionCountService]
+            providers: [CoursesService]
         });
-        service = TestBed.inject(ViewCoursesService);
+        service = TestBed.inject(CoursesService);
         apiService = TestBed.inject(ApiService);
         httpMock = TestBed.inject(HttpTestingController);
     });

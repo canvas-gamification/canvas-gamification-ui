@@ -30,11 +30,3 @@ export const STATUS = {
     finished: 'Finished',
     blocked: 'Blocked',
 };
-
-export interface AdminCourse {
-    course_id: number;
-    name: string;
-    url: string;
-    start_date: string;
-    end_date: string;
-}
