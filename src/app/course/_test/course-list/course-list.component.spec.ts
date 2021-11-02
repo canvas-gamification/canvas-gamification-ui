@@ -7,6 +7,9 @@ import {CourseServiceMock} from "@test/course.service.mock";
 import {MOCK_COURSE} from "@app/problems/_test/mock";
 import {MOCK_COURSE1, MOCK_COURSE2, MOCK_COURSES, MOCK_USER_STUDENT, MOCK_USER_TEACHER} from "@app/course/_test/mock";
 import {MatTableModule} from "@angular/material/table";
+import {TuiFilterPipeModule} from "@taiga-ui/cdk";
+import {TuiInputModule, TuiIslandModule, TuiTagModule} from "@taiga-ui/kit";
+import {TuiLoaderModule} from "@taiga-ui/core";
 
 describe('CourseListComponent', () => {
     let component: CourseListComponent;
@@ -14,7 +17,10 @@ describe('CourseListComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, MatTableModule],
+            imports: [
+                TestModule, MatTableModule, TuiInputModule, TuiLoaderModule,
+                TuiFilterPipeModule, TuiTagModule, TuiIslandModule
+            ],
             declarations: [CourseListComponent],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock}
@@ -32,8 +38,8 @@ describe('CourseListComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('courses should be loaded after view init', () => {
-        component.ngAfterViewInit();
+    it('courses should be loaded on view init', () => {
+        component.ngOnInit();
         expect(component.allCourses).toEqual([MOCK_COURSE]);
     });
 
