@@ -59,7 +59,7 @@
 
     <ng-container matColumnDef="event__name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="event__name">Event</th>
-        <td mat-cell *matCellDef="let question"> {{question.event_name || 'No Event'}} </td>
+        <td mat-cell *matCellDef="let question"> {{question.event_obj.name || 'No Event'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="category__parent__name">
@@ -69,7 +69,7 @@
 
     <ng-container matColumnDef="category__name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header="category__name">Sub-Category</th>
-        <td mat-cell *matCellDef="let question"> {{question.category_name || 'No Sub-Category'}} </td>
+        <td mat-cell *matCellDef="let question"> {{question.category_obj.name || 'No Sub-Category'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="difficulty">

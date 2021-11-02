@@ -208,20 +208,19 @@ export const MOCK_USER_TEACHER: User = {
 export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
+    category_obj: MOCK_CATEGORY,
     status: 'Solved',
     answer: 'a',
     author: 0,
     author_name: '',
-    category_name: '',
     choices: {
         'a': 'sag',
         'b': 'gav'
     },
     course_name: '',
     difficulty: '',
-    event: MOCK_COURSE_EVENT,
-    event_name: '',
-    full_category_name: '',
+    event: MOCK_COURSE_EVENT.id,
+    event_obj: MOCK_COURSE_EVENT,
     is_exam: true,
     is_exam_and_open: true,
     is_open: true,

@@ -1,4 +1,5 @@
 import {CourseEvent} from '@app/_models/course_event';
+import {Category} from "@app/_models/category";
 
 export interface Question {
     id: number;
@@ -7,6 +8,7 @@ export interface Question {
     max_submission_allowed: number;
     author: number;
     category: number;
+    category_obj: Category;
     difficulty: string;
     is_verified: boolean;
     time_created: Date;
@@ -14,13 +16,11 @@ export interface Question {
     token_value: number;
     success_rate: number;
     type_name: string;
-    event: CourseEvent | number;
+    event: number;
+    event_obj: CourseEvent;
     is_sample: boolean;
-    category_name: string;
     parent_category_name: string;
-    full_category_name: string;
     course_name: string;
-    event_name: string;
     author_name: string;
     choices: { [index: string]: string };
     variables: [];
@@ -41,4 +41,5 @@ export interface InputFiles extends Array<{
     compile: boolean,
     lines?: string[],
     template?: string,
-}> {}
+}> {
+}

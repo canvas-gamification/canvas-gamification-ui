@@ -47,31 +47,21 @@ export class JavaEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // TODO: refactor => typeof this.questionDetails.event === 'number'
-        if (this.questionDetails.event && typeof this.questionDetails.event === 'number') {
-            const coursesObservable = this.courseService.getCourses();
-            const categoriesObservable = this.categoryService.getCategories();
-            const eventObservable = this.courseEventService.getCourseEvent(this.questionDetails.event);
+        const coursesObservable = this.courseService.getCourses();
+        const categoriesObservable = this.categoryService.getCategories();
 
-            forkJoin([coursesObservable, categoriesObservable, eventObservable])
-                .subscribe(result => {
-                    this.courses = result[0];
-                    this.categories = result[1];
-                    this.setCourse(result[2].course);
-                    this.setEvent(result[2].id);
+        forkJoin([coursesObservable, categoriesObservable])
+            .subscribe(result => {
+                this.courses = result[0];
+                this.categories = result[1];
+                if (this.questionDetails.event) {
                     this.isPractice = false;
-                });
-        } else {
-            const coursesObservable = this.courseService.getCourses();
-            const categoriesObservable = this.categoryService.getCategories();
-
-            forkJoin([coursesObservable, categoriesObservable])
-                .subscribe(result => {
-                    this.courses = result[0];
-                    this.categories = result[1];
+                    this.setEvent(this.questionDetails.event);
+                    this.setCourse(this.questionDetails.event_obj.course);
+                } else {
                     this.isPractice = true;
-                });
-        }
+                }
+            });
 
         this.inputFiles = this.questionDetails?.input_files;
         this.variables = this.questionDetails?.variables;
