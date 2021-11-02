@@ -26,7 +26,7 @@ describe('ViewCoursesService', () => {
     });
 
     it('should get courses', () => {
-        service.viewCourses().subscribe((courses) => {
+        service.getCourses().subscribe((courses) => {
             expect(courses).toEqual([MOCK_VIEW_COURSE]);
         });
         const request = httpMock.expectOne(apiService.getURL('admin/courses'));

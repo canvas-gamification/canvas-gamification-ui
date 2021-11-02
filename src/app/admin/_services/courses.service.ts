@@ -14,7 +14,7 @@ export class CoursesService {
                 private apiService: ApiService) {
     }
 
-    viewCourses(): Observable<Course[]> {
+    getCourses(): Observable<Course[]> {
         const url = this.apiService.getURL('admin/courses');
         return this.http
             .get<Course[]>(url)

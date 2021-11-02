@@ -14,7 +14,7 @@ export class CoursesComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit(): void {
-        this.viewCoursesService.viewCourses().subscribe(courses => {
+        this.viewCoursesService.getCourses().subscribe(courses => {
             this.courseData = courses;
         });
     }

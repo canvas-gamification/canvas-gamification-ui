@@ -7,7 +7,7 @@ import {MOCK_VIEW_COURSE} from "@app/admin/_test/mock";
     providedIn: 'root'
 })
 export class ViewCoursesService {
-    viewCourses(): Observable<Course[]> {
+    getCourses(): Observable<Course[]> {
         return of([MOCK_VIEW_COURSE]);
     }
 }
