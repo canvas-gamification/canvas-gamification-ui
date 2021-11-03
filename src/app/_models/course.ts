@@ -30,4 +30,3 @@ export const STATUS = {
     finished: 'Finished',
     blocked: 'Blocked',
 };
-

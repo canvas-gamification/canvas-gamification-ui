@@ -42,3 +42,9 @@ export interface InputFiles extends Array<{
     lines?: string[],
     template?: string,
 }> {}
+
+export interface QuestionCount {
+    name: string;
+    count: number;
+    count_per_difficulty: { count: number; difficulty: string; }[];
+}
