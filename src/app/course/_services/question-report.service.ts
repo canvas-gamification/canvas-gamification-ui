@@ -25,8 +25,8 @@ export class QuestionReportService {
             .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while fetching a report')));
     }
 
-    sendReport(data: { user: User, question: Question, report: string, report_details: string }): Observable<QuestionReport> {
-        const url = this.apiService.getURL('question-report', 'add-report');
+    sendReport(data: { user: number, question: number, report: string, report_details: string }): Observable<QuestionReport> {
+        const url = this.apiService.getURL('question-report');
         return this.http
             .post<QuestionReport>(url, data)
             .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while creating a report')));

@@ -63,8 +63,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 }
             });
         }
-        this.reportedQuestions = this.checkReportStatus(this.uqjs);
-    }
+        // this.reportedQuestions = this.checkReportStatus(this.uqjs);
+    }w
 
     /**
      * Returns the status text based on the UQJ object passed
@@ -106,13 +106,18 @@ export class CourseQuestionSnippetComponent implements OnInit {
         });
     }
 
-    fillReport(): void {
-        this.userId = this.user.id;
-        this.questionReportSerivce.getReport(this.userId, this.question.id).subscribe(response => {
-            this.formGroup.setValue({
-                description: response.report,
-                description_text: response.report_details
-            });
+    fillReport(uqj: UQJ): void {
+        // this.userId = this.user.id;
+        // this.questionReportSerivce.getReport(this.userId, this.question.id).subscribe(response => {
+        //     this.formGroup.setValue({
+        //         description: response.report,
+        //         description_text: response.report_details
+        //     });
+        // });
+        console.log(uqj.report);
+        this.formGroup.setValue({
+            description: uqj.report.report,
+            description_text: uqj.report.report_details
         });
     }
 
@@ -121,7 +126,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.userId = this.user.id;
         for (const uqj of uqjs) {
             this.questionReportSerivce.getReport(this.userId, uqj.question.id).subscribe(response => {
-                if(response.report != null) {
+                if (response.report != null) {
                     if (uqj.question.id !== undefined) {
                         questionids.push(uqj.question.id);
                     }
@@ -134,19 +139,20 @@ export class CourseQuestionSnippetComponent implements OnInit {
     createModal(content: unknown, exists: boolean, uqj: UQJ): void {
         this.question = uqj.question;
         this.formGroup.reset();
+        exists = false;
         if (exists) {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
         } else {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
-            this.fillReport();
+            this.fillReport(uqj);
         }
     }
 
     // TODO: replace toastr with taiga UI
     reportQuestion(): void {
-        const data: { user: User, question: Question, report: string, report_details: string } = {
-            user: this.user,
-            question: this.question, report: this.formGroup.get('description').value,
+        const data: { user: number, question: number, report: string, report_details: string } = {
+            user: this.user.id,
+            question: this.question.id, report: this.formGroup.get('description').value,
             report_details: this.formGroup.get('description_text').value
         };
         this.questionReportSerivce.sendReport(data).subscribe(() => {

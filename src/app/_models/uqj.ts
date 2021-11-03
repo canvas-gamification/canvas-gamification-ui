@@ -1,4 +1,5 @@
 import {Category, Question} from '@app/_models';
+import {QuestionReport} from "@app/_models/question_report";
 
 
 export interface UQJ {
@@ -25,6 +26,7 @@ export interface UQJ {
     status_class: string;
     input_files: { name: string, compile: boolean, template: string }[];
     is_checkbox: boolean;
+    report: QuestionReport;
 }
 
 export interface ParsonsFile {
