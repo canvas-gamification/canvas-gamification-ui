@@ -3,7 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {JsonEditorComponent} from '../../json-editor/json-editor.component';
 import {TestModule} from '@test/test.module';
 import {SchemaService} from "@app/problems/_services/schema.service";
-import {SchemaServiceMock} from "@app/problems/_test/schema.service.mock";
+import {SchemaServiceMock} from "@app/problems/_test/_services/schema.service.mock";
 
 describe('JsonEditorComponent', () => {
     let component: JsonEditorComponent;
