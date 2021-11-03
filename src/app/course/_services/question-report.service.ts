@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Question, User} from '@app/_models';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
@@ -32,13 +31,17 @@ export class QuestionReportService {
             .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while creating a report')));
     }
 
-    deleteReport(userId: number, questionId: number): Observable<QuestionReport> {
-        const url = this.apiService.getURL('question-report', 'delete-report');
-        const params = new HttpParams()
-            .set('question', String(questionId))
-            .set('user', String(userId));
+    updateReport(data: {report: string, report_details: string }, reportId: number): Observable<QuestionReport> {
+        const url = this.apiService.getURL('question-report', reportId);
         return this.http
-            .delete<QuestionReport>(url, {params})
+            .put<QuestionReport>(url, data)
+            .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while creating a report')));
+    }
+
+    deleteReport(reportId: number): Observable<QuestionReport> {
+        const url = this.apiService.getURL('question-report', reportId);
+        return this.http
+            .delete<QuestionReport>(url)
             .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while fetching a report')));
     }
 }

@@ -29,7 +29,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
     userId: number;
     formGroup: FormGroup;
     questionReport: QuestionReport;
-    reportedQuestions: number[];
+    isReported : boolean;
+    reportId : number;
 
     constructor(private authenticationService: AuthenticationService,
                 private router: Router,
@@ -63,8 +64,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 }
             });
         }
-        // this.reportedQuestions = this.checkReportStatus(this.uqjs);
-    }w
+    }
 
     /**
      * Returns the status text based on the UQJ object passed
@@ -100,65 +100,55 @@ export class CourseQuestionSnippetComponent implements OnInit {
 
     // TODO: replace toastr with taiga UI
     deleteReport(): void {
-        this.questionReportSerivce.deleteReport(this.userId, this.question.id).subscribe(() => {
+        this.questionReportSerivce.deleteReport(this.reportId).subscribe(() => {
             this.toastr.success('The report was deleted.');
-            this.reportedQuestions = this.reportedQuestions.filter(e => e !== this.question.id);
         });
     }
 
     fillReport(uqj: UQJ): void {
-        // this.userId = this.user.id;
-        // this.questionReportSerivce.getReport(this.userId, this.question.id).subscribe(response => {
-        //     this.formGroup.setValue({
-        //         description: response.report,
-        //         description_text: response.report_details
-        //     });
-        // });
-        console.log(uqj.report);
         this.formGroup.setValue({
             description: uqj.report.report,
             description_text: uqj.report.report_details
         });
     }
 
-    checkReportStatus(uqjs: UQJ[]): number[] {
-        const questionids = [];
-        this.userId = this.user.id;
-        for (const uqj of uqjs) {
-            this.questionReportSerivce.getReport(this.userId, uqj.question.id).subscribe(response => {
-                if (response.report != null) {
-                    if (uqj.question.id !== undefined) {
-                        questionids.push(uqj.question.id);
-                    }
-                }
-            });
-        }
-        return questionids;
-    }
-
     createModal(content: unknown, exists: boolean, uqj: UQJ): void {
         this.question = uqj.question;
         this.formGroup.reset();
-        exists = false;
+        //exists = false;
         if (exists) {
-            this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
-        } else {
+            this.isReported = true;
+            this.reportId = uqj.report.id;
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
             this.fillReport(uqj);
+        } else {
+            this.isReported = false;
+            this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
         }
     }
 
     // TODO: replace toastr with taiga UI
     reportQuestion(): void {
-        const data: { user: number, question: number, report: string, report_details: string } = {
-            user: this.user.id,
-            question: this.question.id, report: this.formGroup.get('description').value,
-            report_details: this.formGroup.get('description_text').value
-        };
-        this.questionReportSerivce.sendReport(data).subscribe(() => {
-            this.toastr.success('The action was performed successfully.');
-            this.reportedQuestions.push(this.question.id);
-        });
+        if(this.isReported){
+            const data: { user: number, question: number, report: string, report_details: string } = {
+                user: this.user.id,
+                question: this.question.id, report: this.formGroup.get('description').value,
+                report_details: this.formGroup.get('description_text').value
+            };
+            this.questionReportSerivce.updateReport(data, this.reportId).subscribe(() => {
+                this.toastr.success('The action was performed successfully.');
+            });
+        }
+        else{
+            const data: { user: number, question: number, report: string, report_details: string } = {
+                user: this.user.id,
+                question: this.question.id, report: this.formGroup.get('description').value,
+                report_details: this.formGroup.get('description_text').value
+            };
+            this.questionReportSerivce.sendReport(data).subscribe(() => {
+                this.toastr.success('The action was performed successfully.');
+            });
+        }
     }
 
     // TODO: replace checking for decription field

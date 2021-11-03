@@ -44,17 +44,17 @@
                                 <a class="btn btn-warning mr-3"
                                    [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
                             </ng-container>
-                            <ng-container *ngIf="true">
+                            <ng-container *ngIf="uqj?.report.id">
                                 <button type="button" mat-icon-button
                                         (click)="createModal(reportModal,true, uqj)">
                                     <!--(click)="reportCheck(uqj)">-->
-                                    <mat-icon>outlined_flag</mat-icon>
+                                    <mat-icon>flag</mat-icon>
                                 </button>
                             </ng-container>
-                            <ng-container *ngIf="false">
+                            <ng-container *ngIf="!uqj?.report.id">
                                 <button type="button" mat-icon-button
                                         (click)="createModal(reportModal,false, uqj)">
-                                    <mat-icon>flag</mat-icon>
+                                    <mat-icon>outlined_flag</mat-icon>
                                 </button>
                             </ng-container>
                         </td>
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <ng-container *ngIf="false">
+                        <ng-container *ngIf="isReported">
                             <button type="button" class="btn btn-outline-danger"
                                     (click)="modal.close('Save click');deleteReport()">
                                 Delete Report
@@ -103,7 +103,7 @@
                                 Change Report
                             </button>
                         </ng-container>
-                        <ng-container *ngIf="true">
+                        <ng-container *ngIf="!isReported">
                             <button type="submit" [disabled]="isSubmissionValid()" class="btn btn-outline-success"
                                     (click)="modal.close('Save click')">
                                 Report
