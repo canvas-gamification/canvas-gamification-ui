@@ -33,6 +33,7 @@ import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 import {CourseDashboardComponent} from "@app/course/course-dashboard/course-dashboard.component";
+import {CategoryListSnippetComponent} from "@app/course/category-list-snippet/category-list-snippet.component";
 import {
     TuiFieldErrorModule,
     TuiInputModule,
@@ -64,6 +65,7 @@ import {TuiFilterPipeModule} from "@taiga-ui/cdk";
         LeaderBoardComponent,
         ConceptMapComponent,
         CourseDashboardComponent,
+        CategoryListSnippetComponent,
         CourseRegistrationStepperComponent,
         CourseRegistrationStepComponent
     ],
