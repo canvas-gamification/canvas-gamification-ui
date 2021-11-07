@@ -1,8 +1,9 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core';
 import {CourseEvent, EventType, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseEventService} from '@app/course/_services/course-event.service';
-import {TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
 
 @Component({
     selector: 'app-course-events-snippet',
@@ -16,8 +17,7 @@ export class CourseEventsSnippetComponent implements OnInit {
     eventTypesMap: Map<string, string>;
     user: User;
     courseEvents: CourseEvent[];
-    courseEventHeadings: string[];
-    openImportDialog = false;
+    @ViewChild('importDialog') importDialog: PolymorpheusContent<TuiDialogContext>;
 
     constructor(private authenticationService: AuthenticationService,
                 private courseEventService: CourseEventService,
@@ -37,9 +37,9 @@ export class CourseEventsSnippetComponent implements OnInit {
      * Returns the button text based on the type of event & user
      * @param event - the object for which the button text is needed
      */
-    getEventButtonText(event: CourseEvent): string {
+    getEventType(event: CourseEvent): string {
         if (this.eventTypes) {
-            return ((this.user.is_teacher) ? 'Open ' : 'Do ') + this.eventTypesMap.get(event.type);
+            return this.eventTypesMap.get(event.type);
         }
     }
 
@@ -52,14 +52,16 @@ export class CourseEventsSnippetComponent implements OnInit {
     }
 
     /**
-     * Opens a dialog with event import dialog.
+     * Opens a dialog with import dialog template.
      */
     openEventImportDialog(): void {
         this.courseEventService.getAllEvents().subscribe(events => {
             this.courseEvents = events;
-            this.courseEventHeadings = ['id', 'name', 'type', 'course', 'actions'];
         });
-        this.openImportDialog = true;
+        this.dialogService.open(
+            this.importDialog,
+            {label: 'Select an Event to Import', size: 'l', closeable: false}
+        ).subscribe();
     }
 
     /**

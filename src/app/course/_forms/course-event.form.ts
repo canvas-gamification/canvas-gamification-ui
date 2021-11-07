@@ -8,15 +8,17 @@ import {
     Validators
 } from "@angular/forms";
 import {CourseEvent} from "@app/_models";
+import {TuiDay, TuiDayRange, TuiTime} from "@taiga-ui/cdk";
 
 export class CourseEventForm {
     /**
      * Custom validator for date validity
      */
     private static dateValidator: ValidatorFn = (controls: AbstractControl): ValidationErrors | null => {
-        const start = controls.get('startPicker');
-        const end = controls.get('endPicker');
-        return start && end && start.value >= end.value ? {
+        const dateRange: TuiDayRange = controls.get('startEndDatePicker').value;
+        const startTime: TuiTime = controls.get('startTimePicker').value;
+        const endTime: TuiTime = controls.get('endTimePicker').value;
+        return !dateRange.from || !dateRange.to || (dateRange.isSingleDay ? endTime.toAbsoluteMilliseconds() <= startTime.toAbsoluteMilliseconds() : false) ? {
             forbiddenDateRange: true
         } : null;
     };
@@ -30,8 +32,14 @@ export class CourseEventForm {
             name: new FormControl(null, [Validators.required]),
             type: new FormControl('', [Validators.required]),
             countForTokens: new FormControl(false, [Validators.required]),
-            startPicker: new FormControl(new Date(), [Validators.required]),
-            endPicker: new FormControl(new Date(), [Validators.required])
+            startEndDatePicker: new FormControl(
+                new TuiDayRange(
+                    TuiDay.currentLocal(), TuiDay.currentLocal().append({day: 7})
+                ),
+                [Validators.required]
+            ),
+            startTimePicker: new FormControl(TuiTime.currentLocal(), [Validators.required]),
+            endTimePicker: new FormControl(TuiTime.currentLocal(), [Validators.required])
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions);
     }
 
@@ -45,8 +53,14 @@ export class CourseEventForm {
             name: new FormControl(event.name, [Validators.required]),
             type: new FormControl(event.type, [Validators.required]),
             countForTokens: new FormControl(event.count_for_tokens, [Validators.required]),
-            startPicker: new FormControl(new Date(event.start_date), [Validators.required]),
-            endPicker: new FormControl(new Date(event.end_date), [Validators.required])
+            startEndDatePicker: new FormControl(
+                new TuiDayRange(
+                    TuiDay.fromLocalNativeDate(new Date(event.start_date)), TuiDay.fromLocalNativeDate(new Date(event.end_date))
+                ),
+                [Validators.required]
+            ),
+            startTimePicker: new FormControl(TuiTime.fromLocalNativeDate(new Date(event.start_date)), [Validators.required]),
+            endTimePicker: new FormControl(TuiTime.fromLocalNativeDate(new Date(event.end_date)), [Validators.required]),
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions);
     }
 
@@ -62,9 +76,18 @@ export class CourseEventForm {
             name: formData.get('name').value,
             type: formData.get('type').value,
             count_for_tokens: formData.get('countForTokens').value,
-            start_date: formData.get('startPicker').value,
-            end_date: formData.get('endPicker').value,
+            start_date: this.dateAndTimeToLocal(formData.get('startEndDatePicker').value.from, formData.get('startTimePicker').value),
+            end_date: this.dateAndTimeToLocal(formData.get('startEndDatePicker').value.to, formData.get('endTimePicker').value),
             course: courseId
         };
+    }
+
+    /**
+     * Converts TuiDay and TuiTime to native Date object
+     * @param date - TuiDay object
+     * @param time - TuiTime object
+     */
+    static dateAndTimeToLocal(date: TuiDay, time: TuiTime): Date {
+        return new Date(date.toLocalNativeDate().getTime() + time.toAbsoluteMilliseconds());
     }
 }

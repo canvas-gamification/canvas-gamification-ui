@@ -63,7 +63,7 @@ export class ConceptMapGraph {
                 body: {
                     width, height,
                     rx: 10, ry: 10,
-                    stroke: 'var(--tui-text-01)',
+                    stroke: 'var(--tui-base-08)',
                     cursor: 'pointer',
                     fill: 'var(--tui-secondary)',
                 },
@@ -93,7 +93,7 @@ export class ConceptMapGraph {
             },
             attrs: {
                 line: {
-                    stroke: 'var(--tui-text-01)',
+                    stroke: 'var(--tui-base-08)',
                     cursor: 'default',
                 },
                 wrapper: {

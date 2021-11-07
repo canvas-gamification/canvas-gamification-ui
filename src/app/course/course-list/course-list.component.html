@@ -26,7 +26,7 @@
                 <tui-tag
                     size="m"
                     [value]="course.is_registered ? 'Registered' : 'Not Registered'"
-                    [status]="course.is_registered ? 'primary' : 'warning'"
+                    [status]="course.is_registered ? 'success' : 'warning'"
                 ></tui-tag>
                 <div class="tui-form__buttons tui-space_top-12">
                     <a
@@ -42,7 +42,7 @@
                     <a
                         tuiButton
                         class="tui-form__button"
-                        [appearance]="!hasViewPermission(course.id) || !course.is_registered ? 'whiteblock-active' : 'primary'"
+                        [appearance]="hasViewPermission(course.id) ? 'whiteblock-active' : 'primary'"
                         size="m"
                         [routerLink]="[course.id, 'register']"
                         *ngIf="!course.is_registered"

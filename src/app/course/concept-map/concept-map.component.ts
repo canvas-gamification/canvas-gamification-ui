@@ -76,6 +76,10 @@ export class ConceptMapComponent implements OnInit {
         return this.rawCategories.find(category => category.pk === categoryId).parent === null;
     }
 
+    /**
+     * Create a dialog observable based on the given cellId for user stats details
+     * @param cellId
+     */
     generateUserStatsDialogService(cellId: number): Observable<number> {
         return this.dialogService.open<number>(
             new PolymorpheusComponent(UserStatsComponent, this.injector),

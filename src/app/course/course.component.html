@@ -1,7 +1,7 @@
 <section class="tui-container tui-container_fullwidth">
-    <div class="heading-flex">
+    <div class="heading">
         <h1 class="tui-text_h3 tui-space_vertical-10" [class.tui-skeleton]="!course">{{ course ? course.name : 'Course Name' }}</h1>
-        <div class="heading-flex">
+        <div class="heading">
             <a class="tui-space_right-4" [class.tui-skeleton]="!course" tuiLink [href]="course?.url" rel="noopener noreferrer" target="_blank">{{ course?.url }}</a>
             <p [class.tui-skeleton]="!course">{{ course ? (course.start_date | date: 'LLL. dd, YYYY, hh:MM a') : 'No Date' }} - {{ course ? (course.end_date | date: 'LLL. dd, YYYY, hh:MM a') : 'No Date' }}</p>
         </div>

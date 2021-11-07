@@ -43,14 +43,14 @@ describe('CourseEventsSnippetComponent', () => {
         component.user = MOCK_USER_STUDENT;
         component.eventTypesMap = new Map(MOCK_EVENT_TYPES.map(([k, v]) => [k, v]));
         //Only need to check the first word since it is the only thing that is different between student/teacher
-        expect(component.getEventButtonText(MOCK_COURSE_EVENT).split(' ')[0]).toEqual('Do');
+        expect(component.getEventType(MOCK_COURSE_EVENT).split(' ')[0]).toEqual('Do');
     });
 
     it('buttonText should work for Teacher', () => {
         component.user = MOCK_USER_TEACHER;
         component.eventTypesMap = new Map(MOCK_EVENT_TYPES.map(([k, v]) => [k, v]));
         //Only need to check the first word since it is the only thing that is different between student/teacher
-        expect(component.getEventButtonText(MOCK_COURSE_EVENT).split(' ')[0]).toEqual('Open');
+        expect(component.getEventType(MOCK_COURSE_EVENT).split(' ')[0]).toEqual('Open');
     });
 
     it('open modal', () => {

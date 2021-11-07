@@ -1,72 +1,64 @@
-<div id="mainContainer" class="container">
-    <h2 class="my-3">
-        Create Event
-    </h2>
-    <!--TODO: Add aria-labels throughout form (on Opey)-->
-    <form id="new-event" class="form" [formGroup]="formData" (ngSubmit)="submitEvent(formData)">
-        <div class="form-group">
-            <label for="id-name">Event Name</label>
-            <input id="id-name" type="text" name="name" formControlName="name" class="form-control"
-                   placeholder="Event Name..." [ngClass]="{ 'is-invalid': form.name.errors && form.name.touched }">
-            <div *ngIf="form.name.errors" class="invalid-feedback">
-                <div *ngIf="form.name.errors.required">Event Name is required</div>
+<div class="tui-container tui-container_adaptive">
+    <form [formGroup]="formData" (ngSubmit)="submitEvent(formData)">
+        <h2 class="tui-form__header">Create New Event</h2>
+        <div class="tui-form__row">
+            <tui-input formControlName="name">Event Name</tui-input>
+            <tui-field-error formControlName="name"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <tui-select formControlName="type">
+                Event Type
+                <tui-data-list *tuiDataList>
+                    <button *ngFor="let event of localEventTypes" tuiOption [value]="event[0]">
+                        {{ event[1] }}
+                    </button>
+                </tui-data-list>
+            </tui-select>
+            <tui-field-error formControlName="type"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <tui-checkbox-labeled formControlName="countForTokens">Counts for tokens</tui-checkbox-labeled>
+            <tui-field-error formControlName="countForTokens"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <tui-input-date-range formControlName="startEndDatePicker">
+                Start and end date
+            </tui-input-date-range>
+            <tui-field-error formControlName="startEndDatePicker"></tui-field-error>
+        </div>
+        <div class="tui-form__row tui-form__row_multi-fields">
+            <div class="tui-form__multi-field">
+                <tui-input-time formControlName="startTimePicker" [items]="timeOptions">
+                    Start time
+                </tui-input-time>
+                <tui-field-error formControlName="startTimePicker"></tui-field-error>
+            </div>
+            <div class="tui-form__multi-field">
+                <tui-input-time formControlName="endTimePicker" [items]="timeOptions">
+                    End time
+                </tui-input-time>
+                <tui-field-error formControlName="endTimePicker"></tui-field-error>
             </div>
         </div>
-        <div class="form-group">
-            <label for="id-type">Event type</label>
-            <select id="id-type" name="type" formControlName="type" class="form-control"
-                    [ngClass]="{ 'is-invalid': form.type.errors && form.type.touched }">
-                <option value="" disabled selected>Select Event Type...</option>
-                <ng-container *ngFor="let item of localEventTypes">
-                    <option [value]="item[0]">{{item[1]}}</option>
-                </ng-container>
-            </select>
-            <div *ngIf="form.type.errors" class="invalid-feedback">
-                <div *ngIf="form.type.errors.required">Event Type is required</div>
-            </div>
-        </div>
-        <div class="form-check my-5">
-            <input id="id-count-for-tokens" name="countForTokens" formControlName="countForTokens" type="checkbox"
-                   class="form-check-input">
-            <label for="id-count-for-tokens" class="form-check-label">Counts for tokens</label>
-        </div>
-        <div class="form-group">
-            <label for="id-name">Start Date & Time</label>
-            <mat-form-field>
-                <input matInput [ngxMatDatetimePicker]="startPicker"
-                       placeholder="Choose a date"
-                       id="start-date-id" name="startPicker" formControlName="startPicker">
-
-                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker #startPicker
-                                         [showSeconds]="false" [touchUi]="true"
-                                         [stepHour]="1" [stepMinute]="1">
-                </ngx-mat-datetime-picker>
-            </mat-form-field>
-        </div>
-        <div class="form-group">
-            <label for="id-name">End Date & Time</label>
-            <mat-form-field>
-                <input matInput [ngxMatDatetimePicker]="endPicker"
-                       placeholder="Choose a date"
-                       id="end-date-id" name="endPicker" formControlName="endPicker">
-                <mat-datepicker-toggle matSuffix [for]="endPicker">
-                </mat-datepicker-toggle>
-                <ngx-mat-datetime-picker #endPicker
-                                         [showSeconds]="false" [touchUi]="true"
-                                         [stepHour]="1" [stepMinute]="1">
-                </ngx-mat-datetime-picker>
-            </mat-form-field>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId]">Back</button>
-            <button id="id-submit" type="submit" [disabled]="formData.invalid" name="submit"
-                    class="btn btn-primary my-2 mr-3">Submit
+        <tui-notification
+            status="error"
+            class="tui-space_top-4"
+            *ngIf="formData.errors?.forbiddenDateRange"
+        >
+            Invalid date range! Please check your start and end times!
+        </tui-notification>
+        <div class="tui-form__buttons">
+            <button
+                tuiButton
+                appearance="primary"
+                size="m"
+                class="tui-form__button"
+                type="submit"
+                [disabled]="formData.invalid"
+            >
+                Submit
             </button>
-        </div>
-        <div *ngIf="formData.errors?.forbiddenDateRange && (form.startPicker.touched || form.endPicker.touched)"
-             class="alert-danger alert">
-            Invalid date range! Please check your start and end date!
+            <a tuiButton appearance="secondary" class="tui-form__button" size="m" [routerLink]="['/course', courseId]">Back</a>
         </div>
     </form>
 </div>

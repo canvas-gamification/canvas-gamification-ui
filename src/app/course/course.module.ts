@@ -33,14 +33,15 @@ import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 import {
-    TuiFieldErrorModule,
-    TuiInputModule,
-    TuiIslandModule,
+    TuiCheckboxLabeledModule,
+    TuiFieldErrorModule, TuiInputDateModule, TuiInputDateRangeModule,
+    TuiInputModule, TuiInputTimeModule,
+    TuiIslandModule, TuiSelectModule,
     TuiStepperModule, TuiTabsModule,
     TuiTagModule
 } from "@taiga-ui/kit";
 import {
-    TuiButtonModule, TuiCalendarModule, TuiDialogModule,
+    TuiButtonModule, TuiCalendarModule, TuiDataListModule, TuiDialogModule,
     TuiErrorModule, TuiLinkModule,
     TuiLoaderModule,
     TuiNotificationModule, TuiSvgModule,
@@ -104,7 +105,13 @@ import {TuiTableModule} from "@taiga-ui/addon-table";
         TuiTabsModule,
         TuiSvgModule,
         TuiDialogModule,
-        TuiTableModule
+        TuiTableModule,
+        TuiSelectModule,
+        TuiDataListModule,
+        TuiCheckboxLabeledModule,
+        TuiInputDateModule,
+        TuiInputTimeModule,
+        TuiInputDateRangeModule
     ],
     providers: [
         CourseService,
