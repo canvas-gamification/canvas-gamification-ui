@@ -46,14 +46,14 @@
                             </ng-container>
                             <ng-container *ngIf="uqj?.report.id">
                                 <button type="button" mat-icon-button
-                                        (click)="createModal(reportModal,true, uqj)">
+                                        (click)="createModal(reportModal, uqj)">
                                     <!--(click)="reportCheck(uqj)">-->
                                     <mat-icon>flag</mat-icon>
                                 </button>
                             </ng-container>
                             <ng-container *ngIf="!uqj?.report.id">
                                 <button type="button" mat-icon-button
-                                        (click)="createModal(reportModal,false, uqj)">
+                                        (click)="createModal(reportModal, uqj)">
                                     <mat-icon>outlined_flag</mat-icon>
                                 </button>
                             </ng-container>
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <ng-container *ngIf="isReported">
+                        <ng-container *ngIf="reportUQJ?.report.id">
                             <button type="button" class="btn btn-outline-danger"
                                     (click)="modal.close('Save click');deleteReport()">
                                 Delete Report
@@ -103,7 +103,7 @@
                                 Change Report
                             </button>
                         </ng-container>
-                        <ng-container *ngIf="!isReported">
+                        <ng-container *ngIf="!reportUQJ?.report.id">
                             <button type="submit" [disabled]="isSubmissionValid()" class="btn btn-outline-success"
                                     (click)="modal.close('Save click')">
                                 Report

@@ -28,9 +28,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     question: Question;
     userId: number;
     formGroup: FormGroup;
-    questionReport: QuestionReport;
-    isReported : boolean;
-    reportId : number;
+    reportUQJ: UQJ;
 
     constructor(private authenticationService: AuthenticationService,
                 private router: Router,
@@ -100,8 +98,9 @@ export class CourseQuestionSnippetComponent implements OnInit {
 
     // TODO: replace toastr with taiga UI
     deleteReport(): void {
-        this.questionReportSerivce.deleteReport(this.reportId).subscribe(() => {
+        this.questionReportSerivce.deleteReport(this.reportUQJ.report.id).subscribe(() => {
             this.toastr.success('The report was deleted.');
+            this.reportUQJ.report = {} as QuestionReport;
         });
     }
 
@@ -112,50 +111,53 @@ export class CourseQuestionSnippetComponent implements OnInit {
         });
     }
 
-    createModal(content: unknown, exists: boolean, uqj: UQJ): void {
-        this.question = uqj.question;
+    createModal(content: unknown, uqj: UQJ): void {
+        this.reportUQJ = uqj;
         this.formGroup.reset();
-        //exists = false;
-        if (exists) {
-            this.isReported = true;
-            this.reportId = uqj.report.id;
+        if (this.reportUQJ.report.id != null) {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
             this.fillReport(uqj);
         } else {
-            this.isReported = false;
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
         }
     }
 
     // TODO: replace toastr with taiga UI
     reportQuestion(): void {
-        if(this.isReported){
+        if(this.reportUQJ.report.id != null){
             const data: { user: number, question: number, report: string, report_details: string } = {
                 user: this.user.id,
-                question: this.question.id, report: this.formGroup.get('description').value,
+                question: this.reportUQJ.question.id, report: this.formGroup.get('description').value,
                 report_details: this.formGroup.get('description_text').value
             };
-            this.questionReportSerivce.updateReport(data, this.reportId).subscribe(() => {
+            this.questionReportSerivce.updateReport(data, this.reportUQJ.report.id).subscribe(response => {
                 this.toastr.success('The action was performed successfully.');
+                this.reportUQJ.report = response;
             });
         }
         else{
             const data: { user: number, question: number, report: string, report_details: string } = {
                 user: this.user.id,
-                question: this.question.id, report: this.formGroup.get('description').value,
+                question: this.reportUQJ.question.id, report: this.formGroup.get('description').value,
                 report_details: this.formGroup.get('description_text').value
             };
-            this.questionReportSerivce.sendReport(data).subscribe(() => {
+            this.questionReportSerivce.sendReport(data).subscribe(response => {
                 this.toastr.success('The action was performed successfully.');
+                this.reportUQJ.report = response;
             });
         }
     }
 
     // TODO: replace checking for decription field
     isSubmissionValid(): boolean {
-        if (this.formGroup.get('description').value == null || (this.formGroup.get('description').value == 'OTHER'
-            && this.formGroup.get('description_text').value == null)) {
-            return true;
+        if (this.formGroup.get('description').value != null && this.formGroup.get('description').value != 'OTHER') {
+            return false;
         }
+        else if (this.formGroup.get('description').value == 'OTHER'
+            && this.formGroup.get('description_text').value != null) {
+            if (this.formGroup.get('description_text').value.length != 0)
+                return false;
+        }
+        return true;
     }
 }

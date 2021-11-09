@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {ApiService} from "@app/_services/api.service";
 import {QuestionReport} from "@app/_models/question_report";
@@ -14,13 +14,10 @@ export class QuestionReportService {
         private apiService: ApiService) {
     }
 
-    getReport(userId: number, questionId: number): Observable<QuestionReport> {
-        const url = this.apiService.getURL('question-report', 'get-report');
-        const params = new HttpParams()
-            .set('question', String(questionId))
-            .set('user', String(userId));
+    getReport(reportId: number): Observable<QuestionReport> {
+        const url = this.apiService.getURL('question-report', reportId);
         return this.http
-            .get<QuestionReport>(url, {params})
+            .get<QuestionReport>(url)
             .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while fetching a report')));
     }
 
@@ -35,13 +32,13 @@ export class QuestionReportService {
         const url = this.apiService.getURL('question-report', reportId);
         return this.http
             .put<QuestionReport>(url, data)
-            .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while creating a report')));
+            .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while updating a report')));
     }
 
     deleteReport(reportId: number): Observable<QuestionReport> {
         const url = this.apiService.getURL('question-report', reportId);
         return this.http
             .delete<QuestionReport>(url)
-            .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while fetching a report')));
+            .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while deleting a report')));
     }
 }
