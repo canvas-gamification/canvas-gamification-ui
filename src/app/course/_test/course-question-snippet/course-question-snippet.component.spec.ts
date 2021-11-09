@@ -105,9 +105,18 @@ describe('CourseQuestionSnippetComponent VALID EVENT', () => {
         expect(component.reportUQJ.report).toEqual(MOCK_QUESTION_REPORT);
     });
 
-    it('open modal', () => {
+    it('open modal with valid reportId', () => {
         component.createModal('content',MOCK_UQJ);
         expect(component.reportUQJ).toEqual(MOCK_UQJ);
+        expect(modalService.open).toHaveBeenCalledOnceWith('content', {
+            ariaLabelledBy: 'modal-basic-title',
+            centered: true
+        });
+    });
+
+    it('open modal without reportId', () => {
+        component.createModal('content',MOCK_UQJ2);
+        expect(component.reportUQJ).toEqual(MOCK_UQJ2);
         expect(modalService.open).toHaveBeenCalledOnceWith('content', {
             ariaLabelledBy: 'modal-basic-title',
             centered: true
@@ -130,6 +139,14 @@ describe('CourseQuestionSnippetComponent VALID EVENT', () => {
         expect(component.isSubmissionValid()).toEqual(true);
     });
 
+    it('other with text submission should be valid', () => {
+        component.formGroup.setValue({
+            description: 'OTHER',
+            description_text: 'valid text'
+        });
+        expect(component.isSubmissionValid()).toEqual(false);
+    });
+
     it('empty submission should be invalid', () => {
         component.formGroup.setValue({
             description: null,
@@ -137,11 +154,12 @@ describe('CourseQuestionSnippetComponent VALID EVENT', () => {
         });
         expect(component.isSubmissionValid()).toEqual(true);
     });
-    /*it ('report should be filled', () =>{
+    it ('report should be filled', () =>{
+        component.reportUQJ.report = MOCK_QUESTION_REPORT;
         component.fillReport();
         expect(component.formGroup.get('description').value).toEqual(MOCK_QUESTION_REPORT.report);
         expect(component.formGroup.get('description_text').value).toEqual(MOCK_QUESTION_REPORT.report_details);
-    });*/
+    });
 });
 describe('CourseQuestionSnippetComponent INVALID EVENT', () => {
     let component: CourseQuestionSnippetComponent;
