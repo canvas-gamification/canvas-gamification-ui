@@ -4,6 +4,7 @@ import {Difficulty} from "@app/_models/difficulty";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
 import {JavaFormData} from "@app/problems/_forms/java.form";
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
+import {QuestionReport} from "@app/_models/question_report";
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
@@ -199,6 +200,12 @@ export const MOCK_PARSONS_QUESTION: Question = {
         compile: true,
     }]
 };
+export const MOCK_QUESTION_REPORT: QuestionReport = {
+    id: 1,
+    question_id: 1,
+    report: "TYPO_TEXT",
+    report_details: "Array is not spelled correctly.",
+};
 
 export const MOCK_UQJ: UQJ = {
     category: MOCK_CATEGORY,
@@ -227,6 +234,7 @@ export const MOCK_UQJ: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+    report: MOCK_QUESTION_REPORT,
 };
 
 export const MOCK_UQJ_2: UQJ = {
@@ -258,6 +266,7 @@ export const MOCK_UQJ_2: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: true,
+    report: MOCK_QUESTION_REPORT,
 };
 
 export const MOCK_UQJ_3: UQJ = {
@@ -295,6 +304,7 @@ export const MOCK_UQJ_3: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+    report: MOCK_QUESTION_REPORT,
 };
 
 export const MOCK_UQJ_4: UQJ = {
@@ -324,6 +334,7 @@ export const MOCK_UQJ_4: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+    report: MOCK_QUESTION_REPORT,
 };
 
 export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {

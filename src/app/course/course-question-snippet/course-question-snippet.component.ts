@@ -104,10 +104,10 @@ export class CourseQuestionSnippetComponent implements OnInit {
         });
     }
 
-    fillReport(uqj: UQJ): void {
+    fillReport(): void {
         this.formGroup.setValue({
-            description: uqj.report.report,
-            description_text: uqj.report.report_details
+            description: this.reportUQJ.report.report,
+            description_text: this.reportUQJ.report.report_details
         });
     }
 
@@ -116,7 +116,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.formGroup.reset();
         if (this.reportUQJ.report.id != null) {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
-            this.fillReport(uqj);
+            this.fillReport();
         } else {
             this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
         }
@@ -125,9 +125,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
     // TODO: replace toastr with taiga UI
     reportQuestion(): void {
         if(this.reportUQJ.report.id != null){
-            const data: { user: number, question: number, report: string, report_details: string } = {
-                user: this.user.id,
-                question: this.reportUQJ.question.id, report: this.formGroup.get('description').value,
+            const data: {report: string, report_details: string } = {
+                report: this.formGroup.get('description').value,
                 report_details: this.formGroup.get('description_text').value
             };
             this.questionReportSerivce.updateReport(data, this.reportUQJ.report.id).subscribe(response => {
@@ -148,12 +147,11 @@ export class CourseQuestionSnippetComponent implements OnInit {
         }
     }
 
-    // TODO: replace checking for decription field
+    // TODO: replace checking for description field
     isSubmissionValid(): boolean {
         if (this.formGroup.get('description').value != null && this.formGroup.get('description').value != 'OTHER') {
             return false;
-        }
-        else if (this.formGroup.get('description').value == 'OTHER'
+        } else if (this.formGroup.get('description').value == 'OTHER'
             && this.formGroup.get('description_text').value != null) {
             if (this.formGroup.get('description_text').value.length != 0)
                 return false;
