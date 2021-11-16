@@ -28,6 +28,7 @@ describe('CourseEventsSnippetComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(CourseEventsSnippetComponent);
         component = fixture.componentInstance;
+        component.course = MOCK_COURSE;
         fixture.detectChanges();
     });
 
