@@ -31,7 +31,7 @@ export class QuestionReportService {
     updateReport(data: {report: string, report_details: string }, reportId: number): Observable<QuestionReport> {
         const url = this.apiService.getURL('question-report', reportId);
         return this.http
-            .put<QuestionReport>(url, data)
+            .patch<QuestionReport>(url, data)
             .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while updating a report')));
     }
 

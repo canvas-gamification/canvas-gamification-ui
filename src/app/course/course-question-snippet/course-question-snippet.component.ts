@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {CourseEvent, Question, UQJ, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -10,7 +10,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {QuestionReportForm} from "@app/course/_forms/Question-Report.form";
 import {FormGroup} from "@angular/forms";
 import {QuestionReport} from "@app/_models/question_report";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 import {QuestionReportService} from "@app/course/_services/question-report.service";
 
 @Component({
@@ -37,8 +37,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 private courseEventService: CourseEventService,
                 private courseService: CourseService,
                 private modalService: NgbModal,
-                private toastr: ToastrService,
-                private questionReportSerivce: QuestionReportService) {
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+                private questionReportService: QuestionReportService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
 
     }
@@ -96,10 +96,12 @@ export class CourseQuestionSnippetComponent implements OnInit {
         return '';
     }
 
-    // TODO: replace toastr with taiga UI
     deleteReport(): void {
-        this.questionReportSerivce.deleteReport(this.reportUQJ.report.id).subscribe(() => {
-            this.toastr.success('The report was deleted.');
+        this.questionReportService.deleteReport(this.reportUQJ.report.id).subscribe(() => {
+            this.notificationsService
+                .show('The Report has been Deleted Successfully.', {
+                    status: TuiNotification.Success
+                }).subscribe();
             this.reportUQJ.report = {} as QuestionReport;
         });
     }
@@ -122,15 +124,17 @@ export class CourseQuestionSnippetComponent implements OnInit {
         }
     }
 
-    // TODO: replace toastr with taiga UI
     reportQuestion(): void {
         if(this.reportUQJ.report.id != null){
             const data: {report: string, report_details: string } = {
                 report: this.formGroup.get('description').value,
                 report_details: this.formGroup.get('description_text').value
             };
-            this.questionReportSerivce.updateReport(data, this.reportUQJ.report.id).subscribe(response => {
-                this.toastr.success('The action was performed successfully.');
+            this.questionReportService.updateReport(data, this.reportUQJ.report.id).subscribe(response => {
+                this.notificationsService
+                    .show('The Report was been Created Successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
                 this.reportUQJ.report = response;
             });
         }
@@ -140,14 +144,16 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 question: this.reportUQJ.question.id, report: this.formGroup.get('description').value,
                 report_details: this.formGroup.get('description_text').value
             };
-            this.questionReportSerivce.sendReport(data).subscribe(response => {
-                this.toastr.success('The action was performed successfully.');
+            this.questionReportService.sendReport(data).subscribe(response => {
+                this.notificationsService
+                    .show('The Report was been Created Successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
                 this.reportUQJ.report = response;
             });
         }
     }
 
-    // TODO: replace checking for description field
     isSubmissionValid(): boolean {
         if (this.formGroup.get('description').value != null && this.formGroup.get('description').value != 'OTHER') {
             return false;
