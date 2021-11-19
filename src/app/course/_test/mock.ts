@@ -80,7 +80,8 @@ export const MOCK_COURSE1: Course = {
     question_set: null,
     uqjs: null,
     course_reg: null,
-    leader_board: null
+    leader_board: null,
+    has_create_event_permission: true
 };
 
 export const MOCK_COURSE2: Course = {
@@ -101,7 +102,8 @@ export const MOCK_COURSE2: Course = {
     question_set: null,
     uqjs: null,
     course_reg: null,
-    leader_board: null
+    leader_board: null,
+    has_create_event_permission: true
 };
 
 export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2];

@@ -1,104 +1,78 @@
-<div class="consent-form">
-    <div class="row">
-        <div class="col-md-6 offset-md-3 mt-5 mb-5">
-            <div class="brand">
-                <img [src]="logoPath" alt="logo">
-            </div>
-            <div class="card">
-                <h2 class="card-header">Please Read our Informed Consent Form</h2>
-                <ng-container *ngIf="user.is_teacher">
-                    <app-admin-terms-and-conditions-snippet></app-admin-terms-and-conditions-snippet>
-                </ng-container>
-                <ng-container *ngIf="user.is_student">
-                    <app-student-terms-and-conditions-snippet></app-student-terms-and-conditions-snippet>
-                </ng-container>
-                <div class="card-body">
-                    <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
-                        <ng-container *ngIf="user.is_student">
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           id="submittedWork" type="checkbox"
-                                           formControlName="access_submitted_course_work">
-                                    <label class="form-check-label" for="submittedWork">I am willing to
-                                        provide access to my submitted course work.</label>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input"
-                                           id="grades" type="checkbox" formControlName="access_course_grades">
-                                    <label class="form-check-label" for="submittedWork">I am willing to provide
-                                        access to my course grades associated with the submitted work.</label>
-                                </div>
-                            </div>
-                        </ng-container>
-                        <div class="form-group">
-                            <label for="legal_last_name">Type in your last name:</label>
-                            <input
-                                [ngClass]="{ 'is-invalid': form.legal_last_name.errors && form.legal_last_name.touched }"
-                                class="form-control" formControlName="legal_last_name"
-                                id="legal_last_name" name="legal_last_name"
-                                type="text">
-                            <div *ngIf="form.legal_last_name.touched && form.legal_last_name.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.legal_last_name.errors.required">Last name is Required.</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="legal_first_name">Type in your first name:</label>
-                            <input
-                                [ngClass]="{ 'is-invalid': form.legal_first_name.errors && form.legal_first_name.touched }"
-                                class="form-control" formControlName="legal_first_name"
-                                id="legal_first_name" name="legal_first_name"
-                                type="text">
-                            <div *ngIf="form.legal_first_name.touched && form.legal_first_name.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.legal_first_name.errors.required">First name is Required.</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="student_number">Type in your student number (this is only needed in case there
-                                are students
-                                with the same first and last name):</label>
-                            <input
-                                [ngClass]="{ 'is-invalid': form.student_number.errors && form.student_number.touched }"
-                                class="form-control" formControlName="student_number"
-                                id="student_number" name="student_number"
-                                type="text">
-                            <div *ngIf="form.student_number.touched && form.student_number.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.student_number.errors.required">Student number is Required.</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="date">Type in today's date:</label>
-                            <input [ngClass]="{ 'is-invalid': form.date.errors && form.date.touched }"
-                                   class="form-control" formControlName="date"
-                                   id="date" name="date"
-                                   type="text">
-                            <div *ngIf="form.date.touched && form.date.invalid"
-                                 class="invalid-feedback">
-                                <div *ngIf="form.date.errors.required">Date is Required.</div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <button [disabled]="formGroup.invalid" class="btn btn-primary float-right mx-2"
-                                    type="submit">I Consent
-                            </button>
-                            <button (click)="declineConsent()" class="btn btn-primary float-right mx-2"
-                                    routerLink="../profile"
-                                    type="button">I Do Not Consent
-                            </button>
-                        </div>
-                    </form>
+<div class="tui-container tui-container_adaptive">
+    <div class="tui-space_bottom-10">
+        <div class="tui-space_auto tui-space_vertical-10 consent-brand">
+            <img [src]="logoPath" alt="logo">
+        </div>
+        <h1 class="tui-text_h3">Please Read our Informed Consent Form</h1>
+        <p class="tui-space_bottom-4">Thank you for your email confirmation. Your Account has been successfully activated.</p>
+        <ng-container *ngIf="user.is_teacher">
+            <app-admin-terms-and-conditions-snippet></app-admin-terms-and-conditions-snippet>
+        </ng-container>
+        <ng-container *ngIf="user.is_student">
+            <app-student-terms-and-conditions-snippet></app-student-terms-and-conditions-snippet>
+        </ng-container>
+        <form class="tui-space_top-4" (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+            <ng-container *ngIf="user.is_student">
+                <div class="tui-form__row">
+                    <tui-checkbox-labeled formControlName="access_submitted_course_work" size="l">
+                        I am willing to provide access to my submitted course work.
+                    </tui-checkbox-labeled>
+                </div>
+                <div class="tui-form__row">
+                    <tui-checkbox-labeled formControlName="access_course_grades" size="l">
+                        I am willing to provide access to my course grades associated with the submitted work.
+                    </tui-checkbox-labeled>
+                </div>
+            </ng-container>
+            <div class="tui-form__row tui-form__row_multi-fields">
+                <div class="tui-form__multi-field">
+                    <tui-input formControlName="legal_last_name">
+                        Type in your last name:
+                    </tui-input>
+                    <tui-field-error formControlName="legal_last_name"></tui-field-error>
+                </div>
+                <div class="tui-form__multi-field">
+                    <tui-input formControlName="legal_first_name">
+                        Type in your first name:
+                    </tui-input>
+                    <tui-field-error formControlName="legal_first_name"></tui-field-error>
                 </div>
             </div>
-        </div>
+            <div class="tui-form__row">
+                <tui-input formControlName="student_number">
+                    Type in your student number (this is only needed in case there are
+                    students with the same first and last name):
+                </tui-input>
+                <tui-field-error formControlName="student_number"></tui-field-error>
+            </div>
+            <div class="tui-form__row">
+                <tui-input formControlName="date">
+                    Type in today's date:
+                </tui-input>
+                <tui-field-error formControlName="date"></tui-field-error>
+            </div>
+            <div class="tui-form__buttons">
+                <button
+                    tuiButton
+                    size="m"
+                    class="tui-form__button"
+                    type="submit"
+                    [disabled]="formGroup.invalid"
+                >
+                    I Consent
+                </button>
+                <button
+                    tuiButton
+                    size="m"
+                    appearance="flat"
+                    class="tui-form__button"
+                    type="button"
+                    routerLink="../profile"
+                    (click)="declineConsent()"
+                >
+                    I Do Not Consent
+                </button>
+            </div>
+        </form>
     </div>
 </div>

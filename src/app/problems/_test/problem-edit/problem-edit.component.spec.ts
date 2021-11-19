@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ProblemEditComponent} from '../../problem-edit/problem-edit.component';
 import {TestModule} from '@test/test.module';
-import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
+import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {ActivatedRoute} from "@angular/router";
 import {MOCK_QUESTIONS} from "@app/problems/_test/mock";

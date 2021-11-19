@@ -31,9 +31,10 @@ export class JsonEditorComponent implements OnInit {
                 disable_properties: true,
                 disable_collapse: true,
                 disable_array_reorder: true,
+                enable_array_copy: true,
                 disable_array_delete_all_rows: true,
                 disable_array_delete_last_row: true,
-                disable_edit_json: true,
+                disable_edit_json: false,
                 remove_empty_properties: true,
                 object_layout: 'grid',
                 compact: true

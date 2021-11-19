@@ -1,25 +1,36 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {CourseRegisterComponent, STEPPER_STAGES} from '../../course-registration/course-register.component';
+import {CourseRegisterComponent} from '../../course-registration/course-register.component';
 import {TestModule} from '@test/test.module';
-import {REGISTRATION_STATUS} from "@app/_models";
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
-import {MatStepperModule} from "@angular/material/stepper";
 import {ActivatedRoute} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
-import {ToastrService} from "ngx-toastr";
-import {MOCK_IDENTIFICATION_RESPONSE1, MOCK_VERIFY_FAIL} from "@app/course/_test/mock";
+import {
+    MOCK_CONFIRM_RESPONSE1,
+    MOCK_CONFIRM_STEP1,
+    MOCK_CONFIRM_STEP2_SUCCESS,
+    MOCK_IDENTIFICATION_RESPONSE2,
+    MOCK_IDENTIFICATION_STEP1,
+    MOCK_IDENTIFICATION_STEP2,
+    MOCK_VERIFY_STEP1,
+    MOCK_VERIFY_SUCCESS
+} from "@app/course/_test/mock";
+import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component";
+import {CourseRegistrationStepComponent} from "@app/course/course-registration/course-registration-step/course-registration-step.component";
+import {TuiFieldErrorModule, TuiInputModule, TuiStepperModule} from "@taiga-ui/kit";
+import {TuiTextfieldControllerModule, TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
 
-describe('RegisterComponent', () => {
+describe('CourseRegisterComponent', () => {
     let component: CourseRegisterComponent;
     let fixture: ComponentFixture<CourseRegisterComponent>;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, MatStepperModule, ReactiveFormsModule],
-            declarations: [CourseRegisterComponent],
+            imports: [TestModule, ReactiveFormsModule, TuiStepperModule, TuiInputModule, TuiTextfieldControllerModule, TuiFieldErrorModule],
+            declarations: [CourseRegisterComponent, CourseRegistrationStepperComponent, CourseRegistrationStepComponent],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock},
                 {
@@ -36,8 +47,10 @@ describe('RegisterComponent', () => {
     });
 
     beforeEach(() => {
-        toastr = TestBed.inject(ToastrService);
-        spyOn(toastr, 'error');
+        notificationService = TestBed.inject(TuiNotificationsService);
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of();
+        });
         fixture = TestBed.createComponent(CourseRegisterComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -47,67 +60,87 @@ describe('RegisterComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('initialStage should work', () => {
-        component.initialStage(REGISTRATION_STATUS.REGISTERED);
-        expect(component.completed).toBeTrue();
-        expect(component.verification).toBeFalse();
-        expect(component.selectedIndex).toEqual(STEPPER_STAGES.REGISTERED);
+    it('should get correct step number', () => {
+        expect(component.stepper.currentStep).toEqual(0);
     });
 
-    it('getRegistrationStatus should work and call appropriate methods', () => {
-        spyOn(component, 'initialStage');
-        component.getRegistrationStatus();
-        expect(component.initialStage).toHaveBeenCalledOnceWith(REGISTRATION_STATUS.NOT_REGISTERED);
+    it('should get registration status on init', () => {
+        spyOn(component, 'getRegistrationStatus');
+        component.ngOnInit();
+        expect(component.getRegistrationStatus).toHaveBeenCalled();
     });
 
-    it('nextStep should work', () => {
-        spyOn(component.stepper, 'next');
-        component.nextStep();
-        expect(component.stepper.selected.completed).toBeTrue();
-        expect(component.stepper.next).toHaveBeenCalled();
+    it('should generate course registration request with form data', () => {
+        component.nameForm.get('nameControl').setValue(MOCK_IDENTIFICATION_STEP1.name);
+        expect(component.generateCourseRegistrationRequest()).toEqual({
+            name: MOCK_IDENTIFICATION_STEP1.name,
+            confirmed_name: null,
+            student_number: null,
+            code: null,
+        });
     });
 
-    it('reset should work', () => {
-        spyOn(component.stepper, 'reset');
-        component.reset();
-        expect(component.serverGuessedName).toBeNull();
-        expect(component.stepper.reset).toHaveBeenCalled();
-    });
-
-    it('retrieveFormData should work', () => {
-        expect(component.retrieveFormData()).toBeTruthy();
-    });
-
-    it('sendErrorMessage should work', () => {
+    it('should send an error message', () => {
         component.sendErrorMessage();
-        expect(toastr.error).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
     });
 
-    it('setRegistrationStage should work', () => {
-        spyOn(component, 'nextStep');
-        component.setRegistrationStage(MOCK_IDENTIFICATION_RESPONSE1);
-        expect(component.nextStep).toHaveBeenCalled();
+    it('should register', () => {
+        spyOn(component, 'setStepperStatusFromRegistration');
+        component.nameForm.get('nameControl').setValue(MOCK_CONFIRM_STEP1.name);
+        component.confirmNameForm.get('confirmNameControl').setValue(MOCK_CONFIRM_STEP1.name);
+        component.registerAndUpdateStepper(component.generateCourseRegistrationRequest());
+        expect(component.setStepperStatusFromRegistration).toHaveBeenCalledWith(MOCK_CONFIRM_RESPONSE1);
     });
 
-    it('setRegistrationStage should work when there is no success', () => {
-        spyOn(component, 'nextStep');
-        component.stepper.selectedIndex = 0;
-        component.setRegistrationStage(MOCK_VERIFY_FAIL);
+    it('should verify registration', () => {
+        spyOn(component, 'setStepperStatusFromRegistration');
+        component.nameForm.get('nameControl').setValue(MOCK_VERIFY_STEP1.name);
+        component.confirmNameForm.get('confirmNameControl').setValue(MOCK_VERIFY_STEP1.name);
+        component.verifyForm.get('verifyControl').setValue(MOCK_VERIFY_STEP1.code);
+        component.verifyRegistrationAndUpdateStepper(component.generateCourseRegistrationRequest());
+        expect(component.setStepperStatusFromRegistration).toHaveBeenCalledWith(MOCK_VERIFY_SUCCESS);
+    });
+
+    it('should set stepper status', () => {
+        spyOn(component.stepper, 'setNextStep');
+        component.setStepperStatusFromRegistration(MOCK_CONFIRM_RESPONSE1);
+        expect(component.stepper.setNextStep).toHaveBeenCalled();
+    });
+
+    it('should set stepper status multiple student', () => {
+        spyOn(component.stepper, 'setNextStep');
+        component.setStepperStatusFromRegistration(MOCK_IDENTIFICATION_RESPONSE2);
         expect(component.needsStudentNumber).toBeTrue();
-        expect(component.nextStep).toHaveBeenCalled();
+        expect(component.stepper.setNextStep).toHaveBeenCalled();
     });
 
-    it('registerStepSubmit should work', () => {
-        spyOn(component, 'setRegistrationStage');
-        component.nameForm.get('nameControl').setValue('Test');
-        component.registerStepSubmit();
-        expect(component.setRegistrationStage).toHaveBeenCalledOnceWith({success: true});
+    it('should reset form values', () => {
+        component.resetFormValues();
+        expect(component.serverGuessedName).toBeNull();
     });
 
-    it('verifyStepSubmit should work', () => {
-        spyOn(component, 'setRegistrationStage');
-        component.verifyForm.get('verifyControl').setValue('1234');
-        component.verifyStepSubmit();
-        expect(component.setRegistrationStage).toHaveBeenCalledOnceWith({success: true});
+    it('should activate name form submission', () => {
+        spyOn(component, 'registerAndUpdateStepper');
+        component.nameForm.get('nameControl').setValue(MOCK_IDENTIFICATION_STEP2.name);
+        component.onNameFormSubmit();
+        expect(component.registerAndUpdateStepper).toHaveBeenCalledWith(component.generateCourseRegistrationRequest());
+    });
+
+    it('should activate confirmation form submission', () => {
+        spyOn(component, 'registerAndUpdateStepper');
+        component.nameForm.get('nameControl').setValue(MOCK_CONFIRM_STEP2_SUCCESS.name);
+        component.studentNumberForm.get('studentNumberControl').setValue(MOCK_CONFIRM_STEP2_SUCCESS.student_number);
+        component.onConfirmationFormSubmit();
+        expect(component.registerAndUpdateStepper).toHaveBeenCalledWith(component.generateCourseRegistrationRequest());
+    });
+
+    it('should activate verification form submission', () => {
+        spyOn(component, 'verifyRegistrationAndUpdateStepper');
+        component.nameForm.get('nameControl').setValue(MOCK_VERIFY_STEP1.name);
+        component.confirmNameForm.get('confirmNameControl').setValue(MOCK_VERIFY_STEP1.name);
+        component.verifyForm.get('verifyControl').setValue(MOCK_VERIFY_STEP1.code);
+        component.onVerificationFormSubmit();
+        expect(component.verifyRegistrationAndUpdateStepper).toHaveBeenCalledWith(component.generateCourseRegistrationRequest());
     });
 });

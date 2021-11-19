@@ -1,8 +1,10 @@
-<app-header></app-header>
+<tui-theme-night *ngIf="headerComponent.isNightMode()"></tui-theme-night>
+<tui-root>
+    <app-header #headerComponent></app-header>
 
-<main class="page-content m-3">
-    <div class="container-fluid">
-        <router-outlet></router-outlet>
-    </div>
-</main>
-
+    <main class="page-content">
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+</tui-root>

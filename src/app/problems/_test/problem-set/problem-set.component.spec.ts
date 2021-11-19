@@ -5,21 +5,22 @@ import {TestModule} from '@test/test.module';
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
 import {DifficultyService} from "@app/problems/_services/difficulty.service";
-import {DifficultyServiceMock} from "@app/problems/_test/difficulty.service.mock";
+import {DifficultyServiceMock} from "@app/problems/_test/_services/difficulty.service.mock";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatTableModule} from "@angular/material/table";
 import {QuestionService} from "@app/problems/_services/question.service";
-import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
+import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AppRoutingModule} from "@app/app-routing.module";
 import {MOCK_DIFFICULTIES} from "@app/problems/_test/mock";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
 
 describe('ProblemSetComponent', () => {
     let component: ProblemSetComponent;
     let fixture: ComponentFixture<ProblemSetComponent>;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -34,8 +35,10 @@ describe('ProblemSetComponent', () => {
     });
 
     beforeEach(() => {
-        toastr = TestBed.inject(ToastrService);
-        spyOn(toastr, 'success');
+        notificationService = TestBed.inject(TuiNotificationsService);
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of();
+        });
         fixture = TestBed.createComponent(ProblemSetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -78,7 +81,7 @@ describe('ProblemSetComponent', () => {
     it('should delete a question', () => {
         component.deleteQuestionId = 0;
         component.deleteQuestion();
-        expect(toastr.success).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
     });
 
     it('should open delete modal', () => {

@@ -14,6 +14,7 @@ export class McqForm {
             event: new FormControl(null),
             category: new FormControl(null, [Validators.required]),
             visible_distractor_count: new FormControl(null, [Validators.required]),
+            is_verified: new FormControl(false),
         });
     }
 
@@ -32,6 +33,7 @@ export class McqForm {
             event: new FormControl(event),
             category: new FormControl(question.category, [Validators.required]),
             visible_distractor_count: new FormControl(question.visible_distractor_count.toString(), [Validators.required]),
+            is_verified: new FormControl(question.is_verified),
         });
     }
 
@@ -57,6 +59,7 @@ export class McqForm {
             category: form.value.category,
             variables: variablesJSON,
             visible_distractor_count: form.value.visible_distractor_count,
+            is_verified: form.value.is_verified,
             choices: mcqChoices
         };
     }
@@ -89,6 +92,7 @@ export class McqForm {
             category: form.value.category,
             variables: variablesJSON,
             visible_distractor_count: form.value.visible_distractor_count,
+            is_verified: form.value.is_verified,
             choices: checkboxChoices
         };
     }
@@ -128,5 +132,6 @@ export interface McqFormData {
     category: number,
     variables: JSON[],
     visible_distractor_count: number,
+    is_verified: boolean,
     choices: { [id: string]: string },
 }

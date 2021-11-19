@@ -1,17 +1,26 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {ConsentService} from '@app/accounts/_services/consent.service';
-import {ToastrService} from "ngx-toastr";
 import {ActivatedRoute, Router} from '@angular/router';
 import {ConsentForm} from "@app/accounts/_forms/consent.form";
 import {AuthenticationService} from "@app/_services/api/authentication";
 import {User} from "@app/_models";
+import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 
 @Component({
     selector: 'app-consent-form',
     templateUrl: './consent-form.component.html',
-    styleUrls: ['./consent-form.component.scss']
+    styleUrls: ['./consent-form.component.scss'],
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'This field is required!'
+            },
+        },
+    ],
 })
 export class ConsentFormComponent implements OnInit {
     formGroup: FormGroup;
@@ -23,7 +32,7 @@ export class ConsentFormComponent implements OnInit {
                 private builder: FormBuilder,
                 private consentService: ConsentService,
                 private authenticationService: AuthenticationService,
-                private toastr: ToastrService) {
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
@@ -47,7 +56,10 @@ export class ConsentFormComponent implements OnInit {
         const data = ConsentForm.extractData(this.formGroup);
         this.consentService.postConsent(data).subscribe(
             () => {
-                this.toastr.success('You have successfully consented!');
+                this.notificationsService
+                    .show('You have successfully consented!', {
+                        status: TuiNotification.Success
+                    }).subscribe();
                 this.redirectToProfile();
             }
         );
@@ -55,7 +67,10 @@ export class ConsentFormComponent implements OnInit {
 
     declineConsent(): void {
         this.consentService.declineConsent().subscribe(() => {
-            this.toastr.success('You successfully declined to consent.');
+            this.notificationsService
+                .show('You successfully declined to consent.', {
+                    status: TuiNotification.Success
+                }).subscribe();
             this.redirectToProfile();
         });
     }

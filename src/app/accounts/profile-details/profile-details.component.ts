@@ -1,30 +1,40 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {ProfileDetailsService} from '@app/accounts/_services/profile-details.service';
-import {ToastrService} from "ngx-toastr";
 import {ConsentService} from '@app/accounts/_services/consent.service';
 import {User} from '@app/_models';
 import {Router} from '@angular/router';
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form";
 import {AuthenticationService} from "@app/_services/api/authentication";
+import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-profile-details',
     templateUrl: './profile-details.component.html',
-    styleUrls: ['./profile-details.component.scss']
+    styleUrls: ['./profile-details.component.scss'],
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'This field is required!',
+                email: 'Enter a valid email address!',
+            },
+        },
+    ],
 })
-export class ProfileDetailsComponent implements OnInit {
+export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
     formGroup: FormGroup;
     userConsent: boolean;
     userDetails: User;
     userId: number;
-    logoPath = 'assets/global/logo.jpg';
 
     constructor(private router: Router,
                 private profile: ProfileDetailsService,
-                private toastr: ToastrService,
                 private consentService: ConsentService,
-                private authenticationService: AuthenticationService) {
+                private authenticationService: AuthenticationService,
+                private changeDetector: ChangeDetectorRef,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
         this.userId = this.authenticationService.currentUserValue?.id;
     }
 
@@ -39,6 +49,10 @@ export class ProfileDetailsComponent implements OnInit {
         });
     }
 
+    ngAfterContentChecked(): void {
+        this.changeDetector.detectChanges();
+    }
+
     get form(): { [p: string]: AbstractControl } {
         return this.formGroup.controls;
     }
@@ -47,13 +61,19 @@ export class ProfileDetailsComponent implements OnInit {
         const data = ProfileDetailsForm.extractData(this.formGroup);
         this.profile.putProfileDetails(data, this.userDetails.id)
             .subscribe(() => {
-                this.toastr.success('Your profile has been updated successfully!');
+                this.notificationsService
+                    .show('Your profile has been updated successfully!', {
+                        status: TuiNotification.Success
+                    }).subscribe();
             });
     }
 
     withdraw(): void {
         this.consentService.declineConsent().subscribe(() => {
-            this.toastr.success('Your consent has been withdrawn successfully!');
+            this.notificationsService
+                .show('Your consent has been withdrawn successfully!', {
+                    status: TuiNotification.Success
+                }).subscribe();
         });
         this.userConsent = false;
     }

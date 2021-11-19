@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {environment} from "@environments/environment";
 import {Observable, of, throwError} from "rxjs";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
 import {Location} from "@angular/common";
+import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +12,7 @@ import {Location} from "@angular/common";
 export class ApiService {
     constructor(
         private router: Router,
-        private toastr: ToastrService) {
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     getURL(...names: (string | number)[]): string {
@@ -52,7 +52,10 @@ export class ApiService {
                 this.router.navigate(redirect).then();
 
             if (showMessage)
-                this.toastr.error(message || error.statusText);
+                this.notificationsService
+                    .show(message || error.statusText, {
+                        status: TuiNotification.Error
+                    }).subscribe();
             if (!result) {
                 return throwError(error);
             }
@@ -63,7 +66,10 @@ export class ApiService {
     handleFormError(): (error: HttpErrorResponse) => Observable<never> {
         const toastErrorObject = (error: unknown): void => {
             if (typeof error === 'string') {
-                this.toastr.error(error);
+                this.notificationsService
+                    .show(error, {
+                        status: TuiNotification.Error
+                    }).subscribe();
             } else if (Array.isArray(error)) {
                 error.forEach(toastErrorObject);
             } else if (typeof error === 'object') {
@@ -77,7 +83,10 @@ export class ApiService {
         return (error): Observable<never> => {
             const apiError = error.error;
             if (!apiError) {
-                this.toastr.error('Something went wrong!');
+                this.notificationsService
+                    .show('Something went wrong!', {
+                        status: TuiNotification.Error
+                    }).subscribe();
             } else {
                 toastErrorObject(apiError);
             }

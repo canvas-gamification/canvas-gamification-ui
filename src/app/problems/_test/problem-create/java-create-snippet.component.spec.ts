@@ -9,18 +9,19 @@ import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
-import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
+import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 import {CourseService} from "@app/course/_services/course.service";
 import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
 
 describe('JavaCreateSnippetComponent', () => {
     let component: JavaCreateSnippetComponent;
     let fixture: ComponentFixture<JavaCreateSnippetComponent>;
     let router: Router;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -37,8 +38,10 @@ describe('JavaCreateSnippetComponent', () => {
     beforeEach(() => {
         router = TestBed.inject(Router);
         spyOn(router, 'navigate');
-        toastr = TestBed.inject(ToastrService);
-        spyOn(toastr, 'success');
+        notificationService = TestBed.inject(TuiNotificationsService);
+        spyOn(notificationService, 'show').and.callFake(() => {
+            return of();
+        });
         fixture = TestBed.createComponent(JavaCreateSnippetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -61,7 +64,7 @@ describe('JavaCreateSnippetComponent', () => {
 
     it('should create java question', () => {
         component.onSubmit();
-        expect(toastr.success).toHaveBeenCalled();
+        expect(notificationService.show).toHaveBeenCalled();
         expect(router.navigate).toHaveBeenCalledOnceWith(['problems', 'create', 'java']);
     });
 

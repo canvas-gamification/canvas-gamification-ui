@@ -15,15 +15,20 @@ export class UserActionsService {
 
     getUserActions(options?: {
         filters?: unknown,
-        ordering?: unknown,
+        ordering?: string,
         page?: number,
-        pageSize?: number,
+        page_size?: number,
         recent?: boolean
     }): Observable<PaginatedResult<Action>> {
-        const {page = 1, pageSize = 100} = options ? options : {};
+        const {
+            page = 1,
+            page_size: pageSize = 100,
+            ordering = ''
+        } = options ? options : {};
         let params = new HttpParams()
             .set('page', String(page))
-            .set('page_size', String(pageSize));
+            .set('page_size', String(pageSize))
+            .set('ordering', ordering);
 
         if (options?.recent ?? false) {
             params = params.set('ordering', '-time_modified');
