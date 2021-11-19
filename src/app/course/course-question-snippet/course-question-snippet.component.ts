@@ -7,7 +7,7 @@ import {forkJoin} from 'rxjs';
 import {CourseEventService} from '@app/course/_services/course-event.service';
 import {CourseService} from '@app/course/_services/course.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {QuestionReportForm} from "@app/course/_forms/Question-Report.form";
+import {QuestionReportForm} from "@app/course/_forms/question-report.form";
 import {FormGroup} from "@angular/forms";
 import {QuestionReport} from "@app/_models/question_report";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
@@ -25,8 +25,6 @@ export class CourseQuestionSnippetComponent implements OnInit {
     event: CourseEvent;
     eventId: number;
     courseId: number;
-    question: Question;
-    userId: number;
     formGroup: FormGroup;
     reportUQJ: UQJ;
 
