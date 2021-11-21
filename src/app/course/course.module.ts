@@ -32,7 +32,13 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
-import {TuiFieldErrorModule, TuiInputModule, TuiStepperModule} from "@taiga-ui/kit";
+import {
+    TuiFieldErrorModule,
+    TuiInputModule,
+    TuiIslandModule,
+    TuiStepperModule,
+    TuiTagModule
+} from "@taiga-ui/kit";
 import {
     TuiButtonModule,
     TuiErrorModule,
@@ -43,6 +49,7 @@ import {
 import {TextMaskModule} from "angular2-text-mask";
 import {CourseRegistrationStepperComponent} from './course-registration/course-registration-stepper/course-registration-stepper.component';
 import {CourseRegistrationStepComponent} from './course-registration/course-registration-step/course-registration-step.component';
+import {TuiFilterPipeModule} from "@taiga-ui/cdk";
 
 @NgModule({
     declarations: [
@@ -87,7 +94,10 @@ import {CourseRegistrationStepComponent} from './course-registration/course-regi
         TextMaskModule,
         TuiNotificationModule,
         TuiErrorModule,
-        TuiLoaderModule
+        TuiLoaderModule,
+        TuiIslandModule,
+        TuiTagModule,
+        TuiFilterPipeModule
     ],
     providers:[
         CourseService,

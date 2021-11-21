@@ -1,0 +1,50 @@
+<h2 class="tui-text_h4 tui-space_bottom-8">Category Stats</h2>
+<tui-input icon="tuiIconSearchLarge" [(ngModel)]="categoryStatsSearch" [tuiTextfieldCleaner]="true">Search Names</tui-input>
+<tui-tabs class="tui-space_bottom-4" #tabsComponent>
+    <button tuiTab>Card View</button>
+    <button tuiTab>Table View</button>
+</tui-tabs>
+<tui-loader [overlay]="true" [showLoader]="!categoryStatsData">
+    <ng-container *ngIf="categoryStatsData">
+        <div class="stats-islands" *ngIf="tabsComponent.activeItemIndex === 0">
+            <tui-island
+                *ngFor="let categoryStats of categoryStatsData | tuiFilter : matchStatsName: categoryStatsSearch"
+                [hoverable]="true"
+                (click)="openCategoryStatsDialog(categoryStats)"
+            >
+                <h3 class="tui-island__title">
+                    {{ categoryStats.category.name }}
+                </h3>
+                <p class="tui-island__content">
+                    {{ categoryStats.category.description }}
+                </p>
+                <p class="tui-island__content">
+                    {{ categoryStats.category.question_count }} Questions
+                </p>
+                <p class="tui-island__content">
+                    {{ categoryStats.category.average_success }}% Success Rate
+                </p>
+            </tui-island>
+        </div>
+        <table tuiTable [columns]="categoryStatsDataHeader" *ngIf="tabsComponent.activeItemIndex === 1">
+            <thead>
+            <tr tuiThGroup>
+                <th *tuiHead="'category'"
+                    tuiTh
+                >
+                    Category
+                </th>
+                <th *tuiHead="'children'"
+                    tuiTh
+                >
+                    Children
+                </th>
+            </tr>
+            </thead>
+            <tbody tuiTbody [data]="categoryStatsData">
+            <tr *tuiRow="let item of categoryStatsData" tuiTr>
+            </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</tui-loader>
