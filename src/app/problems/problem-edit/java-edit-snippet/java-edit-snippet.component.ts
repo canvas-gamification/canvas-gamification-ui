@@ -5,7 +5,6 @@ import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/problems/_services/question.service';
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
-import {forkJoin} from 'rxjs';
 import {CourseEventService} from '@app/course/_services/course-event.service';
 import {JavaForm} from "@app/problems/_forms/java.form";
 import {Router} from "@angular/router";
@@ -24,8 +23,6 @@ export class JavaEditSnippetComponent implements OnInit {
     events: CourseEvent[];
     categories: Category[];
     variables: JSON[];
-    selectedCourse: number;
-    selectedEvent: number;
     inputFiles: JSON;
     questionText: string;
     isPractice: boolean;
@@ -47,27 +44,22 @@ export class JavaEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const coursesObservable = this.courseService.getCourses();
-        const categoriesObservable = this.categoryService.getCategories();
-
-        forkJoin([coursesObservable, categoriesObservable])
-            .subscribe(result => {
-                this.courses = result[0];
-                this.categories = result[1];
-                if (this.questionDetails.event) {
-                    this.isPractice = false;
-                    this.setEvent(this.questionDetails.event);
-                    this.setCourse(this.questionDetails.event_obj.course);
-                } else {
-                    this.isPractice = true;
-                }
-            });
+        this.courseService.getCourses().subscribe(course => this.courses = course);
+        this.categoryService.getCategories().subscribe(categories => this.categories = categories);
 
         this.inputFiles = this.questionDetails?.input_files;
         this.variables = this.questionDetails?.variables;
         this.questionText = this.questionDetails?.text;
 
-        this.formGroup = JavaForm.createFormWithData(this.questionDetails, this.selectedEvent, this.selectedCourse);
+        this.formGroup = JavaForm.createFormWithData(this.questionDetails);
+
+        if (this.questionDetails.event) {
+            this.isPractice = false;
+            this.setCourse(this.questionDetails.event_obj.course);
+            this.setEvent(this.questionDetails.event);
+        } else {
+            this.isPractice = true;
+        }
     }
 
     /**
@@ -102,15 +94,14 @@ export class JavaEditSnippetComponent implements OnInit {
      * @param courseId - The course's id.
      */
     setCourse(courseId: number): void {
-        this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
-                if (course.id === this.selectedCourse) {
+                if (course.id === courseId) {
                     this.events = course.events;
                 }
             });
             this.setEvent(null);
-            this.form.course.setValue(this.selectedCourse);
+            this.form.course.setValue(courseId);
         }
     }
 
@@ -119,8 +110,7 @@ export class JavaEditSnippetComponent implements OnInit {
      * @param event - The event object to set.
      */
     setEvent(event: number): void {
-        this.selectedEvent = event;
-        this.form.event.setValue(this.selectedEvent);
+        this.form.event.setValue(event);
     }
 
     /**
