@@ -1,36 +1,35 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CourseService} from '@app/course/_services/course.service';
 import {ActivatedRoute} from '@angular/router';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {Course, User} from '@app/_models';
+import {Course, STATUS, User} from '@app/_models';
+import {stringHashToHsl} from "@taiga-ui/kit";
 
 @Component({
     selector: 'app-course-list',
     templateUrl: './course-list.component.html',
     styleUrls: ['./course-list.component.scss']
 })
-export class CourseListComponent implements AfterViewInit {
-    courseList: MatTableDataSource<Course>;
-    allCourses: Course[];
-    displayedColumns: string[] = ['id', 'name', 'status', 'is_registered', 'actions'];
+export class CourseListComponent implements OnInit {
+    STATUS = STATUS;
+    allCourses!: Course[];
     user: User;
+    courseNameSearch = '';
 
-    @ViewChild(MatSort) sort: MatSort;
+    readonly matchCourseName = (course: Course, search: string): boolean => {
+        if (search !== '') return course.name.toLowerCase().includes(search.toLowerCase());
+        else return true;
+    }
 
     constructor(private authenticationService: AuthenticationService,
                 private route: ActivatedRoute,
                 private courseService: CourseService,) {
-        this.courseList = new MatTableDataSource();
         this.authenticationService.currentUser.subscribe(user => this.user = user);
     }
 
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         this.courseService.getCourses().subscribe((courses) => {
             this.allCourses = courses;
-            this.courseList = new MatTableDataSource(courses);
-            this.courseList.sort = this.sort;
         });
     }
 
@@ -39,6 +38,14 @@ export class CourseListComponent implements AfterViewInit {
      * @param courseId
      */
     hasViewPermission(courseId: number): boolean {
-        return this.user.is_teacher || !!this.allCourses.find(course => course.id === courseId)?.is_registered;
+        return this.user?.is_teacher || this.allCourses?.find(course => course.id === courseId).is_registered;
+    }
+
+    /**
+     * Uses the Taiga-UI stringHashToHsl to get an HSL color based on the course name
+     * @param courseName
+     */
+    getCourseBackgroundColor(courseName: string): string {
+        return stringHashToHsl(courseName);
     }
 }

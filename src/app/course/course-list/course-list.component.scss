@@ -1,3 +1,20 @@
-@use "src/scss/mixins";
+@import '~@taiga-ui/core/styles/taiga-ui-local';
 
-@include mixins.hover-shadow();
+.course-islands {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    grid-auto-flow: row dense;
+    grid-gap: 2rem;
+
+    .course-island {
+        overflow: hidden;
+
+        .course-background {
+            width: 110%;
+            height: 3rem;
+            margin-top: -1rem;
+            margin-left: -1rem;
+            @include tui-space(bottom, 3);
+        }
+    }
+}
