@@ -100,7 +100,13 @@ export const MOCK_COURSE2: Course = {
     question_set: null,
     uqjs: null,
     course_reg: null,
-    leader_board: null
+    leader_board: [{
+        name: 'name',
+        token: 2,
+    }, {
+        name: 'name 2',
+        token: 5,
+    }]
 };
 
 export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2];

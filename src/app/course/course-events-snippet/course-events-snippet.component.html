@@ -15,12 +15,18 @@
         </tui-island>
     </ng-container>
     <tui-island *ngFor="let event of events; index as i">
-        <p class="tui-island__category">{{ getEventType(event) }}</p>
+        <p class="tui-island__category">{{ event.type }}</p>
         <h2 class="tui-island__title">{{ event.name }}</h2>
+        <div class="tui-space_bottom-2">
+            <tui-tag size="m" status="success" value="Open" *ngIf="event.is_open; else eventClosedTag"></tui-tag>
+            <ng-template #eventClosedTag>
+                <tui-tag size="m" status="error" value="Closed"></tui-tag>
+            </ng-template>
+        </div>
         <p class="tui-island__paragraph">From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</p>
         <p class="tui-island__paragraph">Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</p>
-        <p>
-            <ng-container *ngIf="isExamAndOpen(event); else totalEventGrade">
+        <p class="tui-space_top-2">
+            <ng-container *ngIf="event.is_open && event.is_exam; else totalEventGrade">
                 Grade Not Yet Available
             </ng-container>
             <ng-template #totalEventGrade>
@@ -36,9 +42,8 @@
                 </a>
             </ng-container>
             <ng-template #notAllowedOpen>
-                <a tuiButton appearance="primary" size="m" class="tui-form__button" href="#"
-                >
-                    {{ user.is_teacher ? 'Open' : 'Complete' }}
+                <a tuiButton appearance="primary" size="m" class="tui-form__button" href="" [disabled]="true">
+                    Complete
                 </a>
             </ng-template>
             <a *ngIf="event.has_edit_permission" tuiButton appearance="primary" size="m" class="tui-form__button"

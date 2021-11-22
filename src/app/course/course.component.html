@@ -28,7 +28,7 @@
         <app-token-use-snippet [courseReg]="course?.course_reg"></app-token-use-snippet>
     </ng-container>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 4">
-        <app-leader-board [leaderBoard]="course?.leader_board"></app-leader-board>
+        <app-leader-board [leaderBoard]="course?.leader_board" [rankTopX]="3"></app-leader-board>
     </ng-container>
 </section>
 <ng-template #more>

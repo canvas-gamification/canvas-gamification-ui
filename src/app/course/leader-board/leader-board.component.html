@@ -1,16 +1,55 @@
-<table mat-table [dataSource]="leaderBoardData" matSort matSortActive="token" matSortDirection="desc"
-       matSortDisableClear
-       class="table table-hover hover-shadow">
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
-        <td mat-cell *matCellDef="let element"> {{element.name || 'Anonymous User'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="token">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Token</th>
-        <td mat-cell *matCellDef="let element"> {{element.token || 'No Tokens'}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+<div class="tui-container tui-container_adaptive" *ngIf="leaderBoard">
+    <div class="top-x-islands tui-space_bottom-8">
+        <tui-island textAlign="center" class="top-x-island" [style.marginTop]="(index) + 'rem'" *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index">
+            <div class="top-x-background" [style.backgroundColor]="avatar.bgColor"></div>
+            <figure class="tui-island__figure">
+                <tui-avatar
+                    size="l"
+                    [text]="element.name || 'Anonymous User'"
+                    [rounded]="true"
+                    [autoColor]="true"
+                    class="top-x-avatar"
+                    #avatar
+                ></tui-avatar>
+            </figure>
+            <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2">{{ getGetOrdinal(element.rank) }}</p>
+            <h3 class="tui-island__title">
+                {{ element.name || 'Anonymous User' }}
+            </h3>
+            <p class="tui-island__paragraph">
+                {{ element.token ? (element.token + ' Tokens') : 'No Tokens' }}
+            </p>
+        </tui-island>
+    </div>
+    <table tuiTable [columns]="displayedColumns" class="table">
+        <thead tuiThead>
+        <tr tuiThGroup>
+            <th tuiTh *tuiHead="'rank'">Rank</th>
+            <th tuiTh *tuiHead="'name'">Name</th>
+            <th tuiTh *tuiHead="'token'">Tokens</th>
+        </tr>
+        </thead>
+        <tbody tuiTbody [data]="leaderBoard | tuiFilter: filterOutTopX: rankTopX">
+        <tr tuiTr *tuiRow="let element of leaderBoard">
+            <td tuiTd *tuiCell="'rank'">
+                {{ getGetOrdinal(element.rank) }}
+            </td>
+            <td tuiTd *tuiCell="'name'">
+                <div class="table-avatar-with-name">
+                    <tui-avatar
+                        size="s"
+                        [text]="element.name || 'Anonymous User'"
+                        [rounded]="true"
+                        [autoColor]="true"
+                        class="tui-space_right-2"
+                    ></tui-avatar>
+                    {{ element.name || 'Anonymous User' }}
+                </div>
+            </td>
+            <td tuiTd *tuiCell="'token'">
+                {{ element.token || 'No Tokens' }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -14,7 +14,6 @@ export class CourseEventsSnippetComponent implements OnInit {
     @Input() events: CourseEvent[];
     @Input() courseId: number;
     eventTypes: EventType[];
-    eventTypesMap: Map<string, string>;
     user: User;
     courseEvents: CourseEvent[];
     @ViewChild('importDialog') importDialog: PolymorpheusContent<TuiDialogContext>;
@@ -29,32 +28,14 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.courseEventService.getEventTypes().subscribe(response => {
             this.eventTypes = response;
-            this.eventTypesMap = new Map(this.eventTypes.map(([k, v]) => [k, v])); //Make a map for easy access
         });
     }
 
     /**
-     * Returns the button text based on the type of event & user
-     * @param event - the object for which the button text is needed
-     */
-    getEventType(event: CourseEvent): string {
-        if (this.eventTypes) {
-            return this.eventTypesMap.get(event.type);
-        }
-    }
-
-    /**
-     * Returns whether the specified event is an open exam
-     * @param event - event object to check
-     */
-    isExamAndOpen(event: CourseEvent): boolean {
-        return event.is_open && event.is_exam;
-    }
-
-    /**
-     * Opens a dialog with import dialog template.
+     * Gets all available course events and then opens a dialog with import template.
      */
     openEventImportDialog(): void {
+        this.courseEvents = null;
         this.courseEventService.getAllEvents().subscribe(events => {
             this.courseEvents = events;
         });
