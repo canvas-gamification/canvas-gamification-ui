@@ -45,10 +45,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courseService.getCourses().subscribe(course => this.courses = course);
-        this.categoryService.getCategories().subscribe(categories => this.categories = categories);
-
-        this.inputFiles = this.questionDetails.input_files.map(inputFile => ({
+        this.inputFiles = this.questionDetails?.input_files?.map(inputFile => ({
             name: inputFile.name,
             compile: inputFile.compile,
             lines: inputFile.lines.join('\n')
@@ -57,13 +54,17 @@ export class ParsonsEditSnippetComponent implements OnInit {
         this.questionText = this.questionDetails.text;
         this.formGroup = ParsonsForm.createFormWithData(this.questionDetails);
 
-        if (this.questionDetails.event) {
-            this.isPractice = false;
-            this.setCourse(this.questionDetails.event_obj.course);
-            this.setEvent(this.questionDetails.event);
-        } else {
-            this.isPractice = true;
-        }
+        this.courseService.getCourses().subscribe(course => {
+            this.courses = course;
+            if (this.questionDetails.event) {
+                this.isPractice = false;
+                this.setCourse(this.questionDetails.event_obj.course);
+                this.setEvent(this.questionDetails.event);
+            } else {
+                this.isPractice = true;
+            }
+        });
+        this.categoryService.getCategories().subscribe(categories => this.categories = categories);
     }
 
     /**

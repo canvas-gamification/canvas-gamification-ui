@@ -44,22 +44,24 @@ export class JavaEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courseService.getCourses().subscribe(course => this.courses = course);
-        this.categoryService.getCategories().subscribe(categories => this.categories = categories);
-
         this.inputFiles = this.questionDetails?.input_files;
         this.variables = this.questionDetails?.variables;
         this.questionText = this.questionDetails?.text;
 
         this.formGroup = JavaForm.createFormWithData(this.questionDetails);
 
-        if (this.questionDetails.event) {
-            this.isPractice = false;
-            this.setCourse(this.questionDetails.event_obj.course);
-            this.setEvent(this.questionDetails.event);
-        } else {
-            this.isPractice = true;
-        }
+        this.courseService.getCourses().subscribe(course => {
+            this.courses = course;
+            if (this.questionDetails.event) {
+                this.isPractice = false;
+                this.setCourse(this.questionDetails.event_obj.course);
+                this.setEvent(this.questionDetails.event);
+            } else {
+                this.isPractice = true;
+            }
+        });
+        this.categoryService.getCategories().subscribe(categories => this.categories = categories);
+
     }
 
     /**

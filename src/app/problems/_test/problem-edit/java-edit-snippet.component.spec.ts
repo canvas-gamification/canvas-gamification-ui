@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {JavaEditSnippetComponent} from '../../problem-edit/java-edit-snippet/java-edit-snippet.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_COURSE, MOCK_COURSE_EVENT, MOCK_JAVA_QUESTION} from '@app/problems/_test/mock';
+import {MOCK_COURSE, MOCK_COURSE_EVENT, MOCK_JAVA_QUESTION, MOCK_MCQ_QUESTION} from '@app/problems/_test/mock';
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
@@ -102,8 +102,10 @@ describe('JavaEditSnippetComponent', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(JavaEditSnippetComponent);
             component = fixture.componentInstance;
-            component.questionDetails = MOCK_JAVA_QUESTION;
-            component.questionDetails.event = null;
+            component.questionDetails = {
+                ...MOCK_MCQ_QUESTION,
+                event: null,
+            };
             fixture.detectChanges();
         });
 
