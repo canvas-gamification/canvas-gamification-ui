@@ -22,21 +22,21 @@ export class McqEditSnippetComponent implements OnInit {
     events: CourseEvent[];
     categories: Category[];
     variables: JSON[];
-    selectedCourse: number;
-    selectedEvent: number;
     distractors: { text: string }[];
     correctAnswers: { text: string }[];
     questionText: string;
     answerText: string;
     isPractice: boolean;
 
-    constructor(private courseService: CourseService,
-                private categoryService: CategoryService,
-                private formBuilder: FormBuilder,
-                private questionService: QuestionService,
-                private courseEventService: CourseEventService,
-                private router: Router,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private courseService: CourseService,
+        private categoryService: CategoryService,
+        private formBuilder: FormBuilder,
+        private questionService: QuestionService,
+        private courseEventService: CourseEventService,
+        private router: Router,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     /**
