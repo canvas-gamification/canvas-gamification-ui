@@ -18,6 +18,10 @@ export class LeaderBoardComponent implements OnInit {
         this.leaderBoard = this.getRankedLeaderboard(this.leaderBoard);
     }
 
+    /**
+     * Takes an unranked leaderboard, and returns a ranked version of it
+     * @param leaderBoard
+     */
     getRankedLeaderboard(leaderBoard: LeaderboardElement[]): LeaderboardElement[] {
         const sortedLeaderboard = leaderBoard.sort((a, b) => b.token - a.token);
         return sortedLeaderboard.map((element, index) => {
