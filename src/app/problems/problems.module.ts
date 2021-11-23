@@ -34,7 +34,17 @@ import {UqjService} from "@app/problems/_services/uqj.service";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {SchemaService} from "@app/problems/_services/schema.service";
 import {SubmissionService} from "@app/problems/_services/submission.service";
-import { ParsonsLinesComponent } from './problem-view/parsons-lines/parsons-lines.component';
+import {ParsonsLinesComponent} from './problem-view/parsons-lines/parsons-lines.component';
+import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiDescribedByModule, TuiDialogModule, TuiDropdownControllerModule,
+    TuiHintModule, TuiHostedDropdownModule,
+    TuiLoaderModule,
+    TuiTextfieldControllerModule
+} from "@taiga-ui/core";
+import {TuiInputModule, TuiSelectModule} from "@taiga-ui/kit";
 
 @NgModule({
     declarations: [
@@ -72,6 +82,19 @@ import { ParsonsLinesComponent } from './problem-view/parsons-lines/parsons-line
         HighlightModule,
         ProblemsRoutingModule,
         DragulaModule.forRoot(),
+        TuiTableModule,
+        TuiButtonModule,
+        TuiTablePaginationModule,
+        TuiSelectModule,
+        TuiDataListModule,
+        TuiLoaderModule,
+        TuiDescribedByModule,
+        TuiHintModule,
+        TuiInputModule,
+        TuiTextfieldControllerModule,
+        TuiDialogModule,
+        TuiHostedDropdownModule,
+        TuiDropdownControllerModule,
     ],
     providers: [
         DifficultyService,

@@ -1,19 +1,19 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
-import {faEye, faPencilAlt, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {faEye, faPencilAlt} from '@fortawesome/free-solid-svg-icons';
 import {Category, Question} from '@app/_models';
 import {QuestionService} from '@app/problems/_services/question.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Sort} from '@angular/material/sort';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {MatTableDataSource} from '@angular/material/table';
 import {CategoryService} from "@app/_services/api/category.service";
 import {Difficulty} from "@app/_models/difficulty";
 import {DifficultyService} from "@app/problems/_services/difficulty.service";
 import {ProblemSetForm} from "@app/problems/_forms/problem-set.form";
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
 
 @Component({
     selector: 'app-problem-set',
@@ -24,9 +24,15 @@ export class ProblemSetComponent implements OnInit {
     formGroup: FormGroup;
     faEye = faEye;
     faPencilAlt = faPencilAlt;
-    faTrashAlt = faTrashAlt;
     questions: Question[];
+    tableColumns: string[] = [
+        'id', 'title', 'author_name', 'event_name', 'parent_category_name', 'category_name',
+        'difficulty', 'token_value', 'success_rate', 'actions'
+    ]
     questionsSource: MatTableDataSource<Question>;
+
+    // New stuff
+    openNewQuestionDropdown = false;
 
     // Pagination
     questionsLength: number;
@@ -69,12 +75,14 @@ export class ProblemSetComponent implements OnInit {
     subCategories: Category[];
     difficulties: Difficulty[];
 
+    difficultiesList: string[];
+
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
                 private categoryService: CategoryService,
                 private difficultyService: DifficultyService,
-                private modalService: NgbModal,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService) {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
                 this.questions = paginatedQuestions.results;
@@ -98,7 +106,10 @@ export class ProblemSetComponent implements OnInit {
             this.parentCategories = categories.filter(c => c.parent == null);
             this.categories = categories;
         });
-        this.difficultyService.getDifficulties().subscribe((difficulties) => this.difficulties = difficulties);
+        this.difficultyService.getDifficulties().subscribe((difficulties) => {
+            this.difficulties = difficulties;
+            this.difficultiesList = difficulties.map(diff => diff[1]);
+        });
         this.form['parentCategory'].valueChanges.subscribe((value) => {
             const parentCategoryPK = this.categories.filter(c => c.name === value)[0].pk;
             this.subCategories = this.categories.filter(c => c.parent === parentCategoryPK);
@@ -199,9 +210,12 @@ export class ProblemSetComponent implements OnInit {
      * @param content - The modal to open.
      * @param questionId - The question to delete.
      */
-    open(content: unknown, questionId: number): void {
+    open(content: PolymorpheusContent<TuiDialogContext>, questionId: number): void {
         this.deleteQuestionId = questionId;
-        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
+        this.dialogService.open(content, {
+            closeable: false,
+            label: 'Delete Question?'
+        }).subscribe();
     }
 
     /**

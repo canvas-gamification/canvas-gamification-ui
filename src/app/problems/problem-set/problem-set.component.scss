@@ -4,6 +4,23 @@
 @include mixins.highlight-table();
 @include mixins.hover-shadow();
 
+.heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.questions-table {
+    width: 100%;
+}
+
+.filters {
+    display: flex;
+
+    .search {
+        flex: 1
+    }
+}
 
 .action-tray {
     white-space: nowrap;
