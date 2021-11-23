@@ -21,7 +21,7 @@
         </app-course-question-snippet>
     </ng-container>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 2">
-        <app-course-events-snippet [events]="course?.events" [courseId]="courseId">
+        <app-course-events-snippet [events]="course?.events" [course]="course">
         </app-course-events-snippet>
     </ng-container>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 3">

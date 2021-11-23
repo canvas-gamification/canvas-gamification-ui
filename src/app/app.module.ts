@@ -45,6 +45,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
+import {AdminComponent} from './admin/admin.component';
+import {AdminModule} from "@app/admin/admin.module";
 import {
     TuiButtonModule,
     TuiDataListModule,
@@ -54,7 +56,8 @@ import {
     TuiRootModule,
     TuiSvgModule,
     TuiThemeNightModule,
-    TuiNotificationsModule, TuiDialogModule
+    TuiNotificationsModule,
+    TuiDialogModule
 } from '@taiga-ui/core';
 import {TuiAvatarModule, TuiDropdownHoverModule, TuiToggleModule} from "@taiga-ui/kit";
 import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
@@ -79,6 +82,7 @@ import {TuiActiveZoneModule} from "@taiga-ui/cdk";
         InactiveCoursesComponent,
         NotFoundComponent,
         ForbiddenComponent,
+        AdminComponent,
     ],
     imports: [
         BrowserModule,
@@ -124,7 +128,8 @@ import {TuiActiveZoneModule} from "@taiga-ui/cdk";
         TuiSidebarModule,
         TuiActiveZoneModule,
         TuiNotificationsModule,
-        TuiDialogModule
+        AdminModule,
+        TuiDialogModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

@@ -19,6 +19,7 @@ export interface Course {
     uqjs: UQJ[];
     course_reg: CourseRegistration;
     leader_board: LeaderboardElement[];
+    has_create_event_permission: boolean;
 }
 
 export const STATUS = {
@@ -27,4 +28,3 @@ export const STATUS = {
     finished: 'Finished',
     blocked: 'Blocked',
 };
-

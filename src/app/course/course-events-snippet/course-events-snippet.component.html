@@ -1,5 +1,5 @@
 <div class="events">
-    <ng-container *ngIf="user?.is_teacher">
+    <ng-container *ngIf="course?.has_create_event_permission">
         <tui-island
             [hoverable]="true"
             textAlign="center"
