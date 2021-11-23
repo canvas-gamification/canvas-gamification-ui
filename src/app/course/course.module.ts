@@ -32,13 +32,7 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
-import {
-    TuiFieldErrorModule,
-    TuiInputModule,
-    TuiIslandModule,
-    TuiStepperModule,
-    TuiTagModule
-} from "@taiga-ui/kit";
+import {TuiFieldErrorModule, TuiInputModule, TuiIslandModule, TuiStepperModule, TuiTagModule} from "@taiga-ui/kit";
 import {
     TuiButtonModule,
     TuiErrorModule,
@@ -50,6 +44,7 @@ import {TextMaskModule} from "angular2-text-mask";
 import {CourseRegistrationStepperComponent} from './course-registration/course-registration-stepper/course-registration-stepper.component';
 import {CourseRegistrationStepComponent} from './course-registration/course-registration-step/course-registration-step.component';
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
+import {TeamComponent} from './team/team.component';
 
 @NgModule({
     declarations: [
@@ -63,7 +58,8 @@ import {TuiFilterPipeModule} from "@taiga-ui/cdk";
         LeaderBoardComponent,
         ConceptMapComponent,
         CourseRegistrationStepperComponent,
-        CourseRegistrationStepComponent
+        CourseRegistrationStepComponent,
+        TeamComponent
     ],
     imports: [
         CommonModule,
@@ -99,7 +95,7 @@ import {TuiFilterPipeModule} from "@taiga-ui/cdk";
         TuiTagModule,
         TuiFilterPipeModule
     ],
-    providers:[
+    providers: [
         CourseService,
         CourseEventService,
         TokenUseService
