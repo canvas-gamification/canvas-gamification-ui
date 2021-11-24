@@ -1,6 +1,6 @@
 <div class="tui-container tui-container_adaptive" *ngIf="leaderBoard">
     <div class="top-x-islands tui-space_bottom-8">
-        <tui-island textAlign="center" class="top-x-island" [style.marginTop]="(index) + 'rem'" *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index">
+        <tui-island textAlign="center" class="top-x-island" [style.order]="(index % 2 * -index)" [style.marginTop]="(index) + 'rem'" *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index">
             <div class="top-x-background" [style.backgroundColor]="avatar.bgColor"></div>
             <figure class="tui-island__figure">
                 <tui-avatar
