@@ -44,11 +44,18 @@ import {
     TuiDropdownControllerModule,
     TuiHintModule,
     TuiHostedDropdownModule,
+    TuiLabelModule,
     TuiLoaderModule,
     TuiSvgModule,
     TuiTextfieldControllerModule
 } from "@taiga-ui/core";
-import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
+import {
+    TuiCheckboxLabeledModule,
+    TuiFieldErrorModule,
+    TuiInputModule,
+    TuiSelectModule,
+    TuiTagModule
+} from "@taiga-ui/kit";
 
 @NgModule({
     declarations: [
@@ -101,6 +108,9 @@ import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
         TuiSvgModule,
         TuiHostedDropdownModule,
         TuiTagModule,
+        TuiFieldErrorModule,
+        TuiLabelModule,
+        TuiCheckboxLabeledModule,
     ],
     providers: [
         DifficultyService,
