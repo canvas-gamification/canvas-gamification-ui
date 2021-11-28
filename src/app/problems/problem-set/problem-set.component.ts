@@ -1,93 +1,81 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
-import {faEye, faPencilAlt} from '@fortawesome/free-solid-svg-icons';
-import {Category, Question} from '@app/_models';
+import {Category, FilterParameters, Question} from '@app/_models';
 import {QuestionService} from '@app/problems/_services/question.service';
-import {PageEvent} from '@angular/material/paginator';
-import {Sort} from '@angular/material/sort';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
-import {MatTableDataSource} from '@angular/material/table';
 import {CategoryService} from "@app/_services/api/category.service";
 import {Difficulty} from "@app/_models/difficulty";
 import {DifficultyService} from "@app/problems/_services/difficulty.service";
 import {ProblemSetForm} from "@app/problems/_forms/problem-set.form";
 import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
+import {TuiComparator} from "@taiga-ui/addon-table";
+
+export type SortingKey =
+    'id'
+    | 'title'
+    | 'author_name'
+    | 'event_name'
+    | 'parent_category_name'
+    | 'category_name'
+    | 'difficulty';
 
 @Component({
     selector: 'app-problem-set',
     templateUrl: './problem-set.component.html',
     styleUrls: ['./problem-set.component.scss'],
 })
-export class ProblemSetComponent implements OnInit {
+export class ProblemSetComponent implements OnInit, AfterContentChecked {
     formGroup: FormGroup;
-    faEye = faEye;
-    faPencilAlt = faPencilAlt;
-    questions: Question[];
-    tableColumns: string[] = [
+    questions: Question[] = [];
+    questionsTableColumns: string[] = [
         'id', 'title', 'author_name', 'event_name', 'parent_category_name', 'category_name',
-        'difficulty', 'token_value', 'success_rate', 'actions'
+        'difficulty', 'type_name', 'token_value', 'success_rate', 'status', 'actions'
     ]
-    questionsSource: MatTableDataSource<Question>;
-
-    // New stuff
     openNewQuestionDropdown = false;
 
-    // Pagination
-    questionsLength: number;
-    pageSize: number;
-    pageSizeOptions: number[] = [5, 10, 25, 100];
-    pageEvent: PageEvent;
-
     // Sorting
-    ordering: string;
+    readonly sorters: Record<SortingKey, TuiComparator<Question>> = {
+        id: () => 0,
+        title: () => 0,
+        author_name: () => 0,
+        event_name: () => 0,
+        parent_category_name: () => 0,
+        category_name: () => 0,
+        difficulty: () => 0
+    };
+    sorter = this.sorters.id;
+    sortDirection: -1 | 1 = 1;
+
+    // Pagination
+    numberOfQuestions = 0;
+    pageSize = 10;
+    page = 0;
 
     // Filtering
-    filterQueryString;
-
-    // Modal
-    deleteQuestionId: number;
-
-    paramChanged: Subject<{
-        page: number,
-        page_size: number,
-        search: string,
-        parentCategory: string,
-        subCategory: string,
-        difficulty: string,
-        is_sample: string,
-        ordering: string
-    }> = new Subject<{
-        page: number,
-        page_size: number,
-        search: string,
-        parentCategory: string,
-        subCategory: string,
-        difficulty: string,
-        is_sample: string,
-        ordering: string
-    }>();
-    displayedColumns: string[] = ['id', 'title', 'author', 'event__name', 'category__parent__name', 'category__name',
-        'difficulty', 'token_value', 'avg_success', 'actions'];
+    paramChanged: Subject<FilterParameters> = new Subject<FilterParameters>();
+    filteringQuestions = false;
+    filterCategories: string[] = ['id', 'title', 'author', 'event__name', 'category__parent__name', 'category__name', 'difficulty'];
     categories: Category[];
     parentCategories: Category[];
     subCategories: Category[];
     difficulties: Difficulty[];
-
-    difficultiesList: string[];
 
     constructor(private builder: FormBuilder,
                 private questionService: QuestionService,
                 private categoryService: CategoryService,
                 private difficultyService: DifficultyService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
-                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService) {
+                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
+                private changeDetector: ChangeDetectorRef) {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
-                this.questions = paginatedQuestions.results;
-                this.questionsSource = new MatTableDataSource(this.questions);
-                this.questionsLength = paginatedQuestions.count;
+                this.questions = paginatedQuestions.results.map(questions => {
+                    return {...questions, actions: ''};
+                });
+                this.numberOfQuestions = paginatedQuestions.count;
+                this.filteringQuestions = false;
             });
         });
     }
@@ -108,7 +96,6 @@ export class ProblemSetComponent implements OnInit {
         });
         this.difficultyService.getDifficulties().subscribe((difficulties) => {
             this.difficulties = difficulties;
-            this.difficultiesList = difficulties.map(diff => diff[1]);
         });
         this.form['parentCategory'].valueChanges.subscribe((value) => {
             const parentCategoryPK = this.categories.filter(c => c.name === value)[0].pk;
@@ -116,93 +103,68 @@ export class ProblemSetComponent implements OnInit {
         });
     }
 
+    ngAfterContentChecked(): void {
+        this.changeDetector.detectChanges();
+    }
+
     /**
      * Get questions for problem-set.
      */
     initialize(): void {
         this.questionService.getQuestions().subscribe(paginatedQuestions => {
-            this.questionsLength = paginatedQuestions.count;
+            this.numberOfQuestions = paginatedQuestions.count;
             this.pageSize = paginatedQuestions.results.length;
             this.questions = paginatedQuestions.results;
-            this.questionsSource = new MatTableDataSource(this.questions);
         });
-    }
-
-    /**
-     * New page for the problem-set.
-     * @param event
-     */
-    newPageEvent(event: PageEvent): void {
-        this.pageEvent = event;
-        this.update();
     }
 
     /**
      * Update the current view of the problem-set.
      */
     update(): void {
+        this.filteringQuestions = true;
         const options = {
-            ...(this.pageEvent && {
-                page: this.pageEvent.pageIndex + 1,
-                page_size: this.pageEvent.pageSize,
-            }),
-            ...this.filterQueryString,
-            ordering: this.ordering,
+            ...this.getFilterQueryString(),
+            page: this.page + 1,
+            page_size: this.pageSize,
+            ordering: this.getOrdering(),
         };
         this.paramChanged.next(options);
     }
 
     /**
-     * Helper method for sorting the questions.
-     * @param sort - The current sort state.
+     * Takes the current direction and sorter name and gets the order
      */
-    sortData(sort: Sort): void {
-        if (sort.direction === 'asc') {
-            this.ordering = sort.active;
-        } else if (sort.direction === 'desc') {
-            this.ordering = '-' + sort.active;
-        } else {
-            this.ordering = '';
-        }
-        this.update();
+    getOrdering(): string {
+        const filterCategory = this.filterCategories[this.questionsTableColumns.indexOf(this.sorter.name)];
+        return (this.sortDirection === -1 ? '-' : '') + filterCategory;
     }
 
     /**
      * Apply the filters to the problem-set.
      */
-    applyFilter(): void {
-        this.filterQueryString = this.formGroup.value;
-        this.update();
+    getFilterQueryString(): { search: string, parentCategory: string, subCategory: string, difficulty: string, is_sample: string } {
+        const formValues = this.formGroup.value;
+        Object.keys(formValues).forEach(key => {
+            if (!formValues[key]) {
+                formValues[key] = '';
+            }
+        });
+        return formValues;
     }
 
     /**
      * Delete a question from the problem-set.
      */
-    deleteQuestion(): void {
-        this.questionService.deleteQuestion(this.deleteQuestionId)
+    deleteQuestion(questionId: number): void {
+        this.questionService.deleteQuestion(questionId)
             .subscribe(() => {
                 this.notificationsService
                     .show('The Question has been Deleted Successfully.', {
                         status: TuiNotification.Success
                     }).subscribe();
                 this.update();
-                window.scroll(0, 0);
             });
-    }
-
-    /**
-     * Highlight a row.
-     * @param status
-     */
-    highlight(status: string): string {
-        if (status.localeCompare('Solved') === 0) {
-            return 'highlight-success';
-        } else if (status.localeCompare('Partially Solved') === 0) {
-            return 'highlight-warning';
-        } else if (status.localeCompare('Wrong') === 0) {
-            return 'highlight-danger';
-        }
-        return '';
     }
 
     /**
@@ -210,25 +172,12 @@ export class ProblemSetComponent implements OnInit {
      * @param content - The modal to open.
      * @param questionId - The question to delete.
      */
-    open(content: PolymorpheusContent<TuiDialogContext>, questionId: number): void {
-        this.deleteQuestionId = questionId;
+    openDeleteQuestionDialog(content: PolymorpheusContent<TuiDialogContext>, questionId: number): void {
         this.dialogService.open(content, {
             closeable: false,
             label: 'Delete Question?'
-        }).subscribe();
-    }
-
-    /**
-     * Function to get the correct display of the difficulty type.
-     * @param difficulty - The difficulty to get the display value for.
-     */
-    getDifficultyDisplay(difficulty: string): string {
-        let difficultyDisplay: string;
-        this.difficulties.forEach((difficultyArray) => {
-            if (difficultyArray[0] === difficulty) {
-                difficultyDisplay = difficultyArray[1];
-            }
+        }).subscribe({
+            next: () => this.deleteQuestion(questionId)
         });
-        return difficultyDisplay;
     }
 }

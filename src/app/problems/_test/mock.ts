@@ -387,9 +387,9 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
 };
 
 export const MOCK_DIFFICULTIES: Difficulty[] = [
-    ['EASY', 'EASY'],
-    ["NORMAL", 'MEDIUM'],
-    ['HARD', 'HARD'],
+    ['EASY', 'Easy'],
+    ['MEDIUM', 'Medium'],
+    ['HARD', 'Hard'],
 ];
 
 export const MOCK_MCQ_FORM_DATA: McqFormData = {

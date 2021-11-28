@@ -39,12 +39,16 @@ import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
 import {
     TuiButtonModule,
     TuiDataListModule,
-    TuiDescribedByModule, TuiDialogModule, TuiDropdownControllerModule,
-    TuiHintModule, TuiHostedDropdownModule,
+    TuiDescribedByModule,
+    TuiDialogModule,
+    TuiDropdownControllerModule,
+    TuiHintModule,
+    TuiHostedDropdownModule,
     TuiLoaderModule,
+    TuiSvgModule,
     TuiTextfieldControllerModule
 } from "@taiga-ui/core";
-import {TuiInputModule, TuiSelectModule} from "@taiga-ui/kit";
+import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
 
 @NgModule({
     declarations: [
@@ -93,8 +97,10 @@ import {TuiInputModule, TuiSelectModule} from "@taiga-ui/kit";
         TuiInputModule,
         TuiTextfieldControllerModule,
         TuiDialogModule,
-        TuiHostedDropdownModule,
         TuiDropdownControllerModule,
+        TuiSvgModule,
+        TuiHostedDropdownModule,
+        TuiTagModule,
     ],
     providers: [
         DifficultyService,
