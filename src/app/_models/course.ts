@@ -22,6 +22,7 @@ export interface Course {
         name: string,
         token: number,
     }];
+    has_create_event_permission: boolean;
 }
 
 export const STATUS = {
