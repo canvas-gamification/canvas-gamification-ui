@@ -1,0 +1,84 @@
+<ul class="nav nav-tabs mt-5" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="student-list-tab" data-toggle="tab" href="#student-list" role="tab"
+           aria-controls="student-list"
+           aria-selected="false">Student List</a>
+    </li>
+
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="student-list" role="tabpanel" aria-labelledby="student-list-tab">
+        <div class="hover-shadow p-3">
+        <div>
+            <form [formGroup]="formGroup" (ngSubmit)="applyFilter()"  [ngStyle]= "{'display':'inline-block', 'width' : '50%'}">
+                <div class="form-row" [ngStyle]= "{'width' : '200%'}">
+                    <div class="form-group col-3" >
+                        <label for="name">Search first or last name:</label>
+                        <input type="text" class="form-control" name="name" formControlName="name" id="name"
+                               placeholder="Search a name..">
+                    </div>
+                    <div class="form-group col-1 mt-auto" >
+                        <button type="submit" class="btn btn-primary float-right">Go</button>
+                    </div>
+                </div>
+            </form >
+            <form [formGroup]="formGroup" (ngSubmit)="registerUser(formGroup.value.username)" [ngStyle]= "{'display':'inline-block', 'width' : '50%'}">
+                <div class="form-row" [ngStyle]= "{'width' : '200%'}">
+                    <div class="form-group col-3">
+                        <label for="username">Search username for registration:</label>
+                        <input type="text" class="form-control" name="username" formControlName="username" id="username"
+                               placeholder="Search a username">
+                    </div>
+                    <div class="form-group col-1 mt-auto">
+                        <button type="submit" class="btn btn-primary float-right">Go</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+            <table mat-table [dataSource]="registrationsSource" matSort (matSortChange)="sortData($event)" matSortDisableClear
+                   class="table table-hover hover-shadow">
+                <caption>List of Students currently enrolled</caption>
+
+                <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="user__username">Username</th>
+                    <td mat-cell *matCellDef="let registration"> {{registration.username || 'No username found'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="user__first_name">Name</th>
+                    <td mat-cell *matCellDef="let registration"> {{registration.name || 'No name found'}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="status">Status</th>
+                    <td mat-cell *matCellDef="let registration"> {{registration.status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let registration">
+                        <button type="button" *ngIf="registration.status != 'BLOCKED'" [ngClass]="(registration.status == 'UNREGISTERED')?
+                            'btn btn-outline-dark btn-success mr-2' : 'btn btn-outline-dark bg-warning mr-2'"
+                                (click)="changeStatus(registration.id, registration.status == 'UNREGISTERED' ? 'VERIFIED' : 'UNREGISTERED')">
+                            {{registration.status == 'UNREGISTERED' ? "Register" : "Unregister"}}
+                        </button>
+                        <button type="button" [ngClass]="registration.status == 'BLOCKED'?
+                            'btn btn-outline-dark btn-danger mr-2' : 'btn btn-outline-dark btn-success mr-2'"
+                                (click)="changeStatus(registration.id, registration.status == 'BLOCKED'? 'VERIFIED' : 'BLOCKED')">
+                            {{registration.status == 'BLOCKED'? "Unblock" : "Block"}}
+                        </button>
+                        <button type="button" class="btn btn-outline-dark bg-info mr-2"
+                                (click)="changeStatus(registration.id, 'VERIFIED')" *ngIf="registration.status == 'PENDING_VERIFICATION'">
+                            Verify
+                            user
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+</div>
