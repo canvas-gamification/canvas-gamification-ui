@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
-import {Course, CourseRegistration, User, CourseRegistrationData} from '@app/_models';
+import {Course, CourseRegistration, User, CourseRegistrationData, UQJ, CourseEvent} from '@app/_models';
 import {CourseDashboardService} from "@app/course/_services/course-dashboard.service";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 import {AbstractControl, FormGroup} from "@angular/forms";
@@ -11,6 +11,8 @@ import {CourseService} from "@app/course/_services/course.service";
 import {Subject} from "rxjs";
 import {Sort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
+import {UqjService} from "@app/problems/_services/uqj.service";
+import {QuestionReportService} from "@app/course/_services/question-report.service";
 
 @Component({
     selector: 'app-course-dashboard',
@@ -25,9 +27,13 @@ export class CourseDashboardComponent implements OnInit {
     userId: number;
     user: User;
     course: Course;
+    event: CourseEvent;
+    eventId: number;
     registrationList: CourseRegistration[];
+    uqjsSource: MatTableDataSource<UQJ>;
     registrationsSource: MatTableDataSource<CourseRegistration>;
     displayedColumns: string[] = ['username', 'name', 'status', 'action'];
+    displayedColumnsReport: string[] = ['reportId', 'reportOption', 'reportDetails','question'];
     // Sorting
     ordering: string;
 
@@ -47,6 +53,8 @@ export class CourseDashboardComponent implements OnInit {
     constructor(private authenticationService: AuthenticationService,
                 private courseDashboardService: CourseDashboardService,
                 private courseService: CourseService,
+                private uqjService: UqjService,
+                private questionReportService: QuestionReportService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
                 private route: ActivatedRoute) {
         this.formGroup = CourseDashboardForm.createForm();
@@ -73,7 +81,16 @@ export class CourseDashboardComponent implements OnInit {
                 this.registrationList = registrations;
                 this.registrationsSource = new MatTableDataSource(this.registrationList);
             });
+        this.courseId = +this.route.snapshot.paramMap.get('courseId') || null;
+        this.eventId = +this.route.snapshot.paramMap.get('eventId') || null;
+
+        this.uqjService.getUQJs({filters:{}}).subscribe(response => {
+            console.log(response);
+            this.uqjsSource = new MatTableDataSource(response.results);
+        });
+
     }
+
 
     /**
      * Update the current view of the course-dashboard.
@@ -85,6 +102,8 @@ export class CourseDashboardComponent implements OnInit {
         };
         this.paramChanged.next(options);
     }
+
+
 
     /**
      * Helper method for sorting the canvascourseregistration objects.
