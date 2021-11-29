@@ -55,5 +55,6 @@ export const MOCK_VIEW_COURSE: Course = {
     question_set: null,
     uqjs: null,
     course_reg: null,
-    leader_board: null
+    leader_board: null,
+    has_create_event_permission: false
 };

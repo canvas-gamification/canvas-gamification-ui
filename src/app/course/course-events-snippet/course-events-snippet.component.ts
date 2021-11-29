@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {CourseEvent, EventType, User} from '@app/_models';
+import {Course, CourseEvent, EventType, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseEventService} from '@app/course/_services/course-event.service';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -12,7 +12,8 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 })
 export class CourseEventsSnippetComponent implements OnInit {
     @Input() events: CourseEvent[];
-    @Input() courseId: number;
+    @Input() course: Course;
+    courseId: number;
     eventTypes: EventType[];
     eventTypesMap: Map<string, string>;
     user: User;
@@ -25,6 +26,7 @@ export class CourseEventsSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.courseId = this.course.id;
         this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.courseEventService.getEventTypes().subscribe(response => {
             this.eventTypes = response;

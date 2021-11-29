@@ -1,4 +1,4 @@
-<ng-container *ngIf="user?.is_teacher">
+<ng-container *ngIf="course?.has_create_event_permission">
     <a [routerLink]="['/course', courseId, 'new-event']" class="btn btn-primary my-2 mr-3">Add an Event</a>
     <a (click)="open(importEventModal)" [routerLink]="" class="btn btn-primary my-2">Import an Event</a>
 </ng-container>
