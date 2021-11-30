@@ -88,28 +88,28 @@
 
     <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
         <div class="hover-shadow p-3">
-            <table mat-table [dataSource]="uqjsSource" matSort (matSortChange)="sortData($event)" matSortDisableClear
+            <table mat-table [dataSource]="reportsSource" matSort (matSortChange)="sortData($event)"
                    class="table table-hover hover-shadow">
                 <caption>List of Reports</caption>
 
                 <ng-container matColumnDef="reportId">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header="report__id">Report Id</th>
-                    <td mat-cell *matCellDef="let uqj"> {{uqj.report.id}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Report Id</th>
+                    <td mat-cell *matCellDef="let report"> {{report.id}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="reportOption">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header="report__report">Report Option</th>
-                    <td mat-cell *matCellDef="let uqj"> {{uqj.report.report}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Report Option</th>
+                    <td mat-cell *matCellDef="let report"> {{report.report}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="reportDetails">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header="report__report_details">Report Description</th>
-                    <td mat-cell *matCellDef="let uqj"> {{uqj.report.report_details}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Report Description</th>
+                    <td mat-cell *matCellDef="let report"> {{report.report_details}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="question">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header="report__question">Question Id</th>
-                    <td mat-cell *matCellDef="let uqj"> {{uqj.report.question}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Question Id</th>
+                    <td mat-cell *matCellDef="let report"> {{report.question}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumnsReport"></tr>

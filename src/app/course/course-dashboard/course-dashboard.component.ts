@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {ActivatedRoute} from '@angular/router';
-import {Course, CourseRegistration, User, CourseRegistrationData, UQJ, CourseEvent} from '@app/_models';
+import {Course, CourseRegistration, User, CourseRegistrationData, UQJ} from '@app/_models';
 import {CourseDashboardService} from "@app/course/_services/course-dashboard.service";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 import {AbstractControl, FormGroup} from "@angular/forms";
@@ -11,9 +11,8 @@ import {CourseService} from "@app/course/_services/course.service";
 import {Subject} from "rxjs";
 import {Sort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
-import {UqjService} from "@app/problems/_services/uqj.service";
 import {QuestionReportService} from "@app/course/_services/question-report.service";
-import {CourseEventService} from "@app/course/_services/course-event.service";
+import {QuestionReport} from "@app/_models/question_report";
 
 @Component({
     selector: 'app-course-dashboard',
@@ -28,9 +27,8 @@ export class CourseDashboardComponent implements OnInit {
     userId: number;
     user: User;
     course: Course;
-    event: CourseEvent;
-    eventId: number;
     registrationList: CourseRegistration[];
+    reportsSource: MatTableDataSource<QuestionReport>;
     uqjsSource: MatTableDataSource<UQJ>;
     registrationsSource: MatTableDataSource<CourseRegistration>;
     displayedColumns: string[] = ['username', 'name', 'status', 'action'];
@@ -53,9 +51,7 @@ export class CourseDashboardComponent implements OnInit {
 
     constructor(private authenticationService: AuthenticationService,
                 private courseDashboardService: CourseDashboardService,
-                private courseEventService: CourseEventService,
                 private courseService: CourseService,
-                private uqjService: UqjService,
                 private questionReportService: QuestionReportService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
                 private route: ActivatedRoute) {
@@ -86,12 +82,22 @@ export class CourseDashboardComponent implements OnInit {
         this.courseId = +this.route.snapshot.paramMap.get('courseId') || null;
 
         this.courseService.getCourse(this.courseId).subscribe(response => {
-            console.log(response);
-            this.uqjsSource = new MatTableDataSource(response.uqjs);
+            const questionIdList = [];
+            const tempReports = [];
+            response.uqjs.forEach(uqj => {
+                questionIdList.push(uqj.question.id);
+            });
+            this.questionReportService.getReports().subscribe(results => {
+                results.forEach(report =>{
+                    if(questionIdList.includes(report.question)){
+                        tempReports.push(report);
+                        console.log("pushing to array");
+                    }
+                });
+                this.reportsSource = new MatTableDataSource(tempReports);
+            });
         });
-
     }
-
 
     /**
      * Update the current view of the course-dashboard.
