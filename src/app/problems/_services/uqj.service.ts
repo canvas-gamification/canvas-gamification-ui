@@ -69,7 +69,7 @@ export class UqjService {
             .pipe(catchError(this.apiService.handleError<UQJ>(`Error Occurred while fetching user-specific data for this question`)));
     }
 
-    updateFavourite(data: {id: number, status: boolean}): Observable<UQJ> {
+    updateFavorite(data: {id: number, status: boolean}): Observable<UQJ> {
         console.log(data);
         const id = data.id;
         const url = this.apiService.getURL('uqj-generic', id, 'switch-favorite');

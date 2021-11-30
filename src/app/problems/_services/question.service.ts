@@ -144,4 +144,12 @@ export class QuestionService {
             .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>(
                 'Error occurred while adding question')));
     }
+
+    countFavorite(questionId: number): Observable<number> {
+        const url = this.apiService.getURL( 'questions', questionId,'count-favorite');
+        return this.http.get<number>(url)
+            .pipe(catchError(this.apiService.handleError<number>(
+                'Error occurred while adding question')));
+    }
+
 }
