@@ -11,13 +11,13 @@ import {CourseService} from "@app/course/_services/course.service";
 import {Subject} from "rxjs";
 import {Sort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
+import {QuestionReportService} from "@app/course/_services/question-report.service";
 
 @Component({
     selector: 'app-course-dashboard',
     templateUrl: './course-dashboard.component.html',
     styleUrls: ['./course-dashboard.component.scss']
 })
-
 
 export class CourseDashboardComponent implements OnInit {
     formGroup: FormGroup;
@@ -27,10 +27,12 @@ export class CourseDashboardComponent implements OnInit {
     course: Course;
     registrationList: CourseRegistration[];
     registrationsSource: MatTableDataSource<CourseRegistration>;
+    reportCountSource: {};
+    totalReports: number;
     displayedColumns: string[] = ['username', 'name', 'status', 'action'];
+    displayedReportMetricsColumns: string[] = ['Report Type', 'Report Rate'];
     // Sorting
     ordering: string;
-
     //Filtering
     filterQueryString;
 
@@ -47,6 +49,7 @@ export class CourseDashboardComponent implements OnInit {
     constructor(private authenticationService: AuthenticationService,
                 private courseDashboardService: CourseDashboardService,
                 private courseService: CourseService,
+                private questionReportService: QuestionReportService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
                 private route: ActivatedRoute) {
         this.formGroup = CourseDashboardForm.createForm();
@@ -73,12 +76,36 @@ export class CourseDashboardComponent implements OnInit {
                 this.registrationList = registrations;
                 this.registrationsSource = new MatTableDataSource(this.registrationList);
             });
+        this.courseService.getCourse(this.courseId).subscribe(response => {
+            const questionIds = []
+            const tempReportDict = {};
+            let tempNumReports: number = 0;
+            response.uqjs.forEach(uqj => {
+                questionIds.push(uqj.question.id);
+            })
+            this.questionReportService.getReports().subscribe(reports => {
+                reports.forEach(result => {
+                    if (questionIds.includes(result.question)) {
+                        if (result.report in tempReportDict) {
+                            tempReportDict[result.report] += 1;
+                        } else {
+                            tempReportDict[result.report] = 1;
+                        }
+                        tempNumReports += 1;
+                    }
+                });
+                this.totalReports = tempNumReports
+            });
+            this.reportCountSource = tempReportDict;
+        });
     }
 
     /**
      * Update the current view of the course-dashboard.
      */
-    update(): void {
+    update()
+        :
+        void {
         const options = {
             ...this.filterQueryString,
             ordering: this.ordering,
@@ -90,8 +117,13 @@ export class CourseDashboardComponent implements OnInit {
      * Helper method for sorting the canvascourseregistration objects.
      * @param sort - The current sort state.
      */
-    sortData(sort: Sort): void {
-        if (sort.direction === 'asc') {
+    sortData(sort
+                 :
+                 Sort
+    ):
+        void {
+        if (sort.direction === 'asc'
+        ) {
             this.ordering = sort.active;
         } else if (sort.direction === 'desc') {
             this.ordering = '-' + sort.active;
@@ -104,7 +136,9 @@ export class CourseDashboardComponent implements OnInit {
     /**
      * Apply the filters to the canvascourseregistration objects.
      */
-    applyFilter(): void {
+    applyFilter()
+        :
+        void {
         this.filterQueryString = this.formGroup.value;
         this.update();
     }
@@ -113,7 +147,15 @@ export class CourseDashboardComponent implements OnInit {
     /**
      * Method to get the form controls.
      */
-    get form(): { [p: string]: AbstractControl } {
+    get form()
+        :
+        {
+            [p
+                :
+                string
+                ]:
+                AbstractControl
+        } {
         return this.formGroup.controls;
     }
 
@@ -122,8 +164,16 @@ export class CourseDashboardComponent implements OnInit {
      * @param registrationId - The canvascourseregistration object's id.
      * @param status - Status to change to.
      */
-    changeStatus(registrationId: number, status: string): void {
-        const data: CourseRegistrationData = {id: registrationId, status: status};
+    changeStatus(registrationId
+                     :
+                     number, status
+                     :
+                     string
+    ):
+        void {
+        const data
+            :
+            CourseRegistrationData = {id: registrationId, status: status};
         this.courseDashboardService.updateStatus(data)
             .subscribe(() => {
                 this.notificationsService
@@ -138,8 +188,14 @@ export class CourseDashboardComponent implements OnInit {
      * Create a user
      * @param username - username of the desired user
      */
-    registerUser(username: string): void {
-        const data: CourseRegistrationData = {username: username};
+    registerUser(username
+                     :
+                     string
+    ):
+        void {
+        const data
+            :
+            CourseRegistrationData = {username: username};
         this.courseDashboardService.registerUser(data, this.courseId)
             .subscribe(() => {
                 this.notificationsService
