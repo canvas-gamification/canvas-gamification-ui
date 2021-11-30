@@ -13,6 +13,7 @@ import {Sort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {UqjService} from "@app/problems/_services/uqj.service";
 import {QuestionReportService} from "@app/course/_services/question-report.service";
+import {CourseEventService} from "@app/course/_services/course-event.service";
 
 @Component({
     selector: 'app-course-dashboard',
@@ -52,6 +53,7 @@ export class CourseDashboardComponent implements OnInit {
 
     constructor(private authenticationService: AuthenticationService,
                 private courseDashboardService: CourseDashboardService,
+                private courseEventService: CourseEventService,
                 private courseService: CourseService,
                 private uqjService: UqjService,
                 private questionReportService: QuestionReportService,
@@ -82,11 +84,10 @@ export class CourseDashboardComponent implements OnInit {
                 this.registrationsSource = new MatTableDataSource(this.registrationList);
             });
         this.courseId = +this.route.snapshot.paramMap.get('courseId') || null;
-        this.eventId = +this.route.snapshot.paramMap.get('eventId') || null;
 
-        this.uqjService.getUQJs({filters:{}}).subscribe(response => {
+        this.courseService.getCourse(this.courseId).subscribe(response => {
             console.log(response);
-            this.uqjsSource = new MatTableDataSource(response.results);
+            this.uqjsSource = new MatTableDataSource(response.uqjs);
         });
 
     }
