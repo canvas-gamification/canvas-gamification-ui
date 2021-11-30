@@ -264,14 +264,14 @@ export const MOCK_MCQ_QUESTION: Question = {
 
 export const MOCK_QUESTION_REPORT: QuestionReport = {
     id: 1,
-    question_id: 1,
+    question: 1,
     report: "TYPO_TEXT",
     report_details: "Array is not spelled correctly.",
 };
 
 export const MOCK_QUESTION_REPORT2: QuestionReport = {
     id: 1,
-    question_id: 1,
+    question: 1,
     report: "TYPO_ANSWER",
     report_details: "The answer should be a float not an integer.",
 };
@@ -305,7 +305,7 @@ export const MOCK_UQJ: UQJ = {
     is_checkbox: false,
     report: {
         id: 1,
-        question_id: 1,
+        question: 1,
         report: "TYPO_TEXT",
         report_details: "Array is not spelled correctly.",
     },

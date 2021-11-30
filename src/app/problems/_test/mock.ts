@@ -202,7 +202,7 @@ export const MOCK_PARSONS_QUESTION: Question = {
 };
 export const MOCK_QUESTION_REPORT: QuestionReport = {
     id: 1,
-    question_id: 1,
+    question: 1,
     report: "TYPO_TEXT",
     report_details: "Array is not spelled correctly.",
 };
