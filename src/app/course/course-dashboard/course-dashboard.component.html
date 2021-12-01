@@ -86,6 +86,7 @@
         </div>
     </div>
 
+    <!--TODO add sorting to table after changing from mattable-->
     <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
         <div class="hover-shadow p-3">
             <table mat-table [dataSource]="reportsSource" matSort (matSortChange)="sortData($event)"
@@ -110,6 +111,19 @@
                 <ng-container matColumnDef="question">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Question Id</th>
                     <td mat-cell *matCellDef="let report"> {{report.question}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="open">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let report"> <a class="btn btn-primary mr-3"
+                                                              [routerLink]="['/course', courseId, 'problem', report.question]">Open</a></td>
+
+
+                </ng-container>
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let report"> <a class="btn btn-warning mr-3"
+                                                              [routerLink]="['/problem', report.question,'edit']">Edit</a></td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumnsReport"></tr>

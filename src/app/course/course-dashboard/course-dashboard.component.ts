@@ -32,7 +32,7 @@ export class CourseDashboardComponent implements OnInit {
     uqjsSource: MatTableDataSource<UQJ>;
     registrationsSource: MatTableDataSource<CourseRegistration>;
     displayedColumns: string[] = ['username', 'name', 'status', 'action'];
-    displayedColumnsReport: string[] = ['reportId', 'reportOption', 'reportDetails','question'];
+    displayedColumnsReport: string[] = ['reportId', 'reportOption', 'reportDetails','question','open','edit'];
     // Sorting
     ordering: string;
 
