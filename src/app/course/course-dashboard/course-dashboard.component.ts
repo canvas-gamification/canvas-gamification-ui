@@ -78,7 +78,13 @@ export class CourseDashboardComponent implements OnInit {
             });
         this.courseService.getCourse(this.courseId).subscribe(response => {
             const questionIds = []
-            const tempReportDict = {};
+            const tempReportDict = {
+                "TYPO_TEXT": 0,
+                "TYPO_ANSWER": 0,
+                "RIGHT_SOLUTION_MARKED_WRONG": 0,
+                "WRONG_SOLUTION_MARKED_RIGHT": 0,
+                "OTHER": 0
+            };
             let tempNumReports: number = 0;
             response.uqjs.forEach(uqj => {
                 questionIds.push(uqj.question.id);
@@ -86,11 +92,7 @@ export class CourseDashboardComponent implements OnInit {
             this.questionReportService.getReports().subscribe(reports => {
                 reports.forEach(result => {
                     if (questionIds.includes(result.question)) {
-                        if (result.report in tempReportDict) {
-                            tempReportDict[result.report] += 1;
-                        } else {
-                            tempReportDict[result.report] = 1;
-                        }
+                        tempReportDict[result.report] += 1;
                         tempNumReports += 1;
                     }
                 });
