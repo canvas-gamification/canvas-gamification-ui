@@ -43,7 +43,7 @@ describe('TokenUseSnippetComponent', () => {
     });
 
     it('confirm Changes should work', () => {
-        component.useToken(MOCK_TOKEN_USE1, 1);
+        MOCK_TOKEN_USE1.num_used += 1;
         component.confirmChanges();
         const editedTokenUses = MOCK_COURSE_REGISTRATION.token_uses;
         editedTokenUses[0].num_used++;

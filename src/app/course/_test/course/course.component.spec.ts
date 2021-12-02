@@ -9,6 +9,8 @@ import {MOCK_COURSE1} from "@app/course/_test/mock";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/course-events-snippet.component";
 import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component";
+import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
+import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component";
 
 describe('CourseComponent', () => {
     let component: CourseComponent;
@@ -20,7 +22,9 @@ describe('CourseComponent', () => {
             declarations: [
                 CourseComponent,
                 ConceptMapComponent,
+                CourseQuestionSnippetComponent,
                 CourseEventsSnippetComponent,
+                TokenUseSnippetComponent,
                 LeaderBoardComponent
             ],
             providers: [

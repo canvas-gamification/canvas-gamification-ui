@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UserStatsService} from '@app/_services/api/user-stats.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {Category} from '@app/_models';
 import {forkJoin} from 'rxjs';
 import {CourseService} from '@app/course/_services/course.service';
+import {TuiDialogContext} from "@taiga-ui/core";
+import {POLYMORPHEUS_CONTEXT} from '@tinkoff/ng-polymorpheus';
 
 @Component({
     selector: 'app-user-stats',
@@ -20,9 +22,11 @@ export class UserStatsComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private userStatsService: UserStatsService,
                 private courseService: CourseService,
-                private categoryService: CategoryService) {
-        this.categoryId = +this.route.snapshot.paramMap.get('categoryId');
-        this.courseId = +this.route.snapshot.paramMap.get('courseId');
+                private categoryService: CategoryService,
+                private changeDetector: ChangeDetectorRef,
+                @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<number, number>) {
+        this.categoryId = this.context.data[0];
+        this.courseId = this.context.data[1];
     }
 
     ngOnInit(): void {
@@ -31,7 +35,11 @@ export class UserStatsComponent implements OnInit {
         forkJoin([userStatsObservable, categoryObservable]).subscribe(result => {
             this.category = result[1];
             this.userSuccessRate = result[0].success_rate;
+            this.changeDetector.detectChanges();
         });
     }
 
+    closeDialog(): void {
+        this.context.completeWith(0);
+    }
 }

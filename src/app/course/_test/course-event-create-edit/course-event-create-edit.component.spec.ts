@@ -5,13 +5,16 @@ import {TestModule} from '@test/test.module';
 import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event.service.mock";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {ActivatedRoute, convertToParamMap, Router, RouterModule} from "@angular/router";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatDatepickerModule} from "@angular/material/datepicker";
-import {NgxMatDatetimePickerModule} from "@angular-material-components/datetime-picker";
 import {ReactiveFormsModule} from "@angular/forms";
-import {MatInputModule} from "@angular/material/input";
-import {TuiNotificationsService} from "@taiga-ui/core";
+import {TuiButtonModule, TuiDataListModule, TuiNotificationModule, TuiNotificationsService} from "@taiga-ui/core";
 import {of} from "rxjs";
+import {
+    TuiCheckboxLabeledModule,
+    TuiFieldErrorModule,
+    TuiInputDateRangeModule,
+    TuiInputModule,
+    TuiInputTimeModule, TuiSelectModule
+} from "@taiga-ui/kit";
 
 describe('CourseEventCreateComponent with EventId', () => {
     let component: CourseEventCreateEditComponent;
@@ -20,13 +23,20 @@ describe('CourseEventCreateComponent with EventId', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule,
-                MatFormFieldModule,
-                MatInputModule,
-                MatDatepickerModule,
-                NgxMatDatetimePickerModule,
+            imports: [
+                TestModule,
                 ReactiveFormsModule,
-                RouterModule],
+                RouterModule,
+                TuiInputModule,
+                TuiSelectModule,
+                TuiDataListModule,
+                TuiFieldErrorModule,
+                TuiCheckboxLabeledModule,
+                TuiInputDateRangeModule,
+                TuiInputTimeModule,
+                TuiNotificationModule,
+                TuiButtonModule
+            ],
             declarations: [CourseEventCreateEditComponent],
             providers: [
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
@@ -76,13 +86,20 @@ describe('CourseEventCreateComponent without EventId', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule,
-                MatFormFieldModule,
-                MatInputModule,
-                MatDatepickerModule,
-                NgxMatDatetimePickerModule,
+            imports: [
+                TestModule,
                 ReactiveFormsModule,
-                RouterModule],
+                RouterModule,
+                TuiInputModule,
+                TuiSelectModule,
+                TuiDataListModule,
+                TuiFieldErrorModule,
+                TuiCheckboxLabeledModule,
+                TuiInputDateRangeModule,
+                TuiInputTimeModule,
+                TuiNotificationModule,
+                TuiButtonModule
+            ],
             declarations: [CourseEventCreateEditComponent],
             providers: [
                 {provide: CourseEventService, useClass: CourseEventServiceMock},

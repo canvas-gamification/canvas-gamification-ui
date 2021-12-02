@@ -16,7 +16,7 @@ export class ConceptMapGraph {
         this.paper = new joint.dia.Paper({
             el: jQuery('#paper'),
             width: '100%',
-            height: 1000,
+            height: '60vh',
             model: this.graph,
             gridSize: 20,
             interactive: false,
@@ -50,21 +50,22 @@ export class ConceptMapGraph {
         return new joint.shapes.standard.Ellipse({
             id,
             size: {width, height},
-            fill: '#41A4FF',
+            fill: 'var(--tui-secondary)',
             attrs: {
                 label: {
                     text: label,
                     'font-size': letterSize,
                     'font-weight': 'bold',
                     'font-family': 'sans-serif',
+                    fill: 'var(--tui-text-01)',
                     cursor: 'pointer',
                 },
                 body: {
                     width, height,
                     rx: 10, ry: 10,
-                    stroke: '#000000',
+                    stroke: 'var(--tui-base-08)',
                     cursor: 'pointer',
-                    fill: '#41A4FF',
+                    fill: 'var(--tui-secondary)',
                 },
             }
         });
@@ -92,7 +93,7 @@ export class ConceptMapGraph {
             },
             attrs: {
                 line: {
-                    stroke: 'black',
+                    stroke: 'var(--tui-base-08)',
                     cursor: 'default',
                 },
                 wrapper: {
