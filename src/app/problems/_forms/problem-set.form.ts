@@ -8,10 +8,10 @@ export class ProblemSetForm {
         const builder = new FormBuilder();
         return builder.group({
             search: new FormControl(''),
-            difficulty: new FormControl(''),
-            parentCategory: new FormControl(''),
-            subCategory: new FormControl(''),
-            is_sample: new FormControl(''),
+            difficulty: new FormControl(null),
+            parentCategory: new FormControl(null),
+            subCategory: new FormControl(null),
+            is_sample: new FormControl(null),
         });
     }
 

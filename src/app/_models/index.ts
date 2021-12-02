@@ -16,3 +16,4 @@ export * from './course-registration/registration_status';
 export * from './course-registration/course_registration_response';
 export * from './eventType';
 export * from './leaderboard_element';
+export * from './problem_set';
