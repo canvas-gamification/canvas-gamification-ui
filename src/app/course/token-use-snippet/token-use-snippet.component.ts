@@ -1,5 +1,4 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
-import {faMinus, faPlus} from '@fortawesome/free-solid-svg-icons';
 import {CourseRegistration, User} from '@app/_models';
 import {TokenUseService} from '@app/course/_services/token-use.service';
 import {ActivatedRoute} from '@angular/router';
@@ -16,14 +15,12 @@ export class TokenUseSnippetComponent implements OnInit {
     @Input() courseReg: CourseRegistration;
 
     tokenUses: TokenUse[];
+    tokenUsesTableHeaders: string[] = ['assignment_name', 'tokens_required', 'points_given', 'maximum_number_of_use', 'actions'];
 
     user: User;
 
     invalid: boolean;
     remainingTokens: number;
-
-    faMinus = faMinus;
-    faPlus = faPlus;
 
     constructor(private tokenUseService: TokenUseService,
                 private route: ActivatedRoute,
@@ -34,16 +31,6 @@ export class TokenUseSnippetComponent implements OnInit {
 
     ngOnInit(): void {
         this.tokenUses = this.courseReg.token_uses;
-        this.calculateCurrentTotal();
-    }
-
-    /**
-     * Uses 'val' number of tokens on a specific token use option
-     * @param tokenUse - the token use option to be used
-     * @param val - the amount of tokens to be used on the option
-     */
-    useToken(tokenUse: TokenUse, val: number): void {
-        tokenUse.num_used += val;
         this.calculateCurrentTotal();
     }
 
@@ -67,7 +54,7 @@ export class TokenUseSnippetComponent implements OnInit {
         this.tokenUses.forEach(tokenUse => data[tokenUse.option.id] = tokenUse.num_used);
         this.tokenUseService.useTokens(data, courseId).subscribe(() => {
             this.notificationsService
-                .show('Token uses saved!', {
+                .show('Token Uses Saved!', {
                     status: TuiNotification.Success
                 }).subscribe();
         });

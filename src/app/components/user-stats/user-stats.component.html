@@ -1,9 +1,6 @@
-<ng-container *ngIf="category">
-    <h2 class="my-4">{{category.name}}</h2>
-    <div class="card">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Your Success: {{userSuccessRate}}</li>
-            <li class="list-group-item">Average Success: {{category.average_success}}</li>
-        </ul>
-    </div>
-</ng-container>
+<h2 class="tui-text_h5 heading" [class.tui-skeleton]="!category">{{ category ? category.name : 'Category Name' }}</h2>
+<ul class="tui-list">
+    <li class="tui-list__item" [class.tui-skeleton]="!category">Your Success: {{ userSuccessRate }}</li>
+    <li class="tui-list__item" [class.tui-skeleton]="!category">Average Success: {{ category?.average_success }}</li>
+</ul>
+<button tuiButton appearance="primary" size="m" class="tui-space_top-4" (click)="closeDialog()">Close</button>

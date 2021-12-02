@@ -1,4 +1,4 @@
-import {CourseEvent, CourseRegistration, UQJ} from '@app/_models';
+import {CourseEvent, CourseRegistration, LeaderboardElement, UQJ} from '@app/_models';
 
 export interface Course {
     id: number;
@@ -18,10 +18,7 @@ export interface Course {
     question_set: unknown;
     uqjs: UQJ[];
     course_reg: CourseRegistration;
-    leader_board: [{
-        name: string,
-        token: number,
-    }];
+    leader_board: LeaderboardElement[];
     has_create_event_permission: boolean;
 }
 

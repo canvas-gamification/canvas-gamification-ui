@@ -5,7 +5,6 @@ import {LandingPageComponent} from './components/landing-page/landing-page.compo
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
 import {TopicsComponent} from './components/topics/topics.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
-import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {AuthGuard} from '@app/_helpers/auth.guard';
 import {FaqComponent} from './components/faq/faq.component';
 import {HomepageComponent} from './components/homepage/homepage.component';
@@ -44,10 +43,6 @@ const routes: Routes = [
     {
         path: 'token-values',
         component: TokenValuesComponent
-    },
-    {
-        path: 'course/:courseId/category/:categoryId',
-        component: UserStatsComponent
     },
     {
         path: 'homepage',

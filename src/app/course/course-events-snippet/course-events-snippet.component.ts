@@ -1,9 +1,9 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core';
 import {Course, CourseEvent, EventType, User} from '@app/_models';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {CourseEventService} from '@app/course/_services/course-event.service';
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
 
 @Component({
     selector: 'app-course-events-snippet',
@@ -15,13 +15,13 @@ export class CourseEventsSnippetComponent implements OnInit {
     @Input() course: Course;
     courseId: number;
     eventTypes: EventType[];
-    eventTypesMap: Map<string, string>;
     user: User;
     courseEvents: CourseEvent[];
+    @ViewChild('importDialog') importDialog: PolymorpheusContent<TuiDialogContext>;
 
     constructor(private authenticationService: AuthenticationService,
                 private courseEventService: CourseEventService,
-                private modalService: NgbModal,
+                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
@@ -30,35 +30,21 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => this.user = user);
         this.courseEventService.getEventTypes().subscribe(response => {
             this.eventTypes = response;
-            this.eventTypesMap = new Map(this.eventTypes.map(([k, v]) => [k, v])); //Make a map for easy access
         });
     }
 
     /**
-     * Returns the button text based on the type of event & user
-     * @param event - the object for which the button text is needed
+     * Gets all available course events and then opens a dialog with import template.
      */
-    getEventButtonText(event: CourseEvent): string {
-        if (this.eventTypes) {
-            return ((this.user.is_teacher) ? 'Open ' : 'Do ') + this.eventTypesMap.get(event.type);
-        }
-    }
-
-    /**
-     * Returns whether the specified event is an open exam
-     * @param event - event object to check
-     */
-    isExamAndOpen(event: CourseEvent): boolean {
-        return event.is_open && event.is_exam;
-    }
-
-    /**
-     * Opens a given modal.
-     * @param content - The modal to open.
-     */
-    open(content: unknown): void {
-        this.courseEventService.getAllEvents().subscribe(events => this.courseEvents = events);
-        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
+    openEventImportDialog(): void {
+        this.courseEvents = null;
+        this.courseEventService.getAllEvents().subscribe(events => {
+            this.courseEvents = events;
+        });
+        this.dialogService.open(
+            this.importDialog,
+            {label: 'Select an Event to Import', size: 'l', closeable: false}
+        ).subscribe();
     }
 
     /**
