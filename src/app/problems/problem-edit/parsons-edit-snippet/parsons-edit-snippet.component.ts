@@ -3,7 +3,6 @@ import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import {QuestionService} from '@app/problems/_services/question.service';
 import {Category, Course} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
-import {forkJoin} from 'rxjs';
 import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {CourseEventService} from '@app/course/_services/course-event.service';
@@ -19,8 +18,6 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 export class ParsonsEditSnippetComponent implements OnInit {
     @Input() questionDetails;
     formGroup: FormGroup;
-    selectedCourse: number;
-    selectedEvent: number;
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
@@ -48,40 +45,26 @@ export class ParsonsEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // TODO: refactor => typeof this.questionDetails.event === 'number'
-        if (this.questionDetails.event && typeof this.questionDetails.event === 'number') {
-            const coursesObservable = this.courseService.getCourses();
-            const categoriesObservable = this.categoryService.getCategories();
-            const eventObservable = this.courseEventService.getCourseEvent(this.questionDetails.event);
-
-            forkJoin([coursesObservable, categoriesObservable, eventObservable])
-                .subscribe(result => {
-                    this.courses = result[0];
-                    this.categories = result[1];
-                    this.setCourse(result[2].course);
-                    this.setEvent(result[2].id);
-                    this.isPractice = false;
-                });
-        } else {
-            const coursesObservable = this.courseService.getCourses();
-            const categoriesObservable = this.categoryService.getCategories();
-
-            forkJoin([coursesObservable, categoriesObservable])
-                .subscribe(result => {
-                    this.courses = result[0];
-                    this.categories = result[1];
-                    this.isPractice = true;
-                });
-        }
-
-        this.inputFiles = this.questionDetails.input_files.map(inputFile => ({
+        this.inputFiles = this.questionDetails?.input_files?.map(inputFile => ({
             name: inputFile.name,
             compile: inputFile.compile,
             lines: inputFile.lines.join('\n')
         }));
         this.variables = this.questionDetails.variables;
         this.questionText = this.questionDetails.text;
-        this.formGroup = ParsonsForm.createFormWithData(this.questionDetails, this.selectedEvent, this.selectedCourse);
+        this.formGroup = ParsonsForm.createFormWithData(this.questionDetails);
+
+        this.courseService.getCourses().subscribe(course => {
+            this.courses = course;
+            if (this.questionDetails.event) {
+                this.isPractice = false;
+                this.setCourse(this.questionDetails.event_obj.course);
+                this.setEvent(this.questionDetails.event);
+            } else {
+                this.isPractice = true;
+            }
+        });
+        this.categoryService.getCategories().subscribe(categories => this.categories = categories);
     }
 
     /**
@@ -116,15 +99,14 @@ export class ParsonsEditSnippetComponent implements OnInit {
      * @param courseId - The course's id.
      */
     setCourse(courseId: number): void {
-        this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
-                if (course.id === this.selectedCourse) {
+                if (course.id === courseId) {
                     this.events = course.events;
                 }
             });
             this.setEvent(null);
-            this.form.course.setValue(this.selectedCourse);
+            this.form.course.setValue(courseId);
         }
     }
 
@@ -133,8 +115,7 @@ export class ParsonsEditSnippetComponent implements OnInit {
      * @param event - The event object to set.
      */
     setEvent(event: number): void {
-        this.selectedEvent = event;
-        this.form.event.setValue(this.selectedEvent);
+        this.form.event.setValue(event);
     }
 
     /**

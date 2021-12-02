@@ -21,17 +21,15 @@ export class ParsonsForm {
     /**
      * Creates a FormGroup for a Parsons question with existing data.
      * @param question - The question object.
-     * @param event - The event.
-     * @param course - The course.
      */
-    static createFormWithData(question: Question, event: number, course: number): FormGroup {
+    static createFormWithData(question: Question): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
             title: new FormControl(question.title, [Validators.required]),
             difficulty: new FormControl(question.difficulty, [Validators.required]),
             category: new FormControl(question.category, [Validators.required]),
-            course: new FormControl(course),
-            event: new FormControl(event),
+            course: new FormControl(question?.event_obj?.course),
+            event: new FormControl(question?.event),
             junit_template: new FormControl(question.junit_template, [Validators.required]),
             is_verified: new FormControl(question.is_verified),
         });

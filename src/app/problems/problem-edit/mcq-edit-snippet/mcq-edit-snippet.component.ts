@@ -1,7 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {CourseService} from '@app/course/_services/course.service';
 import {CategoryService} from '@app/_services/api/category.service';
-import {forkJoin} from 'rxjs';
 import {Category, Course, Question} from '@app/_models';
 import {CourseEvent} from '@app/_models/course_event';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
@@ -23,21 +22,21 @@ export class McqEditSnippetComponent implements OnInit {
     events: CourseEvent[];
     categories: Category[];
     variables: JSON[];
-    selectedCourse: number;
-    selectedEvent: number;
     distractors: { text: string }[];
     correctAnswers: { text: string }[];
     questionText: string;
     answerText: string;
     isPractice: boolean;
 
-    constructor(private courseService: CourseService,
-                private categoryService: CategoryService,
-                private formBuilder: FormBuilder,
-                private questionService: QuestionService,
-                private courseEventService: CourseEventService,
-                private router: Router,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private courseService: CourseService,
+        private categoryService: CategoryService,
+        private formBuilder: FormBuilder,
+        private questionService: QuestionService,
+        private courseEventService: CourseEventService,
+        private router: Router,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     /**
@@ -48,36 +47,22 @@ export class McqEditSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // TODO: refactor => typeof this.questionDetails.event === 'number'
-        if (this.questionDetails.event && typeof this.questionDetails.event === 'number') {
-            const coursesObservable = this.courseService.getCourses();
-            const categoriesObservable = this.categoryService.getCategories();
-            const eventObservable = this.courseEventService.getCourseEvent(this.questionDetails.event);
-
-            forkJoin([coursesObservable, categoriesObservable, eventObservable])
-                .subscribe(result => {
-                    this.courses = result[0];
-                    this.categories = result[1];
-                    this.setCourse(result[2].course);
-                    this.setEvent(result[2].id);
-                    this.isPractice = false;
-                });
-        } else {
-            const coursesObservable = this.courseService.getCourses();
-            const categoriesObservable = this.categoryService.getCategories();
-
-            forkJoin([coursesObservable, categoriesObservable])
-                .subscribe(result => {
-                    this.courses = result[0];
-                    this.categories = result[1];
-                    this.isPractice = true;
-                });
-        }
-
         this.questionDetails.is_checkbox ? this.convertChoices(true) : this.convertChoices();
         this.variables = this.questionDetails.variables;
         this.questionText = this.questionDetails.text;
-        this.formGroup = McqForm.createFormWithData(this.questionDetails, this.selectedEvent, this.selectedCourse);
+        this.formGroup = McqForm.createFormWithData(this.questionDetails);
+
+        this.courseService.getCourses().subscribe(course => {
+            this.courses = course;
+            if (this.questionDetails.event) {
+                this.isPractice = false;
+                this.setCourse(this.questionDetails.event_obj.course);
+                this.setEvent(this.questionDetails.event);
+            } else {
+                this.isPractice = true;
+            }
+        });
+        this.categoryService.getCategories().subscribe(categories => this.categories = categories);
     }
 
     /**
@@ -117,15 +102,14 @@ export class McqEditSnippetComponent implements OnInit {
      * @param courseId - The course's id.
      */
     setCourse(courseId: number): void {
-        this.selectedCourse = courseId;
         if (this.courses) {
             this.courses.forEach(course => {
-                if (course.id === this.selectedCourse) {
+                if (course.id === courseId) {
                     this.events = course.events;
                 }
             });
             this.setEvent(null);
-            this.form.course.setValue(this.selectedCourse);
+            this.form.course.setValue(courseId);
         }
     }
 
@@ -134,8 +118,7 @@ export class McqEditSnippetComponent implements OnInit {
      * @param event - The event object to set.
      */
     setEvent(event: number): void {
-        this.selectedEvent = event;
-        this.form.event.setValue(this.selectedEvent);
+        this.form.event.setValue(event);
     }
 
     /**
