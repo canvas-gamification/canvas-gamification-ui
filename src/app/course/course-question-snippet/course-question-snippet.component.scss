@@ -1,3 +1,9 @@
-@use "src/scss/mixins";
+@import "mixins";
 
-@include mixins.highlight-table();
+.no-content-heading {
+    margin-top: 0;
+}
+
+.question-islands {
+    @include island-grid();
+}

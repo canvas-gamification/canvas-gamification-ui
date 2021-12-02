@@ -60,9 +60,9 @@ describe('CourseQuestionSnippetComponent VALID EVENT', () => {
     });
 
     it('highlight should work', () => {
-        expect(component.highlight('Solved')).toEqual('highlight-success');
-        expect(component.highlight('Partially Solved')).toEqual('highlight-warning');
-        expect(component.highlight('Wrong')).toEqual('highlight-danger');
+        expect(component.highlight('Solved')).toEqual('success');
+        expect(component.highlight('Partially Solved')).toEqual('warning');
+        expect(component.highlight('Wrong')).toEqual('error');
     });
 });
 describe('CourseQuestionSnippetComponent INVALID EVENT', () => {

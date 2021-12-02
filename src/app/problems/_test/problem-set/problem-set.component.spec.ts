@@ -7,15 +7,19 @@ import {CategoryServiceMock} from "@test/category.service.mock";
 import {DifficultyService} from "@app/problems/_services/difficulty.service";
 import {DifficultyServiceMock} from "@app/problems/_test/_services/difficulty.service.mock";
 import {ReactiveFormsModule} from "@angular/forms";
-import {MatPaginatorModule} from "@angular/material/paginator";
-import {MatTableModule} from "@angular/material/table";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AppRoutingModule} from "@app/app-routing.module";
-import {MOCK_DIFFICULTIES} from "@app/problems/_test/mock";
-import {TuiNotificationsService} from "@taiga-ui/core";
+import {
+    TuiDataListModule,
+    TuiHintModule,
+    TuiHostedDropdownModule,
+    TuiLoaderModule,
+    TuiNotificationsService
+} from "@taiga-ui/core";
 import {of} from "rxjs";
+import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
+import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
 
 describe('ProblemSetComponent', () => {
     let component: ProblemSetComponent;
@@ -24,7 +28,9 @@ describe('ProblemSetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, ReactiveFormsModule, MatPaginatorModule, MatTableModule, FontAwesomeModule, AppRoutingModule],
+            imports: [TestModule, ReactiveFormsModule, AppRoutingModule, TuiHostedDropdownModule, TuiLoaderModule,
+                TuiTableModule, TuiTablePaginationModule, TuiSelectModule, TuiDataListModule, TuiInputModule,
+                TuiHintModule, TuiTagModule],
             declarations: [ProblemSetComponent],
             providers: [
                 {provide: CategoryService, useClass: CategoryServiceMock},
@@ -49,47 +55,41 @@ describe('ProblemSetComponent', () => {
     });
 
     it('should change parent category', () => {
-        const select: HTMLSelectElement = fixture.debugElement.nativeElement.querySelector('#category');
-        select.value = select.options[1].value;
-        select.dispatchEvent(new Event('change'));
-        fixture.detectChanges();
+        expect(component.subCategories).toEqual(undefined);
+        component.form.parentCategory.setValue(component.parentCategories[0].name);
         expect(component.subCategories.length).toEqual(1);
     });
 
-    it('should sort', () => {
-        component.sortData({active: 'ascending', direction: 'asc'});
-        expect(component.ordering).toEqual('ascending');
-
-        component.sortData({active: 'ascending', direction: 'desc'});
-        expect(component.ordering).toEqual('-ascending');
-
-        component.sortData({active: 'ascending', direction: ''});
-        expect(component.ordering).toEqual('');
+    it('should get order', () => {
+        component.sorter = component.sorters['id'];
+        component.sortDirection = 1;
+        expect(component.getOrdering()).toEqual('id');
+        component.sorter = component.sorters['title'];
+        component.sortDirection = -1;
+        expect(component.getOrdering()).toEqual('-title');
+        component.sorter = component.sorters['author_name'];
+        component.sortDirection = 1;
+        expect(component.getOrdering()).toEqual('author');
     });
 
-    it('should apply filter', () => {
-        component.formGroup.controls['difficulty'].setValue('');
-        component.formGroup.controls['is_sample'].setValue('');
-        component.formGroup.controls['parentCategory'].setValue('');
+    it('should get filter', () => {
         component.formGroup.controls['search'].setValue('');
+        component.formGroup.controls['difficulty'].setValue('EASY');
+        component.formGroup.controls['is_sample'].setValue('true');
+        component.formGroup.controls['parentCategory'].setValue('');
         component.formGroup.controls['subCategory'].setValue('');
-        component.applyFilter();
         fixture.detectChanges();
-        expect(component.filterQueryString === component.formGroup.value);
+        expect(component.getFilterQueryString()).toEqual(component.formGroup.value);
     });
 
     it('should delete a question', () => {
-        component.deleteQuestionId = 0;
-        component.deleteQuestion();
+        component.deleteQuestion(0);
         expect(notificationService.show).toHaveBeenCalled();
     });
 
     it('should open delete modal', () => {
-        component.open('', 0);
-        expect(component.deleteQuestionId).toEqual(0);
-    });
-
-    it('should get the difficulty display', () => {
-        expect(component.getDifficultyDisplay('NORMAL')).toEqual(MOCK_DIFFICULTIES[1][1]);
+        spyOn(component['dialogService'], 'open').and.callFake(() => of());
+        component.openDeleteQuestionDialog('', 0);
+        expect(component['dialogService'].open).toHaveBeenCalled();
     });
 });

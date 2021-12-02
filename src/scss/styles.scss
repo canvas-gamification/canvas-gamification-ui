@@ -1,8 +1,14 @@
 @import 'variables';
 @import 'mixins';
 @import 'highlight';
-@import "bootstrap";
+//@import "bootstrap";
 
 body {
     background: var(--tui-base-01);
+}
+
+table {
+    th {
+        background-color: var(--tui-base-02) !important;
+    }
 }

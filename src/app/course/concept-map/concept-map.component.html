@@ -1,3 +1,21 @@
-<button class="btn btn-outline-primary" (click)="reset()">Back</button>
-<em class="note">Note: Drag on any blank area to move around the graph!</em>
-<div id="paper"></div>
+<div class="flowchart-instructions tui-space_bottom-4">
+    <ng-container *ngIf="parentNode else tempSpacing">
+        <button
+            tuiButton
+            size="s"
+            appearance="primary"
+            icon="tuiIconArrowLeft"
+            [class.tui-skeleton]="flowchartComponent.children.length === 0" (click)="reset()"
+        >
+            Back
+        </button>
+    </ng-container>
+    <ng-template #tempSpacing>
+        <div></div>
+    </ng-template>
+    <span class="tui-space_bottom-2" [class.tui-skeleton]="flowchartComponent.children.length === 0">
+        <em>Note: Drag on any blank area to move around the graph!</em>
+    </span>
+</div>
+<div id="paper" #flowchartComponent></div>
+<div *ngIf="flowchartComponent.children.length === 0" class="flowchart-skeleton tui-skeleton"></div>

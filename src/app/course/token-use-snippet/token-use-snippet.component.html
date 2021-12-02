@@ -1,72 +1,56 @@
 <ng-container *ngIf="user?.is_teacher">
-    <h3 class="card-text red-text">Warning: You are logged in as a teacher! Token uses will not do anything for
-        you!</h3>
+    <tui-notification status="warning" class="tui-space_bottom-4">
+        Warning: You are logged in as a teacher! Token uses will not do anything for you!
+    </tui-notification>
 </ng-container>
-<div class="card border-secondary" style="width: 18rem;">
-    <div class="card-body">
-        <p class="card-text">Available Tokens: <span
-            id="available_tokens">{{ courseReg.total_tokens_received | number: '1.0-1' }}</span>
-        </p>
-        <p class="card-text" id="remaining_tokens_text" [class.text-danger]="invalid"
-           [class.font-weight-bold]="invalid">
-            Remaining Tokens:<span id="remaining_tokens">{{ remainingTokens | number: '1.0-1' }}</span></p>
-    </div>
+<div class="tokens">
+    <h2 class="tui-text_h6 tui-space_bottom-8" [class.error]="invalid">
+        {{ remainingTokens | number: '1.0-1' }}/{{ courseReg.total_tokens_received | number: '1.0-1' }} Tokens Available
+    </h2>
 </div>
-<form class="mt-3" method="post">
-    <table class="table table-hover" data-toggle="table">
-        <thead class="thead-light text-dark">
-        <tr>
-            <th scope="col">Assignment&nbsp;Name</th>
-            <th scope="col">Tokens&nbsp;Required</th>
-            <th scope="col">Extra&nbsp;Grade&nbsp;Given</th>
-            <th scope="col">Max&nbsp;Use</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-container *ngIf="courseReg.token_uses; else tableEmpty">
-            <ng-container *ngFor="let tokenUse of courseReg.token_uses; index as i">
-                <tr>
-                    <td>{{ tokenUse.option.assignment_name || 'No Name' }}</td>
-                    <td id="req_tokens_{{ tokenUse.option.id }}">{{ tokenUse.option.tokens_required || 'No Value' }}</td>
-                    <td>{{ tokenUse.option.points_given || 'No Points'}}</td>
-                    <td>{{ tokenUse.option.maximum_number_of_use || 'No Value'}}</td>
-                    <td>
-                        <form class="form-inline">
-                            <button class="btn btn-danger action-icon" (click)="useToken(tokenUse, -1)">
-                                <fa-icon [icon]=faMinus class="fa button-icon fa-minus"></fa-icon>
-                            </button>
-                            <label class="sr-only" [attr.for]="'tokenUseAction' + tokenUse.option.id">Number of token
-                                use
-                                option {{ tokenUse.option.id }} to use</label>
-                            <input class="form-control input-sm mx-sm-2 token-input no-spin-button"
-                                   [attr.id]="'tokenUseAction' + tokenUse.option.id"
-                                   [(ngModel)]="tokenUse.num_used"
-                                   [ngModelOptions]="{standalone: true}"
-                                   type="number" min="0" [attr.max]="tokenUse.option.maximum_number_of_use"
-                                   (ngModelChange)="calculateCurrentTotal()">
-                            <button class="btn btn-success action-icon" (click)="useToken(tokenUse, 1)">
-                                <fa-icon [icon]=faPlus class="fa button-icon fa-plus"></fa-icon>
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            </ng-container>
-        </ng-container>
-        <ng-template #tableEmpty>
-            <tr>
-                <td colspan="5" class="bg-info">
-                    <p class="text-center text-light m-0">
-                        There are currently no options for token use in this course.
-                    </p>
-                </td>
-            </tr>
-        </ng-template>
-        </tbody>
-    </table>
-    <button class="my-1 btn btn-primary" id="submit_button" (click)="confirmChanges()" [disabled]="invalid">Confirm
-        Changes
-    </button>
+<form method="post">
+    <div class="token-use-islands">
+        <tui-island *ngFor="let tokenUse of courseReg.token_uses">
+            <h3 class="tui-island__title">{{ tokenUse.option.assignment_name }}</h3>
+            <div class="tui-space_bottom-2">
+                <ng-container *ngIf="tokenUse.num_used > 0; else tokenNotUsedTag">
+                    <tui-tag size="m" status="success" value="Tokens Used" *ngIf="tokenUse.num_used === tokenUse.option.maximum_number_of_use; else tokenPartialUseTag"></tui-tag>
+                    <ng-template #tokenPartialUseTag>
+                        <tui-tag size="m" status="warning" value="Tokens Partially Used"></tui-tag>
+                    </ng-template>
+                </ng-container>
+                <ng-template #tokenNotUsedTag>
+                    <tui-tag size="m" status="error" value="Not Used"></tui-tag>
+                </ng-template>
+            </div>
+            <p class="tui-island__paragraph">{{ tokenUse.option.tokens_required }} Tokens Required</p>
+            <p class="tui-island__paragraph">{{ tokenUse.option.points_given }} Extra Grade Points Given</p>
+            <p class="tui-island__paragraph">{{ tokenUse.option.maximum_number_of_use }} Maximum Uses</p>
+            <tui-input-count
+                [(ngModel)]="tokenUse.num_used"
+                [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="calculateCurrentTotal()"
+                [min]="0"
+                [max]="tokenUse.option.maximum_number_of_use"
+                class="tui-space_top-4"
+            >
+                Number of Tokens Used
+            </tui-input-count>
+        </tui-island>
+    </div>
+    <div class="tui-form__buttons">
+        <button
+            tuiButton
+            appearance="primary"
+            size="m"
+            type="submit"
+            class="tui-form__button"
+            (click)="confirmChanges()"
+            [disabled]="invalid"
+        >
+            Confirm Changes
+        </button>
+    </div>
 </form>
 
 

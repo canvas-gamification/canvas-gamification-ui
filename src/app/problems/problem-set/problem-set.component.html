@@ -1,142 +1,246 @@
-<form [formGroup]="formGroup" (ngSubmit)="applyFilter()">
-    <div class="form-row">
-        <div class="form-group col-3">
-            <label for="search">Search in Question Name:</label>
-            <input type="text" class="form-control" name="search" formControlName="search" id="search"
-                   placeholder="Search in the problem set...">
-        </div>
-        <div class="form-group col-2">
-            <label for="difficulty">Difficulty:</label>
-            <select class="form-control" name="difficulty" formControlName="difficulty" id="difficulty">
-                <option value="">All</option>
-                <option *ngFor="let diff of difficulties" [value]="diff[0]">{{diff[0]}}</option>
-            </select>
-        </div>
-        <div class="form-group col-2">
-            <label for="category">Category:</label>
-            <select class="form-control" name="category" formControlName="parentCategory" id="category">
-                <option value="">All</option>
-                <option *ngFor="let cat of parentCategories" [value]="cat.name">{{cat.name}}</option>
-            </select>
-        </div>
-        <div class="form-group col-2">
-            <label for="subcategory">Sub-Category:</label>
-            <select class="form-control" name="subcategory" id="subcategory" formControlName="subCategory">
-                <option value="">All</option>
-                <option *ngFor="let subcat of subCategories" [value]="subcat.name">{{subcat.name}}</option>
-            </select>
-        </div>
-        <div class="form-group col-2">
-            <label for="sample">Sample:</label>
-            <select class="form-control" name="sample" formControlName="is_sample" id="sample">
-                <option value="">All</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-            </select>
-        </div>
-        <div class="form-group col-1 mt-auto">
-            <button type="submit" class="btn btn-primary float-right">Go</button>
-        </div>
+<div class="tui-container tui-container_fullwidth">
+    <div class="heading">
+        <h1 class="tui-text_h3 tui-space_vertical-10">Problem Sets</h1>
+        <tui-hosted-dropdown
+            [content]="newQuestionDropdownContent"
+            [(open)]="openNewQuestionDropdown"
+        >
+            <button tuiButton size="m" type="button" icon="tuiIconPlus" [iconRight]="newQuestionDropdownIcon">
+                Create New Question
+            </button>
+        </tui-hosted-dropdown>
+        <ng-template #newQuestionDropdownIcon>
+            <tui-svg
+                src="tuiIconChevronDown"
+                class="new-question-icon"
+                [class.new-question-icon_rotated]="openNewQuestionDropdown"
+            ></tui-svg>
+        </ng-template>
+        <ng-template #newQuestionDropdownContent>
+            <tui-data-list>
+                <a tuiOption [routerLink]="['create', 'MCQ']">
+                    Multiple Choice Question
+                </a>
+                <a tuiOption [routerLink]="['create', 'checkbox']">
+                    Checkbox Question
+                </a>
+                <a tuiOption [routerLink]="['create', 'java']">
+                    Java Question
+                </a>
+                <a tuiOption [routerLink]="['create', 'parsons']">
+                    Parsons Question
+                </a>
+            </tui-data-list>
+        </ng-template>
     </div>
-</form>
-<table mat-table [dataSource]="questionsSource" matSort (matSortChange)="sortData($event)" matSortDisableClear
-       class="table table-hover hover-shadow">
-
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="id">#</th>
-        <td mat-cell *matCellDef="let question"> {{question.id || 'No ID'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="title">Question Name</th>
-        <td mat-cell *matCellDef="let question"> {{question.title || 'No Title'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="author">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="author">Author</th>
-        <td mat-cell *matCellDef="let question"> {{question.author_name || 'No Author'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="event__name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="event__name">Event</th>
-        <td mat-cell *matCellDef="let question"> {{question.event_obj.name || 'No Event'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="category__parent__name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="category__parent__name">Category</th>
-        <td mat-cell *matCellDef="let question"> {{question.parent_category_name || 'No Category'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="category__name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="category__name">Sub-Category</th>
-        <td mat-cell *matCellDef="let question"> {{question.category_obj.name || 'No Sub-Category'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="difficulty">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="difficulty">Difficulty</th>
-        <td mat-cell *matCellDef="let question"> {{getDifficultyDisplay(question.difficulty) || 'No Difficulty'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="token_value">
-        <th mat-header-cell *matHeaderCellDef>Token Value</th>
-        <td mat-cell *matCellDef="let question">{{question.token_value | number: '1.0-1' || 'No Token Value'}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="avg_success">
-        <th mat-header-cell *matHeaderCellDef>Avg Success</th>
-        <td mat-cell *matCellDef="let question">{{question.success_rate | number: '1.0-1' || 'No Average'}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions</th>
-        <td mat-cell *matCellDef="let question">
-            <div class="action-tray">
-                <a class="action-icon btn-primary faEye mr-2" [routerLink]="[question.id]">
-                    <fa-icon [icon]="faEye"></fa-icon>
-                </a>
-                <a class="action-icon btn btn-warning faPencilAlt mr-2" [routerLink]="[question.id, 'edit']">
-                    <fa-icon [icon]="faPencilAlt"></fa-icon>
-                </a>
-                <ng-container *ngIf="question.is_author; else cannotDelete">
-                    <a class="action-icon btn btn-danger faTrashAlt" [routerLink]=""
-                       (click)="open(deleteModal, question.id)">
-                        <fa-icon [icon]="faTrashAlt"></fa-icon>
-                    </a>
-                </ng-container>
-                <ng-template #cannotDelete>
-                    <a class="action-icon btn btn-danger faTrashAlt disabled" [routerLink]="">
-                        <fa-icon [icon]="faTrashAlt"></fa-icon>
-                    </a>
-                </ng-template>
-            </div>
-        </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row [ngClass]=highlight(row.status) *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-<mat-paginator
-    [length]="questionsLength"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="pageSizeOptions"
-    (page)="newPageEvent($event)"
->
-</mat-paginator>
-<ng-template #deleteModal let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Delete Question</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-            <span aria-hidden="true">×</span>
+    <form [formGroup]="formGroup" tuiTextfieldSize="m" class="filters" (ngSubmit)="update()">
+        <tui-input
+            formControlName="search"
+            class="search tui-space_bottom-4"
+            [tuiTextfieldCleaner]="true"
+        >
+            Search for a Question Name
+        </tui-input>
+        <tui-select
+            formControlName="difficulty"
+            class="tui-space_left-4"
+            [tuiTextfieldCleaner]="true"
+        >
+            Difficulty
+            <tui-data-list *tuiDataList>
+                <button *ngFor="let diff of difficulties" tuiOption [value]="diff[0]">
+                    {{ diff[1] }}
+                </button>
+            </tui-data-list>
+        </tui-select>
+        <tui-select
+            formControlName="parentCategory"
+            class="tui-space_left-4"
+            [tuiTextfieldCleaner]="true"
+        >
+            Category
+            <tui-data-list *tuiDataList>
+                <button *ngFor="let category of parentCategories" tuiOption [value]="category.name">
+                    {{ category.name }}
+                </button>
+            </tui-data-list>
+        </tui-select>
+        <tui-select
+            formControlName="subCategory"
+            class="tui-space_left-4"
+            [tuiTextfieldCleaner]="true"
+        >
+            Sub Category
+            <tui-data-list *tuiDataList>
+                <button *ngFor="let category of subCategories" tuiOption [value]="category.name">
+                    {{ category.name }}
+                </button>
+            </tui-data-list>
+        </tui-select>
+        <tui-select
+            formControlName="is_sample"
+            class="tui-space_left-4"
+            [tuiTextfieldCleaner]="true"
+        >
+            Sample
+            <tui-data-list *tuiDataList>
+                <button tuiOption [value]="true">
+                    Yes
+                </button>
+                <button tuiOption [value]="false">
+                    No
+                </button>
+            </tui-data-list>
+        </tui-select>
+        <button
+            tuiButton
+            size="m"
+            type="submit"
+            class="tui-space_left-4"
+        >
+            Filter
         </button>
-    </div>
-    <div class="modal-body">
-        Are you sure that you would like to delete this question?
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Cancel</button>
-        <button type="button" class="btn btn-outline-danger" (click)="deleteQuestion(); modal.close('Save click')">
-            Confirm
+    </form>
+    <tui-loader [overlay]="true" [showLoader]="!questions || filteringQuestions">
+        <table
+            tuiTable
+            [columns]="questionsTableColumns"
+            [(sorter)]="sorter"
+            (sorterChange)="update()"
+            [(direction)]="sortDirection"
+            (directionChange)="update()"
+            class="questions-table"
+        >
+            <thead tuiThead>
+            <tr tuiThGroup>
+                <th tuiTh [sorter]="sorters.id" *tuiHead="'id'">#</th>
+                <th tuiTh [sorter]="sorters.title" *tuiHead="'title'">Question Name</th>
+                <th tuiTh [sorter]="sorters.author_name" *tuiHead="'author_name'">Author</th>
+                <th tuiTh [sorter]="sorters.event_name" *tuiHead="'event_name'">Event</th>
+                <th tuiTh [sorter]="sorters.parent_category_name" *tuiHead="'parent_category_name'">Category</th>
+                <th tuiTh [sorter]="sorters.category_name" *tuiHead="'category_name'">Sub-Category</th>
+                <th tuiTh [sorter]="sorters.difficulty" *tuiHead="'difficulty'">Difficulty</th>
+                <th tuiTh [sorter]="null" *tuiHead="'type_name'">Type</th>
+                <th tuiTh [sorter]="null" *tuiHead="'token_value'">Token Value</th>
+                <th tuiTh [sorter]="null" *tuiHead="'success_rate'">Avg Success</th>
+                <th tuiTh [sorter]="null" *tuiHead="'status'">Status</th>
+                <th tuiTh [sorter]="null" *tuiHead="'actions'">Actions</th>
+            </tr>
+            </thead>
+            <tbody tuiTbody [data]="questions">
+            <tr tuiTr *tuiRow="let question of questions">
+                <td tuiTd *tuiCell="'author_name'">
+                    {{ (question.author_name) || 'No Author' }}
+                </td>
+                <td tuiTd *tuiCell="'event_name'">
+                    {{ (question.event_name) || 'No Event Name' }}
+                </td>
+                <td tuiTd *tuiCell="'parent_category_name'">
+                    {{ (question.parent_category_name) || 'No Category' }}
+                </td>
+                <td tuiTd *tuiCell="'category_name'">
+                    {{ (question.category_name) || 'No Sub-Category' }}
+                </td>
+                <td tuiTd *tuiCell="'difficulty'">
+                    {{ (question.difficulty | titlecase) || 'No Difficulty' }}
+                </td>
+                <td tuiTd *tuiCell="'type_name'">
+                    {{ (question.type_name | titlecase) || 'No Type' }}
+                </td>
+                <td tuiTd *tuiCell="'status'">
+                    <ng-container *ngIf="question.is_verified else questionNotVerified">
+                        <tui-tag size="m" status="success" value="Verified"></tui-tag>
+                    </ng-container>
+                    <ng-template #questionNotVerified>
+                        <tui-tag size="m" status="error" value="Not Verified"></tui-tag>
+                    </ng-template>
+                </td>
+                <td tuiTd *tuiCell="'actions'">
+                    <a
+                        tuiIconButton
+                        size="s"
+                        icon="tuiIconEyeOpen"
+                        class="tui-space_right-2 tui-space_vertical-2"
+                        [routerLink]="[question.id]"
+                        tuiDescribedBy="view"
+                        tuiHintId="view"
+                        tuiHintMode="onDark"
+                        tuiHintDirection="top-left"
+                        [tuiHint]="viewTooltip"
+                    ></a>
+                    <ng-template #viewTooltip>
+                        View Question
+                    </ng-template>
+                    <a
+                        tuiIconButton
+                        size="s"
+                        icon="tuiIconEdit"
+                        class="tui-space_right-2 tui-space_vertical-2"
+                        [routerLink]="[question.id, 'edit']"
+                        tuiDescribedBy="edit"
+                        tuiHintId="edit"
+                        tuiHintMode="onDark"
+                        tuiHintDirection="top-left"
+                        [tuiHint]="editTooltip"
+                    ></a>
+                    <ng-template #editTooltip>
+                        Edit Question
+                    </ng-template>
+                    <button
+                        tuiIconButton
+                        type="button"
+                        size="s"
+                        icon="tuiIconTrash"
+                        class="tui-space_vertical-2"
+                        (click)="openDeleteQuestionDialog(deleteDialog, question.id)"
+                        tuiDescribedBy="delete"
+                        tuiHintId="delete"
+                        tuiHintMode="onDark"
+                        tuiHintDirection="top-left"
+                        [tuiHint]="deleteTooltip"
+                    ></button>
+                    <ng-template #deleteTooltip>
+                        Delete Question
+                    </ng-template>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td [colSpan]="questionsTableColumns.length">
+                    <tui-table-pagination
+                        class="tui-space_top-2"
+                        [total]="numberOfQuestions"
+                        [(size)]="pageSize"
+                        [(page)]="page"
+                        (pageChange)="update()"
+                        (sizeChange)="update()"
+                    ></tui-table-pagination>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </tui-loader>
+</div>
+<ng-template let-observer #deleteDialog>
+    <p>Are you sure that you would like to delete this question?</p>
+    <div class="tui-form__buttons">
+        <button
+            tuiButton
+            size="m"
+            class="tui-form__button"
+            (click)="observer.next()"
+        >
+            Confirm Changes
+        </button>
+        <button
+            tuiButton
+            size="m"
+            appearance="secondary"
+            class="tui-form__button"
+            (click)="observer.complete()"
+        >
+            Cancel
         </button>
     </div>
 </ng-template>
-

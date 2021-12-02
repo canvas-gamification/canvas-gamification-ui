@@ -5,6 +5,7 @@ import {CourseEventService} from '@app/course/_services/course-event.service';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {CourseEventForm} from "@app/course/_forms/course-event.form";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {tuiCreateTimePeriods} from "@taiga-ui/kit";
 
 @Component({
     selector: 'app-course-event-create',
@@ -16,6 +17,7 @@ export class CourseEventCreateEditComponent implements OnInit {
     courseId: number;
     eventId: number = null;
     formData: FormGroup;
+    timeOptions = tuiCreateTimePeriods();
 
     constructor(private route: ActivatedRoute,
                 private courseEventService: CourseEventService,
@@ -55,6 +57,7 @@ export class CourseEventCreateEditComponent implements OnInit {
                     .show('The Event has been updated Successfully.', {
                         status: TuiNotification.Success
                     }).subscribe();
+                this.router.navigate(['course', this.courseId]).then();
             }, error => {
                 this.notificationsService
                     .show(error, {
