@@ -133,13 +133,13 @@
                     {{ (question.author_name) || 'No Author' }}
                 </td>
                 <td tuiTd *tuiCell="'event_name'">
-                    {{ (question.event_name) || 'No Event Name' }}
+                    {{ (question.event_obj.name) || 'No Event Name' }}
                 </td>
                 <td tuiTd *tuiCell="'parent_category_name'">
                     {{ (question.parent_category_name) || 'No Category' }}
                 </td>
                 <td tuiTd *tuiCell="'category_name'">
-                    {{ (question.category_name) || 'No Sub-Category' }}
+                    {{ (question.category_obj.name) || 'No Sub-Category' }}
                 </td>
                 <td tuiTd *tuiCell="'difficulty'">
                     {{ (question.difficulty | titlecase) || 'No Difficulty' }}
