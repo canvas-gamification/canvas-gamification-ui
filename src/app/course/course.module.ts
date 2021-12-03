@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {CourseEventCreateEditComponent} from "@app/course/course-event-create/course-event-create-edit.component";
 import {CourseRegisterComponent} from "@app/course/course-registration/course-register.component";
+import {CourseDashboardRegisterComponent} from "@app/course/course-dashboard-registration/course-dashboard-register.component";
 import {CourseListComponent} from "@app/course/course-list/course-list.component";
 import {CourseComponent} from "@app/course/course.component";
 import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/course-events-snippet.component";
@@ -57,6 +58,7 @@ import {TuiFilterPipeModule} from "@taiga-ui/cdk";
     declarations: [
         CourseListComponent,
         CourseRegisterComponent,
+        CourseDashboardRegisterComponent,
         CourseComponent,
         CourseEventsSnippetComponent,
         TokenUseSnippetComponent,
@@ -67,7 +69,7 @@ import {TuiFilterPipeModule} from "@taiga-ui/cdk";
         CourseDashboardComponent,
         CategoryListSnippetComponent,
         CourseRegistrationStepperComponent,
-        CourseRegistrationStepComponent
+        CourseRegistrationStepComponent,
     ],
     imports: [
         CommonModule,

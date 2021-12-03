@@ -32,4 +32,11 @@ export class CourseRegisterForm {
             verifyControl: new FormControl('', [Validators.required])
         });
     }
+
+    static createStudentUsernameForm(): FormGroup {
+        const builder = new FormBuilder();
+        return builder.group({
+            studentUsernameControl: new FormControl('', [Validators.required])
+        });
+    }
 }

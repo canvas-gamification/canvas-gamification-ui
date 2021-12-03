@@ -18,23 +18,71 @@
             </ng-container>
 
             <ng-container matColumnDef="parent">
-                <th mat-header-cell *matHeaderCellDef>Parent</th>
-                <td mat-cell *matCellDef="let category"> {{category.parent || 'No parent found'}} </td>
+                <th mat-header-cell *matHeaderCellDef>Number of submissions</th>
+                <td mat-cell *matCellDef="let category"> {{getSubmissionStat(category.pk)}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef>Total submissions</th>
+                <td mat-cell *matCellDef="let category"> {{getMaxAttemptsStat(category.pk)}}
+                </td>
             </ng-container>
 
             <ng-container matColumnDef="expandedDetail">
-                <td mat-cell *matCellDef="let category" [attr.colspan]="displayedColumns.length">
-                    <div [ngStyle]="{'overflow': 'hidden', 'display':'flex'}"
+                <td mat-cell *matCellDef="let category" [attr.colspan]="displayedColumns.length" [hidden]="category.parent != null">
+                    <div [ngStyle]="{'overflow': 'hidden'}"
                          [@detailExpand]="category == expandedElement ? 'expanded' : 'collapsed'">
                         <div>
-                            <div class="p-3"> Category's description: {{category.description}} </div>
+<!--                            <div [ngStyle]="{'padding':'2em'}">-->
+<!--                                Number of submissions for this category: {{getSubmissionStat(category.pk)}}-->
+<!--                            </div>-->
+                            <table mat-table [dataSource]="categoriesSource" matSort (matSortChange)="sortData($event)" matSortDisableClear
+                                   class="table table-hover hover-shadow" [ngStyle]="{'width':'100%'}" multiTemplateDataRows>
+                                <ng-container matColumnDef="pk">
+                                    <th mat-header-cell *matHeaderCellDef>Index</th>
+                                    <td mat-cell *matCellDef="let category_children"> {{category_children.pk || 'No name found'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header="name">Name</th>
+                                    <td mat-cell *matCellDef="let category_children"> {{category_children.name || 'No name found'}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="parent">
+                                    <th mat-header-cell *matHeaderCellDef>Number of submissions</th>
+                                    <td mat-cell *matCellDef="let category_children"> {{getSubmissionStat(category_children.pk)}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="total">
+                                    <th mat-header-cell *matHeaderCellDef>Total submissions</th>
+                                    <td mat-cell *matCellDef="let category_children"> {{getMaxAttemptsStat(category_children.pk)}}
+                                    </td>
+                                </ng-container>
+
+<!--                                <ng-container matColumnDef="expandedDetail">-->
+<!--                                    <td mat-cell *matCellDef="let category_children" [attr.colspan]="displayedColumns.length">-->
+<!--                                        <div [ngStyle]="{'overflow': 'hidden'}"-->
+<!--                                             [@detailExpand]="category_children == expandedChildrenElement ? 'expanded' : 'collapsed'">-->
+<!--                                            <div [ngStyle]="{'padding':'2em'}">-->
+<!--                                                Number of submissions for this sub-category: {{getSubmissionStat(category_children.pk)}}-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let category_children; columns: displayedColumns;" [hidden] = "!(category_children.parent==category.pk)"
+                                    (click)="expandedChildrenElement = expandedChildrenElement === category_children ? null : category_children"></tr>
+<!--                                <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" [ngStyle]="{'height': '0'}"></tr>-->
+
+                            </table>
                         </div>
                     </div>
                 </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let category; columns: displayedColumns;"
+            <tr mat-row *matRowDef="let category; columns: displayedColumns;" [hidden]="category.parent != null"
                 (click)="expandedElement = expandedElement === category ? null : category"></tr>
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" [ngStyle]="{'height': '0'}"></tr>
 

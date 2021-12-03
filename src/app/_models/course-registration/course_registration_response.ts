@@ -14,4 +14,5 @@ export interface CourseRegistrationRequest {
     confirmed_name?: string;
     student_number?: number | string;
     code?: number;
+    student_username?: string;
 }

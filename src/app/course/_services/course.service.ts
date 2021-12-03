@@ -54,6 +54,16 @@ export class CourseService {
             })));
     }
 
+    registerDashboard(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
+        const url = this.apiService.getURL('course', courseId, 'register-dashboard');
+        return this.http
+            .post<CourseRegistrationResponse>(url, data)
+            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>('', {
+                success: false,
+                bad_request: true
+            })));
+    }
+
     // TODO: Handling error of this function needs refactoring
     // Error message should be sent from here
     getCourseRegistrationStatus(courseId: number): Observable<RegistrationStatus> {

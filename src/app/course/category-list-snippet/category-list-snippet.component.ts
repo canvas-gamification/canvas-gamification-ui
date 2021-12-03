@@ -1,10 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CategoryService} from '@app/_services/api/category.service';
-import {Category} from '@app/_models';
+import {SubmissionService} from "@app/problems/_services/submission.service";
+import {Category, Question} from '@app/_models';
+import {QuestionSubmission} from '@app/_models/question_submission';
 import {MatTableDataSource} from "@angular/material/table";
 import {Sort} from "@angular/material/sort";
 import {Subject} from "rxjs";
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {QuestionService} from "@app/problems/_services/question.service";
 
 @Component({
     selector: 'app-category-list-snippet',
@@ -25,9 +28,12 @@ export class CategoryListSnippetComponent implements OnInit {
 
     categoriesList: Category[];
     categoriesSource : MatTableDataSource<Category>;
+    submissionsList: QuestionSubmission[];
+    questionsList: Question[];
     expanded: unknown = {};
-    displayedColumns: string[] = ['pk', 'name', 'parent'];
+    displayedColumns: string[] = ['pk', 'name', 'parent', 'total'];
     expandedElement: Category | null;
+    expandedChildrenElement: Category | null;
 
     // Sorting
     ordering: string;
@@ -39,7 +45,9 @@ export class CategoryListSnippetComponent implements OnInit {
         ordering: string
     }>();
 
-    constructor(public categoryService: CategoryService) {
+    constructor(private categoryService: CategoryService,
+                private submissionService: SubmissionService,
+                private questionService: QuestionService) {
     }
 
     ngOnInit(): void {
@@ -49,6 +57,14 @@ export class CategoryListSnippetComponent implements OnInit {
                 this.categoriesList = categories;
                 this.categoriesSource = new MatTableDataSource(this.categoriesList);
             });
+        this.submissionService.getAllSubmission().subscribe(
+            submissions => {
+                this.submissionsList = submissions;
+            }
+        );
+        this.questionService.getQuestions().subscribe(paginatedQuestions => {
+            this.questionsList = paginatedQuestions.results;
+        });
     }
 
     /**
@@ -75,5 +91,25 @@ export class CategoryListSnippetComponent implements OnInit {
             this.ordering = '';
         }
         this.update();
+    }
+
+    getSubmissionStat(id: number): number {
+        let counter = 0;
+        this.submissionsList.forEach(sub => {
+            if (sub.question.category == id){
+                counter += 1;
+            }
+        });
+        return counter;
+    }
+
+    getMaxAttemptsStat(id: number): number {
+        let counter = 0;
+        this.questionsList.forEach(question => {
+            if (question.category == id){
+                counter += question.max_submission_allowed;
+            }
+        });
+        return counter;
     }
 }

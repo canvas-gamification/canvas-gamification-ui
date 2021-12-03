@@ -23,6 +23,11 @@ export class SubmissionService {
             .pipe(catchError(this.apiService.handleError<QuestionSubmission>('Error occurred while fetching submission')));
     }
 
+    getAllSubmission(): Observable<QuestionSubmission[]>{
+        const url = this.apiService.getURL('submission');
+        return this.http.get<QuestionSubmission[]>(url)
+            .pipe(catchError(this.apiService.handleError<QuestionSubmission[]>('Error occurred while fetching submission')));
+    }
     /**
      * Get previous submissions for a question.
      * @param id - The id of the question
@@ -46,4 +51,5 @@ export class SubmissionService {
         return this.http.post<HttpHeaderResponse>(url, input)
             .pipe(catchError(this.apiService.handleFormError()));
     }
+
 }

@@ -9,6 +9,11 @@
            aria-controls="category-list"
            aria-selected="false">Category List</a>
     </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="course-dashboard-registration-tab" data-toggle="tab" href="#register" role="tab"
+           aria-controls="register"
+           aria-selected="false">Register</a>
+    </li>
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="student-list" role="tabpanel" aria-labelledby="student-list-tab">
@@ -26,18 +31,6 @@
                     </div>
                 </div>
             </form >
-            <form [formGroup]="formGroup" (ngSubmit)="registerUser(formGroup.value.username)" [ngStyle]= "{'display':'inline-block', 'width' : '50%'}">
-                <div class="form-row" [ngStyle]= "{'width' : '200%'}">
-                    <div class="form-group col-3">
-                        <label for="username">Search username for registration:</label>
-                        <input type="text" class="form-control" name="username" formControlName="username" id="username"
-                               placeholder="Search a username">
-                    </div>
-                    <div class="form-group col-1 mt-auto">
-                        <button type="submit" class="btn btn-primary float-right">Go</button>
-                    </div>
-                </div>
-            </form>
         </div>
 
             <table mat-table [dataSource]="registrationsSource" matSort (matSortChange)="sortData($event)" matSortDisableClear
@@ -88,6 +81,11 @@
     <div class="tab-pane fade" id="category-list" role="tabpanel" aria-labelledby="category-list-tab">
         <div class="hover-shadow p-3">
             <app-category-list-snippet></app-category-list-snippet>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+        <div class="hover-shadow p-3">
+            <app-dashboard-register></app-dashboard-register>
         </div>
     </div>
 </div>
