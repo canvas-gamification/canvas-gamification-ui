@@ -1,8 +1,13 @@
 @import 'variables';
 @import 'mixins';
 @import 'highlight';
-@import "bootstrap";
+//@import "bootstrap";
 
 body {
+    font: var(--tui-font-text-m) !important;
     background: var(--tui-base-01);
+}
+
+pre {
+    margin: 0;
 }

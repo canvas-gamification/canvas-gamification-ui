@@ -1,15 +1,9 @@
-<div class="card my-1">
-    <div class="card-header">
-        <h1>My Answer</h1>
+<h2 class="tui-form__header">My Answer</h2>
+<form (ngSubmit)="onSubmit()">
+    <ng-container *ngFor="let file of files">
+        <app-parsons-lines [file]="file" (code)="file.solution = $event"></app-parsons-lines>
+    </ng-container>
+    <div class="tui-form__buttons">
+        <button tuiButton size="m" class="tui-form__button">Submit</button>
     </div>
-    <div class="container">
-        <form (ngSubmit)="onSubmit()">
-            <div class="card-body">
-                <ng-container *ngFor="let file of files">
-                    <app-parsons-lines [file]="file" (code)="file.solution = $event"></app-parsons-lines>
-                </ng-container>
-            </div>
-            <button type="submit" class="btn btn-success my-3">Submit</button>
-        </form>
-    </div>
-</div>
+</form>

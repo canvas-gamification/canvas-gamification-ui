@@ -35,7 +35,7 @@ import {QuestionService} from "@app/problems/_services/question.service";
 import {SchemaService} from "@app/problems/_services/schema.service";
 import {SubmissionService} from "@app/problems/_services/submission.service";
 import {ParsonsLinesComponent} from './problem-view/parsons-lines/parsons-lines.component';
-import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
+import {TuiReorderModule, TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
 import {
     TuiButtonModule,
     TuiDataListModule,
@@ -44,11 +44,18 @@ import {
     TuiDropdownControllerModule,
     TuiHintModule,
     TuiHostedDropdownModule,
-    TuiLoaderModule,
+    TuiLoaderModule, TuiNotificationModule,
     TuiSvgModule,
     TuiTextfieldControllerModule
 } from "@taiga-ui/core";
-import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
+import {
+    TuiAccordionModule, TuiCheckboxBlockModule, TuiCheckboxLabeledModule,
+    TuiInputModule,
+    TuiIslandModule, TuiRadioBlockModule,
+    TuiRadioLabeledModule,
+    TuiSelectModule, TuiTabsModule,
+    TuiTagModule
+} from "@taiga-ui/kit";
 
 @NgModule({
     declarations: [
@@ -101,6 +108,15 @@ import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
         TuiSvgModule,
         TuiHostedDropdownModule,
         TuiTagModule,
+        TuiIslandModule,
+        TuiRadioLabeledModule,
+        TuiNotificationModule,
+        TuiAccordionModule,
+        TuiTabsModule,
+        TuiReorderModule,
+        TuiCheckboxLabeledModule,
+        TuiCheckboxBlockModule,
+        TuiRadioBlockModule,
     ],
     providers: [
         DifficultyService,

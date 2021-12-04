@@ -26,16 +26,16 @@
 
 .left-container, .right-container {
     height: 100%;
-    background: rgb(230, 230, 230);
-    border-radius: 5px;
-    display: flow-root;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .container-object {
-    margin: 10px;
+    cursor: move;
     padding: 0.1rem 1rem;
-    background: rgb(210, 210, 210);
-    border-radius: 5px;
+    background-color: var(--tui-base-02);
+    border-radius: var(--tui-radius-s);
 }
 
 pre {

@@ -1,25 +1,24 @@
-<div class="card my-3">
-    <div class="card-header">{{file.name}}</div>
-    <div class="card-body">
-        <div class="row overflow-hidden">
-            <div class="col-md-6">
-                <h2>Lines</h2>
-                <div class="left-container" [dragula]="file.name" [(dragulaModel)]="leftContainer">
-                    <div class="container-object" *ngFor="let line of leftContainer">
-                        <pre>{{line.value}}</pre>
-                    </div>
+{{ file.name }}
+<div class="tui-row">
+    <div class="tui-col_6">
+        <h2>Lines</h2>
+        <tui-island>
+            <div class="left-container" [dragula]="file.name" [(dragulaModel)]="leftContainer">
+                <div class="container-object" *ngFor="let line of leftContainer">
+                    <pre>{{line.value}}</pre>
                 </div>
             </div>
-            <div class="col-md-6">
-                <h2>My Solution</h2>
-                <div class="right-container" [dragula]="file.name"
-                     [(dragulaModel)]="rightContainer">
-                    <div class="container-object" *ngFor="let line of rightContainer">
-                        <pre>{{line.value}}</pre>
-                    </div>
+        </tui-island>
+    </div>
+    <div class="tui-col_6">
+        <h2>My Solution</h2>
+        <tui-island>
+            <div class="right-container" [dragula]="file.name"
+                 [(dragulaModel)]="rightContainer">
+                <div class="container-object" *ngFor="let line of rightContainer">
+                    <pre>{{line.value}}</pre>
                 </div>
             </div>
-        </div>
+        </tui-island>
     </div>
 </div>
-
