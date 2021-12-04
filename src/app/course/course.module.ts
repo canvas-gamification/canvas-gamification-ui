@@ -33,23 +33,37 @@ import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 import {
+    TuiAvatarModule,
+    TuiCheckboxLabeledModule,
     TuiFieldErrorModule,
+    TuiInputCountModule,
+    TuiInputDateModule,
+    TuiInputDateRangeModule,
     TuiInputModule,
+    TuiInputTimeModule,
     TuiIslandModule,
+    TuiSelectModule,
     TuiStepperModule,
+    TuiTabsModule,
     TuiTagModule
 } from "@taiga-ui/kit";
 import {
     TuiButtonModule,
+    TuiCalendarModule,
+    TuiDataListModule,
+    TuiDialogModule,
     TuiErrorModule,
+    TuiLinkModule,
     TuiLoaderModule,
     TuiNotificationModule,
+    TuiSvgModule,
     TuiTextfieldControllerModule
 } from "@taiga-ui/core";
 import {TextMaskModule} from "angular2-text-mask";
 import {CourseRegistrationStepperComponent} from './course-registration/course-registration-stepper/course-registration-stepper.component';
 import {CourseRegistrationStepComponent} from './course-registration/course-registration-step/course-registration-step.component';
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
+import {TuiTableModule} from "@taiga-ui/addon-table";
 
 @NgModule({
     declarations: [
@@ -97,9 +111,23 @@ import {TuiFilterPipeModule} from "@taiga-ui/cdk";
         TuiLoaderModule,
         TuiIslandModule,
         TuiTagModule,
-        TuiFilterPipeModule
+        TuiFilterPipeModule,
+        TuiLinkModule,
+        TuiCalendarModule,
+        TuiTabsModule,
+        TuiSvgModule,
+        TuiDialogModule,
+        TuiTableModule,
+        TuiSelectModule,
+        TuiDataListModule,
+        TuiCheckboxLabeledModule,
+        TuiInputDateModule,
+        TuiInputTimeModule,
+        TuiInputDateRangeModule,
+        TuiInputCountModule,
+        TuiAvatarModule
     ],
-    providers:[
+    providers: [
         CourseService,
         CourseEventService,
         TokenUseService

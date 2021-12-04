@@ -8,6 +8,12 @@ body {
     background: var(--tui-base-01);
 }
 
+table {
+    th {
+        background-color: var(--tui-base-02) !important;
+    }
+}
+
 pre {
     margin: 0;
 }

@@ -163,8 +163,10 @@ describe('McqEditSnippetComponent', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(McqEditSnippetComponent);
             component = fixture.componentInstance;
-            component.questionDetails = MOCK_MCQ_QUESTION;
-            component.questionDetails.event = 0;
+            component.questionDetails = {
+                ...MOCK_MCQ_QUESTION,
+                event: 0,
+            };
             fixture.detectChanges();
         });
 

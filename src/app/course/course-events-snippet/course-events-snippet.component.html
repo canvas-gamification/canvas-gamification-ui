@@ -1,88 +1,94 @@
-<ng-container *ngIf="course?.has_create_event_permission">
-    <a [routerLink]="['/course', courseId, 'new-event']" class="btn btn-primary my-2 mr-3">Add an Event</a>
-    <a (click)="open(importEventModal)" [routerLink]="" class="btn btn-primary my-2">Import an Event</a>
-</ng-container>
-<hr/>
-<table class="table table-hover mt-1" data-toggle="table">
-    <thead class="thead-light text-dark">
-    <tr>
-        <th scope="col">Name</th>
-        <th scope="col">Start&nbsp;Date</th>
-        <th scope="col">End&nbsp;Date</th>
-        <th scope="col">Grade</th>
-        <th scope="col">Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <ng-container *ngIf="events; else tableEmpty">
-        <ng-container *ngFor="let event of events; index as i">
-            <tr>
-                <td>{{ event.name || 'N/A'}}</td>
-                <td>{{ event.start_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
-                <td>{{ event.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
-                <td *ngIf="isExamAndOpen(event); else totalEventGrade">Not Available Yet</td>
-                <ng-template #totalEventGrade>
-                    <td>{{ event.total_event_grade | number: '1.0-1' || 'No Grade'}}%</td>
-                </ng-template>
-                <td>
-                    <div class="btn-container">
-                        <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
-                            <a [routerLink]="['/course', courseId, 'event', event.id]"
-                               class="btn btn-primary mr-3">{{ getEventButtonText(event) }}</a>
-                        </ng-container>
-                        <ng-template #notAllowedOpen>
-                            <!--Link to nowhere if you can't open. It's disabled however-->
-                            <a class="btn btn-outline-info open-btn mr-3 disabled"
-                               href="#">{{ getEventButtonText(event) }}</a>
-                        </ng-template>
-                        <a *ngIf="event.has_edit_permission" [routerLink]="['/course', courseId, 'new-event', event.id]"
-                           class="btn btn-primary edit-btn">Edit</a>
-                    </div>
-                </td>
-            </tr>
-        </ng-container>
+<div class="events">
+    <ng-container *ngIf="course?.has_create_event_permission">
+        <tui-island
+            [hoverable]="true"
+            textAlign="center"
+            class="new-event"
+            (click)="openEventImportDialog()"
+        >
+            <div class="tui-space_vertical-10">
+                <figure class="tui-island__figure">
+                    <tui-svg src="tuiIconPlusLarge"></tui-svg>
+                </figure>
+                <h2 class="tui-island__title">Add Event</h2>
+            </div>
+        </tui-island>
     </ng-container>
-    <ng-template #tableEmpty>
-        <tr>
-            <td class="bg-info" colspan="6">
-                <p class="text-center text-light m-0">There are currently no events in this course.</p>
-            </td>
-        </tr>
-    </ng-template>
-    </tbody>
-</table>
-<ng-template #importEventModal let-modal>
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-basic-title">Select Event to Import</h3>
-        <button (click)="modal.dismiss()" aria-label="Close" class="close" type="button">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <table class="table table-bordered table-hover">
-            <thead>
-            <tr>
-                <th class="text-center" scope="col">Id</th>
-                <th class="text-center" scope="col">Name</th>
-                <th class="text-center" scope="col">Type</th>
-                <th class="text-center" scope="col">Course Id</th>
-                <th class="text-center" scope="col">Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let event of courseEvents">
-                <td class="text-center">{{event.id || 'None'}}</td>
-                <td class="text-center">{{event.name || 'None'}}</td>
-                <td class="text-center">{{event.type || 'None'}}</td>
-                <td class="text-center">{{event.course || 'None'}}</td>
-                <td class="text-center">
-                    <button class="btn btn-success" type="button" (click)="importCourseEvent(event, courseId)">Import</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <button (click)="modal.dismiss()" class="btn btn-outline-primary" type="button">Close</button>
-    </div>
+    <tui-island *ngFor="let event of events; index as i">
+        <p class="tui-island__category">{{ event.type }}</p>
+        <h2 class="tui-island__title">{{ event.name }}</h2>
+        <div class="tui-space_bottom-2">
+            <tui-tag size="m" status="success" value="Open" *ngIf="event.is_open; else eventClosedTag"></tui-tag>
+            <ng-template #eventClosedTag>
+                <tui-tag size="m" status="error" value="Closed"></tui-tag>
+            </ng-template>
+        </div>
+        <p class="tui-island__paragraph">From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</p>
+        <p class="tui-island__paragraph">Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</p>
+        <p class="tui-space_top-2">
+            <ng-container *ngIf="event.is_open && event.is_exam; else totalEventGrade">
+                Grade Not Yet Available
+            </ng-container>
+            <ng-template #totalEventGrade>
+                Grade: {{ event.total_event_grade | number: '1.0-1' || 'No Grade'}}%
+            </ng-template>
+        </p>
+        <div class="tui-form__buttons">
+            <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
+                <a tuiButton appearance="primary" size="m" class="tui-form__button"
+                   [routerLink]="['/course', courseId, 'event', event.id]"
+                >
+                    {{ user.is_teacher ? 'Open' : 'Complete' }}
+                </a>
+            </ng-container>
+            <ng-template #notAllowedOpen>
+                <a tuiButton appearance="primary" size="m" class="tui-form__button" href="" [disabled]="true">
+                    Complete
+                </a>
+            </ng-template>
+            <a *ngIf="event.has_edit_permission" tuiButton appearance="primary" size="m" class="tui-form__button"
+               [routerLink]="['/course', courseId, 'new-event', event.id]"
+            >
+                Edit
+            </a>
+        </div>
+    </tui-island>
+</div>
+<ng-template
+    let-observer
+    #importDialog
+>
+    <ng-container *ngIf="courseEvents">
+        <div class="import-events tui-space_top-8">
+            <a
+                tuiIsland
+                size="s"
+                [hoverable]="true"
+                textAlign="center"
+                class="new-event"
+                [routerLink]="['/course', courseId, 'new-event']"
+                (click)="observer.complete()"
+            >
+                <figure class="tui-island__figure">
+                    <tui-svg src="tuiIconPlusLarge"></tui-svg>
+                </figure>
+                <h2 class="tui-island__title">Create New Event</h2>
+            </a>
+            <tui-island size="s" *ngFor="let event of courseEvents">
+                <p class="tui-island__category">{{ event.type }}</p>
+                <h3 class="tui-island__title">{{ event.name }}</h3>
+                <button
+                    tuiButton
+                    appearance="primary"
+                    size="s"
+                    (click)="importCourseEvent(event, courseId)"
+                >
+                    Import
+                </button>
+            </tui-island>
+        </div>
+    </ng-container>
+    <button tuiButton type="button" size="m" class="tui-space_top-8" (click)="observer.complete()">
+        Cancel
+    </button>
 </ng-template>

@@ -22,10 +22,8 @@ export class CourseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courseService
-            .getCourse(this.courseId)
-            .subscribe(course => {
-                this.course = course;
-            });
+        this.courseService.getCourse(this.courseId).subscribe(course => {
+            this.course = course;
+        });
     }
 }
