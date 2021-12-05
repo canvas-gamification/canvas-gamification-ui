@@ -42,6 +42,7 @@ describe('CourseQuestionSnippetComponent VALID EVENT', () => {
         fixture = TestBed.createComponent(CourseQuestionSnippetComponent);
         component = fixture.componentInstance;
         component.user = MOCK_USER_TEACHER;
+        component.uqjs = [MOCK_UQJ];
         fixture.detectChanges();
     });
 
@@ -66,10 +67,8 @@ describe('CourseQuestionSnippetComponent VALID EVENT', () => {
     });
 
     it('switch favorite should work', () => {
-        const data = {uqj: MOCK_UQJ, favouriteStatus: true};
-        UqjService.updateFavourite(data).subscribe((response) =>{
-            expect(response).toBeTruthy();
-        });
+        component.switchFavorite(MOCK_UQJ.id, MOCK_UQJ.is_favorite, MOCK_UQJ.question.id);
+        expect(component.uqjs[0].is_favorite).toEqual(false);
     });
 });
 describe('CourseQuestionSnippetComponent INVALID EVENT', () => {

@@ -8,7 +8,6 @@ import {AuthenticationService} from '@app/_services/api/authentication';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 import {QuestionService} from "@app/problems/_services/question.service";
-import {MatIconModule} from "@angular/material/icon";
 
 @Component({
     selector: 'app-problem-view',

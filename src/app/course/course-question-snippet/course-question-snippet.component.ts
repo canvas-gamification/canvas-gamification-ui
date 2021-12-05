@@ -41,8 +41,10 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null;
 
         for (const uqj of this.uqjs) {
+            console.log(this.uqjs);
             this.getFavoriteCount(uqj.question.id, uqj.is_favorite);
         }
+
         if (this.eventId && this.courseId) { // if this snippet is an event-view
             this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {
                 if (response.success) {

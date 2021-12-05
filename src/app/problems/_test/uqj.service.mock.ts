@@ -25,8 +25,8 @@ export class UqjServiceMock {
         return of(MOCK_UQJS.find(uqj => uqj.question.id === questionId));
     }
 
-    updateFavourite(data: {id: number, status: boolean}): Observable<UQJ>{
-        const id = data.id;
+    updateFavorite(data: { favouriteStatus: boolean; uqjID: number }): Observable<UQJ> {
+        const id = data.uqjID;
         return of(MOCK_UQJS.find(uqj => uqj.id === id));
     }
 }
