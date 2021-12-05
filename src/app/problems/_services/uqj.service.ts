@@ -68,4 +68,12 @@ export class UqjService {
             .pipe(map(x => x.results[0]))
             .pipe(catchError(this.apiService.handleError<UQJ>(`Error Occurred while fetching user-specific data for this question`)));
     }
+
+    getAllUQJByQuestion(): Observable<UQJ[]>{
+        const url = this.apiService.getURL('uqj','all-uqj');
+        return this.http
+            .get<UQJ[]>(url)
+            .pipe(catchError(this.apiService.handleError<UQJ[]>(`Error Occurred while fetching user-specific data for this question`)));
+    }
+
 }

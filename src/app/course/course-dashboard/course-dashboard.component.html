@@ -5,42 +5,47 @@
            aria-selected="false">Student List</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="report-tab" data-toggle="tab" href="#report" role="tab"
-           aria-controls="report-tab"
-           aria-selected="false">Report</a>
+        <a class="nav-link" id="favorite-tab" data-toggle="tab" href="#favorite" role="tab"
+           aria-controls="favorite-tab"
+           aria-selected="false">Favorite</a>
     </li>
 
 </ul>
 <div class="tab-content" id="myTabContent">
+
     <div class="tab-pane fade show active" id="student-list" role="tabpanel" aria-labelledby="student-list-tab">
         <div class="hover-shadow p-3">
-        <div>
-            <form [formGroup]="formGroup" (ngSubmit)="applyFilter()"  [ngStyle]= "{'display':'inline-block', 'width' : '50%'}">
-                <div class="form-row" [ngStyle]= "{'width' : '200%'}">
-                    <div class="form-group col-3" >
-                        <label for="name">Search first or last name:</label>
-                        <input type="text" class="form-control" name="name" formControlName="name" id="name"
-                               placeholder="Search a name..">
+            <div>
+                <form [formGroup]="formGroup" (ngSubmit)="applyFilter()"
+                      [ngStyle]="{'display':'inline-block', 'width' : '50%'}">
+                    <div class="form-row" [ngStyle]="{'width' : '200%'}">
+                        <div class="form-group col-3">
+                            <label for="name">Search first or last name:</label>
+                            <input type="text" class="form-control" name="name" formControlName="name" id="name"
+                                   placeholder="Search a name..">
+                        </div>
+                        <div class="form-group col-1 mt-auto">
+                            <button type="submit" class="btn btn-primary float-right">Go</button>
+                        </div>
                     </div>
-                    <div class="form-group col-1 mt-auto" >
-                        <button type="submit" class="btn btn-primary float-right">Go</button>
+                </form>
+                <form [formGroup]="formGroup" (ngSubmit)="registerUser(formGroup.value.username)"
+                      [ngStyle]="{'display':'inline-block', 'width' : '50%'}">
+                    <div class="form-row" [ngStyle]="{'width' : '200%'}">
+                        <div class="form-group col-3">
+                            <label for="username">Search username for registration:</label>
+                            <input type="text" class="form-control" name="username" formControlName="username"
+                                   id="username"
+                                   placeholder="Search a username">
+                        </div>
+                        <div class="form-group col-1 mt-auto">
+                            <button type="submit" class="btn btn-primary float-right">Go</button>
+                        </div>
                     </div>
-                </div>
-            </form >
-            <form [formGroup]="formGroup" (ngSubmit)="registerUser(formGroup.value.username)" [ngStyle]= "{'display':'inline-block', 'width' : '50%'}">
-                <div class="form-row" [ngStyle]= "{'width' : '200%'}">
-                    <div class="form-group col-3">
-                        <label for="username">Search username for registration:</label>
-                        <input type="text" class="form-control" name="username" formControlName="username" id="username"
-                               placeholder="Search a username">
-                    </div>
-                    <div class="form-group col-1 mt-auto">
-                        <button type="submit" class="btn btn-primary float-right">Go</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-            <table mat-table [dataSource]="registrationsSource" matSort (matSortChange)="sortData($event)" matSortDisableClear
+                </form>
+            </div>
+            <table mat-table [dataSource]="registrationsSource" matSort (matSortChange)="sortData($event)"
+                   matSortDisableClear
                    class="table table-hover hover-shadow">
                 <caption>List of Students currently enrolled</caption>
 
@@ -70,10 +75,11 @@
                         <button type="button" [ngClass]="registration.status == 'BLOCKED'?
                             'btn btn-outline-dark btn-danger mr-2' : 'btn btn-outline-dark btn-success mr-2'"
                                 (click)="changeStatus(registration.id, registration.status == 'BLOCKED'? 'VERIFIED' : 'BLOCKED')">
-                            {{registration.status == 'BLOCKED'? "Unblock" : "Block"}}
+                            {{registration.status == 'BLOCKED' ? "Unblock" : "Block"}}
                         </button>
                         <button type="button" class="btn btn-outline-dark bg-info mr-2"
-                                (click)="changeStatus(registration.id, 'VERIFIED')" *ngIf="registration.status == 'PENDING_VERIFICATION'">
+                                (click)="changeStatus(registration.id, 'VERIFIED')"
+                                *ngIf="registration.status == 'PENDING_VERIFICATION'">
                             Verify
                             user
                         </button>
@@ -86,37 +92,36 @@
         </div>
     </div>
 
-    <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
+    <div class="tab-pane fade" id="favorite" role="tabpanel" aria-labelledby="favorite-tab">
         <div class="hover-shadow p-3">
-            <table mat-table [dataSource]="reportsSource" matSort (matSortChange)="sortData($event)"
-                   class="table table-hover hover-shadow">
-                <caption>List of Reports</caption>
+            <table mat-table [dataSource]="questionSource" matSort (matSortChange)="sortData($event)" class="table table-hover hover-shadow">
+                <caption>List of Favorite</caption>
 
-                <ng-container matColumnDef="reportId">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Report Id</th>
-                    <td mat-cell *matCellDef="let report"> {{report.id}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="reportOption">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Report Option</th>
-                    <td mat-cell *matCellDef="let report"> {{report.report}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="reportDetails">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Report Description</th>
-                    <td mat-cell *matCellDef="let report"> {{report.report_details}} </td>
-                </ng-container>
-
-                <ng-container matColumnDef="question">
+                <ng-container matColumnDef="questionId">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Question Id</th>
-                    <td mat-cell *matCellDef="let report"> {{report.question}} </td>
+                    <td mat-cell *matCellDef="let question"> {{question.id}} </td>
                 </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumnsReport"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumnsReport;"></tr>
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Question Title</th>
+                    <td mat-cell *matCellDef="let question"> {{question.title}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="percentage">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Favorite Percentage</th>
+                    <td mat-cell *matCellDef="let question"> {{countFavoriteList[question.id]/registrationList.length*100}}% </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsFavorite"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsFavorite;"></tr>
 
             </table>
         </div>
+
     </div>
 </div>
 
+<span *ngFor="let item of categoryList">
+    Category: {{item}} -->
+    Percentage: {{category1[item]/uqjsSource?.filteredData.length *100}}<br>
+</span>
