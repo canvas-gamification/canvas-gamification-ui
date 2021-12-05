@@ -35,6 +35,7 @@ import {QuestionService} from "@app/problems/_services/question.service";
 import {SchemaService} from "@app/problems/_services/schema.service";
 import {SubmissionService} from "@app/problems/_services/submission.service";
 import { ParsonsLinesComponent } from './problem-view/parsons-lines/parsons-lines.component';
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
     declarations: [
@@ -72,6 +73,7 @@ import { ParsonsLinesComponent } from './problem-view/parsons-lines/parsons-line
         HighlightModule,
         ProblemsRoutingModule,
         DragulaModule.forRoot(),
+        MatIconModule,
     ],
     providers: [
         DifficultyService,

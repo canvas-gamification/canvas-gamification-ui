@@ -70,10 +70,7 @@ export class UqjService {
     }
 
     updateFavorite(data: {id: number, status: boolean}): Observable<UQJ> {
-        console.log(data);
-        const id = data.id;
-        const url = this.apiService.getURL('uqj-generic', id, 'switch-favorite');
-        console.log(url);
+        const url = this.apiService.getURL('uqj-update','update-favorite');
         return this.http.post<UQJ>(url, data)
             .pipe(catchError(this.apiService.handleError<UQJ>('Error occurred while adding to favourites')));
     }
