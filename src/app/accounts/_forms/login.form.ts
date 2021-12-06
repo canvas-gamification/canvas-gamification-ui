@@ -4,7 +4,7 @@ export class LoginForm {
     static createForm(): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
-            username: new FormControl(null, [Validators.required, Validators.email]),
+            email: new FormControl(null, [Validators.required, Validators.email]),
             password: new FormControl(null, [Validators.required]),
         });
     }
