@@ -1,12 +1,14 @@
-<ng-container *ngIf="questionType === 'MCQ'">
-    <app-mcq-create-snippet [checkBox]="false"></app-mcq-create-snippet>
-</ng-container>
-<ng-container *ngIf="questionType === 'checkbox'">
-    <app-mcq-create-snippet [checkBox]="true"></app-mcq-create-snippet>
-</ng-container>
-<ng-container *ngIf="questionType === 'java'">
-    <app-java-create-snippet></app-java-create-snippet>
-</ng-container>
-<ng-container *ngIf="questionType === 'parsons'">
-    <app-parsons-create-snippet></app-parsons-create-snippet>
-</ng-container>
+<div class="tui-container tui-container_adaptive">
+    <ng-container *ngIf="questionType === 'MCQ'">
+        <app-mcq-create-snippet [checkBox]="false"></app-mcq-create-snippet>
+    </ng-container>
+    <ng-container *ngIf="questionType === 'checkbox'">
+        <app-mcq-create-snippet [checkBox]="true"></app-mcq-create-snippet>
+    </ng-container>
+    <ng-container *ngIf="questionType === 'java'">
+        <app-java-create-snippet></app-java-create-snippet>
+    </ng-container>
+    <ng-container *ngIf="questionType === 'parsons'">
+        <app-parsons-create-snippet></app-parsons-create-snippet>
+    </ng-container>
+</div>

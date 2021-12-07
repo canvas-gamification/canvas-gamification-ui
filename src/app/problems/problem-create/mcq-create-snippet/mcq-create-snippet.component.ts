@@ -9,6 +9,9 @@ import {CourseEvent} from '@app/_models/course_event';
 import {McqForm} from "@app/problems/_forms/mcq.form";
 import {Router} from "@angular/router";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {DifficultyService} from "@app/problems/_services/difficulty.service";
+import {Difficulty} from "@app/_models/difficulty";
+import {TuiSelectStringifyService} from "@app/_helpers/tui-select-stringify";
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -23,8 +26,7 @@ export class McqCreateSnippetComponent implements OnInit {
     courses: Course[];
     events: CourseEvent[];
     categories: Category[];
-    selectedCourse: number;
-    selectedEvent: number;
+    difficulties: Difficulty[];
     variables: JSON[];
     questionText: string;
     answerText: string;
@@ -35,7 +37,9 @@ export class McqCreateSnippetComponent implements OnInit {
                 private formBuilder: FormBuilder,
                 private courseService: CourseService,
                 private categoryService: CategoryService,
+                private difficultyService: DifficultyService,
                 private router: Router,
+                public tuiSelectStringifyService: TuiSelectStringifyService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
@@ -51,58 +55,34 @@ export class McqCreateSnippetComponent implements OnInit {
 
         const coursesObservable = this.courseService.getCourses();
         const categoriesObservable = this.categoryService.getCategories();
+        const difficultyObservable = this.difficultyService.getDifficulties();
 
-        forkJoin([coursesObservable, categoriesObservable]).subscribe(result => {
+        forkJoin([coursesObservable, categoriesObservable, difficultyObservable]).subscribe(result => {
             this.courses = result[0];
             this.categories = result[1];
+            this.difficulties = result[2];
         });
 
         this.distractors = [];
         this.correctAnswers = [];
         this.addChoice();
         this.addAnswer();
+
+        this.form.event.disable();
+        this.form.course.valueChanges.subscribe((courseId) => {
+            if (courseId) this.setCourseEvents(courseId);
+            else this.form.event.disable();
+        });
     }
 
-    /**
-     * Select a course from the given DOM event.
-     * @param value - The DOM event.
-     */
-    courseSelectionChanged(value: Event): void {
-        this.setCourse(+(value.target as HTMLInputElement).value);
-    }
-
-    /**
-     * Select a event from the given DOM event.
-     * @param value
-     */
-    eventSelectionChanged(value: Event): void {
-        this.setEvent(+(value.target as HTMLInputElement).value);
-    }
-
-    /**
-     * Set the course.
-     * @param courseId - The course's id.
-     */
-    setCourse(courseId: number): void {
-        this.selectedCourse = courseId;
-        if (this.courses) {
-            this.courses.forEach(course => {
-                if (course.id === this.selectedCourse) {
-                    this.events = course.events;
-                }
-            });
-            this.setEvent(null);
-            this.form.course.setValue(this.selectedCourse);
-        }
-    }
-
-    /**
-     * Set the event.
-     * @param event - The event object to set.
-     */
-    setEvent(event: number): void {
-        this.selectedEvent = event;
-        this.form.event.setValue(this.selectedEvent);
+    setCourseEvents(courseId: number): void {
+        this.courses.forEach(course => {
+            if (course.id === courseId) {
+                this.events = course.events;
+                this.form.event.enable();
+                return;
+            }
+        });
     }
 
     /**
