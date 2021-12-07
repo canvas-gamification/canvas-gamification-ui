@@ -2,23 +2,19 @@
 <div class="tui-row">
     <div class="tui-col_6">
         <h2>Lines</h2>
-        <tui-island>
-            <div class="left-container" [dragula]="file.name" [(dragulaModel)]="leftContainer">
-                <div class="container-object" *ngFor="let line of leftContainer">
-                    <pre>{{line.value}}</pre>
-                </div>
+        <div class="left-container" [dragula]="file.name" [(dragulaModel)]="leftContainer">
+            <div class="container-object" *ngFor="let line of leftContainer">
+                <pre>{{line.value}}</pre>
             </div>
-        </tui-island>
+        </div>
     </div>
     <div class="tui-col_6">
         <h2>My Solution</h2>
-        <tui-island>
-            <div class="right-container" [dragula]="file.name"
-                 [(dragulaModel)]="rightContainer">
-                <div class="container-object" *ngFor="let line of rightContainer">
-                    <pre>{{line.value}}</pre>
-                </div>
+        <div class="right-container" [dragula]="file.name"
+             [(dragulaModel)]="rightContainer">
+            <div class="container-object" *ngFor="let line of rightContainer">
+                <pre>{{line.value}}</pre>
             </div>
-        </tui-island>
+        </div>
     </div>
 </div>

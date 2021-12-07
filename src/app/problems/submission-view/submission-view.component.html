@@ -1,116 +1,109 @@
-<div class="card my-3">
-    <div class="card-header">
-        <h2>Submission Details</h2>
-    </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Question</th>
-            <th>Time Submitted</th>
-            <ng-container *ngIf="submission?.question?.is_exam_and_open; else statusHeader">
-                <th>Grade</th>
+<div class="tui-container tui-container_fullwidth">
+    <div class="submission-header">
+        <div class="submission-header">
+            <h1 class="tui-text_h3 tui-space_vertical-10">
+                {{ submission?.question?.title || 'No Title'}} - Submission Details
+            </h1>
+            <tui-tag
+                class="tui-space_left-4"
+                [status]="getSubmissionTagStatus(submission?.status)"
+                [value]="submission?.status || 'No Status'"
+            ></tui-tag>
+        </div>
+        <div class="submission-header">
+            <p class="tui-space_right-4">
+                <span class="tui-text_bold">Time Submitted:</span>
+                {{ (submission?.submission_time | date: 'medium') || 'No Time'}}
+            </p>
+            <ng-container *ngIf="submission?.question?.is_exam_and_open">
+                <p class="tui-space_right-4">
+                    <span class="tui-text_bold">Grade:</span>
+                    {{ submission?.grade || 'No Grade'}}
+                </p>
             </ng-container>
-            <ng-template #statusHeader>
-                <th>Status</th>
-            </ng-template>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>{{ submission?.question?.title || 'No Title'}}</td>
-            <td>{{ submission?.submission_time || 'No Time'}}</td>
-            <ng-container *ngIf="submission?.question?.is_exam_and_open; else statusCell">
-                <td>{{ submission?.grade || 'No Grade'}}</td>
-            </ng-container>
-            <ng-template #statusCell>
-                <td>{{ submission?.status || 'No Status'}}</td>
-            </ng-template>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="card my-3" *ngIf="submission?.no_file_answer">
-    <div class="card-header"><h2> Code </h2></div>
-    <div class="card-body">
-            <pre>
-                <code [highlight]="submission?.answer" [lineNumbers]="true"></code>
-            </pre>
+        </div>
     </div>
-</div>
+    <hr class="tui-space_bottom-4"/>
 
-<div class="card my-3" *ngFor="let item of answerFiles">
-    <div class="card-header"><h2> {{ item.name }} </h2></div>
-    <div class="card-body">
-            <pre>
-                <code [highlight]="item.code" [lineNumbers]="true"></code>
-            </pre>
+    <div *ngIf="submission?.no_file_answer">
+        <h2 class="tui-form__header tui-form__header_margin-top_none">Code</h2>
+        <tui-island>
+            <pre>{{ submission?.answer }}</pre>
+        </tui-island>
     </div>
-</div>
 
-<div class="card my-3">
-    <div class="card-header"><h2>Compile Output</h2></div>
-    <div class="card-body">
-        <div class="my-3">
-            <ng-container *ngIf="submission?.get_decoded_stderr; else successCompile">
-                <p>The following error occurred: </p>
+    <div *ngFor="let item of answerFiles; let index = index">
+        <h2
+            class="tui-form__header"
+            [class.tui-form__header_margin-top_none]="!submission?.no_file_answer && index === 0"
+        >
+            {{ item.name }}
+        </h2>
+        <tui-island>
+            <pre>{{ item.code }}</pre>
+        </tui-island>
+    </div>
+
+    <div class="card my-3">
+        <h2 class="tui-form__header" [class.tui-form__header_margin-top_none]="!answerFiles?.length">
+            Compile Output
+        </h2>
+        <ng-container *ngIf="submission?.get_decoded_stderr; else successCompile">
+            <p>The following error occurred: </p>
+            <tui-island>
                 <pre>
                     {{ submission?.get_decoded_stderr }}
                 </pre>
+            </tui-island>
+        </ng-container>
+        <ng-template #successCompile>
+            <p>Compiled successfully!</p>
+        </ng-template>
+        <ng-container *ngIf="submission?.get_status_message">
+            <p>Message: {{ submission?.get_status_message }}</p>
+        </ng-container>
+    </div>
+
+    <ng-container *ngIf="!submission?.question?.is_exam_and_open; else examInProgress">
+        <h2 class="tui-form__header">Your Feedback</h2>
+        <ng-container *ngIf="submission?.get_decoded_results; else noFeedback">
+            <h3>Score: {{ submission?.get_formatted_test_results }}</h3>
+            <h3>Tokens Received: {{ submission?.formatted_tokens_received }}</h3>
+            <ng-container *ngIf="submission?.get_passed_test_results?.length">
+                <h3>What went well:</h3>
+                <ul class="tui-list">
+                    <li class="tui-list__item"
+                        *ngFor="let result of submission?.get_passed_test_results">{{ result.name }}</li>
+                </ul>
             </ng-container>
-            <ng-template #successCompile>
-                <p>Compiled successfully!</p>
-            </ng-template>
-            <ng-container *ngIf="hasErrorMessage">
-                Message: {{ submission?.get_status_message }}
+            <ng-container *ngIf="submission?.get_failed_test_results?.length">
+                <h3>Still needs some work: </h3>
+                <ul>
+                    <li *ngFor="let result of submission?.get_failed_test_results">{{ result.message }}</li>
+                </ul>
+                <p>If there are multiple issues, attempt to fix the first issue as that might solve
+                    subsequent issues</p>
             </ng-container>
-        </div>
+        </ng-container>
+        <ng-template #noFeedback>
+            <p>No feedback</p>
+            <p>This is usually due to compilation error or your answer is still being evaluated, see compile
+                output or refresh the page</p>
+        </ng-template>
+    </ng-container>
+    <ng-template #examInProgress>
+        <h2 class="tui-form__header">The Exam is Still in Progress</h2>
+        <p>Your results will be available to view following the completion of the exam.</p>
+    </ng-template>
+
+    <div class="tui-form__buttons">
+        <a
+            tuiButton
+            size="m"
+            class="tui-form__button"
+            [routerLink]="['/problems', submission?.question?.id]"
+        >
+            Re-Attempt
+        </a>
     </div>
 </div>
-
-<ng-container *ngIf="!submission?.question?.is_exam_and_open; else examInProgress">
-    <div class="card my-3">
-        <div class="card-header"><h2>Your Feedback</h2></div>
-        <div class="card-body">
-            <ng-container *ngIf="submission?.get_decoded_results; else noFeedback">
-                <div>
-                    <h5>Score: {{ submission?.get_formatted_test_results }}</h5>
-                </div>
-                <div>
-                    <h5>Tokens Received: {{ submission?.formatted_tokens_received }}</h5>
-                </div>
-                <div>
-                    <ng-container *ngIf="submission?.get_passed_test_results">
-                        <h5>What went well:</h5>
-                        <ul>
-                            <li *ngFor="let result of submission?.get_passed_test_results">{{ result.name }}</li>
-                        </ul>
-                    </ng-container>
-                    <ng-container *ngIf="submission?.get_failed_test_results">
-                        <h5>Still needs some work: </h5>
-                        <ul>
-                            <li *ngFor="let result of submission?.get_failed_test_results">{{ result.message }}</li>
-                        </ul>
-                        <p>If there are multiple issues, attempt to fix the first issue as that might solve
-                            subsequent issues</p>
-                    </ng-container>
-                </div>
-            </ng-container>
-            <ng-template #noFeedback>
-                <p>No feedback</p>
-                <p>This is usually due to compilation error or your answer is still being evaluated, see compile
-                    output or refresh the page</p>
-            </ng-template>
-        </div>
-    </div>
-</ng-container>
-<ng-template #examInProgress>
-    <div class="card my-3">
-        <div class="card-header"><h2>The Exam is Still in Progress</h2></div>
-        <div class="card-body">
-            Your results will be available to view following the completion of the exam.
-        </div>
-    </div>
-</ng-template>
-
-<a class="btn btn-info" [routerLink]="['/problems', submission?.question?.id]">Re-Attempt</a>

@@ -1,21 +1,43 @@
 <h2 class="tui-form__header">My Answer</h2>
 <p>Submit the required files.</p>
 <form (ngSubmit)="onSubmit()">
-    <tui-tabs-with-more class="tui-space_bottom-4" #tabsComponent>
-        <ng-container *ngFor="let input of inputFileNames">
-            <button *tuiTab tuiTab>
-                {{ input.name }}
-            </button>
-        </ng-container>
-    </tui-tabs-with-more>
-    <div *ngFor="let input of inputFileNames; let index = index">
-        <div *ngIf="tabsComponent.activeItemIndex === index">
-            <div class="code-editor__container">
-                <app-ace [(template)]="input.template"></app-ace>
+    <div class="view-switcher__wrapper">
+        <app-tab-list-view-switcher #viewSwitcher></app-tab-list-view-switcher>
+    </div>
+    <ng-container *ngIf="viewSwitcher.view === 'tab' else listView">
+        <tui-tabs-with-more class="tui-space_bottom-4" #tabsComponent>
+            <ng-container *ngFor="let input of inputFileNames">
+                <button *tuiTab tuiTab>
+                    {{ input.name }}
+                </button>
+            </ng-container>
+        </tui-tabs-with-more>
+        <div *ngFor="let input of inputFileNames; let index = index">
+            <div *ngIf="tabsComponent.activeItemIndex === index">
+                <ng-container
+                    [ngTemplateOutlet]="codeEditor"
+                    [ngTemplateOutletContext]="{ $implicit: input }"
+                ></ng-container>
             </div>
         </div>
-    </div>
+    </ng-container>
+    <ng-template #listView>
+        <div class="code-editors__list">
+            <div *ngFor="let input of inputFileNames">
+                <p class="code-editors__list-title">{{ input.name }}</p>
+                <ng-container
+                    [ngTemplateOutlet]="codeEditor"
+                    [ngTemplateOutletContext]="{ $implicit: input }"
+                ></ng-container>
+            </div>
+        </div>
+    </ng-template>
     <div class="tui-form__buttons">
         <button tuiButton class="tui-form__button" size="m">Submit</button>
     </div>
+    <ng-template let-input #codeEditor>
+        <div class="code-editor__container">
+            <app-ace [(template)]="input.template"></app-ace>
+        </div>
+    </ng-template>
 </form>

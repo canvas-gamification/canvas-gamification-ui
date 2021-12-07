@@ -35,7 +35,8 @@
         <tui-checkbox-labeled size="l" formControlName="is_verified">Is Verified</tui-checkbox-labeled>
     </div>
     <div class="tui-form__row">
-        <tui-checkbox-labeled size="l" (change)="practiceCheckboxChanged($event)">Practice Question
+        <tui-checkbox-labeled size="l" [(ngModel)]="isPractice" [ngModelOptions]="{standalone: true}">
+            Practice Question
         </tui-checkbox-labeled>
     </div>
     <ng-container *ngIf="!isPractice">
@@ -73,108 +74,81 @@
         </div>
     </ng-container>
     <div class="tui-form__row">
-        <label tuiLabel label="Question">
-            <app-ck-editor [(value)]="questionText"></app-ck-editor>
-        </label>
+        <h2 class="tui-form__header">Question</h2>
+        <app-ck-editor [(value)]="questionText"></app-ck-editor>
     </div>
     <ng-container *ngIf="!checkBox">
         <div class="tui-form__row">
-            <label tuiLabel label="Correct Answer">
-                <app-ck-editor [(value)]="answerText"></app-ck-editor>
-            </label>
+            <h2 class="tui-form__header">Correct Answer</h2>
+            <app-ck-editor [(value)]="answerText"></app-ck-editor>
         </div>
     </ng-container>
     <ng-container *ngIf="checkBox">
-        <div class="form-row m-3 p-3">
-            <div class="col-md-12">
-                <label for="mcqCorrectAnswers" class="h5 pb-2">Correct Answers:</label>
-                <table id="mcqCorrectAnswers">
-                    <tbody>
-                    <tr *ngFor="let _ of correctAnswers; index as i">
-                        <td class="p-3">
-                            <app-ck-editor [(value)]="correctAnswers[i].text"></app-ck-editor>
-                        </td>
-                        <td class="p-3">
-                            <button (click)="removeAnswer(i)" class="btn btn-danger m-auto" type="button">Remove
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <tr>
-                        <td class="p-3" colspan="2">
-                            <button (click)="addAnswer()" class="btn btn-primary m-auto" type="button">Add Another
-                            </button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </ng-container>
-    <div class="form-row m-3 p-3">
-        <div class="col-md-12">
-            <div class="h5 pb-2">Number of Distractor Answers:</div>
-            <input
-                id="radioAll"
-                [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
-                formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
-                value="999">
-            <label for="radioAll" class="radio-inline mx-1 pr-2">All</label>
-            <input
-                id="radio2"
-                [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
-                formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
-                value="2">
-            <label for="radio2" class="radio-inline mx-1 pr-2">2</label>
-            <input
-                id="radio3"
-                [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
-                formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
-                value="3">
-            <label for="radio3" class="radio-inline mx-1 pr-2">3</label>
-            <div *ngIf="form.visible_distractor_count.touched && form.visible_distractor_count.invalid"
-                 class="invalid-feedback">
-                <div *ngIf="form.visible_distractor_count.errors.required">Visible Distractor Count is Required.
+        <div class="tui-form__row">
+            <h2 class="tui-form__header">Correct Answers</h2>
+            <div class="new-answers tui-space_bottom-4">
+                <div class="new-answers__answer" *ngFor="let correctAnswer of correctAnswers; index as i">
+                    <div class="new-answers__answer-input">
+                        <app-ck-editor [(value)]="correctAnswer.text"></app-ck-editor>
+                    </div>
+                    <button tuiButton appearance="secondary" size="m" type="button" icon="tuiIconTrash"
+                            (click)="removeAnswer(i)">
+                        Remove
+                    </button>
                 </div>
             </div>
+            <button tuiButton size="m" type="button" icon="tuiIconPlus" (click)="addAnswer()">
+                Add Another
+            </button>
         </div>
-    </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <div class="h5 p-3">Distractor Answers:</div>
-            <table>
-                <tbody>
-                <tr *ngFor="let _ of distractors; index as i">
-                    <td class="p-3">
-                        <app-ck-editor [(value)]="distractors[i].text"></app-ck-editor>
-                    </td>
-                    <td class="p-3">
-                        <button (click)="removeChoice(i)" class="btn btn-danger m-auto" type="button">Remove</button>
-                    </td>
-                </tr>
-                </tbody>
-                <tr>
-                    <td class="p-3" colspan="2">
-                        <button (click)="addChoice()" class="btn btn-primary m-auto" type="button">Add Another</button>
-                    </td>
-                </tr>
-            </table>
+    </ng-container>
+    <div class="tui-form__row">
+        <h2 class="tui-form__header">Distractor Answers</h2>
+        <div class="tui-form__field-note tui-space_bottom-2">Number of Visible Distractors</div>
+        <div class="distractor-count tui-space_bottom-4">
+            <tui-radio-labeled size="l" formControlName="visible_distractor_count" [item]="999">
+                All
+            </tui-radio-labeled>
+            <tui-radio-labeled size="l" formControlName="visible_distractor_count" [item]="2">
+                2
+            </tui-radio-labeled>
+            <tui-radio-labeled size="l" formControlName="visible_distractor_count" [item]="3">
+                3
+            </tui-radio-labeled>
         </div>
+        <tui-field-error formControlName="visible_distractor_count"></tui-field-error>
+        <div class="new-answers tui-space_bottom-4">
+            <div class="new-answers__answer" *ngFor="let disctrator of distractors; index as i">
+                <div class="new-answers__answer-input">
+                    <app-ck-editor [(value)]="disctrator.text"></app-ck-editor>
+                </div>
+                <button tuiButton appearance="secondary" size="m" type="button" icon="tuiIconTrash"
+                        (click)="removeChoice(i)">
+                    Remove
+                </button>
+            </div>
+        </div>
+        <button tuiButton size="m" type="button" icon="tuiIconPlus" (click)="addChoice()">
+            Add Another
+        </button>
     </div>
-    <div class="form-row m-3">
-        <div class="h5 ml-3 pb-2">Variables:</div>
-        <div class="col-md-12 ml-3 text-muted">
+    <div class="tui-form__row">
+        <h2 class="tui-form__header">Variables:</h2>
+        <p class="tui-form__field-note">
             If you are not using variables,
             please don't add any variables
             and delete the existing ones.
-        </div>
-        <div class="col-md-12">
-            <app-json-editor [(value)]="this.variables" [name]="'variables'"></app-json-editor>
-        </div>
+        </p>
+        <app-json-editor [(value)]="this.variables" [name]="'variables'"></app-json-editor>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <button [disabled]="formGroup.invalid || !isSubmissionValid()" class="btn btn-success" id="submit">Submit
-            </button>
-        </div>
+    <div class="tui-form__buttons">
+        <button
+            tuiButton
+            size="m"
+            class="tui-form__button"
+            [disabled]="formGroup.invalid || !isSubmissionValid()"
+        >
+            Submit
+        </button>
     </div>
 </form>

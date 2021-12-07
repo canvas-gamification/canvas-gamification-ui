@@ -48,7 +48,7 @@ export class ProblemViewComponent implements OnInit {
         if (status === 'Solved') return 'success';
         else if (status === 'Partially Solved') return 'warning';
         else if (status === 'Wrong') return 'error';
-        else return 'default';
+        else return 'warning';
     }
 
     /**

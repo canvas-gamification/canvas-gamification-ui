@@ -54,15 +54,16 @@ import {
     TuiAccordionModule,
     TuiCheckboxBlockModule,
     TuiCheckboxLabeledModule,
+    TuiFieldErrorModule,
     TuiInputModule,
     TuiIslandModule,
     TuiRadioBlockModule,
     TuiRadioLabeledModule,
     TuiSelectModule,
     TuiTabsModule,
-    TuiTagModule,
-    TuiFieldErrorModule
+    TuiTagModule
 } from "@taiga-ui/kit";
+import {TabListViewSwitcherModule} from "@app/components/tab-list-view-switcher/tab-list-view-switcher.module";
 
 @NgModule({
     declarations: [
@@ -126,6 +127,7 @@ import {
         TuiRadioBlockModule,
         TuiFieldErrorModule,
         TuiLabelModule,
+        TabListViewSwitcherModule,
     ],
     providers: [
         DifficultyService,

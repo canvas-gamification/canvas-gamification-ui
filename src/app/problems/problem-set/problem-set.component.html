@@ -45,6 +45,7 @@
             formControlName="difficulty"
             class="tui-space_left-4"
             [tuiTextfieldCleaner]="true"
+            [valueContent]="difficulties ? tuiSelectStringifyService.stringify(difficulties, 0, 1) : ''"
         >
             Difficulty
             <tui-data-list *tuiDataList>
@@ -57,6 +58,7 @@
             formControlName="parentCategory"
             class="tui-space_left-4"
             [tuiTextfieldCleaner]="true"
+            [valueContent]="parentCategories ? tuiSelectStringifyService.stringify(parentCategories, 'name', 'name') : ''"
         >
             Category
             <tui-data-list *tuiDataList>
@@ -69,6 +71,7 @@
             formControlName="subCategory"
             class="tui-space_left-4"
             [tuiTextfieldCleaner]="true"
+            [valueContent]="subCategories ? tuiSelectStringifyService.stringify(subCategories, 'name', 'name') : ''"
         >
             Sub Category
             <tui-data-list *tuiDataList>
@@ -156,52 +159,54 @@
                     </ng-template>
                 </td>
                 <td tuiTd *tuiCell="'actions'">
-                    <a
-                        tuiIconButton
-                        size="s"
-                        icon="tuiIconEyeOpen"
-                        class="tui-space_right-2 tui-space_vertical-2"
-                        [routerLink]="[question.id]"
-                        tuiDescribedBy="view"
-                        tuiHintId="view"
-                        tuiHintMode="onDark"
-                        tuiHintDirection="top-left"
-                        [tuiHint]="viewTooltip"
-                    ></a>
-                    <ng-template #viewTooltip>
-                        View Question
-                    </ng-template>
-                    <a
-                        tuiIconButton
-                        size="s"
-                        icon="tuiIconEdit"
-                        class="tui-space_right-2 tui-space_vertical-2"
-                        [routerLink]="[question.id, 'edit']"
-                        tuiDescribedBy="edit"
-                        tuiHintId="edit"
-                        tuiHintMode="onDark"
-                        tuiHintDirection="top-left"
-                        [tuiHint]="editTooltip"
-                    ></a>
-                    <ng-template #editTooltip>
-                        Edit Question
-                    </ng-template>
-                    <button
-                        tuiIconButton
-                        type="button"
-                        size="s"
-                        icon="tuiIconTrash"
-                        class="tui-space_vertical-2"
-                        (click)="openDeleteQuestionDialog(deleteDialog, question.id)"
-                        tuiDescribedBy="delete"
-                        tuiHintId="delete"
-                        tuiHintMode="onDark"
-                        tuiHintDirection="top-left"
-                        [tuiHint]="deleteTooltip"
-                    ></button>
-                    <ng-template #deleteTooltip>
-                        Delete Question
-                    </ng-template>
+                    <div class="questions-table__actions">
+                        <a
+                            tuiIconButton
+                            size="s"
+                            icon="tuiIconEyeOpen"
+                            class="tui-space_right-2 tui-space_vertical-2"
+                            [routerLink]="[question.id]"
+                            tuiDescribedBy="view"
+                            tuiHintId="view"
+                            tuiHintMode="onDark"
+                            tuiHintDirection="top-left"
+                            [tuiHint]="viewTooltip"
+                        ></a>
+                        <ng-template #viewTooltip>
+                            View Question
+                        </ng-template>
+                        <a
+                            tuiIconButton
+                            size="s"
+                            icon="tuiIconEdit"
+                            class="tui-space_right-2 tui-space_vertical-2"
+                            [routerLink]="[question.id, 'edit']"
+                            tuiDescribedBy="edit"
+                            tuiHintId="edit"
+                            tuiHintMode="onDark"
+                            tuiHintDirection="top-left"
+                            [tuiHint]="editTooltip"
+                        ></a>
+                        <ng-template #editTooltip>
+                            Edit Question
+                        </ng-template>
+                        <button
+                            tuiIconButton
+                            type="button"
+                            size="s"
+                            icon="tuiIconTrash"
+                            class="tui-space_vertical-2"
+                            (click)="openDeleteQuestionDialog(deleteDialog, question.id)"
+                            tuiDescribedBy="delete"
+                            tuiHintId="delete"
+                            tuiHintMode="onDark"
+                            tuiHintDirection="top-left"
+                            [tuiHint]="deleteTooltip"
+                        ></button>
+                        <ng-template #deleteTooltip>
+                            Delete Question
+                        </ng-template>
+                    </div>
                 </td>
             </tr>
             </tbody>
