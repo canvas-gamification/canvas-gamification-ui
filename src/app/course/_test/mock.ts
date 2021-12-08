@@ -3,12 +3,18 @@ import {
     CourseRegistration,
     CourseRegistrationRequest,
     CourseRegistrationResponse,
-    EventType, Question, REGISTRATION_STATUS, RegistrationStatus, STATUS,
-    TokenUseOption, UQJ, User
+    EventType,
+    Question,
+    REGISTRATION_STATUS,
+    RegistrationStatus,
+    STATUS,
+    TokenUseOption,
+    UQJ,
+    User
 } from "@app/_models";
 import {TokenUse} from "@app/_models/token_use";
 import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
-import {QuestionReport} from "@app/_models/question_report";
+import {QuestionReport, reportOptions} from "@app/_models/question_report";
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     id: 1,
@@ -250,14 +256,14 @@ export const MOCK_MCQ_QUESTION: Question = {
 export const MOCK_QUESTION_REPORT: QuestionReport = {
     id: 1,
     question: 1,
-    report: "TYPO_TEXT",
+    report: reportOptions.TYPO_TEXT,
     report_details: "Array is not spelled correctly.",
 };
 
 export const MOCK_QUESTION_REPORT2: QuestionReport = {
     id: 1,
     question: 1,
-    report: "TYPO_ANSWER",
+    report: reportOptions.TYPO_ANSWER,
     report_details: "The answer should be a float not an integer.",
 };
 
@@ -291,7 +297,7 @@ export const MOCK_UQJ: UQJ = {
     report: {
         id: 1,
         question: 1,
-        report: "TYPO_TEXT",
+        report: reportOptions.TYPO_TEXT,
         report_details: "Array is not spelled correctly.",
     },
 };

@@ -9,7 +9,7 @@ import {CourseService} from '@app/course/_services/course.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {QuestionReportForm} from "@app/course/_forms/question-report.form";
 import {FormGroup} from "@angular/forms";
-import {QuestionReport} from "@app/_models/question_report";
+import {QuestionReport, reportOptions} from "@app/_models/question_report";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 import {QuestionReportService} from "@app/course/_services/question-report.service";
 
@@ -27,6 +27,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     courseId: number;
     formGroup: FormGroup;
     reportUQJ: UQJ;
+    reportOptions = reportOptions;
 
     constructor(private authenticationService: AuthenticationService,
                 private router: Router,

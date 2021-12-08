@@ -75,16 +75,17 @@
                             <label for="description">Report Reason:</label>
                             <select class="form-control" name="description" formControlName="description"
                                     id="description">
-                                <option value="TYPO_TEXT">There is a typo in the question instructions</option>
-                                <option value="TYPO_ANSWER">There is a typo in one of the multiple-choice answers
+
+                                <option value="{{reportOptions.TYPO_TEXT}}">There is a typo in the question instructions</option>
+                                <option value="{{reportOptions.TYPO_ANSWER}}">There is a typo in one of the multiple-choice answers
                                 </option>
-                                <option value="RIGHT_SOLUTION_MARKED_WRONG">My solution is definitely correct but it did
+                                <option value="{{reportOptions.RIGHT_SOLUTION_MARKED_WRONG}}">My solution is definitely correct but it did
                                     not get full marks
                                 </option>
-                                <option value="WRONG_SOLUTION_MARKED_RIGHT">My solution is incorrect but it received
+                                <option value="{{reportOptions.WRONG_SOLUTION_MARKED_RIGHT}}">My solution is incorrect but it received
                                     full marks
                                 </option>
-                                <option value="OTHER">Other</option>
+                                <option value="{{reportOptions.OTHER}}">Other</option>
                             </select>
                         </div>
                         <div class="form-group">
