@@ -64,6 +64,7 @@ import {CourseRegistrationStepperComponent} from './course-registration/course-r
 import {CourseRegistrationStepComponent} from './course-registration/course-registration-step/course-registration-step.component';
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
 import {TuiTableModule} from "@taiga-ui/addon-table";
+import {DragulaModule} from "ng2-dragula";
 
 @NgModule({
     declarations: [
@@ -125,7 +126,8 @@ import {TuiTableModule} from "@taiga-ui/addon-table";
         TuiInputTimeModule,
         TuiInputDateRangeModule,
         TuiInputCountModule,
-        TuiAvatarModule
+        TuiAvatarModule,
+        DragulaModule.forRoot(),
     ],
     providers: [
         CourseService,
