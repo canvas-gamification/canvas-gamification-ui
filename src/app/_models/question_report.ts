@@ -1,6 +1,6 @@
 export interface QuestionReport {
-    id: number;
-    question_id: number;
+    id?: number;
+    question?: number;
     report: string;
     report_details: string;
 }

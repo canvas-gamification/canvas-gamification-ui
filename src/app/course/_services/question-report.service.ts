@@ -21,14 +21,14 @@ export class QuestionReportService {
             .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while fetching a report')));
     }
 
-    sendReport(data: { user: number, question: number, report: string, report_details: string }): Observable<QuestionReport> {
+    sendReport(data: QuestionReport): Observable<QuestionReport> {
         const url = this.apiService.getURL('question-report');
         return this.http
             .post<QuestionReport>(url, data)
             .pipe(catchError(this.apiService.handleError<QuestionReport>('Error occurred while creating a report')));
     }
 
-    updateReport(data: {report: string, report_details: string }, reportId: number): Observable<QuestionReport> {
+    updateReport(data: QuestionReport, reportId: number): Observable<QuestionReport> {
         const url = this.apiService.getURL('question-report', reportId);
         return this.http
             .patch<QuestionReport>(url, data)

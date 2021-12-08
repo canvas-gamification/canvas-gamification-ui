@@ -114,35 +114,31 @@ export class CourseQuestionSnippetComponent implements OnInit {
     createModal(content: unknown, uqj: UQJ): void {
         this.reportUQJ = uqj;
         this.formGroup.reset();
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
         if (this.reportUQJ.report.id != null) {
-            this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
             this.fillReport();
-        } else {
-            this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title', centered: true});
         }
     }
 
     reportQuestion(): void {
-        if(this.reportUQJ.report.id != null){
-            const data: {report: string, report_details: string } = {
+        if (this.reportUQJ.report.id != null) {
+            const questionReport: QuestionReport = {
                 report: this.formGroup.get('description').value,
                 report_details: this.formGroup.get('description_text').value
             };
-            this.questionReportService.updateReport(data, this.reportUQJ.report.id).subscribe(response => {
+            this.questionReportService.updateReport(questionReport, this.reportUQJ.report.id).subscribe(response => {
                 this.notificationsService
                     .show('The Report was been Created Successfully.', {
                         status: TuiNotification.Success
                     }).subscribe();
                 this.reportUQJ.report = response;
             });
-        }
-        else{
-            const data: { user: number, question: number, report: string, report_details: string } = {
-                user: this.user.id,
+        } else {
+            const questionReport: QuestionReport = {
                 question: this.reportUQJ.question.id, report: this.formGroup.get('description').value,
                 report_details: this.formGroup.get('description_text').value
             };
-            this.questionReportService.sendReport(data).subscribe(response => {
+            this.questionReportService.sendReport(questionReport).subscribe(response => {
                 this.notificationsService
                     .show('The Report was been Created Successfully.', {
                         status: TuiNotification.Success
