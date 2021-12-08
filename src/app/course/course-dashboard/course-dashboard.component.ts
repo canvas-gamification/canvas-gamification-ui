@@ -133,20 +133,4 @@ export class CourseDashboardComponent implements OnInit {
                 this.update();
             });
     }
-
-    /**
-     * Create a user
-     * @param username - username of the desired user
-     */
-    registerUser(username: string): void {
-        const data: CourseRegistrationData = {username: username};
-        this.courseDashboardService.registerUser(data, this.courseId)
-            .subscribe(() => {
-                this.notificationsService
-                    .show('The student has been registered.', {
-                        status: TuiNotification.Success
-                    }).subscribe();
-                this.update();
-            });
-    }
 }
