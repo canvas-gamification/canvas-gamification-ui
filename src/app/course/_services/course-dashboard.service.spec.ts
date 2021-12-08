@@ -48,7 +48,7 @@ describe('TestService', () => {
         courseDashboardService.getCourseUsersFilter(0).subscribe((users) => {
             expect(users).toEqual([MOCK_COURSE_REGISTRATION]);
         });
-        const request = httpMock.expectOne('http://localhost:8000/api/course-admin/0/registered-users/?search=');
+        const request = httpMock.expectOne('http://localhost:8000/api/course-admin/0/registered-users/?search=&ordering=');
         expect(request.request.method).toBe('GET');
         request.flush([MOCK_COURSE_REGISTRATION]);
     });
@@ -57,7 +57,7 @@ describe('TestService', () => {
         courseDashboardService.updateStatus(MOCK_REGISTRATION_UPDATE_DATA).subscribe((response) => {
             expect(response).toBeTruthy();
         });
-        const request = httpMock.expectOne(apiService.getURL('course-admin', 'change-registration'));
+        const request = httpMock.expectOne(apiService.getURL('course-admin', 'change-status'));
         expect(request.request.method).toBe('POST');
     });
 });
