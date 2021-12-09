@@ -16,9 +16,16 @@
         <td>{{uqj?.status || 'No Status'}}</td>
         <td>{{uqj?.question?.max_submission_allowed || 'No Value'}}</td>
         <td>
-            <ng-container>
+            <ng-container *ngIf="favoriteStatus[uqj?.question.id]">
                 <button type="button" mat-icon-button
-                        [ngClass]="{'red-icon':favoriteStatus[uqj?.question.id], 'gray-icon':!favoriteStatus[uqj?.question.id]}"
+                        [ngClass]="'red-icon'"
+                        (click)="switchFavorite(uqj?.id, favoriteStatus[uqj.question.id], uqj?.question.id)">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+            </ng-container>
+            <ng-container *ngIf="!favoriteStatus[uqj?.question.id]">
+                <button type="button" mat-icon-button
+                        [ngClass]="'gray-icon'"
                         (click)="switchFavorite(uqj?.id, favoriteStatus[uqj.question.id], uqj?.question.id)">
                     <mat-icon>favorite</mat-icon>
                 </button>

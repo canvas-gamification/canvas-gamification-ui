@@ -33,6 +33,7 @@ export class ProblemViewComponent implements OnInit {
     favorite: number;
     favoriteStatus: {[id: number]: boolean} = {};
     countFavorite: {[id: number]: number} = {};
+    favoriteStatusData: { id: number, status: boolean };
 
     ngOnInit(): void {
         const questionId = this.route.snapshot.params.id;
@@ -52,8 +53,8 @@ export class ProblemViewComponent implements OnInit {
     }
 
     switchFavorite(uqjId: number, favoriteStatus: boolean, questionId: number): void {
-        const data: { id: number, status: boolean } = {id: uqjId, status: !favoriteStatus};
-        this.uqjService.updateFavorite(data)
+        this.favoriteStatusData = {id: uqjId, status: !favoriteStatus};
+        this.uqjService.updateFavorite(this.favoriteStatusData)
             .subscribe(() => {
                 this.notificationsService
                     .show('Favorite Status was updated', {

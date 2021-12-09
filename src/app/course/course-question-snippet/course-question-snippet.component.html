@@ -44,14 +44,20 @@
                                 <a class="btn btn-warning mr-3"
                                    [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
                             </ng-container>
-                            <ng-container>
+                            <ng-container *ngIf="favoriteStatus[uqj?.question.id]">
                                 <button type="button" mat-icon-button
-                                        [ngClass]="{'red-icon':favoriteStatus[uqj?.question.id], 'gray-icon':!favoriteStatus[uqj?.question.id]}"
+                                        [ngClass]="'red-icon'"
                                         (click)="switchFavorite(uqj?.id, favoriteStatus[uqj.question.id], uqj?.question.id)">
                                     <mat-icon>favorite</mat-icon>
                                 </button>
                             </ng-container>
-
+                            <ng-container *ngIf="!favoriteStatus[uqj?.question.id]">
+                                <button type="button" mat-icon-button
+                                        [ngClass]="'gray-icon'"
+                                        (click)="switchFavorite(uqj?.id, favoriteStatus[uqj.question.id], uqj?.question.id)">
+                                    <mat-icon>favorite</mat-icon>
+                                </button>
+                            </ng-container>
                             <ng-container>
                                 {{countFavorite[uqj?.question.id]}}
                             </ng-container>
