@@ -30,28 +30,28 @@ describe('LoginComponent', () => {
 
     it('should login when submitted and redirect consent', () => {
         spyOn(component['authenticationService'], 'login').and.returnValue(of(MOCK_STUDENT));
-        component.form.username.setValue(MOCK_STUDENT.username);
+        component.form.email.setValue(MOCK_STUDENT.email);
         component.form.password.setValue("");
         component.onSubmit();
-        expect(component['authenticationService'].login).toHaveBeenCalledWith(MOCK_STUDENT.username, "");
+        expect(component['authenticationService'].login).toHaveBeenCalledWith(MOCK_STUDENT.email, "");
         expect(component['router'].navigate).toHaveBeenCalledWith(['/accounts/consent-form']);
     });
 
     it('should login when submitted and redirect homepage', () => {
         spyOn(component['authenticationService'], 'login').and.returnValue(of(MOCK_STUDENT_HAS_CONSENT));
-        component.form.username.setValue(MOCK_STUDENT_HAS_CONSENT.username);
+        component.form.email.setValue(MOCK_STUDENT_HAS_CONSENT.email);
         component.form.password.setValue("");
         component.onSubmit();
-        expect(component['authenticationService'].login).toHaveBeenCalledWith(MOCK_STUDENT_HAS_CONSENT.username, "");
+        expect(component['authenticationService'].login).toHaveBeenCalledWith(MOCK_STUDENT_HAS_CONSENT.email, "");
         expect(component['router'].navigate).toHaveBeenCalledWith(['/homepage']);
     });
 
     it('should not login and give error', () => {
         spyOn(component['authenticationService'], 'login').and.returnValue(of(MOCK_STUDENT_HAS_CONSENT));
-        component.form.username.setValue(MOCK_STUDENT_HAS_CONSENT.username);
+        component.form.email.setValue(MOCK_STUDENT_HAS_CONSENT.email);
         component.form.password.setValue("");
         component.onSubmit();
-        expect(component['authenticationService'].login).toHaveBeenCalledWith(MOCK_STUDENT_HAS_CONSENT.username, "");
+        expect(component['authenticationService'].login).toHaveBeenCalledWith(MOCK_STUDENT_HAS_CONSENT.email, "");
         expect(component['router'].navigate).toHaveBeenCalledWith(['/homepage']);
     });
 });
