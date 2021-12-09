@@ -109,7 +109,6 @@ export class CourseDashboardComponent implements OnInit {
                 results.forEach(report => {
                     if (questionIdList.includes(report.question)) {
                         tempReports.push(report);
-                        console.log("pushing to array");
                     }
                 });
                 this.reportsSource = new MatTableDataSource(tempReports);
@@ -140,7 +139,6 @@ export class CourseDashboardComponent implements OnInit {
 
                     }
                 });
-                console.log(tempCategories);
                 this.category = tempCategories;
                 this.questionSource = new MatTableDataSource(tempQuestions);
 
@@ -270,14 +268,12 @@ export class CourseDashboardComponent implements OnInit {
                 questions.results.forEach(question =>{
                     if (questionId == question.id && this.category1[question.category_name] == undefined){
                         this.category1[question.category_name] = result;
-                        console.log("test");
                     }
                     else if  (questionId == question.id && this.category1[question.category_name] != undefined){
                         this.category1[question.category_name] += result;
                     }
                 });
             });
-            console.log(this.category1);
         });
     }
 }
