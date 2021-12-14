@@ -34,14 +34,14 @@ import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 import {
     TuiAvatarModule,
-    TuiCheckboxLabeledModule,
-    TuiFieldErrorModule,
+    TuiCheckboxLabeledModule, TuiComboBoxModule, TuiDataListWrapperModule,
+    TuiFieldErrorModule, TuiFilterByInputPipeModule,
     TuiInputCountModule,
     TuiInputDateModule,
     TuiInputDateRangeModule,
     TuiInputModule,
     TuiInputTimeModule,
-    TuiIslandModule,
+    TuiIslandModule, TuiProgressModule,
     TuiSelectModule,
     TuiStepperModule,
     TuiTabsModule,
@@ -52,7 +52,7 @@ import {
     TuiCalendarModule,
     TuiDataListModule,
     TuiDialogModule,
-    TuiErrorModule,
+    TuiErrorModule, TuiFormatNumberPipeModule,
     TuiLinkModule,
     TuiLoaderModule,
     TuiNotificationModule,
@@ -65,6 +65,8 @@ import {CourseRegistrationStepComponent} from './course-registration/course-regi
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
 import {TuiTableModule} from "@taiga-ui/addon-table";
 import {DragulaModule} from "ng2-dragula";
+import { AnalyticsComponent } from './analytics/analytics.component';
+import {TuiAxesModule, TuiBarChartModule, TuiLineChartModule} from "@taiga-ui/addon-charts";
 
 @NgModule({
     declarations: [
@@ -78,7 +80,8 @@ import {DragulaModule} from "ng2-dragula";
         LeaderBoardComponent,
         ConceptMapComponent,
         CourseRegistrationStepperComponent,
-        CourseRegistrationStepComponent
+        CourseRegistrationStepComponent,
+        AnalyticsComponent
     ],
     imports: [
         CommonModule,
@@ -128,6 +131,14 @@ import {DragulaModule} from "ng2-dragula";
         TuiInputCountModule,
         TuiAvatarModule,
         DragulaModule.forRoot(),
+        TuiFormatNumberPipeModule,
+        TuiProgressModule,
+        TuiAxesModule,
+        TuiBarChartModule,
+        TuiLineChartModule,
+        TuiComboBoxModule,
+        TuiDataListWrapperModule,
+        TuiFilterByInputPipeModule,
     ],
     providers: [
         CourseService,

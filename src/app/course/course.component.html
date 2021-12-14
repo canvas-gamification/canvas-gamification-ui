@@ -12,6 +12,7 @@
         <button *tuiTab tuiTab>Events</button>
         <button *tuiTab tuiTab>Token Use</button>
         <button *tuiTab tuiTab>Leaderboard</button>
+        <button *tuiTab tuiTab>Analytics</button>
     </tui-tabs-with-more>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 0">
         <app-concept-map [currCourse]="course"></app-concept-map>
@@ -29,6 +30,9 @@
     </ng-container>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 4">
         <app-leader-board [leaderBoard]="course?.leader_board" [rankTopX]="3"></app-leader-board>
+    </ng-container>
+    <ng-container *ngIf="tabsComponent.activeItemIndex === 5">
+        <app-analytics [course]="course"></app-analytics>
     </ng-container>
 </section>
 <ng-template #more>

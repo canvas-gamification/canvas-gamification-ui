@@ -1,0 +1,23 @@
+.text {
+    font: var(--tui-font-text-s);
+    color: var(--tui-text-03);
+}
+
+.percent {
+    font: var(--tui-font-heading-6);
+}
+
+.axes {
+    height: 18.75rem;
+    width: 37.5rem;
+}
+
+tui-line-chart{
+    width: 100%;
+}
+
+tui-input, tui-combo-box{
+    width: 20%;
+    display: inline-block;
+    margin-right: 2em;
+}

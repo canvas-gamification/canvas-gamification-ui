@@ -1,0 +1,117 @@
+<span class="tui-text_h4">Average Course Grade:     </span>
+<label *ngIf="value" tuiProgressLabel>
+    <span class="percent">{{avgGrade}}%</span>
+
+    <tui-progress-circle
+        size="xl"
+        [max]="max"
+        [value]="avgGrade"
+    ></tui-progress-circle>
+</label>
+
+<tui-tabs-with-more class="tui-space_bottom-4" #tabsComponent>
+    <button *tuiTab tuiTab>Course Grade</button>
+    <button *tuiTab tuiTab>Weekly Online Activity</button>
+    <button *tuiTab tuiTab>Students</button>
+    <button *tuiTab tuiTab>Questions</button>
+</tui-tabs-with-more>
+<ng-container *ngIf="tabsComponent.activeItemIndex === 0">
+    <tui-axes class="axes" [axisXLabels]="labelsX" [axisYLabels]="labelsY">
+        <tui-bar-chart [max]="100" [value]="grade"></tui-bar-chart>
+    </tui-axes>
+</ng-container>
+<ng-container *ngIf="tabsComponent.activeItemIndex === 1">
+    <p class="tui-text_h5">Average Page Views</p><br>
+    <tui-axes class="axes" [verticalLines]="8" [horizontalLines]="4" [axisXLabels]="lineX" [axisYLabels]="lineY">
+        <tui-line-chart
+            [x]="0"
+            [y]="0"
+            [width]="8"
+            [height]="200"
+            [smoothingFactor]="50"
+            [value]="value"
+            [filled]="true"
+            [xStringify]="stringify"
+            [yStringify]="stringify"
+        ></tui-line-chart>
+    </tui-axes>
+</ng-container>
+<ng-container *ngIf="tabsComponent.activeItemIndex === 2">
+    <tui-input icon="tuiIconSearchLarge" [(ngModel)]="search">Search People</tui-input>
+    <tui-combo-box
+        class="b-form"
+        [(ngModel)]="val"
+    >
+        All Roles
+        <tui-data-list-wrapper
+            *tuiDataList
+            [items]="items | tuiFilterByInput"
+        ></tui-data-list-wrapper>
+    </tui-combo-box>
+    <br><br>
+    <table tuiTable class="table" [columns]="columns">
+        <thead>
+        <tr tuiThGroup>
+            <th tuiTh [resizable]="true">Name</th>
+            <th tuiTh>Role</th>
+        </tr>
+        </thead>
+        <tbody tuiTbody [data]="students">
+        <tr *tuiRow="let item of students" tuiTr>
+            <td *tuiCell="'name'" tuiTd>
+                <a href="">{{item.name}}</a>
+            </td>
+            <td *tuiCell="'role'" tuiTd>
+                {{item.role}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</ng-container>
+<ng-container *ngIf="tabsComponent.activeItemIndex === 3">
+    <p class="tui-text_h5" style="display: inline-block; margin-right: 2em">View by:</p>
+    <tui-combo-box
+        class="b-form"
+        [(ngModel)]="val"
+    >
+        All Questions
+        <tui-data-list-wrapper
+            *tuiDataList
+            [items]="viewby | tuiFilterByInput"
+        ></tui-data-list-wrapper>
+    </tui-combo-box>
+    <br><br>
+    <table tuiTable class="table" [columns]="col">
+        <thead>
+        <tr tuiThGroup>
+            <th tuiTh [resizable]="true">Title</th>
+            <th tuiTh>Category</th>
+            <th tuiTh>Action</th>
+        </tr>
+        </thead>
+        <tbody tuiTbody [data]="questions">
+        <tr *tuiRow="let item of questions" tuiTr>
+            <td *tuiCell="'title'" tuiTd>
+                <p class="tui-text_body-m">{{item.title}}</p>
+            </td>
+            <td *tuiCell="'category'" tuiTd>
+                <p class="tui-text_body-m">{{item.category}}</p>
+            </td>
+            <td *tuiCell="'action'" tuiTd>
+                <a tuiButton size="m" appearance="primary" class="tui-form__button"
+                >
+                    Open
+                </a>
+                <a tuiButton size="m" appearance="primary" class="tui-form__button"
+                >
+                    Edit
+                </a>
+                <a tuiButton size="m" appearance="primary" class="tui-form__button"
+                >
+                    Metrics
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</ng-container>
