@@ -68,7 +68,7 @@ export const MOCK_CONSENT_DECLINE: UserConsent = {
 export const MOCK_PASSWORD_FORM_DATA: PasswordFormData = {
     password: 'password',
     password2: 'password',
-    uuid: '123',
+    uid: '123',
     token: 'token'
 };
 
