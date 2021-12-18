@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Category, ParsonsFile, UQJ} from "@app/_models";
 import {UqjService} from "@app/problems/_services/uqj.service";
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -6,7 +6,6 @@ import {DifficultyService} from "@app/problems/_services/difficulty.service";
 import {Difficulty} from "@app/_models/difficulty";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {SubmissionService} from "@app/problems/_services/submission.service";
-import {ToastrService} from "ngx-toastr";
 import {forkJoin} from "rxjs";
 import {CourseService} from "@app/course/_services/course.service";
 import {CategoryService} from "@app/_services/api/category.service";
@@ -15,6 +14,7 @@ import {ActivatedRoute} from "@angular/router";
 import * as _ from 'lodash';
 import {UserStatsService} from "@app/_services/api/user-stats.service";
 import {UserDifficultyStats} from "@app/_models/user_difficulty_stats";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-problem-practice',
@@ -62,7 +62,7 @@ export class ProblemPracticeComponent implements OnInit {
                 private courseService: CourseService,
                 private categoryService: CategoryService,
                 private userStatsService: UserStatsService,
-                private toastr: ToastrService) {
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
         this.categoryId = +this.route.snapshot.paramMap.get('categoryId');
         this.courseId = +this.route.snapshot.paramMap.get('courseId');
     }
@@ -100,7 +100,10 @@ export class ProblemPracticeComponent implements OnInit {
         if (this.filteredUqjs.length === 1) {
             this.previousUqj = null;
             this.currentUqj = this.filteredUqjs[0];
-            this.toastr.error('This is the final question available to practice.');
+            this.notificationsService
+                .show('This is the final question available to practice.', {
+                    status: TuiNotification.Success
+                }).subscribe();
         } else {
             this.setupCurrentUqj(true);
         }
@@ -113,7 +116,10 @@ export class ProblemPracticeComponent implements OnInit {
         if (this.filteredUqjs.length === 1) {
             this.previousUqj = null;
             this.currentUqj = this.filteredUqjs[0];
-            this.toastr.error('This is the final question available to practice.');
+            this.notificationsService
+                .show('This is the final question available to practice.', {
+                    status: TuiNotification.Success
+                }).subscribe();
         } else {
             this.setupCurrentUqj(false);
         }
@@ -188,7 +194,10 @@ export class ProblemPracticeComponent implements OnInit {
         }
         this.submissionService.postQuestionSubmission(formData)
             .subscribe(() => {
-                this.toastr.success('The Question has been Submitted Successfully.');
+                this.notificationsService
+                    .show('The Question has been Submitted Successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
                 this.previousUqj = null;
                 this.filteredUqjs = this.filteredUqjs.filter((uqj => uqj.id !== this.currentUqj.id));
                 this.uqjs = this.uqjs.filter((uqj => uqj.id !== this.currentUqj.id));
