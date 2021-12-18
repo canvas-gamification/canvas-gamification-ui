@@ -12,8 +12,8 @@ export class ResetPasswordForm {
     static createPasswordForm(uid: string, token: string): FormGroup {
         const builder = new FormBuilder();
         return builder.group({
-            password: new FormControl('', [Validators.required]),
-            password2: new FormControl('', [Validators.required]),
+            password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+            password2: new FormControl('', [Validators.required, Validators.minLength(8)]),
             uid,
             token,
         },{
@@ -33,7 +33,7 @@ export class ResetPasswordForm {
 export interface PasswordFormData {
     password: string;
     password2: string;
-    uuid: string;
+    uid: string;
     token: string;
 }
 

@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ParsonsEditSnippetComponent} from '../../problem-edit/parsons-edit-snippet/parsons-edit-snippet.component';
 import {TestModule} from '@test/test.module';
-import {MOCK_COURSE, MOCK_COURSE_EVENT, MOCK_PARSONS_QUESTION} from '@app/problems/_test/mock';
+import {MOCK_COURSE, MOCK_COURSE_EVENT, MOCK_MCQ_QUESTION, MOCK_PARSONS_QUESTION} from '@app/problems/_test/mock';
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
@@ -11,18 +11,19 @@ import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {QuestionService} from "@app/problems/_services/question.service";
-import {QuestionServiceMock} from "@app/problems/_test/question.service.mock";
-import {CourseEventServiceMock} from "@app/problems/_test/course-event.service.mock";
+import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock";
+import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event.service.mock";
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {Router} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
+import {TuiNotificationsService} from "@taiga-ui/core";
+import {of} from "rxjs";
 
 describe('ParsonsEditSnippetComponent', () => {
     let component: ParsonsEditSnippetComponent;
     let fixture: ComponentFixture<ParsonsEditSnippetComponent>;
     let router: Router;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -40,8 +41,10 @@ describe('ParsonsEditSnippetComponent', () => {
         beforeEach(() => {
             router = TestBed.inject(Router);
             spyOn(router, 'navigate');
-            toastr = TestBed.inject(ToastrService);
-            spyOn(toastr, 'success');
+            notificationService = TestBed.inject(TuiNotificationsService);
+            spyOn(notificationService, 'show').and.callFake(() => {
+                return of();
+            });
             fixture = TestBed.createComponent(ParsonsEditSnippetComponent);
             component = fixture.componentInstance;
             component.questionDetails = MOCK_PARSONS_QUESTION;
@@ -65,7 +68,7 @@ describe('ParsonsEditSnippetComponent', () => {
 
         it('should update parsons question', () => {
             component.onSubmit();
-            expect(toastr.success).toHaveBeenCalled();
+            expect(notificationService.show).toHaveBeenCalled();
             expect(router.navigate).toHaveBeenCalledOnceWith(['problems', '3', 'edit']);
         });
 
@@ -99,8 +102,10 @@ describe('ParsonsEditSnippetComponent', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(ParsonsEditSnippetComponent);
             component = fixture.componentInstance;
-            component.questionDetails = MOCK_PARSONS_QUESTION;
-            component.questionDetails.event = null;
+            component.questionDetails = {
+                ...MOCK_MCQ_QUESTION,
+                event: null,
+            };
             fixture.detectChanges();
         });
 

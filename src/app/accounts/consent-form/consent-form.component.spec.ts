@@ -6,15 +6,17 @@ import {MOCK_ADMIN, MOCK_STUDENT} from "@app/accounts/_test/mock";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AdminTermsAndConditionsSnippetComponent} from "@app/accounts/admin-terms-and-conditions-snippet/admin-terms-and-conditions-snippet.component";
 import {StudentTermsAndConditionsSnippetComponent} from "@app/accounts/student-terms-and-conditions-snippet/student-terms-and-conditions-snippet.component";
-import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {ConsentService} from "@app/accounts/_services/consent.service";
-import {ConsentServiceMock} from "@app/accounts/_test/consent.service.mock";
+import {ConsentServiceMock} from "@app/accounts/_test/_services/consent.service.mock";
+import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
+import {TuiNotificationsService} from '@taiga-ui/core';
+import {of} from "rxjs";
 
 describe('ConsentFormComponent', () => {
     let component: ConsentFormComponent;
     let fixture: ComponentFixture<ConsentFormComponent>;
-    let toastr: ToastrService;
+    let notificationService: TuiNotificationsService;
     let router: Router;
 
     beforeEach(async () => {
@@ -24,14 +26,16 @@ describe('ConsentFormComponent', () => {
                 AdminTermsAndConditionsSnippetComponent,
                 StudentTermsAndConditionsSnippetComponent
             ],
-            imports: [TestModule, ReactiveFormsModule],
+            imports: [TestModule, ReactiveFormsModule, TuiIslandModule, TuiInputModule, TuiFieldErrorModule, TuiCheckboxLabeledModule],
             providers: [{provide: ConsentService, useClass: ConsentServiceMock}]
         }).compileComponents();
     });
     describe('The user is an admin', () => {
         beforeEach(() => {
-            toastr = TestBed.inject(ToastrService);
-            spyOn(toastr, 'success');
+            notificationService = TestBed.inject(TuiNotificationsService);
+            spyOn(notificationService, 'show').and.callFake(() => {
+                return of();
+            });
             router = TestBed.inject(Router);
             spyOn(router, 'navigate');
             fixture = TestBed.createComponent(ConsentFormComponent);
@@ -50,14 +54,14 @@ describe('ConsentFormComponent', () => {
             component.form.student_number.setValue('12345678');
             fixture.detectChanges();
             component.onSubmit();
-            expect(toastr.success).toHaveBeenCalled();
             expect(router.navigate).toHaveBeenCalledOnceWith(['accounts', 'profile']);
+            expect(notificationService.show).toHaveBeenCalled();
         });
 
         it('remove a user consent', () => {
             component.declineConsent();
-            expect(toastr.success).toHaveBeenCalled();
             expect(router.navigate).toHaveBeenCalledOnceWith(['accounts', 'profile']);
+            expect(notificationService.show).toHaveBeenCalled();
         });
     });
 

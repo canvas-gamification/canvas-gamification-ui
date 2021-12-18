@@ -36,6 +36,20 @@ import {SchemaService} from "@app/problems/_services/schema.service";
 import {SubmissionService} from "@app/problems/_services/submission.service";
 import {ParsonsLinesComponent} from './problem-view/parsons-lines/parsons-lines.component';
 import {ProblemPracticeComponent} from "@app/problems/problem-practice/problem-practice.component";
+import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiDescribedByModule,
+    TuiDialogModule,
+    TuiDropdownControllerModule,
+    TuiHintModule,
+    TuiHostedDropdownModule,
+    TuiLoaderModule,
+    TuiSvgModule,
+    TuiTextfieldControllerModule
+} from "@taiga-ui/core";
+import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
 
 @NgModule({
     declarations: [
@@ -74,6 +88,21 @@ import {ProblemPracticeComponent} from "@app/problems/problem-practice/problem-p
         HighlightModule,
         ProblemsRoutingModule,
         DragulaModule.forRoot(),
+        TuiTableModule,
+        TuiButtonModule,
+        TuiTablePaginationModule,
+        TuiSelectModule,
+        TuiDataListModule,
+        TuiLoaderModule,
+        TuiDescribedByModule,
+        TuiHintModule,
+        TuiInputModule,
+        TuiTextfieldControllerModule,
+        TuiDialogModule,
+        TuiDropdownControllerModule,
+        TuiSvgModule,
+        TuiHostedDropdownModule,
+        TuiTagModule,
     ],
     exports: [
         McqViewSnippetComponent,

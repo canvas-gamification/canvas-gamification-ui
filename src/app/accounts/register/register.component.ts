@@ -1,15 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormGroup} from '@angular/forms';
 import {environment} from '@environments/environment';
 import {RegisterService} from '@app/accounts/_services/register.service';
-import {ToastrService} from "ngx-toastr";
 import {RegisterForm} from "@app/accounts/_forms/register.form";
+import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
+import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
 
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
-    styleUrls: ['./register.component.scss']
+    styleUrls: ['./register.component.scss'],
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'This field is required!',
+                email: 'Enter a valid email address!',
+                minlength: 'Password must contain at least 8 characters.',
+                confirmedValidator: 'Passwords must match!'
+            },
+        },
+    ],
 })
 export class RegisterComponent implements OnInit {
     formGroup: FormGroup;
@@ -18,7 +30,8 @@ export class RegisterComponent implements OnInit {
     isLoading = false;
     logoPath = 'assets/global/logo.jpg';
 
-    constructor(private register: RegisterService, private toastr: ToastrService) {
+    constructor(private register: RegisterService,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     ngOnInit(): void {
@@ -34,7 +47,10 @@ export class RegisterComponent implements OnInit {
         this.isLoading = true;
         this.register.postRegistration(data).subscribe(() => {
             this.formGroup.reset();
-            this.toastr.success('You have successfully registered.');
+            this.notificationsService
+                .show('You have successfully registered.', {
+                    status: TuiNotification.Success
+                }).subscribe();
             this.formSubmitted = true;
             this.isLoading = false;
         },

@@ -6,6 +6,7 @@ import {UqjService} from '@app/problems/_services/uqj.service';
 import {forkJoin} from 'rxjs';
 import {CourseEventService} from '@app/course/_services/course-event.service';
 import {CourseService} from '@app/course/_services/course.service';
+import {TuiStatusT} from "@taiga-ui/kit";
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -70,14 +71,14 @@ export class CourseQuestionSnippetComponent implements OnInit {
      * Return the CSS class corresponding to the completion status of the UQJ
      * @param status - the status text to be checked
      */
-    highlight(status: string): string {
+    highlight(status: string): TuiStatusT {
         if (status.localeCompare('Solved') === 0) {
-            return 'highlight-success';
+            return 'success';
         } else if (status.localeCompare('Partially Solved') === 0) {
-            return 'highlight-warning';
+            return 'warning';
         } else if (status.localeCompare('Wrong') === 0) {
-            return 'highlight-danger';
+            return 'error';
         }
-        return '';
+        return 'warning';
     }
 }

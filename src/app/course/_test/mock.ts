@@ -79,7 +79,8 @@ export const MOCK_COURSE1: Course = {
     question_set: null,
     uqjs: null,
     course_reg: null,
-    leader_board: null
+    leader_board: null,
+    has_create_event_permission: true
 };
 
 export const MOCK_COURSE2: Course = {
@@ -100,7 +101,14 @@ export const MOCK_COURSE2: Course = {
     question_set: null,
     uqjs: null,
     course_reg: null,
-    leader_board: null
+    leader_board: [{
+        name: 'name',
+        token: 2,
+    }, {
+        name: 'name 2',
+        token: 5,
+    }],
+    has_create_event_permission: true
 };
 
 export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2];
@@ -208,20 +216,19 @@ export const MOCK_USER_TEACHER: User = {
 export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
+    category_obj: MOCK_CATEGORY,
     status: 'Solved',
     answer: 'a',
     author: 0,
     author_name: '',
-    category_name: '',
     choices: {
         'a': 'sag',
         'b': 'gav'
     },
     course_name: '',
     difficulty: '',
-    event: MOCK_COURSE_EVENT,
-    event_name: '',
-    full_category_name: '',
+    event: MOCK_COURSE_EVENT.id,
+    event_obj: MOCK_COURSE_EVENT,
     is_exam: true,
     is_exam_and_open: true,
     is_open: true,

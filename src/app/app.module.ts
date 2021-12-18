@@ -20,6 +20,7 @@ import {MatInputModule} from '@angular/material/input';
 import {TopicsComponent} from './components/topics/topics.component';
 import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {UserStatsComponent} from './components/user-stats/user-stats.component';
 import {TokenValuesComponent} from './components/token-values/token-values.component';
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 import {HomepageComponent} from './components/homepage/homepage.component';
@@ -42,11 +43,26 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
-import {TuiRootModule} from '@taiga-ui/core';
 import {ProblemsModule} from "@app/problems/problems.module";
+import {AdminComponent} from './admin/admin.component';
+import {AdminModule} from "@app/admin/admin.module";
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiDropdownControllerModule,
+    TuiHostedDropdownModule,
+    TuiLinkModule,
+    TuiRootModule,
+    TuiSvgModule,
+    TuiThemeNightModule,
+    TuiNotificationsModule,
+    TuiDialogModule
+} from '@taiga-ui/core';
+import {TuiAvatarModule, TuiDropdownHoverModule, TuiToggleModule} from "@taiga-ui/kit";
+import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
+import {TuiActiveZoneModule} from "@taiga-ui/cdk";
 
 @NgModule({
     declarations: [
@@ -56,6 +72,7 @@ import {ProblemsModule} from "@app/problems/problems.module";
         HeaderComponent,
         TopicsComponent,
         SampleQuestionsComponent,
+        UserStatsComponent,
         TokenValuesComponent,
         FaqComponent,
         HomepageComponent,
@@ -66,6 +83,7 @@ import {ProblemsModule} from "@app/problems/problems.module";
         InactiveCoursesComponent,
         NotFoundComponent,
         ForbiddenComponent,
+        AdminComponent,
     ],
     imports: [
         BrowserModule,
@@ -96,9 +114,23 @@ import {ProblemsModule} from "@app/problems/problems.module";
         NgxMatNativeDateModule,
         HighlightModule,
         MatSelectModule,
-        ToastrModule.forRoot(),
         HighlightModule,
         TuiRootModule,
+        TuiThemeNightModule,
+        TuiToggleModule,
+        TuiLinkModule,
+        TuiHostedDropdownModule,
+        TuiDropdownHoverModule,
+        TuiDataListModule,
+        TuiButtonModule,
+        TuiAvatarModule,
+        TuiSvgModule,
+        TuiDropdownControllerModule,
+        TuiSidebarModule,
+        TuiActiveZoneModule,
+        TuiNotificationsModule,
+        AdminModule,
+        TuiDialogModule,
         ProblemsModule,
     ],
     providers: [

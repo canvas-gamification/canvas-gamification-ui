@@ -1,50 +1,80 @@
-<div class="course-list-page">
-    <div class="mx-auto">
-        <h1 class="my-md-2">Course List</h1>
-        <table mat-table [dataSource]="courseList" matSort matSortActive="name"
-               matSortDirection="asc" matSortDisableClear class="table table-hover hover-shadow">
-
-            <!-- Index Column -->
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> No.</th>
-                <td mat-cell *matCellDef="let element"> {{element.id || 'No ID'}} </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name</th>
-                <td mat-cell *matCellDef="let element"> {{element.name || 'No Name'}} </td>
-            </ng-container>
-
-            <!-- Status Column -->
-            <ng-container matColumnDef="status">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Course Status</th>
-                <td mat-cell *matCellDef="let element"> {{element.status || 'No Status'}} </td>
-            </ng-container>
-
-            <!-- Registered Column -->
-            <ng-container matColumnDef="is_registered">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Registration Status</th>
-                <td mat-cell *matCellDef="let element">
-                    <ng-container *ngIf="element.is_registered; else notRegistered">Registered</ng-container>
-                    <ng-template #notRegistered>Not Registered</ng-template>
-                </td>
-            </ng-container>
-
-            <!-- Actions Column -->
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef> Actions</th>
-                <td mat-cell class="actions" *matCellDef="let element">
-                    <a class="btn btn-primary mr-3" *ngIf="hasViewPermission(element.id)"
-                       [routerLink]="[element.id]">Open</a>
-                    <a class="btn btn-primary" *ngIf="!element.is_registered"
-                       [routerLink]="[element.id, 'register']">Register</a>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+<section class="tui-container tui-container_adaptive">
+    <h1 class="tui-text_h3 tui-space_vertical-10">Course List</h1>
+    <tui-input
+        class="tui-space_bottom-4"
+        icon="tuiIconSearchLarge"
+        [(ngModel)]="courseNameSearch"
+        [tuiTextfieldCleaner]="true"
+    >
+        Search Courses
+    </tui-input>
+    <div class="course-islands">
+        <ng-container *ngIf="allCourses else skeletons">
+            <tui-island size="m" class="course-island"
+                        *ngFor="let course of allCourses | tuiFilter : matchCourseName: courseNameSearch">
+                <div
+                    class="course-background"
+                    [style.backgroundColor]="getCourseBackgroundColor(course.name)"
+                ></div>
+                <h2 class="tui-island__title">{{ course.name }}</h2>
+                <tui-tag
+                    class="tui-space_right-2"
+                    size="m"
+                    [value]="course.status"
+                    [status]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
+                ></tui-tag>
+                <tui-tag
+                    size="m"
+                    [value]="course.is_registered ? 'Registered' : 'Not Registered'"
+                    [status]="course.is_registered ? 'success' : 'warning'"
+                ></tui-tag>
+                <div class="tui-form__buttons tui-space_top-12">
+                    <a
+                        tuiButton
+                        class="tui-form__button"
+                        appearance="primary"
+                        size="m"
+                        [routerLink]="[course.id]"
+                        *ngIf="hasViewPermission(course.id)"
+                    >
+                        Open
+                    </a>
+                    <a
+                        tuiButton
+                        class="tui-form__button"
+                        [appearance]="hasViewPermission(course.id) ? 'whiteblock-active' : 'primary'"
+                        size="m"
+                        [routerLink]="[course.id, 'register']"
+                        *ngIf="!course.is_registered"
+                    >
+                        Register
+                    </a>
+                </div>
+            </tui-island>
+        </ng-container>
+        <ng-template #skeletons>
+            <tui-island size="m" class="course-island" *ngFor="let _ of [0, 0, 0, 0, 0, 0]">
+                <div class="course-background tui-skeleton"></div>
+                <h2 class="tui-island__title tui-space_top-4 tui-skeleton tui-skeleton_short">content</h2>
+                <tui-tag class="tui-space_right-2 tui-skeleton" size="m" value="content-tag"></tui-tag>
+                <tui-tag class="tui-skeleton" size="m" value="content-tag"></tui-tag>
+                <div class="tui-form__buttons tui-space_top-12">
+                    <a
+                        tuiButton
+                        class="tui-form__button tui-skeleton"
+                        size="m"
+                    >
+                        content
+                    </a>
+                    <a
+                        tuiButton
+                        class="tui-form__button tui-skeleton"
+                        size="m"
+                    >
+                        content
+                    </a>
+                </div>
+            </tui-island>
+        </ng-template>
     </div>
-</div>
-
+</section>

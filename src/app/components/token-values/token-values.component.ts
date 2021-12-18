@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {TokenValuesService} from '@app/_services/api/token-values.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {NestedTokenValue} from '@app/_models';
 import {faCaretDown, faCaretRight} from '@fortawesome/free-solid-svg-icons';
 import {Difficulty} from '@app/_models/difficulty';
 import {DifficultyService} from '@app/problems/_services/difficulty.service';
-import {ToastrService} from "ngx-toastr";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-token-values',
@@ -26,7 +26,7 @@ export class TokenValuesComponent implements OnInit {
         private tokenValueService: TokenValuesService,
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,
-        private toastr: ToastrService) {
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     ngOnInit(): void {
@@ -48,7 +48,10 @@ export class TokenValuesComponent implements OnInit {
         }
 
         this.tokenValueService.updateBulk(data).subscribe(() => {
-            this.toastr.success('Token values updated successfully');
+            this.notificationsService
+                .show('Token values updated successfully', {
+                    status: TuiNotification.Success
+                }).subscribe();
             window.scroll(0, 0);
         });
     }

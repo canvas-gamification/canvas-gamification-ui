@@ -1,91 +1,36 @@
-<table class="table table-bordered table-light mt-5 hover-shadow">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">URL</th>
-        <th scope="col">Canvas&nbsp;Course&nbsp;Name</th>
-        <th scope="col">Start&nbsp;Date</th>
-        <th scope="col">End&nbsp;Date</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>{{ course?.id || 'No ID' }}</td>
-        <td>{{ course?.name || 'No Name' }}</td>
-        <td>{{ course?.url || 'No URL' }}</td>
-        <td>{{ course?.name || 'No Name'}}</td>
-        <td>{{ course?.start_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
-        <td>{{ course?.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
-    </tr>
-    </tbody>
-</table>
-
-<ul class="nav nav-tabs mt-5" role="tablist">
-    <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="concept-map-tab" data-toggle="tab" href="#concept-map" role="tab"
-           aria-controls="concept-map"
-           aria-selected="false">Concepts</a>
-    </li>
-    <ng-container *ngIf="user?.is_teacher">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" id="problem-set-tab" data-toggle="tab" href="#problem-set" role="tab"
-               aria-controls="problem-set" aria-selected="true">Questions</a>
-        </li>
+<section class="tui-container tui-container_fullwidth">
+    <div class="heading">
+        <h1 class="tui-text_h3 tui-space_vertical-10" [class.tui-skeleton]="!course">{{ course ? course.name : 'Course Name' }}</h1>
+        <div class="heading">
+            <a class="tui-space_right-4" [class.tui-skeleton]="!course" tuiLink [href]="course?.url" rel="noopener noreferrer" target="_blank">{{ course?.url }}</a>
+            <p [class.tui-skeleton]="!course">{{ course ? (course.start_date | date: 'LLL. dd, YYYY, hh:MM a') : 'No Date' }} - {{ course ? (course.end_date | date: 'LLL. dd, YYYY, hh:MM a') : 'No Date' }}</p>
+        </div>
+    </div>
+    <tui-tabs-with-more class="tui-space_bottom-4" [class.tui-skeleton]="!course" #tabsComponent [moreContent]="more">
+        <button *tuiTab tuiTab>Concepts</button>
+        <button *tuiTab tuiTab>Questions</button>
+        <button *tuiTab tuiTab>Events</button>
+        <button *tuiTab tuiTab>Token Use</button>
+        <button *tuiTab tuiTab>Leaderboard</button>
+    </tui-tabs-with-more>
+    <ng-container *ngIf="tabsComponent.activeItemIndex === 0">
+        <app-concept-map [currCourse]="course"></app-concept-map>
     </ng-container>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="events-tab" data-toggle="tab" href="#events" role="tab"
-           aria-controls="events" aria-selected="true">Events</a>
-    </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="tokens-tab" data-toggle="tab" href="#tokens" role="tab" aria-controls="tokens"
-           aria-selected="false">Token Use</a>
-    </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="leader-board-tab" data-toggle="tab" href="#leader-board" role="tab"
-           aria-controls="leader-board"
-           aria-selected="false">Leader&nbsp;Board</a>
-    </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="concept-map" role="tabpanel" aria-labelledby="concept-map-tab">
-        <div class="hover-shadow p-3">
-            <ng-container *ngIf="course">
-                <app-concept-map [currCourse]="course"></app-concept-map>
-            </ng-container>
-        </div>
-    </div>
-    <ng-container *ngIf="user?.is_teacher">
-        <div class="tab-pane fade" id="problem-set" role="tabpanel" aria-labelledby="problem-set-tab">
-            <div class="hover-shadow p-3">
-                <ng-container *ngIf="course">
-                    <app-course-question-snippet [questions]="course?.question_set" [uqjs]="course?.uqjs">
-                    </app-course-question-snippet>
-                </ng-container>
-            </div>
-        </div>
+    <ng-container *ngIf="tabsComponent.activeItemIndex === 1">
+        <app-course-question-snippet [questions]="course?.question_set" [uqjs]="course?.uqjs">
+        </app-course-question-snippet>
     </ng-container>
-    <div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab">
-        <div class="hover-shadow p-3">
-            <ng-container *ngIf="course">
-                <app-course-events-snippet [events]="course?.events" [courseId]="courseId">
-                </app-course-events-snippet>
-            </ng-container>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="tokens" role="tabpanel" aria-labelledby="tokens-tab">
-        <div class="hover-shadow p-3">
-            <ng-container *ngIf="course">
-                <app-token-use-snippet [courseReg]="course?.course_reg"></app-token-use-snippet>
-            </ng-container>
-        </div>
-    </div>
-    <div class="tab-pane fade" id="leader-board" role="tabpanel" aria-labelledby="leader-board-tab">
-        <div class="hover-shadow p-3">
-            <ng-container *ngIf="course">
-                <app-leader-board [leaderBoard]="course?.leader_board"></app-leader-board>
-            </ng-container>
-        </div>
-    </div>
-</div>
-
+    <ng-container *ngIf="tabsComponent.activeItemIndex === 2">
+        <app-course-events-snippet [events]="course?.events" [course]="course">
+        </app-course-events-snippet>
+    </ng-container>
+    <ng-container *ngIf="tabsComponent.activeItemIndex === 3">
+        <app-token-use-snippet [courseReg]="course?.course_reg"></app-token-use-snippet>
+    </ng-container>
+    <ng-container *ngIf="tabsComponent.activeItemIndex === 4">
+        <app-leader-board [leaderBoard]="course?.leader_board" [rankTopX]="3"></app-leader-board>
+    </ng-container>
+</section>
+<ng-template #more>
+    <tui-svg src="tuiIconMoreHorLarge"></tui-svg>
+</ng-template>

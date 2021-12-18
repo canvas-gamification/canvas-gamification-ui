@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {ChangePasswordService} from "@app/accounts/_services/change-password.service";
-import {ToastrService} from "ngx-toastr";
 import {ChangePasswordForm} from "@app/accounts/_forms/change-password.form";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-change-password',
@@ -13,7 +13,9 @@ export class ChangePasswordComponent implements OnInit {
     formGroup: FormGroup;
     logoPath = 'assets/global/logo.jpg';
 
-    constructor(private builder: FormBuilder, private password: ChangePasswordService, private toastr: ToastrService) {
+    constructor(private builder: FormBuilder,
+                private password: ChangePasswordService,
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
     get form(): { [p: string]: AbstractControl } {
@@ -29,7 +31,10 @@ export class ChangePasswordComponent implements OnInit {
         this.password.putPasswordReset(data)
             .subscribe(() => {
                 this.formGroup.reset();
-                this.toastr.success('Your password has been updated successfully!');
+                this.notificationsService
+                    .show('Your password has been updated successfully!', {
+                        status: TuiNotification.Success
+                    }).subscribe();
             });
     }
 

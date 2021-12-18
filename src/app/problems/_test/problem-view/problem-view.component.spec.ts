@@ -3,9 +3,9 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ProblemViewComponent} from '../../problem-view/problem-view.component';
 import {TestModule} from '@test/test.module';
 import {SubmissionService} from "@app/problems/_services/submission.service";
-import {SubmissionServiceMock} from "@app/problems/_test/submission.service.mock";
+import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.service.mock";
 import {UqjService} from "@app/problems/_services/uqj.service";
-import {UqjServiceMock} from "@app/problems/_test/uqj.service.mock";
+import {UqjServiceMock} from "@app/problems/_test/_services/uqj.service.mock";
 import {ActivatedRoute} from "@angular/router";
 import {MOCK_SUBMISSIONS, MOCK_UQJS} from "@app/problems/_test/mock";
 

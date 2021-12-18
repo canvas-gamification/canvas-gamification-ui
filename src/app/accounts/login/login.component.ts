@@ -5,16 +5,25 @@ import {first} from 'rxjs/operators';
 
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {LoginForm} from "@app/accounts/_forms/login.form";
+import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    styleUrls: ['./login.component.scss'],
+    providers: [
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'This field is required!',
+                email: 'Enter a valid email address!'
+            },
+        },
+    ],
 })
 export class LoginComponent implements OnInit {
     formGroup: FormGroup;
     loading = false;
-    submitted = false;
     error = '';
     logoPath = 'assets/global/logo.jpg';
 
@@ -38,10 +47,8 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit(): void {
-        this.submitted = true;
         this.loading = true;
-
-        this.authenticationService.login(this.form.username.value, this.form.password.value)
+        this.authenticationService.login(this.form.email.value, this.form.password.value)
             .pipe(first())
             .subscribe({
                 next: (user) => {
@@ -52,7 +59,6 @@ export class LoginComponent implements OnInit {
                         const returnUrl = this.route.snapshot.queryParams.returnUrl || '/homepage';
                         this.router.navigate([returnUrl]).then();
                     }
-
                 },
                 error: error => {
                     this.error = error;

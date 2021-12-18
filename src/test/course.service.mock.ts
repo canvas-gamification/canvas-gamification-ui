@@ -9,7 +9,7 @@ import {
     RegistrationStatus
 } from "@app/_models";
 import {MOCK_COURSE} from "@app/problems/_test/mock";
-import {MOCK_COURSE1} from "@app/course/_test/mock";
+import {MOCK_COURSE1, MOCK_COURSE_REGISTRATION_RESPONSE} from "@app/course/_test/mock";
 
 @Injectable({
     providedIn: 'root'
@@ -40,7 +40,7 @@ export class CourseServiceMock {
     }
 
     registerVerify(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
-        return of({success: true});
+        return of({attempts_remaining: MOCK_COURSE_REGISTRATION_RESPONSE.attempts_remaining, success: true});
     }
 
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {

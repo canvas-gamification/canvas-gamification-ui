@@ -1,5 +1,5 @@
 import {Category, Course, CourseEvent, Question, STATUS, UQJ} from '@app/_models';
-import {QuestionSubmission} from '@app/_models/question_submission';
+import {QuestionSubmission, StatusMessage} from '@app/_models/question_submission';
 import {Difficulty} from "@app/_models/difficulty";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
 import {JavaFormData} from "@app/problems/_forms/java.form";
@@ -48,20 +48,19 @@ export const MOCK_COURSE_EVENT: CourseEvent = {
 export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
+    category_obj: MOCK_CATEGORY,
     status: 'Solved',
     answer: 'a',
     author: 0,
     author_name: '',
-    category_name: '',
     choices: {
         'a': 'sag',
         'b': 'gav'
     },
     course_name: '',
     difficulty: 'EASY',
-    event: MOCK_COURSE_EVENT,
-    event_name: '',
-    full_category_name: '',
+    event: MOCK_COURSE_EVENT.id,
+    event_obj: MOCK_COURSE_EVENT,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -88,11 +87,11 @@ export const MOCK_MCQ_QUESTION: Question = {
 export const MOCK_CHECKBOX_QUESTION: Question = {
     id: 1,
     category: 0,
+    category_obj: MOCK_CATEGORY,
     status: 'Partially Solved',
     answer: 'a,b',
     author: 0,
     author_name: '',
-    category_name: '',
     choices: {
         'a': 'sag',
         'b': 'gav',
@@ -101,9 +100,8 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     },
     course_name: '',
     difficulty: 'EASY',
-    event: MOCK_COURSE_EVENT,
-    event_name: '',
-    full_category_name: '',
+    event: MOCK_COURSE_EVENT.id,
+    event_obj: MOCK_COURSE_EVENT,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -130,17 +128,16 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
 export const MOCK_JAVA_QUESTION: Question = {
     id: 2,
     category: 0,
+    category_obj: MOCK_CATEGORY,
     status: 'Wrong',
     answer: '',
     author: 0,
     author_name: '',
-    category_name: '',
     choices: null,
     course_name: '',
     difficulty: 'EASY',
-    event: MOCK_COURSE_EVENT,
-    event_name: '',
-    full_category_name: '',
+    event: MOCK_COURSE_EVENT.id,
+    event_obj: MOCK_COURSE_EVENT,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -167,17 +164,16 @@ export const MOCK_JAVA_QUESTION: Question = {
 export const MOCK_PARSONS_QUESTION: Question = {
     id: 3,
     category: 0,
+    category_obj: MOCK_CATEGORY,
     status: '',
     answer: '',
     author: 0,
     author_name: '',
-    category_name: '',
     choices: null,
     course_name: '',
     difficulty: 'EASY',
-    event: MOCK_COURSE_EVENT,
-    event_name: '',
-    full_category_name: '',
+    event: MOCK_COURSE_EVENT.id,
+    event_obj: MOCK_COURSE_EVENT,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -212,13 +208,12 @@ export const MOCK_PRACTICE_JAVA_QUESTION: Question = {
     answer: '',
     author: 0,
     author_name: '',
-    category_name: '',
+    category_obj: MOCK_CATEGORY,
     choices: null,
     course_name: '',
     difficulty: 'EASY',
     event: null,
-    event_name: '',
-    full_category_name: '',
+    event_obj: null,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -249,13 +244,12 @@ export const MOCK_PRACTICE_PARSONS_QUESTION: Question = {
     answer: '',
     author: 0,
     author_name: '',
-    category_name: '',
+    category_obj: MOCK_CATEGORY,
     choices: null,
     course_name: '',
     difficulty: 'EASY',
     event: null,
-    event_name: '',
-    full_category_name: '',
+    event_obj: null,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -290,7 +284,7 @@ export const MOCK_PRACTICE_MCQ_QUESTION: Question = {
     answer: 'a',
     author: 0,
     author_name: '',
-    category_name: '',
+    category_obj: MOCK_CATEGORY,
     choices: {
         'a': 'sag',
         'b': 'gav'
@@ -298,8 +292,7 @@ export const MOCK_PRACTICE_MCQ_QUESTION: Question = {
     course_name: '',
     difficulty: 'EASY',
     event: null,
-    event_name: '',
-    full_category_name: '',
+    event_obj: null,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -330,7 +323,7 @@ export const MOCK_PRACTICE_CHECKBOX_QUESTION: Question = {
     answer: 'a,b',
     author: 0,
     author_name: '',
-    category_name: '',
+    category_obj: MOCK_CATEGORY,
     choices: {
         'a': 'sag',
         'b': 'gav',
@@ -340,8 +333,7 @@ export const MOCK_PRACTICE_CHECKBOX_QUESTION: Question = {
     course_name: '',
     difficulty: 'EASY',
     event: null,
-    event_name: '',
-    full_category_name: '',
+    event_obj: null,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -631,6 +623,7 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     formatted_tokens_received: '',
     token_value: 1,
     get_decoded_results: [],
+    get_status_message: StatusMessage.ACCEPTED,
     get_decoded_stderr: '',
     get_failed_test_results: [],
     get_formatted_test_results: '',
@@ -659,6 +652,7 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     formatted_tokens_received: '',
     token_value: 1,
     get_decoded_results: [],
+    get_status_message: StatusMessage.ACCEPTED,
     get_decoded_stderr: '',
     get_failed_test_results: [],
     get_formatted_test_results: '',
@@ -676,9 +670,9 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
 };
 
 export const MOCK_DIFFICULTIES: Difficulty[] = [
-    ['EASY', 'EASY'],
-    ["NORMAL", 'MEDIUM'],
-    ['HARD', 'HARD'],
+    ['EASY', 'Easy'],
+    ['MEDIUM', 'Medium'],
+    ['HARD', 'Hard'],
 ];
 
 export const MOCK_MCQ_FORM_DATA: McqFormData = {
@@ -777,7 +771,8 @@ export const MOCK_COURSE: Course = {
     question_set: null,
     uqjs: MOCK_UQJS,
     course_reg: null,
-    leader_board: null
+    leader_board: null,
+    has_create_event_permission: true
 };
 
 export const MOCK_USER_DIFFICULTY_STATS: UserDifficultyStats[] = [
