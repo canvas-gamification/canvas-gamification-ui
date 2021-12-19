@@ -219,7 +219,7 @@ export class ProblemPracticeComponent implements OnInit {
     }
 
     /**
-     * Setup an MCQ question for practice.
+     * Set up an MCQ question for practice.
      */
     mcqSetup(): void {
         const outputArray = [];
@@ -267,14 +267,18 @@ export class ProblemPracticeComponent implements OnInit {
      * Determines what success rate to show to the user.
      */
     calculateUserSuccessRate(): void {
-        if (this.difficultyFormData.value.difficulty === "EASY") {
-            this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficultyFormData.value.difficulty).avgSuccess;
-        } else if (this.difficultyFormData.value.difficulty === "NORMAL") {
-            this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficultyFormData.value.difficulty).avgSuccess;
-        } else if (this.difficultyFormData.value.difficulty === "HARD") {
-            this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficultyFormData.value.difficulty).avgSuccess;
-        } else if (this.difficultyFormData.value.difficulty === '') {
-            this.userSuccessRate = this.categoryUserSuccessRate;
+        if (this.userDifficultyStats.length != 0){
+            if (this.difficultyFormData.value.difficulty === "EASY") {
+                this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficultyFormData.value.difficulty).avgSuccess;
+            } else if (this.difficultyFormData.value.difficulty === "NORMAL") {
+                this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficultyFormData.value.difficulty).avgSuccess;
+            } else if (this.difficultyFormData.value.difficulty === "HARD") {
+                this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficultyFormData.value.difficulty).avgSuccess;
+            } else if (this.difficultyFormData.value.difficulty === '') {
+                this.userSuccessRate = this.categoryUserSuccessRate;
+            } else {
+                this.userSuccessRate = 0;
+            }
         } else {
             this.userSuccessRate = 0;
         }

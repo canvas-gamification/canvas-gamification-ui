@@ -46,6 +46,6 @@ export class UserStatsComponent implements OnInit {
 
     navigateToPractice(): void {
         this.context.completeWith(0);
-        this.router.navigate(['../../problems/practice/', ]).then();
+        this.router.navigate(['category', this.categoryId], {relativeTo: this.route}).then();
     }
 }
