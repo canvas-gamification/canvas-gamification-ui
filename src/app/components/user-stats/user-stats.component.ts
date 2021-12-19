@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {UserStatsService} from '@app/_services/api/user-stats.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {Category} from '@app/_models';
@@ -24,6 +24,7 @@ export class UserStatsComponent implements OnInit {
                 private courseService: CourseService,
                 private categoryService: CategoryService,
                 private changeDetector: ChangeDetectorRef,
+                private router: Router,
                 @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<number, number>) {
         this.categoryId = this.context.data[0];
         this.courseId = this.context.data[1];
@@ -41,5 +42,10 @@ export class UserStatsComponent implements OnInit {
 
     closeDialog(): void {
         this.context.completeWith(0);
+    }
+
+    navigateToPractice(): void {
+        this.context.completeWith(0);
+        this.router.navigate(['../../problems/practice/', ]).then();
     }
 }
