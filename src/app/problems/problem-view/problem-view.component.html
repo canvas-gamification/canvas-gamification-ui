@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <tr>
-        <td>{{ uqj?.question?.full_category_name || 'No Category'}}</td>
+        <td>{{uqj?.question?.category_obj.full_name || 'No Category'}}</td>
         <td>{{uqj?.question?.token_value || 'No Token Value'}}</td>
         <td>{{uqj?.status || 'No Status'}}</td>
         <td>{{uqj?.question?.max_submission_allowed || 'No Value'}}</td>
