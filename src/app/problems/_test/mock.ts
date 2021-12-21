@@ -45,6 +45,16 @@ export const MOCK_COURSE_EVENT: CourseEvent = {
     type: '',
 };
 
+export const MOCK_PRACTICE_EVENT: CourseEvent = {
+    name: '',
+    type: null,
+    count_for_tokens: false,
+    start_date: null,
+    end_date: null,
+    course: null
+};
+
+
 export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
@@ -213,7 +223,7 @@ export const MOCK_PRACTICE_JAVA_QUESTION: Question = {
     course_name: '',
     difficulty: 'EASY',
     event: null,
-    event_obj: null,
+    event_obj: MOCK_PRACTICE_EVENT,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -249,7 +259,7 @@ export const MOCK_PRACTICE_PARSONS_QUESTION: Question = {
     course_name: '',
     difficulty: 'EASY',
     event: null,
-    event_obj: null,
+    event_obj: MOCK_PRACTICE_EVENT,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -292,7 +302,7 @@ export const MOCK_PRACTICE_MCQ_QUESTION: Question = {
     course_name: '',
     difficulty: 'EASY',
     event: null,
-    event_obj: null,
+    event_obj: MOCK_PRACTICE_EVENT,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
@@ -333,7 +343,7 @@ export const MOCK_PRACTICE_CHECKBOX_QUESTION: Question = {
     course_name: '',
     difficulty: 'EASY',
     event: null,
-    event_obj: null,
+    event_obj: MOCK_PRACTICE_EVENT,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,
