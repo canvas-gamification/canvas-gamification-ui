@@ -16,7 +16,7 @@ const routes = [
     {path: 'profile', component: ProfileDetailsComponent, canActivate: [AuthGuard]},
     {path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthGuard]},
     {path: 'reset-password', component: ResetPasswordComponent},
-    {path: 'reset-password/:uuid/:token', component: ResetPasswordComponent},
+    {path: 'reset-password/:uid/:token', component: ResetPasswordComponent},
     {path: 'consent-form', component: ConsentFormComponent, canActivate: [AuthGuard]},
     {path: 'activate/:uuid/:token', component: ActivationEmailComponent},
 ];

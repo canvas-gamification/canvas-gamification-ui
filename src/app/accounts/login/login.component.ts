@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
 
     onSubmit(): void {
         this.loading = true;
-        this.authenticationService.login(this.form.username.value, this.form.password.value)
+        this.authenticationService.login(this.form.email.value, this.form.password.value)
             .pipe(first())
             .subscribe({
                 next: (user) => {

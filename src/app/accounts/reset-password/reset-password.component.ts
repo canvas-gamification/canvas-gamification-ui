@@ -39,11 +39,11 @@ export class ResetPasswordComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const uuid = this.route.snapshot.params.uuid;
+        const uid = this.route.snapshot.params.uid;
         const token = this.route.snapshot.params.token;
-        if (uuid && token) {
+        if (uid && token) {
             this.emailSent = true;
-            this.formGroup = ResetPasswordForm.createPasswordForm(uuid, token);
+            this.formGroup = ResetPasswordForm.createPasswordForm(uid, token);
         }
         if (!this.emailSent) {
             this.formGroup = ResetPasswordForm.createEmailForm();
