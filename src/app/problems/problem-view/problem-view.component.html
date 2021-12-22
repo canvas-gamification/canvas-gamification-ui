@@ -44,6 +44,6 @@
 </ng-container>
 
 <!--Previous Submissions-->
-<ng-container *ngIf="previousSubmissions">
+<ng-container *ngIf="previousSubmissions?.length > 0">
     <app-submission-snippet [previousSubmissions]="previousSubmissions"></app-submission-snippet>
 </ng-container>
