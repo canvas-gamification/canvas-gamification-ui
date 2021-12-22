@@ -45,7 +45,7 @@
             formControlName="difficulty"
             class="tui-space_left-4"
             [tuiTextfieldCleaner]="true"
-            [valueContent]="difficulties ? tuiSelectStringifyService.stringify(difficulties, 0, 1) : ''"
+            [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
         >
             Difficulty
             <tui-data-list *tuiDataList>
@@ -58,7 +58,7 @@
             formControlName="parentCategory"
             class="tui-space_left-4"
             [tuiTextfieldCleaner]="true"
-            [valueContent]="parentCategories ? tuiSelectStringifyService.stringify(parentCategories, 'name', 'name') : ''"
+            [valueContent]="parentCategories ? (parentCategories | stringifyTuiDataList: 'name': 'name') : ''"
         >
             Category
             <tui-data-list *tuiDataList>
@@ -71,7 +71,7 @@
             formControlName="subCategory"
             class="tui-space_left-4"
             [tuiTextfieldCleaner]="true"
-            [valueContent]="subCategories ? tuiSelectStringifyService.stringify(subCategories, 'name', 'name') : ''"
+            [valueContent]="subCategories ? (subCategories | stringifyTuiDataList: 'name': 'name') : ''"
         >
             Sub Category
             <tui-data-list *tuiDataList>
@@ -84,6 +84,7 @@
             formControlName="is_sample"
             class="tui-space_left-4"
             [tuiTextfieldCleaner]="true"
+            [valueContent]="[[true, 'Yes'], [false, 'No']] | stringifyTuiDataList: 0: 1"
         >
             Sample
             <tui-data-list *tuiDataList>
@@ -166,8 +167,8 @@
                             icon="tuiIconEyeOpen"
                             class="tui-space_right-2 tui-space_vertical-2"
                             [routerLink]="[question.id]"
-                            tuiDescribedBy="view"
-                            tuiHintId="view"
+                            tuiDescribedBy="view-{{question.id}}"
+                            tuiHintId="view-{{question.id}}"
                             tuiHintMode="onDark"
                             tuiHintDirection="top-left"
                             [tuiHint]="viewTooltip"
@@ -181,8 +182,8 @@
                             icon="tuiIconEdit"
                             class="tui-space_right-2 tui-space_vertical-2"
                             [routerLink]="[question.id, 'edit']"
-                            tuiDescribedBy="edit"
-                            tuiHintId="edit"
+                            tuiDescribedBy="edit-{{question.id}}"
+                            tuiHintId="edit-{{question.id}}"
                             tuiHintMode="onDark"
                             tuiHintDirection="top-left"
                             [tuiHint]="editTooltip"
@@ -197,8 +198,8 @@
                             icon="tuiIconTrash"
                             class="tui-space_vertical-2"
                             (click)="openDeleteQuestionDialog(deleteDialog, question.id)"
-                            tuiDescribedBy="delete"
-                            tuiHintId="delete"
+                            tuiDescribedBy="delete-{{question.id}}"
+                            tuiHintId="delete-{{question.id}}"
                             tuiHintMode="onDark"
                             tuiHintDirection="top-left"
                             [tuiHint]="deleteTooltip"

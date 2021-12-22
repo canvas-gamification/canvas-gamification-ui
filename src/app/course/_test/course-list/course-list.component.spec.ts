@@ -10,6 +10,7 @@ import {MatTableModule} from "@angular/material/table";
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
 import {TuiInputModule, TuiIslandModule, TuiTagModule} from "@taiga-ui/kit";
 import {TuiLoaderModule} from "@taiga-ui/core";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe('CourseListComponent', () => {
     let component: CourseListComponent;
@@ -18,7 +19,8 @@ describe('CourseListComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                TestModule, MatTableModule, TuiInputModule, TuiLoaderModule,
+                TestModule, ReactiveFormsModule, FormsModule,
+                MatTableModule, TuiInputModule, TuiLoaderModule,
                 TuiFilterPipeModule, TuiTagModule, TuiIslandModule
             ],
             declarations: [CourseListComponent],

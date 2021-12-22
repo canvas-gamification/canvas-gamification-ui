@@ -28,7 +28,7 @@
     <div *ngIf="submission?.no_file_answer">
         <h2 class="tui-form__header tui-form__header_margin-top_none">Code</h2>
         <tui-island>
-            <pre>{{ submission?.answer }}</pre>
+            <pre><code class="language-java">{{ submission?.answer }}</code></pre>
         </tui-island>
     </div>
 
@@ -40,7 +40,7 @@
             {{ item.name }}
         </h2>
         <tui-island>
-            <pre>{{ item.code }}</pre>
+            <pre><code [highlight]="item.code"></code></pre>
         </tui-island>
     </div>
 

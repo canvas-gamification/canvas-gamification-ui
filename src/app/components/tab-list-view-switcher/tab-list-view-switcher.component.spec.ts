@@ -1,6 +1,9 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TabListViewSwitcherComponent} from './tab-list-view-switcher.component';
+import {TestModule} from "@test/test.module";
+import {TuiRadioBlockModule} from "@taiga-ui/kit";
+import {TuiSvgModule} from "@taiga-ui/core";
 
 describe('TabListViewSwitcherComponent', () => {
     let component: TabListViewSwitcherComponent;
@@ -8,7 +11,8 @@ describe('TabListViewSwitcherComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TabListViewSwitcherComponent]
+            declarations: [TabListViewSwitcherComponent],
+            imports: [TestModule, TuiRadioBlockModule, TuiSvgModule]
         })
             .compileComponents();
     });
@@ -16,6 +20,7 @@ describe('TabListViewSwitcherComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(TabListViewSwitcherComponent);
         component = fixture.componentInstance;
+        window.localStorage.removeItem(component['tabListViewService'].localStorageValue);
         fixture.detectChanges();
     });
 

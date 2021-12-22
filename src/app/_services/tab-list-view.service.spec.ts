@@ -15,7 +15,10 @@ describe('TabListViewService', () => {
     });
 
     it('should get list view when not set', () => {
-        expect(service.getView()).toBe('list');
+        window.localStorage.removeItem(service.localStorageValue);
+        const view = service.getView();
+        console.log(view);
+        expect(view).toBe('list');
     });
 
     it('should set view to tab', () => {

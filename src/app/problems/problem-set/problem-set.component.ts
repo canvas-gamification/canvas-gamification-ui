@@ -11,7 +11,6 @@ import {ProblemSetForm} from "@app/problems/_forms/problem-set.form";
 import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
 import {TuiComparator} from "@taiga-ui/addon-table";
-import {TuiSelectStringifyService} from "@app/_helpers/tui-select-stringify";
 
 export type SortingKey =
     'id'
@@ -67,7 +66,6 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
                 private questionService: QuestionService,
                 private categoryService: CategoryService,
                 private difficultyService: DifficultyService,
-                public tuiSelectStringifyService: TuiSelectStringifyService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
                 @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
                 private changeDetector: ChangeDetectorRef) {
@@ -170,7 +168,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
     }
 
     /**
-     * Modal for confirming if you want to delete a question.
+     * Dialog for confirming if you want to delete a question.
      * @param content - The modal to open.
      * @param questionId - The question to delete.
      */

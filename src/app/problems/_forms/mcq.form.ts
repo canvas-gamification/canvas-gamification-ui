@@ -1,21 +1,26 @@
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Question} from "@app/_models";
+import {fieldExistsIfOtherExistsValidator} from "@app/_helpers/forms/validators/field-exists-if-other-exists.validator";
 
 export class McqForm {
     /**
      * Creates a FormGroup for a MCQ question.
      */
     static createForm(): FormGroup {
-        const builder = new FormBuilder();
-        return builder.group({
+        return new FormGroup({
             title: new FormControl(null, [Validators.required]),
             difficulty: new FormControl(null, [Validators.required]),
+            category: new FormControl(null, [Validators.required]),
+            is_verified: new FormControl(false),
             course: new FormControl(null),
             event: new FormControl(null),
-            category: new FormControl(null, [Validators.required]),
+            text: new FormControl('', [Validators.required]),
+            answer: new FormArray([], [Validators.required, Validators.minLength(1)]),
             visible_distractor_count: new FormControl(null, [Validators.required]),
-            is_verified: new FormControl(false),
-        });
+            choices: new FormArray([], [Validators.required, Validators.minLength(1)]),
+            variables: new FormControl([])
+        }, [fieldExistsIfOtherExistsValidator('event', 'course')]
+        );
     }
 
     /**
@@ -23,100 +28,54 @@ export class McqForm {
      * @param question - The question object.
      */
     static createFormWithData(question: Question): FormGroup {
-        const builder = new FormBuilder();
-        return builder.group({
-            title: new FormControl(question.title, [Validators.required]),
-            difficulty: new FormControl(question.difficulty, [Validators.required]),
-            course: new FormControl(question?.event_obj?.course),
-            event: new FormControl(question?.event),
-            category: new FormControl(question.category, [Validators.required]),
-            visible_distractor_count: new FormControl(question.visible_distractor_count.toString(), [Validators.required]),
-            is_verified: new FormControl(question.is_verified),
+        const newForm = this.createForm();
+        const [answers, distractors] = this.getFormAnswersAndDistractors(question);
+        newForm.patchValue({
+            ...question,
+            course: question.event_obj?.course,
+            answer: [],
+            choices: []
         });
+        answers.forEach((answer) => (newForm.controls.answer as FormArray).push(new FormControl(answer, [Validators.required])));
+        distractors.forEach((distractor) => (newForm.controls.choices as FormArray).push(new FormControl(distractor, [Validators.required])));
+        return newForm;
     }
 
-    /**
-     * Extracts the data from the FormGroup.
-     * @param form - The FormGroup for the question.
-     * @param choices - The mcq choices list.
-     * @param variablesJSON - The variables in JSON format.
-     * @param questionText - The question text.
-     * @param questionAnswer - The question's answer.
-     */
-    static extractMcqData(form: FormGroup, choices: string[], variablesJSON: JSON[], questionText: string, questionAnswer: string): McqFormData {
-        choices.unshift(questionAnswer);
-        const mcqChoices = this.arrayToObject(choices);
-        const correctAnswer = Object.keys(mcqChoices).find(key => mcqChoices[key] === questionAnswer);
+    static createChoiceControl(): FormControl {
+        return new FormControl('', [Validators.required]);
+    }
+
+    static submissionData(form: FormGroup): McqFormData {
+        const data = form.getRawValue();
+        const [answer, choices] = this.getQuestionAnswerAndChoices(data.answer, data.choices);
         return {
-            title: form.value.title,
-            difficulty: form.value.difficulty,
-            course: form.value.course,
-            event: form.value.event,
-            text: questionText,
-            answer: correctAnswer,
-            category: form.value.category,
-            variables: variablesJSON,
-            visible_distractor_count: form.value.visible_distractor_count,
-            is_verified: form.value.is_verified,
-            choices: mcqChoices
+            ...data,
+            answer: answer,
+            choices: choices
         };
     }
 
-    /**
-     * Extracts the data from the FormGroup.
-     * @param form - The FormGroup for the question.
-     * @param choices - The checkbox choices list.
-     * @param variablesJSON - The variables in JSON format.
-     * @param questionText - The question text.
-     * @param correctAnswers - The list of correct answers.
-     */
-    static extractCheckboxData(form: FormGroup, choices: string[], variablesJSON: JSON[], questionText: string, correctAnswers: string[]): McqFormData {
-        correctAnswers.forEach((answer) => {
-            choices.unshift(answer);
+    static getFormAnswersAndDistractors(question: Question): [string[], string[]] {
+        let answers = question.answer.split(',');
+        answers = answers.map(answer => {
+            if (question.choices[answer]) {
+                const answerValue = Object.entries(question.choices).find(entry => entry[0] === answer)[1];
+                delete question.choices[answer];
+                return answerValue;
+            }
         });
-        const checkboxChoices = this.arrayToObject(choices);
-        const correctAnswerKeys: string[] = [];
-        correctAnswers.forEach((answer) => {
-            correctAnswerKeys.push(Object.keys(checkboxChoices).find(key => checkboxChoices[key] === answer));
-        });
-        const correctAnswer = correctAnswerKeys.toString();
-        return {
-            title: form.value.title,
-            difficulty: form.value.difficulty,
-            course: form.value.course,
-            event: form.value.event,
-            text: questionText,
-            answer: correctAnswer,
-            category: form.value.category,
-            variables: variablesJSON,
-            visible_distractor_count: form.value.visible_distractor_count,
-            is_verified: form.value.is_verified,
-            choices: checkboxChoices
-        };
+        return [answers, Object.values(question.choices)];
     }
 
-    /**
-     * Helper method to get the next letter.
-     * @param char - Letter to get the following for.
-     */
-    private static getNextLetter(char: string): string {
-        let code = char.charCodeAt(0);
-        code++;
-        return String.fromCharCode(code);
-    }
-
-    /**
-     * Helper function to turn an array into an object.
-     * @param choicesArray - The array to transform.
-     */
-    private static arrayToObject(choicesArray: string[]): { [id: string]: string } {
+    static getQuestionAnswerAndChoices(answers: string[], distractors: string[]): [string, { [id: string]: string }] {
         const choices = {};
-        let id = 'a';
-        for (const choice of choicesArray) {
-            choices[id] = choice;
-            id = this.getNextLetter(id);
-        }
-        return choices;
+        const answerChar = [];
+        [...answers, ...distractors].forEach((value, index) => {
+            const char = String.fromCharCode('a'.charCodeAt(0) + index);
+            choices[char] = value;
+            if (index < answers.length) answerChar.push(char);
+        });
+        return [answerChar.toString(), choices];
     }
 }
 

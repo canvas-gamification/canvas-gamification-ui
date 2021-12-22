@@ -1,9 +1,42 @@
-<h2 class="tui-form__header">My Answer</h2>
+<div class="view-switcher__wrapper">
+    <h2 class="tui-form__header tui-space_bottom-4 tui-space_top-2">Organize The Following</h2>
+<!--    <app-tab-list-view-switcher #viewSwitcher></app-tab-list-view-switcher>-->
+</div>
 <form (ngSubmit)="onSubmit()">
-    <ng-container *ngFor="let file of files">
-        <app-parsons-lines [file]="file" (code)="file.solution = $event"></app-parsons-lines>
-    </ng-container>
+<!--    TODO: Due to technical limitations for remembering -->
+<!--    TODO: what parsons they have placed, the state switching has been removed -->
+<!--    <ng-container *ngIf="viewSwitcher.view === 'tab' else listView">-->
+<!--        <tui-tabs-with-more class="tui-space_bottom-4" #tabsComponent>-->
+<!--            <ng-container *ngFor="let file of files">-->
+<!--                <button *tuiTab tuiTab>-->
+<!--                    {{ file.name }}-->
+<!--                </button>-->
+<!--            </ng-container>-->
+<!--        </tui-tabs-with-more>-->
+<!--        <div *ngFor="let file of files; let index = index">-->
+<!--            <div *ngIf="tabsComponent.activeItemIndex === index">-->
+<!--                <ng-container-->
+<!--                    [ngTemplateOutlet]="parsonsLines"-->
+<!--                    [ngTemplateOutletContext]="{ $implicit: file }"-->
+<!--                ></ng-container>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </ng-container>-->
+<!--    <ng-template #listView>-->
+        <div class="parsons__list">
+            <div *ngFor="let file of files">
+                <p class="parsons__list-title">{{ file.name }}</p>
+                <ng-container
+                    [ngTemplateOutlet]="parsonsLines"
+                    [ngTemplateOutletContext]="{ $implicit: file }"
+                ></ng-container>
+            </div>
+        </div>
+<!--    </ng-template>-->
     <div class="tui-form__buttons">
         <button tuiButton size="m" class="tui-form__button">Submit</button>
     </div>
+    <ng-template let-file #parsonsLines>
+        <app-parsons-lines [file]="file" (code)="file.solution = $event"></app-parsons-lines>
+    </ng-template>
 </form>

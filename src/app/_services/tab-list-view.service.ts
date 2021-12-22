@@ -11,7 +11,7 @@ export class TabListViewService {
         const tabOrList = window.localStorage.getItem(this.localStorageValue);
         if (!tabOrList) {
             this.setView('list');
-            this.getView();
+            return 'list';
         }
         return tabOrList;
     }

@@ -1,20 +1,18 @@
-{{ file.name }}
-<div class="tui-row">
-    <div class="tui-col_6">
-        <h2>Lines</h2>
-        <div class="left-container" [dragula]="file.name" [(dragulaModel)]="leftContainer">
+<div class="tui-row tui-row_adaptive">
+    <div class="tui-col_xs-12 tui-col_md-12 tui-col_lg-6">
+        <h3 class="tui-form__header tui-form__header_margin-top_none">Lines</h3>
+        <tui-island class="container" [dragula]="file.name" [(dragulaModel)]="leftContainer">
             <div class="container-object" *ngFor="let line of leftContainer">
-                <pre>{{line.value}}</pre>
+                <pre>{{ line.value }}</pre>
             </div>
-        </div>
+        </tui-island>
     </div>
-    <div class="tui-col_6">
-        <h2>My Solution</h2>
-        <div class="right-container" [dragula]="file.name"
-             [(dragulaModel)]="rightContainer">
+    <div class="tui-col_xs-12 tui-col_md-12 tui-col_lg-6">
+        <h3 class="tui-form__header tui-form__header_margin-top_none">My Solution</h3>
+        <tui-island class="container" [dragula]="file.name" [(dragulaModel)]="rightContainer">
             <div class="container-object" *ngFor="let line of rightContainer">
-                <pre>{{line.value}}</pre>
+                <pre>{{ line.value }}</pre>
             </div>
-        </div>
+        </tui-island>
     </div>
 </div>

@@ -1,6 +1,5 @@
-<h2 class="tui-form__header">Possible Answers</h2>
 <ng-container *ngIf="!uqj.is_checkbox">
-    <form (ngSubmit)="onSubmit(formData.value)" [formGroup]="formData">
+    <form class="tui-space_top-6" (ngSubmit)="onSubmit(formData.value)" [formGroup]="formData">
         <div class="tui-space_bottom-3" *ngFor="let choice of choiceArray">
             <tui-radio-block
                 formControlName="solution"
@@ -23,10 +22,10 @@
     </form>
 </ng-container>
 <ng-container *ngIf="uqj.is_checkbox">
-    <form (ngSubmit)="onCheckboxSubmit()" [formGroup]="checkboxFormData">
+    <form class="tui-space_top-6" (ngSubmit)="onCheckboxSubmit()" [formGroup]="checkboxFormData">
         <div class="tui-space_bottom-3" *ngFor="let checkbox of checkboxesArray.controls; let index = index">
             <tui-checkbox-block
-                [formControl]="checkboxesArray.controls[index]"
+                [formControl]="checkboxesArray.controls[index] | asFormControl"
                 contentAlign="left"
             >
                 <div [innerHTML]="choiceArray[index].safeValue"></div>
