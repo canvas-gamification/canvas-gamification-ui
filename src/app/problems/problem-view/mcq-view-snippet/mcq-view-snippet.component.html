@@ -12,6 +12,10 @@
                         <label class="form-check-label" for="answer-{{choice.id}}"></label>
                     </div>
                 </div>
+                <ng-container *ngIf="uqj.question.is_practice">
+                    <button class="btn btn-outline-primary" type="button">Previous</button>
+                    <button class="btn btn-primary" type="button">Skip</button>
+                </ng-container>
                 <button [disabled]="!formData.valid" class="btn btn-success" type="submit">Submit</button>
             </form>
         </ng-container>
@@ -24,6 +28,10 @@
                         <label class="form-check-label" for="{{choiceArray[i].id}}"></label>
                     </div>
                 </div>
+                <ng-container *ngIf="uqj.question.is_practice">
+                    <button class="btn btn-outline-primary" type="button">Previous</button>
+                    <button class="btn btn-primary" type="button">Skip</button>
+                </ng-container>
                 <button class="btn btn-success" type="submit">Submit</button>
             </form>
         </ng-container>

@@ -9,6 +9,10 @@
                     <app-parsons-lines [file]="file" (code)="file.solution = $event"></app-parsons-lines>
                 </ng-container>
             </div>
+            <ng-container *ngIf="uqj.question.is_practice">
+                <button class="btn btn-outline-primary" type="button">Previous</button>
+                <button class="btn btn-primary" type="button">Skip</button>
+            </ng-container>
             <button type="submit" class="btn btn-success my-3">Submit</button>
         </form>
     </div>
