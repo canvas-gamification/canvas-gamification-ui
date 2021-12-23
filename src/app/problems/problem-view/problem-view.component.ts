@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UQJ, User} from '@app/_models';
 import {UqjService} from '@app/problems/_services/uqj.service';
@@ -13,6 +13,13 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
     styleUrls: ['./problem-view.component.scss'],
 })
 export class ProblemViewComponent implements OnInit {
+    @Input() isPractice: boolean;
+    @Input() practiceQuestionId: number;
+    uqj: UQJ;
+    previousSubmissions: QuestionSubmission[];
+    user: User;
+    safeRenderedText: SafeHtml;
+    questionId: number;
 
     constructor(private route: ActivatedRoute,
                 private uqjService: UqjService,
@@ -21,19 +28,18 @@ export class ProblemViewComponent implements OnInit {
                 private sanitizer: DomSanitizer) {
     }
 
-    uqj: UQJ;
-    previousSubmissions: QuestionSubmission[];
-    user: User;
-    safeRenderedText: SafeHtml;
-
     ngOnInit(): void {
-        const questionId = this.route.snapshot.params.id;
-        this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
+        if (this.isPractice) {
+            this.questionId = this.practiceQuestionId;
+        } else {
+            this.questionId = this.route.snapshot.params.id;
+        }
+        this.uqjService.getUQJByQuestion(this.questionId).subscribe(uqj => {
             this.uqj = uqj;
             this.safeRenderedText = this.sanitizer.bypassSecurityTrustHtml(this.uqj.rendered_text);
         });
 
-        this.submissionService.getPreviousSubmissions(questionId, {ordering: '-submission_time'}).subscribe(submissions => {
+        this.submissionService.getPreviousSubmissions(this.questionId, {ordering: '-submission_time'}).subscribe(submissions => {
             this.previousSubmissions = submissions;
         });
 
