@@ -10,6 +10,7 @@ import {TuiCheckboxBlockModule, TuiRadioBlockModule} from "@taiga-ui/kit";
 import {of} from "rxjs";
 import {HttpHeaderResponse} from "@angular/common/http";
 import {delay} from "rxjs/operators";
+import {AsFormControlPipe} from "@app/_helpers/pipes/as-form-control.pipe";
 
 let component: McqViewSnippetComponent;
 let fixture: ComponentFixture<McqViewSnippetComponent>;
@@ -18,7 +19,7 @@ beforeEach(async () => {
     await TestBed.configureTestingModule({
         imports: [TestModule, ReactiveFormsModule, TuiCheckboxBlockModule, TuiRadioBlockModule],
         providers: [{provide: SubmissionService, useClass: SubmissionServiceMock}],
-        declarations: [McqViewSnippetComponent]
+        declarations: [McqViewSnippetComponent, AsFormControlPipe]
     }).compileComponents();
 });
 
