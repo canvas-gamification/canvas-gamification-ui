@@ -10,7 +10,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 })
 export class ParsonsViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
-    @Output() skipQuestionEvent = new EventEmitter<boolean>();
+    @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
 
     files: (ParsonsFile & { solution: string })[]
 

@@ -15,7 +15,7 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 export class ProblemViewComponent implements OnInit {
     @Input() isPractice: boolean;
     @Input() practiceQuestionId: number;
-    @Output() skipQuestionEvent = new EventEmitter<boolean>();
+    @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
     uqj: UQJ;
     previousSubmissions: QuestionSubmission[];
     user: User;

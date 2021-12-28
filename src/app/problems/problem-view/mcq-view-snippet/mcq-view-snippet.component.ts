@@ -12,7 +12,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 })
 export class McqViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
-    @Output() skipQuestionEvent = new EventEmitter<boolean>();
+    @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
     formData: FormGroup;
     checkboxFormData: FormGroup;
     choiceArray: { id: string, value: string, safeValue: SafeHtml }[];
