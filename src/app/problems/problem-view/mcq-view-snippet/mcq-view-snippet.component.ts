@@ -14,6 +14,7 @@ export class McqViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();
+    @Output() readonly submissionEvent = new EventEmitter<boolean>();
     formData: FormGroup;
     checkboxFormData: FormGroup;
     choiceArray: { id: string, value: string, safeValue: SafeHtml }[];
@@ -67,6 +68,7 @@ export class McqViewSnippetComponent implements OnInit {
                     .show('The Question has been Submitted Successfully.', {
                         status: TuiNotification.Success
                     }).subscribe();
+                this.submissionEvent.emit(true);
             });
     }
 
@@ -82,6 +84,7 @@ export class McqViewSnippetComponent implements OnInit {
                 .show('The Question has been Submitted Successfully.', {
                     status: TuiNotification.Success
                 }).subscribe();
+            this.submissionEvent.emit(true);
         });
     }
 

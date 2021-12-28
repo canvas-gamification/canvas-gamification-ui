@@ -17,6 +17,7 @@ export class ProblemViewComponent implements OnInit {
     @Input() practiceQuestionId: number;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();
+    @Output() readonly submissionEvent = new EventEmitter<boolean>();
     uqj: UQJ;
     previousSubmissions: QuestionSubmission[];
     user: User;
@@ -64,6 +65,14 @@ export class ProblemViewComponent implements OnInit {
      */
     previousQuestion(value: boolean): void {
         this.previousQuestionEvent.emit(value);
+    }
+
+    /**
+     * Emits an event when a question is submitted.
+     * @param value - The value to emit.
+     */
+    submitQuestion(value: boolean): void {
+        this.submissionEvent.emit(value);
     }
 
 }

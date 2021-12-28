@@ -12,6 +12,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();
+    @Output() readonly submissionEvent = new EventEmitter<boolean>();
 
     files: (ParsonsFile & { solution: string })[]
 
@@ -42,6 +43,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
                 .show('The Question has been Submitted Successfully.', {
                     status: TuiNotification.Success
                 }).subscribe();
+            this.submissionEvent.emit(true);
         });
     }
 

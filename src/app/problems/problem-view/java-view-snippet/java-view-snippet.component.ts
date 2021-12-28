@@ -12,6 +12,7 @@ export class JavaViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();
+    @Output() readonly submissionEvent = new EventEmitter<boolean>();
     inputFileNames = new Array<{ name: string, template: string }>();
 
     constructor(
@@ -37,6 +38,7 @@ export class JavaViewSnippetComponent implements OnInit {
                     .show('The Question has been Submitted Successfully.', {
                         status: TuiNotification.Success
                     }).subscribe();
+                this.submissionEvent.emit(true);
             });
     }
 

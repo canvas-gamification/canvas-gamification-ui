@@ -1,7 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ProblemPracticeComponent} from "@app/problems/problem-practice/problem-practice.component";
-import {SubmissionService} from "@app/problems/_services/submission.service";
-import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.service.mock";
 import {TestModule} from "@test/test.module";
 import {UqjService} from "@app/problems/_services/uqj.service";
 import {UqjServiceMock} from "@app/problems/_test/_services/uqj.service.mock";
@@ -33,7 +31,6 @@ describe('ProblemPracticeComponent', () => {
         await TestBed.configureTestingModule({
             declarations: [ProblemPracticeComponent],
             providers: [
-                {provide: SubmissionService, useClass: SubmissionServiceMock},
                 {provide: UqjService, useClass: UqjServiceMock},
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},
@@ -51,8 +48,7 @@ describe('ProblemPracticeComponent', () => {
                 }
             ],
             imports: [TestModule]
-        })
-            .compileComponents();
+        }).compileComponents();
     });
 
     beforeEach(() => {
@@ -84,7 +80,7 @@ describe('ProblemPracticeComponent', () => {
 
     it('should not skip question when there is only one uqj', () => {
         component.filteredUqjs = [MOCK_UQJ_5];
-        component.skipQuestion();
+        component.skipQuestion(true);
         fixture.detectChanges();
         expect(component.previousUqj).toEqual(null);
         expect(component.currentUqj).toEqual(MOCK_UQJ_5);
@@ -93,14 +89,14 @@ describe('ProblemPracticeComponent', () => {
 
     it('should skip question when there are multiple uqjs', () => {
         const firstUqj = component.currentUqj;
-        component.skipQuestion();
+        component.skipQuestion(true);
         fixture.detectChanges();
         expect(component.previousUqj).toEqual(firstUqj);
     });
 
     it('should not change question when clicking previous question with one uqj', () => {
         component.filteredUqjs = [MOCK_UQJ_5];
-        component.previousQuestion();
+        component.previousQuestion(true);
         fixture.detectChanges();
         expect(component.previousUqj).toEqual(null);
         expect(component.currentUqj).toEqual(MOCK_UQJ_5);
@@ -108,10 +104,10 @@ describe('ProblemPracticeComponent', () => {
     });
 
     it('should go to previous question when there are multiple uqjs', () => {
-        component.skipQuestion();
+        component.skipQuestion(true);
         fixture.detectChanges();
         const previousUqj = component.previousUqj;
-        component.previousQuestion();
+        component.previousQuestion(true);
         fixture.detectChanges();
         expect(component.currentUqj).toEqual(previousUqj);
     });
@@ -128,38 +124,5 @@ describe('ProblemPracticeComponent', () => {
         component.applyFilter();
         fixture.detectChanges();
         expect(component.currentUqj).toBeUndefined();
-    });
-
-    it('should submit - mcq', () => {
-        component.currentUqj = MOCK_UQJ_7;
-        component.mcqSetup();
-        component.mcqFormData.controls['solution'].setValue('');
-        component.onSubmit();
-        fixture.detectChanges();
-        expect(notificationService.show).toHaveBeenCalled();
-    });
-
-    it('should submit - checkbox', () => {
-        component.currentUqj = MOCK_UQJ_8;
-        component.mcqSetup();
-        component.onSubmit();
-        fixture.detectChanges();
-        expect(notificationService.show).toHaveBeenCalled();
-    });
-
-    it('should submit - java', () => {
-        component.currentUqj = MOCK_UQJ_5;
-        component.setupCurrentUqj(true);
-        component.onSubmit();
-        fixture.detectChanges();
-        expect(notificationService.show).toHaveBeenCalled();
-    });
-
-    it('should submit - parsons', () => {
-        component.currentUqj = MOCK_UQJ_6;
-        component.setupCurrentUqj(true);
-        component.onSubmit();
-        fixture.detectChanges();
-        expect(notificationService.show).toHaveBeenCalled();
     });
 });
