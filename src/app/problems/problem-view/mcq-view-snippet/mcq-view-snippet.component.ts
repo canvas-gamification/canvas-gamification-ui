@@ -98,10 +98,18 @@ export class McqViewSnippetComponent implements OnInit {
         }
     }
 
+    /**
+     * Emits an event to skip to the next question.
+     * @param value - The value to emit.
+     */
     skipQuestion(value: boolean): void {
         this.skipQuestionEvent.emit(value);
     }
 
+    /**
+     * Emits an event to return to the previous question.
+     * @param value - The value to emit.
+     */
     previousQuestion(value: boolean): void {
         this.previousQuestionEvent.emit(value);
     }

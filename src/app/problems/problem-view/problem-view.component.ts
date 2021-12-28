@@ -50,10 +50,18 @@ export class ProblemViewComponent implements OnInit {
         });
     }
 
+    /**
+     * Emits an event to skip the current question.
+     * @param value - The value to emit.
+     */
     skipQuestion(value: boolean): void {
         this.skipQuestionEvent.emit(value);
     }
 
+    /**
+     * Emits an event to return to the previous question.
+     * @param value
+     */
     previousQuestion(value: boolean): void {
         this.previousQuestionEvent.emit(value);
     }
