@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
@@ -10,6 +10,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 })
 export class JavaViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
+    @Output() skipQuestionEvent = new EventEmitter<boolean>();
     inputFileNames = new Array<{ name: string, template: string }>();
 
     constructor(
@@ -36,5 +37,9 @@ export class JavaViewSnippetComponent implements OnInit {
                         status: TuiNotification.Success
                     }).subscribe();
             });
+    }
+
+    skipQuestion(value: boolean): void {
+        this.skipQuestionEvent.emit(value);
     }
 }

@@ -24,7 +24,7 @@
             </div>
             <ng-container *ngIf="uqj.question.is_practice">
                 <button class="btn btn-outline-primary" type="button">Previous</button>
-                <button class="btn btn-primary" type="button">Skip</button>
+                <button class="btn btn-primary" type="button" (click)="skipQuestion(true)">Skip</button>
             </ng-container>
             <button type="submit" class="btn btn-success">Submit</button>
         </form>

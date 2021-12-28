@@ -96,16 +96,18 @@ export class ProblemPracticeComponent implements OnInit {
     /**
      * Skip the current question and move to the next one.
      */
-    skipQuestion(): void {
-        if (this.filteredUqjs.length === 1) {
-            this.previousUqj = null;
-            this.currentUqj = this.filteredUqjs[0];
-            this.notificationsService
-                .show('This is the final question available to practice.', {
-                    status: TuiNotification.Success
-                }).subscribe();
-        } else {
-            this.setupCurrentUqj(true);
+    skipQuestion(skipEvent: boolean): void {
+        if (skipEvent) {
+            if (this.filteredUqjs.length === 1) {
+                this.previousUqj = null;
+                this.currentUqj = this.filteredUqjs[0];
+                this.notificationsService
+                    .show('This is the final question available to practice.', {
+                        status: TuiNotification.Success
+                    }).subscribe();
+            } else {
+                this.setupCurrentUqj(true);
+            }
         }
     }
 
@@ -267,7 +269,7 @@ export class ProblemPracticeComponent implements OnInit {
      * Determines what success rate to show to the user.
      */
     calculateUserSuccessRate(): void {
-        if (this.userDifficultyStats.length != 0){
+        if (this.userDifficultyStats.length != 0) {
             if (this.difficultyFormData.value.difficulty === "EASY") {
                 this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficultyFormData.value.difficulty).avgSuccess;
             } else if (this.difficultyFormData.value.difficulty === "NORMAL") {

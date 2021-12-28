@@ -20,6 +20,6 @@
     </div>
 </form>
 <ng-container *ngIf="currentUqj">
-    <app-problem-view [isPractice]="true" [practiceQuestionId]="currentUqj.question.id"></app-problem-view>
+    <app-problem-view [isPractice]="true" [practiceQuestionId]="currentUqj.question.id" (skipQuestionEvent)="skipQuestion($event)"></app-problem-view>
 </ng-container>
 

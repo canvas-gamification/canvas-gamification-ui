@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
@@ -12,6 +12,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 })
 export class McqViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
+    @Output() skipQuestionEvent = new EventEmitter<boolean>();
     formData: FormGroup;
     checkboxFormData: FormGroup;
     choiceArray: { id: string, value: string, safeValue: SafeHtml }[];
@@ -94,6 +95,10 @@ export class McqViewSnippetComponent implements OnInit {
         } else {
             this.checkboxAnswers.splice(this.checkboxAnswers.findIndex(id => id === input.id), 1);
         }
+    }
+
+    skipQuestion(value: boolean): void {
+        this.skipQuestionEvent.emit(value);
     }
 
     /**

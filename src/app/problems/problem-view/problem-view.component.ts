@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UQJ, User} from '@app/_models';
 import {UqjService} from '@app/problems/_services/uqj.service';
@@ -15,6 +15,7 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 export class ProblemViewComponent implements OnInit {
     @Input() isPractice: boolean;
     @Input() practiceQuestionId: number;
+    @Output() skipQuestionEvent = new EventEmitter<boolean>();
     uqj: UQJ;
     previousSubmissions: QuestionSubmission[];
     user: User;
@@ -46,5 +47,9 @@ export class ProblemViewComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => {
             this.user = user;
         });
+    }
+
+    skipQuestion(value: boolean): void {
+        this.skipQuestionEvent.emit(value);
     }
 }
