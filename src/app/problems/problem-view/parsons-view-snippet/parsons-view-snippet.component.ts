@@ -11,6 +11,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 export class ParsonsViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
+    @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();
 
     files: (ParsonsFile & { solution: string })[]
 
@@ -46,5 +47,9 @@ export class ParsonsViewSnippetComponent implements OnInit {
 
     skipQuestion(value: boolean): void {
         this.skipQuestionEvent.emit(value);
+    }
+
+    previousQuestion(value: boolean): void {
+        this.previousQuestionEvent.emit(value);
     }
 }

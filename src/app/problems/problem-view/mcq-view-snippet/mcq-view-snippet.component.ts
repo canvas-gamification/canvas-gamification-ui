@@ -13,6 +13,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 export class McqViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
+    @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();
     formData: FormGroup;
     checkboxFormData: FormGroup;
     choiceArray: { id: string, value: string, safeValue: SafeHtml }[];
@@ -99,6 +100,10 @@ export class McqViewSnippetComponent implements OnInit {
 
     skipQuestion(value: boolean): void {
         this.skipQuestionEvent.emit(value);
+    }
+
+    previousQuestion(value: boolean): void {
+        this.previousQuestionEvent.emit(value);
     }
 
     /**

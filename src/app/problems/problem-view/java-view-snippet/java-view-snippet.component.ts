@@ -11,6 +11,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 export class JavaViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
+    @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();
     inputFileNames = new Array<{ name: string, template: string }>();
 
     constructor(
@@ -41,5 +42,9 @@ export class JavaViewSnippetComponent implements OnInit {
 
     skipQuestion(value: boolean): void {
         this.skipQuestionEvent.emit(value);
+    }
+
+    previousQuestion(value: boolean): void {
+        this.previousQuestionEvent.emit(value);
     }
 }
