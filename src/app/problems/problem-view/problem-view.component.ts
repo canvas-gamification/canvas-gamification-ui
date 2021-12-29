@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UQJ, User} from '@app/_models';
 import {UqjService} from '@app/problems/_services/uqj.service';
@@ -12,9 +12,9 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
 })
-export class ProblemViewComponent implements OnInit {
+export class ProblemViewComponent implements OnInit, OnChanges {
     @Input() isPractice: boolean;
-    @Input() practiceQuestionId: number;
+    @Input() currentUqj: UQJ;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly submissionEvent = new EventEmitter<boolean>();
@@ -31,9 +31,18 @@ export class ProblemViewComponent implements OnInit {
                 private sanitizer: DomSanitizer) {
     }
 
+    ngOnChanges(): void {
+        this.uqj = this.currentUqj;
+        this.questionId = this.uqj.question.id;
+        this.safeRenderedText = this.sanitizer.bypassSecurityTrustHtml(this.uqj.rendered_text);
+        this.submissionService.getPreviousSubmissions(this.questionId, {ordering: '-submission_time'}).subscribe(submissions => {
+            this.previousSubmissions = submissions;
+        });
+    }
+
     ngOnInit(): void {
         if (this.isPractice) {
-            this.questionId = this.practiceQuestionId;
+            this.questionId = this.currentUqj.question.id;
         } else {
             this.questionId = this.route.snapshot.params.id;
         }
