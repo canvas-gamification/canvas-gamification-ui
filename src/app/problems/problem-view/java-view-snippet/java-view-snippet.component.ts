@@ -10,6 +10,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 })
 export class JavaViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
+    @Input() isPractice: boolean;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly submissionEvent = new EventEmitter<boolean>();

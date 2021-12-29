@@ -13,7 +13,7 @@ import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
     styleUrls: ['./problem-view.component.scss'],
 })
 export class ProblemViewComponent implements OnInit, OnChanges {
-    @Input() isPractice: boolean;
+    @Input() isPractice = false;
     @Input() currentUqj: UQJ;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();

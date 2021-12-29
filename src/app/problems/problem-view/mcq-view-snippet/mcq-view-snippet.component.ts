@@ -12,6 +12,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 })
 export class McqViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
+    @Input() isPractice: boolean;
     @Output() readonly skipQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly previousQuestionEvent = new EventEmitter<boolean>();
     @Output() readonly submissionEvent = new EventEmitter<boolean>();
@@ -34,6 +35,7 @@ export class McqViewSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        console.log(this.isPractice);
         const outputArray = [];
         for (const choice in this.uqj.rendered_choices) {
             outputArray.push({

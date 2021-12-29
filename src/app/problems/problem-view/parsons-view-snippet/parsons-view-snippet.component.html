@@ -9,7 +9,7 @@
                     <app-parsons-lines [file]="file" (code)="file.solution = $event"></app-parsons-lines>
                 </ng-container>
             </div>
-            <ng-container *ngIf="uqj.question.is_practice">
+            <ng-container *ngIf="isPractice">
                 <button class="btn btn-outline-primary" type="button" (click)="previousQuestion(true)">Previous</button>
                 <button class="btn btn-primary" type="button" (click)="skipQuestion(true)">Skip</button>
             </ng-container>
