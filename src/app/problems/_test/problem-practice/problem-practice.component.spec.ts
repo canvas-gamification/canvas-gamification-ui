@@ -20,6 +20,7 @@ import {UserStatsService} from "@app/_services/api/user-stats.service";
 import {UserStatsServiceMock} from "@test/user-stats.service.mock";
 import {TuiNotificationsService} from "@taiga-ui/core";
 import {of} from "rxjs";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 describe('ProblemPracticeComponent', () => {
@@ -47,7 +48,7 @@ describe('ProblemPracticeComponent', () => {
                     }
                 }
             ],
-            imports: [TestModule]
+            imports: [TestModule, ReactiveFormsModule]
         }).compileComponents();
     });
 
