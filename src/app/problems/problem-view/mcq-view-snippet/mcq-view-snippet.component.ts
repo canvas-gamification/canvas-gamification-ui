@@ -35,7 +35,6 @@ export class McqViewSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        console.log(this.isPractice);
         const outputArray = [];
         for (const choice in this.uqj.rendered_choices) {
             outputArray.push({
