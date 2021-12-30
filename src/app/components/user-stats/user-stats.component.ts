@@ -40,10 +40,16 @@ export class UserStatsComponent implements OnInit {
         });
     }
 
+    /**
+     * Closes the dialog.
+     */
     closeDialog(): void {
         this.context.completeWith(0);
     }
 
+    /**
+     * Navigates to the practice question page from the concept-map.
+     */
     navigateToPractice(): void {
         this.context.completeWith(0);
         this.router.navigate(['category', this.categoryId], {relativeTo: this.route}).then();

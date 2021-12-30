@@ -20,6 +20,10 @@ export class UserStatsService {
             .pipe(catchError(this.apiService.handleError<UserStats>(`Error occurred while getting user stats`)));
     }
 
+    /**
+     * Gets the user stats by difficulty for a category.
+     * @param categoryId - The category to get the stats for.
+     */
     getUserDifficultyStats(categoryId: number): Observable<UserDifficultyStats[]> {
         const url = this.apiService.getURL('user-stats', 'difficulty', categoryId);
         return this.http
