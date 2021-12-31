@@ -47,10 +47,10 @@ export class ProblemPracticeComponent implements OnInit {
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
         this.categoryId = +this.route.snapshot.paramMap.get('categoryId');
         this.courseId = +this.route.snapshot.paramMap.get('courseId');
+        this.difficultyFormData = PracticeDifficultyForm.createForm();
     }
 
     ngOnInit(): void {
-        this.difficultyFormData = PracticeDifficultyForm.createForm();
         const userStatsObservable = this.userStatsService.getUserDifficultyStats(this.categoryId);
         const categoryObservable = this.categoryService.getCategory(this.categoryId);
         const uqjObservable = this.uqjService.getUQJs();
