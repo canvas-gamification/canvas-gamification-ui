@@ -12,7 +12,7 @@
                         <label class="form-check-label" for="answer-{{choice.id}}"></label>
                     </div>
                 </div>
-                <ng-container *ngIf="uqj.question.is_practice">
+                <ng-container *ngIf="isPractice">
                     <button class="btn btn-outline-primary" type="button">Previous</button>
                     <button class="btn btn-primary" type="button" (click)="skipQuestion(true)">Skip</button>
                 </ng-container>
