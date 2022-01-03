@@ -2,11 +2,11 @@
     <form [formGroup]="formData" (ngSubmit)="submitEvent(formData)">
         <h2 class="tui-form__header">Create New Event</h2>
         <div class="tui-form__row">
-            <tui-input formControlName="name">Event Name</tui-input>
+            <tui-input formControlName="name" aria-label="Event Name">Event Name</tui-input>
             <tui-field-error formControlName="name"></tui-field-error>
         </div>
         <div class="tui-form__row">
-            <tui-select formControlName="type">
+            <tui-select formControlName="type" aria-label="Event Type">
                 Event Type
                 <tui-data-list *tuiDataList>
                     <button *ngFor="let event of localEventTypes" tuiOption [value]="event[0]">
@@ -17,48 +17,51 @@
             <tui-field-error formControlName="type"></tui-field-error>
         </div>
         <div class="tui-form__row">
-            <tui-checkbox-labeled formControlName="countForTokens">Counts for tokens</tui-checkbox-labeled>
+            <tui-checkbox-labeled formControlName="countForTokens" aria-label="Counts for Tokens">Counts for tokens
+            </tui-checkbox-labeled>
             <tui-field-error formControlName="countForTokens"></tui-field-error>
         </div>
         <div class="tui-form__row">
-            <tui-input-date-range formControlName="startEndDatePicker">
+            <tui-input-date-range formControlName="startEndDatePicker" aria-label="Start and End Date">
                 Start and end date
             </tui-input-date-range>
             <tui-field-error formControlName="startEndDatePicker"></tui-field-error>
         </div>
         <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
-                <tui-input-time formControlName="startTimePicker" [items]="timeOptions">
+                <tui-input-time formControlName="startTimePicker" [items]="timeOptions" aria-label="Start Time">
                     Start time
                 </tui-input-time>
                 <tui-field-error formControlName="startTimePicker"></tui-field-error>
             </div>
             <div class="tui-form__multi-field">
-                <tui-input-time formControlName="endTimePicker" [items]="timeOptions">
+                <tui-input-time formControlName="endTimePicker" [items]="timeOptions" aria-label="End Time">
                     End time
                 </tui-input-time>
                 <tui-field-error formControlName="endTimePicker"></tui-field-error>
             </div>
         </div>
         <tui-notification
-            status="error"
-            class="tui-space_top-4"
-            *ngIf="formData.errors?.forbiddenDateRange"
+                status="error"
+                class="tui-space_top-4"
+                *ngIf="formData.errors?.forbiddenDateRange"
         >
             Invalid date range! Please check your start and end times!
         </tui-notification>
         <div class="tui-form__buttons">
             <button
-                tuiButton
-                appearance="primary"
-                size="m"
-                class="tui-form__button"
-                type="submit"
-                [disabled]="formData.invalid"
+                    tuiButton
+                    appearance="primary"
+                    size="m"
+                    class="tui-form__button"
+                    type="submit"
+                    aria-label="Submit"
+                    [disabled]="formData.invalid"
             >
                 Submit
             </button>
-            <a tuiButton appearance="secondary" class="tui-form__button" size="m" [routerLink]="['/course', courseId]">Back</a>
+            <a tuiButton appearance="secondary" class="tui-form__button" size="m" aria-label="Back"
+               [routerLink]="['/course', courseId]">Back</a>
         </div>
     </form>
 </div>

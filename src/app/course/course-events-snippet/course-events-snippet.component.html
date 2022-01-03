@@ -1,10 +1,10 @@
 <div class="events">
     <ng-container *ngIf="course?.has_create_event_permission">
         <tui-island
-            [hoverable]="true"
-            textAlign="center"
-            class="new-event"
-            (click)="openEventImportDialog()"
+                [hoverable]="true"
+                textAlign="center"
+                class="new-event"
+                (click)="openEventImportDialog()"
         >
             <div class="tui-space_vertical-10">
                 <figure class="tui-island__figure">
@@ -36,17 +36,20 @@
         <div class="tui-form__buttons">
             <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
                 <a tuiButton appearance="primary" size="m" class="tui-form__button"
+                   aria-label="{{ user.is_teacher ? 'Open' : 'Complete' }}"
                    [routerLink]="['/course', courseId, 'event', event.id]"
                 >
                     {{ user.is_teacher ? 'Open' : 'Complete' }}
                 </a>
             </ng-container>
             <ng-template #notAllowedOpen>
-                <a tuiButton appearance="primary" size="m" class="tui-form__button" href="" [disabled]="true">
+                <a tuiButton appearance="primary" size="m" class="tui-form__button" href="" aria-label="Complete"
+                   [disabled]="true">
                     Complete
                 </a>
             </ng-template>
             <a *ngIf="event.has_edit_permission" tuiButton appearance="primary" size="m" class="tui-form__button"
+               aria-label="Edit"
                [routerLink]="['/course', courseId, 'new-event', event.id]"
             >
                 Edit
@@ -61,13 +64,13 @@
     <ng-container *ngIf="courseEvents">
         <div class="import-events tui-space_top-8">
             <a
-                tuiIsland
-                size="s"
-                [hoverable]="true"
-                textAlign="center"
-                class="new-event"
-                [routerLink]="['/course', courseId, 'new-event']"
-                (click)="observer.complete()"
+                    tuiIsland
+                    size="s"
+                    [hoverable]="true"
+                    textAlign="center"
+                    class="new-event"
+                    [routerLink]="['/course', courseId, 'new-event']"
+                    (click)="observer.complete()"
             >
                 <figure class="tui-island__figure">
                     <tui-svg src="tuiIconPlusLarge"></tui-svg>
@@ -78,17 +81,18 @@
                 <p class="tui-island__category">{{ event.type }}</p>
                 <h3 class="tui-island__title">{{ event.name }}</h3>
                 <button
-                    tuiButton
-                    appearance="primary"
-                    size="s"
-                    (click)="importCourseEvent(event, courseId)"
+                        tuiButton
+                        appearance="primary"
+                        size="s"
+                        aria-label="Import"
+                        (click)="importCourseEvent(event, courseId)"
                 >
                     Import
                 </button>
             </tui-island>
         </div>
     </ng-container>
-    <button tuiButton type="button" size="m" class="tui-space_top-8" (click)="observer.complete()">
+    <button tuiButton type="button" size="m" class="tui-space_top-8" aria-label="Cancel" (click)="observer.complete()">
         Cancel
     </button>
 </ng-template>
