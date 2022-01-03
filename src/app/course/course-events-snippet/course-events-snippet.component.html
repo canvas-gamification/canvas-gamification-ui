@@ -36,7 +36,6 @@
         <div class="tui-form__buttons">
             <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
                 <a tuiButton appearance="primary" size="m" class="tui-form__button"
-                   aria-label="{{ user.is_teacher ? 'Open' : 'Complete' }}"
                    [routerLink]="['/course', courseId, 'event', event.id]"
                 >
                     {{ user.is_teacher ? 'Open' : 'Complete' }}

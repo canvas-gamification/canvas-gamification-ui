@@ -2,8 +2,7 @@
     <button *ngFor="let step of steps"
             tuiStep
             [disabled]="true"
-            #headerStep
-            aria-label="{{step}}">
+            #headerStep>
         {{step}}
     </button>
 </tui-stepper>
