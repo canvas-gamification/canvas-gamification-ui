@@ -49,7 +49,7 @@ describe('ResetPasswordComponentLinkClicked', () => {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
                             params: {
-                                uuid: MOCK_PASSWORD_FORM_DATA.uuid,
+                                uid: MOCK_PASSWORD_FORM_DATA.uid,
                                 token: MOCK_PASSWORD_FORM_DATA.token
                             }
                         }
