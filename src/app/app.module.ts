@@ -145,6 +145,9 @@ import {TuiActiveZoneModule} from "@taiga-ui/cdk";
             }
         }
     ],
+    exports: [
+        AdminComponent
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

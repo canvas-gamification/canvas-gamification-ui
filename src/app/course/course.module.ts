@@ -33,7 +33,7 @@ import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 import {
-    TuiAvatarModule,
+    TuiAvatarModule, TuiBadgeModule,
     TuiCheckboxLabeledModule, TuiComboBoxModule, TuiDataListWrapperModule,
     TuiFieldErrorModule, TuiFilterByInputPipeModule,
     TuiInputCountModule,
@@ -139,6 +139,7 @@ import {TuiAxesModule, TuiBarChartModule, TuiLineChartModule} from "@taiga-ui/ad
         TuiComboBoxModule,
         TuiDataListWrapperModule,
         TuiFilterByInputPipeModule,
+        TuiBadgeModule,
     ],
     providers: [
         CourseService,

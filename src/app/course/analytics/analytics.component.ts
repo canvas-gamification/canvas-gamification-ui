@@ -23,6 +23,13 @@ export class AnalyticsComponent implements OnInit {
     readonly labelsX = ['Assignment 1' , 'Midterm 1 ', 'Lab 2', 'Quiz 3', 'Final'];
     readonly labelsY = ['0', '25', '50' ,'75', '100'];
 
+    readonly gradeX = ['0%', '10%', '20%', '30%', '40%', '50%', '60%', '70%', '80%', '90%', '100%'];
+    readonly gradeY = ['0', '5', '10' ,'15', '20'];
+
+    readonly gradeDistr = [
+        [0, 0, 2, 5, 13, 14, 10, 20, 15, 5, 1]
+    ];
+
     readonly value = [
         [1, 50],
         [2, 75],
@@ -59,21 +66,69 @@ export class AnalyticsComponent implements OnInit {
     readonly students = [
         {
             name: 'John Doe',
-            role: 'Teacher',
+            pageView:'123',
+            lastActive: 'Jan. 6, 2022',
+            submission: '22',
+            missing: '4',
+            score: '85.3%',
+            categoryStruggling: 'OOP, loop'
+
         },
         {
             name: 'Jane Doe',
-            role: 'Student',
+            riskType: 'Dropout',
+            pageView:'33',
+            lastActive: 'Dec. 22, 2022',
+            submission: '8',
+            missing: '18',
+            score: '56.4%',
+            categoryStruggling: 'Basics, method, OOP, loop'
         },
         {
             name: 'Alex Inkin',
-            role: 'Student',
+            riskType: 'Struggling',
+            pageView:'231',
+            lastActive: 'Jan. 6, 2022',
+            submission: '26',
+            missing: '1',
+            score: '66.5%',
+            categoryStruggling: 'OOP, loop'
         },
         {
             name: 'Roman Sedov',
-            role: 'Student',
+            pageView:'123',
+            lastActive: 'Jan. 6, 2022',
+            submission: '22',
+            missing: '4',
+            score: '85.3%',
+            categoryStruggling: 'OOP, loop'
         }
     ];
+
+    readonly atRiskStudents = [
+        {
+            name: 'Jane Doe',
+            riskType: 'Dropout',
+            pageView:'33',
+            lastActive: 'Dec. 22, 2022',
+            submission: '8',
+            missing: '18',
+            score: '56.4%',
+            categoryStruggling: 'Basics, method, OOP, loop'
+        },
+        {
+            name: 'Alex Inkin',
+            riskType: 'Struggling',
+            pageView:'231',
+            lastActive: 'Jan. 6, 2022',
+            submission: '26',
+            missing: '1',
+            score: '66.5%',
+            categoryStruggling: 'OOP, loop'
+        },
+    ];
+
+    readonly atRiskCol = Object.keys(this.atRiskStudents[0]);
 
     readonly columns = Object.keys(this.students[0]);
 
