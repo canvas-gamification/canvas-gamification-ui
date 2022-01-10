@@ -162,9 +162,33 @@ export class AnalyticsComponent implements OnInit {
     getHeight(max: number): number {
         return (max / ceil(max, -3)) * 100;
     }
+
+    openModal(): void{
+        const modal = document.getElementById("myModal");
+
+        const btn = document.getElementById("myBtn");
+
+
+        // When the user clicks on the button, open the modal
+
+        modal.style.display = "block";
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    }
+
+
+
     constructor() {}
 
     ngOnInit(): void {
+
+
+
     }
 
 }

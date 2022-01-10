@@ -67,6 +67,7 @@ import {TuiTableModule} from "@taiga-ui/addon-table";
 import {DragulaModule} from "ng2-dragula";
 import { AnalyticsComponent } from './analytics/analytics.component';
 import {TuiAxesModule, TuiBarChartModule, TuiLineChartModule} from "@taiga-ui/addon-charts";
+import {AdminModule} from "@app/admin/admin.module";
 
 @NgModule({
     declarations: [
@@ -140,6 +141,7 @@ import {TuiAxesModule, TuiBarChartModule, TuiLineChartModule} from "@taiga-ui/ad
         TuiDataListWrapperModule,
         TuiFilterByInputPipeModule,
         TuiBadgeModule,
+        AdminModule,
     ],
     providers: [
         CourseService,
