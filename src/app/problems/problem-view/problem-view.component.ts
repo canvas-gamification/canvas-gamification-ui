@@ -31,6 +31,7 @@ export class ProblemViewComponent implements OnInit {
         this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
             this.uqj = uqj;
             this.safeRenderedText = this.sanitizer.bypassSecurityTrustHtml(this.uqj.rendered_text);
+            this.startTimer(uqj.id);
         });
 
         this.submissionService.getPreviousSubmissions(questionId, {ordering: '-submission_time'}).subscribe(submissions => {
@@ -40,5 +41,51 @@ export class ProblemViewComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => {
             this.user = user;
         });
+    }
+
+    startTimer(uqj: number): void{
+        let time;
+        let timing;
+        const hiddenProperty = 'hidden' in document ? 'hidden' :
+            'webkitHidden' in document ? 'webkitHidden' :
+                'mozHidden' in document ? 'mozHidden' :
+                    null;
+
+        const visibilityChangeEvent = hiddenProperty.replace(/hidden/i, 'visibilitychange');
+
+        const timer = function(){
+            const tempTime = parseInt(localStorage.getItem(String(uqj)));
+            if(tempTime!==undefined && !isNaN(tempTime)){
+                time=parseInt(localStorage.getItem(String(uqj)));
+            }
+            else{
+                time=0;
+            }
+            time=time+1;
+            localStorage.setItem(String(uqj), time.toString());
+        };
+
+        const onVisibilityChange = function(){
+            if (!document[hiddenProperty]) {
+                if(timing===null){
+                    timing = setInterval(timer,1000);
+                }
+
+            }else{
+                if(timing!==null){
+                    clearInterval(timing);
+                    timing=null;
+                }
+
+            }
+        };
+
+        time = 0;
+
+
+
+        timing = setInterval(timer, 1000);
+
+        document.addEventListener(visibilityChangeEvent, onVisibilityChange);
     }
 }

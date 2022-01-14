@@ -26,6 +26,7 @@ export interface QuestionSubmission {
     is_correct: boolean;
     is_partially_correct: boolean;
     finalized: boolean;
+    time_spent: number;
     status: string;
     tokens_received: number;
     token_value: number;

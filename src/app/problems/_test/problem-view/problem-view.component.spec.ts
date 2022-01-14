@@ -50,4 +50,9 @@ describe('ProblemViewComponent', () => {
         expect(component.previousSubmissions.length).toEqual(1);
         expect(component.previousSubmissions[0]).toEqual(MOCK_SUBMISSIONS.find(submission => submission.question.id === 0));
     });
+    it('timer should save uqj and current time as key-value in localStorage', ()=>{
+        component.startTimer(component.uqj.id);
+        expect(Number(localStorage.getItem(component.uqj.id.toString()))>=0);
+        localStorage.removeItem(component.uqj.id.toString());
+    });
 });

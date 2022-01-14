@@ -19,6 +19,7 @@ export class JavaViewSnippetComponent implements OnInit {
 
     ngOnInit(): void {
         this.inputFileNames = this.uqj.input_files;
+
     }
 
     /**
@@ -29,12 +30,14 @@ export class JavaViewSnippetComponent implements OnInit {
         this.inputFileNames.forEach(file => {
             codeSolution[file.name] = file.template;
         });
-        this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: codeSolution})
+        this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: codeSolution,
+            time_spent: parseInt(localStorage.getItem(this.uqj.id.toString()))})
             .subscribe(() => {
                 this.notificationsService
                     .show('The Question has been Submitted Successfully.', {
                         status: TuiNotification.Success
                     }).subscribe();
             });
+        localStorage.removeItem(this.uqj.id.toString());
     }
 }

@@ -49,7 +49,7 @@ describe('SubmissionService', () => {
     });
 
     it('postQuestionSubmission makes request successfully', () => {
-        submissionService.postQuestionSubmission({question: 0, solution: ''}).subscribe((response) => {
+        submissionService.postQuestionSubmission({question: 0, solution: '', time_spent: 0}).subscribe((response) => {
             expect(response.status).toEqual(200);
         });
         const request = httpMock.expectOne(apiService.getURL('submission', 'submit'));

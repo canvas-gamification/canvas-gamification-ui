@@ -34,12 +34,13 @@ export class ParsonsViewSnippetComponent implements OnInit {
         }
         this.submissionService.postQuestionSubmission({
             question: this.uqj.question.id,
-            solution: solution,
+            solution: solution, time_spent: parseInt(localStorage.getItem(this.uqj.id.toString()))
         }).subscribe(() => {
             this.notificationsService
                 .show('The Question has been Submitted Successfully.', {
                     status: TuiNotification.Success
                 }).subscribe();
         });
+        localStorage.removeItem(this.uqj.id.toString());
     }
 }
