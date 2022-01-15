@@ -44,7 +44,7 @@ export class McqViewSnippetComponent implements OnInit {
             this.formData = this.formBuilder.group({
                 question: new FormControl(this.uqj.question.id),
                 solution: new FormControl(null, [Validators.required]),
-                time_spent: parseInt(localStorage.getItem(this.uqj.id.toString()))
+                time_spent: new FormControl(parseInt(localStorage.getItem(this.uqj.id.toString())))
             });
         } else {
             this.checkboxAnswers = [];
@@ -60,14 +60,18 @@ export class McqViewSnippetComponent implements OnInit {
      * Submit an answer to the question.
      */
     onSubmit(formData: { question: number, solution: unknown, time_spent: number}): void {
-        this.submissionService.postQuestionSubmission(formData)
+        this.submissionService.postQuestionSubmission({
+            question: formData.question,
+            solution: formData.solution,
+            time_spent: parseInt(localStorage.getItem(this.uqj.id.toString()))
+        })
             .subscribe(() => {
                 this.notificationsService
                     .show('The Question has been Submitted Successfully.', {
                         status: TuiNotification.Success
                     }).subscribe();
+                localStorage.removeItem(this.uqj.id.toString());
             });
-        localStorage.removeItem(this.uqj.id.toString());
     }
 
     /**

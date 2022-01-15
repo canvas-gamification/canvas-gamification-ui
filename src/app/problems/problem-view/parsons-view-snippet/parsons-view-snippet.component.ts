@@ -40,7 +40,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
                 .show('The Question has been Submitted Successfully.', {
                     status: TuiNotification.Success
                 }).subscribe();
+            localStorage.removeItem(this.uqj.id.toString());
         });
-        localStorage.removeItem(this.uqj.id.toString());
     }
 }
