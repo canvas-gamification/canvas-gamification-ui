@@ -2,6 +2,7 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {SubmissionAnalyticsService} from "@app/course/_services/submission-analytics.service";
 
 @Component({
     selector: 'app-java-view-snippet',
@@ -13,8 +14,9 @@ export class JavaViewSnippetComponent implements OnInit {
     inputFileNames = new Array<{ name: string, template: string }>();
 
     constructor(
-        private submissionService: SubmissionService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+        private submissionService: SubmissionService, private submissionAnalyticsService: SubmissionAnalyticsService,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     ngOnInit(): void {
@@ -29,8 +31,10 @@ export class JavaViewSnippetComponent implements OnInit {
         this.inputFileNames.forEach(file => {
             codeSolution[file.name] = file.template;
         });
-        this.submissionService.postQuestionSubmission({question: this.uqj.question.id, solution: codeSolution,
-            time_spent: parseInt(localStorage.getItem(this.uqj.id.toString()))})
+        this.submissionService.postQuestionSubmission({
+            question: this.uqj.question.id, solution: codeSolution,
+            time_spent: parseInt(localStorage.getItem(this.uqj.id.toString()))
+        })
             .subscribe(() => {
                 this.notificationsService
                     .show('The Question has been Submitted Successfully.', {
@@ -38,5 +42,7 @@ export class JavaViewSnippetComponent implements OnInit {
                     }).subscribe();
                 localStorage.removeItem(this.uqj.id.toString());
             });
+
+        this.submissionAnalyticsService.initSubmissionAnalytics().subscribe();
     }
 }

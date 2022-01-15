@@ -1,9 +1,10 @@
-import {Category, Course, CourseEvent, Question, STATUS, UQJ} from '@app/_models';
+import {Category, Course, CourseEvent, Question, STATUS, UQJ, User} from '@app/_models';
 import {QuestionSubmission, StatusMessage} from '@app/_models/question_submission';
 import {Difficulty} from "@app/_models/difficulty";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
 import {JavaFormData} from "@app/problems/_forms/java.form";
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
+import {SubmissionAnalytics} from "@app/_models/submission_analytics";
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
@@ -489,3 +490,133 @@ export const MOCK_COURSE: Course = {
     leader_board: null,
     has_create_event_permission: true
 };
+
+
+export const MOCK_USER_STUDENT: User = {
+    id: 0,
+    username: 'student@test.com',
+    first_name: 'Firstname',
+    last_name: 'Lastname',
+    email: 'student@test.com',
+    token: null,
+    tokens: 0,
+    role: 'student',
+    is_teacher: false,
+    is_student: true,
+    has_consent: true
+};
+
+export const MOCK_USER_TEACHER: User = {
+    id: 1,
+    username: 'teacher@test.com',
+    first_name: 'FirstnameTeach',
+    last_name: 'LastnameTeach',
+    email: 'teacher@test.com',
+    token: null,
+    tokens: 0,
+    role: 'teacher',
+    is_teacher: true,
+    is_student: false,
+    has_consent: true
+};
+
+export const MOCK_SUBMISSION_ANALYTICS: SubmissionAnalytics = {
+    id: 0,
+    user_id: MOCK_USER_STUDENT,
+    first_name: 'John',
+    last_name : 'Doe',
+    uqj: MOCK_UQJ,
+    submission: 0,
+    question : MOCK_JAVA_QUESTION,
+    event: MOCK_COURSE_EVENT,
+    ans_file : null,
+    ans: 'd',
+    time_spent: 12,
+    num_attempts: 3,
+    is_correct: false,
+    lines : 0,
+    blank_lines : 0,
+    comment_lines : 0,
+    import_lines : 0,
+    cc : 0,
+    method : 0,
+    operator : 0,
+    operand : 0,
+    unique_operator : 0,
+    unique_operand : 0,
+    vocab : 0,
+    size : 0,
+    vol : 0,
+    difficulty : 0,
+    effort : 0,
+    error : 0,
+    test_time : 0
+};
+
+export const MOCK_SUBMISSION_ANALYTICS_2: SubmissionAnalytics = {
+    id: 1,
+    user_id: MOCK_USER_STUDENT,
+    first_name: 'John',
+    last_name : 'Doe',
+    uqj: MOCK_UQJ,
+    submission: 0,
+    question : MOCK_JAVA_QUESTION,
+    event: MOCK_COURSE_EVENT,
+    ans_file : null,
+    ans: '',
+    time_spent: 12,
+    num_attempts: 3,
+    is_correct: false,
+    lines : 12,
+    blank_lines : 0,
+    comment_lines : 2,
+    import_lines : 1,
+    cc : 3,
+    method : 1,
+    operator : 2,
+    operand : 2,
+    unique_operator : 2,
+    unique_operand :2,
+    vocab : 5,
+    size : 4,
+    vol : 5,
+    difficulty : 1,
+    effort : 5,
+    error : 1,
+    test_time : 2.1
+};
+
+export const MOCK_SUBMISSION_ANALYTICS_3: SubmissionAnalytics = {
+    id: 2,
+    user_id: MOCK_USER_STUDENT,
+    first_name: 'John',
+    last_name : 'Doe',
+    uqj: MOCK_UQJ,
+    submission: 0,
+    question : MOCK_JAVA_QUESTION,
+    event: MOCK_COURSE_EVENT,
+    ans_file : null,
+    ans: '',
+    time_spent: 12,
+    num_attempts: 3,
+    is_correct: false,
+    lines : 12,
+    blank_lines : 0,
+    comment_lines : 2,
+    import_lines : 1,
+    cc : 3,
+    method : 1,
+    operator : 2,
+    operand : 2,
+    unique_operator : 2,
+    unique_operand :2,
+    vocab : 5,
+    size : 4,
+    vol : 5,
+    difficulty : 1,
+    effort : 5,
+    error : 1,
+    test_time : 2.1
+};
+
+export const MOCK_SUBMISSION_ANALYTICSS: SubmissionAnalytics[] = [MOCK_SUBMISSION_ANALYTICS, MOCK_SUBMISSION_ANALYTICS_2, MOCK_SUBMISSION_ANALYTICS_3];

@@ -2,6 +2,7 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {ParsonsFile, UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {SubmissionAnalyticsService} from "@app/course/_services/submission-analytics.service";
 
 @Component({
     selector: 'app-parsons-view-snippet',
@@ -14,6 +15,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
     files: (ParsonsFile & { solution: string })[]
 
     constructor(private submissionService: SubmissionService,
+                private submissionAnalyticsService: SubmissionAnalyticsService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
@@ -42,5 +44,6 @@ export class ParsonsViewSnippetComponent implements OnInit {
                 }).subscribe();
             localStorage.removeItem(this.uqj.id.toString());
         });
+        this.submissionAnalyticsService.initSubmissionAnalytics().subscribe();
     }
 }
