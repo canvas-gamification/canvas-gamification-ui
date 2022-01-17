@@ -26,7 +26,7 @@
                         <ng-container>
                             <tr class="subcat-row">
                                 <td class="subcat-name"><span
-                                    class="heavy-indent">{{childTokenValue.category_name}}</span>
+                                        class="heavy-indent">{{childTokenValue.category_name}}</span>
                                 </td>
                                 <td *ngFor="let tokenValueObject of childTokenValue.token_values">
                                     <label>
@@ -41,7 +41,7 @@
             </tbody>
         </table>
         <div class="action-container text-center">
-            <button class="btn btn-primary" type="submit" (click)="submit()">Submit</button>
+            <button class="btn btn-primary" type="submit" aria-label="Submit" (click)="submit()">Submit</button>
         </div>
     </div>
 </div>
