@@ -1,16 +1,18 @@
 <div class="tui-space_bottom-8">
     <h2 class="tui-text_h4 tui-space_bottom-8">Question Counts</h2>
-    <tui-input icon="tuiIconSearchLarge" [(ngModel)]="questionCountSearch" [tuiTextfieldCleaner]="true">Search Names</tui-input>
+    <tui-input icon="tuiIconSearchLarge" [(ngModel)]="questionCountSearch" [tuiTextfieldCleaner]="true"
+               aria-label="Search Names">Search Names
+    </tui-input>
     <tui-tabs class="tui-space_bottom-4" #tabsComponent>
-        <button tuiTab>Card View</button>
-        <button tuiTab>Table View</button>
+        <button tuiTab aria-label="Card View">Card View</button>
+        <button tuiTab aria-label="Table View">Table View</button>
     </tui-tabs>
     <tui-loader [overlay]="true" [showLoader]="!questionCountData">
         <ng-container *ngIf="questionCountData">
             <div class="count-islands" *ngIf="tabsComponent.activeItemIndex === 0">
                 <tui-island
-                    *ngFor="let questionCount of questionCountData | tuiFilter: matchQuestionCountName: questionCountSearch"
-                    textAlign="center"
+                        *ngFor="let questionCount of questionCountData | tuiFilter: matchQuestionCountName: questionCountSearch"
+                        textAlign="center"
                 >
                     <h3 class="tui-island__title">
                         {{ questionCount.name }}

@@ -1,16 +1,18 @@
 <h2 class="tui-text_h4 tui-space_bottom-8">Category Stats</h2>
-<tui-input icon="tuiIconSearchLarge" [(ngModel)]="categoryStatsSearch" [tuiTextfieldCleaner]="true">Search Names</tui-input>
+<tui-input icon="tuiIconSearchLarge" [(ngModel)]="categoryStatsSearch" [tuiTextfieldCleaner]="true"
+           aria-label="Search Names">Search Names
+</tui-input>
 <tui-tabs class="tui-space_bottom-4" #tabsComponent>
-    <button tuiTab>Card View</button>
-    <button tuiTab>Table View</button>
+    <button tuiTab aria-label="Card View">Card View</button>
+    <button tuiTab aria-label="Table View">Table View</button>
 </tui-tabs>
 <tui-loader [overlay]="true" [showLoader]="!categoryStatsData">
     <ng-container *ngIf="categoryStatsData">
         <div class="stats-islands" *ngIf="tabsComponent.activeItemIndex === 0">
             <tui-island
-                *ngFor="let categoryStats of categoryStatsData | tuiFilter : matchStatsName: categoryStatsSearch"
-                [hoverable]="true"
-                (click)="openCategoryStatsDialog(categoryStats)"
+                    *ngFor="let categoryStats of categoryStatsData | tuiFilter : matchStatsName: categoryStatsSearch"
+                    [hoverable]="true"
+                    (click)="openCategoryStatsDialog(categoryStats)"
             >
                 <h3 class="tui-island__title">
                     {{ categoryStats.category.name }}
