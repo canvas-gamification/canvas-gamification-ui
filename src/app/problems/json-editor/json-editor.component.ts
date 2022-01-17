@@ -13,7 +13,7 @@ export class JsonEditorComponent implements OnInit {
     // TODO - Determine the Proper Typing.
     editor: any;
     @Input() name: string;
-    @Input() value: any;
+    @Input() value: JSON | JSON[];
     @Output() readonly valueChange = new EventEmitter<JSON>();
 
     constructor(private schemaService: SchemaService) {
