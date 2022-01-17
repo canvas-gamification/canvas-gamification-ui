@@ -29,6 +29,7 @@ export class CourseRegisterComponent implements OnInit {
     verifyForm: FormGroup;
 
     courseId: number;
+    courseName: string;
     needsStudentNumber: boolean;
     serverGuessedName: string;
     attemptsRemaining: number;
@@ -55,6 +56,16 @@ export class CourseRegisterComponent implements OnInit {
         this.studentNumberForm = CourseRegisterForm.createStudentNumberForm();
         this.verifyForm = CourseRegisterForm.createVerifyForm();
         this.getRegistrationStatus();
+        this.getCourseName();
+    }
+
+    /**
+     * Retrieves the course name for use in the registration process.
+     */
+    getCourseName(): void {
+        this.courseService.getCourse(this.courseId).subscribe(course => {
+            this.courseName = course.name;
+        });
     }
 
     /**
