@@ -1,17 +1,20 @@
 <section class="tui-container tui-container_fullwidth">
     <div class="heading">
-        <h1 class="tui-text_h3 tui-space_vertical-10" [class.tui-skeleton]="!course">{{ course ? course.name : 'Course Name' }}</h1>
+        <h1 class="tui-text_h3 tui-space_vertical-10"
+            [class.tui-skeleton]="!course">{{ course ? course.name : 'Course Name' }}</h1>
         <div class="heading">
-            <a class="tui-space_right-4" [class.tui-skeleton]="!course" tuiLink [href]="course?.url" rel="noopener noreferrer" target="_blank">{{ course?.url }}</a>
-            <p [class.tui-skeleton]="!course">{{ course ? (course.start_date | date: 'LLL. dd, YYYY, hh:MM a') : 'No Date' }} - {{ course ? (course.end_date | date: 'LLL. dd, YYYY, hh:MM a') : 'No Date' }}</p>
+            <a class="tui-space_right-4" [class.tui-skeleton]="!course" tuiLink [href]="course?.url"
+               rel="noopener noreferrer" target="_blank">{{ course?.url }}</a>
+            <p [class.tui-skeleton]="!course">{{ course ? (course.start_date | date: 'LLL. dd, YYYY, hh:MM a') : 'No Date' }}
+                - {{ course ? (course.end_date | date: 'LLL. dd, YYYY, hh:MM a') : 'No Date' }}</p>
         </div>
     </div>
     <tui-tabs-with-more class="tui-space_bottom-4" [class.tui-skeleton]="!course" #tabsComponent [moreContent]="more">
-        <button *tuiTab tuiTab>Concepts</button>
-        <button *tuiTab tuiTab>Questions</button>
-        <button *tuiTab tuiTab>Events</button>
-        <button *tuiTab tuiTab>Token Use</button>
-        <button *tuiTab tuiTab>Leaderboard</button>
+        <button *tuiTab tuiTab aria-label="Concepts">Concepts</button>
+        <button *tuiTab tuiTab aria-label="Questions">Questions</button>
+        <button *tuiTab tuiTab aria-label="Events">Events</button>
+        <button *tuiTab tuiTab aria-label="Token Use">Token Use</button>
+        <button *tuiTab tuiTab aria-label="Leaderboard">Leaderboard</button>
     </tui-tabs-with-more>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 0">
         <app-concept-map [currCourse]="course"></app-concept-map>
