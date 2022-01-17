@@ -34,7 +34,8 @@ export class ParsonsViewSnippetComponent implements OnInit {
         }
         this.submissionService.postQuestionSubmission({
             question: this.uqj.question.id,
-            solution: solution, time_spent: parseInt(localStorage.getItem(this.uqj.id.toString()))
+            solution: solution,
+            time_spent: parseInt(localStorage.getItem(this.uqj.id.toString()))
         }).subscribe(() => {
             this.notificationsService
                 .show('The Question has been Submitted Successfully.', {

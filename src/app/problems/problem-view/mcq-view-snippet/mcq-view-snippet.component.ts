@@ -43,8 +43,7 @@ export class McqViewSnippetComponent implements OnInit {
         if (!this.uqj.is_checkbox) {
             this.formData = this.formBuilder.group({
                 question: new FormControl(this.uqj.question.id),
-                solution: new FormControl(null, [Validators.required]),
-                time_spent: new FormControl(parseInt(localStorage.getItem(this.uqj.id.toString())))
+                solution: new FormControl(null, [Validators.required])
             });
         } else {
             this.checkboxAnswers = [];
