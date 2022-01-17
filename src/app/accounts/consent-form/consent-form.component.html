@@ -4,7 +4,8 @@
             <img [src]="logoPath" alt="logo">
         </div>
         <h1 class="tui-text_h3">Please Read our Informed Consent Form</h1>
-        <p class="tui-space_bottom-4">Thank you for your email confirmation. Your Account has been successfully activated.</p>
+        <p class="tui-space_bottom-4">Thank you for your email confirmation. Your Account has been successfully
+            activated.</p>
         <ng-container *ngIf="user.is_teacher">
             <app-admin-terms-and-conditions-snippet></app-admin-terms-and-conditions-snippet>
         </ng-container>
@@ -14,61 +15,65 @@
         <form class="tui-space_top-4" (ngSubmit)="onSubmit()" [formGroup]="formGroup">
             <ng-container *ngIf="user.is_student">
                 <div class="tui-form__row">
-                    <tui-checkbox-labeled formControlName="access_submitted_course_work" size="l">
+                    <tui-checkbox-labeled formControlName="access_submitted_course_work" size="l"
+                                          aria-label="Provide Access to Submitted Course Work">
                         I am willing to provide access to my submitted course work.
                     </tui-checkbox-labeled>
                 </div>
                 <div class="tui-form__row">
-                    <tui-checkbox-labeled formControlName="access_course_grades" size="l">
+                    <tui-checkbox-labeled formControlName="access_course_grades" size="l"
+                                          aria-label="Provide Access to Course Grades Associated with Submitted Work">
                         I am willing to provide access to my course grades associated with the submitted work.
                     </tui-checkbox-labeled>
                 </div>
             </ng-container>
             <div class="tui-form__row tui-form__row_multi-fields">
                 <div class="tui-form__multi-field">
-                    <tui-input formControlName="legal_last_name">
+                    <tui-input formControlName="legal_last_name" aria-label="Last Name">
                         Type in your last name:
                     </tui-input>
                     <tui-field-error formControlName="legal_last_name"></tui-field-error>
                 </div>
                 <div class="tui-form__multi-field">
-                    <tui-input formControlName="legal_first_name">
+                    <tui-input formControlName="legal_first_name" aria-label="First Name">
                         Type in your first name:
                     </tui-input>
                     <tui-field-error formControlName="legal_first_name"></tui-field-error>
                 </div>
             </div>
             <div class="tui-form__row">
-                <tui-input formControlName="student_number">
+                <tui-input formControlName="student_number" aria-label="Student Number">
                     Type in your student number (this is only needed in case there are
                     students with the same first and last name):
                 </tui-input>
                 <tui-field-error formControlName="student_number"></tui-field-error>
             </div>
             <div class="tui-form__row">
-                <tui-input formControlName="date">
+                <tui-input formControlName="date" aria-label="Today's Date">
                     Type in today's date:
                 </tui-input>
                 <tui-field-error formControlName="date"></tui-field-error>
             </div>
             <div class="tui-form__buttons">
                 <button
-                    tuiButton
-                    size="m"
-                    class="tui-form__button"
-                    type="submit"
-                    [disabled]="formGroup.invalid"
+                        tuiButton
+                        size="m"
+                        class="tui-form__button"
+                        type="submit"
+                        aria-label="I Consent"
+                        [disabled]="formGroup.invalid"
                 >
                     I Consent
                 </button>
                 <button
-                    tuiButton
-                    size="m"
-                    appearance="flat"
-                    class="tui-form__button"
-                    type="button"
-                    routerLink="../profile"
-                    (click)="declineConsent()"
+                        tuiButton
+                        size="m"
+                        appearance="flat"
+                        class="tui-form__button"
+                        type="button"
+                        routerLink="../profile"
+                        aria-label="I Do Not Consent"
+                        (click)="declineConsent()"
                 >
                     I Do Not Consent
                 </button>
