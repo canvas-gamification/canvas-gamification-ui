@@ -5,8 +5,7 @@ import {HttpTestingController} from "@angular/common/http/testing";
 import {
     MOCK_SUBMISSION_ANALYTICS,
     MOCK_SUBMISSION_ANALYTICS_2,
-    MOCK_SUBMISSION_ANALYTICS_3,
-    MOCK_SUBMISSION_ANALYTICSS
+    MOCK_SUBMISSION_ANALYTICS_3
 } from "@app/problems/_test/mock";
 
 describe('SubmissionAnalyticsService', () => {

@@ -619,4 +619,3 @@ export const MOCK_SUBMISSION_ANALYTICS_3: SubmissionAnalytics = {
     test_time : 2.1
 };
 
-export const MOCK_SUBMISSION_ANALYTICSS: SubmissionAnalytics[] = [MOCK_SUBMISSION_ANALYTICS, MOCK_SUBMISSION_ANALYTICS_2, MOCK_SUBMISSION_ANALYTICS_3];
