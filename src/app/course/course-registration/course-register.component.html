@@ -1,5 +1,5 @@
 <section class="tui-container tui-container_adaptive">
-    <h1 class="tui-text_h3 tui-space_vertical-10">Register Course</h1>
+    <h1 class="tui-text_h3 tui-space_vertical-10">Registration for {{courseName}}</h1>
     <ng-container *ngIf="registered">
         <tui-notification status="success">
             You are already registered in this course
@@ -20,6 +20,7 @@
                 <form [formGroup]="nameForm" (ngSubmit)="onNameFormSubmit()">
                     <div class="tui-space_top-5">
                         <tui-input formControlName="nameControl"
+                                   aria-label="Full Name on Canvas"
                                    [tuiTextfieldCleaner]="true">
                             Enter your full name as it appears on Canvas&nbsp;<span class="tui-required"></span>
                         </tui-input>
@@ -27,10 +28,11 @@
                     </div>
                     <div class="tui-form__buttons">
                         <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                                aria-label="Previous"
                                 [disabled]="true">
                             Prev
                         </button>
-                        <button tuiButton class="tui-form__button" type="submit" size="m"
+                        <button tuiButton class="tui-form__button" type="submit" size="m" aria-label="Next"
                                 [showLoader]="loadingContent">
                             Next
                         </button>
@@ -43,6 +45,7 @@
                     <ng-container *ngIf="needsStudentNumber">
                         <div class="tui-space_top-5">
                             <tui-input formControlName="studentNumberControl"
+                                       aria-label="Student Number"
                                        [tuiTextfieldCleaner]="true">
                                 Student Number&nbsp;<span class="tui-required"></span>
                             </tui-input>
@@ -52,6 +55,7 @@
                     <ng-container *ngIf="!needsStudentNumber">
                         <div class="tui-space_top-5">
                             <tui-input formControlName="confirmNameControl"
+                                       aria-label="Confirm Name"
                                        [tuiTextfieldCleaner]="true"
                                        [readOnly]="true">
                                 Please confirm that this is your name.&nbsp;<span class="tui-required"></span>
@@ -61,9 +65,10 @@
                     </ng-container>
                     <div class="tui-form__buttons">
                         <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                                aria-label="Previous"
                                 (click)="stepper.setPrevStep()">Prev
                         </button>
-                        <button tuiButton class="tui-form__button" type="submit" size="m"
+                        <button tuiButton class="tui-form__button" type="submit" size="m" aria-label="Next"
                                 [showLoader]="loadingContent">
                             Next
                         </button>
@@ -74,6 +79,7 @@
                 <form [formGroup]="verifyForm" (ngSubmit)="onVerificationFormSubmit()">
                     <div class="tui-space_top-5">
                         <tui-input formControlName="verifyControl"
+                                   aria-label="Verification Code"
                                    [tuiTextfieldCleaner]="true" [textMask]="verificationNumberMask">
                             Verification Code&nbsp;<span class="tui-required"></span>
                         </tui-input>
@@ -91,10 +97,11 @@
                     </div>
                     <div class="tui-form__buttons">
                         <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                                aria-label="Previous"
                                 [disabled]="true">
                             Prev
                         </button>
-                        <button tuiButton class="tui-form__button" type="submit" size="m"
+                        <button tuiButton class="tui-form__button" type="submit" size="m" aria-label="Next"
                                 [showLoader]="loadingContent">
                             Next
                         </button>
@@ -105,6 +112,7 @@
                 <p class="tui-space_top-5">Registration Complete.</p>
                 <div class="tui-form__buttons">
                     <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                            aria-label="Previous"
                             [disabled]="true">
                         Prev
                     </button>

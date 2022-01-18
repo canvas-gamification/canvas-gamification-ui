@@ -14,7 +14,8 @@
             <h3 class="tui-island__title">{{ tokenUse.option.assignment_name }}</h3>
             <div class="tui-space_bottom-2">
                 <ng-container *ngIf="tokenUse.num_used > 0; else tokenNotUsedTag">
-                    <tui-tag size="m" status="success" value="Tokens Used" *ngIf="tokenUse.num_used === tokenUse.option.maximum_number_of_use; else tokenPartialUseTag"></tui-tag>
+                    <tui-tag size="m" status="success" value="Tokens Used"
+                             *ngIf="tokenUse.num_used === tokenUse.option.maximum_number_of_use; else tokenPartialUseTag"></tui-tag>
                     <ng-template #tokenPartialUseTag>
                         <tui-tag size="m" status="warning" value="Tokens Partially Used"></tui-tag>
                     </ng-template>
@@ -27,12 +28,13 @@
             <p class="tui-island__paragraph">{{ tokenUse.option.points_given }} Extra Grade Points Given</p>
             <p class="tui-island__paragraph">{{ tokenUse.option.maximum_number_of_use }} Maximum Uses</p>
             <tui-input-count
-                [(ngModel)]="tokenUse.num_used"
-                [ngModelOptions]="{standalone: true}"
-                (ngModelChange)="calculateCurrentTotal()"
-                [min]="0"
-                [max]="tokenUse.option.maximum_number_of_use"
-                class="tui-space_top-4"
+                    [(ngModel)]="tokenUse.num_used"
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="calculateCurrentTotal()"
+                    [min]="0"
+                    [max]="tokenUse.option.maximum_number_of_use"
+                    class="tui-space_top-4"
+                    aria-label="Number of Tokens Used"
             >
                 Number of Tokens Used
             </tui-input-count>
@@ -40,13 +42,14 @@
     </div>
     <div class="tui-form__buttons">
         <button
-            tuiButton
-            appearance="primary"
-            size="m"
-            type="submit"
-            class="tui-form__button"
-            (click)="confirmChanges()"
-            [disabled]="invalid"
+                tuiButton
+                appearance="primary"
+                size="m"
+                type="submit"
+                class="tui-form__button"
+                aria-label="Confirm Changes"
+                (click)="confirmChanges()"
+                [disabled]="invalid"
         >
             Confirm Changes
         </button>

@@ -1,18 +1,18 @@
 <div class="profile-header">
     <div
-        class="profile-header_background"
-        [style.backgroundColor]="avatarComponent.bgColor"
-        [class.tui-skeleton]="!userDetails"
+            class="profile-header_background"
+            [style.backgroundColor]="avatarComponent.bgColor"
+            [class.tui-skeleton]="!userDetails"
     ></div>
     <tui-avatar
-        [text]="userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : ''"
-        size="xl"
-        [rounded]="true"
-        [autoColor]="true"
-        class="profile-header_logo"
-        [class.tui-skeleton]="!userDetails"
-        [class.tui-skeleton_rounded]="!userDetails"
-        #avatarComponent
+            [text]="userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : ''"
+            size="xl"
+            [rounded]="true"
+            [autoColor]="true"
+            class="profile-header_logo"
+            [class.tui-skeleton]="!userDetails"
+            [class.tui-skeleton_rounded]="!userDetails"
+            #avatarComponent
     ></tui-avatar>
 </div>
 <div class="tui-container tui-container_adaptive">
@@ -23,39 +23,41 @@
                     <h2 class="tui-form__header">Profile Details:</h2>
                     <div class="tui-form__row tui-form__row_multi-fields">
                         <div class="tui-form__multi-field">
-                            <tui-input formControlName="first_name">
+                            <tui-input formControlName="first_name" aria-label="First Name">
                                 First Name
                             </tui-input>
                             <tui-field-error formControlName="first_name"></tui-field-error>
                         </div>
                         <div class="tui-form__multi-field">
-                            <tui-input formControlName="last_name">
+                            <tui-input formControlName="last_name" aria-label="Last Name">
                                 Last Name
                             </tui-input>
                             <tui-field-error formControlName="last_name"></tui-field-error>
                         </div>
                     </div>
                     <div class="tui-form__row">
-                        <tui-input formControlName="email" [readOnly]="true">
+                        <tui-input formControlName="email" aria-label="Email" [readOnly]="true">
                             Email
                         </tui-input>
                         <tui-field-error formControlName="email"></tui-field-error>
                     </div>
                     <div class="tui-form__buttons">
                         <button
-                            tuiButton
-                            size="m"
-                            type="submit"
-                            class="tui-form__button"
+                                tuiButton
+                                size="m"
+                                type="submit"
+                                class="tui-form__button"
+                                aria-label="Update"
                         >
                             Update
                         </button>
                         <a
-                            tuiButton
-                            size="m"
-                            appearance="secondary"
-                            routerLink="../change-password"
-                            class="tui-form__button"
+                                tuiButton
+                                size="m"
+                                appearance="secondary"
+                                routerLink="../change-password"
+                                class="tui-form__button"
+                                aria-label="Change Password"
                         >
                             Change Password
                         </a>
@@ -69,11 +71,11 @@
                             if you wish to consent please click on the button below
                         </p>
                         <a
-                            tuiButton
-                            size="m"
-                            appearance="flat"
-                            class="tui-island__footer-button"
-                            routerLink="../consent-form"
+                                tuiButton
+                                size="m"
+                                appearance="flat"
+                                class="tui-island__footer-button"
+                                routerLink="../consent-form"
                         >
                             Consent
                         </a>
@@ -84,11 +86,12 @@
                             wish to withdraw please click on the button below
                         </p>
                         <button
-                            tuiButton
-                            size="m"
-                            appearance="flat"
-                            class="tui-island__footer-button"
-                            (click)="withdraw()"
+                                tuiButton
+                                size="m"
+                                appearance="flat"
+                                class="tui-island__footer-button"
+                                aria-label="Withdraw Your Consent"
+                                (click)="withdraw()"
                         >
                             Withdraw Your Consent
                         </button>
