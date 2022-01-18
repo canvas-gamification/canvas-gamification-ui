@@ -58,7 +58,7 @@ export class McqViewSnippetComponent implements OnInit {
     /**
      * Submit an answer to the question.
      */
-    onSubmit(formData: { question: number, solution: unknown, time_spent: number}): void {
+    onSubmit(formData: { question: number, solution: unknown}): void {
         this.submissionService.postQuestionSubmission({
             question: formData.question,
             solution: formData.solution,
