@@ -47,6 +47,7 @@ describe('ProblemSetComponent', () => {
         });
         fixture = TestBed.createComponent(ProblemSetComponent);
         component = fixture.componentInstance;
+        spyOn(component.paramChanged, 'next').and.callThrough();
         fixture.detectChanges();
     });
 
@@ -58,6 +59,22 @@ describe('ProblemSetComponent', () => {
         expect(component.subCategories).toEqual(undefined);
         component.form.parentCategory.setValue(component.parentCategories[0].name);
         expect(component.subCategories.length).toEqual(1);
+    });
+
+    it('should update', () => {
+        component.update();
+        expect(component.filteringQuestions).toBeTrue();
+        expect(component.paramChanged.next).toHaveBeenCalled();
+    });
+
+    it('should get options', () => {
+        const options = component.getOptions();
+        expect(options).toEqual({
+            ...component.getFilterQueryString(),
+            page: component.page + 1,
+            page_size: component.pageSize,
+            ordering: component.getOrdering()
+        });
     });
 
     it('should get order', () => {

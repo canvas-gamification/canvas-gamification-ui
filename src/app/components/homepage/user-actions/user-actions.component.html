@@ -1,54 +1,62 @@
-<div *ngIf="userActions; else noActions" class="container-fluid">
-    <table mat-table [dataSource]="actionsSource" matSort (matSortChange)="sortData($event)" matSortDisableClear
-           class="table table-hover hover-shadow">
-
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header="id">#</th>
-            <td mat-cell *matCellDef="let action">{{action.id || 'No ID'}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef>Description</th>
-            <td mat-cell *matCellDef="let action">{{action.description || 'No Description'}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="object_type">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header="object_type">Type</th>
-            <td mat-cell *matCellDef="let action">{{action.object_type || 'No Type'}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header="status">Status</th>
-            <td mat-cell *matCellDef="let action">{{action.status || 'No Status'}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="time_created">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header="time_created">Date</th>
-            <td mat-cell
-                *matCellDef="let action">{{action.time_created | date:'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="verb">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header="verb">Action</th>
-            <td mat-cell *matCellDef="let action">{{action.verb || 'No Action'}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="tokens">
-            <th mat-header-cell *matHeaderCellDef>Tokens</th>
-            <td mat-cell *matCellDef="let action">{{formatTokenChange(action.token_change) || formatTokenChange(0)}}</td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator
-        [length]="actionsLength"
-        [pageSize]="pageSize"
-        [pageSizeOptions]="pageSizeOptions"
-        (page)="newPageEvent($event)">
-    </mat-paginator>
+<div class="tui-container tui-container_fullwidth">
+    <h1 class="tui-text_h3 tui-space_vertical-10">Actions</h1>
+    <tui-loader [overlay]="true" [showLoader]="!userActions || loadingTable">
+        <table
+            tuiTable
+            [columns]="userActionsTableColumns"
+            [(sorter)]="sorter"
+            (sorterChange)="update()"
+            [(direction)]="sortDirection"
+            (directionChange)="update()"
+            class="user-actions-table"
+        >
+            <thead tuiThead>
+            <tr tuiThGroup>
+                <th tuiTh [sorter]="sorters.id" *tuiHead="'id'">#</th>
+                <th tuiTh [sorter]="null" *tuiHead="'description'">Description</th>
+                <th tuiTh [sorter]="sorters.object_type" *tuiHead="'object_type'">Type</th>
+                <th tuiTh [sorter]="sorters.status" *tuiHead="'status'">Status</th>
+                <th tuiTh [sorter]="sorters.time_created" *tuiHead="'time_created'">Date</th>
+                <th tuiTh [sorter]="sorters.verb" *tuiHead="'verb'">Action</th>
+                <th tuiTh [sorter]="null" *tuiHead="'token_change'">Tokens</th>
+            </tr>
+            </thead>
+            <tbody tuiTbody [data]="userActions">
+            <tr tuiTr *tuiRow="let action of userActions">
+                <td tuiTd *tuiCell="'description'">
+                    {{ (action.description) || 'No Description' }}
+                </td>
+                <td tuiTd *tuiCell="'object_type'">
+                    {{ (action.object_type) || 'No Type' }}
+                </td>
+                <td tuiTd *tuiCell="'status'">
+                    {{ (action.status) || 'No Status' }}
+                </td>
+                <td tuiTd *tuiCell="'time_created'">
+                    {{ (action.time_created | date: 'long') || 'No Date' }}
+                </td>
+                <td tuiTd *tuiCell="'verb'">
+                    {{ (action.verb) || 'No Action' }}
+                </td>
+                <td tuiTd *tuiCell="'token_change'">
+                    {{ action.token_change > 0 ? '+' : '' }}{{ (action.token_change | number: "1.0-2") || '0' }}
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td [colSpan]="userActionsTableColumns.length">
+                    <tui-table-pagination
+                        class="tui-space_top-2"
+                        [total]="numberOfActions"
+                        [(size)]="pageSize"
+                        [(page)]="page"
+                        (pageChange)="update()"
+                        (sizeChange)="update()"
+                    ></tui-table-pagination>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </tui-loader>
 </div>
-
-<ng-template #noActions>
-    <p>No recent Actions</p>
-</ng-template>

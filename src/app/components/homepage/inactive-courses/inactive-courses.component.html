@@ -1,19 +1,11 @@
-<div class="my-5">
-    <h3>Inactive Courses</h3>
-    <table class="table table-bordered table-hover">
-        <thead>
-        <tr>
-            <th>Course</th>
-            <th>Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <ng-container *ngFor="let course of inactiveCourses; index as i">
-            <tr [attr.id]="'inactiveCourseRow'+course.id">
-                <td>{{course.name || 'No Name'}}</td>
-                <td>{{course.status || 'No Status'}}</td>
-            </tr>
+<h2 class="tui-text_h4">Inactive Courses</h2>
+<div class="course-islands">
+    <ng-container *ngIf="inactiveCourses else waitingInactive">
+        <ng-container *ngFor="let course of inactiveCourses">
+            <app-course-island [course]="course" [hasViewPermission]="true"></app-course-island>
         </ng-container>
-        </tbody>
-    </table>
+    </ng-container>
+    <ng-template #waitingInactive>
+        <app-course-island [skeleton]="true"></app-course-island>
+    </ng-template>
 </div>

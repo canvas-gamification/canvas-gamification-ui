@@ -3,7 +3,6 @@ import {CourseService} from '@app/course/_services/course.service';
 import {ActivatedRoute} from '@angular/router';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {Course, STATUS, User} from '@app/_models';
-import {stringHashToHsl} from "@taiga-ui/kit";
 
 @Component({
     selector: 'app-course-list',
@@ -31,21 +30,5 @@ export class CourseListComponent implements OnInit {
         this.courseService.getCourses().subscribe((courses) => {
             this.allCourses = courses;
         });
-    }
-
-    /**
-     * returns a boolean indicating whether the currently logged in user can view the course or not
-     * @param courseId
-     */
-    hasViewPermission(courseId: number): boolean {
-        return this.user?.is_teacher || this.allCourses?.find(course => course.id === courseId).is_registered;
-    }
-
-    /**
-     * Uses the Taiga-UI stringHashToHsl to get an HSL color based on the course name
-     * @param courseName
-     */
-    getCourseBackgroundColor(courseName: string): string {
-        return stringHashToHsl(courseName);
     }
 }

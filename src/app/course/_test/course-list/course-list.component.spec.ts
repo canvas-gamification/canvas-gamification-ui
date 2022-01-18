@@ -5,11 +5,13 @@ import {TestModule} from '@test/test.module';
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {MOCK_COURSE} from "@app/problems/_test/mock";
-import {MOCK_COURSE1, MOCK_COURSE2, MOCK_COURSES, MOCK_USER_STUDENT, MOCK_USER_TEACHER} from "@app/course/_test/mock";
 import {MatTableModule} from "@angular/material/table";
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
 import {TuiInputModule, TuiIslandModule, TuiTagModule} from "@taiga-ui/kit";
 import {TuiLoaderModule} from "@taiga-ui/core";
+import {UserHasCourseViewPermissionsPipe} from "@app/_helpers/pipes/user-has-course-view-permissions.pipe";
+import {CourseIslandModule} from "@app/components/course-island/course-island.module";
+import {MOCK_COURSES, MOCK_USER_STUDENT} from "@app/course/_test/mock";
 
 describe('CourseListComponent', () => {
     let component: CourseListComponent;
@@ -19,9 +21,9 @@ describe('CourseListComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 TestModule, MatTableModule, TuiInputModule, TuiLoaderModule,
-                TuiFilterPipeModule, TuiTagModule, TuiIslandModule
+                TuiFilterPipeModule, TuiTagModule, TuiIslandModule, CourseIslandModule
             ],
-            declarations: [CourseListComponent],
+            declarations: [CourseListComponent, UserHasCourseViewPermissionsPipe],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock}
             ]
@@ -31,6 +33,8 @@ describe('CourseListComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(CourseListComponent);
         component = fixture.componentInstance;
+        component.allCourses = MOCK_COURSES;
+        component.user = MOCK_USER_STUDENT;
         fixture.detectChanges();
     });
 
@@ -41,22 +45,5 @@ describe('CourseListComponent', () => {
     it('courses should be loaded on view init', () => {
         component.ngOnInit();
         expect(component.allCourses).toEqual([MOCK_COURSE]);
-    });
-
-    it('hasViewPermission should work for Teacher', () => {
-        component.user = MOCK_USER_TEACHER;
-        expect(component.hasViewPermission(MOCK_COURSE.id)).toEqual(true);
-    });
-
-    it('hasViewPermission should work for Registered student', () => {
-        component.user = MOCK_USER_STUDENT;
-        component.allCourses = MOCK_COURSES;
-        expect(component.hasViewPermission(MOCK_COURSE1.id)).toEqual(true);
-    });
-
-    it('hasViewPermission should work for Non-Registered student', () => {
-        component.user = MOCK_USER_STUDENT;
-        component.allCourses = MOCK_COURSES;
-        expect(component.hasViewPermission(MOCK_COURSE2.id)).toEqual(false);
     });
 });
