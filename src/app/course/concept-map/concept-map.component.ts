@@ -16,6 +16,7 @@ import {Observable} from "rxjs";
 export class ConceptMapComponent implements OnInit {
     rawCategories: Category[];
     parentNode: number = null;
+    parentNodeName: string = null;
     conceptMapGraph: ConceptMapGraph;
 
     @Input() currCourse: Course;
@@ -42,10 +43,11 @@ export class ConceptMapComponent implements OnInit {
     }
 
     /**
-    * Renders the concept map using the categories fetched from the API
+     * Renders the concept map using the categories fetched from the API
      */
     renderGraph(): void {
         const adj: Category[] = [];
+        this.parentNodeName = this.parentNode ? this.rawCategories.find(category => category.pk === this.parentNode).full_name : null;
         this.rawCategories.filter(category => category.parent === this.parentNode)
             .forEach(category => {
                 adj.push(category);
@@ -53,6 +55,7 @@ export class ConceptMapComponent implements OnInit {
 
         if (!adj) {
             this.parentNode = null;
+            this.parentNodeName = null;
             this.renderGraph();
             return;
         }
@@ -61,7 +64,7 @@ export class ConceptMapComponent implements OnInit {
     }
 
     /**
-    * Resets the graph to the top level and re-renders the graph
+     * Resets the graph to the top level and re-renders the graph
      */
     reset(): void {
         this.parentNode = null;
@@ -69,8 +72,8 @@ export class ConceptMapComponent implements OnInit {
     }
 
     /**
-    * Returns a boolean value indicating whether the category passed to the function is a top level category or not
-    * @param categoryId - unique category ID to be checked
+     * Returns a boolean value indicating whether the category passed to the function is a top level category or not
+     * @param categoryId - unique category ID to be checked
      */
     isTopLevel(categoryId: number): boolean {
         return this.rawCategories.find(category => category.pk === categoryId).parent === null;

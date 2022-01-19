@@ -8,6 +8,7 @@ import {MOCK_CATEGORIES, MOCK_COURSE} from "@app/problems/_test/mock";
 import {UserStatsComponent} from "@app/components/user-stats/user-stats.component";
 import {TuiDialogService} from "@taiga-ui/core";
 import {of} from "rxjs";
+import {By} from "@angular/platform-browser";
 
 describe('ConceptMapComponent', () => {
     let component: ConceptMapComponent;
@@ -89,4 +90,22 @@ describe('ConceptMapComponent without spy', () => {
         component.renderGraph();
         expect(component.conceptMapGraph.buildGraphFromAdjacencyList).toHaveBeenCalled();
     });
+
+    it('should show parent categories title when at the top-level of the concept map', () => {
+        component.parentNode = null;
+        component.renderGraph();
+        const title = fixture.debugElement.query(By.css('.tui-text_h3')).nativeElement;
+        expect(title.innerHTML).toEqual('Parent Categories');
+    });
+
+    // it('should show sub categories title when within a parent category of the concept map', () => {
+    //     component.parentNode = 0;
+    //     component.renderGraph();
+    //     const node = fixture.debugElement.query(By.css('.joint-cell'));
+    //     console.log(node);
+    //     node.click();
+    //     fixture.detectChanges();
+    //     const title = fixture.debugElement.query(By.css('.tui-text_h3')).nativeElement;
+    //     expect(title.innerHTML).toEqual('Parent Categories');
+    // });
 });
