@@ -59,9 +59,10 @@ import {
     TuiNotificationsModule,
     TuiDialogModule
 } from '@taiga-ui/core';
-import {TuiAvatarModule, TuiDropdownHoverModule, TuiToggleModule} from "@taiga-ui/kit";
+import {TuiAvatarModule, TuiDropdownHoverModule, TuiRadioBlockModule, TuiToggleModule} from "@taiga-ui/kit";
 import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
 import {TuiActiveZoneModule} from "@taiga-ui/cdk";
+import {AceEditorModule} from "ng2-ace-editor";
 
 @NgModule({
     declarations: [
@@ -130,6 +131,8 @@ import {TuiActiveZoneModule} from "@taiga-ui/cdk";
         TuiNotificationsModule,
         AdminModule,
         TuiDialogModule,
+        AceEditorModule,
+        TuiRadioBlockModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
