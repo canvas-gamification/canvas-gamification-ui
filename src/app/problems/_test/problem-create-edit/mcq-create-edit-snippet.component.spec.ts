@@ -6,7 +6,7 @@ import {MOCK_CHECKBOX_QUESTION} from "@app/problems/_test/mock";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {ReactiveFormsModule} from "@angular/forms";
-import {TuiButtonModule} from "@taiga-ui/core";
+import {TuiButtonModule, TuiHostedDropdownModule} from "@taiga-ui/core";
 import {of} from "rxjs";
 import {
     TuiFieldErrorModule,
@@ -29,7 +29,7 @@ describe('McqCreateEditSnippetComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 TestModule, CKEditorModule, ReactiveFormsModule, TuiTextAreaModule, TuiRadioLabeledModule,
-                TuiInputModule, TuiSelectModule, TuiFieldErrorModule, TuiButtonModule
+                TuiInputModule, TuiSelectModule, TuiFieldErrorModule, TuiButtonModule, TuiHostedDropdownModule
             ],
             declarations: [McqCreateEditSnippetComponent, CkEditorComponent, JsonEditorComponent]
         }).compileComponents();
@@ -71,7 +71,7 @@ describe('McqCreateEditSnippetComponent', () => {
 
     describe('McqCreateEditSnippetComponent with Question Details', () => {
         beforeEach(() => {
-            component.questionDetails = MOCK_CHECKBOX_QUESTION;
+            component.questionDetails = JSON.parse(JSON.stringify(MOCK_CHECKBOX_QUESTION));
             component.ngOnInit();
         });
 

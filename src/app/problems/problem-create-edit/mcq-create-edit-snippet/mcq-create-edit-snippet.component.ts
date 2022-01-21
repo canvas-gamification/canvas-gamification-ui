@@ -5,6 +5,7 @@ import {McqForm} from "@app/problems/_forms/mcq.form";
 import {Router} from "@angular/router";
 import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus";
+import {Question} from '@app/_models';
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -12,7 +13,7 @@ import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus";
     styleUrls: ['./mcq-create-edit-snippet.component.scss'],
 })
 export class McqCreateEditSnippetComponent implements OnInit {
-    @Input() questionDetails;
+    @Input() questionDetails: Question;
     @Input() isCheckbox: boolean;
     formGroup: FormGroup;
 
