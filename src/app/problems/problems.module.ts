@@ -77,6 +77,10 @@ import {
 } from "@taiga-ui/kit";
 import {TabListViewSwitcherModule} from "@app/components/tab-list-view-switcher/tab-list-view-switcher.module";
 import {PipesModule} from "@app/_helpers/pipes/pipes.module";
+import {TestCasesComponent} from "@app/problems/json-editor/test-cases/test-cases.component";
+import {ParsonsInputFilesComponent} from "@app/problems/json-editor/parsons-input-files/parsons-input-files.component";
+import {JavaInputFilesComponent} from "@app/problems/json-editor/java-input-files/java-input-files.component";
+import {VariableComponent} from "@app/problems/json-editor/variable/variable.component";
 
 @NgModule({
     declarations: [
@@ -100,6 +104,10 @@ import {PipesModule} from "@app/_helpers/pipes/pipes.module";
         SubmissionViewComponent,
         CkEditorComponent,
         ParsonsLinesComponent,
+        TestCasesComponent,
+        ParsonsInputFilesComponent,
+        JavaInputFilesComponent,
+        VariableComponent,
     ],
     imports: [
         CommonModule,

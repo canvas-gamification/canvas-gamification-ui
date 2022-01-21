@@ -1,1 +1,113 @@
 <div id="editor"></div>
+<form class="tui-space_bottom-4" [formGroup]="valuesForm">
+    <div class="content" [formArrayName]="name">
+        <ng-container *ngFor="let variable of getValues().controls; let index = index">
+            <tui-island>
+                <div class="tui-island__content">
+                    <div class="tui-island__figure">
+                        <button
+                            tuiIconButton
+                            size="m"
+                            icon="tuiIconTrash"
+                            type="button"
+                            (click)="removeValue(index)"
+                            tuiDescribedBy="remove-{{index}}"
+                            tuiHintId="remove-{{index}}"
+                            tuiHintMode="onDark"
+                            tuiHintDirection="top-left"
+                            [tuiHint]="removeTooltip"
+                        ></button>
+                        <ng-template #removeTooltip>
+                            Remove Value
+                        </ng-template>
+                    </div>
+                    <div class="content__island">
+                        <h2 class="tui-island__title">
+                            <ng-container *ngIf="valueTypes.length > 1; else noDifferentType">
+                                {{ variable.value.type | titlecase }}
+                            </ng-container>
+                            <ng-template #noDifferentType>
+                                {{ valueTypes[0] | titlecase }}
+                            </ng-template>
+                        </h2>
+                        <div class="tui-row tui-row_adaptive">
+                            <div class="tui-col_8">
+                                <ng-container *ngIf="name === 'variables'">
+                                    <app-variable
+                                        [form]="variable | asFormGroup"
+                                        [type]="variable.value.type"
+                                    ></app-variable>
+                                </ng-container>
+                                <ng-container *ngIf="name === 'java_input_files'">
+                                    <app-java-input-files
+                                        [form]="variable | asFormGroup"
+                                    ></app-java-input-files>
+                                </ng-container>
+                                <ng-container *ngIf="name === 'parsons_input_files'">
+                                    <app-parsons-input-files
+                                        [form]="variable | asFormGroup"
+                                    ></app-parsons-input-files>
+                                </ng-container>
+                                <ng-container *ngIf="name === 'test_cases'">
+                                    <app-test-cases
+                                        [form]="variable | asFormGroup"
+                                    ></app-test-cases>
+                                </ng-container>
+                            </div>
+                            <div class="tui-col_4">
+                                <tui-text-area
+                                    class="content__island-json"
+                                    [ngModel]="getFormString(variable)"
+                                    (ngModelChange)="setFormFromString(variable, $event)"
+                                    [ngModelOptions]="{standalone: true}"
+                                    [expandable]="true"
+                                >
+                                    JSON
+                                </tui-text-area>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tui-island>
+        </ng-container>
+    </div>
+</form>
+<ng-container *ngIf="valueTypes.length > 1 else noDifferentTypeOption">
+    <tui-hosted-dropdown
+        [content]="newValueDropdownContent"
+        [(open)]="openNewValueDropdown"
+    >
+        <button tuiButton size="m" type="button" icon="tuiIconPlus" [iconRight]="newValueDropdownIcon">
+            Add New Value
+        </button>
+    </tui-hosted-dropdown>
+    <ng-template #newValueDropdownIcon>
+        <tui-svg
+            src="tuiIconChevronDown"
+            class="new-item-icon"
+            [class.new-item-icon_rotated]="openNewValueDropdown"
+        ></tui-svg>
+    </ng-template>
+    <ng-template #newValueDropdownContent>
+        <tui-data-list>
+            <button
+                tuiOption
+                (click)="addNewValue(valueType)"
+                *ngFor="let valueType of valueTypes"
+            >
+                {{ valueType | titlecase }}
+            </button>
+        </tui-data-list>
+    </ng-template>
+</ng-container>
+<ng-template #noDifferentTypeOption>
+    <button
+        tuiButton
+        size="m"
+        type="button"
+        icon="tuiIconPlus"
+        (click)="addNewValue(valueTypes[0])"
+    >
+        Add New Value
+    </button>
+</ng-template>
