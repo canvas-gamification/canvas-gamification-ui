@@ -17,6 +17,11 @@
 
 .questions-table {
     width: 100%;
+
+    &__actions {
+        display: flex;
+        flex-wrap: nowrap;
+    }
 }
 
 .filters {

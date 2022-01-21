@@ -20,6 +20,21 @@ import {
 import {of} from "rxjs";
 import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
 import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
+import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe";
+import {Component, ViewChild} from "@angular/core";
+
+@Component({
+    selector: 'test-app-problem-set-dialog',
+    template: `
+        <ng-template let-observer #testDialog></ng-template>`
+})
+class TestProblemSetDialogComponent {
+    @ViewChild('testDialog') testDialog;
+
+    completeDialog(): void {
+        this.testDialog.observer.next();
+    }
+}
 
 describe('ProblemSetComponent', () => {
     let component: ProblemSetComponent;
@@ -31,7 +46,7 @@ describe('ProblemSetComponent', () => {
             imports: [TestModule, ReactiveFormsModule, AppRoutingModule, TuiHostedDropdownModule, TuiLoaderModule,
                 TuiTableModule, TuiTablePaginationModule, TuiSelectModule, TuiDataListModule, TuiInputModule,
                 TuiHintModule, TuiTagModule],
-            declarations: [ProblemSetComponent],
+            declarations: [ProblemSetComponent, TestProblemSetDialogComponent, StringifyTuiDataListPipe],
             providers: [
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: DifficultyService, useClass: DifficultyServiceMock},
@@ -42,9 +57,7 @@ describe('ProblemSetComponent', () => {
 
     beforeEach(() => {
         notificationService = TestBed.inject(TuiNotificationsService);
-        spyOn(notificationService, 'show').and.callFake(() => {
-            return of();
-        });
+        spyOn(notificationService, 'show').and.callFake(() => of());
         fixture = TestBed.createComponent(ProblemSetComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -88,7 +101,8 @@ describe('ProblemSetComponent', () => {
     });
 
     it('should open delete modal', () => {
-        spyOn(component['dialogService'], 'open').and.callFake(() => of());
+        spyOn(component['dialogService'], 'open').and.callThrough();
+        spyOn(component, 'deleteQuestion').and.callThrough();
         component.openDeleteQuestionDialog('', 0);
         expect(component['dialogService'].open).toHaveBeenCalled();
     });
