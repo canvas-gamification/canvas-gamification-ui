@@ -1,11 +1,15 @@
 import {ProblemCreateComponent} from "@app/problems/problem-create/problem-create.component";
 import {HIGHLIGHT_OPTIONS, HighlightModule} from "ngx-highlightjs";
-import {JavaCreateSnippetComponent} from "@app/problems/problem-create/java-create-snippet/java-create-snippet.component";
+import {
+    JavaCreateSnippetComponent
+} from "@app/problems/problem-create/java-create-snippet/java-create-snippet.component";
 import {McqViewSnippetComponent} from "@app/problems/problem-view/mcq-view-snippet/mcq-view-snippet.component";
 import {JavaEditSnippetComponent} from "@app/problems/problem-edit/java-edit-snippet/java-edit-snippet.component";
 import {CommonModule} from "@angular/common";
 import {MatPaginatorModule} from "@angular/material/paginator";
-import {ParsonsViewSnippetComponent} from "@app/problems/problem-view/parsons-view-snippet/parsons-view-snippet.component";
+import {
+    ParsonsViewSnippetComponent
+} from "@app/problems/problem-view/parsons-view-snippet/parsons-view-snippet.component";
 import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SubmissionSnippetComponent} from "@app/problems/problem-view/submission-snippet/submission-snippet.component";
@@ -21,12 +25,16 @@ import {McqEditSnippetComponent} from "@app/problems/problem-edit/mcq-edit-snipp
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {AceEditorModule} from "ng2-ace-editor";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {ParsonsEditSnippetComponent} from "@app/problems/problem-edit/parsons-edit-snippet/parsons-edit-snippet.component";
+import {
+    ParsonsEditSnippetComponent
+} from "@app/problems/problem-edit/parsons-edit-snippet/parsons-edit-snippet.component";
 import {SubmissionViewComponent} from "@app/problems/submission-view/submission-view.component";
 import {ProblemSetComponent} from "@app/problems/problem-set/problem-set.component";
 import {JavaViewSnippetComponent} from "@app/problems/problem-view/java-view-snippet/java-view-snippet.component";
 import {VariableViewComponent} from "@app/problems/problem-view/variable-view/variable-view.component";
-import {ParsonsCreateSnippetComponent} from "@app/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component";
+import {
+    ParsonsCreateSnippetComponent
+} from "@app/problems/problem-create/parsons-create-snippet/parsons-create-snippet.component";
 import {ProblemsRoutingModule} from "@app/problems/problems-routing.module";
 import {DragulaModule} from "ng2-dragula";
 import {DifficultyService} from "@app/problems/_services/difficulty.service";
@@ -44,11 +52,31 @@ import {
     TuiDropdownControllerModule,
     TuiHintModule,
     TuiHostedDropdownModule,
+    TuiLabelModule,
     TuiLoaderModule,
+    TuiNotificationModule,
     TuiSvgModule,
     TuiTextfieldControllerModule
 } from "@taiga-ui/core";
-import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
+import {
+    TuiAccordionModule, TuiBadgeModule,
+    TuiCheckboxBlockModule,
+    TuiCheckboxLabeledModule,
+    TuiFieldErrorModule,
+    TuiInputCountModule,
+    TuiInputModule,
+    TuiIslandModule,
+    TuiRadioBlockModule,
+    TuiRadioLabeledModule,
+    TuiSelectModule,
+    TuiStringifyContentPipeModule,
+    TuiStringifyPipeModule,
+    TuiTabsModule,
+    TuiTagModule,
+    TuiTextAreaModule
+} from "@taiga-ui/kit";
+import {TabListViewSwitcherModule} from "@app/components/tab-list-view-switcher/tab-list-view-switcher.module";
+import {PipesModule} from "@app/_helpers/pipes/pipes.module";
 
 @NgModule({
     declarations: [
@@ -101,6 +129,23 @@ import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
         TuiSvgModule,
         TuiHostedDropdownModule,
         TuiTagModule,
+        TuiIslandModule,
+        TuiRadioLabeledModule,
+        TuiNotificationModule,
+        TuiAccordionModule,
+        TuiTabsModule,
+        TuiCheckboxLabeledModule,
+        TuiCheckboxBlockModule,
+        TuiRadioBlockModule,
+        TuiFieldErrorModule,
+        TuiLabelModule,
+        TabListViewSwitcherModule,
+        TuiInputCountModule,
+        TuiTextAreaModule,
+        PipesModule,
+        TuiStringifyPipeModule,
+        TuiStringifyContentPipeModule,
+        TuiBadgeModule,
     ],
     providers: [
         DifficultyService,

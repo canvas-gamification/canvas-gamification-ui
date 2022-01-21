@@ -1,0 +1,27 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+
+.code-editors__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &-title {
+        padding-bottom: 1rem;
+        @include inset-border(bottom, medium);
+    }
+}
+
+.code-editor__container {
+    position: relative;
+    height: 20rem;
+    border-radius: var(--tui-radius-l);
+    resize: vertical;
+    overflow: auto;
+    z-index: 0;
+}
+
+.view-switcher__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

@@ -21,5 +21,4 @@ export class SubmissionSnippetComponent implements OnInit {
             });
         });
     }
-
 }

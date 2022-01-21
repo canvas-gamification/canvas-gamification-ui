@@ -49,9 +49,13 @@ export class McqViewSnippetComponent implements OnInit {
             this.checkboxAnswers = [];
             this.checkboxFormData = this.formBuilder.group({
                 question: new FormControl(this.uqj.question.id),
-                solutions: new FormArray([])
+                solutions: new FormArray(this.choiceArray.map(() => new FormControl(false)))
             });
-            this.addCheckboxesToForm();
+            this.checkboxFormData.controls.solutions.valueChanges.subscribe((answers) => {
+                this.checkboxAnswers = answers.map((answer, index) => {
+                    if (answer) return this.choiceArray[index].id;
+                }).filter(id => id !== undefined);
+            });
         }
     }
 
@@ -82,26 +86,4 @@ export class McqViewSnippetComponent implements OnInit {
                 }).subscribe();
         });
     }
-
-    /**
-     * When the state of a checkbox changes (checked/!checked).
-     * @param e - The event that is sent on change.
-     */
-    checkboxChanged(e: Event): void {
-        const input = e.target as HTMLInputElement;
-        if (input.checked) {
-            this.checkboxAnswers.push(input.id);
-        } else {
-            this.checkboxAnswers.splice(this.checkboxAnswers.findIndex(id => id === input.id), 1);
-        }
-    }
-
-    /**
-     * Add checkboxes to the form.
-     * @private
-     */
-    private addCheckboxesToForm(): void {
-        this.choiceArray.forEach(() => this.checkboxesArray.push(new FormControl(false)));
-    }
-
 }
