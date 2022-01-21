@@ -98,14 +98,11 @@ describe('ConceptMapComponent without spy', () => {
         expect(title.innerHTML).toEqual('Parent Categories');
     });
 
-    // it('should show sub categories title when within a parent category of the concept map', () => {
-    //     component.parentNode = 0;
-    //     component.renderGraph();
-    //     const node = fixture.debugElement.query(By.css('.joint-cell'));
-    //     console.log(node);
-    //     node.click();
-    //     fixture.detectChanges();
-    //     const title = fixture.debugElement.query(By.css('.tui-text_h3')).nativeElement;
-    //     expect(title.innerHTML).toEqual('Parent Categories');
-    // });
+    it('should show sub categories title when within a parent category of the concept map', () => {
+        component.parentNode = 1;
+        component.renderGraph();
+        fixture.detectChanges();
+        const title = fixture.debugElement.query(By.css('.tui-text_h3')).nativeElement;
+        expect(title.innerHTML).toEqual('Sub-Categories for Test #2');
+    });
 });
