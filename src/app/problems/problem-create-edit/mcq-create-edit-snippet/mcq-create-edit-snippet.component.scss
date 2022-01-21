@@ -1,0 +1,20 @@
+.new-answers {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &__answer {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        &-input {
+            flex-grow: 1;
+        }
+    }
+}
+
+.distractor-count {
+    display: flex;
+    gap: 1rem;
+}

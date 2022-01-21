@@ -1,0 +1,56 @@
+<h1 class="tui-text_h3 tui-space_vertical-10">{{ this.questionDetails ? 'Edit' : 'New' }} Java Question</h1>
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+    <app-default-create-edit-snippet [formGroup]="formGroup"></app-default-create-edit-snippet>
+    <div class="tui-form__row">
+        <h2 class="tui-form__header">Question</h2>
+        <app-ck-editor
+            [value]="form.text.value"
+            (valueChange)="form.text.setValue($event)"
+        ></app-ck-editor>
+    </div>
+    <div class="tui-form__row">
+        <h2 class="tui-form__header">JUnit</h2>
+        <tui-text-area [expandable]="true" formControlName="junit_template">JUnit Template</tui-text-area>
+        <tui-field-error formControlName="junit_template"></tui-field-error>
+        <p class="tui-form__field-note">
+            Please provide a JUnit template to evaluate the code.
+            Identify where to insert the solution by "code"
+        </p>
+    </div>
+    <div class="tui-form__row">
+        <h2 class="tui-form__header">Submitted Files</h2>
+        <p class="tui-form__field-note">
+            Please provide the name of the
+            files students need to submit.
+            Specify whether each file should be compiled with the junit.
+        </p>
+        <app-json-editor
+            [values]="form.input_files.value"
+            (valuesChange)="form.input_files.setValue($event)"
+            name="java_input_files"
+        ></app-json-editor>
+    </div>
+    <div class="tui-form__row">
+        <h2 class="tui-form__header">Variables</h2>
+        <p class="tui-form__field-note">
+            If you are not using variables,
+            please don't add any variables
+            and delete the existing ones.
+        </p>
+        <app-json-editor
+            [values]="form.variables.value"
+            (valuesChange)="form.variables.setValue($event)"
+            name="variables"
+        ></app-json-editor>
+    </div>
+    <div class="tui-form__buttons">
+        <button
+            tuiButton
+            size="m"
+            class="tui-form__button"
+            [disabled]="formGroup.invalid"
+        >
+            Submit
+        </button>
+    </div>
+</form>
