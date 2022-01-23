@@ -144,4 +144,11 @@ export class QuestionService {
             .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>(
                 'Error occurred while adding question')));
     }
+
+    openedQuestion(questionId: number): Observable<HttpResponse<string>> {
+        const url = this.apiService.getURL('questions', questionId, 'opened-question');
+        return this.http.post(url, null, {responseType: "text", observe: 'response'})
+            .pipe(catchError(this.apiService.handleError<HttpResponse<string>>(
+                'Error occurred while opening question')));
+    }
 }

@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {UQJ, User} from '@app/_models';
+import {Question, UQJ, User} from '@app/_models';
 import {UqjService} from '@app/problems/_services/uqj.service';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {TuiStatus} from "@taiga-ui/kit";
+import {QuestionService} from "@app/problems/_services/question.service";
 
 @Component({
     selector: 'app-problem-view',
@@ -19,6 +20,7 @@ export class ProblemViewComponent implements OnInit {
                 private uqjService: UqjService,
                 private submissionService: SubmissionService,
                 private authenticationService: AuthenticationService,
+                private questionService: QuestionService,
                 private sanitizer: DomSanitizer) {
     }
 
@@ -42,6 +44,9 @@ export class ProblemViewComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => {
             this.user = user;
         });
+
+        console.log("test");
+        this.questionService.openedQuestion(questionId).subscribe();
     }
 
     getUQJTagStatus(status: string): TuiStatus {
