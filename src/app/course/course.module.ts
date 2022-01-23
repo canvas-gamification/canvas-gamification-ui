@@ -60,13 +60,19 @@ import {
     TuiTextfieldControllerModule
 } from "@taiga-ui/core";
 import {TextMaskModule} from "angular2-text-mask";
-import {CourseRegistrationStepperComponent} from './course-registration/course-registration-stepper/course-registration-stepper.component';
-import {CourseRegistrationStepComponent} from './course-registration/course-registration-step/course-registration-step.component';
+import {
+    CourseRegistrationStepperComponent
+} from './course-registration/course-registration-stepper/course-registration-stepper.component';
+import {
+    CourseRegistrationStepComponent
+} from './course-registration/course-registration-step/course-registration-step.component';
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
 import {TuiTableModule} from "@taiga-ui/addon-table";
 import {DragulaModule} from "ng2-dragula";
 import {CourseIslandModule} from "@app/components/course-island/course-island.module";
 import {PipesModule} from "@app/_helpers/pipes/pipes.module";
+import {PracticeProblemComponent} from './practice-problem/practice-problem.component';
+import {ProblemsModule} from "@app/problems/problems.module";
 
 @NgModule({
     declarations: [
@@ -80,7 +86,8 @@ import {PipesModule} from "@app/_helpers/pipes/pipes.module";
         LeaderBoardComponent,
         ConceptMapComponent,
         CourseRegistrationStepperComponent,
-        CourseRegistrationStepComponent
+        CourseRegistrationStepComponent,
+        PracticeProblemComponent
     ],
     imports: [
         CommonModule,
@@ -132,6 +139,7 @@ import {PipesModule} from "@app/_helpers/pipes/pipes.module";
         DragulaModule.forRoot(),
         CourseIslandModule,
         PipesModule,
+        ProblemsModule,
     ],
     providers: [
         CourseService,

@@ -1,0 +1,22 @@
+<button
+    tuiButton
+    size="m"
+    class="tui-form__button"
+    aria-label="Next"
+    (click)="prevQuestion()"
+>
+    Prev
+</button>
+
+<button
+    tuiButton
+    size="m"
+    class="tui-form__button"
+    aria-label="Next"
+    (click)="nextQuestion()"
+>
+    Next
+</button>
+
+<app-problem-view *ngIf="currentQuestionId" [questionId]="currentQuestionId">
+</app-problem-view>

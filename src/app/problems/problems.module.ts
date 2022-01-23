@@ -147,6 +147,9 @@ import {PipesModule} from "@app/_helpers/pipes/pipes.module";
         TuiStringifyContentPipeModule,
         TuiBadgeModule,
     ],
+    exports: [
+        ProblemViewComponent
+    ],
     providers: [
         DifficultyService,
         UqjService,
