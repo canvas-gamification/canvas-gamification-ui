@@ -65,6 +65,8 @@ import {CourseRegistrationStepComponent} from './course-registration/course-regi
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
 import {TuiTableModule} from "@taiga-ui/addon-table";
 import {DragulaModule} from "ng2-dragula";
+import {CourseIslandModule} from "@app/components/course-island/course-island.module";
+import {PipesModule} from "@app/_helpers/pipes/pipes.module";
 
 @NgModule({
     declarations: [
@@ -128,6 +130,8 @@ import {DragulaModule} from "ng2-dragula";
         TuiInputCountModule,
         TuiAvatarModule,
         DragulaModule.forRoot(),
+        CourseIslandModule,
+        PipesModule,
     ],
     providers: [
         CourseService,

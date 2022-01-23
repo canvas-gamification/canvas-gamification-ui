@@ -1,24 +1,26 @@
 <ng-container *ngIf="userActions">
-    <div class="card">
-        <div class="card-header">
-            <h3>Recent Actions</h3>
-        </div>
-        <ul class="list-group list-group-flush">
-            <ng-container *ngIf="userActions.length; else noRecentActions">
-                <ng-container *ngFor="let action of userActions">
-                    <li class="list-group-item">
-                        <!--TODO: the inner HTML in the action API response don't route properly in Angular-->
-                        <span [innerHTML]="action.safeDescription"></span>
-                        <span class="float-right">{{this.formatTokenChange(action.token_change)}}</span>
-                    </li>
-                </ng-container>
+    <h2 class="tui-text_h4">Recent Actions</h2>
+    <ul>
+        <ng-container *ngIf="userActions?.length; else noRecentActions">
+            <ng-container *ngFor="let action of userActions">
+                <li class="tui-space_bottom-2">
+                    <tui-island size="s">
+                        <p class="tui-island__paragraph">
+                            <span [innerHTML]="action.safeDescription"></span>
+                            <span class="tui-space_left-2">{{this.formatTokenChange(action.token_change)}}</span>
+                        </p>
+                    </tui-island>
+                </li>
             </ng-container>
-            <ng-template #noRecentActions>
-                <li class="list-group-item">No Recent Actions</li>
-            </ng-template>
-        </ul>
-        <div class="card-footer">
-            <a routerLink="../actions" class="btn btn-info">View More Actions</a>
-        </div>
+        </ng-container>
+        <ng-template #noRecentActions>
+            <li>
+                <p class="tui-text_body-m">No Recent Actions</p>
+            </li>
+        </ng-template>
+    </ul>
+    <div class="tui-form__buttons tui-space_top-3">
+        <a tuiButton class="tui-form__button" size="m" appearance="primary" iconRight="tuiIconArrowRight"
+           routerLink="../actions">View More Actions</a>
     </div>
 </ng-container>

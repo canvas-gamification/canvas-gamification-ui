@@ -1,81 +1,24 @@
 <section class="tui-container tui-container_adaptive">
     <h1 class="tui-text_h3 tui-space_vertical-10">Course List</h1>
     <tui-input
-            class="tui-space_bottom-4"
-            icon="tuiIconSearchLarge"
-            aria-label="Search Courses"
-            [(ngModel)]="courseNameSearch"
-            [tuiTextfieldCleaner]="true"
+        class="tui-space_bottom-4"
+        icon="tuiIconSearchLarge"
+        aria-label="Search Courses"
+        [(ngModel)]="courseNameSearch"
+        [tuiTextfieldCleaner]="true"
     >
         Search Courses
     </tui-input>
     <div class="course-islands">
         <ng-container *ngIf="allCourses else skeletons">
-            <tui-island size="m" class="course-island"
-                        *ngFor="let course of allCourses | tuiFilter : matchCourseName: courseNameSearch">
-                <div
-                        class="course-background"
-                        [style.backgroundColor]="getCourseBackgroundColor(course.name)"
-                ></div>
-                <h2 class="tui-island__title">{{ course.name }}</h2>
-                <tui-tag
-                        class="tui-space_right-2"
-                        size="m"
-                        [value]="course.status"
-                        [status]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
-                ></tui-tag>
-                <tui-tag
-                        size="m"
-                        [value]="course.is_registered ? 'Registered' : 'Not Registered'"
-                        [status]="course.is_registered ? 'success' : 'warning'"
-                ></tui-tag>
-                <div class="tui-form__buttons tui-space_top-12">
-                    <a
-                            tuiButton
-                            class="tui-form__button"
-                            appearance="primary"
-                            size="m"
-                            [routerLink]="[course.id]"
-                            *ngIf="hasViewPermission(course.id)"
-                    >
-                        Open
-                    </a>
-                    <a
-                            tuiButton
-                            class="tui-form__button"
-                            [appearance]="hasViewPermission(course.id) ? 'whiteblock-active' : 'primary'"
-                            size="m"
-                            [routerLink]="[course.id, 'register']"
-                            *ngIf="!course.is_registered"
-                    >
-                        Register
-                    </a>
-                </div>
-            </tui-island>
+            <ng-container *ngFor="let course of allCourses">
+                <app-course-island [course]="course" [hasViewPermission]="user | userHasCourseViewPermissions: course"></app-course-island>
+            </ng-container>
         </ng-container>
         <ng-template #skeletons>
-            <tui-island size="m" class="course-island" *ngFor="let _ of [0, 0, 0, 0, 0, 0]">
-                <div class="course-background tui-skeleton"></div>
-                <h2 class="tui-island__title tui-space_top-4 tui-skeleton tui-skeleton_short">content</h2>
-                <tui-tag class="tui-space_right-2 tui-skeleton" size="m" value="content-tag"></tui-tag>
-                <tui-tag class="tui-skeleton" size="m" value="content-tag"></tui-tag>
-                <div class="tui-form__buttons tui-space_top-12">
-                    <a
-                            tuiButton
-                            class="tui-form__button tui-skeleton"
-                            size="m"
-                    >
-                        content
-                    </a>
-                    <a
-                            tuiButton
-                            class="tui-form__button tui-skeleton"
-                            size="m"
-                    >
-                        content
-                    </a>
-                </div>
-            </tui-island>
+            <ng-container *ngFor="let _ of [0, 0, 0, 0, 0, 0]">
+                <app-course-island [skeleton]="true"></app-course-island>
+            </ng-container>
         </ng-template>
     </div>
 </section>

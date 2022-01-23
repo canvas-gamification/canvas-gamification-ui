@@ -1,0 +1,5 @@
+@import "mixins";
+
+.course-islands {
+    @include island-grid();
+}
