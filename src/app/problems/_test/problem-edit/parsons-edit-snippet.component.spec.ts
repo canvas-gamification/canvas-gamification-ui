@@ -73,6 +73,8 @@ describe('ParsonsEditSnippetComponent', () => {
         });
 
         it('should be invalid without required fields', () => {
+            component.form.title.setValue('');
+            fixture.detectChanges();
             expect(fixture.debugElement.nativeElement.querySelector('#submit').disabled).toBeTruthy();
         });
 

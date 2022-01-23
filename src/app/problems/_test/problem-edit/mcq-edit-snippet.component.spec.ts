@@ -94,10 +94,14 @@ describe('McqEditSnippetComponent', () => {
         });
 
         it('should be invalid without required fields', () => {
+            component.form.title.setValue('');
+            fixture.detectChanges();
             expect(fixture.debugElement.nativeElement.querySelector('#submit').disabled).toBeTruthy();
         });
 
         it('should be invalid mcq submission', () => {
+            component.questionText = '';
+            fixture.detectChanges();
             expect(component.isSubmissionValid()).toBeFalsy();
         });
 

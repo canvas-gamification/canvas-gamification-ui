@@ -28,6 +28,6 @@ describe('SubmissionViewComponent', () => {
     it('should get status', () => {
         expect(component.getSubmissionTagStatus('Correct')).toEqual('success');
         expect(component.getSubmissionTagStatus('Wrong')).toEqual('error');
-        expect(component.getSubmissionTagStatus('Other Statuses')).toEqual('warning');
+        expect(component.getSubmissionTagStatus('Other Statuses')).toEqual('default');
     });
 });
