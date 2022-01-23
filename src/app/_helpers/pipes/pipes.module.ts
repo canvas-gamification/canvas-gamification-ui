@@ -18,7 +18,9 @@ import { UserHasCourseViewPermissionsPipe } from './user-has-course-view-permiss
     exports: [
         AsFormGroupPipe,
         AsFormControlPipe,
-        StringifyTuiDataListPipe
+        StringifyTuiDataListPipe,
+        UserHasCourseViewPermissionsPipe,
+        GetColorFromStringPipe
     ],
     imports: [
         CommonModule
