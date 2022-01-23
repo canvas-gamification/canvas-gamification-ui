@@ -57,7 +57,7 @@ export const MOCK_MCQ_QUESTION: Question = {
         'b': 'gav'
     },
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: MOCK_COURSE_EVENT.id,
     event_obj: MOCK_COURSE_EVENT,
     is_exam: false,
@@ -70,10 +70,10 @@ export const MOCK_MCQ_QUESTION: Question = {
     max_submission_allowed: 5,
     parent_category_name: '',
     success_rate: 0,
-    text: '',
+    text: 'test',
     time_created: null,
     time_modified: null,
-    title: '',
+    title: 'MCQ Test',
     token_value: 5,
     type_name: 'multiple choice question',
     visible_distractor_count: 1,
@@ -97,7 +97,7 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
         'd': 'bar'
     },
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: MOCK_COURSE_EVENT.id,
     event_obj: MOCK_COURSE_EVENT,
     is_exam: false,
@@ -110,10 +110,10 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     max_submission_allowed: 5,
     parent_category_name: '',
     success_rate: 0,
-    text: '',
+    text: 'test',
     time_created: null,
     time_modified: null,
-    title: '',
+    title: 'MCQ Test',
     token_value: 5,
     type_name: 'multiple choice question',
     visible_distractor_count: 1,
@@ -132,7 +132,7 @@ export const MOCK_JAVA_QUESTION: Question = {
     author_name: '',
     choices: null,
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: MOCK_COURSE_EVENT.id,
     event_obj: MOCK_COURSE_EVENT,
     is_exam: false,
@@ -148,13 +148,17 @@ export const MOCK_JAVA_QUESTION: Question = {
     text: 'This is a Java question.',
     time_created: null,
     time_modified: null,
-    title: '',
+    title: 'Java Test',
     token_value: 5,
     type_name: 'java question',
     visible_distractor_count: 0,
     is_author: true,
     is_checkbox: false,
-    input_files: null,
+    input_files: [{
+        name: 'input',
+        compile: false,
+        template: 'code'
+    }],
 };
 
 export const MOCK_PARSONS_QUESTION: Question = {
@@ -167,7 +171,7 @@ export const MOCK_PARSONS_QUESTION: Question = {
     author_name: '',
     choices: null,
     course_name: '',
-    difficulty: '',
+    difficulty: 'EASY',
     event: MOCK_COURSE_EVENT.id,
     event_obj: MOCK_COURSE_EVENT,
     is_exam: false,
@@ -183,7 +187,7 @@ export const MOCK_PARSONS_QUESTION: Question = {
     text: 'This is a Parsons question.',
     time_created: null,
     time_modified: null,
-    title: '',
+    title: 'Parsons Test',
     token_value: 5,
     type_name: 'parsons question',
     visible_distractor_count: 0,
@@ -331,7 +335,9 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
         'This is an answer to a question.'
     ],
     tokens_received: 1,
-    answer_files: {},
+    answer_files: {
+        "test.java": ""
+    },
     finalized: true,
     formatted_tokens_received: '',
     token_value: 1,
@@ -349,7 +355,7 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     no_file_answer: false,
     show_answer: false,
     show_detail: true,
-    status_color: '',
+    status_color: 'success',
     safeAnswer: [],
 };
 
@@ -360,7 +366,9 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     pk: 1,
     answer_display: [],
     tokens_received: 1,
-    answer_files: {},
+    answer_files: {
+        "test.java": ""
+    },
     finalized: true,
     formatted_tokens_received: '',
     token_value: 1,
@@ -378,7 +386,7 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     no_file_answer: false,
     show_answer: false,
     show_detail: true,
-    status_color: '',
+    status_color: 'success',
     safeAnswer: [],
 };
 

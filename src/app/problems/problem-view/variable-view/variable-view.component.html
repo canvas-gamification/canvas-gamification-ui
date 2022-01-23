@@ -1,23 +1,21 @@
-<div class="card my-1">
-    <div class="card-header">
-        <h1>Generated Variables</h1>
-    </div>
-    <div *ngIf="generatedVariables.length !== 0; else elseBlock">
-        <div *ngFor="let variable of generatedVariables" class="card-body">
-            {{variable.name}}: {{variable.value}}
-        </div>
-    </div>
+<tui-island class="tui-space_bottom-4">
+    <h2 class="tui-island__title">Generated Variables</h2>
+    <ng-container *ngIf="generatedVariables.length !== 0; else elseBlock">
+        <p class="tui-island__paragraph" *ngFor="let variable of generatedVariables">
+            {{ variable.name }}: {{ variable.value }}
+        </p>
+    </ng-container>
     <ng-template #elseBlock>
-        <div class="card-body">
-            No Variables
-        </div>
+        <p class="tui-island__paragraph">
+            No Variables.
+        </p>
     </ng-template>
-    <div class="card-footer">
-        <div *ngIf="variableErrors.length !== 0; else noErrors">
-            <div class="alert-danger" *ngFor="let error of variableErrors">{{error}}</div>
-        </div>
-        <ng-template #noErrors>
-            No Errors.
-        </ng-template>
-    </div>
-</div>
+    <ng-container *ngIf="variableErrors.length !== 0; else noErrors">
+        <tui-notification class="tui-space_top-2" status="error" [hasIcon]="false" *ngFor="let error of variableErrors">
+            {{ error }}
+        </tui-notification>
+    </ng-container>
+    <ng-template #noErrors>
+        <p class="tui-island__paragraph">No Errors.</p>
+    </ng-template>
+</tui-island>
