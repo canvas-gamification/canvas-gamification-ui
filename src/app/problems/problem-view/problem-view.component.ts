@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Question, UQJ, User} from '@app/_models';
+import {UQJ, User} from '@app/_models';
 import {UqjService} from '@app/problems/_services/uqj.service';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {SubmissionService} from '@app/problems/_services/submission.service';
@@ -45,7 +45,6 @@ export class ProblemViewComponent implements OnInit {
             this.user = user;
         });
 
-        console.log("test");
         this.questionService.openedQuestion(questionId).subscribe();
     }
 
