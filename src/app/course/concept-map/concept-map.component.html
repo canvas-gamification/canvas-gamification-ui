@@ -1,3 +1,9 @@
+<ng-container *ngIf="parentNode else topLevel">
+    <h1 class="tui-text_h3 tui-space_vertical-10">Sub-Categories for {{parentNodeName}}</h1>
+</ng-container>
+<ng-template #topLevel>
+    <h1 class="tui-text_h3 tui-space_vertical-10">Parent Categories</h1>
+</ng-template>
 <div class="flowchart-instructions tui-space_bottom-4">
     <ng-container *ngIf="parentNode else tempSpacing">
         <button
