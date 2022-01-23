@@ -1,5 +1,6 @@
 import {Question} from '@app/_models/question';
 import {SafeHtml} from "@angular/platform-browser";
+import {TuiStatusT} from "@taiga-ui/kit";
 
 export enum StatusMessage {
     IN_QUEUE = 'In Queue',
@@ -43,6 +44,6 @@ export interface QuestionSubmission {
     answer_display: string[];
     show_answer: boolean;
     show_detail: boolean;
-    status_color: string;
+    status_color: TuiStatusT;
     safeAnswer: SafeHtml[];
 }

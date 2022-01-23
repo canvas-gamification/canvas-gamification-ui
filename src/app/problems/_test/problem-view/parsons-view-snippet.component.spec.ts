@@ -4,8 +4,10 @@ import {ParsonsViewSnippetComponent} from '../../problem-view/parsons-view-snipp
 import {TestModule} from '@test/test.module';
 import {DragulaModule} from "ng2-dragula";
 import {MOCK_UQJ_4} from "@app/problems/_test/mock";
-import {SubmissionService} from "@app/problems/_services/submission.service";
-import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.service.mock";
+import {TabListViewSwitcherModule} from "@app/components/tab-list-view-switcher/tab-list-view-switcher.module";
+import {ParsonsLinesComponent} from "@app/problems/problem-view/parsons-lines/parsons-lines.component";
+import {of} from "rxjs";
+import {TuiTabsModule} from "@taiga-ui/kit";
 
 describe('ParsonsViewSnippetComponent', () => {
     let component: ParsonsViewSnippetComponent;
@@ -13,9 +15,8 @@ describe('ParsonsViewSnippetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ParsonsViewSnippetComponent],
-            imports: [TestModule, DragulaModule.forRoot()],
-            providers: [{provide: SubmissionService, useClass: SubmissionServiceMock}],
+            declarations: [ParsonsViewSnippetComponent, ParsonsLinesComponent],
+            imports: [TestModule, DragulaModule.forRoot(), TabListViewSwitcherModule, TuiTabsModule],
         }).compileComponents();
     });
 
@@ -30,16 +31,9 @@ describe('ParsonsViewSnippetComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    // it('parsonsLines should be set', () => {
-    //     expect(component.parsonLines.length).toEqual(MOCK_UQJ_4.rendered_lines.length);
-    // });
-    //
-    // it('determineIndents and calculate sourceCode', () => {
-    //     component.parsonAnswerLines = component.parsonLines;
-    //     component.determineIndents();
-    //     component.calculateSourceCode();
-    //     expect(component.code).toEqual('{\n' +
-    //         '    print()\n' +
-    //         '}\n');
-    // });
+    it('should submit', () => {
+        spyOn(component['submissionService'], 'postQuestionSubmission').and.callFake(() => of());
+        component.onSubmit();
+        expect(component['submissionService'].postQuestionSubmission).toHaveBeenCalled();
+    });
 });

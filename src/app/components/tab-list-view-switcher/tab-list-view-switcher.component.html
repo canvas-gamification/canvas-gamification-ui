@@ -1,0 +1,36 @@
+<div tuiGroup [collapsed]="true" [formGroup]="viewForm" class="tab-switcher">
+    <tui-radio-block
+        size="s"
+        [hideRadio]="true"
+        contentAlign="left"
+        formControlName="view"
+        [item]="'list'"
+        tuiDescribedBy="list"
+        tuiHintId="list"
+        tuiHintMode="onDark"
+        tuiHintDirection="top-left"
+        [tuiHint]="listTooltip"
+    >
+        <tui-svg src="tuiIconViewListLarge"></tui-svg>
+    </tui-radio-block>
+    <ng-template #listTooltip>
+        View Content as List
+    </ng-template>
+    <tui-radio-block
+        size="s"
+        [hideRadio]="true"
+        contentAlign="left"
+        formControlName="view"
+        [item]="'tab'"
+        tuiDescribedBy="tab"
+        tuiHintId="tab"
+        tuiHintMode="onDark"
+        tuiHintDirection="top-left"
+        [tuiHint]="tabTooltip"
+    >
+        <tui-svg src="tuiIconFolderLarge"></tui-svg>
+    </tui-radio-block>
+    <ng-template #tabTooltip>
+        View Content as Tabs
+    </ng-template>
+</div>

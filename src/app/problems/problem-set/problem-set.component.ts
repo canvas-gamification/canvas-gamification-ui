@@ -174,7 +174,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
     }
 
     /**
-     * Modal for confirming if you want to delete a question.
+     * Dialog for confirming if you want to delete a question.
      * @param content - The modal to open.
      * @param questionId - The question to delete.
      */

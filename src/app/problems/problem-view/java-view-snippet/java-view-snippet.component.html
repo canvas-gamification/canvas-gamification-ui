@@ -1,28 +1,42 @@
-<div class="card my-1">
-    <div class="card-header">
-        <h1>My Answer</h1>
+<form (ngSubmit)="onSubmit()">
+    <div class="view-switcher__wrapper">
+        <h2 class="tui-form__header tui-space_bottom-4 tui-space_top-2">Complete The Following</h2>
+        <app-tab-list-view-switcher #viewSwitcher></app-tab-list-view-switcher>
     </div>
-    <div class="card-body">
-        Submit the required files.
-        <form (ngSubmit)="onSubmit()">
-            <div *ngFor="let input of inputFileNames">
-                <ul class="nav nav-tabs" id="submission" role="tablist">
-                    <li class="nav-item">{{input.name}}
-                        <a class="nav-link" href="#" role="tab"></a>
-                    </li>
-                </ul>
-                <div class="tab-content" role="tabpanel">
-                    <div class="tab-panel">
-                        <div>{{input.name}}</div>
-                        <div class="form-group">
-                            <div style="position: relative; height: 30rem">
-                                <app-ace [(template)]="input.template"></app-ace>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <ng-container *ngIf="viewSwitcher.view === 'tab' else listView">
+        <tui-tabs-with-more class="tui-space_bottom-4" #tabsComponent>
+            <ng-container *ngFor="let input of inputFileNames">
+                <button *tuiTab tuiTab>
+                    {{ input.name }}
+                </button>
+            </ng-container>
+        </tui-tabs-with-more>
+        <div *ngFor="let input of inputFileNames; let index = index">
+            <div *ngIf="tabsComponent.activeItemIndex === index">
+                <ng-container
+                    [ngTemplateOutlet]="codeEditor"
+                    [ngTemplateOutletContext]="{ $implicit: input }"
+                ></ng-container>
             </div>
-            <button type="submit" class="btn btn-success" aria-label="Submit">Submit</button>
-        </form>
+        </div>
+    </ng-container>
+    <ng-template #listView>
+        <div class="code-editors__list">
+            <div *ngFor="let input of inputFileNames">
+                <p class="code-editors__list-title">{{ input.name }}</p>
+                <ng-container
+                    [ngTemplateOutlet]="codeEditor"
+                    [ngTemplateOutletContext]="{ $implicit: input }"
+                ></ng-container>
+            </div>
+        </div>
+    </ng-template>
+    <div class="tui-form__buttons">
+        <button tuiButton class="tui-form__button" size="m">Submit</button>
     </div>
-</div>
+    <ng-template let-input #codeEditor>
+        <div class="code-editor__container">
+            <app-ace [(template)]="input.template"></app-ace>
+        </div>
+    </ng-template>
+</form>
