@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UQJ, User} from '@app/_models';
 import {UqjService} from '@app/problems/_services/uqj.service';
@@ -14,7 +14,8 @@ import {QuestionService} from "@app/problems/_services/question.service";
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
 })
-export class ProblemViewComponent implements OnInit {
+export class ProblemViewComponent implements OnChanges {
+    @Input() questionId: number
 
     constructor(private route: ActivatedRoute,
                 private uqjService: UqjService,
@@ -29,8 +30,8 @@ export class ProblemViewComponent implements OnInit {
     user: User;
     safeRenderedText: SafeHtml;
 
-    ngOnInit(): void {
-        const questionId = this.route.snapshot.params.id;
+    ngOnChanges(): void {
+        const questionId = this.questionId ?? this.route.snapshot.params.id;
         this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
             this.uqj = uqj;
             const uqjRenderedText = this.parseQuestionHTMLToUseTaiga(this.uqj.rendered_text);

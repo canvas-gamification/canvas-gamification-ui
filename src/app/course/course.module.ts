@@ -72,6 +72,7 @@ import {DragulaModule} from "ng2-dragula";
 import {CourseIslandModule} from "@app/components/course-island/course-island.module";
 import {PipesModule} from "@app/_helpers/pipes/pipes.module";
 import {PracticeProblemComponent} from './practice-problem/practice-problem.component';
+import {ProblemsModule} from "@app/problems/problems.module";
 
 @NgModule({
     declarations: [
@@ -138,6 +139,7 @@ import {PracticeProblemComponent} from './practice-problem/practice-problem.comp
         DragulaModule.forRoot(),
         CourseIslandModule,
         PipesModule,
+        ProblemsModule,
     ],
     providers: [
         CourseService,
