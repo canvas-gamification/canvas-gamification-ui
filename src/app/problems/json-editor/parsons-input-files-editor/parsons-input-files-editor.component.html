@@ -1,0 +1,65 @@
+<app-base-editor [form]="form" title="Parsons Input File">
+    <form [formGroup]="form" *ngIf="form">
+        <div class="tui-form__row">
+            <tui-input
+                formControlName="name"
+                [class.tui-skeleton]="loadingValue"
+            >
+                Name
+            </tui-input>
+            <tui-field-error formControlName="name"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <tui-checkbox-labeled
+                formControlName="compile"
+                [class.tui-skeleton]="loadingValue"
+            >
+                Should This File Be Compiled?
+            </tui-checkbox-labeled>
+            <tui-field-error formControlName="compile"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <div class="tui-form__field-note">Lines</div>
+            <tui-island class="tui-space_bottom-4" *ngIf="getLines().value.length > 0">
+                <div
+                    class="tui-form__row lines-control"
+                    *ngFor="let line of getLines().controls; let index = index"
+                >
+                    <div class="tui-space_right-4 lines-control__input" formArrayName="lines">
+                        <tui-input
+                            [formControl]="line | asFormControl"
+                            [class.tui-skeleton]="loadingValue"
+                        >
+                            Line {{ index + 1 }}
+                        </tui-input>
+                        <tui-field-error [formControl]="line | asFormControl"></tui-field-error>
+                    </div>
+                    <button
+                        tuiIconButton
+                        size="m"
+                        icon="tuiIconTrash"
+                        type="button"
+                        (click)="removeLine(index)"
+                        tuiDescribedBy="remove-line-{{index}}"
+                        tuiHintId="remove-line-{{index}}"
+                        tuiHintMode="onDark"
+                        tuiHintDirection="top-left"
+                        [tuiHint]="removeTooltip"
+                    ></button>
+                    <ng-template #removeTooltip>
+                        Remove Line
+                    </ng-template>
+                </div>
+            </tui-island>
+            <button
+                tuiButton
+                size="m"
+                icon="tuiIconPlus"
+                type="button"
+                (click)="addNewLine()"
+            >
+                Add New Line
+            </button>
+        </div>
+    </form>
+</app-base-editor>

@@ -1,27 +1,28 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TestCasesComponent} from '../../json-editor/test-cases/test-cases.component';
+import {
+    JavaInputFilesEditorComponent
+} from '../../json-editor/java-input-files-editor/java-input-files-editor.component';
 import {TestModule} from "@test/test.module";
 import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
 import {ReactiveFormsModule} from "@angular/forms";
 
-describe('TestCasesComponent', () => {
-    let component: TestCasesComponent;
-    let fixture: ComponentFixture<TestCasesComponent>;
+describe('JavaInputFilesEditorComponent', () => {
+    let component: JavaInputFilesEditorComponent;
+    let fixture: ComponentFixture<JavaInputFilesEditorComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestCasesComponent],
+            declarations: [JavaInputFilesEditorComponent],
             imports: [
                 TestModule, ReactiveFormsModule, TuiInputModule, TuiCheckboxLabeledModule,
                 TuiFieldErrorModule, TuiIslandModule
             ]
-        })
-            .compileComponents();
+        }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TestCasesComponent);
+        fixture = TestBed.createComponent(JavaInputFilesEditorComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -1,28 +1,27 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {VariableComponent} from '../../json-editor/variable/variable.component';
+import {VariableEditorComponent} from '../../json-editor/variable-editor/variable-editor.component';
 import {TestModule} from "@test/test.module";
 import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
 import {ReactiveFormsModule} from "@angular/forms";
 import {VariablesForm} from "@app/problems/_forms/json-editor/variables.form";
 
-describe('VariableComponent', () => {
-    let component: VariableComponent;
-    let fixture: ComponentFixture<VariableComponent>;
+describe('VariableEditorComponent', () => {
+    let component: VariableEditorComponent;
+    let fixture: ComponentFixture<VariableEditorComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [VariableComponent],
+            declarations: [VariableEditorComponent],
             imports: [
                 TestModule, ReactiveFormsModule, TuiInputModule, TuiCheckboxLabeledModule,
                 TuiFieldErrorModule, TuiIslandModule
             ]
-        })
-            .compileComponents();
+        }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(VariableComponent);
+        fixture = TestBed.createComponent(VariableEditorComponent);
         component = fixture.componentInstance;
         component.form = VariablesForm.createChoiceForm();
         fixture.detectChanges();

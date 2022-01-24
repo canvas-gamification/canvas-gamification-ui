@@ -17,7 +17,6 @@ import {
 } from "@app/problems/problem-create-edit/mcq-create-edit-snippet/mcq-create-edit-snippet.component";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AceComponent} from "@app/problems/ace/ace.component";
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
@@ -54,7 +53,8 @@ import {
     TuiTextfieldControllerModule
 } from "@taiga-ui/core";
 import {
-    TuiAccordionModule, TuiBadgeModule,
+    TuiAccordionModule,
+    TuiBadgeModule,
     TuiCheckboxBlockModule,
     TuiCheckboxLabeledModule,
     TuiFieldErrorModule,
@@ -71,11 +71,16 @@ import {
     TuiTextAreaModule
 } from "@taiga-ui/kit";
 import {TabListViewSwitcherModule} from "@app/components/tab-list-view-switcher/tab-list-view-switcher.module";
-import {VariableComponent} from './json-editor/variable/variable.component';
 import {PipesModule} from "@app/_helpers/pipes/pipes.module";
-import {JavaInputFilesComponent} from './json-editor/java-input-files/java-input-files.component';
-import {ParsonsInputFilesComponent} from './json-editor/parsons-input-files/parsons-input-files.component';
-import {TestCasesComponent} from './json-editor/test-cases/test-cases.component';
+import {TestCasesEditorComponent} from "@app/problems/json-editor/test-cases-editor/test-cases-editor.component";
+import {
+    ParsonsInputFilesEditorComponent
+} from "@app/problems/json-editor/parsons-input-files-editor/parsons-input-files-editor.component";
+import {
+    JavaInputFilesEditorComponent
+} from "@app/problems/json-editor/java-input-files-editor/java-input-files-editor.component";
+import {VariableEditorComponent} from "@app/problems/json-editor/variable-editor/variable-editor.component";
+import {BaseEditorComponent} from './json-editor/base-editor/base-editor.component';
 import {
     DefaultCreateEditSnippetComponent
 } from './problem-create-edit/default-create-edit-snippet/default-create-edit-snippet.component';
@@ -93,15 +98,15 @@ import {
         JavaCreateEditSnippetComponent,
         ParsonsCreateEditSnippetComponent,
         VariableViewComponent,
-        JsonEditorComponent,
         SubmissionSnippetComponent,
         SubmissionViewComponent,
         CkEditorComponent,
         ParsonsLinesComponent,
-        VariableComponent,
-        JavaInputFilesComponent,
-        ParsonsInputFilesComponent,
-        TestCasesComponent,
+        TestCasesEditorComponent,
+        ParsonsInputFilesEditorComponent,
+        JavaInputFilesEditorComponent,
+        VariableEditorComponent,
+        BaseEditorComponent,
         DefaultCreateEditSnippetComponent,
     ],
     imports: [

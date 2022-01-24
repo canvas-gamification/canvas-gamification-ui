@@ -1,25 +1,24 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {ParsonsInputFilesComponent} from '../../json-editor/parsons-input-files/parsons-input-files.component';
+import {ParsonsInputFilesEditorComponent} from '../../json-editor/parsons-input-files-editor/parsons-input-files-editor.component';
 import {TestModule} from "@test/test.module";
 import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ParsonsInputFilesForm} from "@app/problems/_forms/json-editor/parsons-input-files.form";
 
-describe('ParsonsInputFilesComponent', () => {
-    let component: ParsonsInputFilesComponent;
-    let fixture: ComponentFixture<ParsonsInputFilesComponent>;
+describe('ParsonsInputFilesEditorComponent', () => {
+    let component: ParsonsInputFilesEditorComponent;
+    let fixture: ComponentFixture<ParsonsInputFilesEditorComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ParsonsInputFilesComponent],
+            declarations: [ParsonsInputFilesEditorComponent],
             imports: [TestModule, ReactiveFormsModule, TuiInputModule, TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiIslandModule]
-        })
-            .compileComponents();
+        }).compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ParsonsInputFilesComponent);
+        fixture = TestBed.createComponent(ParsonsInputFilesEditorComponent);
         component = fixture.componentInstance;
         component.form = ParsonsInputFilesForm.createParsonsInputFileForm();
         fixture.detectChanges();
