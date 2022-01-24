@@ -3,11 +3,11 @@ import {FormArray, FormGroup} from "@angular/forms";
 import {VariablesForm} from "@app/problems/_forms/json-editor/variables.form";
 import {BaseEditorComponent} from "@app/problems/json-editor/base-editor/base-editor.component";
 import {
-    VariableEditorChoice,
-    VariableEditorEnumerator,
-    VariableEditorExpression,
-    VariableEditorFloat,
-    VariableEditorInteger,
+    VariableChoiceEditor,
+    VariableEnumeratorEditor,
+    VariableExpressionEditor,
+    VariableFloatEditor,
+    VariableIntegerEditor,
     VariableEditorTypes
 } from "@app/_models/json_editor";
 
@@ -18,8 +18,8 @@ import {
 })
 export class VariableEditorComponent implements OnInit, AfterViewInit {
 
-    @Input() value: VariableEditorInteger | VariableEditorEnumerator | VariableEditorExpression | VariableEditorFloat | VariableEditorChoice;
-    @Output() readonly valueChange = new EventEmitter<VariableEditorInteger | VariableEditorEnumerator | VariableEditorExpression | VariableEditorFloat | VariableEditorChoice>();
+    @Input() value: VariableIntegerEditor | VariableEnumeratorEditor | VariableExpressionEditor | VariableFloatEditor | VariableChoiceEditor;
+    @Output() readonly valueChange = new EventEmitter<VariableIntegerEditor | VariableEnumeratorEditor | VariableExpressionEditor | VariableFloatEditor | VariableChoiceEditor>();
     @Input() type!: VariableEditorTypes;
 
     form: FormGroup;

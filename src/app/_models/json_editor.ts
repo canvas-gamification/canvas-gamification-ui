@@ -1,28 +1,28 @@
 export type VariableEditorTypes = 'integer' | 'float' | 'enum' | 'expression' | 'choice';
-export interface VariableEditorInteger {
+export interface VariableIntegerEditor {
     type: string;
     name: string;
     min: number;
     max: number;
 }
-export interface VariableEditorFloat {
+export interface VariableFloatEditor {
     type: string;
     name: string;
     min: number;
     max: number;
     precision: number;
 }
-export interface VariableEditorEnumerator {
+export interface VariableEnumeratorEditor {
     type: string;
     name: string;
     values: Array<string>;
 }
-export interface VariableEditorExpression {
+export interface VariableExpressionEditor {
     type: string;
     name: string;
     expression: string;
 }
-export interface VariableEditorChoice {
+export interface VariableChoiceEditor {
     type: string;
     name: string;
     choice: string;
