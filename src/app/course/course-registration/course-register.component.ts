@@ -161,7 +161,7 @@ export class CourseRegisterComponent implements OnInit {
     }
 
     /**
-     * Set the loadingContent variable to false after server actions have been completed
+     * Set the loadingContent variable-editor to false after server actions have been completed
      * Detect changes to update the buttons states to avoid ExpressionChangedAfterItHasBeenCheckedError's
      */
     cleanUpLoadingContent(): void {

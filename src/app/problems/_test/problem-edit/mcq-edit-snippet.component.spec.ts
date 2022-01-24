@@ -12,7 +12,6 @@ import {
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
 import {CourseServiceMock} from "@test/course.service.mock";
@@ -34,7 +33,7 @@ describe('McqEditSnippetComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [TestModule, CKEditorModule, ReactiveFormsModule],
-            declarations: [McqEditSnippetComponent, CkEditorComponent, JsonEditorComponent],
+            declarations: [McqEditSnippetComponent, CkEditorComponent],
             providers: [
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},

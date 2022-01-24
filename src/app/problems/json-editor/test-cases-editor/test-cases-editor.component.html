@@ -1,0 +1,21 @@
+<app-base-editor [form]="form" title="Test Case">
+    <form [formGroup]="form" *ngIf="form">
+        <div class="tui-form__row">
+            <tui-input
+                formControlName="input"
+                [class.tui-skeleton]="loadingValue"
+            >
+                Standard Input of This Test Case
+            </tui-input>
+            <tui-field-error formControlName="input"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <tui-input
+                formControlName="output"
+                [class.tui-skeleton]="loadingValue">
+                Expected Output of This Test Case
+            </tui-input>
+            <tui-field-error formControlName="output"></tui-field-error>
+        </div>
+    </form>
+</app-base-editor>

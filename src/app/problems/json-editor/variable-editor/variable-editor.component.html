@@ -1,0 +1,115 @@
+<app-base-editor [form]="form" [title]="form.controls.type?.value || 'Variable'" #baseEditor>
+    <form [formGroup]="form" *ngIf="form">
+        <div class="tui-form__row">
+            <tui-input
+                formControlName="name"
+                [class.tui-skeleton]="loadingValue"
+            >
+                Name
+            </tui-input>
+            <tui-field-error formControlName="name"></tui-field-error>
+        </div>
+        <ng-container *ngIf="type === 'integer' || type === 'float'">
+            <div class="tui-form__row tui-form__row_multi-fields">
+                <div class="tui-form__multi-field">
+                    <tui-input-count
+                        formControlName="min"
+                        [class.tui-skeleton]="loadingValue"
+                    >
+                        Minimum Value
+                    </tui-input-count>
+                    <tui-field-error formControlName="min"></tui-field-error>
+                </div>
+                <div class="tui-form__multi-field">
+                    <tui-input-count
+                        formControlName="max"
+                        [class.tui-skeleton]="loadingValue"
+                    >
+                        Maximum Value
+                    </tui-input-count>
+                    <tui-field-error formControlName="max"></tui-field-error>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="type === 'float'">
+            <div class="tui-form__row">
+                <tui-input-count
+                    formControlName="precision"
+                    [class.tui-skeleton]="loadingValue"
+                >
+                    Number of Digits After the Decimal Point
+                </tui-input-count>
+                <tui-field-error formControlName="precision"></tui-field-error>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="type === 'enum'">
+        </ng-container>
+        <ng-container *ngIf="type === 'expression'">
+            <div class="tui-form__row">
+                <tui-input
+                    formControlName="expression"
+                    [class.tui-skeleton]="loadingValue"
+                >
+                    Expression
+                </tui-input>
+                <tui-field-error formControlName="expression"></tui-field-error>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="type === 'choice'">
+            <div class="tui-form__row">
+                <tui-input
+                    formControlName="choice"
+                    [class.tui-skeleton]="loadingValue"
+                >
+                    Choice
+                </tui-input>
+                <tui-field-error formControlName="choice"></tui-field-error>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="type === 'choice' || type === 'enum'">
+            <div class="tui-form__row">
+                <div class="tui-form__field-note">Values</div>
+                <tui-island class="tui-space_bottom-4" *ngIf="getValues().value.length > 0">
+                    <div
+                        class="tui-form__row values-control"
+                        *ngFor="let value of getValues().controls; let index = index"
+                    >
+                        <div class="tui-space_right-4 values-control__input" formArrayName="values">
+                            <tui-input
+                                [formControl]="value | asFormControl"
+                                [class.tui-skeleton]="loadingValue"
+                            >
+                                Value
+                            </tui-input>
+                            <tui-field-error [formControl]="value | asFormControl"></tui-field-error>
+                        </div>
+                        <button
+                            tuiIconButton
+                            size="m"
+                            icon="tuiIconTrash"
+                            type="button"
+                            (click)="removeValue(index)"
+                            tuiDescribedBy="remove-value-{{index}}"
+                            tuiHintId="remove-value-{{index}}"
+                            tuiHintMode="onDark"
+                            tuiHintDirection="top-left"
+                            [tuiHint]="removeTooltip"
+                        ></button>
+                        <ng-template #removeTooltip>
+                            Remove Value
+                        </ng-template>
+                    </div>
+                </tui-island>
+                <button
+                    tuiButton
+                    size="m"
+                    icon="tuiIconPlus"
+                    type="button"
+                    (click)="addNewValue()"
+                >
+                    Add New Value
+                </button>
+            </div>
+        </ng-container>
+    </form>
+</app-base-editor>

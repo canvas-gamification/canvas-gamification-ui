@@ -1,12 +1,5 @@
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {VariableTypes} from "@app/problems/_forms/json-editor/json-editor.form";
-
-export type VariableValueType = {
-    type: string,
-    name: string,
-    min: number,
-    max: number
-}
+import {VariableEditorTypes} from "@app/_models/json_editor";
 
 export class VariablesForm {
     static createIntegersForm(): FormGroup {
@@ -57,7 +50,7 @@ export class VariablesForm {
         return new FormControl('', [Validators.required]);
     }
 
-    static getNewVariableForm(type: VariableTypes): FormGroup {
+    static getNewVariableForm(type: VariableEditorTypes): FormGroup {
         if (type === 'integer') return this.createIntegersForm();
         if (type === 'float') return this.createFloatForm();
         if (type === 'enum') return this.createEnumeratorForm();

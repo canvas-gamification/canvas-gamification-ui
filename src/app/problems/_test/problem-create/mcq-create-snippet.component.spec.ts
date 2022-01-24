@@ -8,7 +8,6 @@ import {CourseServiceMock} from "@test/course.service.mock";
 import {MOCK_CATEGORIES, MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock";
@@ -26,7 +25,7 @@ describe('McqCreateSnippetComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [TestModule, CKEditorModule, ReactiveFormsModule],
-            declarations: [McqCreateSnippetComponent, CkEditorComponent, JsonEditorComponent],
+            declarations: [McqCreateSnippetComponent, CkEditorComponent],
             providers: [
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},

@@ -3,7 +3,6 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {JavaCreateSnippetComponent} from '../../problem-create/java-create-snippet/java-create-snippet.component';
 import {TestModule} from '@test/test.module';
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
@@ -25,7 +24,7 @@ describe('JavaCreateSnippetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [JavaCreateSnippetComponent, CkEditorComponent, JsonEditorComponent],
+            declarations: [JavaCreateSnippetComponent, CkEditorComponent],
             imports: [TestModule, CKEditorModule, ReactiveFormsModule],
             providers: [
                 {provide: CategoryService, useClass: CategoryServiceMock},
