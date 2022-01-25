@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UQJ, User} from '@app/_models';
 import {UqjService} from '@app/problems/_services/uqj.service';
@@ -7,18 +7,21 @@ import {SubmissionService} from '@app/problems/_services/submission.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {TuiStatus} from "@taiga-ui/kit";
+import {QuestionService} from "@app/problems/_services/question.service";
 
 @Component({
     selector: 'app-problem-view',
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
 })
-export class ProblemViewComponent implements OnInit {
+export class ProblemViewComponent implements OnChanges {
+    @Input() questionId: number
 
     constructor(private route: ActivatedRoute,
                 private uqjService: UqjService,
                 private submissionService: SubmissionService,
                 private authenticationService: AuthenticationService,
+                private questionService: QuestionService,
                 private sanitizer: DomSanitizer) {
     }
 
@@ -27,8 +30,8 @@ export class ProblemViewComponent implements OnInit {
     user: User;
     safeRenderedText: SafeHtml;
 
-    ngOnInit(): void {
-        const questionId = this.route.snapshot.params.id;
+    ngOnChanges(): void {
+        const questionId = this.questionId ?? this.route.snapshot.params.id;
         this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
             this.uqj = uqj;
             const uqjRenderedText = this.parseQuestionHTMLToUseTaiga(this.uqj.rendered_text);
@@ -42,6 +45,8 @@ export class ProblemViewComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => {
             this.user = user;
         });
+
+        this.questionService.openedQuestion(questionId).subscribe();
     }
 
     getUQJTagStatus(status: string): TuiStatus {

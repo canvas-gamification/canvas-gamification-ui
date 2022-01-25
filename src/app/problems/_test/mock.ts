@@ -11,7 +11,7 @@ export const MOCK_CATEGORY: Category = {
     description: '',
     next_category_ids: [],
     pk: 0,
-    full_name: '',
+    full_name: 'Test',
     parent: null,
     question_count: 100,
 };
@@ -22,7 +22,7 @@ export const MOCK_CATEGORY_2: Category = {
     description: '',
     next_category_ids: [],
     pk: 1,
-    full_name: '',
+    full_name: 'Test #2',
     parent: 0,
     question_count: 100,
 };

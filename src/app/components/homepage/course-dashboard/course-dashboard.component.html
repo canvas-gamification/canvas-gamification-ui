@@ -1,37 +1,25 @@
-<h3>Active Courses</h3>
-<div class="row" *ngIf="activeCourses; else noActiveCourses">
-    <ng-container *ngFor="let course of activeCourses; index as i">
-        <div class="d-flex col-md-4 mb-4">
-            <div class="card flex-fill" [attr.id]="'courseCard'+course.id">
-                <span class="sr-only">Card for course {{ course.name }}</span>
-                <div class="card-block-top"></div>
-                <div class="card-body">
-                    <h5 class="card-title">{{course.name}}</h5>
-                    <a [routerLink]="['/course', course.id]" class="btn btn-primary">Open</a>
+<h2 class="tui-text_h4">Active Courses</h2>
+<div class="course-islands">
+    <ng-container *ngIf="activeCourses else waitingActive">
+    <ng-container *ngIf="activeCourses.length > 0">
+        <ng-container *ngFor="let course of activeCourses">
+            <app-course-island [course]="course" [hasViewPermission]="true"></app-course-island>
+        </ng-container>
+    </ng-container>
+    <ng-container>
+        <tui-island size="m" [hoverable]="true" textAlign="center" [routerLink]="['/course']">
+            <div class="more-courses-island">
+                <div class="tui-space_vertical-12">
+                    <figure class="tui-island__figure">
+                        <tui-svg src="tuiIconAddRowLarge"></tui-svg>
+                    </figure>
+                    <h2 class="tui-island__title">Looking for {{ activeCourses?.length > 0 ? 'more' : '' }} courses?</h2>
                 </div>
             </div>
-        </div>
+        </tui-island>
     </ng-container>
-    <ng-container *ngIf="activeCourses.length <= 3">
-        <div class="d-flex col-md-4 mb-4">
-            <div class="card card-register-new flex-fill">
-                <span class="sr-only">Card for Register New Course</span>
-                <div class="card-block-top"></div>
-                <div class="card-body">
-                    <h5 class="card-title">Looking for more courses?</h5>
-                    <a class="btn btn-outline-primary" [routerLink]="['/course']">Registration</a>
-                </div>
-            </div>
-        </div>
     </ng-container>
+    <ng-template #waitingActive>
+        <app-course-island [skeleton]="true" *ngFor="let _ of [0, 0, 0]"></app-course-island>
+    </ng-template>
 </div>
-<ng-template #noActiveCourses>
-    <div class="jumbotron">
-        <p class="text-md-center">Looks like you don't have any active courses. Not to worry, you can register here:</p>
-        <div class="row">
-            <div class="col text-center">
-                <a class="btn btn-primary" routerLink="courses">Register into Courses</a>
-            </div>
-        </div>
-    </div>
-</ng-template>

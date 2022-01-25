@@ -1,0 +1,64 @@
+<tui-island size="m" class="course-island">
+    <ng-container *ngIf="!skeleton else skeletonTemplate">
+        <div
+            class="course-background"
+            [style.backgroundColor]="course.name | getColorFromString"
+        ></div>
+        <h2 class="tui-island__title">{{ course.name }}</h2>
+        <tui-tag
+            class="tui-space_right-2"
+            size="m"
+            [value]="course.status"
+            [status]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
+        ></tui-tag>
+        <tui-tag
+            size="m"
+            [value]="course.is_registered ? 'Registered' : 'Not Registered'"
+            [status]="course.is_registered ? 'success' : 'warning'"
+        ></tui-tag>
+        <div class="tui-form__buttons">
+            <a
+                tuiButton
+                class="tui-form__button"
+                appearance="primary"
+                size="m"
+                [routerLink]="['/course', course.id]"
+                *ngIf="hasViewPermission"
+            >
+                Open
+            </a>
+            <a
+                tuiButton
+                class="tui-form__button"
+                [appearance]="hasViewPermission ? 'whiteblock-active' : 'primary'"
+                size="m"
+                [routerLink]="['/course', course.id, 'register']"
+                *ngIf="!course.is_registered"
+            >
+                Register
+            </a>
+        </div>
+    </ng-container>
+    <ng-template #skeletonTemplate>
+        <div class="course-background tui-skeleton"></div>
+        <h2 class="tui-island__title tui-space_top-4 tui-skeleton tui-skeleton_short">content</h2>
+        <tui-tag class="tui-space_right-2 tui-skeleton" size="m" value="content-tag"></tui-tag>
+        <tui-tag class="tui-skeleton" size="m" value="content-tag"></tui-tag>
+        <div class="tui-form__buttons">
+            <a
+                tuiButton
+                class="tui-form__button tui-skeleton"
+                size="m"
+            >
+                content
+            </a>
+            <a
+                tuiButton
+                class="tui-form__button tui-skeleton"
+                size="m"
+            >
+                content
+            </a>
+        </div>
+    </ng-template>
+</tui-island>
