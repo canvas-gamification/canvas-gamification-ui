@@ -10,7 +10,6 @@ import {McqEditSnippetComponent} from "@app/problems/problem-edit/mcq-edit-snipp
 import {JavaEditSnippetComponent} from "@app/problems/problem-edit/java-edit-snippet/java-edit-snippet.component";
 import {ParsonsEditSnippetComponent} from "@app/problems/problem-edit/parsons-edit-snippet/parsons-edit-snippet.component";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ReactiveFormsModule} from "@angular/forms";
 
@@ -25,8 +24,7 @@ describe('ProblemEditComponent', () => {
                 McqEditSnippetComponent,
                 JavaEditSnippetComponent,
                 ParsonsEditSnippetComponent,
-                CkEditorComponent,
-                JsonEditorComponent],
+                CkEditorComponent],
             providers: [
                 {provide: QuestionService, useClass: QuestionServiceMock},
                 {

@@ -4,7 +4,6 @@ import {JavaEditSnippetComponent} from '../../problem-edit/java-edit-snippet/jav
 import {TestModule} from '@test/test.module';
 import {MOCK_COURSE, MOCK_COURSE_EVENT, MOCK_JAVA_QUESTION, MOCK_MCQ_QUESTION} from '@app/problems/_test/mock';
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CategoryService} from "@app/_services/api/category.service";
@@ -27,7 +26,7 @@ describe('JavaEditSnippetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [JavaEditSnippetComponent, CkEditorComponent, JsonEditorComponent],
+            declarations: [JavaEditSnippetComponent, CkEditorComponent],
             imports: [TestModule, CKEditorModule, ReactiveFormsModule],
             providers: [{provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},

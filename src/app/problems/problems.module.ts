@@ -16,7 +16,6 @@ import {SubmissionSnippetComponent} from "@app/problems/problem-view/submission-
 import {McqCreateSnippetComponent} from "@app/problems/problem-create/mcq-create-snippet/mcq-create-snippet.component";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {ProblemEditComponent} from "@app/problems/problem-edit/problem-edit.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AceComponent} from "@app/problems/ace/ace.component";
@@ -59,7 +58,8 @@ import {
     TuiTextfieldControllerModule
 } from "@taiga-ui/core";
 import {
-    TuiAccordionModule, TuiBadgeModule,
+    TuiAccordionModule,
+    TuiBadgeModule,
     TuiCheckboxBlockModule,
     TuiCheckboxLabeledModule,
     TuiFieldErrorModule,
@@ -77,6 +77,15 @@ import {
 } from "@taiga-ui/kit";
 import {TabListViewSwitcherModule} from "@app/components/tab-list-view-switcher/tab-list-view-switcher.module";
 import {PipesModule} from "@app/_helpers/pipes/pipes.module";
+import {TestCasesEditorComponent} from "@app/problems/json-editor/test-cases-editor/test-cases-editor.component";
+import {
+    ParsonsInputFilesEditorComponent
+} from "@app/problems/json-editor/parsons-input-files-editor/parsons-input-files-editor.component";
+import {
+    JavaInputFilesEditorComponent
+} from "@app/problems/json-editor/java-input-files-editor/java-input-files-editor.component";
+import {VariableEditorComponent} from "@app/problems/json-editor/variable-editor/variable-editor.component";
+import { AbstractEditorComponent } from './json-editor/abstract-editor/abstract-editor.component';
 
 @NgModule({
     declarations: [
@@ -95,11 +104,15 @@ import {PipesModule} from "@app/_helpers/pipes/pipes.module";
         JavaCreateSnippetComponent,
         ParsonsCreateSnippetComponent,
         VariableViewComponent,
-        JsonEditorComponent,
         SubmissionSnippetComponent,
         SubmissionViewComponent,
         CkEditorComponent,
         ParsonsLinesComponent,
+        TestCasesEditorComponent,
+        ParsonsInputFilesEditorComponent,
+        JavaInputFilesEditorComponent,
+        VariableEditorComponent,
+        AbstractEditorComponent,
     ],
     imports: [
         CommonModule,

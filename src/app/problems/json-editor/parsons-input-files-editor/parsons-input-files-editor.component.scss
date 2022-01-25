@@ -1,0 +1,8 @@
+.lines-control {
+    display: flex;
+    align-items: center;
+
+    &__input {
+        flex-grow: 1;
+    }
+}

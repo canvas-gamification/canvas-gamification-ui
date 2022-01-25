@@ -3,7 +3,6 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ParsonsCreateSnippetComponent} from '../../problem-create/parsons-create-snippet/parsons-create-snippet.component';
 import {TestModule} from '@test/test.module';
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {ReactiveFormsModule} from "@angular/forms";
 import {CategoryService} from "@app/_services/api/category.service";
@@ -25,7 +24,7 @@ describe('ParsonsCreateSnippetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ParsonsCreateSnippetComponent, CkEditorComponent, JsonEditorComponent],
+            declarations: [ParsonsCreateSnippetComponent, CkEditorComponent],
             imports: [TestModule, CKEditorModule, ReactiveFormsModule],
             providers: [
                 {provide: CategoryService, useClass: CategoryServiceMock},
