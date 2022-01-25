@@ -24,11 +24,7 @@
             files students need to submit.
             Specify whether each file should be compiled with the junit.
         </p>
-        <app-json-editor
-            [values]="form.input_files.value"
-            (valuesChange)="form.input_files.setValue($event)"
-            name="java_input_files"
-        ></app-json-editor>
+        <app-java-input-files-editor formControlName="input_files"></app-java-input-files-editor>
     </div>
     <div class="tui-form__row">
         <h2 class="tui-form__header">Variables</h2>
@@ -37,11 +33,7 @@
             please don't add any variables
             and delete the existing ones.
         </p>
-        <app-json-editor
-            [values]="form.variables.value"
-            (valuesChange)="form.variables.setValue($event)"
-            name="variables"
-        ></app-json-editor>
+        <app-variables-editor formControlName="variables"></app-variables-editor>
     </div>
     <div class="tui-form__buttons">
         <button
