@@ -155,6 +155,9 @@ import {
         TuiStringifyContentPipeModule,
         TuiBadgeModule,
     ],
+    exports: [
+        ProblemViewComponent
+    ],
     providers: [
         DifficultyService,
         UqjService,

@@ -31,7 +31,7 @@ export class UqjService {
             .set('page_size', String(pageSize));
 
         for (const field of Object.keys(filters)) {
-            params = params.set(`${field}`, String(filters[field]));
+            params = params.set(`${field}`, String(filters[field] ?? ''));
         }
 
         if (options?.recent ?? false) {
