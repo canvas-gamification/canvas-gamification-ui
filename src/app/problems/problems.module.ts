@@ -79,7 +79,7 @@ import {
 import {
     JavaInputFilesEditorComponent
 } from "@app/problems/json-editor/java-input-files-editor/java-input-files-editor.component";
-import {VariableEditorComponent} from "@app/problems/json-editor/variable-editor/variable-editor.component";
+import {VariablesEditorComponent} from "@app/problems/json-editor/variables-editor/variables-editor.component";
 import { AbstractEditorComponent } from './json-editor/abstract-editor/abstract-editor.component';
 import {
     DefaultCreateEditSnippetComponent
@@ -105,7 +105,7 @@ import {
         TestCasesEditorComponent,
         ParsonsInputFilesEditorComponent,
         JavaInputFilesEditorComponent,
-        VariableEditorComponent,
+        VariablesEditorComponent,
         AbstractEditorComponent,
         DefaultCreateEditSnippetComponent,
     ],

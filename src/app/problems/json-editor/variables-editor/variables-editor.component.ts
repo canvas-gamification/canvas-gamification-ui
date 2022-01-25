@@ -5,23 +5,23 @@ import {VariableEditorTypes} from "@app/_models/json_editor";
 import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor/abstract-editor.component";
 
 @Component({
-    selector: 'app-variable-editor',
-    templateUrl: './variable-editor.component.html',
-    styleUrls: ['./variable-editor.component.scss'],
+    selector: 'app-variables-editor',
+    templateUrl: './variables-editor.component.html',
+    styleUrls: ['./variables-editor.component.scss'],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,
-            useExisting: VariableEditorComponent
+            useExisting: VariablesEditorComponent
         },
         {
             provide: NG_VALIDATORS,
             multi: true,
-            useExisting: VariableEditorComponent
+            useExisting: VariablesEditorComponent
         },
     ]
 })
-export class VariableEditorComponent extends AbstractEditorComponent {
+export class VariablesEditorComponent extends AbstractEditorComponent {
 
     openNewValueDropdown = false;
     modelTypes: VariableEditorTypes[] = ['integer', 'float', 'choice', 'expression', 'enum'];

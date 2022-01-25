@@ -84,11 +84,7 @@
             please don't add any variables
             and delete the existing ones.
         </p>
-        <app-json-editor
-            [values]="form.variables.value"
-            (valuesChange)="form.variables.setValue($event)"
-            name="variables"
-        ></app-json-editor>
+        <app-variables-editor formControlName="variables"></app-variables-editor>
     </div>
     <div class="tui-form__buttons">
         <button
