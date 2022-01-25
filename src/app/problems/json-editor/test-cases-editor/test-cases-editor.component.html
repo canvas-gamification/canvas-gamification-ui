@@ -1,21 +1,60 @@
-<app-base-editor [form]="form" title="Test Case">
-    <form [formGroup]="form" *ngIf="form">
-        <div class="tui-form__row">
-            <tui-input
-                formControlName="input"
-                [class.tui-skeleton]="loadingValue"
-            >
-                Standard Input of This Test Case
-            </tui-input>
-            <tui-field-error formControlName="input"></tui-field-error>
+<form class="tui-space_bottom-4" [formGroup]="form | asFormGroup" *ngFor="let form of models.controls; index as index">
+    <tui-island>
+        <div class="tui-island__content">
+            <div class="tui-island__figure">
+                <button
+                    tuiIconButton
+                    size="m"
+                    icon="tuiIconTrash"
+                    type="button"
+                    (click)="removeModel(index)"
+                    tuiDescribedBy="remove-{{index}}"
+                    tuiHintId="remove-{{index}}"
+                    tuiHintMode="onDark"
+                    tuiHintDirection="top-left"
+                    [tuiHint]="removeTooltip"
+                ></button>
+                <ng-template #removeTooltip>
+                    Remove Value
+                </ng-template>
+            </div>
+            <div class="content__island">
+                <h2 class="tui-island__title">
+                    Test Case
+                </h2>
+                <div class="tui-row tui-row_adaptive">
+                    <div class="tui-col_8">
+                        <div class="tui-form__row">
+                            <tui-input formControlName="input">Standard Input of This Test Case</tui-input>
+                            <tui-field-error formControlName="input"></tui-field-error>
+                        </div>
+                        <div class="tui-form__row">
+                            <tui-input formControlName="output">Expected Output of This Test Case</tui-input>
+                            <tui-field-error formControlName="output"></tui-field-error>
+                        </div>
+                    </div>
+                    <div class="tui-col_4">
+                        <tui-text-area
+                            class="content__island-json"
+                            [ngModel]="getFormString(form)"
+                            (ngModelChange)="setFormFromString(form, $event)"
+                            [ngModelOptions]="{standalone: true}"
+                            [expandable]="true"
+                        >
+                            JSON
+                        </tui-text-area>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="tui-form__row">
-            <tui-input
-                formControlName="output"
-                [class.tui-skeleton]="loadingValue">
-                Expected Output of This Test Case
-            </tui-input>
-            <tui-field-error formControlName="output"></tui-field-error>
-        </div>
-    </form>
-</app-base-editor>
+    </tui-island>
+</form>
+<button
+    tuiButton
+    size="m"
+    type="button"
+    icon="tuiIconPlus"
+    (click)="addNewModel()"
+>
+    Add New Value
+</button>

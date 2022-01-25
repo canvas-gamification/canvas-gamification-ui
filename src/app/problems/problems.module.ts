@@ -85,7 +85,7 @@ import {
     JavaInputFilesEditorComponent
 } from "@app/problems/json-editor/java-input-files-editor/java-input-files-editor.component";
 import {VariableEditorComponent} from "@app/problems/json-editor/variable-editor/variable-editor.component";
-import {BaseEditorComponent} from './json-editor/base-editor/base-editor.component';
+import { AbstractEditorComponent } from './json-editor/abstract-editor/abstract-editor.component';
 
 @NgModule({
     declarations: [
@@ -112,7 +112,7 @@ import {BaseEditorComponent} from './json-editor/base-editor/base-editor.compone
         ParsonsInputFilesEditorComponent,
         JavaInputFilesEditorComponent,
         VariableEditorComponent,
-        BaseEditorComponent,
+        AbstractEditorComponent,
     ],
     imports: [
         CommonModule,
