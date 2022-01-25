@@ -1,18 +1,24 @@
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
-import {ParsonsCreateEditSnippetComponent} from '../../problem-create-edit/parsons-create-edit-snippet/parsons-create-edit-snippet.component';
+import {
+    ParsonsCreateEditSnippetComponent
+} from '../../problem-create-edit/parsons-create-edit-snippet/parsons-create-edit-snippet.component';
 import {TestModule} from '@test/test.module';
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MOCK_PARSONS_QUESTION} from "@app/problems/_test/mock";
 import {TuiButtonModule, TuiHostedDropdownModule, TuiNotificationModule, TuiSvgModule} from "@taiga-ui/core";
 import {of} from "rxjs";
-import {TuiFieldErrorModule, TuiInputModule, TuiSelectModule, TuiTextAreaModule} from "@taiga-ui/kit";
+import {TuiFieldErrorModule, TuiInputModule, TuiIslandModule, TuiSelectModule, TuiTextAreaModule} from "@taiga-ui/kit";
 import {delay} from "rxjs/operators";
 import {HttpResponse} from "@angular/common/http";
 import {Question} from "@app/_models";
+import {VariablesEditorComponent} from "@app/problems/json-editor/variables-editor/variables-editor.component";
+import {
+    ParsonsInputFilesEditorComponent
+} from "@app/problems/json-editor/parsons-input-files-editor/parsons-input-files-editor.component";
+import {AsFormGroupPipe} from "@app/_helpers/pipes/as-form-group.pipe";
 
 describe('ParsonsCreateEditSnippetComponent', () => {
     let component: ParsonsCreateEditSnippetComponent;
@@ -20,11 +26,14 @@ describe('ParsonsCreateEditSnippetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ParsonsCreateEditSnippetComponent, CkEditorComponent, JsonEditorComponent],
+            declarations: [
+                ParsonsCreateEditSnippetComponent, CkEditorComponent, VariablesEditorComponent,
+                ParsonsInputFilesEditorComponent, AsFormGroupPipe
+            ],
             imports: [
-                TestModule, CKEditorModule, ReactiveFormsModule, TuiTextAreaModule,
+                TestModule, CKEditorModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
                 TuiInputModule, TuiSelectModule, TuiFieldErrorModule, TuiButtonModule,
-                TuiHostedDropdownModule, TuiSvgModule, TuiNotificationModule
+                TuiHostedDropdownModule, TuiSvgModule, TuiNotificationModule, TuiIslandModule
             ],
         }).compileComponents();
     });
@@ -51,9 +60,7 @@ describe('ParsonsCreateEditSnippetComponent', () => {
     });
 
     it('should be valid form', () => {
-        component.formGroup.patchValue(MOCK_PARSONS_QUESTION);
-        fixture.detectChanges();
-        expect(component.formGroup.valid).toBeTrue();
+        expect(component.formGroup.invalid).toBeTrue();
     });
 
     it('should submit', fakeAsync(() => {
