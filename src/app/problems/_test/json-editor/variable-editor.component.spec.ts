@@ -3,8 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {VariableEditorComponent} from '../../json-editor/variable-editor/variable-editor.component';
 import {TestModule} from "@test/test.module";
 import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
-import {ReactiveFormsModule} from "@angular/forms";
-import {VariablesForm} from "@app/problems/_forms/json-editor/variables.form";
+import {FormArray, FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 describe('VariableEditorComponent', () => {
     let component: VariableEditorComponent;
@@ -23,7 +22,6 @@ describe('VariableEditorComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(VariableEditorComponent);
         component = fixture.componentInstance;
-        component.form = VariablesForm.createChoiceForm();
         fixture.detectChanges();
     });
 
@@ -32,23 +30,26 @@ describe('VariableEditorComponent', () => {
     });
 
     it('should get values', () => {
-        expect(component.getValues()).toBeTruthy();
+        const form = new FormGroup({values: new FormArray([])});
+        expect(component.getValues(form)).toBeTruthy();
     });
 
     it('should add value', () => {
-        spyOn(component.getValues(), 'push').and.callThrough();
-        const valLength = component.getValues().length;
-        component.addNewValue();
-        expect(component.getValues().push).toHaveBeenCalled();
-        expect(component.getValues().length).toBe(valLength + 1);
+        const form = new FormGroup({values: new FormArray([])});
+        spyOn(component.getValues(form), 'push').and.callThrough();
+        const valLength = component.getValues(form).length;
+        component.addNewValue(form);
+        expect(component.getValues(form).push).toHaveBeenCalled();
+        expect(component.getValues(form).length).toBe(valLength + 1);
     });
 
     it('should remove value', () => {
-        component.addNewValue();
-        spyOn(component.getValues(), 'removeAt').and.callThrough();
-        const valLength = component.getValues().length;
-        component.removeValue(0);
-        expect(component.getValues().removeAt).toHaveBeenCalled();
-        expect(component.getValues().length).toBe(valLength - 1);
+        const form = new FormGroup({values: new FormArray([])});
+        component.addNewValue(form);
+        spyOn(component.getValues(form), 'removeAt').and.callThrough();
+        const valLength = component.getValues(form).length;
+        component.removeValue(form, 0);
+        expect(component.getValues(form).removeAt).toHaveBeenCalled();
+        expect(component.getValues(form).length).toBe(valLength - 1);
     });
 });

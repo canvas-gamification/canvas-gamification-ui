@@ -37,7 +37,7 @@ import {UqjService} from "@app/problems/_services/uqj.service";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {SubmissionService} from "@app/problems/_services/submission.service";
 import {ParsonsLinesComponent} from './problem-view/parsons-lines/parsons-lines.component';
-import {TuiReorderModule, TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
+import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
 import {
     TuiButtonModule,
     TuiDataListModule,
@@ -80,7 +80,7 @@ import {
     JavaInputFilesEditorComponent
 } from "@app/problems/json-editor/java-input-files-editor/java-input-files-editor.component";
 import {VariableEditorComponent} from "@app/problems/json-editor/variable-editor/variable-editor.component";
-import {BaseEditorComponent} from './json-editor/base-editor/base-editor.component';
+import { AbstractEditorComponent } from './json-editor/abstract-editor/abstract-editor.component';
 import {
     DefaultCreateEditSnippetComponent
 } from './problem-create-edit/default-create-edit-snippet/default-create-edit-snippet.component';
@@ -106,7 +106,7 @@ import {
         ParsonsInputFilesEditorComponent,
         JavaInputFilesEditorComponent,
         VariableEditorComponent,
-        BaseEditorComponent,
+        AbstractEditorComponent,
         DefaultCreateEditSnippetComponent,
     ],
     imports: [
@@ -142,7 +142,6 @@ import {
         TuiNotificationModule,
         TuiAccordionModule,
         TuiTabsModule,
-        TuiReorderModule,
         TuiCheckboxLabeledModule,
         TuiCheckboxBlockModule,
         TuiRadioBlockModule,

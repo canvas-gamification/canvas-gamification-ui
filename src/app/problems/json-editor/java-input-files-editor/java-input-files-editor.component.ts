@@ -1,33 +1,28 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormGroup} from "@angular/forms";
-import {BaseEditorComponent} from "@app/problems/json-editor/base-editor/base-editor.component";
+import {Component} from '@angular/core';
+import {NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {JavaInputFilesForm} from "@app/problems/_forms/json-editor/java-input-files.form";
-import {JavaInputFileEditor} from "@app/_models/json_editor";
+import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor/abstract-editor.component";
 
 @Component({
     selector: 'app-java-input-files-editor',
     templateUrl: './java-input-files-editor.component.html',
-    styleUrls: ['./java-input-files-editor.component.scss']
+    styleUrls: ['./java-input-files-editor.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: JavaInputFilesEditorComponent
+        },
+        {
+            provide: NG_VALIDATORS,
+            multi: true,
+            useExisting: JavaInputFilesEditorComponent
+        },
+    ]
 })
-export class JavaInputFilesEditorComponent implements OnInit, AfterViewInit {
+export class JavaInputFilesEditorComponent extends AbstractEditorComponent {
 
-    @Input() value: JavaInputFileEditor;
-    @Output() readonly valueChange = new EventEmitter<JavaInputFileEditor>();
-
-    form: FormGroup;
-    @ViewChild('baseEditor') baseEditor: BaseEditorComponent;
-    loadingValue = true;
-
-    ngOnInit(): void {
-        this.form = JavaInputFilesForm.createJavaInputFileForm();
-
-        this.form.valueChanges.subscribe(() => {
-            this.valueChange.emit(this.form.getRawValue());
-        });
-    }
-
-    ngAfterViewInit(): void {
-        if (this.value) this.baseEditor.setFormFromString(JSON.stringify(this.value));
-        this.loadingValue = false;
+    addNewModel(): void {
+        this.models.push(JavaInputFilesForm.createJavaInputFileForm());
     }
 }

@@ -1,53 +1,44 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormArray, FormGroup} from "@angular/forms";
+import {Component} from '@angular/core';
+import {AbstractControl, FormArray, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {VariablesForm} from "@app/problems/_forms/json-editor/variables.form";
-import {BaseEditorComponent} from "@app/problems/json-editor/base-editor/base-editor.component";
-import {
-    VariableChoiceEditor,
-    VariableEnumeratorEditor,
-    VariableExpressionEditor,
-    VariableFloatEditor,
-    VariableIntegerEditor,
-    VariableEditorTypes
-} from "@app/_models/json_editor";
+import {VariableEditorTypes} from "@app/_models/json_editor";
+import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor/abstract-editor.component";
 
 @Component({
     selector: 'app-variable-editor',
     templateUrl: './variable-editor.component.html',
-    styleUrls: ['./variable-editor.component.scss']
+    styleUrls: ['./variable-editor.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: VariableEditorComponent
+        },
+        {
+            provide: NG_VALIDATORS,
+            multi: true,
+            useExisting: VariableEditorComponent
+        },
+    ]
 })
-export class VariableEditorComponent implements OnInit, AfterViewInit {
+export class VariableEditorComponent extends AbstractEditorComponent {
 
-    @Input() value: VariableIntegerEditor | VariableEnumeratorEditor | VariableExpressionEditor | VariableFloatEditor | VariableChoiceEditor;
-    @Output() readonly valueChange = new EventEmitter<VariableIntegerEditor | VariableEnumeratorEditor | VariableExpressionEditor | VariableFloatEditor | VariableChoiceEditor>();
-    @Input() type!: VariableEditorTypes;
+    openNewValueDropdown = false;
+    modelTypes: VariableEditorTypes[] = ['integer', 'float', 'choice', 'expression', 'enum'];
 
-    form: FormGroup;
-    @ViewChild('baseEditor') baseEditor: BaseEditorComponent;
-    loadingValue = true;
-
-    ngOnInit(): void {
-        this.form = VariablesForm.getNewVariableForm(this.type);
-
-        this.form.valueChanges.subscribe(() => {
-            this.valueChange.emit(this.form.getRawValue());
-        });
+    addNewModel(type: VariableEditorTypes): void {
+        this.models.push(VariablesForm.getNewVariableForm(type));
     }
 
-    ngAfterViewInit(): void {
-        if (this.value) this.baseEditor.setFormFromString(JSON.stringify(this.value));
-        this.loadingValue = false;
+    addNewValue(form: AbstractControl): void {
+        this.getValues(form)?.push(VariablesForm.createValuesControl());
     }
 
-    addNewValue(): void {
-        this.getValues()?.push(VariablesForm.createValuesControl());
+    removeValue(form: AbstractControl, index: number): void {
+        this.getValues(form)?.removeAt(index);
     }
 
-    removeValue(index: number): void {
-        this.getValues()?.removeAt(index);
-    }
-
-    getValues(): FormArray {
-        return this.form.controls.values as FormArray;
+    getValues(form: AbstractControl): FormArray {
+        return (form as FormGroup).controls.values as FormArray;
     }
 }

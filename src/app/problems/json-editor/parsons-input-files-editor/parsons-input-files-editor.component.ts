@@ -1,45 +1,40 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormArray, FormGroup} from "@angular/forms";
-import {BaseEditorComponent} from "@app/problems/json-editor/base-editor/base-editor.component";
+import {Component} from '@angular/core';
+import {AbstractControl, FormArray, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {ParsonsInputFilesForm} from "@app/problems/_forms/json-editor/parsons-input-files.form";
-import {ParsonsInputFileEditor} from "@app/_models/json_editor";
+import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor/abstract-editor.component";
 
 @Component({
     selector: 'app-parsons-input-files-editor',
     templateUrl: './parsons-input-files-editor.component.html',
-    styleUrls: ['./parsons-input-files-editor.component.scss']
+    styleUrls: ['./parsons-input-files-editor.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: ParsonsInputFilesEditorComponent
+        },
+        {
+            provide: NG_VALIDATORS,
+            multi: true,
+            useExisting: ParsonsInputFilesEditorComponent
+        },
+    ]
 })
-export class ParsonsInputFilesEditorComponent implements OnInit, AfterViewInit {
+export class ParsonsInputFilesEditorComponent extends AbstractEditorComponent {
 
-    @Input() value: ParsonsInputFileEditor;
-    @Output() readonly valueChange = new EventEmitter<ParsonsInputFileEditor>();
-
-    form: FormGroup;
-    @ViewChild('baseEditor') baseEditor: BaseEditorComponent;
-    loadingValue = true;
-
-    ngOnInit(): void {
-        this.form = ParsonsInputFilesForm.createParsonsInputFileForm();
-
-        this.form.valueChanges.subscribe(() => {
-            this.valueChange.emit(this.form.getRawValue());
-        });
+    addNewModel(): void {
+        this.models.push(ParsonsInputFilesForm.createParsonsInputFileForm());
     }
 
-    ngAfterViewInit(): void {
-        if (this.value) this.baseEditor.setFormFromString(JSON.stringify(this.value));
-        this.loadingValue = false;
+    addNewLine(form: AbstractControl): void {
+        this.getLines(form)?.push(ParsonsInputFilesForm.createLinesControl());
     }
 
-    addNewLine(): void {
-        this.getLines()?.push(ParsonsInputFilesForm.createLinesControl());
+    removeLine(form: AbstractControl, index: number): void {
+        this.getLines(form)?.removeAt(index);
     }
 
-    removeLine(index: number): void {
-        this.getLines()?.removeAt(index);
-    }
-
-    getLines(): FormArray {
-        return this.form.controls.lines as FormArray;
+    getLines(form: AbstractControl): FormArray {
+        return (form as FormGroup).controls.lines as FormArray;
     }
 }
