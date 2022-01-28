@@ -1,0 +1,124 @@
+<h1 class="tui-text_h3 tui-space_vertical-10">
+    {{ this.questionDetails ? 'Edit' : 'New' }}{{ isCheckbox ? ' Checkbox Question' : ' Multiple Choice Question' }}
+</h1>
+<form
+    (ngSubmit)="isCheckbox ? checkCheckboxAnswersDialog(checkboxOneAnswerDialog) : onSubmit()"
+    [formGroup]="formGroup"
+>
+    <app-default-create-edit-snippet [formGroup]="formGroup"></app-default-create-edit-snippet>
+    <div class="tui-form__row">
+        <h2 class="tui-form__header">Question</h2>
+        <app-ck-editor
+            [value]="form.text.value"
+            (valueChange)="form.text.setValue($event)"
+        ></app-ck-editor>
+    </div>
+    <ng-container *ngIf="!isCheckbox else checkboxAnswers">
+        <div class="tui-form__row">
+            <h2 class="tui-form__header">Correct Answer</h2>
+            <app-ck-editor
+                [value]="getAnswers().controls[0].value"
+                (valueChange)="getAnswers().controls[0].setValue($event)"
+            ></app-ck-editor>
+        </div>
+    </ng-container>
+    <ng-template #checkboxAnswers>
+        <div class="tui-form__row">
+            <h2 class="tui-form__header">Correct Answers</h2>
+            <div class="new-answers tui-space_bottom-4">
+                <div class="new-answers__answer" *ngFor="let answer of getAnswers().controls; let index = index">
+                    <div class="new-answers__answer-input" formArrayName="answer">
+                        <app-ck-editor
+                            [value]="answer.value"
+                            (valueChange)="answer.setValue($event)"
+                        ></app-ck-editor>
+                    </div>
+                    <button tuiButton appearance="secondary" size="m" type="button" icon="tuiIconTrash"
+                            (click)="removeAnswer(index)">
+                        Remove
+                    </button>
+                </div>
+            </div>
+            <button tuiButton size="m" type="button" icon="tuiIconPlus" (click)="addAnswer()">
+                Add Another
+            </button>
+        </div>
+    </ng-template>
+    <div class="tui-form__row">
+        <h2 class="tui-form__header">Distractor Answers</h2>
+        <div class="tui-form__field-note tui-space_bottom-2">Number of Visible Distractors</div>
+        <div class="distractor-count tui-space_bottom-4">
+            <tui-radio-labeled size="l" formControlName="visible_distractor_count" [item]="999">
+                All
+            </tui-radio-labeled>
+            <tui-radio-labeled size="l" formControlName="visible_distractor_count" [item]="2">
+                2
+            </tui-radio-labeled>
+            <tui-radio-labeled size="l" formControlName="visible_distractor_count" [item]="3">
+                3
+            </tui-radio-labeled>
+        </div>
+        <tui-field-error formControlName="visible_distractor_count"></tui-field-error>
+        <div class="new-answers tui-space_bottom-4">
+            <div class="new-answers__answer" *ngFor="let distractor of getDistractors().controls; let index = index">
+                <div class="new-answers__answer-input">
+                    <app-ck-editor
+                        [value]="distractor.value"
+                        (valueChange)="distractor.setValue($event)"
+                    ></app-ck-editor>
+                </div>
+                <button tuiButton appearance="secondary" size="m" type="button" icon="tuiIconTrash"
+                        (click)="removeDistractor(index)">
+                    Remove
+                </button>
+            </div>
+        </div>
+        <button tuiButton size="m" type="button" icon="tuiIconPlus" (click)="addDistractor()">
+            Add Another
+        </button>
+    </div>
+    <div class="tui-form__row">
+        <h2 class="tui-form__header">Variables</h2>
+        <p class="tui-form__field-note">
+            If you are not using variables,
+            please don't add any variables
+            and delete the existing ones.
+        </p>
+        <app-variables-editor formControlName="variables"></app-variables-editor>
+    </div>
+    <div class="tui-form__buttons">
+        <button
+            tuiButton
+            size="m"
+            class="tui-form__button"
+            [disabled]="formGroup.invalid"
+        >
+            Submit
+        </button>
+    </div>
+</form>
+<ng-template let-observer #checkboxOneAnswerDialog>
+    <p>
+        This checkbox question only contains one answer! If you would still like to
+        submit, the question will be converted to a regular multiple choice question.
+    </p>
+    <div class="tui-form__buttons">
+        <button
+            tuiButton
+            size="m"
+            class="tui-form__button"
+            (click)="observer.next()"
+        >
+            Submit
+        </button>
+        <button
+            tuiButton
+            size="m"
+            appearance="secondary"
+            class="tui-form__button"
+            (click)="observer.complete()"
+        >
+            Cancel
+        </button>
+    </div>
+</ng-template>

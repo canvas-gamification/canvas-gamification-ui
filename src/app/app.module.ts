@@ -26,7 +26,9 @@ import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers';
 import {HomepageComponent} from './components/homepage/homepage.component';
 import {RecentUserActionsComponent} from './components/homepage/recent-user-actions/recent-user-actions.component';
 import {UserActionsComponent} from './components/homepage/user-actions/user-actions.component';
-import {RecentViewedQuestionsComponent} from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
+import {
+    RecentViewedQuestionsComponent
+} from './components/homepage/recent-viewed-questions/recent-viewed-questions.component';
 import {CourseDashboardComponent} from './components/homepage/course-dashboard/course-dashboard.component';
 import {InactiveCoursesComponent} from './components/homepage/inactive-courses/inactive-courses.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -57,11 +59,15 @@ import {
     TuiSvgModule,
     TuiThemeNightModule,
     TuiNotificationsModule,
-    TuiDialogModule
+    TuiDialogModule,
+    TuiLoaderModule
 } from '@taiga-ui/core';
-import {TuiAvatarModule, TuiDropdownHoverModule, TuiRadioBlockModule, TuiToggleModule} from "@taiga-ui/kit";
+import {TuiAvatarModule, TuiDropdownHoverModule, TuiRadioBlockModule, TuiIslandModule, TuiToggleModule} from "@taiga-ui/kit";
 import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
 import {TuiActiveZoneModule} from "@taiga-ui/cdk";
+import {PipesModule} from "@app/_helpers/pipes/pipes.module";
+import {CourseIslandModule} from "@app/components/course-island/course-island.module";
+import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
 import {AceEditorModule} from "ng2-ace-editor";
 
 @NgModule({
@@ -131,6 +137,12 @@ import {AceEditorModule} from "ng2-ace-editor";
         TuiNotificationsModule,
         AdminModule,
         TuiDialogModule,
+        TuiIslandModule,
+        PipesModule,
+        CourseIslandModule,
+        TuiLoaderModule,
+        TuiTableModule,
+        TuiTablePaginationModule,
         AceEditorModule,
         TuiRadioBlockModule,
     ],

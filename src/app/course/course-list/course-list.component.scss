@@ -3,16 +3,4 @@
 
 .course-islands {
     @include island-grid();
-
-    .course-island {
-        overflow: hidden;
-
-        .course-background {
-            width: 110%;
-            height: 3rem;
-            margin-top: -1rem;
-            margin-left: -1rem;
-            @include tui-space(bottom, 3);
-        }
-    }
 }

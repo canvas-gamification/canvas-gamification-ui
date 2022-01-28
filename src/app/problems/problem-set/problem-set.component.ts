@@ -113,7 +113,6 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
     initialize(): void {
         this.questionService.getQuestions().subscribe(paginatedQuestions => {
             this.numberOfQuestions = paginatedQuestions.count;
-            this.pageSize = paginatedQuestions.results.length;
             this.questions = paginatedQuestions.results;
         });
     }
@@ -123,13 +122,20 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
      */
     update(): void {
         this.filteringQuestions = true;
-        const options = {
+        this.paramChanged.next(this.getOptions());
+    }
+
+
+    /**
+     * Get the options required for the questions get request
+     */
+    getOptions(): FilterParameters {
+        return {
             ...this.getFilterQueryString(),
             page: this.page + 1,
             page_size: this.pageSize,
             ordering: this.getOrdering(),
         };
-        this.paramChanged.next(options);
     }
 
     /**
@@ -168,7 +174,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
     }
 
     /**
-     * Modal for confirming if you want to delete a question.
+     * Dialog for confirming if you want to delete a question.
      * @param content - The modal to open.
      * @param questionId - The question to delete.
      */

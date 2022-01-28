@@ -1,0 +1,82 @@
+<div [formGroup]="formGroup">
+    <div class="tui-form__row">
+        <tui-input formControlName="title">Question Name</tui-input>
+        <tui-field-error formControlName="title"></tui-field-error>
+    </div>
+    <div class="tui-form__row">
+        <tui-select
+            formControlName="difficulty"
+            [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+        >
+            Difficulty
+            <tui-data-list *tuiDataList>
+                <button *ngFor="let difficulty of difficulties" tuiOption [value]="difficulty[0]">
+                    {{ difficulty[1] }}
+                </button>
+            </tui-data-list>
+            <tui-field-error formControlName="difficulty"></tui-field-error>
+        </tui-select>
+    </div>
+    <div class="tui-form__row">
+        <tui-select
+            formControlName="category"
+            [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
+        >
+            Category
+            <tui-data-list *tuiDataList>
+                <button *ngFor="let category of categories" tuiOption [value]="category.pk">
+                    {{ category.full_name }}
+                </button>
+            </tui-data-list>
+        </tui-select>
+        <tui-field-error formControlName="category"></tui-field-error>
+    </div>
+    <div class="tui-form__row">
+        <tui-checkbox-labeled size="l" formControlName="is_verified">Is Verified</tui-checkbox-labeled>
+    </div>
+    <div class="tui-form__row">
+        <tui-checkbox-labeled
+            size="l"
+            [ngModel]="isPractice"
+            (ngModelChange)="resetCourseIfPractice($event)"
+            [ngModelOptions]="{standalone: true}"
+        >
+            Practice Question
+        </tui-checkbox-labeled>
+    </div>
+    <ng-container *ngIf="!isPractice">
+        <div class="tui-form__row tui-form__row_multi-fields">
+            <div class="tui-form__multi-field">
+                <tui-select
+                    formControlName="course"
+                    [tuiTextfieldCleaner]="true"
+                    [valueContent]="courses ? (courses | stringifyTuiDataList: 'id': 'name') : ''"
+                >
+                    Course
+                    <tui-data-list *tuiDataList>
+                        <button *ngFor="let course of courses" tuiOption [value]="course.id">
+                            {{ course.name }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+                <tui-field-error formControlName="course"></tui-field-error>
+            </div>
+            <div class="tui-form__multi-field">
+                <tui-select
+                    formControlName="event"
+                    [tuiTextfieldCleaner]="true"
+                    [valueContent]="events ? (events | stringifyTuiDataList: 'id': 'name') : ''"
+                >
+                    Event
+                    <tui-data-list *tuiDataList>
+                        <button *ngFor="let event of events" tuiOption [value]="event.id">
+                            {{ event.name }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+                <tui-field-error formControlName="event"></tui-field-error>
+            </div>
+        </div>
+    </ng-container>
+    <ng-content></ng-content>
+</div>

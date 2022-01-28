@@ -2,23 +2,22 @@
     <div class="heading">
         <h1 class="tui-text_h3 tui-space_vertical-10">Problem Sets</h1>
         <tui-hosted-dropdown
-                [content]="newQuestionDropdownContent"
-                [(open)]="openNewQuestionDropdown"
+            [content]="newQuestionDropdownContent"
+            [(open)]="openNewQuestionDropdown"
         >
-            <button tuiButton size="m" type="button" icon="tuiIconPlus" [iconRight]="newQuestionDropdownIcon"
-                    aria-label="Create New Question">
+            <button tuiButton size="m" type="button" icon="tuiIconPlus" [iconRight]="newQuestionDropdownIcon">
                 Create New Question
             </button>
         </tui-hosted-dropdown>
         <ng-template #newQuestionDropdownIcon>
             <tui-svg
-                    src="tuiIconChevronDown"
-                    class="new-question-icon"
-                    [class.new-question-icon_rotated]="openNewQuestionDropdown"
+                src="tuiIconChevronDown"
+                class="new-question-icon"
+                [class.new-question-icon_rotated]="openNewQuestionDropdown"
             ></tui-svg>
         </ng-template>
         <ng-template #newQuestionDropdownContent>
-            <tui-data-list aria-label="Create Question Dropdown">
+            <tui-data-list>
                 <a tuiOption [routerLink]="['create', 'MCQ']">
                     Multiple Choice Question
                 </a>
@@ -36,18 +35,17 @@
     </div>
     <form [formGroup]="formGroup" tuiTextfieldSize="m" class="filters" (ngSubmit)="update()">
         <tui-input
-                formControlName="search"
-                class="search tui-space_bottom-4"
-                aria-label="Search for Question Name"
-                [tuiTextfieldCleaner]="true"
+            formControlName="search"
+            class="search tui-space_bottom-4"
+            [tuiTextfieldCleaner]="true"
         >
             Search for a Question Name
         </tui-input>
         <tui-select
-                formControlName="difficulty"
-                class="tui-space_left-4"
-                aria-label="Difficulty"
-                [tuiTextfieldCleaner]="true"
+            formControlName="difficulty"
+            class="tui-space_left-4"
+            [tuiTextfieldCleaner]="true"
+            [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
         >
             Difficulty
             <tui-data-list *tuiDataList>
@@ -57,10 +55,10 @@
             </tui-data-list>
         </tui-select>
         <tui-select
-                formControlName="parentCategory"
-                class="tui-space_left-4"
-                aria-label="Category"
-                [tuiTextfieldCleaner]="true"
+            formControlName="parentCategory"
+            class="tui-space_left-4"
+            [tuiTextfieldCleaner]="true"
+            [valueContent]="parentCategories ? (parentCategories | stringifyTuiDataList: 'name': 'name') : ''"
         >
             Category
             <tui-data-list *tuiDataList>
@@ -70,10 +68,10 @@
             </tui-data-list>
         </tui-select>
         <tui-select
-                formControlName="subCategory"
-                class="tui-space_left-4"
-                aria-label="Sub Category"
-                [tuiTextfieldCleaner]="true"
+            formControlName="subCategory"
+            class="tui-space_left-4"
+            [tuiTextfieldCleaner]="true"
+            [valueContent]="subCategories ? (subCategories | stringifyTuiDataList: 'name': 'name') : ''"
         >
             Sub Category
             <tui-data-list *tuiDataList>
@@ -83,10 +81,10 @@
             </tui-data-list>
         </tui-select>
         <tui-select
-                formControlName="is_sample"
-                class="tui-space_left-4"
-                aria-label="Sample"
-                [tuiTextfieldCleaner]="true"
+            formControlName="is_sample"
+            class="tui-space_left-4"
+            [tuiTextfieldCleaner]="true"
+            [valueContent]="[[true, 'Yes'], [false, 'No']] | stringifyTuiDataList: 0: 1"
         >
             Sample
             <tui-data-list *tuiDataList>
@@ -99,24 +97,23 @@
             </tui-data-list>
         </tui-select>
         <button
-                tuiButton
-                size="m"
-                type="submit"
-                class="tui-space_left-4"
-                aria-label="Filter"
+            tuiButton
+            size="m"
+            type="submit"
+            class="tui-space_left-4"
         >
             Filter
         </button>
     </form>
     <tui-loader [overlay]="true" [showLoader]="!questions || filteringQuestions">
         <table
-                tuiTable
-                [columns]="questionsTableColumns"
-                [(sorter)]="sorter"
-                (sorterChange)="update()"
-                [(direction)]="sortDirection"
-                (directionChange)="update()"
-                class="questions-table"
+            tuiTable
+            [columns]="questionsTableColumns"
+            [(sorter)]="sorter"
+            (sorterChange)="update()"
+            [(direction)]="sortDirection"
+            (directionChange)="update()"
+            class="questions-table"
         >
             <thead tuiThead>
             <tr tuiThGroup>
@@ -163,52 +160,54 @@
                     </ng-template>
                 </td>
                 <td tuiTd *tuiCell="'actions'">
-                    <a
+                    <div class="questions-table__actions">
+                        <a
                             tuiIconButton
                             size="s"
                             icon="tuiIconEyeOpen"
                             class="tui-space_right-2 tui-space_vertical-2"
                             [routerLink]="[question.id]"
-                            tuiDescribedBy="view"
-                            tuiHintId="view"
+                            tuiDescribedBy="view-{{question.id}}"
+                            tuiHintId="view-{{question.id}}"
                             tuiHintMode="onDark"
                             tuiHintDirection="top-left"
                             [tuiHint]="viewTooltip"
-                    ></a>
-                    <ng-template #viewTooltip>
-                        View Question
-                    </ng-template>
-                    <a
+                        ></a>
+                        <ng-template #viewTooltip>
+                            View Question
+                        </ng-template>
+                        <a
                             tuiIconButton
                             size="s"
                             icon="tuiIconEdit"
                             class="tui-space_right-2 tui-space_vertical-2"
                             [routerLink]="[question.id, 'edit']"
-                            tuiDescribedBy="edit"
-                            tuiHintId="edit"
+                            tuiDescribedBy="edit-{{question.id}}"
+                            tuiHintId="edit-{{question.id}}"
                             tuiHintMode="onDark"
                             tuiHintDirection="top-left"
                             [tuiHint]="editTooltip"
-                    ></a>
-                    <ng-template #editTooltip>
-                        Edit Question
-                    </ng-template>
-                    <button
+                        ></a>
+                        <ng-template #editTooltip>
+                            Edit Question
+                        </ng-template>
+                        <button
                             tuiIconButton
                             type="button"
                             size="s"
                             icon="tuiIconTrash"
                             class="tui-space_vertical-2"
                             (click)="openDeleteQuestionDialog(deleteDialog, question.id)"
-                            tuiDescribedBy="delete"
-                            tuiHintId="delete"
+                            tuiDescribedBy="delete-{{question.id}}"
+                            tuiHintId="delete-{{question.id}}"
                             tuiHintMode="onDark"
                             tuiHintDirection="top-left"
                             [tuiHint]="deleteTooltip"
-                    ></button>
-                    <ng-template #deleteTooltip>
-                        Delete Question
-                    </ng-template>
+                        ></button>
+                        <ng-template #deleteTooltip>
+                            Delete Question
+                        </ng-template>
+                    </div>
                 </td>
             </tr>
             </tbody>
@@ -216,12 +215,12 @@
             <tr>
                 <td [colSpan]="questionsTableColumns.length">
                     <tui-table-pagination
-                            class="tui-space_top-2"
-                            [total]="numberOfQuestions"
-                            [(size)]="pageSize"
-                            [(page)]="page"
-                            (pageChange)="update()"
-                            (sizeChange)="update()"
+                        class="tui-space_top-2"
+                        [total]="numberOfQuestions"
+                        [(size)]="pageSize"
+                        [(page)]="page"
+                        (pageChange)="update()"
+                        (sizeChange)="update()"
                     ></tui-table-pagination>
                 </td>
             </tr>
@@ -233,21 +232,19 @@
     <p>Are you sure that you would like to delete this question?</p>
     <div class="tui-form__buttons">
         <button
-                tuiButton
-                size="m"
-                class="tui-form__button"
-                aria-label="Confirm Changes"
-                (click)="observer.next()"
+            tuiButton
+            size="m"
+            class="tui-form__button"
+            (click)="observer.next()"
         >
             Confirm Changes
         </button>
         <button
-                tuiButton
-                size="m"
-                appearance="secondary"
-                class="tui-form__button"
-                aria-label="Cancel"
-                (click)="observer.complete()"
+            tuiButton
+            size="m"
+            appearance="secondary"
+            class="tui-form__button"
+            (click)="observer.complete()"
         >
             Cancel
         </button>
