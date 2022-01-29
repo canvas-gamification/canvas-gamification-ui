@@ -62,13 +62,21 @@ import {
     TuiDialogModule,
     TuiLoaderModule
 } from '@taiga-ui/core';
-import {TuiAvatarModule, TuiDropdownHoverModule, TuiRadioBlockModule, TuiIslandModule, TuiToggleModule} from "@taiga-ui/kit";
+import {
+    TuiAvatarModule,
+    TuiDropdownHoverModule,
+    TuiRadioBlockModule,
+    TuiIslandModule,
+    TuiToggleModule,
+    TuiMarkerIconModule
+} from "@taiga-ui/kit";
 import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
 import {TuiActiveZoneModule} from "@taiga-ui/cdk";
 import {PipesModule} from "@app/_helpers/pipes/pipes.module";
 import {CourseIslandModule} from "@app/components/course-island/course-island.module";
 import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
 import {AceEditorModule} from "ng2-ace-editor";
+import {ProblemsModule} from "@app/problems/problems.module";
 
 @NgModule({
     declarations: [
@@ -145,6 +153,8 @@ import {AceEditorModule} from "ng2-ace-editor";
         TuiTablePaginationModule,
         AceEditorModule,
         TuiRadioBlockModule,
+        ProblemsModule,
+        TuiMarkerIconModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

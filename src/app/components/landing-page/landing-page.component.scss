@@ -2,7 +2,7 @@
 @import 'mixins';
 
 .header {
-    height: calc(100vh - 4rem);
+    height: clamp(40rem, calc(100vh - 4rem), 50rem);
 
     @include screen-sm() {
         height: auto;
@@ -55,4 +55,33 @@
     left: 50%;
     top: 0;
     background-color: var(--tui-accent);
+}
+
+.services {
+    padding-top: 5rem;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+
+    &-logo {
+        display: flex;
+        align-items: center;
+
+        img {
+            border-radius: 999px;
+            width: 2rem;
+        }
+    }
+
+    &-bottom {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-links {
+        display: flex;
+        gap: 1rem;
+    }
 }

@@ -1,23 +1,24 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 
 @Component({
     selector: 'app-landing-page',
     templateUrl: './landing-page.component.html',
     styleUrls: ['./landing-page.component.scss']
 })
-export class LandingPageComponent implements AfterViewInit {
-    @ViewChild('sampleEditor') sampleEditor;
+export class LandingPageComponent {
+    logoPath = 'assets/global/logo.jpg';
 
-    ngAfterViewInit(): void {
-        this.sampleEditor.setTheme('monokai');
-        this.sampleEditor.setMode('java');
-        this.sampleEditor.setOptions({
-            tabSize: 4,
-            useSoftTabs: true,
-            useWorker: false,
-            fontSize: 'inherit',
-            theme: 'ace/theme/vibrant_ink',
-            mode: 'ace/mode/java'
+    @ViewChild('services') servicesComponent;
+
+    goToServices(): void {
+        console.log(this.servicesComponent.nativeElement);
+        this.servicesComponent.nativeElement.scrollIntoView({
+            behavior: 'smooth',
         });
+        // window.scroll({
+        //     top: this.servicesComponent.nativeElement.scrollHeight,
+        //     left: 0,
+        //     behavior: 'smooth'
+        // });
     }
 }
