@@ -9,6 +9,7 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CategoryService} from "@app/_services/api/category.service";
 import {forkJoin} from "rxjs";
 import {UserDifficultyStats} from "@app/_models/user_difficulty_stats";
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-practice-problem',
@@ -16,19 +17,18 @@ import {UserDifficultyStats} from "@app/_models/user_difficulty_stats";
     styleUrls: ['./practice-problem.component.scss']
 })
 export class PracticeProblemComponent implements OnInit {
-    readonly categoryId: number
+    readonly categoryId: number;
     readonly courseId: number;
 
-    uqjs: UQJ[]
-    currentQuestionId: number
-    cursor = 0
+    uqjs: UQJ[];
+    currentQuestionId: number;
+    cursor = 0;
     category: Category;
     userSuccessRate: number;
     difficulty: string;
     difficulties: Difficulty[];
-
-    private userDifficultyStats: UserDifficultyStats[];
-    private categoryUserSuccessRate: number;
+    userDifficultyStats: UserDifficultyStats[];
+    categoryUserSuccessRate: number;
 
     constructor(
         private route: ActivatedRoute,
@@ -43,7 +43,7 @@ export class PracticeProblemComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.difficulty = '';
+        this.difficulty = null;
         const userStatsObservable = this.userStatsService.getUserDifficultyStats(this.categoryId);
         const categoryObservable = this.categoryService.getCategory(this.categoryId);
         const uqjObservable = this.uqjService.getUQJs({
@@ -57,12 +57,13 @@ export class PracticeProblemComponent implements OnInit {
         const categoryStatsObservable = this.courseService.getUserStats(this.courseId, this.categoryId);
 
         forkJoin([uqjObservable, difficultyObservable, categoryObservable, userStatsObservable, categoryStatsObservable]).subscribe((result) => {
-            this.uqjs = result[0].results;
+            this.uqjs = _.shuffle(result[0].results);
             this.difficulties = result[1];
             this.category = result[2];
             this.userDifficultyStats = result[3];
             this.categoryUserSuccessRate = result[4].success_rate;
             this.updateCurrentQuestion();
+            this.calculateUserSuccessRate();
         });
     }
 
@@ -80,6 +81,10 @@ export class PracticeProblemComponent implements OnInit {
         this.currentQuestionId = this.uqjs?.[this.cursor]?.question?.id;
     }
 
+    changeDifficulty(event: Event): void {
+        console.log(event);
+    }
+
     /**
      * Determines what success rate to show to the user.
      */
@@ -91,7 +96,7 @@ export class PracticeProblemComponent implements OnInit {
                 this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficulty).avgSuccess;
             } else if (this.difficulty === "HARD") {
                 this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficulty).avgSuccess;
-            } else if (this.difficulty === '') {
+            } else if (this.difficulty === null) {
                 this.userSuccessRate = this.categoryUserSuccessRate;
             } else {
                 this.userSuccessRate = 0;

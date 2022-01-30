@@ -1,19 +1,30 @@
-<h2 class="my-2">{{category?.name}}</h2>
-<div class="card my-3">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">Your Success: {{userSuccessRate || 'N/A'}}</li>
-        <li class="list-group-item">Average Success: {{category?.average_success || 'N/A'}}</li>
-    </ul>
-</div>
-<label for="difficulty">Difficulty:</label>
-<select class="form-control" [(ngModel)]="difficulty" id="difficulty">
-    <option value="">All</option>
-    <option *ngFor="let diff of difficulties" [value]="diff[0]">{{diff[0]}}</option>
-</select>
+<div class="tui-text_h3 tui-space_left-4 tui-space_top-4">{{category?.name}}</div>
+<table class="tui-table tui-space_left-4 tui-space_bottom-4">
+    <tbody>
+    <tr class="tui-table__tr">
+        <td class="tui-table__td">Your Success: {{userSuccessRate || 'N/A'}}</td>
+        <td class="tui-table__td">Average Success: {{category?.average_success || 'N/A'}}</td>
+    </tr>
+    </tbody>
+</table>
+<tui-select
+        class="tui-space_left-4"
+        [tuiTextfieldCleaner]="true"
+        [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+        (ngModelChange)="changeDifficulty($event)"
+        [ngModel]="difficulty"
+>
+    Difficulty
+    <tui-data-list *tuiDataList>
+        <button *ngFor="let diff of difficulties" tuiOption [value]="diff[0]">
+            {{ diff[1] }}
+        </button>
+    </tui-data-list>
+</tui-select>
 <button
         tuiButton
         size="m"
-        class="tui-form__button"
+        class="tui-form__button tui-space_left-4 tui-space_top-4 tui-space_bottom-4"
         aria-label="Next"
         (click)="prevQuestion()"
 >
@@ -23,7 +34,7 @@
 <button
         tuiButton
         size="m"
-        class="tui-form__button"
+        class="tui-form__button tui-space_top-4 tui-space_bottom-4"
         aria-label="Next"
         (click)="nextQuestion()"
 >
