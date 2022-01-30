@@ -28,4 +28,8 @@ export class CourseEventServiceMock {
     updateCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
         return of(MOCK_COURSE_EVENT);
     }
+
+    getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
+        return of({success_rate: 1});
+    }
 }

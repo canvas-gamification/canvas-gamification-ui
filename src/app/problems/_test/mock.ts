@@ -4,6 +4,7 @@ import {Difficulty} from "@app/_models/difficulty";
 import {McqFormData} from "@app/problems/_forms/mcq.form";
 import {JavaFormData} from "@app/problems/_forms/java.form";
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
+import {UserDifficultyStats} from "@app/_models/user_difficulty_stats";
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
@@ -44,6 +45,15 @@ export const MOCK_COURSE_EVENT: CourseEvent = {
     type: '',
 };
 
+export const MOCK_PRACTICE_EVENT: CourseEvent = {
+    name: '',
+    type: null,
+    count_for_tokens: false,
+    start_date: null,
+    end_date: null,
+    course: null
+};
+
 export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
@@ -80,6 +90,7 @@ export const MOCK_MCQ_QUESTION: Question = {
     is_author: true,
     is_checkbox: false,
     input_files: null,
+    is_practice: false,
 };
 
 export const MOCK_CHECKBOX_QUESTION: Question = {
@@ -120,6 +131,7 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     is_author: true,
     is_checkbox: true,
     input_files: null,
+    is_practice: false,
 };
 
 export const MOCK_JAVA_QUESTION: Question = {
@@ -159,6 +171,7 @@ export const MOCK_JAVA_QUESTION: Question = {
         compile: false,
         template: 'code'
     }],
+    is_practice: false,
 };
 
 export const MOCK_PARSONS_QUESTION: Question = {
@@ -197,7 +210,164 @@ export const MOCK_PARSONS_QUESTION: Question = {
         name: 'test',
         lines: ['a', 'b', 'c'],
         compile: true,
-    }]
+    }],
+    is_practice: false,
+};
+
+export const MOCK_PRACTICE_JAVA_QUESTION: Question = {
+    id: 4,
+    category: 0,
+    status: 'Wrong',
+    answer: '',
+    author: 0,
+    author_name: '',
+    category_obj: MOCK_CATEGORY,
+    choices: null,
+    course_name: '',
+    difficulty: 'EASY',
+    event: null,
+    event_obj: MOCK_PRACTICE_EVENT,
+    is_exam: false,
+    is_exam_and_open: false,
+    is_open: true,
+    is_sample: false,
+    is_verified: true,
+    junit_template: 'TEST JUNIT',
+    variables: [],
+    max_submission_allowed: 5,
+    parent_category_name: '',
+    success_rate: 0,
+    text: 'This is a Java question.',
+    time_created: null,
+    time_modified: null,
+    title: '',
+    token_value: 5,
+    type_name: 'java question',
+    visible_distractor_count: 0,
+    is_author: true,
+    is_checkbox: false,
+    input_files: null,
+    is_practice: true,
+};
+
+export const MOCK_PRACTICE_PARSONS_QUESTION: Question = {
+    id: 5,
+    category: 0,
+    status: '',
+    answer: '',
+    author: 0,
+    author_name: '',
+    category_obj: MOCK_CATEGORY,
+    choices: null,
+    course_name: '',
+    difficulty: 'EASY',
+    event: null,
+    event_obj: MOCK_PRACTICE_EVENT,
+    is_exam: false,
+    is_exam_and_open: false,
+    is_open: true,
+    is_sample: false,
+    is_verified: true,
+    junit_template: 'TEST JUNIT',
+    variables: [],
+    max_submission_allowed: 5,
+    parent_category_name: '',
+    success_rate: 0,
+    text: 'This is a Parsons question.',
+    time_created: null,
+    time_modified: null,
+    title: '',
+    token_value: 5,
+    type_name: 'parsons question',
+    visible_distractor_count: 0,
+    is_author: true,
+    is_checkbox: false,
+    input_files: [{
+        name: 'test',
+        lines: ['a', 'b', 'c'],
+        compile: true,
+    }],
+    is_practice: true,
+};
+
+export const MOCK_PRACTICE_MCQ_QUESTION: Question = {
+    id: 6,
+    category: 0,
+    status: 'Solved',
+    answer: 'a',
+    author: 0,
+    author_name: '',
+    category_obj: MOCK_CATEGORY,
+    choices: {
+        'a': 'sag',
+        'b': 'gav'
+    },
+    course_name: '',
+    difficulty: 'EASY',
+    event: null,
+    event_obj: MOCK_PRACTICE_EVENT,
+    is_exam: false,
+    is_exam_and_open: false,
+    is_open: true,
+    is_sample: false,
+    is_verified: true,
+    junit_template: '',
+    variables: [],
+    max_submission_allowed: 5,
+    parent_category_name: '',
+    success_rate: 0,
+    text: '',
+    time_created: null,
+    time_modified: null,
+    title: '',
+    token_value: 5,
+    type_name: 'multiple choice question',
+    visible_distractor_count: 1,
+    is_author: true,
+    is_checkbox: false,
+    input_files: null,
+    is_practice: true,
+};
+
+export const MOCK_PRACTICE_CHECKBOX_QUESTION: Question = {
+    id: 7,
+    category: 0,
+    status: 'Partially Solved',
+    answer: 'a,b',
+    author: 0,
+    author_name: '',
+    category_obj: MOCK_CATEGORY,
+    choices: {
+        'a': 'sag',
+        'b': 'gav',
+        'c': 'foo',
+        'd': 'bar'
+    },
+    course_name: '',
+    difficulty: 'EASY',
+    event: null,
+    event_obj: MOCK_PRACTICE_EVENT,
+    is_exam: false,
+    is_exam_and_open: false,
+    is_open: true,
+    is_sample: false,
+    is_verified: true,
+    junit_template: '',
+    variables: [],
+    max_submission_allowed: 5,
+    parent_category_name: '',
+    success_rate: 0,
+    text: '',
+    time_created: null,
+    time_modified: null,
+    title: '',
+    token_value: 5,
+    type_name: 'multiple choice question',
+    visible_distractor_count: 1,
+    is_author: true,
+    is_checkbox: true,
+    input_files: null,
+    is_practice: true,
 };
 
 export const MOCK_UQJ: UQJ = {
@@ -324,6 +494,132 @@ export const MOCK_UQJ_4: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+};
+
+export const MOCK_UQJ_5: UQJ = {
+    category: MOCK_CATEGORY,
+    id: 4,
+    question: MOCK_PRACTICE_JAVA_QUESTION,
+    format: '',
+    formatted_current_tokens_received: '',
+    input_files: [
+        {
+            name: 'Test',
+            compile: true,
+            template: 'Test Template',
+        },
+        {
+            name: 'Test2',
+            compile: false,
+            template: '',
+        }
+    ],
+    is_allowed_to_submit: true,
+    is_partially_solved: false,
+    is_solved: false,
+    last_viewed: null,
+    num_attempts: 5,
+    opened_tutorial: false,
+    random_seed: 0,
+    rendered_choices: null,
+    rendered_lines: [],
+    rendered_text: '',
+    status: '',
+    status_class: '',
+    subcategory: '',
+    tokens_received: 50,
+    variables: JSON.parse('{}'),
+    variables_errors: [],
+    is_checkbox: false,
+};
+
+export const MOCK_UQJ_6: UQJ = {
+    category: MOCK_CATEGORY,
+    id: 5,
+    question: MOCK_PRACTICE_PARSONS_QUESTION,
+    format: '',
+    formatted_current_tokens_received: '',
+    input_files: [],
+    is_allowed_to_submit: true,
+    is_partially_solved: false,
+    is_solved: false,
+    last_viewed: null,
+    num_attempts: 5,
+    opened_tutorial: false,
+    random_seed: 0,
+    rendered_choices: null,
+    rendered_lines: [{
+        name: 'test',
+        lines: ['a', 'b', 'c']
+    }],
+    rendered_text: '',
+    status: '',
+    status_class: '',
+    subcategory: '',
+    tokens_received: 50,
+    variables: JSON.parse('{}'),
+    variables_errors: [],
+    is_checkbox: false,
+};
+
+export const MOCK_UQJ_7: UQJ = {
+    category: MOCK_CATEGORY,
+    id: 6,
+    question: MOCK_PRACTICE_MCQ_QUESTION,
+    format: '',
+    formatted_current_tokens_received: '',
+    input_files: [],
+    is_allowed_to_submit: true,
+    is_partially_solved: false,
+    is_solved: false,
+    last_viewed: null,
+    num_attempts: 5,
+    opened_tutorial: false,
+    random_seed: 0,
+    rendered_choices: {
+        'a': 'sag',
+        'b': 'gav'
+    },
+    rendered_lines: [],
+    rendered_text: '',
+    status: '',
+    status_class: '',
+    subcategory: '',
+    tokens_received: 50,
+    variables: JSON.parse('{}'),
+    variables_errors: [],
+    is_checkbox: false,
+};
+
+export const MOCK_UQJ_8: UQJ = {
+    category: MOCK_CATEGORY,
+    id: 7,
+    question: MOCK_PRACTICE_CHECKBOX_QUESTION,
+    format: '',
+    formatted_current_tokens_received: '',
+    input_files: [],
+    is_allowed_to_submit: true,
+    is_partially_solved: false,
+    is_solved: false,
+    last_viewed: null,
+    num_attempts: 5,
+    opened_tutorial: false,
+    random_seed: 0,
+    rendered_choices: {
+        'a': 'sag',
+        'b': 'gav',
+        'c': 'foo',
+        'd': 'bar'
+    },
+    rendered_lines: [],
+    rendered_text: '',
+    status: '',
+    status_class: '',
+    subcategory: '',
+    tokens_received: 50,
+    variables: JSON.parse('{}'),
+    variables_errors: [],
+    is_checkbox: true,
 };
 
 export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
@@ -468,9 +764,9 @@ export const MOCK_VARIABLES = [
     }
 ];
 
-export const MOCK_UQJS: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2, MOCK_UQJ_3, MOCK_UQJ_4];
+export const MOCK_UQJS: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2, MOCK_UQJ_3, MOCK_UQJ_4, MOCK_UQJ_5, MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8];
 
-export const MOCK_QUESTIONS: Question[] = [MOCK_MCQ_QUESTION, MOCK_CHECKBOX_QUESTION, MOCK_JAVA_QUESTION, MOCK_PARSONS_QUESTION];
+export const MOCK_QUESTIONS: Question[] = [MOCK_MCQ_QUESTION, MOCK_CHECKBOX_QUESTION, MOCK_JAVA_QUESTION, MOCK_PARSONS_QUESTION, MOCK_PRACTICE_MCQ_QUESTION, MOCK_PRACTICE_CHECKBOX_QUESTION, MOCK_PRACTICE_JAVA_QUESTION, MOCK_PRACTICE_PARSONS_QUESTION];
 
 export const MOCK_SUBMISSIONS: QuestionSubmission[] = [MOCK_QUESTION_SUBMISSION, MOCK_QUESTION_SUBMISSION_2];
 
@@ -495,3 +791,9 @@ export const MOCK_COURSE: Course = {
     leader_board: null,
     has_create_event_permission: true
 };
+
+export const MOCK_USER_DIFFICULTY_STATS: UserDifficultyStats[] = [
+    {category: 0, difficulty: 'EASY', avgSuccess: 1},
+    {category: 0, difficulty: 'NORMAL', avgSuccess: 1},
+    {category: 0, difficulty: 'HARD', avgSuccess: 1}
+];
