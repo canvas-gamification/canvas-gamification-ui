@@ -7,7 +7,7 @@ import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.se
 import {UqjService} from "@app/problems/_services/uqj.service";
 import {UqjServiceMock} from "@app/problems/_test/_services/uqj.service.mock";
 import {ActivatedRoute} from "@angular/router";
-import {MOCK_SUBMISSIONS, MOCK_UQJS} from "@app/problems/_test/mock";
+import {MOCK_QUESTION_SUBMISSION, MOCK_SUBMISSIONS, MOCK_UQJ, MOCK_UQJS} from "@app/problems/_test/mock";
 import {TitleCasePipe} from "@angular/common";
 
 describe('ProblemViewComponent', () => {
@@ -37,6 +37,8 @@ describe('ProblemViewComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ProblemViewComponent);
         component = fixture.componentInstance;
+        component.uqj = MOCK_UQJ;
+        component.previousSubmissions = [MOCK_QUESTION_SUBMISSION];
         fixture.detectChanges();
     });
 

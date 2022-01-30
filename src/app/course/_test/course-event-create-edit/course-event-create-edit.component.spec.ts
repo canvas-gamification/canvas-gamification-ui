@@ -13,7 +13,8 @@ import {
     TuiFieldErrorModule,
     TuiInputDateRangeModule,
     TuiInputModule,
-    TuiInputTimeModule, TuiSelectModule
+    TuiInputTimeModule,
+    TuiSelectModule
 } from "@taiga-ui/kit";
 
 describe('CourseEventCreateComponent with EventId', () => {
@@ -37,7 +38,6 @@ describe('CourseEventCreateComponent with EventId', () => {
                 TuiNotificationModule,
                 TuiButtonModule
             ],
-            declarations: [CourseEventCreateEditComponent],
             providers: [
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
                 {
@@ -100,7 +100,6 @@ describe('CourseEventCreateComponent without EventId', () => {
                 TuiNotificationModule,
                 TuiButtonModule
             ],
-            declarations: [CourseEventCreateEditComponent],
             providers: [
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
                 {

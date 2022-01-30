@@ -18,8 +18,6 @@ export class AceComponent implements AfterViewInit {
         // Currently no solutions could be found
         config.set('basePath', 'https://cdn.jsdelivr.net/npm/ace-builds@1.4.8/src-noconflict/');
 
-        this.editor.setTheme('monokai');
-        this.editor.setMode('java');
         this.editor.setOptions({
             enableBasicAutocompletion: true,
             enableSnippets: true,
@@ -27,6 +25,9 @@ export class AceComponent implements AfterViewInit {
             tabSize: 4,
             useSoftTabs: true,
             useWorker: false,
+            fontSize: 'inherit',
+            theme: 'ace/theme/vibrant_ink',
+            mode: 'ace/mode/java'
         });
         this.addNewCodeItem(this.template);
     }
