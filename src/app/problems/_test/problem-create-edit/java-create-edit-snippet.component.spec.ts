@@ -6,15 +6,19 @@ import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MOCK_JAVA_QUESTION} from "@app/problems/_test/mock";
-import {TuiButtonModule} from "@taiga-ui/core";
+import {TuiButtonModule, TuiHostedDropdownModule, TuiSvgModule} from "@taiga-ui/core";
 import {of} from "rxjs";
-import {TuiFieldErrorModule, TuiInputModule, TuiSelectModule, TuiTextAreaModule} from "@taiga-ui/kit";
+import {TuiFieldErrorModule, TuiInputModule, TuiIslandModule, TuiSelectModule, TuiTextAreaModule} from "@taiga-ui/kit";
 import {HttpResponse} from "@angular/common/http";
 import {Question} from "@app/_models";
 import {delay} from "rxjs/operators";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
+import {
+    JavaInputFilesEditorComponent
+} from "@app/problems/json-editor/java-input-files-editor/java-input-files-editor.component";
+import {VariablesEditorComponent} from "@app/problems/json-editor/variables-editor/variables-editor.component";
+import {AsFormGroupPipe} from "@app/_helpers/pipes/as-form-group.pipe";
 
 describe('JavaCreateEditSnippetComponent', () => {
     let component: JavaCreateEditSnippetComponent;
@@ -22,10 +26,14 @@ describe('JavaCreateEditSnippetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [JavaCreateEditSnippetComponent, CkEditorComponent, JsonEditorComponent],
+            declarations: [
+                JavaCreateEditSnippetComponent, CkEditorComponent, VariablesEditorComponent,
+                JavaInputFilesEditorComponent, AsFormGroupPipe
+            ],
             imports: [
-                TestModule, CKEditorModule, ReactiveFormsModule, TuiTextAreaModule,
-                TuiInputModule, TuiSelectModule, TuiFieldErrorModule, TuiButtonModule
+                TestModule, CKEditorModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
+                TuiInputModule, TuiSelectModule, TuiFieldErrorModule, TuiButtonModule,
+                TuiHostedDropdownModule, TuiSvgModule, TuiIslandModule
             ],
             providers: [
                 {provide: QuestionService, useClass: QuestionServiceMock}
@@ -54,10 +62,8 @@ describe('JavaCreateEditSnippetComponent', () => {
         expect(component['router'].navigate).toHaveBeenCalled();
     });
 
-    it('should be valid form', () => {
-        component.formGroup.patchValue(MOCK_JAVA_QUESTION);
-        fixture.detectChanges();
-        expect(component.formGroup.valid).toBeTrue();
+    it('should be invalid form', () => {
+        expect(component.formGroup.invalid).toBeTrue();
     });
 
     it('should submit', fakeAsync(() => {

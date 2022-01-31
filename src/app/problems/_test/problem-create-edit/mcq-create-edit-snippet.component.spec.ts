@@ -5,8 +5,8 @@ import {TestModule} from '@test/test.module';
 import {MOCK_CHECKBOX_QUESTION} from "@app/problems/_test/mock";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {ReactiveFormsModule} from "@angular/forms";
-import {TuiButtonModule} from "@taiga-ui/core";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {TuiButtonModule, TuiHostedDropdownModule} from "@taiga-ui/core";
 import {of} from "rxjs";
 import {
     TuiFieldErrorModule,
@@ -19,7 +19,7 @@ import {HttpResponse} from "@angular/common/http";
 import {Question} from "@app/_models";
 import {delay} from "rxjs/operators";
 import {McqForm} from "@app/problems/_forms/mcq.form";
-import {JsonEditorComponent} from "@app/problems/json-editor/json-editor.component";
+import {VariablesEditorComponent} from "@app/problems/json-editor/variables-editor/variables-editor.component";
 
 describe('McqCreateEditSnippetComponent', () => {
     let component: McqCreateEditSnippetComponent;
@@ -28,10 +28,11 @@ describe('McqCreateEditSnippetComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                TestModule, CKEditorModule, ReactiveFormsModule, TuiTextAreaModule, TuiRadioLabeledModule,
-                TuiInputModule, TuiSelectModule, TuiFieldErrorModule, TuiButtonModule
+                TestModule, CKEditorModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
+                TuiRadioLabeledModule, TuiInputModule, TuiSelectModule, TuiFieldErrorModule,
+                TuiButtonModule, TuiHostedDropdownModule
             ],
-            declarations: [McqCreateEditSnippetComponent, CkEditorComponent, JsonEditorComponent]
+            declarations: [McqCreateEditSnippetComponent, CkEditorComponent, VariablesEditorComponent]
         }).compileComponents();
     });
 
@@ -57,7 +58,7 @@ describe('McqCreateEditSnippetComponent', () => {
     });
 
     it('should be invalid empty form', () => {
-        expect(component.formGroup.valid).toBeFalse();
+        expect(component.formGroup.invalid).toBeTrue();
     });
 
     it('should submit', fakeAsync(() => {
@@ -71,7 +72,7 @@ describe('McqCreateEditSnippetComponent', () => {
 
     describe('McqCreateEditSnippetComponent with Question Details', () => {
         beforeEach(() => {
-            component.questionDetails = MOCK_CHECKBOX_QUESTION;
+            component.questionDetails = JSON.parse(JSON.stringify(MOCK_CHECKBOX_QUESTION));
             component.ngOnInit();
         });
 

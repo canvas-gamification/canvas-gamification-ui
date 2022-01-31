@@ -8,6 +8,7 @@ import {ChangeEvent} from '@ckeditor/ckeditor5-angular/ckeditor.component';
     styleUrls: ['./ck-editor.component.scss']
 })
 export class CkEditorComponent {
+    @Input() readOnly = false;
     @Input() value: string;
     @Output() readonly valueChange = new EventEmitter<string>();
     public ckEditor = ClassicEditor;

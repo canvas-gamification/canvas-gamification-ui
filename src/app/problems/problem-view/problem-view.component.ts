@@ -1,11 +1,10 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UQJ, User} from '@app/_models';
 import {UqjService} from '@app/problems/_services/uqj.service';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {TuiStatus} from "@taiga-ui/kit";
 import {QuestionService} from "@app/problems/_services/question.service";
 
@@ -14,28 +13,28 @@ import {QuestionService} from "@app/problems/_services/question.service";
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
 })
-export class ProblemViewComponent implements OnChanges {
+export class ProblemViewComponent implements OnChanges, OnInit {
     @Input() questionId: number
 
-    constructor(private route: ActivatedRoute,
-                private uqjService: UqjService,
-                private submissionService: SubmissionService,
-                private authenticationService: AuthenticationService,
-                private questionService: QuestionService,
-                private sanitizer: DomSanitizer) {
+    constructor(
+        private route: ActivatedRoute,
+        private uqjService: UqjService,
+        private submissionService: SubmissionService,
+        private authenticationService: AuthenticationService,
+        private questionService: QuestionService,
+    ) {
     }
 
     uqj: UQJ;
     previousSubmissions: QuestionSubmission[];
     user: User;
-    safeRenderedText: SafeHtml;
+    renderedText: string;
 
-    ngOnChanges(): void {
+    initialize(): void {
         const questionId = this.questionId ?? this.route.snapshot.params.id;
         this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
             this.uqj = uqj;
-            const uqjRenderedText = this.parseQuestionHTMLToUseTaiga(this.uqj.rendered_text);
-            this.safeRenderedText = this.sanitizer.bypassSecurityTrustHtml(uqjRenderedText);
+            this.renderedText = this.parseQuestionHTMLToUseTaiga(this.uqj.rendered_text);
         });
 
         this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}).subscribe(submissions => {
@@ -47,6 +46,14 @@ export class ProblemViewComponent implements OnChanges {
         });
 
         this.questionService.openedQuestion(questionId).subscribe();
+    }
+
+    ngOnInit(): void {
+        this.initialize();
+    }
+
+    ngOnChanges(): void {
+        this.initialize();
     }
 
     getUQJTagStatus(status: string): TuiStatus {
