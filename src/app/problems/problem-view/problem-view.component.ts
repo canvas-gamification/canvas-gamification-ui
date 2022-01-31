@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UQJ, User} from '@app/_models';
 import {UqjService} from '@app/problems/_services/uqj.service';
@@ -14,7 +14,7 @@ import {QuestionService} from "@app/problems/_services/question.service";
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
 })
-export class ProblemViewComponent implements OnChanges {
+export class ProblemViewComponent implements OnChanges, OnInit {
     @Input() questionId: number
 
     constructor(private route: ActivatedRoute,
@@ -30,7 +30,7 @@ export class ProblemViewComponent implements OnChanges {
     user: User;
     safeRenderedText: SafeHtml;
 
-    ngOnChanges(): void {
+    initialize(): void {
         const questionId = this.questionId ?? this.route.snapshot.params.id;
         this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
             this.uqj = uqj;
@@ -47,6 +47,14 @@ export class ProblemViewComponent implements OnChanges {
         });
 
         this.questionService.openedQuestion(questionId).subscribe();
+    }
+
+    ngOnInit(): void {
+        this.initialize();
+    }
+
+    ngOnChanges(): void {
+        this.initialize();
     }
 
     getUQJTagStatus(status: string): TuiStatus {
