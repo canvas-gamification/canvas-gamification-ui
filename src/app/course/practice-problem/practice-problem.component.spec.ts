@@ -17,10 +17,11 @@ import {
 } from "@app/problems/_test/mock";
 import {UserStatsService} from "@app/_services/api/user-stats.service";
 import {UserStatsServiceMock} from "@test/user-stats.service.mock";
-import {TuiNotificationsService} from "@taiga-ui/core";
+import {TuiButtonModule, TuiDataListModule, TuiNotificationsService} from "@taiga-ui/core";
 import {of} from "rxjs";
 import {ReactiveFormsModule} from "@angular/forms";
 import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component";
+import {TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
 
 
 describe('PracticeProblemComponent', () => {
@@ -48,7 +49,7 @@ describe('PracticeProblemComponent', () => {
                     }
                 }
             ],
-            imports: [TestModule, ReactiveFormsModule]
+            imports: [TestModule, ReactiveFormsModule, TuiSelectModule, TuiButtonModule, TuiDataListModule, TuiTagModule]
         }).compileComponents();
     });
 
@@ -90,7 +91,7 @@ describe('PracticeProblemComponent', () => {
         const firstUqj = component.currentQuestionId;
         component.nextQuestion();
         fixture.detectChanges();
-        expect(component.currentQuestionId).toEqual(!firstUqj);
+        expect(component.currentQuestionId).toEqual(firstUqj);
     });
 
     it('should not change question when clicking previous question with one uqj', () => {
@@ -111,16 +112,14 @@ describe('PracticeProblemComponent', () => {
     });
 
     it('should apply filter - uqjs in filtered list', () => {
-        component.difficultyFormData.controls['difficulty'].setValue('');
-        component.applyFilter();
+        component.changeDifficulty(null);
         fixture.detectChanges();
-        expect(component.currentUqj).toBeTruthy();
+        expect(component.uqjs.length).toBeGreaterThan(0);
     });
 
     it('should apply filter - no uqjs in filtered list', () => {
-        component.difficultyFormData.controls['difficulty'].setValue('TEST');
-        component.applyFilter();
+        component.changeDifficulty('TEST');
         fixture.detectChanges();
-        expect(component.currentUqj).toBeUndefined();
+        expect(component.uqjs.length).toEqual(0);
     });
 });
