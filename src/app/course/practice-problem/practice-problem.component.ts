@@ -67,39 +67,59 @@ export class PracticeProblemComponent implements OnInit {
         });
     }
 
+    /**
+     * Skips to the next question in the list by incrementing the cursor.
+     */
     nextQuestion(): void {
         this.cursor = (this.cursor + 1) % this.uqjs.length;
         this.updateCurrentQuestion();
     }
 
+    /**
+     * Returns to the previous question in the list by decrementing the cursor value.
+     */
     prevQuestion(): void {
         this.cursor = (this.cursor + this.uqjs.length - 1) % this.uqjs.length;
         this.updateCurrentQuestion();
     }
 
+    /**
+     * Updates the currentQuestionId based on the cursor.
+     */
     updateCurrentQuestion(): void {
         this.currentQuestionId = this.uqjs?.[this.cursor]?.question?.id;
     }
 
-    changeDifficulty(event: Event): void {
-        console.log(event);
+    /**
+     * Updates the difficulty when an item is selected. Then it gets all the uqjs from the backend that match this new difficulty.
+     * Finally, updates the user's success rate based on the selected category.
+     * @param event - The difficulty that is selected a value is clicked in the select input.
+     */
+    changeDifficulty(event: string): void {
+        this.difficulty = event;
+        this.uqjService.getUQJs({
+            filters: {
+                category: this.categoryId,
+                difficulty: this.difficulty,
+                is_solved: false,
+            }
+        }).subscribe((uqjs) => {
+            this.uqjs = _.shuffle(uqjs.results);
+            this.updateCurrentQuestion();
+            this.calculateUserSuccessRate();
+        });
     }
 
     /**
      * Determines what success rate to show to the user.
      */
     calculateUserSuccessRate(): void {
+        const difficultyStats = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficulty);
         if (this.userDifficultyStats.length != 0) {
-            if (this.difficulty === "EASY") {
-                this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficulty).avgSuccess;
-            } else if (this.difficulty === "MEDIUM") {
-                this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficulty).avgSuccess;
-            } else if (this.difficulty === "HARD") {
-                this.userSuccessRate = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficulty).avgSuccess;
-            } else if (this.difficulty === null) {
-                this.userSuccessRate = this.categoryUserSuccessRate;
+            if (this.difficulty) {
+                this.userSuccessRate = difficultyStats ? difficultyStats.avgSuccess : 0;
             } else {
-                this.userSuccessRate = 0;
+                this.userSuccessRate = this.categoryUserSuccessRate;
             }
         } else {
             this.userSuccessRate = 0;
