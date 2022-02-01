@@ -1,47 +1,38 @@
-<div class="token-values-page container-fluid mt-md-5">
-    <div class="mx-auto">
-        <h1 class="my-md-2">Token Values</h1>
-        <table class="table table-lg table-bordered table-hover" style="width:100%">
-            <thead class="thead-light">
-            <tr>
-                <th class="header-topic">Category Name</th>
-                <th *ngFor="let difficulty of difficulties">{{difficulty[1]}}</th>
+<div class="tui-container tui-container_fullwidth">
+    <h1 class="tui-text_h3 tui-space_vertical-10">Token Values</h1>
+    <tui-loader [overlay]="true" [showLoader]="!tokenValues">
+        <table tuiTable [columns]="tableColumns" *ngIf="difficulties">
+            <thead tuiThead>
+            <tr tuiThGroup>
+                <th *tuiHead="'name'" [sorter]="null" tuiTh>Category Name</th>
+                <ng-container *ngFor="let difficulty of difficulties">
+                    <th *tuiHead="difficulty[0]" [sorter]="null" tuiTh>{{ difficulty[1] }}</th>
+                </ng-container>
             </tr>
             </thead>
-            <tbody class="table-striped">
-            <ng-container *ngFor="let tokenValue of tokenValues">
-                <tr [class.table-primary]="expanded[tokenValue.category_name]"
-                    (click)="toggleExpand(tokenValue.category_name)">
-                    <th>
-                            <span class="expanded-icon">
-                                <fa-icon [icon]=faCaretRight *ngIf="!expanded[tokenValue.category_name]"></fa-icon>
-                                <fa-icon [icon]=faCaretDown *ngIf="expanded[tokenValue.category_name]"></fa-icon>
-                            </span>
-                        {{ tokenValue.category_name }}
-                    </th>
-                    <td *ngFor="let _ of tokenValue.token_values"></td>
-                </tr>
-                <ng-container *ngIf="expanded[tokenValue.category_name]">
-                    <ng-container *ngFor="let childTokenValue of tokenValue.children; let i = index">
-                        <ng-container>
-                            <tr class="subcat-row">
-                                <td class="subcat-name"><span
-                                        class="heavy-indent">{{childTokenValue.category_name}}</span>
-                                </td>
-                                <td *ngFor="let tokenValueObject of childTokenValue.token_values">
-                                    <label>
-                                        <input class="input" type="number" [(ngModel)]="tokenValueObject.value">
-                                    </label>
-                                </td>
-                            </tr>
-                        </ng-container>
-                    </ng-container>
+            <tbody
+                tuiTbody
+                [heading]="tokenValue.category_name"
+                [data]="tokenValue.children"
+                *ngFor="let tokenValue of tokenValues"
+            >
+            <tr *tuiRow="let childTokenValue of tokenValue.children" tuiTr>
+                <td *tuiCell="'name'" tuiTd>
+                    {{ childTokenValue.category_name }}
+                </td>
+                <ng-container *ngFor="let tokenVal of childTokenValue.token_values">
+                    <td *tuiCell="tokenVal.difficulty" tuiTd>
+                        <tui-input-count
+                            [(ngModel)]="tokenVal.value"
+                            [ngModelOptions]="{updateOn: 'blur'}"
+                        ></tui-input-count>
+                    </td>
                 </ng-container>
-            </ng-container>
+            </tr>
             </tbody>
         </table>
-        <div class="action-container text-center">
-            <button class="btn btn-primary" type="submit" aria-label="Submit" (click)="submit()">Submit</button>
-        </div>
+    </tui-loader>
+    <div class="tui-form__buttons">
+        <button tuiButton appearance="primary" size="m" class="tui-form__button" (click)="submit()">Submit</button>
     </div>
 </div>
