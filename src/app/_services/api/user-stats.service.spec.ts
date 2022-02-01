@@ -1,5 +1,4 @@
 import {TestBed} from '@angular/core/testing';
-
 import {UserStatsService} from './user-stats.service';
 import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
@@ -7,7 +6,6 @@ import {HttpTestingController} from "@angular/common/http/testing";
 import {MOCK_USER_DIFFICULTY_STATS} from "@app/problems/_test/mock";
 
 describe('UserStatsService', () => {
-    let service: UserStatsService;
     let userStatsService: UserStatsService;
     let apiService: ApiService;
     let httpMock: HttpTestingController;
@@ -27,7 +25,6 @@ describe('UserStatsService', () => {
     });
 
     it('should be created', () => {
-        expect(service).toBeTruthy();
         expect(userStatsService).toBeTruthy();
     });
 
