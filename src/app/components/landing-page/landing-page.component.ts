@@ -11,14 +11,8 @@ export class LandingPageComponent {
     @ViewChild('services') servicesComponent;
 
     goToServices(): void {
-        console.log(this.servicesComponent.nativeElement);
         this.servicesComponent.nativeElement.scrollIntoView({
             behavior: 'smooth',
         });
-        // window.scroll({
-        //     top: this.servicesComponent.nativeElement.scrollHeight,
-        //     left: 0,
-        //     behavior: 'smooth'
-        // });
     }
 }

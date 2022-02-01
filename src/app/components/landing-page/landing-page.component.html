@@ -34,7 +34,7 @@
         </div>
     </header>
 
-    <section class="services tui-row tui-row_adaptive" #services>
+    <section class="section-services tui-row tui-row_adaptive" #services>
         <div class="tui-col_lg-5 tui-col_md-4 tui-col_xs-12">
             <h2 class="tui-text_h3">Our Services</h2>
             <p class="tui-island__paragraph tui-text_body-l">
@@ -42,7 +42,7 @@
             </p>
         </div>
         <div class="tui-col_lg-7 tui-col_md-8 tui-col_xs-12">
-            <tui-island>
+            <tui-island class="tui-space_bottom-4">
                 <div class="tui-island__content">
                     <figure class="tui-island__figure">
                         <tui-marker-icon size="s" src="tuiIconOLLarge"></tui-marker-icon>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </tui-island>
-            <tui-island>
+            <tui-island class="tui-space_bottom-4">
                 <div class="tui-island__content">
                     <figure class="tui-island__figure">
                         <tui-marker-icon size="s" src="tuiIconCodeLarge"></tui-marker-icon>
@@ -64,14 +64,14 @@
                     </div>
                 </div>
             </tui-island>
-            <tui-island>
+            <tui-island class="tui-space_bottom-4">
                 <div class="tui-island__content">
                     <figure class="tui-island__figure">
                         <tui-marker-icon size="s" src="tuiIconStarLarge"></tui-marker-icon>
                     </figure>
                     <div>
                         <h3 class="tui-island__title">Exams</h3>
-                        <p class="tui-island__paragraph">Do your exams here.</p>
+                        <p class="tui-island__paragraph">Complete your exams here.</p>
                     </div>
                 </div>
             </tui-island>
@@ -98,38 +98,52 @@
     <!--            </h3>-->
     <!--            <a class="btn btn-primary btn-xl js-scroll-trigger m-3" routerLink="topics">Topics</a>-->
     <!--            <a class="btn btn-primary btn-xl js-scroll-trigger m-3" routerLink="sample-questions">Sample Question</a>-->
-    <!--            <a class="btn btn-primary btn-xl js-scroll-trigger m-3" routerLink="contact">Contact Us</a>-->
+    <!--            <a class="btn btn-primary btn-xl js-scroll-trigger m-3" routerLink="contact-old">Contact Us</a>-->
     <!--        </div>-->
     <!--        <div class="overlay"></div>-->
     <!--    </header>-->
 
-    <!-- About -->
-    <section class="tui-row tui-row_adaptive">
-        <div class="tui-col_lg-5 tui-col_md-5 tui-col_xs-12">
-            <h2>What is this Gamification Website About?</h2>
+    <section class="section tui-row tui-row_adaptive tui-space_vertical-15">
+        <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-12">
+            <h2 class="center-header tui-text_h3">Even More Features</h2>
         </div>
-        <div class="tui-col_lg-5 tui-col_md-5 tui-col_xs-12">
-            <p class="tui-text_body-l">
-                Some students have told us they wanted more practice questions, while at the
-                same time, some students protested about the heavy workload in the course. As a solution, we
-                have developed this Gamification website to provide practice questions for you. The great thing
-                is that doing the practice questions is completely optional. And, if you do the practice
-                questions, you will earn tokens. When you have collected enough tokens, you can trade them in
-                for marks in the course! That means, the more you practice here, the more you are able to make
-                up for lost marks on assignments and exams (based on pre-set rules). We hope that this setup is
-                flexible enough to accommodate those who want more practice with programming, those who are
-                willing to do extra work to improve their marks in the course, and those who are simply happy
-                with the way the course is. As an added bonus, we have developed novel exercises that will
-                hopefully entice young students like yourselves. We have also dedicated a lot of time to
-                incorporate different types of exercises and question formats, tailored towards students at
-                different skill levels. We hope to improve the learning experience for all first year CS
-                students.
+        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
+            <h3 class="tui-text_h5">Earn Tokens</h3>
+            <p class="tui-island__paragraph tui-text_body-l">
+                Trade tokens in for bonus marks in the course to make up for lost marks on assignments and exams
+            </p>
+        </div>
+        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
+            <h3 class="tui-text_h5">Multiple Question Types</h3>
+            <p class="tui-island__paragraph tui-text_body-l">
+                Complete questions in various formats including coding questions, parsons questions and multiple choice questions.
+            </p>
+        </div>
+        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
+            <h3 class="tui-text_h5">Different Skill Levels</h3>
+            <p class="tui-island__paragraph tui-text_body-l">
+                Complete questions at different skill levels — Easy, Medium and Hard
             </p>
         </div>
     </section>
 
-    <section>
+    <section class="section tui-row tui-row_adaptive tui-space_vertical-15">
+        <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-12">
+            <h2 class="center-header tui-text_h3">FAQs</h2>
+        </div>
+        // Add faqs once pr is merged
+    </section>
 
+    <section class="section tui-row tui-row_adaptive tui-space_vertical-15">
+        <div class="tui-col_lg-5 tui-col_md-4 tui-col_xs-12">
+            <h2 class="tui-text_h3">Contact Us</h2>
+            <p class="tui-island__paragraph tui-text_body-l">
+                Have any other questions?
+            </p>
+        </div>
+        <div class="tui-col_lg-7 tui-col_md-8 tui-col_xs-12">
+            <app-contact></app-contact>
+        </div>
     </section>
 
     <footer class="footer tui-row tui-row_adaptive">
@@ -176,7 +190,7 @@
                     </a>
                 </li>
             </ul>
-            <p class="tui-island__paragraph tui-space_vertical-0 tui-text_body-l-2">2022 &copy; Canvas Gamification</p>
+            <p class="tui-island__paragraph tui-space_vertical-0 tui-text_body-m">2022 &copy; Canvas Gamification</p>
         </div>
     </footer>
 </div>
