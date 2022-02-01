@@ -1,9 +1,9 @@
-<div class="tui-container tui-container_adaptive">
-    <header class="header tui-row tui-row_adaptive">
+<header class="tui-container tui-container_adaptive">
+    <div class="header tui-row tui-row_adaptive">
         <div class="left-content tui-col_lg-7 tui-col_md-8 tui-col_xs-12">
             <h1 class="tui-text_h1 tui-space_top-0">A Free Platform to Practice Programming</h1>
             <p class="tui-island__paragraph tui-text_body-xl">
-                Practice your programming skills with thousands of questions
+                Practice your programming skills with thousands of questions integrated directly with Canvas LMS.
             </p>
             <div class="tui-form__buttons">
                 <a
@@ -32,110 +32,129 @@
                 ></app-ace>
             </div>
         </div>
-    </header>
-
-    <section class="section-services tui-row tui-row_adaptive" #services>
-        <div class="tui-col_lg-5 tui-col_md-4 tui-col_xs-12">
-            <h2 class="tui-text_h3">Our Services</h2>
+    </div>
+</header>
+<section class="section-services tui-space_vertical-15" #services>
+    <div class="tui-container tui-container_adaptive">
+        <div class="tui-row tui-row_adaptive">
+            <div class="tui-col_lg-5 tui-col_md-4 tui-col_xs-12 tui-space_bottom-8">
+                <h2 class="tui-text_h3">Our Services</h2>
+                <p class="tui-island__paragraph tui-text_body-l">
+                    Providing you with the best ways to improve.
+                </p>
+            </div>
+            <div class="tui-col_lg-7 tui-col_md-8 tui-col_xs-12">
+                <tui-island class="tui-space_bottom-4">
+                    <div class="tui-island__content">
+                        <figure class="tui-island__figure">
+                            <tui-marker-icon class="custom-icons" size="s" src="tuiIconOLLarge"></tui-marker-icon>
+                        </figure>
+                        <div>
+                            <h3 class="tui-island__title">Practice</h3>
+                            <p class="tui-island__paragraph">Practice from thousands of questions.</p>
+                        </div>
+                    </div>
+                </tui-island>
+                <tui-island class="tui-space_bottom-4">
+                    <div class="tui-island__content">
+                        <figure class="tui-island__figure">
+                            <tui-marker-icon class="custom-icons" size="s" src="tuiIconCodeLarge"></tui-marker-icon>
+                        </figure>
+                        <div>
+                            <h3 class="tui-island__title">Assignments</h3>
+                            <p class="tui-island__paragraph">Do your assignments here.</p>
+                        </div>
+                    </div>
+                </tui-island>
+                <tui-island class="tui-space_bottom-4">
+                    <div class="tui-island__content">
+                        <figure class="tui-island__figure">
+                            <tui-marker-icon class="custom-icons" size="s" src="tuiIconStarLarge"></tui-marker-icon>
+                        </figure>
+                        <div>
+                            <h3 class="tui-island__title">Exams</h3>
+                            <p class="tui-island__paragraph">Complete your exams here.</p>
+                        </div>
+                    </div>
+                </tui-island>
+                <tui-island>
+                    <div class="tui-island__content">
+                        <figure class="tui-island__figure">
+                            <tui-marker-icon class="custom-icons" size="s"
+                                             src="tuiIconChartLineLarge"></tui-marker-icon>
+                        </figure>
+                        <div>
+                            <h3 class="tui-island__title">Bonus Marks</h3>
+                            <p class="tui-island__paragraph">Get extra grades by practicing!</p>
+                        </div>
+                    </div>
+                </tui-island>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="tui-container tui-container_adaptive tui-space_vertical-15">
+    <div class="section tui-row tui-row_adaptive">
+        <div class="tui-col_lg-6 tui-col_md-6 tui-col_xs-12">
+            <div class="section-canvas_logo">
+                <img [src]="canvasLogoPath" alt="Canvas Logo">
+            </div>
+        </div>
+        <div class="tui-col_lg-6 tui-col_md-6 tui-col_xs-12">
+            <h2 class="tui-text_h3">Canvas Integration</h2>
             <p class="tui-island__paragraph tui-text_body-l">
-                Providing you with the best ways to improve
+                Integration with Canvas LMS directly built in.
             </p>
         </div>
-        <div class="tui-col_lg-7 tui-col_md-8 tui-col_xs-12">
-            <tui-island class="tui-space_bottom-4">
-                <div class="tui-island__content">
-                    <figure class="tui-island__figure">
-                        <tui-marker-icon size="s" src="tuiIconOLLarge"></tui-marker-icon>
-                    </figure>
-                    <div>
-                        <h3 class="tui-island__title">Practice</h3>
-                        <p class="tui-island__paragraph">Practice from thousands of questions.</p>
-                    </div>
+    </div>
+</section>
+<section class="section-features tui-space_vertical-15">
+    <div class="tui-container tui-container_adaptive">
+        <h2 class="center-header tui-text_h3 tui-space_bottom-10">Even More Features</h2>
+        <div class="features tui-row tui-row_adaptive">
+            <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
+                <div class="features-title">
+                    <tui-svg src="tuiIconChartLineLarge"></tui-svg>
+                    <h3 class="tui-text_h5">Earn Tokens</h3>
                 </div>
-            </tui-island>
-            <tui-island class="tui-space_bottom-4">
-                <div class="tui-island__content">
-                    <figure class="tui-island__figure">
-                        <tui-marker-icon size="s" src="tuiIconCodeLarge"></tui-marker-icon>
-                    </figure>
-                    <div>
-                        <h3 class="tui-island__title">Assignments</h3>
-                        <p class="tui-island__paragraph">Do your assignments here.</p>
-                    </div>
+                <p class="tui-island__paragraph tui-text_body-l">
+                    Trade tokens in for bonus marks in the course to make up for lost marks on assignments and
+                    exams.
+                </p>
+            </div>
+            <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
+                <div class="features-title">
+                    <tui-svg src="tuiIconOLLarge"></tui-svg>
+                    <h3 class="tui-text_h5">Multiple Question Types</h3>
                 </div>
-            </tui-island>
-            <tui-island class="tui-space_bottom-4">
-                <div class="tui-island__content">
-                    <figure class="tui-island__figure">
-                        <tui-marker-icon size="s" src="tuiIconStarLarge"></tui-marker-icon>
-                    </figure>
-                    <div>
-                        <h3 class="tui-island__title">Exams</h3>
-                        <p class="tui-island__paragraph">Complete your exams here.</p>
-                    </div>
+                <p class="tui-island__paragraph tui-text_body-l">
+                    Complete questions in various formats including coding questions, parsons questions and multiple
+                    choice questions.
+                </p>
+            </div>
+            <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
+                <div class="features-title">
+                    <tui-svg src="tuiIconChartLarge"></tui-svg>
+                    <h3 class="tui-text_h5">Different Skill Levels</h3>
                 </div>
-            </tui-island>
-            <tui-island>
-                <div class="tui-island__content">
-                    <figure class="tui-island__figure">
-                        <tui-marker-icon size="s" src="tuiIconChartLineLarge"></tui-marker-icon>
-                    </figure>
-                    <div>
-                        <h3 class="tui-island__title">Bonus Marks</h3>
-                        <p class="tui-island__paragraph">Get extra grades by practicing!</p>
-                    </div>
-                </div>
-            </tui-island>
+                <p class="tui-island__paragraph tui-text_body-l">
+                    Complete questions at different skill levels — Easy, Medium and Hard.
+                </p>
+            </div>
         </div>
-    </section>
-
-    <!-- Header -->
-    <!--    <header class="masthead d-flex">-->
-    <!--        <div class="container text-center my-auto">-->
-    <!--            <h1 class="mb-5">Canvas Gamification</h1>-->
-    <!--            <h3 class="mb-5">-->
-    <!--                <em>A Free Platform to Practice Programming</em>-->
-    <!--            </h3>-->
-    <!--            <a class="btn btn-primary btn-xl js-scroll-trigger m-3" routerLink="topics">Topics</a>-->
-    <!--            <a class="btn btn-primary btn-xl js-scroll-trigger m-3" routerLink="sample-questions">Sample Question</a>-->
-    <!--            <a class="btn btn-primary btn-xl js-scroll-trigger m-3" routerLink="contact-old">Contact Us</a>-->
-    <!--        </div>-->
-    <!--        <div class="overlay"></div>-->
-    <!--    </header>-->
-
+    </div>
+</section>
+<div class="tui-container tui-container_adaptive tui-space_vertical-15">
     <section class="section tui-row tui-row_adaptive tui-space_vertical-15">
         <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-12">
-            <h2 class="center-header tui-text_h3">Even More Features</h2>
+            <h2 class="center-header tui-text_h3 tui-space_bottom-10">FAQs</h2>
         </div>
-        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
-            <h3 class="tui-text_h5">Earn Tokens</h3>
-            <p class="tui-island__paragraph tui-text_body-l">
-                Trade tokens in for bonus marks in the course to make up for lost marks on assignments and exams
-            </p>
-        </div>
-        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
-            <h3 class="tui-text_h5">Multiple Question Types</h3>
-            <p class="tui-island__paragraph tui-text_body-l">
-                Complete questions in various formats including coding questions, parsons questions and multiple choice questions.
-            </p>
-        </div>
-        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
-            <h3 class="tui-text_h5">Different Skill Levels</h3>
-            <p class="tui-island__paragraph tui-text_body-l">
-                Complete questions at different skill levels — Easy, Medium and Hard
-            </p>
-        </div>
-    </section>
-
-    <section class="section tui-row tui-row_adaptive tui-space_vertical-15">
         <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-12">
-            <h2 class="center-header tui-text_h3">FAQs</h2>
+            <app-faq-accordion [showTopX]="5"></app-faq-accordion>
         </div>
-        // Add faqs once pr is merged
     </section>
-
     <section class="section tui-row tui-row_adaptive tui-space_vertical-15">
-        <div class="tui-col_lg-5 tui-col_md-4 tui-col_xs-12">
+        <div class="tui-col_lg-5 tui-col_md-4 tui-col_xs-12 tui-space_bottom-8">
             <h2 class="tui-text_h3">Contact Us</h2>
             <p class="tui-island__paragraph tui-text_body-l">
                 Have any other questions?
@@ -145,16 +164,38 @@
             <app-contact></app-contact>
         </div>
     </section>
-
-    <footer class="footer tui-row tui-row_adaptive">
-        <div class="tui-col-12 tui-space_bottom-4">
+</div>
+<section class="section-action tui-space_vertical-15">
+    <div class="tui-container tui-container_adaptive">
+        <div class="tui-row tui-row_adaptive">
+            <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-12">
+                <h2 class="center-header tui-text_h5">Ready to try it out?</h2>
+                <div class="tui-form__buttons">
+                    <a
+                        tuiButton
+                        size="m"
+                        appearance="secondary"
+                        class="center-button tui-form__button"
+                        iconRight="tuiIconArrowUpRight"
+                        routerLink="homepage"
+                    >
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="tui-container tui-container_adaptive">
+    <div class="footer tui-row tui-row_adaptive">
+        <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-12 tui-space_bottom-4">
             <div class="footer-logo">
                 <img [src]="logoPath" alt="Canvas Gamification Logo" class="tui-space_right-2">
                 <span class="tui-text_h6">Canvas Gamification</span>
             </div>
         </div>
         <hr/>
-        <div class="footer-bottom tui-col-12 tui-space_top-4 tui-space_bottom-10">
+        <div class="footer-bottom tui-col_lg-12 tui-col_md-12 tui-col_xs-12 tui-space_top-4 tui-space_bottom-10">
             <ul class="footer-links">
                 <li>
                     <a
@@ -192,5 +233,5 @@
             </ul>
             <p class="tui-island__paragraph tui-space_vertical-0 tui-text_body-m">2022 &copy; Canvas Gamification</p>
         </div>
-    </footer>
-</div>
+    </div>
+</footer>

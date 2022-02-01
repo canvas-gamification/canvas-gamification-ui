@@ -7,6 +7,7 @@ import {Component, ViewChild} from '@angular/core';
 })
 export class LandingPageComponent {
     logoPath = 'assets/global/logo.jpg';
+    canvasLogoPath = 'assets/global/Logo_Canvas_Red_Vertical.png';
 
     @ViewChild('services') servicesComponent;
 
