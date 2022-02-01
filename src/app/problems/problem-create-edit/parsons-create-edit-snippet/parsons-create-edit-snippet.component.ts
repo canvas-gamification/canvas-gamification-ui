@@ -4,6 +4,7 @@ import {QuestionService} from '@app/problems/_services/question.service';
 import {ParsonsForm} from "@app/problems/_forms/parsons.form";
 import {Router} from "@angular/router";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {Question} from "@app/_models";
 
 @Component({
     selector: 'app-parsons-create-snippet',
@@ -11,7 +12,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
     styleUrls: ['./parsons-create-edit-snippet.component.scss'],
 })
 export class ParsonsCreateEditSnippetComponent implements OnInit {
-    @Input() questionDetails;
+    @Input() questionDetails: Question;
     formGroup: FormGroup;
 
     constructor(private questionService: QuestionService,

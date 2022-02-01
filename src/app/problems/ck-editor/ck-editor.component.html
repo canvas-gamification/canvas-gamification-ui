@@ -1,1 +1,8 @@
-<ckeditor [editor]="ckEditor" [data]="value" (change)="changeValue($event)"></ckeditor>
+<ckeditor
+    [editor]="ckEditor"
+    [data]="value"
+    [disabled]="readOnly"
+    (change)="changeValue($event)"
+    [config]="readOnly ? {toolbar: []} : ckEditor.defaultConfig"
+>
+</ckeditor>

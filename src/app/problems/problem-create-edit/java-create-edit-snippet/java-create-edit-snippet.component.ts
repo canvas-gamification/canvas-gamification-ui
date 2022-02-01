@@ -4,6 +4,7 @@ import {QuestionService} from '@app/problems/_services/question.service';
 import {JavaForm} from "@app/problems/_forms/java.form";
 import {Router} from "@angular/router";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {Question} from "@app/_models";
 
 @Component({
     selector: 'app-java-create-snippet',
@@ -11,7 +12,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
     styleUrls: ['./java-create-edit-snippet.component.scss'],
 })
 export class JavaCreateEditSnippetComponent implements OnInit {
-    @Input() questionDetails;
+    @Input() questionDetails: Question;
     formGroup: FormGroup;
 
     constructor(private questionService: QuestionService,
