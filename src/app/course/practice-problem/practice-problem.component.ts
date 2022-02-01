@@ -51,6 +51,7 @@ export class PracticeProblemComponent implements OnInit {
                 category: this.categoryId,
                 difficulty: this.difficulty,
                 is_solved: false,
+                is_practice: true
             }
         });
         const difficultyObservable = this.difficultyService.getDifficulties();
@@ -102,6 +103,7 @@ export class PracticeProblemComponent implements OnInit {
                 category: this.categoryId,
                 difficulty: this.difficulty,
                 is_solved: false,
+                is_practice: true
             }
         }).subscribe((uqjs) => {
             this.uqjs = _.shuffle(uqjs.results);

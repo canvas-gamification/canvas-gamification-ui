@@ -1,7 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {TestModule} from "@test/test.module";
 import {UqjService} from "@app/problems/_services/uqj.service";
-import {UqjServiceMock} from "@app/problems/_test/_services/uqj.service.mock";
 import {ActivatedRoute, convertToParamMap} from "@angular/router";
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
@@ -13,27 +12,31 @@ import {
     MOCK_CATEGORIES,
     MOCK_DIFFICULTIES,
     MOCK_UQJ_5,
-    MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8
+    MOCK_UQJ_6,
+    MOCK_UQJ_7,
+    MOCK_UQJ_8
 } from "@app/problems/_test/mock";
 import {UserStatsService} from "@app/_services/api/user-stats.service";
 import {UserStatsServiceMock} from "@test/user-stats.service.mock";
-import {TuiButtonModule, TuiDataListModule, TuiNotificationsService} from "@taiga-ui/core";
-import {of} from "rxjs";
-import {ReactiveFormsModule} from "@angular/forms";
+import {TuiButtonModule, TuiDataListModule} from "@taiga-ui/core";
 import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component";
 import {TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
+import {TuiTableModule} from "@taiga-ui/addon-table";
+import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe";
+import {of} from "rxjs";
 
 
 describe('PracticeProblemComponent', () => {
     let component: PracticeProblemComponent;
     let fixture: ComponentFixture<PracticeProblemComponent>;
-    let notificationService: TuiNotificationsService;
+    let mockUqjService: UqjService;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [PracticeProblemComponent],
+            declarations: [PracticeProblemComponent, ProblemViewComponent, StringifyTuiDataListPipe],
             providers: [
-                {provide: UqjService, useClass: UqjServiceMock},
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},
                 {provide: DifficultyService, useClass: DifficultyServiceMock},
@@ -49,15 +52,28 @@ describe('PracticeProblemComponent', () => {
                     }
                 }
             ],
-            imports: [TestModule, ReactiveFormsModule, TuiSelectModule, TuiButtonModule, TuiDataListModule, TuiTagModule]
+            imports: [
+                TestModule,
+                FormsModule,
+                ReactiveFormsModule,
+                TuiSelectModule,
+                TuiButtonModule,
+                TuiDataListModule,
+                TuiTagModule,
+                TuiTableModule
+            ]
         }).compileComponents();
     });
 
     beforeEach(() => {
-        notificationService = TestBed.inject(TuiNotificationsService);
-        spyOn(notificationService, 'show').and.callFake(() => {
-            return of();
-        });
+        mockUqjService = TestBed.inject(UqjService);
+        spyOn(mockUqjService, 'getUQJs').and.returnValue(
+            of({
+                count: 4,
+                next: null,
+                previous: null,
+                results: [MOCK_UQJ_5, MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8]
+            }));
         fixture = TestBed.createComponent(PracticeProblemComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -73,7 +89,7 @@ describe('PracticeProblemComponent', () => {
     });
 
     it('should get all values from the API', () => {
-        expect(component.uqjs).toEqual([MOCK_UQJ_5, MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8]);
+        expect(component.uqjs.length).toEqual(4);
         expect(component.difficulties).toEqual(MOCK_DIFFICULTIES);
         expect(component.category).toEqual(MOCK_CATEGORIES.find(category => category.pk === 0));
         expect(component.userSuccessRate).toEqual(1);
@@ -84,14 +100,13 @@ describe('PracticeProblemComponent', () => {
         component.nextQuestion();
         fixture.detectChanges();
         expect(component.currentQuestionId).toEqual(MOCK_UQJ_5.id);
-        expect(notificationService.show).toHaveBeenCalled();
     });
 
     it('should skip question when there are multiple uqjs', () => {
         const firstUqj = component.currentQuestionId;
         component.nextQuestion();
         fixture.detectChanges();
-        expect(component.currentQuestionId).toEqual(firstUqj);
+        expect(component.currentQuestionId === firstUqj).toBeFalsy();
     });
 
     it('should not change question when clicking previous question with one uqj', () => {
@@ -99,7 +114,6 @@ describe('PracticeProblemComponent', () => {
         component.prevQuestion();
         fixture.detectChanges();
         expect(component.currentQuestionId).toEqual(MOCK_UQJ_5.id);
-        expect(notificationService.show).toHaveBeenCalled();
     });
 
     it('should go to previous question when there are multiple uqjs', () => {
@@ -114,12 +128,6 @@ describe('PracticeProblemComponent', () => {
     it('should apply filter - uqjs in filtered list', () => {
         component.changeDifficulty(null);
         fixture.detectChanges();
-        expect(component.uqjs.length).toBeGreaterThan(0);
-    });
-
-    it('should apply filter - no uqjs in filtered list', () => {
-        component.changeDifficulty('TEST');
-        fixture.detectChanges();
-        expect(component.uqjs.length).toEqual(0);
+        expect(component.difficulty).toEqual(null);
     });
 });
