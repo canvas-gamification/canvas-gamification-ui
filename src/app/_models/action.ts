@@ -44,5 +44,6 @@ export interface Action {
     time_created: Date;
     time_modified: Date;
     object_type: ActionType;
+    object_id: number;
     verb: ActionVerb;
 }
