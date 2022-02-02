@@ -59,7 +59,8 @@ import {
     TuiThemeNightModule,
     TuiNotificationsModule,
     TuiDialogModule,
-    TuiLoaderModule
+    TuiLoaderModule,
+    TuiModeModule
 } from '@taiga-ui/core';
 import {
     TuiAvatarModule,
@@ -157,6 +158,7 @@ import {ContactModule} from "@app/components/contact/contact.module";
         ProblemsModule,
         TuiMarkerIconModule,
         ContactModule,
+        TuiModeModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
