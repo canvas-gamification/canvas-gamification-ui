@@ -68,6 +68,7 @@ import {TuiActiveZoneModule} from "@taiga-ui/cdk";
 import {PipesModule} from "@app/_helpers/pipes/pipes.module";
 import {CourseIslandModule} from "@app/components/course-island/course-island.module";
 import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
+import {FaqAccordionModule} from "@app/components/faq-accordion/faq-accordion.module";
 
 @NgModule({
     declarations: [
@@ -142,6 +143,7 @@ import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
         TuiLoaderModule,
         TuiTableModule,
         TuiTablePaginationModule,
+        FaqAccordionModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
