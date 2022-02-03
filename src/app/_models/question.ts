@@ -34,6 +34,7 @@ export interface Question {
     visible_distractor_count: number;
     is_checkbox: boolean;
     is_author: boolean;
+    is_practice: boolean;
 }
 
 export interface InputFiles extends Array<{

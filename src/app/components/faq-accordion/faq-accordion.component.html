@@ -1,0 +1,20 @@
+<ng-container *ngIf="faqs?.length; else noFaqs">
+    <tui-accordion>
+        <tui-accordion-item *ngFor="let faq of faqs | tuiFilter: topX">
+            {{ faq.question }}
+            <ng-template tuiAccordionItemContent>
+                <div [innerHTML]="faq.safeAnswer"></div>
+            </ng-template>
+        </tui-accordion-item>
+    </tui-accordion>
+</ng-container>
+<ng-template #noFaqs>
+    <div class="no-faqs">
+        <tui-marker-icon
+            size="s"
+            src="tuiIconAlertCircleLarge"
+            class="tui-space_right-4"
+        ></tui-marker-icon>
+        <h2 class="tui-text_body-xl">Looks like there are no FAQs to show you!</h2>
+    </div>
+</ng-template>

@@ -1,35 +1,25 @@
-<div class="contact-page">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <h1 class="title">Contact Us!</h1>
-            <form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
-                           placeholder="Enter Email"
-                           formControlName="email" id="email">
-                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                        else.</small>
-                </div>
-                <div class="form-group">
-                    <label for="fullname">Full Name</label>
-                    <input type="text" class="form-control" name="fullname" placeholder="Full Name"
-                           formControlName="fullname"
-                           id="fullname">
-                </div>
-                <div class="form-group">
-                    <label for="comment">Comment</label>
-                    <textarea class="form-control" formControlName="comment" name="comment" id="comment"></textarea>
-                </div>
-                <div class="form-group">
-                    <re-captcha formControlName="recaptcha_key"
-                                siteKey="{{siteKey}}">
-
-                    </re-captcha>
-                </div>
-                <button type="submit" class="btn btn-primary" aria-label="Submit" [disabled]="!formData.valid">Submit
-                </button>
-            </form>
-        </div>
+<form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
+    <div class="tui-form__row">
+        <tui-input formControlName="email">Email</tui-input>
+        <tui-field-error formControlName="email"></tui-field-error>
+        <div class="tui-form__field-note">We'll never share your email with anyone else.</div>
     </div>
-</div>
+    <div class="tui-form__row">
+        <tui-input formControlName="fullname">Full Name</tui-input>
+        <tui-field-error formControlName="fullname"></tui-field-error>
+    </div>
+    <div class="tui-form__row">
+        <tui-text-area formControlName="comment">Comment</tui-text-area>
+        <tui-field-error formControlName="comment"></tui-field-error>
+    </div>
+    <div class="tui-form__row">
+        <re-captcha
+            formControlName="recaptcha_key"
+            siteKey="{{siteKey}}"
+        >
+        </re-captcha>
+    </div>
+    <div class="tui-form__buttons">
+        <button tuiButton appearance="primary" size="m" class="tui-form__button" [disabled]="formData.invalid">Submit</button>
+    </div>
+</form>

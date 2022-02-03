@@ -2,13 +2,13 @@
     <h1 class="tui-text_h3 tui-space_vertical-10">Actions</h1>
     <tui-loader [overlay]="true" [showLoader]="!userActions || loadingTable">
         <table
-            tuiTable
-            [columns]="userActionsTableColumns"
-            [(sorter)]="sorter"
-            (sorterChange)="update()"
-            [(direction)]="sortDirection"
-            (directionChange)="update()"
-            class="user-actions-table"
+                tuiTable
+                [columns]="userActionsTableColumns"
+                [(sorter)]="sorter"
+                (sorterChange)="update()"
+                [(direction)]="sortDirection"
+                (directionChange)="update()"
+                class="user-actions-table"
         >
             <thead tuiThead>
             <tr tuiThGroup>
@@ -24,7 +24,12 @@
             <tbody tuiTbody [data]="userActions">
             <tr tuiTr *tuiRow="let action of userActions">
                 <td tuiTd *tuiCell="'description'">
-                    {{ (action.description) || 'No Description' }}
+                    <ng-container *ngIf="action.object_type == 'Question' && action.description; else notAQuestionAction">
+                        <a tuiLink routerLink="/problems/{{action.object_id}}" [innerHTML]="action.description"></a>
+                    </ng-container>
+                    <ng-template #notAQuestionAction>
+                        {{ (action.description) || 'No Description' }}
+                    </ng-template>
                 </td>
                 <td tuiTd *tuiCell="'object_type'">
                     {{ (action.object_type) || 'No Type' }}
@@ -47,12 +52,12 @@
             <tr>
                 <td [colSpan]="userActionsTableColumns.length">
                     <tui-table-pagination
-                        class="tui-space_top-2"
-                        [total]="numberOfActions"
-                        [(size)]="pageSize"
-                        [(page)]="page"
-                        (pageChange)="update()"
-                        (sizeChange)="update()"
+                            class="tui-space_top-2"
+                            [total]="numberOfActions"
+                            [(size)]="pageSize"
+                            [(page)]="page"
+                            (pageChange)="update()"
+                            (sizeChange)="update()"
                     ></tui-table-pagination>
                 </td>
             </tr>

@@ -42,4 +42,8 @@ export class CourseServiceMock {
     registerVerify(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
         return of({attempts_remaining: MOCK_COURSE_REGISTRATION_RESPONSE.attempts_remaining, success: true});
     }
+
+    getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
+        return of({success_rate: 1});
+    }
 }
