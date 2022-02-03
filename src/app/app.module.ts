@@ -7,7 +7,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
-import {ContactComponent} from './components/contact/contact.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HeaderComponent} from './components/header/header.component';
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
@@ -60,21 +59,31 @@ import {
     TuiThemeNightModule,
     TuiNotificationsModule,
     TuiDialogModule,
-    TuiLoaderModule
+    TuiLoaderModule,
+    TuiModeModule
 } from '@taiga-ui/core';
-import {TuiAvatarModule, TuiDropdownHoverModule, TuiIslandModule, TuiToggleModule} from "@taiga-ui/kit";
+import {
+    TuiAvatarModule,
+    TuiDropdownHoverModule,
+    TuiRadioBlockModule,
+    TuiIslandModule,
+    TuiToggleModule,
+    TuiMarkerIconModule
+} from "@taiga-ui/kit";
 import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
 import {TuiActiveZoneModule} from "@taiga-ui/cdk";
 import {PipesModule} from "@app/_helpers/pipes/pipes.module";
 import {CourseIslandModule} from "@app/components/course-island/course-island.module";
 import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
 import {FaqAccordionModule} from "@app/components/faq-accordion/faq-accordion.module";
+import {AceEditorModule} from "ng2-ace-editor";
+import {ProblemsModule} from "@app/problems/problems.module";
+import {ContactModule} from "@app/components/contact/contact.module";
 
 @NgModule({
     declarations: [
         AppComponent,
         LandingPageComponent,
-        ContactComponent,
         HeaderComponent,
         TopicsComponent,
         SampleQuestionsComponent,
@@ -144,6 +153,12 @@ import {FaqAccordionModule} from "@app/components/faq-accordion/faq-accordion.mo
         TuiTableModule,
         TuiTablePaginationModule,
         FaqAccordionModule,
+        AceEditorModule,
+        TuiRadioBlockModule,
+        ProblemsModule,
+        TuiMarkerIconModule,
+        ContactModule,
+        TuiModeModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

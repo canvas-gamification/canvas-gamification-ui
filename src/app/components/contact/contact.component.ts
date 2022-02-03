@@ -4,7 +4,6 @@ import {ContactService} from '@app/_services/api/contact.service';
 import {environment} from '@environments/environment';
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
-
 @Component({
     selector: 'app-contact',
     templateUrl: './contact.component.html',
@@ -22,7 +21,7 @@ export class ContactComponent implements OnInit {
     ngOnInit(): void {
         this.formData = this.builder.group({
             fullname: new FormControl('', [Validators.required]),
-            email: new FormControl('', [Validators.compose([Validators.required, Validators.email])]),
+            email: new FormControl('', [Validators.required, Validators.email]),
             comment: new FormControl('', [Validators.required]),
             recaptcha_key: new FormControl(null, [Validators.required])
         });
