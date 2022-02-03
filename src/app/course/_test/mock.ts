@@ -249,6 +249,7 @@ export const MOCK_MCQ_QUESTION: Question = {
     is_author: true,
     is_checkbox: false,
     input_files: null,
+    is_practice: false,
 };
 
 export const MOCK_UQJ: UQJ = {
