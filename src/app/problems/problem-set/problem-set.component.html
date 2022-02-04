@@ -235,7 +235,7 @@
             tuiButton
             size="m"
             class="tui-form__button"
-            (click)="observer.next()"
+            (click)="observer.next(); observer.complete()"
         >
             Confirm Changes
         </button>
