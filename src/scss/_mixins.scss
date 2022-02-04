@@ -1,5 +1,3 @@
-@import 'variables';
-
 @mixin screen-sm() {
     @media screen and (max-width: 767px) {
         @content;
@@ -30,55 +28,4 @@
     grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
     grid-auto-flow: row dense;
     grid-gap: 1rem;
-}
-
-@mixin transition($property) {
-    -webkit-transition: $property;
-    -moz-transition: $property;
-    -o-transition: $property;
-    transition: $property;
-}
-
-@mixin smooth-transition() {
-    @include transition(all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95));
-}
-
-@mixin soft-shadow() {
-    box-shadow: 0 0.65rem 0.65rem rgba(0, 0, 0, 0.08);
-}
-
-@mixin hover-shadow() {
-    .hover-shadow {
-        @include smooth-transition();
-
-        &:hover {
-            @include soft-shadow();
-        }
-    }
-}
-
-@mixin highlight-table() {
-    .highlight-success {
-        background-color: rgba($success, 0.3);
-
-        &:hover {
-            background-color: rgba($success, 0.6);
-        }
-    }
-
-    .highlight-warning {
-        background-color: rgba($warning, 0.3);
-
-        &:hover {
-            background-color: rgba($warning, 0.6);
-        }
-    }
-
-    .highlight-danger {
-        background-color: rgba($danger, 0.3);
-
-        &:hover {
-            background-color: rgba($danger, 0.6);
-        }
-    }
 }
