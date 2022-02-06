@@ -6,22 +6,12 @@ import {User} from '@app/_models';
 import {Router} from '@angular/router';
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form";
 import {AuthenticationService} from "@app/_services/api/authentication";
-import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-profile-details',
     templateUrl: './profile-details.component.html',
-    styleUrls: ['./profile-details.component.scss'],
-    providers: [
-        {
-            provide: TUI_VALIDATION_ERRORS,
-            useValue: {
-                required: 'This field is required!',
-                email: 'Enter a valid email address!',
-            },
-        },
-    ],
+    styleUrls: ['./profile-details.component.scss']
 })
 export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
     formGroup: FormGroup;

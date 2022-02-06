@@ -5,21 +5,11 @@ import {first} from 'rxjs/operators';
 
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {LoginForm} from "@app/accounts/_forms/login.form";
-import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit";
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    providers: [
-        {
-            provide: TUI_VALIDATION_ERRORS,
-            useValue: {
-                required: 'This field is required!',
-                email: 'Enter a valid email address!'
-            },
-        },
-    ],
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
     formGroup: FormGroup;
