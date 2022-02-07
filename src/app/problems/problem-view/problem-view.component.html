@@ -4,7 +4,7 @@
             <h1 class="tui-text_h3 tui-space_vertical-10">{{ uqj?.question?.type_name | titlecase }}</h1>
             <tui-badge
                 class="tui-space_left-4"
-                [status]="getUQJTagStatus(uqj?.status)"
+                [status]="uqj?.status | tuiStatus"
                 [value]="uqj?.status || 'No Status'"
             ></tui-badge>
         </div>
