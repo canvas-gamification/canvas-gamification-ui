@@ -15,7 +15,7 @@ export class CkEditorComponent implements OnChanges {
     @ViewChild('editor') editorComponent: CKEditorComponent;
 
     ngOnChanges(): void {
-        this.editorComponent.editorInstance.setData(this.value);
+        this.editorComponent?.editorInstance?.setData(this.value);
     }
 
     /**
