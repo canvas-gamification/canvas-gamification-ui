@@ -9,22 +9,14 @@ import {
     QueryList,
     ViewChildren
 } from '@angular/core';
-import {TUI_VALIDATION_ERRORS, TuiStepComponent} from "@taiga-ui/kit";
+import {TuiStepComponent} from "@taiga-ui/kit";
 import {CourseRegistrationStepComponent} from "@app/course/course-registration/course-registration-step/course-registration-step.component";
 
 @Component({
     selector: 'app-course-registration-stepper',
     templateUrl: './course-registration-stepper.component.html',
     styleUrls: ['./course-registration-stepper.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: TUI_VALIDATION_ERRORS,
-            useValue: {
-                required: 'This field is required!'
-            },
-        },
-    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseRegistrationStepperComponent implements AfterContentInit, AfterContentChecked {
     @Input()

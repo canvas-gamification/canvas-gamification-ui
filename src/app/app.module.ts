@@ -69,7 +69,7 @@ import {
     TuiInputCountModule,
     TuiIslandModule,
     TuiToggleModule,
-    TuiMarkerIconModule
+    TuiMarkerIconModule, TUI_VALIDATION_ERRORS
 } from "@taiga-ui/kit";
 import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
 import {TuiActiveZoneModule} from "@taiga-ui/cdk";
@@ -174,6 +174,15 @@ import {ContactModule} from "@app/components/contact/contact.module";
                     java: () => import('highlight.js/lib/languages/java')
                 }
             }
+        },
+        {
+            provide: TUI_VALIDATION_ERRORS,
+            useValue: {
+                required: 'This field is required!',
+                email: 'Enter a valid email address!',
+                minlength: 'Password must contain at least 8 characters.',
+                confirmedValidator: 'Passwords must match!'
+            },
         }
     ],
     bootstrap: [AppComponent]
