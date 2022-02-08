@@ -5,7 +5,6 @@ import {UqjService} from '@app/problems/_services/uqj.service';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {TuiStatus} from "@taiga-ui/kit";
 import {QuestionService} from "@app/problems/_services/question.service";
 
 @Component({
@@ -54,13 +53,6 @@ export class ProblemViewComponent implements OnChanges, OnInit {
 
     ngOnChanges(): void {
         this.initialize();
-    }
-
-    getUQJTagStatus(status: string): TuiStatus {
-        if (status === 'Solved') return TuiStatus.Success;
-        else if (status === 'Partially Solved') return TuiStatus.Warning;
-        else if (status === 'Wrong') return TuiStatus.Error;
-        else return TuiStatus.Default;
     }
 
     /**

@@ -6,7 +6,7 @@
             </h1>
             <tui-badge
                 class="tui-space_left-4"
-                [status]="getSubmissionTagStatus(submission?.status)"
+                [status]="submission?.status | tuiStatus"
                 [value]="submission?.status || 'No Status'"
             ></tui-badge>
         </div>

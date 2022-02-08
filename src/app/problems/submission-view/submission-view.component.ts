@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {ActivatedRoute} from '@angular/router';
-import {TuiStatus} from "@taiga-ui/kit";
 
 @Component({
     selector: 'app-submission-view',
@@ -31,11 +30,5 @@ export class SubmissionViewComponent implements OnInit {
                 }
             }
         });
-    }
-
-    getSubmissionTagStatus(status: string | undefined): TuiStatus {
-        if (status === 'Correct') return TuiStatus.Success;
-        if (status === 'Wrong') return TuiStatus.Error;
-        else return TuiStatus.Default;
     }
 }
