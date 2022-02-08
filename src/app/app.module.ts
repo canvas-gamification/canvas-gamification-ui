@@ -66,6 +66,7 @@ import {
     TuiAvatarModule,
     TuiDropdownHoverModule,
     TuiRadioBlockModule,
+    TuiInputCountModule,
     TuiIslandModule,
     TuiToggleModule,
     TuiMarkerIconModule
@@ -159,6 +160,7 @@ import {ContactModule} from "@app/components/contact/contact.module";
         TuiMarkerIconModule,
         ContactModule,
         TuiModeModule,
+        TuiInputCountModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

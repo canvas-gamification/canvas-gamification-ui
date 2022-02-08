@@ -10,6 +10,11 @@ body {
 table {
     th {
         background-color: var(--tui-base-02) !important;
+
+        // Currently required to deal with a heading placement bug
+        .name {
+            position: relative !important;
+        }
     }
 }
 

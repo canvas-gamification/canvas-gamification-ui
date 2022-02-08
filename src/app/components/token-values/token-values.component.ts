@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {TokenValuesService} from '@app/_services/api/token-values.service';
 import {CategoryService} from '@app/_services/api/category.service';
 import {NestedTokenValue} from '@app/_models';
-import {faCaretDown, faCaretRight} from '@fortawesome/free-solid-svg-icons';
 import {Difficulty} from '@app/_models/difficulty';
 import {DifficultyService} from '@app/problems/_services/difficulty.service';
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
@@ -13,14 +12,9 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
     styleUrls: ['./token-values.component.scss']
 })
 export class TokenValuesComponent implements OnInit {
-    expanded: {
-        [index: string]: boolean;
-    } = {};
-    faCaretRight = faCaretRight;
-    faCaretDown = faCaretDown;
-
     tokenValues: NestedTokenValue[];
     difficulties: Difficulty[];
+    tableColumns: ['name', ...Array<string>] = ['name'];
 
     constructor(
         private tokenValueService: TokenValuesService,
@@ -31,7 +25,10 @@ export class TokenValuesComponent implements OnInit {
 
     ngOnInit(): void {
         this.tokenValueService.getNestedTokenValues().subscribe(tokenValues => this.tokenValues = tokenValues);
-        this.difficultyService.getDifficulties().subscribe(difficulties => this.difficulties = difficulties);
+        this.difficultyService.getDifficulties().subscribe(difficulties => {
+            this.difficulties = difficulties;
+            this.tableColumns = ['name', ...difficulties.map(difficulty => difficulty[0])];
+        });
     }
 
     submit(): void {
@@ -54,9 +51,5 @@ export class TokenValuesComponent implements OnInit {
                 }).subscribe();
             window.scroll(0, 0);
         });
-    }
-
-    toggleExpand(categoryName: string): void {
-        this.expanded[categoryName] = !this.expanded[categoryName];
     }
 }
