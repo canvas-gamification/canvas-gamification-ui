@@ -24,10 +24,17 @@
             <tbody tuiTbody [data]="userActions">
             <tr tuiTr *tuiRow="let action of userActions">
                 <td tuiTd *tuiCell="'description'">
-                    <ng-container *ngIf="action.object_type == 'Question' && action.description; else notAQuestionAction">
-                        <a tuiLink routerLink="/problems/{{action.object_id}}" [innerHTML]="action.description"></a>
+                    <ng-container
+                            *ngIf="action.object_type == 'Question' || action.object_type == 'Submission' && action.description; else notALinkAction">
+                        <ng-container *ngIf="action.object_type == 'Question'">
+                            <a tuiLink routerLink="/problems/{{action.object_id}}" [innerHTML]="action.description"></a>
+                        </ng-container>
+                        <ng-container *ngIf="action.object_type == 'Submission'">
+                            <a tuiLink routerLink="/problems/submission/{{action.object_id}}"
+                               [innerHTML]="action.description"></a>
+                        </ng-container>
                     </ng-container>
-                    <ng-template #notAQuestionAction>
+                    <ng-template #notALinkAction>
                         {{ (action.description) || 'No Description' }}
                     </ng-template>
                 </td>
