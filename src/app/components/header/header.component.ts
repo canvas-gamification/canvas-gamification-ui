@@ -23,7 +23,12 @@ export class HeaderComponent {
             this.user = user;
         });
 
-        this.enableNightMode = (window.localStorage.getItem('useNightMode') || 'false') === 'true';
+        const useNightMode = window.localStorage.getItem('useNightMode');
+        if (useNightMode) {
+            this.enableNightMode = useNightMode === 'true';
+        } else {
+            this.enableNightMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        }
     }
 
     logout(): void {

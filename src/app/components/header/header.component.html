@@ -1,14 +1,14 @@
 <header class="header">
     <button
-            class="header-sidebar"
-            tuiButton
-            type="button"
-            icon="tuiIconMenuLarge"
-            appearance="icon"
-            shape="square"
-            aria-label="Open Sidebar"
-            (click)="toggleSidebar(true)"
-            (tuiActiveZoneChange)="toggleSidebar($event)"
+        class="header-sidebar"
+        tuiButton
+        type="button"
+        icon="tuiIconMenuLarge"
+        appearance="icon"
+        shape="square"
+        aria-label="Open Sidebar"
+        (click)="toggleSidebar(true)"
+        (tuiActiveZoneChange)="toggleSidebar($event)"
     >
         <nav *tuiSidebar="openSidebar; direction: 'left'" class="header-sidebar_nav">
             <div class="header-logo">
@@ -39,19 +39,10 @@
         <a tuiLink routerLink="faq" class="tui-text_body-m">FAQ</a>
     </nav>
     <div class="header-user">
-        <label class="tui-text_body-m tui-space_right-4">
-            Night mode
-            <tui-toggle
-                    size="m"
-                    [(ngModel)]="enableNightMode"
-                    (ngModelChange)="setNightMode($event)"
-                    class="tui-space_left-2"
-            ></tui-toggle>
-        </label>
         <ng-container *ngIf="user else login">
             <tui-hosted-dropdown
-                    [content]="userActions"
-                    [(open)]="openUserActions"
+                [content]="userActions"
+                [(open)]="openUserActions"
             >
                 <button class="header-user_dropdown" aria-label="User Profile Dropdown">
                     <ng-container *ngIf="user.first_name; else incompleteProfile">
@@ -61,21 +52,34 @@
                         {{ user.username }}
                     </ng-template>
                     <tui-avatar
-                            class="tui-space_left-2"
-                            [autoColor]="true"
-                            [rounded]="true"
-                            size="s"
-                            [text]="user.first_name ? user.first_name + ' ' + user.last_name : user.username"
+                        class="tui-space_left-2"
+                        [autoColor]="true"
+                        [rounded]="true"
+                        size="s"
+                        [text]="user.first_name ? user.first_name + ' ' + user.last_name : user.username"
                     ></tui-avatar>
                     <tui-svg
-                            src="tuiIconChevronDown"
-                            class="icon"
-                            [class.icon_rotated]="openUserActions"
+                        src="tuiIconChevronDown"
+                        class="icon"
+                        [class.icon_rotated]="openUserActions"
                     ></tui-svg>
                 </button>
             </tui-hosted-dropdown>
             <ng-template #userActions>
                 <tui-data-list>
+                    <tui-opt-group label="Appearance">
+                        <button tuiOption>
+                            <label class="tui-text_body-m">
+                                Night mode
+                                <tui-toggle
+                                    size="m"
+                                    [(ngModel)]="enableNightMode"
+                                    (ngModelChange)="setNightMode($event)"
+                                    class="tui-space_left-2"
+                                ></tui-toggle>
+                            </label>
+                        </button>
+                    </tui-opt-group>
                     <ng-container *ngIf="user.is_teacher">
                         <tui-opt-group label="Admin">
                             <a tuiOption routerLink="">Dashboard</a>
@@ -93,19 +97,19 @@
         </ng-container>
         <ng-template #login>
             <a
-                    tuiButton
-                    size="m"
-                    appearance="flat"
-                    class="tui-space_right-2"
-                    routerLink="accounts/login"
+                tuiButton
+                size="m"
+                appearance="flat"
+                class="tui-space_right-2"
+                routerLink="accounts/login"
             >
                 Login
             </a>
             <a
-                    tuiButton
-                    size="m"
-                    appearance="primary"
-                    routerLink="accounts/register"
+                tuiButton
+                size="m"
+                appearance="primary"
+                routerLink="accounts/register"
             >
                 Sign Up
             </a>
