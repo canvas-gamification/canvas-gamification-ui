@@ -51,7 +51,7 @@ export class VariablesForm {
     }
 
     static getNewVariableForm(type: VariableEditorTypes): FormGroup {
-        if (type === 'integer') return this.createIntegersForm();
+        if (type === 'int') return this.createIntegersForm();
         if (type === 'float') return this.createFloatForm();
         if (type === 'enum') return this.createEnumeratorForm();
         if (type === 'expression') return this.createExpressionForm();
