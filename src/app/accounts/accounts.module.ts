@@ -11,7 +11,6 @@ import {ActivationEmailComponent} from "@app/accounts/activation-email/activatio
 import {ChangePasswordComponent} from "@app/accounts/change-password/change-password.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ChangePasswordService} from "@app/accounts/_services/change-password.service";
 import {ConsentService} from "@app/accounts/_services/consent.service";
 import {ProfileDetailsService} from "@app/accounts/_services/profile-details.service";
@@ -41,7 +40,6 @@ import {TuiButtonModule, TuiTextfieldControllerModule, TuiLinkModule, TuiNotific
         ReactiveFormsModule,
         RecaptchaModule,
         RecaptchaFormsModule,
-        MatProgressSpinnerModule,
         TuiInputModule,
         TuiFieldErrorModule,
         TuiInputPasswordModule,

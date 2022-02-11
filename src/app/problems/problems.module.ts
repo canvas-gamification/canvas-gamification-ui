@@ -5,7 +5,6 @@ import {
 } from "@app/problems/problem-create-edit/java-create-edit-snippet/java-create-edit-snippet.component";
 import {McqViewSnippetComponent} from "@app/problems/problem-view/mcq-view-snippet/mcq-view-snippet.component";
 import {CommonModule} from "@angular/common";
-import {MatPaginatorModule} from "@angular/material/paginator";
 import {
     ParsonsViewSnippetComponent
 } from "@app/problems/problem-view/parsons-view-snippet/parsons-view-snippet.component";
@@ -15,9 +14,6 @@ import {SubmissionSnippetComponent} from "@app/problems/problem-view/submission-
 import {
     McqCreateEditSnippetComponent
 } from "@app/problems/problem-create-edit/mcq-create-edit-snippet/mcq-create-edit-snippet.component";
-import {MatSortModule} from "@angular/material/sort";
-import {MatTableModule} from "@angular/material/table";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {AceComponent} from "@app/problems/ace/ace.component";
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
@@ -114,10 +110,6 @@ import {
         FormsModule,
         ReactiveFormsModule,
         CKEditorModule,
-        MatPaginatorModule,
-        FontAwesomeModule,
-        MatSortModule,
-        MatTableModule,
         AceEditorModule,
         HighlightModule,
         ProblemsRoutingModule,
