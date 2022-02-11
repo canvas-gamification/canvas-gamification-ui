@@ -66,8 +66,7 @@
                             "node_modules/ace-builds/src-min/ace.js",
                             "node_modules/ace-builds/src-min/mode-javascript.js",
                             "node_modules/ace-builds/src/theme-monokai.js",
-                            "node_modules/ace-builds/src/mode-html.js",
-                            "node_modules/@json-editor/json-editor/dist/jsoneditor.js"
+                            "node_modules/ace-builds/src/mode-html.js"
                         ]
                     },
                     "configurations": {
@@ -144,8 +143,7 @@
                             "node_modules/ace-builds/src-min/ace.js",
                             "node_modules/ace-builds/src-min/mode-javascript.js",
                             "node_modules/ace-builds/src/theme-monokai.js",
-                            "node_modules/ace-builds/src/mode-html.js",
-                            "node_modules/@json-editor/json-editor/dist/jsoneditor.js"
+                            "node_modules/ace-builds/src/mode-html.js"
                         ]
                     }
                 },
