@@ -4,7 +4,7 @@ import {VariableEditorTypes} from "@app/_models/json_editor";
 export class VariablesForm {
     static createIntegersForm(): FormGroup {
         return new FormGroup({
-            type: new FormControl('integer', [Validators.required]),
+            type: new FormControl('int', [Validators.required]),
             name: new FormControl('', [Validators.required]),
             min: new FormControl(0, [Validators.required]),
             max: new FormControl(0, [Validators.required])
@@ -51,7 +51,7 @@ export class VariablesForm {
     }
 
     static getNewVariableForm(type: VariableEditorTypes): FormGroup {
-        if (type === 'integer') return this.createIntegersForm();
+        if (type === 'int') return this.createIntegersForm();
         if (type === 'float') return this.createFloatForm();
         if (type === 'enum') return this.createEnumeratorForm();
         if (type === 'expression') return this.createExpressionForm();

@@ -29,9 +29,9 @@ describe('AbstractEditorComponent', () => {
     });
 
     it('should get form as string', () => {
-        component.models = new FormArray([VariablesForm.getNewVariableForm('integer')]);
+        component.models = new FormArray([VariablesForm.getNewVariableForm('int')]);
         const formString = component.getFormString(component.models.at(0));
-        const expectedString = '{\n  "type": "integer",\n  "name": "",\n  "min": 0,\n  "max": 0\n}';
+        const expectedString = '{\n  "type": "int",\n  "name": "",\n  "min": 0,\n  "max": 0\n}';
         expect(formString).toBe(expectedString);
     });
 

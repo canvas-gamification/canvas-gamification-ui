@@ -24,7 +24,7 @@ import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor
 export class VariablesEditorComponent extends AbstractEditorComponent {
 
     openNewValueDropdown = false;
-    modelTypes: VariableEditorTypes[] = ['integer', 'float', 'choice', 'expression', 'enum'];
+    modelTypes: VariableEditorTypes[] = ['int', 'float', 'choice', 'expression', 'enum'];
 
     addNewModel(type: VariableEditorTypes): void {
         this.models.push(VariablesForm.getNewVariableForm(type));
