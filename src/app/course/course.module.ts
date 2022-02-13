@@ -15,7 +15,6 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
-import {AceEditorModule} from "ng2-ace-editor";
 import {HighlightModule} from "ngx-highlightjs";
 import {MatIconModule} from "@angular/material/icon";
 import {MatStepperModule} from "@angular/material/stepper";
@@ -108,7 +107,6 @@ import {ProblemsModule} from "@app/problems/problems.module";
         NgxMatNativeDateModule,
         MatSelectModule,
         FontAwesomeModule,
-        AceEditorModule,
         HighlightModule,
         TuiStepperModule,
         TuiInputModule,

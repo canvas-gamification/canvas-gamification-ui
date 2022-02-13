@@ -13,10 +13,7 @@
         </tui-tabs-with-more>
         <div *ngFor="let input of inputFileNames; let index = index">
             <div *ngIf="tabsComponent.activeItemIndex === index">
-                <ng-container
-                    [ngTemplateOutlet]="codeEditor"
-                    [ngTemplateOutletContext]="{ $implicit: input }"
-                ></ng-container>
+                <app-code-editor [(codeTemplate)]="input.template"></app-code-editor>
             </div>
         </div>
     </ng-container>
@@ -24,19 +21,11 @@
         <div class="code-editors__list">
             <div *ngFor="let input of inputFileNames">
                 <p class="code-editors__list-title">{{ input.name }}</p>
-                <ng-container
-                    [ngTemplateOutlet]="codeEditor"
-                    [ngTemplateOutletContext]="{ $implicit: input }"
-                ></ng-container>
+                <app-code-editor [(codeTemplate)]="input.template"></app-code-editor>
             </div>
         </div>
     </ng-template>
     <div class="tui-form__buttons">
         <button tuiButton class="tui-form__button" size="m">Submit</button>
     </div>
-    <ng-template let-input #codeEditor>
-        <div class="code-editor__container">
-            <app-ace [(template)]="input.template"></app-ace>
-        </div>
-    </ng-template>
 </form>

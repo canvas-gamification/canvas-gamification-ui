@@ -11,14 +11,6 @@
     }
 }
 
-.code-editor__container {
-    position: relative;
-    height: 20rem;
-    border-radius: var(--tui-radius-l);
-    resize: vertical;
-    overflow: auto;
-}
-
 .view-switcher__wrapper {
     display: flex;
     align-items: center;

@@ -77,9 +77,9 @@ import {PipesModule} from "@app/_helpers/pipes/pipes.module";
 import {CourseIslandModule} from "@app/components/course-island/course-island.module";
 import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
 import {FaqAccordionModule} from "@app/components/faq-accordion/faq-accordion.module";
-import {AceEditorModule} from "ng2-ace-editor";
 import {ProblemsModule} from "@app/problems/problems.module";
 import {ContactModule} from "@app/components/contact/contact.module";
+import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
 
 @NgModule({
     declarations: [
@@ -154,13 +154,13 @@ import {ContactModule} from "@app/components/contact/contact.module";
         TuiTableModule,
         TuiTablePaginationModule,
         FaqAccordionModule,
-        AceEditorModule,
         TuiRadioBlockModule,
         ProblemsModule,
         TuiMarkerIconModule,
         ContactModule,
         TuiModeModule,
         TuiInputCountModule,
+        CodeEditorModule,
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

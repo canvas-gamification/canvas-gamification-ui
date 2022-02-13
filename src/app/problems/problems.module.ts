@@ -18,10 +18,8 @@ import {
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {AceComponent} from "@app/problems/ace/ace.component";
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
-import {AceEditorModule} from "ng2-ace-editor";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {SubmissionViewComponent} from "@app/problems/submission-view/submission-view.component";
 import {ProblemSetComponent} from "@app/problems/problem-set/problem-set.component";
@@ -84,13 +82,13 @@ import {AbstractEditorComponent} from './json-editor/abstract-editor/abstract-ed
 import {
     DefaultCreateEditSnippetComponent
 } from './problem-create-edit/default-create-edit-snippet/default-create-edit-snippet.component';
+import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
 
 @NgModule({
     declarations: [
         ProblemSetComponent,
         ProblemViewComponent,
         ProblemCreateEditComponent,
-        AceComponent,
         McqViewSnippetComponent,
         JavaViewSnippetComponent,
         ParsonsViewSnippetComponent,
@@ -118,7 +116,6 @@ import {
         FontAwesomeModule,
         MatSortModule,
         MatTableModule,
-        AceEditorModule,
         HighlightModule,
         ProblemsRoutingModule,
         DragulaModule.forRoot(),
@@ -154,10 +151,10 @@ import {
         TuiStringifyPipeModule,
         TuiStringifyContentPipeModule,
         TuiBadgeModule,
+        CodeEditorModule,
     ],
     exports: [
         ProblemViewComponent,
-        AceComponent
     ],
     providers: [
         DifficultyService,
