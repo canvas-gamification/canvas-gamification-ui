@@ -29,7 +29,7 @@
                             <tui-field-error formControlName="name"></tui-field-error>
                         </div>
                         <ng-container
-                            *ngIf="(form | asFormGroup).controls.type.value === 'integer' || (form | asFormGroup).controls.type.value === 'float'">
+                            *ngIf="(form | asFormGroup).controls.type.value === 'int' || (form | asFormGroup).controls.type.value === 'float'">
                             <div class="tui-form__row tui-form__row_multi-fields">
                                 <div class="tui-form__multi-field">
                                     <tui-input-count formControlName="min">Minimum Value</tui-input-count>
