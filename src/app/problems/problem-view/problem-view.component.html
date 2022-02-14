@@ -3,18 +3,19 @@
         <div class="question-header">
             <h1 class="tui-text_h3 tui-space_vertical-10">{{ uqj?.question?.type_name | titlecase }}</h1>
             <tui-badge
-                class="tui-space_left-4"
-                [status]="uqj?.status | tuiStatus"
-                [value]="uqj?.status || 'No Status'"
+                    class="tui-space_left-4"
+                    [status]="uqj?.status | tuiStatus"
+                    [value]="uqj?.status || 'No Status'"
             ></tui-badge>
         </div>
         <div class="question-header">
             <p class="tui-space_right-4"><span
-                class="tui-text_bold">Category:</span> {{ uqj?.question?.parent_category_name || 'No Category' }}</p>
+                    class="tui-text_bold">Category:</span> {{ uqj?.question?.parent_category_name || 'No Category' }}
+            </p>
             <p class="tui-space_right-4"><span
-                class="tui-text_bold">Tokens:</span> {{ uqj?.question?.token_value || 'No Token Value' }}</p>
+                    class="tui-text_bold">Tokens:</span> {{ uqj?.question?.token_value || 'No Token Value' }}</p>
             <p><span
-                class="tui-text_bold">Max Submissions Allowed:</span> {{ uqj?.question?.max_submission_allowed || 'No Value' }}
+                    class="tui-text_bold">Max Submissions Allowed:</span> {{ uqj?.question?.max_submission_allowed || 'No Value' }}
             </p>
         </div>
     </div>
@@ -23,28 +24,31 @@
     <div class="tui-row tui-row_adaptive">
         <div class="tui-col_xs-12 tui-col_md-8 tui-col_lg-8">
             <app-ck-editor
-                *ngIf="renderedText"
-                [value]="renderedText"
-                [readOnly]="true"
-                class="tui-text_body-m"
+                    *ngIf="renderedText"
+                    [value]="renderedText"
+                    [readOnly]="true"
+                    class="tui-text_body-m"
             ></app-ck-editor>
 
 
             <ng-container *ngIf="uqj?.question?.type_name === 'multiple choice question'">
-                <app-mcq-view-snippet [uqj]="uqj"></app-mcq-view-snippet>
+                <app-mcq-view-snippet [uqj]="uqj"
+                                      (successfulSubmissionEvent)="updateQuestionSubmissions($event)"></app-mcq-view-snippet>
             </ng-container>
             <ng-container *ngIf="uqj?.question?.type_name === 'java question'">
-                <app-java-view-snippet [uqj]="uqj"></app-java-view-snippet>
+                <app-java-view-snippet [uqj]="uqj"
+                                       (successfulSubmissionEvent)="updateQuestionSubmissions($event)"></app-java-view-snippet>
             </ng-container>
             <ng-container *ngIf="uqj?.question?.type_name === 'parsons question'">
-                <app-parsons-view-snippet [uqj]="uqj"></app-parsons-view-snippet>
+                <app-parsons-view-snippet [uqj]="uqj"
+                                          (successfulSubmissionEvent)="updateQuestionSubmissions($event)"></app-parsons-view-snippet>
             </ng-container>
         </div>
         <div class="tui-col_xs-12 tui-col_md-4 tui-col_lg-4">
             <ng-container *ngIf="user?.is_teacher && uqj">
                 <app-variable-view
-                    [variables]="uqj.variables"
-                    [variableErrors]="uqj.variables_errors"
+                        [variables]="uqj.variables"
+                        [variableErrors]="uqj.variables_errors"
                 ></app-variable-view>
             </ng-container>
 
