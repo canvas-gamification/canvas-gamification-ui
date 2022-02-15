@@ -10,20 +10,20 @@ import {TuiStatusPipe} from './tui-status.pipe';
 
 @NgModule({
     declarations: [
-        AsFormGroupPipe,
         AsFormControlPipe,
-        StringifyTuiDataListPipe,
+        AsFormGroupPipe,
         GetColorFromStringPipe,
-        UserHasCourseViewPermissionsPipe,
+        StringifyTuiDataListPipe,
         TuiStatusPipe,
+        UserHasCourseViewPermissionsPipe,
     ],
     exports: [
-        AsFormGroupPipe,
         AsFormControlPipe,
-        StringifyTuiDataListPipe,
-        UserHasCourseViewPermissionsPipe,
+        AsFormGroupPipe,
         GetColorFromStringPipe,
-        TuiStatusPipe
+        StringifyTuiDataListPipe,
+        TuiStatusPipe,
+        UserHasCourseViewPermissionsPipe,
     ],
     imports: [
         CommonModule

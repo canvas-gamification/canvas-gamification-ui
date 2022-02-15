@@ -22,7 +22,7 @@ export class UserActionsComponent implements OnInit, AfterContentChecked {
     userActions: Action[] = [];
     userActionsTableColumns: string[] = [
         'id', 'description', 'object_type', 'status', 'time_created', 'verb', 'token_change'
-    ]
+    ];
 
     // Sorting
     readonly sorters: Record<SortingKey, TuiComparator<Action>> = {
@@ -34,7 +34,7 @@ export class UserActionsComponent implements OnInit, AfterContentChecked {
     };
     sorter = this.sorters.id;
     sortDirection: -1 | 1 = 1;
-    sortCategories: string[] = ['id', 'description', 'object_type', 'status', 'time_created', 'verb', 'token_change']
+    sortCategories: string[] = ['id', 'description', 'object_type', 'status', 'time_created', 'verb', 'token_change'];
 
     // Pagination
     numberOfActions = 0;

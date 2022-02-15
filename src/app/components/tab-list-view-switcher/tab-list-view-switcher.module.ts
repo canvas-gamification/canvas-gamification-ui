@@ -9,12 +9,12 @@ import {ReactiveFormsModule} from "@angular/forms";
 @NgModule({
     imports: [
         CommonModule,
-        TuiRadioBlockModule,
+        ReactiveFormsModule,
+        TuiDescribedByModule,
         TuiGroupModule,
         TuiHintModule,
+        TuiRadioBlockModule,
         TuiSvgModule,
-        ReactiveFormsModule,
-        TuiDescribedByModule
     ],
     declarations: [TabListViewSwitcherComponent],
     exports: [TabListViewSwitcherComponent],

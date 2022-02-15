@@ -14,13 +14,13 @@ import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        TuiInputModule,
-        TuiFieldErrorModule,
-        TuiTextAreaModule,
-        TuiButtonModule,
-        TuiTextfieldControllerModule,
         RecaptchaFormsModule,
-        RecaptchaModule
+        RecaptchaModule,
+        TuiButtonModule,
+        TuiFieldErrorModule,
+        TuiInputModule,
+        TuiTextAreaModule,
+        TuiTextfieldControllerModule,
     ]
 })
 export class ContactModule {

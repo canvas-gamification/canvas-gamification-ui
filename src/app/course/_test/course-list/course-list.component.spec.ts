@@ -6,7 +6,6 @@ import {CourseService} from "@app/course/_services/course.service";
 import {CourseServiceMock} from "@test/course.service.mock";
 import {MOCK_COURSE} from "@app/problems/_test/mock";
 import {MOCK_COURSES, MOCK_USER_STUDENT} from "@app/course/_test/mock";
-import {MatTableModule} from "@angular/material/table";
 import {TuiFilterPipeModule} from "@taiga-ui/cdk";
 import {TuiInputModule, TuiIslandModule, TuiTagModule} from "@taiga-ui/kit";
 import {TuiLoaderModule} from "@taiga-ui/core";
@@ -22,9 +21,8 @@ describe('CourseListComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 TestModule, ReactiveFormsModule, FormsModule,
-                MatTableModule, TuiInputModule, TuiLoaderModule,
-                TuiFilterPipeModule, TuiTagModule, TuiIslandModule,
-                CourseIslandModule
+                TuiInputModule, TuiLoaderModule, TuiFilterPipeModule,
+                TuiTagModule, TuiIslandModule, CourseIslandModule
             ],
             declarations: [CourseListComponent, UserHasCourseViewPermissionsPipe],
             providers: [

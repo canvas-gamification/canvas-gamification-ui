@@ -19,13 +19,10 @@ import {CourseRegistrationStepComponent} from "@app/course/course-registration/c
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseRegistrationStepperComponent implements AfterContentInit, AfterContentChecked {
-    @Input()
-    steps: string[] = [];
+    @Input() steps: string[] = [];
     currentStep = 0;
-    @ViewChildren('headerStep')
-    tuiStepComponents!: QueryList<TuiStepComponent>;
-    @ContentChildren(CourseRegistrationStepComponent)
-    stepComponents!: QueryList<CourseRegistrationStepComponent>;
+    @ViewChildren('headerStep') tuiStepComponents!: QueryList<TuiStepComponent>;
+    @ContentChildren(CourseRegistrationStepComponent) stepComponents!: QueryList<CourseRegistrationStepComponent>;
 
     constructor(private changeDetector: ChangeDetectorRef) {
     }

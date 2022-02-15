@@ -57,8 +57,7 @@
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/lodash/lodash.js",
                             "node_modules/backbone/backbone.js",
-                            "node_modules/jointjs/dist/joint.js",
-                            "node_modules/@json-editor/json-editor/dist/jsoneditor.js"
+                            "node_modules/jointjs/dist/joint.js"
                         ]
                     },
                     "configurations": {
@@ -131,8 +130,7 @@
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/lodash/lodash.js",
                             "node_modules/backbone/backbone.js",
-                            "node_modules/jointjs/dist/joint.js",
-                            "node_modules/@json-editor/json-editor/dist/jsoneditor.js"
+                            "node_modules/jointjs/dist/joint.js"
                         ]
                     }
                 },
