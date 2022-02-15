@@ -18,7 +18,7 @@ export class CourseListComponent implements OnInit {
     readonly matchCourseName = (course: Course, search: string): boolean => {
         if (search !== '') return course.name.toLowerCase().includes(search.toLowerCase());
         else return true;
-    }
+    };
 
     constructor(private authenticationService: AuthenticationService,
                 private route: ActivatedRoute,

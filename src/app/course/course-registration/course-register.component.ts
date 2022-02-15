@@ -20,8 +20,7 @@ export const STEPPER_STAGES = {
     styleUrls: ['./course-register.component.scss']
 })
 export class CourseRegisterComponent implements OnInit {
-    @ViewChild('stepper')
-    stepper!: CourseRegistrationStepperComponent;
+    @ViewChild('stepper') stepper!: CourseRegistrationStepperComponent;
 
     nameForm: FormGroup;
     confirmNameForm: FormGroup;

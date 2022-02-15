@@ -19,27 +19,27 @@ import {CoursesComponent} from './courses/courses.component';
 
 
 @NgModule({
-    declarations: [QuestionCountComponent, CategoryStatsComponent, CoursesComponent],
+    declarations: [CategoryStatsComponent, CoursesComponent, QuestionCountComponent],
     exports: [
-        QuestionCountComponent,
         CategoryStatsComponent,
-        CoursesComponent
+        CoursesComponent,
+        QuestionCountComponent,
     ],
     imports: [
         CommonModule,
-        TuiTableModule,
-        TuiSelectModule,
-        TuiDataListWrapperModule,
         FormsModule,
-        TuiLoaderModule,
-        TuiIslandModule,
-        TuiInputModule,
-        TuiHighlightModule,
-        TuiRingChartModule,
+        TuiDataListWrapperModule,
         TuiFilterPipeModule,
+        TuiHighlightModule,
+        TuiInputModule,
+        TuiIslandModule,
+        TuiLoaderModule,
+        TuiRingChartModule,
+        TuiScrollbarModule,
+        TuiSelectModule,
+        TuiTableModule,
         TuiTabsModule,
         TuiTextfieldControllerModule,
-        TuiScrollbarModule
     ]
 })
 export class AdminModule {

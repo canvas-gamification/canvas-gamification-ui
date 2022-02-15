@@ -13,7 +13,7 @@ import {QuestionService} from "@app/problems/_services/question.service";
     styleUrls: ['./problem-view.component.scss'],
 })
 export class ProblemViewComponent implements OnChanges, OnInit {
-    @Input() questionId: number
+    @Input() questionId: number;
 
     constructor(
         private route: ActivatedRoute,
