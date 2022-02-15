@@ -57,7 +57,7 @@
         "backbone": "^1.4.0",
         "bootstrap": "^4.4.0",
         "indent-string": "^4.0.0",
-        "jointjs": "^3.2.0",
+        "jointjs": "^3.4.2",
         "jquery": "^3.5.1",
         "lodash": "^4.17.20",
         "ng-recaptcha": "^6.0.2",
