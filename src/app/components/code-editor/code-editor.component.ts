@@ -47,7 +47,7 @@ export class CodeEditorComponent implements AfterViewInit {
                     java(),
                     this.fixedHeight ? fixedHeightEditor : maxHeightEditor,
                     EditorView.updateListener.of((update: ViewUpdate) => {
-                        this.codeTemplateChange.emit(update.state.doc['text'].join('\n'));
+                        this.codeTemplateChange.emit(update.state?.doc?.toJSON()?.join('\n'));
                     })
                 ]
             }),
