@@ -24,12 +24,14 @@
         <div class="right-content tui-col_lg-5 tui-col_md-4 tui-col_xs-12">
             <div class="pattern-background"></div>
             <div class="editor">
-                <app-ace
-                    [template]='"public static void main(String args[])\n"+
-                                "{\n"+
-                                "    System.out.println(\"Hello, World!\");\n"+
-                                "}"'
-                ></app-ace>
+                <app-code-editor
+                    [codeTemplate]='"public static void main(String args[])\n"+
+                                    "{\n"+
+                                    "    System.out.println(\"Hello, World!\");\n"+
+                                    "}"'
+                    [showHelp]="false"
+                    fixedHeight="20rem"
+                ></app-code-editor>
             </div>
         </div>
     </div>

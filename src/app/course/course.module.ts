@@ -11,7 +11,6 @@ import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.compon
 import {CourseRoutingModule} from "@app/course/course-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
-import {AceEditorModule} from "ng2-ace-editor";
 import {HighlightModule} from "ngx-highlightjs";
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
@@ -80,7 +79,6 @@ import {ProblemsModule} from "@app/problems/problems.module";
         FormsModule,
         ReactiveFormsModule,
         CKEditorModule,
-        AceEditorModule,
         HighlightModule,
         TuiStepperModule,
         TuiInputModule,

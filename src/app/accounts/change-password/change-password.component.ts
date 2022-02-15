@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms";
 import {ChangePasswordService} from "@app/accounts/_services/change-password.service";
 import {ChangePasswordForm} from "@app/accounts/_forms/change-password.form";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-change-password',
@@ -15,6 +16,7 @@ export class ChangePasswordComponent implements OnInit {
 
     constructor(private builder: FormBuilder,
                 private password: ChangePasswordService,
+                private router: Router,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
@@ -30,11 +32,12 @@ export class ChangePasswordComponent implements OnInit {
         const data = ChangePasswordForm.extractData(this.formGroup);
         this.password.putPasswordReset(data)
             .subscribe(() => {
-                this.formGroup.reset();
-                this.notificationsService
-                    .show('Your password has been updated successfully!', {
-                        status: TuiNotification.Success
-                    }).subscribe();
+                this.router.navigate(['/homepage']).then(() => {
+                    this.notificationsService
+                        .show('Your password has been updated successfully!', {
+                            status: TuiNotification.Success
+                        }).subscribe();
+                });
             });
     }
 
