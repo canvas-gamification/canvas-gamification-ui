@@ -8,11 +8,11 @@
     </tbody>
 </table>
 <tui-select
-        class="tui-space_left-4"
-        [tuiTextfieldCleaner]="true"
-        [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-        (ngModelChange)="changeDifficulty($event)"
-        [ngModel]="difficulty"
+    class="tui-space_left-4"
+    [tuiTextfieldCleaner]="true"
+    [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+    (ngModelChange)="changeDifficulty($event)"
+    [ngModel]="difficulty"
 >
     Difficulty
     <tui-data-list *tuiDataList>
@@ -22,24 +22,26 @@
     </tui-data-list>
 </tui-select>
 <button
-        tuiButton
-        size="m"
-        class="tui-form__button tui-space_left-4 tui-space_top-4 tui-space_bottom-4"
-        aria-label="Next"
-        (click)="prevQuestion()"
+    tuiButton
+    size="m"
+    class="tui-form__button tui-space_left-4 tui-space_top-4 tui-space_bottom-4"
+    aria-label="Next"
+    (click)="prevQuestion()"
 >
     Prev
 </button>
 
 <button
-        tuiButton
-        size="m"
-        class="tui-form__button tui-space_top-4 tui-space_bottom-4"
-        aria-label="Next"
-        (click)="nextQuestion()"
+    tuiButton
+    size="m"
+    class="tui-form__button tui-space_top-4 tui-space_bottom-4"
+    aria-label="Next"
+    (click)="nextQuestion()"
 >
     Next
 </button>
-
-<app-problem-view *ngIf="currentQuestionId" [questionId]="currentQuestionId">
+<app-problem-view *ngIf="currentQuestionId else noProblems" [questionId]="currentQuestionId">
 </app-problem-view>
+<ng-template #noProblems>
+    <h4 class="tui-text_h4 tui-space_left-4 tui-space_top-4">There are no available practice questions for this category/difficulty.</h4>
+</ng-template>
