@@ -11,7 +11,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 export class ParsonsViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
     @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>();
-    files: (ParsonsFile & { solution: string })[]
+    files: (ParsonsFile & { solution: string })[];
 
     constructor(private submissionService: SubmissionService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
