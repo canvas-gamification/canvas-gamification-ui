@@ -25,11 +25,11 @@
             <tr tuiTr *tuiRow="let action of userActions">
                 <td tuiTd *tuiCell="'description'">
                     <ng-container
-                            *ngIf="action.object_type == 'Question' || action.object_type == 'Submission' && action.description; else notALinkAction">
-                        <ng-container *ngIf="action.object_type == 'Question'">
+                            *ngIf="action.object_type === 'Question' || action.object_type === 'Submission' && action.description; else notALinkAction">
+                        <ng-container *ngIf="action.object_type === 'Question'">
                             <a tuiLink routerLink="/problems/{{action.object_id}}" [innerHTML]="action.description"></a>
                         </ng-container>
-                        <ng-container *ngIf="action.object_type == 'Submission'">
+                        <ng-container *ngIf="action.object_type === 'Submission'">
                             <a tuiLink routerLink="/problems/submission/{{action.object_id}}"
                                [innerHTML]="action.description"></a>
                         </ng-container>

@@ -15,11 +15,11 @@ import {PipesModule} from "@app/_helpers/pipes/pipes.module";
     ],
     imports: [
         CommonModule,
-        TuiIslandModule,
-        TuiTagModule,
+        PipesModule,
         RouterModule,
         TuiButtonModule,
-        PipesModule
+        TuiIslandModule,
+        TuiTagModule,
     ]
 })
 export class CourseIslandModule { }

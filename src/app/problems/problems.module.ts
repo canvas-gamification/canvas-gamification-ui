@@ -5,7 +5,6 @@ import {
 } from "@app/problems/problem-create-edit/java-create-edit-snippet/java-create-edit-snippet.component";
 import {McqViewSnippetComponent} from "@app/problems/problem-view/mcq-view-snippet/mcq-view-snippet.component";
 import {CommonModule} from "@angular/common";
-import {MatPaginatorModule} from "@angular/material/paginator";
 import {
     ParsonsViewSnippetComponent
 } from "@app/problems/problem-view/parsons-view-snippet/parsons-view-snippet.component";
@@ -15,13 +14,8 @@ import {SubmissionSnippetComponent} from "@app/problems/problem-view/submission-
 import {
     McqCreateEditSnippetComponent
 } from "@app/problems/problem-create-edit/mcq-create-edit-snippet/mcq-create-edit-snippet.component";
-import {MatSortModule} from "@angular/material/sort";
-import {MatTableModule} from "@angular/material/table";
-import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {AceComponent} from "@app/problems/ace/ace.component";
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
-import {AceEditorModule} from "ng2-ace-editor";
 import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {SubmissionViewComponent} from "@app/problems/submission-view/submission-view.component";
 import {ProblemSetComponent} from "@app/problems/problem-set/problem-set.component";
@@ -84,86 +78,81 @@ import {AbstractEditorComponent} from './json-editor/abstract-editor/abstract-ed
 import {
     DefaultCreateEditSnippetComponent
 } from './problem-create-edit/default-create-edit-snippet/default-create-edit-snippet.component';
+import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
 
 @NgModule({
     declarations: [
+        AbstractEditorComponent,
+        CkEditorComponent,
+        DefaultCreateEditSnippetComponent,
+        JavaCreateEditSnippetComponent,
+        JavaInputFilesEditorComponent,
+        JavaViewSnippetComponent,
+        McqCreateEditSnippetComponent,
+        McqViewSnippetComponent,
+        ParsonsCreateEditSnippetComponent,
+        ParsonsInputFilesEditorComponent,
+        ParsonsLinesComponent,
+        ParsonsViewSnippetComponent,
+        ProblemCreateEditComponent,
         ProblemSetComponent,
         ProblemViewComponent,
-        ProblemCreateEditComponent,
-        AceComponent,
-        McqViewSnippetComponent,
-        JavaViewSnippetComponent,
-        ParsonsViewSnippetComponent,
-        McqCreateEditSnippetComponent,
-        JavaCreateEditSnippetComponent,
-        ParsonsCreateEditSnippetComponent,
-        VariableViewComponent,
         SubmissionSnippetComponent,
         SubmissionViewComponent,
-        CkEditorComponent,
-        ParsonsLinesComponent,
         TestCasesEditorComponent,
-        ParsonsInputFilesEditorComponent,
-        JavaInputFilesEditorComponent,
         VariablesEditorComponent,
-        AbstractEditorComponent,
-        DefaultCreateEditSnippetComponent,
+        VariableViewComponent,
     ],
     imports: [
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,
         CKEditorModule,
-        MatPaginatorModule,
-        FontAwesomeModule,
-        MatSortModule,
-        MatTableModule,
-        AceEditorModule,
-        HighlightModule,
-        ProblemsRoutingModule,
+        CodeEditorModule,
+        CommonModule,
         DragulaModule.forRoot(),
-        TuiTableModule,
+        FormsModule,
+        HighlightModule,
+        PipesModule,
+        ProblemsRoutingModule,
+        ReactiveFormsModule,
+        TabListViewSwitcherModule,
+        TuiAccordionModule,
+        TuiBadgeModule,
         TuiButtonModule,
-        TuiTablePaginationModule,
-        TuiSelectModule,
+        TuiCheckboxBlockModule,
+        TuiCheckboxLabeledModule,
         TuiDataListModule,
-        TuiLoaderModule,
         TuiDescribedByModule,
-        TuiHintModule,
-        TuiInputModule,
-        TuiTextfieldControllerModule,
         TuiDialogModule,
         TuiDropdownControllerModule,
-        TuiSvgModule,
-        TuiHostedDropdownModule,
-        TuiTagModule,
-        TuiIslandModule,
-        TuiRadioLabeledModule,
-        TuiNotificationModule,
-        TuiAccordionModule,
-        TuiTabsModule,
-        TuiCheckboxLabeledModule,
-        TuiCheckboxBlockModule,
-        TuiRadioBlockModule,
         TuiFieldErrorModule,
-        TuiLabelModule,
-        TabListViewSwitcherModule,
+        TuiHintModule,
+        TuiHostedDropdownModule,
         TuiInputCountModule,
-        TuiTextAreaModule,
-        PipesModule,
-        TuiStringifyPipeModule,
+        TuiInputModule,
+        TuiIslandModule,
+        TuiLabelModule,
+        TuiLoaderModule,
+        TuiNotificationModule,
+        TuiRadioBlockModule,
+        TuiRadioLabeledModule,
+        TuiSelectModule,
         TuiStringifyContentPipeModule,
-        TuiBadgeModule,
+        TuiStringifyPipeModule,
+        TuiSvgModule,
+        TuiTableModule,
+        TuiTablePaginationModule,
+        TuiTabsModule,
+        TuiTagModule,
+        TuiTextAreaModule,
+        TuiTextfieldControllerModule,
     ],
     exports: [
         ProblemViewComponent,
-        AceComponent
     ],
     providers: [
         DifficultyService,
-        UqjService,
         QuestionService,
         SubmissionService,
+        UqjService,
         {
             provide: HIGHLIGHT_OPTIONS,
             useValue: {
