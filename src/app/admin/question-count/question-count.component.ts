@@ -16,7 +16,7 @@ export class QuestionCountComponent implements OnInit, AfterContentInit {
     readonly matchQuestionCountName = (questionCount: QuestionCount, search: string): boolean => {
         if (search !== '') return questionCount.name.includes(search);
         else return true;
-    }
+    };
 
     constructor(private questionCountService: QuestionCountService, private changeDetector: ChangeDetectorRef) {
     }

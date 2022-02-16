@@ -16,7 +16,7 @@ export class CategoryStatsComponent implements OnInit, AfterContentInit {
     readonly matchStatsName = (nestedCategory: NestedCategories, search: string): boolean => {
         if (search !== '') return nestedCategory.category.name.includes(search);
         else return true;
-    }
+    };
 
     constructor(private categoryStatsService: CategoryStatsService,
                 private changeDetector: ChangeDetectorRef,

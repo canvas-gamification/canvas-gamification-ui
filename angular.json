@@ -37,11 +37,6 @@
                             "src/assets",
                             {
                                 "glob": "**/*",
-                                "input": "./node_modules/ace-builds/src/",
-                                "output": "/"
-                            },
-                            {
-                                "glob": "**/*",
                                 "input": "node_modules/@taiga-ui/icons/src",
                                 "output": "assets/taiga-ui/icons"
                             }
@@ -62,12 +57,7 @@
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/lodash/lodash.js",
                             "node_modules/backbone/backbone.js",
-                            "node_modules/jointjs/dist/joint.js",
-                            "node_modules/ace-builds/src-min/ace.js",
-                            "node_modules/ace-builds/src-min/mode-javascript.js",
-                            "node_modules/ace-builds/src/theme-monokai.js",
-                            "node_modules/ace-builds/src/mode-html.js",
-                            "node_modules/@json-editor/json-editor/dist/jsoneditor.js"
+                            "node_modules/jointjs/dist/joint.js"
                         ]
                     },
                     "configurations": {
@@ -140,12 +130,7 @@
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/lodash/lodash.js",
                             "node_modules/backbone/backbone.js",
-                            "node_modules/jointjs/dist/joint.js",
-                            "node_modules/ace-builds/src-min/ace.js",
-                            "node_modules/ace-builds/src-min/mode-javascript.js",
-                            "node_modules/ace-builds/src/theme-monokai.js",
-                            "node_modules/ace-builds/src/mode-html.js",
-                            "node_modules/@json-editor/json-editor/dist/jsoneditor.js"
+                            "node_modules/jointjs/dist/joint.js"
                         ]
                     }
                 },

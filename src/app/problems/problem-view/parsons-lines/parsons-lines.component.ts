@@ -9,11 +9,11 @@ import {DragulaService} from "ng2-dragula";
     styleUrls: ['./parsons-lines.component.scss']
 })
 export class ParsonsLinesComponent implements OnInit {
-    @Input() file: ParsonsFile
+    @Input() file: ParsonsFile;
     @Output() readonly code = new EventEmitter<string>();
 
-    leftContainer: ContainerObject[]
-    rightContainer: ContainerObject[]
+    leftContainer: ContainerObject[];
+    rightContainer: ContainerObject[];
 
     constructor(private dragulaService: DragulaService,) {
     }

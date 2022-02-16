@@ -11,7 +11,6 @@ import {ActivationEmailComponent} from "@app/accounts/activation-email/activatio
 import {ChangePasswordComponent} from "@app/accounts/change-password/change-password.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {ChangePasswordService} from "@app/accounts/_services/change-password.service";
 import {ConsentService} from "@app/accounts/_services/consent.service";
 import {ProfileDetailsService} from "@app/accounts/_services/profile-details.service";
@@ -24,36 +23,34 @@ import {TuiButtonModule, TuiTextfieldControllerModule, TuiLinkModule, TuiNotific
 
 @NgModule({
     declarations: [
-        LoginComponent,
-        RegisterComponent,
-        ProfileDetailsComponent,
-        ResetPasswordComponent,
-        ConsentFormComponent,
-        AdminTermsAndConditionsSnippetComponent,
         ActivationEmailComponent,
+        AdminTermsAndConditionsSnippetComponent,
         ChangePasswordComponent,
+        ConsentFormComponent,
+        LoginComponent,
+        ProfileDetailsComponent,
+        RegisterComponent,
+        ResetPasswordComponent,
         StudentTermsAndConditionsSnippetComponent,
     ],
     imports: [
+        AccountsRoutingModule,
         CommonModule,
         FormsModule,
-        AccountsRoutingModule,
         ReactiveFormsModule,
-        RecaptchaModule,
         RecaptchaFormsModule,
-        MatProgressSpinnerModule,
-        TuiInputModule,
+        RecaptchaModule,
+        TuiAvatarModule,
+        TuiButtonModule,
+        TuiCheckboxLabeledModule,
         TuiFieldErrorModule,
+        TuiInputInlineModule,
+        TuiInputModule,
         TuiInputPasswordModule,
+        TuiIslandModule,
+        TuiLinkModule,
         TuiNotificationModule,
         TuiTextfieldControllerModule,
-        TuiCheckboxLabeledModule,
-        TuiIslandModule,
-        TuiButtonModule,
-        TuiLinkModule,
-        TuiInputInlineModule,
-        TuiIslandModule,
-        TuiAvatarModule,
     ],
     providers: [
         ChangePasswordService,

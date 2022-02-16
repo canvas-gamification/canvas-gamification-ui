@@ -10,7 +10,10 @@
     </div>
     <div class="tui-form__row">
         <h2 class="tui-form__header">JUnit</h2>
-        <tui-text-area [expandable]="true" formControlName="junit_template">JUnit Template</tui-text-area>
+        <app-code-editor
+            [codeTemplate]="form.junit_template.value"
+            (codeTemplateChange)="form.junit_template.setValue($event)"
+        ></app-code-editor>
         <tui-field-error formControlName="junit_template"></tui-field-error>
         <p class="tui-form__field-note">
             Please provide a JUnit template to evaluate the code.
