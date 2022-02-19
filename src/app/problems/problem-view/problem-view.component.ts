@@ -73,4 +73,14 @@ export class ProblemViewComponent implements OnChanges, OnInit {
         });
         return htmlDoc.documentElement.outerHTML;
     }
+
+    /**
+     * Updates the submissions for a question following a successful submission.
+     * @param newSubmission A boolean that describes if a question has been successfully submitted.
+     */
+    updateQuestionSubmissions(newSubmission: boolean): void {
+        if (newSubmission) {
+            this.initialize();
+        }
+    }
 }

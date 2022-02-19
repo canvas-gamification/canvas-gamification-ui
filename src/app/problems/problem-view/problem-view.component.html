@@ -10,7 +10,8 @@
         </div>
         <div class="question-header">
             <p class="tui-space_right-4"><span
-                class="tui-text_bold">Category:</span> {{ uqj?.question?.parent_category_name || 'No Category' }}</p>
+                class="tui-text_bold">Category:</span> {{ uqj?.question?.parent_category_name || 'No Category' }}
+            </p>
             <p class="tui-space_right-4"><span
                 class="tui-text_bold">Tokens:</span> {{ uqj?.question?.token_value || 'No Token Value' }}</p>
             <p><span
@@ -31,13 +32,16 @@
 
 
             <ng-container *ngIf="uqj?.question?.type_name === 'multiple choice question'">
-                <app-mcq-view-snippet [uqj]="uqj"></app-mcq-view-snippet>
+                <app-mcq-view-snippet [uqj]="uqj"
+                                      (successfulSubmissionEvent)="updateQuestionSubmissions($event)"></app-mcq-view-snippet>
             </ng-container>
             <ng-container *ngIf="uqj?.question?.type_name === 'java question'">
-                <app-java-view-snippet [uqj]="uqj"></app-java-view-snippet>
+                <app-java-view-snippet [uqj]="uqj"
+                                       (successfulSubmissionEvent)="updateQuestionSubmissions($event)"></app-java-view-snippet>
             </ng-container>
             <ng-container *ngIf="uqj?.question?.type_name === 'parsons question'">
-                <app-parsons-view-snippet [uqj]="uqj"></app-parsons-view-snippet>
+                <app-parsons-view-snippet [uqj]="uqj"
+                                          (successfulSubmissionEvent)="updateQuestionSubmissions($event)"></app-parsons-view-snippet>
             </ng-container>
         </div>
         <div class="tui-col_xs-12 tui-col_md-4 tui-col_lg-4">

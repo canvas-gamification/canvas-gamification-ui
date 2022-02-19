@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
@@ -12,6 +12,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 })
 export class McqViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
+    @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>();
     formData: FormGroup;
     checkboxFormData: FormGroup;
     choiceArray: { id: string, value: string, safeValue: SafeHtml }[];
@@ -69,6 +70,7 @@ export class McqViewSnippetComponent implements OnInit {
                     .show('The Question has been Submitted Successfully.', {
                         status: TuiNotification.Success
                     }).subscribe();
+                this.successfulSubmissionEvent.emit(true);
             });
     }
 
@@ -84,6 +86,7 @@ export class McqViewSnippetComponent implements OnInit {
                 .show('The Question has been Submitted Successfully.', {
                     status: TuiNotification.Success
                 }).subscribe();
+            this.successfulSubmissionEvent.emit(true);
         });
     }
 }
