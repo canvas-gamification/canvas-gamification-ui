@@ -8,12 +8,9 @@ import {Category} from '@app/_models';
     styleUrls: ['./topics.component.scss'],
 })
 export class TopicsComponent implements OnInit {
-    title = 'Topics';
-    subtitle = 'A comprehensive list of all the topics covered in this system!';
-    categories: Category[];
     topLevelCategories: Category[];
-    expanded: unknown = {};
-    subcats: { [index: string]: Category[] } = {};
+    subCategories: { [index: string]: Category[] } = {};
+    tableHeaders = ['topics', 'available_questions', 'success_rate'];
 
     constructor(public categoryService: CategoryService) {
     }
@@ -23,12 +20,11 @@ export class TopicsComponent implements OnInit {
             .getCategories()
             .subscribe((categories) => {
                 this.topLevelCategories = categories.filter(c => c.parent == null);
-                this.categories = categories;
+                categories.forEach(category => {
+                    if (category.parent === null) {
+                        this.subCategories[category.name] = categories.filter(c => c.parent === category.pk);
+                    }
+                });
             });
-    }
-
-    toggleChildTopics(category: Category): void {
-        this.expanded[category.name] = !this.expanded[category.name];
-        this.subcats[category.name] = this.categories.filter(c => c.parent === category.pk);
     }
 }
