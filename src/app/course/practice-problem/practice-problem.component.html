@@ -28,7 +28,7 @@
     aria-label="Next"
     (click)="prevQuestion()"
 >
-    Prev
+    Return to Previous Question
 </button>
 
 <button
@@ -38,7 +38,7 @@
     aria-label="Next"
     (click)="nextQuestion()"
 >
-    Next
+    Skip to Next Question
 </button>
 <app-problem-view *ngIf="currentQuestionId else noProblems" [questionId]="currentQuestionId">
 </app-problem-view>
