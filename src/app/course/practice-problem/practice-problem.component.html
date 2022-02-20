@@ -14,7 +14,7 @@
     (ngModelChange)="changeDifficulty($event)"
     [ngModel]="difficulty"
 >
-    Difficulty
+    Choose a level of difficulty
     <tui-data-list *tuiDataList>
         <button *ngFor="let diff of difficulties" tuiOption [value]="diff[0]">
             {{ diff[1] }}
