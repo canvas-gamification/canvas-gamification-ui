@@ -4,8 +4,6 @@ import {
     ParsonsCreateEditSnippetComponent
 } from '../../problem-create-edit/parsons-create-edit-snippet/parsons-create-edit-snippet.component';
 import {TestModule} from '@test/test.module';
-import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MOCK_PARSONS_QUESTION} from "@app/problems/_test/mock";
 import {TuiButtonModule, TuiHostedDropdownModule, TuiNotificationModule, TuiSvgModule} from "@taiga-ui/core";
@@ -27,11 +25,11 @@ describe('ParsonsCreateEditSnippetComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [
-                ParsonsCreateEditSnippetComponent, CkEditorComponent, VariablesEditorComponent,
+                ParsonsCreateEditSnippetComponent, VariablesEditorComponent,
                 ParsonsInputFilesEditorComponent, AsFormGroupPipe
             ],
             imports: [
-                TestModule, CKEditorModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
+                TestModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
                 TuiInputModule, TuiSelectModule, TuiFieldErrorModule, TuiButtonModule,
                 TuiHostedDropdownModule, TuiSvgModule, TuiNotificationModule, TuiIslandModule
             ],

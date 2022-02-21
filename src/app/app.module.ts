@@ -28,6 +28,8 @@ import {NotFoundComponent} from './components/general/not-found/not-found.compon
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
 import {AdminComponent} from './admin/admin.component';
 import {AdminModule} from "@app/admin/admin.module";
+import {QuillModule} from 'ngx-quill';
+
 import {
     TuiButtonModule,
     TuiDataListModule,
@@ -122,6 +124,7 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
         TuiTablePaginationModule,
         TuiThemeNightModule,
         TuiToggleModule,
+        QuillModule.forRoot()
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

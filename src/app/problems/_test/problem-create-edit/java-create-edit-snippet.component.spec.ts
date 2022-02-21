@@ -2,8 +2,6 @@ import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {JavaCreateEditSnippetComponent} from '../../problem-create-edit/java-create-edit-snippet/java-create-edit-snippet.component';
 import {TestModule} from '@test/test.module';
-import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {QuestionService} from "@app/problems/_services/question.service";
 import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -27,11 +25,11 @@ describe('JavaCreateEditSnippetComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [
-                JavaCreateEditSnippetComponent, CkEditorComponent, VariablesEditorComponent,
+                JavaCreateEditSnippetComponent, VariablesEditorComponent,
                 JavaInputFilesEditorComponent, AsFormGroupPipe
             ],
             imports: [
-                TestModule, CKEditorModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
+                TestModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
                 TuiInputModule, TuiSelectModule, TuiFieldErrorModule, TuiButtonModule,
                 TuiHostedDropdownModule, TuiSvgModule, TuiIslandModule
             ],

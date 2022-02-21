@@ -3,10 +3,9 @@
     <app-default-create-edit-snippet [formGroup]="formGroup"></app-default-create-edit-snippet>
     <div class="tui-form__row">
         <h2 class="tui-form__header">Question</h2>
-        <app-ck-editor
-            [value]="form.text.value"
-            (valueChange)="form.text.setValue($event)"
-        ></app-ck-editor>
+        <quill-editor
+            formControlName="text"
+        ></quill-editor>
     </div>
     <div class="tui-form__row">
         <h2 class="tui-form__header">JUnit</h2>

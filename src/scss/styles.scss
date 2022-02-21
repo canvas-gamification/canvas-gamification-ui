@@ -1,5 +1,6 @@
 @import 'mixins';
 @import 'highlight';
+@import '~quill/dist/quill.snow.css';
 
 body {
     background: var(--tui-base-01);
