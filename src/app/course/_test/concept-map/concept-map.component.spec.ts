@@ -95,7 +95,7 @@ describe('ConceptMapComponent without spy', () => {
         component.parentNode = null;
         component.renderGraph();
         const title = fixture.debugElement.query(By.css('.tui-text_h3')).nativeElement;
-        expect(title.innerHTML).toEqual('Parent Categories');
+        expect(title.innerHTML).toEqual('Top-Level Categories');
     });
 
     it('should show sub categories title when within a parent category of the concept map', () => {
