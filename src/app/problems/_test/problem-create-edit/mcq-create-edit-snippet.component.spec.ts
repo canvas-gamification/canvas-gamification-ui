@@ -3,8 +3,6 @@ import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 import {McqCreateEditSnippetComponent} from '../../problem-create-edit/mcq-create-edit-snippet/mcq-create-edit-snippet.component';
 import {TestModule} from '@test/test.module';
 import {MOCK_CHECKBOX_QUESTION} from "@app/problems/_test/mock";
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
-import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TuiButtonModule, TuiHostedDropdownModule} from "@taiga-ui/core";
 import {of} from "rxjs";
@@ -28,11 +26,11 @@ describe('McqCreateEditSnippetComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                TestModule, CKEditorModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
+                TestModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
                 TuiRadioLabeledModule, TuiInputModule, TuiSelectModule, TuiFieldErrorModule,
                 TuiButtonModule, TuiHostedDropdownModule
             ],
-            declarations: [McqCreateEditSnippetComponent, CkEditorComponent, VariablesEditorComponent]
+            declarations: [McqCreateEditSnippetComponent, VariablesEditorComponent]
         }).compileComponents();
     });
 

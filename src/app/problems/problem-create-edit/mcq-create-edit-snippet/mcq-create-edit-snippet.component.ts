@@ -1,6 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core';
 import {QuestionService} from '@app/problems/_services/question.service';
-import {AbstractControl, FormArray, FormGroup} from '@angular/forms';
+import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms';
 import {McqForm} from "@app/problems/_forms/mcq.form";
 import {Router} from "@angular/router";
 import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
@@ -80,6 +80,10 @@ export class McqCreateEditSnippetComponent implements OnInit {
         }
     }
 
+    getAnswerFormControls(): FormControl[] {
+        return (this.form.answer as FormArray).controls as FormControl[];
+    }
+
     getAnswers(): FormArray {
         return this.form.answer as FormArray;
     }
@@ -94,6 +98,10 @@ export class McqCreateEditSnippetComponent implements OnInit {
 
     getDistractors(): FormArray {
         return this.form.choices as FormArray;
+    }
+
+    getDistractorFormControls(): FormControl[] {
+        return this.getDistractors().controls as FormControl[];
     }
 
     addDistractor(): void {

@@ -10,7 +10,6 @@ import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippe
 import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component";
 import {CourseRoutingModule} from "@app/course/course-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {HighlightModule} from "ngx-highlightjs";
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
@@ -74,7 +73,6 @@ import {ProblemsModule} from "@app/problems/problems.module";
         TokenUseSnippetComponent
     ],
     imports: [
-        CKEditorModule,
         CommonModule,
         CourseIslandModule,
         CourseRoutingModule,

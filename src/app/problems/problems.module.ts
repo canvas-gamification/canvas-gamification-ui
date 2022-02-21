@@ -15,8 +15,6 @@ import {
     McqCreateEditSnippetComponent
 } from "@app/problems/problem-create-edit/mcq-create-edit-snippet/mcq-create-edit-snippet.component";
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
-import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
-import {CkEditorComponent} from "@app/problems/ck-editor/ck-editor.component";
 import {SubmissionViewComponent} from "@app/problems/submission-view/submission-view.component";
 import {ProblemSetComponent} from "@app/problems/problem-set/problem-set.component";
 import {JavaViewSnippetComponent} from "@app/problems/problem-view/java-view-snippet/java-view-snippet.component";
@@ -79,11 +77,11 @@ import {
     DefaultCreateEditSnippetComponent
 } from './problem-create-edit/default-create-edit-snippet/default-create-edit-snippet.component';
 import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
+import {QuillModule} from "ngx-quill";
 
 @NgModule({
     declarations: [
         AbstractEditorComponent,
-        CkEditorComponent,
         DefaultCreateEditSnippetComponent,
         JavaCreateEditSnippetComponent,
         JavaInputFilesEditorComponent,
@@ -104,7 +102,6 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
         VariableViewComponent,
     ],
     imports: [
-        CKEditorModule,
         CodeEditorModule,
         CommonModule,
         DragulaModule.forRoot(),
@@ -144,6 +141,7 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
         TuiTagModule,
         TuiTextAreaModule,
         TuiTextfieldControllerModule,
+        QuillModule.forRoot(),
     ],
     exports: [
         ProblemViewComponent,
