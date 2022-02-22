@@ -4,8 +4,12 @@ import {ConsentFormComponent} from './consent-form.component';
 import {TestModule} from '@test/test.module';
 import {MOCK_ADMIN, MOCK_STUDENT} from "@app/accounts/_test/mock";
 import {ReactiveFormsModule} from "@angular/forms";
-import {AdminTermsAndConditionsSnippetComponent} from "@app/accounts/admin-terms-and-conditions-snippet/admin-terms-and-conditions-snippet.component";
-import {StudentTermsAndConditionsSnippetComponent} from "@app/accounts/student-terms-and-conditions-snippet/student-terms-and-conditions-snippet.component";
+import {
+    AdminTermsAndConditionsSnippetComponent
+} from "@app/accounts/admin-terms-and-conditions-snippet/admin-terms-and-conditions-snippet.component";
+import {
+    StudentTermsAndConditionsSnippetComponent
+} from "@app/accounts/student-terms-and-conditions-snippet/student-terms-and-conditions-snippet.component";
 import {Router} from "@angular/router";
 import {ConsentService} from "@app/accounts/_services/consent.service";
 import {ConsentServiceMock} from "@app/accounts/_test/_services/consent.service.mock";
@@ -62,6 +66,12 @@ describe('ConsentFormComponent', () => {
             component.declineConsent();
             expect(router.navigate).toHaveBeenCalledOnceWith(['accounts', 'profile']);
             expect(notificationService.show).toHaveBeenCalled();
+        });
+
+        it('should fill form with name', () => {
+            // Empty string in this case as that is what is in the mock user.
+            expect(component.form.legal_first_name.value).toEqual('');
+            expect(component.form.legal_last_name.value).toEqual('');
         });
     });
 
