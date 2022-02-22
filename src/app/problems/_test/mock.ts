@@ -651,7 +651,6 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     no_file_answer: false,
     show_answer: false,
     show_detail: true,
-    status_color: 'success',
     safeAnswer: [],
 };
 
@@ -682,7 +681,6 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     no_file_answer: false,
     show_answer: false,
     show_detail: true,
-    status_color: 'success',
     safeAnswer: [],
 };
 
