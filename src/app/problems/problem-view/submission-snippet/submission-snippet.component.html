@@ -3,7 +3,6 @@
     <ng-container *ngIf="previousSubmissions.length > 0 else noSubmissions">
         <tui-accordion [rounded]="false" class="tui-space_bottom-4">
             <tui-accordion-item
-                size="s"
                 [showArrow]="false"
                 *ngFor="let submission of previousSubmissions; let index = index"
             >
@@ -29,10 +28,10 @@
                         <ng-template #noAnswerShown>
                             No answer available
                         </ng-template>
-                        <div class="tui-form__buttons tui-space_top-2">
+                        <div class="tui-form__buttons tui-space_top-4">
                             <a
                                 tuiButton
-                                size="s"
+                                size="m"
                                 class="tui-form__button"
                                 [routerLink]="['/problems', 'submission', submission.pk]"
                             >

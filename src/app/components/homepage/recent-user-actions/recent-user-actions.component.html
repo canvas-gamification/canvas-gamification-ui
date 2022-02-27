@@ -4,7 +4,7 @@
         <ng-container *ngIf="userActions?.length; else noRecentActions">
             <ng-container *ngFor="let action of userActions">
                 <li class="tui-space_bottom-2">
-                    <tui-island size="s">
+                    <tui-island>
                         <p class="tui-island__paragraph">
                             <ng-container
                                     *ngIf="action.object_type === 'Question' || action.object_type === 'Submission'; else notALinkAction">
@@ -38,7 +38,7 @@
             </li>
         </ng-template>
     </ul>
-    <div class="tui-form__buttons tui-space_top-3">
+    <div class="tui-form__buttons tui-space_top-4">
         <a tuiButton class="tui-form__button" size="m" appearance="primary" iconRight="tuiIconArrowRight"
            routerLink="../actions">View More Actions</a>
     </div>
