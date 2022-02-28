@@ -58,7 +58,7 @@
         "quill": "^1.3.7",
         "rxjs": "~6.5.4",
         "tslib": "^2.0.0",
-        "url-parse": "^1.5.1",
+        "url-parse": "^1.5.8",
         "zone.js": "^0.11.4"
     },
     "devDependencies": {
