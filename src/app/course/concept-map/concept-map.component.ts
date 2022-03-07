@@ -3,7 +3,6 @@ import {ConceptMapGraph} from './concept-map-graph';
 import {Category, Course} from '@app/_models';
 import {CategoryService} from '@app/_services/api/category.service';
 import {Router} from '@angular/router';
-import {TuiDialogService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-concept-map',
