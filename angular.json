@@ -49,7 +49,8 @@
                             "node_modules/dragula/dist/dragula.css",
                             "src/scss/styles.scss",
                             "node_modules/@taiga-ui/core/styles/taiga-ui-global.less",
-                            "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less"
+                            "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+                            "node_modules/katex/dist/katex.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
@@ -60,7 +61,8 @@
                             "node_modules/jquery/dist/jquery.min.js",
                             "node_modules/lodash/lodash.js",
                             "node_modules/backbone/backbone.js",
-                            "node_modules/jointjs/dist/joint.js"
+                            "node_modules/jointjs/dist/joint.js",
+                            "node_modules/katex/dist/katex.js"
                         ]
                     },
                     "configurations": {
