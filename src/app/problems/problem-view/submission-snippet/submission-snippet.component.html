@@ -14,7 +14,7 @@
                             {{ submission.submission_time | date:'short' || 'No Date' }}
                             <tui-badge
                                 class="tui-space_left-2"
-                                [status]="submission.status_color"
+                                [status]="submission.status | tuiStatus"
                                 [value]="submission.status || 'No Status'"
                             ></tui-badge>
                         </ng-container>
