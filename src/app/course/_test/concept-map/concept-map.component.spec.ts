@@ -4,7 +4,7 @@ import {ConceptMapComponent} from '../../concept-map/concept-map.component';
 import {TestModule} from '@test/test.module';
 import {CategoryService} from "@app/_services/api/category.service";
 import {CategoryServiceMock} from "@test/category.service.mock";
-import {MOCK_CATEGORIES, MOCK_COURSE} from "@app/problems/_test/mock";
+import {MOCK_CATEGORIES} from "@app/problems/_test/mock";
 import {UserStatsComponent} from "@app/components/user-stats/user-stats.component";
 import {TuiDialogService} from "@taiga-ui/core";
 import {of} from "rxjs";
@@ -55,12 +55,6 @@ describe('ConceptMapComponent', () => {
     it('isTopLevel should work', () => {
         expect(component.isTopLevel(0)).toBeTruthy();
         expect(component.isTopLevel(1)).toBeFalsy();
-    });
-
-    it('should generate user stats dialog service', () => {
-        component.currCourse = MOCK_COURSE;
-        component.generateUserStatsDialogService(0);
-        expect(dialogService.open).toHaveBeenCalled();
     });
 });
 

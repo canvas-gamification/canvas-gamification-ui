@@ -3,10 +3,6 @@ import {ConceptMapGraph} from './concept-map-graph';
 import {Category, Course} from '@app/_models';
 import {CategoryService} from '@app/_services/api/category.service';
 import {Router} from '@angular/router';
-import {TuiDialogService} from "@taiga-ui/core";
-import {PolymorpheusComponent} from '@tinkoff/ng-polymorpheus';
-import {UserStatsComponent} from "@app/components/user-stats/user-stats.component";
-import {Observable} from "rxjs";
 
 @Component({
     selector: 'app-concept-map',
@@ -23,7 +19,6 @@ export class ConceptMapComponent implements OnInit {
 
     constructor(private categoryService: CategoryService,
                 private router: Router,
-                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
                 @Inject(Injector) private readonly injector: Injector) {
     }
 
@@ -33,7 +28,7 @@ export class ConceptMapComponent implements OnInit {
             this.conceptMapGraph = new ConceptMapGraph((cellId) => {
                 this.parentNode = cellId;
                 if (!this.isTopLevel(cellId)) {
-                    this.generateUserStatsDialogService(cellId).subscribe();
+                    this.router.navigate(['course', this.currCourse.id, 'practice', 'category', cellId]).then();
                 } else {
                     this.renderGraph();
                 }
@@ -77,21 +72,5 @@ export class ConceptMapComponent implements OnInit {
      */
     isTopLevel(categoryId: number): boolean {
         return this.rawCategories.find(category => category.pk === categoryId).parent === null;
-    }
-
-    /**
-     * Create a dialog observable based on the given cellId for user stats details
-     * @param cellId
-     */
-    generateUserStatsDialogService(cellId: number): Observable<number> {
-        return this.dialogService.open<number>(
-            new PolymorpheusComponent(UserStatsComponent, this.injector),
-            {
-                data: [cellId, this.currCourse.id],
-                dismissible: true,
-                closeable: false,
-                size: 's'
-            }
-        );
     }
 }
