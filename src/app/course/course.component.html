@@ -5,8 +5,6 @@
         <div class="heading">
             <a class="tui-space_right-4" [class.tui-skeleton]="!course" tuiLink [href]="course?.url"
                rel="noopener noreferrer" target="_blank">{{ course?.url }}</a>
-            <p [class.tui-skeleton]="!course">{{ course ? (course.start_date | date: 'LLL. dd, YYYY, hh:MM a') : 'No Date' }}
-                - {{ course ? (course.end_date | date: 'LLL. dd, YYYY, hh:MM a') : 'No Date' }}</p>
         </div>
     </div>
     <tui-tabs-with-more class="tui-space_bottom-4" [class.tui-skeleton]="!course" #tabsComponent [moreContent]="more">
