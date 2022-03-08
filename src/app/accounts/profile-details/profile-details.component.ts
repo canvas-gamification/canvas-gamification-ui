@@ -6,7 +6,8 @@ import {User} from '@app/_models';
 import {Router} from '@angular/router';
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form";
 import {AuthenticationService} from "@app/_services/api/authentication";
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus";
 
 @Component({
     selector: 'app-profile-details',
@@ -24,7 +25,8 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
                 private consentService: ConsentService,
                 private authenticationService: AuthenticationService,
                 private changeDetector: ChangeDetectorRef,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService) {
         this.userId = this.authenticationService.currentUserValue?.id;
     }
 
@@ -58,6 +60,9 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
             });
     }
 
+    /**
+     * Withdraw the user's consent.
+     */
     withdraw(): void {
         this.consentService.declineConsent().subscribe(() => {
             this.notificationsService
@@ -66,5 +71,18 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
                 }).subscribe();
         });
         this.userConsent = false;
+    }
+
+    /**
+     * Dialog for confirming if you want to withdraw your consent.
+     * @param content - The modal to open.
+     */
+    confirmWithdrawConsentDialog(content: PolymorpheusContent<TuiDialogContext>): void {
+        this.dialogService.open(content, {
+            closeable: false,
+            label: 'Withdraw Consent?'
+        }).subscribe({
+            next: () => this.withdraw()
+        });
     }
 }

@@ -5,6 +5,20 @@ import {TestModule} from '@test/test.module';
 import {of} from "rxjs";
 import {MOCK_ADMIN, MOCK_ADMIN_CONSENT, MOCK_CONSENT_DECLINE} from "@app/accounts/_test/mock";
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form";
+import {Component, ViewChild} from "@angular/core";
+
+@Component({
+    selector: 'test-app-withdraw-consent-dialog',
+    template: `
+        <ng-template let-observer #testDialog></ng-template>`
+})
+class TestWithdrawConsentDialogComponent {
+    @ViewChild('testDialog') testDialog;
+
+    completeDialog(): void {
+        this.testDialog.observer.next();
+    }
+}
 
 describe('ProfileDetailsComponent', () => {
     let component: ProfileDetailsComponent;
@@ -12,7 +26,8 @@ describe('ProfileDetailsComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule]
+            imports: [TestModule],
+            declarations: [TestWithdrawConsentDialogComponent]
         }).compileComponents();
     });
 
@@ -43,5 +58,12 @@ describe('ProfileDetailsComponent', () => {
         component['consentService'].declineConsent().subscribe((declineConsent) => {
             expect(declineConsent).toEqual(MOCK_CONSENT_DECLINE);
         });
+    });
+
+    it('should open withdraw consent modal', () => {
+        spyOn(component['dialogService'], 'open').and.callThrough();
+        spyOn(component, 'withdraw').and.callThrough();
+        component.confirmWithdrawConsentDialog('');
+        expect(component['dialogService'].open).toHaveBeenCalled();
     });
 });
