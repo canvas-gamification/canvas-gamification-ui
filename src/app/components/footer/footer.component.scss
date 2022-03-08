@@ -1,0 +1,16 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2.5rem 0 1.25rem;
+
+    &-links {
+        list-style-type: none;
+        display: flex;
+        gap: 0.75rem;
+
+        * {
+            color: var(--tui-text-02);
+        }
+    }
+}

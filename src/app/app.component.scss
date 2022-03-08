@@ -1,0 +1,9 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 4.1rem); // This is window height minus header height (And extra .1rem for borders)
+
+    &-content {
+        flex-grow: 1;
+    }
+}

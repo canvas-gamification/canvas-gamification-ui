@@ -62,6 +62,7 @@ import {FaqAccordionModule} from "@app/components/faq-accordion/faq-accordion.mo
 import {ProblemsModule} from "@app/problems/problems.module";
 import {ContactModule} from "@app/components/contact/contact.module";
 import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
+import {FooterModule} from "@app/components/footer/footer.module";
 
 @NgModule({
     declarations: [
@@ -93,6 +94,7 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
         ContactModule,
         CourseIslandModule,
         FaqAccordionModule,
+        FooterModule,
         FormsModule,
         HighlightModule,
         HttpClientModule,
