@@ -6,9 +6,13 @@
 }
 .flowchart-instructions {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    &_left {
+        display: flex;
+        align-items: center;
+    }
 
     @include screen-sm() {
         flex-direction: column-reverse;
