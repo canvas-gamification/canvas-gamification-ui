@@ -42,7 +42,7 @@ import {
     TuiNotificationsModule,
     TuiDialogModule,
     TuiLoaderModule,
-    TuiModeModule
+    TuiModeModule, TUI_SANITIZER
 } from '@taiga-ui/core';
 import {
     TuiAvatarModule,
@@ -63,6 +63,7 @@ import {ProblemsModule} from "@app/problems/problems.module";
 import {ContactModule} from "@app/components/contact/contact.module";
 import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
 import {FooterModule} from "@app/components/footer/footer.module";
+import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify';
 
 @NgModule({
     declarations: [
@@ -173,6 +174,10 @@ import {FooterModule} from "@app/components/footer/footer.module";
                 minlength: 'Password must contain at least 8 characters.',
                 confirmedValidator: 'Passwords must match!'
             },
+        },
+        {
+            provide: TUI_SANITIZER,
+            useClass: NgDompurifySanitizer
         }
     ],
     bootstrap: [AppComponent]
