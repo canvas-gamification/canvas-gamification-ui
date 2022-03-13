@@ -2,14 +2,14 @@ import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Inject, V
 import {TuiDestroyService} from '@taiga-ui/cdk';
 import {TuiNodeViewNgComponent} from '@taiga-ui/addon-editor';
 import {InlineMath} from '@app/components/editor/inline-math/inline-math.extension';
-import katex from 'katex';
 import {DOCUMENT} from '@angular/common';
+import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe';
 
 @Component({
-    selector: 'app-inline-math',
+    selector: 'editor-inline-math',
     templateUrl: './inline-math.component.html',
     styleUrls: ['./inline-math.component.scss'],
-    providers: [TuiDestroyService],
+    providers: [TuiDestroyService, GetKatexStringPipe],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InlineMathComponent extends TuiNodeViewNgComponent implements AfterViewInit {
@@ -23,13 +23,18 @@ export class InlineMathComponent extends TuiNodeViewNgComponent implements After
     constructor(
         @Inject(DOCUMENT) readonly documentRef: Document,
         @Inject(TuiDestroyService) readonly destroy$: TuiDestroyService,
+        private getKatexStringPipe: GetKatexStringPipe
     ) {
         super();
     }
 
+    renderEquation(): void {
+        if (this.katexContainer?.nativeElement) {
+            this.katexContainer.nativeElement.innerHTML = this.getKatexStringPipe.transform(this.attrs.equation);
+        }
+    }
+
     ngAfterViewInit(): void {
-        katex.render(this.attrs.equation, this.katexContainer.nativeElement, {
-            throwOnError: false
-        });
+        this.renderEquation();
     }
 }

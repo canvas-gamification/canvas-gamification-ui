@@ -6,6 +6,8 @@ import {StringifyTuiDataListPipe} from './stringify-tui-data-list.pipe';
 import {GetColorFromStringPipe} from './get-color-from-string.pipe';
 import {UserHasCourseViewPermissionsPipe} from './user-has-course-view-permissions.pipe';
 import {TuiStatusPipe} from './tui-status.pipe';
+import { GetKatexHtmlStringPipe } from './get-katex-html-string.pipe';
+import { GetKatexStringPipe } from './get-katex-string.pipe';
 
 
 @NgModule({
@@ -13,6 +15,8 @@ import {TuiStatusPipe} from './tui-status.pipe';
         AsFormControlPipe,
         AsFormGroupPipe,
         GetColorFromStringPipe,
+        GetKatexHtmlStringPipe,
+        GetKatexStringPipe,
         StringifyTuiDataListPipe,
         TuiStatusPipe,
         UserHasCourseViewPermissionsPipe,
@@ -21,6 +25,7 @@ import {TuiStatusPipe} from './tui-status.pipe';
         AsFormControlPipe,
         AsFormGroupPipe,
         GetColorFromStringPipe,
+        GetKatexHtmlStringPipe,
         StringifyTuiDataListPipe,
         TuiStatusPipe,
         UserHasCourseViewPermissionsPipe,

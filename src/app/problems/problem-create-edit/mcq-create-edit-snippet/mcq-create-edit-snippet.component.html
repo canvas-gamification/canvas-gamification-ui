@@ -8,17 +8,12 @@
     <app-default-create-edit-snippet [formGroup]="formGroup"></app-default-create-edit-snippet>
     <div class="tui-form__row">
         <h2 class="tui-form__header">Question</h2>
-<!--        <quill-editor-->
-<!--            formControlName="text"-->
-<!--        ></quill-editor>-->
         <app-editor formControlName="text"></app-editor>
     </div>
     <ng-container *ngIf="!isCheckbox else checkboxAnswers">
         <div class="tui-form__row">
             <h2 class="tui-form__header">Correct Answer</h2>
-            <quill-editor
-                [formControl]="getAnswerFormControls()[0]"
-            ></quill-editor>
+            <app-editor [formControl]="getAnswerFormControls()[0]"></app-editor>
         </div>
     </ng-container>
     <ng-template #checkboxAnswers>
@@ -27,9 +22,7 @@
             <div class="new-answers tui-space_bottom-4">
                 <div class="new-answers__answer" *ngFor="let answerFormControl of getAnswerFormControls(); let index = index">
                     <div class="new-answers__answer-input" formArrayName="answer">
-                        <quill-editor
-                            [formControl]="answerFormControl"
-                        ></quill-editor>
+                        <app-editor [formControl]="answerFormControl"></app-editor>
                     </div>
                     <button tuiButton appearance="secondary" size="m" type="button" icon="tuiIconTrash"
                             (click)="removeAnswer(index)">
@@ -60,9 +53,7 @@
         <div class="new-answers tui-space_bottom-4">
             <div class="new-answers__answer" *ngFor="let distractor of getDistractorFormControls(); let index = index">
                 <div class="new-answers__answer-input">
-                    <quill-editor
-                        [formControl]="distractor"
-                    ></quill-editor>
+                    <app-editor [formControl]="distractor"></app-editor>
                 </div>
                 <button tuiButton appearance="secondary" size="m" type="button" icon="tuiIconTrash"
                         (click)="removeDistractor(index)">

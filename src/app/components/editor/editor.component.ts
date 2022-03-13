@@ -52,6 +52,7 @@ import {createInlineMathEditorExtension} from '@app/components/editor/inline-mat
 export class EditorComponent implements ControlValueAccessor, Validator, OnDestroy {
     @Input() exampleText = '';
     @Input() placeHolder = '';
+    @Input() readonly = false;
 
     editorForm = new FormGroup({
         editor: new FormControl('', [Validators.required])

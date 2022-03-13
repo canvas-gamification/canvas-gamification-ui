@@ -5,6 +5,16 @@
     display: flex;
     flex-direction: column;
     padding: var(--tui-padding-m);
+
+    &_input {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        &-text {
+            flex-grow: 1;
+        }
+    }
 }
 
 .tool-button {

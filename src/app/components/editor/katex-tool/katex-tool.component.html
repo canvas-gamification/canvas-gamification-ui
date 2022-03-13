@@ -21,18 +21,30 @@
         [tuiActiveZoneParent]="activeZone"
         (submit)="insertKatex()"
     >
-        <tui-input
-            [ngModel]="equation"
-            (ngModelChange)="equation = $event; displayKatex()"
-            [ngModelOptions]="{standalone: true}"
-        >
-            Type an equation
-            <input tuiTextfield type="text" />
-        </tui-input>
-        <p>Preview:</p>
-        <div #katexContent></div>
-        <button tuiButton type="submit" appearance="primary" size="s" class="tui-space_top-2">
-            Submit
-        </button>
+        <div class="katex-tool_input">
+            <tui-input
+                class="katex-tool_input-text"
+                [ngModel]="equation"
+                (ngModelChange)="equation = $event; displayKatex()"
+                [ngModelOptions]="{standalone: true}"
+            >
+                Type an equation
+                <input tuiTextfield/>
+            </tui-input>
+            <button
+                tuiIconButton
+                icon="tuiIconCheckCircleLarge"
+                type="submit"
+                appearance="icon"
+                size="s"
+                class="tui-space_left-2"
+            ></button>
+        </div>
+        <div>
+            <p class="tui-space_vertical-1">Preview:</p>
+            <tui-island>
+                <div #katexContent></div>
+            </tui-island>
+        </div>
     </form>
 </ng-template>

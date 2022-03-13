@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {Router, RouterEvent} from "@angular/router";
-// import renderMathInElement from 'katex/dist/contrib/auto-render';
 
 @Component({
     selector: 'app-root',
@@ -12,7 +11,6 @@ export class AppComponent {
     hideFooterForLanding = true;
 
     constructor(private router: Router) {
-        // renderMathInElement(document.body);
         this.router.events.subscribe((event) => {
             if (event instanceof RouterEvent) {
                 this.hideFooterForLanding = event.url === '/';

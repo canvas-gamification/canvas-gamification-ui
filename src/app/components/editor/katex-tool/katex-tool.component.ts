@@ -1,38 +1,35 @@
 import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
 import {TuiTiptapEditorService} from '@taiga-ui/addon-editor';
-import Katex from 'katex';
+import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe';
 
 @Component({
     selector: 'app-katex-tool',
     templateUrl: './katex-tool.component.html',
-    styleUrls: ['./katex-tool.component.scss']
+    styleUrls: ['./katex-tool.component.scss'],
+    providers: [GetKatexStringPipe]
 })
 export class KatexToolComponent {
 
     @ViewChild('katexContent') katexContent: ElementRef;
     equation = '';
-    katex;
 
     constructor(
         @Inject(TuiTiptapEditorService)
-        private readonly editor: TuiTiptapEditorService
+        private readonly editor: TuiTiptapEditorService,
+        private getKatexStringPipe: GetKatexStringPipe
     ) {}
 
     displayKatex() {
-        Katex.render(this.equation, this.katexContent.nativeElement, {
-            throwOnError: false
-        });
+        this.katexContent.nativeElement.innerHTML = this.getKatexStringPipe.transform(this.equation);
     }
 
     insertKatex() {
-        console.log(this.katexContent.nativeElement);
-
         this.editor
             .getOriginTiptapEditor()
             .chain()
             .focus()
             .insertContent({
-                type: 'math_inline',
+                type: 'editor_inline_math',
                 attrs: {
                     equation: this.equation
                 }

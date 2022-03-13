@@ -77,7 +77,6 @@ import {
     DefaultCreateEditSnippetComponent
 } from './problem-create-edit/default-create-edit-snippet/default-create-edit-snippet.component';
 import {CodeEditorModule} from '@app/components/code-editor/code-editor.module';
-import {QuillModule} from 'ngx-quill';
 import {EditorModule} from '@app/components/editor/editor.module';
 import {TuiEditorSocketModule} from '@taiga-ui/addon-editor';
 
@@ -144,8 +143,7 @@ import {TuiEditorSocketModule} from '@taiga-ui/addon-editor';
         TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
-        TuiTextfieldControllerModule,
-        QuillModule.forRoot(),
+        TuiTextfieldControllerModule
     ],
     exports: [
         ProblemViewComponent,

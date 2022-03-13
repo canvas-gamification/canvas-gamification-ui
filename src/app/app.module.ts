@@ -28,7 +28,6 @@ import {NotFoundComponent} from './components/general/not-found/not-found.compon
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
 import {AdminComponent} from './admin/admin.component';
 import {AdminModule} from "@app/admin/admin.module";
-import {QuillModule} from 'ngx-quill';
 
 import {
     TuiButtonModule,
@@ -126,32 +125,7 @@ import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify';
         TuiTableModule,
         TuiTablePaginationModule,
         TuiThemeNightModule,
-        TuiToggleModule,
-        QuillModule.forRoot({
-            modules: {
-                formula: true,
-                toolbar: [
-                    ['bold', 'italic', 'underline', 'strike'],
-                    ['blockquote', 'code-block'],
-
-                    [{'header': 1}, {'header': 2}],
-                    [{'list': 'ordered'}, {'list': 'bullet'}],
-                    [{'script': 'sub'}, {'script': 'super'}],
-                    [{'indent': '-1'}, {'indent': '+1'}],
-                    [{'direction': 'rtl'}],
-
-                    [{'size': ['small', false, 'large', 'huge']}],
-                    [{'header': [1, 2, 3, 4, 5, 6, false]}],
-
-                    [{'color': []}, {'background': []}],
-                    [{'font': []}],
-                    [{'align': []}],
-
-                    ['clean'],
-                    ['formula', 'image']
-                ]
-            }
-        })
+        TuiToggleModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

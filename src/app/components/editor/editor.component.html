@@ -1,12 +1,13 @@
-<form [formGroup]="editorForm">
-    <tui-editor new [exampleText]="exampleText" formControlName="editor">
-        {{placeHolder !== '' ? placeHolder : null}}
-        <ng-container ngProjectAs="tools">
-            <app-katex-tool tuiToolbarTool></app-katex-tool>
-        </ng-container>
-    </tui-editor>
-</form>
-
-{{editorForm.controls.editor.value}}
-
-<tui-editor-socket [content]="editorForm.controls.editor.value"></tui-editor-socket>
+<ng-container *ngIf="!readonly else editorSocket">
+    <form [formGroup]="editorForm">
+        <tui-editor new [exampleText]="exampleText" formControlName="editor">
+            {{placeHolder}}
+            <ng-container ngProjectAs="tools">
+                <app-katex-tool tuiToolbarTool></app-katex-tool>
+            </ng-container>
+        </tui-editor>
+    </form>
+</ng-container>
+<ng-template #editorSocket>
+    <tui-editor-socket [content]="editorForm.controls.editor.value | getKatexHtmlString"></tui-editor-socket>
+</ng-template>
