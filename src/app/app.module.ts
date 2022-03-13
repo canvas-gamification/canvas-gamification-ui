@@ -27,7 +27,7 @@ import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
 import {AdminComponent} from './admin/admin.component';
-import {AdminModule} from "@app/admin/admin.module";
+import {AdminModule} from '@app/admin/admin.module';
 
 import {
     TuiButtonModule,
@@ -41,7 +41,8 @@ import {
     TuiNotificationsModule,
     TuiDialogModule,
     TuiLoaderModule,
-    TuiModeModule, TUI_SANITIZER
+    TuiModeModule,
+    TUI_SANITIZER
 } from '@taiga-ui/core';
 import {
     TuiAvatarModule,
@@ -50,18 +51,19 @@ import {
     TuiInputCountModule,
     TuiIslandModule,
     TuiToggleModule,
-    TuiMarkerIconModule, TUI_VALIDATION_ERRORS
-} from "@taiga-ui/kit";
-import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
-import {TuiActiveZoneModule} from "@taiga-ui/cdk";
-import {PipesModule} from "@app/_helpers/pipes/pipes.module";
-import {CourseIslandModule} from "@app/components/course-island/course-island.module";
-import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
-import {FaqAccordionModule} from "@app/components/faq-accordion/faq-accordion.module";
-import {ProblemsModule} from "@app/problems/problems.module";
-import {ContactModule} from "@app/components/contact/contact.module";
-import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
-import {FooterModule} from "@app/components/footer/footer.module";
+    TuiMarkerIconModule,
+    TUI_VALIDATION_ERRORS
+} from '@taiga-ui/kit';
+import {TuiSidebarModule} from '@taiga-ui/addon-mobile';
+import {TuiActiveZoneModule} from '@taiga-ui/cdk';
+import {PipesModule} from '@app/_helpers/pipes/pipes.module';
+import {CourseIslandModule} from '@app/components/course-island/course-island.module';
+import {TuiTableModule, TuiTablePaginationModule} from '@taiga-ui/addon-table';
+import {FaqAccordionModule} from '@app/components/faq-accordion/faq-accordion.module';
+import {ProblemsModule} from '@app/problems/problems.module';
+import {ContactModule} from '@app/components/contact/contact.module';
+import {CodeEditorModule} from '@app/components/code-editor/code-editor.module';
+import {FooterModule} from '@app/components/footer/footer.module';
 import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify';
 
 @NgModule({

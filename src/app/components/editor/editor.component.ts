@@ -8,7 +8,6 @@ import {
 import {
     ControlValueAccessor,
     FormControl,
-    FormGroup,
     NG_VALIDATORS,
     NG_VALUE_ACCESSOR,
     ValidationErrors,
@@ -54,9 +53,7 @@ export class EditorComponent implements ControlValueAccessor, Validator, OnDestr
     @Input() placeHolder = '';
     @Input() readonly = false;
 
-    editorForm = new FormGroup({
-        editor: new FormControl('', [Validators.required])
-    });
+    editor = new FormControl('', [Validators.required]);
     onTouched = (): void => {
         return;
     };
@@ -70,7 +67,7 @@ export class EditorComponent implements ControlValueAccessor, Validator, OnDestr
     }
 
     registerOnChange(onChange: never): void {
-        const sub = this.editorForm.controls.editor.valueChanges.subscribe(onChange);
+        const sub = this.editor.valueChanges.subscribe(onChange);
         this.onChangeSubs.push(sub);
     }
 
@@ -79,14 +76,14 @@ export class EditorComponent implements ControlValueAccessor, Validator, OnDestr
     }
 
     setDisabledState(isDisabled: boolean): void {
-        isDisabled ? this.editorForm.controls.editor.disable() : this.editorForm.controls.editor.enable();
+        isDisabled ? this.editor.disable() : this.editor.enable();
     }
 
     writeValue(value: string): void {
-        this.editorForm.controls.editor.setValue(value);
+        this.editor.setValue(value);
     }
 
     validate(): ValidationErrors | null {
-        return this.editorForm.controls.editor.errors;
+        return this.editor.errors;
     }
 }

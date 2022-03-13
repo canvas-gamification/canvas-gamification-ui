@@ -31,7 +31,6 @@
         "@angular/platform-browser": "~13.2.2",
         "@angular/platform-browser-dynamic": "~13.2.2",
         "@angular/router": "~13.2.2",
-        "@benrbray/prosemirror-math": "^0.2.2",
         "@codemirror/basic-setup": "^0.19.1",
         "@codemirror/commands": "^0.19.8",
         "@codemirror/lang-java": "^0.19.1",

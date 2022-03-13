@@ -6,7 +6,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {KatexToolComponent} from './katex-tool/katex-tool.component';
 import {
     TuiButtonModule,
-    TuiDropdownControllerModule, TuiDropdownModule,
+    TuiDropdownControllerModule,
+    TuiDropdownModule,
     TuiHostedDropdownModule,
     TuiTextfieldControllerModule
 } from '@taiga-ui/core';
