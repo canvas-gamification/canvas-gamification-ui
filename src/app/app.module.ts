@@ -27,8 +27,7 @@ import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
 import {AdminComponent} from './admin/admin.component';
-import {AdminModule} from "@app/admin/admin.module";
-import {QuillModule} from 'ngx-quill';
+import {AdminModule} from '@app/admin/admin.module';
 
 import {
     TuiButtonModule,
@@ -42,7 +41,8 @@ import {
     TuiNotificationsModule,
     TuiDialogModule,
     TuiLoaderModule,
-    TuiModeModule
+    TuiModeModule,
+    TUI_SANITIZER
 } from '@taiga-ui/core';
 import {
     TuiAvatarModule,
@@ -51,18 +51,20 @@ import {
     TuiInputCountModule,
     TuiIslandModule,
     TuiToggleModule,
-    TuiMarkerIconModule, TUI_VALIDATION_ERRORS
-} from "@taiga-ui/kit";
-import {TuiSidebarModule} from "@taiga-ui/addon-mobile";
-import {TuiActiveZoneModule} from "@taiga-ui/cdk";
-import {PipesModule} from "@app/_helpers/pipes/pipes.module";
-import {CourseIslandModule} from "@app/components/course-island/course-island.module";
-import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table";
-import {FaqAccordionModule} from "@app/components/faq-accordion/faq-accordion.module";
-import {ProblemsModule} from "@app/problems/problems.module";
-import {ContactModule} from "@app/components/contact/contact.module";
-import {CodeEditorModule} from "@app/components/code-editor/code-editor.module";
-import {FooterModule} from "@app/components/footer/footer.module";
+    TuiMarkerIconModule,
+    TUI_VALIDATION_ERRORS
+} from '@taiga-ui/kit';
+import {TuiSidebarModule} from '@taiga-ui/addon-mobile';
+import {TuiActiveZoneModule} from '@taiga-ui/cdk';
+import {PipesModule} from '@app/_helpers/pipes/pipes.module';
+import {CourseIslandModule} from '@app/components/course-island/course-island.module';
+import {TuiTableModule, TuiTablePaginationModule} from '@taiga-ui/addon-table';
+import {FaqAccordionModule} from '@app/components/faq-accordion/faq-accordion.module';
+import {ProblemsModule} from '@app/problems/problems.module';
+import {ContactModule} from '@app/components/contact/contact.module';
+import {CodeEditorModule} from '@app/components/code-editor/code-editor.module';
+import {FooterModule} from '@app/components/footer/footer.module';
+import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify';
 
 @NgModule({
     declarations: [
@@ -125,32 +127,7 @@ import {FooterModule} from "@app/components/footer/footer.module";
         TuiTableModule,
         TuiTablePaginationModule,
         TuiThemeNightModule,
-        TuiToggleModule,
-        QuillModule.forRoot({
-            modules: {
-                formula: true,
-                toolbar: [
-                    ['bold', 'italic', 'underline', 'strike'],
-                    ['blockquote', 'code-block'],
-
-                    [{'header': 1}, {'header': 2}],
-                    [{'list': 'ordered'}, {'list': 'bullet'}],
-                    [{'script': 'sub'}, {'script': 'super'}],
-                    [{'indent': '-1'}, {'indent': '+1'}],
-                    [{'direction': 'rtl'}],
-
-                    [{'size': ['small', false, 'large', 'huge']}],
-                    [{'header': [1, 2, 3, 4, 5, 6, false]}],
-
-                    [{'color': []}, {'background': []}],
-                    [{'font': []}],
-                    [{'align': []}],
-
-                    ['clean'],
-                    ['formula', 'image']
-                ]
-            }
-        })
+        TuiToggleModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
@@ -173,6 +150,10 @@ import {FooterModule} from "@app/components/footer/footer.module";
                 minlength: 'Password must contain at least 8 characters.',
                 confirmedValidator: 'Passwords must match!'
             },
+        },
+        {
+            provide: TUI_SANITIZER,
+            useClass: NgDompurifySanitizer
         }
     ],
     bootstrap: [AppComponent]

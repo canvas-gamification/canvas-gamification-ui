@@ -6,7 +6,7 @@
                 [item]="choice.id"
                 contentAlign="left"
             >
-                <div [innerHTML]="choice.safeValue"></div>
+                <app-editor [ngModel]="choice.value" [ngModelOptions]="{standalone: true}" [readonly]="true"></app-editor>
             </tui-radio-block>
         </div>
         <div class="tui-form__buttons">
@@ -28,7 +28,7 @@
                 [formControl]="checkboxesArray.controls[index] | asFormControl"
                 contentAlign="left"
             >
-                <div [innerHTML]="choiceArray[index].safeValue"></div>
+                <app-editor [ngModel]="choiceArray[index].value" [ngModelOptions]="{standalone: true}" [readonly]="true"></app-editor>
             </tui-checkbox-block>
         </div>
         <div class="tui-form__buttons">

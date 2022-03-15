@@ -1,0 +1,26 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+
+.katex-tool {
+    min-width: 5rem;
+    display: flex;
+    flex-direction: column;
+    padding: var(--tui-padding-m);
+
+    &_input {
+        display: flex;
+        align-items: center;
+        width: 100%;
+
+        &-text {
+            flex-grow: 1;
+        }
+    }
+}
+
+.tool-button {
+    @include transition(background);
+
+    &:hover {
+        background: var(--tui-secondary-hover);
+    }
+}

@@ -1,0 +1,17 @@
+<ng-container *ngIf="!readonly else editorSocket">
+    <tui-editor
+        new
+        [exampleText]="exampleText"
+        [ngModel]="editor.value"
+        (ngModelChange)="editor.setValue($event)"
+        [ngModelOptions]="{standalone: true}"
+    >
+        {{placeHolder}}
+        <ng-container ngProjectAs="tools">
+            <app-katex-tool tuiToolbarTool></app-katex-tool>
+        </ng-container>
+    </tui-editor>
+</ng-container>
+<ng-template #editorSocket>
+    <tui-editor-socket [content]="editor.value | getKatexHtmlString"></tui-editor-socket>
+</ng-template>
