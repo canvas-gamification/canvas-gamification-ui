@@ -12,7 +12,7 @@
     </ng-container>
     <ng-container *ngIf="!registered">
         <tui-notification class="tui-space_bottom-7" status="info">
-            Note: You can only register in courses that you are also registered in on Canvas!
+            Before completing registration, make sure you are also registered in the same class on Canvas
         </tui-notification>
         <app-course-registration-stepper [steps]="['Enter Name', 'Confirm Identity', 'Verification', 'Registered']"
                                          #stepper>
