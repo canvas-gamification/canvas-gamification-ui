@@ -3,7 +3,10 @@
         <h3 class="tui-form__header tui-form__header_margin-top_none">Lines</h3>
         <tui-island class="container" [dragula]="file.name" [(dragulaModel)]="leftContainer">
             <div class="container-object" *ngFor="let line of leftContainer">
-                <pre>{{ line.value }}</pre>
+                <ng-container
+                    [ngTemplateOutlet]="parsonsNestedTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: line }"
+                ></ng-container>
             </div>
         </tui-island>
     </div>
@@ -11,8 +14,24 @@
         <h3 class="tui-form__header tui-form__header_margin-top_none">My Solution</h3>
         <tui-island class="container" [dragula]="file.name" [(dragulaModel)]="rightContainer">
             <div class="container-object" *ngFor="let line of rightContainer">
-                <pre>{{ line.value }}</pre>
+                <ng-container
+                    [ngTemplateOutlet]="parsonsNestedTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: line }"
+                ></ng-container>
             </div>
         </tui-island>
     </div>
 </div>
+<ng-template #parsonsNestedTemplate let-parsonsObject>
+    {{parsonsObject.value}}
+    <ng-container *ngIf="parsonsObject['canNestObjects']">
+        <tui-island class="container container-nested tui-space_top-1" [dragula]="file.name" [(dragulaModel)]="parsonsObject['nestedObjects']">
+            <div class="container-object" *ngFor="let line of parsonsObject['nestedObjects']">
+                <ng-container
+                    [ngTemplateOutlet]="parsonsNestedTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: line }"
+                ></ng-container>
+            </div>
+        </tui-island>
+    </ng-container>
+</ng-template>

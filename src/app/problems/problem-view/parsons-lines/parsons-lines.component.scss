@@ -3,12 +3,42 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    padding: var(--tui-padding-s);
+    background-color: var(--tui-base-02);
+
+    &-nested:not(:empty) {
+        padding: 0;
+    }
 
     &-object {
         cursor: move;
-        padding: 0.1rem 1rem;
-        background-color: var(--tui-base-02);
-        border-radius: var(--tui-radius-s);
+        padding: 0.3rem 1rem 0.5rem;
+        background-color: var(--tui-base-01);
+        border: solid 0.15rem var(--tui-base-01);
+
+        &:hover {
+            border: solid 0.15rem var(--tui-primary-hover);
+        }
+
+        &:not(:only-child) {
+            &:last-child {
+                border-radius: var(--tui-radius-s);
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+            &:first-child {
+                border-radius: var(--tui-radius-s);
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+        &:only-child {
+            border-radius: var(--tui-radius-s);
+        }
     }
+}
+
+.remove-container-events {
+    pointer-events: none;
 }
