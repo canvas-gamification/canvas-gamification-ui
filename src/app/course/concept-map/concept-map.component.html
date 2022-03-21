@@ -34,5 +34,4 @@
         <em>Note: Drag on any blank area to move around the graph!</em>
     </span>
 </div>
-<div id="paper" #flowchartComponent></div>
-<div *ngIf="flowchartComponent.children.length === 0" class="flowchart-skeleton tui-skeleton"></div>
+<div id="paper" [class.tui-skeleton]="flowchartComponent.children.length === 0" #flowchartComponent></div>
