@@ -51,4 +51,23 @@ describe('ParsonsInputFilesEditorComponent', () => {
         expect(component.getLines(form).removeAt).toHaveBeenCalled();
         expect(component.getLines(form).length).toBe(valLength - 1);
     });
+
+    it('should set lines from code block', () => {
+        const form = new FormGroup({lines: new FormArray([])});
+        const codeBlock =
+            'public int sub(int x, int y) {\n' +
+            '    if (x == y)\n' +
+            '        return true;\n' +
+            '    else\n' +
+            '        return false;\n' +
+            '}';
+        component.codeBlock = codeBlock;
+        fixture.detectChanges();
+        component.setLinesFromCodeBlock(form);
+        expect(component.getLines(form).length).toEqual(6);
+        const codeBlockSplit = codeBlock.split('\n').map(line => line.trim());
+        component.getLines(form).getRawValue().forEach((value, index) => {
+            expect(value).toEqual(codeBlockSplit[index]);
+        });
+    });
 });
