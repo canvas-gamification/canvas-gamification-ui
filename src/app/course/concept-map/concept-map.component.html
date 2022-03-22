@@ -1,37 +1,32 @@
 <div class="flowchart-instructions tui-space_bottom-4">
-    <div class="flowchart-instructions_left">
-        <button
-            tuiButton
-            size="s"
-            appearance="primary"
-            icon="tuiIconArrowLeft"
-            aria-label="Back"
-            [disabled]="!parentNode"
-            class="tui-space_right-4"
+    <button
+        tuiButton
+        size="s"
+        appearance="primary"
+        icon="tuiIconArrowLeft"
+        aria-label="Back"
+        [disabled]="!parentNode"
+        class="tui-space_right-4"
+        [class.tui-skeleton]="flowchartComponent.children.length === 0"
+        (click)="reset()"
+    >
+        Back
+    </button>
+    <ng-container *ngIf="parentNode else topLevel">
+        <h2
+            class="tui-text_h5 tui-space_vertical-0"
             [class.tui-skeleton]="flowchartComponent.children.length === 0"
-            (click)="reset()"
         >
-            Back
-        </button>
-        <ng-container *ngIf="parentNode else topLevel">
-            <h2
-                class="tui-text_h5 tui-space_vertical-0"
-                [class.tui-skeleton]="flowchartComponent.children.length === 0"
-            >
-                Sub-Categories for {{parentNodeName}}
-            </h2>
-        </ng-container>
-        <ng-template #topLevel>
-            <h2
-                class="tui-text_h5 tui-space_vertical-0"
-                [class.tui-skeleton]="flowchartComponent.children.length === 0"
-            >
-                Top-Level Categories
-            </h2>
-        </ng-template>
-    </div>
-    <span class="tui-form__field-note" [class.tui-skeleton]="flowchartComponent.children.length === 0">
-        <em>Note: Drag on any blank area to move around the graph!</em>
-    </span>
+            Sub-Categories for {{parentNodeName}}
+        </h2>
+    </ng-container>
+    <ng-template #topLevel>
+        <h2
+            class="tui-text_h5 tui-space_vertical-0"
+            [class.tui-skeleton]="flowchartComponent.children.length === 0"
+        >
+            Top-Level Categories
+        </h2>
+    </ng-template>
 </div>
 <div id="paper" [class.tui-skeleton]="flowchartComponent.children.length === 0" #flowchartComponent></div>
