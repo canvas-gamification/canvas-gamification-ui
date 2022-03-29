@@ -20,3 +20,13 @@
         flex-grow: 1;
     }
 }
+
+.code-block-dropdown {
+    min-width: 15rem;
+    max-width: 25rem;
+    padding: var(--tui-padding-m);
+
+    &_button {
+        width: 100%;
+    }
+}

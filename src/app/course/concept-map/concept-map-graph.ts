@@ -1,5 +1,4 @@
 import * as jQuery from 'jquery';
-import * as _ from 'lodash';
 import dagre from 'dagre';
 import graphlib from 'graphlib';
 import * as joint from 'jointjs';
@@ -8,7 +7,8 @@ import {Category} from '@app/_models';
 export class ConceptMapGraph {
     graph;
     paper;
-    scrollingPosition: { x: number, y: number };
+    offsetX = 20;
+    offsetY = 20;
 
     constructor(onclick: (number) => unknown) {
         this.graph = new joint.dia.Graph();
@@ -16,28 +16,18 @@ export class ConceptMapGraph {
         this.paper = new joint.dia.Paper({
             el: jQuery('#paper'),
             width: '100%',
-            height: '60vh',
+            height: '30rem',
             model: this.graph,
             gridSize: 20,
-            interactive: false,
+            interactive: false
         });
+        this.paper.translate(this.offsetX, this.offsetY);
 
         this.paper.on('cell:pointerdown', (cellView) => {
             if (cellView.model.attributes.type === 'standard.Ellipse') {
                 onclick(cellView.model.id);
             }
         });
-        this.paper.on('blank:pointerdown', (event, x, y) => {
-            this.scrollingPosition = {x: x, y: y};
-        });
-        this.paper.on('blank:pointerup cell:pointerup', () => {
-            this.scrollingPosition = null;
-        });
-        document.getElementById('paper').onmousemove = (event) => {
-            if (this.scrollingPosition)
-                this.paper.translate(event.offsetX - this.scrollingPosition.x,
-                    event.offsetY - this.scrollingPosition.y);
-        };
     }
 
     makeElement(id: number, label: string): joint.shapes.standard.Ellipse {
@@ -108,11 +98,11 @@ export class ConceptMapGraph {
         const elements = [];
         const links = [];
 
-        _.each(adjacencyList, (category) => {
-            const label = category.name.replaceAll(' ', '\n') + '\n\nAverage Success:\n' + Math.round(category.average_success) + '%';
+        adjacencyList.forEach(category => {
+            const label = `${category.name.replaceAll(' ', '\n')}\n\n${Math.round(category.average_success)}% (${category.question_count} Total)`;
             elements.push(this.makeElement(category.pk, label));
 
-            _.each(category.next_category_ids, (childElementId) => {
+            category.next_category_ids.forEach(childElementId => {
                 links.push(this.makeLink(category.pk, childElementId));
             });
         });
@@ -123,7 +113,7 @@ export class ConceptMapGraph {
     buildGraphFromAdjacencyList(adj: Category[]): void {
         const cells = this.makeCellsFromAdjacencyList(adj);
         this.graph.resetCells(cells);
-        joint.layout.DirectedGraph.layout(this.graph, {
+        const directedGraph = joint.layout.DirectedGraph.layout(this.graph, {
             dagre,
             graphlib,
             nodeSep: 40,
@@ -131,5 +121,7 @@ export class ConceptMapGraph {
             ranker: 'longest-path',
             rankDir: 'LR',
         });
+        this.paper.svg.style.width = `${directedGraph.width + this.offsetX * 2}px`;
+        this.paper.svg.style.height = `${directedGraph.height + this.offsetY * 2}px`;
     }
 }

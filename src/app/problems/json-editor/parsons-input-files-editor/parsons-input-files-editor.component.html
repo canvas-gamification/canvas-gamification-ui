@@ -64,15 +64,54 @@
                                     </ng-template>
                                 </div>
                             </tui-island>
-                            <button
-                                tuiButton
-                                size="m"
-                                icon="tuiIconPlus"
-                                type="button"
-                                (click)="addNewLine(form)"
-                            >
-                                Add New Line
-                            </button>
+                            <div class="tui-form__buttons tui-space_top-2">
+                                <button
+                                    tuiButton
+                                    size="m"
+                                    icon="tuiIconPlus"
+                                    type="button"
+                                    class="tui-form__button"
+                                    (click)="addNewLine(form)"
+                                >
+                                    Add New Line
+                                </button>
+                                <tui-hosted-dropdown
+                                    [content]="codeBlockDropdown"
+                                    #hostedCodeBlockDropdown
+                                    class="tui-form__button"
+                                >
+                                    <button
+                                        tuiButton
+                                        size="m"
+                                        icon="tuiIconCode"
+                                        iconRight="tuiIconChevronDown"
+                                        type="button"
+                                        class="code-block-dropdown_button"
+                                        [pseudoPressed]="hostedCodeBlockDropdown.open"
+                                        [focusable]="hostedCodeBlockDropdown.open"
+                                    >
+                                        Set With Code Block
+                                    </button>
+                                </tui-hosted-dropdown>
+                                <ng-template #codeBlockDropdown let-activeZone>
+                                    <form
+                                        class="code-block-dropdown"
+                                        [tuiActiveZoneParent]="activeZone"
+                                        (submit)="setLinesFromCodeBlock(form); hostedCodeBlockDropdown.updateOpen(false)"
+                                    >
+                                        <app-code-editor [(codeTemplate)]="codeBlock"></app-code-editor>
+                                        <div class="tui-form__buttons tui-space_top-2">
+                                            <button
+                                                tuiButton
+                                                size="s"
+                                                class="tui-form__button"
+                                            >
+                                                Set Code
+                                            </button>
+                                        </div>
+                                    </form>
+                                </ng-template>
+                            </div>
                         </div>
                     </div>
                     <div class="tui-col_4">
