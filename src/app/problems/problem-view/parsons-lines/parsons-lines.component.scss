@@ -1,23 +1,38 @@
 @import '~@taiga-ui/core/styles/taiga-ui-local';
 
-.container {
+.right-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+.container {
+    flex-grow: 1;
     padding: var(--tui-padding-s);
     background-color: var(--tui-base-02);
 
+    &-nested:empty {
+        display: none;
+    }
+
+    &-nested_hover:empty {
+        display: block;
+    }
+
     &-nested:not(:empty) {
-        padding: 0;
+        padding: 0.5rem;
+        border-left: dashed 0.15rem var(--tui-base-05);
     }
 
     &-object {
         cursor: move;
-        padding: 0.3rem 1rem 0.5rem;
+        padding: 0.2rem 1rem;
         background-color: var(--tui-base-01);
-        border: solid 0.15rem var(--tui-base-01);
+        //border: solid 0.15rem var(--tui-base-01);
 
         &:hover {
-            border: solid 0.15rem var(--tui-primary-hover);
+            border: solid 1px var(--tui-primary-hover);
+            border-left: none;
+            border-right: none;
         }
 
         &:not(:only-child) {
@@ -25,16 +40,21 @@
                 border-radius: var(--tui-radius-s);
                 border-top-left-radius: 0;
                 border-top-right-radius: 0;
+                padding-bottom: 0.5rem;
             }
 
             &:first-child {
                 border-radius: var(--tui-radius-s);
                 border-bottom-left-radius: 0;
                 border-bottom-right-radius: 0;
+                padding-top: 0.5rem;
             }
         }
+
         &:only-child {
             border-radius: var(--tui-radius-s);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
         }
     }
 }

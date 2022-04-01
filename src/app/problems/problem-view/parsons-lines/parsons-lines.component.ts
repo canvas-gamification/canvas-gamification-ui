@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ParsonsFile} from '@app/_models';
 import {DragulaService} from 'ng2-dragula';
 import {Subscription} from 'rxjs';
@@ -17,20 +17,31 @@ export class ParsonsLinesComponent implements OnInit, OnDestroy {
 
     subscriptions: Subscription = new Subscription();
 
-    constructor(private dragulaService: DragulaService) {
-    }
+    constructor(
+        private dragulaService: DragulaService,
+        private elementRef: ElementRef
+    ) {}
 
     ngOnInit(): void {
-        for (const line of this.file.lines) {
-            this.leftContainer.push(new ContainerObject(line));
-        }
+        this.leftContainer = this.file.lines.map(line => {
+            return new ContainerObject(line);
+        });
         this.dragulaService.createGroup(this.file.name, {
             revertOnSpill: true
         });
-
         this.subscriptions.add(
             this.dragulaService.dragend().subscribe(() => {
                 this.calculateSourceCode();
+                [...this.elementRef.nativeElement.getElementsByClassName('container-nested')].forEach(element => {
+                    element.classList.remove('container-nested_hover');
+                });
+            })
+        );
+        this.subscriptions.add(
+            this.dragulaService.drag().subscribe(() => {
+                [...this.elementRef.nativeElement.getElementsByClassName('container-nested')].forEach(element => {
+                    element.classList.add('container-nested_hover');
+                });
             })
         );
         // These two subscriptions are used as a workaround to stop nested dragula arrays
@@ -69,25 +80,9 @@ export class ParsonsLinesComponent implements OnInit, OnDestroy {
 }
 
 class ContainerObject {
-    canNestObjects = false;
     nestedObjects: Array<ContainerObject> = [];
 
     constructor(public value: string) {
-        this.canNestObjects = this.determineIfNestObjects(value);
-    }
-
-    determineIfNestObjects(value: string) {
-        let matchExpression = false;
-        const elseIfMatch = /(else\s)?if\s*\((.*?)\)\s*{?/;
-        const elseMatch = /else\s*{?/;
-        const whileMatch = /while\s*\((.*?)\)\s*{?/;
-        const forMatch = /for\s*\((.*?)\)\s*{?/;
-        const curlyBraceMatch = /(.*?){/;
-        [elseIfMatch, elseMatch, whileMatch, forMatch, curlyBraceMatch].forEach(regExp => {
-            const match = value.match(regExp);
-            if (match && !matchExpression) matchExpression = match[0] === value;
-        });
-        return matchExpression;
     }
 
     /**
