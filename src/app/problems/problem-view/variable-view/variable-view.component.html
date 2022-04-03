@@ -1,5 +1,5 @@
-<tui-island class="tui-space_bottom-4">
-    <h2 class="tui-island__title">Generated Variables</h2>
+<tui-island class="tui-space_bottom-6">
+    <h2 class="tui-text_h6 tui-space_top-0">Generated Variables</h2>
     <ng-container *ngIf="generatedVariables.length !== 0; else elseBlock">
         <p class="tui-island__paragraph" *ngFor="let variable of generatedVariables">
             {{ variable.name }}: {{ variable.value }}

@@ -4,15 +4,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-
-    &-title {
-        padding-bottom: 1rem;
-        @include inset-border(bottom, medium);
-    }
 }
 
-.view-switcher__wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.island_container {
+    width: 100%;
 }
