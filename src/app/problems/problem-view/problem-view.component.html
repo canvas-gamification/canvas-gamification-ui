@@ -21,7 +21,7 @@
                 [class.tui-skeleton]="!uqj"
                 [status]="uqj.status | tuiStatus"
                 [value]="uqj.status"
-                *ngIf="uqj && uqj.status !== 'No Status'"
+                *ngIf="uqj && uqj.status !== 'No Status' && uqj.status !== 'New'"
             ></tui-badge>
         </div>
         <p
