@@ -1,8 +1,11 @@
 .footer {
+    height: 4rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 2.5rem 0 1.25rem;
+    //padding-top: 1.25rem;
+    //padding-bottom: 1.25rem;
+    border-top: solid 1px var(--tui-base-03);
 
     &-links {
         list-style-type: none;
