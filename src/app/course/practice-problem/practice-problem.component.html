@@ -25,7 +25,7 @@
             <tui-select
                 [tuiTextfieldCleaner]="true"
                 [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-                (ngModelChange)="changeDifficulty($event)"
+                (ngModelChange)="updateQuestions($event, include_solved)"
                 [ngModel]="difficulty"
                 tuiTextfieldSize="m"
                 [class.tui-skeleton]="!difficulties"
@@ -37,6 +37,14 @@
                     </button>
                 </tui-data-list>
             </tui-select>
+            <tui-checkbox-labeled
+                [ngModel]="include_solved"
+                (ngModelChange)="updateQuestions(difficulty, $event)"
+                class="tui-space_top-4"
+                [class.tui-skeleton]="!difficulties"
+            >
+                Include Solved
+            </tui-checkbox-labeled>
         </div>
         <div class="practice-sidebar_buttons tui-space_vertical-6">
             <button
