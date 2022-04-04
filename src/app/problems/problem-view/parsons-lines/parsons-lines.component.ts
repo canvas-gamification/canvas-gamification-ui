@@ -78,6 +78,25 @@ export class ParsonsLinesComponent implements OnInit, OnDestroy {
         }, '');
         this.code.emit(answer);
     }
+
+    /**
+     * This is to deal with displaying the hovered container in nested containers
+     * When hovered, ensure that the hovered container is only displaying as hovered
+     * Other containers are set to not hover.
+     */
+    containerObjectHover(event: MouseEvent): void {
+        [...this.elementRef.nativeElement.getElementsByClassName('container-object')].forEach(element => {
+            if (element !== (event.target as Element))
+                element.classList.add('container-object_hover-none');
+            else
+                element.classList.remove('container-object_hover-none');
+        });
+    }
+    containerObjectRemoveHover(): void {
+        [...this.elementRef.nativeElement.getElementsByClassName('container-object')].forEach(element => {
+            element.classList.remove('container-object_hover-none');
+        });
+    }
 }
 
 class ContainerObject {

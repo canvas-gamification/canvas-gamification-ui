@@ -10,8 +10,9 @@
     padding: var(--tui-padding-s);
     background-color: var(--tui-base-02);
 
-    &-nested:empty {
+    &-nested {
         display: none;
+        border-left: dashed 0.15rem var(--tui-base-05);
     }
 
     &-nested_hover:empty {
@@ -19,20 +20,21 @@
     }
 
     &-nested:not(:empty) {
-        padding: 0.5rem;
-        border-left: dashed 0.15rem var(--tui-base-05);
+        display: block;
     }
 
     &-object {
         cursor: move;
         padding: 0.2rem 1rem;
         background-color: var(--tui-base-01);
-        //border: solid 0.15rem var(--tui-base-01);
+        border: solid 0.15rem var(--tui-base-01);
 
         &:hover {
-            border: solid 1px var(--tui-primary-hover);
-            border-left: none;
-            border-right: none;
+            border-color: var(--tui-primary-hover);
+        }
+
+        &_hover-none {
+            border-color: var(--tui-base-01) !important;
         }
 
         &:not(:only-child) {
