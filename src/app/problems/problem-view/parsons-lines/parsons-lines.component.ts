@@ -65,6 +65,7 @@ export class ParsonsLinesComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        this.dragulaService.destroy(this.file.name);
         this.subscriptions.unsubscribe();
     }
 
