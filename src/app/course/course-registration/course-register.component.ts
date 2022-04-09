@@ -34,6 +34,8 @@ export class CourseRegisterComponent implements OnInit {
     attemptsRemaining: number;
     loadingContent: boolean;
     registered: boolean;
+    courseNotFound = false;
+    showSkeletons = true;
 
     readonly verificationNumberMask = {
         guide: true,
@@ -64,6 +66,10 @@ export class CourseRegisterComponent implements OnInit {
     getCourseName(): void {
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.courseName = course.name;
+            // this.showSkeletons = false;
+        }, () => {
+            this.courseNotFound = true;
+            // this.showSkeletons = false;
         });
     }
 

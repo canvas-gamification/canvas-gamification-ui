@@ -1,127 +1,155 @@
 <section class="tui-container tui-container_adaptive">
-    <h1 class="tui-text_h3 tui-space_vertical-10">Registration for {{courseName}}</h1>
-    <ng-container *ngIf="registered">
-        <tui-notification status="success">
-            You are already registered in this course
-        </tui-notification>
-        <div class="tui-form__buttons">
-            <a tuiButton class="tui-form__button" type="button" [routerLink]="['/course', courseId]" size="m">
-                Open Course
-            </a>
-        </div>
-    </ng-container>
-    <ng-container *ngIf="!registered">
-        <tui-notification class="tui-space_bottom-7" status="info">
-            Before completing registration, make sure you are also registered in the same class on Canvas.
-        </tui-notification>
-        <app-course-registration-stepper [steps]="['Enter Name', 'Confirm Identity', 'Verification', 'Registered']"
-                                         #stepper>
-            <app-course-registration-step>
-                <form [formGroup]="nameForm" (ngSubmit)="onNameFormSubmit()">
-                    <div class="tui-space_top-5">
-                        <tui-input formControlName="nameControl"
-                                   aria-label="Full Name on Canvas"
-                                   [tuiTextfieldCleaner]="true">
-                            Enter your full name as it appears on Canvas&nbsp;<span class="tui-required"></span>
-                        </tui-input>
-                        <tui-field-error formControlName="nameControl"></tui-field-error>
-                    </div>
-                    <div class="tui-form__buttons">
-                        <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
-                                aria-label="Previous"
-                                [disabled]="true">
-                            Prev
-                        </button>
-                        <button tuiButton class="tui-form__button" type="submit" size="m" aria-label="Next"
-                                [showLoader]="loadingContent">
-                            Next
-                        </button>
-                    </div>
-                </form>
-            </app-course-registration-step>
-            <app-course-registration-step>
-                <form [formGroup]="needsStudentNumber ? studentNumberForm : confirmNameForm"
-                      (ngSubmit)="onConfirmationFormSubmit()">
-                    <ng-container *ngIf="needsStudentNumber">
+    <ng-container *ngIf="!courseNotFound">
+        <h1
+            class="tui-text_h3 tui-space_vertical-10"
+            [class.tui-skeleton]="showSkeletons"
+            [class.tui-skeleton_text]="showSkeletons"
+        >
+            Registration for {{courseName}}
+        </h1>
+        <div class="course-registration_skeleton-notification tui-skeleton tui-space_bottom-7" *ngIf="showSkeletons"></div>
+        <div class="course-registration_skeleton tui-skeleton" *ngIf="showSkeletons"></div>
+        <ng-container *ngIf="registered && !showSkeletons">
+            <tui-notification status="success">
+                You are already registered in this course
+            </tui-notification>
+            <div class="tui-form__buttons">
+                <a tuiButton class="tui-form__button" type="button" [routerLink]="['/course', courseId]" size="m">
+                    Open Course
+                </a>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!registered && !showSkeletons">
+            <tui-notification class="tui-space_bottom-7" status="info">
+                Before completing registration, make sure you are also registered in the same class on Canvas.
+            </tui-notification>
+            <app-course-registration-stepper
+                [steps]="['Enter Name', 'Confirm Identity', 'Verification', 'Registered']"
+                #stepper
+            >
+                <app-course-registration-step>
+                    <form [formGroup]="nameForm" (ngSubmit)="onNameFormSubmit()">
                         <div class="tui-space_top-5">
-                            <tui-input formControlName="studentNumberControl"
-                                       aria-label="Student Number"
+                            <tui-input formControlName="nameControl"
+                                       aria-label="Full Name on Canvas"
                                        [tuiTextfieldCleaner]="true">
-                                Student Number&nbsp;<span class="tui-required"></span>
+                                Enter your full name as it appears on Canvas&nbsp;<span class="tui-required"></span>
                             </tui-input>
-                            <tui-field-error formControlName="studentNumberControl"></tui-field-error>
+                            <tui-field-error formControlName="nameControl"></tui-field-error>
                         </div>
-                    </ng-container>
-                    <ng-container *ngIf="!needsStudentNumber">
+                        <div class="tui-form__buttons">
+                            <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                                    aria-label="Previous"
+                                    [disabled]="true">
+                                Prev
+                            </button>
+                            <button tuiButton class="tui-form__button" type="submit" size="m" aria-label="Next"
+                                    [showLoader]="loadingContent">
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                </app-course-registration-step>
+                <app-course-registration-step>
+                    <form [formGroup]="needsStudentNumber ? studentNumberForm : confirmNameForm"
+                          (ngSubmit)="onConfirmationFormSubmit()">
+                        <ng-container *ngIf="needsStudentNumber">
+                            <div class="tui-space_top-5">
+                                <tui-input formControlName="studentNumberControl"
+                                           aria-label="Student Number"
+                                           [tuiTextfieldCleaner]="true">
+                                    Student Number&nbsp;<span class="tui-required"></span>
+                                </tui-input>
+                                <tui-field-error formControlName="studentNumberControl"></tui-field-error>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="!needsStudentNumber">
+                            <div class="tui-space_top-5">
+                                <tui-input formControlName="confirmNameControl"
+                                           aria-label="Confirm Name"
+                                           [tuiTextfieldCleaner]="true"
+                                           [readOnly]="true">
+                                    Please confirm that this is your name.&nbsp;<span class="tui-required"></span>
+                                </tui-input>
+                                <tui-field-error formControlName="confirmNameControl"></tui-field-error>
+                            </div>
+                        </ng-container>
+                        <div class="tui-form__buttons">
+                            <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                                    aria-label="Previous"
+                                    (click)="stepper.setPrevStep()">Prev
+                            </button>
+                            <button tuiButton class="tui-form__button" type="submit" size="m" aria-label="Next"
+                                    [showLoader]="loadingContent">
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                </app-course-registration-step>
+                <app-course-registration-step>
+                    <form [formGroup]="verifyForm" (ngSubmit)="onVerificationFormSubmit()">
                         <div class="tui-space_top-5">
-                            <tui-input formControlName="confirmNameControl"
-                                       aria-label="Confirm Name"
-                                       [tuiTextfieldCleaner]="true"
-                                       [readOnly]="true">
-                                Please confirm that this is your name.&nbsp;<span class="tui-required"></span>
+                            <tui-input formControlName="verifyControl"
+                                       aria-label="Verification Code"
+                                       [tuiTextfieldCleaner]="true" [textMask]="verificationNumberMask">
+                                Verification Code&nbsp;<span class="tui-required"></span>
                             </tui-input>
-                            <tui-field-error formControlName="confirmNameControl"></tui-field-error>
+                            <tui-field-error formControlName="verifyControl"></tui-field-error>
                         </div>
-                    </ng-container>
-                    <div class="tui-form__buttons">
-                        <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
-                                aria-label="Previous"
-                                (click)="stepper.setPrevStep()">Prev
-                        </button>
-                        <button tuiButton class="tui-form__button" type="submit" size="m" aria-label="Next"
-                                [showLoader]="loadingContent">
-                            Next
-                        </button>
-                    </div>
-                </form>
-            </app-course-registration-step>
-            <app-course-registration-step>
-                <form [formGroup]="verifyForm" (ngSubmit)="onVerificationFormSubmit()">
-                    <div class="tui-space_top-5">
-                        <tui-input formControlName="verifyControl"
-                                   aria-label="Verification Code"
-                                   [tuiTextfieldCleaner]="true" [textMask]="verificationNumberMask">
-                            Verification Code&nbsp;<span class="tui-required"></span>
-                        </tui-input>
-                        <tui-field-error formControlName="verifyControl"></tui-field-error>
-                    </div>
-                    <div class="tui-space_top-3">
-                        <tui-notification *ngIf="attemptsRemaining" status="error">
+                        <div class="tui-space_top-3">
+                            <tui-notification *ngIf="attemptsRemaining" status="error">
                             <span *ngIf="attemptsRemaining >= 1">
                                 Attempts Remaining: {{ attemptsRemaining }}
                             </span>
-                            <span *ngIf="attemptsRemaining < 1">
+                                <span *ngIf="attemptsRemaining < 1">
                                 You don't have any attempts remaining! Contact your instructor.
                             </span>
-                        </tui-notification>
-                    </div>
+                            </tui-notification>
+                        </div>
+                        <div class="tui-form__buttons">
+                            <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
+                                    aria-label="Previous"
+                                    [disabled]="true">
+                                Prev
+                            </button>
+                            <button tuiButton class="tui-form__button" type="submit" size="m" aria-label="Next"
+                                    [showLoader]="loadingContent">
+                                Next
+                            </button>
+                        </div>
+                    </form>
+                </app-course-registration-step>
+                <app-course-registration-step>
+                    <p class="tui-space_top-5">Registration Complete.</p>
                     <div class="tui-form__buttons">
                         <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
                                 aria-label="Previous"
                                 [disabled]="true">
                             Prev
                         </button>
-                        <button tuiButton class="tui-form__button" type="submit" size="m" aria-label="Next"
-                                [showLoader]="loadingContent">
-                            Next
-                        </button>
+                        <a tuiButton class="tui-form__button" type="button" [routerLink]="['/course', courseId]"
+                           size="m">
+                            Open Course
+                        </a>
                     </div>
-                </form>
-            </app-course-registration-step>
-            <app-course-registration-step>
-                <p class="tui-space_top-5">Registration Complete.</p>
-                <div class="tui-form__buttons">
-                    <button tuiButton class="tui-form__button" appearance="secondary" type="button" size="m"
-                            aria-label="Previous"
-                            [disabled]="true">
-                        Prev
-                    </button>
-                    <a tuiButton class="tui-form__button" type="button" [routerLink]="['/course', courseId]"
-                       size="m">
-                        Open Course
-                    </a>
-                </div>
-            </app-course-registration-step>
-        </app-course-registration-stepper>
+                </app-course-registration-step>
+            </app-course-registration-stepper>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngIf="courseNotFound">
+        <div class="course-registration_none">
+            <tui-marker-icon
+                src="tuiIconAlertCircleLarge"
+                mode="error"
+                size="s"
+                class="tui-space_bottom-4 tui-space_top-15"
+            ></tui-marker-icon>
+            <h1 class="tui-text_h6 tui-island_text-align_center">
+                Unable to find the course for registration.
+            </h1>
+            <p class="tui-island__paragraph">
+                Please try again later, or contact your course administrator.
+            </p>
+        </div>
     </ng-container>
 </section>
