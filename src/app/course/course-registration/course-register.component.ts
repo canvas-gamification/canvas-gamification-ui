@@ -204,7 +204,7 @@ export class CourseRegisterComponent implements OnInit {
      */
     sendErrorMessage(): void {
         this.notificationsService
-            .show('Something went wrong. Check that your inputted values are accurate and try again.', {
+            .show('Check that your inputted values are accurate and try again.', {
                 status: TuiNotification.Error
             }).subscribe();
     }
