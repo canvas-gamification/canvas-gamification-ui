@@ -12,6 +12,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
     @Input() uqj: UQJ;
     @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>();
     files: (ParsonsFile & { solution: string })[];
+    waitingSubmission = false;
 
     constructor(private submissionService: SubmissionService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
@@ -28,6 +29,7 @@ export class ParsonsViewSnippetComponent implements OnInit {
      * Submit an answer to the question.
      */
     onSubmit(): void {
+        this.waitingSubmission = true;
         const solution = {};
         for (const file of this.files) {
             solution[file.name] = file.solution;
@@ -41,6 +43,9 @@ export class ParsonsViewSnippetComponent implements OnInit {
                     status: TuiNotification.Success
                 }).subscribe();
             this.successfulSubmissionEvent.emit(true);
+            this.waitingSubmission = false;
+        }, () => {
+            this.waitingSubmission = false;
         });
     }
 }

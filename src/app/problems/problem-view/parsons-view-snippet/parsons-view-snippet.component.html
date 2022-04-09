@@ -34,7 +34,15 @@
         </div>
 <!--    </ng-template>-->
     <div class="tui-form__buttons">
-        <button tuiButton size="m" class="tui-form__button">Submit</button>
+        <button
+            tuiButton
+            size="m"
+            class="tui-form__button"
+            [showLoader]="waitingSubmission"
+            [disabled]="uqj?.question?.max_submission_allowed - uqj?.num_attempts <= 0"
+        >
+            Submit
+        </button>
     </div>
     <ng-template let-file #parsonsLines>
         <app-parsons-lines [file]="file" (code)="file.solution = $event"></app-parsons-lines>

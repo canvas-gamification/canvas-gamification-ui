@@ -26,6 +26,14 @@
         </div>
     </ng-template>
     <div class="tui-form__buttons">
-        <button tuiButton class="tui-form__button" size="m">Submit</button>
+        <button
+            tuiButton
+            class="tui-form__button"
+            size="m"
+            [showLoader]="waitingSubmission"
+            [disabled]="uqj?.question?.max_submission_allowed - uqj?.num_attempts <= 0"
+        >
+            Submit
+        </button>
     </div>
 </form>
