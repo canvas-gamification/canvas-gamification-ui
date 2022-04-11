@@ -1,0 +1,65 @@
+@import "mixins";
+
+.practice {
+    display: flex;
+
+    @include screen-sm() {
+        flex-direction: column;
+    }
+
+    &-sidebar {
+        position: sticky;
+        top: calc(4rem + 1px); // Header height + border width
+        left: 0;
+        width: 18rem;
+        border-right: 1px solid var(--tui-base-03);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: -1.5rem;
+        min-height: calc(100vh - 8rem - 2px); // Window height - header + footer height - border widths
+        max-height: calc(100vh - 4rem - 1px); // Window height - header height - border width
+        overflow: auto;
+
+        @include screen-sm() {
+            position: unset;
+            border-right: none;
+            border-bottom: 1px solid var(--tui-base-03);
+            min-height: unset;
+            max-height: unset;
+            height: auto;
+            width: 100%;
+        }
+
+        &_content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &_buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+
+            button {
+                flex-grow: 1;
+            }
+        }
+    }
+
+    &-content {
+        width: 100%;
+
+        @include screen-sm() {
+            margin-top: 4rem;
+        }
+
+        &_none {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+    }
+}
