@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UQJ, User} from '@app/_models';
 import {UqjService} from '@app/problems/_services/uqj.service';
@@ -6,13 +6,14 @@ import {QuestionSubmission} from '@app/_models/question_submission';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
 import {QuestionService} from "@app/problems/_services/question.service";
+import {combineLatest, Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-problem-view',
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
 })
-export class ProblemViewComponent implements OnChanges, OnInit {
+export class ProblemViewComponent implements OnChanges, OnInit, OnDestroy {
     @Input() questionId: number;
 
     constructor(
@@ -29,22 +30,23 @@ export class ProblemViewComponent implements OnChanges, OnInit {
     user: User;
     renderedText: string;
 
+    subscriptions: Subscription = new Subscription();
+
     initialize(): void {
         const questionId = this.questionId ?? this.route.snapshot.params.id;
-        this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
-            this.uqj = uqj;
-            this.renderedText = this.uqj.rendered_text;
-        });
-
-        this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}).subscribe(submissions => {
-            this.previousSubmissions = submissions;
-        });
-
-        this.authenticationService.currentUser.subscribe(user => {
-            this.user = user;
-        });
-
-        this.questionService.openedQuestion(questionId).subscribe();
+        this.subscriptions.add(
+            combineLatest([
+                this.uqjService.getUQJByQuestion(questionId),
+                this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}),
+                this.authenticationService.currentUser,
+                this.questionService.openedQuestion(questionId)
+            ]).subscribe(([uqj, submissions, user]) => {
+                this.uqj = uqj;
+                this.renderedText = this.uqj.rendered_text;
+                this.previousSubmissions = submissions;
+                this.user = user;
+            })
+        );
     }
 
     ngOnInit(): void {
@@ -53,6 +55,10 @@ export class ProblemViewComponent implements OnChanges, OnInit {
 
     ngOnChanges(): void {
         this.initialize();
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
     }
 
     /**
