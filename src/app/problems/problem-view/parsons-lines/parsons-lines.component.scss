@@ -13,6 +13,7 @@
     &-nested {
         display: none;
         border-left: dashed 0.15rem var(--tui-base-05);
+        padding-right: unset;
     }
 
     &-nested_hover:empty {
@@ -25,16 +26,15 @@
 
     &-object {
         cursor: move;
-        padding: 0.2rem 1rem;
+        padding: 0.2rem 0 0.2rem 1rem;
         background-color: var(--tui-base-01);
-        border: solid 0.15rem var(--tui-base-01);
 
         &:hover {
-            border-color: var(--tui-primary-hover);
+            outline: solid 0.15rem var(--tui-primary-hover);
         }
 
         &_hover-none {
-            border-color: var(--tui-base-01) !important;
+            outline: none !important;
         }
 
         &:not(:only-child) {
