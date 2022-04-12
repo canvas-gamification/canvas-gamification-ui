@@ -26,6 +26,7 @@ export class ParsonsLinesComponent implements OnInit, OnDestroy {
         this.leftContainer = this.file.lines.map(line => {
             return new ContainerObject(line);
         });
+        this.dragulaService.destroy(this.file.name);
         this.dragulaService.createGroup(this.file.name, {
             revertOnSpill: true
         });
