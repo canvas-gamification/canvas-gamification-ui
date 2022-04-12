@@ -29,6 +29,7 @@ export class PracticeProblemComponent implements OnInit {
     difficulties: Difficulty[];
     userDifficultyStats: UserDifficultyStats[];
     categoryUserSuccessRate: number;
+    include_solved = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -50,7 +51,7 @@ export class PracticeProblemComponent implements OnInit {
             filters: {
                 category: this.categoryId,
                 difficulty: this.difficulty,
-                is_solved: false,
+                is_solved: this.include_solved ? undefined : false,
                 is_practice: true
             }
         });
@@ -94,15 +95,18 @@ export class PracticeProblemComponent implements OnInit {
     /**
      * Updates the difficulty when an item is selected. Then it gets all the uqjs from the backend that match this new difficulty.
      * Finally, updates the user's success rate based on the selected category.
-     * @param event - The difficulty that is selected a value is clicked in the select input.
+     * @param difficultyEvent The difficulty that is selected a value is clicked in the select input.
+     * @param solvedEvent Whether or not to include solved questions
      */
-    changeDifficulty(event: string): void {
-        this.difficulty = event;
+    updateQuestions(difficultyEvent: string, solvedEvent: boolean): void {
+        this.difficulty = difficultyEvent;
+        this.include_solved = solvedEvent;
+        this.cursor = 0;
         this.uqjService.getUQJs({
             filters: {
                 category: this.categoryId,
                 difficulty: this.difficulty,
-                is_solved: false,
+                is_solved: solvedEvent ? undefined : false,
                 is_practice: true
             }
         }).subscribe((uqjs) => {
