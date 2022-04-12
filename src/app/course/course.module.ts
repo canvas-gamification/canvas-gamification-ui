@@ -37,8 +37,10 @@ import {
     TuiDataListModule,
     TuiDialogModule,
     TuiErrorModule,
+    TuiHostedDropdownModule,
     TuiLinkModule,
     TuiLoaderModule,
+    TuiModeModule,
     TuiNotificationModule,
     TuiSvgModule,
     TuiTextfieldControllerModule
@@ -50,13 +52,14 @@ import {
 import {
     CourseRegistrationStepComponent
 } from './course-registration/course-registration-step/course-registration-step.component';
-import {TuiFilterPipeModule} from '@taiga-ui/cdk';
+import {TuiActiveZoneModule, TuiFilterPipeModule} from '@taiga-ui/cdk';
 import {TuiTableModule} from '@taiga-ui/addon-table';
 import {DragulaModule} from 'ng2-dragula';
 import {CourseIslandModule} from '@app/components/course-island/course-island.module';
 import {PipesModule} from '@app/_helpers/pipes/pipes.module';
 import {PracticeProblemComponent} from './practice-problem/practice-problem.component';
 import {ProblemsModule} from '@app/problems/problems.module';
+import {TuiSidebarModule} from '@taiga-ui/addon-mobile';
 
 @NgModule({
     declarations: [
@@ -83,6 +86,7 @@ import {ProblemsModule} from '@app/problems/problems.module';
         ProblemsModule,
         ReactiveFormsModule,
         TextMaskModule,
+        TuiActiveZoneModule,
         TuiAvatarModule,
         TuiButtonModule,
         TuiCalendarModule,
@@ -92,6 +96,7 @@ import {ProblemsModule} from '@app/problems/problems.module';
         TuiErrorModule,
         TuiFieldErrorModule,
         TuiFilterPipeModule,
+        TuiHostedDropdownModule,
         TuiInputCountModule,
         TuiInputDateModule,
         TuiInputDateRangeModule,
@@ -101,8 +106,10 @@ import {ProblemsModule} from '@app/problems/problems.module';
         TuiLinkModule,
         TuiLoaderModule,
         TuiMarkerIconModule,
+        TuiModeModule,
         TuiNotificationModule,
         TuiSelectModule,
+        TuiSidebarModule,
         TuiStepperModule,
         TuiSvgModule,
         TuiTableModule,

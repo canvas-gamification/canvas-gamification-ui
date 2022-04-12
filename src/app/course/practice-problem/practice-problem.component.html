@@ -1,13 +1,65 @@
 <div class="practice">
     <aside class="practice-sidebar tui-container tui-container_fullwidth">
         <div class="practice-sidebar_content tui-space_top-6">
-            <p
-                class="tui-text_h6 tui-space_vertical-0"
-                [class.tui-skeleton]="!category"
-                [class.tui-skeleton_text]="!category"
+            <div
+                tuiMode="onDark"
+                class="practice-sidebar_content-breadcrumbs tui-space_bottom-2"
+                *ngIf="parentCategory"
             >
-                {{category?.name}}
-            </p>
+                <a
+                    tuiLink
+                    class="tui-space_vertical-0"
+                    [class.tui-skeleton]="!category"
+                    [class.tui-skeleton_text]="!category"
+                    [routerLink]="['../', parentCategory?.pk]"
+                >
+                    {{parentCategory?.name}}
+                </a>
+                <tui-svg
+                    src="tuiIconChevronRight"
+                    [class.tui-skeleton]="!category"
+                ></tui-svg>
+            </div>
+            <tui-hosted-dropdown class="tui-space_bottom-2" [content]="categoryDropdown">
+                <button
+                    class="practice-sidebar_content-categories_button tui-text_h6"
+                    [class.tui-skeleton]="!category"
+                >
+                    {{category?.name ?? 'Category Name'}}
+                </button>
+            </tui-hosted-dropdown>
+            <ng-template #categoryDropdown>
+                <tui-data-list role="menu">
+                    <tui-opt-group
+                        *ngFor="let parentCategory of nestedCategories"
+                        [label]="parentCategory.category.name"
+                    >
+                        <a
+                            #rla="routerLinkActive"
+                            tuiOption
+                            role="menuitemradio"
+                            routerLinkActive
+                            [attr.aria-checked]="rla.isActive"
+                            [routerLink]="['../', parentCategory.category.pk]"
+                        >
+                            {{parentCategory.category.name}}
+                            <tui-svg *ngIf="rla.isActive" src="tuiIconCheckLarge"></tui-svg>
+                        </a>
+                        <a
+                            *ngFor="let childrenCategory of parentCategory.children"
+                            #rla="routerLinkActive"
+                            tuiOption
+                            role="menuitemradio"
+                            routerLinkActive
+                            [attr.aria-checked]="rla.isActive"
+                            [routerLink]="['../', childrenCategory.category.pk]"
+                        >
+                            {{childrenCategory.category.full_name}}
+                            <tui-svg *ngIf="rla.isActive" src="tuiIconCheckLarge"></tui-svg>
+                        </a>
+                    </tui-opt-group>
+                </tui-data-list>
+            </ng-template>
             <p
                 class="tui-space_bottom-0"
                 [class.tui-skeleton]="!category"
@@ -28,7 +80,7 @@
                 (ngModelChange)="updateQuestions($event, include_solved)"
                 [ngModel]="difficulty"
                 tuiTextfieldSize="m"
-                [class.tui-skeleton]="!difficulties"
+                [class.tui-skeleton]="!difficulties || !category"
             >
                 Choose a level of difficulty
                 <tui-data-list *tuiDataList>
@@ -41,7 +93,7 @@
                 [ngModel]="include_solved"
                 (ngModelChange)="updateQuestions(difficulty, $event)"
                 class="tui-space_top-4"
-                [class.tui-skeleton]="!difficulties"
+                [class.tui-skeleton]="!difficulties || !category"
             >
                 Include Solved
             </tui-checkbox-labeled>
@@ -68,7 +120,10 @@
         </div>
     </aside>
     <div class="practice-content">
-        <app-problem-view *ngIf="currentQuestionId else noProblems" [questionId]="currentQuestionId"></app-problem-view>
+        <app-problem-view
+            *ngIf="currentQuestionId && category else noProblems"
+            [questionId]="currentQuestionId"
+        ></app-problem-view>
         <ng-template #noProblems>
             <div class="tui-container tui-container_fullwidth practice-content_none">
                 <tui-marker-icon
