@@ -25,6 +25,10 @@ export class ParsonsViewSnippetComponent implements OnInit {
         }));
     }
 
+    canSubmit(): boolean {
+        return this.uqj?.question?.max_submission_allowed - this.uqj?.num_attempts > 0;
+    }
+
     /**
      * Submit an answer to the question.
      */

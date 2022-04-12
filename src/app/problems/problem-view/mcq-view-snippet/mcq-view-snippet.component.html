@@ -37,7 +37,7 @@
                 size="m"
                 class="tui-form__button"
                 [showLoader]="waitingSubmission"
-                [disabled]="uqj?.question?.max_submission_allowed - uqj?.num_attempts <= 0"
+                [disabled]="!canSubmit()"
             >
                 Submit
             </button>
