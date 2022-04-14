@@ -1,3 +1,4 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
 @import "mixins";
 
 .practice {
@@ -57,8 +58,11 @@
                     cursor: pointer;
                     padding: 0;
 
+                    @include transition(color);
+                    transition-duration: 300ms;
+
                     &:hover {
-                        color: var(--tui-text-03);
+                        color: var(--tui-primary-hover);
                     }
                 }
             }

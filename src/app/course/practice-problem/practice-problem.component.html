@@ -2,7 +2,6 @@
     <aside class="practice-sidebar tui-container tui-container_fullwidth">
         <div class="practice-sidebar_content tui-space_top-6">
             <div
-                tuiMode="onDark"
                 class="practice-sidebar_content-breadcrumbs tui-space_bottom-2"
                 *ngIf="parentCategory"
             >
@@ -25,7 +24,7 @@
                     class="practice-sidebar_content-categories_button tui-text_h6"
                     [class.tui-skeleton]="!category"
                 >
-                    {{category?.name ?? 'Category Name'}}
+                    {{!parentCategory ? 'All ' : ''}}{{category?.name ?? 'Category Name'}}
                 </button>
             </tui-hosted-dropdown>
             <ng-template #categoryDropdown>
@@ -42,7 +41,7 @@
                             [attr.aria-checked]="rla.isActive"
                             [routerLink]="['../', parentCategory.category.pk]"
                         >
-                            {{parentCategory.category.name}}
+                            All&nbsp;{{parentCategory.category.name}}
                             <tui-svg *ngIf="rla.isActive" src="tuiIconCheckLarge"></tui-svg>
                         </a>
                         <a
@@ -62,15 +61,15 @@
             </ng-template>
             <p
                 class="tui-space_bottom-0"
-                [class.tui-skeleton]="!category"
-                [class.tui-skeleton_text]="!category"
+                [class.tui-skeleton]="!category || !userDifficultyStats"
+                [class.tui-skeleton_text]="!category || !userDifficultyStats"
             >
                 Your Success Rate: {{(userSuccessRate * 100).toFixed(2) + '%' || 'N/A'}}
             </p>
             <p
                 class="tui-space_top-1"
-                [class.tui-skeleton]="!category"
-                [class.tui-skeleton_text]="!category"
+                [class.tui-skeleton]="!category || !userDifficultyStats"
+                [class.tui-skeleton_text]="!category || !userDifficultyStats"
             >
                 Average Success Rate: {{(category?.average_success * 100).toFixed(2) + '%' || 'N/A'}}
             </p>
@@ -104,7 +103,7 @@
                 size="s"
                 icon="tuiIconArrowLeft"
                 (click)="prevQuestion()"
-                [class.tui-skeleton]="!category"
+                [class.tui-skeleton]="!category || !uqjs"
             >
                 Previous Question
             </button>
@@ -113,7 +112,7 @@
                 size="s"
                 (click)="nextQuestion()"
                 iconRight="tuiIconArrowRight"
-                [class.tui-skeleton]="!category"
+                [class.tui-skeleton]="!category || !uqjs"
             >
                 Next Question
             </button>
@@ -121,7 +120,7 @@
     </aside>
     <div class="practice-content">
         <app-problem-view
-            *ngIf="currentQuestionId && category else noProblems"
+            *ngIf="currentQuestionId && category && uqjs else noProblems"
             [questionId]="currentQuestionId"
         ></app-problem-view>
         <ng-template #noProblems>
@@ -131,11 +130,11 @@
                     mode="error"
                     size="s"
                     class="tui-space_bottom-4"
-                    [class.tui-skeleton]="!category"
+                    [class.tui-skeleton]="!category || !uqjs"
                 ></tui-marker-icon>
                 <h1
                     class="tui-text_h6"
-                    [class.tui-skeleton]="!category"
+                    [class.tui-skeleton]="!category || !uqjs"
                 >
                     There are no available practice questions for this category/difficulty.
                 </h1>
