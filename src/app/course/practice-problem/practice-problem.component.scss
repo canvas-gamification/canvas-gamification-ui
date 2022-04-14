@@ -19,7 +19,7 @@
         justify-content: space-between;
         margin-bottom: -1.5rem;
         min-height: calc(100vh - 8rem - 2px); // Window height - header + footer height - border widths
-        max-height: calc(100vh - 4rem - 1px); // Window height - header height - border width
+        max-height: calc(100vh - 4rem - 2px); // Window height - header height - border widths
         overflow: auto;
 
         @include screen-sm() {
