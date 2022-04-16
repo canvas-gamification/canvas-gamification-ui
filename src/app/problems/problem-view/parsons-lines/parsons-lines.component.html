@@ -2,7 +2,10 @@
     <div class="tui-col_xs-12 tui-col_md-12 tui-col_lg-6">
         <h3 class="tui-island__category tui-text_body-xs">Lines</h3>
         <tui-island class="container" [dragula]="file.name" [(dragulaModel)]="leftContainer">
-            <div class="container-object" *ngFor="let line of leftContainer">
+            <div
+                class="container-object"
+                *ngFor="let line of leftContainer"
+            >
                 <ng-container
                     [ngTemplateOutlet]="parsonsNestedTemplate"
                     [ngTemplateOutletContext]="{ $implicit: line }"
@@ -31,6 +34,7 @@
         class="container container-nested tui-space_top-1"
         [dragula]="file.name"
         [(dragulaModel)]="parsonsObject['nestedObjects']"
+        *ngIf="testABNew"
     >
         <div
             class="container-object"

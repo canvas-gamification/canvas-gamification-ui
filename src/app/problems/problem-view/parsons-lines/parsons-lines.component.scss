@@ -14,17 +14,18 @@
         display: none;
         border-left: dashed 0.15rem var(--tui-base-05);
         padding-right: unset;
-    }
 
-    &-nested_hover:empty {
-        display: block;
-    }
+        &_hover:empty {
+            display: block;
+        }
 
-    &-nested:not(:empty) {
-        display: block;
+        &:not(:empty) {
+            display: block;
+        }
     }
 
     &-object {
+        white-space: pre-wrap;
         cursor: move;
         padding: 0.2rem 0 0.2rem 1rem;
         background-color: var(--tui-base-01);
