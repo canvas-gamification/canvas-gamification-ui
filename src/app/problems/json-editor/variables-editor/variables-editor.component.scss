@@ -4,7 +4,7 @@
     display: flex;
 
     &_handle {
-        padding: var(--tui-padding-s);
+        padding: 0.5rem;
         cursor: pointer;
         border: solid 1px var(--tui-base-03);
         border-right: none;
