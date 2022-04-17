@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {AbstractControl, FormArray, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {VariablesForm} from "@app/problems/_forms/json-editor/variables.form";
 import {VariableEditorTypes} from "@app/_models/json_editor";
 import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor/abstract-editor.component";
+import {DragulaService} from 'ng2-dragula';
 
 @Component({
     selector: 'app-variables-editor',
@@ -21,10 +22,33 @@ import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor
         },
     ]
 })
-export class VariablesEditorComponent extends AbstractEditorComponent {
+export class VariablesEditorComponent extends AbstractEditorComponent implements OnDestroy {
 
     openNewValueDropdown = false;
     modelTypes: VariableEditorTypes[] = ['int', 'float', 'choice', 'expression', 'enum'];
+    dragulaName = 'variables';
+
+    constructor(private dragulaService: DragulaService) {
+        super();
+        dragulaService.destroy(this.dragulaName);
+        dragulaService.createGroup(this.dragulaName, {
+            moves: (el, container, handle) => {
+                return !!handle.closest('.drag-container_handle');
+            }
+        });
+    }
+
+    onDragulaChange(change: []): void {
+        this.models.clear();
+        change.forEach(value => {
+            this.models.push(value);
+        });
+    }
+
+    ngOnDestroy() {
+        super.ngOnDestroy();
+        this.dragulaService.destroy(this.dragulaName);
+    }
 
     addNewModel(type: VariableEditorTypes): void {
         this.models.push(VariablesForm.getNewVariableForm(type));
