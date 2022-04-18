@@ -74,7 +74,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
                         this.uqjs = undefined;
 
                         const userStatsObservable = this.userStatsService.getUserDifficultyStats(this.categoryId);
-                        const uqjObservable = this.uqjService.getUQJIds({
+                        const uqjObservable = this.uqjService.getUQJQuestionIds({
                             category: this.parentCategory ? this.categoryId : undefined,
                             parent_category: this.parentCategory?.pk ?? this.categoryId,
                             difficulty: this.difficulty,
@@ -143,7 +143,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
         this.include_solved = solvedEvent;
         this.cursor = 0;
         this.subscriptions.add(
-            this.uqjService.getUQJIds({
+            this.uqjService.getUQJQuestionIds({
                 category: this.parentCategory ? this.categoryId : undefined,
                 parent_category: this.parentCategory?.pk ?? this.categoryId,
                 difficulty: this.difficulty,

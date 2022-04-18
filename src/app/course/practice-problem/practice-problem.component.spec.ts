@@ -79,7 +79,7 @@ describe('PracticeProblemComponent', () => {
 
     beforeEach(() => {
         mockUqjService = TestBed.inject(UqjService);
-        spyOn(mockUqjService, 'getUQJIds').and.returnValue(
+        spyOn(mockUqjService, 'getUQJQuestionIds').and.returnValue(
             of([
                 MOCK_UQJ_5.question.id,
                 MOCK_UQJ_6.question.id,
