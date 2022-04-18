@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {UQJ} from '@app/_models/uqj';
 import {PaginatedResult} from '@app/_models/paginatedResult';
-import {ApiService} from "@app/_services/api.service";
+import {ApiService} from '@app/_services/api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -41,6 +41,21 @@ export class UqjService {
         return this.http
             .get<PaginatedResult<UQJ>>(url, {params})
             .pipe(catchError(this.apiService.handleError<PaginatedResult<UQJ>>(`Error occurred while fetching user-specific questions`)));
+    }
+
+    /**
+     * Get all UQJ Ids from the server that meet the filtering params
+     * @param filters - Filters to get specific UQJs
+     */
+    getUQJIds(filters?: {[param: string]: string | number | boolean}): Observable<number[]> {
+        const url = this.apiService.getURL('uqj', 'get-ids');
+        let params = new HttpParams();
+        Object.entries(filters).forEach(([key, value]) => {
+            params = params.set(key, value ?? '');
+        });
+        return this.http
+            .get<number[]>(url, {params})
+            .pipe(catchError(this.apiService.handleError<number[]>(`Error occurred while fetching user-specific questions`)));
     }
 
     /**

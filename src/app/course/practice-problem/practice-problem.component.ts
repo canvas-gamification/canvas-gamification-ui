@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UqjService} from '@app/problems/_services/uqj.service';
-import {Category, NestedCategories, UQJ} from '@app/_models';
+import {Category, NestedCategories} from '@app/_models';
 import {Difficulty} from '@app/_models/difficulty';
 import {DifficultyService} from '@app/problems/_services/difficulty.service';
 import {UserStatsService} from '@app/_services/api/user-stats.service';
@@ -20,7 +20,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     courseId: number;
     categoryId: number;
 
-    uqjs: UQJ[];
+    uqjs: number[];
     currentQuestionId: number;
     cursor = 0;
     category: Category;
@@ -74,14 +74,12 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
                         this.uqjs = undefined;
 
                         const userStatsObservable = this.userStatsService.getUserDifficultyStats(this.categoryId);
-                        const uqjObservable = this.uqjService.getUQJs({
-                            filters: {
-                                category: this.parentCategory ? this.categoryId : undefined,
-                                parent_category: this.parentCategory?.pk ?? this.categoryId,
-                                difficulty: this.difficulty,
-                                is_solved: this.include_solved ? undefined : false,
-                                is_practice: true
-                            }
+                        const uqjObservable = this.uqjService.getUQJIds({
+                            category: this.parentCategory ? this.categoryId : undefined,
+                            parent_category: this.parentCategory?.pk ?? this.categoryId,
+                            difficulty: this.difficulty,
+                            is_solved: this.include_solved ? undefined : false,
+                            is_practice: true
                         });
                         const difficultyObservable = this.difficultyService.getDifficulties();
                         const categoryStatsObservable = this.courseService.getUserStats(this.courseId, this.categoryId);
@@ -93,7 +91,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
                                 userStatsObservable,
                                 categoryStatsObservable
                             ]).subscribe(([uqjs, difficulties, difficultyStats, userSuccessRate]) => {
-                                this.uqjs = _.shuffle(uqjs.results);
+                                this.uqjs = _.shuffle(uqjs);
                                 this.difficulties = difficulties;
                                 this.userDifficultyStats = difficultyStats;
                                 this.categoryUserSuccessRate = userSuccessRate.success_rate;
@@ -131,7 +129,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
      * Updates the currentQuestionId based on the cursor.
      */
     updateCurrentQuestion(): void {
-        this.currentQuestionId = this.uqjs?.[this.cursor]?.question?.id;
+        this.currentQuestionId = this.uqjs[this.cursor];
     }
 
     /**
@@ -145,16 +143,14 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
         this.include_solved = solvedEvent;
         this.cursor = 0;
         this.subscriptions.add(
-            this.uqjService.getUQJs({
-                filters: {
-                    category: this.parentCategory ? this.categoryId : undefined,
-                    parent_category: this.parentCategory?.pk ?? this.categoryId,
-                    difficulty: this.difficulty,
-                    is_solved: solvedEvent ? undefined : false,
-                    is_practice: true
-                }
+            this.uqjService.getUQJIds({
+                category: this.parentCategory ? this.categoryId : undefined,
+                parent_category: this.parentCategory?.pk ?? this.categoryId,
+                difficulty: this.difficulty,
+                is_solved: solvedEvent ? undefined : false,
+                is_practice: true
             }).subscribe((uqjs) => {
-                this.uqjs = _.shuffle(uqjs.results);
+                this.uqjs = _.shuffle(uqjs);
                 this.updateCurrentQuestion();
                 this.calculateUserSuccessRate();
             })
