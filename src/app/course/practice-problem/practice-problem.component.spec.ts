@@ -79,13 +79,13 @@ describe('PracticeProblemComponent', () => {
 
     beforeEach(() => {
         mockUqjService = TestBed.inject(UqjService);
-        spyOn(mockUqjService, 'getUQJs').and.returnValue(
-            of({
-                count: 4,
-                next: null,
-                previous: null,
-                results: [MOCK_UQJ_5, MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8]
-            }));
+        spyOn(mockUqjService, 'getUQJIds').and.returnValue(
+            of([
+                MOCK_UQJ_5.question.id,
+                MOCK_UQJ_6.question.id,
+                MOCK_UQJ_7.question.id,
+                MOCK_UQJ_8.question.id
+            ]));
         fixture = TestBed.createComponent(PracticeProblemComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
@@ -108,7 +108,7 @@ describe('PracticeProblemComponent', () => {
     });
 
     it('should not skip question when there is only one uqj', () => {
-        component.uqjs = [MOCK_UQJ_5];
+        component.uqjs = [MOCK_UQJ_5.question.id];
         component.nextQuestion();
         fixture.detectChanges();
         expect(component.currentQuestionId).toEqual(MOCK_UQJ_5.id);
@@ -122,7 +122,7 @@ describe('PracticeProblemComponent', () => {
     });
 
     it('should not change question when clicking previous question with one uqj', () => {
-        component.uqjs = [MOCK_UQJ_5];
+        component.uqjs = [MOCK_UQJ_5.question.id];
         component.prevQuestion();
         fixture.detectChanges();
         expect(component.currentQuestionId).toEqual(MOCK_UQJ_5.id);
