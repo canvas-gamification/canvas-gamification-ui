@@ -32,7 +32,8 @@ export const createInlineMathEditorExtension = (injector: Injector): Node => {
             return DEFAULT_MATH_ATTRS;
         },
 
-        renderHTML({ HTMLAttributes }: Record<string, any>) {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        renderHTML({ HTMLAttributes }: Record<string, unknown>) {
             return ['editor-inline-math', mergeAttributes(HTMLAttributes)];
         },
 

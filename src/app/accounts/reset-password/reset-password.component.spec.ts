@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ResetPasswordComponent} from './reset-password.component';
 import {TestModule} from '@test/test.module';
@@ -69,13 +69,14 @@ describe('ResetPasswordComponentLinkClicked', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should reset password', () => {
+    it('should reset password', fakeAsync(() => {
         spyOn(component['resetPasswordService'], 'putPasswordReset').and.returnValue(of(new HttpHeaderResponse()));
-        spyOn(component['router'], 'navigate');
+        spyOn(component['router'], 'navigate').and.returnValue(Promise.resolve(true));
         component.form.password.setValue(MOCK_PASSWORD_FORM_DATA.password);
         component.form.password2.setValue(MOCK_PASSWORD_FORM_DATA.password2);
         component.onSubmit();
+        tick();
         expect(component['resetPasswordService'].putPasswordReset).toHaveBeenCalledWith(MOCK_PASSWORD_FORM_DATA);
         expect(component['router'].navigate).toHaveBeenCalled();
-    });
+    }));
 });

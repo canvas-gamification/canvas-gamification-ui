@@ -20,7 +20,7 @@ describe('LoginComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(LoginComponent);
         component = fixture.componentInstance;
-        spyOn(component['router'], 'navigate');
+        spyOn(component['router'], 'navigate').and.returnValue(Promise.resolve(true));
         fixture.detectChanges();
     });
 

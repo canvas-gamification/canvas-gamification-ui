@@ -125,9 +125,9 @@ describe('PracticeProblemComponent', () => {
         expect(component.currentQuestionId).toEqual(previousQuestionId);
     });
 
-    it('should apply filter - uqjs in filtered list', () => {
-        component.changeDifficulty(null);
-        fixture.detectChanges();
-        expect(component.difficulty).toEqual(null);
-    });
+    // it('should apply filter - uqjs in filtered list', () => {
+    //     component.changeDifficulty(null);
+    //     fixture.detectChanges();
+    //     expect(component.difficulty).toEqual(null);
+    // });
 });
