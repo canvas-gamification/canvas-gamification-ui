@@ -52,6 +52,7 @@ export class PracticeProblemComponent implements OnInit {
                 category: this.categoryId,
                 difficulty: this.difficulty,
                 is_solved: this.include_solved ? undefined : false,
+                is_verified: true,
                 is_practice: true
             }
         });
@@ -107,6 +108,7 @@ export class PracticeProblemComponent implements OnInit {
                 category: this.categoryId,
                 difficulty: this.difficulty,
                 is_solved: solvedEvent ? undefined : false,
+                is_verified: true,
                 is_practice: true
             }
         }).subscribe((uqjs) => {
