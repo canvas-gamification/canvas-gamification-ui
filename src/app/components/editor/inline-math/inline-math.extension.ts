@@ -1,5 +1,4 @@
-/* eslint-disable */
-import {mergeAttributes, Node} from '@taiga-ui/addon-editor/node_modules/@tiptap/core';
+import {mergeAttributes, Node} from '@tiptap/core';
 import {Injector} from '@angular/core';
 import {TuiNodeViewRenderer} from '@taiga-ui/addon-editor/extensions/tiptap-node-view';
 import {InlineMathComponent} from '@app/components/editor/inline-math/inline-math.component';
