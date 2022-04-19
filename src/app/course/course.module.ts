@@ -24,7 +24,7 @@ import {
     TuiInputDateRangeModule,
     TuiInputModule,
     TuiInputTimeModule,
-    TuiIslandModule,
+    TuiIslandModule, 
     TuiMarkerIconModule,
     TuiSelectModule,
     TuiStepperModule,
