@@ -91,6 +91,7 @@
             <tui-checkbox-labeled
                 [ngModel]="include_solved"
                 (ngModelChange)="updateQuestions(difficulty, $event)"
+                ngDefaultControl
                 class="tui-space_top-4"
                 [class.tui-skeleton]="!difficulties || !category"
             >
