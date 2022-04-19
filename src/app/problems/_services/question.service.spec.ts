@@ -41,7 +41,9 @@ describe('QuestionService', () => {
         });
         const request = httpMock.expectOne('http://localhost:8000/api/questions/?page=1&page_size=50&search=&category__parent__name=&category__name=&difficulty=&is_sample=&ordering=');
         expect(request.request.method).toBe('GET');
-        request.flush(MOCK_QUESTIONS);
+        request.flush({
+            results: MOCK_QUESTIONS
+        });
     });
 
     it('getQuestion returns a single question', () => {
@@ -68,7 +70,6 @@ describe('QuestionService', () => {
 
     it('putMultipleChoiceQuestion', () => {
         questionService.putMultipleChoiceQuestion(MOCK_MCQ_FORM_DATA, 0).subscribe((response) => {
-            console.log(response);
             expect(response.status).toEqual(200);
         });
         const request = httpMock.expectOne(apiService.getURL('multiple-choice-question', 0));

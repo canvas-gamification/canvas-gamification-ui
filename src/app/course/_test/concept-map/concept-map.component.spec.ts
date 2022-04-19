@@ -88,15 +88,15 @@ describe('ConceptMapComponent without spy', () => {
     it('should show parent categories title when at the top-level of the concept map', () => {
         component.parentNode = null;
         component.renderGraph();
-        const title = fixture.debugElement.query(By.css('.tui-text_h3')).nativeElement;
-        expect(title.innerHTML).toEqual('Top-Level Categories');
+        const title = fixture.debugElement.query(By.css('.tui-text_h5')).nativeElement;
+        expect(title.innerHTML.trim()).toEqual('Top-Level Categories');
     });
 
     it('should show sub categories title when within a parent category of the concept map', () => {
         component.parentNode = 1;
         component.renderGraph();
         fixture.detectChanges();
-        const title = fixture.debugElement.query(By.css('.tui-text_h3')).nativeElement;
-        expect(title.innerHTML).toEqual('Sub-Categories for Test #2');
+        const title = fixture.debugElement.query(By.css('.tui-text_h5')).nativeElement;
+        expect(title.innerHTML.trim()).toEqual('Sub-Categories for Test #2');
     });
 });
