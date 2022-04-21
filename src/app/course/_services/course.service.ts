@@ -27,7 +27,7 @@ export class CourseService {
         const url = this.apiService.getURL('course', courseId, 'user-stats', categoryId);
         return this.http
             .get<{ success_rate: number }>(url)
-            .pipe(catchError(this.apiService.handleError<{ success_rate: number }>()));
+            .pipe(catchError(this.apiService.handleError<{ success_rate: number }>('Unable to fetch user stats.')));
     }
 
     // TODO: Handling error of this function needs refactoring
@@ -36,7 +36,7 @@ export class CourseService {
         const url = this.apiService.getURL('course', courseId, 'register');
         return this.http
             .post<CourseRegistrationResponse>(url, data)
-            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>('', {
+            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>('Unable to register for the course.', {
                 success: false,
                 bad_request: true
             })));
@@ -48,7 +48,7 @@ export class CourseService {
         const url = this.apiService.getURL('course', courseId, 'verify');
         return this.http
             .post<CourseRegistrationResponse>(url, data)
-            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>(``, {
+            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>('Unable to verify course registration.', {
                 success: false,
                 bad_request: true
             })));
@@ -60,7 +60,7 @@ export class CourseService {
         const url = this.apiService.getURL('course', courseId, 'get-registration-status');
         return this.http
             .get<RegistrationStatus>(url)
-            .pipe(catchError(this.apiService.handleError<RegistrationStatus>(``)));
+            .pipe(catchError(this.apiService.handleError<RegistrationStatus>('Unable to get course registration status.')));
     }
 
     // TODO: Handling error of this function needs refactoring
@@ -69,7 +69,7 @@ export class CourseService {
         const url = this.apiService.getURL('course', courseId, 'validate-event', eventId);
         return this.http
             .get<APIResponse>(url)
-            .pipe(catchError(this.apiService.handleError<APIResponse>(``, {success: false, bad_request: true})));
+            .pipe(catchError(this.apiService.handleError<APIResponse>('Unable to validate event.', {success: false, bad_request: true})));
     }
 
     /**
@@ -108,7 +108,7 @@ export class CourseService {
             .get<Course[]>(url, {params})
             .pipe(
                 catchError(
-                    this.apiService.handleError<Course[]>(`Unable to load courses.`, [])
+                    this.apiService.handleError<Course[]>('Unable to load courses.', [])
                 )
             );
     }
@@ -122,6 +122,6 @@ export class CourseService {
         const url = this.apiService.getURL('course', courseId);
         return this.http
             .get<Course>(url)
-            .pipe(catchError(this.apiService.handleError<Course>(`Unable to load course`, null)));
+            .pipe(catchError(this.apiService.handleError<Course>(`Unable to load course.`, null)));
     }
 }

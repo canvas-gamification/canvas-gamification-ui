@@ -1,15 +1,67 @@
 @import '~@taiga-ui/core/styles/taiga-ui-local';
 
-.container {
+.right-container {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.1rem;
+    flex-direction: row;
+}
+
+.container {
+    flex-grow: 1;
+    padding: var(--tui-padding-s);
+    background-color: var(--tui-base-02);
+
+    &-nested {
+        display: none;
+        border-left: dashed 0.15rem var(--tui-base-05);
+        padding-right: unset;
+
+        &_hover:empty {
+            display: block;
+        }
+
+        &:not(:empty) {
+            display: block;
+        }
+    }
 
     &-object {
+        white-space: pre-wrap;
         cursor: move;
-        padding: 0.1rem 1rem;
-        background-color: var(--tui-base-02);
-        border-radius: var(--tui-radius-s);
+        padding: 0.2rem 0 0.2rem 1rem;
+        background-color: var(--tui-base-01);
+
+        &:hover {
+            outline: solid 0.15rem var(--tui-primary-hover);
+        }
+
+        &_hover-none {
+            outline: none !important;
+        }
+
+        &:not(:only-child) {
+            &:last-child {
+                border-radius: var(--tui-radius-s);
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                padding-bottom: 0.5rem;
+            }
+
+            &:first-child {
+                border-radius: var(--tui-radius-s);
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                padding-top: 0.5rem;
+            }
+        }
+
+        &:only-child {
+            border-radius: var(--tui-radius-s);
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
     }
+}
+
+.remove-container-events {
+    pointer-events: none;
 }

@@ -32,6 +32,14 @@
         </div>
     </tui-island>
     <div class="tui-form__buttons">
-        <button tuiButton class="tui-form__button" size="m">Submit</button>
+        <button
+            tuiButton
+            class="tui-form__button"
+            size="m"
+            [showLoader]="waitingSubmission"
+            [disabled]="!canSubmit()"
+        >
+            Submit
+        </button>
     </div>
 </form>
