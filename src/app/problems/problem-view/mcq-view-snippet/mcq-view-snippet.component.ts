@@ -2,8 +2,8 @@ import {Component, Inject, Input, OnInit, Output, EventEmitter} from '@angular/c
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
+import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -17,6 +17,7 @@ export class McqViewSnippetComponent implements OnInit {
     checkboxFormData: FormGroup;
     choiceArray: { id: string, value: string, safeValue: SafeHtml }[];
     checkboxAnswers: string[];
+    waitingSubmission = false;
 
     constructor(private submissionService: SubmissionService,
                 private formBuilder: FormBuilder,
@@ -60,24 +61,32 @@ export class McqViewSnippetComponent implements OnInit {
         }
     }
 
+    canSubmit(): boolean {
+        return this.uqj?.question?.max_submission_allowed - this.uqj?.num_attempts > 0;
+    }
+
     /**
      * Submit an answer to the question.
      */
     onSubmit(formData: { question: number, solution: unknown }): void {
-        this.submissionService.postQuestionSubmission(formData)
-            .subscribe(() => {
-                this.notificationsService
-                    .show('The Question has been Submitted Successfully.', {
-                        status: TuiNotification.Success
-                    }).subscribe();
-                this.successfulSubmissionEvent.emit(true);
-            });
+        this.waitingSubmission = true;
+        this.submissionService.postQuestionSubmission(formData).subscribe(() => {
+            this.notificationsService
+                .show('The Question has been Submitted Successfully.', {
+                    status: TuiNotification.Success
+                }).subscribe();
+            this.successfulSubmissionEvent.emit(true);
+            this.waitingSubmission = false;
+        }, () => {
+            this.waitingSubmission = false;
+        });
     }
 
     /**
      * Submit an answer for a checkbox question.
      */
     onCheckboxSubmit(): void {
+        this.waitingSubmission = true;
         this.submissionService.postQuestionSubmission({
             question: this.checkboxFormData.value.question,
             solution: this.checkboxAnswers.sort().toString()
@@ -87,6 +96,9 @@ export class McqViewSnippetComponent implements OnInit {
                     status: TuiNotification.Success
                 }).subscribe();
             this.successfulSubmissionEvent.emit(true);
+            this.waitingSubmission = false;
+        }, () => {
+            this.waitingSubmission = false;
         });
     }
 }

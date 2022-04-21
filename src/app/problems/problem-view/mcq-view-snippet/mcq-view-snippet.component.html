@@ -36,6 +36,8 @@
                 tuiButton
                 size="m"
                 class="tui-form__button"
+                [showLoader]="waitingSubmission"
+                [disabled]="!canSubmit()"
             >
                 Submit
             </button>
