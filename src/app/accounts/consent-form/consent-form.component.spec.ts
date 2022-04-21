@@ -41,7 +41,7 @@ describe('ConsentFormComponent', () => {
                 return of();
             });
             router = TestBed.inject(Router);
-            spyOn(router, 'navigate');
+            spyOn(router, 'navigate').and.returnValue(Promise.resolve(true));
             fixture = TestBed.createComponent(ConsentFormComponent);
             component = fixture.componentInstance;
             component.user = MOCK_ADMIN;
