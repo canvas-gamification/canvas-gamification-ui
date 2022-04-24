@@ -1,7 +1,8 @@
 import {AfterContentInit, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {CategoryStatsService} from "@app/admin/_services/category-stats.service";
 import {NestedCategories} from "@app/_models";
-import {TuiDialogService} from "@taiga-ui/core";
+import {TuiDialogContext, TuiDialogService} from '@taiga-ui/core';
+import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
 
 @Component({
     selector: 'app-category-stats',
@@ -11,12 +12,6 @@ import {TuiDialogService} from "@taiga-ui/core";
 export class CategoryStatsComponent implements OnInit, AfterContentInit {
     categoryStatsData!: NestedCategories[];
     categoryStatsDataHeader!: string[];
-    categoryStatsSearch = '';
-
-    readonly matchStatsName = (nestedCategory: NestedCategories, search: string): boolean => {
-        if (search !== '') return nestedCategory.category.name.includes(search);
-        else return true;
-    };
 
     constructor(private categoryStatsService: CategoryStatsService,
                 private changeDetector: ChangeDetectorRef,
@@ -34,7 +29,11 @@ export class CategoryStatsComponent implements OnInit, AfterContentInit {
         this.changeDetector.detectChanges();
     }
 
-    openCategoryStatsDialog(categoryStats: NestedCategories): void {
-        this.dialogService.open(categoryStats.children.map(categoryStatChild => categoryStatChild.category.name).join()).subscribe();
+    openCategoryStatsDialog(title: string, content: PolymorpheusContent<TuiDialogContext>): void {
+        this.dialogService.open(content, {
+            closeable: false,
+            size: 'l',
+            label: title
+        }).subscribe();
     }
 }
