@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {ActivatedRoute} from '@angular/router';
+import {POLYMORPHEUS_CONTEXT} from '@tinkoff/ng-polymorpheus';
+import {TuiDialogContext} from '@taiga-ui/core';
 
 @Component({
     selector: 'app-submission-view',
@@ -10,25 +12,27 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class SubmissionViewComponent implements OnInit {
     submission: QuestionSubmission;
-    answerFiles: { name: string, code: string }[];
+    answerFiles: { name: string, code: string }[] = [];
 
-    constructor(private submissionService: SubmissionService, private route: ActivatedRoute) {
+    constructor(
+        private submissionService: SubmissionService, private route: ActivatedRoute,
+        @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<QuestionSubmission>,
+        private changeDetector: ChangeDetectorRef
+    ) {
     }
 
     ngOnInit(): void {
-        const id = this.route.snapshot.params.id;
-        this.submissionService.getSubmission(id).subscribe(submission => {
-            this.submission = submission;
+        this.submission = this.context.data;
+        this.answerFiles = Object.entries(this.submission.answer_files).reduce((prev, [key, value]) => {
+            return [...prev, {
+                name: key,
+                code: value
+            }];
+        }, []);
+        this.changeDetector.detectChanges();
+    }
 
-            this.answerFiles = [];
-            if (submission.answer_files) {
-                for (const key of Object.keys(submission.answer_files)) {
-                    this.answerFiles.push({
-                        name: key,
-                        code: submission.answer_files[key],
-                    });
-                }
-            }
-        });
+    closeDialog(): void {
+        this.context.completeWith(null);
     }
 }
