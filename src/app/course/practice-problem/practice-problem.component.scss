@@ -1,3 +1,4 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
 @import "mixins";
 
 .practice {
@@ -13,6 +14,37 @@
         &_content {
             display: flex;
             flex-direction: column;
+
+            &-breadcrumbs {
+                color: var(--tui-text-03);
+                display: flex;
+                align-items: center;
+                width: 100%;
+
+                a {
+                    width: auto;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            &-categories {
+                &_button {
+                    border: none;
+                    background-color: transparent;
+                    text-align: left;
+                    cursor: pointer;
+                    padding: 0;
+
+                    @include transition(color);
+                    transition-duration: 300ms;
+
+                    &:hover {
+                        color: var(--tui-primary-hover);
+                    }
+                }
+            }
         }
 
         &_buttons {

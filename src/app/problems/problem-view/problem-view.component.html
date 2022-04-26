@@ -5,7 +5,7 @@
         [class.tui-skeleton_short]="!uqj"
         [class.tui-skeleton_text]="!uqj"
     >
-        {{ uqj?.question?.parent_category_name || 'No Category' | uppercase }}
+        {{ uqj?.question?.category_obj?.full_name || 'No Category' | uppercase }}
     </p>
     <div class="tui-space_bottom-10 tui-space_top-2">
         <div class="question-header">

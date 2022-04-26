@@ -32,14 +32,14 @@
                                 See Details For More Information
                             </ng-template>
                             <div class="tui-form__buttons tui-space_top-4">
-                                <a
+                                <button
                                     tuiButton
                                     size="m"
                                     class="tui-form__button"
-                                    [routerLink]="['/problems', 'submission', submission.pk]"
+                                    (click)="openSubmissionDialog(submission, index + 1)"
                                 >
                                     See Details
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </ng-template>
