@@ -1,14 +1,15 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {TuiStatus} from "@taiga-ui/kit";
+import {TuiStatusT} from "@taiga-ui/kit";
 
 @Pipe({
     name: 'tuiStatus'
 })
 export class TuiStatusPipe implements PipeTransform {
-    transform(status: string): TuiStatus {
-        if (status === 'Solved' || status === 'Correct') return TuiStatus.Success;
-        else if (status === 'Partially Solved') return TuiStatus.Warning;
-        else if (status === 'Wrong') return TuiStatus.Error;
-        else return TuiStatus.Default;
+    transform(status: string): TuiStatusT {
+        if (status === 'Solved' || status === 'Correct') return 'success';
+        else if (status === 'Partially Solved') return 'warning';
+        else if (status === 'Wrong') return 'error';
+        else if (status === 'Pending') return 'info';
+        else return 'default';
     }
 }
