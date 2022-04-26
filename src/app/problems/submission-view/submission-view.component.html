@@ -61,21 +61,21 @@
 
 <div class="submission-code_islands tui-space_top-4">
     <tui-island *ngIf="submission?.no_file_answer">
-        <h3 class="tui-island__category">Code</h3>
+        <h3 class="tui-island__category tui-text_body-xs">Code</h3>
         <div class="tui-island__paragraph">
             <app-code-editor [codeTemplate]="submission?.answer" [readOnly]="true"></app-code-editor>
         </div>
     </tui-island>
 
     <tui-island *ngFor="let item of answerFiles; let index = index">
-        <h2 class="tui-island__category">{{ item.name }}</h2>
+        <h2 class="tui-island__category tui-text_body-xs">{{ item.name }}</h2>
         <div class="tui-island__paragraph">
             <app-code-editor [codeTemplate]="item.code" [readOnly]="true"></app-code-editor>
         </div>
     </tui-island>
 
     <tui-island>
-        <h3 class="tui-island__category">Compile Output</h3>
+        <h3 class="tui-island__category tui-text_body-xs">Compile Output</h3>
         <ng-container *ngIf="submission?.get_decoded_stderr; else successCompile">
             <p class="tui-island__paragraph">The following error occurred: </p>
             <div class="tui-island__paragraph">
