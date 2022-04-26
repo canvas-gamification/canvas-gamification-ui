@@ -1,6 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Injector, Input, OnInit} from '@angular/core';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {DomSanitizer} from "@angular/platform-browser";
+import {TuiDialogService} from '@taiga-ui/core';
+import {PolymorpheusComponent} from '@tinkoff/ng-polymorpheus';
+import {SubmissionViewComponent} from '@app/problems/submission-view/submission-view.component';
 
 @Component({
     selector: 'app-submission-snippet',
@@ -10,7 +13,11 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class SubmissionSnippetComponent implements OnInit {
     @Input() previousSubmissions: QuestionSubmission[];
 
-    constructor(private sanitizer: DomSanitizer) {
+    constructor(
+        private sanitizer: DomSanitizer,
+        @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
+        @Inject(Injector) private readonly injector: Injector
+    ) {
     }
 
     ngOnInit(): void {
@@ -20,5 +27,16 @@ export class SubmissionSnippetComponent implements OnInit {
                 previousSubmission.safeAnswer.push(this.sanitizer.bypassSecurityTrustHtml(answer));
             });
         });
+    }
+
+    openSubmissionDialog(submission: QuestionSubmission, index: number) {
+        this.dialogService.open<number>(
+            new PolymorpheusComponent(SubmissionViewComponent, this.injector),
+            {
+                data: submission,
+                closeable: false,
+                label: `Submission ${index}`
+            }
+        ).subscribe();
     }
 }
