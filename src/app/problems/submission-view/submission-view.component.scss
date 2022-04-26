@@ -1,10 +1,5 @@
-.submission-header {
+.submission-code_islands {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.re-attempt {
-    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
 }

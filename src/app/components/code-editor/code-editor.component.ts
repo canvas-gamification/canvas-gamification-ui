@@ -19,6 +19,8 @@ export class CodeEditorComponent implements AfterViewInit {
     @Input() showHelp = true;
     @Input() fixedHeight: string;
 
+    @Input() readOnly = false;
+
     @ViewChild('codeEditor') codeEditorElement: ElementRef;
     editor: EditorView;
 
@@ -48,7 +50,8 @@ export class CodeEditorComponent implements AfterViewInit {
                     this.fixedHeight ? fixedHeightEditor : maxHeightEditor,
                     EditorView.updateListener.of((update: ViewUpdate) => {
                         this.codeTemplateChange.emit(update.state?.doc?.toJSON()?.join('\n'));
-                    })
+                    }),
+                    EditorState.readOnly.of(this.readOnly)
                 ]
             }),
             parent: this.codeEditorElement.nativeElement

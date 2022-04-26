@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {AbstractControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {JavaInputFilesForm} from "@app/problems/_forms/json-editor/java-input-files.form";
 import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor/abstract-editor.component";
 
@@ -24,5 +24,9 @@ export class JavaInputFilesEditorComponent extends AbstractEditorComponent {
 
     addNewModel(): void {
         this.models.push(JavaInputFilesForm.createJavaInputFileForm());
+    }
+
+    setInputTemplate(form: AbstractControl, value: string): void {
+        (form as FormGroup).controls.template.setValue(value);
     }
 }
