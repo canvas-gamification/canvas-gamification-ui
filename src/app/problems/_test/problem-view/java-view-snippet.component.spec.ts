@@ -25,6 +25,7 @@ describe('JavaViewSnippetComponent', () => {
         fixture = TestBed.createComponent(JavaViewSnippetComponent);
         component = fixture.componentInstance;
         component.uqj = MOCK_UQJ_3;
+        component.ngOnChanges();
         fixture.detectChanges();
     });
 

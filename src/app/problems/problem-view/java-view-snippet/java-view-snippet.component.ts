@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
@@ -8,7 +8,7 @@ import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
     templateUrl: './java-view-snippet.component.html',
     styleUrls: ['./java-view-snippet.component.scss'],
 })
-export class JavaViewSnippetComponent implements OnInit {
+export class JavaViewSnippetComponent implements OnChanges {
     @Input() uqj: UQJ;
     @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>();
     inputFileNames = new Array<{ name: string, template: string }>();
@@ -19,7 +19,7 @@ export class JavaViewSnippetComponent implements OnInit {
         @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
     }
 
-    ngOnInit(): void {
+    ngOnChanges(): void {
         this.inputFileNames = this.uqj.input_files;
     }
 

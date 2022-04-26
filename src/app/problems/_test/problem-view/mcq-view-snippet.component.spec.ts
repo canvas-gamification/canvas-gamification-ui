@@ -31,6 +31,7 @@ describe('McqViewSnippetComponent - MCQ', () => {
         fixture = TestBed.createComponent(McqViewSnippetComponent);
         component = fixture.componentInstance;
         component.uqj = MOCK_UQJ;
+        component.ngOnChanges();
         fixture.detectChanges();
     });
 
@@ -57,6 +58,7 @@ describe('McqViewSnippetComponent - Checkbox', () => {
         fixture = TestBed.createComponent(McqViewSnippetComponent);
         component = fixture.componentInstance;
         component.uqj = MOCK_UQJ_2;
+        component.ngOnChanges();
         fixture.detectChanges();
     });
 

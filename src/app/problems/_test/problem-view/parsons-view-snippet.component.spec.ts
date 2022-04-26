@@ -24,6 +24,7 @@ describe('ParsonsViewSnippetComponent', () => {
         fixture = TestBed.createComponent(ParsonsViewSnippetComponent);
         component = fixture.componentInstance;
         component.uqj = MOCK_UQJ_4;
+        component.ngOnChanges();
         fixture.detectChanges();
     });
 

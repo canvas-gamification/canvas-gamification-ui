@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Inject, Input, Output, EventEmitter, OnChanges} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UQJ} from '@app/_models';
 import {SubmissionService} from '@app/problems/_services/submission.service';
@@ -10,7 +10,7 @@ import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
     templateUrl: './mcq-view-snippet.component.html',
     styleUrls: ['./mcq-view-snippet.component.scss'],
 })
-export class McqViewSnippetComponent implements OnInit {
+export class McqViewSnippetComponent implements OnChanges {
     @Input() uqj: UQJ;
     @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>();
     formData: FormGroup;
@@ -32,7 +32,7 @@ export class McqViewSnippetComponent implements OnInit {
         return this.checkboxFormData.controls.solutions as FormArray;
     }
 
-    ngOnInit(): void {
+    ngOnChanges(): void {
         const outputArray = [];
         for (const choice in this.uqj.rendered_choices) {
             outputArray.push({
