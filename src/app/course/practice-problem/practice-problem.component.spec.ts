@@ -1,13 +1,13 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {TestModule} from "@test/test.module";
-import {UqjService} from "@app/problems/_services/uqj.service";
-import {ActivatedRoute, convertToParamMap} from "@angular/router";
-import {CategoryService} from "@app/_services/api/category.service";
-import {CategoryServiceMock} from "@test/category.service.mock";
-import {CourseService} from "@app/course/_services/course.service";
-import {CourseServiceMock} from "@test/course.service.mock";
-import {DifficultyService} from "@app/problems/_services/difficulty.service";
-import {DifficultyServiceMock} from "@app/problems/_test/_services/difficulty.service.mock";
+import {TestModule} from '@test/test.module';
+import {UqjService} from '@app/problems/_services/uqj.service';
+import {ActivatedRoute, convertToParamMap, RouterModule} from '@angular/router';
+import {CategoryService} from '@app/_services/api/category.service';
+import {CategoryServiceMock} from '@test/category.service.mock';
+import {CourseService} from '@app/course/_services/course.service';
+import {CourseServiceMock} from '@test/course.service.mock';
+import {DifficultyService} from '@app/problems/_services/difficulty.service';
+import {DifficultyServiceMock} from '@app/problems/_test/_services/difficulty.service.mock';
 import {
     MOCK_CATEGORIES,
     MOCK_DIFFICULTIES,
@@ -15,17 +15,22 @@ import {
     MOCK_UQJ_6,
     MOCK_UQJ_7,
     MOCK_UQJ_8
-} from "@app/problems/_test/mock";
-import {UserStatsService} from "@app/_services/api/user-stats.service";
-import {UserStatsServiceMock} from "@test/user-stats.service.mock";
-import {TuiButtonModule, TuiDataListModule} from "@taiga-ui/core";
-import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component";
-import {TuiSelectModule, TuiTagModule} from "@taiga-ui/kit";
-import {TuiTableModule} from "@taiga-ui/addon-table";
-import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe";
-import {of} from "rxjs";
+} from '@app/problems/_test/mock';
+import {UserStatsService} from '@app/_services/api/user-stats.service';
+import {UserStatsServiceMock} from '@test/user-stats.service.mock';
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiHostedDropdownModule,
+    TuiTextfieldControllerModule
+} from '@taiga-ui/core';
+import {PracticeProblemComponent} from '@app/course/practice-problem/practice-problem.component';
+import {TuiCheckboxLabeledModule, TuiMarkerIconModule, TuiSelectModule, TuiTagModule} from '@taiga-ui/kit';
+import {TuiTableModule} from '@taiga-ui/addon-table';
+import {ProblemViewComponent} from '@app/problems/problem-view/problem-view.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {StringifyTuiDataListPipe} from '@app/_helpers/pipes/stringify-tui-data-list.pipe';
+import {of} from 'rxjs';
 
 
 describe('PracticeProblemComponent', () => {
@@ -43,12 +48,14 @@ describe('PracticeProblemComponent', () => {
                 {provide: UserStatsService, useClass: UserStatsServiceMock},
                 {
                     provide: ActivatedRoute, useValue: {
-                        snapshot: {
-                            paramMap: convertToParamMap({
-                                categoryId: 0,
-                                courseId: 0
-                            })
-                        }
+                        paramMap: of(convertToParamMap({
+                            categoryId: 0,
+                            courseId: 0
+                        })),
+                        snapshot: convertToParamMap({
+                            categoryId: 0,
+                            courseId: 0
+                        })
                     }
                 }
             ],
@@ -56,11 +63,16 @@ describe('PracticeProblemComponent', () => {
                 TestModule,
                 FormsModule,
                 ReactiveFormsModule,
+                RouterModule,
                 TuiSelectModule,
                 TuiButtonModule,
                 TuiDataListModule,
                 TuiTagModule,
-                TuiTableModule
+                TuiTableModule,
+                TuiHostedDropdownModule,
+                TuiTextfieldControllerModule,
+                TuiCheckboxLabeledModule,
+                TuiMarkerIconModule
             ]
         }).compileComponents();
     });
@@ -125,9 +137,9 @@ describe('PracticeProblemComponent', () => {
         expect(component.currentQuestionId).toEqual(previousQuestionId);
     });
 
-    // it('should apply filter - uqjs in filtered list', () => {
-    //     component.changeDifficulty(null);
-    //     fixture.detectChanges();
-    //     expect(component.difficulty).toEqual(null);
-    // });
+    it('should apply filter - uqjs in filtered list', () => {
+        component.updateQuestions(null, null);
+        fixture.detectChanges();
+        expect(component.difficulty).toEqual(null);
+    });
 });

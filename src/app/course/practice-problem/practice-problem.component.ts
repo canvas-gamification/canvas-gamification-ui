@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {UqjService} from "@app/problems/_services/uqj.service";
-import {Category, UQJ} from "@app/_models";
-import {Difficulty} from "@app/_models/difficulty";
-import {DifficultyService} from "@app/problems/_services/difficulty.service";
-import {UserStatsService} from "@app/_services/api/user-stats.service";
-import {CourseService} from "@app/course/_services/course.service";
-import {CategoryService} from "@app/_services/api/category.service";
-import {forkJoin} from "rxjs";
-import {UserDifficultyStats} from "@app/_models/user_difficulty_stats";
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {UqjService} from '@app/problems/_services/uqj.service';
+import {Category, NestedCategories, UQJ} from '@app/_models';
+import {Difficulty} from '@app/_models/difficulty';
+import {DifficultyService} from '@app/problems/_services/difficulty.service';
+import {UserStatsService} from '@app/_services/api/user-stats.service';
+import {CourseService} from '@app/course/_services/course.service';
+import {CategoryService} from '@app/_services/api/category.service';
+import {forkJoin, Subscription} from 'rxjs';
+import {UserDifficultyStats} from '@app/_models/user_difficulty_stats';
 import * as _ from 'lodash';
 
 @Component({
@@ -16,20 +16,26 @@ import * as _ from 'lodash';
     templateUrl: './practice-problem.component.html',
     styleUrls: ['./practice-problem.component.scss']
 })
-export class PracticeProblemComponent implements OnInit {
-    readonly categoryId: number;
-    readonly courseId: number;
+export class PracticeProblemComponent implements OnInit, OnDestroy {
+    courseId: number;
+    categoryId: number;
 
     uqjs: UQJ[];
     currentQuestionId: number;
     cursor = 0;
     category: Category;
+    categories: Category[] = [];
+    parentCategory: Category;
+    nestedCategories: NestedCategories[] = [];
     userSuccessRate: number;
     difficulty: string;
     difficulties: Difficulty[];
     userDifficultyStats: UserDifficultyStats[];
     categoryUserSuccessRate: number;
     include_solved = false;
+    displayCategorySidebar = false;
+
+    subscriptions: Subscription = new Subscription();
 
     constructor(
         private route: ActivatedRoute,
@@ -39,35 +45,70 @@ export class PracticeProblemComponent implements OnInit {
         private categoryService: CategoryService,
         private userStatsService: UserStatsService,
     ) {
-        this.courseId = +this.route.snapshot.paramMap.get('courseId');
-        this.categoryId = +this.route.snapshot.paramMap.get('categoryId');
     }
 
     ngOnInit(): void {
-        this.difficulty = null;
-        const userStatsObservable = this.userStatsService.getUserDifficultyStats(this.categoryId);
-        const categoryObservable = this.categoryService.getCategory(this.categoryId);
-        const uqjObservable = this.uqjService.getUQJs({
-            filters: {
-                category: this.categoryId,
-                difficulty: this.difficulty,
-                is_solved: this.include_solved ? undefined : false,
-                is_verified: true,
-                is_practice: true
-            }
-        });
-        const difficultyObservable = this.difficultyService.getDifficulties();
-        const categoryStatsObservable = this.courseService.getUserStats(this.courseId, this.categoryId);
+        this.subscriptions.add(
+            this.categoryService.getCategories().subscribe(categories => {
+                this.categories = categories;
+                this.nestedCategories = categories.reduce((previous, category) => {
+                    if (category.parent) return previous;
+                    return [...previous, {
+                        category,
+                        children: categories.filter(nestedCategory => nestedCategory.parent === category.pk).map(nestedCategory => {
+                            return {
+                                category: nestedCategory,
+                                children: [],
+                            };
+                        })
+                    }];
+                }, []);
 
-        forkJoin([uqjObservable, difficultyObservable, categoryObservable, userStatsObservable, categoryStatsObservable]).subscribe((result) => {
-            this.uqjs = _.shuffle(result[0].results);
-            this.difficulties = result[1];
-            this.category = result[2];
-            this.userDifficultyStats = result[3];
-            this.categoryUserSuccessRate = result[4].success_rate;
-            this.updateCurrentQuestion();
-            this.calculateUserSuccessRate();
-        });
+                this.subscriptions.add(
+                    this.route.paramMap.subscribe(paramMap => {
+                        this.courseId = Number.parseInt(paramMap.get('courseId'));
+                        this.categoryId = Number.parseInt(paramMap.get('categoryId'));
+                        this.category = categories.find(category => this.categoryId === category.pk);
+                        this.parentCategory = categories.find(category => this.category.parent === category.pk);
+                        this.cursor = 0;
+                        this.uqjs = undefined;
+
+                        const userStatsObservable = this.userStatsService.getUserDifficultyStats(this.categoryId);
+                        const uqjObservable = this.uqjService.getUQJs({
+                            filters: {
+                                category: this.parentCategory ? this.categoryId : undefined,
+                                parent_category: this.parentCategory?.pk ?? this.categoryId,
+                                difficulty: this.difficulty,
+                                is_solved: this.include_solved ? undefined : false,
+                                is_verified: true,is_practice: true
+                            }
+                        });
+                        const difficultyObservable = this.difficultyService.getDifficulties();
+                        const categoryStatsObservable = this.courseService.getUserStats(this.courseId, this.categoryId);
+
+                        this.subscriptions.add(
+                            forkJoin([
+                                uqjObservable,
+                                difficultyObservable,
+                                userStatsObservable,
+                                categoryStatsObservable
+                            ]).subscribe(([uqjs, difficulties, difficultyStats, userSuccessRate]) => {
+                                this.uqjs = _.shuffle(uqjs.results);
+                                this.difficulties = difficulties;
+                                this.userDifficultyStats = difficultyStats;
+                                this.categoryUserSuccessRate = userSuccessRate.success_rate;
+                                this.updateCurrentQuestion();
+                                this.calculateUserSuccessRate();
+                            })
+                        );
+                    })
+                );
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.unsubscribe();
     }
 
     /**
@@ -103,19 +144,21 @@ export class PracticeProblemComponent implements OnInit {
         this.difficulty = difficultyEvent;
         this.include_solved = solvedEvent;
         this.cursor = 0;
-        this.uqjService.getUQJs({
-            filters: {
-                category: this.categoryId,
-                difficulty: this.difficulty,
-                is_solved: solvedEvent ? undefined : false,
-                is_verified: true,
-                is_practice: true
-            }
-        }).subscribe((uqjs) => {
-            this.uqjs = _.shuffle(uqjs.results);
-            this.updateCurrentQuestion();
-            this.calculateUserSuccessRate();
-        });
+        this.subscriptions.add(
+            this.uqjService.getUQJs({
+                filters: {
+                    category: this.parentCategory ? this.categoryId : undefined,
+                    parent_category: this.parentCategory?.pk ?? this.categoryId,
+                    difficulty: this.difficulty,
+                    is_solved: solvedEvent ? undefined : false,
+                    is_verified: true,is_practice: true
+                }
+            }).subscribe((uqjs) => {
+                this.uqjs = _.shuffle(uqjs.results);
+                this.updateCurrentQuestion();
+                this.calculateUserSuccessRate();
+            })
+        );
     }
 
     /**

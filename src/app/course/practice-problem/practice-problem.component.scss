@@ -1,3 +1,4 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
 @import "mixins";
 
 .practice {
@@ -11,14 +12,14 @@
         position: sticky;
         top: calc(4rem + 1px); // Header height + border width
         left: 0;
-        width: 18rem;
+        width: 18.5rem;
         border-right: 1px solid var(--tui-base-03);
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         margin-bottom: -1.5rem;
         min-height: calc(100vh - 8rem - 2px); // Window height - header + footer height - border widths
-        max-height: calc(100vh - 4rem - 1px); // Window height - header height - border width
+        max-height: calc(100vh - 4rem - 2px); // Window height - header height - border widths
         overflow: auto;
 
         @include screen-sm() {
@@ -34,6 +35,37 @@
         &_content {
             display: flex;
             flex-direction: column;
+
+            &-breadcrumbs {
+                color: var(--tui-text-03);
+                display: flex;
+                align-items: center;
+                width: 100%;
+
+                a {
+                    width: auto;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            &-categories {
+                &_button {
+                    border: none;
+                    background-color: transparent;
+                    text-align: left;
+                    cursor: pointer;
+                    padding: 0;
+
+                    @include transition(color);
+                    transition-duration: 300ms;
+
+                    &:hover {
+                        color: var(--tui-primary-hover);
+                    }
+                }
+            }
         }
 
         &_buttons {
