@@ -8,7 +8,6 @@ import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.se
 import {of} from "rxjs";
 import {delay} from "rxjs/operators";
 import {HttpHeaderResponse} from "@angular/common/http";
-import {SimpleChange} from "@angular/core";
 
 describe('JavaViewSnippetComponent', () => {
     let component: JavaViewSnippetComponent;
