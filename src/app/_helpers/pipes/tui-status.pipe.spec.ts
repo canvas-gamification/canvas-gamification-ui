@@ -1,5 +1,4 @@
 import {TuiStatusPipe} from './tui-status.pipe';
-import {TuiStatus} from "@taiga-ui/kit";
 
 describe('TuiStatusPipe', () => {
     it('create an instance', () => {
@@ -9,7 +8,7 @@ describe('TuiStatusPipe', () => {
 
     it('should return TuiStatus', () => {
         const pipe = new TuiStatusPipe();
-        const statuses = [TuiStatus.Success, TuiStatus.Default, TuiStatus.Error, TuiStatus.Warning, TuiStatus.Primary];
+        const statuses = ['default', 'primary', 'custom', 'success', 'error', 'warning', 'info', 'neutral'];
         expect(statuses).toContain(pipe.transform('Solved'));
     });
 });
