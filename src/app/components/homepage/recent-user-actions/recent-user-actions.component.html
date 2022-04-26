@@ -1,10 +1,10 @@
 <ng-container *ngIf="userActions">
-    <h2 class="tui-text_h4">Recent Actions</h2>
+    <h2 class="tui-text_h6 tui-space_bottom-4 tui-space_top-4">Recent Actions</h2>
     <ul>
         <ng-container *ngIf="userActions?.length; else noRecentActions">
             <ng-container *ngFor="let action of userActions">
                 <li class="tui-space_bottom-2">
-                    <tui-island>
+                    <tui-island size="s">
                         <p class="tui-island__paragraph">
                             <ng-container
                                     *ngIf="action.object_type === 'Question' || action.object_type === 'Submission'; else notALinkAction">
@@ -26,7 +26,9 @@
                             <ng-template #notALinkAction>
                                 <span [innerHTML]="action.safeDescription"></span>
                             </ng-template>
-                            <span class="tui-space_left-2">{{this.formatTokenChange(action.token_change)}}</span>
+                            <span class="tui-space_left-2" *ngIf="action.token_change">
+                                {{this.formatTokenChange(action.token_change)}}
+                            </span>
                         </p>
                     </tui-island>
                 </li>
@@ -34,11 +36,11 @@
         </ng-container>
         <ng-template #noRecentActions>
             <li>
-                <p class="tui-text_body-m">No Recent Actions</p>
+                <p class="tui-island__paragraph">No Recent Actions</p>
             </li>
         </ng-template>
     </ul>
-    <div class="tui-form__buttons tui-space_top-4">
+    <div class="tui-form__buttons tui-space_top-4 tui-space_bottom-6">
         <a tuiButton class="tui-form__button" size="m" appearance="primary" iconRight="tuiIconArrowRight"
            routerLink="../actions">View More Actions</a>
     </div>
