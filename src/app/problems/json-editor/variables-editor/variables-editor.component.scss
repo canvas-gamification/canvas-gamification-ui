@@ -1,5 +1,30 @@
 @import '~@taiga-ui/core/styles/taiga-ui-local';
 
+.drag-container {
+    display: flex;
+
+    &_handle {
+        padding: 0.5rem;
+        cursor: pointer;
+        border: solid 1px var(--tui-base-03);
+        border-right: none;
+        border-top-left-radius: var(--tui-radius-m);
+        border-bottom-left-radius: var(--tui-radius-m);
+
+        @include transition(background-color);
+        transition-duration: 300ms;
+
+        &:hover {
+            background-color: var(--tui-base-02);
+        }
+    }
+
+    &_content {
+        flex-grow: 1;
+        border-top-left-radius: 0;
+    }
+}
+
 .content {
     display: flex;
     flex-direction: column;

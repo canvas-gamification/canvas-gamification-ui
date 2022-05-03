@@ -1,0 +1,13 @@
+@import "mixins";
+
+.admin {
+    display: flex;
+
+    @include screen-sm() {
+        flex-direction: column;
+    }
+
+    &-content {
+        flex: 1;
+    }
+}

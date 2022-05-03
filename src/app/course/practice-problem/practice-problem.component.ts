@@ -79,6 +79,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
                             parent_category: this.parentCategory?.pk ?? this.categoryId,
                             difficulty: this.difficulty,
                             is_solved: this.include_solved ? undefined : false,
+                            is_verified: true,
                             is_practice: true
                         });
                         const difficultyObservable = this.difficultyService.getDifficulties();
@@ -148,6 +149,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
                 parent_category: this.parentCategory?.pk ?? this.categoryId,
                 difficulty: this.difficulty,
                 is_solved: solvedEvent ? undefined : false,
+                is_verified: true,
                 is_practice: true
             }).subscribe((uqjs) => {
                 this.uqjs = _.shuffle(uqjs);

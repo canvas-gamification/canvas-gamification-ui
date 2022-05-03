@@ -117,7 +117,7 @@ describe('CourseEventCreateComponent without EventId', () => {
 
     beforeEach(() => {
         router = TestBed.inject(Router);
-        spyOn(router, 'navigate');
+        spyOn(router, 'navigate').and.returnValue(Promise.resolve(true));
         notificationService = TestBed.inject(TuiNotificationsService);
         spyOn(notificationService, 'show').and.callFake(() => {
             return of();

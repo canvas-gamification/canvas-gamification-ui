@@ -1,2 +1,7 @@
 <div class="code-editor" #codeEditor></div>
-<span class="tui-form__field-note tui-text_body-xs" *ngIf="showHelp">Press escape to de-focus the editor</span>
+<span
+    class="tui-form__field-note tui-text_body-xs"
+    *ngIf="showHelp && !readOnly"
+>
+    Press escape to de-focus the editor
+</span>

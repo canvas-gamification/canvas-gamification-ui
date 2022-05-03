@@ -1,9 +1,16 @@
-.sticky {
-    position: sticky;
-    top: 5rem;
-}
+@import "mixins";
 
-.overflow-scroll {
-    height: calc(100vh - 8rem);
-    overflow-y: scroll;
+.courses {
+    @include sidebar(right, 20rem);
+    justify-content: unset;
+
+    @include screen-sm() {
+        margin-top: var(--tui-padding-l);
+    }
+
+    &-islands {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
 }

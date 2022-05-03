@@ -20,7 +20,7 @@ export class SubmissionService {
     getSubmission(id: number): Observable<QuestionSubmission> {
         const url = this.apiService.getURL('submission', id);
         return this.http.get<QuestionSubmission>(url)
-            .pipe(catchError(this.apiService.handleError<QuestionSubmission>('Error occurred while fetching submission')));
+            .pipe(catchError(this.apiService.handleError<QuestionSubmission>('Error occurred while fetching submission.')));
     }
 
     /**
@@ -34,7 +34,7 @@ export class SubmissionService {
         const {ordering = {}} = options ? options : {};
         params = params.set('ordering', String(ordering));
         return this.http.get<QuestionSubmission[]>(url, {params})
-            .pipe(catchError(this.apiService.handleError<QuestionSubmission[]>('Error occurred while fetching submissions')));
+            .pipe(catchError(this.apiService.handleError<QuestionSubmission[]>('Error occurred while fetching submissions.')));
     }
 
     /**
@@ -44,6 +44,6 @@ export class SubmissionService {
     postQuestionSubmission(input: { question: number, solution: unknown }): Observable<HttpHeaderResponse> {
         const url = this.apiService.getURL('submission', 'submit');
         return this.http.post<HttpHeaderResponse>(url, input)
-            .pipe(catchError(this.apiService.handleFormError()));
+            .pipe(catchError(this.apiService.handleError<HttpHeaderResponse>('Error occurred while submitting the question.')));
     }
 }
