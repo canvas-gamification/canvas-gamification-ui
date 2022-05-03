@@ -42,6 +42,18 @@ describe('UqjService', () => {
         tick();
     }));
 
+    it('getUQJQuestionIds returns UQJs list of ids', fakeAsync(() => {
+        const MOCK_UQJS_IDS = MOCK_UQJS.map(uqj => uqj.question.id);
+        uqjService.getUQJQuestionIds().subscribe((uqj) => {
+            expect(uqj.length).toEqual(MOCK_UQJS_IDS.length);
+            expect(uqj).toBe(MOCK_UQJS_IDS);
+        });
+        const request = httpMock.expectOne('http://localhost:8000/api/uqj/get-question-ids/');
+        expect(request.request.method).toBe('GET');
+        request.flush(MOCK_UQJS_IDS);
+        tick();
+    }));
+
     it('getUQJs with options returns list', fakeAsync(() => {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         uqjService.getUQJs({filters: {question__event: 0}, recent: true}).subscribe((uqj) => {

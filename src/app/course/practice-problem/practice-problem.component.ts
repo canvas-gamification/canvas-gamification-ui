@@ -33,7 +33,6 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     userDifficultyStats: UserDifficultyStats[];
     categoryUserSuccessRate: number;
     include_solved = false;
-    displayCategorySidebar = false;
 
     subscriptions: Subscription = new Subscription();
 

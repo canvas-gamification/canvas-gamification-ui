@@ -47,12 +47,14 @@ export class UqjService {
      * Get all UQJ Question Ids from the server that meet the UQJ filtering params
      * @param filters - Filters to get specific UQJs
      */
-    getUQJQuestionIds(filters?: {[param: string]: string | number | boolean}): Observable<number[]> {
+    getUQJQuestionIds(filters?: { [param: string]: string | number | boolean }): Observable<number[]> {
         const url = this.apiService.getURL('uqj', 'get-question-ids');
         let params = new HttpParams();
-        Object.entries(filters).forEach(([key, value]) => {
-            params = params.set(key, value ?? '');
-        });
+        if (filters) {
+            Object.entries(filters).forEach(([key, value]) => {
+                params = params.set(key, value ?? '');
+            });
+        }
         return this.http
             .get<number[]>(url, {params})
             .pipe(catchError(this.apiService.handleError<number[]>(`Error occurred while fetching user-specific questions`)));
