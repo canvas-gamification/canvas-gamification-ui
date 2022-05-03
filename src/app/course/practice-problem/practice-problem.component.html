@@ -1,5 +1,5 @@
 <div class="practice">
-    <aside class="practice-sidebar tui-container tui-container_fullwidth">
+    <app-sidebar sidebarId="practiceSidebar" position="left" spacing="between">
         <div class="practice-sidebar_content tui-space_top-6">
             <div
                 class="practice-sidebar_content-breadcrumbs tui-space_bottom-2"
@@ -118,7 +118,7 @@
                 Next Question
             </button>
         </div>
-    </aside>
+    </app-sidebar>
     <div class="practice-content">
         <app-problem-view
             *ngIf="currentQuestionId && category && uqjs else noProblems"

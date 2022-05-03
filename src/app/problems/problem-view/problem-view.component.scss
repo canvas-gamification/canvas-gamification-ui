@@ -1,9 +1,23 @@
-.question-header {
-    display: flex;
-    align-items: center;
-}
+@import "mixins";
 
-.question-skeleton {
-    height: 30rem;
-    width: 100%;
+.question {
+    display: flex;
+
+    @include screen-sm() {
+        flex-direction: column;
+    }
+
+    &_content {
+        flex: 1;
+    }
+
+    &-header {
+        display: flex;
+        align-items: center;
+    }
+
+    &-skeleton {
+        height: 30rem;
+        width: 100%;
+    }
 }

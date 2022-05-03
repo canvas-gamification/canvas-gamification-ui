@@ -9,8 +9,6 @@
     }
 
     &-sidebar {
-        @include sidebar(left);
-
         &_content {
             display: flex;
             flex-direction: column;

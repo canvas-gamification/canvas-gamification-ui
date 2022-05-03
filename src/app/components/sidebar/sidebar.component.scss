@@ -1,0 +1,91 @@
+@import "mixins";
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+
+.sidebar {
+    &_left {
+        @include sidebar(left);
+    }
+
+    &_right{
+        @include sidebar(right);
+    }
+
+    &_small {
+        width: 15rem;
+
+        @include screen-sm() {
+            width: auto;
+        }
+    }
+
+    &_large {
+        width: 22rem;
+
+        @include screen-sm() {
+            width: auto;
+        }
+    }
+
+    &-closed {
+        width: 4rem;
+
+        @include screen-sm() {
+            width: auto;
+        }
+    }
+
+    &-content {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+
+        &_between {
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        &_closed {
+            display: none;
+
+            @include screen-sm() {
+                display: unset;
+            }
+        }
+    }
+
+    &-toggle {
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        margin-top: auto;
+        border-top: 1px solid var(--tui-base-03);
+        background-color: var(--tui-base-01);
+        display: flex;
+
+        @include screen-sm() {
+            display: none;
+        }
+
+        &_left {
+            justify-content: flex-end;
+        }
+
+        &_closed {
+            justify-content: center;
+            align-items: center;
+        }
+
+        &_button {
+            border: 1px solid var(--tui-base-03);
+        }
+
+        &_icon {
+            color: var(--tui-text-01);
+            @include transition(transform);
+
+            &-closed {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
