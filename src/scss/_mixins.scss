@@ -59,6 +59,7 @@
 
         @if($position == left) {
             border-bottom: 1px solid var(--tui-base-03);
+            margin-bottom: var(--tui-padding-l);
         }
 
         @if($position == right) {

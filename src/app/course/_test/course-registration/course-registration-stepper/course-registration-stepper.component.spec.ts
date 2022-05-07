@@ -43,7 +43,7 @@ describe('CourseRegistrationStepperComponent', () => {
     });
 
     it('should set next step', () => {
-        spyOn(component, 'setStepComplete');
+        spyOn(component, 'setStepComplete').and.callThrough();
         expect(component.currentStep).toEqual(0);
         component.setNextStep();
         expect(component.currentStep).toEqual(1);

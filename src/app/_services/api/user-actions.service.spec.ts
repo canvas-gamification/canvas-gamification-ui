@@ -1,4 +1,4 @@
-import {TestBed} from '@angular/core/testing';
+import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {UserActionsService} from './user-actions.service';
 import {TestModule} from '@test/test.module';
@@ -29,7 +29,7 @@ describe('UserActionsService', () => {
         expect(userActionsService).toBeTruthy();
     });
 
-    it('should return all actions', () => {
+    it('should return all actions', fakeAsync(() => {
         userActionsService.getUserActions().subscribe((actions) => {
             expect(actions.results).toEqual(MOCK_USER_ACTIONS);
         });
@@ -41,14 +41,16 @@ describe('UserActionsService', () => {
             previous: '',
             results: MOCK_USER_ACTIONS
         });
-    });
+        tick();
+    }));
 
-    it('should return first action', () => {
+    it('should return first action', fakeAsync(() => {
         userActionsService.getUserAction(0).subscribe((action) => {
             expect(action).toEqual(MOCK_USER_ACTIONS[0]);
         });
         const request = httpMock.expectOne(apiService.getURL('user-actions', 0));
         expect(request.request.method).toBe('GET');
         request.flush(MOCK_USER_ACTIONS[0]);
-    });
+        tick();
+    }));
 });

@@ -1,13 +1,6 @@
 @import "mixins";
 
 .courses {
-    @include sidebar(right, 20rem);
-    justify-content: unset;
-
-    @include screen-sm() {
-        margin-top: var(--tui-padding-l);
-    }
-
     &-islands {
         display: flex;
         flex-direction: column;

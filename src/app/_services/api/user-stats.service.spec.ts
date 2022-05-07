@@ -1,4 +1,4 @@
-import {TestBed} from '@angular/core/testing';
+import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {UserStatsService} from './user-stats.service';
 import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
@@ -28,12 +28,13 @@ describe('UserStatsService', () => {
         expect(userStatsService).toBeTruthy();
     });
 
-    it('should return difficultyUserStats', () => {
+    it('should return difficultyUserStats', fakeAsync(() => {
         userStatsService.getUserDifficultyStats(0).subscribe((stats) => {
             expect(stats).toEqual(MOCK_USER_DIFFICULTY_STATS);
         });
         const request = httpMock.expectOne(apiService.getURL('user-stats/difficulty', 0));
         expect(request.request.method).toBe('GET');
         request.flush(MOCK_USER_DIFFICULTY_STATS);
-    });
+        tick();
+    }));
 });

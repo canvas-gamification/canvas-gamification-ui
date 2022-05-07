@@ -1,4 +1,4 @@
-import {TestBed} from '@angular/core/testing';
+import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ConsentService} from './consent.service';
 import {TestModule} from '@test/test.module';
@@ -29,30 +29,33 @@ describe('ConsentService', () => {
         expect(consentService).toBeTruthy();
     });
 
-    it('submit a user consent', () => {
+    it('submit a user consent', fakeAsync(() => {
         consentService.postConsent(MOCK_ADMIN_CONSENT).subscribe((consent) => {
             expect(consent).toEqual(MOCK_ADMIN_CONSENT);
         });
         const request = httpMock.expectOne(apiService.getURL('user-consent'));
         expect(request.request.method).toBe('POST');
         request.flush(MOCK_ADMIN_CONSENT);
-    });
+        tick();
+    }));
 
-    it('get user consents', () => {
+    it('get user consents', fakeAsync(() => {
         consentService.getConsent().subscribe((consents) => {
             expect(consents).toEqual([MOCK_ADMIN_CONSENT]);
         });
         const request = httpMock.expectOne(apiService.getURL('user-consent'));
         expect(request.request.method).toBe('GET');
         request.flush([MOCK_ADMIN_CONSENT]);
-    });
+        tick();
+    }));
 
-    it('remove a user consent', () => {
+    it('remove a user consent', fakeAsync(() => {
         consentService.declineConsent().subscribe((consent) => {
             expect(consent).toEqual(MOCK_ADMIN_CONSENT);
         });
         const request = httpMock.expectOne(apiService.getURL('user-consent'));
         expect(request.request.method).toBe('POST');
         request.flush(MOCK_ADMIN_CONSENT);
-    });
+        tick();
+    }));
 });

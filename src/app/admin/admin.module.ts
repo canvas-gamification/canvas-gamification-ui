@@ -16,6 +16,7 @@ import {TuiButtonModule, TuiLoaderModule, TuiScrollbarModule, TuiTextfieldContro
 import {TuiRingChartModule} from '@taiga-ui/addon-charts';
 import {TuiFilterPipeModule} from '@taiga-ui/cdk';
 import {CoursesComponent} from './courses/courses.component';
+import {SidebarModule} from '@app/components/sidebar/sidebar.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {CoursesComponent} from './courses/courses.component';
     imports: [
         CommonModule,
         FormsModule,
+        SidebarModule,
         TuiButtonModule,
         TuiDataListWrapperModule,
         TuiFilterPipeModule,

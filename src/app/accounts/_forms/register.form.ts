@@ -15,7 +15,7 @@ export class RegisterForm {
     }
 
     static extractData(form: FormGroup): RegisterFormData {
-        return form.value;
+        return form.getRawValue();
     }
 }
 

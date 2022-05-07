@@ -9,6 +9,7 @@ import {UqjServiceMock} from "@app/problems/_test/_services/uqj.service.mock";
 import {ActivatedRoute} from "@angular/router";
 import {MOCK_QUESTION_SUBMISSION, MOCK_SUBMISSIONS, MOCK_UQJ, MOCK_UQJS} from "@app/problems/_test/mock";
 import {TitleCasePipe} from "@angular/common";
+import {SidebarModule} from '@app/components/sidebar/sidebar.module';
 
 describe('ProblemViewComponent', () => {
     let component: ProblemViewComponent;
@@ -16,7 +17,7 @@ describe('ProblemViewComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule],
+            imports: [TestModule, SidebarModule],
             declarations: [ProblemViewComponent, TitleCasePipe],
             providers: [
                 {provide: SubmissionService, useClass: SubmissionServiceMock},

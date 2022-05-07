@@ -1,4 +1,4 @@
-import {TestBed} from '@angular/core/testing';
+import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {CategoryStatsService} from './category-stats.service';
 import {TestModule} from "@test/test.module";
@@ -29,7 +29,7 @@ describe('CategoryStatsService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should get category stats', () => {
+    it('should get category stats', fakeAsync(() => {
         service.getCategoryStats().subscribe((categoryStats) => {
             expect(categoryStats).toEqual([MOCK_NESTED_CATEGORY_2]);
             expect(categoryStats[0].children).toEqual([MOCK_NESTED_CATEGORY]);
@@ -37,5 +37,6 @@ describe('CategoryStatsService', () => {
         const request = httpMock.expectOne(apiService.getURL('admin/category-stats'));
         expect(request.request.method).toBe('GET');
         request.flush([MOCK_NESTED_CATEGORY_2]);
-    });
+        tick();
+    }));
 });
