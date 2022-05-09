@@ -31,6 +31,7 @@ import {ProblemViewComponent} from '@app/problems/problem-view/problem-view.comp
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {StringifyTuiDataListPipe} from '@app/_helpers/pipes/stringify-tui-data-list.pipe';
 import {of} from 'rxjs';
+import {SidebarModule} from '@app/components/sidebar/sidebar.module';
 
 
 describe('PracticeProblemComponent', () => {
@@ -72,7 +73,8 @@ describe('PracticeProblemComponent', () => {
                 TuiHostedDropdownModule,
                 TuiTextfieldControllerModule,
                 TuiCheckboxLabeledModule,
-                TuiMarkerIconModule
+                TuiMarkerIconModule,
+                SidebarModule
             ]
         }).compileComponents();
     });

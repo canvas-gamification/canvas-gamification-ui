@@ -9,8 +9,6 @@
     }
 
     &-sidebar {
-        @include sidebar(left);
-
         &_content {
             display: flex;
             flex-direction: column;
@@ -60,10 +58,6 @@
 
     &-content {
         width: 100%;
-
-        @include screen-sm() {
-            margin-top: 4rem;
-        }
 
         &_none {
             display: flex;

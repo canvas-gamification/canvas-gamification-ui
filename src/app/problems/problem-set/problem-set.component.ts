@@ -98,8 +98,8 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
             this.difficulties = difficulties;
         });
         this.form['parentCategory'].valueChanges.subscribe((value) => {
-            const parentCategoryPK = this.categories.filter(c => c.name === value)[0].pk;
-            this.subCategories = this.categories.filter(c => c.parent === parentCategoryPK);
+            const parentCategoryPK = this.categories?.filter(c => c.name === value)[0].pk;
+            this.subCategories = this.categories?.filter(c => c.parent === parentCategoryPK);
         });
     }
 

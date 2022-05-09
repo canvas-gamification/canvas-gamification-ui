@@ -80,6 +80,7 @@ import {CodeEditorModule} from '@app/components/code-editor/code-editor.module';
 import {EditorModule} from '@app/components/editor/editor.module';
 import {TuiEditorSocketModule} from '@taiga-ui/addon-editor';
 import {TuiActiveZoneModule} from '@taiga-ui/cdk';
+import {SidebarModule} from '@app/components/sidebar/sidebar.module';
 
 @NgModule({
     declarations: [
@@ -113,6 +114,7 @@ import {TuiActiveZoneModule} from '@taiga-ui/cdk';
         PipesModule,
         ProblemsRoutingModule,
         ReactiveFormsModule,
+        SidebarModule,
         TabListViewSwitcherModule,
         TuiAccordionModule,
         TuiActiveZoneModule,

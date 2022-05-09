@@ -10,13 +10,4 @@
     &_content {
         flex: 1;
     }
-
-    &_sidebar {
-        @include sidebar(right);
-        justify-content: unset;
-
-        @include screen-sm() {
-            margin-top: var(--tui-padding-l);
-        }
-    }
 }

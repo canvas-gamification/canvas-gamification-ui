@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {ProfileDetailsComponent} from './profile-details.component';
 import {TestModule} from '@test/test.module';
@@ -51,14 +51,15 @@ describe('ProfileDetailsComponent', () => {
         expect(component['profile'].putProfileDetails).toHaveBeenCalledWith(data, component.userDetails.id);
     });
 
-    it('should withdraw consent', () => {
+    it('should withdraw consent', fakeAsync(() => {
         spyOn(component['consentService'], 'declineConsent').and.returnValue(of(MOCK_CONSENT_DECLINE));
         component.withdraw();
         expect(component['consentService'].declineConsent).toHaveBeenCalled();
         component['consentService'].declineConsent().subscribe((declineConsent) => {
             expect(declineConsent).toEqual(MOCK_CONSENT_DECLINE);
         });
-    });
+        tick();
+    }));
 
     it('should open withdraw consent modal', () => {
         spyOn(component['dialogService'], 'open').and.callThrough();

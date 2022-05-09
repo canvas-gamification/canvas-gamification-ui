@@ -24,7 +24,7 @@ import {
     TuiInputDateRangeModule,
     TuiInputModule,
     TuiInputTimeModule,
-    TuiIslandModule, 
+    TuiIslandModule,
     TuiMarkerIconModule,
     TuiSelectModule,
     TuiStepperModule,
@@ -60,6 +60,7 @@ import {PipesModule} from '@app/_helpers/pipes/pipes.module';
 import {PracticeProblemComponent} from './practice-problem/practice-problem.component';
 import {ProblemsModule} from '@app/problems/problems.module';
 import {TuiSidebarModule} from '@taiga-ui/addon-mobile';
+import {SidebarModule} from '@app/components/sidebar/sidebar.module';
 
 @NgModule({
     declarations: [
@@ -85,6 +86,7 @@ import {TuiSidebarModule} from '@taiga-ui/addon-mobile';
         PipesModule,
         ProblemsModule,
         ReactiveFormsModule,
+        SidebarModule,
         TextMaskModule,
         TuiActiveZoneModule,
         TuiAvatarModule,
