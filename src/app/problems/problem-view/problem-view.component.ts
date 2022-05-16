@@ -5,7 +5,6 @@ import {UqjService} from '@app/problems/_services/uqj.service';
 import {QuestionSubmission} from '@app/_models/question_submission';
 import {SubmissionService} from '@app/problems/_services/submission.service';
 import {AuthenticationService} from '@app/_services/api/authentication';
-import {QuestionService} from "@app/problems/_services/question.service";
 import {combineLatest, Subscription} from 'rxjs';
 
 @Component({
@@ -21,7 +20,6 @@ export class ProblemViewComponent implements OnChanges, OnInit, OnDestroy {
         private uqjService: UqjService,
         private submissionService: SubmissionService,
         private authenticationService: AuthenticationService,
-        private questionService: QuestionService,
     ) {
     }
 
@@ -39,7 +37,6 @@ export class ProblemViewComponent implements OnChanges, OnInit, OnDestroy {
                 this.uqjService.getUQJByQuestion(questionId),
                 this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}),
                 this.authenticationService.currentUser,
-                this.questionService.openedQuestion(questionId)
             ]).subscribe(([uqj, submissions, user]) => {
                 this.uqj = uqj;
                 this.renderedText = this.uqj.rendered_text;
