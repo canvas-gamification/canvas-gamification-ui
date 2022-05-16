@@ -65,6 +65,7 @@ import {ContactModule} from '@app/components/contact/contact.module';
 import {CodeEditorModule} from '@app/components/code-editor/code-editor.module';
 import {FooterModule} from '@app/components/footer/footer.module';
 import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify';
+import {SidebarModule} from '@app/components/sidebar/sidebar.module';
 
 @NgModule({
     declarations: [
@@ -105,6 +106,7 @@ import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify';
         ReactiveFormsModule,
         RecaptchaFormsModule,
         RecaptchaModule,
+        SidebarModule,
         TuiActiveZoneModule,
         TuiAvatarModule,
         TuiButtonModule,

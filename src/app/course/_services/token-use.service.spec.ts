@@ -1,4 +1,4 @@
-import {TestBed} from '@angular/core/testing';
+import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {TokenUseService} from './token-use.service';
 import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
@@ -28,7 +28,7 @@ describe('TokenUseService', () => {
         expect(tokenUseService).toBeTruthy();
     });
 
-    it('useTokens', () => {
+    it('useTokens', fakeAsync(() => {
         const data = {};
         MOCK_COURSE_REGISTRATION.token_uses.forEach(tokenUse => data[tokenUse.option.id] = tokenUse.num_used);
         tokenUseService.useTokens(data, MOCK_COURSE_REGISTRATION.id).subscribe((response) => {
@@ -37,5 +37,6 @@ describe('TokenUseService', () => {
         const request = httpMock.expectOne(apiService.getURL('token-use', 'use', MOCK_COURSE_REGISTRATION.id));
         expect(request.request.method).toBe('POST');
         request.flush({success: true});
-    });
+        tick();
+    }));
 });

@@ -1,0 +1,10 @@
+// File used to override Taiga UI classes
+
+.tui-island_hoverable {
+    box-shadow: 0 0.05rem 0.75rem rgba(0, 0, 0, 0.025) !important;
+    border: 1px dashed var(--tui-base-03);
+
+    &:hover {
+        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1) !important;
+    }
+}

@@ -35,12 +35,14 @@
                             <tui-field-error formControlName="compile"></tui-field-error>
                         </div>
                         <div class="tui-form__row">
-                            <tui-text-area
-                                [expandable]="true"
-                                formControlName="template"
-                            >
+                            <label for="code-editor-{{index}}" class="tui-form__field-note" >
                                 Template of the File
-                            </tui-text-area>
+                            </label>
+                            <app-code-editor
+                                id="code-editor-{{index}}"
+                                [codeTemplate]="(form | asFormGroup).controls.template.value"
+                                (codeTemplateChange)="setInputTemplate(form, $event)"
+                            ></app-code-editor>
                             <tui-field-error formControlName="template"></tui-field-error>
                         </div>
                     </div>

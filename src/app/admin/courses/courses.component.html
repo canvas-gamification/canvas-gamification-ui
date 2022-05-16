@@ -1,8 +1,8 @@
-<div class="sticky">
-    <h2 class="tui-text_h4 tui-space_bottom-8">Courses</h2>
+<app-sidebar sidebarId="adminSidebar" position="right" size="l">
+    <h2 class="tui-text_h6 tui-space_bottom-4 tui-space_top-6">Courses</h2>
     <tui-loader [overlay]="true" [showLoader]="!courseData">
-        <tui-scrollbar class="overflow-scroll" *ngIf="courseData">
-            <tui-island class="tui-space_bottom-4" *ngFor="let course of courseData">
+        <div class="courses-islands tui-space_bottom-6">
+            <tui-island *ngFor="let course of courseData">
                 <h3 class="tui-island__title">{{ course.name }}</h3>
                 <p class="tui-island__paragraph">
                     URL: {{ course.url }}
@@ -14,6 +14,6 @@
                     End Date: {{ course.end_date }}
                 </p>
             </tui-island>
-        </tui-scrollbar>
+        </div>
     </tui-loader>
-</div>
+</app-sidebar>

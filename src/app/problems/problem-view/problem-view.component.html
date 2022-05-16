@@ -1,50 +1,50 @@
-<div class="tui-container tui-container_fullwidth">
-    <p
-        class="tui-island__paragraph tui-text_body-xs tui-space_bottom-0 tui-space_top-10"
-        [class.tui-skeleton]="!uqj"
-        [class.tui-skeleton_short]="!uqj"
-        [class.tui-skeleton_text]="!uqj"
-    >
-        {{ uqj?.question?.parent_category_name || 'No Category' | uppercase }}
-    </p>
-    <div class="tui-space_bottom-10 tui-space_top-2">
-        <div class="question-header">
-            <h1
-                class="tui-text_h3 tui-space_vertical-1"
+<div class="question">
+    <div class="question_content">
+        <div class="tui-container tui-container_fullwidth">
+            <p
+                class="tui-island__paragraph tui-text_body-xs tui-space_bottom-0 tui-space_top-10"
                 [class.tui-skeleton]="!uqj"
+                [class.tui-skeleton_short]="!uqj"
                 [class.tui-skeleton_text]="!uqj"
             >
-                {{ uqj?.question?.title ?? 'Question Title' }}
-            </h1>
-            <tui-badge
-                class="tui-space_left-4"
-                [class.tui-skeleton]="!uqj"
-                [status]="uqj.status | tuiStatus"
-                [value]="uqj.status"
-                *ngIf="uqj && uqj.status !== 'No Status' && uqj.status !== 'New'"
-            ></tui-badge>
-        </div>
-        <p
-            class="tui-space_top-2 tui-space_bottom-0"
-            [class.tui-skeleton]="!uqj"
-            [class.tui-skeleton_short]="!uqj"
-            [class.tui-skeleton_text]="!uqj"
-        >
-            {{ uqj?.question?.token_value || 'No' }}
-            &nbsp;Tokens Possible
-        </p>
-        <p
-            class="tui-space_vertical-0"
-            [class.tui-skeleton]="!uqj"
-            [class.tui-skeleton_short]="!uqj"
-            [class.tui-skeleton_text]="!uqj"
-        >
-            {{ (uqj?.question?.max_submission_allowed - uqj?.num_attempts) ?? 'Unlimited' }}
-            &nbsp;Attempts Remaining
-        </p>
-    </div>
-    <div class="tui-row tui-row_adaptive">
-        <div class="tui-col_xs-12 tui-col_md-8 tui-col_lg-8">
+                {{ uqj?.question?.category_obj?.full_name || 'No Category' | uppercase }}
+            </p>
+            <div class="tui-space_bottom-10 tui-space_top-2">
+                <div class="question-header">
+                    <h1
+                        class="tui-text_h3 tui-space_vertical-1"
+                        [class.tui-skeleton]="!uqj"
+                        [class.tui-skeleton_text]="!uqj"
+                    >
+                        {{ uqj?.question?.title ?? 'Question Title' }}
+                    </h1>
+                    <tui-badge
+                        class="tui-space_left-4"
+                        [class.tui-skeleton]="!uqj"
+                        [status]="uqj.status | tuiStatus"
+                        [value]="uqj.status"
+                        *ngIf="uqj && uqj.status !== 'No Status' && uqj.status !== 'New'"
+                    ></tui-badge>
+                </div>
+                <p
+                    class="tui-space_top-2 tui-space_bottom-0"
+                    [class.tui-skeleton]="!uqj"
+                    [class.tui-skeleton_short]="!uqj"
+                    [class.tui-skeleton_text]="!uqj"
+                >
+                    {{ uqj?.question?.token_value || 'No' }}
+                    &nbsp;Tokens Possible
+                </p>
+                <p
+                    class="tui-space_vertical-0"
+                    [class.tui-skeleton]="!uqj"
+                    [class.tui-skeleton_short]="!uqj"
+                    [class.tui-skeleton_text]="!uqj"
+                >
+                    {{ (uqj?.question?.max_submission_allowed - uqj?.num_attempts) ?? 'Unlimited' }}
+                    &nbsp;Attempts Remaining
+                </p>
+            </div>
             <div class="question-skeleton tui-skeleton" *ngIf="!uqj"></div>
             <tui-island *ngIf="renderedText">
                 <p class="tui-island__category">Question</p>
@@ -62,18 +62,18 @@
                 <app-parsons-view-snippet [uqj]="uqj"
                                           (successfulSubmissionEvent)="updateQuestionSubmissions($event)"></app-parsons-view-snippet>
             </ng-container>
-        </div>
-        <div class="tui-col_xs-12 tui-col_md-4 tui-col_lg-4">
             <div class="question-skeleton tui-skeleton" *ngIf="!uqj"></div>
-            <ng-container *ngIf="user?.is_teacher && uqj">
-                <app-variable-view
-                    [variables]="uqj.variables"
-                    [variableErrors]="uqj.variables_errors"
-                ></app-variable-view>
-            </ng-container>
-            <ng-container *ngIf="previousSubmissions">
-                <app-submission-snippet [previousSubmissions]="previousSubmissions"></app-submission-snippet>
-            </ng-container>
         </div>
     </div>
+    <app-sidebar sidebarId="questionSidebar" position="right" size="l">
+        <ng-container *ngIf="user?.is_teacher && uqj">
+            <app-variable-view
+                [variables]="uqj.variables"
+                [variableErrors]="uqj.variables_errors"
+            ></app-variable-view>
+        </ng-container>
+        <ng-container *ngIf="previousSubmissions">
+            <app-submission-snippet [previousSubmissions]="previousSubmissions"></app-submission-snippet>
+        </ng-container>
+    </app-sidebar>
 </div>

@@ -4,10 +4,10 @@
     overflow: hidden;
 
     .course-background {
-        width: 110%;
-        height: 3rem;
-        margin-top: -1rem;
-        margin-left: -1rem;
+        width: calc(100% + 2 * var(--tui-padding-l));
+        height: calc(3 * var(--tui-padding-l));
+        margin-top: calc(-1 * var(--tui-padding-l));
+        margin-left: calc(-1 * var(--tui-padding-l));
         @include tui-space(bottom, 3);
     }
 }

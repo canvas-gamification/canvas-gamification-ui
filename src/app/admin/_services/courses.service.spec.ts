@@ -1,4 +1,4 @@
-import {TestBed} from '@angular/core/testing';
+import {fakeAsync, TestBed, tick} from '@angular/core/testing';
 
 import {CoursesService} from './courses.service';
 import {MOCK_VIEW_COURSE} from "@app/admin/_test/mock";
@@ -25,12 +25,13 @@ describe('ViewCoursesService', () => {
         expect(service).toBeTruthy();
     });
 
-    it('should get courses', () => {
+    it('should get courses', fakeAsync(() => {
         service.getCourses().subscribe((courses) => {
             expect(courses).toEqual([MOCK_VIEW_COURSE]);
         });
         const request = httpMock.expectOne(apiService.getURL('admin/courses'));
         expect(request.request.method).toBe('GET');
         request.flush([MOCK_VIEW_COURSE]);
-    });
+        tick();
+    }));
 });

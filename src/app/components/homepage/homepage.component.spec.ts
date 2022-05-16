@@ -1,7 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {HomepageComponent} from './homepage.component';
-import {TestModule} from '../../../test/test.module';
+import {TestModule} from '@test/test.module';
+import {SidebarModule} from '@app/components/sidebar/sidebar.module';
 
 describe('HomepageComponent', () => {
     let component: HomepageComponent;
@@ -9,7 +10,7 @@ describe('HomepageComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule]
+            imports: [TestModule, SidebarModule]
         }).compileComponents();
     });
 

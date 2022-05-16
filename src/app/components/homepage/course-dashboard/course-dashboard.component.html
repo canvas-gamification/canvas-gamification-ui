@@ -1,25 +1,29 @@
-<h2 class="tui-text_h4">Active Courses</h2>
-<div class="course-islands">
-    <ng-container *ngIf="activeCourses else waitingActive">
-    <ng-container *ngIf="activeCourses.length > 0">
-        <ng-container *ngFor="let course of activeCourses">
-            <app-course-island [course]="course" [hasViewPermission]="true"></app-course-island>
+<tui-island>
+    <h2 class="tui-island__title tui-space_bottom-6">Active Courses</h2>
+    <div class="course-islands">
+        <ng-container *ngIf="activeCourses else waitingActive">
+            <ng-container *ngIf="activeCourses.length > 0">
+                <ng-container *ngFor="let course of activeCourses">
+                    <app-course-island [course]="course" [hasViewPermission]="true"></app-course-island>
+                </ng-container>
+            </ng-container>
+            <ng-container>
+                <tui-island size="m" [hoverable]="true" textAlign="center" [routerLink]="['/course']">
+                    <div class="more-courses-island">
+                        <div class="tui-space_vertical-12">
+                            <figure class="tui-island__figure">
+                                <tui-svg src="tuiIconAddRowLarge"></tui-svg>
+                            </figure>
+                            <h2 class="tui-island__title">
+                                Looking for {{ activeCourses?.length > 0 ? 'more' : '' }} courses?
+                            </h2>
+                        </div>
+                    </div>
+                </tui-island>
+            </ng-container>
         </ng-container>
-    </ng-container>
-    <ng-container>
-        <tui-island size="m" [hoverable]="true" textAlign="center" [routerLink]="['/course']">
-            <div class="more-courses-island">
-                <div class="tui-space_vertical-12">
-                    <figure class="tui-island__figure">
-                        <tui-svg src="tuiIconAddRowLarge"></tui-svg>
-                    </figure>
-                    <h2 class="tui-island__title">Looking for {{ activeCourses?.length > 0 ? 'more' : '' }} courses?</h2>
-                </div>
-            </div>
-        </tui-island>
-    </ng-container>
-    </ng-container>
-    <ng-template #waitingActive>
-        <app-course-island [skeleton]="true" *ngFor="let _ of [0, 0, 0]"></app-course-island>
-    </ng-template>
-</div>
+        <ng-template #waitingActive>
+            <app-course-island [skeleton]="true" *ngFor="let _ of [0, 0, 0]"></app-course-island>
+        </ng-template>
+    </div>
+</tui-island>

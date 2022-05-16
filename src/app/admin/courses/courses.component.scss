@@ -1,9 +1,9 @@
-.sticky {
-    position: sticky;
-    top: 5rem;
-}
+@import "mixins";
 
-.overflow-scroll {
-    height: calc(100vh - 8rem);
-    overflow-y: scroll;
+.courses {
+    &-islands {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
 }
