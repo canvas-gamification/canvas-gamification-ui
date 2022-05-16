@@ -32,7 +32,7 @@ export class CourseServiceMock {
     }
 
     getCourseRegistrationStatus(courseId: number): Observable<RegistrationStatus> {
-        return of({status: REGISTRATION_STATUS.NOT_REGISTERED, message: null});
+        return of({status: REGISTRATION_STATUS.NOT_REGISTERED, message: null, attempts_remaining: 3});
     }
 
     register(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {

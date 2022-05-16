@@ -7,7 +7,8 @@
         >
             Registration for {{courseName}}
         </h1>
-        <div class="course-registration_skeleton-notification tui-skeleton tui-space_bottom-7" *ngIf="showSkeletons"></div>
+        <div class="course-registration_skeleton-notification tui-skeleton tui-space_bottom-7"
+             *ngIf="showSkeletons"></div>
         <div class="course-registration_skeleton tui-skeleton" *ngIf="showSkeletons"></div>
         <ng-container *ngIf="registered && !showSkeletons">
             <tui-notification status="success">
@@ -19,7 +20,12 @@
                 </a>
             </div>
         </ng-container>
-        <ng-container *ngIf="!registered && !showSkeletons">
+        <ng-container *ngIf="blocked && !showSkeletons">
+            <tui-notification status="error">
+                Registration has been blocked for you. Please contact your instructor.
+            </tui-notification>
+        </ng-container>
+        <ng-container *ngIf="!registered && !blocked && !showSkeletons">
             <tui-notification class="tui-space_bottom-7" status="info">
                 Before completing registration, make sure you are also registered in the same class on Canvas.
             </tui-notification>
@@ -97,13 +103,13 @@
                             <tui-field-error formControlName="verifyControl"></tui-field-error>
                         </div>
                         <div class="tui-space_top-3">
-                            <tui-notification *ngIf="attemptsRemaining" status="error">
-                            <span *ngIf="attemptsRemaining >= 1">
-                                Attempts Remaining: {{ attemptsRemaining }}
-                            </span>
+                            <tui-notification status="{{attemptsRemaining < 3 ? 'error' : 'info'}}">
+                                <span *ngIf="attemptsRemaining >= 1">
+                                    Attempts Remaining: {{ attemptsRemaining }}
+                                </span>
                                 <span *ngIf="attemptsRemaining < 1">
-                                You don't have any attempts remaining! Contact your instructor.
-                            </span>
+                                    You don't have any attempts remaining! Contact your instructor.
+                                </span>
                             </tui-notification>
                         </div>
                         <div class="tui-form__buttons">

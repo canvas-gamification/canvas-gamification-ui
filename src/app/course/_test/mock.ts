@@ -58,7 +58,8 @@ export const MOCK_USER_STATS: { success_rate: number } = {
 
 export const MOCK_REGISTRATION_STATUS: RegistrationStatus = {
     status: REGISTRATION_STATUS.REGISTERED,
-    message: null
+    message: null,
+    attempts_remaining: 3,
 };
 
 export const MOCK_COURSE1: Course = {

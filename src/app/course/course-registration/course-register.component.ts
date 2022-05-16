@@ -4,7 +4,9 @@ import {FormGroup} from '@angular/forms';
 import {CourseService} from '@app/course/_services/course.service';
 import {CourseRegistrationRequest, CourseRegistrationResponse, REGISTRATION_STATUS} from '@app/_models';
 import {CourseRegisterForm} from "@app/course/_forms/register.form";
-import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component";
+import {
+    CourseRegistrationStepperComponent
+} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component";
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 export const STEPPER_STAGES = {
@@ -33,12 +35,13 @@ export class CourseRegisterComponent implements OnInit {
     serverGuessedName: string;
     attemptsRemaining: number;
     loadingContent: boolean;
-    registered: boolean;
+    registered = false;
+    blocked = false;
     courseNotFound = false;
     showSkeletons = true;
 
     readonly verificationNumberMask = {
-        guide: true,
+        guide: false,
         mask: [/\d/, /\d/]
     };
 
@@ -79,21 +82,12 @@ export class CourseRegisterComponent implements OnInit {
     getRegistrationStatus(): void {
         this.courseService.getCourseRegistrationStatus(this.courseId).subscribe(
             courseRegistrationStatus => {
-                // the api only responds with a non-null message value if the user is blocked from registering, thus the "danger" type
-                if (courseRegistrationStatus.message) {
-                    this.notificationsService
-                        .show(courseRegistrationStatus.message, {
-                            status: TuiNotification.Error
-                        }).subscribe();
+                this.attemptsRemaining = courseRegistrationStatus?.attempts_remaining;
+                if (courseRegistrationStatus.status === REGISTRATION_STATUS.BLOCKED) {
+                    this.blocked = true;
                 }
                 if (courseRegistrationStatus.status === REGISTRATION_STATUS.REGISTERED) {
-                    this.notificationsService
-                        .show('You have already successfully registered in this course!', {
-                            status: TuiNotification.Success
-                        }).subscribe();
                     this.registered = true;
-                } else {
-                    this.registered = false;
                 }
             }
         );
@@ -181,7 +175,7 @@ export class CourseRegisterComponent implements OnInit {
     setStepperStatusFromRegistration(courseRegResponse: CourseRegistrationResponse): void {
         this.serverGuessedName = courseRegResponse?.guessed_name;
         if (this.serverGuessedName) this.confirmNameForm.get('confirmNameControl').setValue(courseRegResponse?.guessed_name);
-        this.attemptsRemaining = courseRegResponse?.attempts_remaining;
+        this.attemptsRemaining = courseRegResponse?.attempts_remaining ?? this.attemptsRemaining;
 
         if (courseRegResponse.success) {
             this.stepper.setNextStep();
