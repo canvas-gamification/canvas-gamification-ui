@@ -19,7 +19,8 @@ export type SortingKey =
     | 'event_name'
     | 'parent_category_name'
     | 'category_name'
-    | 'difficulty';
+    | 'difficulty'
+    | 'status';
 
 @Component({
     selector: 'app-problem-set',
@@ -43,7 +44,8 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         event_name: () => 0,
         parent_category_name: () => 0,
         category_name: () => 0,
-        difficulty: () => 0
+        difficulty: () => 0,
+        status: () => 0,
     };
     sorter = this.sorters.id;
     sortDirection: -1 | 1 = 1;
@@ -56,7 +58,16 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
     // Filtering
     paramChanged: Subject<FilterParameters> = new Subject<FilterParameters>();
     filteringQuestions = false;
-    filterCategories: string[] = ['id', 'title', 'author', 'event__name', 'category__parent__name', 'category__name', 'difficulty'];
+    orderingMap = {
+        id: 'id',
+        title: 'title',
+        author_name: 'author',
+        event_name: 'event__name',
+        parent_category_name: 'category__parent__name',
+        category_name: 'category__name',
+        difficulty: 'difficulty',
+        status: 'is_verified'
+    };
     categories: Category[];
     parentCategories: Category[];
     subCategories: Category[];
@@ -142,7 +153,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
      * Takes the current direction and sorter name and gets the order
      */
     getOrdering(): string {
-        const filterCategory = this.filterCategories[this.questionsTableColumns.indexOf(this.sorter.name)];
+        const filterCategory = this.orderingMap[this.sorter.name];
         return (this.sortDirection === -1 ? '-' : '') + filterCategory;
     }
 
