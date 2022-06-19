@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 
 import {CourseEventCreateEditComponent} from '../../course-event-create/course-event-create-edit.component';
 import {TestModule} from '@test/test.module';
@@ -72,10 +72,10 @@ describe('CourseEventCreateComponent with EventId', () => {
         expect(component.formData).toBeTruthy();
     });
 
-    it('submitEvent should work with eventId', () => {
+    it('submitEvent should work with eventId', fakeAsync(() => {
         component.submitEvent(component.formData);
         expect(notificationService.show).toHaveBeenCalled();
-    });
+    }));
 });
 
 describe('CourseEventCreateComponent without EventId', () => {
