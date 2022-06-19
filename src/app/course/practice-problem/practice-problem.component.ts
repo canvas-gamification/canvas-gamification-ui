@@ -33,6 +33,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     userDifficultyStats: UserDifficultyStats[];
     categoryUserSuccessRate: number;
     include_solved = false;
+    reportQuestionModal = false;
 
     subscriptions: Subscription = new Subscription();
 
@@ -172,5 +173,12 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
         } else {
             this.userSuccessRate = 0;
         }
+    }
+
+    /**
+     * Opens the report question modal
+     */
+    openReportQuestion() {
+        this.reportQuestionModal = true;
     }
 }

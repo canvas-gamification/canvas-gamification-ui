@@ -102,6 +102,15 @@
             <button
                 tuiButton
                 size="s"
+                icon="tuiIconAttention"
+                (click)="openReportQuestion()"
+                [class.tui-skeleton]="!category || !uqjs"
+            >
+                Report
+            </button>
+            <button
+                tuiButton
+                size="s"
                 icon="tuiIconArrowLeft"
                 (click)="prevQuestion()"
                 [class.tui-skeleton]="!category || !uqjs"
@@ -143,3 +152,4 @@
         </ng-template>
     </div>
 </div>
+<app-problem-report-modal [(open)]="reportQuestionModal" [questionId]="currentQuestionId"></app-problem-report-modal>

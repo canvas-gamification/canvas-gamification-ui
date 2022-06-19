@@ -1,0 +1,20 @@
+<ng-template
+    [tuiDialogOptions]="$any({ label: 'Report this question', size: 'm' })"
+    [(tuiDialog)]="open"
+>
+    <p>This abstracts away service and subscription</p>
+    <tui-input
+        formControlName="exampleControl"
+    >
+        Some value
+    </tui-input>
+    <p>
+        <button
+            tuiButton
+            type="submit"
+            (click)="submitReport()"
+        >
+            Ok
+        </button>
+    </p>
+</ng-template>

@@ -81,6 +81,7 @@ import {EditorModule} from '@app/components/editor/editor.module';
 import {TuiEditorSocketModule} from '@taiga-ui/addon-editor';
 import {TuiActiveZoneModule} from '@taiga-ui/cdk';
 import {SidebarModule} from '@app/components/sidebar/sidebar.module';
+import {ProblemReportModalComponent} from './problem-report/problem-report-modal.component';
 
 @NgModule({
     declarations: [
@@ -96,6 +97,7 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module';
         ParsonsLinesComponent,
         ParsonsViewSnippetComponent,
         ProblemCreateEditComponent,
+        ProblemReportModalComponent,
         ProblemSetComponent,
         ProblemViewComponent,
         SubmissionSnippetComponent,
@@ -150,6 +152,7 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module';
         TuiTextfieldControllerModule
     ],
     exports: [
+        ProblemReportModalComponent,
         ProblemViewComponent,
     ],
     providers: [
