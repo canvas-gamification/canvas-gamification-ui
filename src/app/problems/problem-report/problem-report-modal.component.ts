@@ -11,10 +11,14 @@ export class ProblemReportModalComponent {
 
     @Input() questionId: number;
 
+    toggleDialog(open: boolean) {
+        this.open = open;
+        this.openChange.emit(this.open);
+    }
+
     submitReport() {
         console.debug(this.questionId);
 
-        this.open = false;
-        this.openChange.emit(this.open);
+        this.toggleDialog(false);
     }
 }

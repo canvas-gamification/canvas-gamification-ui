@@ -1,6 +1,7 @@
 <ng-template
     [tuiDialogOptions]="$any({ label: 'Report this question', size: 'm' })"
-    [(tuiDialog)]="open"
+    [tuiDialog]="open"
+    (tuiDialogChange)="toggleDialog($event)"
 >
     <p>This abstracts away service and subscription</p>
     <tui-input
