@@ -3,19 +3,37 @@
     [tuiDialog]="open"
     (tuiDialogChange)="toggleDialog($event)"
 >
-    <p>This abstracts away service and subscription</p>
-    <tui-input
-        formControlName="exampleControl"
-    >
-        Some value
-    </tui-input>
-    <p>
+    <div [formGroup]="formGroup">
+        <div class="tui-form__row">
+            <tui-select
+                formControlName="report"
+                [valueContent]="reportOptions ? (reportOptions | stringifyTuiDataList: 0: 1) : ''"
+            >
+                Reason
+                <tui-data-list *tuiDataList>
+                    <button *ngFor="let reportOption of reportOptions" tuiOption [value]="reportOption[0]">
+                        {{ reportOption[1] }}
+                    </button>
+                </tui-data-list>
+                <tui-field-error formControlName="report"></tui-field-error>
+            </tui-select>
+        </div>
+        <div class="tui-form__row">
+            <tui-text-area
+                formControlName="report_details">
+                Details
+            </tui-text-area>
+        </div>
+    </div>
+    <div class="tui-form__row">
         <button
             tuiButton
             type="submit"
+            size="m"
+            [disabled]="formGroup.invalid"
             (click)="submitReport()"
         >
-            Ok
+            Submit Report
         </button>
-    </p>
+    </div>
 </ng-template>
