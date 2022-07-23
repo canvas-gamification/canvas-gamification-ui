@@ -11,7 +11,7 @@ export type SortingKey =
     | 'object_type'
     | 'status'
     | 'time_created'
-    | 'verb';
+    | 'verb'
 
 @Component({
     selector: 'app-user-actions',

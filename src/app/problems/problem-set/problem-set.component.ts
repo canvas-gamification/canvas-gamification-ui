@@ -20,7 +20,7 @@ export type SortingKey =
     | 'parent_category_name'
     | 'category_name'
     | 'difficulty'
-    | 'status';
+    | 'status'
 
 @Component({
     selector: 'app-problem-set',

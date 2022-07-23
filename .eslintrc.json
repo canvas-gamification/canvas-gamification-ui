@@ -24,10 +24,8 @@
                     "error",
                     4
                 ],
-                "semi": [
-                    2,
-                    "never"
-                ],
+                "semi": "off",
+                "@typescript-eslint/semi": ["error", "never"],
                 "camelcase": "off",
                 "@typescript-eslint/no-unused-vars": [
                     "error",
@@ -71,7 +69,9 @@
                             "UPPER_CASE"
                         ]
                     }
-                ]
+                ],
+                "brace-style": "off",
+                "@typescript-eslint/brace-style": ["error", "1tbs"]
             }
         },
         {
