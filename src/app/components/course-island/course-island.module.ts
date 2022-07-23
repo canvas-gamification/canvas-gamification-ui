@@ -1,11 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CourseIslandComponent } from './course-island.component';
-import {TuiIslandModule, TuiTagModule} from "@taiga-ui/kit";
-import {RouterModule} from "@angular/router";
-import {TuiButtonModule} from "@taiga-ui/core";
-import {PipesModule} from "@app/_helpers/pipes/pipes.module";
-
+import {NgModule} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {CourseIslandComponent} from './course-island.component'
+import {TuiIslandModule, TuiTagModule} from "@taiga-ui/kit"
+import {RouterModule} from "@angular/router"
+import {TuiButtonModule} from "@taiga-ui/core"
+import {PipesModule} from "@app/_helpers/pipes/pipes.module"
 
 
 @NgModule({
@@ -22,4 +21,5 @@ import {PipesModule} from "@app/_helpers/pipes/pipes.module";
         TuiTagModule,
     ]
 })
-export class CourseIslandModule { }
+export class CourseIslandModule {
+}

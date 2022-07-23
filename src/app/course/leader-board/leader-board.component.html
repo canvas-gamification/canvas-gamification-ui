@@ -1,15 +1,17 @@
-<div class="tui-container tui-container_adaptive" *ngIf="leaderBoard">
+<div *ngIf="leaderBoard" class="tui-container tui-container_adaptive">
     <div class="top-x-islands tui-space_bottom-8">
-        <tui-island textAlign="center" class="top-x-island" [style.order]="(index % 2 * -index)" [style.marginTop]="(index) + 'rem'" *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index">
-            <div class="top-x-background" [style.backgroundColor]="avatar.bgColor"></div>
+        <tui-island *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index" [style.marginTop]="(index) + 'rem'" [style.order]="(index % 2 * -index)"
+                    class="top-x-island"
+                    textAlign="center">
+            <div [style.backgroundColor]="avatar.bgColor" class="top-x-background"></div>
             <figure class="tui-island__figure">
                 <tui-avatar
-                    size="l"
-                    [text]="element.name || 'Anonymous User'"
-                    [rounded]="true"
-                    [autoColor]="true"
-                    class="top-x-avatar"
                     #avatar
+                    [autoColor]="true"
+                    [rounded]="true"
+                    [text]="element.name || 'Anonymous User'"
+                    class="top-x-avatar"
+                    size="l"
                 ></tui-avatar>
             </figure>
             <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2">{{ getGetOrdinal(element.rank) }}</p>
@@ -21,32 +23,32 @@
             </p>
         </tui-island>
     </div>
-    <table tuiTable [columns]="displayedColumns" class="table">
+    <table [columns]="displayedColumns" class="table" tuiTable>
         <thead tuiThead>
         <tr tuiThGroup>
-            <th tuiTh *tuiHead="'rank'">Rank</th>
-            <th tuiTh *tuiHead="'name'">Name</th>
-            <th tuiTh *tuiHead="'token'">Tokens</th>
+            <th *tuiHead="'rank'" tuiTh>Rank</th>
+            <th *tuiHead="'name'" tuiTh>Name</th>
+            <th *tuiHead="'token'" tuiTh>Tokens</th>
         </tr>
         </thead>
-        <tbody tuiTbody [data]="leaderBoard | tuiFilter: filterOutTopX: rankTopX">
-        <tr tuiTr *tuiRow="let element of leaderBoard">
-            <td tuiTd *tuiCell="'rank'">
+        <tbody [data]="leaderBoard | tuiFilter: filterOutTopX: rankTopX" tuiTbody>
+        <tr *tuiRow="let element of leaderBoard" tuiTr>
+            <td *tuiCell="'rank'" tuiTd>
                 {{ getGetOrdinal(element.rank) }}
             </td>
-            <td tuiTd *tuiCell="'name'">
+            <td *tuiCell="'name'" tuiTd>
                 <div class="table-avatar-with-name">
                     <tui-avatar
-                        size="s"
-                        [text]="element.name || 'Anonymous User'"
-                        [rounded]="true"
                         [autoColor]="true"
+                        [rounded]="true"
+                        [text]="element.name || 'Anonymous User'"
                         class="tui-space_right-2"
+                        size="s"
                     ></tui-avatar>
                     {{ element.name || 'Anonymous User' }}
                 </div>
             </td>
-            <td tuiTd *tuiCell="'token'">
+            <td *tuiCell="'token'" tuiTd>
                 {{ element.token || 'No Tokens' }}
             </td>
         </tr>

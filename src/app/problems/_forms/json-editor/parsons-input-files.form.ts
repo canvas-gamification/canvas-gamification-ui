@@ -1,4 +1,4 @@
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms"
 
 export class ParsonsInputFilesForm {
     static createParsonsInputFileForm(): FormGroup {
@@ -6,10 +6,10 @@ export class ParsonsInputFilesForm {
             name: new FormControl('', [Validators.required]),
             compile: new FormControl(false, [Validators.required]),
             lines: new FormArray([this.createLinesControl()], [Validators.required])
-        });
+        })
     }
 
     static createLinesControl(): FormControl {
-        return new FormControl('', [Validators.required]);
+        return new FormControl('', [Validators.required])
     }
 }

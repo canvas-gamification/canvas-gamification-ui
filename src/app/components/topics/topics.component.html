@@ -1,7 +1,7 @@
 <div class="tui-container tui-container_fullwidth">
     <h1 class="tui-text_h3 tui-space_vertical-10">Topics</h1>
     <tui-loader [overlay]="true" [showLoader]="!topLevelCategories">
-        <table tuiTable class="topics-table" [columns]="tableHeaders">
+        <table [columns]="tableHeaders" class="topics-table" tuiTable>
             <thead tuiThead>
             <tr tuiThGroup>
                 <th *tuiHead="'topics'" [sorter]="null" tuiTh>Topics</th>
@@ -10,10 +10,10 @@
             </tr>
             </thead>
             <tbody
-                tuiTbody
+                *ngFor="let category of topLevelCategories"
                 [data]="subCategories[category.name]"
                 [heading]="category.name"
-                *ngFor="let category of topLevelCategories"
+                tuiTbody
             >
             <tr *tuiRow="let subCategory of subCategories[category.name]" tuiTr>
                 <td *tuiCell="'topics'" class="subcat-name" tuiTd>

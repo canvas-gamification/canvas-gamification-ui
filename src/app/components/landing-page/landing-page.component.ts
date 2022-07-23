@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core'
 
 @Component({
     selector: 'app-landing-page',
@@ -6,14 +6,14 @@ import {Component, ViewChild} from '@angular/core';
     styleUrls: ['./landing-page.component.scss']
 })
 export class LandingPageComponent {
-    logoPath = 'assets/global/logo.jpg';
-    canvasLogoPath = 'assets/global/Logo_Canvas_Red_Vertical.png';
+    logoPath = 'assets/global/logo.jpg'
+    canvasLogoPath = 'assets/global/Logo_Canvas_Red_Vertical.png'
 
-    @ViewChild('services') servicesComponent;
+    @ViewChild('services') servicesComponent
 
     goToServices(): void {
         this.servicesComponent.nativeElement.scrollIntoView({
             behavior: 'smooth',
-        });
+        })
     }
 }

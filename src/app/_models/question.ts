@@ -1,5 +1,5 @@
-import {CourseEvent} from '@app/_models/course_event';
-import {Category} from "@app/_models/category";
+import {CourseEvent} from '@app/_models/course_event'
+import {Category} from "@app/_models/category"
 
 export interface Question {
     id: number;

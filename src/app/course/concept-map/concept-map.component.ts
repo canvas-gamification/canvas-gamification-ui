@@ -1,8 +1,8 @@
-import {Component, Inject, Injector, Input, OnInit} from '@angular/core';
-import {ConceptMapGraph} from './concept-map-graph';
-import {Category, Course} from '@app/_models';
-import {CategoryService} from '@app/_services/api/category.service';
-import {Router} from '@angular/router';
+import {Component, Inject, Injector, Input, OnInit} from '@angular/core'
+import {ConceptMapGraph} from './concept-map-graph'
+import {Category, Course} from '@app/_models'
+import {CategoryService} from '@app/_services/api/category.service'
+import {Router} from '@angular/router'
 
 @Component({
     selector: 'app-concept-map',
@@ -10,12 +10,12 @@ import {Router} from '@angular/router';
     styleUrls: ['./concept-map.component.scss']
 })
 export class ConceptMapComponent implements OnInit {
-    rawCategories: Category[];
-    parentNode: number = null;
-    parentNodeName: string = null;
-    conceptMapGraph: ConceptMapGraph;
+    rawCategories: Category[]
+    parentNode: number = null
+    parentNodeName: string = null
+    conceptMapGraph: ConceptMapGraph
 
-    @Input() currCourse: Course;
+    @Input() currCourse: Course
 
     constructor(private categoryService: CategoryService,
                 private router: Router,
@@ -24,46 +24,46 @@ export class ConceptMapComponent implements OnInit {
 
     ngOnInit(): void {
         this.categoryService.getCategories().subscribe(categories => {
-            this.rawCategories = categories;
+            this.rawCategories = categories
             this.conceptMapGraph = new ConceptMapGraph((cellId) => {
-                this.parentNode = cellId;
+                this.parentNode = cellId
                 if (!this.isTopLevel(cellId)) {
-                    this.router.navigate(['course', this.currCourse.id, 'practice', 'category', cellId]).then();
+                    this.router.navigate(['course', this.currCourse.id, 'practice', 'category', cellId]).then()
                 } else {
-                    this.renderGraph();
+                    this.renderGraph()
                 }
-            });
-            this.renderGraph();
-        });
+            })
+            this.renderGraph()
+        })
     }
 
     /**
      * Renders the concept map using the categories fetched from the API
      */
     renderGraph(): void {
-        const adj: Category[] = [];
-        this.parentNodeName = this.parentNode ? this.rawCategories.find(category => category.pk === this.parentNode).full_name : null;
+        const adj: Category[] = []
+        this.parentNodeName = this.parentNode ? this.rawCategories.find(category => category.pk === this.parentNode).full_name : null
         this.rawCategories.filter(category => category.parent === this.parentNode)
             .forEach(category => {
-                adj.push(category);
-            });
+                adj.push(category)
+            })
 
         if (!adj) {
-            this.parentNode = null;
-            this.parentNodeName = null;
-            this.renderGraph();
-            return;
+            this.parentNode = null
+            this.parentNodeName = null
+            this.renderGraph()
+            return
         }
 
-        this.conceptMapGraph.buildGraphFromAdjacencyList(adj);
+        this.conceptMapGraph.buildGraphFromAdjacencyList(adj)
     }
 
     /**
      * Resets the graph to the top level and re-renders the graph
      */
     reset(): void {
-        this.parentNode = null;
-        this.renderGraph();
+        this.parentNode = null
+        this.renderGraph()
     }
 
     /**
@@ -71,6 +71,6 @@ export class ConceptMapComponent implements OnInit {
      * @param categoryId - unique category ID to be checked
      */
     isTopLevel(categoryId: number): boolean {
-        return this.rawCategories.find(category => category.pk === categoryId).parent === null;
+        return this.rawCategories.find(category => category.pk === categoryId).parent === null
     }
 }

@@ -6,7 +6,7 @@ export const environment = {
     production: false,
     apiBaseUrl: 'http://localhost:8000',
     siteKey: '6LeEo8MUAAAAAOzXHyRF-Mq7O6MNvqUwIXsQbC_U'
-};
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

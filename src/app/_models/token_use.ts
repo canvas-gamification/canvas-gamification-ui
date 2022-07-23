@@ -1,4 +1,4 @@
-import {TokenUseOption} from '@app/_models/token_use_option';
+import {TokenUseOption} from '@app/_models/token_use_option'
 
 export interface TokenUse {
     option: TokenUseOption;

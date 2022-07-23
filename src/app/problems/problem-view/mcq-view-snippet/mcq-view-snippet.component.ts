@@ -1,9 +1,9 @@
-import {Component, Inject, Input, Output, EventEmitter, OnChanges} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UQJ} from '@app/_models';
-import {SubmissionService} from '@app/problems/_services/submission.service';
-import {DomSanitizer, SafeHtml} from '@angular/platform-browser';
-import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
+import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core'
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
+import {UQJ} from '@app/_models'
+import {SubmissionService} from '@app/problems/_services/submission.service'
+import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
+import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -11,13 +11,13 @@ import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
     styleUrls: ['./mcq-view-snippet.component.scss'],
 })
 export class McqViewSnippetComponent implements OnChanges {
-    @Input() uqj: UQJ;
-    @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>();
-    formData: FormGroup;
-    checkboxFormData: FormGroup;
-    choiceArray: { id: string, value: string, safeValue: SafeHtml }[];
-    checkboxAnswers: string[];
-    waitingSubmission = false;
+    @Input() uqj: UQJ
+    @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>()
+    formData: FormGroup
+    checkboxFormData: FormGroup
+    choiceArray: { id: string, value: string, safeValue: SafeHtml }[]
+    checkboxAnswers: string[]
+    waitingSubmission = false
 
     constructor(private submissionService: SubmissionService,
                 private formBuilder: FormBuilder,
@@ -29,64 +29,64 @@ export class McqViewSnippetComponent implements OnChanges {
      * Get the checkbox form controls as a FormArray.
      */
     get checkboxesArray(): FormArray {
-        return this.checkboxFormData.controls.solutions as FormArray;
+        return this.checkboxFormData.controls.solutions as FormArray
     }
 
     ngOnChanges(): void {
-        const outputArray = [];
+        const outputArray = []
         for (const choice in this.uqj.rendered_choices) {
             outputArray.push({
                 id: choice,
                 value: this.uqj.rendered_choices[choice],
                 safeValue: this.sanitizer.bypassSecurityTrustHtml(this.uqj.rendered_choices[choice])
-            });
-            this.choiceArray = outputArray;
+            })
+            this.choiceArray = outputArray
         }
         if (!this.uqj.is_checkbox) {
             this.formData = this.formBuilder.group({
                 question: new FormControl(this.uqj.question.id),
                 solution: new FormControl(null, [Validators.required])
-            });
+            })
         } else {
-            this.checkboxAnswers = [];
+            this.checkboxAnswers = []
             this.checkboxFormData = this.formBuilder.group({
                 question: new FormControl(this.uqj.question.id),
                 solutions: new FormArray(this.choiceArray.map(() => new FormControl(false)))
-            });
+            })
             this.checkboxFormData.controls.solutions.valueChanges.subscribe((answers) => {
                 this.checkboxAnswers = answers.map((answer, index) => {
-                    if (answer) return this.choiceArray[index].id;
-                }).filter(id => id !== undefined);
-            });
+                    if (answer) return this.choiceArray[index].id
+                }).filter(id => id !== undefined)
+            })
         }
     }
 
     canSubmit(): boolean {
-        return this.uqj?.question?.max_submission_allowed - this.uqj?.num_attempts > 0;
+        return this.uqj?.question?.max_submission_allowed - this.uqj?.num_attempts > 0
     }
 
     /**
      * Submit an answer to the question.
      */
     onSubmit(formData: { question: number, solution: unknown }): void {
-        this.waitingSubmission = true;
+        this.waitingSubmission = true
         this.submissionService.postQuestionSubmission(formData).subscribe(() => {
             this.notificationsService
                 .show('The Question has been Submitted Successfully.', {
                     status: TuiNotification.Success
-                }).subscribe();
-            this.successfulSubmissionEvent.emit(true);
-            this.waitingSubmission = false;
+                }).subscribe()
+            this.successfulSubmissionEvent.emit(true)
+            this.waitingSubmission = false
         }, () => {
-            this.waitingSubmission = false;
-        });
+            this.waitingSubmission = false
+        })
     }
 
     /**
      * Submit an answer for a checkbox question.
      */
     onCheckboxSubmit(): void {
-        this.waitingSubmission = true;
+        this.waitingSubmission = true
         this.submissionService.postQuestionSubmission({
             question: this.checkboxFormData.value.question,
             solution: this.checkboxAnswers.sort().toString()
@@ -94,11 +94,11 @@ export class McqViewSnippetComponent implements OnChanges {
             this.notificationsService
                 .show('The Question has been Submitted Successfully.', {
                     status: TuiNotification.Success
-                }).subscribe();
-            this.successfulSubmissionEvent.emit(true);
-            this.waitingSubmission = false;
+                }).subscribe()
+            this.successfulSubmissionEvent.emit(true)
+            this.waitingSubmission = false
         }, () => {
-            this.waitingSubmission = false;
-        });
+            this.waitingSubmission = false
+        })
     }
 }

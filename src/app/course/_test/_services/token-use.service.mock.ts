@@ -1,6 +1,6 @@
-import {Injectable} from "@angular/core";
-import {APIResponse} from "@app/_models";
-import {Observable, of} from "rxjs";
+import {Injectable} from "@angular/core"
+import {APIResponse} from "@app/_models"
+import {Observable, of} from "rxjs"
 
 @Injectable({
     providedIn: 'root'
@@ -8,9 +8,9 @@ import {Observable, of} from "rxjs";
 export class TokenUseServiceMock {
     useTokens(tokenActions: unknown, courseId: number): Observable<APIResponse> {
         if (courseId === 0)
-            return of({success: false, bad_request: true});
+            return of({success: false, bad_request: true})
         else
-            return of({success: false});
+            return of({success: false})
     }
 
 }

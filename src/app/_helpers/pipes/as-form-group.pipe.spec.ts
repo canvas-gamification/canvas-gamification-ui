@@ -1,13 +1,13 @@
-import {AsFormGroupPipe} from './as-form-group.pipe';
+import {AsFormGroupPipe} from './as-form-group.pipe'
 
 describe('AsFormGroupPipe', () => {
-    let pipe: AsFormGroupPipe;
+    let pipe: AsFormGroupPipe
 
     beforeEach(() => {
-        pipe = new AsFormGroupPipe();
-    });
+        pipe = new AsFormGroupPipe()
+    })
 
     it('should create an instance', () => {
-        expect(pipe).toBeTruthy();
-    });
-});
+        expect(pipe).toBeTruthy()
+    })
+})

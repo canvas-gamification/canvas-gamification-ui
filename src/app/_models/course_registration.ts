@@ -1,4 +1,4 @@
-import {TokenUse} from '@app/_models/token_use';
+import {TokenUse} from '@app/_models/token_use'
 
 export interface CourseRegistration {
     id: number;

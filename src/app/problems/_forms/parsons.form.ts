@@ -1,6 +1,6 @@
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {InputFiles, Question} from "@app/_models";
-import {fieldExistsIfOtherExistsValidator} from "@app/_helpers/forms/validators/field-exists-if-other-exists.validator";
+import {FormControl, FormGroup, Validators} from "@angular/forms"
+import {InputFiles, Question} from "@app/_models"
+import {fieldExistsIfOtherExistsValidator} from "@app/_helpers/forms/validators/field-exists-if-other-exists.validator"
 
 export class ParsonsForm {
     /**
@@ -19,7 +19,7 @@ export class ParsonsForm {
             input_files: new FormControl([], [Validators.required]),
             variables: new FormControl([])
         }, [fieldExistsIfOtherExistsValidator('event', 'course')]
-        );
+        )
     }
 
     /**
@@ -27,12 +27,12 @@ export class ParsonsForm {
      * @param question - The question object.
      */
     static createFormWithData(question: Question): FormGroup {
-        const newForm = this.createForm();
+        const newForm = this.createForm()
         newForm.patchValue({
             ...question,
             course: question.event_obj?.course
-        });
-        return newForm;
+        })
+        return newForm
     }
 }
 

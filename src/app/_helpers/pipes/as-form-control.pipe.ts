@@ -1,5 +1,5 @@
-import {Pipe, PipeTransform} from '@angular/core';
-import {AbstractControl, FormControl} from "@angular/forms";
+import {Pipe, PipeTransform} from '@angular/core'
+import {AbstractControl, FormControl} from "@angular/forms"
 
 /**
  * Given an AbstractControl object, return
@@ -10,6 +10,6 @@ import {AbstractControl, FormControl} from "@angular/forms";
 })
 export class AsFormControlPipe implements PipeTransform {
     transform(value: AbstractControl): FormControl {
-        return value as FormControl;
+        return value as FormControl
     }
 }

@@ -1,73 +1,73 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {
     ParsonsInputFilesEditorComponent
-} from '../../json-editor/parsons-input-files-editor/parsons-input-files-editor.component';
-import {TestModule} from "@test/test.module";
-import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit";
-import {FormArray, FormGroup, ReactiveFormsModule} from "@angular/forms";
+} from '../../json-editor/parsons-input-files-editor/parsons-input-files-editor.component'
+import {TestModule} from "@test/test.module"
+import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit"
+import {FormArray, FormGroup, ReactiveFormsModule} from "@angular/forms"
 
 describe('ParsonsInputFilesEditorComponent', () => {
-    let component: ParsonsInputFilesEditorComponent;
-    let fixture: ComponentFixture<ParsonsInputFilesEditorComponent>;
+    let component: ParsonsInputFilesEditorComponent
+    let fixture: ComponentFixture<ParsonsInputFilesEditorComponent>
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [ParsonsInputFilesEditorComponent],
             imports: [TestModule, ReactiveFormsModule, TuiInputModule, TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiIslandModule]
-        }).compileComponents();
-    });
+        }).compileComponents()
+    })
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ParsonsInputFilesEditorComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+        fixture = TestBed.createComponent(ParsonsInputFilesEditorComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
     it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+        expect(component).toBeTruthy()
+    })
 
     it('should get lines', () => {
-        const form = new FormGroup({lines: new FormArray([])});
-        expect(component.getLines(form)).toBeTruthy();
-    });
+        const form = new FormGroup({lines: new FormArray([])})
+        expect(component.getLines(form)).toBeTruthy()
+    })
 
     it('should add line', () => {
-        const form = new FormGroup({lines: new FormArray([])});
-        spyOn(component.getLines(form), 'push').and.callThrough();
-        const valLength = component.getLines(form).length;
-        component.addNewLine(form);
-        expect(component.getLines(form).push).toHaveBeenCalled();
-        expect(component.getLines(form).length).toBe(valLength + 1);
-    });
+        const form = new FormGroup({lines: new FormArray([])})
+        spyOn(component.getLines(form), 'push').and.callThrough()
+        const valLength = component.getLines(form).length
+        component.addNewLine(form)
+        expect(component.getLines(form).push).toHaveBeenCalled()
+        expect(component.getLines(form).length).toBe(valLength + 1)
+    })
 
     it('should remove line', () => {
-        const form = new FormGroup({lines: new FormArray([])});
-        component.addNewLine(form);
-        spyOn(component.getLines(form), 'removeAt').and.callThrough();
-        const valLength = component.getLines(form).length;
-        component.removeLine(form, 0);
-        expect(component.getLines(form).removeAt).toHaveBeenCalled();
-        expect(component.getLines(form).length).toBe(valLength - 1);
-    });
+        const form = new FormGroup({lines: new FormArray([])})
+        component.addNewLine(form)
+        spyOn(component.getLines(form), 'removeAt').and.callThrough()
+        const valLength = component.getLines(form).length
+        component.removeLine(form, 0)
+        expect(component.getLines(form).removeAt).toHaveBeenCalled()
+        expect(component.getLines(form).length).toBe(valLength - 1)
+    })
 
     it('should set lines from code block', () => {
-        const form = new FormGroup({lines: new FormArray([])});
+        const form = new FormGroup({lines: new FormArray([])})
         const codeBlock =
             'public int sub(int x, int y) {\n' +
             '    if (x == y)\n' +
             '        return true;\n' +
             '    else\n' +
             '        return false;\n' +
-            '}';
-        component.codeBlock = codeBlock;
-        fixture.detectChanges();
-        component.setLinesFromCodeBlock(form);
-        expect(component.getLines(form).length).toEqual(6);
-        const codeBlockSplit = codeBlock.split('\n').map(line => line.trim());
+            '}'
+        component.codeBlock = codeBlock
+        fixture.detectChanges()
+        component.setLinesFromCodeBlock(form)
+        expect(component.getLines(form).length).toEqual(6)
+        const codeBlockSplit = codeBlock.split('\n').map(line => line.trim())
         component.getLines(form).getRawValue().forEach((value, index) => {
-            expect(value).toEqual(codeBlockSplit[index]);
-        });
-    });
-});
+            expect(value).toEqual(codeBlockSplit[index])
+        })
+    })
+})

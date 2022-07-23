@@ -1,11 +1,11 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
-import {QuestionService} from '@app/problems/_services/question.service';
-import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms';
-import {McqForm} from "@app/problems/_forms/mcq.form";
-import {Router} from "@angular/router";
-import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
-import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus";
-import {Question} from '@app/_models';
+import {Component, Inject, Input, OnInit} from '@angular/core'
+import {QuestionService} from '@app/problems/_services/question.service'
+import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms'
+import {McqForm} from "@app/problems/_forms/mcq.form"
+import {Router} from "@angular/router"
+import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
+import {Question} from '@app/_models'
 
 @Component({
     selector: 'app-mcq-create-snippet',
@@ -13,9 +13,9 @@ import {Question} from '@app/_models';
     styleUrls: ['./mcq-create-edit-snippet.component.scss'],
 })
 export class McqCreateEditSnippetComponent implements OnInit {
-    @Input() questionDetails: Question;
-    @Input() isCheckbox: boolean;
-    formGroup: FormGroup;
+    @Input() questionDetails: Question
+    @Input() isCheckbox: boolean
+    formGroup: FormGroup
 
     constructor(private questionService: QuestionService,
                 private router: Router,
@@ -27,17 +27,17 @@ export class McqCreateEditSnippetComponent implements OnInit {
      * Method to get the form controls.
      */
     get form(): { [p: string]: AbstractControl } {
-        return this.formGroup.controls;
+        return this.formGroup.controls
     }
 
     ngOnInit(): void {
         if (this.questionDetails) {
-            this.formGroup = McqForm.createFormWithData(this.questionDetails);
-            this.isCheckbox = this.questionDetails.is_checkbox;
+            this.formGroup = McqForm.createFormWithData(this.questionDetails)
+            this.isCheckbox = this.questionDetails.is_checkbox
         } else {
-            this.formGroup = McqForm.createForm();
-            this.addDistractor();
-            this.addAnswer();
+            this.formGroup = McqForm.createForm()
+            this.addDistractor()
+            this.addAnswer()
         }
     }
 
@@ -48,9 +48,9 @@ export class McqCreateEditSnippetComponent implements OnInit {
                 label: 'Submit Question?'
             }).subscribe({
                 next: () => this.onSubmit()
-            });
+            })
         } else {
-            this.onSubmit();
+            this.onSubmit()
         }
     }
 
@@ -58,65 +58,65 @@ export class McqCreateEditSnippetComponent implements OnInit {
      * Form submission.
      */
     onSubmit(): void {
-        const submissionData = McqForm.submissionData(this.formGroup);
+        const submissionData = McqForm.submissionData(this.formGroup)
         if (this.questionDetails) {
             this.questionService.putMultipleChoiceQuestion(submissionData, this.questionDetails.id)
                 .subscribe(() => {
                     this.notificationsService
                         .show('The Question has been Updated Successfully.', {
                             status: TuiNotification.Success
-                        }).subscribe();
-                    this.refreshPage();
-                });
+                        }).subscribe()
+                    this.refreshPage()
+                })
         } else {
             this.questionService.postMultipleChoiceQuestion(submissionData)
                 .subscribe(() => {
                     this.notificationsService
                         .show('The Question has been Created Successfully.', {
                             status: TuiNotification.Success
-                        }).subscribe();
-                    this.refreshPage();
-                });
+                        }).subscribe()
+                    this.refreshPage()
+                })
         }
     }
 
     getAnswerFormControls(): FormControl[] {
-        return (this.form.answer as FormArray).controls as FormControl[];
+        return (this.form.answer as FormArray).controls as FormControl[]
     }
 
     getAnswers(): FormArray {
-        return this.form.answer as FormArray;
+        return this.form.answer as FormArray
     }
 
     addAnswer(): void {
-        this.getAnswers()?.push(McqForm.createChoiceControl());
+        this.getAnswers()?.push(McqForm.createChoiceControl())
     }
 
     removeAnswer(index: number): void {
-        this.getAnswers()?.removeAt(index);
+        this.getAnswers()?.removeAt(index)
     }
 
     getDistractors(): FormArray {
-        return this.form.choices as FormArray;
+        return this.form.choices as FormArray
     }
 
     getDistractorFormControls(): FormControl[] {
-        return this.getDistractors().controls as FormControl[];
+        return this.getDistractors().controls as FormControl[]
     }
 
     addDistractor(): void {
-        this.getDistractors()?.push(McqForm.createChoiceControl());
+        this.getDistractors()?.push(McqForm.createChoiceControl())
     }
 
     removeDistractor(index: number): void {
-        this.getDistractors()?.removeAt(index);
+        this.getDistractors()?.removeAt(index)
     }
 
     refreshPage(): void {
-        const currentUrl = this.router.url;
-        this.router.onSameUrlNavigation = 'reload';
+        const currentUrl = this.router.url
+        this.router.onSameUrlNavigation = 'reload'
         this.router.navigate([currentUrl]).then(() => {
-            window.scroll(0, 0);
-        });
+            window.scroll(0, 0)
+        })
     }
 }

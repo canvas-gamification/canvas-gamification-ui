@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {UQJ} from '@app/_models/uqj';
-import {UqjService} from '@app/problems/_services/uqj.service';
-import {Question} from "@app/_models";
+import {Component, OnInit} from '@angular/core'
+import {UQJ} from '@app/_models/uqj'
+import {UqjService} from '@app/problems/_services/uqj.service'
+import {Question} from "@app/_models"
 
 @Component({
     selector: 'app-recent-viewed-questions',
@@ -9,7 +9,7 @@ import {Question} from "@app/_models";
     styleUrls: ['./recent-viewed-questions.component.scss']
 })
 export class RecentViewedQuestionsComponent implements OnInit {
-    uqjs: UQJ[];
+    uqjs: UQJ[]
 
     constructor(
         private uqjService: UqjService,
@@ -20,12 +20,12 @@ export class RecentViewedQuestionsComponent implements OnInit {
         this.uqjService
             .getUQJs({recent: true, pageSize: 5})
             ?.subscribe((paginatedUqjs) => {
-                this.uqjs = paginatedUqjs.results;
-            });
+                this.uqjs = paginatedUqjs.results
+            })
     }
 
     formatQuestion(question: Question): string {
-        return `${question.title} (${question.id})`;
+        return `${question.title} (${question.id})`
     }
 
 }

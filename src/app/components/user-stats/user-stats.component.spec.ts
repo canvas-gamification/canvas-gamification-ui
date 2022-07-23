@@ -1,12 +1,12 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing'
 
-import {UserStatsComponent} from './user-stats.component';
-import {TestModule} from '@test/test.module';
-import {POLYMORPHEUS_CONTEXT} from "@tinkoff/ng-polymorpheus";
+import {UserStatsComponent} from './user-stats.component'
+import {TestModule} from '@test/test.module'
+import {POLYMORPHEUS_CONTEXT} from "@tinkoff/ng-polymorpheus"
 
 describe('UserStatsComponent', () => {
-    let component: UserStatsComponent;
-    let fixture: ComponentFixture<UserStatsComponent>;
+    let component: UserStatsComponent
+    let fixture: ComponentFixture<UserStatsComponent>
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -20,16 +20,16 @@ describe('UserStatsComponent', () => {
                     }
                 }
             ]
-        }).compileComponents();
-    });
+        }).compileComponents()
+    })
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(UserStatsComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+        fixture = TestBed.createComponent(UserStatsComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
     it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-});
+        expect(component).toBeTruthy()
+    })
+})

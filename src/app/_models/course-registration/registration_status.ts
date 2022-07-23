@@ -9,4 +9,4 @@ export const REGISTRATION_STATUS = {
     AWAIT_VERIFICATION: 'Awaiting Verification',
     REGISTERED: 'Registered',
     BLOCKED: 'Blocked',
-};
+}

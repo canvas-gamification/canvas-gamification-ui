@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core';
-import {UQJ} from '@app/_models';
-import {SubmissionService} from '@app/problems/_services/submission.service';
-import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
+import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core'
+import {UQJ} from '@app/_models'
+import {SubmissionService} from '@app/problems/_services/submission.service'
+import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
 
 @Component({
     selector: 'app-java-view-snippet',
@@ -9,10 +9,10 @@ import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
     styleUrls: ['./java-view-snippet.component.scss'],
 })
 export class JavaViewSnippetComponent implements OnChanges {
-    @Input() uqj: UQJ;
-    @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>();
-    inputFileNames = new Array<{ name: string, template: string }>();
-    waitingSubmission = false;
+    @Input() uqj: UQJ
+    @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>()
+    inputFileNames = new Array<{ name: string, template: string }>()
+    waitingSubmission = false
 
     constructor(
         private submissionService: SubmissionService,
@@ -20,22 +20,22 @@ export class JavaViewSnippetComponent implements OnChanges {
     }
 
     ngOnChanges(): void {
-        this.inputFileNames = this.uqj.input_files;
+        this.inputFileNames = this.uqj.input_files
     }
 
     canSubmit(): boolean {
-        return this.uqj?.question?.max_submission_allowed - this.uqj?.num_attempts > 0;
+        return this.uqj?.question?.max_submission_allowed - this.uqj?.num_attempts > 0
     }
 
     /**
      * Submit an answer to the question.
      */
     onSubmit(): void {
-        this.waitingSubmission = true;
-        const codeSolution = {};
+        this.waitingSubmission = true
+        const codeSolution = {}
         this.inputFileNames.forEach(file => {
-            codeSolution[file.name] = file.template;
-        });
+            codeSolution[file.name] = file.template
+        })
         this.submissionService.postQuestionSubmission({
             question: this.uqj.question.id,
             solution: codeSolution
@@ -43,11 +43,11 @@ export class JavaViewSnippetComponent implements OnChanges {
             this.notificationsService
                 .show('The Question has been Submitted Successfully.', {
                     status: TuiNotification.Success
-                }).subscribe();
-            this.successfulSubmissionEvent.emit(true);
-            this.waitingSubmission = false;
+                }).subscribe()
+            this.successfulSubmissionEvent.emit(true)
+            this.waitingSubmission = false
         }, () => {
-            this.waitingSubmission = false;
-        });
+            this.waitingSubmission = false
+        })
     }
 }

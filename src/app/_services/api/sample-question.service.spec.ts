@@ -1,19 +1,19 @@
-import {TestBed} from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing'
 
-import {SampleQuestionService} from './sample-question.service';
-import {TestModule} from '@test/test.module';
+import {SampleQuestionService} from './sample-question.service'
+import {TestModule} from '@test/test.module'
 
 describe('SampleQuestionService', () => {
-    let service: SampleQuestionService;
+    let service: SampleQuestionService
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [TestModule]
-        });
-        service = TestBed.inject(SampleQuestionService);
-    });
+        })
+        service = TestBed.inject(SampleQuestionService)
+    })
 
     it('should be created', () => {
-        expect(service).toBeTruthy();
-    });
-});
+        expect(service).toBeTruthy()
+    })
+})

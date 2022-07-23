@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {CourseService} from '@app/course/_services/course.service';
-import {Course, STATUS} from '@app/_models';
+import {Component, OnInit} from '@angular/core'
+import {CourseService} from '@app/course/_services/course.service'
+import {Course, STATUS} from '@app/_models'
 
 @Component({
     selector: 'app-course-dashboard',
@@ -8,7 +8,7 @@ import {Course, STATUS} from '@app/_models';
     styleUrls: ['./course-dashboard.component.scss']
 })
 export class CourseDashboardComponent implements OnInit {
-    activeCourses: Course[];
+    activeCourses: Course[]
 
     constructor(private courseService: CourseService) {
     }
@@ -18,8 +18,8 @@ export class CourseDashboardComponent implements OnInit {
             .getCourses(true, {ordering: {name: true}})
             ?.subscribe((courses) => {
                 this.activeCourses = courses.filter(course => {
-                    return course.status === STATUS.active;
-                });
-            });
+                    return course.status === STATUS.active
+                })
+            })
     }
 }

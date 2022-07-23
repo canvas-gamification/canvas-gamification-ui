@@ -1,9 +1,9 @@
-import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {SubmissionService} from '@app/problems/_services/submission.service';
-import {QuestionSubmission} from '@app/_models/question_submission';
-import {ActivatedRoute} from '@angular/router';
-import {POLYMORPHEUS_CONTEXT} from '@tinkoff/ng-polymorpheus';
-import {TuiDialogContext} from '@taiga-ui/core';
+import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
+import {SubmissionService} from '@app/problems/_services/submission.service'
+import {QuestionSubmission} from '@app/_models/question_submission'
+import {ActivatedRoute} from '@angular/router'
+import {POLYMORPHEUS_CONTEXT} from '@tinkoff/ng-polymorpheus'
+import {TuiDialogContext} from '@taiga-ui/core'
 
 @Component({
     selector: 'app-submission-view',
@@ -11,8 +11,8 @@ import {TuiDialogContext} from '@taiga-ui/core';
     styleUrls: ['./submission-view.component.scss'],
 })
 export class SubmissionViewComponent implements OnInit {
-    submission: QuestionSubmission;
-    answerFiles: { name: string, code: string }[] = [];
+    submission: QuestionSubmission
+    answerFiles: { name: string, code: string }[] = []
 
     constructor(
         private submissionService: SubmissionService, private route: ActivatedRoute,
@@ -22,17 +22,17 @@ export class SubmissionViewComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.submission = this.context.data;
+        this.submission = this.context.data
         this.answerFiles = Object.entries(this.submission.answer_files).reduce((prev, [key, value]) => {
             return [...prev, {
                 name: key,
                 code: value
-            }];
-        }, []);
-        this.changeDetector.detectChanges();
+            }]
+        }, [])
+        this.changeDetector.detectChanges()
     }
 
     closeDialog(): void {
-        this.context.completeWith(null);
+        this.context.completeWith(null)
     }
 }

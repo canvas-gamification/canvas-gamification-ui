@@ -1,17 +1,17 @@
-<div [dragula]="dragulaName" [dragulaModel]="models.controls" (dragulaModelChange)="onDragulaChange($event)">
+<div (dragulaModelChange)="onDragulaChange($event)" [dragulaModel]="models.controls" [dragula]="dragulaName">
     <form
-        class="tui-space_bottom-4 drag-container"
-        [formGroup]="form | asFormGroup"
         *ngFor="let form of models.controls; index as index"
+        [formGroup]="form | asFormGroup"
+        class="tui-space_bottom-4 drag-container"
     >
         <tui-svg
+            [tuiHint]="reorderTooltip"
             class="drag-container_handle"
             src="tuiIconDrag"
             tuiDescribedBy="reorder-{{index}}"
+            tuiHintDirection="top-right"
             tuiHintId="reorder-{{index}}"
             tuiHintMode="onDark"
-            tuiHintDirection="top-right"
-            [tuiHint]="reorderTooltip"
         ></tui-svg>
         <ng-template #reorderTooltip>
             Reorder Variable
@@ -20,16 +20,16 @@
             <div class="tui-island__content">
                 <div class="tui-island__figure">
                     <button
-                        tuiIconButton
-                        size="m"
-                        icon="tuiIconTrash"
-                        type="button"
                         (click)="removeModel(index)"
+                        [tuiHint]="removeTooltip"
+                        icon="tuiIconTrash"
+                        size="m"
                         tuiDescribedBy="remove-{{index}}"
+                        tuiHintDirection="top-left"
                         tuiHintId="remove-{{index}}"
                         tuiHintMode="onDark"
-                        tuiHintDirection="top-left"
-                        [tuiHint]="removeTooltip"
+                        tuiIconButton
+                        type="button"
                     ></button>
                     <ng-template #removeTooltip>
                         Remove Value
@@ -84,11 +84,11 @@
                                 *ngIf="(form | asFormGroup).controls.type.value === 'choice' || (form | asFormGroup).controls.type.value === 'enum'">
                                 <div class="tui-form__row">
                                     <div class="tui-form__field-note">Values</div>
-                                    <tui-island class="tui-space_bottom-4"
-                                                *ngIf="getValues(form).value.length > 0">
+                                    <tui-island *ngIf="getValues(form).value.length > 0"
+                                                class="tui-space_bottom-4">
                                         <div
-                                            class="tui-form__row values-control"
                                             *ngFor="let value of getValues(form).controls; let index = index"
+                                            class="tui-form__row values-control"
                                         >
                                             <div class="tui-space_right-4 values-control__input" formArrayName="values">
                                                 <tui-input [formControl]="value | asFormControl">Value</tui-input>
@@ -96,16 +96,16 @@
                                                     [formControl]="value | asFormControl"></tui-field-error>
                                             </div>
                                             <button
-                                                tuiIconButton
-                                                size="m"
-                                                icon="tuiIconTrash"
-                                                type="button"
                                                 (click)="removeValue(form, index)"
+                                                [tuiHint]="removeTooltip"
+                                                icon="tuiIconTrash"
+                                                size="m"
                                                 tuiDescribedBy="remove-value-{{index}}"
+                                                tuiHintDirection="top-left"
                                                 tuiHintId="remove-value-{{index}}"
                                                 tuiHintMode="onDark"
-                                                tuiHintDirection="top-left"
-                                                [tuiHint]="removeTooltip"
+                                                tuiIconButton
+                                                type="button"
                                             ></button>
                                             <ng-template #removeTooltip>
                                                 Remove Value
@@ -113,11 +113,11 @@
                                         </div>
                                     </tui-island>
                                     <button
-                                        tuiButton
-                                        size="m"
-                                        icon="tuiIconPlus"
-                                        type="button"
                                         (click)="addNewValue(form)"
+                                        icon="tuiIconPlus"
+                                        size="m"
+                                        tuiButton
+                                        type="button"
                                     >
                                         Add New Value
                                     </button>
@@ -126,11 +126,11 @@
                         </div>
                         <div class="tui-col_4">
                             <tui-text-area
-                                class="content__island-json"
-                                [ngModel]="getFormString(form)"
                                 (ngModelChange)="setFormFromString(form, $event)"
-                                [ngModelOptions]="{standalone: true}"
                                 [expandable]="true"
+                                [ngModelOptions]="{standalone: true}"
+                                [ngModel]="getFormString(form)"
+                                class="content__island-json"
                             >
                                 JSON
                             </tui-text-area>
@@ -142,26 +142,26 @@
     </form>
 </div>
 <tui-hosted-dropdown
-    [content]="newValueDropdownContent"
     [(open)]="openNewValueDropdown"
+    [content]="newValueDropdownContent"
 >
-    <button tuiButton size="m" type="button" icon="tuiIconPlus" [iconRight]="newValueDropdownIcon">
+    <button [iconRight]="newValueDropdownIcon" icon="tuiIconPlus" size="m" tuiButton type="button">
         Add New Variable
     </button>
 </tui-hosted-dropdown>
 <ng-template #newValueDropdownIcon>
     <tui-svg
-        src="tuiIconChevronDown"
-        class="new-item-icon"
         [class.new-item-icon_rotated]="openNewValueDropdown"
+        class="new-item-icon"
+        src="tuiIconChevronDown"
     ></tui-svg>
 </ng-template>
 <ng-template #newValueDropdownContent>
     <tui-data-list>
         <button
-            tuiOption
             (click)="addNewModel(modelType)"
             *ngFor="let modelType of modelTypes"
+            tuiOption
         >
             {{ modelType | titlecase }}
         </button>

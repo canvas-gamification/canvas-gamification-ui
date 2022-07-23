@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, Output, OnInit, Inject} from '@angular/core';
-import {AbstractControl, FormGroup} from "@angular/forms";
-import {ReportQuestionService} from "@app/problems/_services/report-question.service";
-import {ReportQuestionForm} from "@app/problems/_forms/problem-report.form";
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core'
+import {AbstractControl, FormGroup} from "@angular/forms"
+import {ReportQuestionService} from "@app/problems/_services/report-question.service"
+import {ReportQuestionForm} from "@app/problems/_forms/problem-report.form"
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-problem-report-modal',
@@ -10,11 +10,11 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
     styleUrls: ['./problem-report-modal.component.scss']
 })
 export class ProblemReportModalComponent implements OnInit {
-    @Input() open = false;
-    @Output() readonly openChange = new EventEmitter<boolean>();
-    @Input() questionId: number;
+    @Input() open = false
+    @Output() readonly openChange = new EventEmitter<boolean>()
+    @Input() questionId: number
 
-    formGroup: FormGroup;
+    formGroup: FormGroup
 
     readonly reportOptions = [
         ["TYPO_TEXT", "There is a typo in the question instructions"],
@@ -22,7 +22,7 @@ export class ProblemReportModalComponent implements OnInit {
         ["RIGHT_SOLUTION_MARKED_WRONG", "My solution is definitely correct but it did not get full marks"],
         ["WRONG_SOLUTION_MARKED_RIGHT", "My solution is incorrect but it received full marks"],
         ["OTHER", "Other"]
-    ];
+    ]
 
     constructor(
         private readonly reportQuestionService: ReportQuestionService,
@@ -30,20 +30,20 @@ export class ProblemReportModalComponent implements OnInit {
     ) {
     }
 
-    ngOnInit() {
-        this.formGroup = ReportQuestionForm.createForm();
-    }
-
     /**
      * Method to get the form controls.
      */
     get form(): { [p: string]: AbstractControl } {
-        return this.formGroup.controls;
+        return this.formGroup.controls
+    }
+
+    ngOnInit() {
+        this.formGroup = ReportQuestionForm.createForm()
     }
 
     toggleDialog(open: boolean) {
-        this.open = open;
-        this.openChange.emit(this.open);
+        this.open = open
+        this.openChange.emit(this.open)
     }
 
     submitReport() {
@@ -51,9 +51,9 @@ export class ProblemReportModalComponent implements OnInit {
             this.notificationsService
                 .show('The question has been successfully reported.', {
                     status: TuiNotification.Success
-                }).subscribe();
-        });
+                }).subscribe()
+        })
 
-        this.toggleDialog(false);
+        this.toggleDialog(false)
     }
 }

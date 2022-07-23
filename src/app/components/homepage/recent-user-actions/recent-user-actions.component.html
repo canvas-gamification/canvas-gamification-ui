@@ -7,26 +7,26 @@
                     <tui-island size="s">
                         <p class="tui-island__paragraph">
                             <ng-container
-                                    *ngIf="action.object_type === 'Question' || action.object_type === 'Submission'; else notALinkAction">
+                                *ngIf="action.object_type === 'Question' || action.object_type === 'Submission'; else notALinkAction">
                                 <ng-container *ngIf="action.object_type === 'Question'">
                                     <span>
-                                        <a tuiLink class="tui-island__paragraph_link"
+                                        <a [innerHTML]="action.safeDescription" class="tui-island__paragraph_link"
                                            routerLink="/problems/{{action.object_id}}"
-                                           [innerHTML]="action.safeDescription"></a>
+                                           tuiLink></a>
                                     </span>
                                 </ng-container>
                                 <ng-container *ngIf="action.object_type === 'Submission'">
                                     <span>
-                                        <a tuiLink class="tui-island__paragraph_link"
+                                        <a [innerHTML]="action.safeDescription" class="tui-island__paragraph_link"
                                            routerLink="/problems/submission/{{action.object_id}}"
-                                           [innerHTML]="action.safeDescription"></a>
+                                           tuiLink></a>
                                     </span>
                                 </ng-container>
                             </ng-container>
                             <ng-template #notALinkAction>
                                 <span [innerHTML]="action.safeDescription"></span>
                             </ng-template>
-                            <span class="tui-space_left-2" *ngIf="action.token_change">
+                            <span *ngIf="action.token_change" class="tui-space_left-2">
                                 {{this.formatTokenChange(action.token_change)}}
                             </span>
                         </p>
@@ -41,7 +41,7 @@
         </ng-template>
     </ul>
     <div class="tui-form__buttons tui-space_top-4 tui-space_bottom-6">
-        <a tuiButton class="tui-form__button" size="m" appearance="primary" iconRight="tuiIconArrowRight"
-           routerLink="../actions">View More Actions</a>
+        <a appearance="primary" class="tui-form__button" iconRight="tuiIconArrowRight" routerLink="../actions" size="m"
+           tuiButton>View More Actions</a>
     </div>
 </ng-container>

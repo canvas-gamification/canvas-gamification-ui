@@ -8,7 +8,7 @@
         </div>
         <div class="island_container">
             <ng-container *ngIf="viewSwitcher.view === 'tab' else listView">
-                <tui-tabs-with-more class="tui-space_bottom-4" #tabsComponent>
+                <tui-tabs-with-more #tabsComponent class="tui-space_bottom-4">
                     <ng-container *ngFor="let input of inputFileNames">
                         <button *tuiTab tuiTab>
                             {{ input.name }}
@@ -33,11 +33,11 @@
     </tui-island>
     <div class="tui-form__buttons">
         <button
-            tuiButton
+            [disabled]="!canSubmit()"
+            [showLoader]="waitingSubmission"
             class="tui-form__button"
             size="m"
-            [showLoader]="waitingSubmission"
-            [disabled]="!canSubmit()"
+            tuiButton
         >
             Submit
         </button>

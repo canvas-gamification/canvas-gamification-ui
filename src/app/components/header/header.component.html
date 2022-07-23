@@ -1,50 +1,50 @@
 <header class="header">
     <button
-        class="header-sidebar"
-        tuiButton
-        type="button"
-        icon="tuiIconMenuLarge"
-        appearance="icon"
-        shape="square"
-        aria-label="Open Sidebar"
         (click)="toggleSidebar(true)"
         (tuiActiveZoneChange)="toggleSidebar($event)"
+        appearance="icon"
+        aria-label="Open Sidebar"
+        class="header-sidebar"
+        icon="tuiIconMenuLarge"
+        shape="square"
+        tuiButton
+        type="button"
     >
         <nav *tuiSidebar="openSidebar; direction: 'left'" class="header-sidebar_nav">
             <div class="header-logo">
-                <a tuiLink routerLink="" class="tui-space_right-2" (click)="toggleSidebar(false)">
+                <a (click)="toggleSidebar(false)" class="tui-space_right-2" routerLink="" tuiLink>
                     <img [src]="logoPath" alt="Logo">
                 </a>
             </div>
-            <a tuiLink routerLink="homepage" class="tui-text_body-m" (click)="toggleSidebar(false)">Homepage</a>
-            <a tuiLink routerLink="course" class="tui-text_body-m" (click)="toggleSidebar(false)">Courses</a>
-            <a *ngIf="user?.is_teacher" tuiLink routerLink="problems" class="tui-text_body-m"
-               (click)="toggleSidebar(false)">Problem Sets</a>
-            <a *ngIf="user?.is_teacher" tuiLink routerLink="token-values" class="tui-text_body-m"
-               (click)="toggleSidebar(false)">Token&nbsp;Values</a>
-            <a tuiLink routerLink="faq" class="tui-text_body-m" (click)="toggleSidebar(false)">FAQ</a>
+            <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="homepage" tuiLink>Homepage</a>
+            <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
+            <a (click)="toggleSidebar(false)" *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="problems"
+               tuiLink>Problem Sets</a>
+            <a (click)="toggleSidebar(false)" *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="token-values"
+               tuiLink>Token&nbsp;Values</a>
+            <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="faq" tuiLink>FAQ</a>
         </nav>
     </button>
     <div class="header-logo">
-        <a tuiLink routerLink="" class="tui-space_right-2">
+        <a class="tui-space_right-2" routerLink="" tuiLink>
             <img [src]="logoPath" alt="Logo">
         </a>
         <span class="tui-text_h6">Canvas Gamification</span>
     </div>
     <nav class="header-nav">
-        <a tuiLink routerLink="homepage" class="tui-text_body-m">Homepage</a>
-        <a tuiLink routerLink="course" class="tui-text_body-m">Courses</a>
-        <a *ngIf="user?.is_teacher" tuiLink routerLink="problems" class="tui-text_body-m">Problem Sets</a>
-        <a *ngIf="user?.is_teacher" tuiLink routerLink="token-values" class="tui-text_body-m">Token&nbsp;Values</a>
-        <a tuiLink routerLink="faq" class="tui-text_body-m">FAQ</a>
+        <a class="tui-text_body-m" routerLink="homepage" tuiLink>Homepage</a>
+        <a class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
+        <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="problems" tuiLink>Problem Sets</a>
+        <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="token-values" tuiLink>Token&nbsp;Values</a>
+        <a class="tui-text_body-m" routerLink="faq" tuiLink>FAQ</a>
     </nav>
     <div class="header-user">
         <ng-container *ngIf="user else login">
             <tui-hosted-dropdown
-                [content]="userActions"
                 [(open)]="openUserActions"
+                [content]="userActions"
             >
-                <button class="header-user_dropdown" aria-label="User Profile Dropdown">
+                <button aria-label="User Profile Dropdown" class="header-user_dropdown">
                     <ng-container *ngIf="user.first_name; else incompleteProfile">
                         {{ user.first_name }}
                     </ng-container>
@@ -52,16 +52,16 @@
                         {{ user.username }}
                     </ng-template>
                     <tui-avatar
-                        class="tui-space_left-2"
                         [autoColor]="true"
                         [rounded]="true"
-                        size="s"
                         [text]="user.first_name ? user.first_name + ' ' + user.last_name : user.username"
+                        class="tui-space_left-2"
+                        size="s"
                     ></tui-avatar>
                     <tui-svg
-                        src="tuiIconChevronDown"
-                        class="icon"
                         [class.icon_rotated]="openUserActions"
+                        class="icon"
+                        src="tuiIconChevronDown"
                     ></tui-svg>
                 </button>
             </tui-hosted-dropdown>
@@ -72,44 +72,44 @@
                             <label class="tui-text_body-m">
                                 Night mode
                                 <tui-toggle
-                                    size="m"
-                                    [(ngModel)]="enableNightMode"
                                     (ngModelChange)="setNightMode($event)"
+                                    [(ngModel)]="enableNightMode"
                                     class="tui-space_left-2"
+                                    size="m"
                                 ></tui-toggle>
                             </label>
                         </button>
                     </tui-opt-group>
                     <ng-container *ngIf="user.is_teacher">
                         <tui-opt-group label="Admin">
-                            <a tuiOption routerLink="admin">Dashboard</a>
-                            <a tuiOption routerLink="token-values">Token Values</a>
+                            <a routerLink="admin" tuiOption>Dashboard</a>
+                            <a routerLink="token-values" tuiOption>Token Values</a>
                         </tui-opt-group>
                     </ng-container>
                     <tui-opt-group label="Profile">
-                        <a tuiOption routerLink="accounts/profile">Profile</a>
+                        <a routerLink="accounts/profile" tuiOption>Profile</a>
                     </tui-opt-group>
                     <tui-opt-group>
-                        <a tuiOption class="dropdown-item" routerLink="#" (click)="logout()">Logout</a>
+                        <a (click)="logout()" class="dropdown-item" routerLink="#" tuiOption>Logout</a>
                     </tui-opt-group>
                 </tui-data-list>
             </ng-template>
         </ng-container>
         <ng-template #login>
             <a
-                tuiButton
-                size="m"
                 appearance="flat"
                 class="tui-space_right-2"
                 routerLink="accounts/login"
+                size="m"
+                tuiButton
             >
                 Login
             </a>
             <a
-                tuiButton
-                size="m"
                 appearance="primary"
                 routerLink="accounts/register"
+                size="m"
+                tuiButton
             >
                 Sign Up
             </a>

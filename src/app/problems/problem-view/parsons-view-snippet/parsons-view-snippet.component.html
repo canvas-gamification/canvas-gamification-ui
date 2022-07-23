@@ -2,44 +2,44 @@
     <tui-island class="tui-space_top-6">
         <div class="tui-island__content">
             <div class="tui-island__figure">
-<!--                <app-tab-list-view-switcher #viewSwitcher></app-tab-list-view-switcher>-->
+                <!--                <app-tab-list-view-switcher #viewSwitcher></app-tab-list-view-switcher>-->
             </div>
             <h2 class="tui-island__category tui-text_body-xs">Organize The Following</h2>
         </div>
         <div class="island_container">
-<!--    TODO: Due to technical limitations for remembering -->
-<!--    TODO: what parsons they have placed, the state switching has been removed -->
-<!--    <ng-container *ngIf="viewSwitcher.view === 'tab' else listView">-->
-<!--        <tui-tabs-with-more class="tui-space_bottom-4" #tabsComponent>-->
-<!--            <ng-container *ngFor="let file of files">-->
-<!--                <button *tuiTab tuiTab>-->
-<!--                    {{ file.name }}-->
-<!--                </button>-->
-<!--            </ng-container>-->
-<!--        </tui-tabs-with-more>-->
-<!--        <div *ngFor="let file of files; let index = index">-->
-<!--            <div *ngIf="tabsComponent.activeItemIndex === index">-->
-<!--                <app-parsons-lines [file]="file" (code)="file.solution = $event"></app-parsons-lines>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </ng-container>-->
-<!--    <ng-template #listView>-->
+            <!--    TODO: Due to technical limitations for remembering -->
+            <!--    TODO: what parsons they have placed, the state switching has been removed -->
+            <!--    <ng-container *ngIf="viewSwitcher.view === 'tab' else listView">-->
+            <!--        <tui-tabs-with-more class="tui-space_bottom-4" #tabsComponent>-->
+            <!--            <ng-container *ngFor="let file of files">-->
+            <!--                <button *tuiTab tuiTab>-->
+            <!--                    {{ file.name }}-->
+            <!--                </button>-->
+            <!--            </ng-container>-->
+            <!--        </tui-tabs-with-more>-->
+            <!--        <div *ngFor="let file of files; let index = index">-->
+            <!--            <div *ngIf="tabsComponent.activeItemIndex === index">-->
+            <!--                <app-parsons-lines [file]="file" (code)="file.solution = $event"></app-parsons-lines>-->
+            <!--            </div>-->
+            <!--        </div>-->
+            <!--    </ng-container>-->
+            <!--    <ng-template #listView>-->
             <div class="parsons__list">
                 <div *ngFor="let file of files">
                     <p class="parsons__list-title">{{ file.name }}</p>
-                    <app-parsons-lines [file]="file" (code)="file.solution = $event"></app-parsons-lines>
+                    <app-parsons-lines (code)="file.solution = $event" [file]="file"></app-parsons-lines>
                 </div>
             </div>
-<!--    </ng-template>-->
+            <!--    </ng-template>-->
         </div>
     </tui-island>
     <div class="tui-form__buttons">
         <button
-            tuiButton
-            size="m"
-            class="tui-form__button"
-            [showLoader]="waitingSubmission"
             [disabled]="!canSubmit()"
+            [showLoader]="waitingSubmission"
+            class="tui-form__button"
+            size="m"
+            tuiButton
         >
             Submit
         </button>

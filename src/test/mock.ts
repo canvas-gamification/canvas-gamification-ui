@@ -1,4 +1,4 @@
-import {Action} from "@app/_models";
+import {Action} from "@app/_models"
 
 export const MOCK_USER_ACTION_1: Action = {
     description: "",
@@ -11,7 +11,7 @@ export const MOCK_USER_ACTION_1: Action = {
     time_modified: undefined,
     token_change: 0,
     verb: undefined
-};
+}
 
 export const MOCK_USER_ACTION_2: Action = {
     description: "",
@@ -24,6 +24,6 @@ export const MOCK_USER_ACTION_2: Action = {
     time_modified: undefined,
     token_change: 0,
     verb: undefined
-};
+}
 
-export const MOCK_USER_ACTIONS: Action[] = [MOCK_USER_ACTION_1, MOCK_USER_ACTION_2];
+export const MOCK_USER_ACTIONS: Action[] = [MOCK_USER_ACTION_1, MOCK_USER_ACTION_2]

@@ -2,55 +2,55 @@
     <h1 class="tui-text_h3 tui-space_vertical-10">Actions</h1>
     <tui-loader [overlay]="true" [showLoader]="!userActions || loadingTable">
         <table
-                tuiTable
-                [columns]="userActionsTableColumns"
-                [(sorter)]="sorter"
-                (sorterChange)="update()"
-                [(direction)]="sortDirection"
-                (directionChange)="update()"
-                class="user-actions-table"
+            (directionChange)="update()"
+            (sorterChange)="update()"
+            [(direction)]="sortDirection"
+            [(sorter)]="sorter"
+            [columns]="userActionsTableColumns"
+            class="user-actions-table"
+            tuiTable
         >
             <thead tuiThead>
             <tr tuiThGroup>
-                <th tuiTh [sorter]="sorters.id" *tuiHead="'id'">#</th>
-                <th tuiTh [sorter]="null" *tuiHead="'description'">Description</th>
-                <th tuiTh [sorter]="sorters.object_type" *tuiHead="'object_type'">Type</th>
-                <th tuiTh [sorter]="sorters.status" *tuiHead="'status'">Status</th>
-                <th tuiTh [sorter]="sorters.time_created" *tuiHead="'time_created'">Date</th>
-                <th tuiTh [sorter]="sorters.verb" *tuiHead="'verb'">Action</th>
-                <th tuiTh [sorter]="null" *tuiHead="'token_change'">Tokens</th>
+                <th *tuiHead="'id'" [sorter]="sorters.id" tuiTh>#</th>
+                <th *tuiHead="'description'" [sorter]="null" tuiTh>Description</th>
+                <th *tuiHead="'object_type'" [sorter]="sorters.object_type" tuiTh>Type</th>
+                <th *tuiHead="'status'" [sorter]="sorters.status" tuiTh>Status</th>
+                <th *tuiHead="'time_created'" [sorter]="sorters.time_created" tuiTh>Date</th>
+                <th *tuiHead="'verb'" [sorter]="sorters.verb" tuiTh>Action</th>
+                <th *tuiHead="'token_change'" [sorter]="null" tuiTh>Tokens</th>
             </tr>
             </thead>
-            <tbody tuiTbody [data]="userActions">
-            <tr tuiTr *tuiRow="let action of userActions">
-                <td tuiTd *tuiCell="'description'">
+            <tbody [data]="userActions" tuiTbody>
+            <tr *tuiRow="let action of userActions" tuiTr>
+                <td *tuiCell="'description'" tuiTd>
                     <ng-container
-                            *ngIf="action.object_type === 'Question' || action.object_type === 'Submission' && action.description; else notALinkAction">
+                        *ngIf="action.object_type === 'Question' || action.object_type === 'Submission' && action.description; else notALinkAction">
                         <ng-container *ngIf="action.object_type === 'Question'">
-                            <a tuiLink routerLink="/problems/{{action.object_id}}" [innerHTML]="action.description"></a>
+                            <a [innerHTML]="action.description" routerLink="/problems/{{action.object_id}}" tuiLink></a>
                         </ng-container>
                         <ng-container *ngIf="action.object_type === 'Submission'">
-                            <a tuiLink routerLink="/problems/submission/{{action.object_id}}"
-                               [innerHTML]="action.description"></a>
+                            <a [innerHTML]="action.description" routerLink="/problems/submission/{{action.object_id}}"
+                               tuiLink></a>
                         </ng-container>
                     </ng-container>
                     <ng-template #notALinkAction>
                         {{ (action.description) || 'No Description' }}
                     </ng-template>
                 </td>
-                <td tuiTd *tuiCell="'object_type'">
+                <td *tuiCell="'object_type'" tuiTd>
                     {{ (action.object_type) || 'No Type' }}
                 </td>
-                <td tuiTd *tuiCell="'status'">
+                <td *tuiCell="'status'" tuiTd>
                     {{ (action.status) || 'No Status' }}
                 </td>
-                <td tuiTd *tuiCell="'time_created'">
+                <td *tuiCell="'time_created'" tuiTd>
                     {{ (action.time_created | date: 'long') || 'No Date' }}
                 </td>
-                <td tuiTd *tuiCell="'verb'">
+                <td *tuiCell="'verb'" tuiTd>
                     {{ (action.verb) || 'No Action' }}
                 </td>
-                <td tuiTd *tuiCell="'token_change'">
+                <td *tuiCell="'token_change'" tuiTd>
                     {{ action.token_change > 0 ? '+' : '' }}{{ (action.token_change | number: "1.0-2") || '0' }}
                 </td>
             </tr>
@@ -59,12 +59,12 @@
             <tr>
                 <td [colSpan]="userActionsTableColumns.length">
                     <tui-table-pagination
-                            class="tui-space_top-2"
-                            [total]="numberOfActions"
-                            [(size)]="pageSize"
-                            [(page)]="page"
-                            (pageChange)="update()"
-                            (sizeChange)="update()"
+                        (pageChange)="update()"
+                        (sizeChange)="update()"
+                        [(page)]="page"
+                        [(size)]="pageSize"
+                        [total]="numberOfActions"
+                        class="tui-space_top-2"
                     ></tui-table-pagination>
                 </td>
             </tr>

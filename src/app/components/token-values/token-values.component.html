@@ -1,7 +1,7 @@
 <div class="tui-container tui-container_fullwidth">
     <h1 class="tui-text_h3 tui-space_vertical-10">Token Values</h1>
     <tui-loader [overlay]="true" [showLoader]="!tokenValues">
-        <table tuiTable [columns]="tableColumns" *ngIf="difficulties">
+        <table *ngIf="difficulties" [columns]="tableColumns" tuiTable>
             <thead tuiThead>
             <tr tuiThGroup>
                 <th *tuiHead="'name'" [sorter]="null" tuiTh>Category Name</th>
@@ -11,10 +11,10 @@
             </tr>
             </thead>
             <tbody
-                tuiTbody
-                [heading]="tokenValue.category_name"
-                [data]="tokenValue.children"
                 *ngFor="let tokenValue of tokenValues"
+                [data]="tokenValue.children"
+                [heading]="tokenValue.category_name"
+                tuiTbody
             >
             <tr *tuiRow="let childTokenValue of tokenValue.children" tuiTr>
                 <td *tuiCell="'name'" tuiTd>
@@ -33,6 +33,6 @@
         </table>
     </tui-loader>
     <div class="tui-form__buttons">
-        <button tuiButton appearance="primary" size="m" class="tui-form__button" (click)="submit()">Submit</button>
+        <button (click)="submit()" appearance="primary" class="tui-form__button" size="m" tuiButton>Submit</button>
     </div>
 </div>

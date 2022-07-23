@@ -4,35 +4,35 @@
             <div class="tui-space_auto tui-space_vertical-10 login-brand">
                 <img [src]="logoPath" alt="logo">
             </div>
-            <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
                 <h2 class="tui-form__header">Login</h2>
                 <div class="tui-form__row">
-                    <tui-input formControlName="email" aria-label="Email">Email</tui-input>
+                    <tui-input aria-label="Email" formControlName="email">Email</tui-input>
                     <tui-field-error formControlName="email"></tui-field-error>
                 </div>
                 <div class="tui-form__row">
-                    <tui-input-password formControlName="password" aria-label="Password">Password</tui-input-password>
+                    <tui-input-password aria-label="Password" formControlName="password">Password</tui-input-password>
                     <tui-field-error formControlName="password"></tui-field-error>
                     <div class="tui-form__field-note">
-                        Forgot your password? <a tuiLink [routerLink]="['/accounts', 'reset-password']">Reset
+                        Forgot your password? <a [routerLink]="['/accounts', 'reset-password']" tuiLink>Reset
                         Password</a>
                     </div>
                 </div>
                 <div class="tui-form__buttons">
                     <button
-                            tuiButton
-                            class="tui-form__button login-button__wide"
-                            size="m"
-                            type="submit"
-                            aria-label="Login"
-                            [showLoader]="loading"
-                            [disabled]="formGroup.invalid"
+                        [disabled]="formGroup.invalid"
+                        [showLoader]="loading"
+                        aria-label="Login"
+                        class="tui-form__button login-button__wide"
+                        size="m"
+                        tuiButton
+                        type="submit"
                     >
                         Login
                     </button>
                 </div>
                 <div class="tui-form__row login-register__center">
-                    Don't have an account? <a tuiLink [routerLink]="['/accounts', 'register']">Register</a>
+                    Don't have an account? <a [routerLink]="['/accounts', 'register']" tuiLink>Register</a>
                 </div>
             </form>
         </div>

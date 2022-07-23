@@ -7,4 +7,4 @@ export const MESSAGE_TYPES = {
     SUCCESS: 'success',
     WARNING: 'warning',
     DANGER: 'danger',
-};
+}

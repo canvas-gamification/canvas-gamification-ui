@@ -1,20 +1,21 @@
 <ng-container *ngIf="!uqj.is_checkbox">
-    <form class="tui-space_top-6" (ngSubmit)="onSubmit(formData.value)" [formGroup]="formData">
-        <div class="tui-space_bottom-3" *ngFor="let choice of choiceArray">
+    <form (ngSubmit)="onSubmit(formData.value)" [formGroup]="formData" class="tui-space_top-6">
+        <div *ngFor="let choice of choiceArray" class="tui-space_bottom-3">
             <tui-radio-block
-                formControlName="solution"
                 [item]="choice.id"
                 contentAlign="left"
+                formControlName="solution"
             >
-                <app-editor [ngModel]="choice.value" [ngModelOptions]="{standalone: true}" [readonly]="true"></app-editor>
+                <app-editor [ngModelOptions]="{standalone: true}" [ngModel]="choice.value"
+                            [readonly]="true"></app-editor>
             </tui-radio-block>
         </div>
         <div class="tui-form__buttons">
             <button
-                tuiButton
-                size="m"
-                class="tui-form__button"
                 [disabled]="!formData.valid"
+                class="tui-form__button"
+                size="m"
+                tuiButton
             >
                 Submit
             </button>
@@ -22,22 +23,23 @@
     </form>
 </ng-container>
 <ng-container *ngIf="uqj.is_checkbox">
-    <form class="tui-space_top-6" (ngSubmit)="onCheckboxSubmit()" [formGroup]="checkboxFormData">
-        <div class="tui-space_bottom-3" *ngFor="let checkbox of checkboxesArray.controls; let index = index">
+    <form (ngSubmit)="onCheckboxSubmit()" [formGroup]="checkboxFormData" class="tui-space_top-6">
+        <div *ngFor="let checkbox of checkboxesArray.controls; let index = index" class="tui-space_bottom-3">
             <tui-checkbox-block
                 [formControl]="checkboxesArray.controls[index] | asFormControl"
                 contentAlign="left"
             >
-                <app-editor [ngModel]="choiceArray[index].value" [ngModelOptions]="{standalone: true}" [readonly]="true"></app-editor>
+                <app-editor [ngModelOptions]="{standalone: true}" [ngModel]="choiceArray[index].value"
+                            [readonly]="true"></app-editor>
             </tui-checkbox-block>
         </div>
         <div class="tui-form__buttons">
             <button
-                tuiButton
-                size="m"
-                class="tui-form__button"
-                [showLoader]="waitingSubmission"
                 [disabled]="!canSubmit()"
+                [showLoader]="waitingSubmission"
+                class="tui-form__button"
+                size="m"
+                tuiButton
             >
                 Submit
             </button>

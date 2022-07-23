@@ -1,15 +1,15 @@
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
 
 export class ReportQuestionForm {
     /**
      * Creates a FormGroup for the problem report.
      */
     static createForm(): FormGroup {
-        const builder = new FormBuilder();
+        const builder = new FormBuilder()
         return builder.group({
             report: new FormControl('', [Validators.required]),
             report_details: new FormControl(''),
-        });
+        })
     }
 
     /**
@@ -17,7 +17,7 @@ export class ReportQuestionForm {
      * @param form - The FormGroup for the problem report.
      */
     static extractData(form: FormGroup): ProblemReportFormData {
-        return form.value;
+        return form.value
     }
 }
 

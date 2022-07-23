@@ -8,8 +8,8 @@
     <div class="tui-form__row">
         <h2 class="tui-form__header">JUnit</h2>
         <app-code-editor
-            [codeTemplate]="form.junit_template.value"
             (codeTemplateChange)="form.junit_template.setValue($event)"
+            [codeTemplate]="form.junit_template.value"
         ></app-code-editor>
         <tui-field-error formControlName="junit_template"></tui-field-error>
         <p class="tui-form__field-note">
@@ -49,10 +49,10 @@
     </div>
     <div class="tui-form__buttons">
         <button
-            tuiButton
-            size="m"
-            class="tui-form__button"
             [disabled]="formGroup.invalid"
+            class="tui-form__button"
+            size="m"
+            tuiButton
         >
             Submit
         </button>

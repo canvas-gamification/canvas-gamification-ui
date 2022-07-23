@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {Router, RouterEvent} from "@angular/router";
+import {Component} from '@angular/core'
+import {Router, RouterEvent} from "@angular/router"
 
 @Component({
     selector: 'app-root',
@@ -7,14 +7,14 @@ import {Router, RouterEvent} from "@angular/router";
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'canvas-gamification-ui';
-    hideFooterForLanding = true;
+    title = 'canvas-gamification-ui'
+    hideFooterForLanding = true
 
     constructor(private router: Router) {
         this.router.events.subscribe((event) => {
             if (event instanceof RouterEvent) {
-                this.hideFooterForLanding = event.url === '/';
+                this.hideFooterForLanding = event.url === '/'
             }
-        });
+        })
     }
 }

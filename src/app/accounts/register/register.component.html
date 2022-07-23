@@ -5,20 +5,20 @@
                 <img [src]="logoPath" alt="logo">
             </div>
             <ng-container *ngIf="!formSubmitted; else successfulSubmission">
-                <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+                <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
                     <h2 class="tui-form__header">Register</h2>
                     <div class="tui-form__row">
-                        <tui-input formControlName="email" aria-label="Email">Email</tui-input>
+                        <tui-input aria-label="Email" formControlName="email">Email</tui-input>
                         <tui-field-error formControlName="email"></tui-field-error>
                         <div class="tui-form__field-note">We'll never share your email with anyone else.</div>
                     </div>
                     <div class="tui-form__row">
-                        <tui-input-password formControlName="password" aria-label="Password">Password
+                        <tui-input-password aria-label="Password" formControlName="password">Password
                         </tui-input-password>
                         <tui-field-error formControlName="password"></tui-field-error>
                     </div>
                     <div class="tui-form__row">
-                        <tui-notification status="info" [hasIcon]="false">
+                        <tui-notification [hasIcon]="false" status="info">
                             <ul class="tui-list tui-list_small">
                                 <li class="tui-list__item">Your password must contain at least 8 characters.</li>
                                 <li class="tui-list__item">Your password can’t be entirely numeric.</li>
@@ -26,33 +26,33 @@
                         </tui-notification>
                     </div>
                     <div class="tui-form__row">
-                        <tui-input-password formControlName="password2" aria-label="Password Confirmation">Password
+                        <tui-input-password aria-label="Password Confirmation" formControlName="password2">Password
                             Confirmation:
                         </tui-input-password>
                         <tui-field-error formControlName="password2"></tui-field-error>
                     </div>
                     <div class="tui-form__row">
                         <re-captcha
-                                formControlName="recaptcha_key"
-                                siteKey="{{siteKey}}"
+                            formControlName="recaptcha_key"
+                            siteKey="{{siteKey}}"
                         >
                         </re-captcha>
                     </div>
                     <div class="tui-form__buttons">
                         <button
-                                tuiButton
-                                class="tui-form__button signup-button__wide"
-                                size="m"
-                                type="submit"
-                                aria-label="Register"
-                                [showLoader]="isLoading"
-                                [disabled]="formGroup.invalid"
+                            [disabled]="formGroup.invalid"
+                            [showLoader]="isLoading"
+                            aria-label="Register"
+                            class="tui-form__button signup-button__wide"
+                            size="m"
+                            tuiButton
+                            type="submit"
                         >
                             Register
                         </button>
                     </div>
                     <div class="tui-form__row signup-login__center">
-                        Already have an account? <a tuiLink routerLink="../login">Login</a>
+                        Already have an account? <a routerLink="../login" tuiLink>Login</a>
                     </div>
                 </form>
             </ng-container>
@@ -64,10 +64,10 @@
                 </div>
                 <div class="tui-form__buttons">
                     <a
-                            tuiButton
-                            class="tui-form__button signup-button__wide"
-                            size="m"
-                            [routerLink]="'/'"
+                        [routerLink]="'/'"
+                        class="tui-form__button signup-button__wide"
+                        size="m"
+                        tuiButton
                     >
                         Go Home
                     </a>

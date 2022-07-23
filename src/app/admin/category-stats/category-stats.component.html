@@ -1,18 +1,18 @@
 <tui-island>
     <h2 class="tui-island__title">Category Stats</h2>
-    <tui-tabs class="tui-space_bottom-4" #tabsComponent>
-        <button tuiTab aria-label="Card View">Card View</button>
-        <button tuiTab aria-label="Table View">Table View</button>
+    <tui-tabs #tabsComponent class="tui-space_bottom-4">
+        <button aria-label="Card View" tuiTab>Card View</button>
+        <button aria-label="Table View" tuiTab>Table View</button>
     </tui-tabs>
     <tui-loader [overlay]="true" [showLoader]="!categoryStatsData">
         <ng-container *ngIf="categoryStatsData">
-            <div class="stats-islands" *ngIf="tabsComponent.activeItemIndex === 0">
+            <div *ngIf="tabsComponent.activeItemIndex === 0" class="stats-islands">
                 <tui-island
                     *ngFor="let categoryStats of categoryStatsData"
                 >
                     <ng-template
-                        let-observer
                         #categoryDialog
+                        let-observer
                     >
                         <div class="stats-islands tui-space_bottom-4 tui-space_top-8">
                             <tui-island
@@ -33,10 +33,10 @@
                             </tui-island>
                         </div>
                         <button
-                            tuiButton
-                            size="m"
-                            appearance="primary"
                             (click)="observer.complete()"
+                            appearance="primary"
+                            size="m"
+                            tuiButton
                         >
                             Close
                         </button>
@@ -54,21 +54,21 @@
                         {{ categoryStats.category.average_success.toFixed(2) }}% Success Rate
                     </p>
                     <button
-                        tuiButton
-                        appearance="flat"
-                        size="m"
-                        class="tui-island__footer-button"
                         (click)="openCategoryStatsDialog(categoryStats.category.name, categoryDialog)"
+                        appearance="flat"
+                        class="tui-island__footer-button"
+                        size="m"
+                        tuiButton
                     >
                         View Details
                     </button>
                 </tui-island>
             </div>
             <table
-                tuiTable
-                class="stats-table"
-                [columns]="categoryStatsDataHeader"
                 *ngIf="tabsComponent.activeItemIndex === 1"
+                [columns]="categoryStatsDataHeader"
+                class="stats-table"
+                tuiTable
             >
                 <thead>
                 <tr tuiThGroup>
@@ -84,7 +84,7 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody tuiTbody [data]="categoryStatsData">
+                <tbody [data]="categoryStatsData" tuiTbody>
                 <tr *tuiRow="let item of categoryStatsData" tuiTr>
                     <td *tuiCell="'category'" tuiTd>
                         {{item.category.name}}

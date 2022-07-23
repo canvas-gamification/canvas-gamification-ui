@@ -1,10 +1,10 @@
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {catchError} from 'rxjs/operators';
-import {Action} from '@app/_models';
-import {PaginatedResult} from '@app/_models/paginatedResult';
-import {ApiService} from "@app/_services/api.service";
+import {HttpClient, HttpParams} from '@angular/common/http'
+import {Injectable} from '@angular/core'
+import {Observable} from 'rxjs'
+import {catchError} from 'rxjs/operators'
+import {Action} from '@app/_models'
+import {PaginatedResult} from '@app/_models/paginatedResult'
+import {ApiService} from "@app/_services/api.service"
 
 @Injectable({
     providedIn: 'root'
@@ -24,27 +24,27 @@ export class UserActionsService {
             page = 1,
             page_size: pageSize = 100,
             ordering = ''
-        } = options ? options : {};
+        } = options ? options : {}
         let params = new HttpParams()
             .set('page', String(page))
             .set('page_size', String(pageSize))
-            .set('ordering', ordering);
+            .set('ordering', ordering)
 
         if (options?.recent ?? false) {
-            params = params.set('ordering', '-time_modified');
+            params = params.set('ordering', '-time_modified')
         }
-        const url = this.apiService.getURL('user-actions');
+        const url = this.apiService.getURL('user-actions')
         return this.http
             .get<PaginatedResult<Action>>(url, {params})
-            .pipe(catchError(this.apiService.handleError<PaginatedResult<Action>>(`Error occurred while fetching user actions`)));
+            .pipe(catchError(this.apiService.handleError<PaginatedResult<Action>>(`Error occurred while fetching user actions`)))
     }
 
     getUserAction(actionId: number): Observable<Action> {
-        const params = new HttpParams();
+        const params = new HttpParams()
 
-        const url = this.apiService.getURL('user-actions', actionId);
+        const url = this.apiService.getURL('user-actions', actionId)
         return this.http
             .get<Action>(url, {params})
-            .pipe(catchError(this.apiService.handleError<Action>(`Error occurred while getting user action`)));
+            .pipe(catchError(this.apiService.handleError<Action>(`Error occurred while getting user action`)))
     }
 }

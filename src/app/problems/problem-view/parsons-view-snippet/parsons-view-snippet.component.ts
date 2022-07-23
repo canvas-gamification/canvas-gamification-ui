@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core';
-import {ParsonsFile, UQJ} from '@app/_models';
-import {SubmissionService} from '@app/problems/_services/submission.service';
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core'
+import {ParsonsFile, UQJ} from '@app/_models'
+import {SubmissionService} from '@app/problems/_services/submission.service'
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-parsons-view-snippet',
@@ -9,10 +9,10 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
     styleUrls: ['./parsons-view-snippet.component.scss'],
 })
 export class ParsonsViewSnippetComponent implements OnChanges {
-    @Input() uqj: UQJ;
-    @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>();
-    files: (ParsonsFile & { solution: string })[];
-    waitingSubmission = false;
+    @Input() uqj: UQJ
+    @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>()
+    files: (ParsonsFile & { solution: string })[]
+    waitingSubmission = false
 
     constructor(private submissionService: SubmissionService,
                 @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
@@ -22,21 +22,21 @@ export class ParsonsViewSnippetComponent implements OnChanges {
         this.files = this.uqj.rendered_lines.map(file => ({
             ...file,
             solution: '',
-        }));
+        }))
     }
 
     canSubmit(): boolean {
-        return this.uqj?.question?.max_submission_allowed - this.uqj?.num_attempts > 0;
+        return this.uqj?.question?.max_submission_allowed - this.uqj?.num_attempts > 0
     }
 
     /**
      * Submit an answer to the question.
      */
     onSubmit(): void {
-        this.waitingSubmission = true;
-        const solution = {};
+        this.waitingSubmission = true
+        const solution = {}
         for (const file of this.files) {
-            solution[file.name] = file.solution;
+            solution[file.name] = file.solution
         }
         this.submissionService.postQuestionSubmission({
             question: this.uqj.question.id,
@@ -45,11 +45,11 @@ export class ParsonsViewSnippetComponent implements OnChanges {
             this.notificationsService
                 .show('The Question has been Submitted Successfully.', {
                     status: TuiNotification.Success
-                }).subscribe();
-            this.successfulSubmissionEvent.emit(true);
-            this.waitingSubmission = false;
+                }).subscribe()
+            this.successfulSubmissionEvent.emit(true)
+            this.waitingSubmission = false
         }, () => {
-            this.waitingSubmission = false;
-        });
+            this.waitingSubmission = false
+        })
     }
 }

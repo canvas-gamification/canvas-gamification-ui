@@ -1,5 +1,5 @@
-import {Component, OnDestroy} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Component, OnDestroy} from '@angular/core'
+import {Subscription} from "rxjs"
 import {
     AbstractControl,
     ControlValueAccessor,
@@ -9,7 +9,7 @@ import {
     ValidationErrors,
     Validator,
     Validators
-} from "@angular/forms";
+} from "@angular/forms"
 
 @Component({
     selector: 'app-abstract-editor',
@@ -17,48 +17,49 @@ import {
 })
 export class AbstractEditorComponent implements ControlValueAccessor, Validator, OnDestroy {
 
-    models = new FormArray([]);
+    models = new FormArray([])
+    onChangeSubs: Subscription[] = []
+
     onTouched = (): void => {
-        return;
-    };
-    onChangeSubs: Subscription[] = [];
+        return
+    }
 
     /**
      * Functions required to treat this component as a form control
      */
     ngOnDestroy(): void {
-        this.onChangeSubs.forEach(sub => sub.unsubscribe());
+        this.onChangeSubs.forEach(sub => sub.unsubscribe())
     }
 
     registerOnChange(onChange: never): void {
-        const sub = this.models.valueChanges.subscribe(onChange);
-        this.onChangeSubs.push(sub);
+        const sub = this.models.valueChanges.subscribe(onChange)
+        this.onChangeSubs.push(sub)
     }
 
     registerOnTouched(onTouched: () => unknown): void {
-        this.onTouched = onTouched;
+        this.onTouched = onTouched
     }
 
     setDisabledState(isDisabled: boolean): void {
-        isDisabled ? this.models.disable() : this.models.enable();
+        isDisabled ? this.models.disable() : this.models.enable()
     }
 
     writeValue(value: Array<unknown>): void {
-        this.models.clear();
+        this.models.clear()
         value.forEach((value, index) => {
-            this.addNewModel(value['type']);
-            this.setFormFromString(this.models.at(index), JSON.stringify(value));
-        });
+            this.addNewModel(value['type'])
+            this.setFormFromString(this.models.at(index), JSON.stringify(value))
+        })
     }
 
     validate(): ValidationErrors | null {
-        const errors = {};
+        const errors = {}
         this.models.controls.forEach((control, index) => {
             if (control.invalid) {
-                errors[`value${index}`] = control.errors;
+                errors[`value${index}`] = control.errors
             }
-        });
-        return errors ? errors : null;
+        })
+        return errors ? errors : null
     }
 
     /**
@@ -66,18 +67,18 @@ export class AbstractEditorComponent implements ControlValueAccessor, Validator,
      * addNewModel must be overwritten within the parent class.
      */
     addNewModel(type?: string): void {
-        throw SyntaxError(`addNewModel ${type ? `with type ${type}` : ''} must be overwritten within its parent class`);
+        throw SyntaxError(`addNewModel ${type ? `with type ${type}` : ''} must be overwritten within its parent class`)
     }
 
     removeModel(index: number): void {
-        this.models.removeAt(index);
+        this.models.removeAt(index)
     }
 
     /**
      * Get form as a JSON string value
      */
     getFormString(form: AbstractControl): string {
-        return JSON.stringify((form as FormGroup).getRawValue(), null, 2);
+        return JSON.stringify((form as FormGroup).getRawValue(), null, 2)
     }
 
     /**
@@ -88,25 +89,25 @@ export class AbstractEditorComponent implements ControlValueAccessor, Validator,
      */
     setFormFromString(form: AbstractControl, value: string): void {
         try {
-            const jsonParsed = JSON.parse(value);
-            if (form.value.type) jsonParsed['type'] = form.value.type;
+            const jsonParsed = JSON.parse(value)
+            if (form.value.type) jsonParsed['type'] = form.value.type
             Object.entries(jsonParsed).forEach(([key, value]) => {
-                const formControl = (form as FormGroup).controls[key];
+                const formControl = (form as FormGroup).controls[key]
                 if (formControl) {
                     if (formControl instanceof FormArray) {
-                        if (!(value instanceof Array)) throw SyntaxError;
-                        const formArray = formControl as FormArray;
-                        formArray.clear();
+                        if (!(value instanceof Array)) throw SyntaxError
+                        const formArray = formControl as FormArray
+                        formArray.clear()
                         value.forEach(value1 => {
-                            formArray.push(new FormControl(value1, [Validators.required]));
-                        });
+                            formArray.push(new FormControl(value1, [Validators.required]))
+                        })
                     } else {
-                        formControl.setValue(value);
+                        formControl.setValue(value)
                     }
                 }
-            });
+            })
         } catch (SyntaxError) {
-            return;
+            return
         }
     }
 }

@@ -1,15 +1,15 @@
 <div class="tui-container tui-container_adaptive">
-    <form [formGroup]="formData" (ngSubmit)="submitEvent(formData)">
+    <form (ngSubmit)="submitEvent(formData)" [formGroup]="formData">
         <h2 class="tui-form__header">Create New Event</h2>
         <div class="tui-form__row">
-            <tui-input formControlName="name" aria-label="Event Name">Event Name</tui-input>
+            <tui-input aria-label="Event Name" formControlName="name">Event Name</tui-input>
             <tui-field-error formControlName="name"></tui-field-error>
         </div>
         <div class="tui-form__row">
-            <tui-select formControlName="type" aria-label="Event Type">
+            <tui-select aria-label="Event Type" formControlName="type">
                 Event Type
                 <tui-data-list *tuiDataList>
-                    <button *ngFor="let event of localEventTypes" tuiOption [value]="event[0]">
+                    <button *ngFor="let event of localEventTypes" [value]="event[0]" tuiOption>
                         {{ event[1] }}
                     </button>
                 </tui-data-list>
@@ -17,51 +17,51 @@
             <tui-field-error formControlName="type"></tui-field-error>
         </div>
         <div class="tui-form__row">
-            <tui-checkbox-labeled formControlName="countForTokens" aria-label="Counts for Tokens">Counts for tokens
+            <tui-checkbox-labeled aria-label="Counts for Tokens" formControlName="countForTokens">Counts for tokens
             </tui-checkbox-labeled>
             <tui-field-error formControlName="countForTokens"></tui-field-error>
         </div>
         <div class="tui-form__row">
-            <tui-input-date-range formControlName="startEndDatePicker" aria-label="Start and End Date">
+            <tui-input-date-range aria-label="Start and End Date" formControlName="startEndDatePicker">
                 Start and end date
             </tui-input-date-range>
             <tui-field-error formControlName="startEndDatePicker"></tui-field-error>
         </div>
         <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
-                <tui-input-time formControlName="startTimePicker" [items]="timeOptions" aria-label="Start Time">
+                <tui-input-time [items]="timeOptions" aria-label="Start Time" formControlName="startTimePicker">
                     Start time
                 </tui-input-time>
                 <tui-field-error formControlName="startTimePicker"></tui-field-error>
             </div>
             <div class="tui-form__multi-field">
-                <tui-input-time formControlName="endTimePicker" [items]="timeOptions" aria-label="End Time">
+                <tui-input-time [items]="timeOptions" aria-label="End Time" formControlName="endTimePicker">
                     End time
                 </tui-input-time>
                 <tui-field-error formControlName="endTimePicker"></tui-field-error>
             </div>
         </div>
         <tui-notification
-                status="error"
-                class="tui-space_top-4"
-                *ngIf="formData.errors?.forbiddenDateRange"
+            *ngIf="formData.errors?.forbiddenDateRange"
+            class="tui-space_top-4"
+            status="error"
         >
             Invalid date range! Please check your start and end times!
         </tui-notification>
         <div class="tui-form__buttons">
             <button
-                    tuiButton
-                    appearance="primary"
-                    size="m"
-                    class="tui-form__button"
-                    type="submit"
-                    aria-label="Submit"
-                    [disabled]="formData.invalid"
+                [disabled]="formData.invalid"
+                appearance="primary"
+                aria-label="Submit"
+                class="tui-form__button"
+                size="m"
+                tuiButton
+                type="submit"
             >
                 Submit
             </button>
-            <a tuiButton appearance="secondary" class="tui-form__button" size="m" aria-label="Back"
-               [routerLink]="['/course', courseId]">Back</a>
+            <a [routerLink]="['/course', courseId]" appearance="secondary" aria-label="Back" class="tui-form__button" size="m"
+               tuiButton>Back</a>
         </div>
     </form>
 </div>

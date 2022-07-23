@@ -1,9 +1,9 @@
-import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core';
-import {Course, CourseEvent, EventType, User} from '@app/_models';
-import {AuthenticationService} from '@app/_services/api/authentication';
-import {CourseEventService} from '@app/course/_services/course-event.service';
-import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
-import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
+import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core'
+import {Course, CourseEvent, EventType, User} from '@app/_models'
+import {AuthenticationService} from '@app/_services/api/authentication'
+import {CourseEventService} from '@app/course/_services/course-event.service'
+import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
 
 @Component({
     selector: 'app-course-events-snippet',
@@ -11,13 +11,13 @@ import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
     styleUrls: ['./course-events-snippet.component.scss']
 })
 export class CourseEventsSnippetComponent implements OnInit {
-    @Input() events: CourseEvent[];
-    @Input() course: Course;
-    courseId: number;
-    eventTypes: EventType[];
-    user: User;
-    courseEvents: CourseEvent[];
-    @ViewChild('importDialog') importDialog: PolymorpheusContent<TuiDialogContext>;
+    @Input() events: CourseEvent[]
+    @Input() course: Course
+    courseId: number
+    eventTypes: EventType[]
+    user: User
+    courseEvents: CourseEvent[]
+    @ViewChild('importDialog') importDialog: PolymorpheusContent<TuiDialogContext>
 
     constructor(private authenticationService: AuthenticationService,
                 private courseEventService: CourseEventService,
@@ -26,25 +26,25 @@ export class CourseEventsSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courseId = this.course.id;
-        this.authenticationService.currentUser.subscribe(user => this.user = user);
+        this.courseId = this.course.id
+        this.authenticationService.currentUser.subscribe(user => this.user = user)
         this.courseEventService.getEventTypes().subscribe(response => {
-            this.eventTypes = response;
-        });
+            this.eventTypes = response
+        })
     }
 
     /**
      * Gets all available course events and then opens a dialog with import template.
      */
     openEventImportDialog(): void {
-        this.courseEvents = null;
+        this.courseEvents = null
         this.courseEventService.getAllEvents().subscribe(events => {
-            this.courseEvents = events;
-        });
+            this.courseEvents = events
+        })
         this.dialogService.open(
             this.importDialog,
             {label: 'Select an Event to Import', size: 'l', closeable: false}
-        ).subscribe();
+        ).subscribe()
     }
 
     /**
@@ -58,8 +58,8 @@ export class CourseEventsSnippetComponent implements OnInit {
                 this.notificationsService
                     .show('The Event has been Imported Successfully.', {
                         status: TuiNotification.Success
-                    }).subscribe();
+                    }).subscribe()
             }
-        });
+        })
     }
 }

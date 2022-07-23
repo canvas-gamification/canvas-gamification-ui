@@ -1,6 +1,6 @@
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Question} from "@app/_models";
-import {fieldExistsIfOtherExistsValidator} from "@app/_helpers/forms/validators/field-exists-if-other-exists.validator";
+import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms"
+import {Question} from "@app/_models"
+import {fieldExistsIfOtherExistsValidator} from "@app/_helpers/forms/validators/field-exists-if-other-exists.validator"
 
 export class McqForm {
     /**
@@ -20,7 +20,7 @@ export class McqForm {
             choices: new FormArray([], [Validators.required, Validators.minLength(1)]),
             variables: new FormControl([])
         }, [fieldExistsIfOtherExistsValidator('event', 'course')]
-        );
+        )
     }
 
     /**
@@ -28,54 +28,54 @@ export class McqForm {
      * @param question - The question object.
      */
     static createFormWithData(question: Question): FormGroup {
-        const newForm = this.createForm();
-        const [answers, distractors] = this.getFormAnswersAndDistractors(question);
+        const newForm = this.createForm()
+        const [answers, distractors] = this.getFormAnswersAndDistractors(question)
         newForm.patchValue({
             ...question,
             course: question.event_obj?.course,
             answer: [],
             choices: []
-        });
-        answers.forEach((answer) => (newForm.controls.answer as FormArray).push(new FormControl(answer, [Validators.required])));
-        distractors.forEach((distractor) => (newForm.controls.choices as FormArray).push(new FormControl(distractor, [Validators.required])));
-        return newForm;
+        })
+        answers.forEach((answer) => (newForm.controls.answer as FormArray).push(new FormControl(answer, [Validators.required])))
+        distractors.forEach((distractor) => (newForm.controls.choices as FormArray).push(new FormControl(distractor, [Validators.required])))
+        return newForm
     }
 
     static createChoiceControl(): FormControl {
-        return new FormControl('', [Validators.required]);
+        return new FormControl('', [Validators.required])
     }
 
     static submissionData(form: FormGroup): McqFormData {
-        const data = form.getRawValue();
-        const [answer, choices] = this.getQuestionAnswerAndChoices(data.answer, data.choices);
+        const data = form.getRawValue()
+        const [answer, choices] = this.getQuestionAnswerAndChoices(data.answer, data.choices)
         return {
             ...data,
             answer: answer,
             choices: choices
-        };
+        }
     }
 
     static getFormAnswersAndDistractors(question: Question): [string[], string[]] {
-        let answers = question.answer.split(',');
+        let answers = question.answer.split(',')
         answers = answers.map(answer => {
             if (question.choices[answer]) {
-                const answerValue = Object.entries(question.choices).find(entry => entry[0] === answer)[1];
-                delete question.choices[answer];
-                return answerValue;
+                const answerValue = Object.entries(question.choices).find(entry => entry[0] === answer)[1]
+                delete question.choices[answer]
+                return answerValue
             }
-        });
-        return [answers, Object.values(question.choices)];
+        })
+        return [answers, Object.values(question.choices)]
     }
 
     static getQuestionAnswerAndChoices(answers: string[], distractors: string[]): [string, { [id: string]: string }] {
-        const choices = {};
+        const choices = {}
         const answerChar = [];
         [...answers, ...distractors].forEach((value, index) => {
-            const char = String.fromCharCode('a'.charCodeAt(0) + index);
-            choices[char] = value;
-            if (index < answers.length) answerChar.push(char);
-        });
-        return [answerChar.toString(), choices];
+            const char = String.fromCharCode('a'.charCodeAt(0) + index)
+            choices[char] = value
+            if (index < answers.length) answerChar.push(char)
+        })
+        return [answerChar.toString(), choices]
     }
 }
 

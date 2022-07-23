@@ -1,6 +1,6 @@
-import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
-import {TuiTiptapEditorService} from '@taiga-ui/addon-editor';
-import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe';
+import {Component, ElementRef, Inject, ViewChild} from '@angular/core'
+import {TuiTiptapEditorService} from '@taiga-ui/addon-editor'
+import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe'
 
 @Component({
     selector: 'app-katex-tool',
@@ -10,17 +10,18 @@ import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe';
 })
 export class KatexToolComponent {
 
-    @ViewChild('katexContent') katexContent: ElementRef;
-    equation = '';
+    @ViewChild('katexContent') katexContent: ElementRef
+    equation = ''
 
     constructor(
         @Inject(TuiTiptapEditorService)
         private readonly editor: TuiTiptapEditorService,
         private getKatexStringPipe: GetKatexStringPipe
-    ) {}
+    ) {
+    }
 
     displayKatex() {
-        this.katexContent.nativeElement.innerHTML = this.getKatexStringPipe.transform(this.equation);
+        this.katexContent.nativeElement.innerHTML = this.getKatexStringPipe.transform(this.equation)
     }
 
     insertKatex() {
@@ -34,6 +35,6 @@ export class KatexToolComponent {
                     equation: this.equation
                 }
             })
-            .run();
+            .run()
     }
 }

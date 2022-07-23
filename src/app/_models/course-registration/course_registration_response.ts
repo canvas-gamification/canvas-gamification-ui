@@ -1,4 +1,4 @@
-import {APIResponse} from '@app/_models';
+import {APIResponse} from '@app/_models'
 
 export interface CourseRegistrationResponse extends APIResponse {
     name?: string;

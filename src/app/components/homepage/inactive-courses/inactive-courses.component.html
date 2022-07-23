@@ -7,7 +7,7 @@
             </ng-container>
         </ng-container>
         <ng-template #waitingInactive>
-            <app-course-island [skeleton]="true" *ngFor="let _ of [0, 0, 0]"></app-course-island>
+            <app-course-island *ngFor="let _ of [0, 0, 0]" [skeleton]="true"></app-course-island>
         </ng-template>
     </div>
 </tui-island>

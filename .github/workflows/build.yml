@@ -42,11 +42,11 @@ jobs:
                 run: npm ci
             -   name: Test
                 run: npm run test:ci
-#                Disable e2e tests for now
-#            -   name: Test e2e
-#                run: |
-#                    npm run e2e:ci:init
-#                    npm run e2e:ci
+            #                Disable e2e tests for now
+            #            -   name: Test e2e
+            #                run: |
+            #                    npm run e2e:ci:init
+            #                    npm run e2e:ci
             -   name: Archive code coverage result
                 if: success() && startsWith(matrix.os, 'ubuntu') && startsWith(matrix.node, '16')
                 uses: actions/upload-artifact@v1

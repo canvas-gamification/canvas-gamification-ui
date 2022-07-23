@@ -1,4 +1,4 @@
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms"
 
 export class JavaInputFilesForm {
     static createJavaInputFileForm(): FormGroup {
@@ -6,6 +6,6 @@ export class JavaInputFilesForm {
             name: new FormControl('', [Validators.required]),
             compile: new FormControl(false, [Validators.required]),
             template: new FormControl('', [Validators.required])
-        });
+        })
     }
 }

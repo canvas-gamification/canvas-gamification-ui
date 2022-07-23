@@ -1,28 +1,28 @@
 <div class="tui-row tui-row_adaptive">
     <div class="tui-col_xs-12 tui-col_md-12 tui-col_lg-6">
         <h3 class="tui-island__category tui-text_body-xs">Lines</h3>
-        <tui-island class="container" [dragula]="file.name" [(dragulaModel)]="leftContainer">
+        <tui-island [(dragulaModel)]="leftContainer" [dragula]="file.name" class="container">
             <div
-                class="container-object"
                 *ngFor="let line of leftContainer"
+                class="container-object"
             >
                 <ng-container
-                    [ngTemplateOutlet]="parsonsNestedTemplate"
                     [ngTemplateOutletContext]="{ $implicit: line }"
+                    [ngTemplateOutlet]="parsonsNestedTemplate"
                 ></ng-container>
             </div>
         </tui-island>
     </div>
     <div class="tui-col_xs-12 tui-col_md-12 tui-col_lg-6">
         <h3 class="tui-island__category tui-text_body-xs">My Solution</h3>
-        <tui-island class="container" [dragula]="file.name" [(dragulaModel)]="rightContainer">
+        <tui-island [(dragulaModel)]="rightContainer" [dragula]="file.name" class="container">
             <div
-                class="container-object"
                 *ngFor="let line of rightContainer"
+                class="container-object"
             >
                 <ng-container
-                    [ngTemplateOutlet]="parsonsNestedTemplate"
                     [ngTemplateOutletContext]="{ $implicit: line }"
+                    [ngTemplateOutlet]="parsonsNestedTemplate"
                 ></ng-container>
             </div>
         </tui-island>
@@ -31,20 +31,20 @@
 <ng-template #parsonsNestedTemplate let-parsonsObject>
     {{parsonsObject.value}}
     <div
-        class="container container-nested tui-space_top-1"
-        [dragula]="file.name"
-        [(dragulaModel)]="parsonsObject['nestedObjects']"
         *ngIf="testABNew"
+        [(dragulaModel)]="parsonsObject['nestedObjects']"
+        [dragula]="file.name"
+        class="container container-nested tui-space_top-1"
     >
         <div
-            class="container-object"
-            (mouseover)="containerObjectHover($event)"
             (mouseleave)="containerObjectRemoveHover()"
+            (mouseover)="containerObjectHover($event)"
             *ngFor="let line of parsonsObject['nestedObjects']"
+            class="container-object"
         >
             <ng-container
-                [ngTemplateOutlet]="parsonsNestedTemplate"
                 [ngTemplateOutletContext]="{ $implicit: line }"
+                [ngTemplateOutlet]="parsonsNestedTemplate"
             ></ng-container>
         </div>
     </div>

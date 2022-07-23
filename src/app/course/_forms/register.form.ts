@@ -1,4 +1,4 @@
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
 
 export class CourseRegisterForm {
     /**
@@ -6,30 +6,30 @@ export class CourseRegisterForm {
      */
 
     static createNameForm(): FormGroup {
-        const builder = new FormBuilder();
+        const builder = new FormBuilder()
         return builder.group({
             nameControl: new FormControl('', [Validators.required])
-        });
+        })
     }
 
     static createConfirmNameForm(): FormGroup {
-        const builder = new FormBuilder();
+        const builder = new FormBuilder()
         return builder.group({
             confirmNameControl: new FormControl('')
-        });
+        })
     }
 
     static createStudentNumberForm(): FormGroup {
-        const builder = new FormBuilder();
+        const builder = new FormBuilder()
         return builder.group({
             studentNumberControl: new FormControl('', [Validators.required])
-        });
+        })
     }
 
     static createVerifyForm(): FormGroup {
-        const builder = new FormBuilder();
+        const builder = new FormBuilder()
         return builder.group({
             verifyControl: new FormControl('', [Validators.required])
-        });
+        })
     }
 }

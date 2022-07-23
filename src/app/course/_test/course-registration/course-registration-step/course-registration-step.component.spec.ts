@@ -1,30 +1,32 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing'
 
-import {CourseRegistrationStepComponent} from '../../../course-registration/course-registration-step/course-registration-step.component';
-import {TestModule} from "@test/test.module";
+import {
+    CourseRegistrationStepComponent
+} from '../../../course-registration/course-registration-step/course-registration-step.component'
+import {TestModule} from "@test/test.module"
 
 describe('CourseRegistrationStepComponent', () => {
-    let component: CourseRegistrationStepComponent;
-    let fixture: ComponentFixture<CourseRegistrationStepComponent>;
+    let component: CourseRegistrationStepComponent
+    let fixture: ComponentFixture<CourseRegistrationStepComponent>
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [TestModule],
             declarations: [CourseRegistrationStepComponent]
-        }).compileComponents();
-    });
+        }).compileComponents()
+    })
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CourseRegistrationStepComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+        fixture = TestBed.createComponent(CourseRegistrationStepComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
     it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+        expect(component).toBeTruthy()
+    })
 
     it('should initiate not visible', () => {
-        expect(component.visible).toBeFalse();
-    });
-});
+        expect(component.visible).toBeFalse()
+    })
+})

@@ -1,40 +1,40 @@
 <aside
+    [class.sidebar-closed]="!sidebarOpen"
+    [class.sidebar_large]="size === 'l'"
     [class.sidebar_left]="position === 'left'"
     [class.sidebar_right]="position === 'right'"
     [class.sidebar_small]="size === 's'"
-    [class.sidebar_large]="size === 'l'"
-    [class.sidebar-closed]="!sidebarOpen"
 >
     <div
-        class="sidebar-content tui-container tui-container_fullwidth"
         [class.sidebar-content_between]="spacing === 'between'"
         [class.sidebar-content_closed]="!sidebarOpen"
+        class="sidebar-content tui-container tui-container_fullwidth"
     >
         <ng-content></ng-content>
     </div>
     <div
-        class="sidebar-toggle"
+        *ngIf="toggleable"
         [class.sidebar-toggle_closed]="!sidebarOpen"
         [class.sidebar-toggle_left]="position === 'left'"
-        *ngIf="toggleable"
+        class="sidebar-toggle"
     >
         <button
-            tuiIconButton
-            appearance="flat"
-            shape="rounded"
-            class="sidebar-toggle_button tui-space_vertical-3"
-            [class.tui-space_horizontal-6]="sidebarOpen"
-            size="s"
             (click)="toggleSidebar()"
+            [class.tui-space_horizontal-6]="sidebarOpen"
+            [tuiHint]="toggleTooltip"
+            appearance="flat"
+            class="sidebar-toggle_button tui-space_vertical-3"
+            shape="rounded"
+            size="s"
             tuiDescribedBy="sidebar-{{sidebarId}}"
             tuiHintId="sidebar-{{sidebarId}}"
             tuiHintMode="onDark"
-            [tuiHint]="toggleTooltip"
+            tuiIconButton
         >
             <tui-svg
-                class="sidebar-toggle_icon"
                 [class.sidebar-toggle_icon-closed]="!sidebarOpen"
                 [src]="position === 'left' ? 'tuiIconChevronLeft' : 'tuiIconChevronRight'"
+                class="sidebar-toggle_icon"
             ></tui-svg>
         </button>
         <ng-template #toggleTooltip>

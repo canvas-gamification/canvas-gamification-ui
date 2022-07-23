@@ -1,10 +1,10 @@
-import {Inject, Injectable} from '@angular/core';
-import {environment} from "@environments/environment";
-import {Observable, of, throwError} from "rxjs";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {Location} from "@angular/common";
-import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core';
+import {Inject, Injectable} from '@angular/core'
+import {environment} from "@environments/environment"
+import {Observable, of, throwError} from "rxjs"
+import {HttpErrorResponse} from "@angular/common/http"
+import {Router} from "@angular/router"
+import {Location} from "@angular/common"
+import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
 
 @Injectable({
     providedIn: 'root'
@@ -16,12 +16,12 @@ export class ApiService {
     }
 
     getURL(...names: (string | number)[]): string {
-        let relativeURL = '/api';
+        let relativeURL = '/api'
         for (const i in names) {
-            relativeURL = Location.joinWithSlash(relativeURL, String(names[i]));
+            relativeURL = Location.joinWithSlash(relativeURL, String(names[i]))
         }
-        relativeURL = Location.joinWithSlash(relativeURL, '/');
-        return new URL(relativeURL, environment.apiBaseUrl).toString();
+        relativeURL = Location.joinWithSlash(relativeURL, '/')
+        return new URL(relativeURL, environment.apiBaseUrl).toString()
     }
 
     /**
@@ -41,26 +41,26 @@ export class ApiService {
             showMessage?: boolean
         }
     ): (error: HttpErrorResponse) => Observable<T> {
-        const {redirect403 = false, redirect404 = false, redirect = [], showMessage = true} = options ? options : {};
+        const {redirect403 = false, redirect404 = false, redirect = [], showMessage = true} = options ? options : {}
         return (error): Observable<T> => {
 
             if (redirect404 && error.status === 404)
-                this.router.navigate(['/404'], {skipLocationChange: true}).then();
+                this.router.navigate(['/404'], {skipLocationChange: true}).then()
             else if (redirect403 && error.status === 403)
-                this.router.navigate(['/403'], {skipLocationChange: true}).then();
+                this.router.navigate(['/403'], {skipLocationChange: true}).then()
             else if (redirect)
-                this.router.navigate(redirect).then();
+                this.router.navigate(redirect).then()
 
             if (showMessage)
                 this.notificationsService
                     .show(message || error.statusText, {
                         status: TuiNotification.Error
-                    }).subscribe();
+                    }).subscribe()
             if (!result) {
-                return throwError(error);
+                return throwError(error)
             }
-            return of(result as T);
-        };
+            return of(result as T)
+        }
     }
 
     handleFormError(): (error: HttpErrorResponse) => Observable<never> {
@@ -69,28 +69,28 @@ export class ApiService {
                 this.notificationsService
                     .show(error, {
                         status: TuiNotification.Error
-                    }).subscribe();
+                    }).subscribe()
             } else if (Array.isArray(error)) {
-                error.forEach(toastErrorObject);
+                error.forEach(toastErrorObject)
             } else if (typeof error === 'object') {
                 for (const key in error) {
                     if (error.hasOwnProperty(key))
-                        toastErrorObject(error[key]);
+                        toastErrorObject(error[key])
                 }
             }
-        };
+        }
 
         return (error): Observable<never> => {
-            const apiError = error.error;
+            const apiError = error.error
             if (!apiError) {
                 this.notificationsService
                     .show('Something went wrong!', {
                         status: TuiNotification.Error
-                    }).subscribe();
+                    }).subscribe()
             } else {
-                toastErrorObject(apiError);
+                toastErrorObject(apiError)
             }
-            return throwError(error);
-        };
+            return throwError(error)
+        }
     }
 }

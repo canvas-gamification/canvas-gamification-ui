@@ -8,7 +8,7 @@
                 </ng-container>
             </ng-container>
             <ng-container>
-                <tui-island size="m" [hoverable]="true" textAlign="center" [routerLink]="['/course']">
+                <tui-island [hoverable]="true" [routerLink]="['/course']" size="m" textAlign="center">
                     <div class="more-courses-island">
                         <div class="tui-space_vertical-12">
                             <figure class="tui-island__figure">
@@ -23,7 +23,7 @@
             </ng-container>
         </ng-container>
         <ng-template #waitingActive>
-            <app-course-island [skeleton]="true" *ngFor="let _ of [0, 0, 0]"></app-course-island>
+            <app-course-island *ngFor="let _ of [0, 0, 0]" [skeleton]="true"></app-course-island>
         </ng-template>
     </div>
 </tui-island>

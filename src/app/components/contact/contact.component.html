@@ -1,4 +1,4 @@
-<form [formGroup]="formData" (ngSubmit)="onSubmit(formData.value)">
+<form (ngSubmit)="onSubmit(formData.value)" [formGroup]="formData">
     <div class="tui-form__row">
         <tui-input formControlName="email">Email</tui-input>
         <tui-field-error formControlName="email"></tui-field-error>
@@ -20,6 +20,7 @@
         </re-captcha>
     </div>
     <div class="tui-form__buttons">
-        <button tuiButton appearance="primary" size="m" class="tui-form__button" [disabled]="formData.invalid">Submit</button>
+        <button [disabled]="formData.invalid" appearance="primary" class="tui-form__button" size="m" tuiButton>Submit
+        </button>
     </div>
 </form>

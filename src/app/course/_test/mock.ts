@@ -3,11 +3,17 @@ import {
     CourseRegistration,
     CourseRegistrationRequest,
     CourseRegistrationResponse,
-    EventType, Question, REGISTRATION_STATUS, RegistrationStatus, STATUS,
-    TokenUseOption, UQJ, User
-} from "@app/_models";
-import {TokenUse} from "@app/_models/token_use";
-import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
+    EventType,
+    Question,
+    REGISTRATION_STATUS,
+    RegistrationStatus,
+    STATUS,
+    TokenUseOption,
+    UQJ,
+    User
+} from "@app/_models"
+import {TokenUse} from "@app/_models/token_use"
+import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     id: 1,
@@ -17,7 +23,7 @@ export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     assignment_name: 'test',
     assignment_id: 1,
     course: 1
-};
+}
 
 export const MOCK_TOKEN_USE_OPTION2: TokenUseOption = {
     id: 2,
@@ -27,18 +33,18 @@ export const MOCK_TOKEN_USE_OPTION2: TokenUseOption = {
     assignment_name: 'test',
     assignment_id: 1,
     course: 1
-};
+}
 
 export const MOCK_TOKEN_USE1: TokenUse = {
     option: MOCK_TOKEN_USE_OPTION1,
     num_used: 1
-};
+}
 
 
 export const MOCK_TOKEN_USE2: TokenUse = {
     option: MOCK_TOKEN_USE_OPTION2,
     num_used: 0
-};
+}
 
 export const MOCK_COURSE_REGISTRATION: CourseRegistration = {
     id: 1,
@@ -48,19 +54,19 @@ export const MOCK_COURSE_REGISTRATION: CourseRegistration = {
     is_verified: true,
     token_uses: [MOCK_TOKEN_USE1, MOCK_TOKEN_USE2],
     total_tokens_received: 50
-};
+}
 
-export const MOCK_EVENT_TYPES: EventType[] = [["PRACTICE", "PRACTICE"], ["ASSIGNMENT", "ASSIGNMENT"], ["EXAM", "EXAM"]];
+export const MOCK_EVENT_TYPES: EventType[] = [["PRACTICE", "PRACTICE"], ["ASSIGNMENT", "ASSIGNMENT"], ["EXAM", "EXAM"]]
 
 export const MOCK_USER_STATS: { success_rate: number } = {
     success_rate: 0.5
-};
+}
 
 export const MOCK_REGISTRATION_STATUS: RegistrationStatus = {
     status: REGISTRATION_STATUS.REGISTERED,
     message: null,
     attempts_remaining: 3,
-};
+}
 
 export const MOCK_COURSE1: Course = {
     id: 0,
@@ -82,7 +88,7 @@ export const MOCK_COURSE1: Course = {
     course_reg: null,
     leader_board: null,
     has_create_event_permission: true
-};
+}
 
 export const MOCK_COURSE2: Course = {
     id: 1,
@@ -110,9 +116,9 @@ export const MOCK_COURSE2: Course = {
         token: 5,
     }],
     has_create_event_permission: true
-};
+}
 
-export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2];
+export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2]
 
 export const MOCK_COURSE_REGISTRATION_RESPONSE: CourseRegistrationResponse = {
     success: true,
@@ -122,69 +128,69 @@ export const MOCK_COURSE_REGISTRATION_RESPONSE: CourseRegistrationResponse = {
     student_number: 123,
     code: 111,
     attempts_remaining: 2,
-};
+}
 
 //Data for case where there is only one student
 export const MOCK_IDENTIFICATION_STEP1: CourseRegistrationRequest = {
     name: "Firstname Lastname"
-};
+}
 
 export const MOCK_IDENTIFICATION_RESPONSE1: CourseRegistrationResponse = {
     success: true,
     guessed_name: 'Firstname Lastname',
-};
+}
 export const MOCK_CONFIRM_STEP1: CourseRegistrationRequest = {
     name: "Firstname Lastname",
     confirmed_name: "Firstname Lastname"
-};
+}
 export const MOCK_CONFIRM_RESPONSE1: CourseRegistrationResponse = {
     success: true,
-};
+}
 
 export const MOCK_VERIFY_STEP1: CourseRegistrationRequest = {
     name: "Firstname Lastname",
     code: 52
-};
+}
 
 export const MOCK_VERIFY_STEP1_FAIL: CourseRegistrationRequest = {
     name: "Firstname Lastname",
     code: 0
-};
+}
 
 export const MOCK_VERIFY_SUCCESS: CourseRegistrationResponse = {
     attempts_remaining: 2,
     success: true
-};
+}
 
 export const MOCK_VERIFY_FAIL: CourseRegistrationResponse = {
     attempts_remaining: 2,
     success: false
-};
+}
 
 //Data for case where multiple students have same name
 export const MOCK_IDENTIFICATION_STEP2: CourseRegistrationRequest = {
     name: "Multiple Student"
-};
+}
 
 export const MOCK_IDENTIFICATION_RESPONSE2: CourseRegistrationResponse = {
     success: false,
     guessed_name: null,
-};
+}
 export const MOCK_CONFIRM_STEP2_SUCCESS: CourseRegistrationRequest = {
     name: "Multiple Student",
     student_number: "12345678"
-};
+}
 export const MOCK_CONFIRM_RESPONSE2_SUCCESS: CourseRegistrationResponse = {
     success: true,
-};
+}
 export const MOCK_CONFIRM_STEP2_FAIL: CourseRegistrationRequest = {
     name: "Multiple Student",
     student_number: "0"
-};
+}
 export const MOCK_CONFIRM_RESPONSE2_FAIL: CourseRegistrationResponse = {
     success: false,
     bad_request: true
-};
+}
 
 export const MOCK_USER_STUDENT: User = {
     id: 0,
@@ -198,7 +204,7 @@ export const MOCK_USER_STUDENT: User = {
     is_teacher: false,
     is_student: true,
     has_consent: true
-};
+}
 
 export const MOCK_USER_TEACHER: User = {
     id: 1,
@@ -212,7 +218,7 @@ export const MOCK_USER_TEACHER: User = {
     is_teacher: true,
     is_student: false,
     has_consent: true
-};
+}
 
 export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
@@ -251,7 +257,7 @@ export const MOCK_MCQ_QUESTION: Question = {
     is_checkbox: false,
     input_files: null,
     is_practice: false,
-};
+}
 
 export const MOCK_UQJ: UQJ = {
     category: MOCK_CATEGORY,
@@ -280,7 +286,7 @@ export const MOCK_UQJ: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
-};
+}
 
 export const MOCK_UQJ2: UQJ = {
     category: MOCK_CATEGORY,
@@ -309,4 +315,4 @@ export const MOCK_UQJ2: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
-};
+}

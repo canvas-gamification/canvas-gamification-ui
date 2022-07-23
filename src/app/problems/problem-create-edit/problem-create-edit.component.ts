@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Question} from "@app/_models";
-import {QuestionService} from "@app/problems/_services/question.service";
+import {Component, OnInit} from '@angular/core'
+import {ActivatedRoute} from '@angular/router'
+import {Question} from "@app/_models"
+import {QuestionService} from "@app/problems/_services/question.service"
 
 @Component({
     selector: 'app-problem-create',
@@ -10,23 +10,23 @@ import {QuestionService} from "@app/problems/_services/question.service";
 })
 export class ProblemCreateEditComponent implements OnInit {
 
-    questionType: string;
-    questionDetails: Question;
+    questionType: string
+    questionDetails: Question
 
     constructor(private route: ActivatedRoute, private questionService: QuestionService) {
     }
 
     ngOnInit(): void {
-        const questionId = this.route.snapshot.params.id;
+        const questionId = this.route.snapshot.params.id
         if (questionId) {
             this.questionService.getQuestion(questionId).subscribe(result => {
-                this.questionDetails = result;
-                this.questionType = this.questionService.getQuestionType(result);
-            });
+                this.questionDetails = result
+                this.questionType = this.questionService.getQuestionType(result)
+            })
         } else {
             this.route.params.subscribe(params => {
-                this.questionType = params.type;
-            });
+                this.questionType = params.type
+            })
         }
     }
 }

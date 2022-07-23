@@ -7,16 +7,16 @@
             </p>
             <div class="tui-form__buttons">
                 <a
-                    tuiButton
-                    size="l"
                     appearance="primary"
                     class="tui-form__button"
                     iconRight="tuiIconArrowUpRight"
                     routerLink="homepage"
+                    size="l"
+                    tuiButton
                 >
                     Get Started
                 </a>
-                <button tuiButton size="l" appearance="flat" class="tui-form__button" (click)="goToServices()">
+                <button (click)="goToServices()" appearance="flat" class="tui-form__button" size="l" tuiButton>
                     Find Out More
                 </button>
             </div>
@@ -36,7 +36,7 @@
         </div>
     </div>
 </header>
-<section class="section-services tui-space_vertical-15" #services>
+<section #services class="section-services tui-space_vertical-15">
     <div class="tui-container tui-container_adaptive">
         <div class="tui-row tui-row_adaptive">
             <div class="tui-col_lg-5 tui-col_md-4 tui-col_xs-12 tui-space_bottom-8">
@@ -174,12 +174,12 @@
                 <h2 class="center-header tui-text_h5">Ready to try it out?</h2>
                 <div class="tui-form__buttons">
                     <a
-                        tuiButton
-                        size="m"
                         appearance="secondary"
                         class="center-button tui-form__button"
                         iconRight="tuiIconArrowUpRight"
                         routerLink="homepage"
+                        size="m"
+                        tuiButton
                         tuiMode="onDark"
                     >
                         Get Started
@@ -202,18 +202,18 @@
             <ul class="footer-links">
                 <li>
                     <a
-                        tuiLink
                         href="https://www.facebook.com/universityofbc"
                         target="_blank"
+                        tuiLink
                     >
                         Facebook
                     </a>
                 </li>
                 <li>
                     <a
-                        tuiLink
                         href="https://github.com/canvas-gamification"
                         target="_blank"
+                        tuiLink
                     >
                         Github
                     </a>

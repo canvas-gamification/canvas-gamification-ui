@@ -1,5 +1,5 @@
-import {Question} from '@app/_models/question';
-import {SafeHtml} from "@angular/platform-browser";
+import {Question} from '@app/_models/question'
+import {SafeHtml} from "@angular/platform-browser"
 
 export enum StatusMessage {
     IN_QUEUE = 'In Queue',

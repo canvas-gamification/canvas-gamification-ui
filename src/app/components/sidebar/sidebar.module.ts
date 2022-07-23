@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {SidebarComponent} from './sidebar.component';
-import {TuiButtonModule, TuiDescribedByModule, TuiHintModule, TuiSvgModule} from '@taiga-ui/core';
+import {NgModule} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {SidebarComponent} from './sidebar.component'
+import {TuiButtonModule, TuiDescribedByModule, TuiHintModule, TuiSvgModule} from '@taiga-ui/core'
 
 
 @NgModule({

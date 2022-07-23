@@ -1,5 +1,5 @@
-import {Category, Course, NestedCategories, QuestionCount, STATUS} from "@app/_models";
-import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
+import {Category, Course, NestedCategories, QuestionCount, STATUS} from "@app/_models"
+import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
@@ -10,17 +10,17 @@ export const MOCK_CATEGORY: Category = {
     full_name: '',
     parent: null,
     question_count: 100,
-};
+}
 
 export const MOCK_NESTED_CATEGORY: NestedCategories = {
     category: MOCK_CATEGORY,
     children: []
-};
+}
 
 export const MOCK_NESTED_CATEGORY_2: NestedCategories = {
     category: MOCK_CATEGORY,
     children: [MOCK_NESTED_CATEGORY]
-};
+}
 
 export const MOCK_QUESTION_COUNT: QuestionCount = {
     name: 'QUESTION',
@@ -35,7 +35,7 @@ export const MOCK_QUESTION_COUNT: QuestionCount = {
             difficulty: 'MEDIUM'
         }
     ]
-};
+}
 
 export const MOCK_VIEW_COURSE: Course = {
     id: 0,
@@ -57,4 +57,4 @@ export const MOCK_VIEW_COURSE: Course = {
     course_reg: null,
     leader_board: null,
     has_create_event_permission: false
-};
+}

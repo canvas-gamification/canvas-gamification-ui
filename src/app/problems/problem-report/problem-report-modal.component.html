@@ -1,17 +1,17 @@
 <ng-template
+    (tuiDialogChange)="toggleDialog($event)"
     [tuiDialogOptions]="$any({ label: 'Report this question', size: 'm' })"
     [tuiDialog]="open"
-    (tuiDialogChange)="toggleDialog($event)"
 >
     <div [formGroup]="formGroup">
         <div class="tui-form__row">
             <tui-select
-                formControlName="report"
                 [valueContent]="reportOptions ? (reportOptions | stringifyTuiDataList: 0: 1) : ''"
+                formControlName="report"
             >
                 Reason
                 <tui-data-list *tuiDataList>
-                    <button *ngFor="let reportOption of reportOptions" tuiOption [value]="reportOption[0]">
+                    <button *ngFor="let reportOption of reportOptions" [value]="reportOption[0]" tuiOption>
                         {{ reportOption[1] }}
                     </button>
                 </tui-data-list>
@@ -27,11 +27,11 @@
     </div>
     <div class="tui-form__row">
         <button
+            (click)="submitReport()"
+            [disabled]="formGroup.invalid"
+            size="m"
             tuiButton
             type="submit"
-            size="m"
-            [disabled]="formGroup.invalid"
-            (click)="submitReport()"
         >
             Submit Report
         </button>

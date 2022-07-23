@@ -1,18 +1,18 @@
-<form class="tui-space_bottom-4" [formGroup]="form | asFormGroup" *ngFor="let form of models.controls; index as index">
+<form *ngFor="let form of models.controls; index as index" [formGroup]="form | asFormGroup" class="tui-space_bottom-4">
     <tui-island>
         <div class="tui-island__content">
             <div class="tui-island__figure">
                 <button
-                    tuiIconButton
-                    size="m"
-                    icon="tuiIconTrash"
-                    type="button"
                     (click)="removeModel(index)"
+                    [tuiHint]="removeTooltip"
+                    icon="tuiIconTrash"
+                    size="m"
                     tuiDescribedBy="remove-{{index}}"
+                    tuiHintDirection="top-left"
                     tuiHintId="remove-{{index}}"
                     tuiHintMode="onDark"
-                    tuiHintDirection="top-left"
-                    [tuiHint]="removeTooltip"
+                    tuiIconButton
+                    type="button"
                 ></button>
                 <ng-template #removeTooltip>
                     Remove Value
@@ -35,24 +35,24 @@
                             <tui-field-error formControlName="compile"></tui-field-error>
                         </div>
                         <div class="tui-form__row">
-                            <label for="code-editor-{{index}}" class="tui-form__field-note" >
+                            <label class="tui-form__field-note" for="code-editor-{{index}}">
                                 Template of the File
                             </label>
                             <app-code-editor
-                                id="code-editor-{{index}}"
-                                [codeTemplate]="(form | asFormGroup).controls.template.value"
                                 (codeTemplateChange)="setInputTemplate(form, $event)"
+                                [codeTemplate]="(form | asFormGroup).controls.template.value"
+                                id="code-editor-{{index}}"
                             ></app-code-editor>
                             <tui-field-error formControlName="template"></tui-field-error>
                         </div>
                     </div>
                     <div class="tui-col_4">
                         <tui-text-area
-                            class="content__island-json"
-                            [ngModel]="getFormString(form)"
                             (ngModelChange)="setFormFromString(form, $event)"
-                            [ngModelOptions]="{standalone: true}"
                             [expandable]="true"
+                            [ngModelOptions]="{standalone: true}"
+                            [ngModel]="getFormString(form)"
+                            class="content__island-json"
                         >
                             JSON
                         </tui-text-area>
@@ -63,11 +63,11 @@
     </tui-island>
 </form>
 <button
-    tuiButton
-    size="m"
-    type="button"
-    icon="tuiIconPlus"
     (click)="addNewModel()"
+    icon="tuiIconPlus"
+    size="m"
+    tuiButton
+    type="button"
 >
     Add New Java Input File
 </button>

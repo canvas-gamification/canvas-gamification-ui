@@ -5,12 +5,12 @@
     </div>
     <div class="tui-form__row">
         <tui-select
-            formControlName="difficulty"
             [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+            formControlName="difficulty"
         >
             Difficulty
             <tui-data-list *tuiDataList>
-                <button *ngFor="let difficulty of difficulties" tuiOption [value]="difficulty[0]">
+                <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]" tuiOption>
                     {{ difficulty[1] }}
                 </button>
             </tui-data-list>
@@ -19,12 +19,12 @@
     </div>
     <div class="tui-form__row">
         <tui-select
-            formControlName="category"
             [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
+            formControlName="category"
         >
             Category
             <tui-data-list *tuiDataList>
-                <button *ngFor="let category of categories" tuiOption [value]="category.pk">
+                <button *ngFor="let category of categories" [value]="category.pk" tuiOption>
                     {{ category.full_name }}
                 </button>
             </tui-data-list>
@@ -32,14 +32,14 @@
         <tui-field-error formControlName="category"></tui-field-error>
     </div>
     <div class="tui-form__row">
-        <tui-checkbox-labeled size="l" formControlName="is_verified">Is Verified</tui-checkbox-labeled>
+        <tui-checkbox-labeled formControlName="is_verified" size="l">Is Verified</tui-checkbox-labeled>
     </div>
     <div class="tui-form__row">
         <tui-checkbox-labeled
-            size="l"
-            [ngModel]="isPractice"
             (ngModelChange)="resetCourseIfPractice($event)"
             [ngModelOptions]="{standalone: true}"
+            [ngModel]="isPractice"
+            size="l"
         >
             Practice Question
         </tui-checkbox-labeled>
@@ -48,13 +48,13 @@
         <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
                 <tui-select
-                    formControlName="course"
                     [tuiTextfieldCleaner]="true"
                     [valueContent]="courses ? (courses | stringifyTuiDataList: 'id': 'name') : ''"
+                    formControlName="course"
                 >
                     Course
                     <tui-data-list *tuiDataList>
-                        <button *ngFor="let course of courses" tuiOption [value]="course.id">
+                        <button *ngFor="let course of courses" [value]="course.id" tuiOption>
                             {{ course.name }}
                         </button>
                     </tui-data-list>
@@ -63,13 +63,13 @@
             </div>
             <div class="tui-form__multi-field">
                 <tui-select
-                    formControlName="event"
                     [tuiTextfieldCleaner]="true"
                     [valueContent]="events ? (events | stringifyTuiDataList: 'id': 'name') : ''"
+                    formControlName="event"
                 >
                     Event
                     <tui-data-list *tuiDataList>
-                        <button *ngFor="let event of events" tuiOption [value]="event.id">
+                        <button *ngFor="let event of events" [value]="event.id" tuiOption>
                             {{ event.name }}
                         </button>
                     </tui-data-list>

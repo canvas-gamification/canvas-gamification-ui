@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {QuestionCountComponent} from './question-count/question-count.component';
-import {CategoryStatsComponent} from './category-stats/category-stats.component';
-import {TuiTableModule} from '@taiga-ui/addon-table';
+import {NgModule} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {QuestionCountComponent} from './question-count/question-count.component'
+import {CategoryStatsComponent} from './category-stats/category-stats.component'
+import {TuiTableModule} from '@taiga-ui/addon-table'
 import {
     TuiDataListWrapperModule,
     TuiHighlightModule,
@@ -10,13 +10,13 @@ import {
     TuiIslandModule,
     TuiSelectModule,
     TuiTabsModule
-} from '@taiga-ui/kit';
-import {FormsModule} from '@angular/forms';
-import {TuiButtonModule, TuiLoaderModule, TuiScrollbarModule, TuiTextfieldControllerModule} from '@taiga-ui/core';
-import {TuiRingChartModule} from '@taiga-ui/addon-charts';
-import {TuiFilterPipeModule} from '@taiga-ui/cdk';
-import {CoursesComponent} from './courses/courses.component';
-import {SidebarModule} from '@app/components/sidebar/sidebar.module';
+} from '@taiga-ui/kit'
+import {FormsModule} from '@angular/forms'
+import {TuiButtonModule, TuiLoaderModule, TuiScrollbarModule, TuiTextfieldControllerModule} from '@taiga-ui/core'
+import {TuiRingChartModule} from '@taiga-ui/addon-charts'
+import {TuiFilterPipeModule} from '@taiga-ui/cdk'
+import {CoursesComponent} from './courses/courses.component'
+import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 
 
 @NgModule({

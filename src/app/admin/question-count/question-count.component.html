@@ -1,21 +1,21 @@
 <tui-island class="tui-space_bottom-8">
     <h2 class="tui-island__title">Question Counts</h2>
-    <tui-tabs class="tui-space_bottom-4" #tabsComponent>
-        <button tuiTab aria-label="Card View">Card View</button>
-        <button tuiTab aria-label="Table View">Table View</button>
+    <tui-tabs #tabsComponent class="tui-space_bottom-4">
+        <button aria-label="Card View" tuiTab>Card View</button>
+        <button aria-label="Table View" tuiTab>Table View</button>
     </tui-tabs>
     <tui-loader [overlay]="true" [showLoader]="!questionCountData">
         <ng-container *ngIf="questionCountData">
-            <div class="count-islands" *ngIf="tabsComponent.activeItemIndex === 0">
+            <div *ngIf="tabsComponent.activeItemIndex === 0" class="count-islands">
                 <tui-island
-                        *ngFor="let questionCount of questionCountData"
-                        textAlign="center"
+                    *ngFor="let questionCount of questionCountData"
+                    textAlign="center"
                 >
                     <h3 class="tui-island__title">
                         {{ questionCount.name }}
                     </h3>
-                    <tui-ring-chart [value]="getCountPerDifficultyValues(questionCount.count_per_difficulty)"
-                                    [content]="chartContent"
+                    <tui-ring-chart [content]="chartContent"
+                                    [value]="getCountPerDifficultyValues(questionCount.count_per_difficulty)"
                                     class="tui-space_auto"
                     ></tui-ring-chart>
                     <ng-template #chartContent let-index>
@@ -27,10 +27,10 @@
                 </tui-island>
             </div>
             <table
-                tuiTable
-                class="count-table"
-                [columns]="questionCountDataHeader"
                 *ngIf="tabsComponent.activeItemIndex === 1"
+                [columns]="questionCountDataHeader"
+                class="count-table"
+                tuiTable
             >
                 <thead>
                 <tr tuiThGroup>
@@ -51,7 +51,7 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody tuiTbody [data]="questionCountData">
+                <tbody [data]="questionCountData" tuiTbody>
                 <tr *tuiRow="let item of questionCountData" tuiTr>
                     <td *tuiCell="'count_per_difficulty'" tuiTd>
                         <ng-container *ngFor="let countPerDiffItem of item.count_per_difficulty; let index = index">

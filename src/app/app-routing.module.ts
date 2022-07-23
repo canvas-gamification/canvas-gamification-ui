@@ -1,16 +1,16 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {LandingPageComponent} from './components/landing-page/landing-page.component';
-import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component';
-import {TopicsComponent} from './components/topics/topics.component';
-import {TokenValuesComponent} from './components/token-values/token-values.component';
-import {AuthGuard} from '@app/_helpers/auth.guard';
-import {FaqComponent} from './components/faq/faq.component';
-import {HomepageComponent} from './components/homepage/homepage.component';
-import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
-import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
-import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
-import {AdminComponent} from "@app/admin/admin.component";
+import {NgModule} from '@angular/core'
+import {RouterModule, Routes} from '@angular/router'
+import {LandingPageComponent} from './components/landing-page/landing-page.component'
+import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component'
+import {TopicsComponent} from './components/topics/topics.component'
+import {TokenValuesComponent} from './components/token-values/token-values.component'
+import {AuthGuard} from '@app/_helpers/auth.guard'
+import {FaqComponent} from './components/faq/faq.component'
+import {HomepageComponent} from './components/homepage/homepage.component'
+import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component'
+import {NotFoundComponent} from '@app/components/general/not-found/not-found.component'
+import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component'
+import {AdminComponent} from "@app/admin/admin.component"
 
 
 const routes: Routes = [
@@ -65,7 +65,7 @@ const routes: Routes = [
         path: '**',
         component: NotFoundComponent
     }
-];
+]
 
 @NgModule({
     imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],

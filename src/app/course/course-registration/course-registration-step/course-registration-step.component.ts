@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component} from '@angular/core'
 
 @Component({
     selector: 'app-course-registration-step',
@@ -6,5 +6,5 @@ import {Component} from '@angular/core';
     styleUrls: ['./course-registration-step.component.scss']
 })
 export class CourseRegistrationStepComponent {
-    visible = false;
+    visible = false
 }

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Action} from '@app/_models/action';
-import {UserActionsService} from '@app/_services/api/user-actions.service';
-import {DomSanitizer} from "@angular/platform-browser";
+import {Component, OnInit} from '@angular/core'
+import {Action} from '@app/_models/action'
+import {UserActionsService} from '@app/_services/api/user-actions.service'
+import {DomSanitizer} from "@angular/platform-browser"
 
 @Component({
     selector: 'app-recent-user-actions',
@@ -9,7 +9,7 @@ import {DomSanitizer} from "@angular/platform-browser";
     styleUrls: ['./recent-user-actions.component.scss'],
 })
 export class RecentUserActionsComponent implements OnInit {
-    userActions: Action[];
+    userActions: Action[]
 
     constructor(
         private userActionService: UserActionsService,
@@ -20,14 +20,14 @@ export class RecentUserActionsComponent implements OnInit {
         this.userActionService
             .getUserActions({recent: true, page_size: 5})
             .subscribe((paginatedActions) => {
-                this.userActions = paginatedActions.results;
+                this.userActions = paginatedActions.results
                 this.userActions.forEach((userAction: Action) => {
-                    userAction.safeDescription = this.sanitizer.bypassSecurityTrustHtml(userAction.description);
-                });
-            });
+                    userAction.safeDescription = this.sanitizer.bypassSecurityTrustHtml(userAction.description)
+                })
+            })
     }
 
     formatTokenChange(tokenChange: number): string {
-        return `${tokenChange > 0 ? '+' : ''}${tokenChange.toFixed(2)}`;
+        return `${tokenChange > 0 ? '+' : ''}${tokenChange.toFixed(2)}`
     }
 }

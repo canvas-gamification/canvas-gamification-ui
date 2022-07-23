@@ -1,10 +1,10 @@
-import {Category, Course, CourseEvent, Question, STATUS, UQJ} from '@app/_models';
-import {QuestionSubmission, StatusMessage} from '@app/_models/question_submission';
-import {Difficulty} from "@app/_models/difficulty";
-import {McqFormData} from "@app/problems/_forms/mcq.form";
-import {JavaFormData} from "@app/problems/_forms/java.form";
-import {ParsonsFormData} from "@app/problems/_forms/parsons.form";
-import {UserDifficultyStats} from "@app/_models/user_difficulty_stats";
+import {Category, Course, CourseEvent, Question, STATUS, UQJ} from '@app/_models'
+import {QuestionSubmission, StatusMessage} from '@app/_models/question_submission'
+import {Difficulty} from "@app/_models/difficulty"
+import {McqFormData} from "@app/problems/_forms/mcq.form"
+import {JavaFormData} from "@app/problems/_forms/java.form"
+import {ParsonsFormData} from "@app/problems/_forms/parsons.form"
+import {UserDifficultyStats} from "@app/_models/user_difficulty_stats"
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
@@ -15,7 +15,7 @@ export const MOCK_CATEGORY: Category = {
     full_name: 'Test',
     parent: null,
     question_count: 100,
-};
+}
 
 export const MOCK_CATEGORY_2: Category = {
     name: 'Test #2',
@@ -26,9 +26,9 @@ export const MOCK_CATEGORY_2: Category = {
     full_name: 'Test #2',
     parent: 0,
     question_count: 100,
-};
+}
 
-export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY, MOCK_CATEGORY_2];
+export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY, MOCK_CATEGORY_2]
 
 export const MOCK_COURSE_EVENT: CourseEvent = {
     id: 1,
@@ -43,7 +43,7 @@ export const MOCK_COURSE_EVENT: CourseEvent = {
     start_date: null,
     total_event_grade: 0,
     type: '',
-};
+}
 
 export const MOCK_PRACTICE_EVENT: CourseEvent = {
     name: '',
@@ -52,7 +52,7 @@ export const MOCK_PRACTICE_EVENT: CourseEvent = {
     start_date: null,
     end_date: null,
     course: null
-};
+}
 
 export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
@@ -91,7 +91,7 @@ export const MOCK_MCQ_QUESTION: Question = {
     is_checkbox: false,
     input_files: null,
     is_practice: false,
-};
+}
 
 export const MOCK_CHECKBOX_QUESTION: Question = {
     id: 1,
@@ -132,7 +132,7 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     is_checkbox: true,
     input_files: null,
     is_practice: false,
-};
+}
 
 export const MOCK_JAVA_QUESTION: Question = {
     id: 2,
@@ -172,7 +172,7 @@ export const MOCK_JAVA_QUESTION: Question = {
         template: 'code'
     }],
     is_practice: false,
-};
+}
 
 export const MOCK_PARSONS_QUESTION: Question = {
     id: 3,
@@ -212,7 +212,7 @@ export const MOCK_PARSONS_QUESTION: Question = {
         compile: true,
     }],
     is_practice: false,
-};
+}
 
 export const MOCK_PRACTICE_JAVA_QUESTION: Question = {
     id: 4,
@@ -248,7 +248,7 @@ export const MOCK_PRACTICE_JAVA_QUESTION: Question = {
     is_checkbox: false,
     input_files: null,
     is_practice: true,
-};
+}
 
 export const MOCK_PRACTICE_PARSONS_QUESTION: Question = {
     id: 5,
@@ -288,7 +288,7 @@ export const MOCK_PRACTICE_PARSONS_QUESTION: Question = {
         compile: true,
     }],
     is_practice: true,
-};
+}
 
 export const MOCK_PRACTICE_MCQ_QUESTION: Question = {
     id: 6,
@@ -327,7 +327,7 @@ export const MOCK_PRACTICE_MCQ_QUESTION: Question = {
     is_checkbox: false,
     input_files: null,
     is_practice: true,
-};
+}
 
 export const MOCK_PRACTICE_CHECKBOX_QUESTION: Question = {
     id: 7,
@@ -368,7 +368,7 @@ export const MOCK_PRACTICE_CHECKBOX_QUESTION: Question = {
     is_checkbox: true,
     input_files: null,
     is_practice: true,
-};
+}
 
 export const MOCK_UQJ: UQJ = {
     category: MOCK_CATEGORY,
@@ -397,7 +397,7 @@ export const MOCK_UQJ: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
-};
+}
 
 export const MOCK_UQJ_2: UQJ = {
     category: MOCK_CATEGORY,
@@ -428,7 +428,7 @@ export const MOCK_UQJ_2: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: true,
-};
+}
 
 export const MOCK_UQJ_3: UQJ = {
     category: MOCK_CATEGORY,
@@ -465,7 +465,7 @@ export const MOCK_UQJ_3: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
-};
+}
 
 export const MOCK_UQJ_4: UQJ = {
     category: MOCK_CATEGORY,
@@ -494,7 +494,7 @@ export const MOCK_UQJ_4: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
-};
+}
 
 export const MOCK_UQJ_5: UQJ = {
     category: MOCK_CATEGORY,
@@ -531,7 +531,7 @@ export const MOCK_UQJ_5: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
-};
+}
 
 export const MOCK_UQJ_6: UQJ = {
     category: MOCK_CATEGORY,
@@ -560,7 +560,7 @@ export const MOCK_UQJ_6: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
-};
+}
 
 export const MOCK_UQJ_7: UQJ = {
     category: MOCK_CATEGORY,
@@ -589,7 +589,7 @@ export const MOCK_UQJ_7: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
-};
+}
 
 export const MOCK_UQJ_8: UQJ = {
     category: MOCK_CATEGORY,
@@ -620,7 +620,7 @@ export const MOCK_UQJ_8: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: true,
-};
+}
 
 export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     answer: '',
@@ -652,7 +652,7 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     show_answer: false,
     show_detail: true,
     safeAnswer: [],
-};
+}
 
 export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     answer: '',
@@ -682,13 +682,13 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     show_answer: false,
     show_detail: true,
     safeAnswer: [],
-};
+}
 
 export const MOCK_DIFFICULTIES: Difficulty[] = [
     ['EASY', 'Easy'],
     ['MEDIUM', 'Medium'],
     ['HARD', 'Hard'],
-];
+]
 
 export const MOCK_MCQ_FORM_DATA: McqFormData = {
     title: 'This is a test.',
@@ -702,7 +702,7 @@ export const MOCK_MCQ_FORM_DATA: McqFormData = {
     visible_distractor_count: null,
     choices: null,
     is_verified: true
-};
+}
 
 export const MOCK_JAVA_FORM_DATA: JavaFormData = {
     title: 'This is a test.',
@@ -715,7 +715,7 @@ export const MOCK_JAVA_FORM_DATA: JavaFormData = {
     junit_template: null,
     input_files: null,
     is_verified: true
-};
+}
 
 export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
     title: 'This is a test.',
@@ -732,7 +732,7 @@ export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
         compile: true,
     }],
     is_verified: true
-};
+}
 
 // TODO - Determine a more specific type.
 // eslint-disable-next-line  @typescript-eslint/no-explicit-any
@@ -751,7 +751,7 @@ export const MOCK_SCHEMAS: any = [
         type: 'array',
         format: 'table',
     }
-];
+]
 
 export const MOCK_VARIABLES = [
     {
@@ -760,13 +760,13 @@ export const MOCK_VARIABLES = [
         "min": "0",
         "max": "1"
     }
-];
+]
 
-export const MOCK_UQJS: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2, MOCK_UQJ_3, MOCK_UQJ_4, MOCK_UQJ_5, MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8];
+export const MOCK_UQJS: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2, MOCK_UQJ_3, MOCK_UQJ_4, MOCK_UQJ_5, MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8]
 
-export const MOCK_QUESTIONS: Question[] = [MOCK_MCQ_QUESTION, MOCK_CHECKBOX_QUESTION, MOCK_JAVA_QUESTION, MOCK_PARSONS_QUESTION, MOCK_PRACTICE_MCQ_QUESTION, MOCK_PRACTICE_CHECKBOX_QUESTION, MOCK_PRACTICE_JAVA_QUESTION, MOCK_PRACTICE_PARSONS_QUESTION];
+export const MOCK_QUESTIONS: Question[] = [MOCK_MCQ_QUESTION, MOCK_CHECKBOX_QUESTION, MOCK_JAVA_QUESTION, MOCK_PARSONS_QUESTION, MOCK_PRACTICE_MCQ_QUESTION, MOCK_PRACTICE_CHECKBOX_QUESTION, MOCK_PRACTICE_JAVA_QUESTION, MOCK_PRACTICE_PARSONS_QUESTION]
 
-export const MOCK_SUBMISSIONS: QuestionSubmission[] = [MOCK_QUESTION_SUBMISSION, MOCK_QUESTION_SUBMISSION_2];
+export const MOCK_SUBMISSIONS: QuestionSubmission[] = [MOCK_QUESTION_SUBMISSION, MOCK_QUESTION_SUBMISSION_2]
 
 export const MOCK_COURSE: Course = {
     id: 0,
@@ -788,10 +788,10 @@ export const MOCK_COURSE: Course = {
     course_reg: null,
     leader_board: null,
     has_create_event_permission: true
-};
+}
 
 export const MOCK_USER_DIFFICULTY_STATS: UserDifficultyStats[] = [
     {category: 0, difficulty: 'EASY', avgSuccess: 1},
     {category: 0, difficulty: 'NORMAL', avgSuccess: 1},
     {category: 0, difficulty: 'HARD', avgSuccess: 1}
-];
+]

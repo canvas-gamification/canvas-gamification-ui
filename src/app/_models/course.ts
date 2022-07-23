@@ -1,4 +1,4 @@
-import {CourseEvent, CourseRegistration, LeaderboardElement, UQJ} from '@app/_models';
+import {CourseEvent, CourseRegistration, LeaderboardElement, UQJ} from '@app/_models'
 
 export interface Course {
     id: number;
@@ -27,4 +27,4 @@ export const STATUS = {
     pending: 'Pending',
     finished: 'Finished',
     blocked: 'Blocked',
-};
+}

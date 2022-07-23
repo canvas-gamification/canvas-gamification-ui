@@ -1,15 +1,15 @@
-<div tuiGroup [collapsed]="true" [formGroup]="viewForm" class="tab-switcher">
+<div [collapsed]="true" [formGroup]="viewForm" class="tab-switcher" tuiGroup>
     <tui-radio-block
-        size="s"
         [hideRadio]="true"
+        [item]="'list'"
+        [tuiHint]="listTooltip"
         contentAlign="left"
         formControlName="view"
-        [item]="'list'"
+        size="s"
         tuiDescribedBy="list"
+        tuiHintDirection="top-left"
         tuiHintId="list"
         tuiHintMode="onDark"
-        tuiHintDirection="top-left"
-        [tuiHint]="listTooltip"
     >
         <tui-svg src="tuiIconMoreVer"></tui-svg>
     </tui-radio-block>
@@ -17,16 +17,16 @@
         View Content as List
     </ng-template>
     <tui-radio-block
-        size="s"
         [hideRadio]="true"
+        [item]="'tab'"
+        [tuiHint]="tabTooltip"
         contentAlign="left"
         formControlName="view"
-        [item]="'tab'"
+        size="s"
         tuiDescribedBy="tab"
+        tuiHintDirection="top-left"
         tuiHintId="tab"
         tuiHintMode="onDark"
-        tuiHintDirection="top-left"
-        [tuiHint]="tabTooltip"
     >
         <tui-svg src="tuiIconFolder"></tui-svg>
     </tui-radio-block>

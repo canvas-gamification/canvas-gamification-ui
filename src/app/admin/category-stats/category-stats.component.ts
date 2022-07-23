@@ -1,8 +1,8 @@
-import {AfterContentInit, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core';
-import {CategoryStatsService} from "@app/admin/_services/category-stats.service";
-import {NestedCategories} from "@app/_models";
-import {TuiDialogContext, TuiDialogService} from '@taiga-ui/core';
-import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
+import {AfterContentInit, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
+import {CategoryStatsService} from "@app/admin/_services/category-stats.service"
+import {NestedCategories} from "@app/_models"
+import {TuiDialogContext, TuiDialogService} from '@taiga-ui/core'
+import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
 
 @Component({
     selector: 'app-category-stats',
@@ -10,8 +10,8 @@ import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
     styleUrls: ['./category-stats.component.scss']
 })
 export class CategoryStatsComponent implements OnInit, AfterContentInit {
-    categoryStatsData!: NestedCategories[];
-    categoryStatsDataHeader!: string[];
+    categoryStatsData!: NestedCategories[]
+    categoryStatsDataHeader!: string[]
 
     constructor(private categoryStatsService: CategoryStatsService,
                 private changeDetector: ChangeDetectorRef,
@@ -20,13 +20,13 @@ export class CategoryStatsComponent implements OnInit, AfterContentInit {
 
     ngOnInit(): void {
         this.categoryStatsService.getCategoryStats().subscribe(categoryStatsData => {
-            this.categoryStatsData = categoryStatsData;
-            this.categoryStatsDataHeader = Object.keys(categoryStatsData[0]);
-        });
+            this.categoryStatsData = categoryStatsData
+            this.categoryStatsDataHeader = Object.keys(categoryStatsData[0])
+        })
     }
 
     ngAfterContentInit(): void {
-        this.changeDetector.detectChanges();
+        this.changeDetector.detectChanges()
     }
 
     openCategoryStatsDialog(title: string, content: PolymorpheusContent<TuiDialogContext>): void {
@@ -34,6 +34,6 @@ export class CategoryStatsComponent implements OnInit, AfterContentInit {
             closeable: false,
             size: 'l',
             label: title
-        }).subscribe();
+        }).subscribe()
     }
 }

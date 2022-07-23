@@ -1,10 +1,10 @@
 <ng-container *ngIf="!readonly else editorSocket">
     <tui-editor
-        new
-        [exampleText]="exampleText"
-        [ngModel]="editor.value"
         (ngModelChange)="editor.setValue($event)"
+        [exampleText]="exampleText"
         [ngModelOptions]="{standalone: true}"
+        [ngModel]="editor.value"
+        new
     >
         {{placeHolder}}
         <ng-container ngProjectAs="tools">

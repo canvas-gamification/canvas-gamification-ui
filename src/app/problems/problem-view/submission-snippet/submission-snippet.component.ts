@@ -1,9 +1,9 @@
-import {Component, Inject, Injector, Input, OnInit} from '@angular/core';
-import {QuestionSubmission} from '@app/_models/question_submission';
-import {DomSanitizer} from "@angular/platform-browser";
-import {TuiDialogService} from '@taiga-ui/core';
-import {PolymorpheusComponent} from '@tinkoff/ng-polymorpheus';
-import {SubmissionViewComponent} from '@app/problems/submission-view/submission-view.component';
+import {Component, Inject, Injector, Input, OnInit} from '@angular/core'
+import {QuestionSubmission} from '@app/_models/question_submission'
+import {DomSanitizer} from "@angular/platform-browser"
+import {TuiDialogService} from '@taiga-ui/core'
+import {PolymorpheusComponent} from '@tinkoff/ng-polymorpheus'
+import {SubmissionViewComponent} from '@app/problems/submission-view/submission-view.component'
 
 @Component({
     selector: 'app-submission-snippet',
@@ -11,7 +11,7 @@ import {SubmissionViewComponent} from '@app/problems/submission-view/submission-
     styleUrls: ['./submission-snippet.component.scss']
 })
 export class SubmissionSnippetComponent implements OnInit {
-    @Input() previousSubmissions: QuestionSubmission[];
+    @Input() previousSubmissions: QuestionSubmission[]
 
     constructor(
         private sanitizer: DomSanitizer,
@@ -22,11 +22,11 @@ export class SubmissionSnippetComponent implements OnInit {
 
     ngOnInit(): void {
         this.previousSubmissions.forEach((previousSubmission) => {
-            previousSubmission.safeAnswer = [];
+            previousSubmission.safeAnswer = []
             previousSubmission.answer_display?.forEach((answer) => {
-                previousSubmission.safeAnswer.push(this.sanitizer.bypassSecurityTrustHtml(answer));
-            });
-        });
+                previousSubmission.safeAnswer.push(this.sanitizer.bypassSecurityTrustHtml(answer))
+            })
+        })
     }
 
     openSubmissionDialog(submission: QuestionSubmission, index: number) {
@@ -37,6 +37,6 @@ export class SubmissionSnippetComponent implements OnInit {
                 closeable: false,
                 label: `Submission ${index}`
             }
-        ).subscribe();
+        ).subscribe()
     }
 }

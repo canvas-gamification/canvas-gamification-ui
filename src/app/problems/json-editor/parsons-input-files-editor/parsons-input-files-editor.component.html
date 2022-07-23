@@ -1,18 +1,18 @@
-<form class="tui-space_bottom-4" [formGroup]="form | asFormGroup" *ngFor="let form of models.controls; index as index">
+<form *ngFor="let form of models.controls; index as index" [formGroup]="form | asFormGroup" class="tui-space_bottom-4">
     <tui-island>
         <div class="tui-island__content">
             <div class="tui-island__figure">
                 <button
-                    tuiIconButton
-                    size="m"
-                    icon="tuiIconTrash"
-                    type="button"
                     (click)="removeModel(index)"
+                    [tuiHint]="removeTooltip"
+                    icon="tuiIconTrash"
+                    size="m"
                     tuiDescribedBy="remove-{{index}}"
+                    tuiHintDirection="top-left"
                     tuiHintId="remove-{{index}}"
                     tuiHintMode="onDark"
-                    tuiHintDirection="top-left"
-                    [tuiHint]="removeTooltip"
+                    tuiIconButton
+                    type="button"
                 ></button>
                 <ng-template #removeTooltip>
                     Remove Value
@@ -36,10 +36,10 @@
                         </div>
                         <div class="tui-form__row">
                             <div class="tui-form__field-note">Lines</div>
-                            <tui-island class="tui-space_bottom-4" *ngIf="getLines(form).value.length > 0">
+                            <tui-island *ngIf="getLines(form).value.length > 0" class="tui-space_bottom-4">
                                 <div
-                                    class="tui-form__row lines-control"
                                     *ngFor="let line of getLines(form).controls; let index = index"
+                                    class="tui-form__row lines-control"
                                 >
                                     <div class="tui-space_right-4 lines-control__input" formArrayName="lines">
                                         <tui-input [formControl]="line | asFormControl">
@@ -48,16 +48,16 @@
                                         <tui-field-error [formControl]="line | asFormControl"></tui-field-error>
                                     </div>
                                     <button
-                                        tuiIconButton
-                                        size="m"
-                                        icon="tuiIconTrash"
-                                        type="button"
                                         (click)="removeLine(form, index)"
+                                        [tuiHint]="removeTooltip"
+                                        icon="tuiIconTrash"
+                                        size="m"
                                         tuiDescribedBy="remove-line-{{index}}"
+                                        tuiHintDirection="top-left"
                                         tuiHintId="remove-line-{{index}}"
                                         tuiHintMode="onDark"
-                                        tuiHintDirection="top-left"
-                                        [tuiHint]="removeTooltip"
+                                        tuiIconButton
+                                        type="button"
                                     ></button>
                                     <ng-template #removeTooltip>
                                         Remove Line
@@ -66,45 +66,45 @@
                             </tui-island>
                             <div class="tui-form__buttons tui-space_top-2">
                                 <button
-                                    tuiButton
-                                    size="m"
-                                    icon="tuiIconPlus"
-                                    type="button"
-                                    class="tui-form__button"
                                     (click)="addNewLine(form)"
+                                    class="tui-form__button"
+                                    icon="tuiIconPlus"
+                                    size="m"
+                                    tuiButton
+                                    type="button"
                                 >
                                     Add New Line
                                 </button>
                                 <tui-hosted-dropdown
-                                    [content]="codeBlockDropdown"
                                     #hostedCodeBlockDropdown
+                                    [content]="codeBlockDropdown"
                                     class="tui-form__button"
                                 >
                                     <button
-                                        tuiButton
-                                        size="m"
+                                        [focusable]="hostedCodeBlockDropdown.open"
+                                        [pseudoPressed]="hostedCodeBlockDropdown.open"
+                                        class="code-block-dropdown_button"
                                         icon="tuiIconCode"
                                         iconRight="tuiIconChevronDown"
+                                        size="m"
+                                        tuiButton
                                         type="button"
-                                        class="code-block-dropdown_button"
-                                        [pseudoPressed]="hostedCodeBlockDropdown.open"
-                                        [focusable]="hostedCodeBlockDropdown.open"
                                     >
                                         Set With Code Block
                                     </button>
                                 </tui-hosted-dropdown>
                                 <ng-template #codeBlockDropdown let-activeZone>
                                     <form
-                                        class="code-block-dropdown"
-                                        [tuiActiveZoneParent]="activeZone"
                                         (submit)="setLinesFromCodeBlock(form); hostedCodeBlockDropdown.updateOpen(false)"
+                                        [tuiActiveZoneParent]="activeZone"
+                                        class="code-block-dropdown"
                                     >
                                         <app-code-editor [(codeTemplate)]="codeBlock"></app-code-editor>
                                         <div class="tui-form__buttons tui-space_top-2">
                                             <button
-                                                tuiButton
-                                                size="s"
                                                 class="tui-form__button"
+                                                size="s"
+                                                tuiButton
                                             >
                                                 Set Code
                                             </button>
@@ -116,11 +116,11 @@
                     </div>
                     <div class="tui-col_4">
                         <tui-text-area
-                            class="content__island-json"
-                            [ngModel]="getFormString(form)"
                             (ngModelChange)="setFormFromString(form, $event)"
-                            [ngModelOptions]="{standalone: true}"
                             [expandable]="true"
+                            [ngModelOptions]="{standalone: true}"
+                            [ngModel]="getFormString(form)"
+                            class="content__island-json"
                         >
                             JSON
                         </tui-text-area>
@@ -131,11 +131,11 @@
     </tui-island>
 </form>
 <button
-    tuiButton
-    size="m"
-    type="button"
-    icon="tuiIconPlus"
     (click)="addNewModel()"
+    icon="tuiIconPlus"
+    size="m"
+    tuiButton
+    type="button"
 >
     Add New Parsons Input File
 </button>

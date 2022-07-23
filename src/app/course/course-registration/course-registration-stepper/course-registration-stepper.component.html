@@ -1,8 +1,8 @@
 <tui-stepper [(activeItemIndex)]="currentStep">
-    <button *ngFor="let step of steps"
-            tuiStep
+    <button #headerStep
+            *ngFor="let step of steps"
             [disabled]="true"
-            #headerStep>
+            tuiStep>
         {{step}}
     </button>
 </tui-stepper>

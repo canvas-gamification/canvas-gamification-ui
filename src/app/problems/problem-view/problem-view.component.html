@@ -2,74 +2,74 @@
     <div class="question_content">
         <div class="tui-container tui-container_fullwidth">
             <p
-                class="tui-island__paragraph tui-text_body-xs tui-space_bottom-0 tui-space_top-10"
                 [class.tui-skeleton]="!uqj"
                 [class.tui-skeleton_short]="!uqj"
                 [class.tui-skeleton_text]="!uqj"
+                class="tui-island__paragraph tui-text_body-xs tui-space_bottom-0 tui-space_top-10"
             >
                 {{ uqj?.question?.category_obj?.full_name || 'No Category' | uppercase }}
             </p>
             <div class="tui-space_bottom-10 tui-space_top-2">
                 <div class="question-header">
                     <h1
-                        class="tui-text_h3 tui-space_vertical-1"
                         [class.tui-skeleton]="!uqj"
                         [class.tui-skeleton_text]="!uqj"
+                        class="tui-text_h3 tui-space_vertical-1"
                     >
                         {{ uqj?.question?.title ?? 'Question Title' }}
                     </h1>
                     <tui-badge
-                        class="tui-space_left-4"
+                        *ngIf="uqj && uqj.status !== 'No Status' && uqj.status !== 'New'"
                         [class.tui-skeleton]="!uqj"
                         [status]="uqj.status | tuiStatus"
                         [value]="uqj.status"
-                        *ngIf="uqj && uqj.status !== 'No Status' && uqj.status !== 'New'"
+                        class="tui-space_left-4"
                     ></tui-badge>
                 </div>
                 <p
-                    class="tui-space_top-2 tui-space_bottom-0"
                     [class.tui-skeleton]="!uqj"
                     [class.tui-skeleton_short]="!uqj"
                     [class.tui-skeleton_text]="!uqj"
+                    class="tui-space_top-2 tui-space_bottom-0"
                 >
                     {{ uqj?.question?.token_value || 'No' }}
                     &nbsp;Tokens Possible
                 </p>
                 <p
-                    class="tui-space_vertical-0"
                     [class.tui-skeleton]="!uqj"
                     [class.tui-skeleton_short]="!uqj"
                     [class.tui-skeleton_text]="!uqj"
+                    class="tui-space_vertical-0"
                 >
                     {{ (uqj?.question?.max_submission_allowed - uqj?.num_attempts) ?? 'Unlimited' }}
                     &nbsp;Attempts Remaining
                 </p>
             </div>
-            <div class="question-skeleton tui-skeleton" *ngIf="!uqj"></div>
+            <div *ngIf="!uqj" class="question-skeleton tui-skeleton"></div>
             <tui-island *ngIf="renderedText">
                 <p class="tui-island__category">Question</p>
                 <app-editor [ngModel]="renderedText" [readonly]="true"></app-editor>
             </tui-island>
             <ng-container *ngIf="uqj?.question?.type_name === 'multiple choice question'">
-                <app-mcq-view-snippet [uqj]="uqj"
-                                      (successfulSubmissionEvent)="updateQuestionSubmissions($event)"></app-mcq-view-snippet>
+                <app-mcq-view-snippet (successfulSubmissionEvent)="updateQuestionSubmissions($event)"
+                                      [uqj]="uqj"></app-mcq-view-snippet>
             </ng-container>
             <ng-container *ngIf="uqj?.question?.type_name === 'java question'">
-                <app-java-view-snippet [uqj]="uqj"
-                                       (successfulSubmissionEvent)="updateQuestionSubmissions($event)"></app-java-view-snippet>
+                <app-java-view-snippet (successfulSubmissionEvent)="updateQuestionSubmissions($event)"
+                                       [uqj]="uqj"></app-java-view-snippet>
             </ng-container>
             <ng-container *ngIf="uqj?.question?.type_name === 'parsons question'">
-                <app-parsons-view-snippet [uqj]="uqj"
-                                          (successfulSubmissionEvent)="updateQuestionSubmissions($event)"></app-parsons-view-snippet>
+                <app-parsons-view-snippet (successfulSubmissionEvent)="updateQuestionSubmissions($event)"
+                                          [uqj]="uqj"></app-parsons-view-snippet>
             </ng-container>
-            <div class="question-skeleton tui-skeleton" *ngIf="!uqj"></div>
+            <div *ngIf="!uqj" class="question-skeleton tui-skeleton"></div>
         </div>
     </div>
-    <app-sidebar sidebarId="questionSidebar" position="right" size="l">
+    <app-sidebar position="right" sidebarId="questionSidebar" size="l">
         <ng-container *ngIf="user?.is_teacher && uqj">
             <app-variable-view
-                [variables]="uqj.variables"
                 [variableErrors]="uqj.variables_errors"
+                [variables]="uqj.variables"
             ></app-variable-view>
         </ng-container>
         <ng-container *ngIf="previousSubmissions">

@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Course, STATUS} from '@app/_models';
-import {CourseService} from '@app/course/_services/course.service';
+import {Component, OnInit} from '@angular/core'
+import {Course, STATUS} from '@app/_models'
+import {CourseService} from '@app/course/_services/course.service'
 
 @Component({
     selector: 'app-inactive-courses',
@@ -8,7 +8,7 @@ import {CourseService} from '@app/course/_services/course.service';
     styleUrls: ['./inactive-courses.component.scss']
 })
 export class InactiveCoursesComponent implements OnInit {
-    inactiveCourses: Course[];
+    inactiveCourses: Course[]
 
     constructor(private courseService: CourseService) {
     }
@@ -18,8 +18,8 @@ export class InactiveCoursesComponent implements OnInit {
             .getCourses(true, {ordering: {name: true}})
             ?.subscribe((courses) => {
                 this.inactiveCourses = courses.filter(course => {
-                    return course.status !== STATUS.active;
-                });
-            });
+                    return course.status !== STATUS.active
+                })
+            })
     }
 }

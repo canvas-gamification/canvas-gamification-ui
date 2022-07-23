@@ -20,8 +20,8 @@
             <h3 class="tui-text_bold tui-text_body-l-2">What went well:</h3>
             <ul class="tui-list">
                 <li
-                    class="tui-list__item"
                     *ngFor="let result of submission?.get_passed_test_results"
+                    class="tui-list__item"
                 >
                     {{ result.name }}
                 </li>
@@ -32,8 +32,8 @@
             <ul class="tui-list">
                 <li
 
-                    class="tui-list__item"
                     *ngFor="let result of submission?.get_failed_test_results"
+                    class="tui-list__item"
                 >
                     {{ result.message }}
                 </li>
@@ -93,11 +93,11 @@
 
 <div class="tui-form__buttons">
     <button
-        tuiButton
+        (click)="closeDialog()"
+        appearance="primary"
         class="tui-form__button"
         size="m"
-        appearance="primary"
-        (click)="closeDialog()"
+        tuiButton
     >
         Close
     </button>

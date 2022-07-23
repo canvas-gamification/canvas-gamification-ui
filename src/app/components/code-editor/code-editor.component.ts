@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
-import {basicSetup, EditorState} from '@codemirror/basic-setup';
-import {java} from '@codemirror/lang-java';
-import {EditorView, keymap, ViewUpdate} from '@codemirror/view';
-import {indentWithTab} from '@codemirror/commands';
-import {oneDark} from "@codemirror/theme-one-dark";
-import {indentUnit} from "@codemirror/language";
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core'
+import {basicSetup, EditorState} from '@codemirror/basic-setup'
+import {java} from '@codemirror/lang-java'
+import {EditorView, keymap, ViewUpdate} from '@codemirror/view'
+import {indentWithTab} from '@codemirror/commands'
+import {oneDark} from "@codemirror/theme-one-dark"
+import {indentUnit} from "@codemirror/language"
 
 @Component({
     selector: 'app-code-editor',
@@ -13,16 +13,16 @@ import {indentUnit} from "@codemirror/language";
 })
 export class CodeEditorComponent implements AfterViewInit {
 
-    @Input() codeTemplate: string;
-    @Output() readonly codeTemplateChange = new EventEmitter<string>();
+    @Input() codeTemplate: string
+    @Output() readonly codeTemplateChange = new EventEmitter<string>()
 
-    @Input() showHelp = true;
-    @Input() fixedHeight: string;
+    @Input() showHelp = true
+    @Input() fixedHeight: string
 
-    @Input() readOnly = false;
+    @Input() readOnly = false
 
-    @ViewChild('codeEditor') codeEditorElement: ElementRef;
-    editor: EditorView;
+    @ViewChild('codeEditor') codeEditorElement: ElementRef
+    editor: EditorView
 
     ngAfterViewInit(): void {
         const maxHeightEditor = EditorView.theme({
@@ -30,13 +30,13 @@ export class CodeEditorComponent implements AfterViewInit {
             '.cm-scroller': {
                 overflow: 'auto'
             }
-        });
+        })
         const fixedHeightEditor = EditorView.theme({
             '&': {height: this.fixedHeight},
             '.cm-scroller': {
                 overflow: 'auto'
             }
-        });
+        })
 
         this.editor = new EditorView({
             state: EditorState.create({
@@ -49,12 +49,12 @@ export class CodeEditorComponent implements AfterViewInit {
                     java(),
                     this.fixedHeight ? fixedHeightEditor : maxHeightEditor,
                     EditorView.updateListener.of((update: ViewUpdate) => {
-                        this.codeTemplateChange.emit(update.state?.doc?.toJSON()?.join('\n'));
+                        this.codeTemplateChange.emit(update.state?.doc?.toJSON()?.join('\n'))
                     }),
                     EditorState.readOnly.of(this.readOnly)
                 ]
             }),
             parent: this.codeEditorElement.nativeElement
-        });
+        })
     }
 }

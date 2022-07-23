@@ -1,43 +1,43 @@
 <tui-hosted-dropdown
     #hostedDropdown
-    tuiDropdownAlign="left"
     [content]="katexDropdown"
+    tuiDropdownAlign="left"
 >
     <button
-        tuiIconButton
-        type="button"
-        size="s"
-        icon="tuiIconTeXLarge"
+        [focusable]="hostedDropdown.open"
+        [pseudoPressed]="hostedDropdown.open"
         appearance="icon"
         class="tool-button"
-        [pseudoPressed]="hostedDropdown.open"
-        [focusable]="hostedDropdown.open"
+        icon="tuiIconTeXLarge"
+        size="s"
+        tuiIconButton
+        type="button"
     ></button>
 </tui-hosted-dropdown>
 
 <ng-template #katexDropdown let-activeZone>
     <form
-        class="katex-tool"
-        [tuiActiveZoneParent]="activeZone"
         (submit)="insertKatex()"
+        [tuiActiveZoneParent]="activeZone"
+        class="katex-tool"
     >
         <div class="katex-tool_input">
             <tui-input
-                class="katex-tool_input-text"
-                [ngModel]="equation"
                 (ngModelChange)="equation = $event; displayKatex()"
                 [ngModelOptions]="{standalone: true}"
+                [ngModel]="equation"
+                class="katex-tool_input-text"
             >
                 Type an equation
                 <input tuiTextfield/>
             </tui-input>
             <button
-                tuiIconButton
-                icon="tuiIconCheckCircleLarge"
-                type="submit"
                 appearance="icon"
-                size="s"
                 class="tui-space_left-2"
+                icon="tuiIconCheckCircleLarge"
+                size="s"
+                tuiIconButton
+                type="submit"
             ></button>
         </div>
         <div>

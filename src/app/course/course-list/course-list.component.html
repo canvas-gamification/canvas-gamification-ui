@@ -1,18 +1,19 @@
 <section class="tui-container tui-container_fullwidth">
     <h1 class="tui-text_h3 tui-space_vertical-10">Course List</h1>
     <tui-input
-        class="tui-space_bottom-4"
-        icon="tuiIconSearchLarge"
-        aria-label="Search Courses"
         [(ngModel)]="courseNameSearch"
         [tuiTextfieldCleaner]="true"
+        aria-label="Search Courses"
+        class="tui-space_bottom-4"
+        icon="tuiIconSearchLarge"
     >
         Search Courses
     </tui-input>
     <div class="course-islands">
         <ng-container *ngIf="allCourses else skeletons">
             <ng-container *ngFor="let course of allCourses | tuiFilter : matchCourseName: courseNameSearch">
-                <app-course-island [course]="course" [hasViewPermission]="user | userHasCourseViewPermissions: course"></app-course-island>
+                <app-course-island [course]="course"
+                                   [hasViewPermission]="user | userHasCourseViewPermissions: course"></app-course-island>
             </ng-container>
         </ng-container>
         <ng-template #skeletons>

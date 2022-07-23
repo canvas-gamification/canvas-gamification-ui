@@ -1,9 +1,9 @@
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {User} from "@app/_models";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
+import {User} from "@app/_models"
 
 export class ConsentForm {
     static createAdminForm(user: User): FormGroup {
-        const builder = new FormBuilder();
+        const builder = new FormBuilder()
         return builder.group({
             consent: true,
             access_submitted_course_work: false,
@@ -12,11 +12,11 @@ export class ConsentForm {
             legal_last_name: new FormControl(user?.last_name, [Validators.required]),
             student_number: new FormControl('', [Validators.required]),
             date: new FormControl(new Date().toDateString(), [Validators.required])
-        });
+        })
     }
 
     static createStudentForm(user: User): FormGroup {
-        const builder = new FormBuilder();
+        const builder = new FormBuilder()
         return builder.group({
             consent: true,
             access_submitted_course_work: new FormControl(false),
@@ -25,11 +25,11 @@ export class ConsentForm {
             legal_last_name: new FormControl(user?.last_name, [Validators.required]),
             student_number: new FormControl('', [Validators.required]),
             date: new FormControl(new Date().toDateString(), [Validators.required])
-        });
+        })
     }
 
     static extractData(form: FormGroup): ConsentFormData {
-        return form.value;
+        return form.value
     }
 }
 

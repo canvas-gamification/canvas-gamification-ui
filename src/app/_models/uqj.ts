@@ -1,4 +1,4 @@
-import {Category, Question} from '@app/_models';
+import {Category, Question} from '@app/_models'
 
 
 export interface UQJ {
