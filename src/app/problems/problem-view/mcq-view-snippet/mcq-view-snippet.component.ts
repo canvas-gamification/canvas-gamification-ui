@@ -19,10 +19,12 @@ export class McqViewSnippetComponent implements OnChanges {
     checkboxAnswers: string[]
     waitingSubmission = false
 
-    constructor(private submissionService: SubmissionService,
-                private formBuilder: FormBuilder,
-                private sanitizer: DomSanitizer,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private submissionService: SubmissionService,
+        private formBuilder: FormBuilder,
+        private sanitizer: DomSanitizer,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     /**

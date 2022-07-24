@@ -45,10 +45,12 @@ export class CourseRegisterComponent implements OnInit {
         mask: [/\d/, /\d/]
     }
 
-    constructor(private route: ActivatedRoute,
-                private courseService: CourseService,
-                private changeDetector: ChangeDetectorRef,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private route: ActivatedRoute,
+        private courseService: CourseService,
+        private changeDetector: ChangeDetectorRef,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
         this.courseId = this.route.snapshot.params.courseId
         this.needsStudentNumber = false
         this.loadingContent = false
@@ -80,17 +82,15 @@ export class CourseRegisterComponent implements OnInit {
      * Retrieve the current user's registration status for the current course
      */
     getRegistrationStatus(): void {
-        this.courseService.getCourseRegistrationStatus(this.courseId).subscribe(
-            courseRegistrationStatus => {
-                this.attemptsRemaining = courseRegistrationStatus?.attempts_remaining
-                if (courseRegistrationStatus.status === REGISTRATION_STATUS.BLOCKED) {
-                    this.blocked = true
-                }
-                if (courseRegistrationStatus.status === REGISTRATION_STATUS.REGISTERED) {
-                    this.registered = true
-                }
+        this.courseService.getCourseRegistrationStatus(this.courseId).subscribe(courseRegistrationStatus => {
+            this.attemptsRemaining = courseRegistrationStatus?.attempts_remaining
+            if (courseRegistrationStatus.status === REGISTRATION_STATUS.BLOCKED) {
+                this.blocked = true
             }
-        )
+            if (courseRegistrationStatus.status === REGISTRATION_STATUS.REGISTERED) {
+                this.registered = true
+            }
+        })
     }
 
     /**
@@ -130,16 +130,14 @@ export class CourseRegisterComponent implements OnInit {
      * @param data
      */
     registerAndUpdateStepper(data: CourseRegistrationRequest): void {
-        this.courseService.register(this.courseId, data).subscribe(
-            courseRegResponse => {
-                if (courseRegResponse.bad_request) {
-                    this.sendErrorMessage()
-                } else {
-                    this.setStepperStatusFromRegistration(courseRegResponse)
-                }
-                this.cleanUpLoadingContent()
+        this.courseService.register(this.courseId, data).subscribe(courseRegResponse => {
+            if (courseRegResponse.bad_request) {
+                this.sendErrorMessage()
+            } else {
+                this.setStepperStatusFromRegistration(courseRegResponse)
             }
-        )
+            this.cleanUpLoadingContent()
+        })
     }
 
     /**
@@ -147,16 +145,14 @@ export class CourseRegisterComponent implements OnInit {
      * @param data
      */
     verifyRegistrationAndUpdateStepper(data: CourseRegistrationRequest): void {
-        this.courseService.registerVerify(this.courseId, data).subscribe(
-            courseRegResponse => {
-                if (courseRegResponse.bad_request) {
-                    this.sendErrorMessage()
-                } else {
-                    this.setStepperStatusFromRegistration(courseRegResponse)
-                }
-                this.cleanUpLoadingContent()
+        this.courseService.registerVerify(this.courseId, data).subscribe(courseRegResponse => {
+            if (courseRegResponse.bad_request) {
+                this.sendErrorMessage()
+            } else {
+                this.setStepperStatusFromRegistration(courseRegResponse)
             }
-        )
+            this.cleanUpLoadingContent()
+        })
     }
 
     /**

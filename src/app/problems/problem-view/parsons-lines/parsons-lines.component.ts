@@ -34,39 +34,31 @@ export class ParsonsLinesComponent implements OnInit, OnDestroy {
         })
 
         if (this.testABNew) {
-            this.subscriptions.add(
-                this.dragulaService.dragend().subscribe(() => {
-                    this.calculateSourceCode();
-                    [...this.elementRef.nativeElement.getElementsByClassName('container-nested')].forEach(element => {
-                        element.classList.remove('container-nested_hover')
-                    })
+            this.subscriptions.add(this.dragulaService.dragend().subscribe(() => {
+                this.calculateSourceCode();
+                [...this.elementRef.nativeElement.getElementsByClassName('container-nested')].forEach(element => {
+                    element.classList.remove('container-nested_hover')
                 })
-            )
-            this.subscriptions.add(
-                this.dragulaService.drag().subscribe(() => {
-                    [...this.elementRef.nativeElement.getElementsByClassName('container-nested')].forEach(element => {
-                        element.classList.add('container-nested_hover')
-                    })
+            }))
+            this.subscriptions.add(this.dragulaService.drag().subscribe(() => {
+                [...this.elementRef.nativeElement.getElementsByClassName('container-nested')].forEach(element => {
+                    element.classList.add('container-nested_hover')
                 })
-            )
+            }))
             // These two subscriptions are used as a workaround to stop nested dragula arrays
             // from giving an error with "Node.insertBefore: The new child is an ancestor of the parent"
-            this.subscriptions.add(
-                this.dragulaService.over().subscribe(({el}) => {
-                    if (el.classList.contains('gu-transit')) {
-                        el.querySelectorAll('.container').forEach(child => {
-                            child.classList.add('remove-container-events')
-                        })
-                    }
-                })
-            )
-            this.subscriptions.add(
-                this.dragulaService.dragend().subscribe(({el}) => {
+            this.subscriptions.add(this.dragulaService.over().subscribe(({el}) => {
+                if (el.classList.contains('gu-transit')) {
                     el.querySelectorAll('.container').forEach(child => {
-                        child.classList.remove('remove-container-events')
+                        child.classList.add('remove-container-events')
                     })
+                }
+            }))
+            this.subscriptions.add(this.dragulaService.dragend().subscribe(({el}) => {
+                el.querySelectorAll('.container').forEach(child => {
+                    child.classList.remove('remove-container-events')
                 })
-            )
+            }))
         } else {
             this.removeLeftContainerIndents()
             this.dragulaService.dragend().subscribe(() => {

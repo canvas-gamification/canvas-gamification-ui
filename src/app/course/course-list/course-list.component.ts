@@ -15,9 +15,11 @@ export class CourseListComponent implements OnInit {
     user: User
     courseNameSearch = ''
 
-    constructor(private authenticationService: AuthenticationService,
-                private route: ActivatedRoute,
-                private courseService: CourseService,) {
+    constructor(
+        private authenticationService: AuthenticationService,
+        private route: ActivatedRoute,
+        private courseService: CourseService,
+    ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 

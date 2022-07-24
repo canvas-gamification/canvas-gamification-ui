@@ -13,8 +13,10 @@ export class FaqAccordionComponent implements OnInit {
     faqs: ReadonlyArray<FAQ>
     @Input() showTopX: number
 
-    constructor(private faqService: FaqService,
-                private sanitizer: DomSanitizer) {
+    constructor(
+        private faqService: FaqService,
+        private sanitizer: DomSanitizer
+    ) {
     }
 
     readonly topX = (faq: FAQ): boolean => this.showTopX ? this.faqs.indexOf(faq) < this.showTopX : true

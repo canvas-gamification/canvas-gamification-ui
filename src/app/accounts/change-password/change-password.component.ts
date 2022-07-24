@@ -14,10 +14,12 @@ export class ChangePasswordComponent implements OnInit {
     formGroup: FormGroup
     logoPath = 'assets/global/logo.jpg'
 
-    constructor(private builder: FormBuilder,
-                private password: ChangePasswordService,
-                private router: Router,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private builder: FormBuilder,
+        private password: ChangePasswordService,
+        private router: Router,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     get form(): { [p: string]: AbstractControl } {

@@ -22,9 +22,7 @@ export class CourseEventForm {
             type: new FormControl('', [Validators.required]),
             countForTokens: new FormControl(false, [Validators.required]),
             startEndDatePicker: new FormControl(
-                new TuiDayRange(
-                    TuiDay.currentLocal(), TuiDay.currentLocal().append({day: 7})
-                ),
+                new TuiDayRange(TuiDay.currentLocal(), TuiDay.currentLocal().append({day: 7})),
                 [Validators.required]
             ),
             startTimePicker: new FormControl(TuiTime.currentLocal(), [Validators.required]),
@@ -43,9 +41,7 @@ export class CourseEventForm {
             type: new FormControl(event.type, [Validators.required]),
             countForTokens: new FormControl(event.count_for_tokens, [Validators.required]),
             startEndDatePicker: new FormControl(
-                new TuiDayRange(
-                    TuiDay.fromLocalNativeDate(new Date(event.start_date)), TuiDay.fromLocalNativeDate(new Date(event.end_date))
-                ),
+                new TuiDayRange(TuiDay.fromLocalNativeDate(new Date(event.start_date)), TuiDay.fromLocalNativeDate(new Date(event.end_date))),
                 [Validators.required]
             ),
             startTimePicker: new FormControl(TuiTime.fromLocalNativeDate(new Date(event.start_date)), [Validators.required]),

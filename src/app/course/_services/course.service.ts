@@ -17,7 +17,8 @@ import {ApiService} from "@app/_services/api.service"
 export class CourseService {
     constructor(
         private http: HttpClient,
-        private apiService: ApiService) {
+        private apiService: ApiService
+    ) {
     }
 
     // TODO: Fix this when refactoring the concept-map
@@ -109,11 +110,7 @@ export class CourseService {
 
         return this.http
             .get<Course[]>(url, {params})
-            .pipe(
-                catchError(
-                    this.apiService.handleError<Course[]>('Unable to load courses.', [])
-                )
-            )
+            .pipe(catchError(this.apiService.handleError<Course[]>('Unable to load courses.', [])))
     }
 
 

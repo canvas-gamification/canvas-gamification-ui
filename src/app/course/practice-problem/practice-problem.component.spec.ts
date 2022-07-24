@@ -76,13 +76,12 @@ describe('PracticeProblemComponent', () => {
 
     beforeEach(() => {
         mockUqjService = TestBed.inject(UqjService)
-        spyOn(mockUqjService, 'getUQJQuestionIds').and.returnValue(
-            of([
-                MOCK_UQJ_5.question.id,
-                MOCK_UQJ_6.question.id,
-                MOCK_UQJ_7.question.id,
-                MOCK_UQJ_8.question.id
-            ]))
+        spyOn(mockUqjService, 'getUQJQuestionIds').and.returnValue(of([
+            MOCK_UQJ_5.question.id,
+            MOCK_UQJ_6.question.id,
+            MOCK_UQJ_7.question.id,
+            MOCK_UQJ_8.question.id
+        ]))
         fixture = TestBed.createComponent(PracticeProblemComponent)
         component = fixture.componentInstance
         fixture.detectChanges()

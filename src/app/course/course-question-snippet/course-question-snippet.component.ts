@@ -21,12 +21,14 @@ export class CourseQuestionSnippetComponent implements OnInit {
     eventId: number
     courseId: number
 
-    constructor(private authenticationService: AuthenticationService,
-                private router: Router,
-                private route: ActivatedRoute,
-                private uqjService: UqjService,
-                private courseEventService: CourseEventService,
-                private courseService: CourseService) {
+    constructor(
+        private authenticationService: AuthenticationService,
+        private router: Router,
+        private route: ActivatedRoute,
+        private uqjService: UqjService,
+        private courseEventService: CourseEventService,
+        private courseService: CourseService
+    ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 

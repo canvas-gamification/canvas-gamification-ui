@@ -22,10 +22,19 @@
                 "guard-for-in": "off",
                 "indent": [
                     "error",
-                    4
+                    4,
+                    {
+                        "FunctionExpression": {
+                            "parameters": "first",
+                            "body": 1
+                        }
+                    }
                 ],
                 "semi": "off",
-                "@typescript-eslint/semi": ["error", "never"],
+                "@typescript-eslint/semi": [
+                    "error",
+                    "never"
+                ],
                 "camelcase": "off",
                 "@typescript-eslint/no-unused-vars": [
                     "error",
@@ -71,7 +80,18 @@
                     }
                 ],
                 "brace-style": "off",
-                "@typescript-eslint/brace-style": ["error", "1tbs"]
+                "@typescript-eslint/brace-style": [
+                    "error",
+                    "1tbs"
+                ],
+                "object-curly-spacing": [
+                    "error",
+                    "never"
+                ],
+                "function-paren-newline": [
+                    "error",
+                    "multiline"
+                ]
             }
         },
         {

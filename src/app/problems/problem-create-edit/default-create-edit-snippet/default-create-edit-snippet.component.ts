@@ -21,9 +21,11 @@ export class DefaultCreateEditSnippetComponent implements OnInit {
     events: CourseEvent[]
     isPractice = false
 
-    constructor(private courseService: CourseService,
-                private categoryService: CategoryService,
-                private difficultyService: DifficultyService) {
+    constructor(
+        private courseService: CourseService,
+        private categoryService: CategoryService,
+        private difficultyService: DifficultyService
+    ) {
     }
 
     get form(): { [p: string]: AbstractControl } {

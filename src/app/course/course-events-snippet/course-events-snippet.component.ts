@@ -19,10 +19,12 @@ export class CourseEventsSnippetComponent implements OnInit {
     courseEvents: CourseEvent[]
     @ViewChild('importDialog') importDialog: PolymorpheusContent<TuiDialogContext>
 
-    constructor(private authenticationService: AuthenticationService,
-                private courseEventService: CourseEventService,
-                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private authenticationService: AuthenticationService,
+        private courseEventService: CourseEventService,
+        @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     ngOnInit(): void {

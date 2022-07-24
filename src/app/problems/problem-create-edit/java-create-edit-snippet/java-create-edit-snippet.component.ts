@@ -15,9 +15,11 @@ export class JavaCreateEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question
     formGroup: FormGroup
 
-    constructor(private questionService: QuestionService,
-                private router: Router,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private questionService: QuestionService,
+        private router: Router,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     /**

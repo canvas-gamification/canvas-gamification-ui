@@ -14,8 +14,10 @@ export class ParsonsViewSnippetComponent implements OnChanges {
     files: (ParsonsFile & { solution: string })[]
     waitingSubmission = false
 
-    constructor(private submissionService: SubmissionService,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private submissionService: SubmissionService,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     ngOnChanges(): void {

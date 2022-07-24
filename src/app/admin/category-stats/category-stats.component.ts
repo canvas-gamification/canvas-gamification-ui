@@ -13,9 +13,11 @@ export class CategoryStatsComponent implements OnInit, AfterContentInit {
     categoryStatsData!: NestedCategories[]
     categoryStatsDataHeader!: string[]
 
-    constructor(private categoryStatsService: CategoryStatsService,
-                private changeDetector: ChangeDetectorRef,
-                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService) {
+    constructor(
+        private categoryStatsService: CategoryStatsService,
+        private changeDetector: ChangeDetectorRef,
+        @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
+    ) {
     }
 
     ngOnInit(): void {

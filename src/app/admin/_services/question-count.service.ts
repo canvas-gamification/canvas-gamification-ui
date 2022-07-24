@@ -10,8 +10,10 @@ import {catchError} from "rxjs/operators"
 })
 export class QuestionCountService {
 
-    constructor(private http: HttpClient,
-                private apiService: ApiService) {
+    constructor(
+        private http: HttpClient,
+        private apiService: ApiService
+    ) {
     }
 
     getQuestionCount(): Observable<QuestionCount[]> {

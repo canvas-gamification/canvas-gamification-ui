@@ -31,8 +31,7 @@ export class TokenValuesService {
 
     updateTokenValue(tokenValue: TokenValue): Observable<TokenValue> {
         const url = this.apiService.getURL('token-values', tokenValue.pk)
-        return this.http.put<TokenValue>(url, tokenValue).pipe(
-            catchError(this.apiService.handleError<TokenValue>('Error occurred while updating token value')))
+        return this.http.put<TokenValue>(url, tokenValue).pipe(catchError(this.apiService.handleError<TokenValue>('Error occurred while updating token value')))
     }
 
     updateBulk(data: { id: number, value: number }[]): Observable<unknown> {

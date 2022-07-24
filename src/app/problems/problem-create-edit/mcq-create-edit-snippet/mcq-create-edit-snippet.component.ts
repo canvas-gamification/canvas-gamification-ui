@@ -17,10 +17,12 @@ export class McqCreateEditSnippetComponent implements OnInit {
     @Input() isCheckbox: boolean
     formGroup: FormGroup
 
-    constructor(private questionService: QuestionService,
-                private router: Router,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
-                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService) {
+    constructor(
+        private questionService: QuestionService,
+        private router: Router,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
+    ) {
     }
 
     /**

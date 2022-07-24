@@ -22,10 +22,12 @@ export class TokenUseSnippetComponent implements OnInit {
     invalid: boolean
     remainingTokens: number
 
-    constructor(private tokenUseService: TokenUseService,
-                private route: ActivatedRoute,
-                private authenticationService: AuthenticationService,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private tokenUseService: TokenUseService,
+        private route: ActivatedRoute,
+        private authenticationService: AuthenticationService,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 

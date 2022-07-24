@@ -20,7 +20,8 @@ export class TokenValuesComponent implements OnInit {
         private tokenValueService: TokenValuesService,
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     ngOnInit(): void {

@@ -44,8 +44,10 @@ export class UserActionsComponent implements OnInit, AfterContentChecked {
     paramChanged: Subject<ActionsSortParameters> = new Subject<ActionsSortParameters>()
     loadingTable = false
 
-    constructor(private userActionService: UserActionsService,
-                private changeDetector: ChangeDetectorRef) {
+    constructor(
+        private userActionService: UserActionsService,
+        private changeDetector: ChangeDetectorRef
+    ) {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.userActionService.getUserActions(options).subscribe(paginatedActions => {
                 this.userActions = paginatedActions.results

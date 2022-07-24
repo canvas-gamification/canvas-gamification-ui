@@ -11,9 +11,7 @@ import {Question} from "@app/_models"
 export class RecentViewedQuestionsComponent implements OnInit {
     uqjs: UQJ[]
 
-    constructor(
-        private uqjService: UqjService,
-    ) {
+    constructor(private uqjService: UqjService,) {
     }
 
     ngOnInit(): void {

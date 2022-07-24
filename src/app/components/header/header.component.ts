@@ -16,9 +16,11 @@ export class HeaderComponent {
     openUserActions = false
     openSidebar = false
 
-    constructor(private authenticationService: AuthenticationService,
-                private router: Router,
-                private route: ActivatedRoute) {
+    constructor(
+        private authenticationService: AuthenticationService,
+        private router: Router,
+        private route: ActivatedRoute
+    ) {
         this.authenticationService.currentUser.subscribe(user => {
             this.user = user
         })

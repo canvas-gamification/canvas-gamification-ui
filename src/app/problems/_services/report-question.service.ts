@@ -19,9 +19,7 @@ export class ReportQuestionService {
             ...input,
             question: questionId,
         })
-            .pipe(catchError(this.apiService.handleError<HttpHeaderResponse>(
-                'Error occurred while submitting the question report.'
-            )))
+            .pipe(catchError(this.apiService.handleError<HttpHeaderResponse>('Error occurred while submitting the question report.')))
     }
 
 }

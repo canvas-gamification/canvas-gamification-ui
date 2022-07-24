@@ -14,10 +14,12 @@ export class ActivationEmailComponent implements OnInit {
     token: string
     private routeSub: Subscription
 
-    constructor(private route: ActivatedRoute,
-                private registerService: RegisterService,
-                private router: Router,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private route: ActivatedRoute,
+        private registerService: RegisterService,
+        private router: Router,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     ngOnInit(): void {

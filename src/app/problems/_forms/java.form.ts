@@ -18,8 +18,7 @@ export class JavaForm {
             junit_template: new FormControl(null, [Validators.required]),
             input_files: new FormControl([], [Validators.required]),
             variables: new FormControl([])
-        }, [fieldExistsIfOtherExistsValidator('event', 'course')]
-        )
+        }, [fieldExistsIfOtherExistsValidator('event', 'course')])
     }
 
     /**

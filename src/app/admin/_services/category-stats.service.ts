@@ -10,8 +10,10 @@ import {ApiService} from "@app/_services/api.service"
 })
 export class CategoryStatsService {
 
-    constructor(private http: HttpClient,
-                private apiService: ApiService) {
+    constructor(
+        private http: HttpClient,
+        private apiService: ApiService
+    ) {
     }
 
     getCategoryStats(): Observable<NestedCategories[]> {

@@ -35,19 +35,22 @@
         </p>
         <div class="tui-form__buttons">
             <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
-                <a [routerLink]="['/course', courseId, 'event', event.id]" appearance="primary" class="tui-form__button" size="m"
+                <a [routerLink]="['/course', courseId, 'event', event.id]" appearance="primary" class="tui-form__button"
+                   size="m"
                    tuiButton
                 >
                     {{ user.is_teacher ? 'Open' : 'Complete' }}
                 </a>
             </ng-container>
             <ng-template #notAllowedOpen>
-                <a [disabled]="true" appearance="primary" aria-label="Complete" class="tui-form__button" href="" size="m"
+                <a [disabled]="true" appearance="primary" aria-label="Complete" class="tui-form__button" href=""
+                   size="m"
                    tuiButton>
                     Complete
                 </a>
             </ng-template>
-            <a *ngIf="event.has_edit_permission" [routerLink]="['/course', courseId, 'new-event', event.id]" appearance="primary" aria-label="Edit" class="tui-form__button"
+            <a *ngIf="event.has_edit_permission" [routerLink]="['/course', courseId, 'new-event', event.id]"
+               appearance="primary" aria-label="Edit" class="tui-form__button"
                size="m"
                tuiButton
             >

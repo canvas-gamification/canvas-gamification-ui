@@ -73,13 +73,15 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
     subCategories: Category[]
     difficulties: Difficulty[]
 
-    constructor(private builder: FormBuilder,
-                private questionService: QuestionService,
-                private categoryService: CategoryService,
-                private difficultyService: DifficultyService,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
-                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
-                private changeDetector: ChangeDetectorRef) {
+    constructor(
+        private builder: FormBuilder,
+        private questionService: QuestionService,
+        private categoryService: CategoryService,
+        private difficultyService: DifficultyService,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
+        private changeDetector: ChangeDetectorRef
+    ) {
         this.paramChanged.pipe(debounceTime(300), distinctUntilChanged()).subscribe(options => {
             this.questionService.getQuestions(options).subscribe(paginatedQuestions => {
                 this.questions = paginatedQuestions.results.map(questions => {

@@ -18,8 +18,10 @@ export class RegisterComponent implements OnInit {
     isLoading = false
     logoPath = 'assets/global/logo.jpg'
 
-    constructor(private register: RegisterService,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private register: RegisterService,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     get form(): { [p: string]: AbstractControl } {
@@ -33,17 +35,19 @@ export class RegisterComponent implements OnInit {
     onSubmit(): void {
         const data = RegisterForm.extractData(this.formGroup)
         this.isLoading = true
-        this.register.postRegistration(data).subscribe(() => {
-            this.formGroup.reset()
-            this.notificationsService
-                .show('You have successfully registered.', {
-                    status: TuiNotification.Success
-                }).subscribe()
-            this.formSubmitted = true
-            this.isLoading = false
-        },
-        () => {
-            this.isLoading = false
-        })
+        this.register.postRegistration(data).subscribe(
+            () => {
+                this.formGroup.reset()
+                this.notificationsService
+                    .show('You have successfully registered.', {
+                        status: TuiNotification.Success
+                    }).subscribe()
+                this.formSubmitted = true
+                this.isLoading = false
+            },
+            () => {
+                this.isLoading = false
+            }
+        )
     }
 }

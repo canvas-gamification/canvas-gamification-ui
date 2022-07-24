@@ -32,6 +32,7 @@ export class ProfileDetailsService {
                     redirect404: true,
                     redirect403: true,
                     showMessage: true,
-                })))
+                }
+            )))
     }
 }

@@ -14,9 +14,11 @@ export class CourseComponent implements OnInit {
     courseId: number
     user: User
 
-    constructor(private authenticationService: AuthenticationService,
-                private courseService: CourseService,
-                private route: ActivatedRoute) {
+    constructor(
+        private authenticationService: AuthenticationService,
+        private courseService: CourseService,
+        private route: ActivatedRoute
+    ) {
         this.courseId = this.route.snapshot.params.courseId
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }

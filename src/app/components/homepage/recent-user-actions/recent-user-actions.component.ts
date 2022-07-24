@@ -13,7 +13,8 @@ export class RecentUserActionsComponent implements OnInit {
 
     constructor(
         private userActionService: UserActionsService,
-        private sanitizer: DomSanitizer) {
+        private sanitizer: DomSanitizer
+    ) {
     }
 
     ngOnInit(): void {

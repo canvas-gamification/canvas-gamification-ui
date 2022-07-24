@@ -20,13 +20,15 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
     userDetails: User
     userId: number
 
-    constructor(private router: Router,
-                private profile: ProfileDetailsService,
-                private consentService: ConsentService,
-                private authenticationService: AuthenticationService,
-                private changeDetector: ChangeDetectorRef,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
-                @Inject(TuiDialogService) private readonly dialogService: TuiDialogService) {
+    constructor(
+        private router: Router,
+        private profile: ProfileDetailsService,
+        private consentService: ConsentService,
+        private authenticationService: AuthenticationService,
+        private changeDetector: ChangeDetectorRef,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
+    ) {
         this.userId = this.authenticationService.currentUserValue?.id
     }
 

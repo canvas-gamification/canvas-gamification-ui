@@ -19,13 +19,15 @@ export class UserStatsComponent implements OnInit {
     courseId: number
     userSuccessRate: number
 
-    constructor(private route: ActivatedRoute,
-                private userStatsService: UserStatsService,
-                private courseService: CourseService,
-                private categoryService: CategoryService,
-                private changeDetector: ChangeDetectorRef,
-                private router: Router,
-                @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<number, number>) {
+    constructor(
+        private route: ActivatedRoute,
+        private userStatsService: UserStatsService,
+        private courseService: CourseService,
+        private categoryService: CategoryService,
+        private changeDetector: ChangeDetectorRef,
+        private router: Router,
+        @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<number, number>
+    ) {
         this.categoryId = this.context.data[0]
         this.courseId = this.context.data[1]
     }

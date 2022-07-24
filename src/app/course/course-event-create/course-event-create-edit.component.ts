@@ -19,10 +19,12 @@ export class CourseEventCreateEditComponent implements OnInit {
     formData: FormGroup
     timeOptions = tuiCreateTimePeriods()
 
-    constructor(private route: ActivatedRoute,
-                private courseEventService: CourseEventService,
-                private router: Router,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private route: ActivatedRoute,
+        private courseEventService: CourseEventService,
+        private router: Router,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     get form(): { [p: string]: AbstractControl } {
@@ -36,11 +38,9 @@ export class CourseEventCreateEditComponent implements OnInit {
         this.courseId = +this.route.snapshot.paramMap.get('courseId')
         if (this.route.snapshot.paramMap.get('eventId')) {
             this.eventId = +this.route.snapshot.paramMap.get('eventId')
-            this.courseEventService.getCourseEvent(this.eventId).subscribe(
-                event => {
-                    this.formData = CourseEventForm.createFormWithData(event)
-                }
-            )
+            this.courseEventService.getCourseEvent(this.eventId).subscribe(event => {
+                this.formData = CourseEventForm.createFormWithData(event)
+            })
         }
     }
 
@@ -65,20 +65,18 @@ export class CourseEventCreateEditComponent implements OnInit {
                     }).subscribe()
             })
         } else { // Creating a brand new event
-            this.courseEventService.addCourseEvent(ourEvent).subscribe(
-                () => {
-                    this.notificationsService
-                        .show('The Event has been added Successfully.', {
-                            status: TuiNotification.Success
-                        })
-                    this.router.navigate(['course', this.courseId]).then()
-                }, error => {
-                    this.notificationsService
-                        .show(error, {
-                            status: TuiNotification.Error
-                        }).subscribe()
-                }
-            )
+            this.courseEventService.addCourseEvent(ourEvent).subscribe(() => {
+                this.notificationsService
+                    .show('The Event has been added Successfully.', {
+                        status: TuiNotification.Success
+                    })
+                this.router.navigate(['course', this.courseId]).then()
+            }, error => {
+                this.notificationsService
+                    .show(error, {
+                        status: TuiNotification.Error
+                    }).subscribe()
+            })
         }
     }
 }

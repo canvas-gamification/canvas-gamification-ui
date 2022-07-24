@@ -12,7 +12,8 @@ import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
 export class ApiService {
     constructor(
         private router: Router,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     getURL(...names: (string | number)[]): string {

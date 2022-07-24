@@ -30,18 +30,16 @@ export class ProblemViewComponent implements OnChanges, OnInit, OnDestroy {
 
     initialize(): void {
         const questionId = this.questionId ?? this.route.snapshot.params.id
-        this.subscriptions.add(
-            combineLatest([
-                this.uqjService.getUQJByQuestion(questionId),
-                this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}),
-                this.authenticationService.currentUser,
-            ]).subscribe(([uqj, submissions, user]) => {
-                this.uqj = uqj
-                this.renderedText = this.uqj.rendered_text
-                this.previousSubmissions = submissions
-                this.user = user
-            })
-        )
+        this.subscriptions.add(combineLatest([
+            this.uqjService.getUQJByQuestion(questionId),
+            this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}),
+            this.authenticationService.currentUser,
+        ]).subscribe(([uqj, submissions, user]) => {
+            this.uqj = uqj
+            this.renderedText = this.uqj.rendered_text
+            this.previousSubmissions = submissions
+            this.user = user
+        }))
     }
 
     ngOnInit(): void {

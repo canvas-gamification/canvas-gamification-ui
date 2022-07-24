@@ -16,7 +16,8 @@ export class JavaViewSnippetComponent implements OnChanges {
 
     constructor(
         private submissionService: SubmissionService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     ngOnChanges(): void {

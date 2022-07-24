@@ -17,9 +17,11 @@ export class ConceptMapComponent implements OnInit {
 
     @Input() currCourse: Course
 
-    constructor(private categoryService: CategoryService,
-                private router: Router,
-                @Inject(Injector) private readonly injector: Injector) {
+    constructor(
+        private categoryService: CategoryService,
+        private router: Router,
+        @Inject(Injector) private readonly injector: Injector
+    ) {
     }
 
     ngOnInit(): void {

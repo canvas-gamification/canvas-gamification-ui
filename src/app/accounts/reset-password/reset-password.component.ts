@@ -15,11 +15,13 @@ export class ResetPasswordComponent implements OnInit {
     logoPath = 'assets/global/logo.jpg'
     emailSent = false
 
-    constructor(private builder: FormBuilder,
-                private resetPasswordService: ResetPasswordService,
-                private route: ActivatedRoute,
-                private router: Router,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private builder: FormBuilder,
+        private resetPasswordService: ResetPasswordService,
+        private route: ActivatedRoute,
+        private router: Router,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     get form(): { [p: string]: AbstractControl } {

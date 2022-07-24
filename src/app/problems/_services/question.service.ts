@@ -84,8 +84,7 @@ export class QuestionService {
     putMultipleChoiceQuestion(input: McqFormData, id: number): Observable<HttpResponse<Question>> {
         const url = this.apiService.getURL('multiple-choice-question', id)
         return this.http.put<Question>(url, input, {observe: 'response'})
-            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>(
-                'Error occurred while updating question')))
+            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>('Error occurred while updating question')))
     }
 
     /**
@@ -96,8 +95,7 @@ export class QuestionService {
     putJavaQuestion(input: JavaFormData, id: number): Observable<HttpResponse<Question>> {
         const url = this.apiService.getURL('java-question', id)
         return this.http.put<Question>(url, input, {observe: 'response'})
-            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>(
-                'Error occurred while updating question')))
+            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>('Error occurred while updating question')))
     }
 
     /**
@@ -108,8 +106,7 @@ export class QuestionService {
     putParsonsQuestion(input: ParsonsFormData, id: number): Observable<HttpResponse<Question>> {
         const url = this.apiService.getURL('parsons-question', id)
         return this.http.put<Question>(url, input, {observe: 'response'})
-            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>(
-                'Error occurred while updating question')))
+            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>('Error occurred while updating question')))
     }
 
     /**
@@ -119,8 +116,7 @@ export class QuestionService {
     postMultipleChoiceQuestion(input: McqFormData): Observable<HttpResponse<Question>> {
         const url = this.apiService.getURL('multiple-choice-question')
         return this.http.post<Question>(url, input, {observe: 'response'})
-            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>(
-                'Error occurred while adding question')))
+            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>('Error occurred while adding question')))
     }
 
     /**
@@ -130,8 +126,7 @@ export class QuestionService {
     postJavaQuestion(input: JavaFormData): Observable<HttpResponse<Question>> {
         const url = this.apiService.getURL('java-question')
         return this.http.post<Question>(url, input, {observe: 'response'})
-            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>(
-                'Error occurred while adding question')))
+            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>('Error occurred while adding question')))
     }
 
     /**
@@ -141,7 +136,6 @@ export class QuestionService {
     postParsonsQuestion(input: ParsonsFormData): Observable<HttpResponse<Question>> {
         const url = this.apiService.getURL('parsons-question')
         return this.http.post<Question>(url, input, {observe: 'response'})
-            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>(
-                'Error occurred while adding question')))
+            .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>('Error occurred while adding question')))
     }
 }

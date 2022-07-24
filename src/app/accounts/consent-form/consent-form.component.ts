@@ -18,12 +18,14 @@ export class ConsentFormComponent implements OnInit {
     logoPath = 'assets/global/logo.jpg'
     user: User
 
-    constructor(private router: Router,
-                private route: ActivatedRoute,
-                private builder: FormBuilder,
-                private consentService: ConsentService,
-                private authenticationService: AuthenticationService,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private builder: FormBuilder,
+        private consentService: ConsentService,
+        private authenticationService: AuthenticationService,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
@@ -45,15 +47,13 @@ export class ConsentFormComponent implements OnInit {
 
     onSubmit(): void {
         const data = ConsentForm.extractData(this.formGroup)
-        this.consentService.postConsent(data).subscribe(
-            () => {
-                this.notificationsService
-                    .show('You have successfully consented!', {
-                        status: TuiNotification.Success
-                    }).subscribe()
-                this.redirectToProfile()
-            }
-        )
+        this.consentService.postConsent(data).subscribe(() => {
+            this.notificationsService
+                .show('You have successfully consented!', {
+                    status: TuiNotification.Success
+                }).subscribe()
+            this.redirectToProfile()
+        })
     }
 
     declineConsent(): void {

@@ -48,62 +48,56 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.subscriptions.add(
-            this.categoryService.getCategories().subscribe(categories => {
-                this.categories = categories
-                this.nestedCategories = categories.reduce((previous, category) => {
-                    if (category.parent) return previous
-                    return [...previous, {
-                        category,
-                        children: categories.filter(nestedCategory => nestedCategory.parent === category.pk).map(nestedCategory => {
-                            return {
-                                category: nestedCategory,
-                                children: [],
-                            }
-                        })
-                    }]
-                }, [])
-
-                this.subscriptions.add(
-                    this.route.paramMap.subscribe(paramMap => {
-                        this.courseId = Number.parseInt(paramMap.get('courseId'))
-                        this.categoryId = Number.parseInt(paramMap.get('categoryId'))
-                        this.category = categories.find(category => this.categoryId === category.pk)
-                        this.parentCategory = categories.find(category => this.category.parent === category.pk)
-                        this.cursor = 0
-                        this.uqjs = undefined
-
-                        const userStatsObservable = this.userStatsService.getUserDifficultyStats(this.categoryId)
-                        const uqjObservable = this.uqjService.getUQJQuestionIds({
-                            category: this.parentCategory ? this.categoryId : undefined,
-                            parent_category: this.parentCategory?.pk ?? this.categoryId,
-                            difficulty: this.difficulty,
-                            is_solved: this.include_solved ? undefined : false,
-                            is_verified: true,
-                            is_practice: true
-                        })
-                        const difficultyObservable = this.difficultyService.getDifficulties()
-                        const categoryStatsObservable = this.courseService.getUserStats(this.courseId, this.categoryId)
-
-                        this.subscriptions.add(
-                            forkJoin([
-                                uqjObservable,
-                                difficultyObservable,
-                                userStatsObservable,
-                                categoryStatsObservable
-                            ]).subscribe(([uqjs, difficulties, difficultyStats, userSuccessRate]) => {
-                                this.uqjs = _.shuffle(uqjs)
-                                this.difficulties = difficulties
-                                this.userDifficultyStats = difficultyStats
-                                this.categoryUserSuccessRate = userSuccessRate.success_rate
-                                this.updateCurrentQuestion()
-                                this.calculateUserSuccessRate()
-                            })
-                        )
+        this.subscriptions.add(this.categoryService.getCategories().subscribe(categories => {
+            this.categories = categories
+            this.nestedCategories = categories.reduce((previous, category) => {
+                if (category.parent) return previous
+                return [...previous, {
+                    category,
+                    children: categories.filter(nestedCategory => nestedCategory.parent === category.pk).map(nestedCategory => {
+                        return {
+                            category: nestedCategory,
+                            children: [],
+                        }
                     })
-                )
-            })
-        )
+                }]
+            }, [])
+
+            this.subscriptions.add(this.route.paramMap.subscribe(paramMap => {
+                this.courseId = Number.parseInt(paramMap.get('courseId'))
+                this.categoryId = Number.parseInt(paramMap.get('categoryId'))
+                this.category = categories.find(category => this.categoryId === category.pk)
+                this.parentCategory = categories.find(category => this.category.parent === category.pk)
+                this.cursor = 0
+                this.uqjs = undefined
+
+                const userStatsObservable = this.userStatsService.getUserDifficultyStats(this.categoryId)
+                const uqjObservable = this.uqjService.getUQJQuestionIds({
+                    category: this.parentCategory ? this.categoryId : undefined,
+                    parent_category: this.parentCategory?.pk ?? this.categoryId,
+                    difficulty: this.difficulty,
+                    is_solved: this.include_solved ? undefined : false,
+                    is_verified: true,
+                    is_practice: true
+                })
+                const difficultyObservable = this.difficultyService.getDifficulties()
+                const categoryStatsObservable = this.courseService.getUserStats(this.courseId, this.categoryId)
+
+                this.subscriptions.add(forkJoin([
+                    uqjObservable,
+                    difficultyObservable,
+                    userStatsObservable,
+                    categoryStatsObservable
+                ]).subscribe(([uqjs, difficulties, difficultyStats, userSuccessRate]) => {
+                    this.uqjs = _.shuffle(uqjs)
+                    this.difficulties = difficulties
+                    this.userDifficultyStats = difficultyStats
+                    this.categoryUserSuccessRate = userSuccessRate.success_rate
+                    this.updateCurrentQuestion()
+                    this.calculateUserSuccessRate()
+                }))
+            }))
+        }))
     }
 
     ngOnDestroy(): void {
@@ -143,20 +137,18 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
         this.difficulty = difficultyEvent
         this.include_solved = solvedEvent
         this.cursor = 0
-        this.subscriptions.add(
-            this.uqjService.getUQJQuestionIds({
-                category: this.parentCategory ? this.categoryId : undefined,
-                parent_category: this.parentCategory?.pk ?? this.categoryId,
-                difficulty: this.difficulty,
-                is_solved: solvedEvent ? undefined : false,
-                is_verified: true,
-                is_practice: true
-            }).subscribe((uqjs) => {
-                this.uqjs = _.shuffle(uqjs)
-                this.updateCurrentQuestion()
-                this.calculateUserSuccessRate()
-            })
-        )
+        this.subscriptions.add(this.uqjService.getUQJQuestionIds({
+            category: this.parentCategory ? this.categoryId : undefined,
+            parent_category: this.parentCategory?.pk ?? this.categoryId,
+            difficulty: this.difficulty,
+            is_solved: solvedEvent ? undefined : false,
+            is_verified: true,
+            is_practice: true
+        }).subscribe((uqjs) => {
+            this.uqjs = _.shuffle(uqjs)
+            this.updateCurrentQuestion()
+            this.calculateUserSuccessRate()
+        }))
     }
 
     /**

@@ -19,8 +19,7 @@ export class McqForm {
             visible_distractor_count: new FormControl(null, [Validators.required]),
             choices: new FormArray([], [Validators.required, Validators.minLength(1)]),
             variables: new FormControl([])
-        }, [fieldExistsIfOtherExistsValidator('event', 'course')]
-        )
+        }, [fieldExistsIfOtherExistsValidator('event', 'course')])
     }
 
     /**

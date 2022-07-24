@@ -15,13 +15,15 @@
         <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="tui-space_top-4">
             <ng-container *ngIf="user.is_student">
                 <div class="tui-form__row">
-                    <tui-checkbox-labeled aria-label="Provide Access to Submitted Course Work" formControlName="access_submitted_course_work"
+                    <tui-checkbox-labeled aria-label="Provide Access to Submitted Course Work"
+                                          formControlName="access_submitted_course_work"
                                           size="l">
                         I am willing to provide access to my submitted course work.
                     </tui-checkbox-labeled>
                 </div>
                 <div class="tui-form__row">
-                    <tui-checkbox-labeled aria-label="Provide Access to Course Grades Associated with Submitted Work" formControlName="access_course_grades"
+                    <tui-checkbox-labeled aria-label="Provide Access to Course Grades Associated with Submitted Work"
+                                          formControlName="access_course_grades"
                                           size="l">
                         I am willing to provide access to my course grades associated with the submitted work.
                     </tui-checkbox-labeled>

@@ -13,9 +13,11 @@ export class ContactComponent implements OnInit {
     formData: FormGroup
     siteKey: string = environment.siteKey
 
-    constructor(private builder: FormBuilder,
-                private contact: ContactService,
-                @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService) {
+    constructor(
+        private builder: FormBuilder,
+        private contact: ContactService,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+    ) {
     }
 
     ngOnInit(): void {

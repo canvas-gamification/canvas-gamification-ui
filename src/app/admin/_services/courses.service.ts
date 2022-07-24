@@ -10,8 +10,10 @@ import {catchError} from "rxjs/operators"
 })
 export class CoursesService {
 
-    constructor(private http: HttpClient,
-                private apiService: ApiService) {
+    constructor(
+        private http: HttpClient,
+        private apiService: ApiService
+    ) {
     }
 
     getCourses(): Observable<Course[]> {
