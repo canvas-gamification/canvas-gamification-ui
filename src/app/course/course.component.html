@@ -17,10 +17,11 @@
     </div>
     <tui-tabs-with-more #tabsComponent [class.tui-skeleton]="!course" [moreContent]="more" class="tui-space_bottom-4">
         <button *tuiTab aria-label="Concepts" tuiTab>Concepts</button>
-        <button *tuiTab aria-label="Questions" tuiTab>Questions</button>
-        <button *tuiTab aria-label="Events" tuiTab>Events</button>
-        <button *tuiTab aria-label="Token Use" tuiTab>Token Use</button>
-        <button *tuiTab aria-label="Leaderboard" tuiTab>Leaderboard</button>
+        <!--        disable the question tabs for now. Should only be visible to admins -->
+        <!--        <button *tuiTab aria-label="Questions" tuiTab disabled>Questions</button>-->
+        <button *tuiTab aria-label="Events" tuiTab disabled>Events</button>
+        <button *tuiTab aria-label="Token Use" tuiTab disabled>Token Use</button>
+        <button *tuiTab aria-label="Leaderboard" tuiTab disabled>Leaderboard</button>
     </tui-tabs-with-more>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 0">
         <app-concept-map [currCourse]="course"></app-concept-map>
