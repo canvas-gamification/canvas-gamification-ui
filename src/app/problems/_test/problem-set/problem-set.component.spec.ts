@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing'
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {ProblemSetComponent} from '../../problem-set/problem-set.component'
 import {TestModule} from '@test/test.module'
@@ -22,6 +22,7 @@ import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table"
 import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit"
 import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
 import {Component, ViewChild} from "@angular/core"
+import {MOCK_CATEGORY, MOCK_CATEGORY_2} from "@app/problems/_test/mock"
 
 @Component({
     selector: 'test-app-problem-set-dialog',
@@ -68,19 +69,14 @@ describe('ProblemSetComponent', () => {
         expect(component).toBeTruthy()
     })
 
-    it('should change parent category', () => {
+    it('should change parent category', fakeAsync(() => {
         expect(component.subCategories).toEqual(undefined)
         component.form.parentCategory.setValue(component.parentCategories[0].name)
         expect(component.subCategories.length).toEqual(1)
-    })
+        tick(1)
+    }))
 
-    it('should update', () => {
-        component.update()
-        expect(component.filteringQuestions).toBeTrue()
-        expect(component.paramChanged.next).toHaveBeenCalled()
-    })
-
-    it('should get options', () => {
+    it('should get options', fakeAsync(() => {
         const options = component.getOptions()
         expect(options).toEqual({
             ...component.getFilterQueryString(),
@@ -88,9 +84,10 @@ describe('ProblemSetComponent', () => {
             page_size: component.pageSize,
             ordering: component.getOrdering()
         })
-    })
+        tick(1)
+    }))
 
-    it('should get order', () => {
+    it('should get order', fakeAsync(() => {
         component.sorter = component.sorters['id']
         component.sortDirection = 1
         expect(component.getOrdering()).toEqual('id')
@@ -100,27 +97,31 @@ describe('ProblemSetComponent', () => {
         component.sorter = component.sorters['author_name']
         component.sortDirection = 1
         expect(component.getOrdering()).toEqual('author')
-    })
+        tick(1)
+    }))
 
-    it('should get filter', () => {
+    it('should get filter', fakeAsync(() => {
         component.formGroup.controls['search'].setValue('')
         component.formGroup.controls['difficulty'].setValue('EASY')
         component.formGroup.controls['is_sample'].setValue('true')
-        component.formGroup.controls['parentCategory'].setValue('')
-        component.formGroup.controls['subCategory'].setValue('')
+        component.formGroup.controls['parentCategory'].setValue(MOCK_CATEGORY.name)
+        component.formGroup.controls['subCategory'].setValue(MOCK_CATEGORY_2.name)
         fixture.detectChanges()
+        tick(1)
         expect(component.getFilterQueryString()).toEqual(component.formGroup.value)
-    })
+    }))
 
-    it('should delete a question', () => {
+    it('should delete a question', fakeAsync(() => {
         component.deleteQuestion(0)
+        tick(1000)
         expect(notificationService.show).toHaveBeenCalled()
-    })
+    }))
 
-    it('should open delete modal', () => {
+    it('should open delete modal', fakeAsync(() => {
         spyOn(component['dialogService'], 'open').and.callThrough()
         spyOn(component, 'deleteQuestion').and.callThrough()
         component.openDeleteQuestionDialog('', 0)
+        tick(1)
         expect(component['dialogService'].open).toHaveBeenCalled()
-    })
+    }))
 })
