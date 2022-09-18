@@ -5,7 +5,7 @@ import {UqjService} from '@app/problems/_services/uqj.service'
 import {QuestionSubmission} from '@app/_models/question_submission'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {AuthenticationService} from '@app/_services/api/authentication'
-import {combineLatest, Subscription} from 'rxjs'
+import {combineLatest, Subscriber, Subscription} from 'rxjs'
 
 @Component({
     selector: 'app-problem-view',
@@ -19,6 +19,9 @@ export class ProblemViewComponent implements OnChanges, OnInit, OnDestroy {
     user: User
     renderedText: string
     subscriptions: Subscription = new Subscription()
+
+    reloadRequestSubscriber: Subscriber<never>
+
 
     constructor(
         private route: ActivatedRoute,
@@ -60,7 +63,7 @@ export class ProblemViewComponent implements OnChanges, OnInit, OnDestroy {
      */
     updateQuestionSubmissions(newSubmission: boolean): void {
         if (newSubmission) {
-            this.initialize()
+            this.reloadRequestSubscriber?.next()
         }
     }
 }

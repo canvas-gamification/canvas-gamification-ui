@@ -73,7 +73,10 @@
             ></app-variable-view>
         </ng-container>
         <ng-container *ngIf="previousSubmissions">
-            <app-submission-snippet [previousSubmissions]="previousSubmissions"></app-submission-snippet>
+            <app-submission-snippet
+                [questionId]="questionId"
+                (reloadRequestSubscriberEvent)="reloadRequestSubscriber = $event">
+            </app-submission-snippet>
         </ng-container>
     </app-sidebar>
 </div>
