@@ -4,7 +4,7 @@ import {Difficulty} from "@app/_models/difficulty"
 import {McqFormData} from "@app/problems/_forms/mcq.form"
 import {JavaFormData} from "@app/problems/_forms/java.form"
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form"
-import {UserDifficultyStats} from "@app/_models/user_difficulty_stats"
+import {UserStats} from "@app/_models/user_difficulty_stats"
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
@@ -15,6 +15,7 @@ export const MOCK_CATEGORY: Category = {
     full_name: 'Test',
     parent: null,
     question_count: 100,
+    average_success_per_difficulty: []
 }
 
 export const MOCK_CATEGORY_2: Category = {
@@ -26,6 +27,7 @@ export const MOCK_CATEGORY_2: Category = {
     full_name: 'Test #2',
     parent: 0,
     question_count: 100,
+    average_success_per_difficulty: []
 }
 
 export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY, MOCK_CATEGORY_2]
@@ -790,8 +792,9 @@ export const MOCK_COURSE: Course = {
     has_create_event_permission: true
 }
 
-export const MOCK_USER_DIFFICULTY_STATS: UserDifficultyStats[] = [
-    {category: 0, difficulty: 'EASY', avgSuccess: 1},
-    {category: 0, difficulty: 'NORMAL', avgSuccess: 1},
-    {category: 0, difficulty: 'HARD', avgSuccess: 1}
+export const MOCK_USER_DIFFICULTY_STATS: UserStats[] = [
+    {difficulty: 'EASY', avgSuccess: 1},
+    {difficulty: 'NORMAL', avgSuccess: 1},
+    {difficulty: 'HARD', avgSuccess: 1},
+    {difficulty: 'ALL', avgSuccess: 1},
 ]

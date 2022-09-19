@@ -10,6 +10,7 @@ export const MOCK_CATEGORY: Category = {
     full_name: '',
     parent: null,
     question_count: 100,
+    average_success_per_difficulty: []
 }
 
 export const MOCK_NESTED_CATEGORY: NestedCategories = {

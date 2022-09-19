@@ -60,18 +60,18 @@
                 </tui-data-list>
             </ng-template>
             <p
-                [class.tui-skeleton]="!category || !userDifficultyStats"
-                [class.tui-skeleton_text]="!category || !userDifficultyStats"
+                [class.tui-skeleton]="!category || !userStats"
+                [class.tui-skeleton_text]="!category || !userStats"
                 class="tui-space_bottom-0"
             >
                 Your Success Rate: {{(userSuccessRate * 100).toFixed(2) + '%' || 'N/A'}}
             </p>
             <p
-                [class.tui-skeleton]="!category || !userDifficultyStats"
-                [class.tui-skeleton_text]="!category || !userDifficultyStats"
+                [class.tui-skeleton]="!category || !userStats"
+                [class.tui-skeleton_text]="!category || !userStats"
                 class="tui-space_top-1"
             >
-                Average Success Rate: {{(category?.average_success * 100).toFixed(2) + '%' || 'N/A'}}
+                Average Success Rate: {{(categorySuccessRate * 100).toFixed(2) + '%' || 'N/A'}}
             </p>
             <tui-select
                 (ngModelChange)="updateQuestions($event, include_solved)"

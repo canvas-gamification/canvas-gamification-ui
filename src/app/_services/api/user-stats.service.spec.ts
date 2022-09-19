@@ -29,10 +29,10 @@ describe('UserStatsService', () => {
     })
 
     it('should return difficultyUserStats', fakeAsync(() => {
-        userStatsService.getUserDifficultyStats(0).subscribe((stats) => {
+        userStatsService.getUserStatsByCategory(0).subscribe((stats) => {
             expect(stats).toEqual(MOCK_USER_DIFFICULTY_STATS)
         })
-        const request = httpMock.expectOne(apiService.getURL('user-stats/difficulty', 0))
+        const request = httpMock.expectOne(apiService.getURL('user-stats/category', 0))
         expect(request.request.method).toBe('GET')
         request.flush(MOCK_USER_DIFFICULTY_STATS)
         tick()

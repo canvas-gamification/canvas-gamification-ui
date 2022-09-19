@@ -8,7 +8,7 @@ import {UserStatsService} from '@app/_services/api/user-stats.service'
 import {CourseService} from '@app/course/_services/course.service'
 import {CategoryService} from '@app/_services/api/category.service'
 import {forkJoin, Subscription} from 'rxjs'
-import {UserDifficultyStats} from '@app/_models/user_difficulty_stats'
+import {UserStats} from '@app/_models/user_difficulty_stats'
 import * as _ from 'lodash'
 
 @Component({
@@ -28,9 +28,10 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     parentCategory: Category
     nestedCategories: NestedCategories[] = []
     userSuccessRate: number
+    categorySuccessRate: number
     difficulty: string
     difficulties: Difficulty[]
-    userDifficultyStats: UserDifficultyStats[]
+    userStats: UserStats[]
     categoryUserSuccessRate: number
     include_solved = false
     reportQuestionModal = false
@@ -71,7 +72,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
                 this.cursor = 0
                 this.uqjs = undefined
 
-                const userStatsObservable = this.userStatsService.getUserDifficultyStats(this.categoryId)
+                const userStatsObservable = this.userStatsService.getUserStatsByCategory(this.categoryId)
                 const uqjObservable = this.uqjService.getUQJQuestionIds({
                     category: this.parentCategory ? this.categoryId : undefined,
                     parent_category: this.parentCategory?.pk ?? this.categoryId,
@@ -91,7 +92,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
                 ]).subscribe(([uqjs, difficulties, difficultyStats, userSuccessRate]) => {
                     this.uqjs = _.shuffle(uqjs)
                     this.difficulties = difficulties
-                    this.userDifficultyStats = difficultyStats
+                    this.userStats = difficultyStats
                     this.categoryUserSuccessRate = userSuccessRate.success_rate
                     this.updateCurrentQuestion()
                     this.calculateUserSuccessRate()
@@ -155,15 +156,15 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
      * Determines what success rate to show to the user.
      */
     calculateUserSuccessRate(): void {
-        const difficultyStats = this.userDifficultyStats.find((stat) => stat.difficulty === this.difficulty)
-        if (this.userDifficultyStats.length != 0) {
-            if (this.difficulty) {
-                this.userSuccessRate = difficultyStats ? difficultyStats.avgSuccess : 0
-            } else {
-                this.userSuccessRate = this.categoryUserSuccessRate
-            }
+        const difficulty = this.difficulty ?? 'ALL'
+        const difficultyStats = this.userStats.find((stat) => stat.difficulty === difficulty)
+        this.userSuccessRate = difficultyStats ? difficultyStats.avgSuccess : 0
+
+        if (this.difficulty) {
+            this.categorySuccessRate = this.category.average_success_per_difficulty
+                .find(userStatus => userStatus.difficulty === this.difficulty).avgSuccess
         } else {
-            this.userSuccessRate = 0
+            this.categorySuccessRate = this.category.average_success
         }
     }
 
