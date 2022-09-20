@@ -16,7 +16,7 @@
                     <img [src]="logoPath" alt="Logo">
                 </a>
             </div>
-            <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="homepage" tuiLink>Homepage</a>
+            <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="homepage" tuiLink>Dashboard</a>
             <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
             <a (click)="toggleSidebar(false)" *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="problems"
                tuiLink>Problem Sets</a>
@@ -32,7 +32,7 @@
         <span class="tui-text_h6">Canvas Gamification</span>
     </div>
     <nav class="header-nav">
-        <a class="tui-text_body-m" routerLink="homepage" tuiLink>Homepage</a>
+        <a class="tui-text_body-m" routerLink="homepage" tuiLink>Dashboard</a>
         <a class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
         <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="problems" tuiLink>Problem Sets</a>
         <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="token-values" tuiLink>Token&nbsp;Values</a>
