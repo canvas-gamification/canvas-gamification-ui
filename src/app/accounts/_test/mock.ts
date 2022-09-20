@@ -50,7 +50,9 @@ export const MOCK_ADMIN_CONSENT: UserConsent = {
     legal_first_name: "",
     legal_last_name: "",
     student_number: "",
-    user: MOCK_ADMIN
+    user: MOCK_ADMIN,
+    gender: "",
+    race: "",
 }
 
 export const MOCK_CONSENT_DECLINE: UserConsent = {
@@ -62,7 +64,9 @@ export const MOCK_CONSENT_DECLINE: UserConsent = {
     student_number: '-',
     date: new Date().toDateString(),
     user: undefined,
-    created_at: undefined
+    created_at: undefined,
+    gender: "",
+    race: "",
 }
 
 export const MOCK_PASSWORD_FORM_DATA: PasswordFormData = {

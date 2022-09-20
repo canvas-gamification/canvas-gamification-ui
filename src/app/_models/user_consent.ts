@@ -10,4 +10,6 @@ export interface UserConsent {
     legal_last_name: string;
     student_number: string;
     date: string;
+    gender: string;
+    race: string;
 }
