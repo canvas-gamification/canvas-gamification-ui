@@ -18,6 +18,15 @@ export class ConsentFormComponent implements OnInit {
     logoPath = 'assets/global/logo.jpg'
     user: User
 
+    genders = ['MALE','FEMALE','NB','OTHER','N/A']
+    genderMapper = {
+        'MALE': 'Male',
+        'FEMALE': 'Female',
+        'NB': 'Non-binary',
+        'OTHER': 'Other',
+        'N/A': 'Prefer not to answer',
+    }
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,

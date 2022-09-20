@@ -36,6 +36,8 @@ export class ConsentService {
             legal_last_name: '-',
             student_number: '-',
             date: new Date().toDateString(),
+            gender: '',
+            race: '',
         })
     }
 }

@@ -51,6 +51,24 @@
                 <tui-field-error formControlName="student_number"></tui-field-error>
             </div>
             <div class="tui-form__row">
+                <tui-select aria-label="Gender" formControlName="gender" [valueContent]="genderContent">
+                    What gender do you identify as?
+                    <tui-data-list-wrapper
+                        *tuiDataList
+                        [items]="genders"
+                        [itemContent]="genderContent"
+                    ></tui-data-list-wrapper>
+
+                    <ng-template
+                        #genderContent
+                        let-gender
+                    >
+                        {{genderMapper[gender]}}
+                    </ng-template>
+                </tui-select>
+                <tui-field-error formControlName="student_number"></tui-field-error>
+            </div>
+            <div class="tui-form__row">
                 <tui-input aria-label="Today's Date" formControlName="date">
                     Type in today's date:
                 </tui-input>

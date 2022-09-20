@@ -24,13 +24,21 @@ import {
 import {
     TuiAvatarModule,
     TuiCheckboxLabeledModule,
+    TuiDataListWrapperModule,
     TuiFieldErrorModule,
     TuiInputInlineModule,
     TuiInputModule,
     TuiInputPasswordModule,
-    TuiIslandModule
+    TuiIslandModule,
+    TuiSelectModule
 } from "@taiga-ui/kit"
-import {TuiButtonModule, TuiLinkModule, TuiNotificationModule, TuiTextfieldControllerModule} from "@taiga-ui/core"
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiLinkModule,
+    TuiNotificationModule,
+    TuiTextfieldControllerModule
+} from "@taiga-ui/core"
 
 
 @NgModule({
@@ -55,6 +63,8 @@ import {TuiButtonModule, TuiLinkModule, TuiNotificationModule, TuiTextfieldContr
         TuiAvatarModule,
         TuiButtonModule,
         TuiCheckboxLabeledModule,
+        TuiDataListModule,
+        TuiDataListWrapperModule,
         TuiFieldErrorModule,
         TuiInputInlineModule,
         TuiInputModule,
@@ -62,6 +72,7 @@ import {TuiButtonModule, TuiLinkModule, TuiNotificationModule, TuiTextfieldContr
         TuiIslandModule,
         TuiLinkModule,
         TuiNotificationModule,
+        TuiSelectModule,
         TuiTextfieldControllerModule,
     ],
     providers: [

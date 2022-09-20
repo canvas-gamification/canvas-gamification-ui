@@ -11,7 +11,9 @@ export class ConsentForm {
             legal_first_name: new FormControl(user?.first_name, [Validators.required]),
             legal_last_name: new FormControl(user?.last_name, [Validators.required]),
             student_number: new FormControl('', [Validators.required]),
-            date: new FormControl(new Date().toDateString(), [Validators.required])
+            date: new FormControl(new Date().toDateString(), [Validators.required]),
+            gender: new FormControl('', [Validators.required]),
+            race: new FormControl(''),
         })
     }
 
@@ -24,7 +26,9 @@ export class ConsentForm {
             legal_first_name: new FormControl(user?.first_name, [Validators.required]),
             legal_last_name: new FormControl(user?.last_name, [Validators.required]),
             student_number: new FormControl('', [Validators.required]),
-            date: new FormControl(new Date().toDateString(), [Validators.required])
+            date: new FormControl(new Date().toDateString(), [Validators.required]),
+            gender: new FormControl('', [Validators.required]),
+            race: new FormControl(''),
         })
     }
 
@@ -41,4 +45,6 @@ export interface ConsentFormData {
     legal_last_name: string;
     student_number: string;
     date: string;
+    gender: string;
+    race: string;
 }
