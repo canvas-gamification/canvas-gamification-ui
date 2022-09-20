@@ -27,6 +27,19 @@ export class ConsentFormComponent implements OnInit {
         'N/A': 'Prefer not to answer',
     }
 
+    races = [
+        'African',
+        'European',
+        'East Asian',
+        'South Asian',
+        'South East Asian',
+        'First Nations or Indigenous',
+        'Hispanic or Latinx',
+        'Middle Eastern',
+        'Other',
+        'Prefer not to answer',
+    ]
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,

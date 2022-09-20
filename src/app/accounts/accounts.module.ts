@@ -30,6 +30,7 @@ import {
     TuiInputModule,
     TuiInputPasswordModule,
     TuiIslandModule,
+    TuiMultiSelectModule,
     TuiSelectModule
 } from "@taiga-ui/kit"
 import {
@@ -71,6 +72,7 @@ import {
         TuiInputPasswordModule,
         TuiIslandModule,
         TuiLinkModule,
+        TuiMultiSelectModule,
         TuiNotificationModule,
         TuiSelectModule,
         TuiTextfieldControllerModule,

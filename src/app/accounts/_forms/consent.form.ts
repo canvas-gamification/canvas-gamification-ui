@@ -13,7 +13,7 @@ export class ConsentForm {
             student_number: new FormControl('', [Validators.required]),
             date: new FormControl(new Date().toDateString(), [Validators.required]),
             gender: new FormControl('', [Validators.required]),
-            race: new FormControl(''),
+            race: new FormControl(null, [Validators.required]),
         })
     }
 
@@ -28,12 +28,16 @@ export class ConsentForm {
             student_number: new FormControl('', [Validators.required]),
             date: new FormControl(new Date().toDateString(), [Validators.required]),
             gender: new FormControl('', [Validators.required]),
-            race: new FormControl(''),
+            race: new FormControl(null, [Validators.required]),
         })
     }
 
     static extractData(form: FormGroup): ConsentFormData {
-        return form.value
+        console.debug(form.value)
+        return {
+            ...form.value,
+            race: form.value.race.join(','),
+        }
     }
 }
 
