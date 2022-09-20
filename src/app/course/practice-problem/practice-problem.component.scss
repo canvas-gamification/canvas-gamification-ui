@@ -1,6 +1,10 @@
 @import '~@taiga-ui/core/styles/taiga-ui-local';
 @import "mixins";
 
+.w-full {
+  width: 100%;
+}
+
 .practice {
     display: flex;
 

@@ -2,6 +2,19 @@
     <app-sidebar position="left" sidebarId="practiceSidebar" spacing="between">
         <div class="practice-sidebar_content tui-space_top-6">
             <div
+                class="tui-space_bottom-2"
+            >
+                <a
+                    [routerLink]="['../../../']"
+                    class="tui-space_vertical-0 w-full"
+                    icon="tuiIconArrowLeft"
+                    size="s"
+                    tuiButton
+                >
+                    Back to course
+                </a>
+            </div>
+            <div
                 *ngIf="parentCategory"
                 class="practice-sidebar_content-breadcrumbs tui-space_bottom-2"
             >
