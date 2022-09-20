@@ -9,44 +9,45 @@
             >
                 {{ uqj?.question?.category_obj?.full_name || 'No Category' | uppercase }}
             </p>
-            <div class="tui-space_bottom-10 tui-space_top-2">
-                <div class="question-header">
-                    <h1
-                        [class.tui-skeleton]="!uqj"
-                        [class.tui-skeleton_text]="!uqj"
-                        class="tui-text_h3 tui-space_vertical-1"
-                    >
-                        {{ uqj?.question?.title ?? 'Question Title' }}
-                    </h1>
-                    <tui-badge
-                        *ngIf="uqj && uqj.status !== 'No Status' && uqj.status !== 'New'"
-                        [class.tui-skeleton]="!uqj"
-                        [status]="uqj.status | tuiStatus"
-                        [value]="uqj.status"
-                        class="tui-space_left-4"
-                    ></tui-badge>
-                </div>
-                <p
-                    [class.tui-skeleton]="!uqj"
-                    [class.tui-skeleton_short]="!uqj"
-                    [class.tui-skeleton_text]="!uqj"
-                    class="tui-space_top-2 tui-space_bottom-0"
-                >
-                    {{ uqj?.question?.token_value || 'No' }}
-                    &nbsp;Tokens Possible
-                </p>
-                <p
-                    [class.tui-skeleton]="!uqj"
-                    [class.tui-skeleton_short]="!uqj"
-                    [class.tui-skeleton_text]="!uqj"
-                    class="tui-space_vertical-0"
-                >
-                    {{ (uqj?.question?.max_submission_allowed - uqj?.num_attempts) ?? 'Unlimited' }}
-                    &nbsp;Attempts Remaining
-                </p>
-            </div>
+            <!--            Temporarily remove question details-->
+            <!--            <div class="tui-space_bottom-10 tui-space_top-2">-->
+            <!--                <div class="question-header">-->
+            <!--                    <h1-->
+            <!--                        [class.tui-skeleton]="!uqj"-->
+            <!--                        [class.tui-skeleton_text]="!uqj"-->
+            <!--                        class="tui-text_h3 tui-space_vertical-1"-->
+            <!--                    >-->
+            <!--                        {{ uqj?.question?.title ?? 'Question Title' }}-->
+            <!--                    </h1>-->
+            <!--                    <tui-badge-->
+            <!--                        *ngIf="uqj && uqj.status !== 'No Status' && uqj.status !== 'New'"-->
+            <!--                        [class.tui-skeleton]="!uqj"-->
+            <!--                        [status]="uqj.status | tuiStatus"-->
+            <!--                        [value]="uqj.status"-->
+            <!--                        class="tui-space_left-4"-->
+            <!--                    ></tui-badge>-->
+            <!--                </div>-->
+            <!--                <p-->
+            <!--                    [class.tui-skeleton]="!uqj"-->
+            <!--                    [class.tui-skeleton_short]="!uqj"-->
+            <!--                    [class.tui-skeleton_text]="!uqj"-->
+            <!--                    class="tui-space_top-2 tui-space_bottom-0"-->
+            <!--                >-->
+            <!--                    {{ uqj?.question?.token_value || 'No' }}-->
+            <!--                    &nbsp;Tokens Possible-->
+            <!--                </p>-->
+            <!--                <p-->
+            <!--                    [class.tui-skeleton]="!uqj"-->
+            <!--                    [class.tui-skeleton_short]="!uqj"-->
+            <!--                    [class.tui-skeleton_text]="!uqj"-->
+            <!--                    class="tui-space_vertical-0"-->
+            <!--                >-->
+            <!--                    {{ (uqj?.question?.max_submission_allowed - uqj?.num_attempts) ?? 'Unlimited' }}-->
+            <!--                    &nbsp;Attempts Remaining-->
+            <!--                </p>-->
+            <!--            </div>-->
             <div *ngIf="!uqj" class="question-skeleton tui-skeleton"></div>
-            <tui-island *ngIf="renderedText">
+            <tui-island *ngIf="renderedText" class="tui-space_top-2">
                 <p class="tui-island__category">Question</p>
                 <app-editor [ngModel]="renderedText" [readonly]="true"></app-editor>
             </tui-island>
