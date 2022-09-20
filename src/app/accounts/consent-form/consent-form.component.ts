@@ -63,8 +63,8 @@ export class ConsentFormComponent implements OnInit {
         }
     }
 
-    redirectToProfile(): void {
-        this.router.navigate(['accounts', 'profile']).then()
+    redirectToHomepage(): void {
+        this.router.navigate(['homepage']).then()
     }
 
     onSubmit(): void {
@@ -74,7 +74,7 @@ export class ConsentFormComponent implements OnInit {
                 .show('You have successfully consented!', {
                     status: TuiNotification.Success
                 }).subscribe()
-            this.redirectToProfile()
+            this.redirectToHomepage()
         })
     }
 
@@ -84,7 +84,7 @@ export class ConsentFormComponent implements OnInit {
                 .show('You successfully declined to consent.', {
                     status: TuiNotification.Success
                 }).subscribe()
-            this.redirectToProfile()
+            this.redirectToHomepage()
         })
     }
 }

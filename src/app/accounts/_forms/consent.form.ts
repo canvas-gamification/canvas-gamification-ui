@@ -33,7 +33,6 @@ export class ConsentForm {
     }
 
     static extractData(form: FormGroup): ConsentFormData {
-        console.debug(form.value)
         return {
             ...form.value,
             race: form.value.race.join(','),

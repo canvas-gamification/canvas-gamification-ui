@@ -58,13 +58,13 @@ describe('ConsentFormComponent', () => {
             component.form.student_number.setValue('12345678')
             fixture.detectChanges()
             component.onSubmit()
-            expect(router.navigate).toHaveBeenCalledOnceWith(['accounts', 'profile'])
+            expect(router.navigate).toHaveBeenCalledOnceWith(['homepage'])
             expect(notificationService.show).toHaveBeenCalled()
         })
 
         it('remove a user consent', () => {
             component.declineConsent()
-            expect(router.navigate).toHaveBeenCalledOnceWith(['accounts', 'profile'])
+            expect(router.navigate).toHaveBeenCalledOnceWith(['homepage'])
             expect(notificationService.show).toHaveBeenCalled()
         })
 
