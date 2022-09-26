@@ -61,10 +61,12 @@ import {PracticeProblemComponent} from './practice-problem/practice-problem.comp
 import {ProblemsModule} from '@app/problems/problems.module'
 import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
+import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course-challenge-snippet.component'
 
 @NgModule({
     declarations: [
         ConceptMapComponent,
+        CourseChallengeSnippetComponent,
         CourseComponent,
         CourseEventCreateEditComponent,
         CourseEventsSnippetComponent,
@@ -76,6 +78,7 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
         LeaderBoardComponent,
         PracticeProblemComponent,
         TokenUseSnippetComponent,
+
     ],
     imports: [
         CommonModule,
