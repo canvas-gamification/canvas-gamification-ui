@@ -11,4 +11,6 @@ export interface CourseEvent {
     is_open?: boolean;
     is_exam?: boolean;
     total_event_grade?: number;
+    is_not_available_yet: boolean;
+    is_closed: boolean;
 }
