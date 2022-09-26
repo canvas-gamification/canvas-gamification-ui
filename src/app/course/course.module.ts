@@ -16,6 +16,7 @@ import {CourseEventService} from '@app/course/_services/course-event.service'
 import {TokenUseService} from '@app/course/_services/token-use.service'
 import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component'
 import {
+    TuiAccordionModule,
     TuiAvatarModule,
     TuiCheckboxLabeledModule,
     TuiFieldErrorModule,
@@ -88,6 +89,7 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
         ReactiveFormsModule,
         SidebarModule,
         TextMaskModule,
+        TuiAccordionModule,
         TuiActiveZoneModule,
         TuiAvatarModule,
         TuiButtonModule,

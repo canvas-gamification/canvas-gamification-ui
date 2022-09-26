@@ -18,6 +18,20 @@ export class CourseEventsSnippetComponent implements OnInit {
     user: User
     courseEvents: CourseEvent[]
     @ViewChild('importDialog') importDialog: PolymorpheusContent<TuiDialogContext>
+    currentDate: Date = new Date()
+
+    upcomingEvents: CourseEvent[]
+    pastEvents: CourseEvent[]
+    upcomingAssignments: CourseEvent[]
+    pastAssignments: CourseEvent[]
+    upcomingExams: CourseEvent[]
+    pastExams: CourseEvent[]
+
+    showAssignment = true
+    showExam = true
+
+    upcomingEventsTemp: CourseEvent[]
+    pastEventsTemp: CourseEvent[]
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -33,6 +47,19 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.courseEventService.getEventTypes().subscribe(response => {
             this.eventTypes = response
         })
+        this.events.sort((e1,e2) => new Date(e1.start_date).getTime() - new Date(e2.start_date).getTime())
+        this.upcomingEvents = this.events.filter(event => event.is_open || event.is_not_available_yet).filter(event => event.type =="ASSIGNMENT" || event.type =="EXAM")
+        this.pastEvents = this.events.filter(event => event.is_closed).filter(event => event.type =="ASSIGNMENT" || event.type =="EXAM")
+
+
+        this.upcomingAssignments = this.upcomingEvents.filter( event => event.type == 'ASSIGNMENT')
+        this.pastAssignments = this.pastEvents.filter( event => event.type == 'ASSIGNMENT')
+
+        this.upcomingExams = this.upcomingEvents.filter( event => event.type == 'EXAM')
+        this.pastExams = this.pastEvents.filter( event => event.type == 'EXAM')
+
+        this.upcomingEventsTemp = this.upcomingEvents
+        this.pastEventsTemp = this.pastEvents
     }
 
     /**
@@ -64,4 +91,37 @@ export class CourseEventsSnippetComponent implements OnInit {
             }
         })
     }
+
+    toggleFilterAssignments():void {
+        this.showAssignment = !this.showAssignment
+        this.toggleFilterHelper()
+    }
+
+    toggleFilterExams():void {
+        this.showExam = !this.showExam
+        this.toggleFilterHelper()
+    }
+
+    toggleFilterHelper(): void{
+        if (this.showAssignment && this.showExam){
+            this.upcomingEvents = this.upcomingEventsTemp
+            this.pastEvents = this.pastEventsTemp
+
+        }
+        if (this.showAssignment && !this.showExam){
+            this.upcomingEvents = this.upcomingAssignments
+            this.pastEvents = this.pastAssignments
+        }
+        if (!this.showAssignment && this.showExam){
+            this.upcomingEvents = this.upcomingExams
+            this.pastEvents = this.pastExams
+        }
+        if (!this.showAssignment && !this.showExam){
+            this.upcomingEvents = this.upcomingEventsTemp
+            this.pastEvents = this.pastEventsTemp
+            this.showAssignment = true
+            this.showExam = true
+        }
+    }
+
 }

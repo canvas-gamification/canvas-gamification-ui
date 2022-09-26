@@ -1,15 +1,55 @@
-@import "mixins";
-
-.events {
-    @include island-grid();
-}
-
-.new-event {
+.eventPage{
     display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.import-events {
-    @include island-grid-sm();
+.accordionContainer {
+    align-self: center;
+    width: 90%;
+}
+
+.filters{
+    align-self: flex-start;
+}
+
+.eventList{
+    &:not(:last-child){
+        border-bottom: solid 1px var(--tui-base-03);
+        margin: 0;
+        padding-bottom: 20px;
+    }
+    &:not(:first-child){
+        padding-top: 20px;
+    }
+
+    display: grid;
+    grid-template-columns: 8rem 1fr 1fr 8rem 8rem 7rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.eventType{
+    color: var(--tui-text-02);
+}
+
+.eventType, .name, .dates, .availability{
+    justify-self: start;
+    padding-left: 1rem;
+}
+
+.dates{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.grade{
+    justify-self: end;
+}
+
+.linkBtn{
+    justify-self: end;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
