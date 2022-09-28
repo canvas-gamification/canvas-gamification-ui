@@ -18,10 +18,12 @@
     <tui-tabs-with-more #tabsComponent [class.tui-skeleton]="!course" [moreContent]="more" class="tui-space_bottom-4">
         <button *tuiTab aria-label="Concepts" tuiTab>Concepts</button>
         <!--        disable the question tabs for now. Should only be visible to admins -->
-        <!--        <button *tuiTab aria-label="Questions" tuiTab disabled>Questions</button>-->
+        <button *tuiTab aria-label="Questions" tuiTab disabled>Questions</button>
         <button *tuiTab aria-label="Events" tuiTab disabled>Events</button>
         <button *tuiTab aria-label="Token Use" tuiTab disabled>Token Use</button>
         <button *tuiTab aria-label="Leaderboard" tuiTab disabled>Leaderboard</button>
+        <!--        add another tab: Challenges -->
+        <button *tuiTab aria-label="Challenges" tuiTab disabled>Challenges</button>
     </tui-tabs-with-more>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 0">
         <app-concept-map [currCourse]="course"></app-concept-map>
@@ -39,6 +41,9 @@
     </ng-container>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 4">
         <app-leader-board [leaderBoard]="course?.leader_board" [rankTopX]="3"></app-leader-board>
+    </ng-container>
+    <ng-container *ngIf="tabsComponent.activeItemIndex === 5">
+        <app-course-challenge-snippet [course]="course" [events]="course?.events"></app-course-challenge-snippet>
     </ng-container>
 </section>
 <ng-template #more>
