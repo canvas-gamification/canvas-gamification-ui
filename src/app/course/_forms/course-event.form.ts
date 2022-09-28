@@ -63,7 +63,9 @@ export class CourseEventForm {
             count_for_tokens: formData.get('countForTokens').value,
             start_date: this.dateAndTimeToLocal(formData.get('startEndDatePicker').value.from, formData.get('startTimePicker').value),
             end_date: this.dateAndTimeToLocal(formData.get('startEndDatePicker').value.to, formData.get('endTimePicker').value),
-            course: courseId
+            course: courseId,
+            is_not_available_yet: false,
+            is_closed: false,
         }
     }
 
