@@ -27,7 +27,7 @@
                     </div>
                     <div class="linkBtn">
                         <ng-container *ngIf="challenge.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
-                            <a [routerLink]="['/course', courseId, 'event', challenge.id]" appearance="primary" class="tui-form__button"
+                            <a [routerLink]="['/course', course.id, 'event', challenge.id]" appearance="primary" class="tui-form__button"
                                size="s"
                                tuiButton
                             >
@@ -41,7 +41,7 @@
                                 Complete
                             </a>
                         </ng-template>
-                        <a *ngIf="challenge.has_edit_permission" [routerLink]="['/course', courseId, 'new-event', challenge.id]"
+                        <a *ngIf="challenge.has_edit_permission" [routerLink]="['/course', course.id, 'new-event', challenge.id]"
                            appearance="primary" aria-label="Edit" class="tui-form__button"
                            size="s"
                            tuiButton
@@ -74,7 +74,7 @@
                     </div>
                     <div class="linkBtn">
                         <ng-container *ngIf="challenge.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
-                            <a [routerLink]="['/course', courseId, 'event', challenge.id]" appearance="primary" class="tui-form__button"
+                            <a [routerLink]="['/course', course.id, 'event', challenge.id]" appearance="primary" class="tui-form__button"
                                size="s"
                                tuiButton
                             >
@@ -88,7 +88,7 @@
                                 Complete
                             </a>
                         </ng-template>
-                        <a *ngIf="challenge.has_edit_permission" [routerLink]="['/course', courseId, 'new-event', challenge.id]"
+                        <a *ngIf="challenge.has_edit_permission" [routerLink]="['/course', course.id, 'new-event', challenge.id]"
                            appearance="primary" aria-label="Edit" class="tui-form__button"
                            size="s"
                            tuiButton

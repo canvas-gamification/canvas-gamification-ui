@@ -11,7 +11,6 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
 export class CourseChallengeSnippetComponent implements OnInit{
     @Input() events: CourseEvent[]
     @Input() course: Course
-    courseId: number
     user: User
     eventTypes: EventType[]
     courseEvents: CourseEvent[]
@@ -27,7 +26,6 @@ export class CourseChallengeSnippetComponent implements OnInit{
     ){}
 
     ngOnInit(): void {
-        this.courseId = this.course.id
         this.authenticationService.currentUser.subscribe(user => this.user = user)
         this.courseEventService.getEventTypes().subscribe(response => {
             this.eventTypes = response
