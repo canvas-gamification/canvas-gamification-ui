@@ -12,7 +12,6 @@ export class CourseChallengeSnippetComponent implements OnInit{
     @Input() events: CourseEvent[]
     @Input() course: Course
     user: User
-    eventTypes: EventType[]
     courseEvents: CourseEvent[]
     currentDate: Date = new Date()
 
@@ -20,16 +19,10 @@ export class CourseChallengeSnippetComponent implements OnInit{
     pastEvents: CourseEvent[]
 
 
-    constructor(
-        private authenticationService: AuthenticationService,
-        private courseEventService: CourseEventService
-    ){}
+    constructor(private authenticationService: AuthenticationService){}
 
     ngOnInit(): void {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
-        this.courseEventService.getEventTypes().subscribe(response => {
-            this.eventTypes = response
-        })
 
         this.events.sort((e1,e2) => new Date(e1.start_date).getTime() - new Date(e2.start_date).getTime())
         this.upcomingEvents = this.events.filter(event => event.is_open || event.is_not_available_yet).filter(event => event.type == "CHALLENGE")
