@@ -40,6 +40,10 @@ export class HeaderComponent {
         })
     }
 
+    redirectHome() : void {
+        this.router.navigate(['/'])
+    }
+
     setNightMode(value: boolean): void {
         // Temporarily disable night mode
         if (value) return
