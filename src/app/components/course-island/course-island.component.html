@@ -18,7 +18,7 @@
         ></tui-tag>
         <div class="tui-form__buttons">
             <a
-                *ngIf="hasViewPermission"
+                *ngIf="hasViewPermission && endDate > currentDate"
                 [routerLink]="['/course', course.id]"
                 appearance="primary"
                 class="tui-form__button"
@@ -28,7 +28,7 @@
                 Open
             </a>
             <a
-                *ngIf="!course.is_registered"
+                *ngIf="!course.is_registered && endDate > currentDate"
                 [appearance]="hasViewPermission ? 'whiteblock-active' : 'primary'"
                 [routerLink]="['/course', course.id, 'register']"
                 class="tui-form__button"
@@ -37,6 +37,17 @@
             >
                 Register
             </a>
+            <a
+                *ngIf = "endDate < currentDate && user.is_teacher"
+                [appearance]="hasViewPermission ? 'whiteblock-active' : 'primary'"
+                [routerLink]="['/course', course.id, 'register']"
+                class="tui-form__button"
+                size="m"
+                tuiButton
+            >
+                View
+            </a>
+
         </div>
     </ng-container>
     <ng-template #skeletonTemplate>
