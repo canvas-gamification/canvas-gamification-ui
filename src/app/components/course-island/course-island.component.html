@@ -18,7 +18,7 @@
         ></tui-tag>
         <div class="tui-form__buttons">
             <a
-                *ngIf = "endDate < currentDate && user.is_teacher"
+                *ngIf = "user.is_teacher"
                 appearance="primary"
                 [routerLink]="['/course', course.id]"
                 class="tui-form__button"
@@ -38,7 +38,7 @@
                 Open
             </a>
             <a
-                *ngIf="!course.is_registered && endDate > currentDate"
+                *ngIf="!course.is_registered && endDate > currentDate && user.is_student"
                 [appearance]="hasViewPermission ? 'whiteblock-active' : 'primary'"
                 [routerLink]="['/course', course.id, 'register']"
                 class="tui-form__button"

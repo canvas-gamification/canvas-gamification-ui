@@ -14,8 +14,8 @@ export class CourseIslandComponent implements OnInit{
     @Input() skeleton = false
     user: User
     readonly STATUS = STATUS
-    currentDate = new Date()
     endDate: Date
+    currentDate: Date
 
     constructor(private authenticationService: AuthenticationService) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
@@ -23,6 +23,7 @@ export class CourseIslandComponent implements OnInit{
 
     ngOnInit(): void {
         this.endDate = new Date(this.course.end_date)
+        this.currentDate = new Date()
     }
 
 
