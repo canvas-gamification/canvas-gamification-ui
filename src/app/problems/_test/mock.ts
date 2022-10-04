@@ -658,7 +658,7 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     show_answer: false,
     show_detail: true,
     safeAnswer: [],
-    submitted_by: 'studentName',
+    author: 'studentName',
 }
 
 export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
@@ -689,7 +689,7 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     show_answer: false,
     show_detail: true,
     safeAnswer: [],
-    submitted_by: 'studentName',
+    author: 'studentName',
 }
 
 export const MOCK_DIFFICULTIES: Difficulty[] = [
