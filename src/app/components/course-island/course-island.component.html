@@ -28,7 +28,7 @@
                 View
             </a>
             <a
-                *ngIf="hasViewPermission && endDate > currentDate"
+                *ngIf="hasViewPermission && endDate > currentDate && user.is_student"
                 appearance="primary"
                 [routerLink]="['/course', course.id]"
                 class="tui-form__button"
