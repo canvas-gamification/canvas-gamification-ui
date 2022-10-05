@@ -1,1 +1,12 @@
-<p>course-stats works!</p>
+<section class="tui-container tui-container_fullwidth">
+    <h1
+        [class.tui-skeleton]="!course"
+        class="tui-text_h3 tui-space_top-10 tui-space_bottom-2"
+    >
+        {{ course?.name }}
+    </h1>
+</section>
+<ng-template #more>
+    <tui-svg src="tuiIconMoreHorLarge"></tui-svg>
+</ng-template>
+
