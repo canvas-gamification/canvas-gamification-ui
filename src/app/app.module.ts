@@ -72,6 +72,7 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
         AdminComponent,
         AppComponent,
         CourseDashboardComponent,
+        CourseStatsComponent,
         FaqComponent,
         ForbiddenComponent,
         HeaderComponent,
@@ -85,8 +86,7 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
         TokenValuesComponent,
         TopicsComponent,
         UserActionsComponent,
-        UserStatsComponent,
-        CourseStatsComponent
+        UserStatsComponent
     ],
     imports: [
         AdminModule,
