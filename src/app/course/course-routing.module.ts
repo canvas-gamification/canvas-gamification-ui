@@ -8,7 +8,7 @@ import {CourseEventCreateEditComponent} from "@app/course/course-event-create/co
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component"
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component"
 import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component"
-import {CourseStatsComponent} from "@app/course/course-stats/course-stats.component"
+import {CourseStatsComponent} from "@app/components/course-stats/course-stats.component"
 
 const routes = [
     {
