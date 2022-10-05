@@ -28,7 +28,7 @@ import {NotFoundComponent} from './components/general/not-found/not-found.compon
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component'
 import {AdminComponent} from './admin/admin.component'
 import {AdminModule} from '@app/admin/admin.module'
-
+import {CourseStatsComponent} from '@app/components/course-stats/course-stats.component'
 import {
     TUI_SANITIZER,
     TuiButtonModule,
@@ -86,6 +86,7 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
         TopicsComponent,
         UserActionsComponent,
         UserStatsComponent,
+        CourseStatsComponent
     ],
     imports: [
         AdminModule,

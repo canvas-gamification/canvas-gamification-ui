@@ -8,7 +8,6 @@ import {CourseEventCreateEditComponent} from "@app/course/course-event-create/co
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component"
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component"
 import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component"
-import {CourseStatsComponent} from "@app/components/course-stats/course-stats.component"
 
 const routes = [
     {
@@ -55,11 +54,6 @@ const routes = [
         path: ':courseId/practice/category/:categoryId',
         component: PracticeProblemComponent,
         canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/stats',
-        component: CourseStatsComponent,
-        canActivate: [AuthGuard]
     }
 ]
 
@@ -67,5 +61,6 @@ const routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
+
 export class CourseRoutingModule {
 }

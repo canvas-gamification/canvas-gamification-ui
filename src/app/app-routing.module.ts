@@ -11,6 +11,7 @@ import {UserActionsComponent} from '@app/components/homepage/user-actions/user-a
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component'
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component'
 import {AdminComponent} from "@app/admin/admin.component"
+import {CourseStatsComponent} from "@app/components/course-stats/course-stats.component"
 
 
 const routes: Routes = [
@@ -47,6 +48,11 @@ const routes: Routes = [
     {
         path: 'actions',
         component: UserActionsComponent
+    },
+    {
+        path: 'stats',
+        component: CourseStatsComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'faq',

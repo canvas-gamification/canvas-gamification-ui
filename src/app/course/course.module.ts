@@ -63,7 +63,7 @@ import {ProblemsModule} from '@app/problems/problems.module'
 import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course-challenge-snippet.component'
-import {CourseStatsComponent} from '../components/course-stats/course-stats.component'
+
 
 @NgModule({
     declarations: [
@@ -77,7 +77,6 @@ import {CourseStatsComponent} from '../components/course-stats/course-stats.comp
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
-        CourseStatsComponent,
         LeaderBoardComponent,
         PracticeProblemComponent,
         TokenUseSnippetComponent,
