@@ -5,6 +5,12 @@ import {CourseEventService} from '@app/course/_services/course-event.service'
 import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
 
+enum EventFilterOptions {
+    ALL = 'Assignments and Exams',
+    ASSIGNMENT = 'Assignments Only',
+    EXAM = 'Exams Only',
+}
+
 @Component({
     selector: 'app-course-events-snippet',
     templateUrl: './course-events-snippet.component.html',
@@ -17,6 +23,7 @@ export class CourseEventsSnippetComponent implements OnInit {
     eventTypes: EventType[]
     user: User
     courseEvents: CourseEvent[]
+    filter: EventFilterOptions = EventFilterOptions.ALL
     @ViewChild('importDialog') importDialog: PolymorpheusContent<TuiDialogContext>
 
     constructor(
@@ -33,6 +40,29 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.courseEventService.getEventTypes().subscribe(response => {
             this.eventTypes = response
         })
+    }
+
+    getEventFilterOptions(): EventFilterOptions[] {
+        return Object.values(EventFilterOptions)
+    }
+
+    getEvents(): CourseEvent[] {
+        switch (this.filter) {
+        case EventFilterOptions.ALL:
+            return this.events.filter(event => event.type === 'ASSIGNMENT' || event.type === 'EXAM')
+        case EventFilterOptions.ASSIGNMENT:
+            return this.events.filter(event => event.type === 'ASSIGNMENT')
+        case EventFilterOptions.EXAM:
+            return this.events.filter(event => event.type === 'EXAM')
+        }
+    }
+
+    getUpcomingEvents(): CourseEvent[] {
+        return this.getEvents().filter(event => event.is_open || event.is_not_available_yet)
+    }
+
+    getPastEvents(): CourseEvent[] {
+        return this.getEvents().filter(event => event.is_closed)
     }
 
     /**
