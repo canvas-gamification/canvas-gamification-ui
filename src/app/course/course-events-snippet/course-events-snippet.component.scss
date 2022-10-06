@@ -1,4 +1,6 @@
-.eventPage{
+@import "mixins";
+
+.eventPage {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -9,47 +11,117 @@
     width: 90%;
 }
 
-.filters{
-    align-self: flex-start;
+.functionBar {
+    display: flex;
+    justify-content: start;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
-.eventList{
-    &:not(:last-child){
+.filter {
+    min-width: 22rem;
+}
+
+.new-event {
+    width: 20rem;
+}
+
+.new-event span {
+    vertical-align: middle;
+}
+
+.event {
+    &:not(:last-child) {
         border-bottom: solid 1px var(--tui-base-03);
         margin: 0;
         padding-bottom: 20px;
     }
-    &:not(:first-child){
+
+    &:not(:first-child) {
         padding-top: 20px;
     }
 
-    display: grid;
-    grid-template-columns: 8rem 1fr 1fr 8rem 8rem 7rem;
-    align-items: center;
-    justify-items: center;
+    @include screen-lg {
+        display: grid;
+        grid-template-columns: 8rem 3fr 5fr 8rem 8rem 9rem;
+        align-items: center;
+        justify-items: center;
+    }
+    @include screen-md() {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas: "eventType availability"
+        "name grade"
+        "dates linkBtn";
+        align-items: start;
+    }
 }
 
-.eventType{
+.eventType {
     color: var(--tui-text-02);
 }
 
-.eventType, .name, .dates, .availability{
+.eventType, .name, .dates, .availability, .grade {
     justify-self: start;
     padding-left: 1rem;
+
+    @include screen-sm() {
+        margin-top: 1rem;
+    }
+
 }
 
-.dates{
+.dates {
     display: flex;
     flex-direction: column;
-
 }
 
-.grade{
-    justify-self: end;
-}
-
-.linkBtn{
+.linkBtn {
     justify-self: end;
     padding-left: 1rem;
     padding-right: 1rem;
+    display: flex;
+    gap: 0.3rem;
 }
+
+
+.eventType {
+    @include screen-md() {
+        grid-area: eventType;
+    }
+}
+
+.name {
+    @include screen-md() {
+        grid-area: name;
+    }
+}
+
+.dates {
+    @include screen-md() {
+        grid-area: dates;
+    }
+}
+
+.availability {
+    @include screen-md() {
+        grid-area: availability;
+        justify-self: end;
+    }
+}
+
+.grade {
+    @include screen-md() {
+        grid-area: grade;
+        justify-self: end;
+    }
+}
+
+.linkBtn {
+    @include screen-md() {
+        grid-area: linkBtn;
+        padding-right: 0;
+    }
+}
+
