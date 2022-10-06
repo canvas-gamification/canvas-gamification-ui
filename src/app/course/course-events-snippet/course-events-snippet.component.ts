@@ -31,12 +31,6 @@ export class CourseEventsSnippetComponent implements OnInit {
     filter: EventFilterOptions = EventFilterOptions.ALL
     @ViewChild('importDialog') importDialog: PolymorpheusContent<TuiDialogContext>
 
-    currentDate: Date = new Date()
-    showAssignment = true
-    showExam = true
-    showAll = true
-    assignmentAndExamEvents
-
     constructor(
         private authenticationService: AuthenticationService,
         private courseEventService: CourseEventService,
@@ -51,21 +45,6 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.courseEventService.getEventTypes().subscribe(response => {
             this.eventTypes = response
         })
-
-
-        // this.assignmentAndExamEvents = {
-        //     upcoming: {
-        //         events: this.events.filter(event => event.is_open || event.is_not_available_yet).filter(event => event.type == "ASSIGNMENT" || event.type == "EXAM"),
-        //         assignments: this.events.filter(event => event.is_open || event.is_not_available_yet).filter(event => event.type == "ASSIGNMENT"),
-        //         exams: this.events.filter(event => event.is_open || event.is_not_available_yet).filter(event => event.type == "EXAM"),
-        //     },
-        //     past: {
-        //         events: this.events.filter(event => event.is_closed).filter(event => event.type == "ASSIGNMENT" || event.type == "EXAM"),
-        //         assignments: this.events.filter(event => event.is_closed).filter(event => event.type == "ASSIGNMENT"),
-        //         exams: this.events.filter(event => event.is_closed).filter(event => event.type == "EXAM"),
-        //     }
-        // }
-
     }
 
     getEventFilterOptions(): EventFilterOptions[] {
@@ -73,11 +52,11 @@ export class CourseEventsSnippetComponent implements OnInit {
     }
 
     getEvents(): CourseEvent[] {
-        switch (this.filter){
+        switch (this.filter) {
             case EventFilterOptions.ALL:
                 return this.events.filter(event => event.type === 'ASSIGNMENT' || event.type === 'EXAM')
             case EventFilterOptions.ASSIGNMENT:
-                return this.events.filter(event => event.type === 'ASSIGNMENT' )
+                return this.events.filter(event => event.type === 'ASSIGNMENT')
             case EventFilterOptions.EXAM:
                 return this.events.filter(event => event.type === 'EXAM')
         }
@@ -122,37 +101,5 @@ export class CourseEventsSnippetComponent implements OnInit {
             }
         })
     }
-
-    // toggleFilterAssignments():void {
-    //     this.showAssignment = !this.showAssignment
-    //     this.toggleFilterHelper()
-    // }
-    //
-    // toggleFilterExams():void {
-    //     this.showExam = !this.showExam
-    //     this.toggleFilterHelper()
-    // }
-    //
-    // toggleFilterHelper(): void{
-    //     if (this.showAssignment && this.showExam){
-    //         this.upcomingEvents = this.upcomingEventsTemp
-    //         this.pastEvents = this.pastEventsTemp
-    //
-    //     }
-    //     if (this.showAssignment && !this.showExam){
-    //         this.upcomingEvents = this.upcomingAssignments
-    //         this.pastEvents = this.pastAssignments
-    //     }
-    //     if (!this.showAssignment && this.showExam){
-    //         this.upcomingEvents = this.upcomingExams
-    //         this.pastEvents = this.pastExams
-    //     }
-    //     if (!this.showAssignment && !this.showExam){
-    //         this.upcomingEvents = this.upcomingEventsTemp
-    //         this.pastEvents = this.pastEventsTemp
-    //         this.showAssignment = true
-    //         this.showExam = true
-    //     }
-    // }
 
 }
