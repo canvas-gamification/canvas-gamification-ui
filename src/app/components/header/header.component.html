@@ -33,10 +33,11 @@
     </div>
     <nav class="header-nav">
         <a class="tui-text_body-m" routerLink="homepage" tuiLink>Dashboard</a>
-        <a class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
+        <a hidden class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
         <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="problems" tuiLink>Problem Sets</a>
         <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="token-values" tuiLink>Token&nbsp;Values</a>
         <a class="tui-text_body-m" routerLink="faq" tuiLink>FAQ</a>
+        <a class="tui-text_body-m" routerLink="../" fragment="homeContact" tuiLink>Contact Us</a>
     </nav>
     <div class="header-user">
         <ng-container *ngIf="user else login">
