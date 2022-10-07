@@ -19,6 +19,7 @@ import {
     TuiAccordionModule,
     TuiAvatarModule,
     TuiCheckboxLabeledModule,
+    TuiDataListWrapperModule,
     TuiFieldErrorModule,
     TuiInputCountModule,
     TuiInputDateModule,
@@ -47,12 +48,8 @@ import {
     TuiTextfieldControllerModule
 } from '@taiga-ui/core'
 import {TextMaskModule} from 'angular2-text-mask'
-import {
-    CourseRegistrationStepperComponent
-} from './course-registration/course-registration-stepper/course-registration-stepper.component'
-import {
-    CourseRegistrationStepComponent
-} from './course-registration/course-registration-step/course-registration-step.component'
+import {CourseRegistrationStepperComponent} from './course-registration/course-registration-stepper/course-registration-stepper.component'
+import {CourseRegistrationStepComponent} from './course-registration/course-registration-step/course-registration-step.component'
 import {TuiActiveZoneModule, TuiFilterPipeModule} from '@taiga-ui/cdk'
 import {TuiTableModule} from '@taiga-ui/addon-table'
 import {DragulaModule} from 'ng2-dragula'
@@ -99,6 +96,7 @@ import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course
         TuiCalendarModule,
         TuiCheckboxLabeledModule,
         TuiDataListModule,
+        TuiDataListWrapperModule,
         TuiDialogModule,
         TuiErrorModule,
         TuiFieldErrorModule,
@@ -122,8 +120,8 @@ import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course
         TuiTableModule,
         TuiTabsModule,
         TuiTagModule,
-        TuiTextfieldControllerModule,
         DragulaModule.forRoot(),
+        TuiTextfieldControllerModule,
     ],
     providers: [
         CourseEventService,

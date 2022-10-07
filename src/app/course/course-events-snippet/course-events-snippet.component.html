@@ -1,3 +1,16 @@
+<tui-select
+    tuiTextfieldSize="s"
+    [(ngModel)]="filter"
+>
+    <input
+        tuiTextfield
+        placeholder="Choose your hero"
+    />
+    <tui-data-list-wrapper
+        *tuiDataList
+        [items]="getEventFilterOptions()"
+    ></tui-data-list-wrapper>
+</tui-select>
 <div class="events">
     <ng-container *ngIf="course?.has_create_event_permission">
         <tui-island
@@ -14,7 +27,7 @@
             </div>
         </tui-island>
     </ng-container>
-    <tui-island *ngFor="let event of events; index as i">
+    <tui-island *ngFor="let event of getEvents(); index as i">
         <p class="tui-island__category">{{ event.type }}</p>
         <h2 class="tui-island__title">{{ event.name }}</h2>
         <div class="tui-space_bottom-2">

@@ -44,4 +44,5 @@ export interface QuestionSubmission {
     show_answer: boolean;
     show_detail: boolean;
     safeAnswer: SafeHtml[];
+    author: string;
 }
