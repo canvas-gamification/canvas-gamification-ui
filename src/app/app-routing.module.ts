@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core'
-import {RouterModule, Routes} from '@angular/router'
+import {ExtraOptions, RouterModule, Routes} from '@angular/router'
 import {LandingPageComponent} from './components/landing-page/landing-page.component'
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component'
 import {TopicsComponent} from './components/topics/topics.component'
@@ -13,6 +13,10 @@ import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.co
 import {AdminComponent} from "@app/admin/admin.component"
 import {ContactComponent} from "@app/components/contact/contact.component"
 
+const routerOptions: ExtraOptions = {
+    anchorScrolling: 'enabled',
+    scrollOffset: [0, 60]
+}
 
 const routes: Routes = [
     {path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)},
@@ -73,7 +77,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'})],
+    imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'}), RouterModule.forRoot(routes, routerOptions)],
     exports: [RouterModule]
 })
 export class AppRoutingModule {
