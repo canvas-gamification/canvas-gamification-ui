@@ -11,7 +11,7 @@ import {UserActionsComponent} from '@app/components/homepage/user-actions/user-a
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component'
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component'
 import {AdminComponent} from "@app/admin/admin.component"
-import {ContactComponent} from "@app/components/contact/contact.component"
+import {UserStatsComponent} from "@app/components/user-stats/user-stats.component"
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled',
@@ -35,6 +35,10 @@ const routes: Routes = [
     {
         path: 'sample-questions',
         component: SampleQuestionsComponent
+    },
+    {
+        path: 'user-stats',
+        component: UserStatsComponent
     },
     {
         path: 'topics',
