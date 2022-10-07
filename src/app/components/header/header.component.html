@@ -78,14 +78,14 @@
                                 ></tui-toggle>
                             </label>
                         </button>
+                    <a routerLink="accounts/profile" tuiOption>Profile</a>
+                    <a routerLink="user-stats" tuiOption>View Stats</a>
                     <ng-container *ngIf="user.is_teacher">
                         <tui-opt-group label="Admin">
                             <a routerLink="admin" tuiOption>Dashboard</a>
                             <a routerLink="token-values" tuiOption>Token Values</a>
                         </tui-opt-group>
                     </ng-container>
-                    <a routerLink="accounts/profile" tuiOption>Profile</a>
-                    <a tuiOption>View Stats</a>
                     <tui-opt-group>
                         <a (click)="logout()" class="dropdown-item" routerLink="#" tuiOption>Logout</a>
                     </tui-opt-group>
