@@ -10,8 +10,9 @@ import {HomepageComponent} from './components/homepage/homepage.component'
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component'
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component'
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component'
-import {AdminComponent} from "@app/admin/admin.component"
-import {UserStatsComponent} from "@app/components/user-stats/user-stats.component"
+import {AdminComponent} from '@app/admin/admin.component'
+import {StatisticsComponent} from '@app/components/statistics/statistics.component'
+import {UserStatsComponent} from '@app/components/user-stats/user-stats.component'
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled',
@@ -64,6 +65,10 @@ const routes: Routes = [
     {
         path: 'faq',
         component: FaqComponent
+    },
+    {
+        path: 'stats',
+        component: StatisticsComponent
     },
     {
         path: '404',

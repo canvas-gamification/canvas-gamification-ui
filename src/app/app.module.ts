@@ -66,6 +66,7 @@ import {CodeEditorModule} from '@app/components/code-editor/code-editor.module'
 import {FooterModule} from '@app/components/footer/footer.module'
 import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
+import {StatisticsComponent} from './components/statistics/statistics.component'
 
 @NgModule({
     declarations: [
@@ -82,6 +83,7 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
         RecentUserActionsComponent,
         RecentViewedQuestionsComponent,
         SampleQuestionsComponent,
+        StatisticsComponent,
         TokenValuesComponent,
         TopicsComponent,
         UserActionsComponent,
