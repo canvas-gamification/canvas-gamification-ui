@@ -1,6 +1,6 @@
 <div class="flowchart-instructions tui-space_bottom-4">
     <button
-        *ngIf="!topLevel"
+        *ngIf="parentNode"
         (click)="reset()"
         [class.tui-skeleton]="flowchartComponent.children.length === 0"
         [disabled]="!parentNode"

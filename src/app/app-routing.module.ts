@@ -14,7 +14,6 @@ import {AdminComponent} from '@app/admin/admin.component'
 import {StatisticsComponent} from '@app/components/statistics/statistics.component'
 import {UserStatsComponent} from '@app/components/user-stats/user-stats.component'
 import {ContactComponent} from "@app/components/contact/contact.component"
-import {GoalCreationPageComponent} from "@app/course/goal-creation-page/goal-creation-page.component"
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled',
@@ -38,10 +37,6 @@ const routes: Routes = [
     {
         path: 'sample-questions',
         component: SampleQuestionsComponent
-    },
-    {
-        path: 'goal-creation',
-        component: GoalCreationPageComponent
     },
     {
         path: 'user-stats',

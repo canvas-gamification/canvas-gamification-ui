@@ -8,6 +8,7 @@ import {CourseEventCreateEditComponent} from "@app/course/course-event-create/co
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component"
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component"
 import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component"
+import {GoalCreationPageComponent} from "@app/course/goal-creation-page/goal-creation-page.component"
 
 const routes = [
     {
@@ -23,6 +24,11 @@ const routes = [
     {
         path: ':courseId/register',
         component: CourseRegisterComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/goalCreation',
+        component: GoalCreationPageComponent,
         canActivate: [AuthGuard]
     },
     {
