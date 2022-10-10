@@ -13,6 +13,7 @@ import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.co
 import {AdminComponent} from '@app/admin/admin.component'
 import {StatisticsComponent} from '@app/components/statistics/statistics.component'
 import {UserStatsComponent} from '@app/components/user-stats/user-stats.component'
+import {ContactComponent} from "@app/components/contact/contact.component"
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled',
