@@ -15,6 +15,7 @@ import {CourseService} from '@app/course/_services/course.service'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {TokenUseService} from '@app/course/_services/token-use.service'
 import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component'
+import {GoalCreationPageComponent} from "@app/course/goal-creation-page/goal-creation-page.component"
 import {
     TuiAccordionModule,
     TuiAvatarModule,
@@ -73,6 +74,7 @@ import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        GoalCreationPageComponent,
         LeaderBoardComponent,
         PracticeProblemComponent,
         TokenUseSnippetComponent,

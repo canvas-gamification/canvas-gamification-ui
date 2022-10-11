@@ -15,6 +15,7 @@
         <button *tuiTab aria-label="Leaderboard" tuiTab disabled>Leaderboard</button>
         <!--        add another tab: Challenges -->
         <button *tuiTab aria-label="Challenges" tuiTab disabled>Challenges</button>
+        <button *tuiTab aria-label="Create Goal" tuiTab>Create Goal</button>
     </tui-tabs-with-more>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 0">
         <app-concept-map [currCourse]="course"></app-concept-map>
@@ -35,6 +36,9 @@
     </ng-container>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 5">
         <app-course-challenge-snippet [course]="course" [events]="course?.events"></app-course-challenge-snippet>
+    </ng-container>
+    <ng-container *ngIf="tabsComponent.activeItemIndex === 6">
+        <app-goal-creation-page></app-goal-creation-page>
     </ng-container>
 </section>
 <ng-template #more>

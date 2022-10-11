@@ -67,7 +67,6 @@ import {FooterModule} from '@app/components/footer/footer.module'
 import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {StatisticsComponent} from './components/statistics/statistics.component'
-import {GoalCreationPageComponent} from './course/goal-creation-page/goal-creation-page.component'
 
 @NgModule({
     declarations: [
@@ -76,7 +75,6 @@ import {GoalCreationPageComponent} from './course/goal-creation-page/goal-creati
         CourseDashboardComponent,
         FaqComponent,
         ForbiddenComponent,
-        GoalCreationPageComponent,
         HeaderComponent,
         HomepageComponent,
         InactiveCoursesComponent,
@@ -161,6 +159,8 @@ import {GoalCreationPageComponent} from './course/goal-creation-page/goal-creati
             provide: TUI_SANITIZER,
             useClass: NgDompurifySanitizer
         }
+    ],
+    exports: [
     ],
     bootstrap: [AppComponent]
 })
