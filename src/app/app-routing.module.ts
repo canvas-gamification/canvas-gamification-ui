@@ -12,6 +12,8 @@ import {NotFoundComponent} from '@app/components/general/not-found/not-found.com
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component'
 import {AdminComponent} from "@app/admin/admin.component"
 import {UserStatsComponent} from "@app/components/user-stats/user-stats.component"
+import {ContactComponent} from "@app/components/contact/contact.component"
+
 
 const routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled',
@@ -60,6 +62,10 @@ const routes: Routes = [
     {
         path: 'actions',
         component: UserActionsComponent
+    },
+    {
+        path: 'contact',
+        component: ContactComponent
     },
     {
         path: 'faq',
