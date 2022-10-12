@@ -50,6 +50,10 @@ const routes: Routes = [
         component: UserActionsComponent
     },
     {
+        path: 'contact',
+        component: ContactComponent
+    },
+    {
         path: 'faq',
         component: FaqComponent
     },
