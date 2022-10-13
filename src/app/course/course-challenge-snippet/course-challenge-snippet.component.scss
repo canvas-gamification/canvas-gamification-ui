@@ -21,11 +21,27 @@
         padding-top: 20px;
     }
 
-    @include screen-md-lg {
+    //@include screen-md-lg {
+    //    display: grid;
+    //    grid-template-columns: 8rem 8rem 1fr 8rem 8rem 7rem;
+    //    align-items: center;
+    //    justify-items: center;
+    //}
+
+    @include screen-lg {
         display: grid;
-        grid-template-columns: 8rem 8rem 1fr 8rem 8rem 7rem;
+        grid-template-columns: 8rem 3fr 5fr 8rem 8rem 9rem;
         align-items: center;
         justify-items: center;
+    }
+    @include screen-md() {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-areas: "challengeType availability"
+        "name grade"
+        "dates linkBtn";
+        align-items: start;
     }
 
 }
@@ -34,7 +50,7 @@
     color: var(--tui-text-02);
 }
 
-.challengeType, .name, .availability {
+.challengeType, .name,  .dates , .availability, .grade{
     justify-self: start;
     padding-left: 1rem;
 
@@ -49,17 +65,49 @@
 
 }
 
-.grade, .dates {
-    justify-self: start;
-    padding-left: 1rem;
-
-    @include screen-sm() {
-        margin-top: 1rem;
-    }
-}
-
 .linkBtn {
     justify-self: end;
     padding-left: 1rem;
     padding-right: 1rem;
+    display: flex;
+    gap: 0.3rem;
+}
+
+.challengeType{
+    @include screen-md() {
+        grid-area: challengeType;
+    }
+}
+
+.name {
+    @include screen-md() {
+        grid-area: name;
+    }
+}
+
+.dates {
+    @include screen-md() {
+        grid-area: dates;
+    }
+}
+
+.availability {
+    @include screen-md() {
+        grid-area: availability;
+        justify-self: end;
+    }
+}
+
+.grade {
+    @include screen-md() {
+        grid-area: grade;
+        justify-self: end;
+    }
+}
+
+.linkBtn {
+    @include screen-md() {
+        grid-area: linkBtn;
+        padding-right: 0;
+    }
 }
