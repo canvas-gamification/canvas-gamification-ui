@@ -1,0 +1,104 @@
+<div class="challengePage">
+    <tui-accordion class="accordionContainer" [closeOthers]="false">
+        <tui-accordion-item class="title" open="true" [disableHover]="true">
+            Upcoming Challenges
+            <ng-template tuiAccordionItemContent>
+                <div *ngFor="let challenge of upcomingEvents" class="challenge">
+                    <div class="challengeType"> Challenge </div>
+                    <div class="name">{{ challenge.name }}</div>
+
+                    <div class="dates">
+                        <div>From: {{ challenge.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+                        <div>Until: {{ challenge.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+                    </div>
+                    <div class="availability">
+                        <tui-tag *ngIf="challenge.is_open; else challengeComingSoon" size="m" status="success" value="Available"></tui-tag>
+                        <ng-template #challengeComingSoon>
+                            <tui-tag size="m" status="error" value="Coming Soon"></tui-tag>
+                        </ng-template>
+                    </div>
+                    <div class="grade">
+                        <ng-container *ngIf="challenge.is_not_available_yet ; else totalEventGrade">
+                            Grade: TBA
+                        </ng-container>
+                        <ng-template #totalEventGrade>
+                            Grade: {{ challenge.total_event_grade | number: '1.0-1' || 'No Grade'}}%
+                        </ng-template>
+                    </div>
+                    <div class="linkBtn">
+                        <ng-container *ngIf="challenge.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
+                            <a [routerLink]="['/course', course.id, 'event', challenge.id]" appearance="primary" class="tui-form__button"
+                               size="s"
+                               tuiButton
+                            >
+                                {{ user.is_teacher ? 'View' : 'Complete' }}
+                            </a>
+                        </ng-container>
+                        <ng-template #notAllowedOpen>
+                            <a [disabled]="true" appearance="primary" aria-label="Complete" class="tui-form__button" href=""
+                               size="s"
+                               tuiButton>
+                                Complete
+                            </a>
+                        </ng-template>
+                        <a *ngIf="challenge.has_edit_permission" [routerLink]="['/course', course.id, 'new-event', challenge.id]"
+                           appearance="primary" aria-label="Edit" class="tui-form__button"
+                           size="s"
+                           tuiButton
+                        >
+                            Edit
+                        </a>
+                    </div>
+                </div>
+            </ng-template>
+        </tui-accordion-item>
+        <tui-accordion-item open="true">
+            Past Challenges
+            <ng-template tuiAccordionItemContent>
+                <div *ngFor="let challenge of pastEvents" class="tui-space_top-5 challenge">
+                    <div class="challengeType"> Challenge </div>
+                    <div class="name">{{ challenge.name }}</div>
+
+                    <div class="dates">
+                        <div>From: {{ challenge.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+                        <div>Until: {{ challenge.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+                    </div>
+                    <div class="availability">
+                        <tui-tag *ngIf="challenge.is_open; else challengeComingSoon" size="m" status="success" value="Available"></tui-tag>
+                        <ng-template #challengeComingSoon>
+                            <tui-tag size="m" status="default" value="Closed"></tui-tag>
+                        </ng-template>
+                    </div>
+                    <div class="grade">
+                        Grade: {{ challenge.total_event_grade | number: '1.0-1' || 'No Grade'}}%
+                    </div>
+                    <div class="linkBtn">
+                        <ng-container *ngIf="challenge.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
+                            <a [routerLink]="['/course', course.id, 'event', challenge.id]" appearance="primary" class="tui-form__button"
+                               size="s"
+                               tuiButton
+                            >
+                                {{ user.is_teacher ? 'View' : 'Complete' }}
+                            </a>
+                        </ng-container>
+                        <ng-template #notAllowedOpen>
+                            <a [disabled]="true" appearance="primary" aria-label="Complete" class="tui-form__button" href=""
+                               size="s"
+                               tuiButton>
+                                Complete
+                            </a>
+                        </ng-template>
+                        <a *ngIf="challenge.has_edit_permission" [routerLink]="['/course', course.id, 'new-event', challenge.id]"
+                           appearance="primary" aria-label="Edit" class="tui-form__button"
+                           size="s"
+                           tuiButton
+                        >
+                            Edit
+                        </a>
+                    </div>
+                </div>
+            </ng-template>
+        </tui-accordion-item>
+    </tui-accordion>
+</div>
+

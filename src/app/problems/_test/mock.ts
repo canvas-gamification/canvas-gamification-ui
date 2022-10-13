@@ -45,6 +45,8 @@ export const MOCK_COURSE_EVENT: CourseEvent = {
     start_date: null,
     total_event_grade: 0,
     type: '',
+    is_not_available_yet: false,
+    is_closed: false
 }
 
 export const MOCK_PRACTICE_EVENT: CourseEvent = {
@@ -53,7 +55,9 @@ export const MOCK_PRACTICE_EVENT: CourseEvent = {
     count_for_tokens: false,
     start_date: null,
     end_date: null,
-    course: null
+    course: null,
+    is_not_available_yet: null,
+    is_closed: null
 }
 
 export const MOCK_MCQ_QUESTION: Question = {
@@ -654,6 +658,7 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     show_answer: false,
     show_detail: true,
     safeAnswer: [],
+    author: 'studentName',
 }
 
 export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
@@ -684,6 +689,7 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     show_answer: false,
     show_detail: true,
     safeAnswer: [],
+    author: 'studentName',
 }
 
 export const MOCK_DIFFICULTIES: Difficulty[] = [

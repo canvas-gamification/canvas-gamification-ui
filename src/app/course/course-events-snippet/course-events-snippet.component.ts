@@ -60,7 +60,6 @@ export class CourseEventsSnippetComponent implements OnInit {
             case EventFilterOptions.EXAM:
                 return this.events.filter(event => event.type === 'EXAM')
         }
-
     }
 
     getUpcomingEvents(): CourseEvent[] {
@@ -70,7 +69,6 @@ export class CourseEventsSnippetComponent implements OnInit {
     getPastEvents(): CourseEvent[] {
         return this.getEvents().filter(event => event.is_closed)
     }
-
 
     /**
      * Gets all available course events and then opens a dialog with import template.
@@ -101,5 +99,4 @@ export class CourseEventsSnippetComponent implements OnInit {
             }
         })
     }
-
 }

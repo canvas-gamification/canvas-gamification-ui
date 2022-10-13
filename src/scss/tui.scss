@@ -8,3 +8,7 @@
         box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1) !important;
     }
 }
+
+[automation-id="tui-accordion__item-wrapper"] .header_open {
+    background-color: var(--tui-base-02) !important;
+}

@@ -1,0 +1,65 @@
+@import "mixins";
+
+.challengePage {
+    display: flex;
+    flex-direction: column;
+}
+
+.accordionContainer {
+    align-self: center;
+    width: 90%;
+}
+
+.challenge {
+    &:not(:last-child) {
+        border-bottom: solid 1px var(--tui-base-03);
+        margin: 0;
+        padding-bottom: 20px;
+    }
+
+    &:not(:first-child) {
+        padding-top: 20px;
+    }
+
+    @include screen-md-lg {
+        display: grid;
+        grid-template-columns: 8rem 8rem 1fr 8rem 8rem 7rem;
+        align-items: center;
+        justify-items: center;
+    }
+
+}
+
+.challengeType {
+    color: var(--tui-text-02);
+}
+
+.challengeType, .name, .availability {
+    justify-self: start;
+    padding-left: 1rem;
+
+    @include screen-sm() {
+        margin-top: 1rem;
+    }
+}
+
+.dates {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.grade, .dates {
+    justify-self: start;
+    padding-left: 1rem;
+
+    @include screen-sm() {
+        margin-top: 1rem;
+    }
+}
+
+.linkBtn {
+    justify-self: end;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
