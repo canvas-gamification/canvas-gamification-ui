@@ -37,7 +37,7 @@ import {
     TuiButtonModule,
     TuiCalendarModule,
     TuiDataListModule,
-    TuiDialogModule, TuiDropdownModule,
+    TuiDialogModule,
     TuiErrorModule,
     TuiHostedDropdownModule,
     TuiLinkModule,
