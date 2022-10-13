@@ -21,13 +21,6 @@
         padding-top: 20px;
     }
 
-    //@include screen-md-lg {
-    //    display: grid;
-    //    grid-template-columns: 8rem 8rem 1fr 8rem 8rem 7rem;
-    //    align-items: center;
-    //    justify-items: center;
-    //}
-
     @include screen-lg {
         display: grid;
         grid-template-columns: 8rem 3fr 5fr 8rem 8rem 9rem;
