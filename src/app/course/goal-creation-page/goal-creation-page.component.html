@@ -34,9 +34,11 @@
     Build your own goal:
 </p>
 <br>
-<div class="tui-col_md-8">
+<div class="tui-col">
     <div class="tui-row">
-        <h2 class="tui-text_body-l">
+        <h2 class="tui-text_body-l"
+            style="margin: 15px 0 0 50px;"
+        >
             Set the end date:
         </h2>
         <tui-input-date
@@ -47,4 +49,49 @@
             End Date
         </tui-input-date>
     </div>
+    <br>
+    <div class="tui-row" style="margin: 0 0 0 20px;">
+        <tui-select
+            class="control"
+        >
+            Category
+        </tui-select>
+        <tui-select
+            class="control"
+        >
+            Difficulty
+        </tui-select>
+        <tui-input-number
+        >
+            Number of Questions
+        </tui-input-number>
+        <button
+            tuiButton
+            type="button"
+            appearance="accent"
+            class="tui-space_right-3 tui-space_bottom-3"
+            style="margin: 0 20px 0 20px;"
+        >
+            Delete
+        </button>
+        <button
+            tuiButton
+            type="button"
+            appearance="primary"
+            class="tui-space_right-3 tui-space_bottom-3"
+            style="margin: 0 20px 0 0;"
+        >
+            Add Task
+        </button>
+    </div>
+    <br>
+    <button
+        tuiButton
+        type="button"
+        appearance="primary"
+        class="tui-space_right-3 tui-space_bottom-3"
+        style="margin: 0 0 0 20px;"
+    >
+        Create Goal
+    </button>
 </div>
