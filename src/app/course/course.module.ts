@@ -25,6 +25,7 @@ import {
     TuiInputDateModule,
     TuiInputDateRangeModule,
     TuiInputModule,
+    TuiInputNumberModule,
     TuiInputTimeModule,
     TuiIslandModule,
     TuiMarkerIconModule,
@@ -48,8 +49,12 @@ import {
     TuiTextfieldControllerModule
 } from '@taiga-ui/core'
 import {TextMaskModule} from 'angular2-text-mask'
-import {CourseRegistrationStepperComponent} from './course-registration/course-registration-stepper/course-registration-stepper.component'
-import {CourseRegistrationStepComponent} from './course-registration/course-registration-step/course-registration-step.component'
+import {
+    CourseRegistrationStepperComponent
+} from './course-registration/course-registration-stepper/course-registration-stepper.component'
+import {
+    CourseRegistrationStepComponent
+} from './course-registration/course-registration-step/course-registration-step.component'
 import {TuiActiveZoneModule, TuiFilterPipeModule} from '@taiga-ui/cdk'
 import {TuiTableModule} from '@taiga-ui/addon-table'
 import {DragulaModule} from 'ng2-dragula'
@@ -60,6 +65,8 @@ import {ProblemsModule} from '@app/problems/problems.module'
 import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course-challenge-snippet.component'
+import {GoalPageComponent} from './goal/goal-page/goal-page.component'
+import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 
 @NgModule({
     declarations: [
@@ -73,6 +80,8 @@ import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        GoalCreateComponent,
+        GoalPageComponent,
         LeaderBoardComponent,
         PracticeProblemComponent,
         TokenUseSnippetComponent,
@@ -106,6 +115,7 @@ import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course
         TuiInputDateModule,
         TuiInputDateRangeModule,
         TuiInputModule,
+        TuiInputNumberModule,
         TuiInputTimeModule,
         TuiIslandModule,
         TuiLinkModule,
@@ -119,8 +129,8 @@ import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course
         TuiSvgModule,
         TuiTableModule,
         TuiTabsModule,
-        TuiTagModule,
         DragulaModule.forRoot(),
+        TuiTagModule,
         TuiTextfieldControllerModule,
     ],
     providers: [

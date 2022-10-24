@@ -8,7 +8,7 @@ import {AuthenticationService} from "@app/_services/api/authentication"
     templateUrl: './course-island.component.html',
     styleUrls: ['./course-island.component.scss']
 })
-export class CourseIslandComponent implements OnInit{
+export class CourseIslandComponent implements OnInit {
     @Input() course: Course
     @Input() hasViewPermission: boolean
     @Input() skeleton = false
@@ -22,7 +22,8 @@ export class CourseIslandComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        this.endDate = new Date(this.course.end_date)
+        if (!this.skeleton)
+            this.endDate = new Date(this.course.end_date)
         this.currentDate = new Date()
     }
 
