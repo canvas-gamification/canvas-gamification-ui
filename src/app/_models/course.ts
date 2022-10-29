@@ -1,5 +1,10 @@
 import {CourseEvent, CourseRegistration, LeaderboardElement, UQJ} from '@app/_models'
 
+export enum CourseRegistrationMode {
+    OPEN = 'OPEN',
+    CODE = 'CODE',
+}
+
 export interface Course {
     id: number;
     mock: boolean;
@@ -21,6 +26,7 @@ export interface Course {
     leader_board: LeaderboardElement[];
     has_create_event_permission: boolean;
     description: string;
+    registration_mode: CourseRegistrationMode;
 }
 
 export const STATUS = {

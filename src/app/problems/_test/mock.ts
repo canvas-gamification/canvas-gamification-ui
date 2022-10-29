@@ -1,4 +1,4 @@
-import {Category, Course, CourseEvent, Question, STATUS, UQJ} from '@app/_models'
+import {Category, Course, CourseEvent, CourseRegistrationMode, Question, STATUS, UQJ} from '@app/_models'
 import {QuestionSubmission, StatusMessage} from '@app/_models/question_submission'
 import {Difficulty} from "@app/_models/difficulty"
 import {McqFormData} from "@app/problems/_forms/mcq.form"
@@ -796,7 +796,8 @@ export const MOCK_COURSE: Course = {
     course_reg: null,
     leader_board: null,
     has_create_event_permission: true,
-    description: ""
+    description: "",
+    registration_mode: CourseRegistrationMode.OPEN,
 }
 
 export const MOCK_USER_DIFFICULTY_STATS: UserStats[] = [

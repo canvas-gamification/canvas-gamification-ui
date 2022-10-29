@@ -5,24 +5,9 @@ import {TestModule} from '@test/test.module'
 import {ApiService} from "@app/_services/api.service"
 import {HttpTestingController} from "@angular/common/http/testing"
 import {
-    MOCK_CONFIRM_RESPONSE1,
-    MOCK_CONFIRM_RESPONSE2_FAIL,
-    MOCK_CONFIRM_RESPONSE2_SUCCESS,
-    MOCK_CONFIRM_STEP1,
-    MOCK_CONFIRM_STEP2_FAIL,
-    MOCK_CONFIRM_STEP2_SUCCESS,
     MOCK_COURSE1,
     MOCK_COURSES,
-    MOCK_IDENTIFICATION_RESPONSE1,
-    MOCK_IDENTIFICATION_RESPONSE2,
-    MOCK_IDENTIFICATION_STEP1,
-    MOCK_IDENTIFICATION_STEP2,
-    MOCK_REGISTRATION_STATUS,
     MOCK_USER_STATS,
-    MOCK_VERIFY_FAIL,
-    MOCK_VERIFY_STEP1,
-    MOCK_VERIFY_STEP1_FAIL,
-    MOCK_VERIFY_SUCCESS
 } from "@app/course/_test/mock"
 
 describe('CourseService', () => {
@@ -57,16 +42,6 @@ describe('CourseService', () => {
         tick()
     }))
 
-    it('getCourseRegistrationStatus', fakeAsync(() => {
-        courseService.getCourseRegistrationStatus(0).subscribe((response) => {
-            expect(response).toBeTruthy()
-        })
-        const request = httpMock.expectOne(apiService.getURL('course', 0, 'get-registration-status'))
-        expect(request.request.method).toBe('GET')
-        request.flush(MOCK_REGISTRATION_STATUS)
-        tick()
-    }))
-
     it('validateEvent should return truthy value', fakeAsync(() => {
         courseService.validateEvent(0, 1).subscribe((response) => {
             expect(response).toBeTruthy()
@@ -94,76 +69,6 @@ describe('CourseService', () => {
         const request = httpMock.expectOne(apiService.getURL('course', 0))
         expect(request.request.method).toBe('GET')
         request.flush(MOCK_COURSE1)
-        tick()
-    }))
-
-    it('register method should work for single student', fakeAsync(() => {
-        courseService.register(0, MOCK_IDENTIFICATION_STEP1).subscribe((response) => {
-            expect(response).toEqual(MOCK_IDENTIFICATION_RESPONSE1)
-        })
-        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'))
-        expect(request.request.method).toBe('POST')
-        request.flush(MOCK_IDENTIFICATION_RESPONSE1)
-        tick()
-    }))
-
-    it('register method should work for single student when confirming name', fakeAsync(() => {
-        courseService.register(0, MOCK_CONFIRM_STEP1).subscribe((response) => {
-            expect(response).toEqual(MOCK_CONFIRM_RESPONSE1)
-        })
-        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'))
-        expect(request.request.method).toBe('POST')
-        request.flush(MOCK_CONFIRM_RESPONSE1)
-        tick()
-    }))
-
-    it('register method should work for multiple students with same name', fakeAsync(() => {
-        courseService.register(0, MOCK_IDENTIFICATION_STEP2).subscribe((response) => {
-            expect(response).toEqual(MOCK_IDENTIFICATION_RESPONSE2)
-        })
-        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'))
-        expect(request.request.method).toBe('POST')
-        request.flush(MOCK_IDENTIFICATION_RESPONSE2)
-        tick()
-    }))
-
-    it('register method should work for single student when confirming with correct student number', fakeAsync(() => {
-        courseService.register(0, MOCK_CONFIRM_STEP2_SUCCESS).subscribe((response) => {
-            expect(response).toEqual(MOCK_CONFIRM_RESPONSE2_SUCCESS)
-        })
-        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'))
-        expect(request.request.method).toBe('POST')
-        request.flush(MOCK_CONFIRM_RESPONSE2_SUCCESS)
-        tick()
-    }))
-
-    it('register method should work for single student when confirming with incorrect student number', fakeAsync(() => {
-        courseService.register(0, MOCK_CONFIRM_STEP2_FAIL).subscribe((response) => {
-            expect(response).toEqual(MOCK_CONFIRM_RESPONSE2_FAIL)
-        })
-        const request = httpMock.expectOne(apiService.getURL('course', 0, 'register'))
-        expect(request.request.method).toBe('POST')
-        request.flush(MOCK_CONFIRM_RESPONSE2_FAIL)
-        tick()
-    }))
-
-    it('verify method should work for single student with correct code', fakeAsync(() => {
-        courseService.registerVerify(0, MOCK_VERIFY_STEP1).subscribe((response) => {
-            expect(response).toEqual(MOCK_VERIFY_SUCCESS)
-        })
-        const request = httpMock.expectOne(apiService.getURL('course', 0, 'verify'))
-        expect(request.request.method).toBe('POST')
-        request.flush(MOCK_VERIFY_SUCCESS)
-        tick()
-    }))
-
-    it('verify method should work for single student with incorrect code', fakeAsync(() => {
-        courseService.registerVerify(0, MOCK_VERIFY_STEP1_FAIL).subscribe((response) => {
-            expect(response).toEqual(MOCK_VERIFY_FAIL)
-        })
-        const request = httpMock.expectOne(apiService.getURL('course', 0, 'verify'))
-        expect(request.request.method).toBe('POST')
-        request.flush(MOCK_VERIFY_FAIL)
         tick()
     }))
 })

@@ -1,12 +1,9 @@
 import {
     Course,
     CourseRegistration,
-    CourseRegistrationRequest,
-    CourseRegistrationResponse,
+    CourseRegistrationMode,
     EventType,
     Question,
-    REGISTRATION_STATUS,
-    RegistrationStatus,
     STATUS,
     TokenUseOption,
     UQJ,
@@ -62,12 +59,6 @@ export const MOCK_USER_STATS: { success_rate: number } = {
     success_rate: 0.5
 }
 
-export const MOCK_REGISTRATION_STATUS: RegistrationStatus = {
-    status: REGISTRATION_STATUS.REGISTERED,
-    message: null,
-    attempts_remaining: 3,
-}
-
 export const MOCK_COURSE1: Course = {
     id: 0,
     mock: null,
@@ -88,7 +79,8 @@ export const MOCK_COURSE1: Course = {
     course_reg: null,
     leader_board: null,
     has_create_event_permission: true,
-    description: ""
+    description: "",
+    registration_mode: CourseRegistrationMode.OPEN,
 }
 
 export const MOCK_COURSE2: Course = {
@@ -117,82 +109,11 @@ export const MOCK_COURSE2: Course = {
         token: 5,
     }],
     has_create_event_permission: true,
-    description: ""
+    description: "",
+    registration_mode: CourseRegistrationMode.OPEN,
 }
 
 export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2]
-
-export const MOCK_COURSE_REGISTRATION_RESPONSE: CourseRegistrationResponse = {
-    success: true,
-    name: 'Test Student',
-    guessed_name: 'Test Student',
-    confirmed_name: 'Test Student',
-    student_number: 123,
-    code: 111,
-    attempts_remaining: 2,
-}
-
-//Data for case where there is only one student
-export const MOCK_IDENTIFICATION_STEP1: CourseRegistrationRequest = {
-    name: "Firstname Lastname"
-}
-
-export const MOCK_IDENTIFICATION_RESPONSE1: CourseRegistrationResponse = {
-    success: true,
-    guessed_name: 'Firstname Lastname',
-}
-export const MOCK_CONFIRM_STEP1: CourseRegistrationRequest = {
-    name: "Firstname Lastname",
-    confirmed_name: "Firstname Lastname"
-}
-export const MOCK_CONFIRM_RESPONSE1: CourseRegistrationResponse = {
-    success: true,
-}
-
-export const MOCK_VERIFY_STEP1: CourseRegistrationRequest = {
-    name: "Firstname Lastname",
-    code: 52
-}
-
-export const MOCK_VERIFY_STEP1_FAIL: CourseRegistrationRequest = {
-    name: "Firstname Lastname",
-    code: 0
-}
-
-export const MOCK_VERIFY_SUCCESS: CourseRegistrationResponse = {
-    attempts_remaining: 2,
-    success: true
-}
-
-export const MOCK_VERIFY_FAIL: CourseRegistrationResponse = {
-    attempts_remaining: 2,
-    success: false
-}
-
-//Data for case where multiple students have same name
-export const MOCK_IDENTIFICATION_STEP2: CourseRegistrationRequest = {
-    name: "Multiple Student"
-}
-
-export const MOCK_IDENTIFICATION_RESPONSE2: CourseRegistrationResponse = {
-    success: false,
-    guessed_name: null,
-}
-export const MOCK_CONFIRM_STEP2_SUCCESS: CourseRegistrationRequest = {
-    name: "Multiple Student",
-    student_number: "12345678"
-}
-export const MOCK_CONFIRM_RESPONSE2_SUCCESS: CourseRegistrationResponse = {
-    success: true,
-}
-export const MOCK_CONFIRM_STEP2_FAIL: CourseRegistrationRequest = {
-    name: "Multiple Student",
-    student_number: "0"
-}
-export const MOCK_CONFIRM_RESPONSE2_FAIL: CourseRegistrationResponse = {
-    success: false,
-    bad_request: true
-}
 
 export const MOCK_USER_STUDENT: User = {
     id: 0,

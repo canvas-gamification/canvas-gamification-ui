@@ -1,4 +1,4 @@
-import {Category, Course, NestedCategories, QuestionCount, STATUS} from "@app/_models"
+import {Category, Course, CourseRegistrationMode, NestedCategories, QuestionCount, STATUS} from "@app/_models"
 import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 
 export const MOCK_CATEGORY: Category = {
@@ -58,5 +58,6 @@ export const MOCK_VIEW_COURSE: Course = {
     course_reg: null,
     leader_board: null,
     has_create_event_permission: false,
-    description: ""
+    description: "",
+    registration_mode: CourseRegistrationMode.OPEN,
 }
