@@ -1,4 +1,5 @@
 export interface Goal {
+    id: number
     course_reg: number
     start_date: string
     end_date: string

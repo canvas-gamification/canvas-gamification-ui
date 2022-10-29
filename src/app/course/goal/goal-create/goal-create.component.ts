@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core'
 import {FormArray, FormControl, FormGroup} from "@angular/forms"
 import {GoalForm} from "@app/course/_forms/goal.form"
 import {GoalService} from "@app/course/_services/goal.service"
-import {Router} from "@angular/router"
+import {ActivatedRoute, Router} from "@angular/router"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {tuiCreateTimePeriods} from "@taiga-ui/kit"
 import {CategoryService} from "@app/_services/api/category.service"
@@ -21,17 +21,20 @@ export class GoalCreateComponent implements OnInit {
     goalForm: FormGroup
     categories: Category[]
     difficulties: Difficulty[]
+    courseId: number
 
     constructor(
         private readonly goalService: GoalService,
         private readonly categoryService: CategoryService,
         private readonly difficultyService: DifficultyService,
         private readonly router: Router,
+        private readonly activatedRoute: ActivatedRoute,
         private readonly notificationService: TuiNotificationsService
     ) {
     }
 
     ngOnInit(): void {
+        this.courseId = this.activatedRoute.snapshot.params.courseId
         this.goalForm = GoalForm.createGoalForm()
         this.categoryService.getCategories().subscribe(categories => this.categories = categories)
         this.difficultyService.getDifficulties().subscribe(difficulties => this.difficulties = difficulties)
@@ -57,18 +60,21 @@ export class GoalCreateComponent implements OnInit {
         this.getGoalItems().removeAt(index)
     }
 
-    onSubmit(): void {
-        const goalData = GoalForm.formatGoalFormData(this.goalForm)
-        console.debug(goalData)
+    async onSubmit(): Promise<void> {
+        const goalData = GoalForm.formatGoalFormData(this.goalForm, this.courseId)
 
-        this.goalService.createGoal(goalData).subscribe({
-            next: () => {
-                // this.router.navigate(['..'])
-                this.notificationService.show('Goal created successfully', {
-                    label: 'Success',
-                    status: TuiNotification.Success
-                })
-            }
-        })
+        const goal = await this.goalService.createGoal(goalData).toPromise()
+
+        for(const goalItem of this.getGoalItemFormControls()) {
+            const goalItemData = GoalForm.formatGoalItemFormData(goalItem, goal.id)
+            await this.goalService.createGoalItem(goalItemData).toPromise()
+        }
+
+        this.notificationService.show('Goal created successfully', {
+            label: 'Success',
+            status: TuiNotification.Success
+        }).subscribe()
+
+        this.router.navigate(['..'], {relativeTo: this.activatedRoute}).then()
     }
 }
