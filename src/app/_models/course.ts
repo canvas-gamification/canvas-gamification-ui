@@ -20,6 +20,7 @@ export interface Course {
     course_reg: CourseRegistration;
     leader_board: LeaderboardElement[];
     has_create_event_permission: boolean;
+    description: string;
 }
 
 export const STATUS = {
