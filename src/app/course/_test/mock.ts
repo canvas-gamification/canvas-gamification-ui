@@ -87,7 +87,8 @@ export const MOCK_COURSE1: Course = {
     uqjs: null,
     course_reg: null,
     leader_board: null,
-    has_create_event_permission: true
+    has_create_event_permission: true,
+    description: ""
 }
 
 export const MOCK_COURSE2: Course = {
@@ -115,7 +116,8 @@ export const MOCK_COURSE2: Course = {
         name: 'name 2',
         token: 5,
     }],
-    has_create_event_permission: true
+    has_create_event_permission: true,
+    description: ""
 }
 
 export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2]

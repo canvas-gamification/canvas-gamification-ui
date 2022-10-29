@@ -795,7 +795,8 @@ export const MOCK_COURSE: Course = {
     uqjs: MOCK_UQJS,
     course_reg: null,
     leader_board: null,
-    has_create_event_permission: true
+    has_create_event_permission: true,
+    description: ""
 }
 
 export const MOCK_USER_DIFFICULTY_STATS: UserStats[] = [
