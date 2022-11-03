@@ -15,6 +15,11 @@ export class GoalService {
     ) {
     }
 
+    getGoal(id: number) {
+        const url = this.apiService.getURL('goal', id)
+        return this.http.get<Goal>(url).pipe(catchError(this.apiService.handleError<Goal>('Unable to fetch goal.')))
+    }
+
     getGoals() {
         const url = this.apiService.getURL('goal')
         return this.http.get<Goal[]>(url).pipe(catchError(this.apiService.handleError<Goal[]>('Unable to fetch goals.')))

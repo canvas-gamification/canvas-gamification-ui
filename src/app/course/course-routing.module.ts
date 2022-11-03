@@ -1,6 +1,6 @@
 import {AuthGuard} from "@app/_helpers/auth.guard"
 import {NgModule} from "@angular/core"
-import {RouterModule} from "@angular/router"
+import {RouterModule, Routes} from "@angular/router"
 import {CourseListComponent} from "@app/course/course-list/course-list.component"
 import {CourseRegisterComponent} from "@app/course/course-registration/course-register.component"
 import {CourseComponent} from "@app/course/course.component"
@@ -10,8 +10,9 @@ import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.comp
 import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component"
 import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
 import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
+import {GoalComponent} from "@app/course/goal/goal/goal.component"
 
-const routes = [
+const routes: Routes = [
     {
         path: '',
         component: CourseListComponent,
@@ -65,6 +66,11 @@ const routes = [
     {
         path: ':courseId/goal/create',
         component: GoalCreateComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: ':courseId/goal/:goalId',
+        component: GoalComponent,
         canActivate: [AuthGuard],
     }
 ]

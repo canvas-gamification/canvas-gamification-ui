@@ -67,6 +67,8 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course-challenge-snippet.component'
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
+import {GoalComponent} from './goal/goal/goal.component'
+import {TuiRingChartModule} from "@taiga-ui/addon-charts"
 
 @NgModule({
     declarations: [
@@ -80,6 +82,7 @@ import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        GoalComponent,
         GoalCreateComponent,
         GoalPageComponent,
         LeaderBoardComponent,
@@ -123,13 +126,14 @@ import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
         TuiMarkerIconModule,
         TuiModeModule,
         TuiNotificationModule,
+        TuiRingChartModule,
         TuiSelectModule,
         TuiSidebarModule,
         TuiStepperModule,
         TuiSvgModule,
         TuiTableModule,
-        TuiTabsModule,
         DragulaModule.forRoot(),
+        TuiTabsModule,
         TuiTagModule,
         TuiTextfieldControllerModule,
     ],

@@ -20,6 +20,7 @@
     <div *ngFor="let item of goal.goal_items">
         Solve {{item.number_of_questions}} {{item.difficulty ?? ''}} questions from {{item.category}}
     </div>
+    <a [routerLink]="[goal.id]">Open</a>
 </div>
 
 <a [routerLink]="'create'">Create a new goal</a>

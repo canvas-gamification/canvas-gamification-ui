@@ -1,0 +1,17 @@
+<div *ngIf="goal">
+    <div *ngFor="let goalItemId of goalItemIds()">
+        {{goalItemId}}
+        {{this.goal.stats[goalItemId].total}}
+        <tui-ring-chart
+            [value]="values(goalItemId)"
+            [(activeItemIndex)]="activeItemIndexes[goalItemId]"
+            [content]="content"
+            [colorHandler]="color"
+        >
+        </tui-ring-chart>
+        <ng-template #content>
+            <div>{{value(goalItemId)}}</div>
+            <div>{{label(activeItemIndexes[goalItemId])}}</div>
+        </ng-template>
+    </div>
+</div>
