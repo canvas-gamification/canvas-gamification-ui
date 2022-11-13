@@ -27,7 +27,8 @@
         <tui-island class="tui-island_hoverable practice-tile" size="m">
             <div class="course-background practice-question"></div>
             <h3 class="tui-island__title">Practice Questions</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Select questions from the concept map to practice questions in a
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">Select questions from the concept map to
+                practice questions in a
                 specific category.</p>
             <div class="course-view-button tui-space_top-3">
                 <a
@@ -49,7 +50,7 @@
             <div class="course-view-button tui-space_top-3">
                 <a
                     appearance="primary"
-                    [routerLink]="['practice']"
+                    [routerLink]="['/course', courseId, 'goal']"
                     class="tui-form__button"
                     size="m"
                     tuiButton

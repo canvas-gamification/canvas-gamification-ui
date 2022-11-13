@@ -15,6 +15,8 @@ import {CoursePracticeComponent} from "@app/course/course-practice/course-practi
 import {
     CoursePracticeConceptMapComponent
 } from "@app/course/course-practice-concept-map/course-practice-concept-map.component"
+import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component"
+import {CourseChallengeSnippetComponent} from "@app/course/course-challenge-snippet/course-challenge-snippet.component"
 
 const routes: Routes = [
     {
@@ -86,6 +88,16 @@ const routes: Routes = [
         path: ':courseId/goal/:goalId',
         component: GoalComponent,
         canActivate: [AuthGuard],
+    },
+    {
+        path: ':courseId/token',
+        component: TokenUseSnippetComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/challenges',
+        component: CourseChallengeSnippetComponent,
+        canActivate: [AuthGuard]
     }
 ]
 
