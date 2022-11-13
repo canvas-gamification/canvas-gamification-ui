@@ -1,0 +1,26 @@
+<h1>Goals</h1>
+<div *ngFor="let goal of goals; let i = index" [attr.data-index]="i">
+    Goal {{i}}
+    <div>
+        Start date: {{goal.start_date}}
+    </div>
+    <div>
+        End date: {{goal.end_date}}
+    </div>
+    <div>
+        Progress: {{goal.progress}}
+    </div>
+    <div>
+        Is Finished: {{goal.is_finished}}
+    </div>
+    <div>
+        Number of questions: {{goal.number_of_questions}}
+    </div>
+    Items
+    <div *ngFor="let item of goal.goal_items">
+        Solve {{item.number_of_questions}} {{item.difficulty ?? ''}} questions from {{item.category}}
+    </div>
+    <a [routerLink]="[goal.id]">Open</a>
+</div>
+
+<a [routerLink]="'create'">Create a new goal</a>

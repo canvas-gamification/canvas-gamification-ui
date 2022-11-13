@@ -46,12 +46,12 @@ import {
 } from '@taiga-ui/core'
 import {
     TUI_VALIDATION_ERRORS,
-    TuiAvatarModule,
+    TuiAvatarModule, TuiDataListWrapperModule,
     TuiDropdownHoverModule,
-    TuiInputCountModule,
+    TuiInputCountModule, TuiInputDateModule, TuiInputNumberModule, TuiInputTimeModule,
     TuiIslandModule,
     TuiMarkerIconModule,
-    TuiRadioBlockModule,
+    TuiRadioBlockModule, TuiSelectModule,
     TuiToggleModule
 } from '@taiga-ui/kit'
 import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
@@ -67,6 +67,7 @@ import {FooterModule} from '@app/components/footer/footer.module'
 import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {StatisticsComponent} from './components/statistics/statistics.component'
+import {GoalCreationPageComponent} from "@app/course/goal-creation-page/goal-creation-page.component"
 
 @NgModule({
     declarations: [
@@ -75,6 +76,7 @@ import {StatisticsComponent} from './components/statistics/statistics.component'
         CourseDashboardComponent,
         FaqComponent,
         ForbiddenComponent,
+        GoalCreationPageComponent,
         HeaderComponent,
         HomepageComponent,
         InactiveCoursesComponent,
@@ -131,7 +133,12 @@ import {StatisticsComponent} from './components/statistics/statistics.component'
         TuiTableModule,
         TuiTablePaginationModule,
         TuiThemeNightModule,
-        TuiToggleModule
+        TuiToggleModule,
+        TuiInputNumberModule,
+        TuiDataListWrapperModule,
+        TuiSelectModule,
+        TuiInputTimeModule,
+        TuiInputDateModule
     ],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
@@ -161,6 +168,7 @@ import {StatisticsComponent} from './components/statistics/statistics.component'
         }
     ],
     exports: [
+        GoalCreationPageComponent
     ],
     bootstrap: [AppComponent]
 })

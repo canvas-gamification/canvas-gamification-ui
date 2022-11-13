@@ -1,0 +1,78 @@
+<!--<div class="tui-container tui-container_adaptive">-->
+<!--    <form (ngSubmit)="onSubmit()" [formGroup]="goalForm">-->
+<!--        <h2 class="tui-form__header">Create New Goal</h2>-->
+<!--        <div class="tui-form__row tui-form__row_multi-fields">-->
+<!--            <div class="tui-form__multi-field">-->
+<!--                <tui-input-date aria-label="End Date" formControlName="end_date">-->
+<!--                    End date-->
+<!--                </tui-input-date>-->
+<!--                <tui-field-error formControlName="end_date"></tui-field-error>-->
+<!--            </div>-->
+<!--            <div class="tui-form__multi-field">-->
+<!--                <tui-input-time [items]="timeOptions" aria-label="End Time" formControlName="end_time">-->
+<!--                    End time-->
+<!--                </tui-input-time>-->
+<!--                <tui-field-error formControlName="end_time"></tui-field-error>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <h3 class="tui-form__header">Goal Items</h3>-->
+<!--        <div *ngFor="let goalItemFormControl of getGoalItemFormControls(); let index = index"-->
+<!--             class="tui-form__row tui-form__row_multi-fields">-->
+<!--            <div class="tui-form__multi-field">-->
+<!--                <tui-select-->
+<!--                    [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"-->
+<!--                    [formControl]="getFormControl(goalItemFormControl, 'category')"-->
+<!--                >-->
+<!--                    Category-->
+<!--                    <tui-data-list *tuiDataList>-->
+<!--                        <button *ngFor="let category of categories" [value]="category.pk" tuiOption>-->
+<!--                            {{ category.full_name }}-->
+<!--                        </button>-->
+<!--                    </tui-data-list>-->
+<!--                </tui-select>-->
+<!--                <tui-field-error [formControl]="getFormControl(goalItemFormControl, 'category')"></tui-field-error>-->
+<!--            </div>-->
+<!--            <div class="tui-form__multi-field">-->
+<!--                <tui-select-->
+<!--                    [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"-->
+<!--                    [formControl]="getFormControl(goalItemFormControl, 'difficulty')"-->
+<!--                >-->
+<!--                    Difficulty-->
+<!--                    <tui-data-list *tuiDataList>-->
+<!--                        <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]" tuiOption>-->
+<!--                            {{ difficulty[1] }}-->
+<!--                        </button>-->
+<!--                    </tui-data-list>-->
+<!--                </tui-select>-->
+<!--                <tui-field-error-->
+<!--                    [formControl]="getFormControl(goalItemFormControl, 'difficulty')"></tui-field-error>-->
+<!--            </div>-->
+<!--            <div class="tui-form__multi-field">-->
+<!--                <tui-input-number [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')">-->
+<!--                    Number of questions-->
+<!--                </tui-input-number>-->
+<!--                <tui-field-error-->
+<!--                    [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"></tui-field-error>-->
+<!--            </div>-->
+<!--            <div class="tui-form__multi-field">-->
+<!--                <button (click)="removeGoalItem(index)" icon="tuiIconPlus" size="m" tuiButton type="button"-->
+<!--                        appearance="accent">-->
+<!--                    Remove-->
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="tui-form__buttons">-->
+<!--            <button (click)="addGoalItem()" icon="tuiIconPlus" size="m" tuiButton type="button">-->
+<!--                Add Another-->
+<!--            </button>-->
+<!--            <button-->
+<!--                [disabled]="goalForm.invalid"-->
+<!--                class="tui-form__button"-->
+<!--                size="m"-->
+<!--                tuiButton-->
+<!--            >-->
+<!--                Submit-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->

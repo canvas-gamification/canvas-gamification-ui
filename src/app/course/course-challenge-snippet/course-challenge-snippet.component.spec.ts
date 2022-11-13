@@ -16,6 +16,7 @@ describe('CourseChallengeSnippetComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(CourseChallengeSnippetComponent)
         component = fixture.componentInstance
+        component.events = []
         fixture.detectChanges()
     })
 

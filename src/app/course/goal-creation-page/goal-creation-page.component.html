@@ -25,7 +25,7 @@
                                 appearance="primary"
                                 size="m"
                                 class="tui-space_right-6 tui-space_bottom-6"
-                                (click)="addTask()"
+                                (click)="addGoalItem()"
                             >Add This Task
                             </button>
                         </div>
@@ -67,7 +67,7 @@
             </tui-input-time>
         </div>
         <br>
-        <div *ngFor="let task of tasks; let i = index;">
+        <div *ngFor="let task of getGoalItems().controls; let i = index;">
             <div class="tui-row" style="margin: 0 0 0 20px; vertical-align: center;"
             >
                 <tui-select
@@ -105,24 +105,24 @@
                     Number of Questions
                 </tui-input-number>
                 <button
-                    *ngIf="tasks.length !== 1"
+                    *ngIf="getGoalItems().length !== 1"
                     tuiButton
                     type="button"
                     appearance="accent"
                     class="tui-space_right-3 tui-space_bottom-3"
                     style="margin: 0 0 0 20px; height: 40px; vertical-align: center;"
-                    (click)="deleteTask(i)"
+                    (click)="removeGoalItem(i)"
                 >
                     Delete
                 </button>
                 <button
-                    *ngIf="i === tasks.length-1"
+                    *ngIf="i === getGoalItems().length-1"
                     tuiButton
                     type="button"
                     appearance="primary"
                     class="tui-space_right-3 tui-space_bottom-3"
                     style="margin: 0 20px 0 20px; height: 40px;"
-                    (click)="addTask()"
+                    (click)="addGoalItem()"
                 >
                     Add Task
                 </button>

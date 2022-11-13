@@ -5,7 +5,9 @@
     >
         {{ course?.name }}
     </h1>
-
+    <h6 class="tui-text_h6">
+        {{course?.description}}
+    </h6>
     <tui-tabs-with-more #tabsComponent [class.tui-skeleton]="!course" [moreContent]="more" class="tui-space_bottom-4">
         <button *tuiTab aria-label="Concept Map" tuiTab>Concept Map</button>
         <!--        disable the question tabs for now. Should only be visible to admins -->
@@ -38,7 +40,7 @@
         <app-course-challenge-snippet [course]="course" [events]="course?.events"></app-course-challenge-snippet>
     </ng-container>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 6">
-        <app-goal-creation-page [currCourse]="course"></app-goal-creation-page>
+        <app-goal-creation-page></app-goal-creation-page>
     </ng-container>
 </section>
 <ng-template #more>
