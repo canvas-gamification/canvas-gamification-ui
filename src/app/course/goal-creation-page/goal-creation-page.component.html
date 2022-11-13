@@ -1,97 +1,146 @@
 <h1 class="tui-text_h3 tui-space_top-10 tui-space_bottom-2">Create Goal</h1>
 <br>
 <hr>
+<br>
 <p class="tui-island__paragraph tui-text_body-l">
-    Recommended goals:
+    Recommended goal tasks:
 </p>
 <br>
-<div class="tui-col_md-5">
 
-    <tui-island size="m">
-        <div class="tui-island__content">
-            <div class="tui-island__figure">
-                <div class="tui-row">
-                    <h2 class="tui-text_body-s">Solve 15 easy problems from Basics -> Variables</h2>
-                    <div class="tui-island__figure" style="position: absolute; right: 0;">
-                        <button
-                            tuiButton
-                            type="button"
-                            appearance="primary"
-                            size="m"
-                            class="tui-space_right-6 tui-space_bottom-6"
-                        >Create this goal
-                        </button>
+<p *ngIf="!isLoaded" class="tui-text_body-l">
+    Loading recommended tasks...
+</p>
+
+<div class="tui-col_md-8">
+    <div *ngFor="let sugTask of suggestedTasks;  let i = index;">
+        <tui-island size="m">
+            <div class="tui-island__content">
+                <div class="tui-island__figure">
+                    <div class="tui-row">
+                        <h2 class="tui-text_body-s">{{categories[0] ? (sugTask.toString()) : 'Loading...'}}</h2>
+                        <div class="tui-island__figure" style="position: absolute; right: 0;">
+                            <button
+                                tuiButton
+                                type="button"
+                                appearance="primary"
+                                size="m"
+                                class="tui-space_right-6 tui-space_bottom-6"
+                                (click)="addTask()"
+                            >Add This Task
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </tui-island>
+        </tui-island>
+        <br>
+    </div>
 </div>
-
 <br>
 <hr>
+<br>
 <p class="tui-island__paragraph tui-text_body-l">
     Build your own goal:
 </p>
 <br>
-<div class="tui-col">
-    <div class="tui-row">
-        <h2 class="tui-text_body-l"
-            style="margin: 15px 0 0 50px;"
-        >
-            Set the end date:
-        </h2>
-        <tui-input-date
-            tuiUnfinishedValidator="Finish filling the field"
-            formControlName="testValue"
+<form (ngSubmit)="onSubmit()" [formGroup]="goalForm">
 
-        >
-            End Date
-        </tui-input-date>
+    <div class="tui-col">
+        <div class="tui-row">
+            <h2 class="tui-text_body-l"
+                style="margin: 15px 0 0 50px;"
+            >
+                Set the end date:
+            </h2>
+            <tui-input-date
+                class="b-form"
+                tuiUnfinishedValidator="Finish filling the field"
+                formControlName="end_date"
+            >
+                End Date
+            </tui-input-date>
+            <tui-input-time
+                formControlName="end_time"
+                [items]="timeOptions"
+            >
+                Input time
+            </tui-input-time>
+        </div>
+        <br>
+        <div *ngFor="let task of tasks; let i = index;">
+            <div class="tui-row" style="margin: 0 0 0 20px; vertical-align: center;"
+            >
+                <tui-select
+                    style="width: 500px;"
+                    class="control"
+                    formControlName="category"
+                    [valueContent]="categories ? (categories | stringifyTuiDataList: 'full_name': 'full_name') : ''"
+                >
+                    Category
+                    <tui-data-list *tuiDataList>
+                        <button *ngFor="let category of categories" [value]="category.full_name" tuiOption>
+                            {{ category.full_name }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+                <ng-template
+                    #personValueContent
+                    let-data
+                >
+                    <div>{{ data.name }}></div>
+                </ng-template>
+                <tui-select
+                    class="control"
+                    formControlName="difficulty"
+                >
+                    Difficulty
+                    <tui-data-list-wrapper
+                        *tuiDataList
+                        [items]="difficulties"
+                    ></tui-data-list-wrapper>
+                </tui-select>
+                <tui-input-number
+                    formControlName="numberOfQuestions"
+                >
+                    Number of Questions
+                </tui-input-number>
+                <button
+                    *ngIf="tasks.length !== 1"
+                    tuiButton
+                    type="button"
+                    appearance="accent"
+                    class="tui-space_right-3 tui-space_bottom-3"
+                    style="margin: 0 0 0 20px; height: 40px; vertical-align: center;"
+                    (click)="deleteTask(i)"
+                >
+                    Delete
+                </button>
+                <button
+                    *ngIf="i === tasks.length-1"
+                    tuiButton
+                    type="button"
+                    appearance="primary"
+                    class="tui-space_right-3 tui-space_bottom-3"
+                    style="margin: 0 20px 0 20px; height: 40px;"
+                    (click)="addTask()"
+                >
+                    Add Task
+                </button>
+            </div>
+            <br>
+        </div>
     </div>
-    <br>
-    <div class="tui-row" style="margin: 0 0 0 20px;">
-        <tui-select
-            class="control"
-        >
-            Category
-        </tui-select>
-        <tui-select
-            class="control"
-        >
-            Difficulty
-        </tui-select>
-        <tui-input-number
-        >
-            Number of Questions
-        </tui-input-number>
+    <div class="tui-form__buttons">
         <button
             tuiButton
+            [disabled]="goalForm.invalid"
             type="button"
-            appearance="accent"
-            class="tui-space_right-3 tui-space_bottom-3"
-            style="margin: 0 20px 0 20px;"
-        >
-            Delete
-        </button>
-        <button
-            tuiButton
-            type="button"
+            type="submit"
             appearance="primary"
             class="tui-space_right-3 tui-space_bottom-3"
-            style="margin: 0 20px 0 0;"
+            style="margin: 0 0 0 20px;"
         >
-            Add Task
+            Create Goal
         </button>
     </div>
-    <br>
-    <button
-        tuiButton
-        type="button"
-        appearance="primary"
-        class="tui-space_right-3 tui-space_bottom-3"
-        style="margin: 0 0 0 20px;"
-    >
-        Create Goal
-    </button>
-</div>
+</form>

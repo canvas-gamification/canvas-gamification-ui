@@ -38,7 +38,7 @@
         <app-course-challenge-snippet [course]="course" [events]="course?.events"></app-course-challenge-snippet>
     </ng-container>
     <ng-container *ngIf="tabsComponent.activeItemIndex === 6">
-        <app-goal-creation-page></app-goal-creation-page>
+        <app-goal-creation-page [currCourse]="course"></app-goal-creation-page>
     </ng-container>
 </section>
 <ng-template #more>
