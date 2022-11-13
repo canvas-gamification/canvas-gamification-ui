@@ -17,7 +17,7 @@ import {TokenUseService} from '@app/course/_services/token-use.service'
 import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component'
 import {
     TuiAccordionModule,
-    TuiAvatarModule,
+    TuiAvatarModule, TuiBreadcrumbsModule,
     TuiCheckboxLabeledModule,
     TuiDataListWrapperModule,
     TuiFieldErrorModule,
@@ -104,6 +104,7 @@ import {TuiRingChartModule} from "@taiga-ui/addon-charts"
         TuiAccordionModule,
         TuiActiveZoneModule,
         TuiAvatarModule,
+        TuiBreadcrumbsModule,
         TuiButtonModule,
         TuiCalendarModule,
         TuiCheckboxLabeledModule,
@@ -131,8 +132,8 @@ import {TuiRingChartModule} from "@taiga-ui/addon-charts"
         TuiSidebarModule,
         TuiStepperModule,
         TuiSvgModule,
-        TuiTableModule,
         DragulaModule.forRoot(),
+        TuiTableModule,
         TuiTabsModule,
         TuiTagModule,
         TuiTextfieldControllerModule,

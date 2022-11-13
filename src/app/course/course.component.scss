@@ -1,0 +1,83 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+@import 'mixins';
+
+.course-tile {
+    border: 0.2rem solid #000000;
+    overflow: hidden;
+    cursor: default;
+    @include screen-lg {
+        flex-basis: calc(30% - 4.5rem);
+    }
+    @include screen-md {
+        flex-basis: calc(50% - 4.5rem);
+    }
+    @include screen-sm {
+        flex-basis: 100%
+    }
+    margin: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.flex-container {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    @include screen-lg {
+        max-width: 1200px;
+    }
+    @include screen-md {
+        max-width: 900px;
+    }
+    position: relative;
+}
+
+.flex-space {
+    flex-grow: 3;
+    width: 95%;
+}
+
+.course-background {
+    width: calc(100% + 4.5rem);
+    height: calc(4 * var(--tui-padding-l));
+    margin-top: calc(-1 * var(--tui-padding-l));
+    margin-left: calc(-2 * var(--tui-padding-l));
+    @include tui-space(bottom, 3);
+}
+
+.practice {
+    background-color: var(--tui-success-bg);
+}
+
+.assessment {
+    background-color: var(--tui-error-bg-hover);
+}
+
+.challenge {
+    background-color: var(--tui-warning-bg-hover);
+}
+
+.leaderboard {
+    background-color: var(--tui-info-bg-hover);
+}
+
+.tokens {
+    background-color: var(--tui-neutral-bg-hover);
+}
+
+.course-banner {
+    width: calc(100% + 4.5rem);
+    //margin: 0;
+    margin-top: calc(-.5 * var(--tui-padding-l));
+    margin-left: calc(-1.25 * var(--tui-padding-l));
+    padding: 0.75rem;
+    height: calc(3 * var(--tui-padding-l));
+    background-color: var(--tui-secondary-active);
+}
+
+.course-description{
+    margin-top: 0;
+}

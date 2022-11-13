@@ -82,7 +82,6 @@ export class CourseService {
             .pipe(catchError(this.apiService.handleError<Course[]>('Unable to load courses.', [])))
     }
 
-
     /**
      * Retrieve a specific course with it's info
      * @param courseId - Corresponds to the id of the course, NOT the course_id field
