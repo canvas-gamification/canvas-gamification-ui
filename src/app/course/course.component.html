@@ -1,12 +1,13 @@
+<div class="course-banner">
+    <h3
+        [class.tui-skeleton]="!course"
+        class="tui-text_h3 tui-space_top-2 tui-space_left-2"
+    >
+        {{ course?.name }}
+    </h3>
+</div>
+
 <section class="tui-container tui-container_fullwidth">
-    <div class="course-banner">
-        <h3
-            [class.tui-skeleton]="!course"
-            class="tui-text_h3 tui-space_top-2 tui-space_left-2"
-        >
-            {{ course?.name }}
-        </h3>
-    </div>
 
     <tui-breadcrumbs [size]="'l'">
         <ng-container *ngFor="let item of items">
@@ -31,7 +32,8 @@
         <tui-island class="tui-island_hoverable course-tile" size="m">
             <div class="course-background practice"></div>
             <h3 class="tui-island__title">Practice</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to complete practice questions and view goals.</p>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to complete practice questions and view
+                goals.</p>
             <div class="course-view-button tui-space_top-3">
                 <a
                     appearance="primary"
@@ -48,7 +50,8 @@
         <tui-island class="tui-island_hoverable course-tile" size="m">
             <div class="course-background assessment"></div>
             <h3 class="tui-island__title ">Assignments and Exams</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to complete assignments, exams, and other
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to complete assignments, exams, and
+                other
                 assessments for this course.</p>
             <div class="course-view-button tui-space_top-3">
                 <a
@@ -83,7 +86,8 @@
             <div class="course-background leaderboard"></div>
             <h3 class="tui-island__title">Leaderboard
                 and Statistics</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to view the individual and team leaderboards for this
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to view the individual and team
+                leaderboards for this
                 class, and your personal statistics.</p>
             <div class="course-view-button tui-space_top-3">
                 <a
@@ -100,7 +104,8 @@
         <tui-island class="tui-island_hoverable course-tile" size="m">
             <div class="course-background tokens"></div>
             <h3 class="tui-island__title">Tokens</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to trade in the tokens you have earned in this
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to trade in the tokens you have earned
+                in this
                 course.</p>
             <div class="course-view-button tui-space_top-3">
                 <a

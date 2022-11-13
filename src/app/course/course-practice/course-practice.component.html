@@ -1,0 +1,64 @@
+<div class="course-banner">
+    <h3
+        [class.tui-skeleton]="!course"
+        class="tui-text_h3 tui-space_top-2 tui-space_left-2"
+    >
+        {{ course?.name }}
+    </h3>
+</div>
+
+<section class="tui-container tui-container_fullwidth">
+
+    <tui-breadcrumbs [size]="'l'">
+        <ng-container *ngFor="let item of items">
+            <a
+                *tuiBreadcrumb
+                tuiLink
+                [routerLink]="item.routerLink"
+            >
+                {{ item.caption }}
+            </a>
+        </ng-container>
+    </tui-breadcrumbs>
+
+    <p class="tui-island__paragraph tui-text_body-xl">Select how you would like to practice.</p>
+
+    <div class="flex-container">
+        <tui-island class="tui-island_hoverable practice-tile" size="m">
+            <div class="course-background practice-question"></div>
+            <h3 class="tui-island__title">Practice Questions</h3>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">Select questions from the concept map to practice questions in a
+                specific category.</p>
+            <div class="course-view-button tui-space_top-3">
+                <a
+                    appearance="primary"
+                    [routerLink]="['practice']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    Practice
+                </a>
+            </div>
+        </tui-island>
+
+        <tui-island class="tui-island_hoverable practice-tile" size="m">
+            <div class="course-background view-goals"></div>
+            <h3 class="tui-island__title">View Goals</h3>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">View and create goals for this course.</p>
+            <div class="course-view-button tui-space_top-3">
+                <a
+                    appearance="primary"
+                    [routerLink]="['practice']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    View
+                </a>
+            </div>
+        </tui-island>
+
+    </div>
+
+</section>

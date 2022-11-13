@@ -1,0 +1,66 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+@import 'mixins';
+
+.course-name{
+    cursor: pointer;
+}
+
+.course-header{
+    display: inline;
+}
+
+.course-banner {
+    padding: 0.75rem;
+    height: calc(3 * var(--tui-padding-l));
+    background-color: var(--tui-secondary-active);
+}
+
+.flex-container {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    position: relative;
+}
+
+.course-background {
+    width: calc(100% + 4.5rem);
+    height: calc(4 * var(--tui-padding-l));
+    margin-top: calc(-1 * var(--tui-padding-l));
+    margin-left: calc(-2 * var(--tui-padding-l));
+    @include tui-space(bottom, 3);
+}
+
+.practice-question{
+    background-color: var(--tui-accent-hover);
+}
+
+.view-goals{
+    background-color: var(--tui-support-21);
+}
+
+.practice-tile {
+    border: 0.2rem solid #000000;
+    overflow: hidden;
+    cursor: default;
+    @include screen-lg {
+        flex-basis: calc(30% - 4.5rem);
+    }
+    @include screen-md {
+        flex-basis: calc(50% - 4.5rem);
+    }
+    @include screen-sm {
+        flex-basis: 100%
+    }
+    margin: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    min-height: 250px;
+}
+
+.flex-space{
+    flex-grow: 3;
+    width: 95%;
+}
