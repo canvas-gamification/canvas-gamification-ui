@@ -12,6 +12,9 @@ import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
 import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 import {GoalComponent} from "@app/course/goal/goal/goal.component"
 import {CoursePracticeComponent} from "@app/course/course-practice/course-practice.component"
+import {
+    CoursePracticeConceptMapComponent
+} from "@app/course/course-practice-concept-map/course-practice-concept-map.component"
 
 const routes: Routes = [
     {
@@ -27,6 +30,11 @@ const routes: Routes = [
     {
         path: ':courseId/practice',
         component: CoursePracticeComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/practice/concept-map',
+        component: CoursePracticeConceptMapComponent,
         canActivate: [AuthGuard]
     },
     {

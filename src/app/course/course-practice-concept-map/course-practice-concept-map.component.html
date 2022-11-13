@@ -1,0 +1,26 @@
+<div class="course-banner">
+    <h3
+        [class.tui-skeleton]="!course"
+        class="tui-text_h3 tui-space_top-2 tui-space_left-2"
+    >
+        {{ course?.name }}
+    </h3>
+</div>
+
+<section class="tui-container tui-container_fullwidth">
+
+    <tui-breadcrumbs [size]="'l'">
+        <ng-container *ngFor="let item of items">
+            <a
+                *tuiBreadcrumb
+                tuiLink
+                [routerLink]="item.routerLink"
+            >
+                {{ item.caption }}
+            </a>
+        </ng-container>
+    </tui-breadcrumbs>
+
+    <app-concept-map [currCourse]="course"></app-concept-map>
+
+</section>
