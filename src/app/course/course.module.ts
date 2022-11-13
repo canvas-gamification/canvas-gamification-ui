@@ -71,6 +71,7 @@ import {GoalComponent} from './goal/goal/goal.component'
 import {TuiRingChartModule} from "@taiga-ui/addon-charts"
 import {CoursePracticeComponent} from './course-practice/course-practice.component'
 import {CoursePracticeConceptMapComponent} from './course-practice-concept-map/course-practice-concept-map.component'
+import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
 
 @NgModule({
     declarations: [
@@ -79,6 +80,7 @@ import {CoursePracticeConceptMapComponent} from './course-practice-concept-map/c
         CourseComponent,
         CourseEventCreateEditComponent,
         CourseEventsSnippetComponent,
+        CourseHomepageComponent,
         CourseListComponent,
         CoursePracticeComponent,
         CoursePracticeConceptMapComponent,
@@ -91,7 +93,7 @@ import {CoursePracticeConceptMapComponent} from './course-practice-concept-map/c
         GoalPageComponent,
         LeaderBoardComponent,
         PracticeProblemComponent,
-        TokenUseSnippetComponent,
+        TokenUseSnippetComponent
     ],
     imports: [
         CommonModule,

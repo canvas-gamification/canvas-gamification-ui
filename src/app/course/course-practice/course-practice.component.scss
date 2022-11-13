@@ -1,22 +1,8 @@
 @import '~@taiga-ui/core/styles/taiga-ui-local';
 @import 'mixins';
 
-.course-name{
-    cursor: pointer;
-}
-
-.course-header{
-    display: inline;
-}
-
-.course-banner {
-    padding: 0.75rem;
-    height: calc(3 * var(--tui-padding-l));
-    background-color: var(--tui-secondary-active);
-}
-
 .flex-container {
-    margin: auto;
+    margin: 3rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -24,7 +10,7 @@
     position: relative;
 }
 
-.course-background {
+.practice-background {
     width: calc(100% + 4.5rem);
     height: calc(4 * var(--tui-padding-l));
     margin-top: calc(-1 * var(--tui-padding-l));
@@ -63,4 +49,9 @@
 .flex-space{
     flex-grow: 3;
     width: 95%;
+}
+
+.button-box{
+    display: flex;
+    margin: 2rem;
 }

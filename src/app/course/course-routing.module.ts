@@ -17,6 +17,8 @@ import {
 } from "@app/course/course-practice-concept-map/course-practice-concept-map.component"
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component"
 import {CourseChallengeSnippetComponent} from "@app/course/course-challenge-snippet/course-challenge-snippet.component"
+import {CourseHomepageComponent} from "@app/course/course-homepage/course-homepage.component"
+import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/course-events-snippet.component"
 
 const routes: Routes = [
     {
@@ -27,77 +29,88 @@ const routes: Routes = [
     {
         path: ':courseId',
         component: CourseComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/practice',
-        component: CoursePracticeComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/practice/concept-map',
-        component: CoursePracticeConceptMapComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/register',
-        component: CourseRegisterComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/new-event',
-        component: CourseEventCreateEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/new-event/:eventId',
-        component: CourseEventCreateEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/event/:eventId',
-        component: CourseQuestionSnippetComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/problem/:id',
-        component: ProblemViewComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/event/:eventId/problem/:id',
-        component: ProblemViewComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/practice/category/:categoryId',
-        component: PracticeProblemComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/goal',
-        component: GoalPageComponent,
         canActivate: [AuthGuard],
-    },
-    {
-        path: ':courseId/goal/create',
-        component: GoalCreateComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: ':courseId/goal/:goalId',
-        component: GoalComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: ':courseId/token',
-        component: TokenUseSnippetComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/challenges',
-        component: CourseChallengeSnippetComponent,
-        canActivate: [AuthGuard]
+        children: [
+            {
+                path: '',
+                component: CourseHomepageComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'practice',
+                component: CoursePracticeComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'practice/concept-map',
+                component: CoursePracticeConceptMapComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'register',
+                component: CourseRegisterComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'event',
+                component: CourseEventsSnippetComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'new-event',
+                component: CourseEventCreateEditComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'new-event/:eventId',
+                component: CourseEventCreateEditComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'event/:eventId',
+                component: CourseQuestionSnippetComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'problem/:id',
+                component: ProblemViewComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'event/:eventId/problem/:id',
+                component: ProblemViewComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'practice/category/:categoryId',
+                component: PracticeProblemComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'goal',
+                component: GoalPageComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'goal/create',
+                component: GoalCreateComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'goal/:goalId',
+                component: GoalComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'token',
+                component: TokenUseSnippetComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'challenges',
+                component: CourseChallengeSnippetComponent,
+                canActivate: [AuthGuard]
+            }]
     }
 ]
 

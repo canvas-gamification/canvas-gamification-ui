@@ -8,7 +8,6 @@
 </div>
 
 <section class="tui-container tui-container_fullwidth">
-
     <tui-breadcrumbs [size]="'l'">
         <ng-container *ngFor="let item of items">
             <a
@@ -20,108 +19,7 @@
             </a>
         </ng-container>
     </tui-breadcrumbs>
-
-    <h2
-        [class.tui-skeleton]="!course"
-        class="tui_text_h2 course-description"
-    >
-        {{this.course.description}}
-    </h2>
-
-    <div class="flex-container">
-        <tui-island class="tui-island_hoverable course-tile" size="m">
-            <div class="course-background practice"></div>
-            <h3 class="tui-island__title">Practice</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to complete practice questions and view
-                goals.</p>
-            <div class="course-view-button tui-space_top-3">
-                <a
-                    appearance="primary"
-                    [routerLink]="['practice']"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                >
-                    View
-                </a>
-            </div>
-        </tui-island>
-
-        <tui-island class="tui-island_hoverable course-tile" size="m">
-            <div class="course-background assessment"></div>
-            <h3 class="tui-island__title ">Assignments and Exams</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to complete assignments, exams, and
-                other
-                assessments for this course.</p>
-            <div class="course-view-button tui-space_top-3">
-                <a
-                    appearance="primary"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                >
-                    View
-                </a>
-            </div>
-        </tui-island>
-
-        <tui-island class="tui-island_hoverable course-tile" size="m">
-            <div class="course-background challenge "></div>
-            <h3 class="tui-island__title">Challenges</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to view challenges and track challenge
-                progress for this course.</p>
-            <div class="course-view-button tui-space_top-3">
-                <a
-                    appearance="primary"
-                    [routerLink]="['challenges']"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                >
-                    View
-                </a>
-            </div>
-        </tui-island>
-
-        <tui-island class="tui-island_hoverable course-tile" size="m">
-            <div class="course-background leaderboard"></div>
-            <h3 class="tui-island__title">Leaderboard
-                and Statistics</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to view the individual and team
-                leaderboards for this
-                class, and your personal statistics.</p>
-            <div class="course-view-button tui-space_top-3">
-                <a
-                    appearance="primary"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                >
-                    View
-                </a>
-            </div>
-        </tui-island>
-
-        <tui-island class="tui-island_hoverable course-tile" size="m">
-            <div class="course-background tokens"></div>
-            <h3 class="tui-island__title">Tokens</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Go here to trade in the tokens you have earned
-                in this
-                course.</p>
-            <div class="course-view-button tui-space_top-3">
-                <a
-                    appearance="primary"
-                    [routerLink]="['token']"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                >
-                    View
-                </a>
-            </div>
-        </tui-island>
-    </div>
-
+    <router-outlet></router-outlet>
 </section>
 <ng-template #more>
     <tui-svg src="tuiIconMoreHorLarge"></tui-svg>
