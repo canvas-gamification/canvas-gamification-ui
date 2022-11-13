@@ -66,10 +66,9 @@ import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course-challenge-snippet.component'
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
-import {GoalCreationPageComponent} from "@app/course/goal-creation-page/goal-creation-page.component"
 import {GoalComponent} from './goal/goal/goal.component'
 import {TuiRingChartModule} from "@taiga-ui/addon-charts"
-import {AppModule} from "@app/app.module";
+import {AppModule} from "@app/app.module"
 
 @NgModule({
     declarations: [
@@ -91,6 +90,7 @@ import {AppModule} from "@app/app.module";
 
     ],
     imports: [
+        AppModule,
         CommonModule,
         CourseIslandModule,
         CourseRoutingModule,
@@ -136,7 +136,6 @@ import {AppModule} from "@app/app.module";
         TuiTabsModule,
         TuiTagModule,
         TuiTextfieldControllerModule,
-        AppModule,
     ],
     providers: [
         CourseEventService,
