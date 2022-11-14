@@ -20,7 +20,6 @@ export class CoursePracticeComponent implements OnInit {
         private courseService: CourseService
     ) {
         this.courseId = this.route.snapshot.parent.params.courseId
-        console.log(this.route.snapshot.params)
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
