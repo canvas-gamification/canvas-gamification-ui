@@ -72,9 +72,11 @@ import {TuiRingChartModule} from "@taiga-ui/addon-charts"
 import {CoursePracticeComponent} from './course-practice/course-practice.component'
 import {CoursePracticeConceptMapComponent} from './course-practice-concept-map/course-practice-concept-map.component'
 import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
+import {BreadcrumbsComponent} from './breadcrumbs/breadcrumbs.component'
 
 @NgModule({
     declarations: [
+        BreadcrumbsComponent,
         ConceptMapComponent,
         CourseChallengeSnippetComponent,
         CourseComponent,

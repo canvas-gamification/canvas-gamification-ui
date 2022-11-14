@@ -14,11 +14,6 @@ export class CoursePracticeComponent implements OnInit {
     courseId: number
     user: User
 
-    items: {
-        caption: string
-        routerLink: string
-    }[]
-
     constructor(
         private authenticationService: AuthenticationService,
         private route: ActivatedRoute,
@@ -27,13 +22,6 @@ export class CoursePracticeComponent implements OnInit {
         this.courseId = this.route.snapshot.parent.params.courseId
         console.log(this.route.snapshot.params)
         this.authenticationService.currentUser.subscribe(user => this.user = user)
-        this.items = [{
-            caption: `Course Homepage`,
-            routerLink: `/course/${this.courseId}`
-        }, {
-            caption: `Practice`,
-            routerLink: `/course/${this.courseId}/practice`
-        }]
     }
 
     ngOnInit(): void {

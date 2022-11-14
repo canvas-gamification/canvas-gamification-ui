@@ -8,19 +8,10 @@
 </div>
 
 <section class="tui-container tui-container_fullwidth">
-    <tui-breadcrumbs [size]="'l'">
-        <ng-container *ngFor="let item of items">
-            <a
-                *tuiBreadcrumb
-                tuiLink
-                [routerLink]="item.routerLink"
-            >
-                {{ item.caption }}
-            </a>
-        </ng-container>
-    </tui-breadcrumbs>
+    <app-breadcrumbs></app-breadcrumbs>
     <router-outlet></router-outlet>
 </section>
+
 <ng-template #more>
     <tui-svg src="tuiIconMoreHorLarge"></tui-svg>
 </ng-template>
