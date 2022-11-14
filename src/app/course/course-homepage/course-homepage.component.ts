@@ -24,7 +24,7 @@ export class CourseHomepageComponent implements OnInit {
         private courseService: CourseService,
         private route: ActivatedRoute
     ) {
-        this.courseId = this.route.snapshot.params.courseId
+        this.courseId = this.route.snapshot.parent.params.courseId
         this.authenticationService.currentUser.subscribe(user => this.user = user)
         this.items = [{
             caption: `Course Homepage`,

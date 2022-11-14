@@ -4,6 +4,7 @@ import {CoursePracticeComponent} from './course-practice.component'
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseServiceMock} from "@test/course.service.mock"
 import {MOCK_COURSE1} from "@app/course/_test/mock"
+import {ActivatedRoute} from "@angular/router"
 
 describe('CoursePracticeComponent', () => {
     let component: CoursePracticeComponent
@@ -14,6 +15,17 @@ describe('CoursePracticeComponent', () => {
             declarations: [CoursePracticeComponent],
             providers: [{
                 provide: CourseService, useClass: CourseServiceMock
+            },
+            {
+                provide: ActivatedRoute, useValue: {
+                    snapshot: {
+                        parent: {
+                            params: {
+                                courseId: 0
+                            }
+                        }
+                    }
+                }
             }]
         })
             .compileComponents()
