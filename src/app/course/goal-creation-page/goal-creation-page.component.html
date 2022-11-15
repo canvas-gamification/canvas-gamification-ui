@@ -68,7 +68,6 @@
         </div>
         <br>
         <ng-container formArrayName="goal_items">
-            <!--            <div *ngFor="let task of getGoalItems().controls; let i = index;">-->
             <ng-container *ngFor="let goalItem of getGoalItemFormGroup(); let i = index">
                 <div class="tui-row" style="margin: 0 0 0 20px; vertical-align: center;" [formGroup]="goalItem"
                 >
@@ -85,7 +84,6 @@
                             </button>
                         </tui-data-list>
                     </tui-select>
-                    <p>Category: {{getFormControl(getGoalItemFormControls()[i], "category").value}}</p>
                     <ng-template
                         let-data
                     >
@@ -94,7 +92,6 @@
                     <tui-select
                         class="control"
                         formControlName="difficulty"
-
                     >
                         Difficulty
                         <tui-data-list *tuiDataList>
@@ -103,20 +100,13 @@
                             </button>
                         </tui-data-list>
                     </tui-select>
-                    <p>Diff: {{getFormControl(getGoalItemFormControls()[i], "difficulty").value}}</p>
-                    <!--                    <tui-input-number-->
-                    <!--                        formControlName="numberOfQuestions"-->
-                    <!--                    >-->
-                    <!--                        Number of Questions-->
-                    <!--                    </tui-input-number>-->
-                    <div class="tui-form__multi-field">
-                        <tui-input-number [formControl]="getFormControl(getGoalItemFormControls()[i], 'number_of_questions')">
+
+                        <tui-input-number style="width: 100px;" [formControl]="getFormControl(getGoalItemFormControls()[i], 'number_of_questions')">
                             Number of questions
                         </tui-input-number>
                         <tui-field-error
                             [formControl]="getFormControl(getGoalItemFormControls()[i], 'number_of_questions')"></tui-field-error>
-                    </div>
-                    <p>Num: {{getFormControl(getGoalItemFormControls()[i], "number_of_questions").value}}</p>
+
                     <button
                         *ngIf="getGoalItems().length !== 1"
                         tuiButton
@@ -141,7 +131,6 @@
                     </button>
                 </div>
                 <br>
-                <!--            </div>-->
             </ng-container>
         </ng-container>
     </div>
