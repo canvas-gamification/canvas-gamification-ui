@@ -99,7 +99,7 @@ export class GoalCreationPageComponent implements OnInit {
         for (let i = 0; i < num; i++) {
             const suggestedGoal = null
             const suggestedCategory = this.categories[Math.round(Math.random() * (this.categories.length - 1))]
-            const suggestedDifficulty = this.difficulties[Math.round(Math.random() * (this.difficulties.length - 1))][1]
+            const suggestedDifficulty = this.difficulties[Math.round(Math.random() * (this.difficulties.length - 1))][0]
             const suggestedNum = (Math.round(Math.random() * 5) * 5) + 5
             const newTask = new GoalTask(suggestedGoal, suggestedCategory, suggestedDifficulty, suggestedNum)
             this.suggestedTasks.push(newTask)

@@ -95,8 +95,8 @@
                     >
                         Difficulty
                         <tui-data-list *tuiDataList>
-                            <button *ngFor="let difficulty of difficulties" [value]="difficulty[1]" tuiOption>
-                                {{ difficulty[1] }}
+                            <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]" tuiOption>
+                                {{ difficulty[0] }}
                             </button>
                         </tui-data-list>
                     </tui-select>
