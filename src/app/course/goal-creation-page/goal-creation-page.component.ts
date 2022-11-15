@@ -45,12 +45,7 @@ export class GoalCreationPageComponent implements OnInit {
             this.isLoaded = true
             this.generateSuggestedTasks(5)
         })
-        this.difficultyService.getDifficulties().subscribe(data => {
-            this.difficulties = data
-            for (let i = 0; i < this.difficulties.length; i++) {
-                this.difficultiesStr.push(this.difficulties[i].toString())
-            }
-        })
+        this.difficultyService.getDifficulties().subscribe(difficulties => this.difficulties = difficulties)
     }
 
 
