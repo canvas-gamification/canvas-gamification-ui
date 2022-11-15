@@ -1,13 +1,12 @@
 import {Category} from "@app/_models"
-import {Difficulty} from "@app/_models/difficulty"
 
 export class GoalTask {
     goal: string
     category: Category
-    difficulty: Difficulty
+    difficulty: string
     number_of_questions: number
 
-    constructor(goal: string, category: Category, difficulty: Difficulty, numberOfQuestions: number) {
+    constructor(goal: string, category: Category, difficulty: string, numberOfQuestions: number) {
         this.goal = goal
         this.category = category
         this.difficulty = difficulty
