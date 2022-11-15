@@ -34,17 +34,26 @@ const routes: Routes = [
             {
                 path: '',
                 component: CourseHomepageComponent,
-                canActivate: [AuthGuard]
+                canActivate: [AuthGuard],
+                data: {
+                    breadcrumb: {string : "Course Homepage"}
+                }
             },
             {
                 path: 'practice',
                 component: CoursePracticeComponent,
-                canActivate: [AuthGuard]
+                canActivate: [AuthGuard],
+                data: {
+                    breadcrumb: {string : "Question Bank"}
+                }
             },
             {
                 path: 'practice/concept-map',
                 component: CoursePracticeConceptMapComponent,
-                canActivate: [AuthGuard]
+                canActivate: [AuthGuard],
+                data: {
+                    breadcrumb: {string : "Concept Map"}
+                }
             },
             {
                 path: 'register',
@@ -54,7 +63,10 @@ const routes: Routes = [
             {
                 path: 'event',
                 component: CourseEventsSnippetComponent,
-                canActivate: [AuthGuard]
+                canActivate: [AuthGuard],
+                data: {
+                    breadcrumb: {string : "Challenges"}
+                }
             },
             {
                 path: 'new-event',
@@ -90,6 +102,9 @@ const routes: Routes = [
                 path: 'goal',
                 component: GoalPageComponent,
                 canActivate: [AuthGuard],
+                data: {
+                    breadcrumb: {string : "Goal"}
+                }
             },
             {
                 path: 'goal/create',
@@ -104,7 +119,10 @@ const routes: Routes = [
             {
                 path: 'token',
                 component: TokenUseSnippetComponent,
-                canActivate: [AuthGuard]
+                canActivate: [AuthGuard],
+                data: {
+                    breadcrumb: {string : "Tokens"}
+                }
             },
             {
                 path: 'challenges',
