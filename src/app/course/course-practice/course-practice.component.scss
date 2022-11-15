@@ -53,5 +53,16 @@
 
 .button-box{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     margin: 2rem;
+    gap: 1rem;
+}
+
+.button{
+    margin: 1rem;
+}
+
+.message{
+    margin: 1rem;
 }
