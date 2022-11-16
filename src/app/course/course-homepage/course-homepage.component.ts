@@ -26,6 +26,7 @@ export class CourseHomepageComponent implements OnInit {
     ngOnInit(): void {
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.course = course
+            console.log(course.description)
         })
     }
 }

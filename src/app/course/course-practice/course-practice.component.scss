@@ -18,11 +18,11 @@
     @include tui-space(bottom, 3);
 }
 
-.practice-question{
+.practice-question {
     background-color: var(--tui-accent-hover);
 }
 
-.view-goals{
+.view-goals {
     background-color: var(--tui-support-21);
 }
 
@@ -46,23 +46,23 @@
     min-height: 250px;
 }
 
-.flex-space{
+.flex-space {
     flex-grow: 3;
     width: 95%;
 }
 
-.button-box{
+.button-box {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin: 2rem;
-    gap: 1rem;
+    gap: 2rem;
 }
 
-.button{
+.message {
     margin: 1rem;
 }
 
-.message{
-    margin: 1rem;
+.quick-links {
+    margin-bottom: 1rem;
 }
