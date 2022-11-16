@@ -14,16 +14,16 @@
         </div>
 
         <ng-container *ngIf="course?.has_create_event_permission">
-            <tui-island
+            <button
                 (click)="openEventImportDialog()"
-                [hoverable]="true"
-                class="new-event"
-                textAlign="center"
-                size="m"
+                icon="tuiIconPlus"
+                appearance="primary"
+                aria-label="Add Event"
+                size="l"
+                tuiButton
             >
-                <tui-svg src="tuiIconPlusLarge"></tui-svg>
-                <span class="tui-island__title">Add Event</span>
-            </tui-island>
+                Add Event
+            </button>
         </ng-container>
         <ng-template
             #importDialog
