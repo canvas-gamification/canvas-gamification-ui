@@ -5,11 +5,11 @@ import {CourseService} from "@app/course/_services/course.service"
 import {ActivatedRoute} from "@angular/router"
 
 @Component({
-    selector: 'app-course-practice-concept-map',
-    templateUrl: './course-practice-concept-map.component.html',
-    styleUrls: ['./course-practice-concept-map.component.scss']
+    selector: 'app-course-question-bank',
+    templateUrl: './course-question-bank.component.html',
+    styleUrls: ['./course-question-bank.component.scss']
 })
-export class CoursePracticeConceptMapComponent implements OnInit {
+export class CourseQuestionBankComponent implements OnInit {
 
     course: Course
     courseId: number

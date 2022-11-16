@@ -12,9 +12,7 @@ import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
 import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 import {GoalComponent} from "@app/course/goal/goal/goal.component"
 import {CoursePracticeComponent} from "@app/course/course-practice/course-practice.component"
-import {
-    CoursePracticeConceptMapComponent
-} from "@app/course/course-practice-concept-map/course-practice-concept-map.component"
+import {CourseQuestionBankComponent} from "@app/course/course-question-bank/course-question-bank.component"
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component"
 import {CourseChallengeSnippetComponent} from "@app/course/course-challenge-snippet/course-challenge-snippet.component"
 import {CourseHomepageComponent} from "@app/course/course-homepage/course-homepage.component"
@@ -34,26 +32,17 @@ const routes: Routes = [
             {
                 path: '',
                 component: CourseHomepageComponent,
-                canActivate: [AuthGuard],
-                data: {
-                    breadcrumb: {string : "Course Homepage"}
-                }
+                canActivate: [AuthGuard]
             },
             {
                 path: 'practice',
                 component: CoursePracticeComponent,
-                canActivate: [AuthGuard],
-                data: {
-                    breadcrumb: {string : "Question Bank"}
-                }
+                canActivate: [AuthGuard]
             },
             {
-                path: 'practice/concept-map',
-                component: CoursePracticeConceptMapComponent,
-                canActivate: [AuthGuard],
-                data: {
-                    breadcrumb: {string : "Concept Map"}
-                }
+                path: 'practice/question-bank',
+                component: CourseQuestionBankComponent,
+                canActivate: [AuthGuard]
             },
             {
                 path: 'register',
@@ -63,10 +52,7 @@ const routes: Routes = [
             {
                 path: 'event',
                 component: CourseEventsSnippetComponent,
-                canActivate: [AuthGuard],
-                data: {
-                    breadcrumb: {string : "Challenges"}
-                }
+                canActivate: [AuthGuard]
             },
             {
                 path: 'new-event',
@@ -102,9 +88,6 @@ const routes: Routes = [
                 path: 'goal',
                 component: GoalPageComponent,
                 canActivate: [AuthGuard],
-                data: {
-                    breadcrumb: {string : "Goal"}
-                }
             },
             {
                 path: 'goal/create',

@@ -14,8 +14,7 @@ describe('CourseHomepageComponent', () => {
         await TestBed.configureTestingModule({
             declarations: [CourseHomepageComponent],
             providers: [
-                {provide: CourseService, useClass: CourseServiceMock}
-                ,
+                {provide: CourseService, useClass: CourseServiceMock},
                 {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {

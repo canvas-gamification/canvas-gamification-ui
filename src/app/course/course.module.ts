@@ -17,7 +17,8 @@ import {TokenUseService} from '@app/course/_services/token-use.service'
 import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component'
 import {
     TuiAccordionModule,
-    TuiAvatarModule, TuiBreadcrumbsModule,
+    TuiAvatarModule,
+    TuiBreadcrumbsModule,
     TuiCheckboxLabeledModule,
     TuiDataListWrapperModule,
     TuiFieldErrorModule,
@@ -70,7 +71,7 @@ import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
 import {TuiRingChartModule} from "@taiga-ui/addon-charts"
 import {CoursePracticeComponent} from './course-practice/course-practice.component'
-import {CoursePracticeConceptMapComponent} from './course-practice-concept-map/course-practice-concept-map.component'
+import {CourseQuestionBankComponent} from './course-question-bank/course-question-bank.component'
 import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
 
 @NgModule({
@@ -83,7 +84,7 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         CourseHomepageComponent,
         CourseListComponent,
         CoursePracticeComponent,
-        CoursePracticeConceptMapComponent,
+        CourseQuestionBankComponent,
         CourseQuestionSnippetComponent,
         CourseRegisterComponent,
         CourseRegistrationStepComponent,

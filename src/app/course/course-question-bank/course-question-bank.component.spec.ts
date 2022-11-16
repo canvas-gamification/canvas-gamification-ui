@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
-import {CoursePracticeConceptMapComponent} from './course-practice-concept-map.component'
+import {CourseQuestionBankComponent} from './course-question-bank.component'
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseServiceMock} from "@test/course.service.mock"
 import {ActivatedRoute} from "@angular/router"
 import {MOCK_COURSE1} from "@app/course/_test/mock"
 
-describe('CoursePracticeConceptMapComponent', () => {
-    let component: CoursePracticeConceptMapComponent
-    let fixture: ComponentFixture<CoursePracticeConceptMapComponent>
+describe('CourseQuestionBankComponent', () => {
+    let component: CourseQuestionBankComponent
+    let fixture: ComponentFixture<CourseQuestionBankComponent>
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ CoursePracticeConceptMapComponent ],
+            declarations: [ CourseQuestionBankComponent ],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock}
                 ,
@@ -33,7 +33,7 @@ describe('CoursePracticeConceptMapComponent', () => {
     })
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CoursePracticeConceptMapComponent)
+        fixture = TestBed.createComponent(CourseQuestionBankComponent)
         component = fixture.componentInstance
         fixture.detectChanges()
     })
