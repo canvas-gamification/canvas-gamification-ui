@@ -31,7 +31,6 @@ export class GoalCreationPageComponent implements OnInit {
     goalForm: FormGroup
     categories: Category[]
     difficulties: Difficulty[]
-    difficultiesStr: string[]
     courseId: number
 
     public isLoaded = false
