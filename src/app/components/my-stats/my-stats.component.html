@@ -5,7 +5,7 @@
                 <h2 class="tui-text_h3 tui-space_vertical-5">My Stats</h2>
             </div>
 
-            <table class="tui-table tui-table_font-size_l ">
+            <table class="tui-table tui-table_font-size_l">
                 <tbody>
                 <tr class="tui-table__tr tui-table__tr_border_none">
                     <th class="tui-table__th">Stat</th>
@@ -21,7 +21,7 @@
                 </tr>
                 <tr class="tui-table__tr tui-table__tr_border_none">
                     <td class="tui-table__td">Tokens Earned</td>
-                    <td class="tui-table__td">{{this.user?.tokens}}</td>
+                    <td class="tui-table__td">{{user?.tokens}}</td>
                 </tr>
                 <tr class="tui-table__tr tui-table__tr_border_none">
                     <td class="tui-table__td">Goals Completed</td>
@@ -33,14 +33,16 @@
         <div class="tui-space_left-4 tui-col">
             <div class="flex-container">
                 <h2 class="tui-text_h3">Active Courses</h2>
-                <ng-container *ngFor="let course of activeCourses">
-                    <button
-                        class=" tui-space_bottom-3"
-                        size="l"
-                        tuiButton
-                    >
-                        {{course.name}}
-                    </button>
+                <ng-container *ngIf="activeCourses">
+                    <ng-container *ngFor="let course of activeCourses">
+                        <button
+                            class=" tui-space_bottom-3"
+                            size="l"
+                            tuiButton
+                        >
+                            {{course.name}}
+                        </button>
+                    </ng-container>
                 </ng-container>
             </div>
         </div>

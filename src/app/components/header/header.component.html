@@ -37,6 +37,7 @@
         <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="problems" tuiLink>Problem Sets</a>
         <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="token-values" tuiLink>Token&nbsp;Values</a>
         <a class="tui-text_body-m" routerLink="faq" tuiLink>FAQ</a>
+        <a class="tui-text_body-m" routerLink="/" fragment="contact-us" tuiLink>Contact Us</a>
     </nav>
     <div class="header-user">
         <ng-container *ngIf="user else login">
