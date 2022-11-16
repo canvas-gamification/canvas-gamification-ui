@@ -43,73 +43,72 @@ const routes: Routes = [
                 path: 'practice/question-bank',
                 component: CourseQuestionBankComponent,
                 canActivate: [AuthGuard]
-            }
-        ]
-    },
-    {
-        path: ':courseId/register',
-        component: CourseRegisterComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/event',
-        component: CourseEventsSnippetComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/new-event',
-        component: CourseEventCreateEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/new-event/:eventId',
-        component: CourseEventCreateEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/event/:eventId',
-        component: CourseQuestionSnippetComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/problem/:id',
-        component: ProblemViewComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/event/:eventId/problem/:id',
-        component: ProblemViewComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/practice/category/:categoryId',
-        component: PracticeProblemComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/goal',
-        component: GoalPageComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: ':courseId/goal/create',
-        component: GoalCreateComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: ':courseId/goal/:goalId',
-        component: GoalComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: ':courseId/token',
-        component: TokenUseSnippetComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/challenges',
-        component: CourseChallengeSnippetComponent,
-        canActivate: [AuthGuard]
+            },
+            {
+                path: 'register',
+                component: CourseRegisterComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'event',
+                component: CourseEventsSnippetComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'new-event',
+                component: CourseEventCreateEditComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'new-event/:eventId',
+                component: CourseEventCreateEditComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'event/:eventId',
+                component: CourseQuestionSnippetComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'problem/:id',
+                component: ProblemViewComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'event/:eventId/problem/:id',
+                component: ProblemViewComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'practice/category/:categoryId',
+                component: PracticeProblemComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'goal',
+                component: GoalPageComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'goal/create',
+                component: GoalCreateComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'goal/:goalId',
+                component: GoalComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: 'token',
+                component: TokenUseSnippetComponent,
+                canActivate: [AuthGuard]
+            },
+            {
+                path: 'challenges',
+                component: CourseChallengeSnippetComponent,
+                canActivate: [AuthGuard]
+            }]
     }]
 
 @NgModule({

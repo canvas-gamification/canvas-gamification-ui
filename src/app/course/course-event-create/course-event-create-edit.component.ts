@@ -35,7 +35,7 @@ export class CourseEventCreateEditComponent implements OnInit {
         this.formData = CourseEventForm.createForm()
         this.courseEventService.getEventTypes().subscribe(response => this.localEventTypes = response)
         // Convert to number
-        this.courseId = +this.route.snapshot.paramMap.get('courseId')
+        this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         if (this.route.snapshot.paramMap.get('eventId')) {
             this.eventId = +this.route.snapshot.paramMap.get('eventId')
             this.courseEventService.getCourseEvent(this.eventId).subscribe(event => {

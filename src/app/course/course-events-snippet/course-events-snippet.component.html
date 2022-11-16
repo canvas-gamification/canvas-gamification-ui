@@ -28,22 +28,22 @@
         </tui-island>
     </ng-container>
     <tui-island *ngFor="let event of getEvents(); index as i">
-        <p class="tui-island__category">{{ event.type }}</p>
-        <h2 class="tui-island__title">{{ event.name }}</h2>
+        <p class="tui-island__category">{{ event?.type }}</p>
+        <h2 class="tui-island__title">{{ event?.name }}</h2>
         <div class="tui-space_bottom-2">
             <tui-tag *ngIf="event.is_open; else eventClosedTag" size="m" status="success" value="Open"></tui-tag>
             <ng-template #eventClosedTag>
                 <tui-tag size="m" status="error" value="Closed"></tui-tag>
             </ng-template>
         </div>
-        <p class="tui-island__paragraph">From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</p>
-        <p class="tui-island__paragraph">Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</p>
+        <p class="tui-island__paragraph">From: {{ event?.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</p>
+        <p class="tui-island__paragraph">Until: {{ event?.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</p>
         <p class="tui-space_top-2">
             <ng-container *ngIf="event.is_open && event.is_exam; else totalEventGrade">
                 Grade Not Yet Available
             </ng-container>
             <ng-template #totalEventGrade>
-                Grade: {{ event.total_event_grade | number: '1.0-1' || 'No Grade'}}%
+                Grade: {{ event?.total_event_grade | number: '1.0-1' || 'No Grade'}}%
             </ng-template>
         </p>
         <div class="tui-form__buttons">
