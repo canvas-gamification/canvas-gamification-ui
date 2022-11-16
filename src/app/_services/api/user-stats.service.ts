@@ -3,7 +3,8 @@ import {Observable} from 'rxjs'
 import {HttpClient} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
-import {UserStats} from "@app/_models/user_difficulty_stats"
+import {Stats, UserStats} from "@app/_models/user_difficulty_stats"
+
 
 @Injectable({
     providedIn: 'root',
@@ -21,5 +22,12 @@ export class UserStatsService {
         return this.http
             .get<UserStats[]>(url)
             .pipe(catchError(this.apiService.handleError<UserStats[]>(`Error occurred while getting user stats`)))
+    }
+
+    getUserStats(): Observable<Stats> {
+        const url = this.apiService.getURL('user-stats')
+        return this.http
+            .get<Stats>(url)
+            .pipe(catchError(this.apiService.handleError<Stats>(`Error occurred while getting user stats`)))
     }
 }

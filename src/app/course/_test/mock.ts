@@ -11,6 +11,7 @@ import {
 } from "@app/_models"
 import {TokenUse} from "@app/_models/token_use"
 import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
+import {Stats} from "@app/_models/user_difficulty_stats"
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     id: 1,
@@ -238,4 +239,95 @@ export const MOCK_UQJ2: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+}
+
+export const MOCK_USER_STATS1: Stats = {
+    challenge_stats: {
+        challenges_completed: 2
+    },
+    goal_stats: {
+        goals_completed: 2
+    },
+    question_stats: {
+        mcq: {
+            questions_attempt: 2,
+            questions_solved: 2,
+            avgSuccess: 1
+        },
+        java :{
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+        },
+        parsons :{
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+        }
+    },
+    category_stats: [
+        {
+            category: 0,
+            difficulty: 'EASY',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+        },
+        {
+            category: 0,
+            difficulty: 'MEDIUM',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+
+        },
+        {
+            category: 0,
+            difficulty: 'HARD',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+
+        },
+        {
+            category: 0,
+            difficulty: 'ALL',
+            questions_attempt: 3,
+            questions_solved: 3,
+            avgSuccess: 1
+
+        },
+        {
+            category: 1,
+            difficulty: 'EASY',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+        },
+        {
+            category: 1,
+            difficulty: 'MEDIUM',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+
+        },
+        {
+            category: 1,
+            difficulty: 'HARD',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+
+        },
+        {
+            category: 1,
+            difficulty: 'ALL',
+            questions_attempt: 3,
+            questions_solved: 3,
+            avgSuccess: 1
+
+        }
+    ]
+
 }
