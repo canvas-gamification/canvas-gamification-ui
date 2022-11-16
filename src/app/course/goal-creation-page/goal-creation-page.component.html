@@ -3,30 +3,37 @@
 <hr>
 <br>
 <p class="tui-island__paragraph tui-text_body-l">
-    Recommended goal tasks:
+    Recommended goals:
 </p>
 <br>
 
 <p *ngIf="!isLoaded" class="tui-text_body-l">
-    Loading recommended tasks...
+    Loading recommended goals...
 </p>
 
 <div class="tui-col_md-8">
-    <div *ngFor="let sugTask of suggestedTasks;  let i = index;">
+    <div *ngFor="let sugGoal of suggestedGoals;  let i = index;">
         <tui-island size="m">
             <div class="tui-island__content">
                 <div class="tui-island__figure">
                     <div class="tui-row">
-                        <h2 class="tui-text_body-s">{{categories[0] ? (sugTask.toString()) : 'Loading...'}}</h2>
+                        <h2 class="tui-text_body-s" *ngIf="isLoaded">{{goalToString(sugGoal)}}</h2>
                         <div class="tui-island__figure" style="position: absolute; right: 0;">
+                            <button
+                                tuiButton
+                                type="button"
+                                appearance="flat"
+                                size="m"
+                                class="tui-space_right-6 tui-space_bottom-6"
+                            >Edit This Goal
+                            </button>
                             <button
                                 tuiButton
                                 type="button"
                                 appearance="primary"
                                 size="m"
                                 class="tui-space_right-6 tui-space_bottom-6"
-                                (click)="addGoalItemInput(sugTask.category.pk, sugTask.difficulty.toString(), sugTask.number_of_questions)"
-                            >Add This Task
+                            >Create This Goal
                             </button>
                         </div>
                     </div>
