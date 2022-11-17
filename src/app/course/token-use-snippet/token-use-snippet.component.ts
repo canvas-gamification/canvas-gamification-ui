@@ -38,8 +38,8 @@ export class TokenUseSnippetComponent implements OnInit {
     ngOnInit(): void {
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.courseReg = course.course_reg
+            this.tokenUses = this.courseReg.token_uses
         })
-        this.tokenUses = this.courseReg.token_uses
         this.calculateCurrentTotal()
     }
 
