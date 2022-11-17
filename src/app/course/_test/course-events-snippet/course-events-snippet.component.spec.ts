@@ -8,6 +8,8 @@ import {MOCK_EVENT_TYPES} from "@app/course/_test/mock"
 import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 import {TuiDialogService} from "@taiga-ui/core"
 import {of} from "rxjs"
+import {TuiIslandModule, TuiSelectModule} from "@taiga-ui/kit"
+import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 
 describe('CourseEventsSnippetComponent', () => {
     let component: CourseEventsSnippetComponent
@@ -16,10 +18,10 @@ describe('CourseEventsSnippetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule],
+            imports: [TestModule, TuiSelectModule, TuiIslandModule, ReactiveFormsModule, FormsModule],
             declarations: [CourseEventsSnippetComponent],
             providers: [
-                {provide: CourseEventService, useClass: CourseEventServiceMock}
+                {provide: CourseEventService, useClass: CourseEventServiceMock},
             ]
         }).compileComponents()
     })
@@ -30,6 +32,7 @@ describe('CourseEventsSnippetComponent', () => {
         fixture = TestBed.createComponent(CourseEventsSnippetComponent)
         component = fixture.componentInstance
         component.course = MOCK_COURSE
+        component.events = [MOCK_COURSE_EVENT]
         fixture.detectChanges()
     })
 

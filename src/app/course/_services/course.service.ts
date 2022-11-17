@@ -1,15 +1,10 @@
 import {Injectable} from '@angular/core'
 import {Observable} from 'rxjs'
-import {
-    APIResponse,
-    Course,
-    CourseRegistrationRequest,
-    CourseRegistrationResponse,
-    RegistrationStatus
-} from '@app/_models'
+import {APIResponse, Course} from '@app/_models'
 import {HttpClient, HttpParams} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
+import {CourseRegistrationFormData} from "@app/course/_forms/register.form"
 
 @Injectable({
     providedIn: 'root'
@@ -31,37 +26,11 @@ export class CourseService {
             .pipe(catchError(this.apiService.handleError<{ success_rate: number }>('Unable to fetch user stats.')))
     }
 
-    // TODO: Handling error of this function needs refactoring
-    // Error message should be sent from here
-    register(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
+    register(courseId: number, data: CourseRegistrationFormData): Observable<unknown> {
         const url = this.apiService.getURL('course', courseId, 'register')
         return this.http
-            .post<CourseRegistrationResponse>(url, data)
-            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>('Unable to register for the course.', {
-                success: false,
-                bad_request: true
-            })))
-    }
-
-    // TODO: Handling error of this function needs refactoring
-    // Error message should be sent from here
-    registerVerify(courseId: number, data: CourseRegistrationRequest): Observable<CourseRegistrationResponse> {
-        const url = this.apiService.getURL('course', courseId, 'verify')
-        return this.http
-            .post<CourseRegistrationResponse>(url, data)
-            .pipe(catchError(this.apiService.handleError<CourseRegistrationResponse>('Unable to verify course registration.', {
-                success: false,
-                bad_request: true
-            })))
-    }
-
-    // TODO: Handling error of this function needs refactoring
-    // Error message should be sent from here
-    getCourseRegistrationStatus(courseId: number): Observable<RegistrationStatus> {
-        const url = this.apiService.getURL('course', courseId, 'get-registration-status')
-        return this.http
-            .get<RegistrationStatus>(url)
-            .pipe(catchError(this.apiService.handleError<RegistrationStatus>('Unable to get course registration status.')))
+            .post<unknown>(url, data)
+            .pipe(catchError(this.apiService.handleFormError()))
     }
 
     // TODO: Handling error of this function needs refactoring

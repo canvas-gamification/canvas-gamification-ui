@@ -1,12 +1,9 @@
 import {
     Course,
     CourseRegistration,
-    CourseRegistrationRequest,
-    CourseRegistrationResponse,
+    CourseRegistrationMode,
     EventType,
     Question,
-    REGISTRATION_STATUS,
-    RegistrationStatus,
     STATUS,
     TokenUseOption,
     UQJ,
@@ -14,6 +11,7 @@ import {
 } from "@app/_models"
 import {TokenUse} from "@app/_models/token_use"
 import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
+import {Stats} from "@app/_models/user_difficulty_stats"
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     id: 1,
@@ -62,12 +60,6 @@ export const MOCK_USER_STATS: { success_rate: number } = {
     success_rate: 0.5
 }
 
-export const MOCK_REGISTRATION_STATUS: RegistrationStatus = {
-    status: REGISTRATION_STATUS.REGISTERED,
-    message: null,
-    attempts_remaining: 3,
-}
-
 export const MOCK_COURSE1: Course = {
     id: 0,
     mock: null,
@@ -87,7 +79,9 @@ export const MOCK_COURSE1: Course = {
     uqjs: null,
     course_reg: null,
     leader_board: null,
-    has_create_event_permission: true
+    has_create_event_permission: true,
+    description: "",
+    registration_mode: CourseRegistrationMode.OPEN,
 }
 
 export const MOCK_COURSE2: Course = {
@@ -115,82 +109,12 @@ export const MOCK_COURSE2: Course = {
         name: 'name 2',
         token: 5,
     }],
-    has_create_event_permission: true
+    has_create_event_permission: true,
+    description: "",
+    registration_mode: CourseRegistrationMode.OPEN,
 }
 
 export const MOCK_COURSES: Course[] = [MOCK_COURSE1, MOCK_COURSE2]
-
-export const MOCK_COURSE_REGISTRATION_RESPONSE: CourseRegistrationResponse = {
-    success: true,
-    name: 'Test Student',
-    guessed_name: 'Test Student',
-    confirmed_name: 'Test Student',
-    student_number: 123,
-    code: 111,
-    attempts_remaining: 2,
-}
-
-//Data for case where there is only one student
-export const MOCK_IDENTIFICATION_STEP1: CourseRegistrationRequest = {
-    name: "Firstname Lastname"
-}
-
-export const MOCK_IDENTIFICATION_RESPONSE1: CourseRegistrationResponse = {
-    success: true,
-    guessed_name: 'Firstname Lastname',
-}
-export const MOCK_CONFIRM_STEP1: CourseRegistrationRequest = {
-    name: "Firstname Lastname",
-    confirmed_name: "Firstname Lastname"
-}
-export const MOCK_CONFIRM_RESPONSE1: CourseRegistrationResponse = {
-    success: true,
-}
-
-export const MOCK_VERIFY_STEP1: CourseRegistrationRequest = {
-    name: "Firstname Lastname",
-    code: 52
-}
-
-export const MOCK_VERIFY_STEP1_FAIL: CourseRegistrationRequest = {
-    name: "Firstname Lastname",
-    code: 0
-}
-
-export const MOCK_VERIFY_SUCCESS: CourseRegistrationResponse = {
-    attempts_remaining: 2,
-    success: true
-}
-
-export const MOCK_VERIFY_FAIL: CourseRegistrationResponse = {
-    attempts_remaining: 2,
-    success: false
-}
-
-//Data for case where multiple students have same name
-export const MOCK_IDENTIFICATION_STEP2: CourseRegistrationRequest = {
-    name: "Multiple Student"
-}
-
-export const MOCK_IDENTIFICATION_RESPONSE2: CourseRegistrationResponse = {
-    success: false,
-    guessed_name: null,
-}
-export const MOCK_CONFIRM_STEP2_SUCCESS: CourseRegistrationRequest = {
-    name: "Multiple Student",
-    student_number: "12345678"
-}
-export const MOCK_CONFIRM_RESPONSE2_SUCCESS: CourseRegistrationResponse = {
-    success: true,
-}
-export const MOCK_CONFIRM_STEP2_FAIL: CourseRegistrationRequest = {
-    name: "Multiple Student",
-    student_number: "0"
-}
-export const MOCK_CONFIRM_RESPONSE2_FAIL: CourseRegistrationResponse = {
-    success: false,
-    bad_request: true
-}
 
 export const MOCK_USER_STUDENT: User = {
     id: 0,
@@ -315,4 +239,95 @@ export const MOCK_UQJ2: UQJ = {
     variables: JSON.parse('{}'),
     variables_errors: [],
     is_checkbox: false,
+}
+
+export const MOCK_USER_STATS1: Stats = {
+    challenge_stats: {
+        challenges_completed: 2
+    },
+    goal_stats: {
+        goals_completed: 2
+    },
+    question_stats: {
+        mcq: {
+            questions_attempt: 2,
+            questions_solved: 2,
+            avgSuccess: 1
+        },
+        java :{
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+        },
+        parsons :{
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+        }
+    },
+    category_stats: [
+        {
+            category: 0,
+            difficulty: 'EASY',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+        },
+        {
+            category: 0,
+            difficulty: 'MEDIUM',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+
+        },
+        {
+            category: 0,
+            difficulty: 'HARD',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+
+        },
+        {
+            category: 0,
+            difficulty: 'ALL',
+            questions_attempt: 3,
+            questions_solved: 3,
+            avgSuccess: 1
+
+        },
+        {
+            category: 1,
+            difficulty: 'EASY',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+        },
+        {
+            category: 1,
+            difficulty: 'MEDIUM',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+
+        },
+        {
+            category: 1,
+            difficulty: 'HARD',
+            questions_attempt: 1,
+            questions_solved: 1,
+            avgSuccess: 1
+
+        },
+        {
+            category: 1,
+            difficulty: 'ALL',
+            questions_attempt: 3,
+            questions_solved: 3,
+            avgSuccess: 1
+
+        }
+    ]
+
 }

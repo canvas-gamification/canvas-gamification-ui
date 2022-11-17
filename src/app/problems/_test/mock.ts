@@ -1,4 +1,4 @@
-import {Category, Course, CourseEvent, Question, STATUS, UQJ} from '@app/_models'
+import {Category, Course, CourseEvent, CourseRegistrationMode, Question, STATUS, UQJ} from '@app/_models'
 import {QuestionSubmission, StatusMessage} from '@app/_models/question_submission'
 import {Difficulty} from "@app/_models/difficulty"
 import {McqFormData} from "@app/problems/_forms/mcq.form"
@@ -39,10 +39,10 @@ export const MOCK_COURSE_EVENT: CourseEvent = {
     is_exam: false,
     is_open: true,
     count_for_tokens: true,
-    end_date: null,
+    end_date: new Date("30/05/1978 02:34:56"),
     has_edit_permission: false,
     is_allowed_to_open: true,
-    start_date: null,
+    start_date: new Date("30/05/1979 02:34:56"),
     total_event_grade: 0,
     type: '',
     is_not_available_yet: false,
@@ -53,8 +53,8 @@ export const MOCK_PRACTICE_EVENT: CourseEvent = {
     name: '',
     type: null,
     count_for_tokens: false,
-    start_date: null,
-    end_date: null,
+    start_date: new Date("30/05/1978 02:34:56"),
+    end_date: new Date("30/05/1979 02:34:56"),
     course: null,
     is_not_available_yet: null,
     is_closed: null
@@ -795,7 +795,9 @@ export const MOCK_COURSE: Course = {
     uqjs: MOCK_UQJS,
     course_reg: null,
     leader_board: null,
-    has_create_event_permission: true
+    has_create_event_permission: true,
+    description: "",
+    registration_mode: CourseRegistrationMode.OPEN,
 }
 
 export const MOCK_USER_DIFFICULTY_STATS: UserStats[] = [
