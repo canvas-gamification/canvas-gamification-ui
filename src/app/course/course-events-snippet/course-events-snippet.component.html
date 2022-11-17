@@ -1,113 +1,177 @@
-<tui-select
-    tuiTextfieldSize="s"
-    [(ngModel)]="filter"
->
-    <input
-        tuiTextfield
-        placeholder="Choose your hero"
-    />
-    <tui-data-list-wrapper
-        *tuiDataList
-        [items]="getEventFilterOptions()"
-    ></tui-data-list-wrapper>
-</tui-select>
-<div class="events">
-    <ng-container *ngIf="course?.has_create_event_permission">
-        <tui-island
-            (click)="openEventImportDialog()"
-            [hoverable]="true"
-            class="new-event"
-            textAlign="center"
+<div class="eventPage">
+    <div class="functionBar">
+        <div class="filter">
+            <tui-select
+                tuiTextfieldSize="l"
+                [(ngModel)]="filter"
+            > You are viewing
+                <input tuiTextfield/>
+                <tui-data-list-wrapper
+                    *tuiDataList
+                    [items]="getEventFilterOptions()"
+                ></tui-data-list-wrapper>
+            </tui-select>
+        </div>
+
+        <ng-container *ngIf="course?.has_create_event_permission">
+            <button
+                (click)="openEventImportDialog()"
+                icon="tuiIconPlus"
+                appearance="primary"
+                aria-label="Add Event"
+                size="l"
+                tuiButton
+            >
+                Add Event
+            </button>
+        </ng-container>
+        <ng-template
+            #importDialog
+            let-observer
         >
-            <div class="tui-space_vertical-10">
-                <figure class="tui-island__figure">
-                    <tui-svg src="tuiIconPlusLarge"></tui-svg>
-                </figure>
-                <h2 class="tui-island__title">Add Event</h2>
-            </div>
-        </tui-island>
-    </ng-container>
-    <tui-island *ngFor="let event of getEvents(); index as i">
-        <p class="tui-island__category">{{ event.type }}</p>
-        <h2 class="tui-island__title">{{ event.name }}</h2>
-        <div class="tui-space_bottom-2">
-            <tui-tag *ngIf="event.is_open; else eventClosedTag" size="m" status="success" value="Open"></tui-tag>
-            <ng-template #eventClosedTag>
-                <tui-tag size="m" status="error" value="Closed"></tui-tag>
-            </ng-template>
-        </div>
-        <p class="tui-island__paragraph">From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</p>
-        <p class="tui-island__paragraph">Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</p>
-        <p class="tui-space_top-2">
-            <ng-container *ngIf="event.is_open && event.is_exam; else totalEventGrade">
-                Grade Not Yet Available
+            <ng-container *ngIf="courseEvents">
+                <div class="import-events tui-space_top-8">
+                    <a
+                        (click)="observer.complete()"
+                        [hoverable]="true"
+                        [routerLink]="['/course', courseId, 'new-event']"
+                        class="new-event"
+                        size="s"
+                        textAlign="center"
+                        tuiIsland
+                    >
+                        <figure class="tui-island__figure">
+                            <tui-svg src="tuiIconPlusLarge"></tui-svg>
+                        </figure>
+                        <h2 class="tui-island__title">Create New Event</h2>
+                    </a>
+                    <tui-island *ngFor="let event of courseEvents" size="s">
+                        <p class="tui-island__category">{{ event.type }}</p>
+                        <h3 class="tui-island__title">{{ event.name }}</h3>
+                        <button
+                            (click)="importCourseEvent(event, courseId)"
+                            appearance="primary"
+                            aria-label="Import"
+                            size="s"
+                            tuiButton
+                        >
+                            Import
+                        </button>
+                    </tui-island>
+                </div>
             </ng-container>
-            <ng-template #totalEventGrade>
-                Grade: {{ event.total_event_grade | number: '1.0-1' || 'No Grade'}}%
+            <button (click)="observer.complete()" aria-label="Cancel" class="tui-space_top-8" size="m" tuiButton
+                    type="button">
+                Cancel
+            </button>
+        </ng-template>
+    </div>
+    <tui-accordion class="accordionContainer" [closeOthers]="false">
+        <tui-accordion-item class="title" open="true" [disableHover]="true">
+            Upcoming Events
+            <ng-template tuiAccordionItemContent>
+                <div *ngFor="let event of getUpcomingEvents()" class="event">
+                    <div class="eventType">
+                        <ng-container *ngIf="event.type === 'ASSIGNMENT'">Assignment</ng-container>
+                        <ng-container *ngIf="event.type === 'EXAM'">Exam</ng-container>
+                    </div>
+                    <div class="name">{{ event.name }}</div>
+                    <div class="dates">
+                        <div>From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+                        <div>Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+                    </div>
+                    <div class="availability">
+                        <tui-tag *ngIf="event.is_open; else eventComingSoon" size="m" status="success"
+                                 value="Available"></tui-tag>
+                        <ng-template #eventComingSoon>
+                            <tui-tag size="m" status="error" value="Coming Soon"></tui-tag>
+                        </ng-template>
+                    </div>
+                    <div class="grade">
+                        <ng-container *ngIf="event.is_not_available_yet || event.is_exam; else totalEventGrade">
+                            Grade: TBA
+                        </ng-container>
+                        <ng-template #totalEventGrade>
+                            Grade: {{ event.total_event_grade | number: '1.0-1' || 'TBA'}}%
+                        </ng-template>
+                    </div>
+                    <div class="linkBtn">
+                        <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
+                            <a [routerLink]="['/course', courseId, 'event', event.id]" appearance="primary"
+                               class="tui-form__button"
+                               size="s"
+                               tuiButton
+                            >
+                                {{ user.is_teacher ? 'View' : 'Complete' }}
+                            </a>
+                        </ng-container>
+                        <ng-template #notAllowedOpen>
+                            <a [disabled]="true" appearance="primary" aria-label="Complete" class="tui-form__button"
+                               href=""
+                               size="s"
+                               tuiButton>
+                                Complete
+                            </a>
+                        </ng-template>
+                        <a *ngIf="event.has_edit_permission" [routerLink]="['/course', courseId, 'new-event', event.id]"
+                           appearance="primary" aria-label="Edit" class="tui-form__button"
+                           size="s"
+                           tuiButton
+                        >
+                            Edit
+                        </a>
+                    </div>
+                </div>
             </ng-template>
-        </p>
-        <div class="tui-form__buttons">
-            <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
-                <a [routerLink]="['/course', courseId, 'event', event.id]" appearance="primary" class="tui-form__button"
-                   size="m"
-                   tuiButton
-                >
-                    {{ user.is_teacher ? 'Open' : 'Complete' }}
-                </a>
-            </ng-container>
-            <ng-template #notAllowedOpen>
-                <a [disabled]="true" appearance="primary" aria-label="Complete" class="tui-form__button" href=""
-                   size="m"
-                   tuiButton>
-                    Complete
-                </a>
+        </tui-accordion-item>
+        <tui-accordion-item open="true">
+            Past Events
+            <ng-template tuiAccordionItemContent>
+                <div *ngFor="let event of getPastEvents()" class="event">
+                    <div class="eventType">
+                        <ng-container *ngIf="event.type === 'ASSIGNMENT'">Assignment</ng-container>
+                        <ng-container *ngIf="event.type === 'EXAM'">Exam</ng-container>
+                    </div>
+                    <div class="name">{{ event.name }}</div>
+
+                    <div class="dates">
+                        <div>From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+                        <div>Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+                    </div>
+                    <div class="availability">
+                        <tui-tag size="m" status="default" value="Closed"></tui-tag>
+                    </div>
+                    <div class="grade">
+                        Grade: {{ event.total_event_grade | number: '1.0-1' || 'No Grade'}}%
+                    </div>
+                    <div class="linkBtn">
+                        <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
+                            <a [routerLink]="['/course', courseId, 'event', event.id]" appearance="primary"
+                               class="tui-form__button"
+                               size="s"
+                               tuiButton
+                            >
+                                {{ user.is_teacher ? 'View' : 'Complete' }}
+                            </a>
+                        </ng-container>
+                        <ng-template #notAllowedOpen>
+                            <a [disabled]="true" appearance="primary" aria-label="Complete" class="tui-form__button"
+                               href=""
+                               size="s"
+                               tuiButton>
+                                Complete
+                            </a>
+                        </ng-template>
+                        <a *ngIf="event.has_edit_permission" [routerLink]="['/course', courseId, 'new-event', event.id]"
+                           appearance="primary" aria-label="Edit" class="tui-form__button"
+                           size="s"
+                           tuiButton
+                        >
+                            Edit
+                        </a>
+                    </div>
+                </div>
             </ng-template>
-            <a *ngIf="event.has_edit_permission" [routerLink]="['/course', courseId, 'new-event', event.id]"
-               appearance="primary" aria-label="Edit" class="tui-form__button"
-               size="m"
-               tuiButton
-            >
-                Edit
-            </a>
-        </div>
-    </tui-island>
+        </tui-accordion-item>
+    </tui-accordion>
 </div>
-<ng-template
-    #importDialog
-    let-observer
->
-    <ng-container *ngIf="courseEvents">
-        <div class="import-events tui-space_top-8">
-            <a
-                (click)="observer.complete()"
-                [hoverable]="true"
-                [routerLink]="['/course', courseId, 'new-event']"
-                class="new-event"
-                size="s"
-                textAlign="center"
-                tuiIsland
-            >
-                <figure class="tui-island__figure">
-                    <tui-svg src="tuiIconPlusLarge"></tui-svg>
-                </figure>
-                <h2 class="tui-island__title">Create New Event</h2>
-            </a>
-            <tui-island *ngFor="let event of courseEvents" size="s">
-                <p class="tui-island__category">{{ event.type }}</p>
-                <h3 class="tui-island__title">{{ event.name }}</h3>
-                <button
-                    (click)="importCourseEvent(event, courseId)"
-                    appearance="primary"
-                    aria-label="Import"
-                    size="s"
-                    tuiButton
-                >
-                    Import
-                </button>
-            </tui-island>
-        </div>
-    </ng-container>
-    <button (click)="observer.complete()" aria-label="Cancel" class="tui-space_top-8" size="m" tuiButton type="button">
-        Cancel
-    </button>
-</ng-template>

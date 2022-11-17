@@ -27,7 +27,8 @@
                         "FunctionExpression": {
                             "parameters": "first",
                             "body": 1
-                        }
+                        },
+                        "SwitchCase": 1
                     }
                 ],
                 "semi": "off",

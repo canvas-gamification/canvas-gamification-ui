@@ -88,7 +88,6 @@ import {TuiRingChartModule} from "@taiga-ui/addon-charts"
         LeaderBoardComponent,
         PracticeProblemComponent,
         TokenUseSnippetComponent,
-
     ],
     imports: [
         CommonModule,
@@ -136,6 +135,7 @@ import {TuiRingChartModule} from "@taiga-ui/addon-charts"
         TuiTabsModule,
         TuiTagModule,
         TuiTextfieldControllerModule,
+        DragulaModule.forRoot(),
     ],
     providers: [
         CourseEventService,
