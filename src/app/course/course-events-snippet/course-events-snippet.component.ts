@@ -2,7 +2,12 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core'
 import {Course, CourseEvent, EventType, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {CourseEventService} from '@app/course/_services/course-event.service'
-import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {
+    TuiDialogContext,
+    TuiDialogService,
+    TuiNotification,
+    TuiNotificationsService
+} from "@taiga-ui/core"
 import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
 import {CourseService} from "@app/course/_services/course.service"
 import {ActivatedRoute} from "@angular/router"
@@ -56,12 +61,12 @@ export class CourseEventsSnippetComponent implements OnInit {
 
     getEvents(): CourseEvent[] {
         switch (this.filter) {
-        case EventFilterOptions.ALL:
-            return this.events.filter(event => event.type === 'ASSIGNMENT' || event.type === 'EXAM')
-        case EventFilterOptions.ASSIGNMENT:
-            return this.events.filter(event => event.type === 'ASSIGNMENT')
-        case EventFilterOptions.EXAM:
-            return this.events.filter(event => event.type === 'EXAM')
+            case EventFilterOptions.ALL:
+                return this.events.filter(event => event.type === 'ASSIGNMENT' || event.type === 'EXAM')
+            case EventFilterOptions.ASSIGNMENT:
+                return this.events.filter(event => event.type === 'ASSIGNMENT')
+            case EventFilterOptions.EXAM:
+                return this.events.filter(event => event.type === 'EXAM')
         }
     }
 

@@ -1,4 +1,4 @@
-import {Component, OnInit,ChangeDetectionStrategy} from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 import {Category, Course, STATUS, User} from '@app/_models'
 import {CourseService} from '@app/course/_services/course.service'
 import {ActivatedRoute} from '@angular/router'
@@ -14,7 +14,6 @@ import {Difficulty} from "@app/_models/difficulty"
     selector: 'app-my-stats',
     templateUrl: './my-stats.component.html',
     styleUrls: ['./my-stats.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyStatsComponent implements OnInit {
     difficulties: Difficulty[] = []
@@ -42,12 +41,11 @@ export class MyStatsComponent implements OnInit {
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,
         private courseService: CourseService
-
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
-    async ngOnInit(): Promise<void> {
+    ngOnInit(): void {
         this.courseService
             .getCourses(true, {ordering: {name: true}})
             ?.subscribe((courses) => {
@@ -63,19 +61,19 @@ export class MyStatsComponent implements OnInit {
                 this.challengesCompleted = stats.challenge_stats.challenges_completed
                 this.goalsCompleted = stats.goal_stats.goals_completed
 
-                for( const cat of this.topLevelCategories){
-                    this.questionsSolvedByCategory.push(this.stats.category_stats.filter(stats => stats.difficulty === 'ALL' && stats.category === cat.pk ).reduce((sum, obj) => {
+                for (const cat of this.topLevelCategories) {
+                    this.questionsSolvedByCategory.push(this.stats.category_stats.filter(stats => stats.difficulty === 'ALL' && stats.category === cat.pk).reduce((sum, obj) => {
                         return sum + obj.questions_solved
-                    },0))
+                    }, 0))
                 }
 
                 this.difficultyService.getDifficulties().subscribe(difficulties => {
                     this.difficulties = difficulties
 
-                    for(let i = 0; i<this.difficulties.length; i++){
+                    for (let i = 0; i < this.difficulties.length; i++) {
                         this.questionsSolvedByDifficulty.push(this.stats.category_stats.filter(stats => stats.difficulty === this.difficulties[i][0]).reduce((sum, obj) => {
                             return sum + obj.questions_solved
-                        },0))
+                        }, 0))
                     }
                 })
 
@@ -86,12 +84,7 @@ export class MyStatsComponent implements OnInit {
                 this.mcqNum = this.stats.question_stats.mcq.questions_solved
                 this.parsonsNum = this.stats.question_stats.parsons.questions_solved
                 this.javaNum = this.stats.question_stats.java.questions_solved
-
             })
-
         })
-
-
-
     }
 }

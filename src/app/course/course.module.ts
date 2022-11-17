@@ -18,7 +18,6 @@ import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component
 import {
     TuiAccordionModule,
     TuiAvatarModule,
-    TuiBreadcrumbsModule,
     TuiCheckboxLabeledModule,
     TuiDataListWrapperModule,
     TuiFieldErrorModule,
@@ -110,7 +109,6 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         TuiAccordionModule,
         TuiActiveZoneModule,
         TuiAvatarModule,
-        TuiBreadcrumbsModule,
         TuiButtonModule,
         TuiCalendarModule,
         TuiCheckboxLabeledModule,
