@@ -24,7 +24,7 @@ export class TeamService {
             .get<Team[]>(url, {params})
     }
 
-    getTeam(eventId: number, user: User): Observable<Team> {
+    getMyTeam(eventId: number, user: User): Observable<Team> {
         const url = this.apiService.getURL('team')
         const params = new HttpParams()
             .set('event', String(eventId))
