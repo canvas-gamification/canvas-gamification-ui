@@ -7,6 +7,8 @@ import {forkJoin} from 'rxjs'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {CourseService} from '@app/course/_services/course.service'
 import {TuiStatusT} from "@taiga-ui/kit"
+import {TeamService} from "@app/course/_services/team.service"
+import {Team} from "@app/_models/team"
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -20,6 +22,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     event: CourseEvent
     eventId: number
     courseId: number
+    team: Team
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -27,7 +30,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
         private route: ActivatedRoute,
         private uqjService: UqjService,
         private courseEventService: CourseEventService,
-        private courseService: CourseService
+        private courseService: CourseService,
+        private teamService: TeamService
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
@@ -50,6 +54,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 }
             })
         }
+        this.teamService.getMyTeam(this.eventId, this.user).subscribe( team => this.team = team)
     }
 
     /**
