@@ -54,7 +54,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 }
             })
         }
-        this.teamService.getMyTeam(this.eventId, this.user).subscribe( team => this.team = team)
+        this.teamService.getMyTeam(this.eventId).subscribe( team => this.team = team)
     }
 
     /**
