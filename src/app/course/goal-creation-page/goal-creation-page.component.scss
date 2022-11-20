@@ -1,8 +1,22 @@
 tui-input-date{
-    margin: 0 25px 0 25px;
     width: 400px;
 }
 tui-select{
-    margin: 0 20px 0 0;
     width: 200px;
+}
+
+.flex-box {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.flex-row {
+    margin: 0 0 0 20px;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    gap: 20px;
 }

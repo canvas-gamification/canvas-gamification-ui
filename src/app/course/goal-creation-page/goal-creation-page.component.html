@@ -3,46 +3,49 @@
 <hr>
 <br>
 <p class="tui-island__paragraph tui-text_body-l">
-    Recommended goals:
+    Recommended goals: (Not yet implemented)
 </p>
 <br>
 
-<p *ngIf="!isLoaded" class="tui-text_body-l">
-    Loading recommended goals...
-</p>
+<!--<p *ngIf="!isLoaded" class="tui-text_body-l">-->
+<!--    Loading recommended goals...-->
+<!--</p>-->
 
-<div class="tui-col_md-8">
-    <div *ngFor="let sugGoal of suggestedGoals;  let i = index;">
-        <tui-island size="m">
-            <div class="tui-island__content">
-                <div class="tui-island__figure">
-                    <div class="tui-row">
-                        <h2 class="tui-text_body-s" *ngIf="isLoaded">{{goalToString(sugGoal)}}</h2>
-                        <div class="tui-island__figure" style="position: absolute; right: 0;">
-                            <button
-                                tuiButton
-                                type="button"
-                                appearance="flat"
-                                size="m"
-                                class="tui-space_right-6 tui-space_bottom-6"
-                            >Edit This Goal
-                            </button>
-                            <button
-                                tuiButton
-                                type="button"
-                                appearance="primary"
-                                size="m"
-                                class="tui-space_right-6 tui-space_bottom-6"
-                            >Create This Goal
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </tui-island>
-        <br>
-    </div>
-</div>
+
+<!--<div class="tui-col_md-8">-->
+
+
+<!--    <div *ngFor="let sugGoal of suggestedGoals;  let i = index;">-->
+<!--            <tui-island size="m">-->
+<!--                <div class="tui-island__content">-->
+<!--                    <div class="tui-island__figure">-->
+<!--                        <div class="tui-row">-->
+<!--                            <h2 class="tui-text_body-s" *ngIf="isLoaded">{{goalToString(sugGoal)}}</h2>-->
+<!--                            <div class="tui-island__figure" style="position: absolute; right: 0;">-->
+<!--                                <button-->
+<!--                                    tuiButton-->
+<!--                                    type="button"-->
+<!--                                    appearance="flat"-->
+<!--                                    size="m"-->
+<!--                                    class="tui-space_right-6 tui-space_bottom-6"-->
+<!--                                >Edit This Goal-->
+<!--                                </button>-->
+<!--                                <button-->
+<!--                                    tuiButton-->
+<!--                                    type="button"-->
+<!--                                    appearance="primary"-->
+<!--                                    size="m"-->
+<!--                                    class="tui-space_right-6 tui-space_bottom-6"-->
+<!--                                >Create This Goal-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </tui-island>-->
+<!--            <br>-->
+<!--        </div>-->
+<!--    </div>-->
 <br>
 <hr>
 <br>
@@ -53,12 +56,11 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="goalForm">
 
     <div class="tui-col">
-        <div class="tui-row">
-            <h2 class="tui-text_body-l"
-                style="margin: 15px 0 0 50px;"
-            >
-                Set the end date:
-            </h2>
+        <h2 class="tui-text_body-l"
+        >
+            Set the end date:
+        </h2>
+        <div class="tui-row flex-row">
             <tui-input-date
                 class="b-form"
                 tuiUnfinishedValidator="Finish filling the field"
@@ -70,14 +72,30 @@
                 formControlName="end_time"
                 [items]="timeOptions"
             >
-                Input time
+                End time
             </tui-input-time>
         </div>
-        <br>
+        <br><br>
+        <div class="tui-row flex-row" style="margin: 0 0 0 0;">
+        <h2 class="tui-text_body-l"
+        >
+            Set tasks to complete:
+        </h2>
+        <button
+            tuiButton
+            type="button"
+            appearance="primary"
+            class="tui-space_right-3 tui-space_bottom-3"
+            style="height: 40px;"
+            (click)="addGoalItem()"
+        >
+            New Task
+        </button>
+        </div>
         <ng-container formArrayName="goal_items">
             <ng-container *ngFor="let goalItem of getGoalItemFormGroup(); let i = index">
-                <div class="tui-row" style="margin: 0 0 0 20px; vertical-align: center;" [formGroup]="goalItem"
-                >
+
+                <div class="tui-row flex-row" [formGroup]="goalItem">
                     <tui-select
                         style="width: 500px;"
                         class="control"
@@ -103,16 +121,15 @@
                         Difficulty
                         <tui-data-list *tuiDataList>
                             <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]" tuiOption>
-                                {{ difficulty[0] }}
+                                {{ difficulty[1] }}
                             </button>
                         </tui-data-list>
                     </tui-select>
 
-                        <tui-input-number style="width: 200px;" [formControl]="getFormControl(getGoalItemFormControls()[i], 'number_of_questions')">
-                            Number of questions
-                        </tui-input-number>
-                        <tui-field-error
-                            [formControl]="getFormControl(getGoalItemFormControls()[i], 'number_of_questions')"></tui-field-error>
+                    <tui-input-number style="width: 200px;"
+                                      [formControl]="getFormControl(getGoalItemFormControls()[i], 'number_of_questions')">
+                        Number of questions
+                    </tui-input-number>
 
                     <button
                         *ngIf="getGoalItems().length !== 1"
@@ -120,21 +137,10 @@
                         type="button"
                         appearance="accent"
                         class="tui-space_right-3 tui-space_bottom-3"
-                        style="margin: 0 0 0 20px; height: 40px; vertical-align: center;"
+                        style="height: 40px;"
                         (click)="removeGoalItem(i)"
                     >
                         Delete
-                    </button>
-                    <button
-                        *ngIf="i === getGoalItems().length-1"
-                        tuiButton
-                        type="button"
-                        appearance="primary"
-                        class="tui-space_right-3 tui-space_bottom-3"
-                        style="margin: 0 20px 0 20px; height: 40px;"
-                        (click)="addGoalItem()"
-                    >
-                        Add Task
                     </button>
                 </div>
                 <br>
