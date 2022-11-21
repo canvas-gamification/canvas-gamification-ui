@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {GoalCreationPageComponent} from "@app/course/goal-creation-page/goal-creation-page.component"
-import {MOCK_GOALS, MOCK_CATEGORIES, MOCK_DIFFICULTIES, MOCK_FORM} from "@app/problems/_test/mock"
+import {MOCK_GOALS, MOCK_CATEGORIES, MOCK_DIFFICULTIES} from "@app/problems/_test/mock"
 import {CategoryService} from "@app/_services/api/category.service"
 import {CategoryServiceMock} from "@test/category.service.mock"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
@@ -18,7 +18,7 @@ import {
     TuiSelectModule
 } from "@taiga-ui/kit"
 import {TuiButtonModule, TuiDataListModule, TuiNotificationModule} from "@taiga-ui/core"
-import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe";
+import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
 
 
 describe('GoalCreationPage', () => {
@@ -72,12 +72,6 @@ describe('GoalCreationPage', () => {
 
     it('should retrieve difficulties', () => {
         expect(component.difficulties).toEqual(MOCK_DIFFICULTIES)
-    })
-
-    // This test is wrong you can't compare form groups like this
-    // Also you don't need to write tests for form groups
-    xit('should test that form is being created properly', () => {
-        expect(component.goalForm).toEqual(MOCK_FORM)
     })
 
 
