@@ -3,7 +3,6 @@
         *ngIf="parentNode"
         (click)="reset()"
         [class.tui-skeleton]="flowchartComponent.children.length === 0"
-        [disabled]="!parentNode"
         appearance="primary"
         aria-label="Back"
         class="tui-space_right-4"

@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core'
-import {ExtraOptions, RouterModule, Routes} from '@angular/router'
+import {RouterModule, Routes} from '@angular/router'
 import {LandingPageComponent} from './components/landing-page/landing-page.component'
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component'
 import {TopicsComponent} from './components/topics/topics.component'
@@ -10,16 +10,9 @@ import {HomepageComponent} from './components/homepage/homepage.component'
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component'
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component'
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component'
-import {AdminComponent} from '@app/admin/admin.component'
-import {StatisticsComponent} from '@app/components/statistics/statistics.component'
-import {UserStatsComponent} from '@app/components/user-stats/user-stats.component'
-import {ContactComponent} from "@app/components/contact/contact.component"
-import {GoalCreationPageComponent} from "@app/course/goal-creation-page/goal-creation-page.component"
+import {AdminComponent} from "@app/admin/admin.component"
+import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
 
-const routerOptions: ExtraOptions = {
-    anchorScrolling: 'enabled',
-    scrollOffset: [0, 60]
-}
 
 const routes: Routes = [
     {path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)},
@@ -40,14 +33,6 @@ const routes: Routes = [
         component: SampleQuestionsComponent
     },
     {
-        path: 'goal-create',
-        component: GoalCreationPageComponent
-    },
-    {
-        path: 'user-stats',
-        component: UserStatsComponent
-    },
-    {
         path: 'topics',
         component: TopicsComponent
     },
@@ -56,13 +41,13 @@ const routes: Routes = [
         component: TokenValuesComponent
     },
     {
+        path: 'stats',
+        component: MyStatsComponent
+    },
+    {
         path: 'homepage',
         component: HomepageComponent,
         canActivate: [AuthGuard]
-    },
-    {
-        path: 'contact',
-        component: ContactComponent
     },
     {
         path: 'actions',
@@ -71,10 +56,6 @@ const routes: Routes = [
     {
         path: 'faq',
         component: FaqComponent
-    },
-    {
-        path: 'stats',
-        component: StatisticsComponent
     },
     {
         path: '404',
@@ -92,7 +73,12 @@ const routes: Routes = [
 ]
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {relativeLinkResolution: 'legacy'}), RouterModule.forRoot(routes, routerOptions)],
+    imports: [RouterModule.forRoot(routes, {
+        relativeLinkResolution: 'legacy',
+        anchorScrolling: 'enabled',
+        onSameUrlNavigation: 'reload',
+        scrollOffset: [0, 64],
+    })],
     exports: [RouterModule]
 })
 export class AppRoutingModule {

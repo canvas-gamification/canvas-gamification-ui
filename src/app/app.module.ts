@@ -28,6 +28,7 @@ import {NotFoundComponent} from './components/general/not-found/not-found.compon
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component'
 import {AdminComponent} from './admin/admin.component'
 import {AdminModule} from '@app/admin/admin.module'
+import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
 
 import {
     TUI_SANITIZER,
@@ -79,6 +80,7 @@ import {StatisticsComponent} from './components/statistics/statistics.component'
         HomepageComponent,
         InactiveCoursesComponent,
         LandingPageComponent,
+        MyStatsComponent,
         NotFoundComponent,
         RecentUserActionsComponent,
         RecentViewedQuestionsComponent,
@@ -87,7 +89,7 @@ import {StatisticsComponent} from './components/statistics/statistics.component'
         TokenValuesComponent,
         TopicsComponent,
         UserActionsComponent,
-        UserStatsComponent,
+        UserStatsComponent
     ],
     imports: [
         AdminModule,

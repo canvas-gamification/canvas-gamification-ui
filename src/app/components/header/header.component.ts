@@ -45,9 +45,6 @@ export class HeaderComponent {
     }
 
     setNightMode(value: boolean): void {
-        // Temporarily disable night mode
-        if (value) return
-
         this.enableNightMode = value
         window.localStorage.setItem('useNightMode', String(this.enableNightMode))
     }

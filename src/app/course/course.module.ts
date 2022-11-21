@@ -135,6 +135,7 @@ import {GoalCreationPageComponent} from "@app/course/goal-creation-page/goal-cre
         TuiTabsModule,
         TuiTagModule,
         TuiTextfieldControllerModule,
+        DragulaModule.forRoot(),
     ],
     providers: [
         CourseEventService,
