@@ -5,6 +5,76 @@ import {McqFormData} from "@app/problems/_forms/mcq.form"
 import {JavaFormData} from "@app/problems/_forms/java.form"
 import {ParsonsFormData} from "@app/problems/_forms/parsons.form"
 import {UserStats} from "@app/_models/user_difficulty_stats"
+import {Goal, GoalItem} from "@app/_models/goal/goal"
+import {GoalForm, GoalFormData, GoalItemFormData} from "@app/course/_forms/goal.form"
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
+import {TuiDay, TuiTime} from "@taiga-ui/cdk"
+
+const builder = new FormBuilder()
+
+export const MOCK_FORM: FormGroup = builder.group({
+    end_date: new FormControl(TuiDay.currentLocal(), [Validators.required]),
+    end_time: new FormControl(TuiTime.currentLocal(), [Validators.required]),
+    goal_items: new FormArray([GoalForm.createGoalItemForm()], [Validators.required]),
+})
+
+export const MOCK_GOAL_FORM: GoalFormData = {
+    course_id: 1,
+    end_date: "2022-11-10T16:40:37.860661-08:00"
+}
+
+export const MOCK_GOAL_ITEM_FORM: GoalItemFormData = {
+    goal: 3,
+    category: 72,
+    difficulty: "HARD",
+    number_of_questions: 25
+}
+
+export const MOCK_GOAL_ITEM: GoalItem = {
+    category: 71,
+    difficulty: "EASY",
+    number_of_questions: 5
+}
+
+export const MOCK_GOAL_ITEM_2: GoalItem = {
+    category: 72,
+    difficulty: "MEDIUM",
+    number_of_questions: 15
+}
+
+export const MOCK_GOAL_ITEM_3: GoalItem = {
+    category: 71,
+    difficulty: "HARD",
+    number_of_questions: 20
+}
+
+export const MOCK_GOAL_ITEMS: GoalItem[] = [MOCK_GOAL_ITEM, MOCK_GOAL_ITEM_2, MOCK_GOAL_ITEM_3]
+
+export const MOCK_GOAL: Goal = {
+    id: 13,
+    course_reg: 1,
+    start_date: "2004-09-03T20:50:00-07:00",
+    end_date: "2022-11-10T16:40:37.860661-08:00",
+    progress: 0,
+    is_finished: true,
+    number_of_questions: 34,
+    goal_items: MOCK_GOAL_ITEMS,
+    stats: null,
+}
+
+export const MOCK_GOAL_2: Goal = {
+    id: 19,
+    course_reg: 1,
+    start_date: "2006-03-04T20:50:00-07:00",
+    end_date: "2021-21-13T16:40:37.860661-08:00",
+    progress: 0,
+    is_finished: false,
+    number_of_questions: 3,
+    goal_items: MOCK_GOAL_ITEMS,
+    stats: null,
+}
+
+export const MOCK_GOALS: Goal[] = [MOCK_GOAL, MOCK_GOAL_2]
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',

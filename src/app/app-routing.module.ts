@@ -12,8 +12,6 @@ import {NotFoundComponent} from '@app/components/general/not-found/not-found.com
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component'
 import {AdminComponent} from "@app/admin/admin.component"
 import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
-
-
 const routes: Routes = [
     {path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)},
     {path: 'problems', loadChildren: () => import('./problems/problems.module').then(m => m.ProblemsModule)},
