@@ -12,6 +12,7 @@ import {
 import {TokenUse} from "@app/_models/token_use"
 import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 import {Stats} from "@app/_models/user_difficulty_stats"
+import {GoalItemSubmissionStats} from "@app/_models/goal/goal"
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     id: 1,
@@ -329,5 +330,19 @@ export const MOCK_USER_STATS1: Stats = {
 
         }
     ]
+}
 
+export const MOCK_GOAL_ITEM_SUBMISSION_STATS: GoalItemSubmissionStats = {
+    total: 15,
+    correct: 10,
+    partially_correct: 2,
+    wrong: 3,
+    total_questions: 5,
+    correct_questions: 4,
+    success_rate: 0.66,
+    messages: {
+        'RUNTIME ERROR': 3,
+        'SYNTAX ERROR': 2,
+    },
+    error_messages: ["Something is wrong", "Something is wrong again"]
 }
