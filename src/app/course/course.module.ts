@@ -29,6 +29,7 @@ import {
     TuiInputTimeModule,
     TuiIslandModule,
     TuiMarkerIconModule,
+    TuiProgressModule,
     TuiSelectModule,
     TuiStepperModule,
     TuiTabsModule,
@@ -69,6 +70,7 @@ import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
 import {TuiRingChartModule} from "@taiga-ui/addon-charts"
+import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 
 @NgModule({
     declarations: [
@@ -87,6 +89,7 @@ import {TuiRingChartModule} from "@taiga-ui/addon-charts"
         GoalPageComponent,
         LeaderBoardComponent,
         PracticeProblemComponent,
+        SubmissionChartComponent,
         TokenUseSnippetComponent,
     ],
     imports: [
@@ -125,17 +128,17 @@ import {TuiRingChartModule} from "@taiga-ui/addon-charts"
         TuiMarkerIconModule,
         TuiModeModule,
         TuiNotificationModule,
+        TuiProgressModule,
         TuiRingChartModule,
         TuiSelectModule,
         TuiSidebarModule,
         TuiStepperModule,
         TuiSvgModule,
         TuiTableModule,
-        DragulaModule.forRoot(),
         TuiTabsModule,
         TuiTagModule,
-        TuiTextfieldControllerModule,
         DragulaModule.forRoot(),
+        TuiTextfieldControllerModule,
     ],
     providers: [
         CourseEventService,
