@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
-import {GoalCreationPageComponent} from "@app/course/goal-creation-page/goal-creation-page.component"
+import {GoalCreateComponent} from "@app/course/goal-create/goal-creation-page.component"
 import {MOCK_GOALS, MOCK_CATEGORIES, MOCK_DIFFICULTIES} from "@app/problems/_test/mock"
 import {CategoryService} from "@app/_services/api/category.service"
 import {CategoryServiceMock} from "@test/category.service.mock"
@@ -22,8 +22,8 @@ import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-l
 
 
 describe('GoalCreationPage', () => {
-    let component: GoalCreationPageComponent
-    let fixture: ComponentFixture<GoalCreationPageComponent>
+    let component: GoalCreateComponent
+    let fixture: ComponentFixture<GoalCreateComponent>
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -42,7 +42,7 @@ describe('GoalCreationPage', () => {
                 TuiNotificationModule,
                 TuiButtonModule
             ],
-            declarations: [GoalCreationPageComponent, StringifyTuiDataListPipe],
+            declarations: [GoalCreateComponent, StringifyTuiDataListPipe],
             providers: [
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: GoalService, useClass: GoalServiceMock},
@@ -53,7 +53,7 @@ describe('GoalCreationPage', () => {
     })
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(GoalCreationPageComponent)
+        fixture = TestBed.createComponent(GoalCreateComponent)
         component = fixture.componentInstance
         fixture.detectChanges()
     })

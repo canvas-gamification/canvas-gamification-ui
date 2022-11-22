@@ -32,12 +32,12 @@ export class GoalForm {
         })
     }
 
-    static createGoalItemFormInput(inCategory: number, inDifficulty: string, inNum: number): FormGroup {
+    static createGoalItemFormInput(category: number, difficulty: string, numberOfQuestions: number): FormGroup {
         const builder = new FormBuilder()
         return builder.group({
-            category: new FormControl(inCategory, [Validators.required]),
-            difficulty: new FormControl(inDifficulty, [Validators.required]),
-            number_of_questions: new FormControl(inNum, [Validators.required])
+            category: new FormControl(category, [Validators.required]),
+            difficulty: new FormControl(difficulty, [Validators.required]),
+            number_of_questions: new FormControl(numberOfQuestions, [Validators.required])
         })
     }
 

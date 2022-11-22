@@ -12,11 +12,11 @@ import {Difficulty} from "@app/_models/difficulty"
 import {Goal, GoalItem} from "@app/_models/goal/goal"
 
 @Component({
-    selector: 'app-goal-creation-page',
+    selector: 'app-goal-create',
     templateUrl: './goal-creation-page.component.html',
     styleUrls: ['./goal-creation-page.component.scss']
 })
-export class GoalCreationPageComponent implements OnInit {
+export class GoalCreateComponent implements OnInit {
     constructor(
         private readonly goalService: GoalService,
         private readonly categoryService: CategoryService,
@@ -42,20 +42,6 @@ export class GoalCreationPageComponent implements OnInit {
         this.goalForm = GoalForm.createGoalForm()
         this.categoryService.getCategories().subscribe(data => {
             this.categories = data
-
-            this.goalService.getGoalSuggestions().subscribe(data => {
-                this.isLoaded = true
-                this.suggestedGoals = data
-                this.suggestedGoalsStr.splice(0)
-                for (const goal of this.suggestedGoals) {
-                    // this.suggestedGoalsStr.push(this.getCategory(goal.category).full_name)
-                    const arrayOfStrings: string[] = []
-                    for (const item of goal.goal_items) {
-                        arrayOfStrings.push(this.goalItemToString(item))
-                    }
-                    this.suggestedGoalsStr.push(arrayOfStrings)
-                }
-            })
         })
         this.difficultyService.getDifficulties().subscribe(difficulties => this.difficulties = difficulties)
     }
@@ -152,15 +138,4 @@ export class GoalCreationPageComponent implements OnInit {
 
         this.router.navigate(['..'], {relativeTo: this.activatedRoute}).then()
     }
-
-    // generateSuggestedTasks(num: number): void {
-    //     for (let i = 0; i < num; i++) {
-    //         const suggestedGoal = null
-    //         const suggestedCategory = this.categories[Math.round(Math.random() * (this.categories.length - 1))]
-    //         const suggestedDifficulty = this.difficulties[Math.round(Math.random() * (this.difficulties.length - 1))][0]
-    //         const suggestedNum = (Math.round(Math.random() * 5) * 5) + 5
-    //         const newTask = new GoalTask(suggestedGoal, suggestedCategory, suggestedDifficulty, suggestedNum)
-    //         this.suggestedTasks.push(newTask)
-    //     }
-    // }
 }

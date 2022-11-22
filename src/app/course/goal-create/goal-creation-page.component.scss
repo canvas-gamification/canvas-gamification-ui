@@ -1,0 +1,63 @@
+tui-input-date{
+    width: 400px;
+}
+tui-select{
+    width: 200px;
+}
+
+.tui-input-number{
+    width: 200px;
+}
+
+.flex-box {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.flex-row {
+    margin: 0 0 20px 20px;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    gap: 20px;
+}
+
+.flex-row-no-margin {
+    margin: 0 0 0 0;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    gap: 20px;
+}
+
+.page-container {
+    margin: 0 0 0 20px;
+    height: 100%;
+}
+
+.form-section {
+    margin: 0 0 40px 0;
+    height: 100%;
+}
+
+.button-thin{
+    height: 40px;
+}
+
+.greyed-section{
+    padding: 10px 0 10px 20px;
+    background-color: var(--tui-base-02);
+}
+
+.white-section{
+    padding: 10px 0 10px 20px;
+    background-color: white;
+}
+
+.category-control{
+    width: 500px;
+}

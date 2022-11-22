@@ -47,9 +47,14 @@ import {
 } from '@taiga-ui/core'
 import {
     TUI_VALIDATION_ERRORS,
-    TuiAvatarModule, TuiDataListWrapperModule,
-    TuiDropdownHoverModule, TuiFieldErrorModule,
-    TuiInputCountModule, TuiInputDateModule, TuiInputNumberModule, TuiInputTimeModule,
+    TuiAvatarModule,
+    TuiDataListWrapperModule,
+    TuiDropdownHoverModule,
+    TuiFieldErrorModule,
+    TuiInputCountModule,
+    TuiInputDateModule,
+    TuiInputNumberModule,
+    TuiInputTimeModule,
     TuiIslandModule,
     TuiMarkerIconModule,
     TuiRadioBlockModule, TuiSelectModule,
@@ -67,7 +72,6 @@ import {CodeEditorModule} from '@app/components/code-editor/code-editor.module'
 import {FooterModule} from '@app/components/footer/footer.module'
 import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
-import {StatisticsComponent} from './components/statistics/statistics.component'
 
 @NgModule({
     declarations: [
@@ -85,7 +89,6 @@ import {StatisticsComponent} from './components/statistics/statistics.component'
         RecentUserActionsComponent,
         RecentViewedQuestionsComponent,
         SampleQuestionsComponent,
-        StatisticsComponent,
         TokenValuesComponent,
         TopicsComponent,
         UserActionsComponent,
