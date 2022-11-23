@@ -16,6 +16,17 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    flex-wrap: wrap;
+    @include screen-lg {
+        flex-basis: calc(70% - 4.5rem);
+    }
+    @include screen-md {
+        flex-basis: calc(50% - 4.5rem);
+    }
+    @include screen-sm {
+        flex-basis: 100%;
+        flex-basis: calc(50% - 4.5rem);
+    }
 }
 
 .table {
