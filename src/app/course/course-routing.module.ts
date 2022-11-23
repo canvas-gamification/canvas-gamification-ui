@@ -10,7 +10,7 @@ import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.comp
 import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component"
 import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
 import {GoalComponent} from "@app/course/goal/goal/goal.component"
-import {GoalCreateComponent} from "@app/course/goal-create/goal-creation-page.component"
+import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-creation-page.component"
 
 
 const routes: Routes = [

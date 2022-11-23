@@ -2,9 +2,6 @@
 
     <h1 class="tui-text_h3 tui-space_top-10 tui-space_vertical-10">Create Goal</h1>
 
-    <p class="tui-island__paragraph tui-text_body-l tui-space_vertical-10">
-        Recommended goals: (Not yet implemented)
-    </p>
 </div>
 
 <div class="greyed-section">
@@ -23,7 +20,7 @@
                 </h2>
                 <div class="tui-row flex-row">
                     <tui-input-date
-                        class="b-form"
+                        class="b-form input-date"
                         tuiUnfinishedValidator="Finish filling the field"
                         formControlName="end_date"
                     >
@@ -60,7 +57,7 @@
 
                         <div class="tui-row flex-row" [formGroup]="goalItem">
                             <tui-select
-                                class="control category-control"
+                                class="control category-control select"
                                 formControlName="category"
                                 [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
                             >
@@ -77,7 +74,7 @@
                                 <div>{{ data.name }}></div>
                             </ng-template>
                             <tui-select
-                                class="control"
+                                class="control select"
                                 formControlName="difficulty"
                             >
                                 Difficulty

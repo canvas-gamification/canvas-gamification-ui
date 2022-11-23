@@ -1,12 +1,12 @@
-tui-input-date{
-    width: 400px;
+.input-date{
+    width: 25rem;
 }
-tui-select{
-    width: 200px;
+.select{
+    width: 12.5rem;
 }
 
 .tui-input-number{
-    width: 200px;
+    width: 12.5rem;
 }
 
 .flex-box {
@@ -17,12 +17,12 @@ tui-select{
 }
 
 .flex-row {
-    margin: 0 0 20px 20px;
+    margin: 0 0 1rem 1rem;
     height: 100%;
     display: flex;
     align-items: flex-start;
     justify-content: left;
-    gap: 20px;
+    gap: 1rem;
 }
 
 .flex-row-no-margin {
@@ -31,33 +31,33 @@ tui-select{
     display: flex;
     align-items: flex-start;
     justify-content: left;
-    gap: 20px;
+    gap: 1rem;
 }
 
 .page-container {
-    margin: 0 0 0 20px;
+    margin: 0 0 0 1rem;
     height: 100%;
 }
 
 .form-section {
-    margin: 0 0 40px 0;
+    margin: 0 0 2rem 0;
     height: 100%;
 }
 
 .button-thin{
-    height: 40px;
+    height: 2rem;
 }
 
 .greyed-section{
-    padding: 10px 0 10px 20px;
+    padding: 0.5rem 0 0.5rem 1rem;
     background-color: var(--tui-base-02);
 }
 
 .white-section{
-    padding: 10px 0 10px 20px;
-    background-color: white;
+    padding: 0.5rem 0 0.5rem 1rem;
+    background-color: var(--tui-base-01);
 }
 
 .category-control{
-    width: 500px;
+    width: 32rem;
 }

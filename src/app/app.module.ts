@@ -57,7 +57,8 @@ import {
     TuiInputTimeModule,
     TuiIslandModule,
     TuiMarkerIconModule,
-    TuiRadioBlockModule, TuiSelectModule,
+    TuiRadioBlockModule,
+    TuiSelectModule,
     TuiToggleModule
 } from '@taiga-ui/kit'
 import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
