@@ -1,43 +1,45 @@
 <div class="flex-container tui-space_horizontal-5">
     <div class=" tui-row tui-row_adaptive">
-        <div class="tui-col_lg-9 tui-col_md-8 tui-col_xs-9">
-            <div>
-                <h2 class="tui-text_h3 tui-space_vertical-5">My Stats</h2>
-            </div>
 
-            <table class="tui-table tui-table_font-size_l">
-                <tbody>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <th class="tui-table__th">Stat</th>
-                    <th class="tui-table__th">Score</th>
-                </tr>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <td class="tui-table__td">Questions Completed</td>
-                    <td class="tui-table__td">{{totalQuestionsSolved}}</td>
-                </tr>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <td class="tui-table__td">Challenges Completed</td>
-                    <td class="tui-table__td">{{challengesCompleted}}</td>
-                </tr>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <td class="tui-table__td">Tokens Earned</td>
-                    <td class="tui-table__td">{{user?.tokens}}</td>
-                </tr>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <td class="tui-table__td">Goals Completed</td>
-                    <td class="tui-table__td">{{goalsCompleted}}</td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="tui-col_lg-8 tui-col_md-8 tui-col_xs-12">
+            <div>
+                <h2 class="tui-text_h3 tui-space_vertical-5">Personal Statistics</h2>
+            </div>
+            <div class="flex-container">
+                <table class="tui-table tui-table_font-size_l">
+                    <tbody>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <th class="tui-table__th">Accomplishments</th>
+                        <th class="tui-table__th">Total </th>
+                    </tr>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <td class="tui-table__td">Questions Completed</td>
+                        <td class="tui-table__td">{{totalQuestionsSolved}}</td>
+                    </tr>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <td class="tui-table__td">Challenges Completed</td>
+                        <td class="tui-table__td">{{challengesCompleted}}</td>
+                    </tr>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <td class="tui-table__td">Tokens Earned</td>
+                        <td class="tui-table__td">{{user?.tokens}}</td>
+                    </tr>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <td class="tui-table__td">Goals Completed</td>
+                        <td class="tui-table__td">{{goalsCompleted}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="tui-space_left-4 tui-col">
+        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
             <div class="flex-container">
                 <h2 class="tui-text_h3">Active Courses</h2>
                 <ng-container *ngIf="activeCourses">
                     <ng-container *ngFor="let course of activeCourses">
                         <button
-                            class=" tui-space_bottom-3"
-                            size="l"
+                            class=" tui-form__button"
+                            size="m"
                             tuiButton
                         >
                             {{course.name}}
@@ -51,62 +53,69 @@
 
 <div class="flex-container  tui-space_horizontal-5">
     <div>
-        <h2 class="tui-text_h4 tui-space_vertical-5">Question Stats</h2>
+        <h2 class="tui-text_h4 tui-space_vertical-5">Question Statistics</h2>
     </div>
     <div class=" tui-row tui-row_adaptive ">
-        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-4">
-            <table class="tui-table tui-table_font-size_s ">
-                <tbody>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <th class="tui-table__th">Difficulty</th>
-                    <th class="tui-table__th"># Completed</th>
-                </tr>
-                <ng-container *ngFor="let val of questionsSolvedByDifficulty; let i = index">
+        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12 ">
+            <div class="flex-container">
+                <table class="tui-table tui-table_font-size_s ">
+                    <tbody>
                     <tr class="tui-table__tr tui-table__tr_border_none">
-                        <td class="tui-table__td">{{difficulties[i][1]}}</td>
-                        <td class="tui-table__td">{{val}}</td>
+                        <th class="tui-table__th">Category</th>
+                        <th class="tui-table__th"># Completed</th>
                     </tr>
-                </ng-container>
-                </tbody>
-            </table>
+                    <ng-container *ngFor="let go of questionsSolvedByCategory; let i = index">
+                        <tr class="tui-table__tr tui-table__tr_border_none">
+                            <td class="tui-table__td">{{topLevelCategories[i].name}}</td>
+                            <td class="tui-table__td">{{go}}</td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-4 ">
-            <table class="tui-table tui-table_font-size_s ">
-                <tbody>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <th class="tui-table__th">Category</th>
-                    <th class="tui-table__th"># Completed</th>
-                </tr>
-                <ng-container *ngFor="let go of questionsSolvedByCategory; let i = index">
+        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
+
+            <div class="flex-container">
+                <table class="tui-table tui-table_font-size_s ">
+                    <tbody>
                     <tr class="tui-table__tr tui-table__tr_border_none">
-                        <td class="tui-table__td">{{topLevelCategories[i].name}}</td>
-                        <td class="tui-table__td">{{go}}</td>
+                        <th class="tui-table__th">Difficulty</th>
+                        <th class="tui-table__th"># Completed</th>
                     </tr>
-                </ng-container>
-                </tbody>
-            </table>
+                    <ng-container *ngFor="let val of questionsSolvedByDifficulty; let i = index">
+                        <tr class="tui-table__tr tui-table__tr_border_none">
+                            <td class="tui-table__td">{{difficulties[i][1]}}</td>
+                            <td class="tui-table__td">{{val}}</td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-4">
-            <table class="tui-table tui-table_font-size_s ">
-                <tbody>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <th class="tui-table__th">Type</th>
-                    <th class="tui-table__th"># Completed</th>
-                </tr>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <td class="tui-table__td">Multiple Choice Questions</td>
-                    <td class="tui-table__td">{{mcqNum}}</td>
-                </tr>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <td class="tui-table__td">Parson's</td>
-                    <td class="tui-table__td">{{parsonsNum}}</td>
-                </tr>
-                <tr class="tui-table__tr tui-table__tr_border_none">
-                    <td class="tui-table__td">Java</td>
-                    <td class="tui-table__td">{{javaNum}}</td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
+            <div class="flex-container">
+                <table class="tui-table tui-table_font-size_s ">
+                    <tbody>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <th class="tui-table__th">Question Type</th>
+                        <th class="tui-table__th"># Completed</th>
+                    </tr>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <td class="tui-table__td">Multiple Choice Questions</td>
+                        <td class="tui-table__td">{{mcqNum}}</td>
+                    </tr>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <td class="tui-table__td">Parson's</td>
+                        <td class="tui-table__td">{{parsonsNum}}</td>
+                    </tr>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <td class="tui-table__td">Java</td>
+                        <td class="tui-table__td">{{javaNum}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
