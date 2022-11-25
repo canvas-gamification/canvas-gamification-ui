@@ -1,0 +1,11 @@
+<tui-ring-chart
+    [value]="values()"
+    [(activeItemIndex)]="activeItemIndex"
+    [content]="content"
+    [colorHandler]="color"
+>
+</tui-ring-chart>
+<ng-template #content>
+    <div>{{value()}}</div>
+    <div>{{label(activeItemIndex)}}</div>
+</ng-template>

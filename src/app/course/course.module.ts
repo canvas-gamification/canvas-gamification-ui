@@ -29,6 +29,7 @@ import {
     TuiInputTimeModule,
     TuiIslandModule,
     TuiMarkerIconModule,
+    TuiProgressModule,
     TuiSelectModule,
     TuiStepperModule,
     TuiTabsModule,
@@ -69,6 +70,7 @@ import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
 import {TuiRingChartModule} from "@taiga-ui/addon-charts"
+import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 import {CoursePracticeComponent} from './course-practice/course-practice.component'
 import {CourseQuestionBankComponent} from './course-question-bank/course-question-bank.component'
 import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
@@ -93,7 +95,8 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         GoalPageComponent,
         LeaderBoardComponent,
         PracticeProblemComponent,
-        TokenUseSnippetComponent
+        SubmissionChartComponent,
+        TokenUseSnippetComponent,
     ],
     imports: [
         CommonModule,
@@ -131,15 +134,16 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         TuiMarkerIconModule,
         TuiModeModule,
         TuiNotificationModule,
+        TuiProgressModule,
         TuiRingChartModule,
         TuiSelectModule,
         TuiSidebarModule,
         TuiStepperModule,
         TuiSvgModule,
-        DragulaModule.forRoot(),
         TuiTableModule,
         TuiTabsModule,
         TuiTagModule,
+        DragulaModule.forRoot(),
         TuiTextfieldControllerModule,
     ],
     providers: [
