@@ -39,8 +39,8 @@ export class TokenUseSnippetComponent implements OnInit {
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.courseReg = course.course_reg
             this.tokenUses = this.courseReg.token_uses
+            this.calculateCurrentTotal()
         })
-        this.calculateCurrentTotal()
     }
 
     /**
