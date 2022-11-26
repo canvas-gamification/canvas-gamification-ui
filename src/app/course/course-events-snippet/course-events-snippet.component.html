@@ -179,11 +179,12 @@
         </tui-accordion>
     </ng-container>
     <ng-template #SkeletonTemplate>
-        <div class="functionBar tui-skeleton tui-skeleton_short">
-            <div class="filter tui-skeleton">
+        <div class="functionBar">
+            <div class="filter">
                 <tui-select
                     class="tui-skeleton"
                     tuiTextfieldSize="l"
+                    [(ngModel)]="filter"
                 > content
                     <input tuiTextfield/>
                     <tui-data-list-wrapper
