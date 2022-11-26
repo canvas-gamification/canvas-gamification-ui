@@ -1,5 +1,5 @@
 <div class="eventPage">
-    <ng-container *ngIf="course else SkeletonTemplate">
+    <ng-container *ngIf="course else skeletonTemplate">
         <div class="functionBar">
             <div class="filter">
                 <tui-select
@@ -178,7 +178,7 @@
             </tui-accordion-item>
         </tui-accordion>
     </ng-container>
-    <ng-template #SkeletonTemplate>
+    <ng-template #skeletonTemplate>
         <div class="functionBar">
             <div class="filter">
                 <tui-select
