@@ -1,5 +1,5 @@
 <div class="eventPage">
-    <ng-container *ngIf="false else SkeletonTemplate">
+    <ng-container *ngIf="course else SkeletonTemplate">
         <div class="functionBar">
             <div class="filter">
                 <tui-select
@@ -188,16 +188,48 @@
                     <input tuiTextfield/>
                     <tui-data-list-wrapper
                         class="tui-skeleton"
-                    >content</tui-data-list-wrapper>
+                    >content
+                    </tui-data-list-wrapper>
                 </tui-select>
             </div>
         </div>
         <tui-accordion class="accordionContainer" [closeOthers]="false">
-            <tui-accordion-item>
-                <h1 class="tui-skeleton">content</h1>
+            <tui-accordion-item class="title" open="true" [disableHover]="true">
+                <ng-template tuiAccordionItemContent>
+                    <div class="event">
+                        <div class="eventType tui-skeleton">
+                            Content
+                        </div>
+                        <div class="name tui-skeleton">Content</div>
+                        <div class="dates">
+                            <div class="tui-skeleton">Content For Long Dates</div>
+                            <div class="tui-skeleton">Content For Long Dates</div>
+                        </div>
+                        <div class="availability tui-skeleton">
+                            Content
+                        </div>
+                        <div class="grade tui-skeleton">
+                            Content
+                        </div>
+                        <div class="linkBtn">
+                            <a
+                                appearance="primary" aria-label="Edit" class="tui-form__button tui-skeleton"
+                                size="s"
+                                tuiButton
+                            > Content
+                            </a>
+                        </div>
+                    </div>
+                </ng-template>
             </tui-accordion-item>
-            <tui-accordion-item>
-                <p class="tui-skeleton">content</p>
+            <tui-accordion-item class="title" open="true" [disableHover]="true">
+                <ng-template tuiAccordionItemContent>
+                    <div class="event tui-skeleton">
+                        <div class="eventType tui-skeleton">
+                            Content
+                        </div>
+                    </div>
+                </ng-template>
             </tui-accordion-item>
         </tui-accordion>
     </ng-template>
