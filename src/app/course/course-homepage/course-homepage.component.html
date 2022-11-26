@@ -1,9 +1,17 @@
+<ng-container *ngIf="course else skeletonTemplate">
 <h2
-    [class.tui-skeleton]="!course"
     class="tui_text_h2"
 >
     {{course?.description}}
 </h2>
+</ng-container>
+<ng-template #skeletonTemplate>
+    <h2
+        class="tui_text_h2 tui-skeleton"
+    >
+        Content
+    </h2>
+</ng-template>
 
 <div class="flex-container">
     <tui-island class="tui-island_hoverable course-tile" size="m">

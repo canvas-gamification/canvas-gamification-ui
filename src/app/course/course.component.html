@@ -1,11 +1,20 @@
-<div class="course-banner">
-    <h3
-        [class.tui-skeleton]="!course"
-        class="tui-text_h3 tui-space_top-2 tui-space_left-2"
-    >
-        {{ course?.name }}
-    </h3>
-</div>
+<ng-container *ngIf="course else skeletonTemplate">
+    <div class="course-banner">
+        <h3
+            [class.tui-skeleton]="!course"
+            class="tui-text_h3 tui-space_top-2 tui-space_left-2"
+        >
+            {{ course?.name }}
+        </h3>
+    </div>
+</ng-container>
+<ng-template #skeletonTemplate>
+    <div class="course-banner">
+        <h3 class="tui-text_h3 tui-space_top-2 tui-space_left-2 tui-skeleton_short tui-skeleton">
+            Content
+        </h3>
+    </div>
+</ng-template>
 
 <section class="tui-container tui-container_fullwidth">
     <router-outlet></router-outlet>
