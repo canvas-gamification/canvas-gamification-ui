@@ -28,16 +28,25 @@ const routes: Routes = [
         path: ':courseId',
         component: CourseComponent,
         canActivate: [AuthGuard],
+        data: {
+            breadCrumb: 'Homepage'
+        },
         children: [
             {
                 path: '',
                 component: CourseHomepageComponent,
-                canActivate: [AuthGuard]
+                canActivate: [AuthGuard],
+                data: {
+                    breadCrumb: 'Homepage2'
+                }
             },
             {
                 path: 'practice',
                 component: CoursePracticeComponent,
-                canActivate: [AuthGuard]
+                canActivate: [AuthGuard],
+                data: {
+                    breadCrumb: 'Practice'
+                }
             },
             {
                 path: 'practice/question-bank',
@@ -52,7 +61,10 @@ const routes: Routes = [
             {
                 path: 'event',
                 component: CourseEventsSnippetComponent,
-                canActivate: [AuthGuard]
+                canActivate: [AuthGuard],
+                data: {
+                    breadCrumb: 'Events'
+                }
             },
             {
                 path: 'new-event',

@@ -7,6 +7,10 @@
             {{ course?.name }}
         </h3>
     </div>
+    <div *ngFor="let bc of breadCrumbs">
+        {{ bc.name }}
+        {{ bc.url }}
+    </div>
 </ng-container>
 <ng-template #skeletonTemplate>
     <div class="course-banner">
