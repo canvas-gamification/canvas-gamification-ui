@@ -13,8 +13,8 @@ import {Goal, GoalItem} from "@app/_models/goal/goal"
 
 @Component({
     selector: 'app-goal-create',
-    templateUrl: './goal-creation-page.component.html',
-    styleUrls: ['./goal-creation-page.component.scss']
+    templateUrl: './goal-create.component.html',
+    styleUrls: ['./goal-create.component.scss']
 })
 export class GoalCreateComponent implements OnInit {
     constructor(

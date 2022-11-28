@@ -42,15 +42,16 @@
                         Set tasks to complete:
                     </h2>
 
-                    <button
-                        tuiButton
-                        type="button"
-                        appearance="primary"
-                        class="tui-space_right-3 tui-space_bottom-3 button-thin"
-                        (click)="addGoalItem()"
-                    >
-                        New Task
-                    </button>
+
+                        <button
+                            tuiButton
+                            type="button"
+                            appearance="primary"
+                            class="button-thin"
+                            (click)="addGoalItem()"
+                        >
+                            New Task
+                        </button>
                 </div>
                 <ng-container formArrayName="goal_items">
                     <ng-container *ngFor="let goalItem of getGoalItemFormGroup(); let i = index">
@@ -96,7 +97,7 @@
                                 tuiButton
                                 type="button"
                                 appearance="accent"
-                                class="tui-space_right-3 tui-space_bottom-3 button-thin"
+                                class="button-thin"
                                 (click)="removeGoalItem(i)"
                             >
                                 Delete
