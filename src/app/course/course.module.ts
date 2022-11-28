@@ -72,7 +72,7 @@ import {GoalComponent} from './goal/goal/goal.component'
 import {TuiRingChartModule} from "@taiga-ui/addon-charts"
 import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 import {CoursePracticePageComponent} from './course-practice-page/course-practice-page.component'
-import {CourseQuestionBankComponent} from './course-question-bank/course-question-bank.component'
+import {CoursePracticeComponent} from './course-practice/course-practice.component'
 import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
 
 @NgModule({
@@ -84,8 +84,8 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         CourseEventsSnippetComponent,
         CourseHomepageComponent,
         CourseListComponent,
+        CoursePracticeComponent,
         CoursePracticePageComponent,
-        CourseQuestionBankComponent,
         CourseQuestionSnippetComponent,
         CourseRegisterComponent,
         CourseRegistrationStepComponent,

@@ -5,11 +5,11 @@ import {CourseService} from "@app/course/_services/course.service"
 import {ActivatedRoute} from "@angular/router"
 
 @Component({
-    selector: 'app-course-question-bank',
-    templateUrl: './course-question-bank.component.html',
-    styleUrls: ['./course-question-bank.component.scss']
+    selector: 'app-course-practice',
+    templateUrl: './course-practice.component.html',
+    styleUrls: ['./course-practice.component.scss']
 })
-export class CourseQuestionBankComponent implements OnInit {
+export class CoursePracticeComponent implements OnInit {
 
     course: Course
     courseId: number
