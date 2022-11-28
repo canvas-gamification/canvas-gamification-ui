@@ -33,7 +33,8 @@ import {
     TuiSelectModule,
     TuiStepperModule,
     TuiTabsModule,
-    TuiTagModule
+    TuiTagModule,
+    TuiTextAreaModule
 } from '@taiga-ui/kit'
 import {
     TuiButtonModule,
@@ -71,12 +72,14 @@ import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
 import {TuiRingChartModule} from "@taiga-ui/addon-charts"
 import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
+import {CourseCreateComponent} from './course-create/course-create.component'
 
 @NgModule({
     declarations: [
         ConceptMapComponent,
         CourseChallengeSnippetComponent,
         CourseComponent,
+        CourseCreateComponent,
         CourseEventCreateEditComponent,
         CourseEventsSnippetComponent,
         CourseListComponent,
@@ -138,6 +141,7 @@ import {SubmissionChartComponent} from './goal/submission-chart/submission-chart
         TuiTabsModule,
         TuiTagModule,
         DragulaModule.forRoot(),
+        TuiTextAreaModule,
         TuiTextfieldControllerModule,
     ],
     providers: [

@@ -5,6 +5,7 @@ import {HttpClient, HttpParams} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 import {CourseRegistrationFormData} from "@app/course/_forms/register.form"
+import {CourseFormData} from "@app/course/_forms/course.form"
 
 @Injectable({
     providedIn: 'root'
@@ -92,5 +93,10 @@ export class CourseService {
         return this.http
             .get<Course>(url)
             .pipe(catchError(this.apiService.handleError<Course>(`Unable to load course.`, null)))
+    }
+
+    createCourse(input: CourseFormData): Observable<Course> {
+        const url = this.apiService.getURL('course')
+        return this.http.post<Course>(url, input).pipe(catchError(this.apiService.handleFormError()))
     }
 }
