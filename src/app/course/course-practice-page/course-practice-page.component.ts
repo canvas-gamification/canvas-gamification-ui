@@ -5,11 +5,11 @@ import {ActivatedRoute} from "@angular/router"
 import {AuthenticationService} from "@app/_services/api/authentication"
 
 @Component({
-    selector: 'app-course-practice',
-    templateUrl: './course-practice.component.html',
-    styleUrls: ['./course-practice.component.scss']
+    selector: 'app-course-practice-page',
+    templateUrl: './course-practice-page.component.html',
+    styleUrls: ['./course-practice-page.component.scss']
 })
-export class CoursePracticeComponent implements OnInit {
+export class CoursePracticePageComponent implements OnInit {
     course: Course
     courseId: number
     user: User

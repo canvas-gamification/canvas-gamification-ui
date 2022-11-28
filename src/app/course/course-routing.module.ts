@@ -11,7 +11,7 @@ import {PracticeProblemComponent} from "@app/course/practice-problem/practice-pr
 import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
 import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 import {GoalComponent} from "@app/course/goal/goal/goal.component"
-import {CoursePracticeComponent} from "@app/course/course-practice/course-practice.component"
+import {CoursePracticePageComponent} from "@app/course/course-practice-page/course-practice-page.component"
 import {CourseQuestionBankComponent} from "@app/course/course-question-bank/course-question-bank.component"
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component"
 import {CourseChallengeSnippetComponent} from "@app/course/course-challenge-snippet/course-challenge-snippet.component"
@@ -35,10 +35,10 @@ const routes: Routes = [
             },
             {
                 path: 'practice',
-                component: CoursePracticeComponent,
+                component: CoursePracticePageComponent,
             },
             {
-                path: 'practice/question-bank',
+                path: 'practice/concept-map',
                 component: CourseQuestionBankComponent,
             },
             {
