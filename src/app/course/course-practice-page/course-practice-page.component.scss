@@ -2,7 +2,8 @@
 @import 'mixins';
 
 .flex-container {
-    margin: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
