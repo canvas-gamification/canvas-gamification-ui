@@ -1,9 +1,9 @@
 <div class="tui-container tui-container_adaptive">
-    <div class="flex-container tui-space_top-3">
+    <div class="flex tui-space_top-6">
         <h3 class="tui-text_h3 tui-col_stretch flex-grow">
             Active Goals
         </h3>
-        <a tuiButton size="m" routerLink="create" class="tui-col-">Create a new goal</a>
+        <a tuiButton size="m" routerLink="create">Create a new goal</a>
     </div>
     <div *ngFor="let goal of activeGoals" class="tui-space_vertical-3">
         <app-goal-island
