@@ -1,0 +1,42 @@
+<tui-island>
+    Progress:
+    <label
+        tuiProgressLabel
+        class="progress-label"
+    >
+        {{goal.progress}} / {{goal.number_of_questions}}
+        <progress
+            tuiProgressBar
+            [max]="goal.number_of_questions"
+            [value]="goal.progress"
+        >
+        </progress>
+    </label>
+    Tasks:
+    <ul class="tui-list tui-space_left-3">
+        <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
+            <div class="flex-container">
+                <div class="line-height">
+                    {{getGoalItemString(goalItem)}}
+                    (Solve {{goalItem.progress}} / {{goalItem.number_of_questions}})
+                </div>
+                <a
+                    *ngIf="goalItem.progress < goalItem.number_of_questions"
+                    tuiButton
+                    size="s"
+                    [routerLink]="['..', 'practice', 'category', goalItem.category]"
+                    [queryParams]="{difficulty: goalItem.difficulty}"
+                >
+                    Start Practice
+                </a>
+                <tui-marker-icon
+                    *ngIf="goalItem.progress >= goalItem.number_of_questions"
+                    src="tuiIconCheckCircleLarge"
+                    mode="success"
+                    size="xs"
+                ></tui-marker-icon>
+            </div>
+        </li>
+    </ul>
+    <a tuiButton size="s" class="tui-space_top-3" [routerLink]="[goal.id]">Open</a>
+</tui-island>

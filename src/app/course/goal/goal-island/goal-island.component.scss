@@ -1,0 +1,16 @@
+.progress-label {
+    width: 100%;
+}
+
+.flex-container {
+    display: flex;
+    gap: 1rem;
+}
+
+.line-height {
+    line-height: 32px;
+}
+
+.tui-list__item:before {
+    top: 0.75rem;
+}

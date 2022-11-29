@@ -1,26 +1,23 @@
-<h1>Goals</h1>
-<div *ngFor="let goal of goals; let i = index" [attr.data-index]="i">
-    Goal {{i}}
-    <div>
-        Start date: {{goal.start_date}}
+<div class="tui-container tui-container_adaptive">
+    <div class="flex-container tui-space_top-3">
+        <h3 class="tui-text_h3 tui-col_stretch flex-grow">
+            Active Goals
+        </h3>
+        <a tuiButton size="m" routerLink="create" class="tui-col-">Create a new goal</a>
     </div>
-    <div>
-        End date: {{goal.end_date}}
+    <div *ngFor="let goal of activeGoals" class="tui-space_vertical-3">
+        <app-goal-island
+            [goal]="goal"
+        >
+        </app-goal-island>
     </div>
-    <div>
-        Progress: {{goal.progress}}
+    <h3 class="tui-text_h3 tui-space_top-3">
+        Completed Goals
+    </h3>
+    <div *ngFor="let goal of completedGoals" class="tui-space_vertical-3">
+        <app-goal-island
+            [goal]="goal"
+        >
+        </app-goal-island>
     </div>
-    <div>
-        Is Finished: {{goal.is_finished}}
-    </div>
-    <div>
-        Number of questions: {{goal.number_of_questions}}
-    </div>
-    Items
-    <div *ngFor="let item of goal.goal_items">
-        Solve {{item.number_of_questions}} {{item.difficulty ?? ''}} questions from {{item.category}}
-    </div>
-    <a [routerLink]="[goal.id]">Open</a>
 </div>
-
-<a [routerLink]="'create'">Create a new goal</a>
