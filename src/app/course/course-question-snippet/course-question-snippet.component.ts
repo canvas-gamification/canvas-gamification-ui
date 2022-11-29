@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core'
-import {Course, CourseEvent, Question, UQJ, User} from '@app/_models'
+import {CourseEvent, Question, UQJ, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {ActivatedRoute, Router} from '@angular/router'
 import {UqjService} from '@app/problems/_services/uqj.service'
@@ -20,7 +20,6 @@ export class CourseQuestionSnippetComponent implements OnInit {
     event: CourseEvent
     eventId: number
     courseId: number
-    course: Course
 
     constructor(
         private authenticationService: AuthenticationService,
