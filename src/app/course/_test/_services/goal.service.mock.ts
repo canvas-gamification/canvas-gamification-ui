@@ -14,7 +14,7 @@ export class GoalServiceMock {
         return of(MOCK_GOALS)
     }
 
-    getGoalSuggestions() {
+    getSuggestions() {
         return of(MOCK_GOALS)
     }
 }
