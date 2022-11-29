@@ -84,9 +84,13 @@ describe('CourseQuestionSnippetComponent INVALID EVENT', () => {
                 {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
+                            parent: {
+                                paramMap: convertToParamMap({
+                                    courseId: 1
+                                })
+                            },
                             paramMap: convertToParamMap({
                                 eventId: 0,
-                                courseId: 1
                             })
                         }
                     }
