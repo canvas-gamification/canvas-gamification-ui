@@ -1,4 +1,42 @@
 <div class="tui-container tui-container_adaptive">
+    <h2 class="tui-form__header">Recommended Goals</h2>
+    <div *ngFor="let goal of recommendedGoals; let i = index" class="tui-form__row">
+        <tui-island>
+            <div class="tui-text_bold tui-text_body-l">
+                Recommended Goal {{i + 1}}
+            </div>
+            <div>
+                Duration: {{getRelativeTime(goal.end_date)}}
+            </div>
+
+            <div class="tui-text_bold tui-text_body-l tui-space_top-3">
+                Tasks:
+            </div>
+            <ul class="tui-list">
+                <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
+                    {{goalItemString(goalItem)}}
+                </li>
+            </ul>
+            <button
+                tuiButton
+                size="s"
+                (click)="createGoal(goal)"
+                class="tui-space_top-3"
+            >
+                Create Goal
+            </button>
+            <button
+                tuiButton
+                size="s"
+                (click)="setGoal(goal)"
+                class="tui-space_left-3 tui-space_top-3"
+                appearance="outline"
+            >
+                Modify Goal
+            </button>
+        </tui-island>
+    </div>
+
     <form (ngSubmit)="onSubmit()" [formGroup]="goalForm">
         <h2 class="tui-form__header">Create New Goal</h2>
         <div class="tui-form__row tui-form__row_multi-fields">
@@ -15,7 +53,7 @@
                 <tui-field-error formControlName="end_time"></tui-field-error>
             </div>
         </div>
-        <h3 class="tui-form__header">Goal Items</h3>
+        <h3 class="tui-form__header">Tasks</h3>
         <div *ngFor="let goalItemFormControl of getGoalItemFormControls(); let index = index"
              class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">

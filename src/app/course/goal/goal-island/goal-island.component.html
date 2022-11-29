@@ -1,4 +1,4 @@
-<tui-island>
+<tui-island class="box-shadow">
     Progress:
     <label
         tuiProgressLabel
@@ -12,18 +12,22 @@
         >
         </progress>
     </label>
+    <div *ngIf="!goal.is_finished">
+        Remaining Time: {{getRelativeTime(goal.end_date)}}
+    </div>
     Tasks:
     <ul class="tui-list tui-space_left-3">
         <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
             <div class="flex-container">
                 <div class="line-height">
                     {{getGoalItemString(goalItem)}}
-                    (Solve {{goalItem.progress}} / {{goalItem.number_of_questions}})
+                    (Solved {{goalItem.progress}} / {{goalItem.number_of_questions}})
                 </div>
                 <a
-                    *ngIf="goalItem.progress < goalItem.number_of_questions"
+                    *ngIf="goalItem.progress < goalItem.number_of_questions && !goal.is_finished"
                     tuiButton
                     size="s"
+                    appearance="flat"
                     [routerLink]="['..', 'practice', 'category', goalItem.category]"
                     [queryParams]="{difficulty: goalItem.difficulty}"
                 >
@@ -35,8 +39,14 @@
                     mode="success"
                     size="xs"
                 ></tui-marker-icon>
+                <tui-marker-icon
+                    *ngIf="goalItem.progress < goalItem.number_of_questions && goal.is_finished"
+                    src="tuiIconCloseCircleLarge"
+                    mode="error"
+                    size="xs"
+                ></tui-marker-icon>
             </div>
         </li>
     </ul>
-    <a tuiButton size="s" class="tui-space_top-3" [routerLink]="[goal.id]">Open</a>
+    <a tuiButton size="s" class="tui-space_top-3" appearance="outline" [routerLink]="[goal.id]">View Stats</a>
 </tui-island>
