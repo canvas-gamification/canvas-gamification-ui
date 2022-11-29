@@ -68,7 +68,7 @@ import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalComponent} from './goal/goal/goal.component'
 import {TuiRingChartModule} from "@taiga-ui/addon-charts"
-import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-creation-page.component"
+import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 
 @NgModule({
     declarations: [

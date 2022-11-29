@@ -28,7 +28,7 @@ export class GoalForm {
         return builder.group({
             category: new FormControl('', [Validators.required]),
             difficulty: new FormControl('', [Validators.required]),
-            number_of_questions: new FormControl('', [Validators.required])
+            number_of_questions: new FormControl('', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1)])
         })
     }
 
@@ -51,6 +51,12 @@ export class GoalForm {
     static formatGoalItemFormData(formControl: FormControl, goalId: number): GoalItemFormData {
         return {
             goal: goalId,
+            ...formControl.value
+        }
+    }
+
+    static formatMockGoalItemFormData(formControl: FormControl): GoalItemFormData {
+        return {
             ...formControl.value
         }
     }

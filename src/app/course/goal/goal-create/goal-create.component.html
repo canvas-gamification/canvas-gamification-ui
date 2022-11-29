@@ -43,15 +43,15 @@
                     </h2>
 
 
-                        <button
-                            tuiButton
-                            type="button"
-                            appearance="primary"
-                            class="button-thin"
-                            (click)="addGoalItem()"
-                        >
-                            New Task
-                        </button>
+                    <button
+                        tuiButton
+                        type="button"
+                        appearance="primary"
+                        class="button-thin"
+                        (click)="addGoalItem()"
+                    >
+                        New Task
+                    </button>
                 </div>
                 <ng-container formArrayName="goal_items">
                     <ng-container *ngFor="let goalItem of getGoalItemFormGroup(); let i = index">
@@ -61,6 +61,7 @@
                                 class="control category-control select"
                                 formControlName="category"
                                 [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
+                                (change)="checkInputValidity()"
                             >
                                 Category
                                 <tui-data-list *tuiDataList>
@@ -76,7 +77,9 @@
                             </ng-template>
                             <tui-select
                                 class="control select"
+                                [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
                                 formControlName="difficulty"
+                                (change)="checkInputValidity()"
                             >
                                 Difficulty
                                 <tui-data-list *tuiDataList>
@@ -88,7 +91,8 @@
                             </tui-select>
 
                             <tui-input-number
-                                [formControl]="getFormControl(getGoalItemFormControls()[i], 'number_of_questions')">
+                                [formControl]="getFormControl(getGoalItemFormControls()[i], 'number_of_questions')"
+                                (change)="checkInputValidity()">
                                 Number of questions
                             </tui-input-number>
 
@@ -106,13 +110,16 @@
 
                     </ng-container>
                 </ng-container>
+                <div *ngFor="let message of errorMessages">
+                    <p class="errorMessage">{{message}}</p>
+                </div>
                 <div class="tui-form__buttons">
                     <button
                         tuiButton
-                        [disabled]="goalForm.invalid"
                         type="button"
                         type="submit"
                         appearance="primary"
+                        [disabled]="!checkInputValidity()"
                     >
                         Create Goal
                     </button>

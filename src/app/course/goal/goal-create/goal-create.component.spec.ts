@@ -1,5 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
-import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-creation-page.component"
+import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 import {MOCK_GOALS} from "@app/course/_test/mock"
 import {MOCK_CATEGORIES, MOCK_DIFFICULTIES} from "@app/problems/_test/mock"
 import {CategoryService} from "@app/_services/api/category.service"
