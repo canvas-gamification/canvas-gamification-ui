@@ -31,7 +31,6 @@ export class CourseQuestionSnippetComponent implements OnInit {
         private courseService: CourseService
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
-        this.courseId = this.route.snapshot.parent.params.courseId
     }
 
     ngOnInit(): void {
