@@ -9,7 +9,7 @@
                 <span class="tui-text_body-xl" *ngIf="index !== team.member_names.length-1; else noComma;">{{member_name}},&nbsp;</span>
                 <ng-template #noComma> <span class="tui-text_body-xl">{{member_name}} </span> </ng-template>
             </ng-container>
-            <a [routerLink]="" appearance="primary"
+            <a [routerLink]="['/course', courseId, 'event', eventId, 'teams']" appearance="primary"
                class="tui-form__button" size="m"
                tuiButton
             >

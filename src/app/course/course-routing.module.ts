@@ -11,6 +11,7 @@ import {PracticeProblemComponent} from "@app/course/practice-problem/practice-pr
 import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
 import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 import {GoalComponent} from "@app/course/goal/goal/goal.component"
+import {ListOfTeamsComponent} from "@app/course/list-of-teams/list-of-teams.component"
 
 const routes: Routes = [
     {
@@ -72,7 +73,12 @@ const routes: Routes = [
         path: ':courseId/goal/:goalId',
         component: GoalComponent,
         canActivate: [AuthGuard],
-    }
+    },
+    {
+        path: ':courseId/event/:eventId/teams',
+        component: ListOfTeamsComponent,
+        canActivate: [AuthGuard]
+    },
 ]
 
 @NgModule({
