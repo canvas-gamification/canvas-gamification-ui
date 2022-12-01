@@ -11,4 +11,5 @@ export interface Team {
     course_registrations: CourseRegistration[];
     score: number;
     member_names: string[];
+    number_of_member: number;
 }

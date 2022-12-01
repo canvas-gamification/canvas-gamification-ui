@@ -3,6 +3,19 @@
         <ng-container *ngIf="eventId">
             <h1 class="tui-text_h3 tui-space_vertical-10">{{ event.name }}</h1>
         </ng-container>
+        <div *ngIf="event.type==='CHALLENGE'" class="teamBar tui-space_vertical-8">
+            <p class="tui-text_h6">{{team.name}}:&nbsp;</p>
+            <ng-container *ngFor="let member_name of team.member_names; let index = index;">
+                <span class="tui-text_body-xl" *ngIf="index !== team.member_names.length-1; else noComma;">{{member_name}},&nbsp;</span>
+                <ng-template #noComma> <span class="tui-text_body-xl">{{member_name}} </span> </ng-template>
+            </ng-container>
+            <a [routerLink]="" appearance="primary"
+               class="tui-form__button" size="m"
+               tuiButton
+            >
+                Manage Teams
+            </a>
+        </div>
         <div class="question-islands">
             <tui-island *ngFor="let uqj of uqjs">
                 <p class="tui-island__category">{{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }} {{ uqj.question.category_name }}</p>
