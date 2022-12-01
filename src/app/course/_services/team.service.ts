@@ -25,12 +25,12 @@ export class TeamService {
     }
 
     getMyTeam(eventId: number): Observable<Team> {
-        const url = this.apiService.getURL('team')
+        const url = this.apiService.getURL('team', 'my-team')
         const params = new HttpParams()
             .set('event_id', String(eventId))
         return this.http
             .get<Team>(url, {params})
-            .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while fetching My Team`)))
+            .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while fetching My Team.`)))
     }
 
     joinTeam(teamId: number): Observable<HttpResponse<unknown>> {
