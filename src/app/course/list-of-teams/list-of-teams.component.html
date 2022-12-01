@@ -1,0 +1,66 @@
+<section class="tui-container tui-container_adaptive ng-star-inserted">
+    <div class="heading">
+        <h1 class="tui-text_h3 tui-space_vertical-10">List of Teams for {{event?.name}}</h1>
+        <a
+           [routerLink]="['/course', courseId, 'event', eventId, 'new-team']"
+           icon="tuiIconPlus"
+           appearance="primary"
+           aria-label="Create a New Team"
+           class="tui-form__button" size="m"
+           tuiButton
+        >
+            Create a New Team
+        </a>
+    </div>
+
+    <ng-container *ngFor="let team of teams; let index = index">
+        <tui-accordion class="accordionContainer tui-space_bottom-8">
+            <tui-accordion-item >
+                <div class="accordionHeader">
+                    <div>{{index + 1}}</div>
+                    <div>{{team.name}}</div>
+                    <div>{{team.number_of_member}} out of {{event.max_team_size}} students</div>
+                    <ng-template [ngIf]="team.is_private">
+                        <tui-svg src="tuiIconLock"></tui-svg>
+                    </ng-template>
+                </div>
+                <ng-template tuiAccordionItemContent>
+                    <div class="accordionBody">
+                        <div class="names">
+                            <ng-container *ngFor="let member_name of team.member_names; let index = index" >
+                                <div *ngIf="index !== team.member_names.length-1; else noComma;">{{member_name}}, </div>
+                                <ng-template #noComma><div>{{member_name}}</div></ng-template>
+                            </ng-container>
+                        </div>
+                        <div class="btns">
+                            <ng-container *ngIf="isInTeam(team); else notInTeam;">
+                                <a [routerLink]="['/course', courseId, 'event', eventId, 'new-team', team.id]"
+                                   appearance="primary"
+                                   aria-label="Edit"
+                                   size="m"
+                                   tuiButton
+                                >
+                                    Edit
+                                </a>
+                            </ng-container>
+                            <ng-template #notInTeam>
+                                <button
+                                    (click)="joinTeam(team.id)"
+                                    appearance="primary"
+                                    aria-label="Join"
+                                    size="m"
+                                    tuiButton
+                                >
+                                    Join
+                                </button>
+                            </ng-template>
+                        </div>
+                    </div>
+                </ng-template>
+            </tui-accordion-item>
+        </tui-accordion>
+
+    </ng-container>
+
+
+</section>

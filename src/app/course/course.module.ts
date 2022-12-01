@@ -69,6 +69,7 @@ import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
 import {TuiRingChartModule} from "@taiga-ui/addon-charts"
+import {ListOfTeamsComponent} from './list-of-teams/list-of-teams.component'
 
 @NgModule({
     declarations: [
@@ -86,6 +87,7 @@ import {TuiRingChartModule} from "@taiga-ui/addon-charts"
         GoalCreateComponent,
         GoalPageComponent,
         LeaderBoardComponent,
+        ListOfTeamsComponent,
         PracticeProblemComponent,
         TokenUseSnippetComponent,
     ],
