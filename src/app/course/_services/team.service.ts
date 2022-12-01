@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import {HttpClient, HttpParams} from "@angular/common/http"
+import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
 import {ApiService} from "@app/_services/api.service"
 import {Team} from "@app/_models/team"
 import {Observable} from "rxjs"
@@ -31,5 +31,12 @@ export class TeamService {
         return this.http
             .get<Team>(url, {params})
             .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while fetching My Team`)))
+    }
+
+    joinTeam(teamId: number): Observable<HttpResponse<unknown>> {
+        const url = this.apiService.getURL('team', 'join')
+        return this.http
+            .post<HttpResponse<unknown>>(url, {team_id: teamId})
+            .pipe(catchError(this.apiService.handleError<HttpResponse<unknown>>(`Error occurred while joining the team.`)))
     }
 }
