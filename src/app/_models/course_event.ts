@@ -3,6 +3,7 @@ export interface CourseEvent {
     name: string;
     type: string;
     count_for_tokens: boolean;
+    max_team_size?: number;
     start_date: Date;
     end_date: Date;
     course: number;
