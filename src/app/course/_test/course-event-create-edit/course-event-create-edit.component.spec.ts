@@ -109,6 +109,8 @@ describe('CourseEventCreateComponent without EventId', () => {
                 {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
+                            paramMap: convertToParamMap({
+                            }),
                             parent: {
                                 paramMap: convertToParamMap({
                                     courseId: 1
@@ -140,6 +142,6 @@ describe('CourseEventCreateComponent without EventId', () => {
     it('submitEvent should work without eventId', () => {
         component.submitEvent(component.formData)
         expect(notificationService.show).toHaveBeenCalled()
-        expect(router.navigate).toHaveBeenCalledOnceWith(['course', 1])
+        expect(router.navigate).toHaveBeenCalledOnceWith(['course', 1, 'event'])
     })
 })
