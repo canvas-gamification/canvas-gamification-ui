@@ -49,6 +49,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.difficulty = this.route.snapshot.queryParamMap.get('difficulty')
         this.subscriptions.add(this.categoryService.getCategories().subscribe(categories => {
             this.categories = categories
             this.nestedCategories = categories.reduce((previous, category) => {

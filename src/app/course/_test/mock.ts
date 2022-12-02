@@ -255,12 +255,12 @@ export const MOCK_USER_STATS1: Stats = {
             questions_solved: 2,
             avgSuccess: 1
         },
-        java :{
+        java: {
             questions_attempt: 1,
             questions_solved: 1,
             avgSuccess: 1
         },
-        parsons :{
+        parsons: {
             questions_attempt: 1,
             questions_solved: 1,
             avgSuccess: 1
@@ -346,3 +346,60 @@ export const MOCK_GOAL_ITEM_SUBMISSION_STATS: GoalItemSubmissionStats = {
     },
     error_messages: ["Something is wrong", "Something is wrong again"]
 }
+
+import {Goal, GoalItem} from "@app/_models/goal/goal"
+
+export const MOCK_GOAL_ITEM: GoalItem = {
+    id: 1,
+    category: 0,
+    category_name: '',
+    difficulty: "EASY",
+    number_of_questions: 5,
+    progress: 1,
+}
+
+export const MOCK_GOAL_ITEM_2: GoalItem = {
+    id: 2,
+    category: 0,
+    category_name: '',
+    difficulty: "MEDIUM",
+    number_of_questions: 15,
+    progress: 10,
+}
+
+export const MOCK_GOAL_ITEM_3: GoalItem = {
+    id: 3,
+    category: 0,
+    category_name: '',
+    difficulty: "HARD",
+    number_of_questions: 20,
+    progress: 0,
+}
+
+export const MOCK_GOAL_ITEMS: GoalItem[] = [MOCK_GOAL_ITEM, MOCK_GOAL_ITEM_2, MOCK_GOAL_ITEM_3]
+
+export const MOCK_GOAL: Goal = {
+    id: 13,
+    course_reg: 1,
+    start_date: "2004-09-03T20:50:00-07:00",
+    end_date: "2022-11-10T16:40:37.860661-08:00",
+    progress: 0,
+    is_finished: true,
+    number_of_questions: 40,
+    goal_items: MOCK_GOAL_ITEMS,
+    stats: null,
+}
+
+export const MOCK_GOAL_2: Goal = {
+    id: 14,
+    course_reg: 1,
+    start_date: "2006-03-04T20:50:00-07:00",
+    end_date: "2021-21-13T16:40:37.860661-08:00",
+    progress: 0,
+    is_finished: false,
+    number_of_questions: 40,
+    goal_items: MOCK_GOAL_ITEMS,
+    stats: null,
+}
+
+export const MOCK_GOALS: Goal[] = [MOCK_GOAL, MOCK_GOAL_2]

@@ -1,0 +1,65 @@
+<div class="tui-container tui-container_adaptive">
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div class="tui-form__header">
+            Create a Course
+        </div>
+        <div class="tui-form__row">
+            <tui-input formControlName="name">Course Name</tui-input>
+            <tui-field-error formControlName="name"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <tui-text-area formControlName="description">Course Description</tui-text-area>
+            <tui-field-error formControlName="description"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <tui-input formControlName="url" type="url">Course URL</tui-input>
+            <tui-field-error formControlName="url" ></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <tui-input-date-range formControlName="date">Course Date</tui-input-date-range>
+            <tui-field-error formControlName="date"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <tui-select formControlName="registrationMode">
+                Registration Mode
+                <input
+                    tuiTextfield
+                    placeholder="Select registration mode"
+                />
+                <tui-data-list-wrapper
+                    *tuiDataList
+                    [items]="registrationModes"
+                ></tui-data-list-wrapper>
+            </tui-select>
+            <tui-field-error formControlName="registrationMode"></tui-field-error>
+            <div class="tui-form__field-note">Everyone can join an open course, while only the ones with the access code
+                can join a private course.
+            </div>
+        </div>
+        <div class="tui-form__row">
+            <tui-input formControlName="registrationCode">Access Code</tui-input>
+            <tui-field-error formControlName="registrationCode"></tui-field-error>
+        </div>
+        <div class="tui-form__buttons">
+            <button
+                tuiButton
+                size="m"
+                type="submit"
+                class="tui-form__button"
+                [disabled]="formGroup.invalid"
+            >
+                Submit
+            </button>
+            <button
+                tuiButton
+                type="button"
+                appearance="flat"
+                size="m"
+                class="tui-form__button"
+                routerLink="/"
+            >
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>

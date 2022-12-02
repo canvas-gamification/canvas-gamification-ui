@@ -13,6 +13,7 @@ export interface Goal {
 export interface GoalItem {
     id: number
     category: number
+    category_name: string
     difficulty: string
     progress: number
     number_of_questions: number

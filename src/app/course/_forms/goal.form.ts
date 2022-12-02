@@ -1,5 +1,6 @@
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
 import {TuiDay, TuiTime} from "@taiga-ui/cdk"
+import {Goal, GoalItem} from "@app/_models/goal/goal"
 
 export interface GoalFormData {
     course_id: number
@@ -23,12 +24,31 @@ export class GoalForm {
         })
     }
 
+    static createGoalFormFromGoal(goal: Goal): FormGroup {
+        const endDate = new Date(goal.end_date)
+        const builder = new FormBuilder()
+        return builder.group({
+            end_date: new FormControl(TuiDay.fromLocalNativeDate(endDate), [Validators.required]),
+            end_time: new FormControl(TuiTime.fromLocalNativeDate(endDate), [Validators.required]),
+            goal_items: new FormArray(goal.goal_items.map(GoalForm.createGoalItemFormFromGoalItem), [Validators.required]),
+        })
+    }
+
     static createGoalItemForm(): FormGroup {
         const builder = new FormBuilder()
         return builder.group({
             category: new FormControl('', [Validators.required]),
             difficulty: new FormControl('', [Validators.required]),
             number_of_questions: new FormControl('', [Validators.required])
+        })
+    }
+
+    static createGoalItemFormFromGoalItem(goalItem: GoalItem): FormGroup {
+        const builder = new FormBuilder()
+        return builder.group({
+            category: new FormControl(goalItem.category, [Validators.required]),
+            difficulty: new FormControl(goalItem.difficulty, [Validators.required]),
+            number_of_questions: new FormControl(goalItem.number_of_questions, [Validators.required])
         })
     }
 

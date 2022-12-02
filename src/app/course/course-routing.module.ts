@@ -11,6 +11,7 @@ import {PracticeProblemComponent} from "@app/course/practice-problem/practice-pr
 import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
 import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 import {GoalComponent} from "@app/course/goal/goal/goal.component"
+import {CourseCreateComponent} from "@app/course/course-create/course-create.component"
 import {CoursePracticeComponent} from "@app/course/course-practice/course-practice.component"
 import {CourseQuestionBankComponent} from "@app/course/course-question-bank/course-question-bank.component"
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component"
@@ -22,6 +23,11 @@ const routes: Routes = [
     {
         path: '',
         component: CourseListComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'create',
+        component: CourseCreateComponent,
         canActivate: [AuthGuard]
     },
     {
