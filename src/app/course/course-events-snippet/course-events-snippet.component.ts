@@ -41,7 +41,7 @@ export class CourseEventsSnippetComponent implements OnInit {
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
         @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
     ) {
-        this.courseId = this.route.snapshot.parent.params.courseId
+        this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
     }
 
     ngOnInit(): void {

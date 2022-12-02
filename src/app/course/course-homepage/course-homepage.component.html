@@ -1,16 +1,16 @@
 <ng-container *ngIf="course else skeletonTemplate">
-<h2
-    class="tui_text_h2"
+<h5
+    class="tui-text_h5"
 >
     {{course?.description}}
-</h2>
+</h5>
 </ng-container>
 <ng-template #skeletonTemplate>
-    <h2
-        class="tui_text_h2 tui-skeleton"
+    <h5
+        class="tui-text_h5 tui-skeleton"
     >
         Content
-    </h2>
+    </h5>
 </ng-template>
 
 <div class="flex-container">

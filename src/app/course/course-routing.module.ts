@@ -12,12 +12,13 @@ import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
 import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 import {GoalComponent} from "@app/course/goal/goal/goal.component"
 import {CourseCreateComponent} from "@app/course/course-create/course-create.component"
+import {CoursePracticePageComponent} from "@app/course/course-practice-page/course-practice-page.component"
 import {CoursePracticeComponent} from "@app/course/course-practice/course-practice.component"
-import {CourseQuestionBankComponent} from "@app/course/course-question-bank/course-question-bank.component"
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component"
 import {CourseChallengeSnippetComponent} from "@app/course/course-challenge-snippet/course-challenge-snippet.component"
 import {CourseHomepageComponent} from "@app/course/course-homepage/course-homepage.component"
 import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/course-events-snippet.component"
+
 
 const routes: Routes = [
     {
@@ -41,33 +42,28 @@ const routes: Routes = [
             {
                 path: '',
                 component: CourseHomepageComponent,
-                canActivate: [AuthGuard],
                 data: {
                     breadCrumb: 'Homepage2'
                 }
             },
             {
                 path: 'practice',
-                component: CoursePracticeComponent,
-                canActivate: [AuthGuard],
+                component: CoursePracticePageComponent,
                 data: {
                     breadCrumb: 'Practice'
                 }
             },
             {
-                path: 'practice/question-bank',
-                component: CourseQuestionBankComponent,
-                canActivate: [AuthGuard]
+                path: 'practice/concept-map',
+                component: CoursePracticeComponent,
             },
             {
                 path: 'register',
                 component: CourseRegisterComponent,
-                canActivate: [AuthGuard]
             },
             {
                 path: 'event',
                 component: CourseEventsSnippetComponent,
-                canActivate: [AuthGuard],
                 data: {
                     breadCrumb: 'Events'
                 }
@@ -75,57 +71,46 @@ const routes: Routes = [
             {
                 path: 'new-event',
                 component: CourseEventCreateEditComponent,
-                canActivate: [AuthGuard]
             },
             {
                 path: 'new-event/:eventId',
                 component: CourseEventCreateEditComponent,
-                canActivate: [AuthGuard]
             },
             {
                 path: 'event/:eventId',
                 component: CourseQuestionSnippetComponent,
-                canActivate: [AuthGuard]
             },
             {
                 path: 'problem/:id',
                 component: ProblemViewComponent,
-                canActivate: [AuthGuard]
             },
             {
                 path: 'event/:eventId/problem/:id',
                 component: ProblemViewComponent,
-                canActivate: [AuthGuard]
             },
             {
                 path: 'practice/category/:categoryId',
                 component: PracticeProblemComponent,
-                canActivate: [AuthGuard]
             },
             {
                 path: 'goal',
                 component: GoalPageComponent,
-                canActivate: [AuthGuard],
             },
             {
                 path: 'goal/create',
                 component: GoalCreateComponent,
-                canActivate: [AuthGuard],
             },
             {
                 path: 'goal/:goalId',
                 component: GoalComponent,
-                canActivate: [AuthGuard],
             },
             {
                 path: 'token',
                 component: TokenUseSnippetComponent,
-                canActivate: [AuthGuard]
             },
             {
                 path: 'challenges',
                 component: CourseChallengeSnippetComponent,
-                canActivate: [AuthGuard]
             }]
     }]
 

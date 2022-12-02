@@ -1,6 +1,7 @@
 .course-banner {
-    padding: 1rem;
+    padding: 1.25rem;
     margin-bottom: 1rem;
-    height: calc(3 * var(--tui-padding-l));
     background-color: var(--tui-secondary-active);
+    display: flex;
+    flex-wrap: wrap;
 }
