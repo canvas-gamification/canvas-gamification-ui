@@ -7,6 +7,8 @@ import {ActivatedRoute} from "@angular/router"
 import {TokenUseService} from "@app/course/_services/token-use.service"
 import {TokenUseServiceMock} from "@app/course/_test/_services/token-use.service.mock"
 import {CourseModule} from "@app/course/course.module"
+import {CourseService} from "@app/course/_services/course.service"
+import {CourseServiceMock} from "@test/course.service.mock"
 
 describe('TokenUseSnippetComponent', () => {
     let component: TokenUseSnippetComponent
@@ -17,12 +19,15 @@ describe('TokenUseSnippetComponent', () => {
             imports: [TestModule, CourseModule],
             declarations: [TokenUseSnippetComponent],
             providers: [
+                {provide: CourseService, useClass: CourseServiceMock},
                 {provide: TokenUseService, useClass: TokenUseServiceMock},
                 {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
-                            params: {
-                                courseId: 1
+                            parent: {
+                                params: {
+                                    courseId: 0
+                                }
                             }
                         }
                     }
@@ -34,12 +39,19 @@ describe('TokenUseSnippetComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(TokenUseSnippetComponent)
         component = fixture.componentInstance
-        component.courseReg = MOCK_COURSE_REGISTRATION
         fixture.detectChanges()
     })
 
     it('should create', () => {
         expect(component).toBeTruthy()
+    })
+
+    it('should get courseReg on initial load', () =>{
+        expect(component.courseReg).toEqual(MOCK_COURSE_REGISTRATION)
+    })
+
+    it('should get token uses on initial load', () =>{
+        expect(component.tokenUses).toEqual(MOCK_COURSE_REGISTRATION.token_uses)
     })
 
     it('confirm Changes should work', () => {
