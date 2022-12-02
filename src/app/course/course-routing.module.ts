@@ -56,6 +56,9 @@ const routes: Routes = [
             {
                 path: 'practice/concept-map',
                 component: CoursePracticeComponent,
+                data: {
+                    breadCrumb: 'Concept Map'
+                }
             },
             {
                 path: 'register',
@@ -95,6 +98,9 @@ const routes: Routes = [
             {
                 path: 'goal',
                 component: GoalPageComponent,
+                data: {
+                    breadCrumb: 'Goals'
+                }
             },
             {
                 path: 'goal/create',
