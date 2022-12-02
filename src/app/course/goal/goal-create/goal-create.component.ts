@@ -41,7 +41,7 @@ export class GoalCreateComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courseId = this.activatedRoute.snapshot.params.courseId
+        this.courseId = this.activatedRoute.snapshot.parent.params.courseId
         this.goalForm = GoalForm.createGoalForm()
         this.categoryService.getCategories().subscribe(categories => this.categories = categories)
         this.difficultyService.getDifficulties().subscribe(difficulties => this.difficulties = difficulties)
