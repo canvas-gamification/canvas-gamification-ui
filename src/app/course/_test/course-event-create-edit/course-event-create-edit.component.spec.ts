@@ -43,9 +43,13 @@ describe('CourseEventCreateComponent with EventId', () => {
                 {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
+                            parent: {
+                                paramMap: convertToParamMap({
+                                    courseId: 1
+                                })
+                            },
                             paramMap: convertToParamMap({
-                                eventId: 1,
-                                courseId: 1
+                                eventId: 1
                             })
                         }
                     }
@@ -105,9 +109,11 @@ describe('CourseEventCreateComponent without EventId', () => {
                 {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
-                            paramMap: convertToParamMap({
-                                courseId: 1
-                            })
+                            parent: {
+                                paramMap: convertToParamMap({
+                                    courseId: 1
+                                })
+                            }
                         }
                     }
                 }
