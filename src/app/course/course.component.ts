@@ -29,10 +29,12 @@ export class CourseComponent implements OnInit {
 
     calculateBreadCrumbs(route: ActivatedRouteSnapshot, index: number) {
         if (route.data.breadCrumb) {
-            this.breadCrumbs.push({
-                name: route.data.breadCrumb,
-                url: route.url?.[0]?.path,
-            })
+            if (!(route.data.breadCrumb === "Homepage2")) {
+                this.breadCrumbs.push({
+                    name: route.data.breadCrumb,
+                    url: route.url[0]?.path,
+                })
+            }
         }
 
         if (route.firstChild) {

@@ -1,5 +1,5 @@
-@import '~@taiga-ui/core/styles/taiga-ui-local';
-@import 'mixins';
+@import '../../../../../node_modules/@taiga-ui/core/styles/taiga-ui-local';
+@import 'src/scss/mixins';
 
 .flex-container {
     margin-top: 3rem;

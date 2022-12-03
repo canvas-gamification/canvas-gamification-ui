@@ -12,7 +12,7 @@ import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
 import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 import {GoalComponent} from "@app/course/goal/goal/goal.component"
 import {CourseCreateComponent} from "@app/course/course-create/course-create.component"
-import {CoursePracticePageComponent} from "@app/course/course-practice-page/course-practice-page.component"
+import {CoursePracticePageComponent} from "@app/course/course-practice/course-practice-page/course-practice-page.component"
 import {CoursePracticeComponent} from "@app/course/course-practice/course-practice.component"
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component"
 import {CourseChallengeSnippetComponent} from "@app/course/course-challenge-snippet/course-challenge-snippet.component"
@@ -51,14 +51,39 @@ const routes: Routes = [
                 component: CoursePracticePageComponent,
                 data: {
                     breadCrumb: 'Practice'
-                }
-            },
-            {
-                path: 'practice/concept-map',
-                component: CoursePracticeComponent,
-                data: {
-                    breadCrumb: 'Concept Map'
-                }
+                },
+                children: [
+                    {
+                        path: 'concept-map',
+                        component: CoursePracticeComponent,
+                        data: {
+                            breadCrumb: 'Concept Map'
+                        }
+                    },
+                    {
+                        path: 'goal',
+                        component: GoalPageComponent,
+                        data: {
+                            breadCrumb: 'Goals'
+                        },
+                        children: [
+                            {
+                                path: 'goal/create',
+                                component: GoalCreateComponent,
+                                data: {
+                                    breadCrumb: 'Create Goals'
+                                }
+                            },
+                            {
+                                path: 'goal/:goalId',
+                                component: GoalComponent,
+                                data: {
+                                    breadCrumb: 'View Goal'
+                                }
+                            },
+                        ]
+                    },
+                ]
             },
             {
                 path: 'register',
@@ -94,21 +119,6 @@ const routes: Routes = [
             {
                 path: 'practice/category/:categoryId',
                 component: PracticeProblemComponent,
-            },
-            {
-                path: 'goal',
-                component: GoalPageComponent,
-                data: {
-                    breadCrumb: 'Goals'
-                }
-            },
-            {
-                path: 'goal/create',
-                component: GoalCreateComponent,
-            },
-            {
-                path: 'goal/:goalId',
-                component: GoalComponent,
             },
             {
                 path: 'token',

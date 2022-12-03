@@ -1,6 +1,6 @@
 import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing'
 
-import {ConceptMapComponent} from '../../concept-map/concept-map.component'
+import {ConceptMapComponent} from '../../course-practice/concept-map/concept-map.component'
 import {TestModule} from '@test/test.module'
 import {CategoryService} from "@app/_services/api/category.service"
 import {CategoryServiceMock} from "@test/category.service.mock"

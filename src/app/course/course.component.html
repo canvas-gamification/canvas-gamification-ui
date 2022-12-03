@@ -11,6 +11,16 @@
         {{ bc.name }}
         {{ bc.url }}
     </div>
+    <tui-breadcrumbs [size]="'l'">
+        <ng-container *ngFor="let item of breadCrumbs">
+            <a
+                *tuiBreadcrumb
+                tuiLink
+                [routerLink]="item.url">
+                {{item.name}}
+            </a>
+        </ng-container>
+    </tui-breadcrumbs>
 </ng-container>
 <ng-template #skeletonTemplate>
     <div class="course-banner">
