@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http'
-import {Observable} from 'rxjs'
+import {Observable, of} from 'rxjs'
 import {Question} from '@app/_models'
 import {PaginatedResult} from '@app/_models/paginatedResult'
 import {catchError} from 'rxjs/operators'
@@ -137,5 +137,10 @@ export class QuestionService {
         const url = this.apiService.getURL('parsons-question')
         return this.http.post<Question>(url, input, {observe: 'response'})
             .pipe(catchError(this.apiService.handleError<HttpResponse<Question>>('Error occurred while adding question')))
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    unsolvedQuestionsCount(categoryId: number, difficulty: string): Observable<number> {
+        return of(10)
     }
 }

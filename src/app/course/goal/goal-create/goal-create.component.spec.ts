@@ -1,6 +1,4 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
-import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
-import {MOCK_GOALS} from "@app/course/_test/mock"
 import {MOCK_CATEGORIES, MOCK_DIFFICULTIES} from "@app/problems/_test/mock"
 import {CategoryService} from "@app/_services/api/category.service"
 import {CategoryServiceMock} from "@test/category.service.mock"
@@ -20,9 +18,9 @@ import {
 } from "@taiga-ui/kit"
 import {TuiButtonModule, TuiDataListModule, TuiNotificationModule} from "@taiga-ui/core"
 import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
+import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 
-
-describe('GoalCreationPage', () => {
+describe('GoalCreateComponent', () => {
     let component: GoalCreateComponent
     let fixture: ComponentFixture<GoalCreateComponent>
 
@@ -63,10 +61,6 @@ describe('GoalCreationPage', () => {
         expect(component).toBeTruthy()
     })
 
-    it('should retrieve suggested goals', () => {
-        expect(component.suggestedGoals).toEqual(MOCK_GOALS)
-    })
-
     it('should retrieve categories', () => {
         expect(component.categories).toEqual(MOCK_CATEGORIES)
     })
@@ -74,6 +68,4 @@ describe('GoalCreationPage', () => {
     it('should retrieve difficulties', () => {
         expect(component.difficulties).toEqual(MOCK_DIFFICULTIES)
     })
-
-
 })

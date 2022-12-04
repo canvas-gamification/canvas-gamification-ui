@@ -29,10 +29,12 @@ import {
     TuiInputTimeModule,
     TuiIslandModule,
     TuiMarkerIconModule,
+    TuiProgressModule,
     TuiSelectModule,
     TuiStepperModule,
     TuiTabsModule,
-    TuiTagModule
+    TuiTagModule,
+    TuiTextAreaModule
 } from '@taiga-ui/kit'
 import {
     TuiButtonModule,
@@ -66,15 +68,19 @@ import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course-challenge-snippet.component'
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
+import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
 import {TuiRingChartModule} from "@taiga-ui/addon-charts"
-import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
+import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
+import {CourseCreateComponent} from './course-create/course-create.component'
+import {GoalIslandComponent} from './goal/goal-island/goal-island.component'
 
 @NgModule({
     declarations: [
         ConceptMapComponent,
         CourseChallengeSnippetComponent,
         CourseComponent,
+        CourseCreateComponent,
         CourseEventCreateEditComponent,
         CourseEventsSnippetComponent,
         CourseListComponent,
@@ -84,9 +90,11 @@ import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.comp
         CourseRegistrationStepperComponent,
         GoalComponent,
         GoalCreateComponent,
+        GoalIslandComponent,
         GoalPageComponent,
         LeaderBoardComponent,
         PracticeProblemComponent,
+        SubmissionChartComponent,
         TokenUseSnippetComponent,
     ],
     imports: [
@@ -125,17 +133,18 @@ import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.comp
         TuiMarkerIconModule,
         TuiModeModule,
         TuiNotificationModule,
+        TuiProgressModule,
         TuiRingChartModule,
         TuiSelectModule,
         TuiSidebarModule,
         TuiStepperModule,
         TuiSvgModule,
         TuiTableModule,
-        DragulaModule.forRoot(),
         TuiTabsModule,
         TuiTagModule,
-        TuiTextfieldControllerModule,
         DragulaModule.forRoot(),
+        TuiTextAreaModule,
+        TuiTextfieldControllerModule,
     ],
     providers: [
         CourseEventService,

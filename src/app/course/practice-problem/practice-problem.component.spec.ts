@@ -48,10 +48,13 @@ describe('PracticeProblemComponent', () => {
                             categoryId: 0,
                             courseId: 0
                         })),
-                        snapshot: convertToParamMap({
-                            categoryId: 0,
-                            courseId: 0
-                        })
+                        snapshot: {
+                            paramMap: convertToParamMap({
+                                categoryId: 0,
+                                courseId: 0
+                            }),
+                            queryParamMap: convertToParamMap({difficulty: 'EASY'}),
+                        }
                     }
                 }
             ],

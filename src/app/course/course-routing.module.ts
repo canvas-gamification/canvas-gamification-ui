@@ -9,14 +9,19 @@ import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippe
 import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component"
 import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component"
 import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
-import {GoalComponent} from "@app/course/goal/goal/goal.component"
 import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
-
+import {GoalComponent} from "@app/course/goal/goal/goal.component"
+import {CourseCreateComponent} from "@app/course/course-create/course-create.component"
 
 const routes: Routes = [
     {
         path: '',
         component: CourseListComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'create',
+        component: CourseCreateComponent,
         canActivate: [AuthGuard]
     },
     {

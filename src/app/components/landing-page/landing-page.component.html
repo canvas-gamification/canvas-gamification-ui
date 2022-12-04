@@ -3,7 +3,7 @@
         <div class="left-content tui-col_lg-7 tui-col_md-8 tui-col_xs-12">
             <h1 class="tui-text_h1 tui-space_top-0">A Free Platform to Practice Programming</h1>
             <p class="tui-island__paragraph tui-text_body-xl">
-                Practice your programming skills with thousands of questions integrated directly with Canvas LMS.
+                Practice your programming skills with thousands of questions.
             </p>
             <div class="tui-form__buttons">
                 <a
@@ -95,21 +95,6 @@
         </div>
     </div>
 </section>
-<section class="tui-container tui-container_adaptive tui-space_vertical-15">
-    <div class="section tui-row tui-row_adaptive">
-        <div class="tui-col_lg-6 tui-col_md-6 tui-col_xs-12">
-            <div class="section-canvas_logo">
-                <img [src]="canvasLogoPath" alt="Canvas Logo">
-            </div>
-        </div>
-        <div class="tui-col_lg-6 tui-col_md-6 tui-col_xs-12">
-            <h2 class="tui-text_h3">Canvas Integration</h2>
-            <p class="tui-island__paragraph tui-text_body-l">
-                Integration with Canvas LMS directly built in.
-            </p>
-        </div>
-    </div>
-</section>
 <section class="section-features tui-space_vertical-15">
     <div class="tui-container tui-container_adaptive">
         <h2 class="center-header tui-text_h3 tui-space_bottom-10">Even More Features</h2>
@@ -146,27 +131,34 @@
         </div>
     </div>
 </section>
-<div class="tui-container tui-container_adaptive tui-space_vertical-15">
-    <section class="section tui-row tui-row_adaptive tui-space_vertical-15">
+
+<section class="section-faq tui-space_vertical-15">
+    <div class="tui-container tui-container_adaptive">
         <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-12">
             <h2 class="center-header tui-text_h3 tui-space_bottom-10">FAQs</h2>
         </div>
-        <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-12">
+        <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-12 tui-row tui-row_adaptive">
             <app-faq-accordion [showTopX]="5"></app-faq-accordion>
         </div>
-    </section>
-    <section class="section tui-row tui-row_adaptive tui-space_vertical-15" id="contact-us">
-        <div class="tui-col_lg-5 tui-col_md-4 tui-col_xs-12 tui-space_bottom-8">
-            <h2 class="tui-text_h3">Contact Us</h2>
-            <p class="tui-island__paragraph tui-text_body-l">
-                Have any other questions?
-            </p>
+    </div>
+</section>
+
+<section class="section tui-space_vertical-15" id="contact-us">
+    <div class="tui-container tui-container_adaptive">
+        <div class="tui-row tui-row_adaptive">
+            <div class="tui-col_lg-5 tui-col_md-4 tui-col_xs-12 tui-space_bottom-8">
+                <h2 class="tui-text_h3">Contact Us</h2>
+                <p class="tui-island__paragraph tui-text_body-l">
+                    Have any other questions?
+                </p>
+            </div>
+            <div class="tui-col_lg-7 tui-col_md-8 tui-col_xs-12">
+                <app-contact></app-contact>
+            </div>
         </div>
-        <div class="tui-col_lg-7 tui-col_md-8 tui-col_xs-12">
-            <app-contact></app-contact>
-        </div>
-    </section>
-</div>
+    </div>
+</section>
+
 <section class="section-action tui-space_vertical-15">
     <div class="tui-container tui-container_adaptive">
         <div class="tui-row tui-row_adaptive">
@@ -193,8 +185,8 @@
     <div class="footer tui-row tui-row_adaptive">
         <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-12 tui-space_bottom-4">
             <div class="footer-logo">
-                <img [src]="logoPath" alt="Canvas Gamification Logo" class="tui-space_right-2">
-                <span class="tui-text_h6">Canvas Gamification</span>
+                <img [src]="logoPath" alt="Course Gamification Logo" class="tui-space_right-2">
+                <span class="tui-text_h6">Course Gamification</span>
             </div>
         </div>
         <hr/>
@@ -219,7 +211,7 @@
                     </a>
                 </li>
             </ul>
-            <p class="tui-island__paragraph tui-space_vertical-0 tui-text_body-m">2022 &copy; Canvas Gamification</p>
+            <p class="tui-island__paragraph tui-space_vertical-0 tui-text_body-m">2022 &copy; Course Gamification</p>
         </div>
     </div>
 </footer>

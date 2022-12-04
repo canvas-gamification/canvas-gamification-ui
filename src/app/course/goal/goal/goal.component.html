@@ -1,17 +1,61 @@
-<div *ngIf="goal">
-    <div *ngFor="let goalItemId of goalItemIds()">
-        {{goalItemId}}
-        {{this.goal.stats[goalItemId].total}}
-        <tui-ring-chart
-            [value]="values(goalItemId)"
-            [(activeItemIndex)]="activeItemIndexes[goalItemId]"
-            [content]="content"
-            [colorHandler]="color"
-        >
-        </tui-ring-chart>
-        <ng-template #content>
-            <div>{{value(goalItemId)}}</div>
-            <div>{{label(activeItemIndexes[goalItemId])}}</div>
-        </ng-template>
+<div *ngIf="goal" class="tui-container tui-container_adaptive">
+    <div class="tui-text_h2 tui-space_top-5">Goal Results</div>
+
+    <div class="tui-text_h3 tui-space_top-5">Total Progress</div>
+    <div class="tui-space_top-2">
+        <progress
+            tuiProgressBar
+            [max]="goal.number_of_questions"
+            class="progress"
+            [value]="goal.progress"
+        ></progress>
+    </div>
+
+    <div *ngFor="let goalItemId of goalItemIds(); let i = index">
+        <div class="tui-text_h3 tui-space_top-5">Item {{ i + 1 }}</div>
+        <div class="tui-space_top-2">
+            <progress
+                tuiProgressBar
+                [max]="getGoalItem(goalItemId).number_of_questions"
+                class="progress"
+                [value]="getGoalItem(goalItemId).progress"
+            ></progress>
+        </div>
+
+        <div class="tui-text_h4 tui-space_top-5">Submission Stats</div>
+        <div class="tui-space_top-2 flex">
+            <app-submission-chart
+                [submissionStats]="this.goal.stats[goalItemId].submissions"
+            >
+            </app-submission-chart>
+            <app-submission-chart
+                [submissionStats]="this.goal.stats[goalItemId].old_submissions"
+            >
+            </app-submission-chart>
+        </div>
+        <div class="tui-text_h4 tui-space_top-5">Question Stats</div>
+        <div class="tui-space_top-2">
+            Total questions attempt: {{ this.goal.stats[goalItemId].submissions.total_questions }}
+        </div>
+        <div class="tui-space_top-2">
+            Total questions solved: {{ this.goal.stats[goalItemId].submissions.correct_questions }}
+        </div>
+
+        <div class="tui-space_top-2">
+            Previously questions attempt: {{ this.goal.stats[goalItemId].old_submissions.total_questions }}
+        </div>
+        <div class="tui-space_top-2">
+            Previously questions solved: {{ this.goal.stats[goalItemId].old_submissions.correct_questions }}
+        </div>
+
+        <div class="tui-text_h4 tui-space_top-5">Types of Error</div>
+        <div class="tui-space_top-2" *ngFor="let e of errorMessages(goalItemId)">
+            {{ e.text }} : {{ e.value }}
+        </div>
+
+        <div class="tui-text_h4 tui-space_top-5">Error Messages</div>
+        <div class="tui-space_top-2" *ngFor="let e of this.goal.stats[goalItemId].submissions.error_messages">
+            {{ e }}
+        </div>
     </div>
 </div>

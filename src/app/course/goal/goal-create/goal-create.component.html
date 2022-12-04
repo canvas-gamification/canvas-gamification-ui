@@ -1,131 +1,116 @@
-<div class="white-section">
+<div class="tui-container tui-container_adaptive">
+    <h2 class="tui-form__header">Recommended Goals</h2>
+    <div *ngFor="let goal of recommendedGoals; let i = index" class="tui-form__row">
+        <tui-island>
+            <div class="tui-text_bold tui-text_body-l">
+                Recommended Goal {{i + 1}}
+            </div>
+            <div>
+                Duration: {{getRelativeTime(goal.end_date)}}
+            </div>
 
-    <h1 class="tui-text_h3 tui-space_top-10 tui-space_vertical-10">Create Goal</h1>
-
-</div>
-
-<div class="greyed-section">
-    <p class="tui-island__paragraph tui-text_body-l tui-space_vertical-10">
-        Build your own goal:
-    </p>
+            <div class="tui-text_bold tui-text_body-l tui-space_top-3">
+                Tasks:
+            </div>
+            <ul class="tui-list">
+                <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
+                    {{goalItemString(goalItem)}}
+                </li>
+            </ul>
+            <button
+                tuiButton
+                size="s"
+                (click)="createGoal(goal)"
+                class="tui-space_top-3"
+            >
+                Create Goal
+            </button>
+            <button
+                tuiButton
+                size="s"
+                (click)="setGoal(goal)"
+                class="tui-space_left-3 tui-space_top-3"
+                appearance="outline"
+            >
+                Modify Goal
+            </button>
+        </tui-island>
+    </div>
 
     <form (ngSubmit)="onSubmit()" [formGroup]="goalForm">
-
-        <div class="tui-col">
-
-            <div class="form-section">
-                <h2 class="tui-text_body-l"
+        <h2 class="tui-form__header">Create New Goal</h2>
+        <div class="tui-form__row tui-form__row_multi-fields">
+            <div class="tui-form__multi-field">
+                <tui-input-date aria-label="End Date" formControlName="end_date">
+                    End date
+                </tui-input-date>
+                <tui-field-error formControlName="end_date"></tui-field-error>
+            </div>
+            <div class="tui-form__multi-field">
+                <tui-input-time [items]="timeOptions" aria-label="End Time" formControlName="end_time">
+                    End time
+                </tui-input-time>
+                <tui-field-error formControlName="end_time"></tui-field-error>
+            </div>
+        </div>
+        <h3 class="tui-form__header">Tasks</h3>
+        <div *ngFor="let goalItemFormControl of getGoalItemFormControls(); let index = index"
+             class="tui-form__row tui-form__row_multi-fields">
+            <div class="tui-form__multi-field">
+                <tui-select
+                    [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
+                    [formControl]="getFormControl(goalItemFormControl, 'category')"
                 >
-                    Set the end date:
-                </h2>
-                <div class="tui-row flex-row">
-                    <tui-input-date
-                        class="b-form input-date"
-                        tuiUnfinishedValidator="Finish filling the field"
-                        formControlName="end_date"
-                    >
-                        End Date
-                    </tui-input-date>
-                    <tui-input-time
-                        formControlName="end_time"
-                        [items]="timeOptions"
-                    >
-                        End Time
-                    </tui-input-time>
-                </div>
+                    Category
+                    <tui-data-list *tuiDataList>
+                        <button *ngFor="let category of categories" [value]="category.pk" tuiOption>
+                            {{ category.full_name }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+                <tui-field-error [formControl]="getFormControl(goalItemFormControl, 'category')"></tui-field-error>
             </div>
-
-
-            <div class="form-section">
-                <div class="tui-row flex-row-no-margin">
-                    <h2 class="tui-text_body-l">
-                        Set tasks to complete:
-                    </h2>
-
-
-                    <button
-                        tuiButton
-                        type="button"
-                        appearance="primary"
-                        class="button-thin"
-                        (click)="addGoalItem()"
-                    >
-                        New Task
-                    </button>
-                </div>
-                <ng-container formArrayName="goal_items">
-                    <ng-container *ngFor="let goalItem of getGoalItemFormGroup(); let i = index">
-
-                        <div class="tui-row flex-row" [formGroup]="goalItem">
-                            <tui-select
-                                class="control category-control select"
-                                formControlName="category"
-                                [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
-                                (change)="checkInputValidity()"
-                            >
-                                Category
-                                <tui-data-list *tuiDataList>
-                                    <button *ngFor="let category of categories" [value]="category.pk" tuiOption>
-                                        {{ category.full_name }}
-                                    </button>
-                                </tui-data-list>
-                            </tui-select>
-                            <ng-template
-                                let-data
-                            >
-                                <div>{{ data.name }}></div>
-                            </ng-template>
-                            <tui-select
-                                class="control select"
-                                [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-                                formControlName="difficulty"
-                                (change)="checkInputValidity()"
-                            >
-                                Difficulty
-                                <tui-data-list *tuiDataList>
-                                    <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]"
-                                            tuiOption>
-                                        {{ difficulty[1] }}
-                                    </button>
-                                </tui-data-list>
-                            </tui-select>
-
-                            <tui-input-number
-                                [formControl]="getFormControl(getGoalItemFormControls()[i], 'number_of_questions')"
-                                (change)="checkInputValidity()">
-                                Number of Questions
-                            </tui-input-number>
-
-                            <button
-                                *ngIf="getGoalItems().length !== 1"
-                                tuiButton
-                                type="button"
-                                appearance="accent"
-                                class="button-thin"
-                                (click)="removeGoalItem(i)"
-                            >
-                                Delete
-                            </button>
-                        </div>
-
-                    </ng-container>
-                </ng-container>
-                <div *ngFor="let message of errorMessages">
-                    <p class="errorMessage">{{message}}</p>
-                </div>
-                <div class="tui-form__buttons">
-                    <button
-                        tuiButton
-                        type="button"
-                        type="submit"
-                        appearance="primary"
-                        [disabled]="!checkInputValidity()"
-                    >
-                        Create Goal
-                    </button>
-                </div>
+            <div class="tui-form__multi-field">
+                <tui-select
+                    [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+                    [formControl]="getFormControl(goalItemFormControl, 'difficulty')"
+                >
+                    Difficulty
+                    <tui-data-list *tuiDataList>
+                        <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]" tuiOption>
+                            {{ difficulty[1] }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+                <tui-field-error
+                    [formControl]="getFormControl(goalItemFormControl, 'difficulty')"></tui-field-error>
             </div>
+            <div class="tui-form__multi-field">
+                <tui-input-number [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')">
+                    Number of questions
+                </tui-input-number>
+                <tui-field-error
+                    [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"></tui-field-error>
+            </div>
+            <div class="tui-form__multi-field">
+                <button (click)="removeGoalItem(index)" icon="tuiIconMinus" size="m" tuiButton type="button"
+                        appearance="accent">
+                    Remove
+                </button>
+            </div>
+        </div>
+        <div class="tui-form__buttons">
+            <button (click)="addGoalItem()" icon="tuiIconPlus" size="m" tuiButton type="button">
+                Add Another
+            </button>
+            <button
+                [disabled]="goalForm.invalid"
+                class="tui-form__button"
+                size="m"
+                tuiButton
+            >
+                Submit
+            </button>
         </div>
     </form>
 </div>
-
