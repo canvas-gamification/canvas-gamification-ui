@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ViewChild} from '@angular/core'
 import {FormArray, FormControl, FormGroup} from "@angular/forms"
 import {GoalForm} from "@app/course/_forms/goal.form"
 import {GoalService} from "@app/course/_services/goal.service"
@@ -22,6 +22,7 @@ import * as relativeTime from 'dayjs/plugin/relativeTime'
 })
 export class GoalCreateComponent implements OnInit {
 
+    @ViewChild('createGoalElement') createGoalElement
     timeOptions = tuiCreateTimePeriods()
     goalForm: FormGroup
     categories: Category[]
@@ -74,6 +75,9 @@ export class GoalCreateComponent implements OnInit {
 
     setGoal(goal: Goal) {
         this.goalForm = GoalForm.createGoalFormFromGoal(goal)
+        this.createGoalElement.nativeElement.scrollIntoView({
+            behavior: 'smooth',
+        })
     }
 
     createGoal(goal: Goal) {

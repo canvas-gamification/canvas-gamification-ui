@@ -37,7 +37,7 @@
         </tui-island>
     </div>
 
-    <form (ngSubmit)="onSubmit()" [formGroup]="goalForm">
+    <form #createGoalElement (ngSubmit)="onSubmit()" [formGroup]="goalForm">
         <h2 class="tui-form__header">Create New Goal</h2>
         <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
@@ -53,7 +53,20 @@
                 <tui-field-error formControlName="end_time"></tui-field-error>
             </div>
         </div>
-        <h3 class="tui-form__header">Tasks</h3>
+        <h3 class="tui-form__header">
+            Tasks
+            <button
+                (click)="addGoalItem()"
+                icon="tuiIconPlus"
+                size="s"
+                tuiButton
+                type="button"
+                class="ml-3"
+                appearance="secondary"
+            >
+                Add Another
+            </button>
+        </h3>
         <div *ngFor="let goalItemFormControl of getGoalItemFormControls(); let index = index"
              class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
@@ -93,23 +106,29 @@
                     [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"></tui-field-error>
             </div>
             <div class="tui-form__multi-field">
-                <button (click)="removeGoalItem(index)" icon="tuiIconMinus" size="m" tuiButton type="button"
-                        appearance="accent">
-                    Remove
-                </button>
+                <div class="flex h-full items-center">
+                    <button
+                        *ngIf="getGoalItemFormControls().length > 1"
+                        (click)="removeGoalItem(index)"
+                        icon="tuiIconMinus"
+                        size="s"
+                        tuiButton
+                        type="button"
+                        appearance="accent"
+                    >
+                        Delete
+                    </button>
+                </div>
             </div>
         </div>
         <div class="tui-form__buttons">
-            <button (click)="addGoalItem()" icon="tuiIconPlus" size="m" tuiButton type="button">
-                Add Another
-            </button>
             <button
                 [disabled]="goalForm.invalid"
                 class="tui-form__button"
                 size="m"
                 tuiButton
             >
-                Submit
+                Create Goal
             </button>
         </div>
     </form>
