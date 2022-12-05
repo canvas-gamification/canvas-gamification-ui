@@ -1,20 +1,21 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
-import {CourseChallengeSnippetComponent} from './course-challenge-snippet.component'
+import {CoursePracticeComponent} from './course-practice.component'
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseServiceMock} from "@test/course.service.mock"
 import {ActivatedRoute} from "@angular/router"
 import {MOCK_COURSE1} from "@app/course/_test/mock"
 
-describe('CourseChallengeSnippetComponent', () => {
-    let component: CourseChallengeSnippetComponent
-    let fixture: ComponentFixture<CourseChallengeSnippetComponent>
+describe('CourseQuestionBankComponent', () => {
+    let component: CoursePracticeComponent
+    let fixture: ComponentFixture<CoursePracticeComponent>
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [CourseChallengeSnippetComponent],
+            declarations: [ CoursePracticeComponent ],
             providers: [
-                {provide: CourseService, useClass: CourseServiceMock},
+                {provide: CourseService, useClass: CourseServiceMock}
+                ,
                 {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
@@ -32,9 +33,8 @@ describe('CourseChallengeSnippetComponent', () => {
     })
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CourseChallengeSnippetComponent)
+        fixture = TestBed.createComponent(CoursePracticeComponent)
         component = fixture.componentInstance
-        component.events = []
         fixture.detectChanges()
     })
 

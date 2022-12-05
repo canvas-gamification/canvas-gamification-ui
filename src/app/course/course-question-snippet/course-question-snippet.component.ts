@@ -33,7 +33,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courseId = +this.route.snapshot.paramMap.get('courseId') || null
+        this.courseId = +this.route.snapshot.parent.paramMap.get('courseId') || null
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null
         if (this.eventId && this.courseId) { // if this snippet is an event-view
             this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {

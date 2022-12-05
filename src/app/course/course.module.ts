@@ -42,6 +42,7 @@ import {
     TuiDataListModule,
     TuiDialogModule,
     TuiErrorModule,
+    TuiHintModule,
     TuiHostedDropdownModule,
     TuiLinkModule,
     TuiLoaderModule,
@@ -74,6 +75,10 @@ import {TuiRingChartModule} from "@taiga-ui/addon-charts"
 import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 import {CourseCreateComponent} from './course-create/course-create.component'
 import {GoalIslandComponent} from './goal/goal-island/goal-island.component'
+import {CoursePracticePageComponent} from './course-practice-page/course-practice-page.component'
+import {CoursePracticeComponent} from './course-practice/course-practice.component'
+import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
+
 
 @NgModule({
     declarations: [
@@ -83,7 +88,10 @@ import {GoalIslandComponent} from './goal/goal-island/goal-island.component'
         CourseCreateComponent,
         CourseEventCreateEditComponent,
         CourseEventsSnippetComponent,
+        CourseHomepageComponent,
         CourseListComponent,
+        CoursePracticeComponent,
+        CoursePracticePageComponent,
         CourseQuestionSnippetComponent,
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
@@ -120,6 +128,7 @@ import {GoalIslandComponent} from './goal/goal-island/goal-island.component'
         TuiErrorModule,
         TuiFieldErrorModule,
         TuiFilterPipeModule,
+        TuiHintModule,
         TuiHostedDropdownModule,
         TuiInputCountModule,
         TuiInputDateModule,
@@ -141,8 +150,8 @@ import {GoalIslandComponent} from './goal/goal-island/goal-island.component'
         TuiSvgModule,
         TuiTableModule,
         TuiTabsModule,
-        TuiTagModule,
         DragulaModule.forRoot(),
+        TuiTagModule,
         TuiTextAreaModule,
         TuiTextfieldControllerModule,
     ],
