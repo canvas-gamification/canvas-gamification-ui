@@ -78,7 +78,7 @@ export const MOCK_COURSE1: Course = {
     token_use_options: null,
     question_set: null,
     uqjs: null,
-    course_reg: null,
+    course_reg: MOCK_COURSE_REGISTRATION,
     leader_board: null,
     has_create_event_permission: true,
     description: "",

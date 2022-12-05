@@ -32,7 +32,7 @@ export class CourseRegisterComponent implements OnInit {
         private changeDetector: ChangeDetectorRef,
         @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
     ) {
-        this.courseId = this.route.snapshot.params.courseId
+        this.courseId = this.route.snapshot.parent.params.courseId
         this.loadingContent = false
     }
 

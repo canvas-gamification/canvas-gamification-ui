@@ -7,7 +7,7 @@ import {DifficultyServiceMock} from "@app/problems/_test/_services/difficulty.se
 import {GoalService} from "@app/course/_services/goal.service"
 import {GoalServiceMock} from "@app/course/_test/_services/goal.service.mock"
 import {ReactiveFormsModule} from "@angular/forms"
-import {RouterModule} from "@angular/router"
+import {ActivatedRoute, RouterModule} from "@angular/router"
 import {
     TuiCheckboxLabeledModule,
     TuiFieldErrorModule, TuiInputDateModule,
@@ -46,6 +46,17 @@ describe('GoalCreateComponent', () => {
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: GoalService, useClass: GoalServiceMock},
                 {provide: DifficultyService, useClass: DifficultyServiceMock},
+                {
+                    provide: ActivatedRoute, useValue: {
+                        snapshot: {
+                            parent: {
+                                params: {
+                                    courseId: 0
+                                }
+                            }
+                        }
+                    }
+                }
             ]
         })
             .compileComponents()
