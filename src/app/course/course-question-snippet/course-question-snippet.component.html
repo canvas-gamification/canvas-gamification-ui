@@ -6,10 +6,10 @@
         <div *ngIf="event.type==='CHALLENGE'" class="teamBar tui-space_vertical-8">
             <p class="tui-text_h6">{{team.name}}:&nbsp;</p>
             <ng-container *ngFor="let member_name of team.member_names; let index = index;">
-                <span class="tui-text_body-xl" *ngIf="index !== team.member_names.length-1; else noComma;">{{member_name}},&nbsp;</span>
-                <ng-template #noComma> <span class="tui-text_body-xl">{{member_name}} </span> </ng-template>
+                <p class="tui-text_body-l" *ngIf="index !== team.member_names.length-1; else noComma;">{{member_name}},&nbsp;</p>
+                <ng-template #noComma><p class="tui-text_body-l">{{member_name}}</p></ng-template>
             </ng-container>
-            <a [routerLink]="" appearance="primary"
+            <a [routerLink]="['/course', courseId, 'event', eventId, 'teams']" appearance="primary"
                class="tui-form__button" size="m"
                tuiButton
             >
