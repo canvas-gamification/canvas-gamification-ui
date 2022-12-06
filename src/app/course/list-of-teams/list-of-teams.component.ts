@@ -60,5 +60,8 @@ export class ListOfTeamsComponent  implements OnInit {
         return team.member_usernames.filter( username => this.user.username === username).length > 0
     }
 
+    // isInTeam2(team: Team): boolean{
+    //     // return team.course_registrations.map( courseReg => courseReg.id ).includes( courseRegId => this.user.)
+    // }
 
 }
