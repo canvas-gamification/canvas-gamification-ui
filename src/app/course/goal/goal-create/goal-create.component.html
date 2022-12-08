@@ -1,39 +1,44 @@
 <div class="tui-container tui-container_adaptive">
     <h2 class="tui-form__header">Recommended Goals</h2>
     <div *ngFor="let goal of recommendedGoals; let i = index" class="tui-form__row">
-        <tui-island>
-            <div class="tui-text_bold tui-text_body-l">
-                Recommended Goal {{i + 1}}
-            </div>
-            <div>
-                Duration: {{getRelativeTime(goal.end_date)}}
+        <tui-island class="shadow">
+            <div class="flex">
+                <div class="flex-1">
+                    <div class="flex space-x-1">
+                        <div class="tui-text_bold tui-text_body-l">
+                            Duration:
+                        </div>
+                        <div>{{getRelativeTime(goal.end_date)}}</div>
+                    </div>
+                    <div class="tui-text_bold tui-text_body-l tui-space_top-3">
+                        Tasks:
+                    </div>
+                    <ul class="tui-list">
+                        <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
+                            {{goalItemString(goalItem)}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col space-y-3">
+                    <button
+                        tuiButton
+                        size="s"
+                        (click)="createGoal(goal)"
+                        appearance="secondary"
+                    >
+                        Create Goal
+                    </button>
+                    <button
+                        tuiButton
+                        size="s"
+                        (click)="setGoal(goal)"
+                        appearance="outline"
+                    >
+                        Modify Goal
+                    </button>
+                </div>
             </div>
 
-            <div class="tui-text_bold tui-text_body-l tui-space_top-3">
-                Tasks:
-            </div>
-            <ul class="tui-list">
-                <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
-                    {{goalItemString(goalItem)}}
-                </li>
-            </ul>
-            <button
-                tuiButton
-                size="s"
-                (click)="createGoal(goal)"
-                class="tui-space_top-3"
-            >
-                Create Goal
-            </button>
-            <button
-                tuiButton
-                size="s"
-                (click)="setGoal(goal)"
-                class="tui-space_left-3 tui-space_top-3"
-                appearance="outline"
-            >
-                Modify Goal
-            </button>
         </tui-island>
     </div>
 

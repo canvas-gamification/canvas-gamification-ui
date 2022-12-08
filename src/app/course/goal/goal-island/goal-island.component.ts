@@ -3,6 +3,7 @@ import {Goal, GoalItem} from "@app/_models/goal/goal"
 import {goalItemString} from "@app/course/goal/utils"
 import * as dayjs from "dayjs"
 import * as relativeTime from "dayjs/plugin/relativeTime"
+import {ActivatedRoute} from '@angular/router'
 
 @Component({
     selector: 'app-goal-island',
@@ -12,9 +13,12 @@ import * as relativeTime from "dayjs/plugin/relativeTime"
 export class GoalIslandComponent {
 
     @Input() goal: Goal
+    @Input() showPerformanceButton?: boolean = true
+    courseId: string
 
-    constructor() {
+    constructor(private readonly route: ActivatedRoute) {
         dayjs.extend(relativeTime)
+        this.courseId = this.route.parent.snapshot.params.courseId
     }
 
     getGoalItemString(goalItem: GoalItem) {

@@ -32,6 +32,14 @@ export class GoalComponent implements OnInit {
         return Object.keys(this.goal.stats).map(x => parseInt(x))
     }
 
+    getSubmissionRelativeSuccessRate(goalItemId: number): number {
+        return this.goal.stats[goalItemId].submissions.success_rate - this.goal.stats[goalItemId].old_submissions.success_rate
+    }
+
+    getQuestionRelativeSuccessRate(goalItemId: number): number {
+        return this.goal.stats[goalItemId].submissions.questions_success_rate - this.goal.stats[goalItemId].old_submissions.questions_success_rate
+    }
+
     errorMessages(goalItemId: number): { text: string, value: number }[] {
         return Object.entries(this.goal.stats[goalItemId].submissions.messages).map(([text, value]) => ({text, value}))
     }

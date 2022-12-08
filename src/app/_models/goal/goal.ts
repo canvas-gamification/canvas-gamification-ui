@@ -36,6 +36,7 @@ export interface GoalItemSubmissionStats {
     success_rate: number
     total_questions: number
     correct_questions: number
+    questions_success_rate: number
     messages: Record<string, number>
     error_messages: string[]
 }
