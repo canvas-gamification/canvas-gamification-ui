@@ -1,18 +1,18 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core'
+import {Component, Input, OnChanges, OnDestroy} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {UQJ, User} from '@app/_models'
 import {UqjService} from '@app/problems/_services/uqj.service'
 import {QuestionSubmission} from '@app/_models/question_submission'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {AuthenticationService} from '@app/_services/api/authentication'
-import {combineLatest, Subscriber, Subscription} from 'rxjs'
+import {Subscriber, Subscription} from 'rxjs'
 
 @Component({
     selector: 'app-problem-view',
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
 })
-export class ProblemViewComponent implements OnChanges, OnInit, OnDestroy {
+export class ProblemViewComponent implements OnChanges, OnDestroy {
     @Input() questionId: number
     uqj: UQJ
     previousSubmissions: QuestionSubmission[]
@@ -33,20 +33,13 @@ export class ProblemViewComponent implements OnChanges, OnInit, OnDestroy {
 
     initialize(): void {
         const questionId = this.questionId ?? this.route.snapshot.params.id
-        this.subscriptions.add(combineLatest([
-            this.uqjService.getUQJByQuestion(questionId),
-            this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}),
-            this.authenticationService.currentUser,
-        ]).subscribe(([uqj, submissions, user]) => {
+        this.uqjService.getUQJByQuestion(questionId).subscribe(uqj => {
             this.uqj = uqj
             this.renderedText = this.uqj.rendered_text
-            this.previousSubmissions = submissions
-            this.user = user
-        }))
-    }
-
-    ngOnInit(): void {
-        this.initialize()
+        })
+        this.previousSubmissions = null
+        this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}).subscribe(submissions => this.previousSubmissions = submissions)
+        this.user = this.authenticationService.currentUserValue
     }
 
     ngOnChanges(): void {
