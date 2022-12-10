@@ -340,6 +340,7 @@ export const MOCK_GOAL_ITEM_SUBMISSION_STATS: GoalItemSubmissionStats = {
     total_questions: 5,
     correct_questions: 4,
     success_rate: 0.66,
+    questions_success_rate: 0.66,
     messages: {
         'RUNTIME ERROR': 3,
         'SYNTAX ERROR': 2,
