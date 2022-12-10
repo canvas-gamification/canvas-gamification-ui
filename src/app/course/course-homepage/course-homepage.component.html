@@ -41,15 +41,22 @@
             <p class="tui-island__paragraph tui-text_body-xl flex-space">Work on assignments and exams for this
                 course.</p>
             <div class="course-view-button tui-space_top-3">
-                <a
-                    appearance="primary"
-                    [routerLink]="['event']"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
+                <span
+                    tuiHintPointer
+                    tuiHint="Coming Soon..."
+                    tuiHintDirection="top-middle"
                 >
-                    View
-                </a>
+                    <a
+                        appearance="primary"
+                        [routerLink]="['event']"
+                        class="tui-form__button"
+                        size="m"
+                        disabled="true"
+                        tuiButton
+                    >
+                        View
+                    </a>
+                </span>
             </div>
         </div>
     </tui-island>
@@ -58,18 +65,26 @@
         <div class="course-background challenge "></div>
         <div class="course-tile-text">
             <h3 class="tui-island__title">Challenges</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Complete challenges on your own or in a
-                team.</p>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">
+                Complete challenges on your own or in a team.
+            </p>
             <div class="course-view-button tui-space_top-3">
-                <a
-                    appearance="primary"
-                    [routerLink]="['challenges']"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
+                <span
+                    tuiHintPointer
+                    tuiHint="Coming Soon..."
+                    tuiHintDirection="top-middle"
                 >
-                    View
-                </a>
+                    <a
+                        appearance="primary"
+                        [routerLink]="['challenges']"
+                        class="tui-form__button"
+                        size="m"
+                        tuiButton
+                        disabled="true"
+                    >
+                        View
+                    </a>
+                </span>
             </div>
         </div>
     </tui-island>
@@ -81,15 +96,22 @@
                 and Statistics</h3>
             <p class="tui-island__paragraph tui-text_body-xl flex-space">View detailed performance statistics.</p>
             <div class="course-view-button tui-space_top-3">
-                <a
-                    appearance="primary"
-                    [routerLink]="['/stats']"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
+                <span
+                    tuiHintPointer
+                    tuiHint="Coming Soon..."
+                    tuiHintDirection="top-middle"
                 >
-                    View
-                </a>
+                    <a
+                        appearance="primary"
+                        [routerLink]="['/stats']"
+                        class="tui-form__button"
+                        size="m"
+                        tuiButton
+                        disabled="true"
+                    >
+                        View
+                    </a>
+                </span>
             </div>
         </div>
     </tui-island>
@@ -101,15 +123,22 @@
             <p class="tui-island__paragraph tui-text_body-xl flex-space tui-space_right-5">See how many tokens you
                 earned.</p>
             <div class="course-view-button tui-space_top-3">
-                <a
-                    appearance="primary"
-                    [routerLink]="['token']"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
+                <span
+                    tuiHintPointer
+                    tuiHint="Coming Soon..."
+                    tuiHintDirection="top-middle"
                 >
-                    View
-                </a>
+                    <a
+                        appearance="primary"
+                        [routerLink]="['token']"
+                        class="tui-form__button"
+                        size="m"
+                        tuiButton
+                        disabled="true"
+                    >
+                        View
+                    </a>
+                </span>
             </div>
         </div>
     </tui-island>

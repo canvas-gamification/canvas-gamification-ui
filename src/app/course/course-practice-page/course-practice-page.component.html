@@ -2,7 +2,7 @@
     setting personal goals to collect tokens, or by selecting a type of question at the bottom.</p>
 
 <div class="flex-container gap-8 tui-space_top-10">
-    <tui-island class="tui-island_hoverable practice-tile" size="m">
+    <tui-island class="practice-tile" size="m">
         <div class="practice-background practice-question"></div>
         <div class="practice-tile-text">
             <h3 class="tui-island__title">Concept Map</h3>
@@ -22,22 +22,29 @@
         </div>
     </tui-island>
 
-    <tui-island class="tui-island_hoverable practice-tile" size="m">
+    <tui-island class="practice-tile" size="m">
         <div class="practice-background view-goals"></div>
         <div class="practice-tile-text">
             <h3 class="tui-island__title">Personal Goals</h3>
             <p class="tui-island__paragraph tui-text_body-xl flex-space">Develop goals for yourself that suit your own
                 skill level and earn tokens when you achieve them.</p>
             <div class="practice-tile-button">
-                <a
-                    appearance="primary"
-                    [routerLink]="['/course', courseId, 'goal']"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
+                <span
+                    tuiHintPointer
+                    tuiHint="Coming Soon..."
+                    tuiHintDirection="top-middle"
                 >
-                    View
-                </a>
+                    <a
+                        appearance="primary"
+                        [routerLink]="['/course', courseId, 'goal']"
+                        class="tui-form__button"
+                        size="m"
+                        tuiButton
+                        disabled="true"
+                    >
+                        View
+                    </a>
+                </span>
             </div>
         </div>
     </tui-island>

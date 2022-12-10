@@ -48,6 +48,7 @@ import {
     TuiLoaderModule,
     TuiModeModule,
     TuiNotificationModule,
+    TuiPointerHintModule,
     TuiSvgModule,
     TuiTextfieldControllerModule
 } from '@taiga-ui/core'
@@ -142,6 +143,7 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         TuiMarkerIconModule,
         TuiModeModule,
         TuiNotificationModule,
+        TuiPointerHintModule,
         TuiProgressModule,
         TuiRingChartModule,
         TuiSelectModule,
@@ -149,8 +151,8 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         TuiStepperModule,
         TuiSvgModule,
         TuiTableModule,
-        TuiTabsModule,
         DragulaModule.forRoot(),
+        TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
         TuiTextfieldControllerModule,
