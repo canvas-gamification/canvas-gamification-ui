@@ -1,9 +1,7 @@
-import {Component, Input, OnChanges, OnDestroy} from '@angular/core'
+import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {UQJ, User} from '@app/_models'
 import {UqjService} from '@app/problems/_services/uqj.service'
-import {QuestionSubmission} from '@app/_models/question_submission'
-import {SubmissionService} from '@app/problems/_services/submission.service'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {Subscriber, Subscription} from 'rxjs'
 
@@ -12,10 +10,9 @@ import {Subscriber, Subscription} from 'rxjs'
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
 })
-export class ProblemViewComponent implements OnChanges, OnDestroy {
+export class ProblemViewComponent implements OnInit, OnChanges, OnDestroy {
     @Input() questionId: number
     uqj: UQJ
-    previousSubmissions: QuestionSubmission[]
     user: User
     renderedText: string
     subscriptions: Subscription = new Subscription()
@@ -26,7 +23,6 @@ export class ProblemViewComponent implements OnChanges, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private uqjService: UqjService,
-        private submissionService: SubmissionService,
         private authenticationService: AuthenticationService,
     ) {
     }
@@ -37,9 +33,11 @@ export class ProblemViewComponent implements OnChanges, OnDestroy {
             this.uqj = uqj
             this.renderedText = this.uqj.rendered_text
         })
-        this.previousSubmissions = null
-        this.submissionService.getPreviousSubmissions(questionId, {ordering: 'submission_time'}).subscribe(submissions => this.previousSubmissions = submissions)
         this.user = this.authenticationService.currentUserValue
+    }
+
+    ngOnInit(): void {
+        this.initialize()
     }
 
     ngOnChanges(): void {
