@@ -21,6 +21,7 @@
                 </div>
                 <div class="flex flex-col space-y-3">
                     <button
+                        *ngIf="false"
                         tuiButton
                         size="s"
                         (click)="createGoal(goal)"
@@ -32,9 +33,9 @@
                         tuiButton
                         size="s"
                         (click)="setGoal(goal)"
-                        appearance="outline"
+                        appearance="secondary"
                     >
-                        Modify Goal
+                        Use This Goal
                     </button>
                 </div>
             </div>

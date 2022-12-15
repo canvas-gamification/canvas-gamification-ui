@@ -19,6 +19,7 @@
             >
                 {{getGoalItem(goalItemId).progress}} / {{getGoalItem(goalItemId).number_of_questions}}
                 <progress
+                    [class.info]="getGoalItem(goalItemId).progress < getGoalItem(goalItemId).number_of_questions"
                     [class.success]="getGoalItem(goalItemId).progress >= getGoalItem(goalItemId).number_of_questions"
                     tuiProgressBar
                     [max]="getGoalItem(goalItemId).number_of_questions"
@@ -128,4 +129,17 @@
             {{ e }}
         </div>
     </tui-island>
+    <div>
+        <a
+            *ngIf="canClaim()"
+            class="px-4 py-2 rounded-xl tui-text_bold button-success"
+            (click)="claim()"
+        >
+            Claim
+            <tui-svg
+                src="tuiIconCheckCircle"
+            >
+            </tui-svg>
+        </a>
+    </div>
 </div>

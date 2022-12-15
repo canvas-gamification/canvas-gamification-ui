@@ -8,6 +8,7 @@ export interface Goal {
     number_of_questions: number
     goal_items: GoalItem[]
     stats: GoalStats
+    claimed: boolean
 }
 
 export interface GoalItem {

@@ -21,6 +21,10 @@ export class GoalIslandComponent {
         this.courseId = this.route.parent.snapshot.params.courseId
     }
 
+    canClaim() {
+        return !this.goal.claimed && this.goal.progress >= this.goal.number_of_questions
+    }
+
     getGoalItemString(goalItem: GoalItem) {
         return goalItemString(goalItem)
     }

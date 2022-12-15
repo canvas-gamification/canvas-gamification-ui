@@ -1,23 +1,45 @@
 <div class="tui-container tui-container_adaptive">
+    <tui-notification
+        status="success"
+        *ngIf="unclaimedGoals > 0"
+    >
+        You have {{unclaimedGoals}} unclaimed goal(s)
+    </tui-notification>
     <div class="flex flex-wrap gap-3 tui-space_top-6">
         <h3 class="tui-text_h3 tui-col_stretch flex-grow">
             Active Goals
         </h3>
         <a tuiButton size="m" routerLink="create">Create a new goal</a>
     </div>
-    <div *ngFor="let goal of activeGoals" class="tui-space_vertical-3">
-        <app-goal-island
-            [goal]="goal"
-        >
-        </app-goal-island>
-    </div>
+    <ng-container *ngIf="activeGoals && activeGoals.length !== 0 else noGoal">
+        <div *ngFor="let goal of activeGoals" class="tui-space_vertical-3">
+            <app-goal-island
+                [goal]="goal"
+            >
+            </app-goal-island>
+        </div>
+    </ng-container>
     <h3 class="tui-text_h3 tui-space_top-3">
-        Completed Goals
+        Past Goals
     </h3>
-    <div *ngFor="let goal of completedGoals" class="tui-space_vertical-3">
-        <app-goal-island
-            [goal]="goal"
-        >
-        </app-goal-island>
-    </div>
+    <ng-container *ngIf="completedGoals && completedGoals.length !== 0 else noGoal">
+        <div *ngFor="let goal of completedGoals" class="tui-space_vertical-3">
+            <app-goal-island
+                [goal]="goal"
+            >
+            </app-goal-island>
+        </div>
+    </ng-container>
+    <ng-template #noGoal>
+        <div class="flex justify-center items-center w-full h-32">
+            <tui-marker-icon
+                class="tui-space_right-4"
+                size="s"
+                src="tuiIconAlertCircleLarge"
+            ></tui-marker-icon>
+            <h2 class="tui-text_body-xl">
+                Looks like there are no goals to show!
+            </h2>
+        </div>
+    </ng-template>
 </div>
