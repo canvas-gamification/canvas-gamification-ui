@@ -389,6 +389,7 @@ export const MOCK_GOAL: Goal = {
     number_of_questions: 40,
     goal_items: MOCK_GOAL_ITEMS,
     stats: null,
+    claimed: false,
 }
 
 export const MOCK_GOAL_2: Goal = {
@@ -401,6 +402,7 @@ export const MOCK_GOAL_2: Goal = {
     number_of_questions: 40,
     goal_items: MOCK_GOAL_ITEMS,
     stats: null,
+    claimed: false,
 }
 
 export const MOCK_GOALS: Goal[] = [MOCK_GOAL, MOCK_GOAL_2]

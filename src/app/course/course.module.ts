@@ -79,6 +79,7 @@ import {GoalIslandComponent} from './goal/goal-island/goal-island.component'
 import {CoursePracticePageComponent} from './course-practice-page/course-practice-page.component'
 import {CoursePracticeComponent} from './course-practice/course-practice.component'
 import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
+import {EventStatsComponent} from './event/event-stats/event-stats.component'
 
 
 @NgModule({
@@ -97,6 +98,7 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        EventStatsComponent,
         GoalComponent,
         GoalCreateComponent,
         GoalIslandComponent,
