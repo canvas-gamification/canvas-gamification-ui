@@ -12,6 +12,8 @@ export class GoalPageComponent implements OnInit {
     activeGoals: Goal[]
     completedGoals: Goal[]
 
+    unclaimedGoals = 0
+
     constructor(private readonly goalService: GoalService) {
     }
 
@@ -19,6 +21,7 @@ export class GoalPageComponent implements OnInit {
         this.goalService.getGoals().subscribe(goals => {
             this.activeGoals = goals.filter(goal => !goal.is_finished)
             this.completedGoals = goals.filter(goal => goal.is_finished)
+            this.unclaimedGoals = goals.filter(goal => !goal.claimed && goal.progress >= goal.number_of_questions).length
         })
     }
 }

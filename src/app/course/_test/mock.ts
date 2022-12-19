@@ -340,6 +340,7 @@ export const MOCK_GOAL_ITEM_SUBMISSION_STATS: GoalItemSubmissionStats = {
     total_questions: 5,
     correct_questions: 4,
     success_rate: 0.66,
+    questions_success_rate: 0.66,
     messages: {
         'RUNTIME ERROR': 3,
         'SYNTAX ERROR': 2,
@@ -388,6 +389,7 @@ export const MOCK_GOAL: Goal = {
     number_of_questions: 40,
     goal_items: MOCK_GOAL_ITEMS,
     stats: null,
+    claimed: false,
 }
 
 export const MOCK_GOAL_2: Goal = {
@@ -400,6 +402,7 @@ export const MOCK_GOAL_2: Goal = {
     number_of_questions: 40,
     goal_items: MOCK_GOAL_ITEMS,
     stats: null,
+    claimed: false,
 }
 
 export const MOCK_GOALS: Goal[] = [MOCK_GOAL, MOCK_GOAL_2]

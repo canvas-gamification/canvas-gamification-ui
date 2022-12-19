@@ -39,4 +39,9 @@ export class GoalService {
         const url = this.apiService.getURL('goal', 'suggestions')
         return this.http.get<Goal[]>(url).pipe(catchError(this.apiService.handleError<Goal[]>('Unable to fetch goal suggestions.')))
     }
+
+    claim(goalId: number) {
+        const url = this.apiService.getURL('goal', goalId, 'claim')
+        return this.http.post(url, {}).pipe(catchError(this.apiService.handleFormError()))
+    }
 }

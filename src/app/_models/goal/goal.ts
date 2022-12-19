@@ -8,6 +8,7 @@ export interface Goal {
     number_of_questions: number
     goal_items: GoalItem[]
     stats: GoalStats
+    claimed: boolean
 }
 
 export interface GoalItem {
@@ -36,6 +37,7 @@ export interface GoalItemSubmissionStats {
     success_rate: number
     total_questions: number
     correct_questions: number
+    questions_success_rate: number
     messages: Record<string, number>
     error_messages: string[]
 }

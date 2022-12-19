@@ -8,19 +8,14 @@
                 size="s"
             >
                 <div class="previous-submissions-island__submission">
-                    #{{ index + 1 }}
-                    <div class="previous-submissions-island__submission-right">
-                        <ng-container *ngIf="!submission.question.is_exam_and_open">
-                            {{ submission.submission_time | date:'short' || 'No Date' }}
-                            <tui-badge
-                                [status]="submission.status | tuiStatus"
-                                [value]="submission.status || 'No Status'"
-                                class="tui-space_left-2"
-                            ></tui-badge>
-                        </ng-container>
-                    </div>
+                    {{ submission.submission_time | date:'short' || 'No Date' }}
+                    <tui-badge
+                        [status]="submission.status | tuiStatus"
+                        [value]="submission.status || 'Pending'"
+                        class="tui-space_left-2"
+                    ></tui-badge>
                     <ng-template tuiAccordionItemContent>
-                        <div class="tui-text_body-m">
+                        <div *ngIf="!submission.question.is_exam_and_open else examContent" class="tui-text_body-m">
                             <p class="tui-island__paragraph">Grade Given: {{ submission.grade.toFixed(2) }}</p>
                             <p class="tui-island__paragraph">Tokens Received: {{ submission.tokens_received.toFixed(2)}}
                                 / {{submission.token_value.toFixed(2) }}</p>
@@ -43,6 +38,11 @@
                                 </button>
                             </div>
                         </div>
+                        <ng-template #examContent>
+                            <p class="tui-island__paragraph">
+                                Exam is in progress. You can see the submission results once the exam is over.
+                            </p>
+                        </ng-template>
                     </ng-template>
                 </div>
             </tui-accordion-item>

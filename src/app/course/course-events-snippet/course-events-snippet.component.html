@@ -98,7 +98,8 @@
                         </div>
                         <div class="linkBtn">
                             <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
-                                <a [routerLink]="['/course', courseId, 'event', event.id]" appearance="primary"
+                                <a [routerLink]="['/course', courseId, 'event', event.id]"
+                                   appearance="primary"
                                    class="tui-form__button"
                                    size="s"
                                    tuiButton
@@ -116,11 +117,21 @@
                             </ng-template>
                             <a *ngIf="event.has_edit_permission"
                                [routerLink]="['/course', courseId, 'new-event', event.id]"
-                               appearance="primary" aria-label="Edit" class="tui-form__button"
+                               appearance="secondary" aria-label="Edit" class="tui-form__button"
                                size="s"
                                tuiButton
                             >
                                 Edit
+                            </a>
+                            <a *ngIf="event.has_edit_permission"
+                               [routerLink]="['/course', courseId, 'event', event.id, 'stats']"
+                               appearance="secondary"
+                               aria-label="Edit"
+                               class="tui-form__button"
+                               size="s"
+                               tuiButton
+                            >
+                                Stats
                             </a>
                         </div>
                     </div>
@@ -166,11 +177,23 @@
                             </ng-template>
                             <a *ngIf="event.has_edit_permission"
                                [routerLink]="['/course', courseId, 'new-event', event.id]"
-                               appearance="primary" aria-label="Edit" class="tui-form__button"
+                               appearance="secondary"
+                               aria-label="Edit"
+                               class="tui-form__button"
                                size="s"
                                tuiButton
                             >
                                 Edit
+                            </a>
+                            <a *ngIf="event.has_edit_permission"
+                               [routerLink]="['/course', courseId, 'event', event.id, 'stats']"
+                               appearance="secondary"
+                               aria-label="Edit"
+                               class="tui-form__button"
+                               size="s"
+                               tuiButton
+                            >
+                                Stats
                             </a>
                         </div>
                     </div>

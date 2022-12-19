@@ -10,4 +10,5 @@ export interface Team {
     event: CourseEvent;
     course_registrations: CourseRegistration[];
     score: number;
+    member_names: string[];
 }

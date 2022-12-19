@@ -2,9 +2,6 @@
 @import 'mixins';
 
 .course-tile {
-    border: 0.2rem solid #000000;
-    overflow: hidden;
-    cursor: default;
     @include screen-lg {
         flex-basis: calc(30% - 4.5rem);
     }
@@ -14,10 +11,7 @@
     @include screen-sm {
         flex-basis: 100%
     }
-    margin: 1rem;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    overflow: hidden;
 }
 
 .flex-container {
@@ -32,19 +26,25 @@
     @include screen-md {
         max-width: 900px;
     }
-    position: relative;
+    gap: 2rem 2rem;
+}
+
+.course-tile-text {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 4 * var(--tui-padding-l));
 }
 
 .flex-space {
-    flex-grow: 3;
-    width: 95%;
+    flex: 1;
+    text-align: left;
 }
 
 .course-background {
-    width: calc(100% + 4.5rem);
+    width: calc(100% + 2 * var(--tui-padding-l));
     height: calc(4 * var(--tui-padding-l));
     margin-top: calc(-1 * var(--tui-padding-l));
-    margin-left: calc(-2 * var(--tui-padding-l));
+    margin-left: calc(-1 * var(--tui-padding-l));
     @include tui-space(bottom, 3);
 }
 
@@ -61,15 +61,11 @@
 }
 
 .leaderboard {
-    background-color: var(--tui-info-bg-hover);
+    opacity: 0.24;
+    background-color: var(--tui-support-02);
 }
 
 .tokens {
-    background-color: var(--tui-neutral-bg-hover);
-}
-
-.course-banner {
-    padding: 0.75rem;
-    height: calc(3 * var(--tui-padding-l));
-    background-color: var(--tui-secondary-active);
+    opacity: 0.24;
+    background-color: var(--tui-support-10);
 }

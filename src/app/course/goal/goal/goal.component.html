@@ -1,51 +1,122 @@
-<div *ngIf="goal" class="tui-container tui-container_adaptive">
-    <div class="tui-text_h2 tui-space_top-5">Goal Results</div>
+<div *ngIf="goal" class="tui-container tui-container_adaptive space-y-3 mt-3">
 
-    <div class="tui-text_h3 tui-space_top-5">Total Progress</div>
-    <div class="tui-space_top-2">
-        <progress
-            tuiProgressBar
-            [max]="goal.number_of_questions"
-            class="progress"
-            [value]="goal.progress"
-        ></progress>
+    <div class="tui-text_h2">Goal Performance Review</div>
+
+    <div>
+        <app-goal-island
+            [goal]="goal"
+            [showPerformanceButton]="false"
+        >
+        </app-goal-island>
     </div>
 
-    <div *ngFor="let goalItemId of goalItemIds(); let i = index">
-        <div class="tui-text_h3 tui-space_top-5">Item {{ i + 1 }}</div>
+    <tui-island *ngFor="let goalItemId of goalItemIds(); let i = index" class="shadow">
+        <div class="tui-text_h3">Task {{ i + 1 }}</div>
         <div class="tui-space_top-2">
-            <progress
-                tuiProgressBar
-                [max]="getGoalItem(goalItemId).number_of_questions"
-                class="progress"
-                [value]="getGoalItem(goalItemId).progress"
-            ></progress>
+            <label
+                tuiProgressLabel
+                class="w-full"
+            >
+                {{getGoalItem(goalItemId).progress}} / {{getGoalItem(goalItemId).number_of_questions}}
+                <progress
+                    [class.info]="getGoalItem(goalItemId).progress < getGoalItem(goalItemId).number_of_questions"
+                    [class.success]="getGoalItem(goalItemId).progress >= getGoalItem(goalItemId).number_of_questions"
+                    tuiProgressBar
+                    [max]="getGoalItem(goalItemId).number_of_questions"
+                    class="progress"
+                    [value]="getGoalItem(goalItemId).progress"
+                ></progress>
+            </label>
         </div>
 
-        <div class="tui-text_h4 tui-space_top-5">Submission Stats</div>
-        <div class="tui-space_top-2 flex">
+        <div class="tui-text_h4 tui-space_top-5">Question Stats</div>
+        <table class="tui-table mt-3">
+            <tbody>
+            <tr class="tui-table__tr tui-table__tr_border_none">
+                <th class="tui-table__th">Questions Attempt</th>
+                <th class="tui-table__th">Questions Solved</th>
+                <th class="tui-table__th">Success Rate</th>
+            </tr>
+            <tr class="tui-table__tr tui-table__tr_border_none">
+                <td class="tui-table__td">{{ this.goal.stats[goalItemId].submissions.total_questions }}</td>
+                <td class="tui-table__td">{{ this.goal.stats[goalItemId].submissions.correct_questions }}</td>
+                <td class="tui-table__td">
+                    {{ this.goal.stats[goalItemId].submissions.questions_success_rate | percent }}
+                    (
+                    <span
+                        [class.success]="getQuestionRelativeSuccessRate(goalItemId) >= 0"
+                        [class.error]="getQuestionRelativeSuccessRate(goalItemId) < 0"
+                    >
+                        <tui-svg
+                            *ngIf="getQuestionRelativeSuccessRate(goalItemId) >= 0"
+                            src="tuiIconArrowUp"
+                            class="pb-1 -mx-1"
+                        >
+                        </tui-svg>
+                        <tui-svg
+                            *ngIf="getQuestionRelativeSuccessRate(goalItemId) < 0"
+                            src="tuiIconArrowDown"
+                            class="pb-1 -mx-1"
+                        >
+                        </tui-svg>
+                        {{getQuestionRelativeSuccessRate(goalItemId) | percent}}
+                    </span>
+                    )
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="flex mt-5">
+            <div class="flex-1 tui-text_h4">Submission Stats</div>
             <app-submission-chart
                 [submissionStats]="this.goal.stats[goalItemId].submissions"
             >
             </app-submission-chart>
-            <app-submission-chart
-                [submissionStats]="this.goal.stats[goalItemId].old_submissions"
-            >
-            </app-submission-chart>
-        </div>
-        <div class="tui-text_h4 tui-space_top-5">Question Stats</div>
-        <div class="tui-space_top-2">
-            Total questions attempt: {{ this.goal.stats[goalItemId].submissions.total_questions }}
         </div>
         <div class="tui-space_top-2">
-            Total questions solved: {{ this.goal.stats[goalItemId].submissions.correct_questions }}
-        </div>
 
-        <div class="tui-space_top-2">
-            Previously questions attempt: {{ this.goal.stats[goalItemId].old_submissions.total_questions }}
-        </div>
-        <div class="tui-space_top-2">
-            Previously questions solved: {{ this.goal.stats[goalItemId].old_submissions.correct_questions }}
+            <div class="overflow-x-auto">
+                <table class="tui-table mt-3">
+                    <tbody>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <th class="tui-table__th">Total Submissions</th>
+                        <th class="tui-table__th">Correct Submissions</th>
+                        <th class="tui-table__th">Partially Correct Submissions</th>
+                        <th class="tui-table__th">Incorrect Submissions</th>
+                        <th class="tui-table__th">Success Rate</th>
+                    </tr>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <td class="tui-table__td">{{ this.goal.stats[goalItemId].submissions.total }}</td>
+                        <td class="tui-table__td">{{ this.goal.stats[goalItemId].submissions.correct }}</td>
+                        <td class="tui-table__td">{{ this.goal.stats[goalItemId].submissions.partially_correct }}</td>
+                        <td class="tui-table__td">{{ this.goal.stats[goalItemId].submissions.wrong }}</td>
+                        <td class="tui-table__td">
+                            {{ this.goal.stats[goalItemId].submissions.success_rate | percent }}
+                            (
+                            <span
+                                [class.success]="getSubmissionRelativeSuccessRate(goalItemId) >= 0"
+                                [class.error]="getSubmissionRelativeSuccessRate(goalItemId) < 0"
+                            >
+                        <tui-svg
+                            *ngIf="getSubmissionRelativeSuccessRate(goalItemId) >= 0"
+                            src="tuiIconArrowUp"
+                            class="pb-1 -mx-1"
+                        >
+                        </tui-svg>
+                        <tui-svg
+                            *ngIf="getSubmissionRelativeSuccessRate(goalItemId) < 0"
+                            src="tuiIconArrowDown"
+                            class="pb-1 -mx-1"
+                        >
+                        </tui-svg>
+                                {{getSubmissionRelativeSuccessRate(goalItemId) | percent}}
+                    </span>
+                            )
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="tui-text_h4 tui-space_top-5">Types of Error</div>
@@ -57,5 +128,18 @@
         <div class="tui-space_top-2" *ngFor="let e of this.goal.stats[goalItemId].submissions.error_messages">
             {{ e }}
         </div>
+    </tui-island>
+    <div>
+        <a
+            *ngIf="canClaim()"
+            class="px-4 py-2 rounded-xl tui-text_bold button-success"
+            (click)="claim()"
+        >
+            Claim
+            <tui-svg
+                src="tuiIconCheckCircle"
+            >
+            </tui-svg>
+        </a>
     </div>
 </div>

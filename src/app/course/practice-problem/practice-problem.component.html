@@ -5,27 +5,34 @@
                 class="tui-space_bottom-2"
             >
                 <a
-                    [routerLink]="['../../../']"
+                    [routerLink]="['../../concept-map']"
                     class="tui-space_vertical-0 w-full"
                     icon="tuiIconArrowLeft"
                     size="s"
                     tuiButton
                 >
-                    Back to course
+                    Back to concept map
                 </a>
             </div>
             <div
                 class="tui-space_bottom-2"
             >
-                <a
-                    [routerLink]="['../../../goal']"
-                    class="tui-space_vertical-0 w-full"
-                    icon="tuiIconArrowLeft"
-                    size="s"
-                    tuiButton
+                <span
+                    tuiHintPointer
+                    tuiHint="Coming Soon..."
+                    tuiHintDirection="top-middle"
                 >
-                    Back to goals
-                </a>
+                    <a
+                        [routerLink]="['../../../goal']"
+                        class="tui-space_vertical-0 w-full"
+                        icon="tuiIconArrowLeft"
+                        size="s"
+                        tuiButton
+                        disabled="true"
+                    >
+                        Back to goals
+                    </a>
+                </span>
             </div>
             <div
                 *ngIf="parentCategory"

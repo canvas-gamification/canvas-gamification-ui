@@ -1,8 +1,19 @@
 <ng-container *ngIf="uqjs">
     <div [class.tui-container]="eventId" [class.tui-container_adaptive]="eventId">
-        <ng-container *ngIf="eventId">
+        <div *ngIf="eventId" class="flex justify-between items-center">
             <h1 class="tui-text_h3 tui-space_vertical-10">{{ event.name }}</h1>
-        </ng-container>
+            <div>
+                <a
+                    *ngIf="event.has_edit_permission"
+                    tuiButton
+                    appearance="secondary"
+                    size="s"
+                    [routerLink]="['stats']"
+                >
+                    Stats
+                </a>
+            </div>
+        </div>
         <div class="question-islands">
             <tui-island *ngFor="let uqj of uqjs">
                 <p class="tui-island__category">{{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }} {{ uqj.question.category_name }}</p>

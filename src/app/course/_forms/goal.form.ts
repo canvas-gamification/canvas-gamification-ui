@@ -18,7 +18,7 @@ export class GoalForm {
     static createGoalForm(): FormGroup {
         const builder = new FormBuilder()
         return builder.group({
-            end_date: new FormControl(TuiDay.currentLocal(), [Validators.required]),
+            end_date: new FormControl(TuiDay.currentLocal().append({day: 7}), [Validators.required]),
             end_time: new FormControl(TuiTime.currentLocal(), [Validators.required]),
             goal_items: new FormArray([GoalForm.createGoalItemForm()], [Validators.required]),
         })

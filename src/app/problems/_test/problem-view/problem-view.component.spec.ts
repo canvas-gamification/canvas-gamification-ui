@@ -7,7 +7,7 @@ import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.se
 import {UqjService} from "@app/problems/_services/uqj.service"
 import {UqjServiceMock} from "@app/problems/_test/_services/uqj.service.mock"
 import {ActivatedRoute} from "@angular/router"
-import {MOCK_QUESTION_SUBMISSION, MOCK_SUBMISSIONS, MOCK_UQJ, MOCK_UQJS} from "@app/problems/_test/mock"
+import {MOCK_UQJ, MOCK_UQJS} from "@app/problems/_test/mock"
 import {TitleCasePipe} from "@angular/common"
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 
@@ -39,7 +39,6 @@ describe('ProblemViewComponent', () => {
         fixture = TestBed.createComponent(ProblemViewComponent)
         component = fixture.componentInstance
         component.uqj = MOCK_UQJ
-        component.previousSubmissions = [MOCK_QUESTION_SUBMISSION]
         fixture.detectChanges()
     })
 
@@ -49,10 +48,5 @@ describe('ProblemViewComponent', () => {
 
     it('should have one uqj', async () => {
         expect(component.uqj).toEqual(MOCK_UQJS.find(uqj => uqj.id === 0))
-    })
-
-    it('should have one submission', async () => {
-        expect(component.previousSubmissions.length).toEqual(1)
-        expect(component.previousSubmissions[0]).toEqual(MOCK_SUBMISSIONS.find(submission => submission.question.id === 0))
     })
 })

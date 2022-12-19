@@ -1,15 +1,11 @@
 <ng-container *ngIf="course else skeletonTemplate">
-    <div class="course-banner">
+    <div class="course-banner p-5 mb-4">
         <h3
             [class.tui-skeleton]="!course"
             class="tui-text_h3"
         >
             {{ course?.name }}
         </h3>
-    </div>
-    <div *ngFor="let bc of breadCrumbs">
-        {{ bc.name }}
-        {{ bc.url }}
     </div>
     <tui-breadcrumbs [size]="'l'">
         <ng-container *ngFor="let item of breadCrumbs">

@@ -67,13 +67,13 @@
         </div>
     </div>
     <app-sidebar position="right" sidebarId="questionSidebar" size="l">
-        <ng-container *ngIf="user?.is_teacher && uqj">
+        <ng-container *ngIf="user?.is_teacher && !!uqj">
             <app-variable-view
                 [variableErrors]="uqj.variables_errors"
                 [variables]="uqj.variables"
             ></app-variable-view>
         </ng-container>
-        <ng-container *ngIf="previousSubmissions">
+        <ng-container *ngIf="!!uqj">
             <app-submission-snippet
                 [questionId]="uqj.question.id"
                 (reloadRequestSubscriberEvent)="reloadRequestSubscriber = $event">

@@ -1,52 +1,80 @@
 <tui-island class="shadow">
-    Progress:
-    <label
-        tuiProgressLabel
-        class="w-full"
-    >
-        {{goal.progress}} / {{goal.number_of_questions}}
-        <progress
-            tuiProgressBar
-            [max]="goal.number_of_questions"
-            [value]="goal.progress"
-        >
-        </progress>
-    </label>
-    <div *ngIf="!goal.is_finished">
-        Remaining Time: {{getRelativeTime(goal.end_date)}}
-    </div>
-    Tasks:
-    <ul class="tui-list tui-space_left-3">
-        <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
-            <div class="flex space-x-3">
-                <div class="leading-8">
-                    {{getGoalItemString(goalItem)}}
-                    (Solved {{goalItem.progress}} / {{goalItem.number_of_questions}})
-                </div>
-                <a
-                    *ngIf="goalItem.progress < goalItem.number_of_questions && !goal.is_finished"
-                    tuiButton
-                    size="s"
-                    appearance="flat"
-                    [routerLink]="['..', 'practice', 'category', goalItem.category]"
-                    [queryParams]="{difficulty: goalItem.difficulty}"
-                >
-                    Start Practice
-                </a>
-                <tui-marker-icon
-                    *ngIf="goalItem.progress >= goalItem.number_of_questions"
-                    src="tuiIconCheckCircleLarge"
-                    mode="success"
-                    size="xs"
-                ></tui-marker-icon>
-                <tui-marker-icon
-                    *ngIf="goalItem.progress < goalItem.number_of_questions && goal.is_finished"
-                    src="tuiIconCloseCircleLarge"
-                    mode="error"
-                    size="xs"
-                ></tui-marker-icon>
+    <div class="flex flex-wrap gap-3">
+        <div class="flex-1">
+            <span class="tui-text_bold">Tasks:</span>
+            <ul class="tui-list tui-space_left-3">
+                <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
+                    <div class="flex flex-wrap gap-3">
+                        <div class="leading-8">
+                            {{getGoalItemString(goalItem)}}
+                            (Solved {{goalItem.progress}} / {{goalItem.number_of_questions}})
+                        </div>
+                        <a
+                            *ngIf="goalItem.progress < goalItem.number_of_questions && !goal.is_finished"
+                            tuiButton
+                            size="s"
+                            appearance="flat"
+                            icon="tuiIconPlay"
+                            [routerLink]="['/course', courseId, 'practice', 'category', goalItem.category]"
+                            [queryParams]="{difficulty: goalItem.difficulty}"
+                        >
+                            Start Practice
+                        </a>
+                        <tui-marker-icon
+                            *ngIf="goalItem.progress >= goalItem.number_of_questions"
+                            src="tuiIconCheckCircleLarge"
+                            mode="success"
+                            size="xs"
+                        ></tui-marker-icon>
+                        <!--                        <tui-marker-icon-->
+                        <!--                            *ngIf="goalItem.progress < goalItem.number_of_questions && goal.is_finished"-->
+                        <!--                            src="tuiIconCloseCircleLarge"-->
+                        <!--                            mode="error"-->
+                        <!--                            size="xs"-->
+                        <!--                        ></tui-marker-icon>-->
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="min-w-200 flex flex-col space-y-3">
+            <div *ngIf="!goal.is_finished">
+                <span class="tui-text_bold">Due:</span> {{getRelativeTime(goal.end_date)}}
             </div>
-        </li>
-    </ul>
-    <a tuiButton size="s" class="tui-space_top-3" appearance="outline" [routerLink]="[goal.id]">View Stats</a>
+            <div class="flex-grow w-full">
+                <label
+                    tuiProgressLabel
+                    class="w-full"
+                >
+                    {{goal.progress}} / {{goal.number_of_questions}}
+                    <progress
+                        [class.success]="goal.progress >= goal.number_of_questions"
+                        [class.info]="goal.progress < goal.number_of_questions"
+                        tuiProgressBar
+                        [max]="goal.number_of_questions"
+                        [value]="goal.progress"
+                    >
+                    </progress>
+                </label>
+            </div>
+            <a
+                *ngIf="showPerformanceButton && !canClaim()"
+                tuiButton
+                size="s"
+                appearance="secondary"
+                class="self-end"
+                [routerLink]="[goal.id]">Review Performance
+            </a>
+            <a
+                *ngIf="showPerformanceButton && canClaim()"
+                class="self-end px-4 py-2 rounded-xl tui-text_bold button-success"
+                [routerLink]="[goal.id]"
+            >
+                Claim
+                <tui-svg
+                    src="tuiIconCheckCircle"
+                >
+                </tui-svg>
+            </a>
+        </div>
+    </div>
 </tui-island>

@@ -14,10 +14,11 @@ import {HighlightModule} from 'ngx-highlightjs'
 import {CourseService} from '@app/course/_services/course.service'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {TokenUseService} from '@app/course/_services/token-use.service'
-import {ConceptMapComponent} from '@app/course/course-practice/concept-map/concept-map.component'
+import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component'
 import {
     TuiAccordionModule,
-    TuiAvatarModule, TuiBreadcrumbsModule,
+    TuiAvatarModule,
+    TuiBreadcrumbsModule,
     TuiCheckboxLabeledModule,
     TuiDataListWrapperModule,
     TuiFieldErrorModule,
@@ -42,11 +43,13 @@ import {
     TuiDataListModule,
     TuiDialogModule,
     TuiErrorModule,
+    TuiHintModule,
     TuiHostedDropdownModule,
     TuiLinkModule,
     TuiLoaderModule,
     TuiModeModule,
     TuiNotificationModule,
+    TuiPointerHintModule,
     TuiSvgModule,
     TuiTextfieldControllerModule
 } from '@taiga-ui/core'
@@ -74,9 +77,11 @@ import {TuiRingChartModule} from "@taiga-ui/addon-charts"
 import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 import {CourseCreateComponent} from './course-create/course-create.component'
 import {GoalIslandComponent} from './goal/goal-island/goal-island.component'
-import {CoursePracticePageComponent} from './course-practice/course-practice-page/course-practice-page.component'
+import {CoursePracticePageComponent} from './course-practice-page/course-practice-page.component'
 import {CoursePracticeComponent} from './course-practice/course-practice.component'
 import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
+import {EventStatsComponent} from './event/event-stats/event-stats.component'
+
 
 @NgModule({
     declarations: [
@@ -94,6 +99,7 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        EventStatsComponent,
         GoalComponent,
         GoalCreateComponent,
         GoalIslandComponent,
@@ -127,6 +133,7 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         TuiErrorModule,
         TuiFieldErrorModule,
         TuiFilterPipeModule,
+        TuiHintModule,
         TuiHostedDropdownModule,
         TuiInputCountModule,
         TuiInputDateModule,
@@ -140,6 +147,7 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         TuiMarkerIconModule,
         TuiModeModule,
         TuiNotificationModule,
+        TuiPointerHintModule,
         TuiProgressModule,
         TuiRingChartModule,
         TuiSelectModule,
@@ -147,8 +155,8 @@ import {CourseHomepageComponent} from './course-homepage/course-homepage.compone
         TuiStepperModule,
         TuiSvgModule,
         TuiTableModule,
-        TuiTabsModule,
         DragulaModule.forRoot(),
+        TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
         TuiTextfieldControllerModule,
