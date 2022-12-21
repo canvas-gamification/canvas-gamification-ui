@@ -40,6 +40,12 @@ const routes: Routes = [
             {
                 path: '',
                 component: CourseHomepageComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }]
+                }
             },
             {
                 path: 'practice',
