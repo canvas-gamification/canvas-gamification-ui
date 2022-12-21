@@ -2,7 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http'
 import {Injectable} from '@angular/core'
 import {Observable} from 'rxjs'
 import {catchError} from 'rxjs/operators'
-import {Action} from '@app/_models'
+import {Action, ActionStatus, ActionType, ActionVerb} from '@app/_models'
 import {PaginatedResult} from '@app/_models/paginatedResult'
 import {ApiService} from "@app/_services/api.service"
 
@@ -46,5 +46,18 @@ export class UserActionsService {
         return this.http
             .get<Action>(url, {params})
             .pipe(catchError(this.apiService.handleError<Action>(`Error occurred while getting user action`)))
+    }
+
+    createCustomAction(input: {
+        description: string,
+        token_change: number,
+        status: ActionStatus,
+        verb: ActionVerb,
+        object_type: ActionType,
+        object_id: number,
+        data: any,
+    }): Observable<Action> {
+        const url = this.apiService.getURL('user-actions')
+        return this.http.post<Action>(url, input).pipe(catchError(this.apiService.handleError<Action>('Error occurred while submitting custom action')))
     }
 }
