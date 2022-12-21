@@ -2,8 +2,11 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {LeaderBoardComponent} from '../../leader-board/leader-board.component'
 import {TestModule} from '@test/test.module'
-import {MOCK_COURSE2} from "@app/course/_test/mock"
+import {MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
 import {TuiFilterPipeModule} from "@taiga-ui/cdk"
+import {CourseService} from "@app/course/_services/course.service"
+import {CourseServiceMock} from "@test/course.service.mock"
+import {ActivatedRoute} from "@angular/router"
 
 describe('LeaderBoardComponent', () => {
     let component: LeaderBoardComponent
@@ -12,15 +15,32 @@ describe('LeaderBoardComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [TestModule, TuiFilterPipeModule],
-            declarations: [LeaderBoardComponent]
+            declarations: [LeaderBoardComponent],
+            providers: [
+                {provide: CourseService, useClass: CourseServiceMock},
+                {
+                    provide: ActivatedRoute, useValue: {
+                        snapshot: {
+                            parent: {
+                                params: {
+                                    courseId: 0
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
         }).compileComponents()
     })
 
     beforeEach(() => {
         fixture = TestBed.createComponent(LeaderBoardComponent)
         component = fixture.componentInstance
-        component.leaderBoard = MOCK_COURSE2.leader_board
         fixture.detectChanges()
+    })
+
+    it('course leaderbaord should be retrieved and ranked on initial load', () => {
+        expect(component.leaderBoard).toEqual(MOCK_RANKED_LEADERBOARD)
     })
 
     it('should create', () => {

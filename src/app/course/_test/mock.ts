@@ -3,6 +3,7 @@ import {
     CourseRegistration,
     CourseRegistrationMode,
     EventType,
+    LeaderboardElement,
     Question,
     STATUS,
     TokenUseOption,
@@ -79,7 +80,13 @@ export const MOCK_COURSE1: Course = {
     question_set: null,
     uqjs: null,
     course_reg: MOCK_COURSE_REGISTRATION,
-    leader_board: null,
+    leader_board: [{
+        name: 'name',
+        token: 2,
+    }, {
+        name: 'name 2',
+        token: 5,
+    }],
     has_create_event_permission: true,
     description: "",
     registration_mode: CourseRegistrationMode.OPEN,
@@ -406,3 +413,16 @@ export const MOCK_GOAL_2: Goal = {
 }
 
 export const MOCK_GOALS: Goal[] = [MOCK_GOAL, MOCK_GOAL_2]
+
+export const MOCK_RANKED_LEADERBOARD: LeaderboardElement[] = [
+    {
+        rank: 1,
+        name: 'name 2',
+        token: 5,
+    },
+    {
+        rank: 2,
+        name: 'name',
+        token: 2,
+    }
+]
