@@ -47,6 +47,7 @@ export class CourseComponent implements OnInit {
         })
         this.getBreadCrumbs(this.route.snapshot)
         this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+            this.breadCrumbs = null
             this.getBreadCrumbs(this.route.snapshot)
         })
     }
