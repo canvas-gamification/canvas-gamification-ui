@@ -19,6 +19,7 @@ import {CourseChallengeSnippetComponent} from "@app/course/course-challenge-snip
 import {CourseHomepageComponent} from "@app/course/course-homepage/course-homepage.component"
 import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/course-events-snippet.component"
 import {EventStatsComponent} from "@app/course/event/event-stats/event-stats.component"
+import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component"
 
 
 const routes: Routes = [
@@ -104,6 +105,10 @@ const routes: Routes = [
             {
                 path: 'challenges',
                 component: CourseChallengeSnippetComponent,
+            },
+            {
+                path: 'leaderboard',
+                component: LeaderBoardComponent
             }]
     }]
 

@@ -1,58 +1,226 @@
-<div *ngIf="leaderBoard" class="tui-container tui-container_adaptive">
-    <div class="top-x-islands tui-space_bottom-8">
-        <tui-island *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index"
-                    [style.marginTop]="(index) + 'rem'" [style.order]="(index % 2 * -index)"
-                    class="top-x-island"
-                    textAlign="center">
-            <div [style.backgroundColor]="avatar.bgColor" class="top-x-background"></div>
-            <figure class="tui-island__figure">
-                <tui-avatar
-                    #avatar
-                    [autoColor]="true"
-                    [rounded]="true"
-                    [text]="element.name || 'Anonymous User'"
-                    class="top-x-avatar"
-                    size="l"
-                ></tui-avatar>
-            </figure>
-            <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2">{{ getGetOrdinal(element.rank) }}</p>
-            <h3 class="tui-island__title">
-                {{ element.name || 'Anonymous User' }}
-            </h3>
-            <p class="tui-island__paragraph">
-                {{ element.token ? (element.token + ' Tokens') : 'No Tokens' }}
-            </p>
-        </tui-island>
-    </div>
-    <table [columns]="displayedColumns" class="table" tuiTable>
-        <thead tuiThead>
-        <tr tuiThGroup>
-            <th *tuiHead="'rank'" tuiTh>Rank</th>
-            <th *tuiHead="'name'" tuiTh>Name</th>
-            <th *tuiHead="'token'" tuiTh>Tokens</th>
-        </tr>
-        </thead>
-        <tbody [data]="leaderBoard | tuiFilter: filterOutTopX: rankTopX" tuiTbody>
-        <tr *tuiRow="let element of leaderBoard" tuiTr>
-            <td *tuiCell="'rank'" tuiTd>
-                {{ getGetOrdinal(element.rank) }}
-            </td>
-            <td *tuiCell="'name'" tuiTd>
-                <div class="table-avatar-with-name">
+<ng-container *ngIf="leaderBoard else skeletonTemplate">
+    <div *ngIf="leaderBoard" class="tui-container tui-container_adaptive">
+        <div class="top-x-islands tui-space_bottom-8">
+            <tui-island *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index"
+                        [style.marginTop]="(index) + 'rem'" [style.order]="(index % 2 * -index)"
+                        class="top-x-island"
+                        textAlign="center">
+                <div [style.backgroundColor]="avatar.bgColor" class="top-x-background"></div>
+                <figure class="tui-island__figure">
                     <tui-avatar
+                        #avatar
                         [autoColor]="true"
                         [rounded]="true"
                         [text]="element.name || 'Anonymous User'"
-                        class="tui-space_right-2"
-                        size="s"
+                        class="top-x-avatar"
+                        size="l"
                     ></tui-avatar>
+                </figure>
+                <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2">{{ getGetOrdinal(element.rank) }}</p>
+                <h3 class="tui-island__title">
                     {{ element.name || 'Anonymous User' }}
-                </div>
-            </td>
-            <td *tuiCell="'token'" tuiTd>
-                {{ element.token || 'No Tokens' }}
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+                </h3>
+                <p class="tui-island__paragraph">
+                    {{ element.token ? (element.token + ' Tokens') : 'No Tokens' }}
+                </p>
+            </tui-island>
+        </div>
+        <table [columns]="displayedColumns" class="table" tuiTable>
+            <thead tuiThead>
+            <tr tuiThGroup>
+                <th *tuiHead="'rank'" tuiTh>Rank</th>
+                <th *tuiHead="'name'" tuiTh>Name</th>
+                <th *tuiHead="'token'" tuiTh>Tokens</th>
+            </tr>
+            </thead>
+            <tbody [data]="leaderBoard | tuiFilter: filterOutTopX: rankTopX" tuiTbody>
+            <tr *tuiRow="let element of leaderBoard" tuiTr>
+                <td *tuiCell="'rank'" tuiTd>
+                    {{ getGetOrdinal(element.rank) }}
+                </td>
+                <td *tuiCell="'name'" tuiTd>
+                    <div class="table-avatar-with-name">
+                        <tui-avatar
+                            [autoColor]="true"
+                            [rounded]="true"
+                            [text]="element.name || 'Anonymous User'"
+                            class="tui-space_right-2"
+                            size="s"
+                        ></tui-avatar>
+                        {{ element.name || 'Anonymous User' }}
+                    </div>
+                </td>
+                <td *tuiCell="'token'" tuiTd>
+                    {{ element.token || 'No Tokens' }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-container>
+<ng-template #skeletonTemplate>
+    <div class="tui-container tui-container_adaptive">
+        <div class="top-x-islands tui-space_bottom-8">
+            <tui-island
+                        [style.marginTop]="1 + 'rem'" [style.order]="(1 % 2 * -1)"
+                        class="top-x-island"
+                        textAlign="center">
+                <div [style.backgroundColor]="avatar.bgColor" class="top-x-background tui-skeleton"></div>
+                <figure class="tui-island__figure tui-skeleton">
+                    <tui-avatar
+                        #avatar
+                        [autoColor]="true"
+                        [rounded]="true"
+                        [text]="'Anonymous User'"
+                        class="top-x-avatar tui-skeleton"
+                        size="l"
+                    ></tui-avatar>
+                </figure>
+                <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2 tui-skeleton">1st</p>
+                <h3 class="tui-island__title tui-skeleton">
+                    Anonymous User
+                </h3>
+                <p class="tui-island__paragraph tui-skeleton">
+                    No Tokens
+                </p>
+            </tui-island >
+            <tui-island
+                [style.marginTop]="2 + 'rem'" [style.order]="(2 % 2 * -2)"
+                class="top-x-island"
+                textAlign="center">
+                <div [style.backgroundColor]="avatar.bgColor" class="top-x-background tui-skeleton"></div>
+                <figure class="tui-island__figure tui-skeleton">
+                    <tui-avatar
+                        #avatar
+                        [autoColor]="true"
+                        [rounded]="true"
+                        [text]="'Anonymous User'"
+                        class="top-x-avatar tui-skeleton"
+                        size="l"
+                    ></tui-avatar>
+                </figure>
+                <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2 tui-skeleton">2nd</p>
+                <h3 class="tui-island__title tui-skeleton">
+                    Anonymous User
+                </h3>
+                <p class="tui-island__paragraph tui-skeleton">
+                    No Tokens
+                </p>
+            </tui-island >
+            <tui-island
+                [style.marginTop]="3 + 'rem'" [style.order]="(3 % 2 * -3)"
+                class="top-x-island"
+                textAlign="center">
+                <div [style.backgroundColor]="avatar.bgColor" class="top-x-background tui-skeleton"></div>
+                <figure class="tui-island__figure tui-skeleton">
+                    <tui-avatar
+                        #avatar
+                        [autoColor]="true"
+                        [rounded]="true"
+                        [text]="'Anonymous User'"
+                        class="top-x-avatar tui-skeleton"
+                        size="l"
+                    ></tui-avatar>
+                </figure>
+                <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2 tui-skeleton">3rd</p>
+                <h3 class="tui-island__title tui-skeleton">
+                    Anonymous User
+                </h3>
+                <p class="tui-island__paragraph tui-skeleton">
+                    No Tokens
+                </p>
+            </tui-island >
+        </div>
+        <table [columns]="displayedColumns" class="table" tuiTable>
+            <thead tuiThead>
+            <tr tuiThGroup>
+                <th *tuiHead="'rank'" tuiTh>Rank</th>
+                <th *tuiHead="'name'" tuiTh>Name</th>
+                <th *tuiHead="'token'" tuiTh>Tokens</th>
+            </tr>
+            </thead>
+            <tbody tuiTbody>
+            <tr tuiTr>
+                <td class="tui-skeleton" *tuiCell="'rank'" tuiTd>
+                    1st
+                </td>
+                <td class="tui-skeleton"  *tuiCell="'name'" tuiTd>
+                    <div class="table-avatar-with-name">
+                        <tui-avatar
+                            [autoColor]="true"
+                            [rounded]="true"
+                            [text]="'Anonymous User'"
+                            class="tui-space_right-2"
+                            size="s"
+                        ></tui-avatar>
+                        Anonymous User
+                    </div>
+                </td>
+                <td class="tui-skeleton"  *tuiCell="'token'" tuiTd>
+                    No Tokens
+                </td>
+            </tr>
+            <tr tuiTr>
+                <td class="tui-skeleton" *tuiCell="'rank'" tuiTd>
+                    1st
+                </td>
+                <td class="tui-skeleton"  *tuiCell="'name'" tuiTd>
+                    <div class="table-avatar-with-name">
+                        <tui-avatar
+                            [autoColor]="true"
+                            [rounded]="true"
+                            [text]="'Anonymous User'"
+                            class="tui-space_right-2"
+                            size="s"
+                        ></tui-avatar>
+                        Anonymous User
+                    </div>
+                </td>
+                <td class="tui-skeleton"  *tuiCell="'token'" tuiTd>
+                    No Tokens
+                </td>
+            </tr>
+            <tr tuiTr>
+                <td class="tui-skeleton" *tuiCell="'rank'" tuiTd>
+                    1st
+                </td>
+                <td class="tui-skeleton"  *tuiCell="'name'" tuiTd>
+                    <div class="table-avatar-with-name">
+                        <tui-avatar
+                            [autoColor]="true"
+                            [rounded]="true"
+                            [text]="'Anonymous User'"
+                            class="tui-space_right-2"
+                            size="s"
+                        ></tui-avatar>
+                        Anonymous User
+                    </div>
+                </td>
+                <td class="tui-skeleton"  *tuiCell="'token'" tuiTd>
+                    No Tokens
+                </td>
+            </tr>
+            <tr tuiTr>
+                <td class="tui-skeleton" *tuiCell="'rank'" tuiTd>
+                    1st
+                </td>
+                <td class="tui-skeleton"  *tuiCell="'name'" tuiTd>
+                    <div class="table-avatar-with-name">
+                        <tui-avatar
+                            [autoColor]="true"
+                            [rounded]="true"
+                            [text]="'Anonymous User'"
+                            class="tui-space_right-2"
+                            size="s"
+                        ></tui-avatar>
+                        Anonymous User
+                    </div>
+                </td>
+                <td class="tui-skeleton"  *tuiCell="'token'" tuiTd>
+                    No Tokens
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>
