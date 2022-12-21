@@ -1,5 +1,5 @@
 <ng-container *ngIf="course else skeletonTemplate">
-    <div class="course-banner p-5 mb-4">
+    <div class="course-banner p-5">
         <h3
             [class.tui-skeleton]="!course"
             class="tui-text_h3"
@@ -7,7 +7,7 @@
             {{ course?.name }}
         </h3>
     </div>
-    <tui-breadcrumbs [size]="'l'">
+    <tui-breadcrumbs class="p-5" [size]="'l'">
         <ng-container *ngFor="let item of breadCrumbs">
             <a
                 *tuiBreadcrumb
@@ -24,6 +24,8 @@
             Content
         </h3>
     </div>
+    <tui-breadcrumbs class="p-5 tui-skeleton" [size]="'l'">
+    </tui-breadcrumbs>
 </ng-template>
 
 <section class="tui-container tui-container_fullwidth">

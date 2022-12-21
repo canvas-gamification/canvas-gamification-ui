@@ -51,10 +51,31 @@ const routes: Routes = [
             {
                 path: 'practice',
                 component: CoursePracticePageComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Practice`,
+                        routerLink: '/course/:courseId/practice'
+                    }]
+                }
             },
             {
                 path: 'practice/concept-map',
                 component: CoursePracticeComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Practice`,
+                        routerLink: '/course/:courseId/practice'
+                    }, {
+                        caption: `Concept Map`,
+                        routerLink: '/course/:courseId/practice/concept-map'
+                    }]
+                }
             },
             {
                 path: 'register',
@@ -95,14 +116,56 @@ const routes: Routes = [
             {
                 path: 'goal',
                 component: GoalPageComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Practice`,
+                        routerLink: '/course/:courseId/practice'
+                    }, {
+                        caption: `Goals`,
+                        routerLink: '/course/:courseId/goal'
+                    }]
+                }
             },
             {
                 path: 'goal/create',
                 component: GoalCreateComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Practice`,
+                        routerLink: '/course/:courseId/practice'
+                    }, {
+                        caption: `Goals`,
+                        routerLink: '/course/:courseId/goal'
+                    },{
+                        caption: `Create Goal`,
+                        routerLink: '/course/:courseId/goal/create'
+                    }]
+                }
             },
             {
                 path: 'goal/:goalId',
                 component: GoalComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Practice`,
+                        routerLink: '/course/:courseId/practice'
+                    }, {
+                        caption: `Goals`,
+                        routerLink: '/course/:courseId/goal'
+                    },{
+                        caption: `Review Goal`,
+                        routerLink: '/course/:courseId/goal/:goalId'
+                    }]
+                }
             },
             {
                 path: 'token',

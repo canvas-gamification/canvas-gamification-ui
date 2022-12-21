@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {CourseService} from '@app/course/_services/course.service'
 import {Course, User} from '@app/_models'
-import {ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router'
+import {ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router} from '@angular/router'
+import {filter} from "rxjs/operators"
 
 @Component({
     selector: 'app-course',
@@ -22,7 +23,8 @@ export class CourseComponent implements OnInit {
     constructor(
         private authenticationService: AuthenticationService,
         private courseService: CourseService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {
         this.courseId = this.route.snapshot.params.courseId
         this.authenticationService.currentUser.subscribe(user => this.user = user)
@@ -44,5 +46,8 @@ export class CourseComponent implements OnInit {
             this.course = course
         })
         this.getBreadCrumbs(this.route.snapshot)
+        this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+            this.getBreadCrumbs(this.route.snapshot)
+        })
     }
 }
