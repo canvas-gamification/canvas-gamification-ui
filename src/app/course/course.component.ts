@@ -35,7 +35,12 @@ export class CourseComponent implements OnInit {
             this.breadCrumbs = route.firstChild.data.breadCrumbs.map(breadCrumb => (
                 {
                     ...breadCrumb,
-                    routerLink: breadCrumb.routerLink.replace(':courseId', this.courseId)
+                    routerLink: breadCrumb.routerLink
+                        .replace(':courseId', this.courseId)
+                        .replace(':goalId', route.firstChild.params.goalId)
+                        .replace(':eventId', route.firstChild.params.eventId)
+                        .replace(':id', route.firstChild.params.id)
+                        .replace(':categoryId', route.firstChild.params.categoryId)
                 }
             ))
         }

@@ -78,28 +78,107 @@ const routes: Routes = [
                 }
             },
             {
+                path: 'practice/category/:categoryId',
+                component: PracticeProblemComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Practice`,
+                        routerLink: '/course/:courseId/practice'
+                    }, {
+                        caption: `Concept Map`,
+                        routerLink: '/course/:courseId/practice/concept-map'
+                    }, {
+                        caption: `Practice Questions`,
+                        routerLink: '/course/:courseId/practice/category/:categoryId'
+                    }]
+                }
+            },
+            {
                 path: 'register',
                 component: CourseRegisterComponent,
             },
             {
                 path: 'event',
                 component: CourseEventsSnippetComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Events`,
+                        routerLink: '/course/:courseId/event'
+                    }]
+                }
             },
             {
                 path: 'new-event',
                 component: CourseEventCreateEditComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Events`,
+                        routerLink: '/course/:courseId/event'
+                    }, {
+                        caption: `Create Event`,
+                        routerLink: '/course/:courseId/new-event'
+                    }]
+                }
             },
             {
                 path: 'new-event/:eventId',
                 component: CourseEventCreateEditComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Events`,
+                        routerLink: '/course/:courseId/event'
+                    }, {
+                        caption: `Edit Event`,
+                        routerLink: '/course/:courseId/new-event'
+                    }]
+                }
             },
             {
                 path: 'event/:eventId',
                 component: CourseQuestionSnippetComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Events`,
+                        routerLink: '/course/:courseId/event'
+                    }, {
+                        caption: `Event`,
+                        routerLink: '/course/:courseId/event/:eventId'
+                    }]
+                }
             },
             {
                 path: 'event/:eventId/stats',
                 component: EventStatsComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Events`,
+                        routerLink: '/course/:courseId/event'
+                    }, {
+                        caption: `Event`,
+                        routerLink: '/course/:courseId/event/:eventId'
+                    }, {
+                        caption: `Event Statistics`,
+                        routerLink: '/course/:courseId/event/:eventId/stats'
+                    }]
+                }
             },
             {
                 path: 'problem/:id',
@@ -108,10 +187,21 @@ const routes: Routes = [
             {
                 path: 'event/:eventId/problem/:id',
                 component: ProblemViewComponent,
-            },
-            {
-                path: 'practice/category/:categoryId',
-                component: PracticeProblemComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Events`,
+                        routerLink: '/course/:courseId/event'
+                    }, {
+                        caption: `Event`,
+                        routerLink: '/course/:courseId/event/:eventId'
+                    }, {
+                        caption: `Problem`,
+                        routerLink: '/course/:courseId/event/:eventId/problem/:id'
+                    }]
+                }
             },
             {
                 path: 'goal',
@@ -142,7 +232,7 @@ const routes: Routes = [
                     }, {
                         caption: `Goals`,
                         routerLink: '/course/:courseId/goal'
-                    },{
+                    }, {
                         caption: `Create Goal`,
                         routerLink: '/course/:courseId/goal/create'
                     }]
@@ -161,7 +251,7 @@ const routes: Routes = [
                     }, {
                         caption: `Goals`,
                         routerLink: '/course/:courseId/goal'
-                    },{
+                    }, {
                         caption: `Review Goal`,
                         routerLink: '/course/:courseId/goal/:goalId'
                     }]
@@ -170,14 +260,41 @@ const routes: Routes = [
             {
                 path: 'token',
                 component: TokenUseSnippetComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Tokens`,
+                        routerLink: '/course/:courseId/token'
+                    }]
+                }
             },
             {
                 path: 'challenges',
                 component: CourseChallengeSnippetComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenges'
+                    }]
+                }
             },
             {
                 path: 'leaderboard',
-                component: LeaderBoardComponent
+                component: LeaderBoardComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Leaderboard`,
+                        routerLink: '/course/:courseId/leaderboard'
+                    }]
+                }
             }]
     }]
 
