@@ -21,7 +21,6 @@ import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/co
 import {EventStatsComponent} from "@app/course/event/event-stats/event-stats.component"
 import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component"
 
-
 const routes: Routes = [
     {
         path: '',
@@ -74,25 +73,6 @@ const routes: Routes = [
                     }, {
                         caption: `Concept Map`,
                         routerLink: '/course/:courseId/practice/concept-map'
-                    }]
-                }
-            },
-            {
-                path: 'practice/category/:categoryId',
-                component: PracticeProblemComponent,
-                data: {
-                    breadCrumbs: [{
-                        caption: `Homepage`,
-                        routerLink: '/course/:courseId'
-                    }, {
-                        caption: `Practice`,
-                        routerLink: '/course/:courseId/practice'
-                    }, {
-                        caption: `Concept Map`,
-                        routerLink: '/course/:courseId/practice/concept-map'
-                    }, {
-                        caption: `Practice Questions`,
-                        routerLink: '/course/:courseId/practice/category/:categoryId'
                     }]
                 }
             },
@@ -198,7 +178,7 @@ const routes: Routes = [
                         caption: `Event`,
                         routerLink: '/course/:courseId/event/:eventId'
                     }, {
-                        caption: `Problem`,
+                        caption: `Question`,
                         routerLink: '/course/:courseId/event/:eventId/problem/:id'
                     }]
                 }
@@ -296,6 +276,10 @@ const routes: Routes = [
                     }]
                 }
             }]
+    },
+    {
+        path: ':courseId/practice/category/:categoryId',
+        component: PracticeProblemComponent,
     }]
 
 @NgModule({

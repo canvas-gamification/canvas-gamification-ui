@@ -39,8 +39,8 @@ export class CourseComponent implements OnInit {
                         .replace(':courseId', this.courseId)
                         .replace(':goalId', route.firstChild.params.goalId)
                         .replace(':eventId', route.firstChild.params.eventId)
+                        // Rename to problemId
                         .replace(':id', route.firstChild.params.id)
-                        .replace(':categoryId', route.firstChild.params.categoryId)
                 }
             ))
         }

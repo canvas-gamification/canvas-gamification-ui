@@ -7,7 +7,7 @@
             {{ course?.name }}
         </h3>
     </div>
-    <tui-breadcrumbs class="p-5" [size]="'l'">
+    <tui-breadcrumbs class="mx-6" [size]="'l'">
         <ng-container *ngFor="let item of breadCrumbs">
             <a
                 *tuiBreadcrumb
@@ -28,6 +28,4 @@
     </tui-breadcrumbs>
 </ng-template>
 
-<section class="tui-container tui-container_fullwidth">
-    <router-outlet></router-outlet>
-</section>
+<router-outlet></router-outlet>
