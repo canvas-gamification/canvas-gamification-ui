@@ -35,7 +35,7 @@
                         <a
                             (click)="observer.complete()"
                             [hoverable]="true"
-                            [routerLink]="['/course', courseId, 'new-event']"
+                            [routerLink]="['/course', courseId, 'event', 'create']"
                             class="new-event"
                             size="s"
                             textAlign="center"
@@ -116,7 +116,7 @@
                                 </a>
                             </ng-template>
                             <a *ngIf="event.has_edit_permission"
-                               [routerLink]="['/course', courseId, 'new-event', event.id]"
+                               [routerLink]="['/course', courseId, 'event', event.id, 'edit']"
                                appearance="secondary" aria-label="Edit" class="tui-form__button"
                                size="s"
                                tuiButton

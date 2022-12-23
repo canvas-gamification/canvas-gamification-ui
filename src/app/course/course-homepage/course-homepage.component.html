@@ -16,7 +16,7 @@
 
     <div class="flex-container">
 
-        <tui-island class="course-tile tui-island_hoverable" size="m">
+        <tui-island class="course-tile tui-island_hoverable" [routerLink]="['practice']" size="m">
             <div class="course-background practice"></div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title">Question Bank</h3>
@@ -36,7 +36,7 @@
             </div>
         </tui-island>
 
-        <tui-island class="course-tile tui-island_hoverable" size="m">
+        <tui-island class="course-tile tui-island_hoverable" [routerLink]="['event']" size="m">
             <div class="course-background assessment"></div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title ">Assignments and Exams</h3>
@@ -63,7 +63,7 @@
             </div>
         </tui-island>
 
-        <tui-island class="course-tile tui-island_hoverable" size="m">
+        <tui-island class="course-tile tui-island_hoverable" [routerLink]="['challenge']" size="m">
             <div class="course-background challenge "></div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title">Challenges</h3>
@@ -78,7 +78,7 @@
                 >
                     <a
                         appearance="primary"
-                        [routerLink]="['challenges']"
+                        [routerLink]="['challenge']"
                         class="tui-form__button"
                         size="m"
                         tuiButton
@@ -90,7 +90,7 @@
             </div>
         </tui-island>
 
-        <tui-island class="course-tile tui-island_hoverable" size="m">
+        <tui-island class="course-tile tui-island_hoverable" [routerLink]="['leaderboard']" size="m">
             <div class="course-background leaderboard"></div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title">Leaderboard</h3>
@@ -115,7 +115,7 @@
             </div>
         </tui-island>
 
-        <tui-island class="course-tile tui-island_hoverable" size="m">
+        <tui-island class="course-tile tui-island_hoverable" [routerLink]="['token']" size="m">
             <div class="course-background tokens"></div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title">Tokens</h3>

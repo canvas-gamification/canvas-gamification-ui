@@ -94,7 +94,7 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'new-event',
+                path: 'event/create',
                 component: CourseEventCreateEditComponent,
                 data: {
                     breadCrumbs: [{
@@ -105,12 +105,12 @@ const routes: Routes = [
                         routerLink: '/course/:courseId/event'
                     }, {
                         caption: `Create Event`,
-                        routerLink: '/course/:courseId/new-event'
+                        routerLink: '/course/:courseId/new-event/create'
                     }]
                 }
             },
             {
-                path: 'new-event/:eventId',
+                path: 'event/:eventId/edit',
                 component: CourseEventCreateEditComponent,
                 data: {
                     breadCrumbs: [{
@@ -121,7 +121,7 @@ const routes: Routes = [
                         routerLink: '/course/:courseId/event'
                     }, {
                         caption: `Edit Event`,
-                        routerLink: '/course/:courseId/new-event'
+                        routerLink: '/course/:courseId/event/:eventId/edit'
                     }]
                 }
             },
@@ -251,7 +251,7 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'challenges',
+                path: 'challenge',
                 component: CourseChallengeSnippetComponent,
                 data: {
                     breadCrumbs: [{
@@ -259,7 +259,61 @@ const routes: Routes = [
                         routerLink: '/course/:courseId'
                     }, {
                         caption: `Challenges`,
-                        routerLink: '/course/:courseId/challenges'
+                        routerLink: '/course/:courseId/challenge'
+                    }]
+                }
+            },
+            {
+                path: 'challenge/:eventId',
+                component: CourseQuestionSnippetComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `Challenge`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }]
+                }
+            },
+            {
+                path: 'challenge/:eventId/edit',
+                component: CourseEventCreateEditComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `Challenge`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }, {
+                        caption: `Edit Challenge`,
+                        routerLink: '/course/:courseId/challenge/:eventId/edit'
+                    }]
+                }
+            },
+            {
+                path: 'challenge/:eventId/stats',
+                component: EventStatsComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `Challenge`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }, {
+                        caption: `Challenge Statistics`,
+                        routerLink: '/course/:courseId/challenge/:eventId/stats'
                     }]
                 }
             },
@@ -280,6 +334,7 @@ const routes: Routes = [
     {
         path: ':courseId/practice/category/:categoryId',
         component: PracticeProblemComponent,
+        canActivate: [AuthGuard]
     }]
 
 @NgModule({
