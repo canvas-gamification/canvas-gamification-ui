@@ -19,6 +19,7 @@ export class CourseComponent implements OnInit {
             caption: string,
             routerLink: string
         }]
+    displayDescription: boolean
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -39,7 +40,6 @@ export class CourseComponent implements OnInit {
                         .replace(':courseId', this.courseId)
                         .replace(':goalId', route.firstChild.params.goalId)
                         .replace(':eventId', route.firstChild.params.eventId)
-                        // Rename to problemId
                         .replace(':id', route.firstChild.params.id)
                 }
             ))
@@ -51,8 +51,10 @@ export class CourseComponent implements OnInit {
             this.course = course
         })
         this.getBreadCrumbs(this.route.snapshot)
+        this.displayDescription = this.router.url.includes('/homepage')
         this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
             this.breadCrumbs = null
+            this.displayDescription = this.router.url.includes('/homepage')
             this.getBreadCrumbs(this.route.snapshot)
         })
     }

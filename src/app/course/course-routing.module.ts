@@ -39,11 +39,16 @@ const routes: Routes = [
         children: [
             {
                 path: '',
+                redirectTo: 'homepage',
+                pathMatch: 'full'
+            },
+            {
+                path: 'homepage',
                 component: CourseHomepageComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }]
                 }
             },
@@ -53,7 +58,7 @@ const routes: Routes = [
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Practice`,
                         routerLink: '/course/:courseId/practice'
@@ -61,18 +66,18 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'practice/concept-map',
+                path: 'practice/concepts',
                 component: CoursePracticeComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Practice`,
                         routerLink: '/course/:courseId/practice'
                     }, {
-                        caption: `Concept Map`,
-                        routerLink: '/course/:courseId/practice/concept-map'
+                        caption: `Concepts`,
+                        routerLink: '/course/:courseId/practice/concepts'
                     }]
                 }
             },
@@ -81,82 +86,82 @@ const routes: Routes = [
                 component: CourseRegisterComponent,
             },
             {
-                path: 'event',
+                path: 'assignments-exams',
                 component: CourseEventsSnippetComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
-                        caption: `Events`,
-                        routerLink: '/course/:courseId/event'
+                        caption: `Assignments and Exams`,
+                        routerLink: '/course/:courseId/assignments-exams'
                     }]
                 }
             },
             {
-                path: 'event/create',
+                path: 'assignments-exams/create',
                 component: CourseEventCreateEditComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
-                        caption: `Events`,
-                        routerLink: '/course/:courseId/event'
+                        caption: `Assignments and Exams`,
+                        routerLink: '/course/:courseId/assignments-exams'
                     }, {
-                        caption: `Create Event`,
-                        routerLink: '/course/:courseId/new-event/create'
+                        caption: `Create Assignments and Exams`,
+                        routerLink: '/course/:courseId/assignments-exams/create'
                     }]
                 }
             },
             {
-                path: 'event/:eventId/edit',
+                path: 'assignments-exams/:eventId/edit',
                 component: CourseEventCreateEditComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Events`,
-                        routerLink: '/course/:courseId/event'
+                        routerLink: '/course/:courseId/assignments-exams'
                     }, {
-                        caption: `Edit Event`,
-                        routerLink: '/course/:courseId/event/:eventId/edit'
+                        caption: `Edit :eventName`,
+                        routerLink: '/course/:courseId/assignments-exams/:eventId/edit'
                     }]
                 }
             },
             {
-                path: 'event/:eventId',
+                path: 'assignments-exams/:eventId',
                 component: CourseQuestionSnippetComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
-                        caption: `Events`,
-                        routerLink: '/course/:courseId/event'
+                        caption: `Assignments and Exams`,
+                        routerLink: '/course/:courseId/assignments-exams'
                     }, {
-                        caption: `Event`,
-                        routerLink: '/course/:courseId/event/:eventId'
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/assignments-exams/:eventId'
                     }]
                 }
             },
             {
-                path: 'event/:eventId/stats',
+                path: 'assignments-exams/:eventId/stats',
                 component: EventStatsComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
-                        caption: `Events`,
-                        routerLink: '/course/:courseId/event'
+                        caption: `Assignments and Exams`,
+                        routerLink: '/course/:courseId/assignments-exams'
                     }, {
-                        caption: `Event`,
-                        routerLink: '/course/:courseId/event/:eventId'
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/assignments-exams/:eventId'
                     }, {
-                        caption: `Event Statistics`,
-                        routerLink: '/course/:courseId/event/:eventId/stats'
+                        caption: `:eventName Statistics`,
+                        routerLink: '/course/:courseId/assignments-exams/:eventId/stats'
                     }]
                 }
             },
@@ -165,21 +170,21 @@ const routes: Routes = [
                 component: ProblemViewComponent,
             },
             {
-                path: 'event/:eventId/problem/:id',
+                path: 'assignments-exams/:eventId/problem/:id',
                 component: ProblemViewComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
-                        caption: `Events`,
-                        routerLink: '/course/:courseId/event'
+                        caption: `Assignments and Exams`,
+                        routerLink: '/course/:courseId/assignments-exams'
                     }, {
-                        caption: `Event`,
-                        routerLink: '/course/:courseId/event/:eventId'
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/assignments-exams/:eventId'
                     }, {
-                        caption: `Question`,
-                        routerLink: '/course/:courseId/event/:eventId/problem/:id'
+                        caption: `:questionNum`,
+                        routerLink: '/course/:courseId/assignments-exams/:eventId/problem/:id'
                     }]
                 }
             },
@@ -189,7 +194,7 @@ const routes: Routes = [
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Practice`,
                         routerLink: '/course/:courseId/practice'
@@ -205,7 +210,7 @@ const routes: Routes = [
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Practice`,
                         routerLink: '/course/:courseId/practice'
@@ -224,7 +229,7 @@ const routes: Routes = [
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Practice`,
                         routerLink: '/course/:courseId/practice'
@@ -243,7 +248,7 @@ const routes: Routes = [
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Tokens`,
                         routerLink: '/course/:courseId/token'
@@ -256,7 +261,7 @@ const routes: Routes = [
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Challenges`,
                         routerLink: '/course/:courseId/challenge'
@@ -269,12 +274,12 @@ const routes: Routes = [
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Challenges`,
                         routerLink: '/course/:courseId/challenge'
                     }, {
-                        caption: `Challenge`,
+                        caption: `:challengeName`,
                         routerLink: '/course/:courseId/challenge/:eventId'
                     }]
                 }
@@ -285,15 +290,15 @@ const routes: Routes = [
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Challenges`,
                         routerLink: '/course/:courseId/challenge'
                     }, {
-                        caption: `Challenge`,
+                        caption: `:challengeName`,
                         routerLink: '/course/:courseId/challenge/:eventId'
                     }, {
-                        caption: `Edit Challenge`,
+                        caption: `Edit :challengeName`,
                         routerLink: '/course/:courseId/challenge/:eventId/edit'
                     }]
                 }
@@ -304,15 +309,15 @@ const routes: Routes = [
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Challenges`,
                         routerLink: '/course/:courseId/challenge'
                     }, {
-                        caption: `Challenge`,
+                        caption: `:challengeName`,
                         routerLink: '/course/:courseId/challenge/:eventId'
                     }, {
-                        caption: `Challenge Statistics`,
+                        caption: `:challengeName Statistics`,
                         routerLink: '/course/:courseId/challenge/:eventId/stats'
                     }]
                 }
@@ -323,7 +328,7 @@ const routes: Routes = [
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
-                        routerLink: '/course/:courseId'
+                        routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Leaderboard`,
                         routerLink: '/course/:courseId/leaderboard'
