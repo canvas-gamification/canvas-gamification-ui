@@ -1,37 +1,41 @@
 <tui-island class="shadow">
-    <div class="flex flex-wrap gap-3">
-        <div class="flex-1">
+    <div class="flex flex-wrap gap-5">
+        <div class="flex-1 space-y-1">
             <span class="tui-text_bold">Tasks:</span>
-            <ul class="tui-list tui-space_left-3">
+            <ul class="tui-list pl-3">
                 <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
                     <div class="flex flex-wrap gap-3">
-                        <div class="leading-8">
+                        <div>
                             {{getGoalItemString(goalItem)}}
                             (Solved {{goalItem.progress}} / {{goalItem.number_of_questions}})
+                            <tui-svg
+                                *ngIf="goalItem.progress >= goalItem.number_of_questions"
+                                class="success"
+                                src="tuiIconCheck"
+                            ></tui-svg>
                         </div>
                         <a
                             *ngIf="goalItem.progress < goalItem.number_of_questions && !goal.is_finished"
-                            tuiButton
-                            size="s"
-                            appearance="flat"
+                            tuiLink
                             icon="tuiIconPlay"
+                            iconAlign="left"
                             [routerLink]="['/course', courseId, 'practice', 'category', goalItem.category]"
                             [queryParams]="{difficulty: goalItem.difficulty}"
                         >
-                            Start Practice
+                            Practice
                         </a>
-                        <tui-marker-icon
-                            *ngIf="goalItem.progress >= goalItem.number_of_questions"
-                            src="tuiIconCheckCircleLarge"
-                            mode="success"
-                            size="xs"
-                        ></tui-marker-icon>
-                        <!--                        <tui-marker-icon-->
-                        <!--                            *ngIf="goalItem.progress < goalItem.number_of_questions && goal.is_finished"-->
-                        <!--                            src="tuiIconCloseCircleLarge"-->
-                        <!--                            mode="error"-->
-                        <!--                            size="xs"-->
-                        <!--                        ></tui-marker-icon>-->
+                    </div>
+                </li>
+                <li class="tui-list__item">
+                    <div class="flex flex-wrap gap-3">
+                        <div>
+                            Review performance
+                        </div>
+                        <tui-svg
+                            *ngIf="goal.claimed"
+                            class="success"
+                            src="tuiIconCheck"
+                        ></tui-svg>
                     </div>
                 </li>
             </ul>
@@ -45,35 +49,24 @@
                     tuiProgressLabel
                     class="w-full"
                 >
-                    {{goal.progress}} / {{goal.number_of_questions}}
+                    {{goal.progress + (goal.claimed ? 1 : 0)}} / {{goal.number_of_questions + 1}}
                     <progress
-                        [class.success]="goal.progress >= goal.number_of_questions"
-                        [class.info]="goal.progress < goal.number_of_questions"
+                        class="info"
                         tuiProgressBar
-                        [max]="goal.number_of_questions"
-                        [value]="goal.progress"
+                        [max]="goal.number_of_questions + 1"
+                        [value]="goal.progress + (goal.claimed ? 1 : 0)"
                     >
                     </progress>
                 </label>
             </div>
             <a
-                *ngIf="showPerformanceButton && !canClaim()"
+                *ngIf="showPerformanceButton"
                 tuiButton
-                size="s"
+                size="m"
                 appearance="secondary"
-                class="self-end"
-                [routerLink]="[goal.id]">Review Performance
-            </a>
-            <a
-                *ngIf="showPerformanceButton && canClaim()"
-                class="self-end px-4 py-2 rounded-xl tui-text_bold button-success"
-                [routerLink]="[goal.id]"
-            >
-                Claim
-                <tui-svg
-                    src="tuiIconCheckCircle"
-                >
-                </tui-svg>
+                class="w-full"
+                [routerLink]="[goal.id]">
+                {{canClaim() ? 'Review Performance' : 'View Progress'}}
             </a>
         </div>
     </div>

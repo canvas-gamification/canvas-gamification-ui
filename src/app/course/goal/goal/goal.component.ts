@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core'
 import {GoalService} from "@app/course/_services/goal.service"
 import {Goal} from "@app/_models/goal/goal"
 import {ActivatedRoute, Router} from "@angular/router"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-goal',
@@ -24,6 +24,9 @@ export class GoalComponent implements OnInit {
         const id = this.activatedRoute.snapshot.params.goalId
         this.goalService.getGoal(id).subscribe(goal => {
             this.goal = goal
+            if(this.canClaim()) {
+                this.claim()
+            }
         })
     }
 
@@ -53,10 +56,7 @@ export class GoalComponent implements OnInit {
 
     claim() {
         this.goalService.claim(this.goal.id).subscribe(() => {
-            this.notificationsService.show("You have successfully claimed this goal.", {
-                status: TuiNotification.Success,
-            }).subscribe()
-            this.router.navigate(['..'], {relativeTo: this.activatedRoute})
+            this.goalService.getGoal(this.goal.id).subscribe(goal => this.goal = goal)
         })
     }
 
