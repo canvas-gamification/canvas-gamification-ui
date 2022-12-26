@@ -50,12 +50,12 @@ export class UserActionsService {
 
     createCustomAction(input: {
         description: string,
-        token_change: number,
+        token_change?: number,
         status: ActionStatus,
         verb: ActionVerb,
-        object_type: ActionType,
-        object_id: number,
-        data: any,
+        object_type?: ActionType,
+        object_id?: number,
+        data?: unknown,
     }): Observable<Action> {
         const url = this.apiService.getURL('user-actions')
         return this.http.post<Action>(url, input).pipe(catchError(this.apiService.handleError<Action>('Error occurred while submitting custom action')))

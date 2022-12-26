@@ -20,6 +20,12 @@
             ],
             "rules": {
                 "guard-for-in": "off",
+                "max-len": [
+                    "warn",
+                    {
+                        "code": 80
+                    }
+                ],
                 "indent": [
                     "error",
                     4,
@@ -91,7 +97,7 @@
                 ],
                 "function-paren-newline": [
                     "error",
-                    "multiline"
+                    "multiline-arguments"
                 ]
             }
         },
@@ -102,7 +108,26 @@
             "extends": [
                 "plugin:@angular-eslint/template/recommended"
             ],
-            "rules": {}
+            "rules": {
+                "@angular-eslint/template/no-duplicate-attributes": ["error"],
+                "@angular-eslint/template/accessibility-alt-text": ["error"],
+                "@angular-eslint/template/accessibility-elements-content": ["warn"],
+                "@angular-eslint/template/accessibility-valid-aria": ["error"],
+                "@angular-eslint/template/banana-in-box": ["error"],
+                "@angular-eslint/template/eqeqeq": [
+                    "error",
+                    {
+                        "allowNullOrUndefined": true
+                    }
+                ],
+                "@angular-eslint/template/no-any": ["warn"],
+                "max-len": [
+                    "warn",
+                    {
+                        "code": 120
+                    }
+                ]
+            }
         },
         {
             "files": [

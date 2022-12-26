@@ -1,25 +1,7 @@
-.tui-list__item:before {
-    top: 0.75rem;
-}
-
-.min-w-200 {
-    min-width: 200px;
-}
-
 .success {
     color: var(--tui-success-fill)
 }
 
 .info {
     color: var(--tui-info-fill)
-}
-
-.button-success {
-    background-color: var(--tui-success-fill);
-    color: var(--tui-base-01);
-    &:hover {
-        opacity: 0.75;
-        transition-duration: 300ms;
-        cursor: pointer;
-    }
 }
