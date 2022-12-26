@@ -42,4 +42,10 @@ export interface GoalItemSubmissionStats {
     error_messages: string[]
 }
 
+export interface GoalLimit {
+    category: number
+    difficulty: string
+    unsolved_questions: number
+}
+
 

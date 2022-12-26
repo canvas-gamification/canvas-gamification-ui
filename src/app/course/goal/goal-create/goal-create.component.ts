@@ -9,7 +9,7 @@ import {CategoryService} from "@app/_services/api/category.service"
 import {Category} from "@app/_models"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {Difficulty} from "@app/_models/difficulty"
-import {Goal, GoalItem} from "@app/_models/goal/goal"
+import {Goal, GoalItem, GoalLimit} from "@app/_models/goal/goal"
 import {goalItemString} from "@app/course/goal/utils"
 import * as dayjs from 'dayjs'
 import * as relativeTime from 'dayjs/plugin/relativeTime'
@@ -29,6 +29,7 @@ export class GoalCreateComponent implements OnInit {
     difficulties: Difficulty[]
     courseId: number
     recommendedGoals: Goal[]
+    limits: GoalLimit[]
 
     constructor(
         private readonly goalService: GoalService,
@@ -44,9 +45,18 @@ export class GoalCreateComponent implements OnInit {
     ngOnInit(): void {
         this.courseId = this.activatedRoute.snapshot.parent.params.courseId
         this.goalForm = GoalForm.createGoalForm()
-        this.categoryService.getCategories().subscribe(categories => this.categories = categories)
-        this.difficultyService.getDifficulties().subscribe(difficulties => this.difficulties = difficulties)
-        this.goalService.getSuggestions().subscribe(goals => this.recommendedGoals = goals)
+        this.categoryService.getCategories().subscribe(
+            categories => this.categories = categories
+        )
+        this.difficultyService.getDifficulties().subscribe(
+            difficulties => this.difficulties = difficulties
+        )
+        this.goalService.getSuggestions().subscribe(
+            goals => this.recommendedGoals = goals
+        )
+        this.goalService.getLimits().subscribe(
+            limits => this.limits = limits
+        )
     }
 
     getGoalItems(): FormArray {
@@ -89,13 +99,32 @@ export class GoalCreateComponent implements OnInit {
         return dayjs(time).fromNow()
     }
 
+    getNumQuestionsLimit(formControl: FormControl) {
+        const category = formControl.get('category').value as number
+        const difficulty = formControl.get('difficulty').value as string
+        console.debug(category, difficulty)
+        if (!category || !difficulty) {
+            return 0
+        }
+        return this.limits.find(
+            limit =>
+                limit.category === category && limit.difficulty === difficulty
+        ).unsolved_questions
+    }
+
     async onSubmit(): Promise<void> {
-        const goalData = GoalForm.formatGoalFormData(this.goalForm, this.courseId)
+        const goalData = GoalForm.formatGoalFormData(
+            this.goalForm,
+            this.courseId
+        )
 
         const goal = await this.goalService.createGoal(goalData).toPromise()
 
         for (const goalItem of this.getGoalItemFormControls()) {
-            const goalItemData = GoalForm.formatGoalItemFormData(goalItem, goal.id)
+            const goalItemData = GoalForm.formatGoalItemFormData(
+                goalItem,
+                goal.id
+            )
             await this.goalService.createGoalItem(goalItemData).toPromise()
         }
 

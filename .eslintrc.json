@@ -20,6 +20,7 @@
             ],
             "rules": {
                 "guard-for-in": "off",
+                "max-len": ["warn", { "code": 80 }],
                 "indent": [
                     "error",
                     4,
@@ -91,7 +92,7 @@
                 ],
                 "function-paren-newline": [
                     "error",
-                    "multiline"
+                    "multiline-arguments"
                 ]
             }
         },
