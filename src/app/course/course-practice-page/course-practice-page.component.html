@@ -1,12 +1,15 @@
-<p class="tui-island__paragraph tui-text_body-xl">Start practicing by selecting a topic in the concept map, by
-    setting personal goals to collect tokens, or by selecting a type of question at the bottom.</p>
+<p class="tui-island__paragraph tui-text_body-xl">Start practicing by selecting
+    a topic in the concept map, by
+    setting personal goals to collect tokens, or by selecting a type of question
+    at the bottom.</p>
 
 <div class="flex-container gap-8 tui-space_top-10">
     <tui-island class="practice-tile" size="m">
         <div class="practice-background practice-question"></div>
         <div class="practice-tile-text">
             <h3 class="tui-island__title">Concept Map</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">View programming concepts and practice
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">View
+                programming concepts and practice
                 questions in selected topics and difficulty levels.</p>
             <div>
                 <a
@@ -26,25 +29,19 @@
         <div class="practice-background view-goals"></div>
         <div class="practice-tile-text">
             <h3 class="tui-island__title">Personal Goals</h3>
-            <p class="tui-island__paragraph tui-text_body-xl flex-space">Develop goals for yourself that suit your own
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">Develop
+                goals for yourself that suit your own
                 skill level and earn tokens when you achieve them.</p>
             <div class="practice-tile-button">
-                <span
-                    tuiHintPointer
-                    tuiHint="Coming Soon..."
-                    tuiHintDirection="top-middle"
+                <a
+                    appearance="primary"
+                    [routerLink]="['/course', courseId, 'goal']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
                 >
-                    <a
-                        appearance="primary"
-                        [routerLink]="['/course', courseId, 'goal']"
-                        class="tui-form__button"
-                        size="m"
-                        tuiButton
-                        disabled="true"
-                    >
-                        View
-                    </a>
-                </span>
+                    View
+                </a>
             </div>
         </div>
     </tui-island>
@@ -53,7 +50,8 @@
 
 <h3 class="tui-text_h3 quick-links tui-space_top-10">Quick Links</h3>
 
-<p class="tui-island__paragraph tui-text_body-xl tui-space_top-3">Select an option to quickly navigate to a practice
+<p class="tui-island__paragraph tui-text_body-xl tui-space_top-3">Select an
+    option to quickly navigate to a practice
     question.</p>
 
 

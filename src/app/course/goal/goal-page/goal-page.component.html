@@ -5,6 +5,15 @@
         </h3>
         <a class="min-w-200 mr-4" tuiButton size="m" routerLink="create">Create a new goal</a>
     </div>
+    <a
+        [routerLink]="['../practice']"
+        icon="tuiIconArrowLeft"
+        size="s"
+        tuiButton
+        appearance="flat"
+    >
+        Back to question bank
+    </a>
     <ng-container *ngIf="activeGoals && activeGoals.length !== 0 else noGoal">
         <div *ngFor="let goal of activeGoals" class="tui-space_vertical-3">
             <app-goal-island

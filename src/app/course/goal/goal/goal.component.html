@@ -1,6 +1,15 @@
 <div *ngIf="goal" class="tui-container tui-container_adaptive space-y-3 mt-3">
 
     <div class="tui-text_h2">Goal Performance Review</div>
+    <a
+        [routerLink]="['..']"
+        icon="tuiIconArrowLeft"
+        size="s"
+        tuiButton
+        appearance="flat"
+    >
+        Back to goals
+    </a>
     <div>
         <app-goal-island
             [goal]="goal"
