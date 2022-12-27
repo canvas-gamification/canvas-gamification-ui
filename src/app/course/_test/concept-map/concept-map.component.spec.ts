@@ -5,7 +5,9 @@ import {TestModule} from '@test/test.module'
 import {CategoryService} from "@app/_services/api/category.service"
 import {CategoryServiceMock} from "@test/category.service.mock"
 import {MOCK_CATEGORIES} from "@app/problems/_test/mock"
-import {UserStatsComponent} from "@app/components/user-stats/user-stats.component"
+import {
+    UserStatsComponent
+} from "@app/components/user-stats/user-stats.component"
 import {TuiDialogService} from "@taiga-ui/core"
 import {of} from "rxjs"
 import {By} from "@angular/platform-browser"
@@ -88,7 +90,7 @@ describe('ConceptMapComponent without spy', () => {
     it('should show parent categories title when at the top-level of the concept map', () => {
         component.parentNode = null
         component.renderGraph()
-        const title = fixture.debugElement.query(By.css('.tui-text_h5')).nativeElement
+        const title = fixture.debugElement.query(By.css('.tui-text_h6')).nativeElement
         expect(title.innerHTML.trim()).toEqual('Top-Level Categories')
     })
 
@@ -96,7 +98,8 @@ describe('ConceptMapComponent without spy', () => {
         component.parentNode = 1
         component.renderGraph()
         fixture.detectChanges()
-        const title = fixture.debugElement.query(By.css('.tui-text_h5')).nativeElement
+        const title =
+            fixture.debugElement.query(By.css('.tui-text_h6')).nativeElement
         expect(title.innerHTML.trim()).toEqual('Sub-Categories for Test #2')
     })
 })
