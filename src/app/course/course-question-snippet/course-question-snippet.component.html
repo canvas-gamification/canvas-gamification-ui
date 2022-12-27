@@ -30,7 +30,7 @@
                 </ng-container>
                 <div class="tui-form__buttons">
                     <ng-container *ngIf="eventId; else noEvent">
-                        <a [routerLink]="['/course', courseId, 'assignments-exams', this.eventId, 'problem', uqj.question.id]"
+                        <a [routerLink]="['problem', uqj.question.id]"
                            appearance="primary" class="tui-form__button" size="m"
                            tuiButton
                         >

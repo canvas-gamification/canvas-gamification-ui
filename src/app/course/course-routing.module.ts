@@ -183,7 +183,7 @@ const routes: Routes = [
                         caption: `:eventName`,
                         routerLink: '/course/:courseId/assignments-exams/:eventId'
                     }, {
-                        caption: `:questionNum`,
+                        caption: `:questionName`,
                         routerLink: '/course/:courseId/assignments-exams/:eventId/problem/:id'
                     }]
                 }
@@ -279,7 +279,7 @@ const routes: Routes = [
                         caption: `Challenges`,
                         routerLink: '/course/:courseId/challenge'
                     }, {
-                        caption: `:challengeName`,
+                        caption: `:eventName`,
                         routerLink: '/course/:courseId/challenge/:eventId'
                     }]
                 }
@@ -295,10 +295,10 @@ const routes: Routes = [
                         caption: `Challenges`,
                         routerLink: '/course/:courseId/challenge'
                     }, {
-                        caption: `:challengeName`,
+                        caption: `:eventName`,
                         routerLink: '/course/:courseId/challenge/:eventId'
                     }, {
-                        caption: `Edit :challengeName`,
+                        caption: `Edit :eventName`,
                         routerLink: '/course/:courseId/challenge/:eventId/edit'
                     }]
                 }
@@ -314,11 +314,30 @@ const routes: Routes = [
                         caption: `Challenges`,
                         routerLink: '/course/:courseId/challenge'
                     }, {
-                        caption: `:challengeName`,
+                        caption: `:eventName`,
                         routerLink: '/course/:courseId/challenge/:eventId'
                     }, {
-                        caption: `:challengeName Statistics`,
+                        caption: `:eventName Statistics`,
                         routerLink: '/course/:courseId/challenge/:eventId/stats'
+                    }]
+                }
+            },
+            {
+                path: 'challenge/:eventId/problem/:id',
+                component: ProblemViewComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }, {
+                        caption: `:questionName`,
+                        routerLink: '/course/:courseId/challenge/:eventId/problem/:id'
                     }]
                 }
             },
