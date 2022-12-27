@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core"
 import {of} from "rxjs"
-import {MOCK_GOALS} from "@app/course/_test/mock"
+import {MOCK_GOAL_LIMITS, MOCK_GOALS} from "@app/course/_test/mock"
 
 @Injectable({
     providedIn: 'root',
@@ -16,5 +16,9 @@ export class GoalServiceMock {
 
     getSuggestions() {
         return of(MOCK_GOALS)
+    }
+
+    getLimits() {
+        return of(MOCK_GOAL_LIMITS)
     }
 }
