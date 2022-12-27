@@ -13,7 +13,7 @@ import {
 import {TokenUse} from "@app/_models/token_use"
 import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 import {Stats} from "@app/_models/user_difficulty_stats"
-import {GoalItemSubmissionStats} from "@app/_models/goal/goal"
+import {GoalItemSubmissionStats, GoalLimit} from "@app/_models/goal/goal"
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     id: 1,
@@ -56,7 +56,11 @@ export const MOCK_COURSE_REGISTRATION: CourseRegistration = {
     total_tokens_received: 50
 }
 
-export const MOCK_EVENT_TYPES: EventType[] = [["PRACTICE", "PRACTICE"], ["ASSIGNMENT", "ASSIGNMENT"], ["EXAM", "EXAM"]]
+export const MOCK_EVENT_TYPES: EventType[] = [
+    ["PRACTICE", "PRACTICE"],
+    ["ASSIGNMENT", "ASSIGNMENT"],
+    ["EXAM", "EXAM"]
+]
 
 export const MOCK_USER_STATS: { success_rate: number } = {
     success_rate: 0.5
@@ -384,7 +388,11 @@ export const MOCK_GOAL_ITEM_3: GoalItem = {
     progress: 0,
 }
 
-export const MOCK_GOAL_ITEMS: GoalItem[] = [MOCK_GOAL_ITEM, MOCK_GOAL_ITEM_2, MOCK_GOAL_ITEM_3]
+export const MOCK_GOAL_ITEMS: GoalItem[] = [
+    MOCK_GOAL_ITEM,
+    MOCK_GOAL_ITEM_2,
+    MOCK_GOAL_ITEM_3
+]
 
 export const MOCK_GOAL: Goal = {
     id: 13,
@@ -413,6 +421,24 @@ export const MOCK_GOAL_2: Goal = {
 }
 
 export const MOCK_GOALS: Goal[] = [MOCK_GOAL, MOCK_GOAL_2]
+
+export const MOCK_GOAL_LIMITS: GoalLimit[] = [
+    {
+        category: 0,
+        difficulty: 'EASY',
+        unsolved_questions: 10,
+    },
+    {
+        category: 0,
+        difficulty: 'MEDIUM',
+        unsolved_questions: 10,
+    },
+    {
+        category: 0,
+        difficulty: 'HARD',
+        unsolved_questions: 10,
+    },
+]
 
 export const MOCK_RANKED_LEADERBOARD: LeaderboardElement[] = [
     {

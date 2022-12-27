@@ -3,7 +3,9 @@ import {MOCK_CATEGORIES, MOCK_DIFFICULTIES} from "@app/problems/_test/mock"
 import {CategoryService} from "@app/_services/api/category.service"
 import {CategoryServiceMock} from "@test/category.service.mock"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
-import {DifficultyServiceMock} from "@app/problems/_test/_services/difficulty.service.mock"
+import {
+    DifficultyServiceMock
+} from "@app/problems/_test/_services/difficulty.service.mock"
 import {GoalService} from "@app/course/_services/goal.service"
 import {GoalServiceMock} from "@app/course/_test/_services/goal.service.mock"
 import {ReactiveFormsModule} from "@angular/forms"
@@ -16,9 +18,17 @@ import {
     TuiInputTimeModule,
     TuiSelectModule
 } from "@taiga-ui/kit"
-import {TuiButtonModule, TuiDataListModule, TuiNotificationModule} from "@taiga-ui/core"
-import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
-import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiNotificationModule
+} from "@taiga-ui/core"
+import {
+    StringifyTuiDataListPipe
+} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
+import {
+    GoalCreateComponent
+} from "@app/course/goal/goal-create/goal-create.component"
 
 describe('GoalCreateComponent', () => {
     let component: GoalCreateComponent
