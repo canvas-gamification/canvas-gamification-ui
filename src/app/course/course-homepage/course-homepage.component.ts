@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core'
-import {Course, User} from "@app/_models"
+import {Component} from '@angular/core'
+import {User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {CourseService} from "@app/course/_services/course.service"
 import {ActivatedRoute} from "@angular/router"
@@ -9,8 +9,7 @@ import {ActivatedRoute} from "@angular/router"
     templateUrl: './course-homepage.component.html',
     styleUrls: ['./course-homepage.component.scss']
 })
-export class CourseHomepageComponent implements OnInit {
-    course: Course
+export class CourseHomepageComponent {
     courseId: number
     user: User
 
@@ -21,11 +20,5 @@ export class CourseHomepageComponent implements OnInit {
     ) {
         this.courseId = this.route.snapshot.parent.params.courseId
         this.authenticationService.currentUser.subscribe(user => this.user = user)
-    }
-
-    ngOnInit(): void {
-        this.courseService.getCourse(this.courseId).subscribe(course => {
-            this.course = course
-        })
     }
 }

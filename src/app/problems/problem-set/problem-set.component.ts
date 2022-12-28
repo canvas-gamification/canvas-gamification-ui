@@ -104,7 +104,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         this.initialize()
         this.formGroup = ProblemSetForm.createForm()
         this.categoryService.getCategories().subscribe((categories) => {
-            this.parentCategories = categories.filter(c => c.parent == null)
+            this.parentCategories = categories.filter(c => c.parent === null)
             this.categories = categories
         })
         this.difficultyService.getDifficulties().subscribe((difficulties) => {
