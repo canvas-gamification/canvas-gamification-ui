@@ -16,14 +16,8 @@
         </div>
         <div *ngIf="event.type==='CHALLENGE'" class="teamBar tui-space_vertical-8 flex items-center p-4 rounded">
             <div class="grow">
-                <p class="tui-text_h6">{{team.name}}:&nbsp;</p>
-                <ng-container *ngFor="let member_name of team.member_names; let index = index;">
-                    <p class="tui-text_body-l"
-                       *ngIf="index !== team.member_names.length-1;
-                       else noComma;">{{member_name}},&nbsp;
-                    </p>
-                    <ng-template #noComma><p class="tui-text_body-l">{{member_name}}</p></ng-template>
-                </ng-container>
+                <p class="tui-text_h6">{{team.name}}</p>
+                <p class="tui-text_body-l">{{getTeamMemberNames(team)}}</p>
             </div>
             <a [routerLink]="['/course', courseId, 'event', eventId, 'teams']" appearance="primary"
                class="tui-form__button" size="m"
