@@ -46,7 +46,8 @@
         </tui-island>
 
         <tui-island class="course-tile tui-island_hoverable"
-                    [routerLink]="['/course', courseId, 'challenge']" size="m">
+                    [routerLink]="['/course', courseId, 'challenge']"
+                    (click)="challengeClickLog()" size="m">
             <div class="course-background challenge "></div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title">Challenges</h3>
@@ -60,6 +61,7 @@
                         class="tui-form__button"
                         size="m"
                         tuiButton
+                        (click)="challengeClickLog()"
                     >
                         View
                     </a>
