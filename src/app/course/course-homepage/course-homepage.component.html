@@ -89,21 +89,26 @@
                 </div>
             </div>
         </tui-island>
-
-        <tui-island class="course-tile tui-island_hoverable"
-                    [routerLink]="['/course', courseId, 'token']" size="m">
+        <tui-island
+            size="m"
+            class="course-tile cursor-"
+            tuiPointerHint="Coming Soon..."
+            tuiHintDirection="top-middle"
+        >
             <div class="course-background tokens"></div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title">Tokens</h3>
                 <p class="tui-island__paragraph tui-text_body-xl flex-space tui-space_right-5">
                     See how many tokens you earned.</p>
                 <div class="course-view-button tui-space_top-3">
+
                     <a
                         appearance="primary"
                         [routerLink]="['/course', courseId, 'token']"
                         class="tui-form__button"
                         size="m"
                         tuiButton
+                        disabled="true"
                     >
                         View
                     </a>

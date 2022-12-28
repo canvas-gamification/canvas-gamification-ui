@@ -1,25 +1,57 @@
 import {AuthGuard} from "@app/_helpers/auth.guard"
 import {NgModule} from "@angular/core"
 import {RouterModule, Routes} from "@angular/router"
-import {CourseListComponent} from "@app/course/course-list/course-list.component"
-import {CourseRegisterComponent} from "@app/course/course-registration/course-register.component"
+import {
+    CourseListComponent
+} from "@app/course/course-list/course-list.component"
+import {
+    CourseRegisterComponent
+} from "@app/course/course-registration/course-register.component"
 import {CourseComponent} from "@app/course/course.component"
-import {CourseEventCreateEditComponent} from "@app/course/course-event-create/course-event-create-edit.component"
-import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component"
-import {ProblemViewComponent} from "@app/problems/problem-view/problem-view.component"
-import {PracticeProblemComponent} from "@app/course/practice-problem/practice-problem.component"
+import {
+    CourseEventCreateEditComponent
+} from "@app/course/course-event-create/course-event-create-edit.component"
+import {
+    CourseQuestionSnippetComponent
+} from "@app/course/course-question-snippet/course-question-snippet.component"
+import {
+    ProblemViewComponent
+} from "@app/problems/problem-view/problem-view.component"
+import {
+    PracticeProblemComponent
+} from "@app/course/practice-problem/practice-problem.component"
 import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
-import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
+import {
+    GoalCreateComponent
+} from "@app/course/goal/goal-create/goal-create.component"
 import {GoalComponent} from "@app/course/goal/goal/goal.component"
-import {CourseCreateComponent} from "@app/course/course-create/course-create.component"
-import {CoursePracticePageComponent} from "@app/course/course-practice-page/course-practice-page.component"
-import {CoursePracticeComponent} from "@app/course/course-practice/course-practice.component"
-import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component"
-import {CourseChallengeSnippetComponent} from "@app/course/course-challenge-snippet/course-challenge-snippet.component"
-import {CourseHomepageComponent} from "@app/course/course-homepage/course-homepage.component"
-import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/course-events-snippet.component"
-import {EventStatsComponent} from "@app/course/event/event-stats/event-stats.component"
-import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component"
+import {
+    CourseCreateComponent
+} from "@app/course/course-create/course-create.component"
+import {
+    CoursePracticePageComponent
+} from "@app/course/course-practice-page/course-practice-page.component"
+import {
+    CoursePracticeComponent
+} from "@app/course/course-practice/course-practice.component"
+import {
+    TokenUseSnippetComponent
+} from "@app/course/token-use-snippet/token-use-snippet.component"
+import {
+    CourseChallengeSnippetComponent
+} from "@app/course/course-challenge-snippet/course-challenge-snippet.component"
+import {
+    CourseHomepageComponent
+} from "@app/course/course-homepage/course-homepage.component"
+import {
+    CourseEventsSnippetComponent
+} from "@app/course/course-events-snippet/course-events-snippet.component"
+import {
+    EventStatsComponent
+} from "@app/course/event/event-stats/event-stats.component"
+import {
+    LeaderBoardComponent
+} from "@app/course/leader-board/leader-board.component"
 
 const routes: Routes = [
     {
@@ -109,7 +141,7 @@ const routes: Routes = [
                         caption: `Assignments and Exams`,
                         routerLink: '/course/:courseId/assignments-exams'
                     }, {
-                        caption: `Create Assignments and Exams`,
+                        caption: `Create an Assignment or Exam`,
                         routerLink: '/course/:courseId/assignments-exams/create'
                     }]
                 }
@@ -122,11 +154,12 @@ const routes: Routes = [
                         caption: `Homepage`,
                         routerLink: '/course/:courseId/homepage'
                     }, {
-                        caption: `Events`,
+                        caption: `Assignments and Exams`,
                         routerLink: '/course/:courseId/assignments-exams'
                     }, {
                         caption: `Edit :eventName`,
-                        routerLink: '/course/:courseId/assignments-exams/:eventId/edit'
+                        routerLink:
+                            '/course/:courseId/assignments-exams/:eventId/edit'
                     }]
                 }
             },
@@ -142,7 +175,8 @@ const routes: Routes = [
                         routerLink: '/course/:courseId/assignments-exams'
                     }, {
                         caption: `:eventName`,
-                        routerLink: '/course/:courseId/assignments-exams/:eventId'
+                        routerLink:
+                            '/course/:courseId/assignments-exams/:eventId'
                     }]
                 }
             },
@@ -158,10 +192,12 @@ const routes: Routes = [
                         routerLink: '/course/:courseId/assignments-exams'
                     }, {
                         caption: `:eventName`,
-                        routerLink: '/course/:courseId/assignments-exams/:eventId'
+                        routerLink:
+                            '/course/:courseId/assignments-exams/:eventId'
                     }, {
                         caption: `:eventName Statistics`,
-                        routerLink: '/course/:courseId/assignments-exams/:eventId/stats'
+                        routerLink:
+                            '/course/:courseId/assignments-exams/:eventId/stats'
                     }]
                 }
             },
@@ -181,10 +217,12 @@ const routes: Routes = [
                         routerLink: '/course/:courseId/assignments-exams'
                     }, {
                         caption: `:eventName`,
-                        routerLink: '/course/:courseId/assignments-exams/:eventId'
+                        routerLink:
+                            '/course/:courseId/assignments-exams/:eventId'
                     }, {
                         caption: `:questionName`,
-                        routerLink: '/course/:courseId/assignments-exams/:eventId/problem/:id'
+                        routerLink:
+                            '/course/:courseId/assignments-exams/:eventId/problem/:id'
                     }]
                 }
             },

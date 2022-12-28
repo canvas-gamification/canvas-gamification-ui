@@ -39,7 +39,7 @@
                 can join a private course.
             </div>
         </div>
-        <div class="tui-form__row">
+        <div class="tui-form__row" *ngIf="showAccessCode()">
             <tui-input formControlName="registrationCode">Access Code</tui-input>
             <tui-field-error formControlName="registrationCode"></tui-field-error>
         </div>

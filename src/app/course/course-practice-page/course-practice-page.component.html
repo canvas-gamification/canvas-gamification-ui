@@ -1,16 +1,22 @@
 <section class="tui-container tui-container_fullwidth">
     <div class="-mt-5">
-    <p class="tui-island__paragraph tui-text_body-xl">Start practicing by selecting a topic in the concept map, by
-        setting personal goals to collect tokens, or by selecting a type of question at the bottom.</p>
+        <p class="tui-island__paragraph tui-text_body-xl">Start practicing by
+            selecting a topic in the concept map, by
+            setting personal goals to collect tokens, or by selecting a type of
+            question at the bottom.
+        </p>
     </div>
 
     <div class="flex-container gap-8 mt-10">
-        <tui-island class="practice-tile tui-island_hoverable" [routerLink]="['concepts']" size="m">
+        <tui-island class="practice-tile tui-island_hoverable"
+                    [routerLink]="['concepts']" size="m">
             <div class="practice-background practice-question"></div>
             <div class="practice-tile-text">
                 <h3 class="tui-island__title">Concept Map</h3>
-                <p class="tui-island__paragraph tui-text_body-xl flex-space">View programming concepts and practice
-                    questions in selected topics and difficulty levels.</p>
+                <p class="tui-island__paragraph tui-text_body-xl flex-space">
+                    View programming concepts and practice
+                    questions in selected topics and difficulty levels.
+                </p>
                 <div>
                     <a
                         appearance="primary"
@@ -25,19 +31,16 @@
             </div>
         </tui-island>
 
-        <tui-island class="practice-tile tui-island_hoverable" [routerLink]="['/course', courseId, 'goal']" size="m">
+        <tui-island class="practice-tile tui-island_hoverable"
+                    [routerLink]="['/course', courseId, 'goal']" size="m">
             <div class="practice-background view-goals"></div>
             <div class="practice-tile-text">
                 <h3 class="tui-island__title">Personal Goals</h3>
-                <p class="tui-island__paragraph tui-text_body-xl flex-space">Develop goals for yourself that suit your
-                    own
-                    skill level and earn tokens when you achieve them.</p>
+                <p class="tui-island__paragraph tui-text_body-xl flex-space">
+                    Develop goals for yourself that suit your own
+                    skill level and earn tokens when you achieve them.
+                </p>
                 <div class="practice-tile-button">
-                <span
-                    tuiHintPointer
-                    tuiHint="Coming Soon..."
-                    tuiHintDirection="top-middle"
-                >
                     <a
                         appearance="primary"
                         [routerLink]="['/course', courseId, 'goal']"
@@ -47,7 +50,6 @@
                     >
                         View
                     </a>
-                </span>
                 </div>
             </div>
         </tui-island>
@@ -56,7 +58,8 @@
 
     <h5 class="tui-text_h5 quick-links mt-10">Quick Links</h5>
 
-    <p class="tui-island__paragraph tui-text_body-xl tui-space_top-3">Select an option to quickly navigate to a practice
+    <p class="tui-island__paragraph tui-text_body-xl tui-space_top-3">Select an
+        option to quickly navigate to a practice
         question.</p>
 
 

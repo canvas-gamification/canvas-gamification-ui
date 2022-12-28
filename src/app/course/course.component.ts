@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {CourseService} from '@app/course/_services/course.service'
-import {Course, CourseEvent, Question, UQJ, User} from '@app/_models'
+import {Course, CourseEvent, UQJ, User} from '@app/_models'
 import {
     ActivatedRoute,
     ActivatedRouteSnapshot,
@@ -20,10 +20,7 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
 export class CourseComponent implements OnInit {
     course: Course
     courseId: number
-    question: Question
-    questionId: number
     event: CourseEvent
-    eventId: number
     user: User
     uqjs: UQJ[]
     breadCrumbs: { caption: string, routerLink: string }[]
@@ -42,10 +39,19 @@ export class CourseComponent implements OnInit {
             .subscribe(user => this.user = user)
     }
 
+    async fetchEvent(eventId: number) {
+        this.event = await this.courseEventService.getCourseEvent(eventId).toPromise()
+        this.uqjs = (await this.uqjService.getUQJs(
+            {filters: {question_event: eventId}}
+        ).toPromise()).results
+    }
+
     async getBreadCrumbs(route: ActivatedRouteSnapshot) {
         let breadCrumbs: { caption: string, routerLink: string }[]
         if (route.firstChild.data.breadCrumbs) {
             breadCrumbs = route.firstChild.data.breadCrumbs
+
+            // Convert the params in the url manually
             breadCrumbs = breadCrumbs.map(breadCrumb => (
                 {
                     ...breadCrumb,
@@ -56,42 +62,28 @@ export class CourseComponent implements OnInit {
                         .replace(':id', route.firstChild.params.id)
                 }
             ))
+
+            // Replace :eventName in the breadcrumbs
             if (route.firstChild.params.eventId) {
                 const eventId = route.firstChild.params.eventId
-                if (this.eventId != eventId) {
-                    this.eventId = eventId
-                    const v = await this.courseService
-                        .validateEvent(this.courseId, eventId).toPromise()
-                    if (!v.success)
-                        return
-                    const e = await this.courseEventService
-                        .getCourseEvent(eventId).toPromise()
-                    const u = await this.uqjService
-                        .getUQJs(
-                            {filters: {question_event: eventId}}
-                        ).toPromise()
-                    this.event = e
-                    this.uqjs = u.results
-                }
-                if (route.firstChild.params.id) {
-                    const questionId = route.firstChild.params.id
-                    if (this.questionId != questionId) {
-                        this.questionId = questionId
-                        const uqj = this.uqjs.find(obj => {
-                            return obj.question.id == questionId
-                        })
-                        this.question = uqj.question
-                    }
-                    breadCrumbs = breadCrumbs.map(breadCrumb => ({
-                        ...breadCrumb,
-                        caption: breadCrumb.caption
-                            .replace(':questionName', this.question.title),
-                    }))
+                if (this.event?.id !== eventId) {
+                    await this.fetchEvent(eventId)
                 }
                 breadCrumbs = breadCrumbs.map(breadCrumb => ({
                     ...breadCrumb,
                     caption: breadCrumb.caption
                         .replace(':eventName', this.event.name),
+                }))
+            }
+
+            // Replace :questionName in the breadCrumbs
+            if (route.firstChild.params.id) {
+                const questionId = +route.firstChild.params.id
+                const uqj = this.uqjs.find(obj => obj.question.id === questionId)
+                breadCrumbs = breadCrumbs.map(breadCrumb => ({
+                    ...breadCrumb,
+                    caption: breadCrumb.caption
+                        .replace(':questionName', uqj.question.title),
                 }))
             }
         }
