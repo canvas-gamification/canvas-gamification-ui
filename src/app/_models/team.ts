@@ -12,5 +12,4 @@ export interface Team {
     score: number;
     member_names: string[];
     number_of_member: number;
-    member_usernames: string[];
 }

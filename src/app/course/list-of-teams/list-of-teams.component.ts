@@ -2,10 +2,11 @@ import {Component, Inject, OnInit} from '@angular/core'
 import {Team} from "@app/_models/team"
 import {ActivatedRoute} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
-import {CourseEvent, User} from "@app/_models"
+import {Course, CourseEvent, User} from "@app/_models"
 import {TeamService} from "@app/course/_services/team.service"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {AuthenticationService} from "@app/_services/api/authentication"
+import {CourseService} from "@app/course/_services/course.service"
 
 @Component({
     selector: 'app-list-of-teams',
@@ -18,28 +19,26 @@ export class ListOfTeamsComponent  implements OnInit {
     eventId: number
     event: CourseEvent
     courseId: number
+    course: Course
 
     constructor(
         private authenticationService: AuthenticationService,
         private route: ActivatedRoute,
+        private courseService: CourseService,
         private courseEventService: CourseEventService,
         private teamService: TeamService,
-    @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
     ){
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
     ngOnInit(): void {
-        // this.eventId = +this.route.snapshot.paramMap.get('eventId')
-
         this.courseId = +this.route.snapshot.paramMap.get('courseId')
-        if (this.route.snapshot.paramMap.get('eventId')) {
-            // Convert to number
-            this.eventId = +this.route.snapshot.paramMap.get('eventId')
-            this.courseEventService.getCourseEvent(this.eventId).subscribe(event => this.event = event)
-            this.teamService.getChallengeTeams(this.eventId).subscribe(teams => this.teams = teams)
-        }
+        this.courseService.getCourse(this.courseId).subscribe( course => this.course = course)
 
+        this.eventId = +this.route.snapshot.paramMap.get('eventId')
+        this.courseEventService.getCourseEvent(this.eventId).subscribe(event => this.event = event)
+        this.teamService.getChallengeTeams(this.eventId).subscribe(teams => this.teams = teams)
     }
 
     joinTeam(teamId: number): void{
@@ -57,11 +56,6 @@ export class ListOfTeamsComponent  implements OnInit {
     }
 
     isInTeam(team: Team): boolean{
-        return team.member_usernames.filter( username => this.user.username === username).length > 0
+        return team.course_registrations.map( courseReg => courseReg.id ).includes(this.course.course_reg.id)
     }
-
-    // isInTeam2(team: Team): boolean{
-    //     // return team.course_registrations.map( courseReg => courseReg.id ).includes( courseRegId => this.user.)
-    // }
-
 }
