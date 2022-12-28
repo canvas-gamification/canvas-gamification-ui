@@ -94,10 +94,10 @@ export class CourseComponent implements OnInit {
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.course = course
         })
-        this
-            .getBreadCrumbs(this.route.snapshot).then()
-        this
-            .displayDescription = this.router.url.includes('/homepage')
+
+        this.getBreadCrumbs(this.route.snapshot).then()
+        this.displayDescription = this.router.url.includes('/homepage')
+
         this.router.events
             .pipe(filter(event => event instanceof NavigationEnd))
             .subscribe(() => {
