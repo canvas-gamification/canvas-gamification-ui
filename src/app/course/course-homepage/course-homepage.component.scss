@@ -1,0 +1,71 @@
+@import '~@taiga-ui/core/styles/taiga-ui-local';
+@import 'mixins';
+
+.course-tile {
+    @include screen-lg {
+        flex-basis: calc(30% - 4.5rem);
+    }
+    @include screen-md {
+        flex-basis: calc(50% - 4.5rem);
+    }
+    @include screen-sm {
+        flex-basis: 100%
+    }
+    overflow: hidden;
+}
+
+.flex-container {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    @include screen-lg {
+        max-width: 1200px;
+    }
+    @include screen-md {
+        max-width: 900px;
+    }
+    gap: 2rem 2rem;
+}
+
+.course-tile-text {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 4 * var(--tui-padding-l));
+}
+
+.flex-space {
+    flex: 1;
+    text-align: left;
+}
+
+.course-background {
+    width: calc(100% + 2 * var(--tui-padding-l));
+    height: calc(4 * var(--tui-padding-l));
+    margin-top: calc(-1 * var(--tui-padding-l));
+    margin-left: calc(-1 * var(--tui-padding-l));
+    @include tui-space(bottom, 3);
+}
+
+.practice {
+    background-color: var(--tui-success-bg-hover);
+}
+
+.assessment {
+    background-color: var(--tui-error-bg-hover);
+}
+
+.challenge {
+    background-color: var(--tui-warning-bg-hover);
+}
+
+.leaderboard {
+    opacity: 0.24;
+    background-color: var(--tui-support-02);
+}
+
+.tokens {
+    opacity: 0.24;
+    background-color: var(--tui-support-10);
+}

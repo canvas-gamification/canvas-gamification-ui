@@ -42,7 +42,7 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
     }
 
     reloadSubmissions(): void {
-        this.submissionService.getPreviousSubmissions(this.questionId, {ordering: 'submission_time'})
+        this.submissionService.getPreviousSubmissions(this.questionId, {ordering: '-submission_time'})
             .pipe(map(submissions => submissions.map(submission => ({
                 ...submission,
                 safeAnswer: [this.sanitizer.bypassSecurityTrustHtml(submission.answer)]

@@ -15,20 +15,24 @@ export class SubmissionViewComponent implements OnInit {
     answerFiles: { name: string, code: string }[] = []
 
     constructor(
-        private submissionService: SubmissionService, private route: ActivatedRoute,
-        @Inject(POLYMORPHEUS_CONTEXT) private readonly context: TuiDialogContext<QuestionSubmission>,
+        private submissionService: SubmissionService,
+        private route: ActivatedRoute,
+        @Inject(POLYMORPHEUS_CONTEXT)
+        private readonly context: TuiDialogContext<QuestionSubmission>,
         private changeDetector: ChangeDetectorRef
     ) {
     }
 
     ngOnInit(): void {
         this.submission = this.context.data
-        this.answerFiles = Object.entries(this.submission.answer_files).reduce((prev, [key, value]) => {
-            return [...prev, {
-                name: key,
-                code: value
-            }]
-        }, [])
+        this.answerFiles =
+            Object.entries(this.submission.answer_files)
+                .reduce((prev, [key, value]) => {
+                    return [...prev, {
+                        name: key,
+                        code: value
+                    }]
+                }, [])
         this.changeDetector.detectChanges()
     }
 

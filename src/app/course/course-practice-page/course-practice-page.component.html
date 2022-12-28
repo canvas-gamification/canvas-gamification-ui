@@ -1,0 +1,106 @@
+<p class="tui-island__paragraph tui-text_body-xl">Start practicing by selecting
+    a topic in the concept map, by
+    setting personal goals to collect tokens, or by selecting a type of question
+    at the bottom.</p>
+
+<div class="flex-container gap-8 tui-space_top-10">
+    <tui-island class="practice-tile" size="m">
+        <div class="practice-background practice-question"></div>
+        <div class="practice-tile-text">
+            <h3 class="tui-island__title">Concept Map</h3>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">View
+                programming concepts and practice
+                questions in selected topics and difficulty levels.</p>
+            <div>
+                <a
+                    appearance="primary"
+                    [routerLink]="['concept-map']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    Practice
+                </a>
+            </div>
+        </div>
+    </tui-island>
+
+    <tui-island class="practice-tile" size="m">
+        <div class="practice-background view-goals"></div>
+        <div class="practice-tile-text">
+            <h3 class="tui-island__title">Personal Goals</h3>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">Develop
+                goals for yourself that suit your own
+                skill level and earn tokens when you achieve them.</p>
+            <div class="practice-tile-button">
+                <a
+                    appearance="primary"
+                    [routerLink]="['/course', courseId, 'goal']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    View
+                </a>
+            </div>
+        </div>
+    </tui-island>
+
+</div>
+
+<h3 class="tui-text_h3 quick-links tui-space_top-10">Quick Links</h3>
+
+<p class="tui-island__paragraph tui-text_body-xl tui-space_top-3">Select an
+    option to quickly navigate to a practice
+    question.</p>
+
+
+<div class="flex flex-wrap justify-center gap-8 tui-space_top-7">
+    <div
+        tuiHintPointer
+        tuiHint="Coming Soon..."
+        tuiHintDirection="top-middle"
+        class="tui-space_right-3 tui-space_bottom-3"
+    >
+        <button
+            tuiButton
+            type="button"
+            appearance="flat"
+            disabled="true"
+        >
+            Random Question
+        </button>
+    </div>
+    <div
+        tuiHintPointer
+        tuiHint="Coming Soon..."
+        tuiHintDirection="top-middle"
+        class="tui-space_right-3 tui-space_bottom-3"
+    >
+        <button
+            tuiButton
+            disabled="true"
+            type="button"
+            appearance="flat"
+            class="tui-space_right-3 tui-space_bottom-3"
+        >
+            Recommended Question
+        </button>
+    </div>
+    <div
+        tuiHintPointer
+        tuiHint="Coming Soon..."
+        tuiHintDirection="top-middle"
+        class="tui-space_right-3 tui-space_bottom-3"
+    >
+        <button
+            tuiButton
+            disabled="true"
+            type="button"
+            appearance="flat"
+            class="tui-space_right-3 tui-space_bottom-3"
+        >
+            Continue Practice
+        </button>
+    </div>
+</div>

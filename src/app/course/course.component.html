@@ -1,44 +1,21 @@
-<section class="tui-container tui-container_fullwidth">
-    <h1
-        [class.tui-skeleton]="!course"
-        class="tui-text_h3 tui-space_top-10 tui-space_bottom-2"
-    >
-        {{ course?.name }}
-    </h1>
-    <h6 class="tui-text_h6">
-        {{course?.description}}
-    </h6>
-    <tui-tabs-with-more #tabsComponent [class.tui-skeleton]="!course" [moreContent]="more" class="tui-space_bottom-4">
-        <button *tuiTab aria-label="Concept Map" tuiTab>Concept Map</button>
-        <!--        disable the question tabs for now. Should only be visible to admins -->
-        <button *tuiTab aria-label="Questions" tuiTab disabled>Questions</button>
-        <button *tuiTab aria-label="Events" tuiTab disabled>Events</button>
-        <button *tuiTab aria-label="Token Use" tuiTab disabled>Token Use</button>
-        <button *tuiTab aria-label="Leaderboard" tuiTab disabled>Leaderboard</button>
-        <!--        add another tab: Challenges -->
-        <button *tuiTab aria-label="Challenges" tuiTab disabled>Challenges</button>
-    </tui-tabs-with-more>
-    <ng-container *ngIf="tabsComponent.activeItemIndex === 0">
-        <app-concept-map [currCourse]="course"></app-concept-map>
-    </ng-container>
-    <ng-container *ngIf="tabsComponent.activeItemIndex === 1">
-        <app-course-question-snippet [questions]="course?.question_set" [uqjs]="course?.uqjs">
-        </app-course-question-snippet>
-    </ng-container>
-    <ng-container *ngIf="tabsComponent.activeItemIndex === 2">
-        <app-course-events-snippet [course]="course" [events]="course?.events">
-        </app-course-events-snippet>
-    </ng-container>
-    <ng-container *ngIf="tabsComponent.activeItemIndex === 3">
-        <app-token-use-snippet [courseReg]="course?.course_reg"></app-token-use-snippet>
-    </ng-container>
-    <ng-container *ngIf="tabsComponent.activeItemIndex === 4">
-        <app-leader-board [leaderBoard]="course?.leader_board" [rankTopX]="3"></app-leader-board>
-    </ng-container>
-    <ng-container *ngIf="tabsComponent.activeItemIndex === 5">
-        <app-course-challenge-snippet [course]="course" [events]="course?.events"></app-course-challenge-snippet>
-    </ng-container>
-</section>
-<ng-template #more>
-    <tui-svg src="tuiIconMoreHorLarge"></tui-svg>
+<ng-container *ngIf="course else skeletonTemplate">
+    <div class="course-banner p-5 mb-4">
+        <h3
+            [class.tui-skeleton]="!course"
+            class="tui-text_h3"
+        >
+            {{ course?.name }}
+        </h3>
+    </div>
+</ng-container>
+<ng-template #skeletonTemplate>
+    <div class="course-banner">
+        <h3 class="tui-text_h3 tui-space_top-2 tui-space_left-2 tui-skeleton_short tui-skeleton">
+            Content
+        </h3>
+    </div>
 </ng-template>
+
+<section class="tui-container tui-container_fullwidth">
+    <router-outlet></router-outlet>
+</section>

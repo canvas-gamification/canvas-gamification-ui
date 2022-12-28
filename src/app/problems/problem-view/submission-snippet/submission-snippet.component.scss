@@ -2,19 +2,13 @@
     padding: 0;
 
     &__title {
-        padding: 1rem 1rem 0;
+        padding: 1rem 1rem;
     }
 
     &__submission {
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        &-right {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
     }
 
     &__no-submission {
