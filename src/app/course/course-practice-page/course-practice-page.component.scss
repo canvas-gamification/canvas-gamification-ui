@@ -28,7 +28,6 @@
 
 .practice-tile {
     overflow: hidden;
-    cursor: default;
     @include screen-lg {
         flex-basis: calc(30% - 4.5rem);
     }

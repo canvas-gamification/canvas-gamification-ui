@@ -1,12 +1,18 @@
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
-import {CourseEventCreateEditComponent} from '@app/course/course-event-create/course-event-create-edit.component'
+import {
+    CourseEventCreateEditComponent
+} from '@app/course/course-event-create/course-event-create-edit.component'
 import {CourseRegisterComponent} from '@app/course/course-registration/course-register.component'
 import {CourseListComponent} from '@app/course/course-list/course-list.component'
 import {CourseComponent} from '@app/course/course.component'
-import {CourseEventsSnippetComponent} from '@app/course/course-events-snippet/course-events-snippet.component'
+import {
+    CourseEventsSnippetComponent
+} from '@app/course/course-events-snippet/course-events-snippet.component'
 import {TokenUseSnippetComponent} from '@app/course/token-use-snippet/token-use-snippet.component'
-import {CourseQuestionSnippetComponent} from '@app/course/course-question-snippet/course-question-snippet.component'
+import {
+    CourseQuestionSnippetComponent
+} from '@app/course/course-question-snippet/course-question-snippet.component'
 import {LeaderBoardComponent} from '@app/course/leader-board/leader-board.component'
 import {CourseRoutingModule} from '@app/course/course-routing.module'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
@@ -18,6 +24,7 @@ import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component
 import {
     TuiAccordionModule,
     TuiAvatarModule,
+    TuiBreadcrumbsModule,
     TuiCheckboxLabeledModule,
     TuiDataListWrapperModule,
     TuiFieldErrorModule,
@@ -68,7 +75,9 @@ import {PracticeProblemComponent} from './practice-problem/practice-problem.comp
 import {ProblemsModule} from '@app/problems/problems.module'
 import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
-import {CourseChallengeSnippetComponent} from './course-challenge-snippet/course-challenge-snippet.component'
+import {
+    CourseChallengeSnippetComponent
+} from './course-challenge-snippet/course-challenge-snippet.component'
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
@@ -124,6 +133,7 @@ import {EventStatsComponent} from './event/event-stats/event-stats.component'
         TuiAccordionModule,
         TuiActiveZoneModule,
         TuiAvatarModule,
+        TuiBreadcrumbsModule,
         TuiButtonModule,
         TuiCalendarModule,
         TuiCheckboxLabeledModule,
@@ -154,8 +164,8 @@ import {EventStatsComponent} from './event/event-stats/event-stats.component'
         TuiSidebarModule,
         TuiStepperModule,
         TuiSvgModule,
-        TuiTableModule,
         DragulaModule.forRoot(),
+        TuiTableModule,
         TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
