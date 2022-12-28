@@ -12,6 +12,16 @@ import {GoalPageComponent} from "@app/course/goal/goal-page/goal-page.component"
 import {GoalCreateComponent} from "@app/course/goal/goal-create/goal-create.component"
 import {GoalComponent} from "@app/course/goal/goal/goal.component"
 import {ListOfTeamsComponent} from "@app/course/list-of-teams/list-of-teams.component"
+import {CourseCreateComponent} from "@app/course/course-create/course-create.component"
+import {CoursePracticePageComponent} from "@app/course/course-practice-page/course-practice-page.component"
+import {CoursePracticeComponent} from "@app/course/course-practice/course-practice.component"
+import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component"
+import {CourseChallengeSnippetComponent} from "@app/course/course-challenge-snippet/course-challenge-snippet.component"
+import {CourseHomepageComponent} from "@app/course/course-homepage/course-homepage.component"
+import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/course-events-snippet.component"
+import {EventStatsComponent} from "@app/course/event/event-stats/event-stats.component"
+import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component"
+
 
 const routes: Routes = [
     {
@@ -20,66 +30,93 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
+        path: 'create',
+        component: CourseCreateComponent,
+        canActivate: [AuthGuard]
+    },
+    {
         path: ':courseId',
         component: CourseComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/register',
-        component: CourseRegisterComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/new-event',
-        component: CourseEventCreateEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/new-event/:eventId',
-        component: CourseEventCreateEditComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/event/:eventId',
-        component: CourseQuestionSnippetComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/problem/:id',
-        component: ProblemViewComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/event/:eventId/problem/:id',
-        component: ProblemViewComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/practice/category/:categoryId',
-        component: PracticeProblemComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/goal',
-        component: GoalPageComponent,
         canActivate: [AuthGuard],
-    },
-    {
-        path: ':courseId/goal/create',
-        component: GoalCreateComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: ':courseId/goal/:goalId',
-        component: GoalComponent,
-        canActivate: [AuthGuard],
-    },
-    {
-        path: ':courseId/event/:eventId/teams',
-        component: ListOfTeamsComponent,
-        canActivate: [AuthGuard]
-    },
-]
+        children: [
+            {
+                path: '',
+                component: CourseHomepageComponent,
+            },
+            {
+                path: 'practice',
+                component: CoursePracticePageComponent,
+            },
+            {
+                path: 'practice/concept-map',
+                component: CoursePracticeComponent,
+            },
+            {
+                path: 'register',
+                component: CourseRegisterComponent,
+            },
+            {
+                path: 'event',
+                component: CourseEventsSnippetComponent,
+            },
+            {
+                path: 'new-event',
+                component: CourseEventCreateEditComponent,
+            },
+            {
+                path: 'new-event/:eventId',
+                component: CourseEventCreateEditComponent,
+            },
+            {
+                path: 'event/:eventId',
+                component: CourseQuestionSnippetComponent,
+            },
+            {
+                path: 'event/:eventId/stats',
+                component: EventStatsComponent,
+            },
+            {
+                path: 'problem/:id',
+                component: ProblemViewComponent,
+            },
+            {
+                path: 'event/:eventId/problem/:id',
+                component: ProblemViewComponent,
+            },
+            {
+                path: 'practice/category/:categoryId',
+                component: PracticeProblemComponent,
+            },
+            {
+                path: 'goal',
+                component: GoalPageComponent,
+            },
+            {
+                path: 'goal/create',
+                component: GoalCreateComponent,
+            },
+            {
+                path: 'goal/:goalId',
+                component: GoalComponent,
+            },
+            {
+                path: 'token',
+                component: TokenUseSnippetComponent,
+            },
+            {
+                path: 'challenges',
+                component: CourseChallengeSnippetComponent,
+            },
+            {
+                path: 'leaderboard',
+                component: LeaderBoardComponent
+            },
+            {
+                path: 'event/:eventId/teams',
+                component: ListOfTeamsComponent,
+            },
+        ]
+    }]
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],

@@ -7,8 +7,8 @@ import {forkJoin} from 'rxjs'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {CourseService} from '@app/course/_services/course.service'
 import {TuiStatusT} from "@taiga-ui/kit"
-import {Team} from "@app/_models/team"
 import {TeamService} from "@app/course/_services/team.service"
+import {Team} from "@app/_models/team"
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -37,7 +37,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courseId = +this.route.snapshot.paramMap.get('courseId') || null
+        this.courseId = +this.route.snapshot.parent.paramMap.get('courseId') || null
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null
         if (this.eventId && this.courseId) { // if this snippet is an event-view
             this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {

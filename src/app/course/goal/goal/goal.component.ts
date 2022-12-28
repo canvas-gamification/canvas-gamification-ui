@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, Inject, OnInit} from '@angular/core'
 import {GoalService} from "@app/course/_services/goal.service"
 import {Goal} from "@app/_models/goal/goal"
-import {ActivatedRoute} from "@angular/router"
-import {TuiBaseColor} from "@taiga-ui/core"
+import {ActivatedRoute, Router} from "@angular/router"
+import {TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-goal',
@@ -10,15 +10,13 @@ import {TuiBaseColor} from "@taiga-ui/core"
     styleUrls: ['./goal.component.scss']
 })
 export class GoalComponent implements OnInit {
-
     goal: Goal
-    activeItemIndexes: {
-        [goalItemId: number]: number
-    }
 
     constructor(
         private goalService: GoalService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
     ) {
     }
 
@@ -26,42 +24,40 @@ export class GoalComponent implements OnInit {
         const id = this.activatedRoute.snapshot.params.goalId
         this.goalService.getGoal(id).subscribe(goal => {
             this.goal = goal
-            this.activeItemIndexes = {}
-            Object.keys(goal.stats).forEach(goalItemId => this.activeItemIndexes[goalItemId] = NaN)
+            if(this.canClaim()) {
+                this.claim()
+            }
         })
     }
 
-    values(goalItemId: number): number[] {
-        return [this.goal.stats[goalItemId].correct, this.goal.stats[goalItemId].partially_correct, this.goal.stats[goalItemId].wrong]
-    }
-
-    value(goalItemId: number): number {
-        if(isNaN(this.activeItemIndexes[goalItemId]))
-            return this.goal.stats[goalItemId].total
-        return this.values(goalItemId)[this.activeItemIndexes[goalItemId]]
-    }
-
-    color(i: number) {
-        const colors = {
-            0: TuiBaseColor.Success,
-            1: TuiBaseColor.Primary,
-            2: TuiBaseColor.Error,
-        }
-        return colors[i]
-    }
-
-    label(i: number) {
-        if (isNaN(i)) return 'Total'
-        const labels = {
-            0: 'Correct',
-            1: 'Partially Correct',
-            2: 'Wrong',
-        }
-        return labels[i]
+    getGoalItem(goalItemId: number) {
+        return this.goal.goal_items.find(x => x.id === goalItemId)
     }
 
     goalItemIds(): number[] {
         return Object.keys(this.goal.stats).map(x => parseInt(x))
+    }
+
+    getSubmissionRelativeSuccessRate(goalItemId: number): number {
+        return this.goal.stats[goalItemId].submissions.success_rate - this.goal.stats[goalItemId].old_submissions.success_rate
+    }
+
+    getQuestionRelativeSuccessRate(goalItemId: number): number {
+        return this.goal.stats[goalItemId].submissions.questions_success_rate - this.goal.stats[goalItemId].old_submissions.questions_success_rate
+    }
+
+    errorMessages(goalItemId: number): { text: string, value: number }[] {
+        return Object.entries(this.goal.stats[goalItemId].submissions.messages).map(([text, value]) => ({text, value}))
+    }
+
+    canClaim() {
+        return !this.goal.claimed && this.goal.progress >= this.goal.number_of_questions
+    }
+
+    claim() {
+        this.goalService.claim(this.goal.id).subscribe(() => {
+            this.goalService.getGoal(this.goal.id).subscribe(goal => this.goal = goal)
+        })
     }
 
 }

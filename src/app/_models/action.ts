@@ -1,6 +1,6 @@
 import {SafeHtml} from "@angular/platform-browser"
 
-enum ActionType {
+export enum ActionType {
     QUESTION = 'Question',
     USER = 'User',
     SUBMISSION = 'Submission',
@@ -9,7 +9,7 @@ enum ActionType {
     COURSE_REGISTRATION = 'Course Registration'
 }
 
-enum ActionVerb {
+export enum ActionVerb {
     CREATED = 'Created',
     COMPLETED = 'Completed',
     OPENED = 'Opened',
@@ -30,7 +30,7 @@ enum ActionVerb {
     EVALUATED = 'Evaluated'
 }
 
-enum ActionStatus {
+export enum ActionStatus {
     COMPLETE = 'Complete',
     PENDING = 'Pending'
 }

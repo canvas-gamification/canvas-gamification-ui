@@ -1,5 +1,49 @@
 <div class="tui-container tui-container_adaptive">
-    <form (ngSubmit)="onSubmit()" [formGroup]="goalForm">
+    <h2 class="tui-form__header">Recommended Goals</h2>
+    <div *ngFor="let goal of recommendedGoals; let i = index" class="tui-form__row">
+        <tui-island class="shadow">
+            <div class="flex">
+                <div class="flex-1">
+                    <div class="flex space-x-1">
+                        <div class="tui-text_bold tui-text_body-l">
+                            Duration:
+                        </div>
+                        <div>{{getRelativeTime(goal.end_date)}}</div>
+                    </div>
+                    <div class="tui-text_bold tui-text_body-l tui-space_top-3">
+                        Tasks:
+                    </div>
+                    <ul class="tui-list">
+                        <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
+                            {{goalItemString(goalItem)}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col space-y-3">
+                    <button
+                        *ngIf="false"
+                        tuiButton
+                        size="s"
+                        (click)="createGoal(goal)"
+                        appearance="secondary"
+                    >
+                        Create Goal
+                    </button>
+                    <button
+                        tuiButton
+                        size="s"
+                        (click)="setGoal(goal)"
+                        appearance="secondary"
+                    >
+                        Use This Goal
+                    </button>
+                </div>
+            </div>
+
+        </tui-island>
+    </div>
+
+    <form #createGoalElement (ngSubmit)="onSubmit()" [formGroup]="goalForm">
         <h2 class="tui-form__header">Create New Goal</h2>
         <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
@@ -15,7 +59,20 @@
                 <tui-field-error formControlName="end_time"></tui-field-error>
             </div>
         </div>
-        <h3 class="tui-form__header">Goal Items</h3>
+        <h3 class="tui-form__header">
+            Tasks
+            <button
+                (click)="addGoalItem()"
+                icon="tuiIconPlus"
+                size="s"
+                tuiButton
+                type="button"
+                class="ml-3"
+                appearance="secondary"
+            >
+                Add Another
+            </button>
+        </h3>
         <div *ngFor="let goalItemFormControl of getGoalItemFormControls(); let index = index"
              class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
@@ -48,30 +105,42 @@
                     [formControl]="getFormControl(goalItemFormControl, 'difficulty')"></tui-field-error>
             </div>
             <div class="tui-form__multi-field">
-                <tui-input-number [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')">
+                <tui-input-number
+                    [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"
+                    [max]="getNumQuestionsLimit(goalItemFormControl)"
+                >
                     Number of questions
                 </tui-input-number>
                 <tui-field-error
                     [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"></tui-field-error>
+                <div class="tui-form__field-note">
+                    {{getNumQuestionsLimit(goalItemFormControl)}} question(s) available.
+                </div>
             </div>
             <div class="tui-form__multi-field">
-                <button (click)="removeGoalItem(index)" icon="tuiIconPlus" size="m" tuiButton type="button"
-                        appearance="accent">
-                    Remove
-                </button>
+                <div class="flex h-full items-center">
+                    <button
+                        *ngIf="getGoalItemFormControls().length > 1"
+                        (click)="removeGoalItem(index)"
+                        icon="tuiIconMinus"
+                        size="s"
+                        tuiButton
+                        type="button"
+                        appearance="accent"
+                    >
+                        Delete
+                    </button>
+                </div>
             </div>
         </div>
         <div class="tui-form__buttons">
-            <button (click)="addGoalItem()" icon="tuiIconPlus" size="m" tuiButton type="button">
-                Add Another
-            </button>
             <button
                 [disabled]="goalForm.invalid"
                 class="tui-form__button"
                 size="m"
                 tuiButton
             >
-                Submit
+                Create Goal
             </button>
         </div>
     </form>

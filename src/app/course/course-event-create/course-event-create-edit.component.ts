@@ -35,7 +35,7 @@ export class CourseEventCreateEditComponent implements OnInit {
         this.formData = CourseEventForm.createForm()
         this.courseEventService.getEventTypes().subscribe(response => this.localEventTypes = response)
         // Convert to number
-        this.courseId = +this.route.snapshot.paramMap.get('courseId')
+        this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         if (this.route.snapshot.paramMap.get('eventId')) {
             this.eventId = +this.route.snapshot.paramMap.get('eventId')
             this.courseEventService.getCourseEvent(this.eventId).subscribe(event => {
@@ -57,7 +57,7 @@ export class CourseEventCreateEditComponent implements OnInit {
                     .show('The Event has been updated Successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
-                this.router.navigate(['course', this.courseId]).then()
+                this.router.navigate(['course', this.courseId, 'event']).then()
             }, error => {
                 this.notificationsService
                     .show(error, {
@@ -70,7 +70,7 @@ export class CourseEventCreateEditComponent implements OnInit {
                     .show('The Event has been added Successfully.', {
                         status: TuiNotification.Success
                     })
-                this.router.navigate(['course', this.courseId]).then()
+                this.router.navigate(['course', this.courseId, 'event']).then()
             }, error => {
                 this.notificationsService
                     .show(error, {

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs'
 import {HttpClient, HttpResponse} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
+import {EventStats} from '@app/_models/event/event_stats'
 
 @Injectable({
     providedIn: 'root',
@@ -70,5 +71,11 @@ export class CourseEventService {
             event: courseEvent.id,
             course: courseId
         }, {observe: 'response'}).pipe(catchError(this.apiService.handleError<HttpResponse<unknown>>(`Error occurred during question import.`)))
+    }
+
+    getStats(eventId: number): Observable<EventStats> {
+        const url = this.apiService.getURL('event', eventId, 'stats')
+        return this.http.get<EventStats>(url)
+            .pipe(catchError(this.apiService.handleError<EventStats>(`Error occurred while fetching event stats`)))
     }
 }

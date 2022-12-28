@@ -90,7 +90,6 @@
 
     &-features {
         padding: 5rem 0;
-        background-color: var(--tui-base-02);
 
         .features {
             & > * {
@@ -114,17 +113,9 @@
         }
     }
 
-    &-canvas {
-        &_logo {
-            display: flex;
-            justify-content: center;
-
-            img {
-                width: 25rem;
-                height: auto;
-                margin: 0 auto;
-            }
-        }
+    &-faq {
+        padding: 5rem 0;
+        background-color: var(--tui-base-02);
     }
 }
 

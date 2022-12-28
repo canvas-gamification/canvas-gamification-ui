@@ -26,8 +26,10 @@ describe('CourseRegisterComponent', () => {
                 {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
-                            params: {
-                                courseId: 0
+                            parent: {
+                                params: {
+                                    courseId: 0
+                                }
                             }
                         }
                     }

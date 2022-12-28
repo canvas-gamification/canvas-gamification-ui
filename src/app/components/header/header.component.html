@@ -29,7 +29,7 @@
         <a class="tui-space_right-2" routerLink="" tuiLink>
             <img [src]="logoPath" alt="Logo">
         </a>
-        <span class="tui-text_h6 link" (click)="redirectHome()">Canvas Gamification</span>
+        <span class="tui-text_h6 link" (click)="redirectHome()">Course Gamification</span>
     </div>
     <nav class="header-nav">
         <a class="tui-text_body-m" routerLink="homepage" tuiLink>Dashboard</a>
@@ -68,7 +68,9 @@
             </tui-hosted-dropdown>
             <ng-template #userActions>
                 <tui-data-list>
-                    <tui-opt-group label="Appearance">
+                    <tui-opt-group>
+                        <a routerLink="accounts/profile" tuiOption>Profile</a>
+                        <a routerLink="stats" tuiOption>My Stats</a>
                         <button tuiOption>
                             <label class="tui-text_body-m">
                                 Night mode
@@ -84,12 +86,9 @@
                     <ng-container *ngIf="user.is_teacher">
                         <tui-opt-group label="Admin">
                             <a routerLink="admin" tuiOption>Dashboard</a>
-                            <a routerLink="token-values" tuiOption>Token Values</a>
+                            <a routerLink="token-values" tuiOption>Set Token Rules</a>
                         </tui-opt-group>
                     </ng-container>
-                    <tui-opt-group label="Profile">
-                        <a routerLink="accounts/profile" tuiOption>Profile</a>
-                    </tui-opt-group>
                     <tui-opt-group>
                         <a (click)="logout()" class="dropdown-item" routerLink="#" tuiOption>Logout</a>
                     </tui-opt-group>
