@@ -9,14 +9,19 @@ import {Goal} from "@app/_models/goal/goal"
 })
 export class GoalPageComponent implements OnInit {
 
-    goals: Goal[]
+    activeGoals: Goal[]
+    completedGoals: Goal[]
+
+    unclaimedGoals = 0
 
     constructor(private readonly goalService: GoalService) {
     }
 
     ngOnInit(): void {
         this.goalService.getGoals().subscribe(goals => {
-            this.goals = goals
+            this.activeGoals = goals.filter(goal => !goal.is_finished)
+            this.completedGoals = goals.filter(goal => goal.is_finished)
+            this.unclaimedGoals = goals.filter(goal => !goal.claimed && goal.progress >= goal.number_of_questions).length
         })
     }
 }

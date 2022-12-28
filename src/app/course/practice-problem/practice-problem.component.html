@@ -5,13 +5,26 @@
                 class="tui-space_bottom-2"
             >
                 <a
-                    [routerLink]="['../../../']"
+                    [routerLink]="['../../concept-map']"
                     class="tui-space_vertical-0 w-full"
                     icon="tuiIconArrowLeft"
                     size="s"
                     tuiButton
                 >
-                    Back to course
+                    Back to concept map
+                </a>
+            </div>
+            <div
+                class="tui-space_bottom-2"
+            >
+                <a
+                    [routerLink]="['../../../goal']"
+                    class="tui-space_vertical-0 w-full"
+                    icon="tuiIconArrowLeft"
+                    size="s"
+                    tuiButton
+                >
+                    Back to goals
                 </a>
             </div>
             <div
@@ -32,7 +45,10 @@
                     src="tuiIconChevronRight"
                 ></tui-svg>
             </div>
-            <tui-hosted-dropdown [content]="categoryDropdown" class="tui-space_bottom-2">
+            <tui-hosted-dropdown
+                [content]="categoryDropdown"
+                class="tui-space_bottom-2"
+            >
                 <button
                     [class.tui-skeleton]="!category"
                     class="practice-sidebar_content-categories_button tui-text_h6"
@@ -55,7 +71,10 @@
                             tuiOption
                         >
                             All&nbsp;{{parentCategory.category.name}}
-                            <tui-svg *ngIf="rla.isActive" src="tuiIconCheckLarge"></tui-svg>
+                            <tui-svg
+                                *ngIf="rla.isActive"
+                                src="tuiIconCheckLarge">
+                            </tui-svg>
                         </a>
                         <a
                             #rla="routerLinkActive"
@@ -67,7 +86,10 @@
                             tuiOption
                         >
                             {{childrenCategory.category.full_name}}
-                            <tui-svg *ngIf="rla.isActive" src="tuiIconCheckLarge"></tui-svg>
+                            <tui-svg
+                                *ngIf="rla.isActive"
+                                src="tuiIconCheckLarge">
+                            </tui-svg>
                         </a>
                     </tui-opt-group>
                 </tui-data-list>
@@ -77,14 +99,16 @@
                 [class.tui-skeleton_text]="!category || !userStats"
                 class="tui-space_bottom-0"
             >
-                Your Success Rate: {{(userSuccessRate * 100).toFixed(2) + '%' || 'N/A'}}
+                Your Success
+                Rate: {{(userSuccessRate * 100).toFixed(2) + '%' || 'N/A'}}
             </p>
             <p
                 [class.tui-skeleton]="!category || !userStats"
                 [class.tui-skeleton_text]="!category || !userStats"
                 class="tui-space_top-1"
             >
-                Average Success Rate: {{(categorySuccessRate * 100).toFixed(2) + '%' || 'N/A'}}
+                Average Success
+                Rate: {{(categorySuccessRate * 100).toFixed(2) + '%' || 'N/A'}}
             </p>
             <tui-select
                 (ngModelChange)="updateQuestions($event, include_solved)"
@@ -96,7 +120,10 @@
             >
                 Choose a level of difficulty
                 <tui-data-list *tuiDataList>
-                    <button *ngFor="let diff of difficulties" [value]="diff[0]" tuiOption>
+                    <button
+                        *ngFor="let diff of difficulties" [value]="diff[0]"
+                        tuiOption
+                    >
                         {{ diff[1] }}
                     </button>
                 </tui-data-list>
@@ -147,7 +174,9 @@
             [questionId]="currentQuestionId"
         ></app-problem-view>
         <ng-template #noProblems>
-            <div class="tui-container tui-container_fullwidth practice-content_none">
+            <div
+                class="tui-container tui-container_fullwidth practice-content_none"
+            >
                 <tui-marker-icon
                     [class.tui-skeleton]="!category || !uqjs"
                     class="tui-space_bottom-4"
@@ -159,10 +188,15 @@
                     [class.tui-skeleton]="!category || !uqjs"
                     class="tui-text_h6"
                 >
-                    There are no available practice questions for this category/difficulty.
+                    There are no available practice questions for this
+                    category/difficulty.
                 </h1>
             </div>
         </ng-template>
     </div>
 </div>
-<app-problem-report-modal [(open)]="reportQuestionModal" [questionId]="currentQuestionId"></app-problem-report-modal>
+<app-problem-report-modal
+    [(open)]="reportQuestionModal"
+    [questionId]="currentQuestionId"
+>
+</app-problem-report-modal>

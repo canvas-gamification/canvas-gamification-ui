@@ -1,14 +1,30 @@
 <ng-container *ngIf="uqjs">
     <div [class.tui-container]="eventId" [class.tui-container_adaptive]="eventId">
-        <ng-container *ngIf="eventId">
+        <div *ngIf="eventId" class="flex justify-between items-center">
             <h1 class="tui-text_h3 tui-space_vertical-10">{{ event.name }}</h1>
-        </ng-container>
-        <div *ngIf="event.type==='CHALLENGE'" class="teamBar tui-space_vertical-8">
-            <p class="tui-text_h6">{{team.name}}:&nbsp;</p>
-            <ng-container *ngFor="let member_name of team.member_names; let index = index;">
-                <p class="tui-text_body-l" *ngIf="index !== team.member_names.length-1; else noComma;">{{member_name}},&nbsp;</p>
-                <ng-template #noComma><p class="tui-text_body-l">{{member_name}}</p></ng-template>
-            </ng-container>
+            <div>
+                <a
+                    *ngIf="event.has_edit_permission"
+                    tuiButton
+                    appearance="secondary"
+                    size="s"
+                    [routerLink]="['stats']"
+                >
+                    Stats
+                </a>
+            </div>
+        </div>
+        <div *ngIf="event.type==='CHALLENGE'" class="teamBar tui-space_vertical-8 flex items-center p-4 rounded">
+            <div class="grow">
+                <p class="tui-text_h6">{{team.name}}:&nbsp;</p>
+                <ng-container *ngFor="let member_name of team.member_names; let index = index;">
+                    <p class="tui-text_body-l"
+                       *ngIf="index !== team.member_names.length-1;
+                       else noComma;">{{member_name}},&nbsp;
+                    </p>
+                    <ng-template #noComma><p class="tui-text_body-l">{{member_name}}</p></ng-template>
+                </ng-container>
+            </div>
             <a [routerLink]="['/course', courseId, 'event', eventId, 'teams']" appearance="primary"
                class="tui-form__button" size="m"
                tuiButton
@@ -18,7 +34,9 @@
         </div>
         <div class="question-islands">
             <tui-island *ngFor="let uqj of uqjs">
-                <p class="tui-island__category">{{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }} {{ uqj.question.category_name }}</p>
+                <p class="tui-island__category">
+                    {{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }} {{ uqj.question.category_name }}
+                </p>
                 <h2 class="tui-island__title">{{ uqj.question.title }}</h2>
                 <div class="tui-space_bottom-2">
                     <tui-tag [status]="highlight(getStatus(uqj))" [value]="getStatus(uqj)" size="m"></tui-tag>
@@ -49,7 +67,7 @@
                     </ng-template>
                     <ng-container *ngIf="user.is_teacher">
                         <!--TODO: Edit and view have radically different routes? Is this ok?-->
-                        <a [routerLink]="['/problem', uqj.question.id, 'edit']" appearance="primary"
+                        <a [routerLink]="['/problems', uqj.question.id, 'edit']" appearance="primary"
                            class="tui-form__button" size="m"
                            tuiButton
                         >

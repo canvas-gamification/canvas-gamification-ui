@@ -2,6 +2,7 @@
 @import 'highlight';
 @import 'tui';
 @import '~katex/dist/katex.min.css';
+@import 'tailwind';
 
 body {
     background: var(--tui-base-01);

@@ -4,12 +4,15 @@ import {CourseEventsSnippetComponent} from '../../course-events-snippet/course-e
 import {TestModule} from '@test/test.module'
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event.service.mock"
-import {MOCK_EVENT_TYPES} from "@app/course/_test/mock"
+import {MOCK_COURSE1, MOCK_EVENT_TYPES} from "@app/course/_test/mock"
 import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 import {TuiDialogService} from "@taiga-ui/core"
 import {of} from "rxjs"
 import {TuiIslandModule, TuiSelectModule} from "@taiga-ui/kit"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
+import {ActivatedRoute, convertToParamMap} from "@angular/router"
+import {CourseService} from "@app/course/_services/course.service"
+import {CourseServiceMock} from "@test/course.service.mock"
 
 describe('CourseEventsSnippetComponent', () => {
     let component: CourseEventsSnippetComponent
@@ -22,6 +25,18 @@ describe('CourseEventsSnippetComponent', () => {
             declarations: [CourseEventsSnippetComponent],
             providers: [
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
+                {provide: CourseService, useClass: CourseServiceMock},
+                {
+                    provide: ActivatedRoute, useValue: {
+                        snapshot: {
+                            parent: {
+                                paramMap: convertToParamMap({
+                                    courseId: 0
+                                })
+                            }
+                        }
+                    }
+                }
             ]
         }).compileComponents()
     })
@@ -31,13 +46,19 @@ describe('CourseEventsSnippetComponent', () => {
         spyOn(dialogService, 'open').and.callFake(() => of())
         fixture = TestBed.createComponent(CourseEventsSnippetComponent)
         component = fixture.componentInstance
-        component.course = MOCK_COURSE
-        component.events = [MOCK_COURSE_EVENT]
         fixture.detectChanges()
     })
 
     it('should create', () => {
         expect(component).toBeTruthy()
+    })
+
+    it('course should be retrieved on initial load', () => {
+        expect(component.course).toEqual(MOCK_COURSE1)
+    })
+
+    it('course events should be retrieved on initial load', () => {
+        expect(component.events).toEqual(MOCK_COURSE1.events)
     })
 
     it('eventTypes Map should be created with data', () => {

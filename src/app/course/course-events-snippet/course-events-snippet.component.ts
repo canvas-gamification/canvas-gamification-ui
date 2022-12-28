@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit, ViewChild} from '@angular/core'
+import {Component, Inject, OnInit, ViewChild} from '@angular/core'
 import {Course, CourseEvent, EventType, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {CourseEventService} from '@app/course/_services/course-event.service'
@@ -9,6 +9,8 @@ import {
     TuiNotificationsService
 } from "@taiga-ui/core"
 import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
+import {CourseService} from "@app/course/_services/course.service"
+import {ActivatedRoute} from "@angular/router"
 
 enum EventFilterOptions {
     ALL = 'Assignments and Exams',
@@ -22,8 +24,8 @@ enum EventFilterOptions {
     styleUrls: ['./course-events-snippet.component.scss']
 })
 export class CourseEventsSnippetComponent implements OnInit {
-    @Input() events: CourseEvent[]
-    @Input() course: Course
+    events: CourseEvent[]
+    course: Course
     courseId: number
     eventTypes: EventType[]
     user: User
@@ -34,13 +36,19 @@ export class CourseEventsSnippetComponent implements OnInit {
     constructor(
         private authenticationService: AuthenticationService,
         private courseEventService: CourseEventService,
+        private courseService: CourseService,
+        private route: ActivatedRoute,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
         @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
     ) {
+        this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
     }
 
     ngOnInit(): void {
-        this.courseId = this.course.id
+        this.courseService.getCourse(this.courseId).subscribe(course => {
+            this.course = course
+            this.events = course.events
+        })
         this.authenticationService.currentUser.subscribe(user => this.user = user)
         this.courseEventService.getEventTypes().subscribe(response => {
             this.eventTypes = response

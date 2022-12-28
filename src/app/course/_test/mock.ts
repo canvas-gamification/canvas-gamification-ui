@@ -3,6 +3,7 @@ import {
     CourseRegistration,
     CourseRegistrationMode,
     EventType,
+    LeaderboardElement,
     Question,
     STATUS,
     TokenUseOption,
@@ -12,6 +13,7 @@ import {
 import {TokenUse} from "@app/_models/token_use"
 import {MOCK_CATEGORY, MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 import {Stats} from "@app/_models/user_difficulty_stats"
+import {GoalItemSubmissionStats, GoalLimit} from "@app/_models/goal/goal"
 
 export const MOCK_TOKEN_USE_OPTION1: TokenUseOption = {
     id: 1,
@@ -54,7 +56,11 @@ export const MOCK_COURSE_REGISTRATION: CourseRegistration = {
     total_tokens_received: 50
 }
 
-export const MOCK_EVENT_TYPES: EventType[] = [["PRACTICE", "PRACTICE"], ["ASSIGNMENT", "ASSIGNMENT"], ["EXAM", "EXAM"]]
+export const MOCK_EVENT_TYPES: EventType[] = [
+    ["PRACTICE", "PRACTICE"],
+    ["ASSIGNMENT", "ASSIGNMENT"],
+    ["EXAM", "EXAM"]
+]
 
 export const MOCK_USER_STATS: { success_rate: number } = {
     success_rate: 0.5
@@ -77,8 +83,14 @@ export const MOCK_COURSE1: Course = {
     token_use_options: null,
     question_set: null,
     uqjs: null,
-    course_reg: null,
-    leader_board: null,
+    course_reg: MOCK_COURSE_REGISTRATION,
+    leader_board: [{
+        name: 'name',
+        token: 2,
+    }, {
+        name: 'name 2',
+        token: 5,
+    }],
     has_create_event_permission: true,
     description: "",
     registration_mode: CourseRegistrationMode.OPEN,
@@ -254,12 +266,12 @@ export const MOCK_USER_STATS1: Stats = {
             questions_solved: 2,
             avgSuccess: 1
         },
-        java :{
+        java: {
             questions_attempt: 1,
             questions_solved: 1,
             avgSuccess: 1
         },
-        parsons :{
+        parsons: {
             questions_attempt: 1,
             questions_solved: 1,
             avgSuccess: 1
@@ -329,5 +341,114 @@ export const MOCK_USER_STATS1: Stats = {
 
         }
     ]
-
 }
+
+export const MOCK_GOAL_ITEM_SUBMISSION_STATS: GoalItemSubmissionStats = {
+    total: 15,
+    correct: 10,
+    partially_correct: 2,
+    wrong: 3,
+    total_questions: 5,
+    correct_questions: 4,
+    success_rate: 0.66,
+    questions_success_rate: 0.66,
+    messages: {
+        'RUNTIME ERROR': 3,
+        'SYNTAX ERROR': 2,
+    },
+    error_messages: ["Something is wrong", "Something is wrong again"]
+}
+
+import {Goal, GoalItem} from "@app/_models/goal/goal"
+
+export const MOCK_GOAL_ITEM: GoalItem = {
+    id: 1,
+    category: 0,
+    category_name: '',
+    difficulty: "EASY",
+    number_of_questions: 5,
+    progress: 1,
+}
+
+export const MOCK_GOAL_ITEM_2: GoalItem = {
+    id: 2,
+    category: 0,
+    category_name: '',
+    difficulty: "MEDIUM",
+    number_of_questions: 15,
+    progress: 10,
+}
+
+export const MOCK_GOAL_ITEM_3: GoalItem = {
+    id: 3,
+    category: 0,
+    category_name: '',
+    difficulty: "HARD",
+    number_of_questions: 20,
+    progress: 0,
+}
+
+export const MOCK_GOAL_ITEMS: GoalItem[] = [
+    MOCK_GOAL_ITEM,
+    MOCK_GOAL_ITEM_2,
+    MOCK_GOAL_ITEM_3
+]
+
+export const MOCK_GOAL: Goal = {
+    id: 13,
+    course_reg: 1,
+    start_date: "2004-09-03T20:50:00-07:00",
+    end_date: "2022-11-10T16:40:37.860661-08:00",
+    progress: 0,
+    is_finished: true,
+    number_of_questions: 40,
+    goal_items: MOCK_GOAL_ITEMS,
+    stats: null,
+    claimed: false,
+}
+
+export const MOCK_GOAL_2: Goal = {
+    id: 14,
+    course_reg: 1,
+    start_date: "2006-03-04T20:50:00-07:00",
+    end_date: "2021-21-13T16:40:37.860661-08:00",
+    progress: 0,
+    is_finished: false,
+    number_of_questions: 40,
+    goal_items: MOCK_GOAL_ITEMS,
+    stats: null,
+    claimed: false,
+}
+
+export const MOCK_GOALS: Goal[] = [MOCK_GOAL, MOCK_GOAL_2]
+
+export const MOCK_GOAL_LIMITS: GoalLimit[] = [
+    {
+        category: 0,
+        difficulty: 'EASY',
+        unsolved_questions: 10,
+    },
+    {
+        category: 0,
+        difficulty: 'MEDIUM',
+        unsolved_questions: 10,
+    },
+    {
+        category: 0,
+        difficulty: 'HARD',
+        unsolved_questions: 10,
+    },
+]
+
+export const MOCK_RANKED_LEADERBOARD: LeaderboardElement[] = [
+    {
+        rank: 1,
+        name: 'name 2',
+        token: 5,
+    },
+    {
+        rank: 2,
+        name: 'name',
+        token: 2,
+    }
+]

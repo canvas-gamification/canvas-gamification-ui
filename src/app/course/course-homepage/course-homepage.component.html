@@ -1,0 +1,127 @@
+<ng-container *ngIf="course else skeletonTemplate">
+    <h5
+        class="tui-text_h5 tui-space_bottom-5"
+    >
+        {{course?.description}}
+    </h5>
+</ng-container>
+<ng-template #skeletonTemplate>
+    <h5
+        class="tui-text_h5 tui-space_bottom-5 tui-skeleton"
+    >
+        Content
+    </h5>
+</ng-template>
+
+<div class="flex-container">
+    <tui-island class="course-tile" size="m">
+        <div class="course-background practice"></div>
+        <div class="course-tile-text">
+            <h3 class="tui-island__title">Question Bank</h3>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">
+                Improve your skills by solving practice questions.
+            </p>
+            <div class="course-view-button tui-space_top-3">
+                <a
+                    appearance="primary"
+                    [routerLink]="['practice']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    View
+                </a>
+            </div>
+        </div>
+    </tui-island>
+
+    <tui-island class="course-tile" size="m">
+        <div class="course-background assessment"></div>
+        <div class="course-tile-text">
+            <h3 class="tui-island__title ">Assignments and Exams</h3>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">
+                Work on assignments and exams for this course.
+            </p>
+            <div class="course-view-button tui-space_top-3">
+                <a
+                    appearance="primary"
+                    [routerLink]="['event']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    View
+                </a>
+            </div>
+        </div>
+    </tui-island>
+
+    <tui-island class="course-tile" size="m">
+        <div class="course-background challenge "></div>
+        <div class="course-tile-text">
+            <h3 class="tui-island__title">Challenges</h3>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">
+                Complete challenges on your own or in a team.
+            </p>
+            <div class="course-view-button tui-space_top-3">
+                <a
+                    appearance="primary"
+                    [routerLink]="['challenges']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    View
+                </a>
+            </div>
+        </div>
+    </tui-island>
+
+    <tui-island class="course-tile" size="m">
+        <div class="course-background leaderboard"></div>
+        <div class="course-tile-text">
+            <h3 class="tui-island__title">Leaderboard</h3>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space">View
+                the class leaderboard.</p>
+            <div class="course-view-button tui-space_top-3">
+                <a
+                    appearance="primary"
+                    [routerLink]="['leaderboard']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    View
+                </a>
+            </div>
+        </div>
+    </tui-island>
+
+    <tui-island class="course-tile" size="m">
+        <div class="course-background tokens"></div>
+        <div class="course-tile-text">
+            <h3 class="tui-island__title">Tokens</h3>
+            <p class="tui-island__paragraph tui-text_body-xl flex-space tui-space_right-5">
+                See how many tokens you earned.
+            </p>
+            <div class="course-view-button tui-space_top-3">
+                <span
+                    tuiHintPointer
+                    tuiHint="Coming Soon..."
+                    tuiHintDirection="top-middle"
+                >
+                    <a
+                        appearance="primary"
+                        [routerLink]="['token']"
+                        class="tui-form__button"
+                        size="m"
+                        tuiButton
+                        disabled="true"
+                    >
+                        View
+                    </a>
+                </span>
+            </div>
+        </div>
+    </tui-island>
+</div>
