@@ -30,14 +30,22 @@ export class CourseCreateComponent {
 
     constructor(
         private readonly courseService: CourseService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiNotificationsService)
+        private readonly notificationsService: TuiNotificationsService,
         private readonly router: Router,
     ) {
         this.formGroup = CourseForm.createCourseForm()
     }
 
+    showAccessCode() {
+        const registrationMode = this.formGroup.get('registrationMode').value
+        return registrationMode === 'Private'
+    }
+
     onSubmit() {
-        this.courseService.createCourse(CourseForm.formatCourseFormData(this.formGroup)).subscribe(course => {
+        this.courseService.createCourse(
+            CourseForm.formatCourseFormData(this.formGroup)
+        ).subscribe(course => {
             this.notificationsService.show('Course created successfully!', {
                 status: TuiNotification.Success,
             }).subscribe()

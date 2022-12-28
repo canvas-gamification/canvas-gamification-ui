@@ -32,8 +32,12 @@ export class CourseChallengeSnippetComponent implements OnInit {
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.course = course
             this.events = course?.events
-            this.upcomingEvents = this.events.filter(event => event.is_open || event.is_not_available_yet).filter(event => event.type == "CHALLENGE")
-            this.pastEvents = this.events.filter(event => event.is_closed).filter(event => event.type == "CHALLENGE")
+            this.upcomingEvents = this.events.filter(
+                event => event.is_open || event.is_not_available_yet
+            ).filter(event => event.type === "CHALLENGE")
+            this.pastEvents = this.events.filter(
+                event => event.is_closed
+            ).filter(event => event.type === "CHALLENGE")
         })
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }

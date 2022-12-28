@@ -10,6 +10,9 @@
         <div class="tui-form__row">
             <tui-text-area formControlName="description">Course Description</tui-text-area>
             <tui-field-error formControlName="description"></tui-field-error>
+            <div class="tui-form__field-note">Display a text message on the Course Homepage to welcome your students to
+                the course or to provide instructions on what they can do.
+            </div>
         </div>
         <div class="tui-form__row">
             <tui-input formControlName="url" type="url">Course URL</tui-input>
@@ -32,11 +35,11 @@
                 ></tui-data-list-wrapper>
             </tui-select>
             <tui-field-error formControlName="registrationMode"></tui-field-error>
-            <div class="tui-form__field-note">Everyone can join an open course, while only the ones with the access code
+            <div class="tui-form__field-note">Everyone can join an open course, while only the ones with an access code
                 can join a private course.
             </div>
         </div>
-        <div class="tui-form__row">
+        <div class="tui-form__row" *ngIf="showAccessCode()">
             <tui-input formControlName="registrationCode">Access Code</tui-input>
             <tui-field-error formControlName="registrationCode"></tui-field-error>
         </div>

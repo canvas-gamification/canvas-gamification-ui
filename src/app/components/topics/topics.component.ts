@@ -19,10 +19,12 @@ export class TopicsComponent implements OnInit {
         this.categoryService
             .getCategories()
             .subscribe((categories) => {
-                this.topLevelCategories = categories.filter(c => c.parent == null)
+                this.topLevelCategories = categories.filter(c => c.parent === null)
                 categories.forEach(category => {
                     if (category.parent === null) {
-                        this.subCategories[category.name] = categories.filter(c => c.parent === category.pk)
+                        this.subCategories[category.name] = categories.filter(
+                            c => c.parent === category.pk
+                        )
                     }
                 })
             })

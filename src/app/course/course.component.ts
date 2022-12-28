@@ -1,8 +1,16 @@
 import {Component, OnInit} from '@angular/core'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {CourseService} from '@app/course/_services/course.service'
-import {Course, User} from '@app/_models'
-import {ActivatedRoute} from '@angular/router'
+import {Course, CourseEvent, UQJ, User} from '@app/_models'
+import {
+    ActivatedRoute,
+    ActivatedRouteSnapshot,
+    NavigationEnd,
+    Router
+} from '@angular/router'
+import {filter} from "rxjs/operators"
+import {UqjService} from "@app/problems/_services/uqj.service"
+import {CourseEventService} from "@app/course/_services/course-event.service"
 
 @Component({
     selector: 'app-course',
@@ -12,20 +20,90 @@ import {ActivatedRoute} from '@angular/router'
 export class CourseComponent implements OnInit {
     course: Course
     courseId: number
+    event: CourseEvent
     user: User
+    uqjs: UQJ[]
+    breadCrumbs: { caption: string, routerLink: string }[]
+    displayDescription: boolean
 
     constructor(
         private authenticationService: AuthenticationService,
         private courseService: CourseService,
-        private route: ActivatedRoute
+        private uqjService: UqjService,
+        private courseEventService: CourseEventService,
+        private route: ActivatedRoute,
+        private router: Router
     ) {
         this.courseId = this.route.snapshot.params.courseId
-        this.authenticationService.currentUser.subscribe(user => this.user = user)
+        this.authenticationService.currentUser
+            .subscribe(user => this.user = user)
+    }
+
+    async fetchEvent(eventId: number) {
+        this.event = await this.courseEventService.getCourseEvent(eventId).toPromise()
+        this.uqjs = (await this.uqjService.getUQJs(
+            {filters: {question_event: eventId}}
+        ).toPromise()).results
+    }
+
+    async getBreadCrumbs(route: ActivatedRouteSnapshot) {
+        let breadCrumbs: { caption: string, routerLink: string }[]
+        if (route.firstChild.data.breadCrumbs) {
+            breadCrumbs = route.firstChild.data.breadCrumbs
+
+            // Convert the params in the url manually
+            breadCrumbs = breadCrumbs.map(breadCrumb => (
+                {
+                    ...breadCrumb,
+                    routerLink: breadCrumb.routerLink
+                        .replace(':courseId', String(this.courseId))
+                        .replace(':goalId', route.firstChild.params.goalId)
+                        .replace(':eventId', route.firstChild.params.eventId)
+                        .replace(':id', route.firstChild.params.id)
+                }
+            ))
+
+            // Replace :eventName in the breadcrumbs
+            if (route.firstChild.params.eventId) {
+                const eventId = route.firstChild.params.eventId
+                if (this.event?.id !== eventId) {
+                    await this.fetchEvent(eventId)
+                }
+                breadCrumbs = breadCrumbs.map(breadCrumb => ({
+                    ...breadCrumb,
+                    caption: breadCrumb.caption
+                        .replace(':eventName', this.event.name),
+                }))
+            }
+
+            // Replace :questionName in the breadCrumbs
+            if (route.firstChild.params.id) {
+                const questionId = +route.firstChild.params.id
+                const uqj = this.uqjs.find(obj => obj.question.id === questionId)
+                breadCrumbs = breadCrumbs.map(breadCrumb => ({
+                    ...breadCrumb,
+                    caption: breadCrumb.caption
+                        .replace(':questionName', uqj.question.title),
+                }))
+            }
+        }
+        this.breadCrumbs = breadCrumbs
     }
 
     ngOnInit(): void {
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.course = course
         })
+
+        this.getBreadCrumbs(this.route.snapshot).then()
+        this.displayDescription = this.router.url.includes('/homepage')
+
+        this.router.events
+            .pipe(filter(event => event instanceof NavigationEnd))
+            .subscribe(() => {
+                this.breadCrumbs = null
+                this.displayDescription = this.router.url.includes('/homepage')
+                this.getBreadCrumbs(this.route.snapshot).then()
+            })
     }
 }
