@@ -1,21 +1,48 @@
-<ng-container *ngIf="course else skeletonTemplate">
-    <div class="course-banner p-5 mb-4">
-        <h3
+<section class="tui-container tui-container_fullwidth">
+    <ng-container *ngIf="breadCrumbs && course else skeletonBreadcrumbs">
+        <tui-breadcrumbs class="my-3" [size]="'l'">
+            <ng-container *ngFor="let item of breadCrumbs">
+                <a
+                    *tuiBreadcrumb
+                    tuiLink
+                    [routerLink]="item.routerLink">
+                    {{item.caption}}
+                </a>
+            </ng-container>
+        </tui-breadcrumbs>
+    </ng-container>
+    <ng-template #skeletonBreadcrumbs>
+        <tui-breadcrumbs class="my-3" [size]="'l'">
+            <a *tuiBreadcrumb tuiLink class="tui-skeleton">crumb that is longer</a>
+            <a *tuiBreadcrumb tuiLink class="tui-skeleton">crumb that is longer</a>
+            <a *tuiBreadcrumb tuiLink class="tui-skeleton">crumb that is longer</a>
+        </tui-breadcrumbs>
+    </ng-template>
+    <ng-container *ngIf="course else skeletonTemplate">
+        <h5
             [class.tui-skeleton]="!course"
-            class="tui-text_h3"
+            class="tui-text_h5 mb-5"
         >
             {{ course?.name }}
-        </h3>
-    </div>
-</ng-container>
-<ng-template #skeletonTemplate>
-    <div class="course-banner">
-        <h3 class="tui-text_h3 tui-space_top-2 tui-space_left-2 tui-skeleton_short tui-skeleton">
+        </h5>
+        <ng-container *ngIf="displayDescription">
+            <div class="mb-10 -mt-5">
+                <p class="tui-text_body-xl tui-island__paragraph">
+                    {{course?.description}}
+                </p>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-template #skeletonTemplate>
+        <h5 class="tui-text_h5 mb-5 tui-skeleton_short tui-skeleton">
             Content
-        </h3>
-    </div>
-</ng-template>
-
-<section class="tui-container tui-container_fullwidth">
-    <router-outlet></router-outlet>
+        </h5>
+        <ng-container *ngIf="displayDescription">
+            <div class="mb-10 -mt-5">
+                <p class="tui-text_body-xl tui-island__paragraph">Content</p>
+            </div>
+        </ng-container>
+    </ng-template>
 </section>
+
+<router-outlet></router-outlet>
