@@ -19,8 +19,7 @@
                 <p class="tui-text_h6">{{team.name}}</p>
                 <p class="tui-text_body-l">{{getTeamMemberNames(team)}}</p>
             </div>
-<!--            TODO: add links to list of teams page-->
-            <a [routerLink]="" appearance="primary"
+            <a [routerLink]="['/course', courseId, 'challenge', eventId, 'teams']" appearance="primary"
                class="tui-form__button" size="m"
                tuiButton
             >
