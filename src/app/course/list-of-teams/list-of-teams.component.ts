@@ -56,7 +56,6 @@ export class ListOfTeamsComponent  implements OnInit {
     }
 
     isInTeam(team: Team): boolean{
-        //return team.course_registrations.map( courseReg => courseReg?.id ).includes(this.course.course_reg.id)
         return team.course_registrations.map( courseReg => +courseReg ).includes(this.course.course_reg.id)
     }
 
