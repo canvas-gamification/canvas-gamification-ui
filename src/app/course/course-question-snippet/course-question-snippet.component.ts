@@ -7,8 +7,8 @@ import {forkJoin} from 'rxjs'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {CourseService} from '@app/course/_services/course.service'
 import {TuiStatusT} from "@taiga-ui/kit"
-import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
+import {TeamService} from "@app/course/_services/team.service"
 
 @Component({
     selector: 'app-course-question-snippet',
