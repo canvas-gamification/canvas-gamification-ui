@@ -14,9 +14,24 @@
                 </a>
             </div>
         </div>
+        <div *ngIf="event.type==='CHALLENGE'" class="teamBar tui-space_vertical-8 flex items-center p-4 rounded">
+            <div class="grow">
+                <p class="tui-text_h6">{{team.name}}</p>
+                <p class="tui-text_body-l">{{getTeamMemberNames(team)}}</p>
+            </div>
+<!--            TODO: add links to list of teams page-->
+            <a [routerLink]="" appearance="primary"
+               class="tui-form__button" size="m"
+               tuiButton
+            >
+                Manage Teams
+            </a>
+        </div>
         <div class="question-islands">
             <tui-island *ngFor="let uqj of uqjs">
-                <p class="tui-island__category">{{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }} {{ uqj.question.category_name }}</p>
+                <p class="tui-island__category">
+                    {{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }} {{ uqj.question.category_name }}
+                </p>
                 <h2 class="tui-island__title">{{ uqj.question.title }}</h2>
                 <div class="tui-space_bottom-2">
                     <tui-tag [status]="highlight(getStatus(uqj))" [value]="getStatus(uqj)" size="m"></tui-tag>

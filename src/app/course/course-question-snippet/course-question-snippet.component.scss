@@ -7,3 +7,7 @@
 .question-islands {
     @include island-grid();
 }
+
+.teamBar{
+    background-color: var(--tui-base-02);
+}
