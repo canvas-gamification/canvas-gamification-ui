@@ -28,33 +28,29 @@
                 </div>
                 <ng-template tuiAccordionItemContent>
                     <div class="accordionBody">
-                        <div class="names">
-                            <p>{{getTeamMemberNames(team)}}</p>
-                        </div>
-                        <div class="btns">
-                            <ng-container *ngIf="isInTeam(team); else notInTeam;">
-                                <!--        TODO: (in the next pr) add link to the edit new team page-->
-                                <a [routerLink]=" "
-                                   appearance="primary"
-                                   aria-label="Edit"
-                                   size="m"
-                                   tuiButton
-                                >
-                                    Edit
-                                </a>
-                            </ng-container>
-                            <ng-template #notInTeam>
-                                <button
-                                    (click)="joinTeam(team.id)"
-                                    appearance="primary"
-                                    aria-label="Join"
-                                    size="m"
-                                    tuiButton
-                                >
-                                    Join
-                                </button>
-                            </ng-template>
-                        </div>
+                        <p>{{getTeamMemberNames(team)}}</p>
+                        <ng-container *ngIf="isInTeam(team); else notInTeam;">
+                            <!--        TODO: (in the next pr) add link to the edit new team page-->
+                            <a [routerLink]=" "
+                               appearance="primary"
+                               aria-label="Edit"
+                               size="m"
+                               tuiButton
+                            >
+                                Edit
+                            </a>
+                        </ng-container>
+                        <ng-template #notInTeam>
+                            <button
+                                (click)="joinTeam(team.id)"
+                                appearance="primary"
+                                aria-label="Join"
+                                size="m"
+                                tuiButton
+                            >
+                                Join
+                            </button>
+                        </ng-template>
                     </div>
                 </ng-template>
             </tui-accordion-item>
