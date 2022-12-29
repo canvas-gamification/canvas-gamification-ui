@@ -328,6 +328,21 @@ const routes: Routes = [
             {
                 path: 'challenge/:eventId/teams',
                 component: ListOfTeamsComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }, {
+                        caption: `Teams`,
+                        routerLink: '/course/:courseId/challenge/:eventId/teams'
+                    }]
+                }
             },
             {
                 path: 'challenge/:eventId/edit',
