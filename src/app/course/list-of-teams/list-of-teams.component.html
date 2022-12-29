@@ -1,8 +1,10 @@
 <section class="tui-container tui-container_adaptive ng-star-inserted">
-    <div class="heading">
+    <div class="flex justify-between items-center">
         <h1 class="tui-text_h3 tui-space_vertical-10">List of Teams for {{event?.name}}</h1>
+
+<!--        TODO: (in the next pr) add link to the create new team page-->
         <a
-           [routerLink]="['/course', courseId, 'event', eventId, 'new-team']"
+           [routerLink]=""
            icon="tuiIconPlus"
            appearance="primary"
            aria-label="Create a New Team"
@@ -19,7 +21,7 @@
                 <div class="accordionHeader">
                     <div>{{index + 1}}</div>
                     <div>{{team.name}}</div>
-                    <div>{{team.number_of_member}} out of {{event.max_team_size}} students</div>
+                    <div>{{team.member_names.length}} out of {{event.max_team_size}} students</div>
                     <ng-template [ngIf]="team.is_private">
                         <tui-svg src="tuiIconLock"></tui-svg>
                     </ng-template>
@@ -27,14 +29,12 @@
                 <ng-template tuiAccordionItemContent>
                     <div class="accordionBody">
                         <div class="names">
-                            <ng-container *ngFor="let member_name of team.member_names; let index = index" >
-                                <div *ngIf="index !== team.member_names.length-1; else noComma;">{{member_name}}, </div>
-                                <ng-template #noComma><div>{{member_name}}</div></ng-template>
-                            </ng-container>
+                            <p>{{getTeamMemberNames(team)}}</p>
                         </div>
                         <div class="btns">
                             <ng-container *ngIf="isInTeam(team); else notInTeam;">
-                                <a [routerLink]="['/course', courseId, 'event', eventId, 'new-team', team.id]"
+                                <!--        TODO: (in the next pr) add link to the edit new team page-->
+                                <a [routerLink]=" "
                                    appearance="primary"
                                    aria-label="Edit"
                                    size="m"
