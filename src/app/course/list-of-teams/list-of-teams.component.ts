@@ -33,7 +33,7 @@ export class ListOfTeamsComponent  implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courseId = +this.route.snapshot.paramMap.get('courseId')
+        this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         this.courseService.getCourse(this.courseId).subscribe( course => this.course = course)
 
         this.eventId = +this.route.snapshot.paramMap.get('eventId')
@@ -56,7 +56,11 @@ export class ListOfTeamsComponent  implements OnInit {
     }
 
     isInTeam(team: Team): boolean{
-        return team.member_usernames.filter( username => this.user.username === username).length > 0
-        // return team.course_registrations.map( courseReg => courseReg.id ).includes(this.course.course_reg.id)
+        //return team.member_usernames.filter( username => this.user.username === username).length > 0
+        return team.course_registrations.map( courseReg => courseReg.id ).includes(this.course.course_reg.id)
+    }
+
+    getTeamMemberNames(team: Team): string {
+        return team.member_names.join(", ")
     }
 }
