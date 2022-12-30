@@ -90,6 +90,7 @@ import {CoursePracticePageComponent} from './course-practice-page/course-practic
 import {CoursePracticeComponent} from './course-practice/course-practice.component'
 import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
 import {EventStatsComponent} from './event/event-stats/event-stats.component'
+import {TeamCreateComponent} from './team-create/team-create.component'
 
 
 @NgModule({
@@ -117,6 +118,7 @@ import {EventStatsComponent} from './event/event-stats/event-stats.component'
         ListOfTeamsComponent,
         PracticeProblemComponent,
         SubmissionChartComponent,
+        TeamCreateComponent,
         TokenUseSnippetComponent,
     ],
     imports: [
