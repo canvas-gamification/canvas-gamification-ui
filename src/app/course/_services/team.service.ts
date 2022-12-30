@@ -47,4 +47,17 @@ export class TeamService {
             .post<HttpResponse<unknown>>(url, {team_id: teamId})
             .pipe(catchError(this.apiService.handleError<HttpResponse<unknown>>(`Error occurred while joining the team.`)))
     }
+
+    addTeam(team: Team): Observable<Team> {
+        const url = this.apiService.getURL('team')
+        return this.http
+            .post<Team>(url, team)
+            .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while adding Team.`)))
+    }
+
+    updateTeam(team: Team): Observable<Team> {
+        const url = this.apiService.getURL('team', team.id)
+        return this.http.put<Team>(url, team)
+            .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while updating Team.`)))
+    }
 }
