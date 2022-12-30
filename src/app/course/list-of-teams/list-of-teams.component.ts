@@ -53,6 +53,7 @@ export class ListOfTeamsComponent  implements OnInit {
                     status: TuiNotification.Error
                 }).subscribe()
         })
+        window.location.reload()
     }
 
     isInTeam(team: Team): boolean{
