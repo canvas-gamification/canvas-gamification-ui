@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import {Observable} from 'rxjs'
-import {APIResponse, Course} from '@app/_models'
+import {APIResponse, Course, CourseStudent} from '@app/_models'
 import {HttpClient, HttpParams} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
@@ -98,5 +98,15 @@ export class CourseService {
     createCourse(input: CourseFormData): Observable<Course> {
         const url = this.apiService.getURL('course')
         return this.http.post<Course>(url, input).pipe(catchError(this.apiService.handleFormError()))
+    }
+
+
+    /**
+     * Retrieve all registrations within a course
+     */
+    getAllStudents(courseId: number): Observable<CourseStudent[]>{
+        const url = this.apiService.getURL('course', courseId, 'course-registrations')
+        return this.http.get<CourseStudent[]>(url)
+            .pipe(catchError(this.apiService.handleError<CourseStudent[]>(`Error occurred while fetching course students.`)))
     }
 }
