@@ -25,6 +25,13 @@ export class TeamService {
             .pipe(catchError(this.apiService.handleError<Team[]>(`Error occurred while fetching all teams of this challenge.`)))
     }
 
+    getTeam(teamId: number): Observable<Team>{
+        const url = this.apiService.getURL('team', teamId)
+        return this.http
+            .get<Team>(url)
+            .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while fetching the team.`)))
+    }
+
     getMyTeam(eventId: number): Observable<Team> {
         const url = this.apiService.getURL('team', 'my-team')
         const params = new HttpParams()

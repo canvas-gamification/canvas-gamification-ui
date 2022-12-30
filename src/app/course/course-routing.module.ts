@@ -55,6 +55,7 @@ import {
 import {
     ListOfTeamsComponent
 } from "@app/course/list-of-teams/list-of-teams.component"
+import {TeamCreateEditComponent} from "@app/course/team-create-edit/team-create-edit.component"
 
 const routes: Routes = [
     {
@@ -341,6 +342,50 @@ const routes: Routes = [
                     }, {
                         caption: `Teams`,
                         routerLink: '/course/:courseId/challenge/:eventId/teams'
+                    }]
+                }
+            },
+            {
+                path: 'challenge/:eventId/teams/create',
+                component: TeamCreateEditComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }, {
+                        caption: `Teams`,
+                        routerLink: '/course/:courseId/challenge/:eventId/teams'
+                    }, {
+                        caption: `Create a Team`,
+                        routerLink: '/course/:courseId/challenge/:eventId/teams/create'
+                    }]
+                }
+            },
+            {
+                path: 'challenge/:eventId/teams/:teamId/edit',
+                component: TeamCreateEditComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }, {
+                        caption: `Teams`,
+                        routerLink: '/course/:courseId/challenge/:eventId/teams'
+                    }, {
+                        caption: `Edit :teamName`,
+                        routerLink: '/course/:courseId/challenge/:eventId/teams/:teamId/edit'
                     }]
                 }
             },
