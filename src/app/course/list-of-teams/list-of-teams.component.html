@@ -1,10 +1,8 @@
 <section class="tui-container tui-container_adaptive ng-star-inserted">
     <div class="flex justify-between items-center">
         <h1 class="tui-text_h3 tui-space_vertical-10">List of Teams for {{event?.name}}</h1>
-
-<!--        TODO: (in the next pr) add link to the create new team page-->
         <a
-           [routerLink]=""
+           [routerLink]="['/course', courseId, 'challenge', eventId, 'teams', 'create']"
            icon="tuiIconPlus"
            appearance="primary"
            aria-label="Create a New Team"
@@ -31,8 +29,8 @@
                         <div class="accordionBody">
                             <p>{{getTeamMemberNames(team)}}</p>
                             <ng-container *ngIf="isInTeam(team); else notInTeam;">
-                                <!--        TODO: (in the next pr) add link to the edit new team page-->
-                                <a [routerLink]=" "
+                                <!--        TODO: check if the edit link works-->
+                                <a [routerLink]="['/course', courseId, 'challenge', eventId, 'teams', team.id, 'edit']"
                                    appearance="primary"
                                    aria-label="Edit"
                                    size="m"
