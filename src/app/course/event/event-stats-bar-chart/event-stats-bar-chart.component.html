@@ -1,0 +1,21 @@
+<tui-axes
+    [axisXLabels]="labelsX"
+    axisY="none"
+    [axisYLabels]="labelsY"
+    class="h-80"
+>
+    <tui-bar-chart
+        [value]="value"
+        [hintContent]="hint"
+        [size]="null"
+        [max]="getMax()"
+    >
+    </tui-bar-chart>
+</tui-axes>
+
+<ng-template
+    #hint
+    let-setIndex
+>
+    {{value[0][setIndex]}}
+</ng-template>

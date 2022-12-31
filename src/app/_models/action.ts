@@ -1,33 +1,35 @@
 import {SafeHtml} from "@angular/platform-browser"
 
 export enum ActionType {
-    QUESTION = 'Question',
-    USER = 'User',
-    SUBMISSION = 'Submission',
+    BUTTON = 'Button',
     COURSE = 'Course',
+    COURSE_REGISTRATION = 'Course Registration',
     EVENT = 'Event',
-    COURSE_REGISTRATION = 'Course Registration'
+    QUESTION = 'Question',
+    SUBMISSION = 'Submission',
+    USER = 'User'
 }
 
 export enum ActionVerb {
+    CLICKED = 'Clicked',
     CREATED = 'Created',
     COMPLETED = 'Completed',
-    OPENED = 'Opened',
     DELETED = 'Deleted',
     DELIVERED = 'Delivered',
-    READ = 'Read',
-    SOLVED = 'Solved',
-    SUBMITTED = 'Submitted',
-    SENT = 'Sent',
-    STARTED = 'Started',
-    USED = 'Used',
-    REGISTERED = 'Registered',
     EDITED = 'Edited',
-    UNREAD = 'Unread',
-    SKIPPED = 'Skipped',
+    EVALUATED = 'Evaluated',
     LOGGED_IN = 'Logged In',
     LOGGED_OUT = 'Logged Out',
-    EVALUATED = 'Evaluated'
+    OPENED = 'Opened',
+    READ = 'Read',
+    REGISTERED = 'Registered',
+    SENT = 'Sent',
+    SKIPPED = 'Skipped',
+    SOLVED = 'Solved',
+    STARTED = 'Started',
+    SUBMITTED = 'Submitted',
+    UNREAD = 'Unread',
+    USED = 'Used',
 }
 
 export enum ActionStatus {

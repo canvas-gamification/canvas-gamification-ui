@@ -3,4 +3,7 @@ export type EventStats = {
     question: {
         title: string
     }
+    error_messages: Record<string, number>
+    status_messages: Record<string, number>
+    submissions: Record<string, number>
 }[]
