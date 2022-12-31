@@ -102,7 +102,6 @@ export class GoalCreateComponent implements OnInit {
     getNumQuestionsLimit(formControl: FormControl) {
         const category = formControl.get('category').value as number
         const difficulty = formControl.get('difficulty').value as string
-        console.debug(category, difficulty)
         if (!category || !difficulty) {
             return 0
         }
