@@ -34,7 +34,15 @@ export class CourseHomepageComponent implements OnInit {
 
     challengeClickLog(): void {
         this.userAction.createCustomAction({
-            description: 'User selected challenges on course homepage',
+            description: 'User selected challenges on the course homepage',
+            status: ActionStatus.COMPLETE,
+            verb: ActionVerb.OPENED,
+        })
+    }
+
+    practiceClickLog(): void {
+        this.userAction.createCustomAction({
+            description: 'User selected practice on the course homepage',
             status: ActionStatus.COMPLETE,
             verb: ActionVerb.OPENED,
         })
