@@ -13,8 +13,68 @@
         <h4 class="tui-text_h4">
             {{stat.question.title}}
         </h4>
-        <div *ngFor="let answer of stat.answers | keyvalue">
-            {{answer.key}}: {{answer.value}}
+        <div *ngIf="!isEmpty(stat.answers)">
+            <app-event-stats-bar-chart
+                *ngIf="stat.answers"
+                [answers]="stat.answers"
+            >
+            </app-event-stats-bar-chart>
+        </div>
+        <div *ngIf="!isEmpty(stat.submissions)">
+            <div class="tui-text_body-l tui-text_bold">Submissions</div>
+            <table class="tui-table mt-3">
+                <tbody>
+                <tr class="tui-table__tr tui-table__tr_border_none">
+                    <th class="tui-table__th">Evaluation</th>
+                    <th class="tui-table__th">Submission Count</th>
+                </tr>
+                <ng-container *ngFor="let submission of stat.submissions | keyvalue">
+                    <tr
+                        class="tui-table__tr tui-table__tr_border_none"
+                        *ngIf="submission.value"
+                    >
+                        <td class="tui-table__td">{{ submission.key }}</td>
+                        <td class="tui-table__td">{{ submission.value }}</td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="!isEmpty(stat.status_messages)">
+            <div class="tui-text_body-l tui-text_bold">Status</div>
+            <table class="tui-table mt-3">
+                <tbody>
+                <tr class="tui-table__tr tui-table__tr_border_none">
+                    <th class="tui-table__th">Status</th>
+                    <th class="tui-table__th">Submission Count</th>
+                </tr>
+                <tr
+                    class="tui-table__tr tui-table__tr_border_none"
+                    *ngFor="let statusMessage of stat.status_messages | keyvalue"
+                >
+                    <td class="tui-table__td">{{ statusMessage.key }}</td>
+                    <td class="tui-table__td">{{ statusMessage.value }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="!isEmpty(stat.error_messages)">
+            <div class="tui-text_body-l tui-text_bold">Error Messages</div>
+            <table class="tui-table mt-3">
+                <tbody>
+                <tr class="tui-table__tr tui-table__tr_border_none">
+                    <th class="tui-table__th">Error</th>
+                    <th class="tui-table__th">Submission Count</th>
+                </tr>
+                <tr
+                    class="tui-table__tr tui-table__tr_border_none"
+                    *ngFor="let errorMessage of stat.error_messages | keyvalue"
+                >
+                    <td class="tui-table__td">{{ errorMessage.key }}</td>
+                    <td class="tui-table__td">{{ errorMessage.value }}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </tui-island>
 </div>

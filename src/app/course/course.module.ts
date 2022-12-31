@@ -81,7 +81,11 @@ import {
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
-import {TuiRingChartModule} from "@taiga-ui/addon-charts"
+import {
+    TuiAxesModule,
+    TuiBarChartModule,
+    TuiRingChartModule
+} from "@taiga-ui/addon-charts"
 import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 import {CourseCreateComponent} from './course-create/course-create.component'
 import {GoalIslandComponent} from './goal/goal-island/goal-island.component'
@@ -89,6 +93,9 @@ import {CoursePracticePageComponent} from './course-practice-page/course-practic
 import {CoursePracticeComponent} from './course-practice/course-practice.component'
 import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
 import {EventStatsComponent} from './event/event-stats/event-stats.component'
+import {
+    EventStatsBarChartComponent
+} from './event/event-stats-bar-chart/event-stats-bar-chart.component'
 
 
 @NgModule({
@@ -107,6 +114,7 @@ import {EventStatsComponent} from './event/event-stats/event-stats.component'
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        EventStatsBarChartComponent,
         EventStatsComponent,
         GoalComponent,
         GoalCreateComponent,
@@ -131,6 +139,8 @@ import {EventStatsComponent} from './event/event-stats/event-stats.component'
         TuiAccordionModule,
         TuiActiveZoneModule,
         TuiAvatarModule,
+        TuiAxesModule,
+        TuiBarChartModule,
         TuiBreadcrumbsModule,
         TuiButtonModule,
         TuiCalendarModule,
@@ -160,9 +170,9 @@ import {EventStatsComponent} from './event/event-stats/event-stats.component'
         TuiRingChartModule,
         TuiSelectModule,
         TuiSidebarModule,
+        DragulaModule.forRoot(),
         TuiStepperModule,
         TuiSvgModule,
-        DragulaModule.forRoot(),
         TuiTableModule,
         TuiTabsModule,
         TuiTagModule,
