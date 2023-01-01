@@ -33,7 +33,7 @@
                             <ng-container *ngIf="isInTeam(team); else notInTeam;">
                                 <!--        TODO: (in the next pr) add link to the edit new team page-->
                                 <a [routerLink]=" "
-                                   appearance="primary"
+                                   appearance="secondary"
                                    aria-label="Edit"
                                    size="m"
                                    tuiButton
@@ -45,7 +45,7 @@
                             <ng-template #notInTeam>
                                 <button
                                     (click)="joinTeam(team.id)"
-                                    appearance="primary"
+                                    appearance="secondary"
                                     aria-label="Join"
                                     size="m"
                                     tuiButton
