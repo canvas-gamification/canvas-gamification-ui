@@ -29,7 +29,9 @@
                     </div>
                     <ng-template tuiAccordionItemContent>
                         <div class="accordionBody">
-                            <p>{{getTeamMemberNames(team)}}</p>
+                            <div>
+                                <p *ngFor="let name of team.member_names" class="tui-text_body-l">{{name}}</p>
+                            </div>
                             <ng-container *ngIf="isInTeam(team); else notInTeam;">
                                 <!--        TODO: (in the next pr) add link to the edit new team page-->
                                 <a [routerLink]=" "
