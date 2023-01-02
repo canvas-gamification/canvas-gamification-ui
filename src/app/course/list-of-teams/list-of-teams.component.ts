@@ -47,11 +47,6 @@ export class ListOfTeamsComponent  implements OnInit {
                 .show('You have successfully join the team.', {
                     status: TuiNotification.Success
                 })
-        }, error => {
-            this.notificationsService
-                .show(error, {
-                    status: TuiNotification.Error
-                }).subscribe()
         })
         window.location.reload()
     }
