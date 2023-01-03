@@ -1,8 +1,7 @@
 <section class="tui-container tui-container_adaptive ng-star-inserted">
     <div class="flex flex-wrap gap-3 tui-space_top-6">
         <h3 class="tui-text_h3 tui-col_stretch flex-grow" >List of Teams</h3>
-<!--        TODO: (in the next pr) add link to the create new team page-->
-        <a [disabled] = "event.is_open || event.is_closed"
+        <a [disabled] = "event?.is_open || event?.is_closed"
            [routerLink]="['/course', courseId, 'challenge', eventId, 'teams', 'create']"
            icon="tuiIconPlus"
            appearance="primary"
@@ -28,7 +27,7 @@
                                 </ng-template>
                             </div>
                             <div>{{team.name}}</div>
-                            <div>{{team.member_names.length}} out of {{event.max_team_size}} students</div>
+                            <div>{{team.member_names.length}} out of {{event?.max_team_size}} students</div>
                             <div>
                                 <tui-svg *ngIf="team.is_private" src="tuiIconLock"></tui-svg>
                             </div>
@@ -40,8 +39,8 @@
                                 </div>
                                 <ng-container *ngIf="isInTeam(team); else notInTeam;">
                                     <!--        TODO: (in the next pr) add link to the edit new team page-->
-                                    <a [disabled] = "event.is_open || event.is_closed"
-                                       [routerLink]=" "
+                                    <a [disabled] = "event?.is_open || event?.is_closed"
+                                       [routerLink]="['/course', courseId, 'challenge', eventId, 'teams', team.id, 'edit']"
                                        appearance="secondary"
                                        aria-label="Edit"
                                        size="m"
@@ -53,7 +52,7 @@
                                 </ng-container>
                                 <ng-template #notInTeam>
                                     <button
-                                        [disabled] = "event.is_open || event.is_closed"
+                                        [disabled] = "event?.is_open || event?.is_closed"
                                         (click)="joinTeam(team.id)"
                                         appearance="secondary"
                                         aria-label="Join"
