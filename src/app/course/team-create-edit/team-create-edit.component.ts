@@ -49,7 +49,7 @@ export class TeamCreateEditComponent implements OnInit {
         }
 
         //returns: Failed to load resource: the server responded with a status of 404 (Not Found)
-        this.courseService.getAllStudents(this.courseId).subscribe( courseRegs => this.courseRegs = courseRegs )
+        this.courseService.getCourseRegistrations(this.courseId).subscribe( courseRegs => this.courseRegs = courseRegs )
 
         this.courseService.getCourse(this.courseId).subscribe( course => this.course = course)
     }
