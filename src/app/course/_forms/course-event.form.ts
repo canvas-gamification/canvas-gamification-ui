@@ -61,11 +61,19 @@ export class CourseEventForm {
             name: formData.get('name').value,
             type: formData.get('type').value,
             count_for_tokens: formData.get('countForTokens').value,
-            start_date: this.dateAndTimeToLocal(formData.get('startEndDatePicker').value.from, formData.get('startTimePicker').value),
-            end_date: this.dateAndTimeToLocal(formData.get('startEndDatePicker').value.to, formData.get('endTimePicker').value),
+            start_date: this.dateAndTimeToLocal(
+                formData.get('startEndDatePicker').value.from,
+                formData.get('startTimePicker').value
+            ),
+            end_date: this.dateAndTimeToLocal(
+                formData.get('startEndDatePicker').value.to,
+                formData.get('endTimePicker').value
+            ),
             course: courseId,
             is_not_available_yet: false,
             is_closed: false,
+            featured: false,
+            max_team_size: 3,
         }
     }
 

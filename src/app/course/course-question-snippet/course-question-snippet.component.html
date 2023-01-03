@@ -14,17 +14,20 @@
                 </a>
             </div>
         </div>
-        <div *ngIf="event.type==='CHALLENGE'" class="teamBar tui-space_vertical-8 flex items-center p-4 rounded">
+        <div
+            *ngIf="event.type==='CHALLENGE'"
+            class="teamBar mb-8 flex items-center p-4 rounded-[0.625rem] shadow">
             <div class="grow">
-                <p class="tui-text_h6">{{team.name}}</p>
-                <p class="tui-text_body-l">{{getTeamMemberNames(team)}}</p>
+                <h6 class="tui-text_h6">{{team.name}}</h6>
+                <p *ngFor="let name of team.member_names" class="tui-text_body-l">{{name}}</p>
             </div>
-<!--            TODO: add links to list of teams page-->
-            <a [routerLink]="['/course', courseId, 'challenge', eventId, 'teams']" appearance="primary"
-               class="tui-form__button" size="m"
-               tuiButton
+            <a
+                [routerLink]="['/course', courseId, 'challenge', eventId, 'teams']"
+                appearance="flat"
+                class="tui-form__button" size="m"
+                tuiButton
             >
-                Manage Teams
+                View Teams
             </a>
         </div>
         <div class="question-islands">

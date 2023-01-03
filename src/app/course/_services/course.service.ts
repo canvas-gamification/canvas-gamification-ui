@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import {Observable} from 'rxjs'
-import {APIResponse, Course} from '@app/_models'
+import {APIResponse, Course, CourseRegistration} from '@app/_models'
 import {HttpClient, HttpParams} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
@@ -24,7 +24,9 @@ export class CourseService {
         const url = this.apiService.getURL('course', courseId, 'user-stats', categoryId)
         return this.http
             .get<{ success_rate: number }>(url)
-            .pipe(catchError(this.apiService.handleError<{ success_rate: number }>('Unable to fetch user stats.')))
+            .pipe(catchError(
+                this.apiService.handleError<{ success_rate: number }>('Unable to fetch user stats.')
+            ))
     }
 
     register(courseId: number, data: CourseRegistrationFormData): Observable<unknown> {
@@ -97,6 +99,21 @@ export class CourseService {
 
     createCourse(input: CourseFormData): Observable<Course> {
         const url = this.apiService.getURL('course')
-        return this.http.post<Course>(url, input).pipe(catchError(this.apiService.handleFormError()))
+        return this.http.post<Course>(url, input)
+            .pipe(catchError(this.apiService.handleFormError()))
+    }
+
+
+    /**
+     * Retrieve all registrations within a course
+     */
+    getCourseRegistrations(courseId: number): Observable<CourseRegistration[]>{
+        const url = this.apiService.getURL('course', courseId, 'course-registrations')
+        return this.http.get<CourseRegistration[]>(url)
+            .pipe(catchError(
+                this.apiService.handleError<CourseRegistration[]>(
+                    `Error occurred while fetching course students.`
+                )
+            ))
     }
 }
