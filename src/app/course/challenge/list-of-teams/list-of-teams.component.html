@@ -1,14 +1,14 @@
 <section class="tui-container tui-container_adaptive ng-star-inserted">
     <div class="flex flex-wrap gap-3 tui-space_top-6">
-        <h3 class="tui-text_h3 tui-col_stretch flex-grow" >List of Teams</h3>
-<!--        TODO: (in the next pr) add link to the create new team page-->
-        <a [disabled] = "event.is_open || event.is_closed"
-           [routerLink]=""
-           icon="tuiIconPlus"
-           appearance="primary"
-           aria-label="Create a New Team"
-           class="min-w-200 mr-4" size="m"
-           tuiButton
+        <h3 class="tui-text_h3 tui-col_stretch flex-grow">List of Teams</h3>
+        <a
+            [disabled]="event.is_open || event.is_closed"
+            [routerLink]=""
+            icon="tuiIconPlus"
+            appearance="primary"
+            aria-label="Create a New Team"
+            size="m"
+            tuiButton
         >
             Create a New Team
         </a>
@@ -16,44 +16,52 @@
     <ng-container *ngIf="teams else skeletonTemplate">
         <ng-container *ngFor="let team of teams; let index = index">
             <ng-container *ngIf="team">
-                <tui-accordion class="accordionContainer tui-space_top-6">
-                    <tui-accordion-item >
-                        <div class="accordionHeader">
-                            <div>
-                                <ng-container *ngIf="isInTeam(team); else notInTeam;">
-                                    <tui-svg src="tuiIconUser"></tui-svg>
-                                </ng-container>
-                                <ng-template #notInTeam>
+                <tui-accordion class="tui-space_top-6">
+                    <tui-accordion-item>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="min-w-[2rem]">
+                                <span class="mr-1">
                                     {{index + 1}}
-                                </ng-template>
+                                </span>
+                                <tui-svg
+                                    src="tuiIconUser"
+                                    *ngIf="isInTeam(team)"
+                                ></tui-svg>
                             </div>
-                            <div>{{team.name}}</div>
-                            <div>{{team.member_names.length}} out of {{event.max_team_size}} students</div>
+                            <div class="flex-grow">{{team.name}}</div>
+                            <div>{{team.member_names.length}} out of {{event.max_team_size}}
+                                students
+                            </div>
                             <div>
                                 <tui-svg *ngIf="team.is_private" src="tuiIconLock"></tui-svg>
                             </div>
                         </div>
                         <ng-template tuiAccordionItemContent>
-                            <div class="accordionBody">
-                                <div >
-                                    <div *ngFor="let name of team.member_names" class="tui-text_body-l">{{name}}</div>
+                            <div class="flex flex-wrap gap-3">
+                                <div class="flex-grow">
+                                    <div
+                                        *ngFor="let name of team.member_names"
+                                        class="tui-text_body-l"
+                                    >
+                                        {{name}}
+                                    </div>
                                 </div>
                                 <ng-container *ngIf="isInTeam(team); else notInTeam;">
-                                    <!--        TODO: (in the next pr) add link to the edit new team page-->
-                                    <a [disabled] = "event.is_open || event.is_closed"
-                                       [routerLink]=" "
-                                       appearance="secondary"
-                                       aria-label="Edit"
-                                       size="m"
-                                       tuiButton
-                                       class="w-fit"
+                                    <a
+                                        [disabled]="event.is_open || event.is_closed"
+                                        [routerLink]=""
+                                        appearance="secondary"
+                                        aria-label="Edit"
+                                        size="m"
+                                        tuiButton
+                                        class="w-fit"
                                     >
                                         Edit
                                     </a>
                                 </ng-container>
                                 <ng-template #notInTeam>
                                     <button
-                                        [disabled] = "event.is_open || event.is_closed"
+                                        [disabled]="event.is_open || event.is_closed"
                                         (click)="joinTeam(team.id)"
                                         appearance="secondary"
                                         aria-label="Join"
@@ -74,7 +82,7 @@
     </ng-container>
     <ng-template #skeletonTemplate>
         <tui-accordion class="accordionContainer tui-space_top-6">
-            <tui-accordion-item >
+            <tui-accordion-item>
                 <div class="accordionHeader">
                     <div class="tui-skeleton">1</div>
                     <div class="tui-skeleton">Team Name</div>
