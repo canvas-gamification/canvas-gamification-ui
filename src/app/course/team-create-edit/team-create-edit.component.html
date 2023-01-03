@@ -2,13 +2,34 @@
 <p>team-create-edit works!</p>
 <div class="tui-container tui-container_adaptive">
     <form (ngSubmit)="onSubmit()" [formGroup]="formData">
-        <h2 class="tui-form__header">Create New Team</h2>
+        <h2 class="tui-form__header">{{teamId? 'Edit ' + team?.name: 'Create New Team'}}</h2>
         <div class="tui-form__row">
             <tui-input aria-label="Team Name" formControlName="name">
                 Team Name
             </tui-input>
             <tui-field-error formControlName="name"></tui-field-error>
         </div>
+        <ng-container *ngIf="teamId">
+            <div class="tui-form__row">
+                <tui-multi-select
+                    aria-label="Members"
+                    formControlName="members"
+                    [tuiTextfieldLabelOutside]="true"
+                    [stringify]="stringify"
+                    [editable]="true"
+                >
+                    Members (remember to include yourself)
+                    <tui-data-list *tuiDataList tuiMultiSelectGroup>
+                        <!--                        <button *ngFor="let memberId of memberIds" [value]="getCourseRegistration(memberId)" tuiOption>-->
+                        <!--                            {{getCourseRegistration(memberId).name}}-->
+                        <!--                        </button>-->
+                        <button *ngFor="let item of list" [value]="item" tuiOption>
+                            {{item.name}}
+                        </button>
+                    </tui-data-list>
+                </tui-multi-select>
+            </div>
+        </ng-container>
         <div class="tui-form__row">
             <tui-checkbox-labeled
                 aria-label="Set Team To A Private Team"
@@ -27,14 +48,14 @@
                     [stringify]="stringify"
                     [editable]="true"
                 >
-                    Invited Member
+                    Invited Members
                     <tui-data-list *tuiDataList tuiMultiSelectGroup>
-<!--                        <button *ngFor="let courseStu of courseStudents" [value]="courseStu" tuiOption>-->
-<!--                            {{courseStu.name}}-->
-<!--                        </button>-->
-                            <button *ngFor="let item of list" [value]="item" tuiOption>
-                                {{item.name}}
-                            </button>
+                        <button *ngFor="let courseReg of courseRegs" [value]="courseReg" tuiOption>
+                            {{courseReg.name}}
+                        </button>
+<!--                            <button *ngFor="let item of list" [value]="item" tuiOption>-->
+<!--                                {{item.name}}-->
+<!--                            </button>-->
                     </tui-data-list>
                 </tui-multi-select>
             </div>
@@ -49,7 +70,7 @@
                 tuiButton
                 type="submit"
             >
-                Create Team
+                {{teamId? 'Edit Team' : 'Create Team'}}
             </button>
         </div>
     </form>

@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core'
 import {FormGroup} from "@angular/forms"
 import {TeamForm} from "@app/course/_forms/team.form"
-import {CourseStudent} from "@app/_models"
+import {Course, CourseRegistration} from "@app/_models"
 import {ActivatedRoute, Router} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
 import {TuiContextWithImplicit, TuiStringHandler} from "@taiga-ui/cdk"
@@ -19,7 +19,9 @@ export class TeamCreateEditComponent implements OnInit {
     courseId: number
     eventId: number
     teamId: number = null
-    courseStudents: CourseStudent[]
+    team: Team
+    courseRegs: CourseRegistration[]
+    course: Course
 
     list=[{id:1, name:'name1'},{id:2, name:'name2'},{id:3, name:'name3'}]
 
@@ -36,54 +38,57 @@ export class TeamCreateEditComponent implements OnInit {
         this.formData = TeamForm.createTeamForm()
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         this.eventId = +this.route.snapshot.paramMap.get('eventId')
-        if(this.route.snapshot.paramMap.get('teamId'))
+
+        if(this.route.snapshot.paramMap.get('teamId')){// For editing existing team, grab the teamId
             this.teamId = +this.route.snapshot.paramMap.get('teamId')
+            this.teamService.getTeam(this.teamId).subscribe( team => {
+                this.team = team
+                this.formData = TeamForm.createTeamFormTeam(team)
+            })
+
+        }
 
         //returns: Failed to load resource: the server responded with a status of 404 (Not Found)
-        this.courseService.getAllStudents(this.courseId).subscribe( students => this.courseStudents = students )
+        this.courseService.getAllStudents(this.courseId).subscribe( courseRegs => this.courseRegs = courseRegs )
+
+        this.courseService.getCourse(this.courseId).subscribe( course => this.course = course)
     }
 
     isPrivate(): boolean {
         return this.formData?.get('isPrivate')?.value
     }
 
-    stringify(courseStu): TuiStringHandler<CourseStudent | TuiContextWithImplicit<CourseStudent>> {
-        return `name` in courseStu ? courseStu.name : courseStu.$implicit.name
+    stringify(courseReg): TuiStringHandler<CourseRegistration | TuiContextWithImplicit<CourseRegistration>> {
+        return `name` in courseReg ? courseReg.name : courseReg.$implicit.name
     }
 
     // onSearch(search: string | null): void {
     //     this.search$.next(search || ``)
     // }
 
+    getCourseRegistration(inputCourseRegId: number):CourseRegistration {
+        return this.courseRegs.find( courseReg => courseReg.id === inputCourseRegId)
+    }
+
     onSubmit(): void {
         console.log(this.formData.get('invitedMembers').value)
 
-        const ourTeam: Team = TeamForm.formatTeamFormData(this.formData, this.eventId)
+        const teamData = TeamForm.formatTeamFormData(this.formData, this.eventId, this.course.course_reg.id)
         if(this.teamId){ // Editing existing team
-            this.teamService.updateTeam(ourTeam).subscribe(() => {
+            this.teamService.updateTeam(teamData, this.teamId).subscribe(() => {
                 this.notificationsService
                     .show('The Team has been updated Successfully.', {
                         status: TuiNotification.Success
                     })
                 this.router.navigate(['course', this.courseId, 'challenge', this.eventId, 'teams']).then()
-            }, error => {
-                this.notificationsService
-                    .show(error, {
-                        status: TuiNotification.Error
-                    }).subscribe()
             })
         }else{ // Creating a brand new team
-            this.teamService.addTeam(ourTeam).subscribe(() => {
+            this.teamService.createAndJoin(teamData).subscribe(() => {
                 this.notificationsService
                     .show('The Team has been added Successfully.', {
                         status: TuiNotification.Success
                     })
                 this.router.navigate(['course', this.courseId, 'challenge', this.eventId, 'teams']).then()
-            }, error => {
-                this.notificationsService
-                    .show(error, {
-                        status: TuiNotification.Error
-                    }).subscribe()
             })
         }
     }
