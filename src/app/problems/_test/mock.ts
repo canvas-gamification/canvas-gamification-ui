@@ -44,12 +44,14 @@ export const MOCK_COURSE_EVENT: CourseEvent = {
     is_allowed_to_open: true,
     start_date: new Date("30/05/1979 02:34:56"),
     total_event_grade: 0,
-    type: '',
+    type: 'ASSIGNMENT',
     is_not_available_yet: false,
-    is_closed: false
+    is_closed: false,
+    featured: false,
 }
 
 export const MOCK_PRACTICE_EVENT: CourseEvent = {
+    id: 0,
     name: '',
     type: null,
     count_for_tokens: false,
@@ -57,7 +59,8 @@ export const MOCK_PRACTICE_EVENT: CourseEvent = {
     end_date: new Date("30/05/1979 02:34:56"),
     course: null,
     is_not_available_yet: null,
-    is_closed: null
+    is_closed: null,
+    featured: false,
 }
 
 export const MOCK_MCQ_QUESTION: Question = {
