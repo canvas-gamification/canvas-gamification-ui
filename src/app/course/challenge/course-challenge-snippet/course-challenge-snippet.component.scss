@@ -1,5 +1,17 @@
 @import "mixins";
 
+.divide {
+    &:not(:last-child) {
+        border-bottom: solid 1px var(--tui-base-03);
+        margin: 0;
+        padding-bottom: 20px;
+    }
+
+    &:not(:first-child) {
+        padding-top: 20px;
+    }
+}
+
 .challengePage {
     display: flex;
     flex-direction: column;
@@ -10,86 +22,3 @@
     width: 90%;
 }
 
-.challenge {
-    &:not(:last-child) {
-        border-bottom: solid 1px var(--tui-base-03);
-        margin: 0;
-        padding-bottom: 20px;
-    }
-
-    &:not(:first-child) {
-        padding-top: 20px;
-    }
-
-    @include screen-lg {
-        display: grid;
-        grid-template-columns: 8rem 3fr 5fr 14rem 18rem;
-    }
-    @include screen-md() {
-        display: grid;
-        grid-template-columns: 2fr 2fr;
-        grid-template-rows: 1fr 1fr 1fr;
-        grid-template-areas: "challengeType teamSection"
-        "name toCompleteSection"
-        "dates none ";
-        align-items: start;
-    }
-
-}
-
-.challengeType {
-    color: var(--tui-text-02);
-}
-
-.challengeType, .name, .dates, .teamSection, .toCompleteSection{
-    justify-self: start;
-    padding-left: 1rem;
-
-    @include screen-sm() {
-        margin-top: 1rem;
-    }
-}
-
-.dates {
-    display: flex;
-    flex-direction: column;
-
-}
-
-.challengeType {
-    @include screen-md() {
-        padding-left: 0;
-        grid-area: challengeType;
-    }
-}
-
-.name {
-    @include screen-md() {
-        padding-left: 0;
-        grid-area: name;
-    }
-}
-
-.dates {
-    @include screen-md() {
-        padding-left: 0;
-        grid-area: dates;
-    }
-}
-
-.teamSection {
-    @include screen-md() {
-        grid-area: teamSection;
-        justify-self: end;
-        padding-right: 0;
-    }
-}
-
-.toCompleteSection {
-    justify-self: end;
-
-    @include screen-md() {
-        grid-area: toCompleteSection;
-        padding-right: 0;
-    }
-}

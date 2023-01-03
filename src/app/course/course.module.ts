@@ -97,10 +97,12 @@ import {EventStatsComponent} from './event/event-stats/event-stats.component'
 import {
     EventStatsBarChartComponent
 } from './event/event-stats-bar-chart/event-stats-bar-chart.component'
+import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.component'
 
 
 @NgModule({
     declarations: [
+        ChallengeRowComponent,
         ConceptMapComponent,
         CourseChallengeSnippetComponent,
         CourseComponent,
