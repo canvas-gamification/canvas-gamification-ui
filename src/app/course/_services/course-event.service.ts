@@ -69,6 +69,16 @@ export class CourseEventService {
     }
 
     /**
+     * Get all challenge to the server.
+     */
+    getChallengeTypes(): Observable<EventType[]> {
+        const url = this.apiService.getURL('event', 'get-challenge-types')
+        return this.http
+            .get<EventType[]>(url)
+            .pipe(catchError(this.apiService.handleError<EventType[]>(`Error occurred while fetching challenge types`)))
+    }
+
+    /**
      * Gets all events from the server.
      */
     getAllEvents(): Observable<CourseEvent[]> {
