@@ -4,6 +4,7 @@ import {ApiService} from "@app/_services/api.service"
 import {Team} from "@app/_models/team"
 import {Observable} from "rxjs"
 import {catchError} from "rxjs/operators"
+import {TeamFormData} from "@app/course/_forms/team.form"
 
 @Injectable({
     providedIn: 'root'
@@ -48,16 +49,16 @@ export class TeamService {
             .pipe(catchError(this.apiService.handleError<HttpResponse<unknown>>(`Error occurred while joining the team.`)))
     }
 
-    addTeam(team: Team): Observable<Team> {
-        const url = this.apiService.getURL('team')
+    createAndJoin(input: TeamFormData): Observable<Team> {
+        const url = this.apiService.getURL('team', 'create-and-join')
         return this.http
-            .post<Team>(url, team)
+            .post<Team>(url, input)
             .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while adding Team.`)))
     }
 
-    updateTeam(team: Team): Observable<Team> {
-        const url = this.apiService.getURL('team', team.id)
-        return this.http.put<Team>(url, team)
+    updateTeam(input: TeamFormData, teamId: number): Observable<Team> {
+        const url = this.apiService.getURL('team', teamId)
+        return this.http.put<Team>(url, input)
             .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while updating Team.`)))
     }
 }
