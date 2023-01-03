@@ -3,7 +3,7 @@
         <h3 class="tui-text_h3 tui-col_stretch flex-grow">List of Teams</h3>
         <a
             [disabled]="event.is_open || event.is_closed"
-            [routerLink]=""
+            [routerLink]="['create']"
             icon="tuiIconPlus"
             appearance="primary"
             aria-label="Create a New Team"
@@ -49,7 +49,7 @@
                                 <ng-container *ngIf="isInTeam(team); else notInTeam;">
                                     <a
                                         [disabled]="event.is_open || event.is_closed"
-                                        [routerLink]=""
+                                        [routerLink]="[team.id, 'edit']"
                                         appearance="secondary"
                                         aria-label="Edit"
                                         size="m"

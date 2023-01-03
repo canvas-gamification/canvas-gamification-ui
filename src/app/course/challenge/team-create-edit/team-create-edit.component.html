@@ -1,5 +1,3 @@
-
-<p>team-create-edit works!</p>
 <div class="tui-container tui-container_adaptive">
     <form (ngSubmit)="onSubmit()" [formGroup]="formData">
         <h2 class="tui-form__header">{{teamId? 'Edit ' + team?.name: 'Create New Team'}}</h2>
@@ -53,9 +51,6 @@
                         <button *ngFor="let courseReg of courseRegs" [value]="courseReg" tuiOption>
                             {{courseReg.name}}
                         </button>
-<!--                            <button *ngFor="let item of list" [value]="item" tuiOption>-->
-<!--                                {{item.name}}-->
-<!--                            </button>-->
                     </tui-data-list>
                 </tui-multi-select>
             </div>

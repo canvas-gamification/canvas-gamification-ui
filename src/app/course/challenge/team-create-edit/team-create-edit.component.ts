@@ -4,7 +4,6 @@ import {TeamForm} from "@app/course/_forms/team.form"
 import {Course, CourseRegistration} from "@app/_models"
 import {ActivatedRoute, Router} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
-import {TuiContextWithImplicit, TuiStringHandler} from "@taiga-ui/cdk"
 import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
@@ -58,8 +57,8 @@ export class TeamCreateEditComponent implements OnInit {
         return this.formData?.get('isPrivate')?.value
     }
 
-    stringify(courseReg): TuiStringHandler<CourseRegistration | TuiContextWithImplicit<CourseRegistration>> {
-        return `name` in courseReg ? courseReg.name : courseReg.$implicit.name
+    stringify(courseReg: CourseRegistration): string {
+        return courseReg.name
     }
 
     // onSearch(search: string | null): void {
