@@ -21,6 +21,7 @@ export class TeamCreateEditComponent implements OnInit {
     team: Team
     courseRegs: CourseRegistration[]
     course: Course
+    search: string
 
     list=[{id:1, name:'name1'},{id:2, name:'name2'},{id:3, name:'name3'}]
 
@@ -61,9 +62,15 @@ export class TeamCreateEditComponent implements OnInit {
         return courseReg.name
     }
 
-    // onSearch(search: string | null): void {
-    //     this.search$.next(search || ``)
-    // }
+    getCourseRegistrations() {
+        if (!this.search)
+            return this.courseRegs
+        return this.courseRegs.filter(reg => reg.name.includes(this.search))
+    }
+
+    onSearchChange(searchQuery: string | null): void {
+        this.search = searchQuery
+    }
 
     getCourseRegistration(inputCourseRegId: number):CourseRegistration {
         return this.courseRegs.find( courseReg => courseReg.id === inputCourseRegId)
