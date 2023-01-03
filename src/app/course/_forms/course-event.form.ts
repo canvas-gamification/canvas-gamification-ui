@@ -66,6 +66,7 @@ export class CourseEventForm {
             course: courseId,
             is_not_available_yet: false,
             is_closed: false,
+            featured: false,
         }
     }
 

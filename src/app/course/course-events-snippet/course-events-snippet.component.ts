@@ -39,12 +39,17 @@ export class CourseEventsSnippetComponent implements OnInit {
         private courseService: CourseService,
         private route: ActivatedRoute,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationsService)
+        private readonly notificationsService: TuiNotificationsService
     ) {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
     }
 
     ngOnInit(): void {
+        this.init()
+    }
+
+    init(): void {
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.course = course
             this.events = course.events
@@ -62,7 +67,9 @@ export class CourseEventsSnippetComponent implements OnInit {
     getEvents(): CourseEvent[] {
         switch (this.filter) {
             case EventFilterOptions.ALL:
-                return this.events.filter(event => event.type === 'ASSIGNMENT' || event.type === 'EXAM')
+                return this.events.filter(
+                    event => event.type === 'ASSIGNMENT' || event.type === 'EXAM'
+                )
             case EventFilterOptions.ASSIGNMENT:
                 return this.events.filter(event => event.type === 'ASSIGNMENT')
             case EventFilterOptions.EXAM:
@@ -78,13 +85,28 @@ export class CourseEventsSnippetComponent implements OnInit {
         return this.getEvents().filter(event => event.is_closed)
     }
 
+    getFeaturedEvent(): CourseEvent {
+        return this.events.find(event => event.featured)
+    }
+
+    setFeatured(eventId: number) {
+        return this.courseEventService.setFeatured(eventId).subscribe(() => {
+            this.init()
+            this.notificationsService.show('Event successfully marked as featured.', {
+                status: TuiNotification.Success,
+            }).subscribe()
+        })
+    }
+
     /**
      * Gets all available course events and then opens a dialog with import template.
      */
     openEventImportDialog(): void {
         this.courseEvents = null
         this.courseEventService.getAllEvents().subscribe(events => {
-            this.courseEvents = events
+            this.courseEvents = events.filter(
+                event => event.type === "ASSIGNMENT" || event.type === "EXAM"
+            )
         })
         this.dialogService.open(
             this.importDialog,
