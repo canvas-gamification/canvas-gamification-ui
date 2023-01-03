@@ -99,7 +99,7 @@ import {
     EventStatsBarChartComponent
 } from './event/event-stats-bar-chart/event-stats-bar-chart.component'
 import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.component'
-import {TeamCreateEditComponent} from './team-create-edit/team-create-edit.component'
+import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-edit.component'
 
 
 @NgModule({

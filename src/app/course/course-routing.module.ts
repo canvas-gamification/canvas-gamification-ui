@@ -55,7 +55,7 @@ import {
 import {
     ListOfTeamsComponent
 } from "@app/course/challenge/list-of-teams/list-of-teams.component"
-import {TeamCreateEditComponent} from './team-create-edit/team-create-edit.component'
+import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-edit.component'
 
 const routes: Routes = [
     {
