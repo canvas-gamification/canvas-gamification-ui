@@ -15,13 +15,19 @@
                         </div>
                         <div class="teamSection flex items-center gap-2">
                             <tui-tag
-                                *ngIf="!isSoloTeam(challenge); else soloTeam"
-                                size="m" status="success"
-                                value="Team"></tui-tag>
-                            <ng-template #soloTeam>
-                                <tui-tag size="m" status="warning"
-                                         value="Solo"></tui-tag>
-                            </ng-template>
+                                *ngIf="!isSoloTeam(challenge)"
+                                size="m"
+                                status="success"
+                                value="Team"
+                            >
+                            </tui-tag>
+                            <tui-tag
+                                *ngIf="isSoloTeam(challenge)"
+                                size="m"
+                                status="warning"
+                                value="Solo"
+                            >
+                            </tui-tag>
                             <a [routerLink]="['/course', courseId, 'challenge', challenge.id, 'teams']"
                                appearance="flat"
                                class="tui-form__button" size="s"
@@ -45,31 +51,36 @@
                             <div>
                                 <ng-container
                                     *ngIf="challenge.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
-                                    <a [routerLink]="['/course', course.id, 'challenge', challenge.id]"
-                                       appearance="primary"
-                                       class="tui-form__button"
-                                       size="s"
-                                       tuiButton
+                                    <a
+                                        [routerLink]="['/course', course.id, 'challenge', challenge.id]"
+                                        appearance="secondary"
+                                        class="tui-form__button"
+                                        size="s"
+                                        tuiButton
                                     >
                                         {{ user.is_teacher ? 'View' : 'Complete' }}
                                     </a>
                                 </ng-container>
                                 <ng-template #notAllowedOpen>
-                                    <a [disabled]="true" appearance="primary"
-                                       aria-label="Complete"
-                                       class="tui-form__button"
-                                       href=""
-                                       size="s"
-                                       tuiButton>
+                                    <a
+                                        [disabled]="true"
+                                        appearance="secondary"
+                                        aria-label="Complete"
+                                        class="tui-form__button"
+                                        href=""
+                                        size="s"
+                                        tuiButton
+                                    >
                                         Complete
                                     </a>
                                 </ng-template>
-                                <a *ngIf="challenge.has_edit_permission"
-                                   [routerLink]="['/course', course.id, 'challenge', challenge.id, 'edit']"
-                                   appearance="primary" aria-label="Edit"
-                                   class="tui-form__button"
-                                   size="s"
-                                   tuiButton
+                                <a
+                                    *ngIf="challenge.has_edit_permission"
+                                    [routerLink]="['/course', course.id, 'challenge', challenge.id, 'edit']"
+                                    appearance="secondary" aria-label="Edit"
+                                    class="tui-form__button"
+                                    size="s"
+                                    tuiButton
                                 >
                                     Edit
                                 </a>
@@ -185,31 +196,37 @@
                             <div>
                                 <ng-container
                                     *ngIf="challenge.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
-                                    <a [routerLink]="['/course', course.id, 'challenge', challenge.id]"
-                                       appearance="primary"
-                                       class="tui-form__button"
-                                       size="s"
-                                       tuiButton
+                                    <a
+                                        [routerLink]="['/course', course.id, 'challenge', challenge.id]"
+                                        appearance="secondary"
+                                        class="tui-form__button"
+                                        size="s"
+                                        tuiButton
                                     >
                                         {{ user.is_teacher ? 'View' : 'Complete' }}
                                     </a>
                                 </ng-container>
                                 <ng-template #notAllowedOpen>
-                                    <a [disabled]="true" appearance="primary"
-                                       aria-label="Complete"
-                                       class="tui-form__button"
-                                       href=""
-                                       size="s"
-                                       tuiButton>
+                                    <a
+                                        [disabled]="true"
+                                        appearance="secondary"
+                                        aria-label="Complete"
+                                        class="tui-form__button"
+                                        href=""
+                                        size="s"
+                                        tuiButton
+                                    >
                                         Complete
                                     </a>
                                 </ng-template>
-                                <a *ngIf="challenge.has_edit_permission"
-                                   [routerLink]="['/course', course.id, 'challenge', challenge.id, 'edit']"
-                                   appearance="primary" aria-label="Edit"
-                                   class="tui-form__button"
-                                   size="s"
-                                   tuiButton
+                                <a
+                                    *ngIf="challenge.has_edit_permission"
+                                    [routerLink]="['/course', course.id, 'challenge', challenge.id, 'edit']"
+                                    appearance="secondary"
+                                    aria-label="Edit"
+                                    class="tui-form__button"
+                                    size="s"
+                                    tuiButton
                                 >
                                     Edit
                                 </a>
@@ -233,7 +250,7 @@
                             <div class="tui-skeleton">From Some Date Here</div>
                             <div class="tui-skeleton">Until Some Date Here</div>
                         </div>
-                        <div class="availability">
+                        <div class="justify-self-end">
                             <tui-tag size="m" status="success" value="Available"
                                      class="tui-skeleton">
                             </tui-tag>
@@ -243,7 +260,7 @@
                                 Grade: TBA
                             </div>
                         </div>
-                        <div class="linkBtn">
+                        <div class="justify-self-end">
                             <ng-container>
                                 <a appearance="primary"
                                    class="tui-form__button tui-skeleton"
@@ -263,7 +280,7 @@
                             <div class="tui-skeleton">From Some Date Here</div>
                             <div class="tui-skeleton">Until Some Date Here</div>
                         </div>
-                        <div class="availability">
+                        <div class="justify-self-end">
                             <tui-tag size="m" status="success" value="Available"
                                      class="tui-skeleton">
                             </tui-tag>
@@ -273,7 +290,7 @@
                                 Grade: TBA
                             </div>
                         </div>
-                        <div class="linkBtn">
+                        <div class="justify-self-end">
                             <ng-container>
                                 <a appearance="primary"
                                    class="tui-form__button tui-skeleton"
@@ -298,7 +315,7 @@
                             <div class="tui-skeleton">From Some Date Here</div>
                             <div class="tui-skeleton">Until Some Date Here</div>
                         </div>
-                        <div class="availability">
+                        <div class="justify-self-end">
                             <tui-tag size="m" status="success" value="Available"
                                      class="tui-skeleton">
                             </tui-tag>
@@ -308,7 +325,7 @@
                                 Grade: TBA
                             </div>
                         </div>
-                        <div class="linkBtn">
+                        <div class="justify-self-end">
                             <ng-container>
                                 <a appearance="primary"
                                    class="tui-form__button tui-skeleton"
@@ -328,7 +345,7 @@
                             <div class="tui-skeleton">From Some Date Here</div>
                             <div class="tui-skeleton">Until Some Date Here</div>
                         </div>
-                        <div class="availability">
+                        <div class="justify-self-end">
                             <tui-tag size="m" status="success" value="Available"
                                      class="tui-skeleton">
                             </tui-tag>
@@ -338,7 +355,7 @@
                                 Grade: TBA
                             </div>
                         </div>
-                        <div class="linkBtn">
+                        <div class="justify-self-end">
                             <ng-container>
                                 <a appearance="primary"
                                    class="tui-form__button tui-skeleton"
@@ -363,7 +380,7 @@
                             <div class="tui-skeleton">From Some Date Here</div>
                             <div class="tui-skeleton">Until Some Date Here</div>
                         </div>
-                        <div class="availability">
+                        <div class="justify-self-end">
                             <tui-tag size="m" status="success" value="Available"
                                      class="tui-skeleton">
                             </tui-tag>
@@ -373,7 +390,7 @@
                                 Grade: TBA
                             </div>
                         </div>
-                        <div class="linkBtn">
+                        <div class="justify-self-end">
                             <ng-container>
                                 <a appearance="primary"
                                    class="tui-form__button tui-skeleton"
@@ -393,7 +410,7 @@
                             <div class="tui-skeleton">From Some Date Here</div>
                             <div class="tui-skeleton">Until Some Date Here</div>
                         </div>
-                        <div class="availability">
+                        <div class="justify-self-end">
                             <tui-tag size="m" status="success" value="Available"
                                      class="tui-skeleton">
                             </tui-tag>
@@ -403,7 +420,7 @@
                                 Grade: TBA
                             </div>
                         </div>
-                        <div class="linkBtn">
+                        <div class="justify-self-end">
                             <ng-container>
                                 <a appearance="primary"
                                    class="tui-form__button tui-skeleton"

@@ -27,7 +27,7 @@
     }
     @include screen-md() {
         display: grid;
-        grid-template-columns: 2fr 1fr;
+        grid-template-columns: 2fr 2fr;
         grid-template-rows: 1fr 1fr 1fr;
         grid-template-areas: "challengeType teamSection"
         "name toCompleteSection"
@@ -58,18 +58,21 @@
 
 .challengeType {
     @include screen-md() {
+        padding-left: 0;
         grid-area: challengeType;
     }
 }
 
 .name {
     @include screen-md() {
+        padding-left: 0;
         grid-area: name;
     }
 }
 
 .dates {
     @include screen-md() {
+        padding-left: 0;
         grid-area: dates;
     }
 }
@@ -78,14 +81,15 @@
     @include screen-md() {
         grid-area: teamSection;
         justify-self: end;
-        padding-right: 1rem;
+        padding-right: 0;
     }
 }
 
 .toCompleteSection {
+    justify-self: end;
+
     @include screen-md() {
         grid-area: toCompleteSection;
-        justify-self: end;
-        padding-right: 1rem;
+        padding-right: 0;
     }
 }
