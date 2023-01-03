@@ -68,7 +68,7 @@ export class CourseComponent implements OnInit {
                         .replace(':goalId', route.firstChild.params.goalId)
                         .replace(':eventId', route.firstChild.params.eventId)
                         .replace(':id', route.firstChild.params.id)
-                        .replace('teamId', route.firstChild.params.teamId)
+                        .replace(':teamId', route.firstChild.params.teamId)
                 }
             ))
 
@@ -99,7 +99,8 @@ export class CourseComponent implements OnInit {
             // Replace :teamName in the breadcrumbs
             if (route.firstChild.params.teamId) {
                 const teamId = route.firstChild.params.teamId
-                await this.fetchTeam(teamId)
+                if (this.team?.id !== teamId)
+                    await this.fetchTeam(teamId)
                 breadCrumbs = breadCrumbs.map(breadCrumb => ({
                     ...breadCrumb,
                     caption: breadCrumb.caption
