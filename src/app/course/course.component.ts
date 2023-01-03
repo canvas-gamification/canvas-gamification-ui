@@ -11,6 +11,8 @@ import {
 import {filter} from "rxjs/operators"
 import {UqjService} from "@app/problems/_services/uqj.service"
 import {CourseEventService} from "@app/course/_services/course-event.service"
+import {Team} from "@app/_models/team"
+import {TeamService} from "@app/course/_services/team.service"
 
 @Component({
     selector: 'app-course',
@@ -21,6 +23,7 @@ export class CourseComponent implements OnInit {
     course: Course
     courseId: number
     event: CourseEvent
+    team: Team
     user: User
     uqjs: UQJ[]
     breadCrumbs: { caption: string, routerLink: string }[]
@@ -31,6 +34,7 @@ export class CourseComponent implements OnInit {
         private courseService: CourseService,
         private uqjService: UqjService,
         private courseEventService: CourseEventService,
+        private teamService: TeamService,
         private route: ActivatedRoute,
         private router: Router
     ) {
@@ -44,6 +48,10 @@ export class CourseComponent implements OnInit {
         this.uqjs = (await this.uqjService.getUQJs(
             {filters: {question_event: eventId}}
         ).toPromise()).results
+    }
+
+    async fetchTeam(teamId: number) {
+        this.team = await this.teamService.getTeam(teamId).toPromise()
     }
 
     async getBreadCrumbs(route: ActivatedRouteSnapshot) {
@@ -60,6 +68,7 @@ export class CourseComponent implements OnInit {
                         .replace(':goalId', route.firstChild.params.goalId)
                         .replace(':eventId', route.firstChild.params.eventId)
                         .replace(':id', route.firstChild.params.id)
+                        .replace(':teamId', route.firstChild.params.teamId)
                 }
             ))
 
@@ -84,6 +93,18 @@ export class CourseComponent implements OnInit {
                     ...breadCrumb,
                     caption: breadCrumb.caption
                         .replace(':questionName', uqj.question.title),
+                }))
+            }
+
+            // Replace :teamName in the breadcrumbs
+            if (route.firstChild.params.teamId) {
+                const teamId = route.firstChild.params.teamId
+                if (this.team?.id !== teamId)
+                    await this.fetchTeam(teamId)
+                breadCrumbs = breadCrumbs.map(breadCrumb => ({
+                    ...breadCrumb,
+                    caption: breadCrumb.caption
+                        .replace(':teamName', this.team.name),
                 }))
             }
         }
