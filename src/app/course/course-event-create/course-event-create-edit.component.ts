@@ -57,7 +57,7 @@ export class CourseEventCreateEditComponent implements OnInit {
                     .show('The Event has been updated Successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
-                this.router.navigate(['course', this.courseId, 'event']).then()
+                this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
             }, error => {
                 this.notificationsService
                     .show(error, {
@@ -70,7 +70,7 @@ export class CourseEventCreateEditComponent implements OnInit {
                     .show('The Event has been added Successfully.', {
                         status: TuiNotification.Success
                     })
-                this.router.navigate(['course', this.courseId, 'event']).then()
+                this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
             }, error => {
                 this.notificationsService
                     .show(error, {
