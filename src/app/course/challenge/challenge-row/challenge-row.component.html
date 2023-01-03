@@ -1,0 +1,83 @@
+<div class="challenge">
+    <div class="challengeType"> Challenge</div>
+    <div class="name">{{ event.name }}</div>
+    <div class="dates">
+        <div>
+            From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+        <div>
+            Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+    </div>
+    <div class="teamSection flex items-center gap-2">
+        <tui-tag
+            *ngIf="!isSoloTeam()"
+            size="m"
+            status="success"
+            value="Team"
+        >
+        </tui-tag>
+        <tui-tag
+            *ngIf="isSoloTeam()"
+            size="m"
+            status="warning"
+            value="Solo"
+        >
+        </tui-tag>
+        <a [routerLink]="['/course', event.course, 'challenge', event.id, 'teams']"
+           appearance="flat"
+           class="tui-form__button" size="s"
+           tuiButton
+        >
+            {{event.is_not_available_yet ? 'Manage Teams' : 'View Teams'}}
+        </a>
+    </div>
+    <div class="toCompleteSection flex items-center gap-2">
+        <div>
+            <ng-container
+                *ngIf="event.total_event_grade === 0 ; else totalEventGrade">
+                Grade: ------
+                %
+            </ng-container>
+            <ng-template #totalEventGrade>
+                Grade: {{ event.total_event_grade | number: '1.0-1' || 'No Grade'}}
+                %
+            </ng-template>
+        </div>
+        <div>
+            <ng-container
+                *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
+                <a
+                    [routerLink]="['/course', event.course, 'challenge', event.id]"
+                    appearance="secondary"
+                    class="tui-form__button"
+                    size="s"
+                    tuiButton
+                >
+                    {{ user.is_teacher ? 'View' : 'Complete' }}
+                </a>
+            </ng-container>
+            <ng-template #notAllowedOpen>
+                <a
+                    [disabled]="true"
+                    appearance="secondary"
+                    aria-label="Complete"
+                    class="tui-form__button"
+                    href=""
+                    size="s"
+                    tuiButton
+                >
+                    Complete
+                </a>
+            </ng-template>
+            <a
+                *ngIf="event.has_edit_permission"
+                [routerLink]="['/course', event.course, 'challenge', event.id, 'edit']"
+                appearance="secondary" aria-label="Edit"
+                class="tui-form__button"
+                size="s"
+                tuiButton
+            >
+                Edit
+            </a>
+        </div>
+    </div>
+</div>

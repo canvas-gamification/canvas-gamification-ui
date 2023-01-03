@@ -39,7 +39,7 @@ import {
 } from "@app/course/token-use-snippet/token-use-snippet.component"
 import {
     CourseChallengeSnippetComponent
-} from "@app/course/course-challenge-snippet/course-challenge-snippet.component"
+} from "@app/course/challenge/course-challenge-snippet/course-challenge-snippet.component"
 import {
     CourseHomepageComponent
 } from "@app/course/course-homepage/course-homepage.component"
@@ -52,6 +52,9 @@ import {
 import {
     LeaderBoardComponent
 } from "@app/course/leader-board/leader-board.component"
+import {
+    ListOfTeamsComponent
+} from "@app/course/challenge/list-of-teams/list-of-teams.component"
 
 const routes: Routes = [
     {
@@ -319,6 +322,25 @@ const routes: Routes = [
                     }, {
                         caption: `:eventName`,
                         routerLink: '/course/:courseId/challenge/:eventId'
+                    }]
+                }
+            },
+            {
+                path: 'challenge/:eventId/teams',
+                component: ListOfTeamsComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }, {
+                        caption: `Teams`,
+                        routerLink: '/course/:courseId/challenge/:eventId/teams'
                     }]
                 }
             },

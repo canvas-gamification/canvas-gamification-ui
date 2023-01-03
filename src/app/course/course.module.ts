@@ -66,7 +66,7 @@ import {
 import {
     CourseRegistrationStepComponent
 } from './course-registration/course-registration-step/course-registration-step.component'
-import {TuiActiveZoneModule, TuiFilterPipeModule} from '@taiga-ui/cdk'
+import {TuiActiveZoneModule, TuiFilterPipeModule, TuiForModule} from '@taiga-ui/cdk'
 import {TuiTableModule} from '@taiga-ui/addon-table'
 import {DragulaModule} from 'ng2-dragula'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
@@ -77,7 +77,7 @@ import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {
     CourseChallengeSnippetComponent
-} from './course-challenge-snippet/course-challenge-snippet.component'
+} from './challenge/course-challenge-snippet/course-challenge-snippet.component'
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
@@ -86,6 +86,7 @@ import {
     TuiBarChartModule,
     TuiRingChartModule
 } from "@taiga-ui/addon-charts"
+import {ListOfTeamsComponent} from './challenge/list-of-teams/list-of-teams.component'
 import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 import {CourseCreateComponent} from './course-create/course-create.component'
 import {GoalIslandComponent} from './goal/goal-island/goal-island.component'
@@ -96,10 +97,12 @@ import {EventStatsComponent} from './event/event-stats/event-stats.component'
 import {
     EventStatsBarChartComponent
 } from './event/event-stats-bar-chart/event-stats-bar-chart.component'
+import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.component'
 
 
 @NgModule({
     declarations: [
+        ChallengeRowComponent,
         ConceptMapComponent,
         CourseChallengeSnippetComponent,
         CourseComponent,
@@ -121,6 +124,7 @@ import {
         GoalIslandComponent,
         GoalPageComponent,
         LeaderBoardComponent,
+        ListOfTeamsComponent,
         PracticeProblemComponent,
         SubmissionChartComponent,
         TokenUseSnippetComponent,
@@ -151,6 +155,7 @@ import {
         TuiErrorModule,
         TuiFieldErrorModule,
         TuiFilterPipeModule,
+        TuiForModule,
         TuiHintModule,
         TuiHostedDropdownModule,
         TuiInputCountModule,

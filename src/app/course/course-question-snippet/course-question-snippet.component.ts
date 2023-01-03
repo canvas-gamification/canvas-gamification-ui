@@ -88,8 +88,4 @@ export class CourseQuestionSnippetComponent implements OnInit {
         }
         return 'warning'
     }
-
-    getTeamMemberNames(team: Team): string {
-        return team.member_names.join(", ")
-    }
 }
