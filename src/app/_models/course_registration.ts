@@ -9,8 +9,3 @@ export interface CourseRegistration {
     total_tokens_received: number;
     available_tokens: number;
 }
-
-export interface CourseStudent {
-    id: number;
-    name: string;
-}
