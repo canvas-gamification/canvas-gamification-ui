@@ -67,7 +67,7 @@ import {
 import {
     CourseRegistrationStepComponent
 } from './course-registration/course-registration-step/course-registration-step.component'
-import {TuiActiveZoneModule, TuiFilterPipeModule} from '@taiga-ui/cdk'
+import {TuiActiveZoneModule, TuiFilterPipeModule, TuiForModule} from '@taiga-ui/cdk'
 import {TuiTableModule} from '@taiga-ui/addon-table'
 import {DragulaModule} from 'ng2-dragula'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
@@ -82,7 +82,11 @@ import {
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
-import {TuiRingChartModule} from "@taiga-ui/addon-charts"
+import {
+    TuiAxesModule,
+    TuiBarChartModule,
+    TuiRingChartModule
+} from "@taiga-ui/addon-charts"
 import {ListOfTeamsComponent} from './list-of-teams/list-of-teams.component'
 import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 import {CourseCreateComponent} from './course-create/course-create.component'
@@ -91,9 +95,10 @@ import {CoursePracticePageComponent} from './course-practice-page/course-practic
 import {CoursePracticeComponent} from './course-practice/course-practice.component'
 import {CourseHomepageComponent} from './course-homepage/course-homepage.component'
 import {EventStatsComponent} from './event/event-stats/event-stats.component'
+import {
+    EventStatsBarChartComponent
+} from './event/event-stats-bar-chart/event-stats-bar-chart.component'
 import {TeamCreateEditComponent} from './team-create-edit/team-create-edit.component'
-
-
 
 @NgModule({
     declarations: [
@@ -111,6 +116,7 @@ import {TeamCreateEditComponent} from './team-create-edit/team-create-edit.compo
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        EventStatsBarChartComponent,
         EventStatsComponent,
         GoalComponent,
         GoalCreateComponent,
@@ -137,6 +143,8 @@ import {TeamCreateEditComponent} from './team-create-edit/team-create-edit.compo
         TuiAccordionModule,
         TuiActiveZoneModule,
         TuiAvatarModule,
+        TuiAxesModule,
+        TuiBarChartModule,
         TuiBreadcrumbsModule,
         TuiButtonModule,
         TuiCalendarModule,
@@ -147,6 +155,7 @@ import {TeamCreateEditComponent} from './team-create-edit/team-create-edit.compo
         TuiErrorModule,
         TuiFieldErrorModule,
         TuiFilterPipeModule,
+        TuiForModule,
         TuiHintModule,
         TuiHostedDropdownModule,
         TuiInputCountModule,
@@ -167,15 +176,14 @@ import {TeamCreateEditComponent} from './team-create-edit/team-create-edit.compo
         TuiRingChartModule,
         TuiSelectModule,
         TuiSidebarModule,
+        DragulaModule.forRoot(),
         TuiStepperModule,
         TuiSvgModule,
-        DragulaModule.forRoot(),
         TuiTableModule,
         TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
         TuiTextfieldControllerModule,
-        DragulaModule.forRoot(),
     ],
     providers: [
         CourseEventService,

@@ -23,17 +23,15 @@
 
     @include screen-lg {
         display: grid;
-        grid-template-columns: 8rem 3fr 5fr 8rem 8rem 9rem;
-        align-items: center;
-        justify-items: center;
+        grid-template-columns: 8rem 3fr 5fr 14rem 18rem;
     }
     @include screen-md() {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 2fr 1fr;
         grid-template-rows: 1fr 1fr 1fr;
-        grid-template-areas: "challengeType availability"
-        "name grade"
-        "dates linkBtn";
+        grid-template-areas: "challengeType teamSection"
+        "name toCompleteSection"
+        "dates none ";
         align-items: start;
     }
 
@@ -43,7 +41,7 @@
     color: var(--tui-text-02);
 }
 
-.challengeType, .name, .dates, .availability, .grade {
+.challengeType, .name, .dates, .teamSection, .toCompleteSection{
     justify-self: start;
     padding-left: 1rem;
 
@@ -56,14 +54,6 @@
     display: flex;
     flex-direction: column;
 
-}
-
-.linkBtn {
-    justify-self: end;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    display: flex;
-    gap: 0.3rem;
 }
 
 .challengeType {
@@ -84,23 +74,18 @@
     }
 }
 
-.availability {
+.teamSection {
     @include screen-md() {
-        grid-area: availability;
+        grid-area: teamSection;
         justify-self: end;
+        padding-right: 1rem;
     }
 }
 
-.grade {
+.toCompleteSection {
     @include screen-md() {
-        grid-area: grade;
+        grid-area: toCompleteSection;
         justify-self: end;
-    }
-}
-
-.linkBtn {
-    @include screen-md() {
-        grid-area: linkBtn;
-        padding-right: 0;
+        padding-right: 1rem;
     }
 }

@@ -47,20 +47,11 @@ export class ListOfTeamsComponent  implements OnInit {
                 .show('You have successfully join the team.', {
                     status: TuiNotification.Success
                 })
-        }, error => {
-            this.notificationsService
-                .show(error, {
-                    status: TuiNotification.Error
-                }).subscribe()
         })
         window.location.reload()
     }
 
     isInTeam(team: Team): boolean{
         return team.course_registrations.map( courseReg => +courseReg ).includes(this.course.course_reg.id)
-    }
-
-    getTeamMemberNames(team: Team): string {
-        return team.member_names.join(", ")
     }
 }

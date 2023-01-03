@@ -1,11 +1,23 @@
-.accordionHeader {
-    display: grid;
-    grid-template-columns: 5% 55% 30% 10%;
+@import "mixins";
 
+.accordionHeader {
+    @include screen-md-lg() {
+        display: grid;
+        grid-template-columns: 5% 55% 30% 5% 10%;
+    }
 }
 
 .accordionBody {
     width: calc(100% - 2rem);
-    display: grid;
-    grid-template-columns: 60% 40%;
+
+    @include screen-md-lg() {
+        display: grid;
+        grid-template-columns: 60% 40%;
+    }
+
+    @include screen-sm() {
+        a {
+            margin-top: 20px;
+        }
+    }
 }

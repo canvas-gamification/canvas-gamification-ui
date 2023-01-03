@@ -1,8 +1,12 @@
 <section class="tui-container tui-container_fullwidth">
     <div class="flex-container">
 
-        <tui-island class="course-tile tui-island_hoverable"
-                    [routerLink]="['/course', courseId, 'practice']" size="m">
+        <tui-island
+            class="course-tile tui-island_hoverable"
+            [routerLink]="['/course', courseId, 'practice']"
+            (click)="practiceClickLog()"
+            size="m"
+        >
             <div class="course-background practice"></div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title">Question Bank</h3>
@@ -13,6 +17,7 @@
                     <a
                         appearance="primary"
                         [routerLink]="['/course', courseId, 'practice']"
+                        (click)="practiceClickLog()"
                         class="tui-form__button"
                         size="m"
                         tuiButton
@@ -23,9 +28,12 @@
             </div>
         </tui-island>
 
-        <tui-island class="course-tile tui-island_hoverable"
-                    [routerLink]="['/course', courseId, 'assignments-exams']"
-                    size="m">
+        <tui-island
+            class="course-tile tui-island_hoverable"
+            [routerLink]="['/course', courseId, 'assignments-exams']"
+            size="m"
+            (click)="assignmentsAndExamsClickLog()"
+        >
             <div class="course-background assessment"></div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title ">Assignments and Exams</h3>
@@ -38,6 +46,7 @@
                         class="tui-form__button"
                         size="m"
                         tuiButton
+                        (click)="assignmentsAndExamsClickLog()"
                     >
                         View
                     </a>
@@ -45,9 +54,13 @@
             </div>
         </tui-island>
 
-        <tui-island class="course-tile tui-island_hoverable"
-                    [routerLink]="['/course', courseId, 'challenge']" size="m">
-            <div class="course-background challenge "></div>
+        <tui-island
+            class="course-tile tui-island_hoverable"
+            [routerLink]="['/course', courseId, 'challenge']" size="m"
+            (click)="challengeClickLog()"
+        >
+            <div class=" course-background challenge">
+            </div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title">Challenges</h3>
                 <p class="tui-island__paragraph tui-text_body-xl flex-space">
@@ -60,6 +73,7 @@
                         class="tui-form__button"
                         size="m"
                         tuiButton
+                        (click)="challengeClickLog()"
                     >
                         View
                     </a>
@@ -67,9 +81,12 @@
             </div>
         </tui-island>
 
-        <tui-island class="course-tile tui-island_hoverable"
-                    [routerLink]="['/course', courseId, 'leaderboard']"
-                    size="m">
+        <tui-island
+            class="course-tile tui-island_hoverable"
+            [routerLink]="['/course', courseId, 'leaderboard']"
+            size="m"
+            (click)="leaderboardClickLog()"
+        >
             <div class="course-background leaderboard"></div>
             <div class="course-tile-text">
                 <h3 class="tui-island__title">Leaderboard</h3>
@@ -83,12 +100,14 @@
                         class="tui-form__button"
                         size="m"
                         tuiButton
+                        (click)="leaderboardClickLog()"
                     >
                         View
                     </a>
                 </div>
             </div>
         </tui-island>
+        <!-- When tokens enabled, add (click)="tokenClickLog()" to log action-->
         <tui-island
             size="m"
             class="course-tile cursor-"
