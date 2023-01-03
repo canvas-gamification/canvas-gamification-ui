@@ -78,7 +78,7 @@ import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {
     CourseChallengeSnippetComponent
-} from './course-challenge-snippet/course-challenge-snippet.component'
+} from './challenge/course-challenge-snippet/course-challenge-snippet.component'
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
@@ -87,7 +87,7 @@ import {
     TuiBarChartModule,
     TuiRingChartModule
 } from "@taiga-ui/addon-charts"
-import {ListOfTeamsComponent} from './list-of-teams/list-of-teams.component'
+import {ListOfTeamsComponent} from './challenge/list-of-teams/list-of-teams.component'
 import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 import {CourseCreateComponent} from './course-create/course-create.component'
 import {GoalIslandComponent} from './goal/goal-island/goal-island.component'
@@ -98,10 +98,13 @@ import {EventStatsComponent} from './event/event-stats/event-stats.component'
 import {
     EventStatsBarChartComponent
 } from './event/event-stats-bar-chart/event-stats-bar-chart.component'
+import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.component'
 import {TeamCreateEditComponent} from './team-create-edit/team-create-edit.component'
+
 
 @NgModule({
     declarations: [
+        ChallengeRowComponent,
         ConceptMapComponent,
         CourseChallengeSnippetComponent,
         CourseComponent,
@@ -176,9 +179,9 @@ import {TeamCreateEditComponent} from './team-create-edit/team-create-edit.compo
         TuiRingChartModule,
         TuiSelectModule,
         TuiSidebarModule,
-        DragulaModule.forRoot(),
         TuiStepperModule,
         TuiSvgModule,
+        DragulaModule.forRoot(),
         TuiTableModule,
         TuiTabsModule,
         TuiTagModule,

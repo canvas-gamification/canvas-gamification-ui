@@ -1,33 +1,5 @@
 @import "mixins";
 
-.eventPage {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.accordionContainer {
-    align-self: center;
-    width: 90%;
-}
-
-.functionBar {
-    align-self: center;
-    width: 90%;
-    display: flex;
-    justify-content: start;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.filter {
-    min-width: 22rem;
-}
-
-.new-event {
-    width: 20rem;
-}
-
 .new-event span {
     vertical-align: middle;
 }
@@ -45,7 +17,7 @@
 
     @include screen-lg {
         display: grid;
-        grid-template-columns: 8rem 3fr 5fr 8rem 8rem 15rem;
+        grid-template-columns: 8rem 3fr 5fr 8rem 8rem 20rem;
         align-items: center;
         justify-items: center;
     }

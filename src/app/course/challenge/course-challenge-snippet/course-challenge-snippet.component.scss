@@ -1,0 +1,24 @@
+@import "mixins";
+
+.divide {
+    &:not(:last-child) {
+        border-bottom: solid 1px var(--tui-base-03);
+        margin: 0;
+        padding-bottom: 20px;
+    }
+
+    &:not(:first-child) {
+        padding-top: 20px;
+    }
+}
+
+.challengePage {
+    display: flex;
+    flex-direction: column;
+}
+
+.accordionContainer {
+    align-self: center;
+    width: 90%;
+}
+
