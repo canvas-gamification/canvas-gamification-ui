@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import {Observable} from 'rxjs'
-import {APIResponse, Course, CourseRegistration} from '@app/_models'
+import {APIResponse, Course, CourseEvent, CourseRegistration} from '@app/_models'
 import {HttpClient, HttpParams} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
@@ -112,7 +112,17 @@ export class CourseService {
         return this.http.get<CourseRegistration[]>(url)
             .pipe(catchError(
                 this.apiService.handleError<CourseRegistration[]>(
-                    `Error occurred while fetching course students.`
+                    `Error occurred while fetching course registrations.`
+                )
+            ))
+    }
+
+    getCourseEvents(courseId: number): Observable<CourseEvent[]>{
+        const url = this.apiService.getURL('course', courseId, 'course-events')
+        return this.http.get<CourseEvent[]>(url)
+            .pipe(catchError(
+                this.apiService.handleError<CourseEvent[]>(
+                    `Error occurred while fetching course events.`
                 )
             ))
     }
