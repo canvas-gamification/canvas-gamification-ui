@@ -23,14 +23,18 @@ export class TeamService {
             .set('event', String(eventId))
         return this.http
             .get<Team[]>(url, {params})
-            .pipe(catchError(this.apiService.handleError<Team[]>(`Error occurred while fetching all teams of this challenge.`)))
+            .pipe(catchError(this.apiService.handleError<Team[]>(
+                `Error occurred while fetching all teams of this challenge.`
+            )))
     }
 
     getTeam(teamId: number): Observable<Team>{
         const url = this.apiService.getURL('team', teamId)
         return this.http
             .get<Team>(url)
-            .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while fetching the team.`)))
+            .pipe(catchError(this.apiService.handleError<Team>(
+                `Error occurred while fetching the team.`
+            )))
     }
 
     getMyTeam(eventId: number): Observable<Team> {
@@ -39,26 +43,42 @@ export class TeamService {
             .set('event_id', String(eventId))
         return this.http
             .get<Team>(url, {params})
-            .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while fetching My Team.`)))
+            .pipe(catchError(this.apiService.handleError<Team>(
+                `Error occurred while fetching My Team.`
+            )))
     }
 
     joinTeam(teamId: number): Observable<HttpResponse<unknown>> {
         const url = this.apiService.getURL('team', 'join')
         return this.http
             .post<HttpResponse<unknown>>(url, {team_id: teamId})
-            .pipe(catchError(this.apiService.handleError<HttpResponse<unknown>>(`Error occurred while joining the team.`)))
+            .pipe(catchError(this.apiService.handleError<HttpResponse<unknown>>(
+                `Error occurred while joining the team.`
+            )))
     }
 
     createAndJoin(input: TeamFormData): Observable<Team> {
         const url = this.apiService.getURL('team', 'create-and-join')
         return this.http
             .post<Team>(url, input)
-            .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while adding Team.`)))
+            .pipe(catchError(this.apiService.handleError<Team>(
+                `Error occurred while adding Team.`
+            )))
     }
 
     updateTeam(input: TeamFormData, teamId: number): Observable<Team> {
         const url = this.apiService.getURL('team', teamId)
         return this.http.put<Team>(url, input)
-            .pipe(catchError(this.apiService.handleError<Team>(`Error occurred while updating Team.`)))
+            .pipe(catchError(this.apiService.handleError<Team>(
+                `Error occurred while updating Team.`
+            )))
+    }
+
+    updateMembers(courseRegIds: number[], teamId: number): Observable<Team>{
+        const url = this.apiService.getURL('team', teamId, 'update-members')
+        return this.http.put<Team>(url, courseRegIds)
+            .pipe(catchError(this.apiService.handleError<Team>(
+                `Error occurred while updating Team Members.`
+            )))
     }
 }
