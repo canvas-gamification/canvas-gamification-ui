@@ -29,11 +29,11 @@
                                 ></tui-svg>
                             </div>
                             <div class="flex-grow">{{team.name}}</div>
-                            <div>{{team.member_names.length}} out of {{event.max_team_size}}
-                                students
-                            </div>
                             <div>
                                 <tui-svg *ngIf="team.is_private" src="tuiIconLock"></tui-svg>
+                            </div>
+                            <div>{{team.member_names.length}} out of {{event.max_team_size}}
+                                students
                             </div>
                         </div>
                         <ng-template tuiAccordionItemContent>

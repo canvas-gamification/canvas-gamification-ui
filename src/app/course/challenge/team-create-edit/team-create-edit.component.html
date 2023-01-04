@@ -7,25 +7,26 @@
             </tui-input>
             <tui-field-error formControlName="name"></tui-field-error>
         </div>
+
         <ng-container *ngIf="teamId">
-            <div class="tui-form__row">
-                <tui-multi-select
-                    aria-label="Members"
-                    formControlName="members"
-                    [tuiTextfieldLabelOutside]="true"
-                    [stringify]="stringify"
-                    [editable]="true"
-                >
-                    Members (remember to include yourself)
-                    <tui-data-list *tuiDataList tuiMultiSelectGroup>
-                        <!--                        <button *ngFor="let memberId of memberIds" [value]="getCourseRegistration(memberId)" tuiOption>-->
-                        <!--                            {{getCourseRegistration(memberId).name}}-->
-                        <!--                        </button>-->
-                        <button *ngFor="let item of list" [value]="item" tuiOption>
-                            {{item.name}}
+            <h2 class="tui-form__header">Members</h2>
+            <div *ngFor="let memberId of memberIds" class="tui-form__row">
+                <tui-island class="shadow">
+                    <p class="tui-island__category">Member</p>
+                    <p class="tui-island__paragraph">{{getCourseRegistration(memberId).name}}</p>
+                    <p class="tui-island__paragraph tui-island__paragraph_link">
+                        <button
+                            (click)="editMembers(memberId)"
+                            icon="tuiIconMinus"
+                            size="s"
+                            tuiButton
+                            type="button"
+                            appearance="accent"
+                        >
+                            Remove
                         </button>
-                    </tui-data-list>
-                </tui-multi-select>
+                    </p>
+                </tui-island>
             </div>
         </ng-container>
         <div class="tui-form__row">
@@ -36,6 +37,7 @@
             >
                 Check to lock the team so only people you have invited can join your team.
             </tui-checkbox-labeled>
+            <tui-field-error formControlName="isPrivate"></tui-field-error>
         </div>
         <ng-container *ngIf="isPrivate()">
             <div class="tui-form__row">
