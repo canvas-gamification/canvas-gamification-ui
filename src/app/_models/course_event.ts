@@ -2,6 +2,8 @@ export interface CourseEvent {
     id: number
     name: string
     type: string
+    challenge_type?: string
+    challenge_type_value?: number
     count_for_tokens: boolean
     max_team_size: number
     start_date: Date
