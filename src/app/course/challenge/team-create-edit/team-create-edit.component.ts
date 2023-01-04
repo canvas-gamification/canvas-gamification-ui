@@ -22,8 +22,7 @@ export class TeamCreateEditComponent implements OnInit {
     courseRegs: CourseRegistration[]
     course: Course
     search: string
-
-    list=[{id:1, name:'name1'},{id:2, name:'name2'},{id:3, name:'name3'}]
+    memberIds: number[]
 
     constructor(
         private route: ActivatedRoute,
@@ -38,20 +37,20 @@ export class TeamCreateEditComponent implements OnInit {
         this.formData = TeamForm.createTeamForm()
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         this.eventId = +this.route.snapshot.paramMap.get('eventId')
-
-        if(this.route.snapshot.paramMap.get('teamId')){// For editing existing team, grab the teamId
-            this.teamId = +this.route.snapshot.paramMap.get('teamId')
-            this.teamService.getTeam(this.teamId).subscribe( team => {
-                this.team = team
-                this.formData = TeamForm.createTeamFormTeam(team)
-            })
-
-        }
-
-        //returns: Failed to load resource: the server responded with a status of 404 (Not Found)
-        this.courseService.getCourseRegistrations(this.courseId).subscribe( courseRegs => this.courseRegs = courseRegs )
-
         this.courseService.getCourse(this.courseId).subscribe( course => this.course = course)
+        this.courseService.getCourseRegistrations(this.courseId).subscribe( courseRegs => {
+            this.courseRegs = courseRegs
+
+            if(this.route.snapshot.paramMap.get('teamId')){// For editing existing team, grab the teamId
+                this.teamId = +this.route.snapshot.paramMap.get('teamId')
+                this.teamService.getTeam(this.teamId).subscribe( team => {
+                    this.formData = TeamForm.createTeamFormTeam(team)
+                    this.team = team
+                    this.memberIds =this.team.course_registrations
+                })
+
+            }
+        })
     }
 
     isPrivate(): boolean {
@@ -76,16 +75,25 @@ export class TeamCreateEditComponent implements OnInit {
         return this.courseRegs.find( courseReg => courseReg.id === inputCourseRegId)
     }
 
-    onSubmit(): void {
-        console.log(this.formData.get('invitedMembers').value)
+    editMembers(courseRegId: number): void {
+        const index = this.memberIds.indexOf(courseRegId)
+        this.memberIds.splice(index, 1)
+    }
 
-        const teamData = TeamForm.formatTeamFormData(this.formData, this.eventId, this.course.course_reg.id)
+    onSubmit(): void {
+        const teamData = TeamForm.formatTeamFormData(this.formData, this.eventId)
         if(this.teamId){ // Editing existing team
             this.teamService.updateTeam(teamData, this.teamId).subscribe(() => {
                 this.notificationsService
                     .show('The Team has been updated Successfully.', {
                         status: TuiNotification.Success
                     })
+                this.teamService.updateMembers(this.memberIds, this.teamId).subscribe(() => {
+                    this.notificationsService
+                        .show('The Team Member has been updated Successfully.', {
+                            status: TuiNotification.Success
+                        })
+                })
                 this.router.navigate(['course', this.courseId, 'challenge', this.eventId, 'teams']).then()
             })
         }else{ // Creating a brand new team
@@ -98,5 +106,4 @@ export class TeamCreateEditComponent implements OnInit {
             })
         }
     }
-
 }
