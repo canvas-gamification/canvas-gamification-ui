@@ -345,6 +345,22 @@ const routes: Routes = [
                 }
             },
             {
+                path: 'challenge/create',
+                component: CourseEventCreateEditComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `Create Challenge`,
+                        routerLink: '/course/:courseId/challenge/create'
+                    }]
+                }
+            },
+            {
                 path: 'challenge/:eventId/edit',
                 component: CourseEventCreateEditComponent,
                 data: {
