@@ -130,7 +130,8 @@ export class CourseEventForm {
         },  {validator: CourseEventForm.dateValidator} as AbstractControlOptions)
     }
 
-    static createChallengeFormWithData(challenge: challengeFormData): FormGroup {
+    static createChallengeFormWithData(challenge): FormGroup {
+    // static createChallengeFormWithData(challenge: challengeFormData): FormGroup {
         const builder = new FormBuilder()
         return builder.group({
             name: new FormControl(challenge.name, [Validators.required]),
