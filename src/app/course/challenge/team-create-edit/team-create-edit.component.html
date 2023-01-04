@@ -1,0 +1,54 @@
+<div class="tui-container tui-container_adaptive">
+    <form (ngSubmit)="onSubmit()" [formGroup]="formData">
+        <h2 class="tui-form__header">{{teamId? 'Edit ' + team?.name: 'Create New Team'}}</h2>
+        <div class="tui-form__row">
+            <tui-input aria-label="Team Name" formControlName="name">
+                Team Name
+            </tui-input>
+            <tui-field-error formControlName="name"></tui-field-error>
+        </div>
+        <div class="tui-form__row">
+            <tui-checkbox-labeled
+                aria-label="Set Team To A Private Team"
+                size="l"
+                formControlName="isPrivate"
+            >
+                Check to lock the team so only people you have invited can join your team.
+            </tui-checkbox-labeled>
+            <tui-field-error formControlName="isPrivate"></tui-field-error>
+        </div>
+        <ng-container *ngIf="isPrivate()">
+            <div class="tui-form__row">
+                <tui-multi-select
+                    aria-label="Invited Member"
+                    formControlName="invitedMembers"
+                    [tuiTextfieldLabelOutside]="true"
+                    [stringify]="stringify"
+                    [editable]="true"
+                    (searchChange)="onSearchChange($event)"
+                >
+                    Invited Members
+                    <tui-data-list *tuiDataList tuiMultiSelectGroup>
+                        <button *ngFor="let courseReg of getCourseRegistrations()" [value]="courseReg" tuiOption>
+                            {{courseReg.name}}
+                        </button>
+                    </tui-data-list>
+                </tui-multi-select>
+            </div>
+        </ng-container>
+        <div class="tui-form__buttons">
+            <button
+                [disabled]="formData.invalid"
+                appearance="primary"
+                aria-label="Submit"
+                class="tui-form__button"
+                size="m"
+                tuiButton
+                type="submit"
+            >
+                {{teamId? 'Edit Team' : 'Create Team'}}
+            </button>
+        </div>
+    </form>
+</div>
+

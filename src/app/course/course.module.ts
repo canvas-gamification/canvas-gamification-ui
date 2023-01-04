@@ -36,6 +36,7 @@ import {
     TuiInputTimeModule,
     TuiIslandModule,
     TuiMarkerIconModule,
+    TuiMultiSelectModule,
     TuiProgressModule,
     TuiSelectModule,
     TuiStepperModule,
@@ -98,6 +99,7 @@ import {
     EventStatsBarChartComponent
 } from './event/event-stats-bar-chart/event-stats-bar-chart.component'
 import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.component'
+import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-edit.component'
 
 
 @NgModule({
@@ -127,6 +129,7 @@ import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.com
         ListOfTeamsComponent,
         PracticeProblemComponent,
         SubmissionChartComponent,
+        TeamCreateEditComponent,
         TokenUseSnippetComponent,
     ],
     imports: [
@@ -169,6 +172,7 @@ import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.com
         TuiLoaderModule,
         TuiMarkerIconModule,
         TuiModeModule,
+        TuiMultiSelectModule,
         TuiNotificationModule,
         TuiPointerHintModule,
         TuiProgressModule,

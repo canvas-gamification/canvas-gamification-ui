@@ -1,19 +1,22 @@
-<section class="tui-container tui-container_adaptive ng-star-inserted">
-    <div class="flex flex-wrap gap-3 tui-space_top-6">
-        <h3 class="tui-text_h3 tui-col_stretch flex-grow">List of Teams</h3>
-        <a
-            [disabled]="event.is_open || event.is_closed"
-            [routerLink]=""
-            icon="tuiIconPlus"
-            appearance="primary"
-            aria-label="Create a New Team"
-            size="m"
-            tuiButton
-        >
-            Create a New Team
-        </a>
-    </div>
-    <ng-container *ngIf="teams else skeletonTemplate">
+<ng-container *ngIf="teams else skeletonTemplate">
+    <section
+        *ngIf="course && event && teams"
+        class="tui-container tui-container_adaptive ng-star-inserted"
+    >
+        <div class="flex flex-wrap gap-3 tui-space_top-6">
+            <h3 class="tui-text_h3 tui-col_stretch flex-grow">List of Teams</h3>
+            <a
+                [disabled]="event.is_open || event.is_closed"
+                [routerLink]="['create']"
+                icon="tuiIconPlus"
+                appearance="primary"
+                aria-label="Create a New Team"
+                size="m"
+                tuiButton
+            >
+                Create a New Team
+            </a>
+        </div>
         <ng-container *ngFor="let team of teams; let index = index">
             <ng-container *ngIf="team">
                 <tui-accordion class="tui-space_top-6">
@@ -29,11 +32,11 @@
                                 ></tui-svg>
                             </div>
                             <div class="flex-grow">{{team.name}}</div>
-                            <div>{{team.member_names.length}} out of {{event.max_team_size}}
-                                students
-                            </div>
                             <div>
                                 <tui-svg *ngIf="team.is_private" src="tuiIconLock"></tui-svg>
+                            </div>
+                            <div>{{team.member_names.length}} out of {{event.max_team_size}}
+                                students
                             </div>
                         </div>
                         <ng-template tuiAccordionItemContent>
@@ -49,7 +52,7 @@
                                 <ng-container *ngIf="isInTeam(team); else notInTeam;">
                                     <a
                                         [disabled]="event.is_open || event.is_closed"
-                                        [routerLink]=""
+                                        [routerLink]="[team.id, 'edit']"
                                         appearance="secondary"
                                         aria-label="Edit"
                                         size="m"
@@ -77,21 +80,35 @@
                     </tui-accordion-item>
                 </tui-accordion>
             </ng-container>
-
         </ng-container>
-    </ng-container>
-    <ng-template #skeletonTemplate>
-        <tui-accordion class="accordionContainer tui-space_top-6">
-            <tui-accordion-item>
-                <div class="accordionHeader">
-                    <div class="tui-skeleton">1</div>
-                    <div class="tui-skeleton">Team Name</div>
-                    <div class="tui-skeleton">Number of Students</div>
-                    <div class="tui-skeleton">Private Team</div>
-                </div>
-            </tui-accordion-item>
-        </tui-accordion>
-    </ng-template>
+    </section>
+</ng-container>
 
+<ng-template #skeletonTemplate>
+    <div class="tui-container tui-container_adaptive ng-star-inserted">
+    <div class="flex flex-wrap gap-3 tui-space_top-6">
+        <h3 class="tui-text_h3 tui-col_stretch flex-grow tui-skeleton">List of Teams</h3>
+        <a
+            class="tui-skeleton"
+            icon="tuiIconPlus"
+            appearance="primary"
+            aria-label="Create a New Team"
+            size="m"
+            tuiButton
+        >
+            Create a New Team
+        </a>
+    </div>
+    <tui-accordion class="accordionContainer tui-space_top-6">
+        <tui-accordion-item>
+            <div class="accordionHeader">
+                <div class="tui-skeleton">1</div>
+                <div class="tui-skeleton">Team Name</div>
+                <div class="tui-skeleton">Number of Students</div>
+                <div class="tui-skeleton">Private Team</div>
+            </div>
+        </tui-accordion-item>
+    </tui-accordion>
+    </div>
+</ng-template>
 
-</section>
