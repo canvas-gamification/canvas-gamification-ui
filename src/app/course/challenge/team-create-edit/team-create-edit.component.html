@@ -7,28 +7,6 @@
             </tui-input>
             <tui-field-error formControlName="name"></tui-field-error>
         </div>
-
-        <ng-container *ngIf="teamId">
-            <h2 class="tui-form__header">Members</h2>
-            <div *ngFor="let memberId of memberIds" class="tui-form__row">
-                <tui-island class="shadow">
-                    <p class="tui-island__category">Member</p>
-                    <p class="tui-island__paragraph">{{getCourseRegistration(memberId).name}}</p>
-                    <p class="tui-island__paragraph tui-island__paragraph_link">
-                        <button
-                            (click)="editMembers(memberId)"
-                            icon="tuiIconMinus"
-                            size="s"
-                            tuiButton
-                            type="button"
-                            appearance="accent"
-                        >
-                            Remove
-                        </button>
-                    </p>
-                </tui-island>
-            </div>
-        </ng-container>
         <div class="tui-form__row">
             <tui-checkbox-labeled
                 aria-label="Set Team To A Private Team"

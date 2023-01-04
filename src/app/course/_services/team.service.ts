@@ -33,7 +33,11 @@ export class TeamService {
         return this.http
             .get<Team>(url)
             .pipe(catchError(this.apiService.handleError<Team>(
-                `Error occurred while fetching the team.`
+                `Error occurred while fetching the team.`,
+                null,
+                {
+                    redirect404: true,
+                }
             )))
     }
 
@@ -68,17 +72,9 @@ export class TeamService {
 
     updateTeam(input: TeamFormData, teamId: number): Observable<Team> {
         const url = this.apiService.getURL('team', teamId)
-        return this.http.put<Team>(url, input)
+        return this.http.patch<Team>(url, input)
             .pipe(catchError(this.apiService.handleError<Team>(
                 `Error occurred while updating Team.`
-            )))
-    }
-
-    updateMembers(courseRegIds: number[], teamId: number): Observable<Team>{
-        const url = this.apiService.getURL('team', teamId, 'update-members')
-        return this.http.put<Team>(url, courseRegIds)
-            .pipe(catchError(this.apiService.handleError<Team>(
-                `Error occurred while updating Team Members.`
             )))
     }
 }

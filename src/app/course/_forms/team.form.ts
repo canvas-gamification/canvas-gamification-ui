@@ -1,11 +1,12 @@
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
 import {Team} from "@app/_models/team"
+import {CourseRegistration} from "@app/_models"
 
 export interface TeamFormData {
-    event: number
+    event_id: number
     name: string
     is_private: boolean
-    who_can_join?: number[]
+    who_can_join?: string
 }
 
 export class TeamForm {
@@ -14,16 +15,20 @@ export class TeamForm {
         return builder.group({
             name: new FormControl(null, [Validators.required]),
             isPrivate: new FormControl(false, [Validators.required]),
-            invitedMembers: new FormControl([]),
+            invitedMembers: new FormControl(null),
         })
     }
 
-    static createTeamFormTeam(team: Team): FormGroup {
+    static createTeamFormTeam(
+        team: Team,
+        courseRegistrations: CourseRegistration[]
+    ): FormGroup {
+        const invitedMembers = courseRegistrations.filter(reg => team.who_can_join.includes(reg.id))
         const builder = new FormBuilder()
         return builder.group({
             name: new FormControl(team.name, [Validators.required]),
             isPrivate: new FormControl(team.is_private, [Validators.required]),
-            invitedMembers: new FormControl(team.who_can_join), //array of ids
+            invitedMembers: new FormControl(invitedMembers),
         })
     }
 
@@ -31,15 +36,13 @@ export class TeamForm {
      * Returns the formatted form data ready to be sent to the backend
      * @param formData - the data to be formatted, a FormGroup object
      * @param eventId - the ID of the event that the team belongs to
-     * @param myCourseRegId - the team creator's course registrations id
      */
     static formatTeamFormData(formData: FormGroup, eventId: number): TeamFormData{
         return {
-            event: eventId,
+            event_id: eventId,
             name: formData.get('name').value,
-            is_private: formData.get('is_private').value,
-            //add null=True to the team model in the backend?
-            who_can_join: formData.get('invitedMembers').value,
+            is_private: formData.get('isPrivate').value,
+            who_can_join: formData.get('invitedMembers').value?.map(reg => reg.id),
         }
     }
 }

@@ -13,7 +13,7 @@ import {CourseService} from "@app/course/_services/course.service"
     templateUrl: './list-of-teams.component.html',
     styleUrls: ['./list-of-teams.component.scss']
 })
-export class ListOfTeamsComponent  implements OnInit {
+export class ListOfTeamsComponent implements OnInit {
     user: User
     teams: Team[]
     eventId: number
@@ -27,31 +27,34 @@ export class ListOfTeamsComponent  implements OnInit {
         private courseService: CourseService,
         private courseEventService: CourseEventService,
         private teamService: TeamService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
-    ){
+        @Inject(TuiNotificationsService)
+        private readonly notificationsService: TuiNotificationsService,
+    ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
     ngOnInit(): void {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
-        this.courseService.getCourse(this.courseId).subscribe( course => this.course = course)
+        this.courseService.getCourse(this.courseId).subscribe(course => this.course = course)
 
         this.eventId = +this.route.snapshot.paramMap.get('eventId')
         this.courseEventService.getCourseEvent(this.eventId).subscribe(event => this.event = event)
         this.teamService.getChallengeTeams(this.eventId).subscribe(teams => this.teams = teams)
     }
 
-    joinTeam(teamId: number): void{
+    joinTeam(teamId: number): void {
         this.teamService.joinTeam(teamId).subscribe(() => {
             this.notificationsService
                 .show('You have successfully join the team.', {
                     status: TuiNotification.Success
-                })
+                }).subscribe()
         })
         window.location.reload()
     }
 
-    isInTeam(team: Team): boolean{
-        return team.course_registrations.map( courseReg => +courseReg ).includes(this.course.course_reg.id)
+    isInTeam(team: Team): boolean {
+        return team.course_registrations
+            .map(courseReg => +courseReg)
+            .includes(this.course.course_reg.id)
     }
 }
