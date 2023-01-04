@@ -53,7 +53,8 @@ export const MOCK_COURSE_REGISTRATION: CourseRegistration = {
     is_blocked: false,
     is_verified: true,
     token_uses: [MOCK_TOKEN_USE1, MOCK_TOKEN_USE2],
-    total_tokens_received: 50
+    total_tokens_received: 50,
+    name: 'test',
 }
 
 export const MOCK_EVENT_TYPES: EventType[] = [
