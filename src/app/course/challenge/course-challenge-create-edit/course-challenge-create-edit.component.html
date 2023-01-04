@@ -1,0 +1,185 @@
+<div class="tui-container tui-container_adaptive">
+    <form>
+        <h2 class="tui-form__header">{{eventId? 'Edit ' + challenge?.name : 'Create New Challenge'}}</h2>
+        <div class="tui-form__row">
+            <tui-input aria-label="" formControlName="">
+                Challenge Name
+            </tui-input>
+            <tui-field-error formControlName=""></tui-field-error>
+        </div>
+<!--        just for the challenge type row-->
+<!--        if type == !topXteams -> just the type column-->
+<!--        else show numbers-->
+        <ng-container *ngIf="">
+            <div class="tui-form__row">
+                <tui-select aria-label="Challenge Type" formControlName="challengeType">
+                    Challenge Type
+                    <tui-data-list *tuiDataList>
+                        <button *ngFor="let event of localChallengeTypes" [value]="event[0]" tuiOption>
+                            {{ event[1] }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+                <tui-field-error formControlName="challengeType"></tui-field-error>
+            </div>
+        </ng-container>
+        <ng-template #topXTeams>
+            <div class="tui-form__row tui-form__row_multi-fields">
+                <div class="tui-form__multi-field">
+                    <tui-select aria-label="Challenge Type" formControlName="challengeType">
+                        Challenge Type
+                        <tui-data-list *tuiDataList>
+                            <button *ngFor="let event of localChallengeTypes" [value]="event[0]" tuiOption>
+                                {{ event[1] }}
+                            </button>
+                        </tui-data-list>
+                    </tui-select>
+                    <tui-field-error formControlName="challengeType"></tui-field-error>
+                </div>
+                <div class="tui-form__multi-field">
+                    <tui-input-number
+                        [formControl]=""
+                        [max]=""
+                    >
+                        Number of questions
+                    </tui-input-number>
+                    <tui-field-error
+                        [formControl]=""></tui-field-error>
+<!--                    <div class="tui-form__field-note">-->
+<!--                        {{getNumQuestionsLimit(goalItemFormControl)}} question(s) available.-->
+<!--                    </div>-->
+                </div>
+            </div>
+        </ng-template>
+
+<!--        if type == consistency; frame6-->
+<!--        else frame 5-->
+        <ng-container *ngIf="">
+            <div class="tui-form__row">
+                <tui-select aria-label="" formControlName="">
+                    Select Challenges
+                    <tui-data-list *tuiDataList>
+                        <button *ngFor="let event of localChallengeTypes" [value]="event[0]" tuiOption>
+                            {{ event[1] }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+                <tui-field-error formControlName=""></tui-field-error>
+        </ng-container>
+        <ng-template #regularChallenges>
+            <div class="tui-form__row">
+                <tui-input-date-range aria-label="Start and End Date" formControlName="startEndDatePicker">
+                    Start and end date
+                </tui-input-date-range>
+                <tui-field-error formControlName="startEndDatePicker"></tui-field-error>
+            </div>
+            <div class="tui-form__row tui-form__row_multi-fields">
+                <div class="tui-form__multi-field">
+                    <tui-input-time [items]="timeOptions" aria-label="Start Time" formControlName="startTimePicker">
+                        Start time
+                    </tui-input-time>
+                    <tui-field-error formControlName="startTimePicker"></tui-field-error>
+                </div>
+                <div class="tui-form__multi-field">
+                    <tui-input-time [items]="timeOptions" aria-label="End Time" formControlName="endTimePicker">
+                        End time
+                    </tui-input-time>
+                    <tui-field-error formControlName="endTimePicker"></tui-field-error>
+                </div>
+            </div>
+            <tui-notification
+                *ngIf="formData.errors?.forbiddenDateRange"
+                class="tui-space_top-4"
+                status="error"
+            >
+                Invalid date range! Please check your start and end times!
+            </tui-notification>
+            <h3 class="tui-form__header">
+                Tasks
+                <button
+                    (click)="addGoalItem()"
+                    icon="tuiIconPlus"
+                    size="s"
+                    tuiButton
+                    type="button"
+                    class="ml-3"
+                    appearance="secondary"
+                >
+                    Add Another
+                </button>
+            </h3>
+            <div *ngFor="let goalItemFormControl of getGoalItemFormControls(); let index = index"
+                 class="tui-form__row tui-form__row_multi-fields">
+                <div class="tui-form__multi-field">
+                    <tui-select
+                        [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
+                        [formControl]="getFormControl(goalItemFormControl, 'category')"
+                    >
+                        Category
+                        <tui-data-list *tuiDataList>
+                            <button *ngFor="let category of categories" [value]="category.pk" tuiOption>
+                                {{ category.full_name }}
+                            </button>
+                        </tui-data-list>
+                    </tui-select>
+                    <tui-field-error [formControl]="getFormControl(goalItemFormControl, 'category')"></tui-field-error>
+                </div>
+                <div class="tui-form__multi-field">
+                    <tui-select
+                        [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+                        [formControl]="getFormControl(goalItemFormControl, 'difficulty')"
+                    >
+                        Difficulty
+                        <tui-data-list *tuiDataList>
+                            <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]" tuiOption>
+                                {{ difficulty[1] }}
+                            </button>
+                        </tui-data-list>
+                    </tui-select>
+                    <tui-field-error
+                        [formControl]="getFormControl(goalItemFormControl, 'difficulty')"></tui-field-error>
+                </div>
+                <div class="tui-form__multi-field">
+                    <tui-input-number
+                        [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"
+                        [max]="getNumQuestionsLimit(goalItemFormControl)"
+                    >
+                        Number of questions
+                    </tui-input-number>
+                    <tui-field-error
+                        [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"></tui-field-error>
+                    <div class="tui-form__field-note">
+                        {{getNumQuestionsLimit(goalItemFormControl)}} question(s) available.
+                    </div>
+                </div>
+                <div class="tui-form__multi-field">
+                    <div class="flex h-full items-center">
+                        <button
+                            *ngIf="getGoalItemFormControls().length > 1"
+                            (click)="removeGoalItem(index)"
+                            icon="tuiIconMinus"
+                            size="s"
+                            tuiButton
+                            type="button"
+                            appearance="accent"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <div class="tui-form__buttons">
+            <button
+                [disabled]="goalForm.invalid"
+                class="tui-form__button"
+                size="m"
+                tuiButton
+            >
+                Create Goal
+            </button>
+        </div>
+
+    </form>
+</div>
