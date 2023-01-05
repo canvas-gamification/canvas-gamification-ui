@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {ActivatedRoute} from "@angular/router"
+import {ActivatedRoute, Router} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Category, CourseEvent} from "@app/_models"
 import {ChallengeType} from "@app/_models/challengeType"
@@ -8,6 +8,7 @@ import {FormArray, FormControl, FormGroup} from "@angular/forms"
 import {CategoryService} from "@app/_services/api/category.service"
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
 
 @Component({
     selector: 'app-course-challenge-create-edit',
@@ -28,9 +29,11 @@ export class CourseChallengeCreateEditComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
+        private router: Router,
         private courseEventService: CourseEventService,
         private readonly categoryService: CategoryService,
         private readonly difficultyService: DifficultyService,
+        private readonly notificationsService: TuiNotificationsService,
     ) { }
 
     ngOnInit(): void {
@@ -81,7 +84,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         this.getChallengeQuestionSets().removeAt(index)
     }
 
-    //TODO: Need to discuss; max= number of teams there are (but there's not point of this challenge
+    //TODO: Need to discuss; max= number of teams there are (but there's not point of this challenge, but we dont't know how many teams yet
     topXTeamsLimit(): number{
         return 5
     }
@@ -92,6 +95,34 @@ export class CourseChallengeCreateEditComponent implements OnInit {
 
     onSubmit(): void {
         console.log('submitted')
+
+        const challengeData = CourseEventForm.formatChallengeFormData(
+            this.challengeForm,
+            this.courseId
+        )
+        //TODO: what about the questions in each challenge?
+        if (this.eventId) {
+            this.courseEventService.updateChallenge(challengeData, this.eventId).subscribe(() => {
+                this.notificationsService
+                    .show('The challenge has been updated successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe()
+                this.router.navigate(
+                    ['course', this.courseId, 'challenge']
+                ).then()
+            })
+        } else {
+            this.courseEventService.addChallenge(challengeData).subscribe(() => {
+                this.notificationsService
+                    .show('The challenge has been created successfully.', {
+                        status: TuiNotification.Success
+                    }).subscribe()
+                this.router.navigate(
+                    ['course', this.courseId, 'challenge']
+                ).then()
+            })
+        }
+
 
     }
 

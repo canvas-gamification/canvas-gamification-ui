@@ -5,6 +5,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 import {EventStats} from '@app/_models/event/event_stats'
+import {ChallengeFormData} from "@app/course/_forms/course-event.form"
 
 @Injectable({
     providedIn: 'root',
@@ -53,6 +54,28 @@ export class CourseEventService {
             .pipe(catchError(
                 this.apiService.handleError<CourseEvent>(
                     `Error occurred while updating Course Event`
+                )
+            ))
+    }
+
+    addChallenge(courseEvent: ChallengeFormData): Observable<CourseEvent> {
+        const url = this.apiService.getURL('event')
+        return this.http
+            .post<CourseEvent>(url, courseEvent)
+            .pipe(catchError(
+                this.apiService.handleError<CourseEvent>(
+                    `Error occurred while adding challenge.`
+                )
+            ))
+    }
+
+    updateChallenge(formData: ChallengeFormData, eventId: number): Observable<CourseEvent> {
+        const url = this.apiService.getURL('event', eventId)
+        return this.http
+            .patch<CourseEvent>(url, formData)
+            .pipe(catchError(
+                this.apiService.handleError<CourseEvent>(
+                    `Error occurred while updating challenge.`
                 )
             ))
     }
