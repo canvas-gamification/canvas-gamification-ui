@@ -117,6 +117,7 @@ export class CourseService {
             ))
     }
 
+    //for the consistency challenge, backend is not implemented yet
     getCourseEvents(courseId: number): Observable<CourseEvent[]>{
         const url = this.apiService.getURL('course', courseId, 'course-events')
         return this.http.get<CourseEvent[]>(url)
