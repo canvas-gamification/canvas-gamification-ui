@@ -1,8 +1,13 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
-import {CourseEvent} from "@app/_models"
-import {CourseService} from "@app/course/_services/course.service"
+import {Category, CourseEvent} from "@app/_models"
+import {ChallengeType} from "@app/_models/challengeType"
+import {CourseEventForm} from "@app/course/_forms/course-event.form"
+import {FormArray, FormControl, FormGroup} from "@angular/forms"
+import {CategoryService} from "@app/_services/api/category.service"
+import {Difficulty} from "@app/_models/difficulty"
+import {DifficultyService} from "@app/problems/_services/difficulty.service"
 
 @Component({
     selector: 'app-course-challenge-create-edit',
@@ -12,42 +17,83 @@ import {CourseService} from "@app/course/_services/course.service"
 export class CourseChallengeCreateEditComponent implements OnInit {
     courseId: number
     eventId: number = null
-    events: CourseEvent[]
-    challenge: CourseEvent
-    search: string
+    event: CourseEvent
+    localChallengeTypes: ChallengeType[]
+    challengeForm: FormGroup
+    categories: Category[]
+    difficulties: Difficulty[]
+    limits: number[]
 
-    topXTeams = true
-    consistency = false
     list = [{id: 1, name: 'name A'}, {id: 2, name: 'name B'}, {id: 3, name: 'name C'}]
 
     constructor(
         private route: ActivatedRoute,
         private courseEventService: CourseEventService,
-        private courseService: CourseService,
+        private readonly categoryService: CategoryService,
+        private readonly difficultyService: DifficultyService,
     ) { }
 
     ngOnInit(): void {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
-        this.courseService.getCourseEvents(this.courseId).subscribe( events => this.events = events)
+        this.challengeForm = CourseEventForm.createChallengeForm()
 
         if (this.route.snapshot.paramMap.get('eventId')){ // For editing existing challenge, grab the eventId
             this.eventId = +this.route.snapshot.paramMap.get('eventId')
-            this.courseEventService.getCourseEvent(this.eventId).subscribe( event => this.challenge = event)
+            this.courseEventService.getCourseEvent(this.eventId).subscribe( event => {
+                this.event = event
+                this.challengeForm = CourseEventForm.createChallengeFormWithData(this.event)
+            })
         }
+
+        this.courseEventService.getChallengeTypes().subscribe(
+            response => this.localChallengeTypes = response
+        )
+        this.categoryService.getCategories().subscribe(
+            categories => this.categories = categories
+        )
+        this.difficultyService.getDifficulties().subscribe(
+            difficulties => this.difficulties = difficulties
+        )
     }
 
-
-    stringify(event: CourseEvent): string {
-        return event.name
+    getChallengeQuestionSets(): FormArray {
+        return this.challengeForm.get('challengeQuestionSets') as FormArray
     }
 
-    getCourseEvents() {
-        if (!this.search)
-            return this.events.filter( event => event.type === 'CHALLENGE')
-        return this.events.filter( event => event.type === 'CHALLENGE').filter(event => event.name.includes(this.search))
+    getChallengeQuestionSetFormControls(): FormControl[] {
+        return this.getChallengeQuestionSets().controls as FormControl[]
     }
 
-    onSearchChange(searchQuery: string | null): void {
-        this.search = searchQuery
+    getFormControl(fc: FormControl, field:string): FormControl {
+        return fc.get(field) as FormControl
     }
+
+    //TODO: Need support from backend
+    getNumQuestionsLimit(fc: FormControl): number {
+        return 5
+    }
+
+    addChallengeQuestionSet() {
+        this.getChallengeQuestionSets().push(CourseEventForm.createChallengeQuestionSetForm())
+    }
+
+    removeChallengeQuestionSet(index: number): void {
+        this.getChallengeQuestionSets().removeAt(index)
+    }
+
+    //TODO: Need to discuss; max= number of teams there are (but there's not point of this challenge
+    topXTeamsLimit(): number{
+        return 5
+    }
+
+    isTopTeams(): boolean {
+        return this.challengeForm.get('challengeType').value === 'TOP_TEAMS'
+    }
+
+    onSubmit(): void {
+        console.log('submitted')
+
+    }
+
 }
+
