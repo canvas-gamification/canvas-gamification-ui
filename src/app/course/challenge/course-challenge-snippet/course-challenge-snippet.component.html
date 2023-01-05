@@ -1,5 +1,18 @@
-<div class="challengePage">
+<div class="flex flex-col gap-5">
     <ng-container *ngIf="course else skeletonTemplate">
+        <div class="flex justify-end toolBar">
+            <button
+                *ngIf="course?.has_create_event_permission"
+                [routerLink]="['/course', courseId, 'challenge', 'create']"
+                icon="tuiIconPlus"
+                appearance="secondary"
+                aria-label="Add Challenge"
+                size="m"
+                tuiButton
+            >
+                Add Challenge
+            </button>
+        </div>
         <tui-accordion class="accordionContainer" [closeOthers]="false">
             <tui-accordion-item class="title" open="true" [disableHover]="true">
                 Available Challenges
@@ -40,6 +53,19 @@
         </tui-accordion>
     </ng-container>
     <ng-template #skeletonTemplate>
+        <div class="flex justify-end toolBar">
+            <button
+                *ngIf="course?.has_create_event_permission"
+                class="tui-skeleton"
+                icon="tuiIconPlus"
+                appearance="secondary"
+                aria-label="Add Challenge"
+                size="m"
+                tuiButton
+            >
+                Content
+            </button>
+        </div>
         <tui-accordion class="accordionContainer" [closeOthers]="false">
             <tui-accordion-item class="title" open="true" [disableHover]="true">
                 Available Challenges
