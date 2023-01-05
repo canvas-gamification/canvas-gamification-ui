@@ -6,13 +6,14 @@ import {ActivatedRoute, Router} from "@angular/router"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {tuiCreateTimePeriods} from "@taiga-ui/kit"
 import {CategoryService} from "@app/_services/api/category.service"
-import {Category} from "@app/_models"
+import {ActionStatus, ActionType, ActionVerb, Category} from "@app/_models"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {Difficulty} from "@app/_models/difficulty"
 import {Goal, GoalItem, GoalLimit} from "@app/_models/goal/goal"
 import {goalItemString} from "@app/course/goal/utils"
 import * as dayjs from 'dayjs'
 import * as relativeTime from 'dayjs/plugin/relativeTime'
+import {UserActionsService} from "@app/_services/api/user-actions.service"
 
 
 @Component({
@@ -37,7 +38,8 @@ export class GoalCreateComponent implements OnInit {
         private readonly difficultyService: DifficultyService,
         private readonly router: Router,
         private readonly activatedRoute: ActivatedRoute,
-        private readonly notificationService: TuiNotificationsService
+        private readonly notificationService: TuiNotificationsService,
+        private readonly userActionsService: UserActionsService,
     ) {
         dayjs.extend(relativeTime)
     }
@@ -73,10 +75,12 @@ export class GoalCreateComponent implements OnInit {
 
     addGoalItem(): void {
         this.getGoalItems().push(GoalForm.createGoalItemForm())
+        this.logClick("User added goal item")
     }
 
     removeGoalItem(index: number): void {
         this.getGoalItems().removeAt(index)
+        this.logClick("User removed goal item", {index})
     }
 
     goalItemString(goalItem: GoalItem) {
@@ -88,6 +92,7 @@ export class GoalCreateComponent implements OnInit {
         this.createGoalElement.nativeElement.scrollIntoView({
             behavior: 'smooth',
         })
+        this.logClick("User used recommended goal", {goal})
     }
 
     createGoal(goal: Goal) {
@@ -109,6 +114,19 @@ export class GoalCreateComponent implements OnInit {
             limit =>
                 limit.category === category && limit.difficulty === difficulty
         ).unsolved_questions
+    }
+
+    logClick(
+        description: string,
+        data?: unknown
+    ) {
+        this.userActionsService.createCustomAction({
+            description,
+            object_type: ActionType.BUTTON,
+            status: ActionStatus.COMPLETE,
+            verb: ActionVerb.CLICKED,
+            data,
+        }).subscribe()
     }
 
     async onSubmit(): Promise<void> {

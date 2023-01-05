@@ -4,6 +4,8 @@ import {goalItemString} from "@app/course/goal/utils"
 import * as dayjs from "dayjs"
 import * as relativeTime from "dayjs/plugin/relativeTime"
 import {ActivatedRoute} from '@angular/router'
+import {UserActionsService} from "@app/_services/api/user-actions.service"
+import {ActionStatus, ActionType, ActionVerb} from "@app/_models"
 
 @Component({
     selector: 'app-goal-island',
@@ -16,7 +18,10 @@ export class GoalIslandComponent {
     @Input() showPerformanceButton?: boolean = true
     courseId: string
 
-    constructor(private readonly route: ActivatedRoute) {
+    constructor(
+        private readonly route: ActivatedRoute,
+        private readonly userActionsService: UserActionsService,
+    ) {
         dayjs.extend(relativeTime)
         this.courseId = this.route.parent.snapshot.params.courseId
     }
@@ -31,5 +36,21 @@ export class GoalIslandComponent {
 
     getRelativeTime(time: string) {
         return dayjs(time).fromNow(true)
+    }
+
+    logClick(goal: Goal, goalItem: GoalItem) {
+        this.userActionsService.createCustomAction({
+            description: "User started practice from goal",
+            object_type: ActionType.BUTTON,
+            status: ActionStatus.COMPLETE,
+            verb: ActionVerb.CLICKED,
+            data: {
+                goal: {
+                    ...goal,
+                    stats: undefined,
+                },
+                goalItem,
+            },
+        }).subscribe()
     }
 }
