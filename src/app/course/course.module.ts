@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {
     CourseEventCreateEditComponent
-} from '@app/course/course-event-create/course-event-create-edit.component'
+} from '@app/course/event/course-event-create/course-event-create-edit.component'
 import {CourseRegisterComponent} from '@app/course/course-registration/course-register.component'
 import {CourseListComponent} from '@app/course/course-list/course-list.component'
 import {CourseComponent} from '@app/course/course.component'
 import {
     CourseEventsSnippetComponent
-} from '@app/course/course-events-snippet/course-events-snippet.component'
+} from '@app/course/event/course-events-snippet/course-events-snippet.component'
 import {TokenUseSnippetComponent} from '@app/course/token-use-snippet/token-use-snippet.component'
 import {
     CourseQuestionSnippetComponent

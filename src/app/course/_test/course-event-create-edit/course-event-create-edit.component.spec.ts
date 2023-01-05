@@ -1,6 +1,6 @@
 import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing'
 
-import {CourseEventCreateEditComponent} from '../../course-event-create/course-event-create-edit.component'
+import {CourseEventCreateEditComponent} from '../../event/course-event-create/course-event-create-edit.component'
 import {TestModule} from '@test/test.module'
 import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event.service.mock"
 import {CourseEventService} from "@app/course/_services/course-event.service"

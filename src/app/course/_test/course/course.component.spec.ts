@@ -9,7 +9,7 @@ import {MOCK_COURSE1} from "@app/course/_test/mock"
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component"
 import {
     CourseEventsSnippetComponent
-} from "@app/course/course-events-snippet/course-events-snippet.component"
+} from "@app/course/event/course-events-snippet/course-events-snippet.component"
 import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component"
 import {
     CourseQuestionSnippetComponent
