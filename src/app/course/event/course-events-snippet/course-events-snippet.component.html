@@ -87,12 +87,27 @@
             <tui-accordion-item class="title" open="true" [disableHover]="true">
                 Upcoming Events
                 <ng-template tuiAccordionItemContent>
-                    <div *ngFor="let event of getUpcomingEvents()" class="event">
+                    <div
+                        *ngFor="let event of getUpcomingEvents()"
+                        class="event"
+                    >
                         <app-event-row
                             [event]="event"
                             (reload)="init()"
                         >
                         </app-event-row>
+                    </div>
+                    <div *ngIf="getUpcomingEvents().length === 0">
+                        <div class="flex justify-center items-center w-full h-32">
+                            <tui-marker-icon
+                                class="tui-space_right-4"
+                                size="s"
+                                src="tuiIconAlertCircleLarge"
+                            ></tui-marker-icon>
+                            <h2 class="tui-text_body-xl">
+                                Looks like there are no upcoming events
+                            </h2>
+                        </div>
                     </div>
                 </ng-template>
             </tui-accordion-item>
@@ -105,6 +120,18 @@
                             (reload)="init()"
                         >
                         </app-event-row>
+                    </div>
+                    <div *ngIf="getPastEvents().length === 0">
+                        <div class="flex justify-center items-center w-full h-32">
+                            <tui-marker-icon
+                                class="tui-space_right-4"
+                                size="s"
+                                src="tuiIconAlertCircleLarge"
+                            ></tui-marker-icon>
+                            <h2 class="tui-text_body-xl">
+                                Looks like there are no past events
+                            </h2>
+                        </div>
                     </div>
                 </ng-template>
             </tui-accordion-item>
