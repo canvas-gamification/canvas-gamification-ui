@@ -1,8 +1,9 @@
-import {Component, Inject, Injector, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit} from '@angular/core'
 import {ConceptMapGraph} from './concept-map-graph'
-import {Category, Course} from '@app/_models'
+import {ActionStatus, ActionType, ActionVerb, Category, Course} from '@app/_models'
 import {CategoryService} from '@app/_services/api/category.service'
 import {Router} from '@angular/router'
+import {UserActionsService} from "@app/_services/api/user-actions.service"
 
 @Component({
     selector: 'app-concept-map',
@@ -20,7 +21,7 @@ export class ConceptMapComponent implements OnInit {
     constructor(
         private categoryService: CategoryService,
         private router: Router,
-        @Inject(Injector) private readonly injector: Injector
+        private userActionsService: UserActionsService,
     ) {
     }
 
@@ -28,9 +29,13 @@ export class ConceptMapComponent implements OnInit {
         this.categoryService.getCategories().subscribe(categories => {
             this.rawCategories = categories
             this.conceptMapGraph = new ConceptMapGraph((cellId) => {
+                const isTopLevel = this.isTopLevel(cellId)
+                this.logConceptClick(cellId, isTopLevel)
                 this.parentNode = cellId
-                if (!this.isTopLevel(cellId)) {
-                    this.router.navigate(['course', this.currCourse.id, 'practice', 'category', cellId]).then()
+                if (!isTopLevel) {
+                    this.router.navigate(
+                        ['course', this.currCourse.id, 'practice', 'category', cellId]
+                    ).then()
                 } else {
                     this.renderGraph()
                 }
@@ -44,7 +49,9 @@ export class ConceptMapComponent implements OnInit {
      */
     renderGraph(): void {
         const adj: Category[] = []
-        this.parentNodeName = this.parentNode ? this.rawCategories.find(category => category.pk === this.parentNode).full_name : null
+        this.parentNodeName = this.parentNode
+            ? this.rawCategories.find(category => category.pk === this.parentNode).full_name
+            : null
         this.rawCategories.filter(category => category.parent === this.parentNode)
             .forEach(category => {
                 adj.push(category)
@@ -64,15 +71,30 @@ export class ConceptMapComponent implements OnInit {
      * Resets the graph to the top level and re-renders the graph
      */
     reset(): void {
+        this.logConceptClick(null, false)
         this.parentNode = null
         this.renderGraph()
     }
 
     /**
-     * Returns a boolean value indicating whether the category passed to the function is a top level category or not
+     * Returns a boolean value indicating whether the category passed
+     * to the function is a top level category or not
      * @param categoryId - unique category ID to be checked
      */
     isTopLevel(categoryId: number): boolean {
         return this.rawCategories.find(category => category.pk === categoryId).parent === null
+    }
+
+    logConceptClick(categoryId: number, isTopLevel: boolean) {
+        this.userActionsService.createCustomAction({
+            description: 'User selected a category on the concept map',
+            object_type: ActionType.BUTTON,
+            status: ActionStatus.COMPLETE,
+            verb: ActionVerb.CLICKED,
+            data: {
+                categoryId,
+                isTopLevel,
+            }
+        }).subscribe()
     }
 }

@@ -21,6 +21,7 @@
                             iconAlign="left"
                             [routerLink]="['/course', courseId, 'practice', 'category', goalItem.category]"
                             [queryParams]="{difficulty: goalItem.difficulty}"
+                            (click)="logClick(goal, goalItem)"
                         >
                             Practice
                         </a>
