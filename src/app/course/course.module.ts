@@ -100,6 +100,7 @@ import {
 } from './event/event-stats-bar-chart/event-stats-bar-chart.component'
 import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.component'
 import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-edit.component'
+import {EventRowComponent} from './event/event-row/event-row.component'
 
 
 @NgModule({
@@ -119,6 +120,7 @@ import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        EventRowComponent,
         EventStatsBarChartComponent,
         EventStatsComponent,
         GoalComponent,
