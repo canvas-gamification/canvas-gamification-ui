@@ -1,17 +1,28 @@
 <div class="flex flex-wrap gap-3">
-    <div class="min-w-[8rem]">
+    <div class="min-w-[8rem] type flex items-center">
         <ng-container *ngIf="event.type === 'ASSIGNMENT'">Assignment
         </ng-container>
         <ng-container *ngIf="event.type === 'EXAM'">Exam</ng-container>
     </div>
-    <div class="min-w-[8rem]">
+    <div class="min-w-[8rem] flex items-center">
         {{ event.name }}
     </div>
     <div class="flex-grow">
         <div>From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
         <div>Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
     </div>
-    <div class="min-w-[6rem]">
+    <div
+        *ngIf="event.featured"
+        class="flex items-center"
+    >
+        <tui-marker-icon
+            src="tuiIconStarFilledLarge"
+            mode="warning"
+            size="xs"
+        >
+        </tui-marker-icon>
+    </div>
+    <div class="min-w-[8rem] flex items-center">
         <tui-tag
             *ngIf="event.is_open"
             size="m"
@@ -33,7 +44,7 @@
         >
         </tui-tag>
     </div>
-    <div class="min-w-[6rem]">
+    <div class="min-w-[6rem] flex items-center">
         <ng-container
             *ngIf="event.is_not_available_yet || event.is_exam; else totalEventGrade">
             Grade: TBA
@@ -42,7 +53,7 @@
             Grade: {{ event.total_event_grade | number: '1.0-1' || 'TBA'}}%
         </ng-template>
     </div>
-    <div>
+    <div class="flex items-center">
         <a
             [routerLink]="['/course', event.course, 'assignments-exams', event.id]"
             appearance="primary"
@@ -52,36 +63,45 @@
         >
             {{ user.is_teacher ? 'View' : 'Complete' }}
         </a>
-        <a
+        <tui-hosted-dropdown
             *ngIf="event.has_edit_permission"
-            [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'edit']"
-            appearance="secondary"
-            aria-label="Edit"
-            size="s"
-            tuiButton
+            [content]="content"
         >
-            Edit
-        </a>
-        <a
-            *ngIf="event.has_edit_permission"
-            [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'stats']"
-            appearance="secondary"
-            aria-label="Stats"
-            size="s"
-            tuiButton
-        >
-            Stats
-        </a>
-        <a
-            *ngIf="event.has_edit_permission"
-            (click)="setFeatured()"
-            [disabled]="event.featured"
-            appearance="secondary"
-            aria-label="Set Featured"
-            size="s"
-            tuiButton
-        >
-            {{event.featured ? 'Featured' : 'Set Featured'}}
-        </a>
+            <button
+                tuiIconButton
+                appearance="flat"
+                icon="tuiIconMoreVer"
+                type="button"
+                size="s"
+                class="ml-3"
+            ></button>
+        </tui-hosted-dropdown>
+        <ng-template #content>
+            <tui-data-list role="menu">
+                <a
+                    [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'edit']"
+                    aria-label="Edit"
+                    tuiOption
+                >
+                    Edit
+                </a>
+                <a
+                    [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'stats']"
+                    aria-label="Stats"
+                    tuiOption
+                >
+                    Stats
+                </a>
+                <a
+                    *ngIf="!event.featured"
+                    (click)="setFeatured()"
+                    tuiOption
+                    [disabled]="event.featured"
+                    aria-label="Set Featured"
+                >
+                    Set Featured
+                </a>
+            </tui-data-list>
+        </ng-template>
     </div>
 </div>
