@@ -123,7 +123,7 @@ export class CourseEventForm {
         return builder.group({
             name: new FormControl(null, [Validators.required]),
             challengeType: new FormControl('', [Validators.required]),
-            challengeTypeValue:  new FormControl(3),
+            challengeTypeValue: new FormControl(3),
             maxTeamSize: new FormControl(null, [Validators.required]),
             startEndDate: new FormControl(
                 new TuiDayRange(
@@ -158,7 +158,7 @@ export class CourseEventForm {
                 challenge.challenge_type,
                 [Validators.required]
             ),
-            challengeTypeValue:  new FormControl(
+            challengeTypeValue: new FormControl(
                 challenge.challenge_type_value,
                 [Validators.required]
             ),
@@ -202,7 +202,7 @@ export class CourseEventForm {
      * @param formData - the data to be formatted, a FormGroup object
      * @param courseId - the event's courseId
      */
-    static formatChallengeFormData(formData: FormGroup, courseId: number): EventFormData{
+    static formatChallengeFormData(formData: FormGroup, courseId: number): EventFormData {
         return {
             course: courseId,
             name: formData.get('name').value,
@@ -224,11 +224,7 @@ export class CourseEventForm {
 
     static formatChallengeQuestionSetFormData(
         formControl: FormControl,
-        eventId: number
     ): EventQuestionSetFormData {
-        return {
-            event_id: eventId,
-            ...formControl.value
-        }
+        return formControl.value
     }
 }

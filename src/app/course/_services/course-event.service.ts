@@ -5,7 +5,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 import {EventStats} from '@app/_models/event/event_stats'
-import {EventFormData} from "@app/course/_forms/course-event.form"
+import {EventFormData, EventQuestionSetFormData} from "@app/course/_forms/course-event.form"
 
 @Injectable({
     providedIn: 'root',
@@ -139,7 +139,14 @@ export class CourseEventService {
         const url = this.apiService.getURL('event', eventId, 'set-featured')
         return this.http.post(url, null)
             .pipe(catchError(
-                this.apiService.handleError<EventStats>(`Error occurred while setting featured`)
+                this.apiService.handleError<unknown>(`Error occurred while setting featured`)
             ))
+    }
+
+    addQuestionSet(input: EventQuestionSetFormData, eventId: number): Observable<unknown> {
+        const url = this.apiService.getURL('event', eventId, 'add-question-set')
+        return this.http.post(url, input).pipe(catchError(
+            this.apiService.handleError<unknown>(`Error occurred while adding question set`)
+        ))
     }
 }

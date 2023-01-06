@@ -34,15 +34,16 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         private readonly categoryService: CategoryService,
         private readonly difficultyService: DifficultyService,
         private readonly notificationsService: TuiNotificationsService,
-    ) { }
+    ) {
+    }
 
     ngOnInit(): void {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         this.challengeForm = CourseEventForm.createChallengeForm()
 
-        if (this.route.snapshot.paramMap.get('eventId')){ // For editing existing challenge, grab the eventId
+        if (this.route.snapshot.paramMap.get('eventId')) { // For editing existing challenge, grab the eventId
             this.eventId = +this.route.snapshot.paramMap.get('eventId')
-            this.courseEventService.getCourseEvent(this.eventId).subscribe( event => {
+            this.courseEventService.getCourseEvent(this.eventId).subscribe(event => {
                 this.event = event
                 this.challengeForm = CourseEventForm.createChallengeFormWithData(this.event)
             })
@@ -67,7 +68,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         return this.getChallengeQuestionSets().controls as FormControl[]
     }
 
-    getFormControl(fc: FormControl, field:string): FormControl {
+    getFormControl(fc: FormControl, field: string): FormControl {
         return fc.get(field) as FormControl
     }
 
@@ -85,7 +86,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
     }
 
     //TODO: Need to discuss; max= number of teams there are (but there's not point of this challenge, but we dont't know how many teams yet
-    topXTeamsLimit(): number{
+    topXTeamsLimit(): number {
         return 5
     }
 
@@ -97,7 +98,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         return this.challengeForm.get('maxTeamSize').value
     }
 
-    onSubmit(): void {
+    async onSubmit() {
         //TODO: what about the questions in each challenge?
         if (this.eventId) {
             const challengeData = CourseEventForm.formatChallengeFormData(
@@ -118,19 +119,24 @@ export class CourseChallengeCreateEditComponent implements OnInit {
                 this.challengeForm,
                 this.courseId
             )
-            this.courseEventService.addCourseEvent(challengeData).subscribe(() => {
-                this.notificationsService
-                    .show('The challenge has been created successfully.', {
-                        status: TuiNotification.Success
-                    }).subscribe()
-                this.router.navigate(
-                    ['course', this.courseId, 'challenge']
-                ).then()
-            })
+            const event = await this.courseEventService.addCourseEvent(challengeData).toPromise()
+
+            for (const questionSet of this.getChallengeQuestionSetFormControls()) {
+                const questionSetFormData =
+                    CourseEventForm.formatChallengeQuestionSetFormData(questionSet)
+                await this.courseEventService.
+                    addQuestionSet(questionSetFormData, event.id).toPromise()
+            }
+
+            this.notificationsService
+                .show('The challenge has been created successfully.', {
+                    status: TuiNotification.Success
+                }).subscribe()
+
+            this.router.navigate(
+                ['course', this.courseId, 'challenge']
+            ).then()
         }
-
-
     }
-
 }
 
