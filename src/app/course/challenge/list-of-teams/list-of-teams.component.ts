@@ -57,4 +57,8 @@ export class ListOfTeamsComponent implements OnInit {
             .map(courseReg => +courseReg)
             .includes(this.course.course_reg.id)
     }
+
+    isInvited(team: Team): boolean {
+        return team.who_can_join.includes(this.course.course_reg.id)
+    }
 }

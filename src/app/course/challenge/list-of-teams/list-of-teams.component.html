@@ -6,7 +6,7 @@
         <div class="flex flex-wrap gap-3 tui-space_top-6">
             <h3 class="tui-text_h3 tui-col_stretch flex-grow">List of Teams</h3>
             <a
-                [disabled]="event.is_open || event.is_closed"
+                *ngIf="!(event.is_open || event.is_closed)"
                 [routerLink]="['create']"
                 icon="tuiIconPlus"
                 appearance="primary"
@@ -51,7 +51,8 @@
                                 </div>
                                 <ng-container *ngIf="isInTeam(team); else notInTeam;">
                                     <a
-                                        [disabled]="event.is_open || event.is_closed"
+                                        *ngIf=
+                                            "isInTeam(team) && !(event.is_open || event.is_closed)"
                                         [routerLink]="[team.id, 'edit']"
                                         appearance="secondary"
                                         aria-label="Edit"
@@ -64,7 +65,10 @@
                                 </ng-container>
                                 <ng-template #notInTeam>
                                     <button
-                                        [disabled]="event.is_open || event.is_closed"
+                                        *ngIf=
+                                            "!isInTeam(team)
+                                            && !(event.is_open || event.is_closed)
+                                            && isInvited(team)"
                                         (click)="joinTeam(team.id)"
                                         appearance="secondary"
                                         aria-label="Join"

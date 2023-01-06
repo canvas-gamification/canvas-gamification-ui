@@ -2,9 +2,9 @@
     <ng-container *ngIf="course else skeletonTemplate">
         <tui-accordion class="accordionContainer" [closeOthers]="false">
             <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Available Challenges
+                Current Challenges
                 <ng-template tuiAccordionItemContent>
-                    <div *ngFor="let challenge of availableEvents" class="divide">
+                    <div *ngFor="let challenge of currentEvents" class="divide">
                         <app-challenge-row
                             [event]="challenge"
                         >
@@ -42,7 +42,7 @@
     <ng-template #skeletonTemplate>
         <tui-accordion class="accordionContainer" [closeOthers]="false">
             <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Available Challenges
+                Current Challenges
                 <ng-template tuiAccordionItemContent>
                     <div class="challenge">
                         <div class="challengeType tui-skeleton">Challenge</div>
@@ -53,7 +53,7 @@
                             <div class="tui-skeleton">Until Some Date Here</div>
                         </div>
                         <div class="justify-self-end">
-                            <tui-tag size="m" status="success" value="Available"
+                            <tui-tag size="m" status="success" value="Current"
                                      class="tui-skeleton">
                             </tui-tag>
                         </div>

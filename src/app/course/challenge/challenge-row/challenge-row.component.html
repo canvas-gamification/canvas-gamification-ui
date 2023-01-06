@@ -22,24 +22,23 @@
             value="Solo"
         >
         </tui-tag>
+
         <a [routerLink]="['/course', event.course, 'challenge', event.id, 'teams']"
            appearance="flat"
            class="tui-form__button" size="s"
            tuiButton
         >
-            {{event.is_not_available_yet ? 'Manage Teams' : 'View Teams'}}
+            {{event.is_not_available_yet ? 'Manage Teams' : 'View All Teams'}}
         </a>
     </div>
     <div class="toCompleteSection flex items-center gap-2">
         <div>
             <ng-container
                 *ngIf="event.total_event_grade === 0 ; else totalEventGrade">
-                Grade: ------
-                %
+                Tokens: ------
             </ng-container>
             <ng-template #totalEventGrade>
-                Grade: {{ event.total_event_grade | number: '1.0-1' || 'No Grade'}}
-                %
+                Tokens: {{ event.total_event_grade | number: '1.0-1' || 'No Grade'}}
             </ng-template>
         </div>
         <div>
