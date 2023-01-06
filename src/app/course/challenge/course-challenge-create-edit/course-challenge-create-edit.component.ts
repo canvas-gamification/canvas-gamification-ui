@@ -8,7 +8,7 @@ import {FormArray, FormControl, FormGroup} from "@angular/forms"
 import {CategoryService} from "@app/_services/api/category.service"
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core";
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-course-challenge-create-edit',
