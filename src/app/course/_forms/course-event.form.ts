@@ -209,7 +209,7 @@ export class CourseEventForm {
      * @param formData - the data to be formatted, a FormGroup object
      * @param courseId - the event's courseId
      */
-    static formatChallengeFormData(formData: FormGroup, courseId: number): ChallengeFormData{
+    static formatChallengeFormData(formData: FormGroup, courseId: number, maxTeamSize?: number): ChallengeFormData{
         return {
             course_id: courseId,
             name: formData.get('name').value,
@@ -217,7 +217,7 @@ export class CourseEventForm {
             challenge_type: formData.get('challengeType').value,
             challenge_type_value: formData.get('challengeTypeValue').value,
             count_for_tokens: true,
-            max_team_size: formData.get('maxTeamSize').value,
+            max_team_size: maxTeamSize? maxTeamSize : formData.get('maxTeamSize').value,
             start_date: this.dateAndTimeToLocal(
                 formData.get('startEndDatePicker').value.from,
                 formData.get('startTimePicker').value

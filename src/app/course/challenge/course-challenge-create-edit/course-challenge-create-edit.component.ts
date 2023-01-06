@@ -93,15 +93,18 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         return this.challengeForm.get('challengeType').value === 'TOP_TEAMS'
     }
 
-    onSubmit(): void {
-        console.log('submitted')
+    getMaxTeamSize(): number {
+        return this.challengeForm.get('maxTeamSize').value
+    }
 
-        const challengeData = CourseEventForm.formatChallengeFormData(
-            this.challengeForm,
-            this.courseId
-        )
+    onSubmit(): void {
         //TODO: what about the questions in each challenge?
         if (this.eventId) {
+            const challengeData = CourseEventForm.formatChallengeFormData(
+                this.challengeForm,
+                this.courseId,
+                this.challengeForm.get('maxTeamSize').value // Max team size should not be editable
+            )
             this.courseEventService.updateChallenge(challengeData, this.eventId).subscribe(() => {
                 this.notificationsService
                     .show('The challenge has been updated successfully.', {
@@ -112,6 +115,10 @@ export class CourseChallengeCreateEditComponent implements OnInit {
                 ).then()
             })
         } else {
+            const challengeData = CourseEventForm.formatChallengeFormData(
+                this.challengeForm,
+                this.courseId
+            )
             this.courseEventService.addChallenge(challengeData).subscribe(() => {
                 this.notificationsService
                     .show('The challenge has been created successfully.', {

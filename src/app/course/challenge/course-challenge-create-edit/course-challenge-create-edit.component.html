@@ -42,10 +42,18 @@
             </div>
         </div>
         <div class="tui-row">
-            <tui-input-number aria-label="Max number of students" formControlName="maxTeamSize">
-                Maximum number of students in the Team
-            </tui-input-number>
-            <tui-field-error formControlName="maxTeamSize"></tui-field-error>
+            <ng-container *ngIf="!eventId">
+                <tui-input-number aria-label="Max number of students" formControlName="maxTeamSize">
+                    Maximum number of students in the Team
+                </tui-input-number>
+                <tui-field-error formControlName="maxTeamSize"></tui-field-error>
+            </ng-container>
+            <ng-container *ngIf="!!eventId">
+                <tui-island>
+                    <p class="tui-island__category">Maximum number of students in the Team</p>
+                    <p class="tui-island__paragraph">getMaxTeamSize()</p>
+                </tui-island>
+            </ng-container>
         </div>
         <div class="tui-form__row">
             <tui-input-date-range aria-label="Start and End Date" formControlName="startEndDatePicker">
@@ -77,6 +85,7 @@
         <h3 class="tui-form__header">
             Questions
             <button
+                *ngIf="!eventId"
                 (click)="addChallengeQuestionSet()"
                 icon="tuiIconPlus"
                 size="s"
@@ -88,79 +97,81 @@
                 Add More
             </button>
         </h3>
-        <div
-            *ngFor="let questionSetFormControl of getChallengeQuestionSetFormControls(); let index = index"
-            class="tui-form__row tui-form__row_multi-fields"
-        >
-            <div class="tui-form__multi-field">
-                <tui-select
-                    [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
-                    [formControl]="getFormControl(questionSetFormControl, 'category')"
-                >
-                    Category
-                    <tui-data-list *tuiDataList>
+        <ng-container *ngIf="!eventId">
+            <div
+                *ngFor="let questionSetFormControl of getChallengeQuestionSetFormControls(); let index = index"
+                class="tui-form__row tui-form__row_multi-fields"
+            >
+                <div class="tui-form__multi-field">
+                    <tui-select
+                        [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
+                        [formControl]="getFormControl(questionSetFormControl, 'category')"
+                    >
+                        Category
+                        <tui-data-list *tuiDataList>
                             <button *ngFor="let category of categories" [value]="category.pk" tuiOption>
                                 {{ category.full_name }}
                             </button>
-                    </tui-data-list>
-                </tui-select>
-                <tui-field-error [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-field-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-select
-                    [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-                    [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
-                >
-                    Difficulty
-                    <tui-data-list *tuiDataList>
+                        </tui-data-list>
+                    </tui-select>
+                    <tui-field-error [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-field-error>
+                </div>
+                <div class="tui-form__multi-field">
+                    <tui-select
+                        [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+                        [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
+                    >
+                        Difficulty
+                        <tui-data-list *tuiDataList>
                             <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]" tuiOption>
                                 {{ difficulty[1] }}
                             </button>
-                    </tui-data-list>
-                </tui-select>
-                <tui-field-error
-                    [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
-                ></tui-field-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-input-number
-                    [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
-                    [max]="getNumQuestionsLimit(questionSetFormControl)"
-                >
-                    Number of questions
-                </tui-input-number>
-                <tui-field-error
-                    [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
-                ></tui-field-error>
-                <div class="tui-form__field-note">
-                    {{getNumQuestionsLimit(questionSetFormControl)}} question(s) available.
+                        </tui-data-list>
+                    </tui-select>
+                    <tui-field-error
+                        [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
+                    ></tui-field-error>
                 </div>
-            </div>
-            <div class="tui-form__multi-field">
-                <div class="flex h-full items-center">
-                    <button
-                        *ngIf="getChallengeQuestionSetFormControls().length > 1"
-                        (click)="removeChallengeQuestionSet(index)"
-                        icon="tuiIconMinus"
-                        size="s"
-                        tuiButton
-                        type="button"
-                        appearance="accent"
+                <div class="tui-form__multi-field">
+                    <tui-input-number
+                        [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
+                        [max]="getNumQuestionsLimit(questionSetFormControl)"
                     >
-                        Delete
-                    </button>
+                        Number of questions
+                    </tui-input-number>
+                    <tui-field-error
+                        [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
+                    ></tui-field-error>
+                    <div class="tui-form__field-note">
+                        {{getNumQuestionsLimit(questionSetFormControl)}} question(s) available.
+                    </div>
+                </div>
+                <div class="tui-form__multi-field">
+                    <div class="flex h-full items-center">
+                        <button
+                            *ngIf="getChallengeQuestionSetFormControls().length > 1"
+                            (click)="removeChallengeQuestionSet(index)"
+                            icon="tuiIconMinus"
+                            size="s"
+                            tuiButton
+                            type="button"
+                            appearance="accent"
+                        >
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="tui-form__buttons">
-            <button
-                [disabled]="challengeForm.invalid"
-                class="tui-form__button"
-                size="m"
-                tuiButton
-            >
-                Create Goal
-            </button>
-        </div>
+            <div class="tui-form__buttons">
+                <button
+                    [disabled]="challengeForm.invalid"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    Create Goal
+                </button>
+            </div>
+        </ng-container>
     </form>
 </div>
