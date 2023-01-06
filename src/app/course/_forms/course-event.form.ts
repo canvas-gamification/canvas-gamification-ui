@@ -11,21 +11,20 @@ import {
 import {CourseEvent} from "@app/_models"
 import {TuiDay, TuiDayRange, TuiTime} from "@taiga-ui/cdk"
 
-export interface ChallengeFormData {
-    course_id: number,
+export interface EventFormData {
+    id?: number,
+    course: number,
     name: string
     type: string
-    challenge_type: string
+    challenge_type?: string
     challenge_type_value?: number
     count_for_tokens: boolean;
-    max_team_size?: number
-    start_date?: Date
-    end_date?: Date
-    featured: boolean
+    max_team_size: number
+    start_date: Date
+    end_date: Date
 }
 
-export interface ChallengeQuestionSetFormData {
-    event_id: number
+export interface EventQuestionSetFormData {
     category: number
     difficulty: string
     number_of_questions: number
@@ -75,7 +74,7 @@ export class CourseEventForm {
      * @param courseId - the event's courseId
      * @param eventId - the event's ID if it already exists
      */
-    static formatFormData(formData: FormGroup, courseId: number, eventId: number): CourseEvent {
+    static formatFormData(formData: FormGroup, courseId: number, eventId: number): EventFormData {
         return {
             id: eventId,
             name: formData.get('name').value,
@@ -90,10 +89,7 @@ export class CourseEventForm {
                 formData.get('endTimePicker').value
             ),
             course: courseId,
-            is_not_available_yet: false,
-            is_closed: false,
-            featured: false,
-            max_team_size: 3,
+            max_team_size: 1,
         }
     }
 
@@ -129,18 +125,18 @@ export class CourseEventForm {
             challengeType: new FormControl('', [Validators.required]),
             challengeTypeValue:  new FormControl(3),
             maxTeamSize: new FormControl(null, [Validators.required]),
-            startEndDatePicker: new FormControl(
+            startEndDate: new FormControl(
                 new TuiDayRange(
                     TuiDay.currentLocal(),
                     TuiDay.currentLocal().append({day: 7})
                 ),
                 [Validators.required]
             ),
-            startTimePicker: new FormControl(
+            startTime: new FormControl(
                 TuiTime.currentLocal(),
                 [Validators.required]
             ),
-            endTimePicker: new FormControl(
+            endTime: new FormControl(
                 TuiTime.currentLocal(),
                 [Validators.required]
             ),
@@ -148,7 +144,10 @@ export class CourseEventForm {
                 [CourseEventForm.createChallengeQuestionSetForm()],
                 [Validators.required]
             )
-        },  {validator: CourseEventForm.dateValidator} as AbstractControlOptions)
+        },
+            // TODO: fix and add the validator
+            // {validator: CourseEventForm.dateValidator} as AbstractControlOptions
+        )
     }
 
     static createChallengeFormWithData(challenge: CourseEvent): FormGroup {
@@ -167,21 +166,25 @@ export class CourseEventForm {
                 challenge.max_team_size,
                 [Validators.required]
             ),
-            startEndDatePicker: new FormControl(
+            startEndDate: new FormControl(
                 new TuiDayRange(
                     TuiDay.fromLocalNativeDate(new Date(challenge.start_date)),
                     TuiDay.fromLocalNativeDate(new Date(challenge.end_date))
                 ),
                 [Validators.required]
             ),
-            startTimePicker: new FormControl(
+            startTime: new FormControl(
                 TuiTime.fromLocalNativeDate(new Date(challenge.start_date)),
                 [Validators.required]
             ),
-            endTimePicker: new FormControl(
+            endTime: new FormControl(
                 TuiTime.fromLocalNativeDate(new Date(challenge.end_date)),
                 [Validators.required]
             ),
+            challengeQuestionSets: new FormArray(
+                [CourseEventForm.createChallengeQuestionSetForm()],
+                [Validators.required]
+            )
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions)
     }
 
@@ -194,47 +197,35 @@ export class CourseEventForm {
         })
     }
 
-    //Need a new relationship with the Event model to relate the questions
-    // static createChallengeQuestionSetFromChallenge(challenge:CourseEvent): FormGroup {
-    //     const builder = new FormBuilder()
-    //     return builder.group({
-    //         category: new FormControl('', [Validators.required]),
-    //         difficulty: new FormControl('', [Validators.required]),
-    //         number_of_questions: new FormControl('', [Validators.required])
-    //     })
-    // }
-
     /**
      * Returns the formatted form data ready to be sent to the backend
      * @param formData - the data to be formatted, a FormGroup object
      * @param courseId - the event's courseId
      */
-    static formatChallengeFormData(formData: FormGroup, courseId: number, maxTeamSize?: number): ChallengeFormData{
+    static formatChallengeFormData(formData: FormGroup, courseId: number): EventFormData{
         return {
-            course_id: courseId,
+            course: courseId,
             name: formData.get('name').value,
             type: 'CHALLENGE',
             challenge_type: formData.get('challengeType').value,
             challenge_type_value: formData.get('challengeTypeValue').value,
             count_for_tokens: true,
-            max_team_size: maxTeamSize? maxTeamSize : formData.get('maxTeamSize').value,
+            max_team_size: formData.get('maxTeamSize').value,
             start_date: this.dateAndTimeToLocal(
-                formData.get('startEndDatePicker').value.from,
-                formData.get('startTimePicker').value
+                formData.get('startEndDate').value.from,
+                formData.get('startTime').value
             ),
             end_date: this.dateAndTimeToLocal(
-                formData.get('startEndDatePicker').value.to,
-                formData.get('endTimePicker').value
+                formData.get('startEndDate').value.to,
+                formData.get('endTime').value
             ),
-            featured: false,
         }
     }
 
-    //createChallengeQuestionSetForm
     static formatChallengeQuestionSetFormData(
         formControl: FormControl,
         eventId: number
-    ): ChallengeQuestionSetFormData {
+    ): EventQuestionSetFormData {
         return {
             event_id: eventId,
             ...formControl.value

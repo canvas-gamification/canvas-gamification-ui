@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
-import {CourseEvent, EventType} from '@app/_models'
+import {EventType} from '@app/_models'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {AbstractControl, FormGroup} from '@angular/forms'
 import {CourseEventForm} from "@app/course/_forms/course-event.form"
@@ -50,7 +50,7 @@ export class CourseEventCreateEditComponent implements OnInit {
      * @param formData - grabs the components formData and creates a request based on that
      */
     submitEvent(formData: FormGroup): void {
-        const ourEvent: CourseEvent = CourseEventForm.formatFormData(formData, this.courseId, this.eventId)
+        const ourEvent = CourseEventForm.formatFormData(formData, this.courseId, this.eventId)
         if (this.eventId) { // If this is a previously existing event
             this.courseEventService.updateCourseEvent(ourEvent).subscribe(() => {
                 this.notificationsService

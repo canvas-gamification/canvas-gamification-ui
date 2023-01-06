@@ -73,7 +73,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
 
     //TODO: Need support from backend
     getNumQuestionsLimit(fc: FormControl): number {
-        return 5
+        return 100
     }
 
     addChallengeQuestionSet() {
@@ -103,7 +103,6 @@ export class CourseChallengeCreateEditComponent implements OnInit {
             const challengeData = CourseEventForm.formatChallengeFormData(
                 this.challengeForm,
                 this.courseId,
-                this.challengeForm.get('maxTeamSize').value // Max team size should not be editable
             )
             this.courseEventService.updateChallenge(challengeData, this.eventId).subscribe(() => {
                 this.notificationsService
@@ -119,7 +118,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
                 this.challengeForm,
                 this.courseId
             )
-            this.courseEventService.addChallenge(challengeData).subscribe(() => {
+            this.courseEventService.addCourseEvent(challengeData).subscribe(() => {
                 this.notificationsService
                     .show('The challenge has been created successfully.', {
                         status: TuiNotification.Success
