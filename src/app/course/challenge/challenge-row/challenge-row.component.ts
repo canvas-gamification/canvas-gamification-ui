@@ -27,4 +27,8 @@ export class ChallengeRowComponent implements OnInit {
     isSoloTeam(): boolean {
         return this.team.member_names.length === 1
     }
+
+    teamFirstVisit(): boolean {
+        return this.team.member_names.length === 1
+    }
 }
