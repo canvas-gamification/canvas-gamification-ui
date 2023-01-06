@@ -195,7 +195,7 @@ export class CourseEventForm {
     }
 
     //Need a new relationship with the Event model to relate the questions
-    // static createChallengeQuestionSetFromChallengeForm(challenge:CourseEvent): FormGroup {
+    // static createChallengeQuestionSetFromChallenge(challenge:CourseEvent): FormGroup {
     //     const builder = new FormBuilder()
     //     return builder.group({
     //         category: new FormControl('', [Validators.required]),
