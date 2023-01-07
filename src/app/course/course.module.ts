@@ -102,10 +102,12 @@ import {
 import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.component'
 import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-edit.component'
 import {EventRowComponent} from './event/event-row/event-row.component'
+import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-modal.component'
 
 
 @NgModule({
     declarations: [
+        AddToEventModalComponent,
         ChallengeRowComponent,
         ConceptMapComponent,
         CourseChallengeSnippetComponent,

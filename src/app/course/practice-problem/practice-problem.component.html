@@ -172,6 +172,17 @@
             >
                 Report
             </button>
+            <button
+                *ngIf="course?.has_create_event_permission"
+                (click)="openAddQuestion()"
+                [class.tui-skeleton]="!category || !uqjs"
+                icon="tuiIconCopy"
+                size="s"
+                tuiButton
+                appearance="secondary"
+            >
+                Add this question to event
+            </button>
         </div>
     </app-sidebar>
     <div class="practice-content">
@@ -206,3 +217,9 @@
     [questionId]="currentQuestionId"
 >
 </app-problem-report-modal>
+<app-add-to-event-modal
+    [(open)]="addQuestionModal"
+    [questionId]="currentQuestionId"
+    [events]="course?.events"
+>
+</app-add-to-event-modal>

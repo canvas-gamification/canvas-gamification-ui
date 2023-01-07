@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {UqjService} from '@app/problems/_services/uqj.service'
-import {Category, NestedCategories} from '@app/_models'
+import {Category, Course, NestedCategories} from '@app/_models'
 import {Difficulty} from '@app/_models/difficulty'
 import {DifficultyService} from '@app/problems/_services/difficulty.service'
 import {CourseService} from '@app/course/_services/course.service'
@@ -21,6 +21,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     uqjs: number[]
     currentQuestionId: number
     cursor = 0
+    course: Course
     category: Category
     categories: Category[] = []
     parentCategory: Category
@@ -30,6 +31,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     difficulties: Difficulty[]
     include_solved = false
     reportQuestionModal = false
+    addQuestionModal = false
 
     subscriptions: Subscription = new Subscription()
 
@@ -44,6 +46,12 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.difficulty = this.route.snapshot.queryParamMap.get('difficulty')
+        this.courseId = Number.parseInt(this.route.snapshot.paramMap.get('courseId'))
+
+        this.courseService.getCourse(this.courseId).subscribe(
+            course => this.course = course
+        )
+
         this.subscriptions.add(this.categoryService.getCategories().subscribe(categories => {
             this.categories = categories
             this.nestedCategories = categories.reduce((previous, category) => {
@@ -151,5 +159,9 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
      */
     openReportQuestion() {
         this.reportQuestionModal = true
+    }
+
+    openAddQuestion() {
+        this.addQuestionModal = true
     }
 }
