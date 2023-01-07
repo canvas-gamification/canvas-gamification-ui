@@ -7,47 +7,15 @@
         <div>
             Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
     </div>
-    <div class="teamSection flex items-center gap-2">
-<!--        <tui-tag-->
-<!--            *ngIf="!isSoloTeam()"-->
-<!--            size="m"-->
-<!--            status="success"-->
-<!--            value="Team"-->
-<!--            >-->
-<!--        </tui-tag>-->
-<!--        <tui-tag-->
-<!--            *ngIf="isSoloTeam()"-->
-<!--            size="m"-->
-<!--            status="warning"-->
-<!--            value="Solo"-->
-<!--        >-->
-<!--        </tui-tag>-->
-        <a *ngIf="teamFirstVisit()"
-            [routerLink]="['/course', event.course, 'challenge', event.id, 'teams', 'create']"
-            appearance="flat"
-            class="tui-form__button" size="s"
-            tuiButton
-        >
-            Create Your Team
-        </a>
-        <a *ngIf="!teamFirstVisit()"
-           [routerLink]="['/course', event.course, 'challenge', event.id, 'teams', 'create']"
-           appearance="flat"
-           class="tui-form__button" size="s"
-           tuiButton
-        >
-            Create Your Team
-        </a>
-<!--            challenge/:eventId/teams/create-->
-        <a [routerLink]="['/course', event.course, 'challenge', event.id, 'teams']"
-           appearance="flat"
-           class="tui-form__button" size="s"
-           tuiButton
-        >
-            {{event.is_not_available_yet ? 'Manage Teams' : 'View All Teams'}}
-        </a>
-    </div>
-    <div class="toCompleteSection flex items-center gap-2">
+    <a [routerLink]="['/course', event.course, 'challenge', event.id, 'teams']"
+       class="teamSection"
+       tuiButton
+       appearance="flat"
+       size="s"
+    >
+        {{event.is_not_available_yet ? 'Manage Your Team' : 'View All Teams'}}
+    </a>
+    <div class="toCompleteSection">
         <div>
             <ng-container
                 *ngIf="team.score === 0 ; else totalEventGrade">

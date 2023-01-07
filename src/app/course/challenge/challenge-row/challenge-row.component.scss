@@ -3,11 +3,11 @@
 .challenge {
     @include screen-lg {
         display: grid;
-        grid-template-columns: 8rem 3fr 5fr 14rem 18rem;
+        grid-template-columns: 8rem 4fr 5fr 10rem 18rem;
     }
     @include screen-md() {
         display: grid;
-        grid-template-columns: 2fr 2fr;
+        grid-template-columns: 5fr 4fr;
         grid-template-rows: 1fr 1fr 1fr;
         grid-template-areas: "challengeType teamSection"
         "name toCompleteSection"
@@ -18,10 +18,12 @@
 
 .challengeType {
     color: var(--tui-text-02);
+    align-self: center;
 }
 
-.challengeType, .name, .dates, .teamSection, .toCompleteSection{
+.name, .dates{
     justify-self: start;
+    align-self: center;
     padding-left: 1rem;
 
     @include screen-sm() {
@@ -37,7 +39,6 @@
 
 .challengeType {
     @include screen-md() {
-        padding-left: 0;
         grid-area: challengeType;
     }
 }
@@ -57,18 +58,24 @@
 }
 
 .teamSection {
+    justify-self: end;
+    align-self: center;
+
     @include screen-md() {
         grid-area: teamSection;
         justify-self: end;
-        padding-right: 0;
+        align-self: start;
     }
 }
 
 .toCompleteSection {
     justify-self: end;
+    align-self: center;
+    display: flex;
+    gap: 0.5rem;
 
     @include screen-md() {
         grid-area: toCompleteSection;
-        padding-right: 0;
     }
+
 }
