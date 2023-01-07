@@ -1,6 +1,7 @@
 <tui-axes
     [axisXLabels]="labelsX"
     axisY="none"
+    axisYName="Number of Submissions"
     [axisYLabels]="labelsY"
     class="h-80"
 >
@@ -11,8 +12,11 @@
         [max]="getMax()"
     >
     </tui-bar-chart>
-</tui-axes>
 
+</tui-axes>
+<div class="tui-text_body-xs label text-center">
+    Choices
+</div>
 <ng-template
     #hint
     let-setIndex
