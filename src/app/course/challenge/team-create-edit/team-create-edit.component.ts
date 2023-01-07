@@ -1,12 +1,13 @@
 import {Component, Inject, OnInit} from '@angular/core'
 import {FormGroup} from "@angular/forms"
 import {TeamForm} from "@app/course/_forms/team.form"
-import {Course, CourseRegistration} from "@app/_models"
+import {Course, CourseEvent, CourseRegistration} from "@app/_models"
 import {ActivatedRoute, Router} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
 import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {CourseEventService} from "@app/course/_services/course-event.service"
 
 @Component({
     selector: 'app-team-create-edit',
@@ -17,6 +18,7 @@ export class TeamCreateEditComponent implements OnInit {
     formData: FormGroup
     courseId: number
     eventId: number
+    event: CourseEvent
     teamId: number = null
     team: Team
     courseRegs: CourseRegistration[]
@@ -26,6 +28,7 @@ export class TeamCreateEditComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private courseService: CourseService,
+        private courseEventService: CourseEventService,
         private teamService: TeamService,
         private router: Router,
         @Inject(TuiNotificationsService)
@@ -37,6 +40,8 @@ export class TeamCreateEditComponent implements OnInit {
         this.formData = TeamForm.createTeamForm()
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         this.eventId = +this.route.snapshot.paramMap.get('eventId')
+        this.courseEventService.getCourseEvent(this.eventId)
+            .subscribe(event => this.event = event)
         this.courseService.getCourse(this.courseId).subscribe(course => this.course = course)
         this.courseService.getCourseRegistrations(this.courseId).subscribe(courseRegs => {
             this.courseRegs = courseRegs

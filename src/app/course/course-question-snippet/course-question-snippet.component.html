@@ -14,76 +14,90 @@
                 </a>
             </div>
         </div>
-        <div
-            *ngIf="event.type==='CHALLENGE'"
-            class="teamBar mb-8 flex items-center p-4 rounded-[0.625rem] shadow">
-            <div class="grow">
-                <h6 class="tui-text_h6">{{team.name}}</h6>
-                <p *ngFor="let name of team.member_names" class="tui-text_body-l">{{name}}</p>
+        <ng-container *ngIf="event.is_open">
+            <div
+                *ngIf="event.type==='CHALLENGE'"
+                class="teamBar mb-8 flex items-center p-4 rounded-[0.625rem] shadow">
+                <div class="grow">
+                    <h6 class="tui-text_h6">{{team.name}}</h6>
+                    <p *ngFor="let name of team.member_names" class="tui-text_body-l">{{name}}</p>
+                </div>
+                <a
+                    [routerLink]="['/course', courseId, 'challenge', eventId, 'teams']"
+                    appearance="flat"
+                    class="tui-form__button" size="m"
+                    tuiButton
+                >
+                    View All Teams
+                </a>
             </div>
-            <a
-                [routerLink]="['/course', courseId, 'challenge', eventId, 'teams']"
-                appearance="flat"
-                class="tui-form__button" size="m"
-                tuiButton
-            >
-                View Teams
-            </a>
-        </div>
-        <div class="question-islands">
-            <tui-island *ngFor="let uqj of uqjs">
-                <p class="tui-island__category">
-                    {{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }} {{ uqj.question.category_name }}
-                </p>
-                <h2 class="tui-island__title">{{ uqj.question.title }}</h2>
-                <div class="tui-space_bottom-2">
-                    <tui-tag [status]="highlight(getStatus(uqj))" [value]="getStatus(uqj)" size="m"></tui-tag>
-                </div>
-                <p class="tui-island__paragraph">{{ uqj.question.type_name | titlecase }}</p>
-                <p class="tui-island__paragraph">{{ uqj.formatted_current_tokens_received }} Tokens Received</p>
-                <ng-container *ngIf="eventId">
-                    <p class="tui-island__paragraph">
-                        {{ uqj.num_attempts }} / {{ uqj.question.max_submission_allowed }} Attempts Taken
+            <div class="question-islands">
+                <tui-island *ngFor="let uqj of uqjs">
+                    <p class="tui-island__category">
+                        {{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }} {{ uqj.question.category_name }}
                     </p>
-                </ng-container>
-                <div class="tui-form__buttons">
-                    <ng-container *ngIf="eventId; else noEvent">
-                        <a [routerLink]="['problem', uqj.question.id]"
-                           appearance="primary" class="tui-form__button" size="m"
-                           tuiButton
-                        >
-                            Open
-                        </a>
+                    <h2 class="tui-island__title">{{ uqj.question.title }}</h2>
+                    <div class="tui-space_bottom-2">
+                        <tui-tag [status]="highlight(getStatus(uqj))" [value]="getStatus(uqj)" size="m"></tui-tag>
+                    </div>
+                    <p class="tui-island__paragraph">{{ uqj.question.type_name | titlecase }}</p>
+                    <p class="tui-island__paragraph">{{ uqj.formatted_current_tokens_received }} Tokens Received</p>
+                    <ng-container *ngIf="eventId">
+                        <p class="tui-island__paragraph">
+                            {{ uqj.num_attempts }} / {{ uqj.question.max_submission_allowed }} Attempts Taken
+                        </p>
                     </ng-container>
-                    <ng-template #noEvent>
-                        <a [routerLink]="['/course', courseId, 'problem', uqj.question.id]" appearance="primary"
-                           class="tui-form__button" size="m"
-                           tuiButton
-                        >
-                            Open
-                        </a>
-                    </ng-template>
-                    <ng-container *ngIf="user.is_teacher">
-                        <!--TODO: Edit and view have radically different routes? Is this ok?-->
-                        <a [routerLink]="['/problems', uqj.question.id, 'edit']" appearance="primary"
-                           class="tui-form__button" size="m"
-                           tuiButton
-                        >
-                            Edit
-                        </a>
-                    </ng-container>
-                </div>
-            </tui-island>
-        </div>
-        <ng-container *ngIf="!uqjs.length">
-            <h2 *ngIf="eventId; else inCourse" class="tui-text_h6 tui-space_auto no-content-heading">
-                There aren't any questions available in this event.
-            </h2>
-            <ng-template #inCourse>
-                <h2 class="tui-text_h6 tui-space_auto no-content-heading">
-                    There aren't any questions available in this course.
+                    <div class="tui-form__buttons">
+                        <ng-container *ngIf="eventId; else noEvent">
+                            <a [routerLink]="['problem', uqj.question.id]"
+                               appearance="primary" class="tui-form__button" size="m"
+                               tuiButton
+                            >
+                                Open
+                            </a>
+                        </ng-container>
+                        <ng-template #noEvent>
+                            <a [routerLink]="['/course', courseId, 'problem', uqj.question.id]" appearance="primary"
+                               class="tui-form__button" size="m"
+                               tuiButton
+                            >
+                                Open
+                            </a>
+                        </ng-template>
+                        <ng-container *ngIf="user.is_teacher">
+                            <!--TODO: Edit and view have radically different routes? Is this ok?-->
+                            <a [routerLink]="['/problems', uqj.question.id, 'edit']" appearance="primary"
+                               class="tui-form__button" size="m"
+                               tuiButton
+                            >
+                                Edit
+                            </a>
+                        </ng-container>
+                    </div>
+                </tui-island>
+            </div>
+            <ng-container *ngIf="!uqjs.length">
+                <h2 *ngIf="eventId; else inCourse" class="tui-text_h6 tui-space_auto no-content-heading">
+                    There aren't any questions available in this {{getEventType()}}.
                 </h2>
-            </ng-template>
+                <ng-template #inCourse>
+                    <h2 class="tui-text_h6 tui-space_auto no-content-heading">
+                        There aren't any questions available in this course.
+                    </h2>
+                </ng-template>
+            </ng-container>
         </ng-container>
+        <h2
+            class="tui-text_h6 tui-space_auto no-content-heading"
+            *ngIf="event.is_not_available_yet"
+        >
+            The {{getEventType()}} is not available yet.
+        </h2>
+        <h2
+            class="tui-text_h6 tui-space_auto no-content-heading"
+            *ngIf="event.is_closed"
+        >
+            The {{getEventType()}} is closed.
+        </h2>
     </div>
 </ng-container>
