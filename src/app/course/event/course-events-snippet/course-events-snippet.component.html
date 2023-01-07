@@ -16,6 +16,17 @@
             </div>
             <div class="flex items-center gap-3 flex-wrap">
                 <button
+                    *ngIf="getFeaturedEvent()"
+                    [routerLink]="[getFeaturedEvent()?.id]"
+                    icon="tuiIconStarFilled"
+                    appearance="secondary"
+                    aria-label="Featured Assignment"
+                    size="m"
+                    tuiButton
+                >
+                    Featured Assignment
+                </button>
+                <button
                     *ngIf="course?.has_create_event_permission"
                     (click)="openEventImportDialog()"
                     icon="tuiIconPlus"
@@ -25,16 +36,6 @@
                     tuiButton
                 >
                     Add Event
-                </button>
-                <button
-                    *ngIf="getFeaturedEvent()"
-                    [routerLink]="[getFeaturedEvent()?.id]"
-                    appearance="secondary"
-                    aria-label="Featured Assignment"
-                    size="m"
-                    tuiButton
-                >
-                    Featured Assignment
                 </button>
             </div>
 
@@ -76,9 +77,14 @@
                         </tui-island>
                     </div>
                 </ng-container>
-                <button (click)="observer.complete()" aria-label="Cancel" class="tui-space_top-8"
-                        size="m" tuiButton
-                        type="button">
+                <button
+                    (click)="observer.complete()"
+                    aria-label="Cancel"
+                    class="tui-space_top-8"
+                    size="m"
+                    tuiButton
+                    type="button"
+                >
                     Cancel
                 </button>
             </ng-template>
