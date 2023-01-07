@@ -1,12 +1,19 @@
 import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing'
 
-import {CourseEventCreateEditComponent} from '../../event/course-event-create/course-event-create-edit.component'
+import {
+    CourseEventCreateEditComponent
+} from '../../event/course-event-create/course-event-create-edit.component'
 import {TestModule} from '@test/test.module'
 import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event.service.mock"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {ActivatedRoute, convertToParamMap, Router, RouterModule} from "@angular/router"
 import {ReactiveFormsModule} from "@angular/forms"
-import {TuiButtonModule, TuiDataListModule, TuiNotificationModule, TuiNotificationsService} from "@taiga-ui/core"
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiNotificationModule,
+    TuiNotificationsService
+} from "@taiga-ui/core"
 import {of} from "rxjs"
 import {
     TuiCheckboxLabeledModule,
@@ -109,8 +116,7 @@ describe('CourseEventCreateComponent without EventId', () => {
                 {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
-                            paramMap: convertToParamMap({
-                            }),
+                            paramMap: convertToParamMap({}),
                             parent: {
                                 paramMap: convertToParamMap({
                                     courseId: 1
@@ -142,6 +148,6 @@ describe('CourseEventCreateComponent without EventId', () => {
     it('submitEvent should work without eventId', () => {
         component.submitEvent(component.formData)
         expect(notificationService.show).toHaveBeenCalled()
-        expect(router.navigate).toHaveBeenCalledOnceWith(['course', 1, 'event'])
+        expect(router.navigate).toHaveBeenCalledOnceWith(['course', 1, 'assignments-exams'])
     })
 })

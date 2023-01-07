@@ -14,7 +14,19 @@
                 </a>
             </div>
         </div>
-        <ng-container *ngIf="event.is_open">
+        <tui-notification
+            class="mb-6"
+            *ngIf="event.is_not_available_yet"
+        >
+            The {{getEventType()}} is not available yet.
+        </tui-notification>
+        <tui-notification
+            class="mb-6"
+            *ngIf="event.is_closed"
+        >
+            The {{getEventType()}} is closed.
+        </tui-notification>
+        <ng-container *ngIf="event.is_open || course.has_create_event_permission">
             <div
                 *ngIf="event.type==='CHALLENGE'"
                 class="teamBar mb-8 flex items-center p-4 rounded-[0.625rem] shadow">
@@ -34,17 +46,29 @@
             <div class="question-islands">
                 <tui-island *ngFor="let uqj of uqjs">
                     <p class="tui-island__category">
-                        {{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }} {{ uqj.question.category_name }}
+                        {{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }}
+                        {{ uqj.question.category_name }}
                     </p>
                     <h2 class="tui-island__title">{{ uqj.question.title }}</h2>
                     <div class="tui-space_bottom-2">
-                        <tui-tag [status]="highlight(getStatus(uqj))" [value]="getStatus(uqj)" size="m"></tui-tag>
+                        <tui-tag
+                            [status]="highlight(getStatus(uqj))"
+                            [value]="getStatus(uqj)"
+                            size="m"
+                        >
+                        </tui-tag>
                     </div>
-                    <p class="tui-island__paragraph">{{ uqj.question.type_name | titlecase }}</p>
-                    <p class="tui-island__paragraph">{{ uqj.formatted_current_tokens_received }} Tokens Received</p>
+                    <p class="tui-island__paragraph">
+                        {{ uqj.question.type_name | titlecase }}
+                    </p>
+                    <p class="tui-island__paragraph">
+                        {{ uqj.formatted_current_tokens_received }}
+                        Tokens Received
+                    </p>
                     <ng-container *ngIf="eventId">
                         <p class="tui-island__paragraph">
-                            {{ uqj.num_attempts }} / {{ uqj.question.max_submission_allowed }} Attempts Taken
+                            {{ uqj.num_attempts }} / {{ uqj.question.max_submission_allowed }}
+                            Attempts Taken
                         </p>
                     </ng-container>
                     <div class="tui-form__buttons">
@@ -57,7 +81,8 @@
                             </a>
                         </ng-container>
                         <ng-template #noEvent>
-                            <a [routerLink]="['/course', courseId, 'problem', uqj.question.id]" appearance="primary"
+                            <a [routerLink]="['/course', courseId, 'problem', uqj.question.id]"
+                               appearance="primary"
                                class="tui-form__button" size="m"
                                tuiButton
                             >
@@ -66,9 +91,11 @@
                         </ng-template>
                         <ng-container *ngIf="user.is_teacher">
                             <!--TODO: Edit and view have radically different routes? Is this ok?-->
-                            <a [routerLink]="['/problems', uqj.question.id, 'edit']" appearance="primary"
-                               class="tui-form__button" size="m"
-                               tuiButton
+                            <a
+                                [routerLink]="['/problems', uqj.question.id, 'edit']"
+                                appearance="primary"
+                                class="tui-form__button" size="m"
+                                tuiButton
                             >
                                 Edit
                             </a>
@@ -77,7 +104,10 @@
                 </tui-island>
             </div>
             <ng-container *ngIf="!uqjs.length">
-                <h2 *ngIf="eventId; else inCourse" class="tui-text_h6 tui-space_auto no-content-heading">
+                <h2
+                    *ngIf="eventId; else inCourse"
+                    class="tui-text_h6 tui-space_auto no-content-heading"
+                >
                     There aren't any questions available in this {{getEventType()}}.
                 </h2>
                 <ng-template #inCourse>
@@ -87,17 +117,5 @@
                 </ng-template>
             </ng-container>
         </ng-container>
-        <h2
-            class="tui-text_h6 tui-space_auto no-content-heading"
-            *ngIf="event.is_not_available_yet"
-        >
-            The {{getEventType()}} is not available yet.
-        </h2>
-        <h2
-            class="tui-text_h6 tui-space_auto no-content-heading"
-            *ngIf="event.is_closed"
-        >
-            The {{getEventType()}} is closed.
-        </h2>
     </div>
 </ng-container>

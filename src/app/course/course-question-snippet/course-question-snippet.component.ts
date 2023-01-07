@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core'
-import {CourseEvent, Question, UQJ, User} from '@app/_models'
+import {Component, OnInit} from '@angular/core'
+import {Course, CourseEvent, UQJ, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {ActivatedRoute, Router} from '@angular/router'
 import {UqjService} from '@app/problems/_services/uqj.service'
@@ -16,9 +16,9 @@ import {TeamService} from "@app/course/_services/team.service"
     styleUrls: ['./course-question-snippet.component.scss']
 })
 export class CourseQuestionSnippetComponent implements OnInit {
-    @Input() questions: Question[]
-    @Input() uqjs: UQJ[]
+    uqjs: UQJ[]
     user: User
+    course: Course
     event: CourseEvent
     eventId: number
     courseId: number
@@ -39,6 +39,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     ngOnInit(): void {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId') || null
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null
+        this.courseService.getCourse(this.courseId).subscribe(course => this.course = course)
         if (this.eventId && this.courseId) { // if this snippet is an event-view
             this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {
                 if (response.success) {

@@ -4,18 +4,18 @@
         </ng-container>
         <ng-container *ngIf="event.type === 'EXAM'">Exam</ng-container>
     </div>
-    <div class="min-w-[8rem] flex items-center">
+    <div class="flex flex-grow items-center">
         {{ event.name }}
     </div>
-    <div class="flex-grow">
+    <div class="min-w-[18rem]">
         <div>From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
         <div>Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
     </div>
     <div
-        *ngIf="event.featured"
-        class="flex items-center"
+        class="flex items-center min-w-[2rem]"
     >
         <tui-marker-icon
+            *ngIf="event.featured"
             src="tuiIconStarFilledLarge"
             mode="warning"
             size="xs"
