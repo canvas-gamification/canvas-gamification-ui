@@ -23,12 +23,4 @@ export class ChallengeRowComponent implements OnInit {
         this.teamService.getMyTeam(this.event.id).subscribe(team => this.team = team)
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
-
-    isSoloTeam(): boolean {
-        return this.team.member_names.length === 1
-    }
-
-    teamFirstVisit(): boolean {
-        return this.team.member_names.length === 1
-    }
 }
