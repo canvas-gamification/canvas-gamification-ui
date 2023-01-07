@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core'
-
+import {convert} from 'html-to-text'
 @Component({
     selector: 'app-event-stats-bar-chart',
     templateUrl: './event-stats-bar-chart.component.html',
@@ -14,7 +14,7 @@ export class EventStatsBarChartComponent implements OnInit {
     value: Array<number[]>
 
     ngOnInit(): void {
-        this.labelsX = Object.keys(this.answers)
+        this.labelsX = Object.keys(this.answers).map(convert)
         this.value = [Object.values(this.answers)]
 
         const max = this.getMax()
