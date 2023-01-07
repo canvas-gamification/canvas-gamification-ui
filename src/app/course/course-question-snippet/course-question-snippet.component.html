@@ -73,33 +73,46 @@
                     </ng-container>
                     <div class="tui-form__buttons">
                         <ng-container *ngIf="eventId; else noEvent">
-                            <a [routerLink]="['problem', uqj.question.id]"
-                               appearance="primary" class="tui-form__button" size="m"
-                               tuiButton
+                            <a
+                                [routerLink]="['problem', uqj.question.id]"
+                                appearance="primary"
+                                class="tui-form__button"
+                                size="s"
+                                tuiButton
                             >
                                 Open
                             </a>
                         </ng-container>
                         <ng-template #noEvent>
-                            <a [routerLink]="['/course', courseId, 'problem', uqj.question.id]"
-                               appearance="primary"
-                               class="tui-form__button" size="m"
-                               tuiButton
+                            <a
+                                [routerLink]="['/course', courseId, 'problem', uqj.question.id]"
+                                appearance="primary"
+                                class="tui-form__button"
+                                size="s"
+                                tuiButton
                             >
                                 Open
                             </a>
                         </ng-template>
-                        <ng-container *ngIf="user.is_teacher">
-                            <!--TODO: Edit and view have radically different routes? Is this ok?-->
-                            <a
-                                [routerLink]="['/problems', uqj.question.id, 'edit']"
-                                appearance="primary"
-                                class="tui-form__button" size="m"
-                                tuiButton
-                            >
-                                Edit
-                            </a>
-                        </ng-container>
+                        <a
+                            *ngIf="user.is_teacher"
+                            [routerLink]="['/problems', uqj.question.id, 'edit']"
+                            appearance="primary"
+                            class="tui-form__button"
+                            size="s"
+                            tuiButton
+                        >
+                            Edit
+                        </a>
+                        <a
+                            (click)="removeQuestion(uqj.question.id)"
+                            appearance="accent"
+                            class="tui-form__button"
+                            size="s"
+                            tuiButton
+                        >
+                            Remove
+                        </a>
                     </div>
                 </tui-island>
             </div>

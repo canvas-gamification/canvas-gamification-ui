@@ -128,4 +128,12 @@ export class CourseEventService {
                 this.apiService.handleError<unknown>("Error occurred while adding question")
             ))
     }
+
+    removeQuestion(eventId: number, questionId: number): Observable<unknown> {
+        const url = this.apiService.getURL('event', eventId, 'remove-question')
+        return this.http.post(url, {question_id: questionId})
+            .pipe(catchError(
+                this.apiService.handleError<unknown>("Error occurred while removing question")
+            ))
+    }
 }

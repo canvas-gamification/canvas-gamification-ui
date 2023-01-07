@@ -9,6 +9,7 @@ import {CourseService} from '@app/course/_services/course.service'
 import {TuiStatusT} from "@taiga-ui/kit"
 import {Team} from "@app/_models/team"
 import {TeamService} from "@app/course/_services/team.service"
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -31,14 +32,13 @@ export class CourseQuestionSnippetComponent implements OnInit {
         private uqjService: UqjService,
         private courseEventService: CourseEventService,
         private courseService: CourseService,
-        private teamService: TeamService
+        private teamService: TeamService,
+        private readonly notificationService: TuiNotificationsService,
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
-    ngOnInit(): void {
-        this.courseId = +this.route.snapshot.parent.paramMap.get('courseId') || null
-        this.eventId = +this.route.snapshot.paramMap.get('eventId') || null
+    init() {
         this.courseService.getCourse(this.courseId).subscribe(course => this.course = course)
         if (this.eventId && this.courseId) { // if this snippet is an event-view
             this.courseService.validateEvent(this.courseId, this.eventId).subscribe(response => {
@@ -55,7 +55,13 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 }
             })
         }
-        this.teamService.getMyTeam(this.eventId).subscribe( team => this.team = team)
+        this.teamService.getMyTeam(this.eventId).subscribe(team => this.team = team)
+    }
+
+    ngOnInit(): void {
+        this.courseId = +this.route.snapshot.parent.paramMap.get('courseId') || null
+        this.eventId = +this.route.snapshot.paramMap.get('eventId') || null
+        this.init()
     }
 
     /**
@@ -92,5 +98,14 @@ export class CourseQuestionSnippetComponent implements OnInit {
 
     getEventType(): string {
         return this.event.type.toLowerCase()
+    }
+
+    removeQuestion(questionId: number) {
+        this.courseEventService.removeQuestion(this.eventId, questionId).subscribe(() => {
+            this.notificationService.show("Question removed successfully", {
+                status: TuiNotification.Success,
+            }).subscribe()
+            this.init()
+        })
     }
 }
