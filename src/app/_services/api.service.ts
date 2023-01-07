@@ -42,9 +42,8 @@ export class ApiService {
             showMessage?: boolean
         }
     ): (error: HttpErrorResponse) => Observable<T> {
-        const {redirect403 = false, redirect404 = false, redirect = [], showMessage = true} = options ? options : {}
+        const {redirect403 = false, redirect404 = false, redirect = null, showMessage = true} = options ? options : {}
         return (error): Observable<T> => {
-
             if (redirect404 && error.status === 404)
                 this.router.navigate(['/404'], {skipLocationChange: true}).then()
             else if (redirect403 && error.status === 403)
