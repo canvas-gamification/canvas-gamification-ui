@@ -88,4 +88,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
         }
         return 'warning'
     }
+
+    getEventType(): string {
+        return this.event.type.toLowerCase()
+    }
 }
