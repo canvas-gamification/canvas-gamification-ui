@@ -105,6 +105,7 @@
                             Edit
                         </a>
                         <a
+                            *ngIf="event.has_edit_permission"
                             (click)="removeQuestion(uqj.question.id)"
                             appearance="accent"
                             class="tui-form__button"
