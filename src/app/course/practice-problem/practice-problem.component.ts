@@ -4,12 +4,10 @@ import {UqjService} from '@app/problems/_services/uqj.service'
 import {Category, NestedCategories} from '@app/_models'
 import {Difficulty} from '@app/_models/difficulty'
 import {DifficultyService} from '@app/problems/_services/difficulty.service'
-import {UserStatsService} from '@app/_services/api/user-stats.service'
 import {CourseService} from '@app/course/_services/course.service'
 import {CategoryService} from '@app/_services/api/category.service'
 import {forkJoin, Subscription} from 'rxjs'
-import {UserStats} from '@app/_models/user_difficulty_stats'
-import * as _ from 'lodash'
+import {shuffle} from 'lodash'
 
 @Component({
     selector: 'app-practice-problem',
@@ -28,11 +26,8 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     parentCategory: Category
     nestedCategories: NestedCategories[] = []
     userSuccessRate: number
-    categorySuccessRate: number
     difficulty: string
     difficulties: Difficulty[]
-    userStats: UserStats[]
-    categoryUserSuccessRate: number
     include_solved = false
     reportQuestionModal = false
 
@@ -44,7 +39,6 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
         private difficultyService: DifficultyService,
         private courseService: CourseService,
         private categoryService: CategoryService,
-        private userStatsService: UserStatsService,
     ) {
     }
 
@@ -56,7 +50,9 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
                 if (category.parent) return previous
                 return [...previous, {
                     category,
-                    children: categories.filter(nestedCategory => nestedCategory.parent === category.pk).map(nestedCategory => {
+                    children: categories.filter(
+                        nestedCategory => nestedCategory.parent === category.pk
+                    ).map(nestedCategory => {
                         return {
                             category: nestedCategory,
                             children: [],
@@ -69,11 +65,12 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
                 this.courseId = Number.parseInt(paramMap.get('courseId'))
                 this.categoryId = Number.parseInt(paramMap.get('categoryId'))
                 this.category = categories.find(category => this.categoryId === category.pk)
-                this.parentCategory = categories.find(category => this.category.parent === category.pk)
+                this.parentCategory = categories.find(
+                    category => this.category.parent === category.pk
+                )
                 this.cursor = 0
                 this.uqjs = undefined
 
-                const userStatsObservable = this.userStatsService.getUserStatsByCategory(this.categoryId)
                 const uqjObservable = this.uqjService.getUQJQuestionIds({
                     category: this.parentCategory ? this.categoryId : undefined,
                     parent_category: this.parentCategory?.pk ?? this.categoryId,
@@ -83,20 +80,14 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
                     is_practice: true
                 })
                 const difficultyObservable = this.difficultyService.getDifficulties()
-                const categoryStatsObservable = this.courseService.getUserStats(this.courseId, this.categoryId)
 
                 this.subscriptions.add(forkJoin([
                     uqjObservable,
                     difficultyObservable,
-                    userStatsObservable,
-                    categoryStatsObservable
-                ]).subscribe(([uqjs, difficulties, difficultyStats, userSuccessRate]) => {
-                    this.uqjs = _.shuffle(uqjs)
+                ]).subscribe(([uqjs, difficulties]) => {
+                    this.uqjs = shuffle(uqjs)
                     this.difficulties = difficulties
-                    this.userStats = difficultyStats
-                    this.categoryUserSuccessRate = userSuccessRate.success_rate
                     this.updateCurrentQuestion()
-                    this.calculateUserSuccessRate()
                 }))
             }))
         }))
@@ -130,9 +121,11 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * Updates the difficulty when an item is selected. Then it gets all the uqjs from the backend that match this new difficulty.
+     * Updates the difficulty when an item is selected.
+     * Then it gets all the uqjs from the backend that match this new difficulty.
      * Finally, updates the user's success rate based on the selected category.
-     * @param difficultyEvent The difficulty that is selected a value is clicked in the select input.
+     * @param difficultyEvent The difficulty that is selected a value
+     * is clicked in the select input.
      * @param solvedEvent Whether or not to include solved questions
      */
     updateQuestions(difficultyEvent: string, solvedEvent: boolean): void {
@@ -147,27 +140,11 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
             is_verified: true,
             is_practice: true
         }).subscribe((uqjs) => {
-            this.uqjs = _.shuffle(uqjs)
+            this.uqjs = shuffle(uqjs)
             this.updateCurrentQuestion()
-            this.calculateUserSuccessRate()
         }))
     }
 
-    /**
-     * Determines what success rate to show to the user.
-     */
-    calculateUserSuccessRate(): void {
-        const difficulty = this.difficulty ?? 'ALL'
-        const difficultyStats = this.userStats.find((stat) => stat.difficulty === difficulty)
-        this.userSuccessRate = difficultyStats ? difficultyStats.avgSuccess : 0
-
-        if (this.difficulty) {
-            this.categorySuccessRate = this.category.average_success_per_difficulty
-                .find(userStatus => userStatus.difficulty === this.difficulty).avgSuccess
-        } else {
-            this.categorySuccessRate = this.category.average_success
-        }
-    }
 
     /**
      * Opens the report question modal
