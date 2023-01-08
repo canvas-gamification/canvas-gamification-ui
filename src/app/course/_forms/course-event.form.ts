@@ -1,6 +1,6 @@
 import {
     AbstractControl,
-    AbstractControlOptions, FormArray,
+    AbstractControlOptions,
     FormBuilder,
     FormControl,
     FormGroup,
@@ -22,12 +22,6 @@ export interface EventFormData {
     max_team_size: number
     start_date: Date
     end_date: Date
-}
-
-export interface EventQuestionSetFormData {
-    category: number
-    difficulty: string
-    number_of_questions: number
 }
 
 export class CourseEventForm {
@@ -112,119 +106,5 @@ export class CourseEventForm {
         return !dateRange.from || !dateRange.to || (dateRange.isSingleDay ? endTime.toAbsoluteMilliseconds() <= startTime.toAbsoluteMilliseconds() : false) ? {
             forbiddenDateRange: true
         } : null
-    }
-
-
-    /**
-     * Creates another FormGroup for a Course Challenge.
-     */
-    static createChallengeForm(): FormGroup {
-        const builder = new FormBuilder()
-        return builder.group({
-            name: new FormControl(null, [Validators.required]),
-            challengeType: new FormControl('', [Validators.required]),
-            challengeTypeValue: new FormControl(3),
-            maxTeamSize: new FormControl(null, [Validators.required]),
-            startEndDate: new FormControl(
-                new TuiDayRange(
-                    TuiDay.currentLocal(),
-                    TuiDay.currentLocal().append({day: 7})
-                ),
-                [Validators.required]
-            ),
-            startTime: new FormControl(
-                TuiTime.currentLocal(),
-                [Validators.required]
-            ),
-            endTime: new FormControl(
-                TuiTime.currentLocal(),
-                [Validators.required]
-            ),
-            challengeQuestionSets: new FormArray(
-                [CourseEventForm.createChallengeQuestionSetForm()],
-                [Validators.required]
-            )
-        },
-            // TODO: fix and add the validator
-            // {validator: CourseEventForm.dateValidator} as AbstractControlOptions
-        )
-    }
-
-    static createChallengeFormWithData(challenge: CourseEvent): FormGroup {
-        const builder = new FormBuilder()
-        return builder.group({
-            name: new FormControl(challenge.name, [Validators.required]),
-            challengeType: new FormControl(
-                challenge.challenge_type,
-                [Validators.required]
-            ),
-            challengeTypeValue: new FormControl(
-                challenge.challenge_type_value,
-                [Validators.required]
-            ),
-            maxTeamSize: new FormControl(
-                challenge.max_team_size,
-                [Validators.required]
-            ),
-            startEndDate: new FormControl(
-                new TuiDayRange(
-                    TuiDay.fromLocalNativeDate(new Date(challenge.start_date)),
-                    TuiDay.fromLocalNativeDate(new Date(challenge.end_date))
-                ),
-                [Validators.required]
-            ),
-            startTime: new FormControl(
-                TuiTime.fromLocalNativeDate(new Date(challenge.start_date)),
-                [Validators.required]
-            ),
-            endTime: new FormControl(
-                TuiTime.fromLocalNativeDate(new Date(challenge.end_date)),
-                [Validators.required]
-            ),
-            challengeQuestionSets: new FormArray(
-                [CourseEventForm.createChallengeQuestionSetForm()],
-                [Validators.required]
-            )
-        }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions)
-    }
-
-    static createChallengeQuestionSetForm(): FormGroup {
-        const builder = new FormBuilder()
-        return builder.group({
-            category: new FormControl('', [Validators.required]),
-            difficulty: new FormControl('', [Validators.required]),
-            number_of_questions: new FormControl('', [Validators.required])
-        })
-    }
-
-    /**
-     * Returns the formatted form data ready to be sent to the backend
-     * @param formData - the data to be formatted, a FormGroup object
-     * @param courseId - the event's courseId
-     */
-    static formatChallengeFormData(formData: FormGroup, courseId: number): EventFormData {
-        return {
-            course: courseId,
-            name: formData.get('name').value,
-            type: 'CHALLENGE',
-            challenge_type: formData.get('challengeType').value,
-            challenge_type_value: formData.get('challengeTypeValue').value,
-            count_for_tokens: true,
-            max_team_size: formData.get('maxTeamSize').value,
-            start_date: this.dateAndTimeToLocal(
-                formData.get('startEndDate').value.from,
-                formData.get('startTime').value
-            ),
-            end_date: this.dateAndTimeToLocal(
-                formData.get('startEndDate').value.to,
-                formData.get('endTime').value
-            ),
-        }
-    }
-
-    static formatChallengeQuestionSetFormData(
-        formControl: FormControl,
-    ): EventQuestionSetFormData {
-        return formControl.value
     }
 }
