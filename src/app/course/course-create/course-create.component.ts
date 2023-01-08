@@ -49,7 +49,7 @@ export class CourseCreateComponent {
             this.notificationsService.show('Course created successfully!', {
                 status: TuiNotification.Success,
             }).subscribe()
-            this.router.navigate(['/course', course.id])
+            this.router.navigate(['/course', course.id]).then()
         })
     }
 }

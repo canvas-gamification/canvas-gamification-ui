@@ -10,8 +10,9 @@
                     icon="tuiIconArrowLeft"
                     size="s"
                     tuiButton
+                    appearance="secondary"
                 >
-                    Back to concepts
+                    Back to Concept Map
                 </a>
             </div>
             <div
@@ -23,94 +24,101 @@
                     icon="tuiIconArrowLeft"
                     size="s"
                     tuiButton
+                    appearance="secondary"
                 >
-                    Back to goals
+                    Back to Goals
                 </a>
             </div>
             <div
-                *ngIf="parentCategory"
                 class="practice-sidebar_content-breadcrumbs tui-space_bottom-2"
             >
                 <a
+                    *ngIf="parentCategory"
                     [class.tui-skeleton]="!category"
                     [class.tui-skeleton_text]="!category"
                     [routerLink]="['../', parentCategory?.pk]"
+                    [queryParams]="{difficulty}"
                     class="tui-space_vertical-0"
                     tuiLink
                 >
                     {{parentCategory?.name}}
                 </a>
                 <tui-svg
+                    *ngIf="parentCategory"
                     [class.tui-skeleton]="!category"
                     src="tuiIconChevronRight"
                 ></tui-svg>
-            </div>
-            <tui-hosted-dropdown
-                [content]="categoryDropdown"
-                class="tui-space_bottom-2"
-            >
-                <button
-                    [class.tui-skeleton]="!category"
-                    class="practice-sidebar_content-categories_button tui-text_h6"
+                <tui-hosted-dropdown
+                    [content]="categoryDropdown"
                 >
-                    {{!parentCategory ? 'All ' : ''}}{{category?.name ?? 'Category Name'}}
-                </button>
-            </tui-hosted-dropdown>
-            <ng-template #categoryDropdown>
-                <tui-data-list role="menu">
-                    <tui-opt-group
-                        *ngFor="let parentCategory of nestedCategories"
-                        [label]="parentCategory.category.name"
+                    <button
+                        [class.tui-skeleton]="!category"
+                        tuiLink
                     >
-                        <a
-                            #rla="routerLinkActive"
-                            [attr.aria-checked]="rla.isActive"
-                            [routerLink]="['../', parentCategory.category.pk]"
-                            role="menuitemradio"
-                            routerLinkActive
-                            tuiOption
+                        {{!parentCategory ? 'All ' : ''}}{{category?.name ?? 'Category Name'}}
+                    </button>
+                </tui-hosted-dropdown>
+                <ng-template #categoryDropdown>
+                    <tui-data-list role="menu">
+                        <tui-opt-group
+                            *ngFor="let parentCategory of nestedCategories"
+                            [label]="parentCategory.category.name"
                         >
-                            All&nbsp;{{parentCategory.category.name}}
-                            <tui-svg
-                                *ngIf="rla.isActive"
-                                src="tuiIconCheckLarge">
-                            </tui-svg>
-                        </a>
-                        <a
-                            #rla="routerLinkActive"
-                            *ngFor="let childrenCategory of parentCategory.children"
-                            [attr.aria-checked]="rla.isActive"
-                            [routerLink]="['../', childrenCategory.category.pk]"
-                            role="menuitemradio"
-                            routerLinkActive
-                            tuiOption
-                        >
-                            {{childrenCategory.category.full_name}}
-                            <tui-svg
-                                *ngIf="rla.isActive"
-                                src="tuiIconCheckLarge">
-                            </tui-svg>
-                        </a>
-                    </tui-opt-group>
-                </tui-data-list>
-            </ng-template>
-            <p
-                [class.tui-skeleton]="!category || !userStats"
-                [class.tui-skeleton_text]="!category || !userStats"
-                class="tui-space_bottom-0"
+                            <a
+                                #rla="routerLinkActive"
+                                [attr.aria-checked]="rla.isActive"
+                                [routerLink]="['../', parentCategory.category.pk]"
+                                [queryParams]="{difficulty}"
+                                role="menuitemradio"
+                                routerLinkActive
+                                tuiOption
+                            >
+                                All&nbsp;{{parentCategory.category.name}}
+                                <tui-svg
+                                    *ngIf="rla.isActive"
+                                    src="tuiIconCheckLarge">
+                                </tui-svg>
+                            </a>
+                            <a
+                                #rla="routerLinkActive"
+                                *ngFor="let childrenCategory of parentCategory.children"
+                                [attr.aria-checked]="rla.isActive"
+                                [routerLink]="['../', childrenCategory.category.pk]"
+                                [queryParams]="{difficulty}"
+                                role="menuitemradio"
+                                routerLinkActive
+                                tuiOption
+                            >
+                                {{childrenCategory.category.full_name}}
+                                <tui-svg
+                                    *ngIf="rla.isActive"
+                                    src="tuiIconCheckLarge">
+                                </tui-svg>
+                            </a>
+                        </tui-opt-group>
+                    </tui-data-list>
+                </ng-template>
+            </div>
+        </div>
+        <div class="space-y-3">
+
+            <div class="text-center">
+                Question Settings:
+            </div>
+            <tui-checkbox-block
+                (ngModelChange)="updateQuestions(difficulty, $event)"
+                [class.tui-skeleton]="!difficulties || !category"
+                [ngModel]="include_solved"
+                class="w-full"
+                ngDefaultControl
+                size="m"
             >
-                Your Success
-                Rate: {{(userSuccessRate * 100).toFixed(2) + '%' || 'N/A'}}
-            </p>
-            <p
-                [class.tui-skeleton]="!category || !userStats"
-                [class.tui-skeleton_text]="!category || !userStats"
-                class="tui-space_top-1"
-            >
-                Average Success
-                Rate: {{(categorySuccessRate * 100).toFixed(2) + '%' || 'N/A'}}
-            </p>
+                <span class="tui-text_body-s">
+                    Include Solved Questions:
+                </span>
+            </tui-checkbox-block>
             <tui-select
+                class="flex-grow"
                 (ngModelChange)="updateQuestions($event, include_solved)"
                 [class.tui-skeleton]="!difficulties || !category"
                 [ngModel]="difficulty"
@@ -118,7 +126,7 @@
                 [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
                 tuiTextfieldSize="m"
             >
-                Choose a level of difficulty
+                Difficulty:
                 <tui-data-list *tuiDataList>
                     <button
                         *ngFor="let diff of difficulties" [value]="diff[0]"
@@ -128,16 +136,31 @@
                     </button>
                 </tui-data-list>
             </tui-select>
-            <tui-checkbox-labeled
-                (ngModelChange)="updateQuestions(difficulty, $event)"
-                [class.tui-skeleton]="!difficulties || !category"
-                [ngModel]="include_solved"
-                class="tui-space_top-4"
-                ngDefaultControl
-            >
-                Include Solved
-            </tui-checkbox-labeled>
+
+
+            <div class="text-center">
+                Browse Questions:
+            </div>
+            <div class="flex justify-between">
+                <button
+                    (click)="prevQuestion()"
+                    [class.tui-skeleton]="!category || !uqjs"
+                    icon="tuiIconChevronLeftLarge"
+                    size="m"
+                    tuiIconButton
+                >
+                </button>
+                <button
+                    (click)="nextQuestion()"
+                    [class.tui-skeleton]="!category || !uqjs"
+                    icon="tuiIconChevronRightLarge"
+                    size="m"
+                    tuiIconButton
+                >
+                </button>
+            </div>
         </div>
+
         <div class="practice-sidebar_buttons tui-space_vertical-6">
             <button
                 (click)="openReportQuestion()"
@@ -145,30 +168,24 @@
                 icon="tuiIconAttention"
                 size="s"
                 tuiButton
+                appearance="secondary"
             >
-                Report
+                Report a Problem
             </button>
             <button
-                (click)="prevQuestion()"
+                *ngIf="course?.has_create_event_permission"
+                (click)="openAddQuestion()"
                 [class.tui-skeleton]="!category || !uqjs"
-                icon="tuiIconArrowLeft"
+                icon="tuiIconCopy"
                 size="s"
                 tuiButton
+                appearance="secondary"
             >
-                Previous Question
-            </button>
-            <button
-                (click)="nextQuestion()"
-                [class.tui-skeleton]="!category || !uqjs"
-                iconRight="tuiIconArrowRight"
-                size="s"
-                tuiButton
-            >
-                Next Question
+                Add This Question to Event
             </button>
         </div>
     </app-sidebar>
-    <div class="practice-content mt-3">
+    <div class="practice-content">
         <app-problem-view
             *ngIf="currentQuestionId && category && uqjs else noProblems"
             [questionId]="currentQuestionId"
@@ -200,3 +217,9 @@
     [questionId]="currentQuestionId"
 >
 </app-problem-report-modal>
+<app-add-to-event-modal
+    [(open)]="addQuestionModal"
+    [questionId]="currentQuestionId"
+    [events]="course?.events"
+>
+</app-add-to-event-modal>

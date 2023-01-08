@@ -15,7 +15,7 @@ export class CourseChallengeSnippetComponent implements OnInit {
     course: Course
     user: User
     courseId: number
-    availableEvents: CourseEvent[]
+    currentEvents: CourseEvent[]
     upcomingEvents: CourseEvent[]
     pastEvents: CourseEvent[]
 
@@ -32,7 +32,7 @@ export class CourseChallengeSnippetComponent implements OnInit {
             this.course = course
             this.events = course?.events
 
-            this.availableEvents = this.events.filter(
+            this.currentEvents = this.events.filter(
                 event => event.is_open
             ).filter(event => event.type === "CHALLENGE")
             this.upcomingEvents = this.events.filter(

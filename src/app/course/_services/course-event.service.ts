@@ -58,16 +58,16 @@ export class CourseEventService {
             ))
     }
 
-    updateChallenge(formData: EventFormData, eventId: number): Observable<CourseEvent> {
-        const url = this.apiService.getURL('event', eventId)
-        return this.http
-            .patch<CourseEvent>(url, formData)
-            .pipe(catchError(
-                this.apiService.handleError<CourseEvent>(
-                    `Error occurred while updating challenge.`
-                )
-            ))
-    }
+    // updateChallenge(formData: EventFormData, eventId: number): Observable<CourseEvent> {
+    //     const url = this.apiService.getURL('event', eventId)
+    //     return this.http
+    //         .patch<CourseEvent>(url, formData)
+    //         .pipe(catchError(
+    //             this.apiService.handleError<CourseEvent>(
+    //                 `Error occurred while updating challenge.`
+    //             )
+    //         ))
+    // }
 
     getEventTypes(): Observable<EventType[]> {
         const url = this.apiService.getURL('event', 'get-event-types')
@@ -143,10 +143,19 @@ export class CourseEventService {
             ))
     }
 
-    addQuestionSet(input: EventQuestionSetFormData, eventId: number): Observable<unknown> {
-        const url = this.apiService.getURL('event', eventId, 'add-question-set')
-        return this.http.post(url, input).pipe(catchError(
-            this.apiService.handleError<unknown>(`Error occurred while adding question set`)
-        ))
+    addQuestion(eventId: number, questionId: number): Observable<unknown> {
+        const url = this.apiService.getURL('event', eventId, 'add-question')
+        return this.http.post(url, {question_id: questionId})
+            .pipe(catchError(
+                this.apiService.handleError<unknown>("Error occurred while adding question")
+            ))
+    }
+
+    removeQuestion(eventId: number, questionId: number): Observable<unknown> {
+        const url = this.apiService.getURL('event', eventId, 'remove-question')
+        return this.http.post(url, {question_id: questionId})
+            .pipe(catchError(
+                this.apiService.handleError<unknown>("Error occurred while removing question")
+            ))
     }
 }

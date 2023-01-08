@@ -161,6 +161,7 @@ export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
     category_obj: MOCK_CATEGORY,
+    category_name: "Test",
     status: 'Solved',
     answer: 'a',
     author: 0,

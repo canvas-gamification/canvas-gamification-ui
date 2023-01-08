@@ -6,16 +6,22 @@
         <div class="flex flex-wrap gap-3 tui-space_top-6">
             <h3 class="tui-text_h3 tui-col_stretch flex-grow">List of Teams</h3>
             <a
-                [disabled]="event.is_open || event.is_closed"
+                *ngIf="!(event.is_open || event.is_closed)"
                 [routerLink]="['create']"
                 icon="tuiIconPlus"
                 appearance="primary"
-                aria-label="Create a New Team"
+                aria-label="Create New Team"
                 size="m"
                 tuiButton
             >
-                Create a New Team
+                Create New Team
             </a>
+        </div>
+        <div class="tui-island__paragraph tui-text_body-l tui-space_top-6">
+            The team that has the person icon (<tui-svg src="tuiIconUser"></tui-svg>) is your team.
+            You can change the team's name by editing it.
+            You can also edit the team settings and invite specific people privately to your team or
+            make it public so anyone can join your team.
         </div>
         <ng-container *ngFor="let team of teams; let index = index">
             <ng-container *ngIf="team">
@@ -35,9 +41,7 @@
                             <div>
                                 <tui-svg *ngIf="team.is_private" src="tuiIconLock"></tui-svg>
                             </div>
-                            <div>{{team.member_names.length}} out of {{event.max_team_size}}
-                                students
-                            </div>
+                            <div>{{team.member_names.length}} {{team.member_names.length===1? 'student': 'students'}}</div>
                         </div>
                         <ng-template tuiAccordionItemContent>
                             <div class="flex flex-wrap gap-3">
@@ -51,7 +55,8 @@
                                 </div>
                                 <ng-container *ngIf="isInTeam(team); else notInTeam;">
                                     <a
-                                        [disabled]="event.is_open || event.is_closed"
+                                        *ngIf=
+                                            "isInTeam(team) && !(event.is_open || event.is_closed)"
                                         [routerLink]="[team.id, 'edit']"
                                         appearance="secondary"
                                         aria-label="Edit"
@@ -64,7 +69,10 @@
                                 </ng-container>
                                 <ng-template #notInTeam>
                                     <button
-                                        [disabled]="event.is_open || event.is_closed"
+                                        *ngIf=
+                                            "!isInTeam(team)
+                                            && !(event.is_open || event.is_closed)
+                                            && isInvited(team)"
                                         (click)="joinTeam(team.id)"
                                         appearance="secondary"
                                         aria-label="Join"
@@ -92,20 +100,23 @@
             class="tui-skeleton"
             icon="tuiIconPlus"
             appearance="primary"
-            aria-label="Create a New Team"
+            aria-label="Create New Team"
             size="m"
             tuiButton
         >
-            Create a New Team
+            Create New Team
         </a>
+    </div>
+    <div class="tui-skeleton tui-island__paragraph tui-text_body-l tui-space_top-6"
+    >
+        Instructions
     </div>
     <tui-accordion class="accordionContainer tui-space_top-6">
         <tui-accordion-item>
             <div class="accordionHeader">
-                <div class="tui-skeleton">1</div>
-                <div class="tui-skeleton">Team Name</div>
-                <div class="tui-skeleton">Number of Students</div>
-                <div class="tui-skeleton">Private Team</div>
+                <div class="tui-skeleton">content</div>
+                <div class="tui-skeleton">content</div>
+                <div class="tui-skeleton">content</div>
             </div>
         </tui-accordion-item>
     </tui-accordion>

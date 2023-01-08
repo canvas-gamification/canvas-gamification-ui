@@ -1,4 +1,13 @@
-import {Component, EventEmitter, Inject, Injector, Input, OnChanges, OnInit, Output} from '@angular/core'
+import {
+    Component,
+    EventEmitter,
+    Inject,
+    Injector,
+    Input,
+    OnChanges,
+    OnInit,
+    Output
+} from '@angular/core'
 import {QuestionSubmission} from '@app/_models/question_submission'
 import {DomSanitizer} from "@angular/platform-browser"
 import {TuiDialogService} from '@taiga-ui/core'
@@ -32,7 +41,9 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
     }
 
     ngOnInit(): void {
-        this.reloadRequestObservable = new Observable<never>(subscriber => this.reloadRequestSubscriber = subscriber)
+        this.reloadRequestObservable = new Observable<never>(
+            subscriber => this.reloadRequestSubscriber = subscriber
+        )
         this.reloadRequestObservable.subscribe(() => this.reloadSubmissions())
         this.reloadRequestSubscriberEvent.emit(this.reloadRequestSubscriber)
     }
@@ -42,7 +53,10 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
     }
 
     reloadSubmissions(): void {
-        this.submissionService.getPreviousSubmissions(this.questionId, {ordering: '-submission_time'})
+        this.submissionService.getPreviousSubmissions(
+            this.questionId,
+            {ordering: '-submission_time'},
+        )
             .pipe(map(submissions => submissions.map(submission => ({
                 ...submission,
                 safeAnswer: [this.sanitizer.bypassSecurityTrustHtml(submission.answer)]
@@ -59,6 +73,7 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
         this.dialogService.open<number>(
             new PolymorpheusComponent(SubmissionViewComponent, this.injector),
             {
+                size: 'l',
                 data: submission,
                 closeable: false,
                 label: `Submission ${index}`

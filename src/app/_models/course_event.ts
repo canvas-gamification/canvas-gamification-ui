@@ -17,4 +17,5 @@ export interface CourseEvent {
     is_not_available_yet: boolean
     is_closed: boolean
     featured: boolean
+    // calculate_score?: number
 }

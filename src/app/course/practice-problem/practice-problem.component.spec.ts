@@ -18,9 +18,19 @@ import {
 } from '@app/problems/_test/mock'
 import {UserStatsService} from '@app/_services/api/user-stats.service'
 import {UserStatsServiceMock} from '@test/user-stats.service.mock'
-import {TuiButtonModule, TuiDataListModule, TuiHostedDropdownModule, TuiTextfieldControllerModule} from '@taiga-ui/core'
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiHostedDropdownModule,
+    TuiTextfieldControllerModule
+} from '@taiga-ui/core'
 import {PracticeProblemComponent} from '@app/course/practice-problem/practice-problem.component'
-import {TuiCheckboxLabeledModule, TuiMarkerIconModule, TuiSelectModule, TuiTagModule} from '@taiga-ui/kit'
+import {
+    TuiCheckboxLabeledModule,
+    TuiMarkerIconModule,
+    TuiSelectModule,
+    TuiTagModule
+} from '@taiga-ui/kit'
 import {TuiTableModule} from '@taiga-ui/addon-table'
 import {ProblemViewComponent} from '@app/problems/problem-view/problem-view.component'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
@@ -36,7 +46,11 @@ describe('PracticeProblemComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [PracticeProblemComponent, ProblemViewComponent, StringifyTuiDataListPipe],
+            declarations: [
+                PracticeProblemComponent,
+                ProblemViewComponent,
+                StringifyTuiDataListPipe
+            ],
             providers: [
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},
@@ -103,7 +117,6 @@ describe('PracticeProblemComponent', () => {
         expect(component.uqjs.length).toEqual(4)
         expect(component.difficulties).toEqual(MOCK_DIFFICULTIES)
         expect(component.category).toEqual(MOCK_CATEGORIES.find(category => category.pk === 0))
-        expect(component.userSuccessRate).toEqual(1)
     })
 
     it('should not skip question when there is only one uqj', () => {

@@ -1,4 +1,12 @@
-import {Category, Course, CourseEvent, CourseRegistrationMode, Question, STATUS, UQJ} from '@app/_models'
+import {
+    Category,
+    Course,
+    CourseEvent,
+    CourseRegistrationMode,
+    Question,
+    STATUS,
+    UQJ
+} from '@app/_models'
 import {QuestionSubmission, StatusMessage} from '@app/_models/question_submission'
 import {Difficulty} from "@app/_models/difficulty"
 import {McqFormData} from "@app/problems/_forms/mcq.form"
@@ -69,6 +77,7 @@ export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
     category_obj: MOCK_CATEGORY,
+    category_name: "Test",
     status: 'Solved',
     answer: 'a',
     author: 0,
@@ -108,6 +117,7 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     id: 1,
     category: 0,
     category_obj: MOCK_CATEGORY,
+    category_name: "Test",
     status: 'Partially Solved',
     answer: 'a,b',
     author: 0,
@@ -149,6 +159,7 @@ export const MOCK_JAVA_QUESTION: Question = {
     id: 2,
     category: 0,
     category_obj: MOCK_CATEGORY,
+    category_name: "Test",
     status: 'Wrong',
     answer: '',
     author: 0,
@@ -189,6 +200,7 @@ export const MOCK_PARSONS_QUESTION: Question = {
     id: 3,
     category: 0,
     category_obj: MOCK_CATEGORY,
+    category_name: "Test",
     status: '',
     answer: '',
     author: 0,
@@ -233,6 +245,7 @@ export const MOCK_PRACTICE_JAVA_QUESTION: Question = {
     author: 0,
     author_name: '',
     category_obj: MOCK_CATEGORY,
+    category_name: "Test",
     choices: null,
     course_name: '',
     difficulty: 'EASY',
@@ -269,6 +282,7 @@ export const MOCK_PRACTICE_PARSONS_QUESTION: Question = {
     author: 0,
     author_name: '',
     category_obj: MOCK_CATEGORY,
+    category_name: "Test",
     choices: null,
     course_name: '',
     difficulty: 'EASY',
@@ -309,6 +323,7 @@ export const MOCK_PRACTICE_MCQ_QUESTION: Question = {
     author: 0,
     author_name: '',
     category_obj: MOCK_CATEGORY,
+    category_name: "Test",
     choices: {
         'a': 'sag',
         'b': 'gav'
@@ -348,6 +363,7 @@ export const MOCK_PRACTICE_CHECKBOX_QUESTION: Question = {
     author: 0,
     author_name: '',
     category_obj: MOCK_CATEGORY,
+    category_name: "Test",
     choices: {
         'a': 'sag',
         'b': 'gav',
@@ -775,11 +791,32 @@ export const MOCK_VARIABLES = [
     }
 ]
 
-export const MOCK_UQJS: UQJ[] = [MOCK_UQJ, MOCK_UQJ_2, MOCK_UQJ_3, MOCK_UQJ_4, MOCK_UQJ_5, MOCK_UQJ_6, MOCK_UQJ_7, MOCK_UQJ_8]
+export const MOCK_UQJS: UQJ[] = [
+    MOCK_UQJ,
+    MOCK_UQJ_2,
+    MOCK_UQJ_3,
+    MOCK_UQJ_4,
+    MOCK_UQJ_5,
+    MOCK_UQJ_6,
+    MOCK_UQJ_7,
+    MOCK_UQJ_8
+]
 
-export const MOCK_QUESTIONS: Question[] = [MOCK_MCQ_QUESTION, MOCK_CHECKBOX_QUESTION, MOCK_JAVA_QUESTION, MOCK_PARSONS_QUESTION, MOCK_PRACTICE_MCQ_QUESTION, MOCK_PRACTICE_CHECKBOX_QUESTION, MOCK_PRACTICE_JAVA_QUESTION, MOCK_PRACTICE_PARSONS_QUESTION]
+export const MOCK_QUESTIONS: Question[] = [
+    MOCK_MCQ_QUESTION,
+    MOCK_CHECKBOX_QUESTION,
+    MOCK_JAVA_QUESTION,
+    MOCK_PARSONS_QUESTION,
+    MOCK_PRACTICE_MCQ_QUESTION,
+    MOCK_PRACTICE_CHECKBOX_QUESTION,
+    MOCK_PRACTICE_JAVA_QUESTION,
+    MOCK_PRACTICE_PARSONS_QUESTION
+]
 
-export const MOCK_SUBMISSIONS: QuestionSubmission[] = [MOCK_QUESTION_SUBMISSION, MOCK_QUESTION_SUBMISSION_2]
+export const MOCK_SUBMISSIONS: QuestionSubmission[] = [
+    MOCK_QUESTION_SUBMISSION,
+    MOCK_QUESTION_SUBMISSION_2
+]
 
 export const MOCK_COURSE: Course = {
     id: 0,

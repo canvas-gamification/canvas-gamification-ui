@@ -1,6 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
-import {CourseEventsSnippetComponent} from '../../course-events-snippet/course-events-snippet.component'
+import {
+    CourseEventsSnippetComponent
+} from '../../event/course-events-snippet/course-events-snippet.component'
 import {TestModule} from '@test/test.module'
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event.service.mock"
@@ -21,7 +23,13 @@ describe('CourseEventsSnippetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, TuiSelectModule, TuiIslandModule, ReactiveFormsModule, FormsModule],
+            imports: [
+                TestModule,
+                TuiSelectModule,
+                TuiIslandModule,
+                ReactiveFormsModule,
+                FormsModule
+            ],
             declarations: [CourseEventsSnippetComponent],
             providers: [
                 {provide: CourseEventService, useClass: CourseEventServiceMock},

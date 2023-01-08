@@ -6,4 +6,6 @@ export type EventStats = {
     error_messages: Record<string, number>
     status_messages: Record<string, number>
     submissions: Record<string, number>
+    has_variables: boolean
+    total_submissions
 }[]
