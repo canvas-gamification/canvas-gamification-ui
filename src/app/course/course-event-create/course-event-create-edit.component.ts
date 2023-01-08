@@ -13,7 +13,7 @@ import {tuiCreateTimePeriods} from "@taiga-ui/kit"
     styleUrls: ['./course-event-create-edit.component.scss']
 })
 export class CourseEventCreateEditComponent implements OnInit {
-    localEventTypes: EventType[]
+    localEventTypes: EventType[] = [['ASSIGNMENT', 'Assignment'], ["EXAM", "Exam"]]
     courseId: number
     eventId: number = null
     formData: FormGroup
@@ -33,7 +33,6 @@ export class CourseEventCreateEditComponent implements OnInit {
 
     ngOnInit(): void {
         this.formData = CourseEventForm.createForm()
-        this.courseEventService.getEventTypes().subscribe(response => this.localEventTypes = response)
         // Convert to number
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         if (this.route.snapshot.paramMap.get('eventId')) {
