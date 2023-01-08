@@ -16,13 +16,13 @@
         </div>
         <tui-notification
             class="mb-6"
-            *ngIf="event.is_not_available_yet"
+            *ngIf="event.is_not_available_yet && user.is_student"
         >
             The {{getEventType()}} is not available yet.
         </tui-notification>
         <tui-notification
             class="mb-6"
-            *ngIf="event.is_closed"
+            *ngIf="event.is_closed && user.is_student"
         >
             The {{getEventType()}} is closed.
         </tui-notification>
