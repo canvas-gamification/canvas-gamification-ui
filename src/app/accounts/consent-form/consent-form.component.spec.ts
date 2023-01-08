@@ -37,7 +37,16 @@ describe('ConsentFormComponent', () => {
                 AdminTermsAndConditionsSnippetComponent,
                 StudentTermsAndConditionsSnippetComponent
             ],
-            imports: [TestModule, ReactiveFormsModule, TuiIslandModule, TuiInputModule, TuiFieldErrorModule, TuiCheckboxLabeledModule, TuiSelectModule, TuiMultiSelectModule],
+            imports: [
+                TestModule,
+                ReactiveFormsModule,
+                TuiIslandModule,
+                TuiInputModule,
+                TuiFieldErrorModule,
+                TuiCheckboxLabeledModule,
+                TuiSelectModule,
+                TuiMultiSelectModule
+            ],
             providers: [{provide: ConsentService, useClass: ConsentServiceMock}]
         }).compileComponents()
     })
@@ -66,13 +75,13 @@ describe('ConsentFormComponent', () => {
             component.form.race.setValue(['White'])
             fixture.detectChanges()
             component.onSubmit()
-            expect(router.navigate).toHaveBeenCalledOnceWith(['homepage'])
+            expect(router.navigate).toHaveBeenCalledOnceWith(['/accounts', 'survey', 'initial'])
             expect(notificationService.show).toHaveBeenCalled()
         })
 
         it('remove a user consent', () => {
             component.declineConsent()
-            expect(router.navigate).toHaveBeenCalledOnceWith(['homepage'])
+            expect(router.navigate).toHaveBeenCalledOnceWith(['/accounts', 'survey', 'initial'])
             expect(notificationService.show).toHaveBeenCalled()
         })
 
