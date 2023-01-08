@@ -111,6 +111,7 @@ import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-
         AddToEventModalComponent,
         ChallengeRowComponent,
         ConceptMapComponent,
+        CourseChallengeCreateEditComponent,
         CourseChallengeSnippetComponent,
         CourseComponent,
         CourseCreateComponent,

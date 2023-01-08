@@ -4,7 +4,9 @@ import {
     FormArray,
     FormBuilder,
     FormControl,
-    FormGroup, ValidationErrors, ValidatorFn,
+    FormGroup,
+    ValidationErrors,
+    ValidatorFn,
     Validators
 } from "@angular/forms"
 import {TuiDay, TuiDayRange, TuiTime} from "@taiga-ui/cdk"
@@ -101,8 +103,13 @@ export class ChallengeForm {
      * Returns the formatted form data ready to be sent to the backend
      * @param formData - the data to be formatted, a FormGroup object
      * @param courseId - the event's courseId
+     * @param eventId - the id of the event
      */
-    static formatChallengeFormData(formData: FormGroup, courseId: number, eventId: number): EventFormData {
+    static formatChallengeFormData(
+        formData: FormGroup,
+        courseId: number,
+        eventId: number,
+    ): EventFormData {
         return {
             id: eventId,
             course: courseId,
@@ -141,7 +148,9 @@ export class ChallengeForm {
     /**
      * Custom validator for date validity
      */
-    private static dateValidator: ValidatorFn = (controls: AbstractControl): ValidationErrors | null => {
+    private static dateValidator: ValidatorFn = (
+        controls: AbstractControl
+    ): ValidationErrors | null => {
         const dateRange: TuiDayRange = controls.get('startEndDate').value
         const startTime: TuiTime = controls.get('startTime').value
         const endTime: TuiTime = controls.get('endTime').value

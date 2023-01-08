@@ -77,7 +77,9 @@ export class CourseEventService {
         return this.http
             .post<unknown>(url, questionId)
             .pipe(catchError(
-                this.apiService.handleError<unknown>(`Error occurred while removing event question.`)
+                this.apiService.handleError<unknown>(
+                    `Error occurred while removing event question.`
+                )
             ))
     }
 
@@ -99,7 +101,9 @@ export class CourseEventService {
         const url = this.apiService.getURL('event', 'get-challenge-types')
         return this.http
             .get<EventType[]>(url)
-            .pipe(catchError(this.apiService.handleError<EventType[]>(`Error occurred while fetching challenge types`)))
+            .pipe(catchError(this.apiService.handleError<EventType[]>(
+                `Error occurred while fetching challenge types`
+            )))
     }
 
     /**
@@ -169,5 +173,12 @@ export class CourseEventService {
             .pipe(catchError(
                 this.apiService.handleError<unknown>("Error occurred while removing question")
             ))
+    }
+
+    addQuestionSet(input: EventQuestionSetFormData, eventId: number): Observable<unknown> {
+        const url = this.apiService.getURL('event', eventId, 'add-question-set')
+        return this.http.post(url, input).pipe(catchError(
+            this.apiService.handleError<unknown>(`Error occurred while adding question set`)
+        ))
     }
 }

@@ -9,6 +9,7 @@ import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {ChallengeForm} from "@app/course/_forms/challenge.form"
+import {startCase} from 'lodash'
 
 @Component({
     selector: 'app-course-challenge-create-edit',
@@ -42,7 +43,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         this.challengeForm = ChallengeForm.createChallengeForm()
 
-        if (this.route.snapshot.paramMap.get('eventId')) { // For editing existing challenge, grab the eventId
+        if (this.route.snapshot.paramMap.get('eventId')) {
             this.eventId = +this.route.snapshot.paramMap.get('eventId')
             this.courseEventService.getCourseEvent(this.eventId).subscribe(event => {
                 this.event = event
@@ -54,11 +55,10 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         }
 
         this.courseEventService.getChallengeTypes().subscribe(response => {
-            this.localChallengeTypes = response.map( array =>
-                [ array[0], array[1]
-                    .split('_')
-                    .map(word => word.charAt(0) + word.substring(1).toLowerCase())
-                    .join(' ')
+            this.localChallengeTypes = response.map(array =>
+                [
+                    array[0],
+                    startCase(array[1].replace('_', ' '))
                 ])
         })
         this.categoryService.getCategories().subscribe(
@@ -81,7 +81,8 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         return fc.get(field) as FormControl
     }
 
-    //TODO: Need support from backend
+    // TODO: Need support from backend
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     getNumQuestionsLimit(fc: FormControl): number {
         return 100
     }
@@ -94,7 +95,9 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         this.getChallengeQuestionSets().removeAt(index)
     }
 
-    //TODO: Need to discuss; max= number of teams there are (but there's not point of this challenge, but we dont't know how many teams yet
+    // TODO: Need to discuss;
+    //  max= number of teams there are (but there's not point of this challenge,
+    //  but we dont't know how many teams yet
     topXTeamsLimit(): number {
         return 100
     }
@@ -104,7 +107,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
     }
 
     removeQuestion(questionId: number) {
-        this.removingQuestions.push(this.questions.find( question => question.id === questionId ))
+        this.removingQuestions.push(this.questions.find(question => question.id === questionId))
     }
 
     async onSubmit() {
@@ -117,13 +120,14 @@ export class CourseChallengeCreateEditComponent implements OnInit {
             await this.courseEventService.updateCourseEvent(challengeData).toPromise()
             for (const questionSet of this.getChallengeQuestionSetFormControls()) {
                 const questionSetFormData =
-                        ChallengeForm.formatChallengeQuestionSetFormData(questionSet)
-                await this.courseEventService.
-                    addQuestionSet(questionSetFormData,  this.eventId).toPromise()
+                    ChallengeForm.formatChallengeQuestionSetFormData(questionSet)
+                await this.courseEventService
+                    .addQuestionSet(questionSetFormData, this.eventId)
+                    .toPromise()
             }
-            if (this.questions !== null){
-                for(const question of this.questions){
-                    await  this.courseEventService.removeEventQuestion(this.eventId, question.id)
+            if (this.questions !== null) {
+                for (const question of this.questions) {
+                    await this.courseEventService.removeEventQuestion(this.eventId, question.id)
                 }
             }
             this.notificationsService
@@ -140,8 +144,9 @@ export class CourseChallengeCreateEditComponent implements OnInit {
             for (const questionSet of this.getChallengeQuestionSetFormControls()) {
                 const questionSetFormData =
                     ChallengeForm.formatChallengeQuestionSetFormData(questionSet)
-                await this.courseEventService.
-                    addQuestionSet(questionSetFormData, event.id).toPromise()
+                await this.courseEventService
+                    .addQuestionSet(questionSetFormData, event.id)
+                    .toPromise()
             }
 
             this.notificationsService
