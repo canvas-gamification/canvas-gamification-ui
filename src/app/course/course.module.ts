@@ -2,13 +2,13 @@ import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {
     CourseEventCreateEditComponent
-} from '@app/course/course-event-create/course-event-create-edit.component'
+} from '@app/course/event/course-event-create/course-event-create-edit.component'
 import {CourseRegisterComponent} from '@app/course/course-registration/course-register.component'
 import {CourseListComponent} from '@app/course/course-list/course-list.component'
 import {CourseComponent} from '@app/course/course.component'
 import {
     CourseEventsSnippetComponent
-} from '@app/course/course-events-snippet/course-events-snippet.component'
+} from '@app/course/event/course-events-snippet/course-events-snippet.component'
 import {TokenUseSnippetComponent} from '@app/course/token-use-snippet/token-use-snippet.component'
 import {
     CourseQuestionSnippetComponent
@@ -25,6 +25,7 @@ import {
     TuiAccordionModule,
     TuiAvatarModule,
     TuiBreadcrumbsModule,
+    TuiCheckboxBlockModule,
     TuiCheckboxLabeledModule,
     TuiDataListWrapperModule,
     TuiFieldErrorModule,
@@ -102,12 +103,14 @@ import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.com
 import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-edit.component'
 import {CourseChallengeCreateEditComponent
 } from './challenge/course-challenge-create-edit/course-challenge-create-edit.component'
+import {EventRowComponent} from './event/event-row/event-row.component'
+import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-modal.component'
 
 @NgModule({
     declarations: [
+        AddToEventModalComponent,
         ChallengeRowComponent,
         ConceptMapComponent,
-        CourseChallengeCreateEditComponent,
         CourseChallengeSnippetComponent,
         CourseComponent,
         CourseCreateComponent,
@@ -121,6 +124,7 @@ import {CourseChallengeCreateEditComponent
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        EventRowComponent,
         EventStatsBarChartComponent,
         EventStatsComponent,
         GoalComponent,
@@ -153,6 +157,7 @@ import {CourseChallengeCreateEditComponent
         TuiBreadcrumbsModule,
         TuiButtonModule,
         TuiCalendarModule,
+        TuiCheckboxBlockModule,
         TuiCheckboxLabeledModule,
         TuiDataListModule,
         TuiDataListWrapperModule,
@@ -183,12 +188,12 @@ import {CourseChallengeCreateEditComponent
         TuiSidebarModule,
         TuiStepperModule,
         TuiSvgModule,
-        DragulaModule.forRoot(),
         TuiTableModule,
         TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
         TuiTextfieldControllerModule,
+        DragulaModule.forRoot(),
     ],
     providers: [
         CourseEventService,

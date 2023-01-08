@@ -15,38 +15,50 @@
         </div>
         <tui-accordion class="accordionContainer" [closeOthers]="false">
             <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Available Challenges
+                Current Challenges
                 <ng-template tuiAccordionItemContent>
-                    <div *ngFor="let challenge of availableEvents" class="divide">
-                        <app-challenge-row
-                            [event]="challenge"
-                        >
-                        </app-challenge-row>
+                    <ng-container *ngIf="currentEvents.length > 0">
+                        <div *ngFor="let challenge of currentEvents" class="divide">
+                            <app-challenge-row
+                                [event]="challenge"
+                            >
+                            </app-challenge-row>
+                        </div>
+                    </ng-container>
+                    <div *ngIf="currentEvents.length === 0" class="text-center">
+                        Looks like there are no current challenges at the moment.
                     </div>
                 </ng-template>
             </tui-accordion-item>
             <tui-accordion-item class="title" open="true">
                 Upcoming Challenges
                 <ng-template tuiAccordionItemContent>
-                    <div *ngFor="let challenge of upcomingEvents" class="tui-space_top-5 challenge">
-                        <app-challenge-row
-                            [event]="challenge"
-                        >
-                        </app-challenge-row>
+                    <ng-container *ngIf="upcomingEvents.length > 0">
+                        <div *ngFor="let challenge of upcomingEvents" class="divide">
+                            <app-challenge-row
+                                [event]="challenge"
+                            >
+                            </app-challenge-row>
+                        </div>
+                    </ng-container>
+                    <div *ngIf="upcomingEvents.length === 0" class="text-center">
+                        Looks like there are no upcoming challenges at the moment.
                     </div>
                 </ng-template>
             </tui-accordion-item>
             <tui-accordion-item class="title" open="true">
                 Past Challenges
                 <ng-template tuiAccordionItemContent>
-                    <div
-                        *ngFor="let challenge of pastEvents"
-                         class="tui-space_top-5 challenge"
-                    >
-                        <app-challenge-row
-                            [event]="challenge"
-                        >
-                        </app-challenge-row>
+                    <ng-container *ngIf="pastEvents.length > 0">
+                        <div *ngFor="let challenge of pastEvents" class="divide">
+                            <app-challenge-row
+                                [event]="challenge"
+                            >
+                            </app-challenge-row>
+                        </div>
+                    </ng-container>
+                    <div *ngIf="pastEvents.length === 0" class="text-center">
+                        Looks like there are no past challenges at the moment.
                     </div>
                 </ng-template>
             </tui-accordion-item>
@@ -68,197 +80,44 @@
         </div>
         <tui-accordion class="accordionContainer" [closeOthers]="false">
             <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Available Challenges
+                Current Challenges
                 <ng-template tuiAccordionItemContent>
-                    <div class="challenge">
-                        <div class="challengeType tui-skeleton">Challenge</div>
-                        <div class="name tui-skeleton">Content</div>
-
-                        <div class="dates">
-                            <div class="tui-skeleton">From Some Date Here</div>
-                            <div class="tui-skeleton">Until Some Date Here</div>
-                        </div>
-                        <div class="justify-self-end">
-                            <tui-tag size="m" status="success" value="Available"
-                                     class="tui-skeleton">
-                            </tui-tag>
-                        </div>
-                        <div class="grade">
-                            <div class="tui-skeleton">
-                                Grade: TBA
-                            </div>
-                        </div>
-                        <div class="justify-self-end">
-                            <ng-container>
-                                <a appearance="primary"
-                                   class="tui-form__button tui-skeleton"
-                                   size="s"
-                                   tuiButton
-                                >
-                                    Content
-                                </a>
-                            </ng-container>
-                        </div>
+                    <div class="pb-5">
+                        <div class="tui-skeleton">content</div>
+                        <div class="tui-skeleton">Content</div>
                     </div>
-                    <div class="challenge">
-                        <div class="challengeType tui-skeleton">Challenge</div>
-                        <div class="name tui-skeleton">Content</div>
-
-                        <div class="dates">
-                            <div class="tui-skeleton">From Some Date Here</div>
-                            <div class="tui-skeleton">Until Some Date Here</div>
-                        </div>
-                        <div class="justify-self-end">
-                            <tui-tag size="m" status="success" value="Available"
-                                     class="tui-skeleton">
-                            </tui-tag>
-                        </div>
-                        <div class="grade">
-                            <div class="tui-skeleton">
-                                Grade: TBA
-                            </div>
-                        </div>
-                        <div class="justify-self-end">
-                            <ng-container>
-                                <a appearance="primary"
-                                   class="tui-form__button tui-skeleton"
-                                   size="s"
-                                   tuiButton
-                                >
-                                    Content
-                                </a>
-                            </ng-container>
-                        </div>
+                    <div class="borderB"></div>
+                    <div class="pt-5">
+                        <div class="tui-skeleton">content</div>
+                        <div class="tui-skeleton">Content</div>
                     </div>
                 </ng-template>
             </tui-accordion-item>
             <tui-accordion-item class="title" open="true" [disableHover]="true">
                 Upcoming Challenges
                 <ng-template tuiAccordionItemContent>
-                    <div class="challenge">
-                        <div class="challengeType tui-skeleton">Challenge</div>
-                        <div class="name tui-skeleton">Content</div>
-
-                        <div class="dates">
-                            <div class="tui-skeleton">From Some Date Here</div>
-                            <div class="tui-skeleton">Until Some Date Here</div>
-                        </div>
-                        <div class="justify-self-end">
-                            <tui-tag size="m" status="success" value="Available"
-                                     class="tui-skeleton">
-                            </tui-tag>
-                        </div>
-                        <div class="grade">
-                            <div class="tui-skeleton">
-                                Grade: TBA
-                            </div>
-                        </div>
-                        <div class="justify-self-end">
-                            <ng-container>
-                                <a appearance="primary"
-                                   class="tui-form__button tui-skeleton"
-                                   size="s"
-                                   tuiButton
-                                >
-                                    Content
-                                </a>
-                            </ng-container>
-                        </div>
+                    <div class="pb-5">
+                        <div class="tui-skeleton">content</div>
+                        <div class="tui-skeleton">Content</div>
                     </div>
-                    <div class="challenge">
-                        <div class="challengeType tui-skeleton">Challenge</div>
-                        <div class="name tui-skeleton">Content</div>
-
-                        <div class="dates">
-                            <div class="tui-skeleton">From Some Date Here</div>
-                            <div class="tui-skeleton">Until Some Date Here</div>
-                        </div>
-                        <div class="justify-self-end">
-                            <tui-tag size="m" status="success" value="Available"
-                                     class="tui-skeleton">
-                            </tui-tag>
-                        </div>
-                        <div class="grade">
-                            <div class="tui-skeleton">
-                                Grade: TBA
-                            </div>
-                        </div>
-                        <div class="justify-self-end">
-                            <ng-container>
-                                <a appearance="primary"
-                                   class="tui-form__button tui-skeleton"
-                                   size="s"
-                                   tuiButton
-                                >
-                                    Content
-                                </a>
-                            </ng-container>
-                        </div>
+                    <div class="borderB"></div>
+                    <div class="pt-5">
+                        <div class="tui-skeleton">content</div>
+                        <div class="tui-skeleton">Content</div>
                     </div>
                 </ng-template>
             </tui-accordion-item>
             <tui-accordion-item class="title" open="true" [disableHover]="true">
                 Past Challenges
                 <ng-template tuiAccordionItemContent>
-                    <div class="challenge">
-                        <div class="challengeType tui-skeleton">Challenge</div>
-                        <div class="name tui-skeleton">Content</div>
-
-                        <div class="dates">
-                            <div class="tui-skeleton">From Some Date Here</div>
-                            <div class="tui-skeleton">Until Some Date Here</div>
-                        </div>
-                        <div class="justify-self-end">
-                            <tui-tag size="m" status="success" value="Available"
-                                     class="tui-skeleton">
-                            </tui-tag>
-                        </div>
-                        <div class="grade">
-                            <div class="tui-skeleton">
-                                Grade: TBA
-                            </div>
-                        </div>
-                        <div class="justify-self-end">
-                            <ng-container>
-                                <a appearance="primary"
-                                   class="tui-form__button tui-skeleton"
-                                   size="s"
-                                   tuiButton
-                                >
-                                    Content
-                                </a>
-                            </ng-container>
-                        </div>
+                    <div class="pb-5">
+                        <div class="tui-skeleton">content</div>
+                        <div class="tui-skeleton">Content</div>
                     </div>
-                    <div class="challenge">
-                        <div class="challengeType tui-skeleton">Challenge</div>
-                        <div class="name tui-skeleton">Content</div>
-
-                        <div class="dates">
-                            <div class="tui-skeleton">From Some Date Here</div>
-                            <div class="tui-skeleton">Until Some Date Here</div>
-                        </div>
-                        <div class="justify-self-end">
-                            <tui-tag size="m" status="success" value="Available"
-                                     class="tui-skeleton">
-                            </tui-tag>
-                        </div>
-                        <div class="grade">
-                            <div class="tui-skeleton">
-                                Grade: TBA
-                            </div>
-                        </div>
-                        <div class="justify-self-end">
-                            <ng-container>
-                                <a appearance="primary"
-                                   class="tui-form__button tui-skeleton"
-                                   size="s"
-                                   tuiButton
-                                >
-                                    Content
-                                </a>
-                            </ng-container>
-                        </div>
+                    <div class="borderB"></div>
+                    <div class="pt-5">
+                        <div class="tui-skeleton">content</div>
+                        <div class="tui-skeleton">Content</div>
                     </div>
                 </ng-template>
             </tui-accordion-item>

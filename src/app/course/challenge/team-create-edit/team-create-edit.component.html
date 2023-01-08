@@ -19,6 +19,10 @@
         </div>
         <ng-container *ngIf="isPrivate()">
             <div class="tui-form__row">
+                <div class="mb-2 mt-5">
+                    List the people you want to invite to this team.
+                        You can invite up to {{event.max_team_size - 1}} people.
+                </div>
                 <tui-multi-select
                     aria-label="Invited Member"
                     formControlName="invitedMembers"

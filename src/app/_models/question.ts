@@ -9,6 +9,7 @@ export interface Question {
     author: number;
     category: number;
     category_obj: Category;
+    category_name: string;
     difficulty: string;
     is_verified: boolean;
     time_created: Date;

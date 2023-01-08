@@ -1,0 +1,107 @@
+<div class="flex flex-wrap gap-3">
+    <div class="min-w-[8rem] type flex items-center">
+        <ng-container *ngIf="event.type === 'ASSIGNMENT'">Assignment
+        </ng-container>
+        <ng-container *ngIf="event.type === 'EXAM'">Exam</ng-container>
+    </div>
+    <div class="flex flex-grow items-center">
+        {{ event.name }}
+    </div>
+    <div class="min-w-[18rem]">
+        <div>From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+        <div>Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+    </div>
+    <div
+        class="flex items-center min-w-[2rem]"
+    >
+        <tui-marker-icon
+            *ngIf="event.featured"
+            src="tuiIconStarFilledLarge"
+            mode="warning"
+            size="xs"
+        >
+        </tui-marker-icon>
+    </div>
+    <div class="min-w-[8rem] flex items-center">
+        <tui-tag
+            *ngIf="event.is_open"
+            size="m"
+            status="success"
+            value="Available"
+        >
+        </tui-tag>
+        <tui-tag
+            *ngIf="event.is_not_available_yet"
+            size="m"
+            status="error"
+            value="Coming Soon"
+        ></tui-tag>
+        <tui-tag
+            *ngIf="event.is_closed"
+            size="m"
+            status="default"
+            value="Closed"
+        >
+        </tui-tag>
+    </div>
+    <div class="min-w-[6rem] flex items-center">
+        <ng-container
+            *ngIf="event.is_not_available_yet || event.is_exam; else totalEventGrade">
+            Grade: TBA
+        </ng-container>
+        <ng-template #totalEventGrade>
+            Grade: {{ event.total_event_grade | number: '1.0-1' || 'TBA'}}%
+        </ng-template>
+    </div>
+    <div class="flex items-center">
+        <a
+            [routerLink]="['/course', event.course, 'assignments-exams', event.id]"
+            appearance="primary"
+            [disabled]="!event.is_allowed_to_open && !user?.is_teacher"
+            size="s"
+            tuiButton
+        >
+            {{ user.is_teacher ? 'View' : 'Complete' }}
+        </a>
+        <tui-hosted-dropdown
+            *ngIf="event.has_edit_permission"
+            [content]="content"
+        >
+            <button
+                tuiIconButton
+                appearance="flat"
+                icon="tuiIconMoreVer"
+                type="button"
+                size="s"
+                class="ml-3"
+            ></button>
+        </tui-hosted-dropdown>
+        <ng-template #content>
+            <tui-data-list role="menu">
+                <a
+                    [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'edit']"
+                    aria-label="Edit"
+                    tuiOption
+                >
+                    Edit
+                </a>
+                <a
+                    [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'stats']"
+                    aria-label="Stats"
+                    tuiOption
+                >
+                    Stats
+                </a>
+                <a
+                    *ngIf="!event.featured"
+                    (click)="setFeatured()"
+                    tuiOption
+                    [disabled]="event.featured"
+                    aria-label="Set Featured"
+                >
+                    Set Featured
+                </a>
+            </tui-data-list>
+        </ng-template>
+    </div>
+</div>

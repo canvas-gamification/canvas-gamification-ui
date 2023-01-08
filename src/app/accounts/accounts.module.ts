@@ -31,7 +31,10 @@ import {
     TuiInputPasswordModule,
     TuiIslandModule,
     TuiMultiSelectModule,
-    TuiSelectModule
+    TuiRadioListModule,
+    TuiRadioModule,
+    TuiSelectModule,
+    TuiTextAreaModule
 } from "@taiga-ui/kit"
 import {
     TuiButtonModule,
@@ -40,6 +43,7 @@ import {
     TuiNotificationModule,
     TuiTextfieldControllerModule
 } from "@taiga-ui/core"
+import {InitialSurveyComponent} from './survey/initial-survey/initial-survey.component'
 
 
 @NgModule({
@@ -48,6 +52,7 @@ import {
         AdminTermsAndConditionsSnippetComponent,
         ChangePasswordComponent,
         ConsentFormComponent,
+        InitialSurveyComponent,
         LoginComponent,
         ProfileDetailsComponent,
         RegisterComponent,
@@ -74,7 +79,10 @@ import {
         TuiLinkModule,
         TuiMultiSelectModule,
         TuiNotificationModule,
+        TuiRadioListModule,
+        TuiRadioModule,
         TuiSelectModule,
+        TuiTextAreaModule,
         TuiTextfieldControllerModule,
     ],
     providers: [

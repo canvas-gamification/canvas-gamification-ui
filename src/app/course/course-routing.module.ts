@@ -10,7 +10,7 @@ import {
 import {CourseComponent} from "@app/course/course.component"
 import {
     CourseEventCreateEditComponent
-} from "@app/course/course-event-create/course-event-create-edit.component"
+} from "@app/course/event/course-event-create/course-event-create-edit.component"
 import {
     CourseQuestionSnippetComponent
 } from "@app/course/course-question-snippet/course-question-snippet.component"
@@ -45,7 +45,7 @@ import {
 } from "@app/course/course-homepage/course-homepage.component"
 import {
     CourseEventsSnippetComponent
-} from "@app/course/course-events-snippet/course-events-snippet.component"
+} from "@app/course/event/course-events-snippet/course-events-snippet.component"
 import {
     EventStatsComponent
 } from "@app/course/event/event-stats/event-stats.component"

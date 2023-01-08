@@ -35,6 +35,7 @@ export class ConceptMapComponent implements OnInit {
                 if (!isTopLevel) {
                     this.router.navigate(
                         ['course', this.currCourse.id, 'practice', 'category', cellId]
+                        , {queryParams: {difficulty: 'EASY'}}
                     ).then()
                 } else {
                     this.renderGraph()

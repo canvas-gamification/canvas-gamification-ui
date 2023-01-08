@@ -1,0 +1,37 @@
+<ng-template
+    (tuiDialogChange)="toggleDialog($event)"
+    [tuiDialogOptions]="$any({ label: 'Add this question to an event', size: 'm' })"
+    [tuiDialog]="open"
+>
+    <ng-container *ngIf="events">
+        <div class="tui-space_top-8 space-y-3">
+            <tui-island *ngFor="let event of events" size="s">
+                <div class="flex">
+                    <div class="flex-grow">
+                        <p class="tui-island__category">{{ event.type }}</p>
+                        <h3 class="tui-island__title">{{ event.name }}</h3>
+                    </div>
+                    <button
+                        (click)="addToEvent(event)"
+                        appearance="secondary"
+                        aria-label="Add"
+                        size="s"
+                        tuiButton
+                    >
+                        Add
+                    </button>
+                </div>
+            </tui-island>
+        </div>
+    </ng-container>
+    <button
+        (click)="toggleDialog(false)"
+        aria-label="Close"
+        class="tui-space_top-8"
+        size="m"
+        tuiButton
+        type="button"
+    >
+        Close
+    </button>
+</ng-template>

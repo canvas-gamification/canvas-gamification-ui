@@ -1,6 +1,6 @@
 @import "mixins";
 
-.divide {
+.event {
     &:not(:last-child) {
         border-bottom: solid 1px var(--tui-base-03);
         margin: 0;
@@ -12,16 +12,5 @@
     }
 }
 
-.challengePage {
-    display: flex;
-    flex-direction: column;
-}
 
-.accordionContainer, .toolBar {
-    align-self: center;
-    width: 90%;
-}
 
-.borderB {
-    border-bottom: solid 1px var(--tui-base-03);
-}
