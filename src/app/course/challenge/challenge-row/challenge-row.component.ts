@@ -27,4 +27,10 @@ export class ChallengeRowComponent implements OnInit {
     isSoloTeam(): boolean {
         return this.team.member_names.length === 1
     }
+
+    getChallengeType(): string {
+        return this.event.challenge_type?.split('_')
+            .map(word => word.charAt(0) + word.substring(1).toLowerCase())
+            .join(' ')
+    }
 }
