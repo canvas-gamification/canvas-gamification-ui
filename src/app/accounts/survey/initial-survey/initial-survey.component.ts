@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {FormControl, FormGroup} from '@angular/forms'
+import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {
     AgreeQuestion,
     agreeQuestions,
@@ -18,7 +18,7 @@ import {Router} from "@angular/router"
 export class InitialSurveyComponent implements OnInit {
 
     formGroup = new FormGroup({
-        two: new FormControl(null),
+        two: new FormControl(null, [Validators.required]),
         six: new FormControl(null),
     })
     agreeQuestions: AgreeQuestion[]
@@ -50,7 +50,10 @@ export class InitialSurveyComponent implements OnInit {
     ngOnInit(): void {
         this.agreeQuestions = agreeQuestions
         for (const agreeQuestion of agreeQuestions) {
-            this.formGroup.addControl(agreeQuestion.code, new FormControl(null))
+            this.formGroup.addControl(
+                agreeQuestion.code,
+                new FormControl(null, [Validators.required])
+            )
         }
 
         this.checkboxQuestions = checkboxQuestions
@@ -59,6 +62,10 @@ export class InitialSurveyComponent implements OnInit {
                 this.formGroup.addControl(choice, new FormControl(false))
             }
         }
+    }
+
+    hasGoals() {
+        return this.formGroup.get('two').value !== 'Never'
     }
 
     submit() {

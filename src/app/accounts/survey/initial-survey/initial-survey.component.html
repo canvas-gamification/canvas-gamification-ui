@@ -65,21 +65,23 @@
             <div class="tui-text_body-m -mt-[4px]">{{ data }}</div>
         </ng-template>
 
-        <ng-container
-            *ngFor="let question of checkboxQuestions"
-        >
-            <p class="tui-text_body-l mt-3">
-                {{question.number}}. {{question.text}}
-            </p>
-            <tui-checkbox-labeled
-                class="mt-3"
-                [formControlName]="choice"
-                *ngFor="let choice of question.choices"
+        <ng-container *ngIf="hasGoals()">
+            <ng-container
+                *ngFor="let question of checkboxQuestions"
             >
-                <div class="tui-text_body-m -mt-[4px]">
-                    {{choice}}
-                </div>
-            </tui-checkbox-labeled>
+                <p class="tui-text_body-l mt-3">
+                    {{question.number}}. {{question.text}}
+                </p>
+                <tui-checkbox-labeled
+                    class="mt-3"
+                    [formControlName]="choice"
+                    *ngFor="let choice of question.choices"
+                >
+                    <div class="tui-text_body-m -mt-[4px]">
+                        {{choice}}
+                    </div>
+                </tui-checkbox-labeled>
+            </ng-container>
         </ng-container>
 
         <p class="tui-text_body-l mt-3">
@@ -101,6 +103,7 @@
             tuiButton
             size="m"
             class="mt-3"
+            [disabled]="formGroup.invalid"
         >
             Submit
         </button>
