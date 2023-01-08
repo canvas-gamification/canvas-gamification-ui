@@ -330,6 +330,25 @@ const routes: Routes = [
                 }
             },
             {
+                path: 'challenge/:eventId/edit',
+                component: CourseChallengeCreateEditComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }, {
+                        caption: `Edit :eventName`,
+                        routerLink: '/course/:courseId/challenge/:eventId/edit'
+                    }]
+                }
+            },
+            {
                 path: 'challenge/:eventId',
                 component: CourseQuestionSnippetComponent,
                 data: {
@@ -405,25 +424,6 @@ const routes: Routes = [
                     }, {
                         caption: `Edit :teamName`,
                         routerLink: '/course/:courseId/challenge/:eventId/teams/:teamId/edit'
-                    }]
-                }
-            },
-            {
-                path: 'challenge/:eventId/edit',
-                component: CourseEventCreateEditComponent,
-                data: {
-                    breadCrumbs: [{
-                        caption: `Homepage`,
-                        routerLink: '/course/:courseId/homepage'
-                    }, {
-                        caption: `Challenges`,
-                        routerLink: '/course/:courseId/challenge'
-                    }, {
-                        caption: `:eventName`,
-                        routerLink: '/course/:courseId/challenge/:eventId'
-                    }, {
-                        caption: `Edit :eventName`,
-                        routerLink: '/course/:courseId/challenge/:eventId/edit'
                     }]
                 }
             },
