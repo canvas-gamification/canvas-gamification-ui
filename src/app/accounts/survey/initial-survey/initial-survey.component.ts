@@ -8,6 +8,7 @@ import {
 } from "@app/accounts/survey/initial-survey/data"
 import {SurveyService} from "@app/accounts/_services/survey.service"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {Router} from "@angular/router"
 
 @Component({
     selector: 'app-initial-survey',
@@ -41,7 +42,8 @@ export class InitialSurveyComponent implements OnInit {
 
     constructor(
         private readonly surveyService: SurveyService,
-        private readonly notificationService: TuiNotificationsService
+        private readonly notificationService: TuiNotificationsService,
+        private readonly router: Router,
     ) {
     }
 
@@ -64,6 +66,7 @@ export class InitialSurveyComponent implements OnInit {
             this.notificationService.show("Survey submitted successfully", {
                 status: TuiNotification.Success,
             }).subscribe()
+            this.router.navigate(['homepage']).then()
         })
     }
 }

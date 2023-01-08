@@ -18,7 +18,7 @@ export class ConsentFormComponent implements OnInit {
     logoPath = 'assets/global/logo.jpg'
     user: User
 
-    genders = ['MALE','FEMALE','NB','OTHER','N/A']
+    genders = ['MALE', 'FEMALE', 'NB', 'OTHER', 'N/A']
     genderMapper = {
         'MALE': 'Male',
         'FEMALE': 'Female',
@@ -46,7 +46,8 @@ export class ConsentFormComponent implements OnInit {
         private builder: FormBuilder,
         private consentService: ConsentService,
         private authenticationService: AuthenticationService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationsService)
+        private readonly notificationsService: TuiNotificationsService
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
@@ -63,8 +64,8 @@ export class ConsentFormComponent implements OnInit {
         }
     }
 
-    redirectToHomepage(): void {
-        this.router.navigate(['homepage']).then()
+    redirectAfterSubmit(): void {
+        this.router.navigate(['/accounts', 'survey', 'initial']).then()
     }
 
     onSubmit(): void {
@@ -74,7 +75,7 @@ export class ConsentFormComponent implements OnInit {
                 .show('You have successfully consented!', {
                     status: TuiNotification.Success
                 }).subscribe()
-            this.redirectToHomepage()
+            this.redirectAfterSubmit()
         })
     }
 
@@ -84,7 +85,7 @@ export class ConsentFormComponent implements OnInit {
                 .show('You successfully declined to consent.', {
                     status: TuiNotification.Success
                 }).subscribe()
-            this.redirectToHomepage()
+            this.redirectAfterSubmit()
         })
     }
 }
