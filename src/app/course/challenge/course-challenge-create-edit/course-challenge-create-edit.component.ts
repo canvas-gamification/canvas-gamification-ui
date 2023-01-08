@@ -1,14 +1,14 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
-import {Category, CourseEvent} from "@app/_models"
+import {Category, CourseEvent, Question} from "@app/_models"
 import {ChallengeType} from "@app/_models/challengeType"
-import {CourseEventForm} from "@app/course/_forms/course-event.form"
 import {FormArray, FormControl, FormGroup} from "@angular/forms"
 import {CategoryService} from "@app/_services/api/category.service"
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {ChallengeForm} from "@app/course/_forms/challenge.form"
 
 @Component({
     selector: 'app-course-challenge-create-edit',
@@ -23,9 +23,10 @@ export class CourseChallengeCreateEditComponent implements OnInit {
     challengeForm: FormGroup
     categories: Category[]
     difficulties: Difficulty[]
-    limits: number[]
+    // limits: number[] // TODO: with the function getNumQuestionsLimit
+    questions: Question[]
+    removingQuestions: Question[] = []
 
-    list = [{id: 1, name: 'name A'}, {id: 2, name: 'name B'}, {id: 3, name: 'name C'}]
 
     constructor(
         private route: ActivatedRoute,
@@ -39,19 +40,27 @@ export class CourseChallengeCreateEditComponent implements OnInit {
 
     ngOnInit(): void {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
-        this.challengeForm = CourseEventForm.createChallengeForm()
+        this.challengeForm = ChallengeForm.createChallengeForm()
 
         if (this.route.snapshot.paramMap.get('eventId')) { // For editing existing challenge, grab the eventId
             this.eventId = +this.route.snapshot.paramMap.get('eventId')
             this.courseEventService.getCourseEvent(this.eventId).subscribe(event => {
                 this.event = event
-                this.challengeForm = CourseEventForm.createChallengeFormWithData(this.event)
+                this.challengeForm = ChallengeForm.createChallengeFormWithData(this.event)
             })
+            this.courseEventService.getEventQuestions(this.eventId).subscribe(
+                questions => this.questions = questions
+            )
         }
 
-        this.courseEventService.getChallengeTypes().subscribe(
-            response => this.localChallengeTypes = response
-        )
+        this.courseEventService.getChallengeTypes().subscribe(response => {
+            this.localChallengeTypes = response.map( array =>
+                [ array[0], array[1]
+                    .split('_')
+                    .map(word => word.charAt(0) + word.substring(1).toLowerCase())
+                    .join(' ')
+                ])
+        })
         this.categoryService.getCategories().subscribe(
             categories => this.categories = categories
         )
@@ -78,7 +87,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
     }
 
     addChallengeQuestionSet() {
-        this.getChallengeQuestionSets().push(CourseEventForm.createChallengeQuestionSetForm())
+        this.getChallengeQuestionSets().push(ChallengeForm.createChallengeQuestionSetForm())
     }
 
     removeChallengeQuestionSet(index: number): void {
@@ -87,43 +96,50 @@ export class CourseChallengeCreateEditComponent implements OnInit {
 
     //TODO: Need to discuss; max= number of teams there are (but there's not point of this challenge, but we dont't know how many teams yet
     topXTeamsLimit(): number {
-        return 5
+        return 100
     }
 
     isTopTeams(): boolean {
         return this.challengeForm.get('challengeType').value === 'TOP_TEAMS'
     }
 
-    getMaxTeamSize(): number {
-        return this.challengeForm.get('maxTeamSize').value
+    removeQuestion(questionId: number) {
+        this.removingQuestions.push(this.questions.find( question => question.id === questionId ))
     }
 
     async onSubmit() {
-        //TODO: what about the questions in each challenge?
+        const challengeData = ChallengeForm.formatChallengeFormData(
+            this.challengeForm,
+            this.courseId,
+            this.eventId
+        )
         if (this.eventId) {
-            const challengeData = CourseEventForm.formatChallengeFormData(
-                this.challengeForm,
-                this.courseId,
-            )
-            this.courseEventService.updateChallenge(challengeData, this.eventId).subscribe(() => {
-                this.notificationsService
-                    .show('The challenge has been updated successfully.', {
-                        status: TuiNotification.Success
-                    }).subscribe()
-                this.router.navigate(
-                    ['course', this.courseId, 'challenge']
-                ).then()
-            })
+            await this.courseEventService.updateCourseEvent(challengeData).toPromise()
+            for (const questionSet of this.getChallengeQuestionSetFormControls()) {
+                const questionSetFormData =
+                        ChallengeForm.formatChallengeQuestionSetFormData(questionSet)
+                await this.courseEventService.
+                    addQuestionSet(questionSetFormData,  this.eventId).toPromise()
+            }
+            if (this.questions !== null){
+                for(const question of this.questions){
+                    await  this.courseEventService.removeEventQuestion(this.eventId, question.id)
+                }
+            }
+            this.notificationsService
+                .show('The challenge has been updated successfully.', {
+                    status: TuiNotification.Success
+                }).subscribe()
+            this.router.navigate(
+                ['course', this.courseId, 'challenge']
+            ).then()
+
         } else {
-            const challengeData = CourseEventForm.formatChallengeFormData(
-                this.challengeForm,
-                this.courseId
-            )
             const event = await this.courseEventService.addCourseEvent(challengeData).toPromise()
 
             for (const questionSet of this.getChallengeQuestionSetFormControls()) {
                 const questionSetFormData =
-                    CourseEventForm.formatChallengeQuestionSetFormData(questionSet)
+                    ChallengeForm.formatChallengeQuestionSetFormData(questionSet)
                 await this.courseEventService.
                     addQuestionSet(questionSetFormData, event.id).toPromise()
             }

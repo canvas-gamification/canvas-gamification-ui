@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core'
-import {CourseEvent, EventType} from '@app/_models'
+import {CourseEvent, EventType, Question} from '@app/_models'
 import {Observable} from 'rxjs'
 import {HttpClient, HttpResponse} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 import {EventStats} from '@app/_models/event/event_stats'
-import {EventFormData, EventQuestionSetFormData} from "@app/course/_forms/course-event.form"
+import {EventFormData} from "@app/course/_forms/course-event.form"
+import {EventQuestionSetFormData} from "@app/course/_forms/challenge.form"
 
 @Injectable({
     providedIn: 'root',
@@ -58,14 +59,23 @@ export class CourseEventService {
             ))
     }
 
-    updateChallenge(formData: EventFormData, eventId: number): Observable<CourseEvent> {
-        const url = this.apiService.getURL('event', eventId)
+    getEventQuestions(eventId: number): Observable<Question[]> {
+        const url = this.apiService.getURL('event', 'get-event-questions', eventId)
         return this.http
-            .patch<CourseEvent>(url, formData)
+            .get<Question[]>(url)
             .pipe(catchError(
-                this.apiService.handleError<CourseEvent>(
-                    `Error occurred while updating challenge.`
+                this.apiService.handleError<Question[]>(
+                    `Error occurred while fetching event questions.`
                 )
+            ))
+    }
+
+    removeEventQuestion(eventId: number, questionId: number):Observable<unknown> {
+        const url = this.apiService.getURL('event', eventId,  'remove-question')
+        return this.http
+            .post<unknown>(url, questionId)
+            .pipe(catchError(
+                this.apiService.handleError<unknown>(`Error occurred while removing event question.`)
             ))
     }
 
