@@ -6,7 +6,11 @@
             <tui-field-error formControlName="name"></tui-field-error>
         </div>
         <div class="tui-form__row">
-            <tui-select aria-label="Event Type" formControlName="type">
+            <tui-select
+                aria-label="Event Type"
+                formControlName="type"
+                [valueContent]="localEventTypes ? (localEventTypes | stringifyTuiDataList: 0: 1) : ''"
+            >
                 Event Type
                 <tui-data-list *tuiDataList>
                     <button *ngFor="let event of localEventTypes" [value]="event[0]" tuiOption>

@@ -11,6 +11,19 @@ import {
 import {CourseEvent} from "@app/_models"
 import {TuiDay, TuiDayRange, TuiTime} from "@taiga-ui/cdk"
 
+export interface EventFormData {
+    id?: number,
+    course: number,
+    name: string
+    type: string
+    challenge_type?: string
+    challenge_type_value?: number
+    count_for_tokens: boolean;
+    max_team_size: number
+    start_date: Date
+    end_date: Date
+}
+
 export class CourseEventForm {
     /**
      * Creates a FormGroup for a Course Event.
@@ -55,7 +68,7 @@ export class CourseEventForm {
      * @param courseId - the event's courseId
      * @param eventId - the event's ID if it already exists
      */
-    static formatFormData(formData: FormGroup, courseId: number, eventId: number): CourseEvent {
+    static formatFormData(formData: FormGroup, courseId: number, eventId: number): EventFormData {
         return {
             id: eventId,
             name: formData.get('name').value,
@@ -70,10 +83,7 @@ export class CourseEventForm {
                 formData.get('endTimePicker').value
             ),
             course: courseId,
-            is_not_available_yet: false,
-            is_closed: false,
-            featured: false,
-            max_team_size: 3,
+            max_team_size: 1,
         }
     }
 

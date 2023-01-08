@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
-import {CourseEvent, EventType} from '@app/_models'
+import {EventType} from '@app/_models'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {AbstractControl, FormGroup} from '@angular/forms'
 import {CourseEventForm} from "@app/course/_forms/course-event.form"
@@ -13,7 +13,7 @@ import {tuiCreateTimePeriods} from "@taiga-ui/kit"
     styleUrls: ['./course-event-create-edit.component.scss']
 })
 export class CourseEventCreateEditComponent implements OnInit {
-    localEventTypes: EventType[]
+    localEventTypes: EventType[] = [['ASSIGNMENT', 'Assignment'], ["EXAM", "Exam"]]
     courseId: number
     eventId: number = null
     formData: FormGroup
@@ -33,7 +33,6 @@ export class CourseEventCreateEditComponent implements OnInit {
 
     ngOnInit(): void {
         this.formData = CourseEventForm.createForm()
-        this.courseEventService.getEventTypes().subscribe(response => this.localEventTypes = response)
         // Convert to number
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         if (this.route.snapshot.paramMap.get('eventId')) {
@@ -50,7 +49,7 @@ export class CourseEventCreateEditComponent implements OnInit {
      * @param formData - grabs the components formData and creates a request based on that
      */
     submitEvent(formData: FormGroup): void {
-        const ourEvent: CourseEvent = CourseEventForm.formatFormData(formData, this.courseId, this.eventId)
+        const ourEvent = CourseEventForm.formatFormData(formData, this.courseId, this.eventId)
         if (this.eventId) { // If this is a previously existing event
             this.courseEventService.updateCourseEvent(ourEvent).subscribe(() => {
                 this.notificationsService

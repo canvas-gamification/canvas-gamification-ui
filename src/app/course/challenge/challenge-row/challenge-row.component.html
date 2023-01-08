@@ -1,5 +1,5 @@
 <div *ngIf="team" class="challenge">
-    <div class="challengeType"> Challenge</div>
+    <div class="challengeType"> {{getChallengeType()}}</div>
     <div class="name">{{ event.name }}</div>
     <div class="dates">
         <div>
@@ -18,12 +18,11 @@
     <div class="toCompleteSection">
         <div>
             <ng-container
-                *ngIf="team.score === 0 ; else totalEventGrade">
+                *ngIf="team.tokens_received === 0 ; else totalEventGrade">
                 Tokens: ------
             </ng-container>
             <ng-template #totalEventGrade>
-<!--                TODO: tokens: 5/10 (example)-->
-                Tokens: {{ team.score }}
+                Tokens: {{ team.tokens_received }} / {{event.total_tokens}}
             </ng-template>
         </div>
         <div>

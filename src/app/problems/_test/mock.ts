@@ -57,6 +57,7 @@ export const MOCK_COURSE_EVENT: CourseEvent = {
     is_not_available_yet: false,
     is_closed: false,
     featured: false,
+    total_tokens: 0,
 }
 
 export const MOCK_PRACTICE_EVENT: CourseEvent = {
@@ -71,6 +72,7 @@ export const MOCK_PRACTICE_EVENT: CourseEvent = {
     is_not_available_yet: null,
     is_closed: null,
     featured: false,
+    total_tokens: 0,
 }
 
 export const MOCK_MCQ_QUESTION: Question = {

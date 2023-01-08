@@ -5,6 +5,8 @@ import {HttpClient, HttpResponse} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 import {EventStats} from '@app/_models/event/event_stats'
+import {EventFormData} from "@app/course/_forms/course-event.form"
+import {EventQuestionSetFormData} from "@app/course/_forms/challenge.form"
 
 @Injectable({
     providedIn: 'root',
@@ -38,7 +40,7 @@ export class CourseEventService {
             ))
     }
 
-    addCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+    addCourseEvent(courseEvent: EventFormData): Observable<CourseEvent> {
         const url = this.apiService.getURL('event')
         return this.http
             .post<CourseEvent>(url, courseEvent)
@@ -47,7 +49,7 @@ export class CourseEventService {
             ))
     }
 
-    updateCourseEvent(courseEvent: CourseEvent): Observable<CourseEvent> {
+    updateCourseEvent(courseEvent: EventFormData): Observable<CourseEvent> {
         const url = this.apiService.getURL('event', courseEvent.id)
         return this.http.put<CourseEvent>(url, courseEvent)
             .pipe(catchError(
@@ -66,6 +68,18 @@ export class CourseEventService {
                     `Error occurred while fetching event types`
                 )
             ))
+    }
+
+    /**
+     * Get all challenge to the server.
+     */
+    getChallengeTypes(): Observable<EventType[]> {
+        const url = this.apiService.getURL('event', 'get-challenge-types')
+        return this.http
+            .get<EventType[]>(url)
+            .pipe(catchError(this.apiService.handleError<EventType[]>(
+                `Error occurred while fetching challenge types`
+            )))
     }
 
     /**
@@ -117,7 +131,7 @@ export class CourseEventService {
         const url = this.apiService.getURL('event', eventId, 'set-featured')
         return this.http.post(url, null)
             .pipe(catchError(
-                this.apiService.handleError<EventStats>(`Error occurred while setting featured`)
+                this.apiService.handleError<unknown>(`Error occurred while setting featured`)
             ))
     }
 
@@ -135,5 +149,12 @@ export class CourseEventService {
             .pipe(catchError(
                 this.apiService.handleError<unknown>("Error occurred while removing question")
             ))
+    }
+
+    addQuestionSet(input: EventQuestionSetFormData, eventId: number): Observable<unknown> {
+        const url = this.apiService.getURL('event', eventId, 'add-question-set')
+        return this.http.post(url, input).pipe(catchError(
+            this.apiService.handleError<unknown>(`Error occurred while adding question set`)
+        ))
     }
 }

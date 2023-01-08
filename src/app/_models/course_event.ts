@@ -2,6 +2,8 @@ export interface CourseEvent {
     id: number
     name: string
     type: string
+    challenge_type?: string
+    challenge_type_value?: number
     count_for_tokens: boolean
     max_team_size: number
     start_date: Date
@@ -15,5 +17,5 @@ export interface CourseEvent {
     is_not_available_yet: boolean
     is_closed: boolean
     featured: boolean
-    // calculate_score?: number
+    total_tokens: number
 }

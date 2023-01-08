@@ -3,6 +3,7 @@ import {CourseEvent, User} from "@app/_models"
 import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
 import {AuthenticationService} from "@app/_services/api/authentication"
+import {startCase} from "lodash"
 
 @Component({
     selector: 'app-challenge-row',
@@ -22,5 +23,9 @@ export class ChallengeRowComponent implements OnInit {
     ngOnInit(): void {
         this.teamService.getMyTeam(this.event.id).subscribe(team => this.team = team)
         this.authenticationService.currentUser.subscribe(user => this.user = user)
+    }
+
+    getChallengeType(): string {
+        return startCase(this.event.challenge_type?.toLowerCase())
     }
 }

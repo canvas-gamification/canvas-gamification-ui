@@ -107,12 +107,12 @@ export class CourseService {
     /**
      * Retrieve all registrations within a course
      */
-    getCourseRegistrations(courseId: number): Observable<CourseRegistration[]>{
+    getCourseRegistrations(courseId: number): Observable<CourseRegistration[]> {
         const url = this.apiService.getURL('course', courseId, 'course-registrations')
         return this.http.get<CourseRegistration[]>(url)
             .pipe(catchError(
                 this.apiService.handleError<CourseRegistration[]>(
-                    `Error occurred while fetching course students.`
+                    `Error occurred while fetching course registrations.`
                 )
             ))
     }
