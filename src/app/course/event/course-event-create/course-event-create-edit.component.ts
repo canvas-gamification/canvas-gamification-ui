@@ -1,11 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
-import {EventType} from '@app/_models'
+import {Category, EventType} from '@app/_models'
 import {CourseEventService} from '@app/course/_services/course-event.service'
-import {AbstractControl, FormGroup} from '@angular/forms'
+import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms'
 import {CourseEventForm} from "@app/course/_forms/course-event.form"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {tuiCreateTimePeriods} from "@taiga-ui/kit"
+import {Difficulty} from "@app/_models/difficulty"
+import {CategoryService} from "@app/_services/api/category.service"
+import {DifficultyService} from "@app/problems/_services/difficulty.service"
 
 @Component({
     selector: 'app-course-event-create',
@@ -18,12 +21,17 @@ export class CourseEventCreateEditComponent implements OnInit {
     eventId: number = null
     formData: FormGroup
     timeOptions = tuiCreateTimePeriods()
+    categories: Category[]
+    difficulties: Difficulty[]
 
     constructor(
         private route: ActivatedRoute,
         private courseEventService: CourseEventService,
         private router: Router,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        private readonly categoryService: CategoryService,
+        private readonly difficultyService: DifficultyService,
+        @Inject(TuiNotificationsService)
+        private readonly notificationsService: TuiNotificationsService
     ) {
     }
 
@@ -41,6 +49,32 @@ export class CourseEventCreateEditComponent implements OnInit {
                 this.formData = CourseEventForm.createFormWithData(event)
             })
         }
+        this.categoryService.getCategories().subscribe(
+            categories => this.categories = categories
+        )
+        this.difficultyService.getDifficulties().subscribe(
+            difficulties => this.difficulties = difficulties
+        )
+    }
+
+    getQuestionSets(): FormArray {
+        return this.formData.get('questionSets') as FormArray
+    }
+
+    getQuestionSetFormControls(): FormControl[] {
+        return this.getQuestionSets().controls as FormControl[]
+    }
+
+    getFormControl(fc: FormControl, field: string): FormControl {
+        return fc.get(field) as FormControl
+    }
+
+    addChallengeQuestionSet() {
+        this.getQuestionSets().push(CourseEventForm.createQuestionSetForm())
+    }
+
+    removeChallengeQuestionSet(index: number): void {
+        this.getQuestionSets().removeAt(index)
     }
 
     /**
@@ -48,34 +82,36 @@ export class CourseEventCreateEditComponent implements OnInit {
      * is a new event or not.
      * @param formData - grabs the components formData and creates a request based on that
      */
-    submitEvent(formData: FormGroup): void {
+    async submitEvent(formData: FormGroup) {
         const ourEvent = CourseEventForm.formatFormData(formData, this.courseId, this.eventId)
         if (this.eventId) { // If this is a previously existing event
-            this.courseEventService.updateCourseEvent(ourEvent).subscribe(() => {
-                this.notificationsService
-                    .show('The Event has been updated Successfully.', {
-                        status: TuiNotification.Success
-                    }).subscribe()
-                this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
-            }, error => {
-                this.notificationsService
-                    .show(error, {
-                        status: TuiNotification.Error
-                    }).subscribe()
-            })
+            await this.courseEventService.updateCourseEvent(ourEvent).toPromise()
+            for (const questionSet of this.getQuestionSetFormControls()) {
+                const questionSetFormData =
+                    CourseEventForm.formatQuestionSetFormData(questionSet)
+                await this.courseEventService
+                    .addQuestionSet(questionSetFormData, this.eventId)
+                    .toPromise()
+            }
+            this.notificationsService
+                .show('The Event has been updated Successfully.', {
+                    status: TuiNotification.Success
+                }).subscribe()
+            this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
         } else { // Creating a brand new event
-            this.courseEventService.addCourseEvent(ourEvent).subscribe(() => {
-                this.notificationsService
-                    .show('The Event has been added Successfully.', {
-                        status: TuiNotification.Success
-                    })
-                this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
-            }, error => {
-                this.notificationsService
-                    .show(error, {
-                        status: TuiNotification.Error
-                    }).subscribe()
-            })
+            const event = await this.courseEventService.addCourseEvent(ourEvent).toPromise()
+            for (const questionSet of this.getQuestionSetFormControls()) {
+                const questionSetFormData =
+                    CourseEventForm.formatQuestionSetFormData(questionSet)
+                await this.courseEventService
+                    .addQuestionSet(questionSetFormData, event.id)
+                    .toPromise()
+            }
+            this.notificationsService
+                .show('The Event has been added Successfully.', {
+                    status: TuiNotification.Success
+                }).subscribe()
+            this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
         }
     }
 }

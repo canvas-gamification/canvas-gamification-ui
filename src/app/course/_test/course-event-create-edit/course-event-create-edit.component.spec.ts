@@ -1,4 +1,4 @@
-import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing'
+import {ComponentFixture, fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing'
 
 import {
     CourseEventCreateEditComponent
@@ -85,6 +85,7 @@ describe('CourseEventCreateComponent with EventId', () => {
 
     it('submitEvent should work with eventId', fakeAsync(() => {
         component.submitEvent(component.formData)
+        flushMicrotasks()
         expect(notificationService.show).toHaveBeenCalled()
     }))
 })
@@ -145,9 +146,10 @@ describe('CourseEventCreateComponent without EventId', () => {
         expect(component).toBeTruthy()
     })
 
-    it('submitEvent should work without eventId', () => {
+    it('submitEvent should work without eventId', fakeAsync(() => {
         component.submitEvent(component.formData)
+        flushMicrotasks()
         expect(notificationService.show).toHaveBeenCalled()
         expect(router.navigate).toHaveBeenCalledOnceWith(['course', 1, 'assignments-exams'])
-    })
+    }))
 })

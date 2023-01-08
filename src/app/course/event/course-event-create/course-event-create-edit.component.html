@@ -21,25 +21,29 @@
             <tui-field-error formControlName="type"></tui-field-error>
         </div>
         <div class="tui-form__row">
-            <tui-checkbox-labeled aria-label="Counts for Tokens" formControlName="countForTokens">Counts for tokens
+            <tui-checkbox-labeled aria-label="Counts for Tokens" formControlName="countForTokens">
+                Counts for tokens
             </tui-checkbox-labeled>
             <tui-field-error formControlName="countForTokens"></tui-field-error>
         </div>
         <div class="tui-form__row">
-            <tui-input-date-range aria-label="Start and End Date" formControlName="startEndDatePicker">
+            <tui-input-date-range aria-label="Start and End Date"
+                                  formControlName="startEndDatePicker">
                 Start and end date
             </tui-input-date-range>
             <tui-field-error formControlName="startEndDatePicker"></tui-field-error>
         </div>
         <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
-                <tui-input-time [items]="timeOptions" aria-label="Start Time" formControlName="startTimePicker">
+                <tui-input-time [items]="timeOptions" aria-label="Start Time"
+                                formControlName="startTimePicker">
                     Start time
                 </tui-input-time>
                 <tui-field-error formControlName="startTimePicker"></tui-field-error>
             </div>
             <div class="tui-form__multi-field">
-                <tui-input-time [items]="timeOptions" aria-label="End Time" formControlName="endTimePicker">
+                <tui-input-time [items]="timeOptions" aria-label="End Time"
+                                formControlName="endTimePicker">
                     End time
                 </tui-input-time>
                 <tui-field-error formControlName="endTimePicker"></tui-field-error>
@@ -52,6 +56,92 @@
         >
             Invalid date range! Please check your start and end times!
         </tui-notification>
+        <h3 class="tui-form__header">
+            Add Questions
+            <button
+                (click)="addChallengeQuestionSet()"
+                icon="tuiIconPlus"
+                size="s"
+                tuiButton
+                type="button"
+                class="ml-3"
+                appearance="secondary"
+            >
+                Add More
+            </button>
+        </h3>
+        <div *ngIf="getQuestionSetFormControls().length === 0">
+            <div *ngIf="eventId">
+                This event will not include any additional questions.
+            </div>
+            <div *ngIf="!eventId">
+                This event will not include any questions.
+                You can always add more questions by editing the event
+                or from the question bank.
+            </div>
+        </div>
+        <div
+            *ngFor="let questionSetFormControl of getQuestionSetFormControls(); let index = index"
+            class="tui-form__row tui-form__row_multi-fields"
+        >
+            <div class="tui-form__multi-field">
+                <tui-select
+                    [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
+                    [formControl]="getFormControl(questionSetFormControl, 'category')"
+                >
+                    Category
+                    <tui-data-list *tuiDataList>
+                        <button *ngFor="let category of categories" [value]="category.pk" tuiOption>
+                            {{ category.full_name }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+                <tui-field-error
+                    [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-field-error>
+            </div>
+            <div class="tui-form__multi-field">
+                <tui-select
+                    [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+                    [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
+                >
+                    Difficulty
+                    <tui-data-list *tuiDataList>
+                        <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]"
+                                tuiOption>
+                            {{ difficulty[1] }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+                <tui-field-error
+                    [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
+                ></tui-field-error>
+            </div>
+            <div class="tui-form__multi-field">
+                <tui-input-number
+                    [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
+                    [max]="100"
+                >
+                    Number of questions
+                </tui-input-number>
+                <tui-field-error
+                    [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
+                ></tui-field-error>
+            </div>
+            <div class="tui-form__multi-field">
+                <div class="flex h-full items-center">
+                    <button
+                        (click)="removeChallengeQuestionSet(index)"
+                        icon="tuiIconMinus"
+                        size="s"
+                        tuiButton
+                        type="button"
+                        appearance="accent"
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="tui-form__buttons">
             <button
                 [disabled]="formData.invalid"
@@ -64,9 +154,16 @@
             >
                 Submit
             </button>
-            <a [routerLink]="['/course', courseId, 'assignments-exams']" appearance="secondary" aria-label="Back" class="tui-form__button"
-               size="m"
-               tuiButton>Back</a>
+            <a
+                [routerLink]="['/course', courseId, 'assignments-exams']"
+                appearance="secondary"
+                aria-label="Back"
+                class="tui-form__button"
+                size="m"
+                tuiButton
+            >
+                Back
+            </a>
         </div>
     </form>
 </div>

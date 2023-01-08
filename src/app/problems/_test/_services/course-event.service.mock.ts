@@ -3,6 +3,7 @@ import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 import {CourseEvent, EventType} from "@app/_models"
 import {MOCK_EVENT_TYPES} from "@app/course/_test/mock"
 import {HttpResponse} from "@angular/common/http"
+import {EventQuestionSetFormData} from "@app/course/_forms/course-event.form"
 
 export class CourseEventServiceMock {
     getCourseEvent(id: number): Observable<CourseEvent> {
@@ -31,5 +32,17 @@ export class CourseEventServiceMock {
 
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
         return of({success_rate: 1})
+    }
+
+    addQuestion(eventId: number, questionId: number): Observable<unknown> {
+        return of()
+    }
+
+    removeQuestion(eventId: number, questionId: number): Observable<unknown> {
+        return of()
+    }
+
+    addQuestionSet(input: EventQuestionSetFormData, eventId: number): Observable<unknown> {
+        return of()
     }
 }

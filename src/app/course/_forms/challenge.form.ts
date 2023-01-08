@@ -11,13 +11,7 @@ import {
 } from "@angular/forms"
 import {TuiDay, TuiDayRange, TuiTime} from "@taiga-ui/cdk"
 import {CourseEvent} from "@app/_models"
-import {EventFormData} from "@app/course/_forms/course-event.form"
-
-export interface EventQuestionSetFormData {
-    category: number
-    difficulty: string
-    number_of_questions: number
-}
+import {EventFormData, EventQuestionSetFormData} from "@app/course/_forms/course-event.form"
 
 export class ChallengeForm {
     /**

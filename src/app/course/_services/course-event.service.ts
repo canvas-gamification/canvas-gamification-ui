@@ -5,8 +5,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 import {EventStats} from '@app/_models/event/event_stats'
-import {EventFormData} from "@app/course/_forms/course-event.form"
-import {EventQuestionSetFormData} from "@app/course/_forms/challenge.form"
+import {EventFormData, EventQuestionSetFormData} from "@app/course/_forms/course-event.form"
 
 @Injectable({
     providedIn: 'root',

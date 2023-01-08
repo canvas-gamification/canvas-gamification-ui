@@ -1,6 +1,7 @@
 import {
     AbstractControl,
     AbstractControlOptions,
+    FormArray,
     FormBuilder,
     FormControl,
     FormGroup,
@@ -24,6 +25,12 @@ export interface EventFormData {
     end_date: Date
 }
 
+export interface EventQuestionSetFormData {
+    category: number
+    difficulty: string
+    number_of_questions: number
+}
+
 export class CourseEventForm {
     /**
      * Creates a FormGroup for a Course Event.
@@ -39,7 +46,10 @@ export class CourseEventForm {
                 [Validators.required]
             ),
             startTimePicker: new FormControl(TuiTime.currentLocal(), [Validators.required]),
-            endTimePicker: new FormControl(TuiTime.currentLocal(), [Validators.required])
+            endTimePicker: new FormControl(TuiTime.currentLocal(), [Validators.required]),
+            questionSets: new FormArray(
+                [CourseEventForm.createQuestionSetForm()]
+            )
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions)
     }
 
@@ -54,11 +64,25 @@ export class CourseEventForm {
             type: new FormControl(event.type, [Validators.required]),
             countForTokens: new FormControl(event.count_for_tokens, [Validators.required]),
             startEndDatePicker: new FormControl(
-                new TuiDayRange(TuiDay.fromLocalNativeDate(new Date(event.start_date)), TuiDay.fromLocalNativeDate(new Date(event.end_date))),
+                new TuiDayRange(
+                    TuiDay.fromLocalNativeDate(
+                        new Date(event.start_date)
+                    ),
+                    TuiDay.fromLocalNativeDate(new Date(event.end_date))
+                ),
                 [Validators.required]
             ),
-            startTimePicker: new FormControl(TuiTime.fromLocalNativeDate(new Date(event.start_date)), [Validators.required]),
-            endTimePicker: new FormControl(TuiTime.fromLocalNativeDate(new Date(event.end_date)), [Validators.required]),
+            startTimePicker: new FormControl(
+                TuiTime.fromLocalNativeDate(new Date(event.start_date)),
+                [Validators.required]
+            ),
+            endTimePicker: new FormControl(
+                TuiTime.fromLocalNativeDate(new Date(event.end_date)),
+                [Validators.required]
+            ),
+            questionSets: new FormArray(
+                [CourseEventForm.createQuestionSetForm()]
+            )
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions)
     }
 
@@ -85,6 +109,21 @@ export class CourseEventForm {
             course: courseId,
             max_team_size: 1,
         }
+    }
+
+    static createQuestionSetForm(): FormGroup {
+        const builder = new FormBuilder()
+        return builder.group({
+            category: new FormControl('', [Validators.required]),
+            difficulty: new FormControl('', [Validators.required]),
+            number_of_questions: new FormControl('', [Validators.required])
+        })
+    }
+
+    static formatQuestionSetFormData(
+        formControl: FormControl,
+    ): EventQuestionSetFormData {
+        return formControl.value
     }
 
     /**
