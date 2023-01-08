@@ -46,8 +46,7 @@ export class ChallengeForm {
                 [Validators.required]
             ),
             challengeQuestionSets: new FormArray(
-                [ChallengeForm.createChallengeQuestionSetForm()],
-                [Validators.required]
+                [ChallengeForm.createChallengeQuestionSetForm()]
             )
         }, {validator: ChallengeForm.dateValidator} as AbstractControlOptions)
     }
@@ -84,8 +83,7 @@ export class ChallengeForm {
                 [Validators.required]
             ),
             challengeQuestionSets: new FormArray(
-                [ChallengeForm.createChallengeQuestionSetForm()],
-                [Validators.required]
+                [ChallengeForm.createChallengeQuestionSetForm()]
             )
         }, {validator: ChallengeForm.dateValidator} as AbstractControlOptions)
     }
@@ -93,9 +91,9 @@ export class ChallengeForm {
     static createChallengeQuestionSetForm(): FormGroup {
         const builder = new FormBuilder()
         return builder.group({
-            category: new FormControl(''),
-            difficulty: new FormControl(''),
-            number_of_questions: new FormControl('')
+            category: new FormControl('' ,[Validators.required]),
+            difficulty: new FormControl('', [Validators.required]),
+            number_of_questions: new FormControl('', [Validators.required])
         })
     }
 

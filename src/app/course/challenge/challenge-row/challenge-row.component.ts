@@ -3,6 +3,7 @@ import {CourseEvent, User} from "@app/_models"
 import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
 import {AuthenticationService} from "@app/_services/api/authentication"
+import {startCase} from "lodash"
 
 @Component({
     selector: 'app-challenge-row',
@@ -25,8 +26,6 @@ export class ChallengeRowComponent implements OnInit {
     }
 
     getChallengeType(): string {
-        return this.event.challenge_type?.split('_')
-            .map(word => word.charAt(0) + word.substring(1).toLowerCase())
-            .join(' ')
+        return startCase(this.event.challenge_type?.toLowerCase())
     }
 }

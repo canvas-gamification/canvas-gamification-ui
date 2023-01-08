@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
-import {Category, CourseEvent, Question} from "@app/_models"
+import {Category, CourseEvent} from "@app/_models"
 import {ChallengeType} from "@app/_models/challengeType"
 import {FormArray, FormControl, FormGroup} from "@angular/forms"
 import {CategoryService} from "@app/_services/api/category.service"
@@ -24,9 +24,6 @@ export class CourseChallengeCreateEditComponent implements OnInit {
     challengeForm: FormGroup
     categories: Category[]
     difficulties: Difficulty[]
-    // limits: number[] // TODO: with the function getNumQuestionsLimit
-    questions: Question[]
-    removingQuestions: Question[] = []
 
 
     constructor(
@@ -49,17 +46,13 @@ export class CourseChallengeCreateEditComponent implements OnInit {
                 this.event = event
                 this.challengeForm = ChallengeForm.createChallengeFormWithData(this.event)
             })
-            this.courseEventService.getEventQuestions(this.eventId).subscribe(
-                questions => this.questions = questions
-            )
         }
 
         this.courseEventService.getChallengeTypes().subscribe(response => {
-            this.localChallengeTypes = response.map(array =>
-                [
-                    array[0],
-                    startCase(array[1].replace('_', ' '))
-                ])
+            this.localChallengeTypes = response.map(array => [
+                array[0],
+                startCase(array[1].toLowerCase().replace('_', ' '))
+            ])
         })
         this.categoryService.getCategories().subscribe(
             categories => this.categories = categories
@@ -106,10 +99,6 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         return this.challengeForm.get('challengeType').value === 'TOP_TEAMS'
     }
 
-    removeQuestion(questionId: number) {
-        this.removingQuestions.push(this.questions.find(question => question.id === questionId))
-    }
-
     async onSubmit() {
         const challengeData = ChallengeForm.formatChallengeFormData(
             this.challengeForm,
@@ -124,11 +113,6 @@ export class CourseChallengeCreateEditComponent implements OnInit {
                 await this.courseEventService
                     .addQuestionSet(questionSetFormData, this.eventId)
                     .toPromise()
-            }
-            if (this.questions !== null) {
-                for (const question of this.questions) {
-                    await this.courseEventService.removeEventQuestion(this.eventId, question.id)
-                }
             }
             this.notificationsService
                 .show('The challenge has been updated successfully.', {

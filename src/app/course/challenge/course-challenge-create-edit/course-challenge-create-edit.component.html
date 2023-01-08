@@ -1,13 +1,13 @@
 <div class="tui-container tui-container_adaptive">
     <form (ngSubmit)="onSubmit()" [formGroup]="challengeForm">
-        <h2 class="tui-form__header">{{eventId? 'Edit ' + event?.name : 'Create New Challenge'}}</h2>
+        <h2 class="tui-form__header">{{eventId ? 'Edit ' + event?.name : 'Create New Challenge'}}</h2>
         <div class="tui-form__row">
             <tui-input aria-label="Challenge Name" formControlName="name">
                 Challenge Name
             </tui-input>
             <tui-field-error formControlName="name"></tui-field-error>
         </div>
-        <div *ngIf="!isTopTeams()" class="tui-form__row">
+        <div class="tui-form__row">
             <tui-select
                 aria-label="Challenge Type"
                 formControlName="challengeType"
@@ -15,43 +15,30 @@
             >
                 Challenge Type
                 <tui-data-list *tuiDataList>
-<!--                    TODO: Fix TOP_TEAMS display-->
-<!--                    <button *ngFor="let event of localChallengeTypes" [value]="event[0]" tuiOption>-->
-<!--                        {{ event[1] }}-->
-<!--                    </button>-->
-                    <button *ngFor="let event of localChallengeTypes" [value]="event[0]" tuiOption>
+                    <button
+                        *ngFor="let event of localChallengeTypes"
+                        [value]="event[0]"
+                        tuiOption
+                    >
                         {{ event[1] }}
                     </button>
                 </tui-data-list>
             </tui-select>
             <tui-field-error formControlName="challengeType"></tui-field-error>
         </div>
-        <div *ngIf="isTopTeams()" class="tui-form__row tui-form__row_multi-fields">
-            <div class="tui-form__multi-field">
-                <tui-select aria-label="Challenge Type" formControlName="challengeType">
-                    Challenge Type
-                    <tui-data-list *tuiDataList>
-                        <button *ngFor="let event of localChallengeTypes" [value]="event[0]" tuiOption>
-                            {{ event[1] }}
-                        </button>
-                    </tui-data-list>
-                </tui-select>
-                <tui-field-error formControlName="challengeType"></tui-field-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-input-number
-                    aria-label="Top x Teams to be Rewarded "
-                    formControlName="challengeTypeValue"
-                    [max]="topXTeamsLimit()"
-                >
-                    Number of the top x teams to be rewarded
-                </tui-input-number>
-                <tui-field-error formControlName="challengeTypeValue"></tui-field-error>
-            </div>
+        <div *ngIf="isTopTeams()" class="tui-form__row">
+            <tui-input-number
+                aria-label="How many of the top teams will receive tokens?"
+                formControlName="challengeTypeValue"
+                [max]="topXTeamsLimit()"
+            >
+                How many of the top teams will receive tokens?
+            </tui-input-number>
+            <tui-field-error formControlName="challengeTypeValue"></tui-field-error>
         </div>
         <div class="tui-form__row">
             <tui-input-number aria-label="Max number of students" formControlName="maxTeamSize">
-                Maximum number of students in the Team
+                Maximum number of students in the team
             </tui-input-number>
             <tui-field-error formControlName="maxTeamSize"></tui-field-error>
         </div>
@@ -75,17 +62,16 @@
                 <tui-field-error formControlName="endTime"></tui-field-error>
             </div>
         </div>
-            <tui-notification
-                *ngIf="challengeForm.errors?.forbiddenDateRange"
-                class="tui-space_top-4"
-                status="error"
-            >
-                Invalid date range! Please check your start and end times!
-            </tui-notification>
+        <tui-notification
+            *ngIf="challengeForm.errors?.forbiddenDateRange"
+            class="tui-space_top-4"
+            status="error"
+        >
+            Invalid date range! Please check your start and end times!
+        </tui-notification>
         <h3 class="tui-form__header">
-            Questions
+            Add Questions
             <button
-                *ngIf="!eventId"
                 (click)="addChallengeQuestionSet()"
                 icon="tuiIconPlus"
                 size="s"
@@ -97,10 +83,20 @@
                 Add More
             </button>
         </h3>
-            <div
-                *ngFor="let questionSetFormControl of getChallengeQuestionSetFormControls(); let index = index"
-                class="tui-form__row tui-form__row_multi-fields"
-            >
+        <div *ngIf="getChallengeQuestionSetFormControls().length === 0">
+            <div *ngIf="eventId">
+                This challenge will not include any additional questions.
+            </div>
+            <div *ngIf="!eventId">
+                This challenge will not include any questions.
+                You can always add more questions by editing the challenge
+                or from the question bank.
+            </div>
+        </div>
+        <div
+            *ngFor="let questionSetFormControl of getChallengeQuestionSetFormControls(); let index = index"
+            class="tui-form__row tui-form__row_multi-fields"
+        >
             <div class="tui-form__multi-field">
                 <tui-select
                     [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
@@ -113,7 +109,8 @@
                         </button>
                     </tui-data-list>
                 </tui-select>
-                <tui-field-error [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-field-error>
+                <tui-field-error
+                    [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-field-error>
             </div>
             <div class="tui-form__multi-field">
                 <tui-select
@@ -122,7 +119,8 @@
                 >
                     Difficulty
                     <tui-data-list *tuiDataList>
-                        <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]" tuiOption>
+                        <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]"
+                                tuiOption>
                             {{ difficulty[1] }}
                         </button>
                     </tui-data-list>
@@ -145,7 +143,6 @@
             <div class="tui-form__multi-field">
                 <div class="flex h-full items-center">
                     <button
-                        *ngIf="getChallengeQuestionSetFormControls().length > 1"
                         (click)="removeChallengeQuestionSet(index)"
                         icon="tuiIconMinus"
                         size="s"
@@ -158,41 +155,15 @@
                 </div>
             </div>
         </div>
+        <div class="tui-form__buttons">
+            <button
+                [disabled]="challengeForm.invalid"
+                class="tui-form__button"
+                size="m"
+                tuiButton
+            >
+                {{eventId ? 'Edit Challenge' : 'Create Challenge'}}
+            </button>
+        </div>
     </form>
-    <div *ngIf="eventId && questions" class="question-islands">
-        <tui-island *ngFor="let question of questions">
-            <h2 class="tui-island__title">{{ question.title }}</h2>
-            <p class="tui-island__paragraph">{{question.category}}</p>
-            <p class="tui-island__paragraph">{{question.difficulty}}</p>
-            <p class="tui-island__paragraph">{{question.type_name}}</p>
-            <div class="tui-form__buttons">
-                <a [routerLink]="['problem', question.id]"
-                   appearance="primary" class="tui-form__button" size="m"
-                   tuiButton
-                >
-                    Preview
-                </a>
-                <button
-                    (click)="removeQuestion(question.id)"
-                    size="m"
-                    tuiButton
-                    type="button"
-                    appearance="primary"
-                >
-                    Delete
-                </button>
-            </div>
-
-        </tui-island>
-    </div>
-    <div class="tui-form__buttons">
-        <button
-            [disabled]="challengeForm.invalid"
-            class="tui-form__button"
-            size="m"
-            tuiButton
-        >
-            {{eventId? 'Edit Challenge' : 'Create Challenge'}}
-        </button>
-    </div>
 </div>

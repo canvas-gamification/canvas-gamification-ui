@@ -9,6 +9,6 @@ export interface Team {
     who_can_join: number[]
     event: CourseEvent
     course_registrations: number[]
-    score: number
+    tokens_received: number
     member_names: string[]
 }
