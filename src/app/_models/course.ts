@@ -1,4 +1,4 @@
-import {CourseEvent, CourseRegistration, LeaderboardElement, UQJ} from '@app/_models'
+import {CourseEvent, CourseRegistration, UQJ} from '@app/_models'
 
 export enum CourseRegistrationMode {
     OPEN = 'OPEN',
@@ -23,7 +23,6 @@ export interface Course {
     question_set: unknown;
     uqjs: UQJ[];
     course_reg: CourseRegistration;
-    leader_board: LeaderboardElement[];
     has_create_event_permission: boolean;
     description: string;
     registration_mode: CourseRegistrationMode;
