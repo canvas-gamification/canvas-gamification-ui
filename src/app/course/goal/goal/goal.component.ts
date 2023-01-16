@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core'
 import {GoalService} from "@app/course/_services/goal.service"
-import {Goal} from "@app/_models/goal/goal"
+import {Goal, GoalStats, QuestionTypeKey} from "@app/_models/goal/goal"
 import {ActivatedRoute, Router} from "@angular/router"
 import {TuiNotificationsService} from "@taiga-ui/core"
 
@@ -11,12 +11,14 @@ import {TuiNotificationsService} from "@taiga-ui/core"
 })
 export class GoalComponent implements OnInit {
     goal: Goal
+    stats: GoalStats
 
     constructor(
         private goalService: GoalService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationsService)
+        private readonly notificationsService: TuiNotificationsService
     ) {
     }
 
@@ -24,10 +26,11 @@ export class GoalComponent implements OnInit {
         const id = this.activatedRoute.snapshot.params.goalId
         this.goalService.getGoal(id).subscribe(goal => {
             this.goal = goal
-            if(this.canClaim()) {
+            if (this.canClaim()) {
                 this.claim()
             }
         })
+        this.goalService.getStats(id).subscribe(stats => this.stats = stats)
     }
 
     getGoalItem(goalItemId: number) {
@@ -35,19 +38,49 @@ export class GoalComponent implements OnInit {
     }
 
     goalItemIds(): number[] {
-        return Object.keys(this.goal.stats).map(x => parseInt(x))
+        return Object.keys(this.stats).map(x => parseInt(x))
     }
 
-    getSubmissionRelativeSuccessRate(goalItemId: number): number {
-        return this.goal.stats[goalItemId].submissions.success_rate - this.goal.stats[goalItemId].old_submissions.success_rate
+    getQuestionTypeKeys(): QuestionTypeKey[] {
+        return ['all', 'mcq', 'java', 'parsons']
     }
 
-    getQuestionRelativeSuccessRate(goalItemId: number): number {
-        return this.goal.stats[goalItemId].submissions.questions_success_rate - this.goal.stats[goalItemId].old_submissions.questions_success_rate
+    getQuestionTypeName(typeKey: QuestionTypeKey) {
+        switch (typeKey) {
+            case "all":
+                return "All"
+            case "mcq":
+                return "Multiple Choice"
+            case "java":
+                return "Java"
+            case "parsons":
+                return "Parsons"
+        }
+    }
+
+    getSubmissionRelativeSuccessRate(
+        goalItemId: number,
+        key: QuestionTypeKey
+    ): number {
+        return this.stats[goalItemId][key].submissions.success_rate
+            - this.stats[goalItemId][key].old_submissions.success_rate
+    }
+
+    getQuestionRelativeSuccessRate(
+        goalItemId: number,
+        key: QuestionTypeKey
+    ): number {
+        return this.stats[goalItemId][key].submissions.questions_success_rate
+            - this.stats[goalItemId][key].old_submissions.questions_success_rate
     }
 
     errorMessages(goalItemId: number): { text: string, value: number }[] {
-        return Object.entries(this.goal.stats[goalItemId].submissions.messages).map(([text, value]) => ({text, value}))
+        return Object.entries(
+            this.stats[goalItemId].all.submissions.messages
+        ).map(([text, value]) => ({
+            text,
+            value
+        }))
     }
 
     canClaim() {
