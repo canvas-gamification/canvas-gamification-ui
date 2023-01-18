@@ -72,7 +72,7 @@
                                 </ng-container>
                                 <ng-template #notInTeam>
                                     <button
-                                        *ngIf="isjoinAble(team, event)"
+                                        *ngIf="isJoinAble(team, event)"
                                         (click)="joinTeam(team.id)"
                                         appearance="secondary"
                                         aria-label="Join"
