@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {Observable} from 'rxjs'
-import {APIResponse, Course, CourseRegistration} from '@app/_models'
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http'
+import {APIResponse, Course, CourseRegistration, LeaderboardElement} from '@app/_models'
+import {HttpClient, HttpParams} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 import {CourseRegistrationFormData} from "@app/course/_forms/register.form"
@@ -117,11 +117,11 @@ export class CourseService {
             ))
     }
 
-    getCourseLeaderBoard(courseId: number): Observable<HttpResponse<unknown>> {
-        const url = this.apiService.getURL('course', courseId, 'course-leader-board')
-        return this.http.get<HttpResponse<unknown>>(url)
+    getCourseLeaderBoard(courseId: number): Observable<LeaderboardElement[]> {
+        const url = this.apiService.getURL('course', courseId, 'leader-board')
+        return this.http.get<LeaderboardElement[]>(url)
             .pipe(catchError(
-                this.apiService.handleError<HttpResponse<unknown>>(
+                this.apiService.handleError<LeaderboardElement[]>(
                     `Error occurred while fetching course leader board.`
                 )
             ))
