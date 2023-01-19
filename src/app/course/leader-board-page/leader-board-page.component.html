@@ -1,0 +1,19 @@
+<div class="flex">
+    <app-sidebar sidebarId="leaderBoardSideBar" position="left">
+        <ng-container *ngFor="let option of options">
+            <ng-template [ngIf]="option">
+                <div
+                    class="margins cursor-pointer"
+                    (click)="setSelectedEventId(option.eventId)"
+                >
+                    {{option.name}}
+                </div>
+            </ng-template>
+        </ng-container>
+    </app-sidebar>
+    <div class="leaderBoardContainer flex-grow">
+        <h5 *ngIf="course" class="tui-text_h5">{{course.name}}</h5>
+        <app-leader-board [courseId]="courseId" [eventId]="selectedEventId"></app-leader-board>
+    </div>
+
+</div>
