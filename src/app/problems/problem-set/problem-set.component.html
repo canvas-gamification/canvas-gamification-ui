@@ -157,7 +157,7 @@
                     {{ (question.parent_category_name) || 'No Category' }}
                 </td>
                 <td *tuiCell="'category_name'" tuiTd>
-                    {{ (question.category_obj.name) || 'No Sub-Category' }}
+                    {{ (question.category_name) || 'No Sub-Category' }}
                 </td>
                 <td *tuiCell="'difficulty'" tuiTd>
                     {{ (question.difficulty | titlecase) || 'No Difficulty' }}

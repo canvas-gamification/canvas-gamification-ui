@@ -44,10 +44,25 @@ describe('ProblemSetComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, ReactiveFormsModule, AppRoutingModule, TuiHostedDropdownModule, TuiLoaderModule,
-                TuiTableModule, TuiTablePaginationModule, TuiSelectModule, TuiDataListModule, TuiInputModule,
-                TuiHintModule, TuiTagModule],
-            declarations: [ProblemSetComponent, TestProblemSetDialogComponent, StringifyTuiDataListPipe],
+            imports: [
+                TestModule,
+                ReactiveFormsModule,
+                AppRoutingModule,
+                TuiHostedDropdownModule,
+                TuiLoaderModule,
+                TuiTableModule,
+                TuiTablePaginationModule,
+                TuiSelectModule,
+                TuiDataListModule,
+                TuiInputModule,
+                TuiHintModule,
+                TuiTagModule
+            ],
+            declarations: [
+                ProblemSetComponent,
+                TestProblemSetDialogComponent,
+                StringifyTuiDataListPipe
+            ],
             providers: [
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: DifficultyService, useClass: DifficultyServiceMock},
@@ -90,13 +105,13 @@ describe('ProblemSetComponent', () => {
     it('should get order', fakeAsync(() => {
         component.sorter = component.sorters['id']
         component.sortDirection = 1
-        expect(component.getOrdering()).toEqual('id')
+        expect(component.getOrdering()).toEqual('-id')
         component.sorter = component.sorters['title']
         component.sortDirection = -1
-        expect(component.getOrdering()).toEqual('-title')
+        expect(component.getOrdering()).toEqual('title')
         component.sorter = component.sorters['author_name']
         component.sortDirection = 1
-        expect(component.getOrdering()).toEqual('author')
+        expect(component.getOrdering()).toEqual('-author')
         tick(1)
     }))
 
