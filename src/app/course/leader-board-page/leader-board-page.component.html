@@ -1,19 +1,26 @@
 <div class="flex">
     <app-sidebar sidebarId="leaderBoardSideBar" position="left">
         <ng-container *ngFor="let option of options">
-            <ng-template [ngIf]="option">
-                <div
-                    class="margins cursor-pointer"
-                    (click)="setSelectedEventId(option.eventId)"
-                >
-                    {{option.name}}
-                </div>
-            </ng-template>
+            <div
+                *ngIf="!isSelectedOption(option)"
+                class="margins cursor-pointer"
+                (click)="setSelectedOption(option)"
+            >
+                {{option.name}}
+            </div>
+            <div
+                *ngIf="isSelectedOption(option)"
+                class="font-bold margins cursor-pointer"
+                (click)="setSelectedOption(option)"
+            >
+                {{option.name}}
+            </div>
         </ng-container>
     </app-sidebar>
     <div class="leaderBoardContainer flex-grow">
-        <h5 *ngIf="course" class="tui-text_h5">{{course.name}}</h5>
-        <app-leader-board [courseId]="courseId" [eventId]="selectedEventId"></app-leader-board>
+        <h3 *ngIf="course" class="tui-text_h3 m-3">{{course.name}}</h3>
+        <h5 class="tui-text_h5 mx-3 mb-5">{{selectedEventOption?.name}} Leader Board</h5>
+        <app-leader-board [courseId]="courseId" [eventId]="selectedEventOption?.eventId"></app-leader-board>
     </div>
 
 </div>

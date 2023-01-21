@@ -17,7 +17,9 @@ export class LeaderBoardPageComponent implements OnInit{
 
     options: LeaderBoardPageElement[]
     selectedEventId: number
+    selectedEventOption: LeaderBoardPageElement
     //['course leaderboard', 'challenge 1',  'challenge 2' , 'challenge 3']
+
 
     constructor(
         private route: ActivatedRoute,
@@ -29,6 +31,10 @@ export class LeaderBoardPageComponent implements OnInit{
         this.courseService.getCourse(this.courseId).subscribe(course =>  {
             this.course = course
             this.options = this.getOptions()
+            this.selectedEventOption  = {
+                eventId: null,
+                name: course.name,
+            }
         })
     }
 
@@ -49,8 +55,11 @@ export class LeaderBoardPageComponent implements OnInit{
         return options
     }
 
-    setSelectedEventId(eventId: number|null): void {
-        this.selectedEventId = eventId
-        console.log(this.selectedEventId )
+    setSelectedOption(option: LeaderBoardPageElement): void { //eventId: number|null
+        this.selectedEventOption = option
+    }
+
+    isSelectedOption(option: LeaderBoardPageElement): boolean {
+        return option.eventId === this.selectedEventOption?.eventId
     }
 }
