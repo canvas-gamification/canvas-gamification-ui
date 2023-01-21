@@ -46,7 +46,7 @@ export class JavaCreateEditSnippetComponent implements OnInit {
             this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The Question has been Updated Successfully.', {
+                        .show('The question has been updated successfully.', {
                             status: TuiNotification.Success
                         }).subscribe()
                     this.refreshPage()
@@ -55,7 +55,7 @@ export class JavaCreateEditSnippetComponent implements OnInit {
             this.questionService.postJavaQuestion(submissionRequest)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The Question has been Created Successfully.', {
+                        .show('The question has been created successfully.', {
                             status: TuiNotification.Success
                         }).subscribe()
                     this.refreshPage()

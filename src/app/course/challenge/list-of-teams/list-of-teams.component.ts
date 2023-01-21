@@ -45,7 +45,7 @@ export class ListOfTeamsComponent implements OnInit {
     joinTeam(teamId: number): void {
         this.teamService.joinTeam(teamId).subscribe(() => {
             this.notificationsService
-                .show('You have successfully join the team.', {
+                .show('You have successfully joined the team.', {
                     status: TuiNotification.Success
                 }).subscribe()
         })

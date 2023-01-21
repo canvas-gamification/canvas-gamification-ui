@@ -29,7 +29,7 @@ export class AddToEventModalComponent {
 
     addToEvent(event: CourseEvent) {
         this.courseEventService.addQuestion(event.id, this.questionId).subscribe(() => {
-            this.notificationService.show("Question added to event", {
+            this.notificationService.show("Question added to event.", {
                 status: TuiNotification.Success,
             }).subscribe()
         })

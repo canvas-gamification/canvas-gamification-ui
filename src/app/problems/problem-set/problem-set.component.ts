@@ -197,7 +197,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         this.questionService.deleteQuestion(questionId)
             .subscribe(() => {
                 this.notificationsService
-                    .show('The Question has been Deleted Successfully.', {
+                    .show('The question has been deleted successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
                 this.update()
