@@ -145,7 +145,7 @@ export class GoalCreateComponent implements OnInit {
             await this.goalService.createGoalItem(goalItemData).toPromise()
         }
 
-        this.notificationService.show('Goal created successfully', {
+        this.notificationService.show('Goal created successfully!', {
             label: 'Success',
             status: TuiNotification.Success
         }).subscribe()

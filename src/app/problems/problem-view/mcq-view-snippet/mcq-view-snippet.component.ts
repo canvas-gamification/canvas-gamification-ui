@@ -74,7 +74,7 @@ export class McqViewSnippetComponent implements OnChanges {
         this.waitingSubmission = true
         this.submissionService.postQuestionSubmission(formData).subscribe(() => {
             this.notificationsService
-                .show('The Question has been Submitted Successfully.', {
+                .show('The question has been submitted successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.successfulSubmissionEvent.emit(true)
@@ -94,7 +94,7 @@ export class McqViewSnippetComponent implements OnChanges {
             solution: this.checkboxAnswers.sort().toString()
         }).subscribe(() => {
             this.notificationsService
-                .show('The Question has been Submitted Successfully.', {
+                .show('The question has been submitted successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.successfulSubmissionEvent.emit(true)

@@ -5,7 +5,13 @@
             [(open)]="openNewQuestionDropdown"
             [content]="newQuestionDropdownContent"
         >
-            <button [iconRight]="newQuestionDropdownIcon" icon="tuiIconPlus" size="m" tuiButton type="button">
+            <button
+                [iconRight]="newQuestionDropdownIcon"
+                icon="tuiIconPlus"
+                size="m"
+                tuiButton
+                type="button"
+            >
                 Create New Question
             </button>
         </tui-hosted-dropdown>
@@ -107,10 +113,10 @@
     </form>
     <tui-loader [overlay]="true" [showLoader]="!questions || filteringQuestions">
         <table
-            (directionChange)="update()"
-            (sorterChange)="update()"
-            [(direction)]="sortDirection"
-            [(sorter)]="sorter"
+            (directionChange)="update({sortDirection: $event})"
+            (sorterChange)="update({sorter: $event})"
+            [direction]="sortDirection"
+            [sorter]="sorter"
             [columns]="questionsTableColumns"
             class="questions-table"
             tuiTable
@@ -121,8 +127,16 @@
                 <th *tuiHead="'title'" [sorter]="sorters.title" tuiTh>Question Name</th>
                 <th *tuiHead="'author_name'" [sorter]="sorters.author_name" tuiTh>Author</th>
                 <th *tuiHead="'event_name'" [sorter]="sorters.event_name" tuiTh>Event</th>
-                <th *tuiHead="'parent_category_name'" [sorter]="sorters.parent_category_name" tuiTh>Category</th>
-                <th *tuiHead="'category_name'" [sorter]="sorters.category_name" tuiTh>Sub-Category</th>
+                <th
+                    *tuiHead="'parent_category_name'"
+                    [sorter]="sorters.parent_category_name"
+                    tuiTh
+                >
+                    Category
+                </th>
+                <th *tuiHead="'category_name'" [sorter]="sorters.category_name" tuiTh>
+                    Sub-Category
+                </th>
                 <th *tuiHead="'difficulty'" [sorter]="sorters.difficulty" tuiTh>Difficulty</th>
                 <th *tuiHead="'type_name'" [sorter]="null" tuiTh>Type</th>
                 <th *tuiHead="'token_value'" [sorter]="null" tuiTh>Token Value</th>
@@ -143,7 +157,7 @@
                     {{ (question.parent_category_name) || 'No Category' }}
                 </td>
                 <td *tuiCell="'category_name'" tuiTd>
-                    {{ (question.category_obj.name) || 'No Sub-Category' }}
+                    {{ (question.category_name) || 'No Sub-Category' }}
                 </td>
                 <td *tuiCell="'difficulty'" tuiTd>
                     {{ (question.difficulty | titlecase) || 'No Difficulty' }}
@@ -215,10 +229,10 @@
             <tr>
                 <td [colSpan]="questionsTableColumns.length">
                     <tui-table-pagination
-                        (pageChange)="update()"
-                        (sizeChange)="update()"
-                        [(page)]="page"
-                        [(size)]="pageSize"
+                        (pageChange)="update({page: $event})"
+                        (sizeChange)="update({pageSize: $event})"
+                        [page]="page"
+                        [size]="pageSize"
                         [total]="numberOfQuestions"
                         class="tui-space_top-2"
                     ></tui-table-pagination>
