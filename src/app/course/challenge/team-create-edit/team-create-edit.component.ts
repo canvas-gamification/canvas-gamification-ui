@@ -83,7 +83,7 @@ export class TeamCreateEditComponent implements OnInit {
         if (this.teamId) {
             this.teamService.updateTeam(teamData, this.teamId).subscribe(() => {
                 this.notificationsService
-                    .show('The Team has been updated Successfully.', {
+                    .show('The team has been updated successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
                 this.router.navigate(

@@ -63,7 +63,7 @@ export class TokenUseSnippetComponent implements OnInit {
         this.tokenUses.forEach(tokenUse => data[tokenUse.option.id] = tokenUse.num_used)
         this.tokenUseService.useTokens(data, courseId).subscribe(() => {
             this.notificationsService
-                .show('Token Uses Saved!', {
+                .show('Token uses saved!', {
                     status: TuiNotification.Success
                 }).subscribe()
         })
