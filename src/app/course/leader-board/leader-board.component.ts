@@ -46,7 +46,7 @@ export class LeaderBoardComponent implements OnChanges {
     getRankedLeaderboard(leaderBoard: LeaderboardElement[]): LeaderboardElement[] {
         const sortedLeaderboard = leaderBoard.sort((a, b) => b.token - a.token)
         return sortedLeaderboard.map((element, index) => {
-            return element.member_names ? {
+            return this.eventId ? {
                 rank: index + 1,
                 name: element.name,
                 token: element.token,

@@ -4,8 +4,8 @@
 .top-x-islands {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: center;
+    //gap: 1rem;
 
     @include screen-sm() {
         flex-wrap: wrap;
