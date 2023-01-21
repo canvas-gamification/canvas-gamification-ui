@@ -1,26 +1,42 @@
-<div class="flex">
-    <app-sidebar sidebarId="leaderBoardSideBar" position="left">
-        <ng-container *ngFor="let option of options">
-            <div
-                *ngIf="!isSelectedOption(option)"
-                class="margins cursor-pointer"
-                (click)="setSelectedOption(option)"
-            >
-                {{option.name}}
-            </div>
-            <div
-                *ngIf="isSelectedOption(option)"
-                class="font-bold margins cursor-pointer"
-                (click)="setSelectedOption(option)"
-            >
-                {{option.name}}
-            </div>
-        </ng-container>
-    </app-sidebar>
-    <div class="leaderBoardContainer flex-grow">
-        <h3 *ngIf="course" class="tui-text_h3 m-3">{{course.name}}</h3>
-        <h5 class="tui-text_h5 mx-3 mb-5">{{selectedEventOption?.name}} Leader Board</h5>
-        <app-leader-board [courseId]="courseId" [eventId]="selectedEventOption?.eventId"></app-leader-board>
+<ng-container *ngIf="course else skeletonTemplate">
+    <div class="leaderBoardPage">
+        <app-sidebar sidebarId="leaderBoardSideBar" position="left">
+            <ng-container *ngFor="let option of options">
+                <div
+                    *ngIf="!isSelectedOption(option)"
+                    class="margins cursor-pointer"
+                    (click)="setSelectedOption(option)"
+                >
+                    {{option.name}}
+                </div>
+                <div
+                    *ngIf="isSelectedOption(option)"
+                    class="font-bold margins cursor-pointer"
+                    (click)="setSelectedOption(option)"
+                >
+                    {{option.name}}
+                </div>
+            </ng-container>
+        </app-sidebar>
+        <div class="flex-grow">
+            <h3 class="tui-text_h3 m-3">{{course.name}}</h3>
+            <h5 class="tui-text_h5 mx-3 mb-5">{{selectedEventOption?.name}} leader board</h5>
+            <app-leader-board [courseId]="courseId" [eventId]="selectedEventOption?.eventId"></app-leader-board>
+        </div>
     </div>
+</ng-container>
+<ng-template #skeletonTemplate>
+    <div class="flex">
+        <app-sidebar sidebarId="leaderBoardSideBar" position="left">
+            <div class="tui-skeleton margins cursor-pointer">content</div>
+            <div class="tui-skeleton margins cursor-pointer">content</div>
+            <div class="tui-skeleton margins cursor-pointer">content</div>
+        </app-sidebar>
+        <div class="flex-grow">
+            <h3 class="tui-skeleton tui-text_h3 m-3">course name</h3>
+            <h5 class="tui-skeleton tui-text_h5 mx-3 mb-5">leader board name</h5>
+            <app-leader-board [courseId]="null" [eventId]="null"></app-leader-board>
+        </div>
+    </div>
+</ng-template>
 
-</div>

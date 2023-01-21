@@ -1,7 +1,18 @@
+@import "mixins";
+
 .margins {
     margin-top: 1.5rem;
 
     &:last-child{
         margin-bottom: 1.5rem;
     }
+}
+
+.leaderBoardPage {
+    display: flex;
+
+    @include screen-sm() {
+        flex-direction: column;
+    }
+
 }
