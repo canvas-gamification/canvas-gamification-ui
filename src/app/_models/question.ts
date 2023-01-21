@@ -1,5 +1,4 @@
 import {CourseEvent} from '@app/_models/course_event'
-import {Category} from "@app/_models/category"
 
 export interface Question {
     id: number;
@@ -8,7 +7,7 @@ export interface Question {
     max_submission_allowed: number;
     author: number;
     category: number;
-    category_obj: Category;
+    full_category_name: string;
     category_name: string;
     difficulty: string;
     is_verified: boolean;

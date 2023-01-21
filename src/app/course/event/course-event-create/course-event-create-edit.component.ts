@@ -94,11 +94,11 @@ export class CourseEventCreateEditComponent implements OnInit {
                     .toPromise()
             }
             this.notificationsService
-                .show('The Event has been updated Successfully.', {
+                .show('The event has been updated successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
-        } else { // Creating a brand new event
+        } else { // Creating a brand-new event
             const event = await this.courseEventService.addCourseEvent(ourEvent).toPromise()
             for (const questionSet of this.getQuestionSetFormControls()) {
                 const questionSetFormData =
@@ -108,7 +108,7 @@ export class CourseEventCreateEditComponent implements OnInit {
                     .toPromise()
             }
             this.notificationsService
-                .show('The Event has been added Successfully.', {
+                .show('The event has been added successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
