@@ -42,7 +42,7 @@ export class JavaViewSnippetComponent implements OnChanges {
             solution: codeSolution
         }).subscribe(() => {
             this.notificationsService
-                .show('The Question has been Submitted Successfully.', {
+                .show('The question has been submitted successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.successfulSubmissionEvent.emit(true)

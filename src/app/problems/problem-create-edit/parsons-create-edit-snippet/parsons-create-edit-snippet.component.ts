@@ -43,7 +43,7 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
             this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The Question has been Updated Successfully.', {
+                        .show('The question has been updated successfully.', {
                             status: TuiNotification.Success
                         }).subscribe()
                     this.refreshPage()
@@ -52,7 +52,7 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
             this.questionService.postParsonsQuestion(submissionRequest)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The Question has been Created Successfully.', {
+                        .show('The question has been created successfully.', {
                             status: TuiNotification.Success
                         }).subscribe()
                     this.refreshPage()
