@@ -73,4 +73,9 @@ export class LeaderBoardComponent implements OnChanges {
     getMemberNames(memberList: string[]): string {
         return memberList.join(", ")
     }
+
+    test(element: LeaderboardElement){
+        console.log(element.member_names)
+
+    }
 }
