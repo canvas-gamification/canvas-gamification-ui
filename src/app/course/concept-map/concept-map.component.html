@@ -21,12 +21,22 @@
         </h6>
     </ng-container>
     <ng-template #topLevel>
+        <button
+            appearance="flat"
+            [routerLink]="['..']"
+            icon="tuiIconArrowLeft"
+            aria-label="Back to Homepage"
+            size="s"
+            tuiButton>
+            Homepage
+        </button>
         <h6
             [class.tui-skeleton]="flowchartComponent.children.length === 0"
             class="tui-text_h6 tui-space_vertical-0"
         >
             Top-Level Categories
         </h6>
+
     </ng-template>
 </div>
 <div #flowchartComponent [class.tui-skeleton]="flowchartComponent.children.length === 0" id="paper"></div>
