@@ -1,10 +1,4 @@
 <div class="tui-container tui-container_adaptive">
-    <div class="flex flex-wrap gap-3 tui-space_top-6">
-        <h3 class="tui-text_h3 tui-col_stretch flex-grow">
-            Active Goals
-        </h3>
-        <a class="min-w-200 mr-4" tuiButton size="m" routerLink="create">Create a new goal</a>
-    </div>
     <a
         [routerLink]="['../practice']"
         icon="tuiIconArrowLeft"
@@ -12,8 +6,14 @@
         tuiButton
         appearance="flat"
     >
-        Back to question bank
+        Back to Question Bank
     </a>
+    <div class="flex flex-wrap gap-3 mt-3">
+        <h5 class="tui-text_h5 tui-col_stretch flex-grow">
+            Active Goals
+        </h5>
+        <a class="min-w-200 mr-4" tuiButton size="m" routerLink="create">Create a new goal</a>
+    </div>
     <ng-container *ngIf="activeGoals && activeGoals.length !== 0 else noGoal">
         <div *ngFor="let goal of activeGoals" class="tui-space_vertical-3">
             <app-goal-island
@@ -22,9 +22,9 @@
             </app-goal-island>
         </div>
     </ng-container>
-    <h3 class="tui-text_h3 tui-space_top-6">
+    <h5 class="tui-text_h5 tui-space_top-6">
         Past Goals
-    </h3>
+    </h5>
     <ng-container *ngIf="completedGoals && completedGoals.length !== 0 else noGoal">
         <div *ngFor="let goal of completedGoals" class="tui-space_vertical-3">
             <app-goal-island

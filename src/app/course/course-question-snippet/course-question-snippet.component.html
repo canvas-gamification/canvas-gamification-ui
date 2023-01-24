@@ -1,7 +1,16 @@
 <ng-container *ngIf="uqjs">
     <div [class.tui-container]="eventId" [class.tui-container_adaptive]="eventId">
-        <div *ngIf="eventId" class="flex justify-between items-center">
-            <h1 class="tui-text_h3 tui-space_vertical-10">{{ event.name }}</h1>
+        <a
+            [routerLink]="['..']"
+            icon="tuiIconArrowLeft"
+            size="s"
+            tuiButton
+            appearance="flat"
+        >
+            Back to List of {{getEventType() | titlecase}}s
+        </a>
+        <div *ngIf="eventId" class="flex justify-between items-center mt-3 mb-10">
+            <h5 class="tui-text_h5">{{ event.name }}</h5>
             <div>
                 <a
                     *ngIf="event.has_edit_permission"

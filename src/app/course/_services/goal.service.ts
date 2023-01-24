@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {HttpClient} from "@angular/common/http"
 import {ApiService} from "@app/_services/api.service"
-import {Goal, GoalItem, GoalLimit} from "@app/_models/goal/goal"
+import {Goal, GoalItem, GoalLimit, GoalStats} from "@app/_models/goal/goal"
 import {catchError} from "rxjs/operators"
 import {GoalFormData, GoalItemFormData} from "@app/course/_forms/goal.form"
 
@@ -65,7 +65,16 @@ export class GoalService {
         const url = this.apiService.getURL('goal', 'limits')
         return this.http.get<GoalLimit[]>(url).pipe(catchError(
             this.apiService.handleError<GoalLimit[]>(
-                'Unable to fetch goal limits'
+                'Unable to fetch goal limits.'
+            )
+        ))
+    }
+
+    getStats(goalId: number) {
+        const url = this.apiService.getURL('goal', goalId, 'stats')
+        return this.http.get<GoalStats>(url).pipe(catchError(
+            this.apiService.handleError<GoalStats>(
+                'Unable to fetch goal stats.'
             )
         ))
     }

@@ -1,7 +1,16 @@
 <div class="tui-container tui-container_adaptive">
-    <h2 class="tui-form__header">Recommended Goals</h2>
-    <div *ngFor="let goal of recommendedGoals; let i = index" class="tui-form__row">
-        <tui-island class="shadow">
+    <a
+        [routerLink]="['..']"
+        icon="tuiIconArrowLeft"
+        size="s"
+        tuiButton
+        appearance="flat"
+    >
+        Back to Goals
+    </a>
+    <h2 *ngIf="false" class="tui-form__header">Recommended Goals</h2>
+    <div *ngFor="let goal of recommendedGoals; let i = index">
+        <tui-island *ngIf="false" class="shadow">
             <div class="flex">
                 <div class="flex-1">
                     <div class="flex space-x-1">
@@ -44,7 +53,7 @@
     </div>
 
     <form #createGoalElement (ngSubmit)="onSubmit()" [formGroup]="goalForm">
-        <h2 class="tui-form__header">Create New Goal</h2>
+        <h5 class="tui-text_h5 mt-3">Create New Goal</h5>
         <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
                 <tui-input-date aria-label="End Date" formControlName="end_date">

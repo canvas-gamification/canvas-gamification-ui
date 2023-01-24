@@ -8,7 +8,12 @@ import {CategoryService} from "@app/_services/api/category.service"
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {ProblemSetForm} from "@app/problems/_forms/problem-set.form"
-import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {
+    TuiDialogContext,
+    TuiDialogService,
+    TuiNotification,
+    TuiNotificationsService
+} from "@taiga-ui/core"
 import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
 import {TuiComparator} from "@taiga-ui/addon-table"
 
@@ -48,7 +53,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         status: () => 0,
     }
     sorter = this.sorters.id
-    sortDirection: -1 | 1 = 1
+    sortDirection: -1 | 1 = -1
 
     // Pagination
     numberOfQuestions = 0
@@ -78,7 +83,8 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         private questionService: QuestionService,
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiNotificationsService)
+        private readonly notificationsService: TuiNotificationsService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
         private changeDetector: ChangeDetectorRef
     ) {
@@ -101,8 +107,8 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
     }
 
     ngOnInit(): void {
-        this.initialize()
         this.formGroup = ProblemSetForm.createForm()
+        this.update()
         this.categoryService.getCategories().subscribe((categories) => {
             this.parentCategories = categories.filter(c => c.parent === null)
             this.categories = categories
@@ -120,20 +126,26 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         this.changeDetector.detectChanges()
     }
 
-    /**
-     * Get questions for problem-set.
-     */
-    initialize(): void {
-        this.questionService.getQuestions().subscribe(paginatedQuestions => {
-            this.numberOfQuestions = paginatedQuestions.count
-            this.questions = paginatedQuestions.results
-        })
-    }
 
     /**
      * Update the current view of the problem-set.
      */
-    update(): void {
+    update(values?: {
+        page?: number,
+        pageSize?: number,
+        sortDirection?: -1|1,
+        sorter?: TuiComparator<Question>,
+    }): void {
+        const {page, pageSize, sortDirection, sorter} = values ?? {}
+        if (page)
+            this.page = page
+        if (pageSize)
+            this.pageSize = pageSize
+        if (sortDirection)
+            this.sortDirection = sortDirection
+        if (sorter)
+            this.sorter = sorter
+
         this.filteringQuestions = true
         this.paramChanged.next(this.getOptions())
     }
@@ -156,13 +168,19 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
      */
     getOrdering(): string {
         const filterCategory = this.orderingMap[this.sorter.name]
-        return (this.sortDirection === -1 ? '-' : '') + filterCategory
+        return (this.sortDirection === 1 ? '-' : '') + filterCategory
     }
 
     /**
      * Apply the filters to the problem-set.
      */
-    getFilterQueryString(): { search: string, parentCategory: string, subCategory: string, difficulty: string, is_sample: string } {
+    getFilterQueryString(): {
+        search: string,
+        parentCategory: string,
+        subCategory: string,
+        difficulty: string,
+        is_sample: string
+        } {
         const formValues = this.formGroup.value
         Object.keys(formValues).forEach(key => {
             if (!formValues[key]) {
@@ -179,7 +197,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         this.questionService.deleteQuestion(questionId)
             .subscribe(() => {
                 this.notificationsService
-                    .show('The Question has been Deleted Successfully.', {
+                    .show('The question has been deleted successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
                 this.update()
@@ -191,7 +209,10 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
      * @param content - The modal to open.
      * @param questionId - The question to delete.
      */
-    openDeleteQuestionDialog(content: PolymorpheusContent<TuiDialogContext>, questionId: number): void {
+    openDeleteQuestionDialog(
+        content: PolymorpheusContent<TuiDialogContext>,
+        questionId: number
+    ): void {
         this.dialogService.open(content, {
             closeable: false,
             label: 'Delete Question?'

@@ -160,8 +160,8 @@ export const MOCK_USER_TEACHER: User = {
 export const MOCK_MCQ_QUESTION: Question = {
     id: 0,
     category: 0,
-    category_obj: MOCK_CATEGORY,
     category_name: "Test",
+    full_category_name: "Test",
     status: 'Solved',
     answer: 'a',
     author: 0,
@@ -405,7 +405,6 @@ export const MOCK_GOAL: Goal = {
     is_finished: true,
     number_of_questions: 40,
     goal_items: MOCK_GOAL_ITEMS,
-    stats: null,
     claimed: false,
 }
 
@@ -418,7 +417,6 @@ export const MOCK_GOAL_2: Goal = {
     is_finished: false,
     number_of_questions: 40,
     goal_items: MOCK_GOAL_ITEMS,
-    stats: null,
     claimed: false,
 }
 

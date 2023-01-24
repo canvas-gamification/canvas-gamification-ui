@@ -5,9 +5,17 @@
                 [item]="choice.id"
                 contentAlign="left"
                 formControlName="solution"
+                class="max-w-[100%]"
             >
-                <app-editor [ngModelOptions]="{standalone: true}" [ngModel]="choice.value"
-                            [readonly]="true"></app-editor>
+                <div class="mt-[16px]">
+                <app-editor
+                    [ngModelOptions]="{standalone: true}"
+                    [ngModel]="choice.value"
+                    [readonly]="true"
+                    class="whitespace-normal"
+                >
+                </app-editor>
+                </div>
             </tui-radio-block>
         </div>
         <div class="tui-form__buttons">

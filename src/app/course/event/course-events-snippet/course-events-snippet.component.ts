@@ -123,7 +123,7 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.courseEventService.importCourseEvent(event, courseId).subscribe((response) => {
             if (response.status === 201) {
                 this.notificationsService
-                    .show('The Event has been Imported Successfully.', {
+                    .show('The event has been imported successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
             }

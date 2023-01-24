@@ -7,7 +7,6 @@ export interface Goal {
     is_finished: boolean
     number_of_questions: number
     goal_items: GoalItem[]
-    stats: GoalStats
     claimed: boolean
 }
 
@@ -24,10 +23,12 @@ export interface GoalStats {
     [goalItem: number]: GoalItemStats
 }
 
-export interface GoalItemStats {
+export type QuestionTypeKey = 'mcq' | 'java' | 'parsons' | 'all'
+
+export type GoalItemStats = Record<QuestionTypeKey, {
     old_submissions: GoalItemSubmissionStats
     submissions: GoalItemSubmissionStats
-}
+}>
 
 export interface GoalItemSubmissionStats {
     total: number

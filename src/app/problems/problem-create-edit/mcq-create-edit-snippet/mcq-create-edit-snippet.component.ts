@@ -65,7 +65,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
             this.questionService.putMultipleChoiceQuestion(submissionData, this.questionDetails.id)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The Question has been Updated Successfully.', {
+                        .show('The question has been updated successfully.', {
                             status: TuiNotification.Success
                         }).subscribe()
                     this.refreshPage()
@@ -74,7 +74,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
             this.questionService.postMultipleChoiceQuestion(submissionData)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The Question has been Created Successfully.', {
+                        .show('The question has been created successfully.', {
                             status: TuiNotification.Success
                         }).subscribe()
                     this.refreshPage()
