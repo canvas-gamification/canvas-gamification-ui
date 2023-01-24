@@ -1,6 +1,17 @@
 <div class="tui-container tui-container_adaptive">
+    <a
+        [routerLink]="eventId ? ['../..'] : ['..']"
+        icon="tuiIconArrowLeft"
+        size="s"
+        tuiButton
+        appearance="flat"
+    >
+        Back to List of Challenges
+    </a>
     <form (ngSubmit)="onSubmit()" [formGroup]="challengeForm">
-        <h2 class="tui-form__header">{{eventId ? 'Edit ' + event?.name : 'Create New Challenge'}}</h2>
+        <h5 class="tui-text_h5 mt-3">
+            {{eventId ? 'Edit ' + event?.name : 'Create New Challenge'}}
+        </h5>
         <div class="tui-form__row">
             <tui-input aria-label="Challenge Name" formControlName="name">
                 Challenge Name
