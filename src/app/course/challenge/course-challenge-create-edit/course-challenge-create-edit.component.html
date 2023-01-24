@@ -9,11 +9,9 @@
         Back to List of Challenges
     </a>
     <form (ngSubmit)="onSubmit()" [formGroup]="challengeForm">
-        <div class="flex flex-wrap gap-3 mt-3">
-            <h5 class="tui-text_h5 tui-col_stretch flex-grow">
-                {{eventId ? 'Edit ' + event?.name : 'Create New Challenge'}}
-            </h5>
-        </div>
+        <h5 class="tui-text_h5 mt-3">
+            {{eventId ? 'Edit ' + event?.name : 'Create New Challenge'}}
+        </h5>
         <div class="tui-form__row">
             <tui-input aria-label="Challenge Name" formControlName="name">
                 Challenge Name
