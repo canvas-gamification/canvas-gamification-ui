@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges} from '@angular/core'
 import {LeaderboardElement} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
+import {CourseEventService} from "@app/course/_services/course-event.service"
 
 @Component({
     selector: 'app-leader-board',
@@ -11,6 +12,7 @@ export class LeaderBoardComponent implements OnChanges {
     leaderBoard: LeaderboardElement[]
     rankTopX: number
     @Input() courseId: number
+    eventId= 8
     displayedColumns: string[] = ['rank', 'name', 'token']
 
     readonly filterOutTopX = (element: LeaderboardElement, x: number): boolean => element.rank > x
@@ -18,14 +20,21 @@ export class LeaderBoardComponent implements OnChanges {
 
     constructor(
         private courseService: CourseService,
+        private courseEventService: CourseEventService,
     ) {
     }
 
     ngOnChanges(): void {
         this.rankTopX = 3
-        this.courseService.getCourseLeaderBoard(this.courseId).subscribe(
-            leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
-        )
+        if(this.eventId){
+            this.courseEventService.getEventLeaderBoard(this.eventId).subscribe(
+                leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
+            )
+        }else{
+            this.courseService.getCourseLeaderBoard(this.courseId).subscribe(
+                leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
+            )
+        }
     }
 
     /**
@@ -35,7 +44,12 @@ export class LeaderBoardComponent implements OnChanges {
     getRankedLeaderboard(leaderBoard: LeaderboardElement[]): LeaderboardElement[] {
         const sortedLeaderboard = leaderBoard.sort((a, b) => b.token - a.token)
         return sortedLeaderboard.map((element, index) => {
-            return {
+            return this.eventId? {
+                rank: index + 1,
+                name: element.name,
+                token: element.token,
+                member_names: element.member_names
+            } : {
                 rank: index + 1,
                 name: element.name,
                 token: element.token

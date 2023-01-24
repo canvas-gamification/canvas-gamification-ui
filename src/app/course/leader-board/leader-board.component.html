@@ -47,7 +47,8 @@
                             class="tui-space_right-2"
                             size="s"
                         ></tui-avatar>
-                        {{ element.name || 'Anonymous User' }}
+                        {{ element.name || 'Anonymous User' }}:
+                        {{ element.member_names}}
                     </div>
                 </td>
                 <td *tuiCell="'token'" tuiTd>
