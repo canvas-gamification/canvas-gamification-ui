@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import {CourseEvent, EventType} from '@app/_models'
+import {CourseEvent, EventType, LeaderboardElement} from '@app/_models'
 import {Observable} from 'rxjs'
 import {HttpClient, HttpResponse} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
@@ -155,5 +155,15 @@ export class CourseEventService {
         return this.http.post(url, input).pipe(catchError(
             this.apiService.handleError<unknown>(`Error occurred while adding question set`)
         ))
+    }
+
+    getEventLeaderBoard(eventId: number): Observable<LeaderboardElement[]>{
+        const url = this.apiService.getURL('event', eventId, 'leader-board')
+        return this.http.get<LeaderboardElement[]>(url)
+            .pipe(catchError(
+                this.apiService.handleError<LeaderboardElement[]>(
+                    `Error occurred while fetching event leader board.`
+                )
+            ))
     }
 }
