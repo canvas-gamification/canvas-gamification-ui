@@ -50,15 +50,13 @@ import {
     EventStatsComponent
 } from "@app/course/event/event-stats/event-stats.component"
 import {
-    LeaderBoardComponent
-} from "@app/course/leader-board/leader-board.component"
-import {
     ListOfTeamsComponent
 } from "@app/course/challenge/list-of-teams/list-of-teams.component"
 import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-edit.component'
 import {
     CourseChallengeCreateEditComponent
 } from "@app/course/challenge/course-challenge-create-edit/course-challenge-create-edit.component"
+import {LeaderBoardPageComponent} from "@app/course/leader-board-page/leader-board-page.component"
 
 const routes: Routes = [
     {
@@ -464,24 +462,21 @@ const routes: Routes = [
                         routerLink: '/course/:courseId/challenge/:eventId/problem/:id'
                     }]
                 }
-            },
-            {
-                path: 'leaderboard',
-                component: LeaderBoardComponent,
-                data: {
-                    breadCrumbs: [{
-                        caption: `Homepage`,
-                        routerLink: '/course/:courseId/homepage'
-                    }, {
-                        caption: `Leaderboard`,
-                        routerLink: '/course/:courseId/leaderboard'
-                    }]
-                }
             }]
     },
     {
         path: ':courseId/practice/category/:categoryId',
         component: PracticeProblemComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/leaderboard',
+        component: LeaderBoardPageComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/leaderboard/challenge/:eventId',
+        component: LeaderBoardPageComponent,
         canActivate: [AuthGuard]
     }]
 
