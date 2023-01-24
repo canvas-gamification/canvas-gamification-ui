@@ -33,29 +33,55 @@
                 <th *tuiHead="'token'" tuiTh>Tokens</th>
             </tr>
             </thead>
-            <tbody [data]="leaderBoard | tuiFilter: filterOutTopX: rankTopX" tuiTbody>
-            <tr *tuiRow="let element of leaderBoard" tuiTr>
-                <td *tuiCell="'rank'" tuiTd>
-                    {{ getGetOrdinal(element.rank) }}
-                </td>
-                <td *tuiCell="'name'" tuiTd>
-                    <div class="table-avatar-with-name">
-                        <tui-avatar
-                            [autoColor]="true"
-                            [rounded]="true"
-                            [text]="element.name || 'Anonymous User'"
-                            class="tui-space_right-2"
-                            size="s"
-                        ></tui-avatar>
-                        {{ element.name || 'Anonymous User' }}:
-                        {{ element.member_names}}
-                    </div>
-                </td>
-                <td *tuiCell="'token'" tuiTd>
-                    {{ element.token || 'No Tokens' }}
-                </td>
-            </tr>
-            </tbody>
+            <ng-container *ngIf="!eventId">
+                <tbody [data]="leaderBoard | tuiFilter: filterOutTopX: rankTopX" tuiTbody>
+                <tr *tuiRow="let element of leaderBoard" tuiTr>
+                    <td *tuiCell="'rank'" tuiTd>
+                        {{ getGetOrdinal(element.rank) }}
+                    </td>
+                    <td *tuiCell="'name'" tuiTd>
+                        <div class="table-avatar-with-name">
+                            <tui-avatar
+                                [autoColor]="true"
+                                [rounded]="true"
+                                [text]="element.name || 'Anonymous User'"
+                                class="tui-space_right-2"
+                                size="s"
+                            ></tui-avatar>
+                            {{ element.name || 'Anonymous User' }}
+                        </div>
+                    </td>
+                    <td *tuiCell="'token'" tuiTd>
+                        {{ element.token || 'No Tokens' }}
+                    </td>
+                </tr>
+                </tbody>
+            </ng-container>
+            <ng-container *ngIf="eventId">
+                <tbody [data]="leaderBoard" tuiTbody>
+                <tr *tuiRow="let element of leaderBoard" tuiTr>
+                    <td *tuiCell="'rank'" tuiTd>
+                        {{ getGetOrdinal(element.rank) }}
+                    </td>
+                    <td *tuiCell="'name'" tuiTd>
+                        <div class="table-avatar-with-name">
+                            <tui-avatar
+                                [autoColor]="true"
+                                [rounded]="true"
+                                [text]="element.name || 'Anonymous User'"
+                                class="tui-space_right-2"
+                                size="s"
+                            ></tui-avatar>
+                            {{ element.name || 'Anonymous User' }}:
+                            {{ element.member_names}}
+                        </div>
+                    </td>
+                    <td *tuiCell="'token'" tuiTd>
+                        {{ element.token || 'No Tokens' }}
+                    </td>
+                </tr>
+                </tbody>
+            </ng-container>
         </table>
     </div>
 </ng-container>
