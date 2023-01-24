@@ -63,7 +63,11 @@
     <tui-island *ngIf="submission?.no_file_answer">
         <h3 class="tui-island__category tui-text_body-xs">Code</h3>
         <div class="tui-island__paragraph">
-            <app-code-editor [codeTemplate]="submission?.answer" [readOnly]="true"></app-code-editor>
+            <app-code-editor
+                [codeTemplate]="submission?.answer"
+                [readOnly]="true"
+            >
+            </app-code-editor>
         </div>
     </tui-island>
 
@@ -79,7 +83,11 @@
         <ng-container *ngIf="submission?.get_decoded_stderr; else successCompile">
             <p class="tui-island__paragraph">The following error occurred: </p>
             <div class="tui-island__paragraph">
-                <app-code-editor [codeTemplate]="submission?.get_decoded_stderr" [readOnly]="true"></app-code-editor>
+                <app-code-editor
+                    [codeTemplate]="submission?.get_decoded_stderr"
+                    [readOnly]="true"
+                >
+                </app-code-editor>
             </div>
         </ng-container>
         <ng-template #successCompile>
@@ -88,6 +96,38 @@
         <ng-container *ngIf="submission?.get_status_message">
             <p class="tui-island__paragraph">Message: {{ submission?.get_status_message }}</p>
         </ng-container>
+    </tui-island>
+
+    <tui-island *ngIf="submission?.bugs?.bugs?.length > 0">
+        <h3 class="tui-island__category tui-text_body-xs">Potential Mistakes</h3>
+        <tui-accordion
+            [rounded]="false"
+        >
+            <tui-accordion-item
+                *ngFor="let bug of submission.bugs.bugs"
+                borders="top-bottom"
+            >
+                <div
+                    class="tui-island__paragraph"
+                >
+                    {{bug.short_message}}
+                </div>
+                <ng-template
+                    tuiAccordionItemContent
+                >
+                    <div>
+                        {{bug.long_message}}
+                    </div>
+                    <div>
+                        {{bug.source_line}}
+                    </div>
+                    <div
+                        [innerHtml]="getPattern(bug.type).details"
+                    >
+                    </div>
+                </ng-template>
+            </tui-accordion-item>
+        </tui-accordion>
     </tui-island>
 </div>
 

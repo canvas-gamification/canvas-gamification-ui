@@ -45,4 +45,19 @@ export interface QuestionSubmission {
     show_detail: boolean;
     safeAnswer: SafeHtml[];
     author: string;
+    bugs: SubmissionBug
+}
+
+export interface SubmissionBug {
+    bugs: {
+        type: string
+        short_message: string
+        long_message: string
+        source_line: string
+    }[]
+    patterns: {
+        type: string
+        short_description: string
+        details: string
+    }[]
 }
