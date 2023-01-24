@@ -105,6 +105,7 @@ import {CourseChallengeCreateEditComponent
 } from './challenge/course-challenge-create-edit/course-challenge-create-edit.component'
 import {EventRowComponent} from './event/event-row/event-row.component'
 import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-modal.component'
+import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.component'
 
 @NgModule({
     declarations: [
@@ -133,6 +134,7 @@ import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-
         GoalIslandComponent,
         GoalPageComponent,
         LeaderBoardComponent,
+        LeaderBoardPageComponent,
         ListOfTeamsComponent,
         PracticeProblemComponent,
         SubmissionChartComponent,
