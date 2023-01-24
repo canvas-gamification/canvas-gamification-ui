@@ -26,9 +26,9 @@ export class LeaderBoardComponent implements OnInit {
 
     ngOnInit(): void {
         this.rankTopX = 3
-        this.courseService.getCourse(this.courseId).subscribe(course => {
-            this.leaderBoard = this.getRankedLeaderboard(course?.leader_board)
-        })
+        this.courseService.getCourseLeaderBoard(this.courseId).subscribe(
+            leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
+        )
     }
 
     /**
