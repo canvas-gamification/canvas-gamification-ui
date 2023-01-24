@@ -1,1 +1,8 @@
-<p>leader-board-page works!</p>
+<div class="leaderBoardPage">
+    <app-sidebar sidebarId="leaderBoardPageSide">
+        <ng-container *ngFor="let option of options">
+            <div>{{option}}</div>
+        </ng-container>
+    </app-sidebar>
+
+</div>
