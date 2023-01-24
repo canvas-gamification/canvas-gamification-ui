@@ -59,7 +59,7 @@
                                 <ng-container *ngIf="isInTeam(team); else notInTeam;">
                                     <a
                                         *ngIf=
-                                            "isInTeam(team) && !event.is_not_available_yet"
+                                            "isInTeam(team) && event.is_not_available_yet"
                                         [routerLink]="[team.id, 'edit']"
                                         appearance="secondary"
                                         aria-label="Edit"
