@@ -1,17 +1,16 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, Input, OnChanges} from '@angular/core'
 import {LeaderboardElement} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
-import {ActivatedRoute} from "@angular/router"
 
 @Component({
     selector: 'app-leader-board',
     templateUrl: './leader-board.component.html',
     styleUrls: ['./leader-board.component.scss']
 })
-export class LeaderBoardComponent implements OnInit {
+export class LeaderBoardComponent implements OnChanges {
     leaderBoard: LeaderboardElement[]
     rankTopX: number
-    courseId: number
+    @Input() courseId: number
     displayedColumns: string[] = ['rank', 'name', 'token']
 
     readonly filterOutTopX = (element: LeaderboardElement, x: number): boolean => element.rank > x
@@ -19,12 +18,10 @@ export class LeaderBoardComponent implements OnInit {
 
     constructor(
         private courseService: CourseService,
-        private route: ActivatedRoute
     ) {
-        this.courseId = this.route.snapshot.parent.params.courseId
     }
 
-    ngOnInit(): void {
+    ngOnChanges(): void {
         this.rankTopX = 3
         this.courseService.getCourseLeaderBoard(this.courseId).subscribe(
             leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)

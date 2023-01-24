@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
-import {Course} from "@app/_models"
+import {Course, CourseEvent} from "@app/_models"
 
 @Component({
     selector: 'app-leader-board-page',
@@ -11,7 +11,7 @@ import {Course} from "@app/_models"
 export class LeaderBoardPageComponent implements OnInit {
     courseId: number
     course: Course
-    events: Event
+    events: CourseEvent[]
     options = ['a', 'b', 'c']
 
     constructor(
@@ -19,12 +19,15 @@ export class LeaderBoardPageComponent implements OnInit {
         private courseService: CourseService,
         private route: ActivatedRoute
     ) {
-        this.courseId = this.route.snapshot.parent.params.courseId
+
     }
 
     ngOnInit(): void {
-        this.courseService.getCourse(this.courseId).subscribe(course => this.course = course)
-
+        this.courseId = this.route.snapshot.params.courseId
+        this.courseService.getCourse(this.courseId).subscribe(course => {
+            this.course = course
+            this.events = course.events.filter(event => event.type === 'CHALLENGE')
+        })
     }
 
 
