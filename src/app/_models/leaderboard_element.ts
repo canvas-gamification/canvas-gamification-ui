@@ -4,3 +4,8 @@ export type LeaderboardElement = {
     token: number;
     member_names?: string[];
 }
+
+export type LeaderboardPageElement = {
+    name: string;
+    eventId: number;
+}

@@ -1,7 +1,7 @@
 <div class="leaderBoardPage">
     <app-sidebar sidebarId="leaderBoardPageSide">
         <ng-container *ngFor="let option of options">
-            <div>{{option}}</div>
+            <div>{{option.name}}</div>
         </ng-container>
     </app-sidebar>
     <app-leader-board [courseId]="courseId"></app-leader-board>
