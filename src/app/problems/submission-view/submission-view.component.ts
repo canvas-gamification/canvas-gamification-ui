@@ -36,6 +36,10 @@ export class SubmissionViewComponent implements OnInit {
         this.changeDetector.detectChanges()
     }
 
+    getPattern(type: string) {
+        return this.submission.bugs.patterns.find(p => p.type === type)
+    }
+
     closeDialog(): void {
         this.context.completeWith(null)
     }

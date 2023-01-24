@@ -682,6 +682,10 @@ export const MOCK_QUESTION_SUBMISSION: QuestionSubmission = {
     show_detail: true,
     safeAnswer: [],
     author: 'studentName',
+    bugs: {
+        bugs: [],
+        patterns: []
+    },
 }
 
 export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
@@ -713,6 +717,10 @@ export const MOCK_QUESTION_SUBMISSION_2: QuestionSubmission = {
     show_detail: true,
     safeAnswer: [],
     author: 'studentName',
+    bugs: {
+        bugs: [],
+        patterns: []
+    },
 }
 
 export const MOCK_DIFFICULTIES: Difficulty[] = [
