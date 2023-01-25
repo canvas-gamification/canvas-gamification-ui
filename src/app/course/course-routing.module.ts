@@ -473,11 +473,6 @@ const routes: Routes = [
         path: ':courseId/leaderboard',
         component: LeaderBoardPageComponent,
         canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/leaderboard/challenge/:eventId',
-        component: LeaderBoardPageComponent,
-        canActivate: [AuthGuard]
     }]
 
 @NgModule({
