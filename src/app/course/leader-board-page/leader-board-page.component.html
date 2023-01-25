@@ -27,5 +27,9 @@
             </div>
         </ng-container>
     </app-sidebar>
-    <app-leader-board [courseId]="courseId" [eventId]="selectedOption.eventId"></app-leader-board>
+    <app-leader-board
+        [courseId]="courseId"
+        [eventId]="selectedOption.eventId"
+        [leaderBoardName]="selectedOption.name"
+    ></app-leader-board>
 </div>

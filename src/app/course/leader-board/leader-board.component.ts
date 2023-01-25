@@ -13,6 +13,7 @@ export class LeaderBoardComponent implements OnChanges {
     rankTopX: number
     @Input() courseId: number
     @Input() eventId: number
+    @Input() leaderBoardName: string
     displayedColumns: string[] = ['rank', 'name', 'token']
 
     readonly filterOutTopX = (element: LeaderboardElement, x: number): boolean => element.rank > x
