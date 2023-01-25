@@ -1,8 +1,12 @@
 <div class="leaderBoardPage">
     <app-sidebar sidebarId="leaderBoardPageSide">
         <ng-container *ngFor="let option of options">
-            <div>{{option.name}}</div>
+            <div
+                (click) = setSelectedOption(option)
+            >
+                {{option.name}}
+            </div>
         </ng-container>
     </app-sidebar>
-    <app-leader-board [courseId]="courseId"></app-leader-board>
+    <app-leader-board [courseId]="courseId" [eventId]="selectedOption.eventId"></app-leader-board>
 </div>
