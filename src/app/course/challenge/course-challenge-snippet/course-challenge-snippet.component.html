@@ -1,6 +1,19 @@
 <div class="flex flex-col gap-5">
     <ng-container *ngIf="course else skeletonTemplate">
+
         <div class="flex justify-end toolBar">
+            <div class="flex justify-start toolBar">
+                <button
+                    appearance="flat"
+                    [routerLink]="['..']"
+                    icon="tuiIconArrowLeft"
+                    aria-label="Back to Homepage"
+                    size="s"
+                    tuiButton
+                >
+                    Back to Homepage
+                </button>
+            </div>
             <button
                 *ngIf="course?.has_create_event_permission"
                 [routerLink]="['/course', courseId, 'challenge', 'create']"
