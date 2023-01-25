@@ -18,7 +18,7 @@
         ></tui-tag>
         <div class="tui-form__buttons">
             <a
-                *ngIf = "user?.is_teacher"
+                *ngIf="user?.is_teacher"
                 appearance="primary"
                 [routerLink]="['/course', course.id]"
                 class="tui-form__button"
