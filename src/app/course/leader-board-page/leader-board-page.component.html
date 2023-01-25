@@ -4,6 +4,7 @@
             [routerLink]="['/course', courseId, 'homepage']"
             icon="tuiIconArrowLeft"
             appearance="flat"
+            class="margins"
             size="m"
             tuiButton
         >
@@ -11,7 +12,16 @@
         </a>
         <ng-container *ngFor="let option of options">
             <div
+                *ngIf="isSelectedOption(option)"
                 (click) = setSelectedOption(option)
+                class="font-bold margins cursor-pointer"
+            >
+                {{option.name}}
+            </div>
+            <div
+                *ngIf="!isSelectedOption(option)"
+                (click) = setSelectedOption(option)
+                class="margins cursor-pointer"
             >
                 {{option.name}}
             </div>

@@ -54,5 +54,9 @@ export class LeaderBoardPageComponent implements OnInit {
         this.selectedOption = option
     }
 
+    isSelectedOption(option: LeaderboardPageElement): boolean {
+        return this.selectedOption.eventId === option.eventId
+    }
+
 
 }
