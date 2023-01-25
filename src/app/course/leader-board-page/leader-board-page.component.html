@@ -1,5 +1,14 @@
 <div class="leaderBoardPage">
     <app-sidebar sidebarId="leaderBoardPageSide">
+        <a
+            [routerLink]="['/course', courseId, 'homepage']"
+            icon="tuiIconArrowLeft"
+            appearance="flat"
+            size="m"
+            tuiButton
+        >
+            Back to homepage
+        </a>
         <ng-container *ngFor="let option of options">
             <div
                 (click) = setSelectedOption(option)
