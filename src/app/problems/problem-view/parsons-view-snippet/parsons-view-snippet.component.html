@@ -27,7 +27,8 @@
             <div class="parsons__list">
                 <div *ngFor="let file of files">
                     <p class="parsons__list-title">{{ file.name }}</p>
-                    <app-parsons-lines (code)="file.solution = $event" [file]="file"></app-parsons-lines>
+                    <app-parsons-lines (code)="file.solution = $event"
+                                       [file]="file"></app-parsons-lines>
                 </div>
             </div>
             <!--    </ng-template>-->
