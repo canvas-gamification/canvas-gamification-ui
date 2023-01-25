@@ -1,5 +1,14 @@
 <div class="px-10 space-y-5">
     <ng-container *ngIf="course else skeletonTemplate">
+        <button
+            appearance="flat"
+            [routerLink]="['..']"
+            icon="tuiIconArrowLeft"
+            aria-label="Back to Homepage"
+            size="s"
+            tuiButton>
+            Back to Homepage
+        </button>
         <div class="flex flex-wrap gap-3">
             <div class="flex-grow">
                 <tui-select
