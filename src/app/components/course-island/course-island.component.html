@@ -1,4 +1,6 @@
-<tui-island class="course-island" size="m">
+<tui-island class="course-island tui-island_hoverable"
+            [routerLink]="['/course', course.id]"
+            size="m">
     <ng-container *ngIf="!skeleton else skeletonTemplate">
         <div
             [style.backgroundColor]="course.name | getColorFromString"
@@ -18,7 +20,7 @@
         ></tui-tag>
         <div class="tui-form__buttons">
             <a
-                *ngIf = "user?.is_teacher"
+                *ngIf="user?.is_teacher"
                 appearance="primary"
                 [routerLink]="['/course', course.id]"
                 class="tui-form__button"
