@@ -4,8 +4,7 @@
 .top-x-islands {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: center;
 
     @include screen-sm() {
         flex-wrap: wrap;
@@ -23,11 +22,7 @@
             width: 100%;
             flex: unset;
             margin-right: 0;
-            margin-top: 2rem !important;
-
-            &:first-of-type {
-                margin-top: 0 !important;
-            }
+            margin-top: 0 !important;
         }
 
         .top-x-avatar {
