@@ -1,5 +1,16 @@
 <ng-container *ngIf="leaderBoard else skeletonTemplate">
     <div *ngIf="leaderBoard" class="tui-container tui-container_adaptive">
+<!--        <button-->
+<!--            appearance="flat"-->
+<!--            [routerLink]="['..']"-->
+<!--            icon="tuiIconArrowLeft"-->
+<!--            aria-label="Back to Homepage"-->
+<!--            class="mb-5"-->
+<!--            size="s"-->
+<!--            tuiButton-->
+<!--        >-->
+<!--            Back to Homepage-->
+<!--        </button>-->
         <h3 class="tui-text_h3 my-8">{{leaderBoardName}} Leader Board</h3>
         <div class="top-x-islands tui-space_bottom-8">
             <tui-island *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index"
