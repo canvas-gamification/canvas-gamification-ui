@@ -1,5 +1,11 @@
+@import "mixins";
+
 .leaderBoardPage {
     display: flex;
+
+    @include screen-sm() {
+        flex-wrap: wrap;
+    }
 }
 
 .margins {
