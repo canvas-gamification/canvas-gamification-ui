@@ -1,4 +1,4 @@
-<ng-container *ngIf="leaderBoard else skeletonTemplate">
+<ng-container *ngIf="leaderBoard && leaderBoardName else skeletonTemplate">
     <h3 class="tui-text_h3 my-8">{{leaderBoardName}} Leader Board</h3>
     <div class="top-x-islands tui-space_bottom-8">
         <tui-island *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index"
@@ -85,6 +85,7 @@
     </table>
 </ng-container>
 <ng-template #skeletonTemplate>
+    <h3 class="tui-text_h3 my-8 tui-skeleton">{{leaderBoardName}} Leader Board</h3>
     <div class="top-x-islands tui-space_bottom-8">
         <tui-island
                     [style.marginTop]="1 + 'rem'" [style.order]="(1 % 2 * -1)"
