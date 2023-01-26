@@ -4,7 +4,7 @@
     display: flex;
 
     @include screen-sm() {
-        flex-wrap: wrap;
+        flex-direction: column;
     }
 }
 
@@ -14,4 +14,9 @@
     &:last-child{
         margin-bottom: 1.5rem;
     }
+
+    @include screen-sm() {
+        text-align: center;
+    }
+
 }
