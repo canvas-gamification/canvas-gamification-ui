@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core'
-import {LeaderboardElement} from "@app/_models"
+import {Course, LeaderboardElement} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 
@@ -11,7 +11,7 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
 export class LeaderBoardComponent implements OnChanges {
     leaderBoard: LeaderboardElement[]
     rankTopX: number
-    @Input() courseId: number
+    @Input() course: Course
     @Input() eventId: number
     @Input() leaderBoardName: string
     displayedColumns: string[] = ['rank', 'name', 'token']
@@ -32,10 +32,12 @@ export class LeaderBoardComponent implements OnChanges {
                 leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
             )
         }else{
-            this.courseService.getCourseLeaderBoard(this.courseId).subscribe(
+            this.courseService.getCourseLeaderBoard(this.course.id).subscribe(
                 leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
+
             )
         }
+        //after getting the ranking and assigning this.leaderBoard, log it
     }
 
     /**
