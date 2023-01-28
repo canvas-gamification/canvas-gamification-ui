@@ -3,6 +3,8 @@ import {ActionStatus, ActionType, ActionVerb, Course, LeaderboardElement} from "
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {UserActionsService} from "@app/_services/api/user-actions.service"
+import {TeamService} from "@app/course/_services/team.service"
+import {Team} from "@app/_models/team"
 
 @Component({
     selector: 'app-leader-board',
@@ -17,6 +19,8 @@ export class LeaderBoardComponent implements OnChanges {
     @Input() leaderBoardName: string
     displayedColumns: string[] = ['rank', 'name', 'token']
 
+    myTeam: Team
+
     readonly filterOutTopX = (element: LeaderboardElement, x: number): boolean => element.rank > x
     readonly filterInTopX = (element: LeaderboardElement, x: number): boolean => element.rank <= x
 
@@ -24,21 +28,24 @@ export class LeaderBoardComponent implements OnChanges {
         private courseService: CourseService,
         private courseEventService: CourseEventService,
         private userAction: UserActionsService,
+        private teamService: TeamService
     ) {
     }
 
     ngOnChanges(): void {
         this.rankTopX = 3
         if(this.eventId){
-            this.courseEventService.getEventLeaderBoard(this.eventId).subscribe(
-                leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
-            )
-        }else{
-            this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
+            this.courseEventService.getEventLeaderBoard(this.eventId).subscribe(leaderBoard => {
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
-                //after getting the ranking and assigning this.leaderBoard, log it
+                this.teamService.getMyTeam(this.eventId).subscribe( team => {
+                    this.myTeam = team
+                    //logChallengeRanking()
+                })
+            })
+        }else{
+            this.courseService.getCourseLeaderBoard(this.course?.id).subscribe(leaderBoard => {
+                this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
                 //this.logCourseRanking()
-                console.log(this.getRanking())
             })
         }
     }
@@ -54,7 +61,8 @@ export class LeaderBoardComponent implements OnChanges {
                 rank: index + 1,
                 name: element.name,
                 token: element.token,
-                member_names: element.member_names
+                member_names: element.member_names,
+                team_id: element.team_id
             } : {
                 rank: index + 1,
                 name: element.name,
@@ -78,11 +86,15 @@ export class LeaderBoardComponent implements OnChanges {
 
     getRanking(): number {
         //give me the object in the array with the attribute course_reg_id = course.course_reg.id
-        if (this.eventId)
-            return 5
-        else
+        //getMyTeam: to get my team (teamId to compare with...) leaderboard contains a list of teams
+        // : this.leaderBoard.filter(element => element.team.id === getMyTeam(this.eventId))
+        if (this.eventId){
+            return this.leaderBoard.filter(element =>
+                element.team_id === this.myTeam.id )[0].rank
+        } else {
             return this.leaderBoard.filter(element =>
                 element.course_reg_id === this.course.id)[0].rank
+        }
     }
 
     logCourseRanking(): void {
@@ -92,6 +104,19 @@ export class LeaderBoardComponent implements OnChanges {
             verb: ActionVerb.READ,
             object_type: ActionType.COURSE,
             object_id: this.course.id,
+            data: {
+                ranking: this.getRanking()
+            },
+        })
+    }
+
+    logChallengeRanking(): void {
+        this.userAction.createCustomAction({
+            description: 'User viewed team ranking on a challenge leader board',
+            status: ActionStatus.COMPLETE,
+            verb: ActionVerb.READ,
+            object_type: ActionType.EVENT,
+            object_id: this.eventId,
             data: {
                 ranking: this.getRanking()
             },
