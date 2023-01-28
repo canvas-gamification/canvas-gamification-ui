@@ -43,7 +43,7 @@ export class LeaderBoardComponent implements OnChanges {
                 })
             })
         }else{
-            this.courseService.getCourseLeaderBoard(this.course?.id).subscribe(leaderBoard => {
+            this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
                 //this.logCourseRanking()
             })
