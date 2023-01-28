@@ -84,13 +84,16 @@ export class LeaderBoardComponent implements OnChanges {
     }
 
 
-    getRanking(): number {
-        if (this.eventId)
-            return this.leaderBoard.filter(element =>
-                element.team_id === this.myTeam.id )[0].rank
-        else
-            return this.leaderBoard.filter(element =>
-                element.course_reg_id === this.course.id)[0].rank
+    getRanking(): number | string {
+        if (this.eventId){
+            if (!this.leaderBoard.some(element => element.team_id === this.myTeam.id))
+                return 'No Ranking'
+            return this.leaderBoard.find(element => element.team_id === this.myTeam.id).rank
+        } else {
+            if (!this.leaderBoard.some(element => element.course_reg_id === this.course.id))
+                return 'No Ranking'
+            return this.leaderBoard.find(element => element.course_reg_id === this.course.id).rank
+        }
     }
 
     logCourseRanking(): void {
