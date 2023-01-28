@@ -39,13 +39,13 @@ export class LeaderBoardComponent implements OnChanges {
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
                 this.teamService.getMyTeam(this.eventId).subscribe( team => {
                     this.myTeam = team
-                    //logChallengeRanking()
+                    this.logChallengeRanking()
                 })
             })
         }else{
             this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
-                //this.logCourseRanking()
+                this.logCourseRanking()
             })
         }
     }
@@ -85,16 +85,12 @@ export class LeaderBoardComponent implements OnChanges {
 
 
     getRanking(): number {
-        //give me the object in the array with the attribute course_reg_id = course.course_reg.id
-        //getMyTeam: to get my team (teamId to compare with...) leaderboard contains a list of teams
-        // : this.leaderBoard.filter(element => element.team.id === getMyTeam(this.eventId))
-        if (this.eventId){
+        if (this.eventId)
             return this.leaderBoard.filter(element =>
                 element.team_id === this.myTeam.id )[0].rank
-        } else {
+        else
             return this.leaderBoard.filter(element =>
                 element.course_reg_id === this.course.id)[0].rank
-        }
     }
 
     logCourseRanking(): void {
