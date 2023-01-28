@@ -1,7 +1,8 @@
 import {Component, Input, OnChanges} from '@angular/core'
-import {Course, LeaderboardElement} from "@app/_models"
+import {ActionStatus, ActionType, ActionVerb, Course, LeaderboardElement} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseEventService} from "@app/course/_services/course-event.service"
+import {UserActionsService} from "@app/_services/api/user-actions.service"
 
 @Component({
     selector: 'app-leader-board',
@@ -22,6 +23,7 @@ export class LeaderBoardComponent implements OnChanges {
     constructor(
         private courseService: CourseService,
         private courseEventService: CourseEventService,
+        private userAction: UserActionsService,
     ) {
     }
 
@@ -32,12 +34,13 @@ export class LeaderBoardComponent implements OnChanges {
                 leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
             )
         }else{
-            this.courseService.getCourseLeaderBoard(this.course.id).subscribe(
-                leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
-
-            )
+            this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
+                this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
+                //after getting the ranking and assigning this.leaderBoard, log it
+                //this.logCourseRanking()
+                console.log(this.getRanking())
+            })
         }
-        //after getting the ranking and assigning this.leaderBoard, log it
     }
 
     /**
@@ -55,7 +58,8 @@ export class LeaderBoardComponent implements OnChanges {
             } : {
                 rank: index + 1,
                 name: element.name,
-                token: element.token
+                token: element.token,
+                course_reg_id: element.course_reg_id
             }
         })
     }
@@ -69,5 +73,28 @@ export class LeaderBoardComponent implements OnChanges {
         const s = ["th", "st", "nd", "rd"],
             v = n % 100
         return n + (s[(v - 20) % 10] || s[v] || s[0])
+    }
+
+
+    getRanking(): number {
+        //give me the object in the array with the attribute course_reg_id = course.course_reg.id
+        if (this.eventId)
+            return 5
+        else
+            return this.leaderBoard.filter(element =>
+                element.course_reg_id === this.course.id)[0].rank
+    }
+
+    logCourseRanking(): void {
+        this.userAction.createCustomAction({
+            description: 'User viewed personal ranking on the course leader board',
+            status: ActionStatus.COMPLETE,
+            verb: ActionVerb.READ,
+            object_type: ActionType.COURSE,
+            object_id: this.course.id,
+            data: {
+                ranking: this.getRanking()
+            },
+        })
     }
 }
