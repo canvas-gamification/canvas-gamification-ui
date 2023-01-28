@@ -39,13 +39,13 @@ export class LeaderBoardComponent implements OnChanges {
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
                 this.teamService.getMyTeam(this.eventId).subscribe( team => {
                     this.myTeam = team
-                    this.logChallengeRanking()
+                    this.logChallengeRankingAndTokens()
                 })
             })
         }else{
             this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
-                this.logCourseRanking()
+                this.logCourseRankingAndTokens()
             })
         }
     }
@@ -87,37 +87,51 @@ export class LeaderBoardComponent implements OnChanges {
     getRanking(): number | string {
         if (this.eventId){
             if (!this.leaderBoard.some(element => element.team_id === this.myTeam.id))
-                return 'No Ranking'
+                return 'No ranking. User not on leader board.'
             return this.leaderBoard.find(element => element.team_id === this.myTeam.id).rank
         } else {
             if (!this.leaderBoard.some(element => element.course_reg_id === this.course.id))
-                return 'No Ranking'
+                return 'No ranking. User not on leader board.'
             return this.leaderBoard.find(element => element.course_reg_id === this.course.id).rank
         }
     }
 
-    logCourseRanking(): void {
+    getTokens(): number | string {
+        if (this.eventId){
+            if (!this.leaderBoard.some(element => element.team_id === this.myTeam.id))
+                return 'No tokens. User not on leader board.'
+            return this.leaderBoard.find(element => element.team_id === this.myTeam.id).token
+        } else {
+            if (!this.leaderBoard.some(element => element.course_reg_id === this.course.id))
+                return 'No tokens. User not on leader board.'
+            return this.leaderBoard.find(element => element.course_reg_id === this.course.id).token
+        }
+    }
+
+    logCourseRankingAndTokens(): void {
         this.userAction.createCustomAction({
-            description: 'User viewed personal ranking on the course leader board',
+            description: 'User viewed personal ranking and tokens earned on the course leader board',
             status: ActionStatus.COMPLETE,
             verb: ActionVerb.READ,
             object_type: ActionType.COURSE,
             object_id: this.course.id,
             data: {
-                ranking: this.getRanking()
+                ranking: this.getRanking(),
+                token: this.getTokens()
             },
         })
     }
 
-    logChallengeRanking(): void {
+    logChallengeRankingAndTokens(): void {
         this.userAction.createCustomAction({
-            description: 'User viewed team ranking on a challenge leader board',
+            description: 'User viewed team ranking and tokens earned on a challenge leader board',
             status: ActionStatus.COMPLETE,
             verb: ActionVerb.READ,
             object_type: ActionType.EVENT,
             object_id: this.eventId,
             data: {
-                ranking: this.getRanking()
+                ranking: this.getRanking(),
+                token: this.getTokens()
             },
         })
     }
