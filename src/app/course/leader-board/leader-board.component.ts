@@ -1,17 +1,19 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, Input, OnChanges} from '@angular/core'
 import {LeaderboardElement} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
-import {ActivatedRoute} from "@angular/router"
+import {CourseEventService} from "@app/course/_services/course-event.service"
 
 @Component({
     selector: 'app-leader-board',
     templateUrl: './leader-board.component.html',
     styleUrls: ['./leader-board.component.scss']
 })
-export class LeaderBoardComponent implements OnInit {
+export class LeaderBoardComponent implements OnChanges {
     leaderBoard: LeaderboardElement[]
     rankTopX: number
-    courseId: number
+    @Input() courseId: number
+    @Input() eventId: number
+    @Input() leaderBoardName: string
     displayedColumns: string[] = ['rank', 'name', 'token']
 
     readonly filterOutTopX = (element: LeaderboardElement, x: number): boolean => element.rank > x
@@ -19,16 +21,21 @@ export class LeaderBoardComponent implements OnInit {
 
     constructor(
         private courseService: CourseService,
-        private route: ActivatedRoute
+        private courseEventService: CourseEventService,
     ) {
-        this.courseId = this.route.snapshot.parent.params.courseId
     }
 
-    ngOnInit(): void {
+    ngOnChanges(): void {
         this.rankTopX = 3
-        this.courseService.getCourse(this.courseId).subscribe(course => {
-            this.leaderBoard = this.getRankedLeaderboard(course?.leader_board)
-        })
+        if(this.eventId){
+            this.courseEventService.getEventLeaderBoard(this.eventId).subscribe(
+                leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
+            )
+        }else{
+            this.courseService.getCourseLeaderBoard(this.courseId).subscribe(
+                leaderBoard => this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
+            )
+        }
     }
 
     /**
@@ -38,7 +45,12 @@ export class LeaderBoardComponent implements OnInit {
     getRankedLeaderboard(leaderBoard: LeaderboardElement[]): LeaderboardElement[] {
         const sortedLeaderboard = leaderBoard.sort((a, b) => b.token - a.token)
         return sortedLeaderboard.map((element, index) => {
-            return {
+            return this.eventId? {
+                rank: index + 1,
+                name: element.name,
+                token: element.token,
+                member_names: element.member_names
+            } : {
                 rank: index + 1,
                 name: element.name,
                 token: element.token
