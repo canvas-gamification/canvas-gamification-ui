@@ -41,7 +41,10 @@
                             <div>
                                 <tui-svg *ngIf="team.is_private" src="tuiIconLock"></tui-svg>
                             </div>
-                            <div>{{team.member_names.length}} {{team.member_names.length===1? 'student': 'students'}}</div>
+                            <div>
+                                {{team.member_names.length}}
+                                {{team.member_names.length===1? 'student': 'students'}}
+                            </div>
                         </div>
                         <ng-template tuiAccordionItemContent>
                             <div class="flex flex-wrap gap-3">
@@ -56,7 +59,7 @@
                                 <ng-container *ngIf="isInTeam(team); else notInTeam;">
                                     <a
                                         *ngIf=
-                                            "isInTeam(team) && !(event.is_open || event.is_closed)"
+                                            "isInTeam(team) && event.is_not_available_yet"
                                         [routerLink]="[team.id, 'edit']"
                                         appearance="secondary"
                                         aria-label="Edit"
@@ -69,10 +72,7 @@
                                 </ng-container>
                                 <ng-template #notInTeam>
                                     <button
-                                        *ngIf=
-                                            "!isInTeam(team)
-                                            && !(event.is_open || event.is_closed)
-                                            && isInvited(team)"
+                                        *ngIf="isJoinAble(team, event)"
                                         (click)="joinTeam(team.id)"
                                         appearance="secondary"
                                         aria-label="Join"

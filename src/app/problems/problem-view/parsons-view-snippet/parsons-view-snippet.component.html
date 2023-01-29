@@ -6,7 +6,7 @@
             </div>
             <h2 class="tui-island__category tui-text_body-xs">Organize The Following</h2>
         </div>
-        <div class="island_container">
+        <div class="island_container ">
             <!--    TODO: Due to technical limitations for remembering -->
             <!--    TODO: what parsons they have placed, the state switching has been removed -->
             <!--    <ng-container *ngIf="viewSwitcher.view === 'tab' else listView">-->
@@ -24,10 +24,11 @@
             <!--        </div>-->
             <!--    </ng-container>-->
             <!--    <ng-template #listView>-->
-            <div class="parsons__list">
+            <div class="parsons__list pr-6">
                 <div *ngFor="let file of files">
                     <p class="parsons__list-title">{{ file.name }}</p>
-                    <app-parsons-lines (code)="file.solution = $event" [file]="file"></app-parsons-lines>
+                    <app-parsons-lines (code)="file.solution = $event"
+                                       [file]="file"></app-parsons-lines>
                 </div>
             </div>
             <!--    </ng-template>-->

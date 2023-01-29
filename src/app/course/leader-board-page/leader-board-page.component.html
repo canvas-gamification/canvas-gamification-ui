@@ -1,37 +1,35 @@
-<div class="leaderBoardPage">
+<div class="flex flex-col md:flex-row">
     <app-sidebar sidebarId="leaderBoardPageSide">
         <a
             [routerLink]="['/course', courseId, 'homepage']"
             icon="tuiIconArrowLeft"
             appearance="flat"
-            class="margins"
+            class="my-3"
             size="m"
             tuiButton
         >
             Back to homepage
         </a>
-        <ng-container *ngFor="let option of options">
-            <div
-                *ngIf="isSelectedOption(option)"
-                (click) = setSelectedOption(option)
-                class="font-bold margins cursor-pointer"
-            >
-                {{option.name}}
-            </div>
-            <div
-                *ngIf="!isSelectedOption(option)"
-                (click) = setSelectedOption(option)
-                class="margins cursor-pointer"
-            >
-                {{option.name}}
-            </div>
-        </ng-container>
+        <div class="space-y-2" *ngIf="course">
+            <ng-container *ngFor="let option of options">
+                <div
+                    (click)=setSelectedOption(option)
+                    class="cursor-pointer clickable p-2 rounded-lg md:-mx-3"
+                    [ngClass]="{
+                        'clicked font-bold': isSelectedOption(option)
+                    }"
+                >
+                    {{option.name}}
+                </div>
+                <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+            </ng-container>
+        </div>
     </app-sidebar>
     <div class="flex-grow tui-container tui-container_fullwidth">
         <app-leader-board
-            [course] ="course"
-            [eventId]="selectedOption.eventId"
-            [leaderBoardName]="selectedOption.name"
+            [course]="course"
+            [eventId]="selectedOption?.eventId"
+            [leaderBoardName]="selectedOption?.name"
         ></app-leader-board>
     </div>
 
