@@ -3,6 +3,8 @@ export type LeaderboardElement = {
     name: string;
     token: number;
     member_names?: string[];
+    team_id?: number;
+    course_reg_id?: number;
 }
 
 export type LeaderboardPageElement = {
