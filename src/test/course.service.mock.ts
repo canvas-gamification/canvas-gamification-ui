@@ -2,10 +2,10 @@ import {Injectable} from "@angular/core"
 import {Observable, of} from "rxjs"
 import {
     APIResponse,
-    Course,
+    Course, LeaderboardElement,
 } from "@app/_models"
 import {MOCK_COURSE} from "@app/problems/_test/mock"
-import {MOCK_COURSE1} from "@app/course/_test/mock"
+import {MOCK_COURSE1, MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
 import {CourseRegistrationFormData} from "@app/course/_forms/register.form"
 
 @Injectable({
@@ -34,5 +34,9 @@ export class CourseServiceMock {
 
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {
         return of({success_rate: 1})
+    }
+
+    getCourseLeaderBoard(courseId: number): Observable<LeaderboardElement[]> {
+        return of(MOCK_RANKED_LEADERBOARD)
     }
 }
