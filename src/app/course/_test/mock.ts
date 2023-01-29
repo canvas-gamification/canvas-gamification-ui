@@ -183,7 +183,6 @@ export const MOCK_MCQ_QUESTION: Question = {
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
-    success_rate: 0,
     text: '',
     time_created: null,
     time_modified: null,

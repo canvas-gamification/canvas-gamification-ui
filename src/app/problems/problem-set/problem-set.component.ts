@@ -37,7 +37,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
     questions: Question[] = []
     questionsTableColumns: string[] = [
         'id', 'title', 'author_name', 'event_name', 'parent_category_name', 'category_name',
-        'difficulty', 'type_name', 'token_value', 'success_rate', 'status', 'actions'
+        'difficulty', 'type_name', 'token_value', 'status', 'actions'
     ]
     openNewQuestionDropdown = false
 
