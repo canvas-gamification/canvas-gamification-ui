@@ -16,7 +16,6 @@ export class LeaderBoardPageComponent implements OnInit {
     selectedOption: LeaderboardPageElement
 
     constructor(
-        // private courseEventService: CourseEventService,
         private courseService: CourseService,
         private route: ActivatedRoute
     ) {
