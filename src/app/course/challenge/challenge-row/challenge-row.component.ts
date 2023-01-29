@@ -38,12 +38,12 @@ export class ChallengeRowComponent implements OnInit {
         this.userAction.createCustomAction({
             description: 'User viewed tokens earned from the list of challenges page',
             status: ActionStatus.COMPLETE,
-            verb: ActionVerb.READ,
+            verb: ActionVerb.USED,
             object_type: ActionType.EVENT,
             object_id: this.event.id,
             data: {
                 token: this.team.tokens_received
             },
-        })
+        }).subscribe()
     }
 }

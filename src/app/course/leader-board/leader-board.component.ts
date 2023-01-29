@@ -110,7 +110,8 @@ export class LeaderBoardComponent implements OnChanges {
 
     logCourseRankingAndTokens(): void {
         this.userAction.createCustomAction({
-            description: 'User viewed personal ranking and tokens earned on the course leader board',
+            description:
+                'User viewed personal ranking and tokens earned on the course leader board',
             status: ActionStatus.COMPLETE,
             verb: ActionVerb.READ,
             object_type: ActionType.COURSE,
@@ -119,7 +120,7 @@ export class LeaderBoardComponent implements OnChanges {
                 ranking: this.getRanking(),
                 token: this.getTokens()
             },
-        })
+        }).subscribe()
     }
 
     logChallengeRankingAndTokens(): void {
@@ -133,6 +134,6 @@ export class LeaderBoardComponent implements OnChanges {
                 ranking: this.getRanking(),
                 token: this.getTokens()
             },
-        })
+        }).subscribe()
     }
 }
