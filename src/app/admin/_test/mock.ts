@@ -1,16 +1,21 @@
-import {Category, Course, CourseRegistrationMode, NestedCategories, QuestionCount, STATUS} from "@app/_models"
+import {
+    Category,
+    Course,
+    CourseRegistrationMode,
+    NestedCategories,
+    QuestionCount,
+    STATUS
+} from "@app/_models"
 import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
-    average_success: 0,
     description: '',
     next_category_ids: [],
     pk: 0,
     full_name: '',
     parent: null,
     question_count: 100,
-    average_success_per_difficulty: []
 }
 
 export const MOCK_NESTED_CATEGORY: NestedCategories = {

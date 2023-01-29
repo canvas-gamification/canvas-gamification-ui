@@ -16,26 +16,22 @@ import {UserStats} from "@app/_models/user_difficulty_stats"
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
-    average_success: 0,
     description: '',
     next_category_ids: [],
     pk: 0,
     full_name: 'Test',
     parent: null,
     question_count: 100,
-    average_success_per_difficulty: []
 }
 
 export const MOCK_CATEGORY_2: Category = {
     name: 'Test #2',
-    average_success: 0,
     description: '',
     next_category_ids: [],
     pk: 1,
     full_name: 'Test #2',
     parent: 0,
     question_count: 100,
-    average_success_per_difficulty: []
 }
 
 export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY, MOCK_CATEGORY_2]
