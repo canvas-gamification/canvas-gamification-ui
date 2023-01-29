@@ -1,22 +1,13 @@
 @import "mixins";
 
-.leaderBoardPage {
-    display: flex;
-
-    @include screen-sm() {
-        flex-direction: column;
-    }
+.border-base3 {
+    border-color: var(--tui-base-03)
 }
 
-.margins {
-    margin-top: 1.5rem;
+.clickable:hover {
+    background-color: var(--tui-base-02);
+}
 
-    &:last-child{
-        margin-bottom: 1.5rem;
-    }
-
-    @include screen-sm() {
-        text-align: center;
-    }
-
+.clicked {
+    background-color: var(--tui-base-02);
 }

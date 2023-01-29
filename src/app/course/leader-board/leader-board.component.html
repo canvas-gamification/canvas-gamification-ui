@@ -1,11 +1,13 @@
 <ng-container *ngIf="leaderBoard && leaderBoardName else skeletonTemplate">
     <h3 class="tui-text_h3 my-8">{{leaderBoardName}} Leader Board</h3>
     <div class="top-x-islands tui-space_bottom-8">
-        <tui-island *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index"
-                    [style.marginTop]="(index) + 'rem'" [style.order]="(index % 2 * -index)"
-                    class="top-x-island"
-                    textAlign="center">
-            <div [style.backgroundColor]="avatar.bgColor" class="top-x-background"></div>
+        <tui-island
+            *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index"
+            [style.marginTop]="(index) + 'rem'" [style.order]="(index % 2 * -index)"
+            class="top-x-island"
+            textAlign="center"
+        >
+            <div [style.background-color]="avatar.bgColor" class="top-x-background"></div>
             <figure class="tui-island__figure">
                 <tui-avatar
                     #avatar
@@ -88,10 +90,14 @@
     <h3 class="tui-text_h3 my-8 tui-skeleton">{{leaderBoardName}} Leader Board</h3>
     <div class="top-x-islands tui-space_bottom-8">
         <tui-island
-                    [style.marginTop]="1 + 'rem'" [style.order]="(1 % 2 * -1)"
-                    class="top-x-island"
-                    textAlign="center">
-            <div [style.backgroundColor]="avatar.bgColor" class="top-x-background tui-skeleton"></div>
+            [style.marginTop]="1 + 'rem'" [style.order]="(1 % 2 * -1)"
+            class="top-x-island"
+            textAlign="center"
+        >
+            <div
+                [style.backgroundColor]="avatar.bgColor"
+                 class="top-x-background tui-skeleton"
+            ></div>
             <figure class="tui-island__figure tui-skeleton">
                 <tui-avatar
                     #avatar
@@ -109,12 +115,13 @@
             <p class="tui-island__paragraph tui-skeleton">
                 No Tokens
             </p>
-        </tui-island >
+        </tui-island>
         <tui-island
             [style.marginTop]="2 + 'rem'" [style.order]="(2 % 2 * -2)"
             class="top-x-island"
             textAlign="center">
-            <div [style.backgroundColor]="avatar.bgColor" class="top-x-background tui-skeleton"></div>
+            <div [style.backgroundColor]="avatar.bgColor"
+                 class="top-x-background tui-skeleton"></div>
             <figure class="tui-island__figure tui-skeleton">
                 <tui-avatar
                     #avatar
@@ -132,12 +139,13 @@
             <p class="tui-island__paragraph tui-skeleton">
                 No Tokens
             </p>
-        </tui-island >
+        </tui-island>
         <tui-island
             [style.marginTop]="3 + 'rem'" [style.order]="(3 % 2 * -3)"
             class="top-x-island"
             textAlign="center">
-            <div [style.backgroundColor]="avatar.bgColor" class="top-x-background tui-skeleton"></div>
+            <div [style.backgroundColor]="avatar.bgColor"
+                 class="top-x-background tui-skeleton"></div>
             <figure class="tui-island__figure tui-skeleton">
                 <tui-avatar
                     #avatar
@@ -155,7 +163,7 @@
             <p class="tui-island__paragraph tui-skeleton">
                 No Tokens
             </p>
-        </tui-island >
+        </tui-island>
     </div>
     <table [columns]="displayedColumns" class="table" tuiTable>
         <thead tuiThead>
@@ -170,7 +178,7 @@
             <td class="tui-skeleton" *tuiCell="'rank'" tuiTd>
                 1st
             </td>
-            <td class="tui-skeleton"  *tuiCell="'name'" tuiTd>
+            <td class="tui-skeleton" *tuiCell="'name'" tuiTd>
                 <div class="table-avatar-with-name">
                     <tui-avatar
                         [autoColor]="true"
@@ -182,7 +190,7 @@
                     Anonymous User
                 </div>
             </td>
-            <td class="tui-skeleton"  *tuiCell="'token'" tuiTd>
+            <td class="tui-skeleton" *tuiCell="'token'" tuiTd>
                 No Tokens
             </td>
         </tr>
@@ -190,7 +198,7 @@
             <td class="tui-skeleton" *tuiCell="'rank'" tuiTd>
                 1st
             </td>
-            <td class="tui-skeleton"  *tuiCell="'name'" tuiTd>
+            <td class="tui-skeleton" *tuiCell="'name'" tuiTd>
                 <div class="table-avatar-with-name">
                     <tui-avatar
                         [autoColor]="true"
@@ -202,7 +210,7 @@
                     Anonymous User
                 </div>
             </td>
-            <td class="tui-skeleton"  *tuiCell="'token'" tuiTd>
+            <td class="tui-skeleton" *tuiCell="'token'" tuiTd>
                 No Tokens
             </td>
         </tr>
@@ -210,7 +218,7 @@
             <td class="tui-skeleton" *tuiCell="'rank'" tuiTd>
                 1st
             </td>
-            <td class="tui-skeleton"  *tuiCell="'name'" tuiTd>
+            <td class="tui-skeleton" *tuiCell="'name'" tuiTd>
                 <div class="table-avatar-with-name">
                     <tui-avatar
                         [autoColor]="true"
@@ -222,7 +230,7 @@
                     Anonymous User
                 </div>
             </td>
-            <td class="tui-skeleton"  *tuiCell="'token'" tuiTd>
+            <td class="tui-skeleton" *tuiCell="'token'" tuiTd>
                 No Tokens
             </td>
         </tr>
@@ -230,7 +238,7 @@
             <td class="tui-skeleton" *tuiCell="'rank'" tuiTd>
                 1st
             </td>
-            <td class="tui-skeleton"  *tuiCell="'name'" tuiTd>
+            <td class="tui-skeleton" *tuiCell="'name'" tuiTd>
                 <div class="table-avatar-with-name">
                     <tui-avatar
                         [autoColor]="true"
@@ -242,7 +250,7 @@
                     Anonymous User
                 </div>
             </td>
-            <td class="tui-skeleton"  *tuiCell="'token'" tuiTd>
+            <td class="tui-skeleton" *tuiCell="'token'" tuiTd>
                 No Tokens
             </td>
         </tr>
