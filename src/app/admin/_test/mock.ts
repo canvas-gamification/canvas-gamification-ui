@@ -63,6 +63,7 @@ export const MOCK_VIEW_COURSE: Course = {
     course_reg: null,
     leader_board: null,
     has_create_event_permission: false,
+    has_view_permission: true,
     description: "",
     registration_mode: CourseRegistrationMode.OPEN,
 }

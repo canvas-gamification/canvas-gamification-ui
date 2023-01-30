@@ -1,19 +1,21 @@
 import {FormControl, FormGroup, Validators} from "@angular/forms"
 import {InputFiles, Question} from "@app/_models"
-import {fieldExistsIfOtherExistsValidator} from "@app/_helpers/forms/validators/field-exists-if-other-exists.validator"
+import {
+    fieldExistsIfOtherExistsValidator
+} from "@app/_helpers/forms/validators/field-exists-if-other-exists.validator"
 
 export class ParsonsForm {
     /**
      * Creates a FormGroup for a Parsons question.
      */
-    static createForm(): FormGroup {
+    static createForm(course?: number, event?: number): FormGroup {
         return new FormGroup({
             title: new FormControl(null, [Validators.required]),
             difficulty: new FormControl(null, [Validators.required]),
             category: new FormControl(null, [Validators.required]),
             is_verified: new FormControl(false),
-            course: new FormControl(null),
-            event: new FormControl(null),
+            course: new FormControl(course),
+            event: new FormControl(event),
             text: new FormControl('', [Validators.required]),
             junit_template: new FormControl(null, [Validators.required]),
             input_files: new FormControl([], [Validators.required]),

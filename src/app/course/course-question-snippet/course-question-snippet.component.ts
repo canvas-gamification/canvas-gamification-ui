@@ -24,6 +24,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     eventId: number
     courseId: number
     team: Team
+    openNewQuestionDropdown = false
 
     constructor(
         private authenticationService: AuthenticationService,

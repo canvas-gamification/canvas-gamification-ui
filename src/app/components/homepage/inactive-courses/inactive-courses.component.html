@@ -3,7 +3,7 @@
     <div class="course-islands">
         <ng-container *ngIf="inactiveCourses else waitingInactive">
             <ng-container *ngFor="let course of inactiveCourses">
-                <app-course-island [course]="course" [hasViewPermission]="true"></app-course-island>
+                <app-course-island [course]="course"></app-course-island>
             </ng-container>
         </ng-container>
         <ng-template #waitingInactive>

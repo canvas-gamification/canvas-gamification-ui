@@ -11,9 +11,8 @@
         </a>
         <div *ngIf="eventId" class="flex justify-between items-center mt-3 mb-10">
             <h5 class="tui-text_h5">{{ event.name }}</h5>
-            <div>
+            <div class="flex flex-row gap-3" *ngIf="event.has_edit_permission">
                 <a
-                    *ngIf="event.has_edit_permission"
                     tuiButton
                     appearance="secondary"
                     size="s"
@@ -21,6 +20,45 @@
                 >
                     Stats
                 </a>
+
+                <tui-hosted-dropdown
+                    [(open)]="openNewQuestionDropdown"
+                    [content]="newQuestionDropdownContent"
+                >
+                    <button
+                        tuiButton
+                        [iconRight]="newQuestionDropdownIcon"
+                        icon="tuiIconPlus"
+                        size="s"
+                        type="button"
+                        appearance="secondary"
+                    >
+                        Create New Question
+                    </button>
+                </tui-hosted-dropdown>
+                <ng-template #newQuestionDropdownIcon>
+                    <tui-svg
+                        [class.new-question-icon_rotated]="openNewQuestionDropdown"
+                        class="new-question-icon"
+                        src="tuiIconChevronDown"
+                    ></tui-svg>
+                </ng-template>
+                <ng-template #newQuestionDropdownContent>
+                    <tui-data-list>
+                        <a [routerLink]="['problem', 'create', 'MCQ']" tuiOption>
+                            Multiple Choice Question
+                        </a>
+                        <a [routerLink]="['problem', 'create', 'checkbox']" tuiOption>
+                            Checkbox Question
+                        </a>
+                        <a [routerLink]="['problem', 'create', 'java']" tuiOption>
+                            Java Question
+                        </a>
+                        <a [routerLink]="['problem', 'create', 'parsons']" tuiOption>
+                            Parsons Question
+                        </a>
+                    </tui-data-list>
+                </ng-template>
             </div>
         </div>
         <tui-notification
@@ -37,7 +75,7 @@
         </tui-notification>
         <ng-container *ngIf="event.is_open || course.has_create_event_permission">
             <div
-                *ngIf="event.type==='CHALLENGE'"
+                *ngIf="event.type==='CHALLENGE' && team"
                 class="teamBar mb-8 flex items-center p-4 rounded-[0.625rem] shadow">
                 <div class="grow">
                     <h6 class="tui-text_h6">{{team.name}}</h6>
@@ -104,8 +142,8 @@
                             </a>
                         </ng-template>
                         <a
-                            *ngIf="user.is_teacher"
-                            [routerLink]="['/problems', uqj.question.id, 'edit']"
+                            *ngIf="event.has_edit_permission"
+                            [routerLink]="['problem', uqj.question.id, 'edit']"
                             appearance="primary"
                             class="tui-form__button"
                             size="s"

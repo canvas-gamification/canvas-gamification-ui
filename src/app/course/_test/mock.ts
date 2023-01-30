@@ -93,6 +93,7 @@ export const MOCK_COURSE1: Course = {
         token: 5,
     }],
     has_create_event_permission: true,
+    has_view_permission: true,
     description: "",
     registration_mode: CourseRegistrationMode.OPEN,
 }
@@ -123,6 +124,7 @@ export const MOCK_COURSE2: Course = {
         token: 5,
     }],
     has_create_event_permission: true,
+    has_view_permission: true,
     description: "",
     registration_mode: CourseRegistrationMode.OPEN,
 }

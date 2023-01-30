@@ -1,6 +1,12 @@
-<h1 class="tui-text_h3 tui-space_vertical-10">{{ this.questionDetails ? 'Edit' : 'New' }} Parsons Question</h1>
+<h1 class="tui-text_h3 tui-space_vertical-10">
+    {{ questionDetails ? 'Edit' : 'New' }} Parsons Question
+</h1>
 <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
-    <app-default-create-edit-snippet [formGroup]="formGroup"></app-default-create-edit-snippet>
+    <app-default-create-edit-snippet
+        [formGroup]="formGroup"
+        [disableEvent]="!!courseId || !!eventId"
+    >
+    </app-default-create-edit-snippet>
     <div class="tui-form__row">
         <h2 class="tui-form__header">Question</h2>
         <app-editor formControlName="text"></app-editor>
@@ -29,14 +35,16 @@
             Calculator.java.
         </p>
         <p class="tui-form__field-note">
-            Regardless of whether the file is compiled or not, you can paste the file in your Junit test
+            Regardless of whether the file is compiled or not, you can paste the file in your Junit
+            test
             by using {{"{{"}}file_name{{"}"}}{{"}"}}.
         </p>
         <p class="tui-form__field-note">
             Paste the solution in the lines field. Possibly add extra lines at the end.
             Lines will be extracted and shuffled.
         </p>
-        <app-parsons-input-files-editor formControlName="input_files"></app-parsons-input-files-editor>
+        <app-parsons-input-files-editor
+            formControlName="input_files"></app-parsons-input-files-editor>
     </div>
     <div class="tui-form__row">
         <h2 class="tui-form__header">Variables</h2>
