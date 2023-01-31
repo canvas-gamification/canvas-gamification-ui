@@ -163,16 +163,6 @@
 
         <div class="practice-sidebar_buttons tui-space_vertical-6">
             <button
-                (click)="openReportQuestion()"
-                [class.tui-skeleton]="!category || !uqjs"
-                icon="tuiIconAttention"
-                size="s"
-                tuiButton
-                appearance="secondary"
-            >
-                Report a Problem
-            </button>
-            <button
                 *ngIf="course?.has_create_event_permission"
                 (click)="openAddQuestion()"
                 [class.tui-skeleton]="!category || !uqjs"
@@ -182,6 +172,16 @@
                 appearance="secondary"
             >
                 Add This Question to Event
+            </button>
+            <button
+                (click)="openReportQuestion()"
+                [class.tui-skeleton]="!category || !uqjs"
+                icon="tuiIconAttention"
+                size="s"
+                tuiButton
+                appearance="secondary"
+            >
+                Report a Problem
             </button>
         </div>
     </app-sidebar>

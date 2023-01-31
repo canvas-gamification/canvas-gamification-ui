@@ -77,6 +77,22 @@ export class CourseEventCreateEditComponent implements OnInit {
         this.getQuestionSets().removeAt(index)
     }
 
+    getTitle(): string {
+        if (this.eventId === null) {
+            return 'Create New'
+        } else {
+            return 'Edit'
+        }
+    }
+
+    getButtonName(): string {
+        if (this.eventId === null) {
+            return 'Create'
+        } else {
+            return 'Save Changes'
+        }
+    }
+
     /**
      * Sends the course event data to the server. Sends different requests based on whether the event being created
      * is a new event or not.
