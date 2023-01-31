@@ -10,6 +10,7 @@ import {TuiStatusT} from "@taiga-ui/kit"
 import {Team} from "@app/_models/team"
 import {TeamService} from "@app/course/_services/team.service"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {startCase} from "lodash"
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -119,5 +120,18 @@ export class CourseQuestionSnippetComponent implements OnInit {
             return 'List of Challenges'
         else if (this.getEventType() === 'assignment' || this.getEventType() === 'exam')
             return 'Assignments and Exams'
+    }
+
+    getChallengeType(): string {
+        return startCase(this.event.challenge_type?.toLowerCase())
+    }
+
+    getEventTypeDescription(): string {
+        switch (this.event.challenge_type) {
+            case 'QUOTA':
+                return 'Teams earn tokens from every question solved when the challenge ends.'
+            case 'TOP_TEAMS':
+                return `Teams earn tokens by staying on the top ${this.event.challenge_type_value} teams on the leader board of this challenge when the challenge ends.`
+        }
     }
 }
