@@ -7,7 +7,7 @@
             tuiButton
             appearance="flat"
         >
-            Back to List of {{getEventType() | titlecase}}s
+            Back to {{getBackLabel()}}
         </a>
         <div *ngIf="eventId" class="flex justify-between items-center mt-3 mb-10">
             <h5 class="tui-text_h5">{{ event.name }}</h5>

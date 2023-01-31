@@ -1,6 +1,6 @@
 <div class="tui-container tui-container_adaptive">
     <form (ngSubmit)="submitEvent(formData)" [formGroup]="formData">
-        <h2 class="tui-form__header">Create New Event</h2>
+        <h2 class="tui-form__header">{{getTitle()}} Event</h2>
         <div class="tui-form__row">
             <tui-input aria-label="Event Name" formControlName="name">Event Name</tui-input>
             <tui-field-error formControlName="name"></tui-field-error>
@@ -152,17 +152,17 @@
                 tuiButton
                 type="submit"
             >
-                Submit
+                {{getButtonName()}}
             </button>
             <a
                 [routerLink]="['/course', courseId, 'assignments-exams']"
                 appearance="secondary"
-                aria-label="Back"
+                aria-label="Cancel"
                 class="tui-form__button"
                 size="m"
                 tuiButton
             >
-                Back
+                Cancel
             </a>
         </div>
     </form>
