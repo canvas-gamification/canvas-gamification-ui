@@ -55,6 +55,12 @@
                                     >
                                         {{name}}
                                     </div>
+                                    <div
+                                        *ngIf="pendingInvites(team) !== 0"
+                                        class="mt-2"
+                                    >
+                                        {{pendingInvites(team)}} pending invite(s)
+                                    </div>
                                 </div>
                                 <ng-container *ngIf="isInTeam(team); else notInTeam;">
                                     <a
