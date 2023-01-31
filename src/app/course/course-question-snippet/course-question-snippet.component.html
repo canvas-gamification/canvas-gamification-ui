@@ -62,13 +62,13 @@
             </div>
         </div>
         <tui-notification
-            class="mb-6"
+            class="mb-6 mt-10"
             *ngIf="event.is_not_available_yet"
         >
             The {{getEventType()}} is not available yet.
         </tui-notification>
         <tui-notification
-            class="mb-6"
+            class="mb-6 mt-10"
             *ngIf="event.is_closed"
         >
             The {{getEventType()}} is closed.
