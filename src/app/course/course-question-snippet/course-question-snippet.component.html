@@ -78,8 +78,8 @@
                 *ngIf="event.type==='CHALLENGE' && team"
                 class="teamBar mb-8 flex items-center p-4 rounded-[0.625rem] shadow">
                 <div class="grow">
-                    <h6 class="tui-text_h6">{{team.name}}</h6>
-                    <p *ngFor="let name of team.member_names" class="tui-text_body-l">{{name}}</p>
+                    <p class="tui-text_body-l">Team: {{team.name}}</p>
+                    <p class="tui-text_body-l">Member(s): {{getMemberNames(team.member_names)}}</p>
                 </div>
                 <a
                     [routerLink]="['/course', courseId, 'challenge', eventId, 'teams']"

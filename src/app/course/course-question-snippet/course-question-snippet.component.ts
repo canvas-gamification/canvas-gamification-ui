@@ -109,4 +109,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
             this.init()
         })
     }
+
+    getMemberNames(names: string[]): string {
+        return names.join(", ")
+    }
 }
