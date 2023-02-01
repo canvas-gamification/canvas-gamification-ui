@@ -14,7 +14,6 @@ export interface Question {
     time_created: Date;
     time_modified: Date;
     token_value: number;
-    success_rate: number;
     type_name: string;
     event: number;
     event_obj: CourseEvent;

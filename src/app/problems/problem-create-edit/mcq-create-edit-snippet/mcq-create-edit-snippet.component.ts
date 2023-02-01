@@ -3,7 +3,12 @@ import {QuestionService} from '@app/problems/_services/question.service'
 import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms'
 import {McqForm} from "@app/problems/_forms/mcq.form"
 import {Router} from "@angular/router"
-import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {
+    TuiDialogContext,
+    TuiDialogService,
+    TuiNotification,
+    TuiNotificationsService
+} from "@taiga-ui/core"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
 import {Question} from '@app/_models'
 
@@ -15,12 +20,15 @@ import {Question} from '@app/_models'
 export class McqCreateEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question
     @Input() isCheckbox: boolean
+    @Input() eventId: number
+    @Input() courseId: number
     formGroup: FormGroup
 
     constructor(
         private questionService: QuestionService,
         private router: Router,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiNotificationsService)
+        private readonly notificationsService: TuiNotificationsService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
     ) {
     }
@@ -37,7 +45,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
             this.formGroup = McqForm.createFormWithData(this.questionDetails)
             this.isCheckbox = this.questionDetails.is_checkbox
         } else {
-            this.formGroup = McqForm.createForm()
+            this.formGroup = McqForm.createForm(this.courseId, this.eventId)
             this.addDistractor()
             this.addAnswer()
         }

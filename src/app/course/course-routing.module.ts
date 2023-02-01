@@ -50,15 +50,16 @@ import {
     EventStatsComponent
 } from "@app/course/event/event-stats/event-stats.component"
 import {
-    LeaderBoardComponent
-} from "@app/course/leader-board/leader-board.component"
-import {
     ListOfTeamsComponent
 } from "@app/course/challenge/list-of-teams/list-of-teams.component"
 import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-edit.component'
 import {
     CourseChallengeCreateEditComponent
 } from "@app/course/challenge/course-challenge-create-edit/course-challenge-create-edit.component"
+import {LeaderBoardPageComponent} from "@app/course/leader-board-page/leader-board-page.component"
+import {
+    ProblemCreateEditComponent
+} from "@app/problems/problem-create-edit/problem-create-edit.component"
 
 const routes: Routes = [
     {
@@ -230,6 +231,48 @@ const routes: Routes = [
                         caption: `:questionName`,
                         routerLink:
                             '/course/:courseId/assignments-exams/:eventId/problem/:id'
+                    }]
+                }
+            },
+            {
+                path: 'assignments-exams/:eventId/problem/create/:type',
+                component: ProblemCreateEditComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Assignments and Exams`,
+                        routerLink: '/course/:courseId/assignments-exams'
+                    }, {
+                        caption: `:eventName`,
+                        routerLink:
+                            '/course/:courseId/assignments-exams/:eventId'
+                    }, {
+                        caption: `Create Question`,
+                        routerLink:
+                            '/course/:courseId/assignments-exams/:eventId/problem/create/:type',
+                    }]
+                }
+            },
+            {
+                path: 'assignments-exams/:eventId/problem/:id/edit',
+                component: ProblemCreateEditComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Assignments and Exams`,
+                        routerLink: '/course/:courseId/assignments-exams'
+                    }, {
+                        caption: `:eventName`,
+                        routerLink:
+                            '/course/:courseId/assignments-exams/:eventId'
+                    }, {
+                        caption: `Edit :questionName`,
+                        routerLink:
+                            '/course/:courseId/assignments-exams/:eventId/problem/:id/edit'
                     }]
                 }
             },
@@ -466,22 +509,55 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'leaderboard',
-                component: LeaderBoardComponent,
+                path: 'challenge/:eventId/problem/create/:type',
+                component: ProblemCreateEditComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
                         routerLink: '/course/:courseId/homepage'
                     }, {
-                        caption: `Leaderboard`,
-                        routerLink: '/course/:courseId/leaderboard'
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }, {
+                        caption: `Create Question`,
+                        routerLink:
+                            '/course/:courseId/challenge/:eventId/problem/create/:type',
                     }]
                 }
-            }]
+            },
+            {
+                path: 'challenge/:eventId/problem/:id/edit',
+                component: ProblemCreateEditComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Challenges`,
+                        routerLink: '/course/:courseId/challenge'
+                    }, {
+                        caption: `:eventName`,
+                        routerLink: '/course/:courseId/challenge/:eventId'
+                    }, {
+                        caption: `Edit :questionName`,
+                        routerLink:
+                            '/course/:courseId/challenge/:eventId/problem/:id/edit'
+                    }]
+                }
+            },
+        ]
     },
     {
         path: ':courseId/practice/category/:categoryId',
         component: PracticeProblemComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/leaderboard',
+        component: LeaderBoardPageComponent,
         canActivate: [AuthGuard]
     }]
 

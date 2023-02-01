@@ -1,0 +1,13 @@
+@import "mixins";
+
+.border-base3 {
+    border-color: var(--tui-base-03)
+}
+
+.clickable:hover {
+    background-color: var(--tui-base-02);
+}
+
+.clicked {
+    background-color: var(--tui-base-02);
+}

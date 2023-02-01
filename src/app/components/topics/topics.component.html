@@ -20,12 +20,14 @@
                     <span class="heavy-indent">{{ subCategory.name }}</span>
                 </td>
                 <td *tuiCell="'available_questions'" tuiTd>{{ subCategory.question_count }}</td>
-                <ng-container *ngIf="subCategory.average_success else noSuccessRate">
-                    <td *tuiCell="'success_rate'" tuiTd>{{ category.average_success }}%</td>
-                </ng-container>
-                <ng-template #noSuccessRate>
-                    <td *tuiCell="'success_rate'" tuiTd>-</td>
-                </ng-template>
+                <td *tuiCell="'success_rate'" tuiTd>-</td>
+                <!-- TEMPORARILY DISABLE SUCCESS RATE FOR PERFORMANCE -->
+                <!-- <ng-container *ngIf="subCategory.average_success else noSuccessRate">-->
+                <!--     <td *tuiCell="'success_rate'" tuiTd>{{ category.average_success }}%</td>-->
+                <!-- </ng-container>-->
+                <!-- <ng-template #noSuccessRate>-->
+                <!--     <td *tuiCell="'success_rate'" tuiTd>-</td>-->
+                <!-- </ng-template>-->
             </tr>
             </tbody>
         </table>

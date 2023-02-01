@@ -1,0 +1,36 @@
+<div class="flex flex-col md:flex-row">
+    <app-sidebar sidebarId="leaderBoardPageSide">
+        <a
+            [routerLink]="['/course', courseId, 'homepage']"
+            icon="tuiIconArrowLeft"
+            appearance="flat"
+            class="my-3"
+            size="m"
+            tuiButton
+        >
+            Back to homepage
+        </a>
+        <div class="space-y-2" *ngIf="course">
+            <ng-container *ngFor="let option of options">
+                <div
+                    (click)=setSelectedOption(option)
+                    class="cursor-pointer clickable p-2 rounded-lg md:-mx-3"
+                    [ngClass]="{
+                        'clicked font-bold': isSelectedOption(option)
+                    }"
+                >
+                    {{option.name}}
+                </div>
+                <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+            </ng-container>
+        </div>
+    </app-sidebar>
+    <div class="flex-grow tui-container tui-container_fullwidth">
+        <app-leader-board
+            [course]="course"
+            [eventId]="selectedOption?.eventId"
+            [leaderBoardName]="selectedOption?.name"
+        ></app-leader-board>
+    </div>
+
+</div>

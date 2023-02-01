@@ -11,9 +11,11 @@
     </tui-input>
     <div class="course-islands">
         <ng-container *ngIf="allCourses else skeletons">
-            <ng-container *ngFor="let course of allCourses | tuiFilter : matchCourseName: courseNameSearch">
-                <app-course-island [course]="course"
-                                   [hasViewPermission]="user | userHasCourseViewPermissions: course"></app-course-island>
+            <ng-container
+                *ngFor="let course of allCourses | tuiFilter : matchCourseName: courseNameSearch">
+                <app-course-island
+                    [course]="course"
+                ></app-course-island>
             </ng-container>
         </ng-container>
         <ng-template #skeletons>

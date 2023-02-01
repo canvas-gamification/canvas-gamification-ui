@@ -4,6 +4,7 @@ import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {startCase} from "lodash"
+import {UserActionsService} from "@app/_services/api/user-actions.service"
 
 @Component({
     selector: 'app-challenge-row',
@@ -18,6 +19,7 @@ export class ChallengeRowComponent implements OnInit {
     constructor(
         private teamService: TeamService,
         private authenticationService: AuthenticationService,
+        private userAction: UserActionsService,
     ) { }
 
     ngOnInit(): void {

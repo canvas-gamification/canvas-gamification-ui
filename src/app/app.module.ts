@@ -10,17 +10,22 @@ import {HeaderComponent} from './components/header/header.component'
 import {SampleQuestionsComponent} from './components/sample-questions/sample-questions.component'
 import {TopicsComponent} from './components/topics/topics.component'
 import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha'
-import {UserStatsComponent} from './components/user-stats/user-stats.component'
 import {TokenValuesComponent} from './components/token-values/token-values.component'
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers'
 import {HomepageComponent} from './components/homepage/homepage.component'
-import {RecentUserActionsComponent} from './components/homepage/recent-user-actions/recent-user-actions.component'
+import {
+    RecentUserActionsComponent
+} from './components/homepage/recent-user-actions/recent-user-actions.component'
 import {UserActionsComponent} from './components/homepage/user-actions/user-actions.component'
 import {
     RecentViewedQuestionsComponent
 } from './components/homepage/recent-viewed-questions/recent-viewed-questions.component'
-import {CourseDashboardComponent} from './components/homepage/course-dashboard/course-dashboard.component'
-import {InactiveCoursesComponent} from './components/homepage/inactive-courses/inactive-courses.component'
+import {
+    CourseDashboardComponent
+} from './components/homepage/course-dashboard/course-dashboard.component'
+import {
+    InactiveCoursesComponent
+} from './components/homepage/inactive-courses/inactive-courses.component'
 import {FaqComponent} from './components/faq/faq.component'
 import {CommonModule} from '@angular/common'
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs'
@@ -87,7 +92,6 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
         TokenValuesComponent,
         TopicsComponent,
         UserActionsComponent,
-        UserStatsComponent
     ],
     imports: [
         AdminModule,
@@ -140,7 +144,8 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
             provide: HIGHLIGHT_OPTIONS,
             useValue: {
                 coreLibraryLoader: () => import('highlight.js/lib/core'),
-                lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
+                // Optional, only if you want the line numbers
+                lineNumbersLoader: () => import('highlightjs-line-numbers.js'),
                 languages: {
                     java: () => import('highlight.js/lib/languages/java')
                 }

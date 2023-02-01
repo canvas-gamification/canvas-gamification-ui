@@ -28,7 +28,9 @@
                                     {{ dialogCategoryStats.category.question_count }} Questions
                                 </p>
                                 <p class="tui-island__paragraph">
-                                    {{ dialogCategoryStats.category.average_success.toFixed(2) }}% Success Rate
+                                    <!-- Temporarily disable success rate for performance-->
+                                    Unknown success rate
+                                    <!-- {{ dialogCategoryStats.category.average_success.toFixed(2) }}% Success Rate-->
                                 </p>
                             </tui-island>
                         </div>
@@ -51,7 +53,9 @@
                         {{ categoryStats.category.question_count }} Questions
                     </p>
                     <p class="tui-island__paragraph">
-                        {{ categoryStats.category.average_success.toFixed(2) }}% Success Rate
+                        <!-- Temporarily disable success rate for performance-->
+                        Unknown success rate
+                        <!-- {{ categoryStats.category.average_success.toFixed(2) }}% Success Rate-->
                     </p>
                     <button
                         (click)="openCategoryStatsDialog(categoryStats.category.name, categoryDialog)"

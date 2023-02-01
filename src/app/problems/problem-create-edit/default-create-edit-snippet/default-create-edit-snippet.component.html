@@ -39,6 +39,7 @@
             (ngModelChange)="resetCourseIfPractice($event)"
             [ngModelOptions]="{standalone: true}"
             [ngModel]="isPractice"
+            [disabled]="disableEvent"
             size="l"
         >
             Practice Question

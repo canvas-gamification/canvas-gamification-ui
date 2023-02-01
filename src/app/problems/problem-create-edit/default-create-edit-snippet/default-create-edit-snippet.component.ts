@@ -15,6 +15,7 @@ import {Difficulty} from "@app/_models/difficulty"
 export class DefaultCreateEditSnippetComponent implements OnInit {
 
     @Input() formGroup: FormGroup
+    @Input() disableEvent = false
     courses: Course[]
     categories: Category[]
     difficulties: Difficulty[]
@@ -37,7 +38,11 @@ export class DefaultCreateEditSnippetComponent implements OnInit {
         const categoriesObservable = this.categoryService.getCategories()
         const difficultyObservable = this.difficultyService.getDifficulties()
 
-        forkJoin([coursesObservable, categoriesObservable, difficultyObservable]).subscribe(result => {
+        forkJoin([
+            coursesObservable,
+            categoriesObservable,
+            difficultyObservable
+        ]).subscribe(result => {
             this.courses = result[0]
             this.categories = result[1]
             this.difficulties = result[2]
@@ -45,6 +50,9 @@ export class DefaultCreateEditSnippetComponent implements OnInit {
             if (this.form.course.value) this.setCourseEvents(this.form.course.value)
         })
 
+        if (this.disableEvent) {
+            this.form.course.disable()
+        }
         this.form.event.disable()
         this.form.course.valueChanges.subscribe((courseId) => {
             if (courseId) this.setCourseEvents(courseId)
@@ -63,7 +71,7 @@ export class DefaultCreateEditSnippetComponent implements OnInit {
      */
     resetCourseIfPractice(isPractice: boolean): void {
         this.isPractice = isPractice
-        if (isPractice) this.form.course.reset()
+        this.form.course.reset()
     }
 
     /**
@@ -75,7 +83,6 @@ export class DefaultCreateEditSnippetComponent implements OnInit {
             if (course.id === courseId) {
                 this.events = course.events
                 this.form.event.enable()
-                return
             }
         })
     }

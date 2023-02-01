@@ -1,6 +1,9 @@
-<h1 class="tui-text_h3 tui-space_vertical-10">{{ this.questionDetails ? 'Edit' : 'New' }} Java Question</h1>
+<h1 class="tui-text_h3 tui-space_vertical-10">{{ questionDetails ? 'Edit' : 'New' }} Java Question</h1>
 <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
-    <app-default-create-edit-snippet [formGroup]="formGroup"></app-default-create-edit-snippet>
+    <app-default-create-edit-snippet
+        [formGroup]="formGroup"
+        [disableEvent]="!!eventId || !!courseId"
+    ></app-default-create-edit-snippet>
     <div class="tui-form__row">
         <h2 class="tui-form__header">Question</h2>
         <app-editor formControlName="text"></app-editor>
