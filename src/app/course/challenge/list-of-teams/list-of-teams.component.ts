@@ -61,4 +61,11 @@ export class ListOfTeamsComponent implements OnInit {
     isInvited(team: Team): boolean {
         return team.who_can_join.includes(this.course.course_reg.id)
     }
+
+    isJoinAble(team: Team, event: CourseEvent): boolean {
+        return (this.isInvited(team) || !team.is_private)
+            && !this.isInTeam(team)
+            && event.is_not_available_yet
+
+    }
 }

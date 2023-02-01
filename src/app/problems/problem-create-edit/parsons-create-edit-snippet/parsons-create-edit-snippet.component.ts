@@ -13,12 +13,15 @@ import {Question} from "@app/_models"
 })
 export class ParsonsCreateEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question
+    @Input() eventId: number
+    @Input() courseId: number
     formGroup: FormGroup
 
     constructor(
         private questionService: QuestionService,
         private router: Router,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationsService)
+        private readonly notificationsService: TuiNotificationsService
     ) {
     }
 
@@ -33,7 +36,7 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
         if (this.questionDetails) {
             this.formGroup = ParsonsForm.createFormWithData(this.questionDetails)
         } else {
-            this.formGroup = ParsonsForm.createForm()
+            this.formGroup = ParsonsForm.createForm(this.courseId, this.eventId)
         }
     }
 

@@ -99,7 +99,8 @@ export class ConceptMapGraph {
         const links = []
 
         adjacencyList.forEach(category => {
-            const label = `${category.name.replaceAll(' ', '\n')}\n\n${Math.round(category.average_success * 100)}% (${category.question_count} Total)`
+            const label =
+                `${category.name.replaceAll(' ', '\n')}\n\n${category.question_count} Questions`
             elements.push(this.makeElement(category.pk, label))
 
             category.next_category_ids.forEach(childElementId => {

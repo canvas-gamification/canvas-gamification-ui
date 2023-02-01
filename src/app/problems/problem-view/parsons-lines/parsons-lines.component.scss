@@ -9,6 +9,7 @@
     flex-grow: 1;
     padding: var(--tui-padding-s);
     background-color: var(--tui-base-02);
+    min-height: 200px;
 
     &-nested {
         display: none;

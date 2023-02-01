@@ -24,6 +24,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     eventId: number
     courseId: number
     team: Team
+    openNewQuestionDropdown = false
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -107,5 +108,12 @@ export class CourseQuestionSnippetComponent implements OnInit {
             }).subscribe()
             this.init()
         })
+    }
+
+    getBackLabel(): string {
+        if (this.getEventType() === 'challenge')
+            return 'List of Challenges'
+        else if (this.getEventType() === 'assignment' || this.getEventType() === 'exam')
+            return 'Assignments and Exams'
     }
 }

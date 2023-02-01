@@ -16,26 +16,22 @@ import {UserStats} from "@app/_models/user_difficulty_stats"
 
 export const MOCK_CATEGORY: Category = {
     name: 'Test',
-    average_success: 0,
     description: '',
     next_category_ids: [],
     pk: 0,
     full_name: 'Test',
     parent: null,
     question_count: 100,
-    average_success_per_difficulty: []
 }
 
 export const MOCK_CATEGORY_2: Category = {
     name: 'Test #2',
-    average_success: 0,
     description: '',
     next_category_ids: [],
     pk: 1,
     full_name: 'Test #2',
     parent: 0,
     question_count: 100,
-    average_success_per_difficulty: []
 }
 
 export const MOCK_CATEGORIES: Category[] = [MOCK_CATEGORY, MOCK_CATEGORY_2]
@@ -101,7 +97,6 @@ export const MOCK_MCQ_QUESTION: Question = {
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
-    success_rate: 0,
     text: 'test',
     time_created: null,
     time_modified: null,
@@ -143,7 +138,6 @@ export const MOCK_CHECKBOX_QUESTION: Question = {
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
-    success_rate: 0,
     text: 'test',
     time_created: null,
     time_modified: null,
@@ -180,7 +174,6 @@ export const MOCK_JAVA_QUESTION: Question = {
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
-    success_rate: 0,
     text: 'This is a Java question.',
     time_created: null,
     time_modified: null,
@@ -221,7 +214,6 @@ export const MOCK_PARSONS_QUESTION: Question = {
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
-    success_rate: 0,
     text: 'This is a Parsons question.',
     time_created: null,
     time_modified: null,
@@ -262,7 +254,6 @@ export const MOCK_PRACTICE_JAVA_QUESTION: Question = {
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
-    success_rate: 0,
     text: 'This is a Java question.',
     time_created: null,
     time_modified: null,
@@ -299,7 +290,6 @@ export const MOCK_PRACTICE_PARSONS_QUESTION: Question = {
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
-    success_rate: 0,
     text: 'This is a Parsons question.',
     time_created: null,
     time_modified: null,
@@ -343,7 +333,6 @@ export const MOCK_PRACTICE_MCQ_QUESTION: Question = {
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
-    success_rate: 0,
     text: '',
     time_created: null,
     time_modified: null,
@@ -385,7 +374,6 @@ export const MOCK_PRACTICE_CHECKBOX_QUESTION: Question = {
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
-    success_rate: 0,
     text: '',
     time_created: null,
     time_modified: null,
@@ -848,6 +836,7 @@ export const MOCK_COURSE: Course = {
     course_reg: null,
     leader_board: null,
     has_create_event_permission: true,
+    has_view_permission: true,
     description: "",
     registration_mode: CourseRegistrationMode.OPEN,
 }

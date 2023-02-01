@@ -4,7 +4,7 @@
         <ng-container *ngIf="activeCourses else waitingActive">
             <ng-container *ngIf="activeCourses.length > 0">
                 <ng-container *ngFor="let course of activeCourses">
-                    <app-course-island [course]="course" [hasViewPermission]="true"></app-course-island>
+                    <app-course-island [course]="course"></app-course-island>
                 </ng-container>
             </ng-container>
             <ng-container>

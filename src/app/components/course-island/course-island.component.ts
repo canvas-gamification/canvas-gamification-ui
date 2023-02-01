@@ -10,7 +10,6 @@ import {AuthenticationService} from "@app/_services/api/authentication"
 })
 export class CourseIslandComponent implements OnInit {
     @Input() course: Course
-    @Input() hasViewPermission: boolean
     @Input() skeleton = false
     user: User
     readonly STATUS = STATUS

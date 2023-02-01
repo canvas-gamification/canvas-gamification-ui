@@ -2,11 +2,10 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {LeaderBoardComponent} from '../../leader-board/leader-board.component'
 import {TestModule} from '@test/test.module'
-import {MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
+import {MOCK_COURSE1, MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
 import {TuiFilterPipeModule} from "@taiga-ui/cdk"
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseServiceMock} from "@test/course.service.mock"
-import {ActivatedRoute} from "@angular/router"
 
 describe('LeaderBoardComponent', () => {
     let component: LeaderBoardComponent
@@ -18,17 +17,6 @@ describe('LeaderBoardComponent', () => {
             declarations: [LeaderBoardComponent],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock},
-                {
-                    provide: ActivatedRoute, useValue: {
-                        snapshot: {
-                            parent: {
-                                params: {
-                                    courseId: 0
-                                }
-                            }
-                        }
-                    }
-                }
             ]
         }).compileComponents()
     })
@@ -36,6 +24,9 @@ describe('LeaderBoardComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(LeaderBoardComponent)
         component = fixture.componentInstance
+        component.course = MOCK_COURSE1
+        component.eventId = null
+        component.leaderBoardName = ""
         fixture.detectChanges()
     })
 

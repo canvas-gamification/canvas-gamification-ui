@@ -12,12 +12,20 @@ export class ProblemCreateEditComponent implements OnInit {
 
     questionType: string
     questionDetails: Question
+    eventId: number
+    courseId: number
 
-    constructor(private route: ActivatedRoute, private questionService: QuestionService) {
+    constructor(
+        private route: ActivatedRoute,
+        private questionService: QuestionService,
+    ) {
     }
 
     ngOnInit(): void {
         const questionId = this.route.snapshot.params.id
+        this.eventId = +this.route.snapshot.params.eventId
+        this.courseId = +this.route.snapshot.parent.params.courseId
+
         if (questionId) {
             this.questionService.getQuestion(questionId).subscribe(result => {
                 this.questionDetails = result

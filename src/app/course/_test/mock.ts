@@ -93,6 +93,7 @@ export const MOCK_COURSE1: Course = {
         token: 5,
     }],
     has_create_event_permission: true,
+    has_view_permission: true,
     description: "",
     registration_mode: CourseRegistrationMode.OPEN,
 }
@@ -123,6 +124,7 @@ export const MOCK_COURSE2: Course = {
         token: 5,
     }],
     has_create_event_permission: true,
+    has_view_permission: true,
     description: "",
     registration_mode: CourseRegistrationMode.OPEN,
 }
@@ -183,7 +185,6 @@ export const MOCK_MCQ_QUESTION: Question = {
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',
-    success_rate: 0,
     text: '',
     time_created: null,
     time_modified: null,
