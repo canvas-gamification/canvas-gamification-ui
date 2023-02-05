@@ -1,9 +1,9 @@
-import {Component, Inject} from '@angular/core'
+import {Component, Inject, OnInit} from '@angular/core'
 import {FormGroup} from "@angular/forms"
 import {CourseForm} from "@app/course/_forms/course.form"
 import {CourseService} from '../_services/course.service'
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
-import {Router} from '@angular/router'
+import {ActivatedRoute, Router} from '@angular/router'
 import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit"
 
 @Component({
@@ -19,7 +19,7 @@ import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit"
         },
     ],
 })
-export class CourseCreateComponent {
+export class CourseCreateComponent implements OnInit{
 
     registrationModes = [
         "Open",
@@ -27,14 +27,22 @@ export class CourseCreateComponent {
     ]
 
     formGroup: FormGroup
+    courseId: number
 
     constructor(
+        private route: ActivatedRoute,
         private readonly courseService: CourseService,
         @Inject(TuiNotificationsService)
         private readonly notificationsService: TuiNotificationsService,
         private readonly router: Router,
     ) {
         this.formGroup = CourseForm.createCourseForm()
+    }
+
+    ngOnInit(): void {
+        if(this.route.snapshot.params.courseId){
+            this.courseId = this.route.snapshot.params.courseId
+        }
     }
 
     showAccessCode() {
