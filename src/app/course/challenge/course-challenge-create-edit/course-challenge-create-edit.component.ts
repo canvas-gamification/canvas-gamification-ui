@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
-import {Category, CourseEvent} from "@app/_models"
+import {Category, CourseEvent, EventLimit} from "@app/_models"
 import {ChallengeType} from "@app/_models/challengeType"
 import {FormArray, FormControl, FormGroup} from "@angular/forms"
 import {CategoryService} from "@app/_services/api/category.service"
@@ -24,6 +24,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
     challengeForm: FormGroup
     categories: Category[]
     difficulties: Difficulty[]
+    limits: EventLimit[]
 
 
     constructor(
@@ -60,6 +61,10 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         this.difficultyService.getDifficulties().subscribe(
             difficulties => this.difficulties = difficulties
         )
+
+        this.courseEventService.getLimits().subscribe(
+            limits => this.limits = limits
+        )
     }
 
     getChallengeQuestionSets(): FormArray {
@@ -74,10 +79,15 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         return fc.get(field) as FormControl
     }
 
-    // TODO: Need support from backend
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    getNumQuestionsLimit(fc: FormControl): number {
-        return 100
+    getNumQuestionsLimit(formControl: FormControl) {
+        const category = formControl.get('category').value as number
+        const difficulty = formControl.get('difficulty').value as string
+        if (!category || !difficulty) {
+            return 0
+        }
+        return this.limits.find(
+            limit => limit.category === category && limit.difficulty === difficulty
+        ).available_questions
     }
 
     addChallengeQuestionSet() {
