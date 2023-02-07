@@ -548,16 +548,24 @@ const routes: Routes = [
                     }]
                 }
             },
+            {
+                path: 'leaderboard',
+                component: LeaderBoardPageComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Leaderboard`,
+                        routerLink: '/course/:courseId/leaderboard'
+                    },]
+                }
+            },
         ]
     },
     {
         path: ':courseId/practice/category/:categoryId',
         component: PracticeProblemComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/leaderboard',
-        component: LeaderBoardPageComponent,
         canActivate: [AuthGuard]
     }]
 
