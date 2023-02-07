@@ -32,10 +32,18 @@ export class CourseForm {
         const builder = new FormBuilder()
         return builder.group({
             name: new FormControl('', [Validators.required]),
-            description: new FormControl('', [Validators.required]),
-            url: new FormControl('', [Validators.required, Validators.pattern('(https?://)([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?')]),
+            description: new FormControl(''),
+            url: new FormControl(
+                '',
+                [Validators.pattern(
+                    '(https?://)([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
+                )]
+            ),
             date: new FormControl(
-                new TuiDayRange(TuiDay.currentLocal(), TuiDay.currentLocal().append({day: 7})),
+                new TuiDayRange(
+                    TuiDay.currentLocal(),
+                    TuiDay.currentLocal().append({day: 7})
+                ),
                 [Validators.required]
             ),
             registrationMode: new FormControl('', [Validators.required]),
@@ -64,10 +72,11 @@ export class CourseForm {
     /**
      * Custom validator for date validity
      */
-    private static dateValidator: ValidatorFn = (controls: AbstractControl): ValidationErrors | null => {
-        const dateRange: TuiDayRange = controls.get('date').value
-        return !dateRange.from || !dateRange.to ? {
-            forbiddenDateRange: true
-        } : null
-    }
+    private static dateValidator: ValidatorFn =
+        (controls: AbstractControl): ValidationErrors | null => {
+            const dateRange: TuiDayRange = controls.get('date').value
+            return !dateRange.from || !dateRange.to ? {
+                forbiddenDateRange: true
+            } : null
+        }
 }
