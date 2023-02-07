@@ -4,7 +4,9 @@
             Create a Course
         </div>
         <div class="tui-form__row">
-            <tui-input formControlName="name">Course Name</tui-input>
+            <tui-input formControlName="name">Course Name
+                <span class="tui-required"></span>
+            </tui-input>
             <tui-field-error formControlName="name"></tui-field-error>
         </div>
         <div class="tui-form__row">
@@ -17,14 +19,20 @@
         <div class="tui-form__row">
             <tui-input formControlName="url" type="url">Course URL</tui-input>
             <tui-field-error formControlName="url" ></tui-field-error>
+            <div class="tui-form__field-note">The URL field can be used to link to your course
+                website on another platform, or an external website of your choice.
+            </div>
         </div>
         <div class="tui-form__row">
-            <tui-input-date-range formControlName="date">Course Date</tui-input-date-range>
+            <tui-input-date-range formControlName="date">Course Date
+                <span class="tui-required"></span>
+            </tui-input-date-range>
             <tui-field-error formControlName="date"></tui-field-error>
         </div>
         <div class="tui-form__row">
             <tui-select formControlName="registrationMode">
                 Registration Mode
+                <span class="tui-required"></span>
                 <input
                     tuiTextfield
                     placeholder="Select registration mode"
