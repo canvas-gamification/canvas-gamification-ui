@@ -9,7 +9,13 @@
         >
             Back to {{getBackLabel()}}
         </a>
-        <div *ngIf="eventId" class="flex justify-between items-center mt-3 mb-10">
+        <div
+            *ngIf="eventId"
+            class="flex justify-between items-center mt-3"
+            [ngClass]="{
+                        'mb-10': event.type !== 'CHALLENGE'
+                    }"
+        >
             <h5 class="tui-text_h5">{{ event.name }}</h5>
             <div class="flex flex-row gap-3" *ngIf="event.has_edit_permission">
                 <a
@@ -61,25 +67,26 @@
                 </ng-template>
             </div>
         </div>
+        <div
+            *ngIf="event.type==='CHALLENGE'"
+            class="mb-10"
+        >
+            <p>{{getChallengeType()}} Challenge</p>
+            <p>{{getEventTypeDescription()}}</p>
+        </div>
         <tui-notification
-            class="mb-6"
             *ngIf="event.is_not_available_yet"
+            class="mb-6"
         >
             The {{getEventType()}} is not available yet.
         </tui-notification>
         <tui-notification
-            class="mb-6"
             *ngIf="event.is_closed"
+            class="mb-6"
         >
             The {{getEventType()}} is closed.
         </tui-notification>
         <ng-container *ngIf="event.is_open || course.has_create_event_permission">
-            <div
-                *ngIf="event.type==='CHALLENGE'"
-            >
-                <p>{{getChallengeType()}} Challenge</p>
-                <p>{{getEventTypeDescription()}}</p>
-            </div>
             <div
                 *ngIf="event.type==='CHALLENGE' && team"
                 class="teamBar mb-8 flex items-center p-4 rounded-[0.625rem] shadow">
