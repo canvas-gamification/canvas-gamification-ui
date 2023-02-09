@@ -27,7 +27,7 @@ export class ConsentForm {
             legal_last_name: new FormControl(user?.last_name, [Validators.required]),
             student_number: new FormControl('', [Validators.required]),
             date: new FormControl(new Date().toDateString(), [Validators.required]),
-            gender: new FormControl('', [Validators.required]),
+            gender: new FormControl(null, [Validators.required]),
             race: new FormControl(null, [Validators.required]),
         })
     }
