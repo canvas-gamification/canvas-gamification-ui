@@ -109,4 +109,11 @@ export class CourseQuestionSnippetComponent implements OnInit {
             this.init()
         })
     }
+
+    getBackLabel(): string {
+        if (this.getEventType() === 'challenge')
+            return 'List of Challenges'
+        else if (this.getEventType() === 'assignment' || this.getEventType() === 'exam')
+            return 'Assignments and Exams'
+    }
 }

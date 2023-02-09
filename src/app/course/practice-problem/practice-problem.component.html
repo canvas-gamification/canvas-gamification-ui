@@ -29,6 +29,12 @@
                     View List of Goals
                 </a>
             </div>
+        </div>
+        <div class="space-y-3">
+
+            <div class="text-center">
+                Question Settings:
+            </div>
             <div
                 class="practice-sidebar_content-breadcrumbs tui-space_bottom-2"
             >
@@ -99,12 +105,6 @@
                     </tui-data-list>
                 </ng-template>
             </div>
-        </div>
-        <div class="space-y-3">
-
-            <div class="text-center">
-                Question Settings:
-            </div>
             <tui-checkbox-block
                 (ngModelChange)="updateQuestions(difficulty, $event)"
                 [class.tui-skeleton]="!difficulties || !category"
@@ -163,16 +163,6 @@
 
         <div class="practice-sidebar_buttons tui-space_vertical-6">
             <button
-                (click)="openReportQuestion()"
-                [class.tui-skeleton]="!category || !uqjs"
-                icon="tuiIconAttention"
-                size="s"
-                tuiButton
-                appearance="secondary"
-            >
-                Report a Problem
-            </button>
-            <button
                 *ngIf="course?.has_create_event_permission"
                 (click)="openAddQuestion()"
                 [class.tui-skeleton]="!category || !uqjs"
@@ -182,6 +172,16 @@
                 appearance="secondary"
             >
                 Add This Question to Event
+            </button>
+            <button
+                (click)="openReportQuestion()"
+                [class.tui-skeleton]="!category || !uqjs"
+                icon="tuiIconAttention"
+                size="s"
+                tuiButton
+                appearance="secondary"
+            >
+                Report a Problem
             </button>
         </div>
     </app-sidebar>

@@ -1,4 +1,7 @@
-<tui-island class="course-island" size="m">
+<tui-island
+    [class]="getIslandClass()"
+    (click)="redirect()"
+    size="m">
     <ng-container *ngIf="!skeleton else skeletonTemplate">
         <div
             [style.backgroundColor]="course.name | getColorFromString"
