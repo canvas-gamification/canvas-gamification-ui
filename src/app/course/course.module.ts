@@ -106,6 +106,7 @@ import {CourseChallengeCreateEditComponent
 import {EventRowComponent} from './event/event-row/event-row.component'
 import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-modal.component'
 import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.component'
+import {DisplayQuestionComponent} from './event/display-question/display-question.component'
 
 @NgModule({
     declarations: [
@@ -126,6 +127,7 @@ import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.co
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        DisplayQuestionComponent,
         EventRowComponent,
         EventStatsBarChartComponent,
         EventStatsComponent,

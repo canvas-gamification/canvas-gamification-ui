@@ -60,6 +60,9 @@ import {LeaderBoardPageComponent} from "@app/course/leader-board-page/leader-boa
 import {
     ProblemCreateEditComponent
 } from "@app/problems/problem-create-edit/problem-create-edit.component"
+import {
+    DisplayQuestionComponent
+} from "@app/course/event/display-question/display-question.component"
 
 const routes: Routes = [
     {
@@ -215,7 +218,7 @@ const routes: Routes = [
             },
             {
                 path: 'assignments-exams/:eventId/problem/:id',
-                component: ProblemViewComponent,
+                component: DisplayQuestionComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
@@ -491,7 +494,7 @@ const routes: Routes = [
             },
             {
                 path: 'challenge/:eventId/problem/:id',
-                component: ProblemViewComponent,
+                component: DisplayQuestionComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
