@@ -178,6 +178,16 @@
             >
                 {{eventId ? 'Edit Challenge' : 'Create Challenge'}}
             </button>
+            <a
+                [routerLink]="eventId ? ['../..'] : ['..']"
+                appearance="secondary"
+                aria-label="Cancel"
+                class="tui-form__button"
+                size="m"
+                tuiButton
+            >
+                Cancel
+            </a>
         </div>
     </form>
 </div>

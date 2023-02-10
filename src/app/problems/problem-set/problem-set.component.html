@@ -67,7 +67,7 @@
             formControlName="parentCategory"
         >
             Category
-            <tui-data-list *tuiDataList>
+            <tui-data-list *tuiDataList [class.tui-skeleton]="!parentCategories">
                 <button *ngFor="let category of parentCategories" [value]="category.name" tuiOption>
                     {{ category.name }}
                 </button>
@@ -111,135 +111,217 @@
             Filter
         </button>
     </form>
-    <tui-loader [overlay]="true" [showLoader]="!questions || filteringQuestions">
-        <table
-            (directionChange)="update({sortDirection: $event})"
-            (sorterChange)="update({sorter: $event})"
-            [direction]="sortDirection"
-            [sorter]="sorter"
-            [columns]="questionsTableColumns"
-            class="questions-table"
-            tuiTable
-        >
-            <thead tuiThead>
-            <tr tuiThGroup>
-                <th *tuiHead="'id'" [sorter]="sorters.id" tuiTh>#</th>
-                <th *tuiHead="'title'" [sorter]="sorters.title" tuiTh>Question Name</th>
-                <th *tuiHead="'author_name'" [sorter]="sorters.author_name" tuiTh>Author</th>
-                <th *tuiHead="'event_name'" [sorter]="sorters.event_name" tuiTh>Event</th>
-                <th
-                    *tuiHead="'parent_category_name'"
-                    [sorter]="sorters.parent_category_name"
-                    tuiTh
-                >
-                    Category
-                </th>
-                <th *tuiHead="'category_name'" [sorter]="sorters.category_name" tuiTh>
-                    Sub-Category
-                </th>
-                <th *tuiHead="'difficulty'" [sorter]="sorters.difficulty" tuiTh>Difficulty</th>
-                <th *tuiHead="'type_name'" [sorter]="null" tuiTh>Type</th>
-                <th *tuiHead="'token_value'" [sorter]="null" tuiTh>Token Value</th>
-                <th *tuiHead="'status'" [sorter]="sorters.status" tuiTh>Status</th>
-                <th *tuiHead="'actions'" [sorter]="null" tuiTh>Actions</th>
-            </tr>
-            </thead>
-            <tbody [data]="questions" tuiTbody>
-            <tr *tuiRow="let question of questions" tuiTr>
-                <td *tuiCell="'author_name'" tuiTd>
-                    {{ (question.author_name) || 'No Author' }}
-                </td>
-                <td *tuiCell="'event_name'" tuiTd>
-                    {{ (question.event_obj.name) || 'No Event Name' }}
-                </td>
-                <td *tuiCell="'parent_category_name'" tuiTd>
-                    {{ (question.parent_category_name) || 'No Category' }}
-                </td>
-                <td *tuiCell="'category_name'" tuiTd>
-                    {{ (question.category_name) || 'No Sub-Category' }}
-                </td>
-                <td *tuiCell="'difficulty'" tuiTd>
-                    {{ (question.difficulty | titlecase) || 'No Difficulty' }}
-                </td>
-                <td *tuiCell="'type_name'" tuiTd>
-                    {{ (question.type_name | titlecase) || 'No Type' }}
-                </td>
-                <td *tuiCell="'status'" tuiTd>
-                    <ng-container *ngIf="question.is_verified else questionNotVerified">
-                        <tui-tag size="m" status="success" value="Verified"></tui-tag>
-                    </ng-container>
-                    <ng-template #questionNotVerified>
-                        <tui-tag size="m" status="error" value="Not Verified"></tui-tag>
-                    </ng-template>
-                </td>
-                <td *tuiCell="'actions'" tuiTd>
-                    <div class="questions-table__actions">
-                        <a
-                            [routerLink]="[question.id]"
-                            [tuiHint]="viewTooltip"
-                            class="tui-space_right-2 tui-space_vertical-2"
-                            icon="tuiIconEyeOpen"
-                            size="s"
-                            tuiDescribedBy="view-{{question.id}}"
-                            tuiHintDirection="top-left"
-                            tuiHintId="view-{{question.id}}"
-                            tuiHintMode="onDark"
-                            tuiIconButton
-                        ></a>
-                        <ng-template #viewTooltip>
-                            View Question
+
+    <ng-container *ngIf="questions && !filteringQuestions else skeletonTemplate">
+            <table
+                (directionChange)="update({sortDirection: $event})"
+                (sorterChange)="update({sorter: $event})"
+                [direction]="sortDirection"
+                [sorter]="sorter"
+                [columns]="questionsTableColumns"
+                class="questions-table"
+                tuiTable
+            >
+                <thead tuiThead>
+                <tr tuiThGroup>
+                    <th *tuiHead="'id'" [sorter]="sorters.id" tuiTh>#</th>
+                    <th *tuiHead="'title'" [sorter]="sorters.title" tuiTh>Question Name</th>
+                    <th *tuiHead="'author_name'" [sorter]="sorters.author_name" tuiTh>Author</th>
+                    <th *tuiHead="'event_name'" [sorter]="sorters.event_name" tuiTh>Event</th>
+                    <th
+                        *tuiHead="'parent_category_name'"
+                        [sorter]="sorters.parent_category_name"
+                        tuiTh
+                    >
+                        Category
+                    </th>
+                    <th *tuiHead="'category_name'" [sorter]="sorters.category_name" tuiTh>
+                        Sub-Category
+                    </th>
+                    <th *tuiHead="'difficulty'" [sorter]="sorters.difficulty" tuiTh>Difficulty</th>
+                    <th *tuiHead="'type_name'" [sorter]="null" tuiTh>Type</th>
+                    <th *tuiHead="'token_value'" [sorter]="null" tuiTh>Token Value</th>
+                    <th *tuiHead="'success_rate'" [sorter]="null" tuiTh>Avg Success</th>
+                    <th *tuiHead="'status'" [sorter]="sorters.status" tuiTh>Status</th>
+                    <th *tuiHead="'actions'" [sorter]="null" tuiTh>Actions</th>
+                </tr>
+                </thead>
+                <tbody [data]="questions" tuiTbody>
+                <tr *tuiRow="let question of questions" tuiTr>
+                    <td *tuiCell="'author_name'" tuiTd>
+                        {{ (question.author_name) || 'No Author' }}
+                    </td>
+                    <td *tuiCell="'event_name'" tuiTd>
+                        {{ (question.event_obj.name) || 'No Event Name' }}
+                    </td>
+                    <td *tuiCell="'parent_category_name'" tuiTd>
+                        {{ (question.parent_category_name) || 'No Category' }}
+                    </td>
+                    <td *tuiCell="'category_name'" tuiTd>
+                        {{ (question.category_name) || 'No Sub-Category' }}
+                    </td>
+                    <td *tuiCell="'difficulty'" tuiTd>
+                        {{ (question.difficulty | titlecase) || 'No Difficulty' }}
+                    </td>
+                    <td *tuiCell="'type_name'" tuiTd>
+                        {{ (question.type_name | titlecase) || 'No Type' }}
+                    </td>
+                    <td *tuiCell="'status'" tuiTd>
+                        <ng-container *ngIf="question.is_verified else questionNotVerified">
+                            <tui-tag size="m" status="success" value="Verified"></tui-tag>
+                        </ng-container>
+                        <ng-template #questionNotVerified>
+                            <tui-tag size="m" status="error" value="Not Verified"></tui-tag>
                         </ng-template>
-                        <a
-                            [routerLink]="[question.id, 'edit']"
-                            [tuiHint]="editTooltip"
-                            class="tui-space_right-2 tui-space_vertical-2"
-                            icon="tuiIconEdit"
-                            size="s"
-                            tuiDescribedBy="edit-{{question.id}}"
-                            tuiHintDirection="top-left"
-                            tuiHintId="edit-{{question.id}}"
-                            tuiHintMode="onDark"
-                            tuiIconButton
-                        ></a>
-                        <ng-template #editTooltip>
-                            Edit Question
-                        </ng-template>
-                        <button
-                            (click)="openDeleteQuestionDialog(deleteDialog, question.id)"
-                            [tuiHint]="deleteTooltip"
-                            class="tui-space_vertical-2"
-                            icon="tuiIconTrash"
-                            size="s"
-                            tuiDescribedBy="delete-{{question.id}}"
-                            tuiHintDirection="top-left"
-                            tuiHintId="delete-{{question.id}}"
-                            tuiHintMode="onDark"
-                            tuiIconButton
-                            type="button"
-                        ></button>
-                        <ng-template #deleteTooltip>
-                            Delete Question
-                        </ng-template>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td [colSpan]="questionsTableColumns.length">
-                    <tui-table-pagination
-                        (pageChange)="update({page: $event})"
-                        (sizeChange)="update({pageSize: $event})"
-                        [page]="page"
-                        [size]="pageSize"
-                        [total]="numberOfQuestions"
-                        class="tui-space_top-2"
-                    ></tui-table-pagination>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
-    </tui-loader>
+                    </td>
+                    <td *tuiCell="'actions'" tuiTd>
+                        <div class="questions-table__actions">
+                            <a
+                                [routerLink]="[question.id]"
+                                [tuiHint]="viewTooltip"
+                                class="tui-space_right-2 tui-space_vertical-2"
+                                icon="tuiIconEyeOpen"
+                                size="s"
+                                tuiDescribedBy="view-{{question.id}}"
+                                tuiHintDirection="top-left"
+                                tuiHintId="view-{{question.id}}"
+                                tuiHintMode="onDark"
+                                tuiIconButton
+                            ></a>
+                            <ng-template #viewTooltip>
+                                View Question
+                            </ng-template>
+                            <a
+                                [routerLink]="[question.id, 'edit']"
+                                [tuiHint]="editTooltip"
+                                class="tui-space_right-2 tui-space_vertical-2"
+                                icon="tuiIconEdit"
+                                size="s"
+                                tuiDescribedBy="edit-{{question.id}}"
+                                tuiHintDirection="top-left"
+                                tuiHintId="edit-{{question.id}}"
+                                tuiHintMode="onDark"
+                                tuiIconButton
+                            ></a>
+                            <ng-template #editTooltip>
+                                Edit Question
+                            </ng-template>
+                            <button
+                                (click)="openDeleteQuestionDialog(deleteDialog, question.id)"
+                                [tuiHint]="deleteTooltip"
+                                class="tui-space_vertical-2"
+                                icon="tuiIconTrash"
+                                size="s"
+                                tuiDescribedBy="delete-{{question.id}}"
+                                tuiHintDirection="top-left"
+                                tuiHintId="delete-{{question.id}}"
+                                tuiHintMode="onDark"
+                                tuiIconButton
+                                type="button"
+                            ></button>
+                            <ng-template #deleteTooltip>
+                                Delete Question
+                            </ng-template>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td [colSpan]="questionsTableColumns.length">
+                        <tui-table-pagination
+                            (pageChange)="update({page: $event})"
+                            (sizeChange)="update({pageSize: $event})"
+                            [page]="page"
+                            [size]="pageSize"
+                            [total]="numberOfQuestions"
+                            class="tui-space_top-2"
+                        ></tui-table-pagination>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+    </ng-container>
+    <ng-template #skeletonTemplate>
+
+            <table
+                [columns]="questionsTableColumns"
+                class="questions-table"
+                tuiTable
+            >
+                <thead tuiThead>
+                <tr tuiThGroup>
+                    <th *tuiHead="'id'" tuiTh>#</th>
+                    <th *tuiHead="'title'" tuiTh>Question Name</th>
+                    <th *tuiHead="'author_name'" tuiTh>Author</th>
+                    <th *tuiHead="'event_name'" tuiTh>Event</th>
+                    <th *tuiHead="'parent_category_name'" tuiTh> Category</th>
+                    <th  *tuiHead="'category_name'" tuiTh>Sub-Category </th>
+                    <th *tuiHead="'difficulty'" tuiTh>Difficulty</th>
+                    <th *tuiHead="'type_name'" tuiTh>Type</th>
+                    <th *tuiHead="'token_value'" tuiTh>Token Value</th>
+                    <th *tuiHead="'success_rate'" tuiTh>Avg Success</th>
+                    <th *tuiHead="'status'" tuiTh>Status</th>
+                    <th *tuiHead="'actions'" tuiTh>Actions</th>
+                </tr>
+                </thead>
+                <tbody tuiTbody [data]="questions">
+                <tr tuiTr *ngFor="let _ of [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]">
+                    <td *tuiCell="'id'" class="tui-skeleton" tuiTd>
+                        Content
+                    </td>
+                    <td *tuiCell="'title'" class="tui-skeleton" tuiTd>
+                        Content
+                    </td>
+                    <td *tuiCell="'author_name'" class="tui-skeleton" tuiTd>
+                        Content
+                    </td>
+                    <td *tuiCell="'event_name'" class="tui-skeleton" tuiTd>
+                        content
+                    </td>
+                    <td *tuiCell="'parent_category_name'" class="tui-skeleton" tuiTd>
+                        content
+                    </td>
+                    <td *tuiCell="'category_name'" class="tui-skeleton" tuiTd>
+                        content
+                    </td>
+                    <td *tuiCell="'difficulty'" class="tui-skeleton" tuiTd>
+                        content
+                    </td>
+                    <td *tuiCell="'type_name'" class="tui-skeleton" tuiTd>
+                        content
+                    </td>
+                    <td *tuiCell="'token_value'" class="tui-skeleton" tuiTd>
+                        Content
+                    </td>
+                    <td *tuiCell="'success_rate'" class="tui-skeleton" tuiTd>
+                        Content
+                    </td>
+                    <td *tuiCell="'status'" class="tui-skeleton" tuiTd>
+                        Content
+                    </td>
+                    <td *tuiCell="'actions'" class="tui-skeleton" tuiTd>
+                        Content
+                    </td>
+
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td [colSpan]="questionsTableColumns.length">
+                        <tui-table-pagination
+                            (pageChange)="update({page: $event})"
+                            (sizeChange)="update({pageSize: $event})"
+                            [page]="page"
+                            [size]="pageSize"
+                            [total]="numberOfQuestions"
+                            class="tui-space_top-2"
+                        ></tui-table-pagination>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+    </ng-template>
 </div>
 <ng-template #deleteDialog let-observer>
     <p>Are you sure that you would like to delete this question?</p>
