@@ -100,7 +100,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
 
     // TODO: Need to discuss;
     //  max= number of teams there are (but there's not point of this challenge,
-    //  but we dont't know how many teams yet
+    //  but we don't know how many teams yet
     topXTeamsLimit(): number {
         return 100
     }

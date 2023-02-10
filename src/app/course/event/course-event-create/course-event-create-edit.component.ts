@@ -84,9 +84,9 @@ export class CourseEventCreateEditComponent implements OnInit {
         ).available_questions
     }
 
-    addChallengeQuestionSet() {
-        this.getQuestionSets().push(CourseEventForm.createQuestionSetForm())
-    }
+    // addChallengeQuestionSet() {
+    //     this.getQuestionSets().push(CourseEventForm.createQuestionSetForm())
+    // }
 
     removeChallengeQuestionSet(index: number): void {
         this.getQuestionSets().removeAt(index)
@@ -117,27 +117,27 @@ export class CourseEventCreateEditComponent implements OnInit {
         const ourEvent = CourseEventForm.formatFormData(formData, this.courseId, this.eventId)
         if (this.eventId) { // If this is a previously existing event
             await this.courseEventService.updateCourseEvent(ourEvent).toPromise()
-            for (const questionSet of this.getQuestionSetFormControls()) {
-                const questionSetFormData =
-                    CourseEventForm.formatQuestionSetFormData(questionSet)
-                await this.courseEventService
-                    .addQuestionSet(questionSetFormData, this.eventId)
-                    .toPromise()
-            }
+            // for (const questionSet of this.getQuestionSetFormControls()) {
+            //     const questionSetFormData =
+            //         CourseEventForm.formatQuestionSetFormData(questionSet)
+            //     await this.courseEventService
+            //         .addQuestionSet(questionSetFormData, this.eventId)
+            //         .toPromise()
+            // }
             this.notificationsService
                 .show('The event has been updated successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
         } else { // Creating a brand-new event
-            const event = await this.courseEventService.addCourseEvent(ourEvent).toPromise()
-            for (const questionSet of this.getQuestionSetFormControls()) {
-                const questionSetFormData =
-                    CourseEventForm.formatQuestionSetFormData(questionSet)
-                await this.courseEventService
-                    .addQuestionSet(questionSetFormData, event.id)
-                    .toPromise()
-            }
+            // const event = await this.courseEventService.addCourseEvent(ourEvent).toPromise()
+            // for (const questionSet of this.getQuestionSetFormControls()) {
+            //     const questionSetFormData =
+            //         CourseEventForm.formatQuestionSetFormData(questionSet)
+            //     await this.courseEventService
+            //         .addQuestionSet(questionSetFormData, event.id)
+            //         .toPromise()
+            // }
             this.notificationsService
                 .show('The event has been added successfully.', {
                     status: TuiNotification.Success

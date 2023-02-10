@@ -15,19 +15,25 @@
                         class="tui-space_left-2"
                     ></tui-badge>
                     <ng-template tuiAccordionItemContent>
-                        <div *ngIf="!submission.question.is_exam_and_open else examContent" class="tui-text_body-m">
-                            <p class="tui-island__paragraph">Grade Given: {{ submission.grade.toFixed(2) }}</p>
-                            <p class="tui-island__paragraph">Tokens Received: {{ submission.tokens_received.toFixed(2)}}
+                        <div *ngIf="!submission.question.is_exam_and_open else examContent"
+                             class="tui-text_body-m">
+                            <p class="tui-island__paragraph">Grade
+                                Given: {{ submission.grade.toFixed(2) }}</p>
+                            <p class="tui-island__paragraph">Tokens
+                                Received: {{ submission.tokens_received.toFixed(2)}}
                                 / {{submission.token_value.toFixed(2) }}</p>
                             <p class="tui-island__paragraph">Answer:</p>
                             <ng-container *ngIf="submission.show_answer else noAnswerShown">
-                                <div *ngFor="let safeAnswer of submission.safeAnswer" [innerHTML]="safeAnswer"></div>
+                                <div *ngFor="let safeAnswer of submission.safeAnswer"
+                                     [innerHTML]="safeAnswer"></div>
                             </ng-container>
                             <ng-template #noAnswerShown>
                                 See Details For More Information
                             </ng-template>
-                            <p class="tui-island__paragraph">Submitted by: {{ submission.author}}</p>
-                            <div class="tui-form__buttons tui-space_top-4">
+                            <p class="tui-island__paragraph">Submitted
+                                by: {{ submission.author}}</p>
+                            <div class="tui-form__buttons tui-space_top-4"
+                                 *ngIf="!(submission.question.type_name === 'multiple choice question')">
                                 <button
                                     (click)="openSubmissionDialog(submission, index + 1)"
                                     class="tui-form__button"
@@ -40,7 +46,8 @@
                         </div>
                         <ng-template #examContent>
                             <p class="tui-island__paragraph">
-                                Exam is in progress. You can see the submission results once the exam is over.
+                                Exam is in progress. You can see the submission results once the
+                                exam is over.
                             </p>
                         </ng-template>
                     </ng-template>
@@ -49,6 +56,7 @@
         </tui-accordion>
     </ng-container>
     <ng-template #noSubmissions>
-        <p class="tui-island__paragraph previous-submissions-island__no-submission">No Submissions Available</p>
+        <p class="tui-island__paragraph previous-submissions-island__no-submission">No Submissions
+            Available</p>
     </ng-template>
 </tui-island>
