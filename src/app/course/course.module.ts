@@ -101,12 +101,13 @@ import {
 } from './event/event-stats-bar-chart/event-stats-bar-chart.component'
 import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.component'
 import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-edit.component'
-import {CourseChallengeCreateEditComponent
+import {
+    CourseChallengeCreateEditComponent
 } from './challenge/course-challenge-create-edit/course-challenge-create-edit.component'
 import {EventRowComponent} from './event/event-row/event-row.component'
 import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-modal.component'
 import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.component'
-import {DisplayQuestionComponent} from './event/display-question/display-question.component'
+import {EventQuestionViewComponent} from './event/event-question-view/event-question-view.component'
 
 @NgModule({
     declarations: [
@@ -127,7 +128,7 @@ import {DisplayQuestionComponent} from './event/display-question/display-questio
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
-        DisplayQuestionComponent,
+        EventQuestionViewComponent,
         EventRowComponent,
         EventStatsBarChartComponent,
         EventStatsComponent,

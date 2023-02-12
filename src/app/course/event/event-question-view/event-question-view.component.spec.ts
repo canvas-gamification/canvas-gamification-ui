@@ -1,20 +1,20 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
-import {DisplayQuestionComponent} from './display-question.component'
+import {EventQuestionViewComponent} from './event-question-view.component'
 
-describe('DisplayQuestionComponent', () => {
-    let component: DisplayQuestionComponent
-    let fixture: ComponentFixture<DisplayQuestionComponent>
+describe('EventQuestionViewComponent', () => {
+    let component: EventQuestionViewComponent
+    let fixture: ComponentFixture<EventQuestionViewComponent>
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [DisplayQuestionComponent]
+            declarations: [EventQuestionViewComponent]
         })
             .compileComponents()
     })
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(DisplayQuestionComponent)
+        fixture = TestBed.createComponent(EventQuestionViewComponent)
         component = fixture.componentInstance
         fixture.detectChanges()
     })
