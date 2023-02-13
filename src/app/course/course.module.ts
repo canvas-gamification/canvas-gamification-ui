@@ -106,6 +106,7 @@ import {CourseChallengeCreateEditComponent
 import {EventRowComponent} from './event/event-row/event-row.component'
 import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-modal.component'
 import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.component'
+import {EditorModule} from "@app/components/editor/editor.module"
 
 @NgModule({
     declarations: [
@@ -145,6 +146,7 @@ import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.co
         CommonModule,
         CourseIslandModule,
         CourseRoutingModule,
+        EditorModule,
         FormsModule,
         HighlightModule,
         PipesModule,
@@ -195,8 +197,8 @@ import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.co
         TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
-        TuiTextfieldControllerModule,
         DragulaModule.forRoot(),
+        TuiTextfieldControllerModule,
     ],
     providers: [
         CourseEventService,

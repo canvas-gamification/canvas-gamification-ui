@@ -1,3 +1,5 @@
+import {SubmissionBug} from "@app/_models/question_submission"
+
 export interface Goal {
     id: number
     course_reg: number
@@ -39,8 +41,7 @@ export interface GoalItemSubmissionStats {
     total_questions: number
     correct_questions: number
     questions_success_rate: number
-    messages: Record<string, number>
-    error_messages: string[]
+    bugs: SubmissionBug
 }
 
 export interface GoalLimit {

@@ -54,6 +54,7 @@ export interface SubmissionBug {
         short_message: string
         long_message: string
         source_line: string
+        count?: number
     }[]
     patterns: {
         type: string
