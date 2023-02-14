@@ -116,16 +116,13 @@
                 <ng-template
                     tuiAccordionItemContent
                 >
-                    <div>
+                    <div class="mb-3">
                         {{bug.long_message}}
                     </div>
-                    <div>
+                    <div class="mb-3">
                         {{bug.source_line}}
                     </div>
-                    <div
-                        [innerHtml]="getPattern(bug.type).details"
-                    >
-                    </div>
+                    <app-editor [ngModel]="getPattern(bug.type).details" [readonly]="true"></app-editor>
                 </ng-template>
             </tui-accordion-item>
         </tui-accordion>
