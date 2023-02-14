@@ -20,6 +20,7 @@ export class CourseEventCreateEditComponent implements OnInit {
     timeOptions = tuiCreateTimePeriods()
     // categories: Category[]
     // difficulties: Difficulty[]
+    // limits: EventLimit[]
 
     constructor(
         private route: ActivatedRoute,
@@ -52,6 +53,9 @@ export class CourseEventCreateEditComponent implements OnInit {
         // this.difficultyService.getDifficulties().subscribe(
         //     difficulties => this.difficulties = difficulties
         // )
+        // this.courseEventService.getLimits().subscribe(
+        //     limits => this.limits = limits
+        // )
     }
 
     getQuestionSets(): FormArray {
@@ -65,6 +69,17 @@ export class CourseEventCreateEditComponent implements OnInit {
     getFormControl(fc: FormControl, field: string): FormControl {
         return fc.get(field) as FormControl
     }
+
+    // getNumQuestionsLimit(formControl: FormControl) {
+    //     const category = formControl.get('category').value as number
+    //     const difficulty = formControl.get('difficulty').value as string
+    //     if (!category || !difficulty) {
+    //         return 0
+    //     }
+    //     return this.limits.find(
+    //         limit => limit.category === category && limit.difficulty === difficulty
+    //     ).available_questions
+    // }
 
     // addChallengeQuestionSet() {
     //     this.getQuestionSets().push(CourseEventForm.createQuestionSetForm())
@@ -91,8 +106,8 @@ export class CourseEventCreateEditComponent implements OnInit {
     }
 
     /**
-     * Sends the course event data to the server. Sends different requests based on whether the event being created
-     * is a new event or not.
+     * Sends the course event data to the server. Sends different requests based on whether
+     * the event being created is a new event or not.
      * @param formData - grabs the components formData and creates a request based on that
      */
     async submitEvent(formData: FormGroup) {
