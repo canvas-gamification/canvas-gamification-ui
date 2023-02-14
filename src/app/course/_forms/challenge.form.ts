@@ -1,7 +1,6 @@
 import {
     AbstractControl,
     AbstractControlOptions,
-    FormArray,
     FormBuilder,
     FormControl,
     FormGroup,
@@ -39,9 +38,9 @@ export class ChallengeForm {
                 TuiTime.currentLocal(),
                 [Validators.required]
             ),
-            challengeQuestionSets: new FormArray(
-                [ChallengeForm.createChallengeQuestionSetForm()]
-            )
+            // challengeQuestionSets: new FormArray(
+            //     [ChallengeForm.createChallengeQuestionSetForm()]
+            // )
         }, {validator: ChallengeForm.dateValidator} as AbstractControlOptions)
     }
 
@@ -76,20 +75,20 @@ export class ChallengeForm {
                 TuiTime.fromLocalNativeDate(new Date(challenge.end_date)),
                 [Validators.required]
             ),
-            challengeQuestionSets: new FormArray(
-                [ChallengeForm.createChallengeQuestionSetForm()]
-            )
+            // challengeQuestionSets: new FormArray(
+            //     [ChallengeForm.createChallengeQuestionSetForm()]
+            // )
         }, {validator: ChallengeForm.dateValidator} as AbstractControlOptions)
     }
 
-    static createChallengeQuestionSetForm(): FormGroup {
-        const builder = new FormBuilder()
-        return builder.group({
-            category: new FormControl('' ,[Validators.required]),
-            difficulty: new FormControl('', [Validators.required]),
-            number_of_questions: new FormControl('', [Validators.required])
-        })
-    }
+    // static createChallengeQuestionSetForm(): FormGroup {
+    //     const builder = new FormBuilder()
+    //     return builder.group({
+    //         category: new FormControl('' ,[Validators.required]),
+    //         difficulty: new FormControl('', [Validators.required]),
+    //         number_of_questions: new FormControl('', [Validators.required])
+    //     })
+    // }
 
     /**
      * Returns the formatted form data ready to be sent to the backend

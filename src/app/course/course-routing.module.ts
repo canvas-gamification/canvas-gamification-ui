@@ -60,6 +60,9 @@ import {LeaderBoardPageComponent} from "@app/course/leader-board-page/leader-boa
 import {
     ProblemCreateEditComponent
 } from "@app/problems/problem-create-edit/problem-create-edit.component"
+import {
+    EventQuestionViewComponent
+} from "@app/course/event/event-question-view/event-question-view.component"
 
 const routes: Routes = [
     {
@@ -215,7 +218,7 @@ const routes: Routes = [
             },
             {
                 path: 'assignments-exams/:eventId/problem/:id',
-                component: ProblemViewComponent,
+                component: EventQuestionViewComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
@@ -491,7 +494,7 @@ const routes: Routes = [
             },
             {
                 path: 'challenge/:eventId/problem/:id',
-                component: ProblemViewComponent,
+                component: EventQuestionViewComponent,
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
@@ -548,16 +551,24 @@ const routes: Routes = [
                     }]
                 }
             },
+            {
+                path: 'leaderboard',
+                component: LeaderBoardPageComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Leaderboard`,
+                        routerLink: '/course/:courseId/leaderboard'
+                    },]
+                }
+            },
         ]
     },
     {
         path: ':courseId/practice/category/:categoryId',
         component: PracticeProblemComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path: ':courseId/leaderboard',
-        component: LeaderBoardPageComponent,
         canActivate: [AuthGuard]
     }]
 

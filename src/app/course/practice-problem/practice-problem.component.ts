@@ -1,13 +1,21 @@
 import {Component, OnDestroy, OnInit} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {UqjService} from '@app/problems/_services/uqj.service'
-import {Category, Course, NestedCategories} from '@app/_models'
+import {
+    ActionStatus,
+    ActionType,
+    ActionVerb,
+    Category,
+    Course,
+    NestedCategories
+} from '@app/_models'
 import {Difficulty} from '@app/_models/difficulty'
 import {DifficultyService} from '@app/problems/_services/difficulty.service'
 import {CourseService} from '@app/course/_services/course.service'
 import {CategoryService} from '@app/_services/api/category.service'
 import {forkJoin, Subscription} from 'rxjs'
 import {shuffle} from 'lodash'
+import {UserActionsService} from "@app/_services/api/user-actions.service"
 
 @Component({
     selector: 'app-practice-problem',
@@ -41,6 +49,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
         private difficultyService: DifficultyService,
         private courseService: CourseService,
         private categoryService: CategoryService,
+        private userActionService: UserActionsService,
     ) {
     }
 
@@ -111,6 +120,17 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     nextQuestion(): void {
         this.cursor = (this.cursor + 1) % this.uqjs.length
         this.updateCurrentQuestion()
+        this.userActionService.createCustomAction({
+            description: "User clicked on next question",
+            object_type: ActionType.BUTTON,
+            verb: ActionVerb.CLICKED,
+            status: ActionStatus.COMPLETE,
+            data: {
+                category: this.categoryId,
+                difficulty: this.difficulty,
+                include_solved: this.include_solved,
+            }
+        }).subscribe()
     }
 
     /**

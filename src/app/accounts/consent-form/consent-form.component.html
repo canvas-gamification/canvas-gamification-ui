@@ -4,7 +4,8 @@
             <img [src]="logoPath" alt="logo">
         </div>
         <h1 class="tui-text_h3">Please Read our Informed Consent Form</h1>
-        <p class="tui-space_bottom-4">Thank you for your email confirmation. Your Account has been successfully
+        <p class="tui-space_bottom-4">Thank you for your email confirmation. Your Account has been
+            successfully
             activated.</p>
         <ng-container *ngIf="user.is_teacher">
             <app-admin-terms-and-conditions-snippet></app-admin-terms-and-conditions-snippet>
@@ -22,10 +23,12 @@
                     </tui-checkbox-labeled>
                 </div>
                 <div class="tui-form__row">
-                    <tui-checkbox-labeled aria-label="Provide Access to Course Grades Associated with Submitted Work"
-                                          formControlName="access_course_grades"
-                                          size="l">
-                        I am willing to provide access to my course grades associated with the submitted work.
+                    <tui-checkbox-labeled
+                        aria-label="Provide Access to Course Grades Associated with Submitted Work"
+                        formControlName="access_course_grades"
+                        size="l">
+                        I am willing to provide access to my course grades associated with the
+                        submitted work.
                     </tui-checkbox-labeled>
                 </div>
             </ng-container>
@@ -33,12 +36,14 @@
                 <div class="tui-form__multi-field">
                     <tui-input aria-label="First Name" formControlName="legal_first_name">
                         Type in your first name:
+                        <span class="tui-required"></span>
                     </tui-input>
                     <tui-field-error formControlName="legal_first_name"></tui-field-error>
                 </div>
                 <div class="tui-form__multi-field">
                     <tui-input aria-label="Last Name" formControlName="legal_last_name">
                         Type in your last name:
+                        <span class="tui-required"></span>
                     </tui-input>
                     <tui-field-error formControlName="legal_last_name"></tui-field-error>
                 </div>
@@ -47,18 +52,20 @@
                 <tui-input aria-label="Student Number" formControlName="student_number">
                     Type in your student number (this is only needed in case there are
                     students with the same first and last name):
+                    <span class="tui-required"></span>
                 </tui-input>
                 <tui-field-error formControlName="student_number"></tui-field-error>
             </div>
             <div class="tui-form__row">
-                <tui-select aria-label="Gender" formControlName="gender" [valueContent]="genderContent">
+                <tui-select aria-label="Gender" formControlName="gender"
+                            [valueContent]="genderContent">
                     What gender do you identify as?
+                    <span class="tui-required"></span>
                     <tui-data-list-wrapper
                         *tuiDataList
                         [items]="genders"
                         [itemContent]="genderContent"
                     ></tui-data-list-wrapper>
-
                     <ng-template
                         #genderContent
                         let-gender
@@ -71,6 +78,7 @@
             <div class="tui-form__row">
                 <tui-multi-select aria-label="Race" formControlName="race">
                     What is your cultural background? Choose all that apply.
+                    <span class="tui-required"></span>
                     <tui-data-list
                         *tuiDataList
                         tuiMultiSelectGroup
@@ -89,6 +97,7 @@
             <div class="tui-form__row">
                 <tui-input aria-label="Today's Date" formControlName="date">
                     Type in today's date:
+                    <span class="tui-required"></span>
                 </tui-input>
                 <tui-field-error formControlName="date"></tui-field-error>
             </div>
