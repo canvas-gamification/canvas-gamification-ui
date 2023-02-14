@@ -22,7 +22,11 @@
         >
             The {{getEventType()}} is closed.
         </tui-notification>
-        <div *ngIf="eventId" class="flex justify-between items-center mt-3 mb-10">
+        <div
+            *ngIf="eventId"
+            class="flex justify-between items-center mt-3"
+            [class.mb-10]="event.type !== 'CHALLENGE'"
+        >
             <h5 class="tui-text_h5">{{ event.name }}</h5>
             <div class="flex flex-row gap-3" *ngIf="event.has_edit_permission">
                 <a
@@ -75,6 +79,13 @@
             </div>
         </div>
         <div
+            *ngIf="event.type==='CHALLENGE'"
+            class="mb-10"
+        >
+            <p>{{getChallengeType()}} Challenge</p>
+            <p>{{getEventTypeDescription()}}</p>
+        </div>
+        <div
             class="mb-6 -mt-5"
             *ngIf="uqjs.length"
         >
@@ -89,8 +100,8 @@
                 *ngIf="event.type==='CHALLENGE' && team"
                 class="teamBar mb-8 flex items-center p-4 rounded-[0.625rem] shadow">
                 <div class="grow">
-                    <h6 class="tui-text_h6">{{team.name}}</h6>
-                    <p *ngFor="let name of team.member_names" class="tui-text_body-l">{{name}}</p>
+                    <p class="tui-text_body-l">Team: {{team.name}}</p>
+                    <p class="tui-text_body-l">Member(s): {{getMemberNames(team.member_names)}}</p>
                 </div>
                 <a
                     [routerLink]="['/course', courseId, 'challenge', eventId, 'teams']"
