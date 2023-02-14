@@ -48,6 +48,16 @@
                     Complete
                 </a>
             </ng-template>
+            <button
+                *ngIf="event.has_edit_permission"
+                (click)="deleteChallenge()"
+                appearance="secondary" aria-label="Edit"
+                class="tui-form__button"
+                size="s"
+                tuiButton
+            >
+                Delete
+            </button>
             <a
                 *ngIf="event.has_edit_permission"
                 [routerLink]="['/course', event.course, 'challenge', event.id, 'edit']"

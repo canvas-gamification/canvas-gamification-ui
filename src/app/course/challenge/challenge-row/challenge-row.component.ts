@@ -4,7 +4,9 @@ import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {startCase} from "lodash"
-import {UserActionsService} from "@app/_services/api/user-actions.service"
+import {CourseEventService} from "@app/course/_services/course-event.service"
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {Router} from "@angular/router"
 
 @Component({
     selector: 'app-challenge-row',
@@ -19,7 +21,9 @@ export class ChallengeRowComponent implements OnInit {
     constructor(
         private teamService: TeamService,
         private authenticationService: AuthenticationService,
-        private userAction: UserActionsService,
+        private courseEventService: CourseEventService,
+        private readonly notificationsService: TuiNotificationsService,
+        private router: Router,
     ) { }
 
     ngOnInit(): void {
@@ -29,5 +33,23 @@ export class ChallengeRowComponent implements OnInit {
 
     getChallengeType(): string {
         return startCase(this.event.challenge_type?.toLowerCase())
+    }
+
+    deleteChallenge(): void {
+        this.courseEventService.deleteCourseEvent(this.event.id).subscribe( () => {
+            this.notificationsService
+                .show('The challenge has been deleted successfully.', {
+                    status: TuiNotification.Success
+                }).subscribe()
+            this.refreshPage()
+        })
+    }
+
+    refreshPage(): void {
+        const currentUrl = this.router.url
+        this.router.onSameUrlNavigation = 'reload'
+        this.router.navigate([currentUrl]).then(() => {
+            window.scroll(0, 0)
+        })
     }
 }
