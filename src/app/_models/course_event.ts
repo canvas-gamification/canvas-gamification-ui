@@ -19,3 +19,9 @@ export interface CourseEvent {
     featured: boolean
     total_tokens: number
 }
+
+export interface EventLimit {
+    category: number
+    difficulty: string
+    available_questions: number
+}
