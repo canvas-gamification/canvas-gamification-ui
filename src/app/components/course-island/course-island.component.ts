@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {Course, STATUS, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
+import {Router} from "@angular/router"
 
 
 @Component({
@@ -16,7 +17,7 @@ export class CourseIslandComponent implements OnInit {
     endDate: Date
     currentDate: Date
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authenticationService: AuthenticationService, private router: Router) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
@@ -26,5 +27,36 @@ export class CourseIslandComponent implements OnInit {
         this.currentDate = new Date()
     }
 
+    canView(): boolean {
+        return (
+            this.user?.is_teacher ||
+            (
+                (this.course.has_view_permission || !this.course.is_registered)
+                && this.endDate > this.currentDate && this.user?.is_student
+            )
+        )
+    }
 
+    getIslandClass(): string {
+        return `course-island ${this.canView() ? 'tui-island_hoverable' : ''}`
+    }
+
+    redirect(): void {
+        if (
+            this.user?.is_teacher
+            || (
+                (this.course.has_view_permission
+                && this.endDate > this.currentDate
+                && this.user?.is_student)
+            )
+        ) {
+            this.router.navigate(['/course', this.course?.id]).then()
+        } else if (
+            !this.course.is_registered
+            && this.endDate > this.currentDate
+            && this.user?.is_student
+        ) {
+            this.router.navigate(['/course', this.course?.id, 'register']).then()
+        }
+    }
 }

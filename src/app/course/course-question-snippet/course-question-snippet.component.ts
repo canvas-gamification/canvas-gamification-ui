@@ -129,9 +129,9 @@ export class CourseQuestionSnippetComponent implements OnInit {
     getEventTypeDescription(): string {
         switch (this.event.challenge_type) {
             case 'QUOTA':
-                return 'Teams earn tokens from every question solved when the challenge ends.'
+                return 'Teams earn tokens from every question solved. Each member gets the number of tokens equivalent to team tokens when the challenge ends.'
             case 'TOP_TEAMS':
-                return `Teams earn tokens by staying on the top ${this.event.challenge_type_value} teams on the leader board of this challenge when the challenge ends.`
+                return `Teams earn tokens by staying on the top ${this.event.challenge_type_value} teams of this challenge. Each member gets the number of tokens equivalent to team tokens as the challenge ends.`
         }
     }
 }

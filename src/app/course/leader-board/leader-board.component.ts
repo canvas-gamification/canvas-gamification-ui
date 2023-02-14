@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core'
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core'
 import {ActionStatus, ActionType, ActionVerb, Course, LeaderboardElement} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseEventService} from "@app/course/_services/course-event.service"
@@ -32,7 +32,7 @@ export class LeaderBoardComponent implements OnChanges {
     ) {
     }
 
-    ngOnChanges(): void {
+    ngOnChanges(changes: SimpleChanges): void {
         this.rankTopX = 3
         if(this.eventId){
             this.courseEventService.getEventLeaderBoard(this.eventId).subscribe(leaderBoard => {
@@ -43,10 +43,11 @@ export class LeaderBoardComponent implements OnChanges {
                 })
             })
         }else{
-            this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
-                this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
-                this.logCourseRankingAndTokens()
-            })
+            if(changes.course && changes.course.currentValue)
+                this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
+                    this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
+                    this.logCourseRankingAndTokens()
+                })
         }
     }
 
