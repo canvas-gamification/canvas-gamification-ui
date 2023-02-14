@@ -41,8 +41,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
 
     orderQuestions(): void {
         this.uqjs.sort((a, b) =>
-            (a.question.title > b.question.title) ?
-                1 : ((b.question.title > a.question.title) ? -1 : 0))
+            a.question.title.localeCompare(b.question.title))
     }
 
     init() {
