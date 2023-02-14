@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import {CourseEvent, EventType, LeaderboardElement} from '@app/_models'
+import {CourseEvent, EventLimit, EventType, LeaderboardElement} from '@app/_models'
 import {Observable} from 'rxjs'
 import {HttpClient, HttpResponse} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
@@ -164,6 +164,14 @@ export class CourseEventService {
                 this.apiService.handleError<LeaderboardElement[]>(
                     `Error occurred while fetching event leader board.`
                 )
+            ))
+    }
+
+    getLimits(): Observable<EventLimit[]> {
+        const url = this.apiService.getURL('event', 'limits')
+        return this.http.get<EventLimit[]>(url)
+            .pipe(catchError(
+                this.apiService.handleError<EventLimit[]>('Unable to fetch event limits.')
             ))
     }
 }
