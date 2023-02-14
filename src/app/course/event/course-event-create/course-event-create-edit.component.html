@@ -119,13 +119,16 @@
 <!--            <div class="tui-form__multi-field">-->
 <!--                <tui-input-number-->
 <!--                    [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"-->
-<!--                    [max]="100"-->
+<!--                    [max]="getNumQuestionsLimit(questionSetFormControl)"-->
 <!--                >-->
 <!--                    Number of questions-->
 <!--                </tui-input-number>-->
 <!--                <tui-field-error-->
 <!--                    [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"-->
 <!--                ></tui-field-error>-->
+<!--                <div class="tui-form__field-note">-->
+<!--                    {{getNumQuestionsLimit(questionSetFormControl)}} question(s) available.-->
+<!--                </div>-->
 <!--            </div>-->
 <!--            <div class="tui-form__multi-field">-->
 <!--                <div class="flex h-full items-center">-->
