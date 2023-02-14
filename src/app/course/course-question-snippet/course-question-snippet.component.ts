@@ -39,6 +39,12 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
+    orderQuestions(): void {
+        this.uqjs.sort((a, b) =>
+            (a.question.title > b.question.title) ?
+                1 : ((b.question.title > a.question.title) ? -1 : 0))
+    }
+
     init() {
         this.courseService.getCourse(this.courseId).subscribe(course => this.course = course)
         if (this.eventId && this.courseId) { // if this snippet is an event-view
@@ -50,6 +56,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                     }).subscribe(result => {
                         this.event = result.event
                         this.uqjs = result.uqjs.results
+                        this.orderQuestions()
                     })
                 } else {
                     this.router.navigate(['course/view', this.courseId]).then()
