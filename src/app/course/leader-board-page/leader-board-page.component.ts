@@ -23,7 +23,7 @@ export class LeaderBoardPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.courseId = this.route.snapshot.params.courseId
+        this.courseId = this.route.snapshot.parent.params.courseId
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.course = course
             this.events = course.events.filter(event => event.type === 'CHALLENGE')
