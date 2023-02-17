@@ -11,12 +11,20 @@
         <tui-tag
             [status]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
             [value]="course.status"
-            class="tui-space_right-2"
+            class="mr-2"
             size="m"
         ></tui-tag>
         <tui-tag
             [status]="course.is_registered ? 'success' : 'warning'"
             [value]="course.is_registered ? 'Registered' : 'Not Registered'"
+            class="mr-2"
+            size="m"
+        ></tui-tag>
+        <tui-tag
+            *ngIf="course.instructor === user?.id"
+            [status]="'custom'"
+            [value]="'Instructor'"
+            class="add-color"
             size="m"
         ></tui-tag>
         <div class="tui-form__buttons">
