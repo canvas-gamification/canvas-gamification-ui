@@ -4,10 +4,10 @@
         </ng-container>
         <ng-container *ngIf="event.type === 'EXAM'">Exam</ng-container>
     </div>
-    <div class="flex flex-grow items-center">
+    <div class="flex items-center flex-grow">
         {{ event.name }}
     </div>
-    <div class="min-w-[18rem]">
+    <div class="min-w-[22rem]">
         <div>From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
         <div>Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
     </div>
@@ -54,54 +54,78 @@
         </ng-template>
     </div>
     <div class="flex items-center">
-        <a
-            [routerLink]="['/course', event.course, 'assignments-exams', event.id]"
-            appearance="primary"
-            [disabled]="!event.is_allowed_to_open && !user?.is_teacher"
-            size="s"
-            tuiButton
+        <button *ngIf="user.is_student"
+                [routerLink]="['/course', event.course, 'assignments-exams', event.id]"
+                appearance="primary"
+                [disabled]="!event.is_allowed_to_open && !user?.is_teacher"
+                class="tui-space_right-2 tui-space_vertical-2"
+                size="s"
+                tuiButton
         >
             View
-        </a>
-        <tui-hosted-dropdown
-            *ngIf="event.has_edit_permission"
-            [content]="content"
-        >
-            <button
-                tuiIconButton
-                appearance="flat"
-                icon="tuiIconMoreVer"
-                type="button"
+        </button>
+        <button *ngIf="user.is_teacher"
+                [routerLink]="['/course', event.course, 'assignments-exams', event.id]"
+                [disabled]="!event.is_allowed_to_open && !user?.is_teacher"
+                [tuiHint]="viewTooltip"
+                class="tui-space_right-2 tui-space_vertical-2"
+                icon="tuiIconEyeOpen"
                 size="s"
-                class="ml-3"
-            ></button>
-        </tui-hosted-dropdown>
-        <ng-template #content>
-            <tui-data-list role="menu">
-                <a
-                    [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'edit']"
-                    aria-label="Edit"
-                    tuiOption
-                >
-                    Edit
-                </a>
-                <a
-                    [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'stats']"
-                    aria-label="Stats"
-                    tuiOption
-                >
-                    Stats
-                </a>
-                <a
-                    *ngIf="!event.featured"
-                    (click)="setFeatured()"
-                    tuiOption
-                    [disabled]="event.featured"
-                    aria-label="Set Featured"
-                >
-                    Set Featured
-                </a>
-            </tui-data-list>
+                tuiDescribedBy="view"
+                tuiHintDirection="top-left"
+                tuiHintId="edit"
+                tuiHintMode="onDark"
+                tuiIconButton
+        ></button>
+        <ng-template #viewTooltip>
+            View
+        </ng-template>
+        <button *ngIf="event.has_edit_permission"
+                [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'edit']"
+                [tuiHint]="editTooltip"
+                class="tui-space_right-2 tui-space_vertical-2"
+                icon="tuiIconEdit"
+                size="s"
+                tuiDescribedBy="edit"
+                tuiHintDirection="top-left"
+                tuiHintId="edit"
+                tuiHintMode="onDark"
+                tuiIconButton
+        ></button>
+        <ng-template #editTooltip>
+            Edit
+        </ng-template>
+        <button *ngIf="event.has_edit_permission"
+                [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'stats']"
+                [tuiHint]="statsTooltip"
+                class="tui-space_right-2 tui-space_vertical-2"
+                icon="tuiIconChartLineLarge"
+                size="s"
+                tuiDescribedBy="stats"
+                tuiHintDirection="top-left"
+                tuiHintId="stats"
+                tuiHintMode="onDark"
+                tuiIconButton
+        ></button>
+        <ng-template #statsTooltip>
+            Stats
+        </ng-template>
+        <button *ngIf="event.has_edit_permission"
+                (click)="setFeatured()"
+                [disabled]="event.featured"
+                [tuiHint]="featuredTooltip"
+                class="tui-space_vertical-2"
+                icon="tuiIconStar"
+                size="s"
+                tuiDescribedBy="set featured"
+                tuiHintDirection="top-left"
+                tuiHintId="set featured"
+                tuiHintMode="onDark"
+                tuiIconButton
+                type="button"
+        ></button>
+        <ng-template #featuredTooltip>
+            Set featured
         </ng-template>
     </div>
 </div>
