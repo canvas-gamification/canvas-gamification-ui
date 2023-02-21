@@ -100,7 +100,7 @@
             <ng-container
                 *ngIf="getBugs(goalItemId).length > 0"
             >
-                <h6 class="tui-text_h6 my-3">Mistakes</h6>
+                <h6 class="tui-text_h6 my-3">Most Common Mistakes</h6>
                 <tui-accordion
                     [rounded]="false"
                 >
@@ -127,6 +127,34 @@
                 </tui-accordion>
             </ng-container>
         </ng-container>
+
+        <h6 class="tui-text_h6 my-3">Conclusion</h6>
+        <div class="flex gap-3">
+            <tui-marker-icon
+                *ngIf="stats[goalItemId].conclusion.status === 'MASTER'"
+                mode="success"
+                size="xs"
+                src="tuiIconCheckLarge"
+            >
+            </tui-marker-icon>
+            <tui-marker-icon
+                *ngIf="stats[goalItemId].conclusion.status === 'NEED_PRACTICE'"
+                mode="warning"
+                size="xs"
+                src="tuiIconAlertCircleLarge"
+            >
+            </tui-marker-icon>
+            <tui-marker-icon
+                *ngIf="stats[goalItemId].conclusion.status === 'NO_DATA'"
+                mode="secondary"
+                size="xs"
+                src="tuiIconAlertCircleLarge"
+            >
+            </tui-marker-icon>
+            <div class="leading-8">
+                {{stats[goalItemId].conclusion.message}}
+            </div>
+        </div>
 
         <ng-template #noSubmission>
             <div class="flex justify-center items-center w-full h-32">

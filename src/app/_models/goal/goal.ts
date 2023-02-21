@@ -30,7 +30,12 @@ export type QuestionTypeKey = 'mcq' | 'java' | 'parsons' | 'all'
 export type GoalItemStats = Record<QuestionTypeKey, {
     old_submissions: GoalItemSubmissionStats
     submissions: GoalItemSubmissionStats
-}>
+}> & {
+    conclusion: {
+        status: 'NO_DATA' | 'NEED_PRACTICE' | 'MASTER',
+        message: string,
+    }
+}
 
 export interface GoalItemSubmissionStats {
     total: number
