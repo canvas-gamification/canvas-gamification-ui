@@ -1,5 +1,14 @@
 <footer class="tui-container tui-container_fullwidth tui-space_top-6 footer">
-    <p class="tui-island__paragraph tui-space_vertical-0">2022 &copy; Course Gamification</p>
+    <p class="tui-island__paragraph tui-space_vertical-0">
+        2022 &copy; Course Gamification is licensed under CC BY-NC-SA 4.0
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+            <img alt="Creative Commons License"
+                 [src]="getNightMode()? 'assets/global/cc%20by-nc-sa%20dark%20mode.png' : 'assets/global/cc%20by-nc-sa.png'"
+                 style="float: right; height: 25px"
+                 class="px-2 py-1 h-15"
+            />
+        </a>
+    </p>
     <ul class="footer-links">
         <li>
             <a routerLink="/faq" tuiLink>
