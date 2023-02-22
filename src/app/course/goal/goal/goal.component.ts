@@ -58,14 +58,6 @@ export class GoalComponent implements OnInit {
         }
     }
 
-    getSubmissionRelativeSuccessRate(
-        goalItemId: number,
-        key: QuestionTypeKey
-    ): number {
-        return this.stats[goalItemId][key].submissions.success_rate
-            - this.stats[goalItemId][key].old_submissions.success_rate
-    }
-
     getQuestionRelativeSuccessRate(
         goalItemId: number,
         key: QuestionTypeKey
@@ -74,13 +66,12 @@ export class GoalComponent implements OnInit {
             - this.stats[goalItemId][key].old_submissions.questions_success_rate
     }
 
-    errorMessages(goalItemId: number): { text: string, value: number }[] {
-        return Object.entries(
-            this.stats[goalItemId].all.submissions.messages
-        ).map(([text, value]) => ({
-            text,
-            value
-        }))
+    getPattern(goalItemId: number, type: string) {
+        return this.stats[goalItemId].all.submissions.bugs.patterns.find(p => p.type === type)
+    }
+
+    getBugs(goalItemId: number) {
+        return this.stats[goalItemId].all.submissions.bugs.bugs.sort((a,b) => b.count - a.count)
     }
 
     canClaim() {

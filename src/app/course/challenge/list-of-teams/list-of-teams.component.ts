@@ -68,4 +68,8 @@ export class ListOfTeamsComponent implements OnInit {
             && event.is_not_available_yet
 
     }
+
+    pendingInvites(team: Team): number {
+        return team.who_can_join.filter( e => !team.course_registrations.includes(e)).length
+    }
 }

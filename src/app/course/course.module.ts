@@ -49,6 +49,7 @@ import {
     TuiButtonModule,
     TuiCalendarModule,
     TuiDataListModule,
+    TuiDescribedByModule,
     TuiDialogModule,
     TuiErrorModule,
     TuiHintModule,
@@ -101,11 +102,14 @@ import {
 } from './event/event-stats-bar-chart/event-stats-bar-chart.component'
 import {ChallengeRowComponent} from './challenge/challenge-row/challenge-row.component'
 import {TeamCreateEditComponent} from './challenge/team-create-edit/team-create-edit.component'
-import {CourseChallengeCreateEditComponent
+import {
+    CourseChallengeCreateEditComponent
 } from './challenge/course-challenge-create-edit/course-challenge-create-edit.component'
 import {EventRowComponent} from './event/event-row/event-row.component'
 import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-modal.component'
 import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.component'
+import {EditorModule} from "@app/components/editor/editor.module"
+import {EventQuestionViewComponent} from './event/event-question-view/event-question-view.component'
 
 @NgModule({
     declarations: [
@@ -126,6 +130,7 @@ import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.co
         CourseRegisterComponent,
         CourseRegistrationStepComponent,
         CourseRegistrationStepperComponent,
+        EventQuestionViewComponent,
         EventRowComponent,
         EventStatsBarChartComponent,
         EventStatsComponent,
@@ -145,6 +150,7 @@ import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.co
         CommonModule,
         CourseIslandModule,
         CourseRoutingModule,
+        EditorModule,
         FormsModule,
         HighlightModule,
         PipesModule,
@@ -164,6 +170,7 @@ import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.co
         TuiCheckboxLabeledModule,
         TuiDataListModule,
         TuiDataListWrapperModule,
+        TuiDescribedByModule,
         TuiDialogModule,
         TuiErrorModule,
         TuiFieldErrorModule,
@@ -195,8 +202,8 @@ import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.co
         TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
-        TuiTextfieldControllerModule,
         DragulaModule.forRoot(),
+        TuiTextfieldControllerModule,
     ],
     providers: [
         CourseEventService,

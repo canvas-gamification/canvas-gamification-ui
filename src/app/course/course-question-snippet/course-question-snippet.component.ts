@@ -10,6 +10,7 @@ import {TuiStatusT} from "@taiga-ui/kit"
 import {Team} from "@app/_models/team"
 import {TeamService} from "@app/course/_services/team.service"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {startCase} from "lodash"
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -39,6 +40,11 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
+    orderQuestions(): void {
+        this.uqjs.sort((a, b) =>
+            a.question.title.localeCompare(b.question.title))
+    }
+
     init() {
         this.courseService.getCourse(this.courseId).subscribe(course => this.course = course)
         if (this.eventId && this.courseId) { // if this snippet is an event-view
@@ -50,6 +56,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                     }).subscribe(result => {
                         this.event = result.event
                         this.uqjs = result.uqjs.results
+                        this.orderQuestions()
                     })
                 } else {
                     this.router.navigate(['course/view', this.courseId]).then()
@@ -110,10 +117,27 @@ export class CourseQuestionSnippetComponent implements OnInit {
         })
     }
 
+    getMemberNames(names: string[]): string {
+        return names.join(", ")
+    }
+
     getBackLabel(): string {
         if (this.getEventType() === 'challenge')
             return 'List of Challenges'
         else if (this.getEventType() === 'assignment' || this.getEventType() === 'exam')
             return 'Assignments and Exams'
+    }
+
+    getChallengeType(): string {
+        return startCase(this.event.challenge_type?.toLowerCase())
+    }
+
+    getEventTypeDescription(): string {
+        switch (this.event.challenge_type) {
+            case 'QUOTA':
+                return 'Teams earn tokens from every question solved. Each member gets the number of tokens equivalent to team tokens when the challenge ends.'
+            case 'TOP_TEAMS':
+                return `Teams earn tokens by staying on the top ${this.event.challenge_type_value} teams of this challenge. Each member gets the number of tokens equivalent to team tokens as the challenge ends.`
+        }
     }
 }

@@ -1,4 +1,4 @@
-<div *ngIf="goal" class="tui-container tui-container_adaptive space-y-3 mt-3">
+<div *ngIf="goal && stats" class="tui-container tui-container_adaptive space-y-3 mt-3">
     <a
         [routerLink]="['..']"
         icon="tuiIconArrowLeft"
@@ -21,7 +21,7 @@
         *ngFor="let goalItemId of goalItemIds(); let i = index"
         class="shadow"
     >
-        <div class="tui-text_h3">Task {{ i + 1 }}</div>
+        <h5 class="tui-text_h5">Task {{ i + 1 }}</h5>
         <div class="tui-space_top-2">
             <label
                 tuiProgressLabel
@@ -47,7 +47,7 @@
 
         <ng-container
             *ngIf="this.stats[goalItemId].all.submissions.total > 0 else noSubmission">
-            <div class="tui-text_h4 tui-space_top-5">Question Stats</div>
+            <h6 class="tui-text_h6 tui-space_top-5">Question Stats</h6>
             <table class="tui-table mt-3">
                 <tbody>
                 <tr class="tui-table__tr tui-table__tr_border_none">
@@ -58,20 +58,20 @@
                 </tr>
                 <ng-container *ngFor="let typeKey of getQuestionTypeKeys()">
                     <tr
-                        *ngIf="this.stats[goalItemId][typeKey].submissions.total > 0"
+                        *ngIf="stats[goalItemId][typeKey].submissions.total > 0"
                         class="tui-table__tr tui-table__tr_border_none"
                     >
                         <td class="tui-table__td">
                             {{ getQuestionTypeName(typeKey) }}
                         </td>
                         <td class="tui-table__td">
-                            {{ this.stats[goalItemId][typeKey].submissions.total_questions }}
+                            {{ stats[goalItemId][typeKey].submissions.total_questions }}
                         </td>
                         <td class="tui-table__td">
-                            {{ this.stats[goalItemId][typeKey].submissions.correct_questions }}
+                            {{ stats[goalItemId][typeKey].submissions.correct_questions }}
                         </td>
                         <td class="tui-table__td">
-                            {{ this.stats[goalItemId][typeKey].submissions.questions_success_rate | percent }}
+                            {{ stats[goalItemId][typeKey].submissions.questions_success_rate | percent }}
                             (
                             <span
                                 [class.success]="getQuestionRelativeSuccessRate(goalItemId, typeKey) >= 0"
@@ -97,7 +97,64 @@
                 </ng-container>
                 </tbody>
             </table>
+            <ng-container
+                *ngIf="getBugs(goalItemId).length > 0"
+            >
+                <h6 class="tui-text_h6 my-3">Most Common Mistakes</h6>
+                <tui-accordion
+                    [rounded]="false"
+                >
+                    <tui-accordion-item
+                        *ngFor="let bug of getBugs(goalItemId)"
+                        borders="top-bottom"
+                    >
+                        <div
+                            class="tui-island__paragraph"
+                        >
+                            {{bug.short_message}} (occurred {{bug.count}}
+                            time{{bug.count > 1 ? 's' : ''}})
+                        </div>
+                        <ng-template
+                            tuiAccordionItemContent
+                        >
+                            <app-editor
+                                [ngModel]="getPattern(goalItemId, bug.type).details"
+                                [readonly]="true"
+                            >
+                            </app-editor>
+                        </ng-template>
+                    </tui-accordion-item>
+                </tui-accordion>
+            </ng-container>
         </ng-container>
+
+        <h6 class="tui-text_h6 my-3">Conclusion</h6>
+        <div class="flex gap-3">
+            <tui-marker-icon
+                *ngIf="stats[goalItemId].conclusion.status === 'MASTER'"
+                mode="success"
+                size="xs"
+                src="tuiIconCheckLarge"
+            >
+            </tui-marker-icon>
+            <tui-marker-icon
+                *ngIf="stats[goalItemId].conclusion.status === 'NEED_PRACTICE'"
+                mode="warning"
+                size="xs"
+                src="tuiIconAlertCircleLarge"
+            >
+            </tui-marker-icon>
+            <tui-marker-icon
+                *ngIf="stats[goalItemId].conclusion.status === 'NO_DATA'"
+                mode="secondary"
+                size="xs"
+                src="tuiIconAlertCircleLarge"
+            >
+            </tui-marker-icon>
+            <div class="leading-8">
+                {{stats[goalItemId].conclusion.message}}
+            </div>
+        </div>
 
         <ng-template #noSubmission>
             <div class="flex justify-center items-center w-full h-32">

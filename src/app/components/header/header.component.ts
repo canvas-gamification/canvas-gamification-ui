@@ -2,6 +2,7 @@ import {Component} from '@angular/core'
 import {User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {ActivatedRoute, Router} from '@angular/router'
+import {NightModeService} from "@app/_services/night-mode.service"
 
 @Component({
     selector: 'app-header',
@@ -19,18 +20,12 @@ export class HeaderComponent {
     constructor(
         private authenticationService: AuthenticationService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private nightModeService: NightModeService
     ) {
         this.authenticationService.currentUser.subscribe(user => {
             this.user = user
         })
-
-        const useNightMode = window.localStorage.getItem('useNightMode')
-        if (useNightMode) {
-            this.enableNightMode = useNightMode === 'true'
-        } else {
-            this.enableNightMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-        }
     }
 
     logout(): void {
@@ -40,17 +35,16 @@ export class HeaderComponent {
         })
     }
 
-    redirectHome() : void {
+    redirectHome(): void {
         this.router.navigate(['/'])
     }
 
     setNightMode(value: boolean): void {
-        this.enableNightMode = value
-        window.localStorage.setItem('useNightMode', String(this.enableNightMode))
+        this.nightModeService.setNightMode(value)
     }
 
     isNightMode(): boolean {
-        return this.enableNightMode
+        return this.nightModeService.getNightMode()
     }
 
     toggleSidebar(open: boolean): void {

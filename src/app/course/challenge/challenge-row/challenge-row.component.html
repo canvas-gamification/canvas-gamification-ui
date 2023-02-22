@@ -1,5 +1,4 @@
 <div *ngIf="team" class="challenge">
-    <div class="challengeType"> {{getChallengeType()}}</div>
     <div class="name">{{ event.name }}</div>
     <div class="dates">
         <div>
@@ -31,11 +30,10 @@
                 <a
                     [routerLink]="['/course', event.course, 'challenge', event.id]"
                     appearance="secondary"
-                    class="tui-form__button"
                     size="s"
                     tuiButton
                 >
-                    {{ user.is_teacher ? 'View' : 'Complete' }}
+                    View
                 </a>
             </ng-container>
             <ng-template #notAllowedOpen>
@@ -43,7 +41,6 @@
                     [disabled]="true"
                     appearance="secondary"
                     aria-label="Complete"
-                    class="tui-form__button"
                     href=""
                     size="s"
                     tuiButton
@@ -54,9 +51,10 @@
             <a
                 *ngIf="event.has_edit_permission"
                 [routerLink]="['/course', event.course, 'challenge', event.id, 'edit']"
-                appearance="secondary" aria-label="Edit"
-                class="tui-form__button"
+                appearance="secondary"
+                aria-label="Edit"
                 size="s"
+                class="ml-2"
                 tuiButton
             >
                 Edit
