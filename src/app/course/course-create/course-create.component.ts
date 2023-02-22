@@ -19,7 +19,12 @@ import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit"
         },
     ],
 })
-export class CourseCreateComponent implements OnInit{
+export class CourseCreateComponent implements OnInit {
+
+    // TODO: Put in breadcrumbs
+    // TODO: Fix dates
+    // TODO: Put edit button for instructor
+    // TODO: Fix wording on edit page
 
     registrationModes = [
         "Open",
@@ -36,12 +41,16 @@ export class CourseCreateComponent implements OnInit{
         private readonly notificationsService: TuiNotificationsService,
         private readonly router: Router,
     ) {
-        this.formGroup = CourseForm.createCourseForm()
     }
 
     ngOnInit(): void {
-        if(this.route.snapshot.params.courseId){
+        if (this.route.snapshot.params.courseId) {
             this.courseId = this.route.snapshot.params.courseId
+            this.courseService.getCourse(this.courseId).subscribe(course => {
+                this.formGroup = CourseForm.createCourseFormWithData(course)
+            })
+        } else {
+            this.formGroup = CourseForm.createCourseForm()
         }
     }
 
@@ -51,13 +60,24 @@ export class CourseCreateComponent implements OnInit{
     }
 
     onSubmit() {
-        this.courseService.createCourse(
-            CourseForm.formatCourseFormData(this.formGroup)
-        ).subscribe(course => {
-            this.notificationsService.show('Course created successfully!', {
-                status: TuiNotification.Success,
-            }).subscribe()
-            this.router.navigate(['/course', course.id]).then()
-        })
+        if (!this.courseId) {
+            this.courseService.createCourse(
+                CourseForm.formatCourseFormData(this.formGroup)
+            ).subscribe(course => {
+                this.notificationsService.show('Course created successfully!', {
+                    status: TuiNotification.Success,
+                }).subscribe()
+                this.router.navigate(['/course', course.id]).then()
+            })
+        } else {
+            this.courseService.editCourse(
+                this.courseId,
+                CourseForm.formatCourseFormData(this.formGroup)
+            ).subscribe(() => {
+                this.notificationsService.show('Course edited successfully!', {
+                    status: TuiNotification.Success,
+                }).subscribe()
+            })
+        }
     }
 }

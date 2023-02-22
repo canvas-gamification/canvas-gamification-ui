@@ -8,6 +8,7 @@ import {
     Validators
 } from "@angular/forms"
 import {TuiDay, TuiDayRange} from "@taiga-ui/cdk"
+import {Course} from "@app/_models"
 
 
 export interface CourseFormData {
@@ -25,6 +26,11 @@ export interface CourseFormData {
 const registrationModeMapper = {
     ["Open"]: "OPEN",
     ["Private"]: "CODE",
+}
+
+const registrationModeMapperReverse = {
+    ["OPEN"]: "Open",
+    ["CODE"]: "Private",
 }
 
 export class CourseForm {
@@ -48,6 +54,32 @@ export class CourseForm {
             ),
             registrationMode: new FormControl('', [Validators.required]),
             registrationCode: new FormControl(''),
+        }, {validator: CourseForm.dateValidator})
+    }
+
+    static createCourseFormWithData(course: Course): FormGroup {
+        const builder = new FormBuilder()
+        return builder.group({
+            name: new FormControl(course.name, [Validators.required]),
+            description: new FormControl(course.description),
+            url: new FormControl(
+                course.url,
+                [Validators.pattern(
+                    '(https?://)([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
+                )]
+            ),
+            date: new FormControl(
+                new TuiDayRange(
+                    TuiDay.currentLocal(),
+                    TuiDay.currentLocal().append({day: 7})
+                ),
+                [Validators.required]
+            ),
+            registrationMode: new FormControl(
+                registrationModeMapperReverse[course.registration_mode],
+                [Validators.required]
+            ),
+            registrationCode: new FormControl(course.secret_registration_code),
         }, {validator: CourseForm.dateValidator})
     }
 
