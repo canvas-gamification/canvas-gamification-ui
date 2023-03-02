@@ -1,12 +1,15 @@
 import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
-import {CourseEvent} from "@app/_models"
+import {Category, CourseEvent, EventLimit} from "@app/_models"
 import {ChallengeType} from "@app/_models/challengeType"
 import {FormArray, FormControl, FormGroup} from "@angular/forms"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {ChallengeForm} from "@app/course/_forms/challenge.form"
 import {startCase} from 'lodash'
+import {Difficulty} from "@app/_models/difficulty"
+import {DifficultyService} from "@app/problems/_services/difficulty.service"
+import {CategoryService} from "@app/_services/api/category.service"
 
 @Component({
     selector: 'app-course-challenge-create-edit',
@@ -19,17 +22,17 @@ export class CourseChallengeCreateEditComponent implements OnInit {
     event: CourseEvent
     localChallengeTypes: ChallengeType[]
     challengeForm: FormGroup
-    // categories: Category[]
-    // difficulties: Difficulty[]
-    // limits: EventLimit[]
+    categories: Category[]
+    difficulties: Difficulty[]
+    limits: EventLimit[]
 
 
     constructor(
         private route: ActivatedRoute,
         private router: Router,
         private courseEventService: CourseEventService,
-        // private readonly categoryService: CategoryService,
-        // private readonly difficultyService: DifficultyService,
+        private readonly categoryService: CategoryService,
+        private readonly difficultyService: DifficultyService,
         private readonly notificationsService: TuiNotificationsService,
     ) {
     }
@@ -52,15 +55,15 @@ export class CourseChallengeCreateEditComponent implements OnInit {
                 startCase(array[1].toLowerCase().replace('_', ' '))
             ])
         })
-        // this.categoryService.getCategories().subscribe(
-        //     categories => this.categories = categories
-        // )
-        // this.difficultyService.getDifficulties().subscribe(
-        //     difficulties => this.difficulties = difficulties
-        // )
-        // this.courseEventService.getLimits().subscribe(
-        //     limits => this.limits = limits
-        // )
+        this.categoryService.getCategories().subscribe(
+            categories => this.categories = categories
+        )
+        this.difficultyService.getDifficulties().subscribe(
+            difficulties => this.difficulties = difficulties
+        )
+        this.courseEventService.getLimits().subscribe(
+            limits => this.limits = limits
+        )
     }
 
     getChallengeQuestionSets(): FormArray {
@@ -75,20 +78,20 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         return fc.get(field) as FormControl
     }
 
-    // getNumQuestionsLimit(formControl: FormControl) {
-    //     const category = formControl.get('category').value as number
-    //     const difficulty = formControl.get('difficulty').value as string
-    //     if (!category || !difficulty) {
-    //         return 0
-    //     }
-    //     return this.limits.find(
-    //         limit => limit.category === category && limit.difficulty === difficulty
-    //     ).available_questions
-    // }
+    getNumQuestionsLimit(formControl: FormControl) {
+        const category = formControl.get('category').value as number
+        const difficulty = formControl.get('difficulty').value as string
+        if (!category || !difficulty) {
+            return 0
+        }
+        return this.limits.find(
+            limit => limit.category === category && limit.difficulty === difficulty
+        ).available_questions
+    }
 
-    // addChallengeQuestionSet() {
-    //     this.getChallengeQuestionSets().push(ChallengeForm.createChallengeQuestionSetForm())
-    // }
+    addChallengeQuestionSet() {
+        this.getChallengeQuestionSets().push(ChallengeForm.createChallengeQuestionSetForm())
+    }
 
     removeChallengeQuestionSet(index: number): void {
         this.getChallengeQuestionSets().removeAt(index)
@@ -113,13 +116,13 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         )
         if (this.eventId) {
             await this.courseEventService.updateCourseEvent(challengeData).toPromise()
-            // for (const questionSet of this.getChallengeQuestionSetFormControls()) {
-            //     const questionSetFormData =
-            //         ChallengeForm.formatChallengeQuestionSetFormData(questionSet)
-            //     await this.courseEventService
-            //         .addQuestionSet(questionSetFormData, this.eventId)
-            //         .toPromise()
-            // }
+            for (const questionSet of this.getChallengeQuestionSetFormControls()) {
+                const questionSetFormData =
+                    ChallengeForm.formatChallengeQuestionSetFormData(questionSet)
+                await this.courseEventService
+                    .addQuestionSet(questionSetFormData, this.eventId)
+                    .toPromise()
+            }
             this.notificationsService
                 .show('The challenge has been updated successfully.', {
                     status: TuiNotification.Success
@@ -129,15 +132,15 @@ export class CourseChallengeCreateEditComponent implements OnInit {
             ).then()
 
         } else {
-            await this.courseEventService.addCourseEvent(challengeData).toPromise()
+            const event = await this.courseEventService.addCourseEvent(challengeData).toPromise()
 
-            // for (const questionSet of this.getChallengeQuestionSetFormControls()) {
-            //     const questionSetFormData =
-            //         ChallengeForm.formatChallengeQuestionSetFormData(questionSet)
-            //     await this.courseEventService
-            //         .addQuestionSet(questionSetFormData, event.id)
-            //         .toPromise()
-            // }
+            for (const questionSet of this.getChallengeQuestionSetFormControls()) {
+                const questionSetFormData =
+                    ChallengeForm.formatChallengeQuestionSetFormData(questionSet)
+                await this.courseEventService
+                    .addQuestionSet(questionSetFormData, event.id)
+                    .toPromise()
+            }
 
             this.notificationsService
                 .show('The challenge has been created successfully.', {
