@@ -81,7 +81,7 @@
             View
         </ng-template>
         <button *ngIf="event.has_edit_permission"
-                [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'edit']"
+                (click)="openEditDialog(editEvent, event.is_closed && !event.is_not_available_yet)"
                 [tuiHint]="editTooltip"
                 class="tui-space_right-2 tui-space_vertical-2"
                 icon="tuiIconEdit"
@@ -94,6 +94,29 @@
         ></button>
         <ng-template #editTooltip>
             Edit
+        </ng-template>
+        <ng-template #editEvent let-observer>
+            <p>This event has finished. Are you sure that you would like to edit this event?</p>
+            <div class="tui-form__buttons">
+                <button
+                    (click)="observer.complete()"
+                    [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'edit']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    Edit Event
+                </button>
+                <button
+                    (click)="observer.complete()"
+                    appearance="secondary"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    Cancel
+                </button>
+            </div>
         </ng-template>
         <button *ngIf="event.has_edit_permission"
                 [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'stats']"
