@@ -34,6 +34,7 @@ export class LeaderBoardComponent implements OnChanges, OnInit {
 
     init() {
         this.rankTopX = 3
+        this.leaderBoard = null
         if (this.eventId) {
             this.courseEventService.getEventLeaderBoard(this.eventId).subscribe(leaderBoard => {
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
