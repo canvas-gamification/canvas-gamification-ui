@@ -440,13 +440,13 @@ export const MOCK_GOAL_LIMITS: GoalLimit[] = [
 
 export const MOCK_RANKED_LEADERBOARD: LeaderboardElement[] = [
     {
-        rank: 1,
-        name: 'name 2',
-        token: 5,
-    },
-    {
-        rank: 2,
         name: 'name',
         token: 2,
-    }
+        course_reg_id: 1,
+    },
+    {
+        name: 'name 2',
+        token: 5,
+        course_reg_id: 0,
+    },
 ]

@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core'
+import {Component, Input, OnChanges, OnInit} from '@angular/core'
 import {ActionStatus, ActionType, ActionVerb, Course, LeaderboardElement} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseEventService} from "@app/course/_services/course-event.service"
@@ -11,7 +11,7 @@ import {Team} from "@app/_models/team"
     templateUrl: './leader-board.component.html',
     styleUrls: ['./leader-board.component.scss']
 })
-export class LeaderBoardComponent implements OnChanges {
+export class LeaderBoardComponent implements OnChanges, OnInit {
     leaderBoard: LeaderboardElement[]
     rankTopX: number
     @Input() course: Course
@@ -32,23 +32,30 @@ export class LeaderBoardComponent implements OnChanges {
     ) {
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
+    init() {
         this.rankTopX = 3
-        if(this.eventId){
+        if (this.eventId) {
             this.courseEventService.getEventLeaderBoard(this.eventId).subscribe(leaderBoard => {
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
-                this.teamService.getMyTeam(this.eventId).subscribe( team => {
+                this.teamService.getMyTeam(this.eventId).subscribe(team => {
                     this.myTeam = team
                     this.logChallengeRankingAndTokens()
                 })
             })
-        }else{
-            if(changes.course && changes.course.currentValue)
-                this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
-                    this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
-                    this.logCourseRankingAndTokens()
-                })
+        } else {
+            this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
+                this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
+                this.logCourseRankingAndTokens()
+            })
         }
+    }
+
+    ngOnChanges(): void {
+        this.init()
+    }
+
+    ngOnInit(): void {
+        this.init()
     }
 
     /**
@@ -57,20 +64,10 @@ export class LeaderBoardComponent implements OnChanges {
      */
     getRankedLeaderboard(leaderBoard: LeaderboardElement[]): LeaderboardElement[] {
         const sortedLeaderboard = leaderBoard.sort((a, b) => b.token - a.token)
-        return sortedLeaderboard.map((element, index) => {
-            return this.eventId? {
-                rank: index + 1,
-                name: element.name,
-                token: element.token,
-                member_names: element.member_names,
-                team_id: element.team_id
-            } : {
-                rank: index + 1,
-                name: element.name,
-                token: element.token,
-                course_reg_id: element.course_reg_id
-            }
-        })
+        return sortedLeaderboard.map((element, index) => ({
+            rank: index + 1,
+            ...element,
+        }))
     }
 
     /**
@@ -86,7 +83,7 @@ export class LeaderBoardComponent implements OnChanges {
 
 
     getRanking(): number | string {
-        if (this.eventId){
+        if (this.eventId) {
             if (!this.leaderBoard.some(element => element.team_id === this.myTeam.id))
                 return 'No ranking. User not on leader board.'
             return this.leaderBoard.find(element => element.team_id === this.myTeam.id).rank
@@ -98,7 +95,7 @@ export class LeaderBoardComponent implements OnChanges {
     }
 
     getTokens(): number | string {
-        if (this.eventId){
+        if (this.eventId) {
             if (!this.leaderBoard.some(element => element.team_id === this.myTeam.id))
                 return 'No tokens. User not on leader board.'
             return this.leaderBoard.find(element => element.team_id === this.myTeam.id).token

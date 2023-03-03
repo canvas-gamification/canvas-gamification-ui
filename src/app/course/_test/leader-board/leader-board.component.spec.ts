@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing'
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {LeaderBoardComponent} from '../../leader-board/leader-board.component'
 import {TestModule} from '@test/test.module'
@@ -6,6 +6,8 @@ import {MOCK_COURSE1, MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
 import {TuiFilterPipeModule} from "@taiga-ui/cdk"
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseServiceMock} from "@test/course.service.mock"
+import {CourseEventService} from "@app/course/_services/course-event.service"
+import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event.service.mock"
 
 describe('LeaderBoardComponent', () => {
     let component: LeaderBoardComponent
@@ -16,7 +18,14 @@ describe('LeaderBoardComponent', () => {
             imports: [TestModule, TuiFilterPipeModule],
             declarations: [LeaderBoardComponent],
             providers: [
-                {provide: CourseService, useClass: CourseServiceMock},
+                {
+                    provide: CourseService,
+                    useClass: CourseServiceMock
+                },
+                {
+                    provide: CourseEventService,
+                    useClass: CourseEventServiceMock,
+                }
             ]
         }).compileComponents()
     })
@@ -30,9 +39,12 @@ describe('LeaderBoardComponent', () => {
         fixture.detectChanges()
     })
 
-    it('course leaderbaord should be retrieved and ranked on initial load', () => {
-        expect(component.leaderBoard).toEqual(MOCK_RANKED_LEADERBOARD)
-    })
+    it('course leaderbaord should be retrieved and ranked on initial load', fakeAsync(() => {
+        tick()
+        expect(component.leaderBoard).toEqual(
+            component.getRankedLeaderboard(MOCK_RANKED_LEADERBOARD)
+        )
+    }))
 
     it('should create', () => {
         expect(component).toBeTruthy()
