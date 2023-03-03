@@ -13,6 +13,8 @@ import {TuiDialogContext} from '@taiga-ui/core'
 export class SubmissionViewComponent implements OnInit {
     submission: QuestionSubmission
     answerFiles: { name: string, code: string }[] = []
+    mistakeMessages: string[]
+    passedTestNames: string[]
 
     constructor(
         private submissionService: SubmissionService,
@@ -25,6 +27,10 @@ export class SubmissionViewComponent implements OnInit {
 
     ngOnInit(): void {
         this.submission = this.context.data
+        this.mistakeMessages =
+            [...new Set(this.submission?.get_failed_test_results.map(a => a.message))]
+        this.passedTestNames =
+            [...new Set(this.submission?.get_passed_test_results.map(a => a.name))]
         this.answerFiles =
             Object.entries(this.submission.answer_files)
                 .reduce((prev, [key, value]) => {

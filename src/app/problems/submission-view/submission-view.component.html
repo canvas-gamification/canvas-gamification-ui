@@ -20,10 +20,10 @@
             <h3 class="tui-text_bold tui-text_body-l-2">What went well:</h3>
             <ul class="tui-list">
                 <li
-                    *ngFor="let result of submission?.get_passed_test_results"
+                    *ngFor="let name of passedTestNames"
                     class="tui-list__item"
                 >
-                    {{ result.name }}
+                    {{ name }}
                 </li>
             </ul>
         </ng-container>
@@ -32,10 +32,10 @@
             <ul class="tui-list">
                 <li
 
-                    *ngFor="let result of submission?.get_failed_test_results"
+                    *ngFor="let result of mistakeMessages"
                     class="tui-list__item"
                 >
-                    {{ result.message }}
+                    {{ result }}
                 </li>
             </ul>
             <p class="tui-island__paragraph">
