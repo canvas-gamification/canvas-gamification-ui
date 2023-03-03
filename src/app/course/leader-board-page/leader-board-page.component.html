@@ -11,7 +11,7 @@
         >
             Back to homepage
         </a>
-        <div class="space-y-2" *ngIf="course">
+        <div class="space-y-2" *ngIf="course else skeleton">
             <ng-container *ngFor="let option of options">
                 <div
                     (click)=setSelectedOption(option)
@@ -25,6 +25,18 @@
                 <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
             </ng-container>
         </div>
+        <ng-template #skeleton>
+            <div class="space-y-2">
+                <ng-container *ngFor="let option of [0, 0, 0, 0]">
+                    <div
+                        class="cursor-pointer clickable p-2 rounded-lg md:-mx-3 tui-skeleton"
+                    >
+                        This is the leaderboard
+                    </div>
+                    <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+                </ng-container>
+            </div>
+        </ng-template>
     </app-sidebar>
     <div class="flex-grow tui-container tui-container_fullwidth">
         <app-leader-board

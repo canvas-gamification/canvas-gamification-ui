@@ -42,7 +42,7 @@ export class LeaderBoardComponent implements OnChanges, OnInit {
                     this.logChallengeRankingAndTokens()
                 })
             })
-        } else {
+        } else if(this.course) {
             this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
                 this.logCourseRankingAndTokens()
