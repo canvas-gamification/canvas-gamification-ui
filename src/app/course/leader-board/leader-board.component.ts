@@ -35,8 +35,12 @@ export class LeaderBoardComponent implements OnChanges, OnInit {
     init() {
         this.rankTopX = 3
         this.leaderBoard = null
+        // saveEventId is a hacky solution to the race condition issue
+        // when user clicks on multiple leaderboards quickly
+        const saveEventId = this.eventId
         if (this.eventId) {
             this.courseEventService.getEventLeaderBoard(this.eventId).subscribe(leaderBoard => {
+                if(saveEventId !== this.eventId) return
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
                 this.teamService.getMyTeam(this.eventId).subscribe(team => {
                     this.myTeam = team
@@ -45,6 +49,7 @@ export class LeaderBoardComponent implements OnChanges, OnInit {
             })
         } else if(this.course) {
             this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
+                if(saveEventId !== this.eventId) return
                 this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
                 this.logCourseRankingAndTokens()
             })
