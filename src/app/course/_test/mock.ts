@@ -83,7 +83,6 @@ export const MOCK_COURSE1: Course = {
     events: [MOCK_COURSE_EVENT],
     token_use_options: null,
     question_set: null,
-    uqjs: null,
     course_reg: MOCK_COURSE_REGISTRATION,
     leader_board: [{
         name: 'name',
@@ -114,7 +113,6 @@ export const MOCK_COURSE2: Course = {
     events: null,
     token_use_options: null,
     question_set: null,
-    uqjs: null,
     course_reg: null,
     leader_board: [{
         name: 'name',
@@ -355,11 +353,10 @@ export const MOCK_GOAL_ITEM_SUBMISSION_STATS: GoalItemSubmissionStats = {
     correct_questions: 4,
     success_rate: 0.66,
     questions_success_rate: 0.66,
-    messages: {
-        'RUNTIME ERROR': 3,
-        'SYNTAX ERROR': 2,
-    },
-    error_messages: ["Something is wrong", "Something is wrong again"]
+    bugs: {
+        bugs: [],
+        patterns: [],
+    }
 }
 
 import {Goal, GoalItem} from "@app/_models/goal/goal"

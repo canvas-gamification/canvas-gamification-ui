@@ -59,7 +59,6 @@ export const MOCK_VIEW_COURSE: Course = {
     events: [MOCK_COURSE_EVENT],
     token_use_options: null,
     question_set: null,
-    uqjs: null,
     course_reg: null,
     leader_board: null,
     has_create_event_permission: false,
