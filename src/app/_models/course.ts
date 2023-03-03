@@ -20,7 +20,6 @@ export interface Course {
     is_registered: boolean;
     events: CourseEvent[];
     token_use_options: unknown;
-    question_set: unknown;
     course_reg: CourseRegistration;
     leader_board: LeaderboardElement[];
     has_create_event_permission: boolean;

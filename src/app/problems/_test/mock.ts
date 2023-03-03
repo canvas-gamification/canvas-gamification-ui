@@ -831,7 +831,6 @@ export const MOCK_COURSE: Course = {
     is_registered: true,
     events: [MOCK_COURSE_EVENT],
     token_use_options: null,
-    question_set: null,
     course_reg: null,
     leader_board: null,
     has_create_event_permission: true,

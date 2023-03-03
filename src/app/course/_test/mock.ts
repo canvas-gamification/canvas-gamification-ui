@@ -82,7 +82,6 @@ export const MOCK_COURSE1: Course = {
     is_registered: true,
     events: [MOCK_COURSE_EVENT],
     token_use_options: null,
-    question_set: null,
     course_reg: MOCK_COURSE_REGISTRATION,
     leader_board: [{
         name: 'name',
@@ -112,7 +111,6 @@ export const MOCK_COURSE2: Course = {
     is_registered: false,
     events: null,
     token_use_options: null,
-    question_set: null,
     course_reg: null,
     leader_board: [{
         name: 'name',
