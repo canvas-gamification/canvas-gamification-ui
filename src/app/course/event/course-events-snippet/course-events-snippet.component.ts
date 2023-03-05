@@ -110,7 +110,7 @@ export class CourseEventsSnippetComponent implements OnInit {
         })
         this.dialogService.open(
             this.importDialog,
-            {label: 'Select an Event to Import', size: 'l', closeable: false}
+            {label: 'Which assessment do you want to import?', size: 'l', closeable: false}
         ).subscribe()
     }
 
