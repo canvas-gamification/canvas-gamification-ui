@@ -4,9 +4,9 @@ import {CourseHomepageComponent} from './course-homepage.component'
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseServiceMock} from "@test/course.service.mock"
 import {ActivatedRoute} from "@angular/router"
-import {of} from "rxjs";
-import {MOCK_STUDENT} from "@app/accounts/_test/mock";
-import {AuthenticationService} from "@app/_services/api/authentication";
+import {of} from "rxjs"
+import {MOCK_STUDENT} from "@app/accounts/_test/mock"
+import {AuthenticationService} from "@app/_services/api/authentication"
 
 describe('CourseHomepageComponent', () => {
     let component: CourseHomepageComponent
