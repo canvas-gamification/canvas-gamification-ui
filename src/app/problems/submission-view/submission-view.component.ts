@@ -15,6 +15,7 @@ export class SubmissionViewComponent implements OnInit {
     answerFiles: { name: string, code: string }[] = []
     mistakeMessages: string[]
     passedTestNames: string[]
+    test: string[]
 
     constructor(
         private submissionService: SubmissionService,
@@ -27,10 +28,7 @@ export class SubmissionViewComponent implements OnInit {
 
     ngOnInit(): void {
         this.submission = this.context.data
-        this.mistakeMessages =
-            [...new Set(this.submission?.get_failed_test_results.map(a => a.message))]
-        this.passedTestNames =
-            [...new Set(this.submission?.get_passed_test_results.map(a => a.name))]
+        this.getTestOutputMessages()
         this.answerFiles =
             Object.entries(this.submission.answer_files)
                 .reduce((prev, [key, value]) => {
@@ -48,5 +46,33 @@ export class SubmissionViewComponent implements OnInit {
 
     closeDialog(): void {
         this.context.completeWith(null)
+    }
+
+    getTestOutputMessages() : void {
+        const testErrorNames: string[] =
+            this.submission?.get_failed_test_results.map(a => {
+                const index: number = a.name.indexOf("[")
+                if (index !== -1)
+                    return a.name.substring(0, index)
+                else
+                    return a.name
+            })
+        const testPassedNames: string[] =
+            this.submission?.get_passed_test_results.map( a => {
+                const index: number = a.name.indexOf("[")
+                let k = a.name
+                if (index !== -1)
+                    k = a.name.substring(0, index)
+                if (!testErrorNames.find(item => item === k))
+                    return k
+            })
+        this.test = [...new Set(testErrorNames)]
+        // let testPassedNames: string[] =
+        //     this.submission?.get_passed_test_results.map(a => a.name)
+
+        // this.mistakeMessages =
+        //     [...new Set(this.submission?.get_failed_test_results.map(a => a.message))]
+        this.passedTestNames =
+            [...new Set(testPassedNames)]
     }
 }

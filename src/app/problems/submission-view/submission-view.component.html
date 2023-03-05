@@ -26,6 +26,23 @@
                     {{ name }}
                 </li>
             </ul>
+<!--            <ul class="tui-list">-->
+<!--                <li-->
+<!--                    *ngFor="let item of submission?.get_failed_test_results"-->
+<!--                    class="tui-list__item"-->
+<!--                >-->
+<!--                    {{ item.name }}-->
+<!--                    {{ item.message }}-->
+<!--                </li>-->
+<!--            </ul>-->
+            <ul class="tui-list">
+                <li
+                    *ngFor="let item of test"
+                    class="tui-list__item"
+                >
+                    {{ item }}
+                </li>
+            </ul>
         </ng-container>
         <ng-container *ngIf="submission?.get_failed_test_results?.length">
             <h3 class="tui-text_bold tui-text_body-l-2">Still needs some work:</h3>
