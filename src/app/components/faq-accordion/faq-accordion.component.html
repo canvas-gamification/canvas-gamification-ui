@@ -3,7 +3,11 @@
         <tui-accordion-item *ngFor="let faq of faqs | tuiFilter: topX">
             {{ faq.question }}
             <ng-template tuiAccordionItemContent>
-                <div [innerHTML]="faq.safeAnswer"></div>
+                <app-editor
+                    [ngModel]="faq.answer"
+                    readonly="true"
+                >
+                </app-editor>
             </ng-template>
         </tui-accordion-item>
     </tui-accordion>
