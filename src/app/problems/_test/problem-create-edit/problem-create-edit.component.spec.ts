@@ -11,6 +11,10 @@ import {
 import {
     McqCreateEditSnippetComponent
 } from "@app/problems/problem-create-edit/mcq-create-edit-snippet/mcq-create-edit-snippet.component"
+import {ActivatedRoute} from "@angular/router"
+import {QuestionService} from "@app/problems/_services/question.service"
+import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock"
+import {of} from "rxjs"
 
 describe('ProblemCreateEditComponent', () => {
     let component: ProblemCreateEditComponent
@@ -23,6 +27,26 @@ describe('ProblemCreateEditComponent', () => {
                 ParsonsCreateEditSnippetComponent, McqCreateEditSnippetComponent
             ],
             imports: [TestModule],
+            providers: [
+                {provide: QuestionService, useClass: QuestionServiceMock},
+                {
+                    provide: ActivatedRoute, useValue: {
+                        snapshot: {
+                            parent: {
+                                params: {
+                                    courseId: 0
+                                }
+                            },
+                            params: {
+                                eventId: 0,
+                            },
+                        },
+                        params: of({
+                            type: 'parsons',
+                        })
+                    }
+                }
+            ]
         }).compileComponents()
     })
 
@@ -32,8 +56,50 @@ describe('ProblemCreateEditComponent', () => {
         fixture.detectChanges()
     })
 
-    // TODO: (Seth) fix
-    xit('should create', () => {
+    it('should create with new question', () => {
+        expect(component).toBeTruthy()
+    })
+})
+
+describe('ProblemCreateEditComponent', () => {
+    let component: ProblemCreateEditComponent
+    let fixture: ComponentFixture<ProblemCreateEditComponent>
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [
+                ProblemCreateEditComponent, JavaCreateEditSnippetComponent,
+                ParsonsCreateEditSnippetComponent, McqCreateEditSnippetComponent
+            ],
+            imports: [TestModule],
+            providers: [
+                {provide: QuestionService, useClass: QuestionServiceMock},
+                {
+                    provide: ActivatedRoute, useValue: {
+                        snapshot: {
+                            parent: {
+                                params: {
+                                    courseId: 0
+                                }
+                            },
+                            params: {
+                                eventId: 0,
+                                questionId: 0
+                            },
+                        },
+                    }
+                }
+            ]
+        }).compileComponents()
+    })
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ProblemCreateEditComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
+
+    it('should create with existing question', () => {
         expect(component).toBeTruthy()
     })
 })
