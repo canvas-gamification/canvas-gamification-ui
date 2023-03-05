@@ -3,6 +3,8 @@ import {CommonModule} from '@angular/common'
 import {FaqAccordionComponent} from './faq-accordion.component'
 import {TuiAccordionModule, TuiMarkerIconModule} from "@taiga-ui/kit"
 import {TuiFilterPipeModule} from "@taiga-ui/cdk"
+import {EditorModule} from "@app/components/editor/editor.module"
+import {FormsModule} from "@angular/forms"
 
 
 @NgModule({
@@ -12,6 +14,8 @@ import {TuiFilterPipeModule} from "@taiga-ui/cdk"
     ],
     imports: [
         CommonModule,
+        EditorModule,
+        FormsModule,
         TuiAccordionModule,
         TuiFilterPipeModule,
         TuiMarkerIconModule
