@@ -4,6 +4,9 @@ import {CourseHomepageComponent} from './course-homepage.component'
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseServiceMock} from "@test/course.service.mock"
 import {ActivatedRoute} from "@angular/router"
+import {of} from "rxjs";
+import {MOCK_STUDENT} from "@app/accounts/_test/mock";
+import {AuthenticationService} from "@app/_services/api/authentication";
 
 describe('CourseHomepageComponent', () => {
     let component: CourseHomepageComponent
@@ -24,6 +27,11 @@ describe('CourseHomepageComponent', () => {
                             }
                         }
                     }
+                },
+                {
+                    provide: AuthenticationService, useValue: {
+                        currentUser: of(MOCK_STUDENT)
+                    }
                 }
             ]
         })
@@ -36,8 +44,7 @@ describe('CourseHomepageComponent', () => {
         fixture.detectChanges()
     })
 
-    // TODO: (Seth) fix
-    xit('should create', () => {
+    it('should create', () => {
         expect(component).toBeTruthy()
     })
 })
