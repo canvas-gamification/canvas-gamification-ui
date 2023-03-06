@@ -25,13 +25,21 @@
         >
             {{ course?.name }}
         </h5>
-        <ng-container *ngIf="displayDescription">
-            <div class="mb-10 -mt-5">
-                <p class="tui-text_body-xl tui-island__paragraph">
-                    {{course?.description}}
-                </p>
-            </div>
-        </ng-container>
+        <div class="flex-box">
+            <ng-container *ngIf="displayDescription">
+                    <p class="tui-text_body-xl tui-island__paragraph">
+                        {{course?.description}}
+                    </p>
+                    <a
+                        tuiButton
+                        type="button"
+                        appearance="secondary"
+                        [routerLink]="['/course', courseId, 'edit']"
+                    >
+                        Edit Course
+                    </a>
+            </ng-container>
+        </div>
     </ng-container>
     <ng-template #skeletonTemplate>
         <h5 class="tui-text_h5 mb-5 tui-skeleton_short tui-skeleton">
