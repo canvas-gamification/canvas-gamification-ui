@@ -127,7 +127,7 @@
                     <th *tuiHead="'id'" [sorter]="sorters.id" tuiTh>#</th>
                     <th *tuiHead="'title'" [sorter]="sorters.title" tuiTh>Question Name</th>
                     <th *tuiHead="'author_name'" [sorter]="sorters.author_name" tuiTh>Author</th>
-                    <th *tuiHead="'event_name'" [sorter]="sorters.event_name" tuiTh>Event</th>
+                    <th *tuiHead="'event_name'" [sorter]="sorters.event_name" tuiTh>Assessment</th>
                     <th
                         *tuiHead="'parent_category_name'"
                         [sorter]="sorters.parent_category_name"
@@ -152,7 +152,7 @@
                         {{ (question.author_name) || 'No Author' }}
                     </td>
                     <td *tuiCell="'event_name'" tuiTd>
-                        {{ (question.event_obj.name) || 'No Event Name' }}
+                        {{ (question.event_obj.name) || 'No Assessment Name' }}
                     </td>
                     <td *tuiCell="'parent_category_name'" tuiTd>
                         {{ (question.parent_category_name) || 'No Category' }}
@@ -254,7 +254,7 @@
                     <th *tuiHead="'id'" tuiTh>#</th>
                     <th *tuiHead="'title'" tuiTh>Question Name</th>
                     <th *tuiHead="'author_name'" tuiTh>Author</th>
-                    <th *tuiHead="'event_name'" tuiTh>Event</th>
+                    <th *tuiHead="'event_name'" tuiTh>Assessment</th>
                     <th *tuiHead="'parent_category_name'" tuiTh> Category</th>
                     <th  *tuiHead="'category_name'" tuiTh>Sub-Category </th>
                     <th *tuiHead="'difficulty'" tuiTh>Difficulty</th>

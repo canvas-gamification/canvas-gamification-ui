@@ -172,7 +172,7 @@ describe('CourseComponent Question Page', () => {
             caption: `Assignments and Exams`,
             routerLink: '/course/0/assignments-exams'
         }, {
-            caption: `Mock Event`,
+            caption: `Mock Assessment`,
             routerLink:
                 '/course/0/assignments-exams/1'
         }, {

@@ -40,11 +40,11 @@
                     (click)="openEventImportDialog()"
                     icon="tuiIconPlus"
                     appearance="secondary"
-                    aria-label="Add Event"
+                    aria-label="Add Assessment"
                     size="m"
                     tuiButton
                 >
-                    Add Event
+                    Add Assessment
                 </button>
             </div>
 
@@ -65,7 +65,7 @@
                             <figure class="tui-island__figure">
                                 <tui-svg src="tuiIconPlusLarge"></tui-svg>
                             </figure>
-                            <h2 class="tui-island__title">Create New Event</h2>
+                            <h2 class="tui-island__title">Create New Assessment</h2>
                         </a>
                         <tui-island *ngFor="let event of courseEvents" size="s">
                             <div class="flex">
@@ -100,7 +100,7 @@
         </div>
         <tui-accordion [closeOthers]="false">
             <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Upcoming Events
+                Upcoming Assessments
                 <ng-template tuiAccordionItemContent>
                     <div
                         *ngFor="let event of getUpcomingEvents()"
@@ -120,14 +120,14 @@
                                 src="tuiIconAlertCircleLarge"
                             ></tui-marker-icon>
                             <h2 class="tui-text_body-xl">
-                                Looks like there are no upcoming events
+                                Looks like there are no upcoming assessments
                             </h2>
                         </div>
                     </div>
                 </ng-template>
             </tui-accordion-item>
             <tui-accordion-item open="true">
-                Past Events
+                Past Assessments
                 <ng-template tuiAccordionItemContent>
                     <div *ngFor="let event of getPastEvents()" class="event">
                         <app-event-row

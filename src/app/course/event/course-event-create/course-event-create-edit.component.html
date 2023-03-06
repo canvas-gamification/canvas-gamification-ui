@@ -1,17 +1,17 @@
 <div class="tui-container tui-container_adaptive">
     <form (ngSubmit)="submitEvent(formData)" [formGroup]="formData">
-        <h2 class="tui-form__header">{{getTitle()}} Event</h2>
+        <h2 class="tui-form__header">{{getTitle()}} Assessment</h2>
         <div class="tui-form__row">
-            <tui-input aria-label="Event Name" formControlName="name">Event Name</tui-input>
+            <tui-input aria-label="Assessment Name" formControlName="name">Assessment Name</tui-input>
             <tui-field-error formControlName="name"></tui-field-error>
         </div>
         <div class="tui-form__row">
             <tui-select
-                aria-label="Event Type"
+                aria-label="Assessment Type"
                 formControlName="type"
                 [valueContent]="localEventTypes ? (localEventTypes | stringifyTuiDataList: 0: 1) : ''"
             >
-                Event Type
+                Assessment Type
                 <tui-data-list *tuiDataList>
                     <button *ngFor="let event of localEventTypes" [value]="event[0]" tuiOption>
                         {{ event[1] }}
