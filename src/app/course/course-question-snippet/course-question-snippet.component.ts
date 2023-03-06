@@ -162,12 +162,12 @@ export class CourseQuestionSnippetComponent implements OnInit {
         openDialog: boolean,
         uqj: UQJ
     ): void {
-        if(openDialog) {
+        if (openDialog) {
             this.dialogService.open(content, {
                 closeable: false,
-                label: 'Edit Question in Finished Event?'
+                label: 'Edit question in finished assessment?'
             }).subscribe()
-        } else{
+        } else {
             this.router.navigate(
                 ['../' , this.eventId, 'problem', uqj.question.id, 'edit']
                 ,{relativeTo: this.route}
