@@ -1,4 +1,4 @@
-<ng-container *ngIf="uqjs">
+<ng-container *ngIf="!!course && !!uqjs">
     <div [class.tui-container]="eventId" [class.tui-container_adaptive]="eventId">
         <a
             [routerLink]="['..']"
@@ -169,7 +169,7 @@
                         </ng-template>
                         <a
                             *ngIf="event.has_edit_permission"
-                            [routerLink]="['problem', uqj.question.id, 'edit']"
+                            (click)="openEditQuestionInEventDialog(editQuestion, event.is_closed && !event.is_not_available_yet, uqj)"
                             appearance="primary"
                             class="tui-form__button"
                             size="s"
@@ -177,6 +177,29 @@
                         >
                             Edit
                         </a>
+                        <ng-template #editQuestion let-observer>
+                            <p>This event has finished. Are you sure that you would like to edit this question?</p>
+                            <div class="tui-form__buttons">
+                                <button
+                                    (click)="observer.complete()"
+                                    [routerLink]="['problem', uqj.question.id, 'edit']"
+                                    class="tui-form__button"
+                                    size="m"
+                                    tuiButton
+                                >
+                                    Edit Question
+                                </button>
+                                <button
+                                    (click)="observer.complete()"
+                                    appearance="secondary"
+                                    class="tui-form__button"
+                                    size="m"
+                                    tuiButton
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </ng-template>
                         <a
                             *ngIf="event.has_edit_permission"
                             (click)="removeQuestion(uqj.question.id)"

@@ -6,122 +6,122 @@
             question at the bottom.
         </p>
     </div>
+    <div class="flex justify-center">
+        <div class = "mt-10 custom-max-width">
+                <a
+                    appearance="flat"
+                    [routerLink]="['..']"
+                    icon="tuiIconArrowLeft"
+                    size="s"
+                    tuiButton
+                >
+                    Back to Homepage
+                </a>
+            <div class="flex-container gap-8 mt-10">
+                <tui-island class="practice-tile tui-island_hoverable"
+                            id="Target"
+                            [routerLink]="['concepts']" size="m">
+                    <div class="practice-background practice-question"></div>
+                    <div class="practice-tile-text">
+                        <h3 class="tui-island__title">Concept Map</h3>
+                        <p class="tui-island__paragraph tui-text_body-xl flex-space">
+                            View programming concepts and practice
+                            questions in selected topics and difficulty levels.
+                        </p>
+                        <div>
+                            <a
+                                appearance="primary"
+                                [routerLink]="['concepts']"
+                                class="tui-form__button"
+                                size="m"
+                                tuiButton
+                            >
+                                Practice
+                            </a>
+                        </div>
+                    </div>
+                </tui-island>
 
-    <div class="gap-30 mt-10 ml-80">
-        <a
-            appearance="flat"
-            [routerLink]="['..']"
-            icon="tuiIconArrowLeft"
-            size="s"
-            tuiButton
-        >
-            Back to Homepage
-        </a>
+                <tui-island class="practice-tile tui-island_hoverable"
+                            [routerLink]="['/course', courseId, 'goal']" size="m">
+                    <div class="practice-background view-goals"></div>
+                    <div class="practice-tile-text">
+                        <h3 class="tui-island__title">Personal Goals</h3>
+                        <p class="tui-island__paragraph tui-text_body-xl flex-space">
+                            Develop goals for yourself that suit your own
+                            skill level and earn tokens when you achieve them.
+                        </p>
+                        <div class="practice-tile-button">
+                            <a
+                                appearance="primary"
+                                [routerLink]="['/course', courseId, 'goal']"
+                                class="tui-form__button"
+                                size="m"
+                                tuiButton
+                            >
+                                View
+                            </a>
+                        </div>
+                    </div>
+                </tui-island>
+            </div>
+        </div>
     </div>
 
-    <div class="flex-container gap-8 mt-10">
-        <tui-island class="practice-tile tui-island_hoverable"
-                    [routerLink]="['concepts']" size="m">
-            <div class="practice-background practice-question"></div>
-            <div class="practice-tile-text">
-                <h3 class="tui-island__title">Concept Map</h3>
-                <p class="tui-island__paragraph tui-text_body-xl flex-space">
-                    View programming concepts and practice
-                    questions in selected topics and difficulty levels.
-                </p>
-                <div>
-                    <a
-                        appearance="primary"
-                        [routerLink]="['concepts']"
-                        class="tui-form__button"
-                        size="m"
-                        tuiButton
-                    >
-                        Practice
-                    </a>
-                </div>
-            </div>
-        </tui-island>
+    <!--    <h5 class="tui-text_h5 quick-links mt-10">Quick Links</h5>-->
 
-        <tui-island class="practice-tile tui-island_hoverable"
-                    [routerLink]="['/course', courseId, 'goal']" size="m">
-            <div class="practice-background view-goals"></div>
-            <div class="practice-tile-text">
-                <h3 class="tui-island__title">Personal Goals</h3>
-                <p class="tui-island__paragraph tui-text_body-xl flex-space">
-                    Develop goals for yourself that suit your own
-                    skill level and earn tokens when you achieve them.
-                </p>
-                <div class="practice-tile-button">
-                    <a
-                        appearance="primary"
-                        [routerLink]="['/course', courseId, 'goal']"
-                        class="tui-form__button"
-                        size="m"
-                        tuiButton
-                    >
-                        View
-                    </a>
-                </div>
-            </div>
-        </tui-island>
-
-    </div>
-
-<!--    <h5 class="tui-text_h5 quick-links mt-10">Quick Links</h5>-->
-
-<!--    <p class="tui-island__paragraph tui-text_body-xl tui-space_top-3">Select an-->
-<!--        option to quickly navigate to a practice-->
-<!--        question.</p>-->
+    <!--    <p class="tui-island__paragraph tui-text_body-xl tui-space_top-3">Select an-->
+    <!--        option to quickly navigate to a practice-->
+    <!--        question.</p>-->
 
 
-<!--    <div class="flex flex-wrap justify-center gap-8 tui-space_top-7">-->
-<!--        <div-->
-<!--            tuiHintPointer-->
-<!--            tuiHint="Coming Soon..."-->
-<!--            tuiHintDirection="top-middle"-->
-<!--            class="tui-space_right-3 tui-space_bottom-3"-->
-<!--        >-->
-<!--            <button-->
-<!--                tuiButton-->
-<!--                type="button"-->
-<!--                appearance="flat"-->
-<!--                disabled="true"-->
-<!--            >-->
-<!--                Random Question-->
-<!--            </button>-->
-<!--        </div>-->
-<!--        <div-->
-<!--            tuiHintPointer-->
-<!--            tuiHint="Coming Soon..."-->
-<!--            tuiHintDirection="top-middle"-->
-<!--            class="tui-space_right-3 tui-space_bottom-3"-->
-<!--        >-->
-<!--            <button-->
-<!--                tuiButton-->
-<!--                disabled="true"-->
-<!--                type="button"-->
-<!--                appearance="flat"-->
-<!--                class="tui-space_right-3 tui-space_bottom-3"-->
-<!--            >-->
-<!--                Recommended Question-->
-<!--            </button>-->
-<!--        </div>-->
-<!--        <div-->
-<!--            tuiHintPointer-->
-<!--            tuiHint="Coming Soon..."-->
-<!--            tuiHintDirection="top-middle"-->
-<!--            class="tui-space_right-3 tui-space_bottom-3"-->
-<!--        >-->
-<!--            <button-->
-<!--                tuiButton-->
-<!--                disabled="true"-->
-<!--                type="button"-->
-<!--                appearance="flat"-->
-<!--                class="tui-space_right-3 tui-space_bottom-3"-->
-<!--            >-->
-<!--                Continue Practice-->
-<!--            </button>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--    <div class="flex flex-wrap justify-center gap-8 tui-space_top-7">-->
+    <!--        <div-->
+    <!--            tuiHintPointer-->
+    <!--            tuiHint="Coming Soon..."-->
+    <!--            tuiHintDirection="top-middle"-->
+    <!--            class="tui-space_right-3 tui-space_bottom-3"-->
+    <!--        >-->
+    <!--            <button-->
+    <!--                tuiButton-->
+    <!--                type="button"-->
+    <!--                appearance="flat"-->
+    <!--                disabled="true"-->
+    <!--            >-->
+    <!--                Random Question-->
+    <!--            </button>-->
+    <!--        </div>-->
+    <!--        <div-->
+    <!--            tuiHintPointer-->
+    <!--            tuiHint="Coming Soon..."-->
+    <!--            tuiHintDirection="top-middle"-->
+    <!--            class="tui-space_right-3 tui-space_bottom-3"-->
+    <!--        >-->
+    <!--            <button-->
+    <!--                tuiButton-->
+    <!--                disabled="true"-->
+    <!--                type="button"-->
+    <!--                appearance="flat"-->
+    <!--                class="tui-space_right-3 tui-space_bottom-3"-->
+    <!--            >-->
+    <!--                Recommended Question-->
+    <!--            </button>-->
+    <!--        </div>-->
+    <!--        <div-->
+    <!--            tuiHintPointer-->
+    <!--            tuiHint="Coming Soon..."-->
+    <!--            tuiHintDirection="top-middle"-->
+    <!--            class="tui-space_right-3 tui-space_bottom-3"-->
+    <!--        >-->
+    <!--            <button-->
+    <!--                tuiButton-->
+    <!--                disabled="true"-->
+    <!--                type="button"-->
+    <!--                appearance="flat"-->
+    <!--                class="tui-space_right-3 tui-space_bottom-3"-->
+    <!--            >-->
+    <!--                Continue Practice-->
+    <!--            </button>-->
+    <!--        </div>-->
+    <!--    </div>-->
 </section>

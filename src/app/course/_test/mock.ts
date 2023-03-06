@@ -82,8 +82,6 @@ export const MOCK_COURSE1: Course = {
     is_registered: true,
     events: [MOCK_COURSE_EVENT],
     token_use_options: null,
-    question_set: null,
-    uqjs: null,
     course_reg: MOCK_COURSE_REGISTRATION,
     leader_board: [{
         name: 'name',
@@ -113,8 +111,6 @@ export const MOCK_COURSE2: Course = {
     is_registered: false,
     events: null,
     token_use_options: null,
-    question_set: null,
-    uqjs: null,
     course_reg: null,
     leader_board: [{
         name: 'name',
@@ -355,11 +351,10 @@ export const MOCK_GOAL_ITEM_SUBMISSION_STATS: GoalItemSubmissionStats = {
     correct_questions: 4,
     success_rate: 0.66,
     questions_success_rate: 0.66,
-    messages: {
-        'RUNTIME ERROR': 3,
-        'SYNTAX ERROR': 2,
-    },
-    error_messages: ["Something is wrong", "Something is wrong again"]
+    bugs: {
+        bugs: [],
+        patterns: [],
+    }
 }
 
 import {Goal, GoalItem} from "@app/_models/goal/goal"
@@ -443,13 +438,13 @@ export const MOCK_GOAL_LIMITS: GoalLimit[] = [
 
 export const MOCK_RANKED_LEADERBOARD: LeaderboardElement[] = [
     {
-        rank: 1,
-        name: 'name 2',
-        token: 5,
-    },
-    {
-        rank: 2,
         name: 'name',
         token: 2,
-    }
+        course_reg_id: 1,
+    },
+    {
+        name: 'name 2',
+        token: 5,
+        course_reg_id: 0,
+    },
 ]
