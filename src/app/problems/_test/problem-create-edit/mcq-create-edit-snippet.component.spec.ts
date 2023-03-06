@@ -19,7 +19,12 @@ import {HttpResponse} from "@angular/common/http"
 import {Question} from "@app/_models"
 import {delay} from "rxjs/operators"
 import {McqForm} from "@app/problems/_forms/mcq.form"
-import {VariablesEditorComponent} from "@app/problems/json-editor/variables-editor/variables-editor.component"
+import {
+    VariablesEditorComponent
+} from "@app/problems/json-editor/variables-editor/variables-editor.component"
+import {QuestionService} from "@app/problems/_services/question.service"
+import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock"
+import {ActivatedRoute} from "@angular/router";
 
 describe('McqCreateEditSnippetComponent', () => {
     let component: McqCreateEditSnippetComponent
@@ -57,9 +62,9 @@ describe('McqCreateEditSnippetComponent', () => {
         expect(component['router'].navigate).toHaveBeenCalled()
     })
 
-    it('should be invalid empty form', () => {
+    it('should be invalid empty form', fakeAsync(() => {
         expect(component.formGroup.invalid).toBeTrue()
-    })
+    }))
 
     it('should submit', fakeAsync(() => {
         component.onSubmit()
@@ -69,63 +74,107 @@ describe('McqCreateEditSnippetComponent', () => {
         expect(component['notificationsService'].show).toHaveBeenCalled()
         expect(component.refreshPage).toHaveBeenCalled()
     }))
+})
 
-    describe('McqCreateEditSnippetComponent with Question Details', () => {
-        beforeEach(() => {
-            component.questionDetails = JSON.parse(JSON.stringify(MOCK_CHECKBOX_QUESTION))
-            component.ngOnInit()
-        })
+describe('McqCreateEditSnippetComponent with Question Details', () => {
+    let component: McqCreateEditSnippetComponent
+    let fixture: ComponentFixture<McqCreateEditSnippetComponent>
 
-        it('should create', () => {
-            expect(component).toBeTruthy()
-            expect(component.formGroup).toBeTruthy()
-            expect(component.isCheckbox).toBeTrue()
-        })
-
-        describe('Check Checkbox Answers Dialog', () => {
-            beforeEach(() => {
-                spyOn(component['dialogService'], 'open').and.callThrough()
-                spyOn(component, 'onSubmit').and.callThrough()
-            })
-
-            it('should give no dialog and submit', () => {
-                component.checkCheckboxAnswersDialog('')
-                expect(component.onSubmit).toHaveBeenCalled()
-            })
-
-            it('should have one answer and show dialog', () => {
-                const lenAnswers = component.form.answer.value.length
-                for (let i = 1; i < lenAnswers; ++i) {
-                    component.removeAnswer(0)
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                TestModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
+                TuiRadioLabeledModule, TuiInputModule, TuiSelectModule, TuiFieldErrorModule,
+                TuiButtonModule, TuiHostedDropdownModule
+            ],
+            providers: [
+                {provide: QuestionService, useClass: QuestionServiceMock},
+                {
+                    provide: ActivatedRoute, useValue: {
+                        snapshot: {
+                            parent: {
+                                params: {
+                                    courseId: 0
+                                }
+                            },
+                            params: {
+                                id: 0,
+                                eventId: 1,
+                            },
+                        }
+                    }
                 }
-                component.checkCheckboxAnswersDialog('')
-                expect(component['dialogService'].open).toHaveBeenCalled()
-            })
-        })
-
-        it('should be valid form', () => {
-            expect(component.formGroup.valid).toBeTrue()
-        })
-
-        it('should remove answer', () => {
-            const ansLength = component.form.answer.value.length
-            component.removeAnswer(ansLength - 1)
-            expect(component.form.answer.value.length).toBe(ansLength - 1)
-        })
-
-        it('should remove distractor', () => {
-            const disLength = component.form.choices.value.length
-            component.removeDistractor(disLength - 1)
-            expect(component.form.choices.value.length).toBe(disLength - 1)
-        })
-
-        it('should submit', fakeAsync(() => {
-            component.onSubmit()
-            const submissionData = McqForm.submissionData(component.formGroup)
-            expect(component['questionService'].putMultipleChoiceQuestion).toHaveBeenCalledWith(submissionData, component.questionDetails.id)
-            tick(1)
-            expect(component['notificationsService'].show).toHaveBeenCalled()
-            expect(component.refreshPage).toHaveBeenCalled()
-        }))
+            ],
+            declarations: [McqCreateEditSnippetComponent, VariablesEditorComponent]
+        }).compileComponents()
     })
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(McqCreateEditSnippetComponent)
+        component = fixture.componentInstance
+        component.questionDetails = JSON.parse(JSON.stringify(MOCK_CHECKBOX_QUESTION))
+        spyOn(component['questionService'], 'postMultipleChoiceQuestion').and.callFake(
+            () => of(new HttpResponse<Question>()).pipe(delay(1))
+        )
+        spyOn(component['questionService'], 'putMultipleChoiceQuestion').and.callFake(
+            () => of(new HttpResponse<Question>()).pipe(delay(1))
+        )
+        spyOn(component['router'], 'navigate').and.callThrough()
+        spyOn(component, 'refreshPage').and.callThrough()
+        spyOn(component['notificationsService'], 'show').and.callThrough()
+        fixture.detectChanges()
+    })
+
+    it('should create', fakeAsync(() => {
+        expect(component).toBeTruthy()
+        expect(component.formGroup).toBeTruthy()
+        expect(component.isCheckbox).toBeTrue()
+    }))
+
+    describe('Check Checkbox Answers Dialog', () => {
+        beforeEach(() => {
+            spyOn(component['dialogService'], 'open').and.callThrough()
+            spyOn(component, 'onSubmit').and.callThrough()
+        })
+
+        it('should give no dialog and submit', () => {
+            component.checkCheckboxAnswersDialog('')
+            expect(component.onSubmit).toHaveBeenCalled()
+        })
+
+        it('should have one answer and show dialog', () => {
+            const lenAnswers = component.form.answer.value.length
+            for (let i = 1; i < lenAnswers; ++i) {
+                component.removeAnswer(0)
+            }
+            component.checkCheckboxAnswersDialog('')
+            expect(component['dialogService'].open).toHaveBeenCalled()
+        })
+    })
+
+    it('should be valid form', fakeAsync(() => {
+        expect(component.formGroup.valid).toBeTrue()
+    }))
+
+    it('should remove answer', () => {
+        const ansLength = component.form.answer.value.length
+        component.removeAnswer(ansLength - 1)
+        expect(component.form.answer.value.length).toBe(ansLength - 1)
+    })
+
+    it('should remove distractor', () => {
+        const disLength = component.form.choices.value.length
+        component.removeDistractor(disLength - 1)
+        expect(component.form.choices.value.length).toBe(disLength - 1)
+    })
+
+    it('should submit', fakeAsync(() => {
+        component.onSubmit()
+        const submissionData = McqForm.submissionData(component.formGroup)
+        expect(component['questionService'].putMultipleChoiceQuestion).
+            toHaveBeenCalledWith(submissionData, component.questionDetails.id)
+        tick(1)
+        expect(component['notificationsService'].show).toHaveBeenCalled()
+        expect(component.refreshPage).toHaveBeenCalled()
+    }))
 })

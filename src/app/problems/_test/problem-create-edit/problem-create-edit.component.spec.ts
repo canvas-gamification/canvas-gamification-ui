@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing'
+import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing'
 
 import {ProblemCreateEditComponent} from '../../problem-create-edit/problem-create-edit.component'
 import {TestModule} from '@test/test.module'
@@ -83,7 +83,7 @@ describe('ProblemCreateEditComponentEditQuestion', () => {
                                 }
                             },
                             params: {
-                                id: 1,
+                                id: 0,
                                 eventId: 0,
                             },
                         },
@@ -99,8 +99,7 @@ describe('ProblemCreateEditComponentEditQuestion', () => {
         fixture.detectChanges()
     })
 
-    // TODO: Ask Keyvan about this
-    xit('should create with existing question', () => {
+    it('should create with existing question', fakeAsync(() => {
         expect(component).toBeTruthy()
-    })
+    }))
 })
