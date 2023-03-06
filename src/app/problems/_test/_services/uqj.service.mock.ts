@@ -8,7 +8,13 @@ import {PaginatedResult} from "@app/_models/paginatedResult"
     providedIn: 'root'
 })
 export class UqjServiceMock {
-    getUQJs(): Observable<PaginatedResult<UQJ>> {
+    getUQJs(options?: {
+        filters?: unknown,
+        ordering?: unknown,
+        page?: number,
+        pageSize?: number,
+        recent?: boolean
+    }): Observable<PaginatedResult<UQJ>> {
         return of({
             count: MOCK_UQJS.length,
             next: null,
