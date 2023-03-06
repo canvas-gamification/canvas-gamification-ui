@@ -142,9 +142,12 @@ export class CourseQuestionSnippetComponent implements OnInit {
     getEventTypeDescription(): string {
         switch (this.event.challenge_type) {
             case 'QUOTA':
-                return 'Teams earn tokens from every question solved. Each member gets the number of tokens equivalent to team tokens when the challenge ends.'
+                return 'Teams earn tokens from every question solved. Each member gets the number' +
+                    ' of tokens equivalent to team tokens when the challenge ends.'
             case 'TOP_TEAMS':
-                return `Teams earn tokens by staying on the top ${this.event.challenge_type_value} teams of this challenge. Each member gets the number of tokens equivalent to team tokens as the challenge ends.`
+                return `Teams earn tokens by staying on the top ${this.event.challenge_type_value}
+                teams of this challenge. Each member gets the number of tokens equivalent to team
+                tokens as the challenge ends.`
         }
     }
 
@@ -165,7 +168,10 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 label: 'Edit Question in Finished Event?'
             }).subscribe()
         } else{
-            this.router.navigate(['/course', this.event.course, 'assignments-exams', this.eventId, 'problem', uqj.question.id, 'edit']).then()
+            this.router.navigate(
+                ['../' , this.eventId, 'problem', uqj.question.id, 'edit']
+                ,{relativeTo: this.route}
+            ).then()
         }
     }
 }
