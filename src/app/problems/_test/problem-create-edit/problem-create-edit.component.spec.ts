@@ -11,6 +11,7 @@ import {
 import {
     McqCreateEditSnippetComponent
 } from "@app/problems/problem-create-edit/mcq-create-edit-snippet/mcq-create-edit-snippet.component"
+import {ActivatedRoute} from "@angular/router"
 
 describe('ProblemCreateEditComponent', () => {
     let component: ProblemCreateEditComponent
@@ -23,6 +24,20 @@ describe('ProblemCreateEditComponent', () => {
                 ParsonsCreateEditSnippetComponent, McqCreateEditSnippetComponent
             ],
             imports: [TestModule],
+            providers: [
+                {
+                    provide: ActivatedRoute, useValue: {
+                        snapshot: {
+                            params: {
+                                type: 'MCQ',
+                            },
+                            parent: {
+                                params: {},
+                            }
+                        }
+                    }
+                }
+            ]
         }).compileComponents()
     })
 
@@ -32,8 +47,7 @@ describe('ProblemCreateEditComponent', () => {
         fixture.detectChanges()
     })
 
-    // TODO: (Seth) fix
-    xit('should create', () => {
+    it('should create', () => {
         expect(component).toBeTruthy()
     })
 })
