@@ -3,9 +3,9 @@ import {TestModule} from '@test/test.module'
 import {UqjService} from '@app/problems/_services/uqj.service'
 import {ActivatedRoute, convertToParamMap, RouterModule} from '@angular/router'
 import {CategoryService} from '@app/_services/api/category.service'
-import {CategoryServiceMock} from '@test/category.service.mock'
+import {CategoryServiceMock} from '@test/_services/category.service.mock'
 import {CourseService} from '@app/course/_services/course.service'
-import {CourseServiceMock} from '@test/course.service.mock'
+import {CourseServiceMock} from '@test/_services/course.service.mock'
 import {DifficultyService} from '@app/problems/_services/difficulty.service'
 import {DifficultyServiceMock} from '@app/problems/_test/_services/difficulty.service.mock'
 import {
@@ -17,7 +17,7 @@ import {
     MOCK_UQJ_8
 } from '@app/problems/_test/mock'
 import {UserStatsService} from '@app/_services/api/user-stats.service'
-import {UserStatsServiceMock} from '@test/user-stats.service.mock'
+import {UserStatsServiceMock} from '@test/_services/user-stats.service.mock'
 import {
     TuiButtonModule,
     TuiDataListModule,

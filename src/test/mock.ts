@@ -1,4 +1,18 @@
-import {Action} from "@app/_models"
+import {Action, User} from "@app/_models"
+
+export const MOCK_USER: User = {
+    id: 0,
+    is_teacher: false,
+    email: "mock@mock.com",
+    first_name: "mock",
+    has_consent: true,
+    is_student: true,
+    role: 'student',
+    last_name: "mock",
+    token: "secret_mock_token",
+    tokens: 0,
+    username: "mock@mock.com"
+}
 
 export const MOCK_USER_ACTION_1: Action = {
     description: "",

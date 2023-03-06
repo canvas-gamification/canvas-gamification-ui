@@ -5,7 +5,7 @@ import {TestModule} from '@test/test.module'
 import {MOCK_COURSE1, MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
 import {TuiFilterPipeModule} from "@taiga-ui/cdk"
 import {CourseService} from "@app/course/_services/course.service"
-import {CourseServiceMock} from "@test/course.service.mock"
+import {CourseServiceMock} from "@test/_services/course.service.mock"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event.service.mock"
 

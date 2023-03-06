@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {CoursePracticeComponent} from './course-practice.component'
 import {CourseService} from "@app/course/_services/course.service"
-import {CourseServiceMock} from "@test/course.service.mock"
+import {CourseServiceMock} from "@test/_services/course.service.mock"
 import {ActivatedRoute} from "@angular/router"
 import {MOCK_COURSE1} from "@app/course/_test/mock"
 

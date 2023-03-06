@@ -3,7 +3,7 @@ import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 import {ProblemSetComponent} from '../../problem-set/problem-set.component'
 import {TestModule} from '@test/test.module'
 import {CategoryService} from "@app/_services/api/category.service"
-import {CategoryServiceMock} from "@test/category.service.mock"
+import {CategoryServiceMock} from "@test/_services/category.service.mock"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {DifficultyServiceMock} from "@app/problems/_test/_services/difficulty.service.mock"
 import {ReactiveFormsModule} from "@angular/forms"

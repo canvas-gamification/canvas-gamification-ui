@@ -8,7 +8,7 @@ import {TokenUseService} from "@app/course/_services/token-use.service"
 import {TokenUseServiceMock} from "@app/course/_test/_services/token-use.service.mock"
 import {CourseModule} from "@app/course/course.module"
 import {CourseService} from "@app/course/_services/course.service"
-import {CourseServiceMock} from "@test/course.service.mock"
+import {CourseServiceMock} from "@test/_services/course.service.mock"
 
 describe('TokenUseSnippetComponent', () => {
     let component: TokenUseSnippetComponent

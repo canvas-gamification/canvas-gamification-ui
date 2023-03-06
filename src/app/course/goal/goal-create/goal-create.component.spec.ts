@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {MOCK_CATEGORIES, MOCK_DIFFICULTIES} from "@app/problems/_test/mock"
 import {CategoryService} from "@app/_services/api/category.service"
-import {CategoryServiceMock} from "@test/category.service.mock"
+import {CategoryServiceMock} from "@test/_services/category.service.mock"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {
     DifficultyServiceMock
