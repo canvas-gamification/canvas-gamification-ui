@@ -83,7 +83,7 @@ describe('ProblemCreateEditComponentEditQuestion', () => {
                                 }
                             },
                             params: {
-                                id: 0,
+                                id: 1,
                                 eventId: 0,
                             },
                         },

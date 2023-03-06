@@ -87,24 +87,25 @@ describe('McqCreateEditSnippetComponent with Question Details', () => {
                 TuiRadioLabeledModule, TuiInputModule, TuiSelectModule, TuiFieldErrorModule,
                 TuiButtonModule, TuiHostedDropdownModule
             ],
-            providers: [
-                {provide: QuestionService, useClass: QuestionServiceMock},
-                {
-                    provide: ActivatedRoute, useValue: {
-                        snapshot: {
-                            parent: {
-                                params: {
-                                    courseId: 0
-                                }
-                            },
-                            params: {
-                                id: 0,
-                                eventId: 1,
-                            },
-                        }
-                    }
-                }
-            ],
+            // TODO: Ask Keyvan
+            // providers: [
+            //     {provide: QuestionService, useClass: QuestionServiceMock},
+            //     {
+            //         provide: ActivatedRoute, useValue: {
+            //             snapshot: {
+            //                 parent: {
+            //                     params: {
+            //                         courseId: 0
+            //                     }
+            //                 },
+            //                 params: {
+            //                     id: 0,
+            //                     eventId: 1,
+            //                 },
+            //             }
+            //         }
+            //     }
+            // ],
             declarations: [McqCreateEditSnippetComponent, VariablesEditorComponent]
         }).compileComponents()
     })
@@ -113,6 +114,8 @@ describe('McqCreateEditSnippetComponent with Question Details', () => {
         fixture = TestBed.createComponent(McqCreateEditSnippetComponent)
         component = fixture.componentInstance
         component.questionDetails = JSON.parse(JSON.stringify(MOCK_CHECKBOX_QUESTION))
+        component.eventId = 0
+        component.courseId = 0
         spyOn(component['questionService'], 'postMultipleChoiceQuestion').and.callFake(
             () => of(new HttpResponse<Question>()).pipe(delay(1))
         )
