@@ -23,7 +23,7 @@ export class CourseEventService {
             .get<CourseEvent>(url)
             .pipe(catchError(
                 this.apiService.handleError<CourseEvent>(
-                    `Error occurred while fetching Course Event`
+                    `Error occurred while fetching course assessment`
                 )
             ))
     }
@@ -34,7 +34,7 @@ export class CourseEventService {
             .delete<CourseEvent>(url)
             .pipe(catchError(
                 this.apiService.handleError<CourseEvent>(
-                    `Error occurred while deleting Course Event`
+                    `Error occurred while deleting course assessment`
                 )
             ))
     }
@@ -44,7 +44,7 @@ export class CourseEventService {
         return this.http
             .post<CourseEvent>(url, courseEvent)
             .pipe(catchError(
-                this.apiService.handleError<CourseEvent>(`Error occurred while adding Course Event`)
+                this.apiService.handleError<CourseEvent>(`Error occurred while adding course assessment`)
             ))
     }
 
@@ -53,7 +53,7 @@ export class CourseEventService {
         return this.http.put<CourseEvent>(url, courseEvent)
             .pipe(catchError(
                 this.apiService.handleError<CourseEvent>(
-                    `Error occurred while updating Course Event`
+                    `Error occurred while updating course assessment`
                 )
             ))
     }
@@ -64,7 +64,7 @@ export class CourseEventService {
             .get<EventType[]>(url)
             .pipe(catchError(
                 this.apiService.handleError<EventType[]>(
-                    `Error occurred while fetching event types`
+                    `Error occurred while fetching assessment types`
                 )
             ))
     }
@@ -89,7 +89,7 @@ export class CourseEventService {
         return this.http
             .get<CourseEvent[]>(url)
             .pipe(catchError(
-                this.apiService.handleError<CourseEvent[]>(`Error occurred while fetching events`)
+                this.apiService.handleError<CourseEvent[]>(`Error occurred while fetching assessments`)
             ))
     }
 
@@ -122,7 +122,7 @@ export class CourseEventService {
         const url = this.apiService.getURL('event', eventId, 'stats')
         return this.http.get<EventStats>(url)
             .pipe(catchError(
-                this.apiService.handleError<EventStats>(`Error occurred while fetching event stats`)
+                this.apiService.handleError<EventStats>(`Error occurred while fetching assessment stats`)
             ))
     }
 
@@ -157,7 +157,7 @@ export class CourseEventService {
         ))
     }
 
-    getEventLeaderBoard(eventId: number): Observable<LeaderboardElement[]>{
+    getEventLeaderBoard(eventId: number): Observable<LeaderboardElement[]> {
         const url = this.apiService.getURL('event', eventId, 'leader-board')
         return this.http.get<LeaderboardElement[]>(url)
             .pipe(catchError(

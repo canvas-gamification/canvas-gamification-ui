@@ -32,7 +32,8 @@
         <tui-field-error formControlName="category"></tui-field-error>
     </div>
     <div class="tui-form__row">
-        <tui-checkbox-labeled formControlName="is_verified" size="l">Is Verified</tui-checkbox-labeled>
+        <tui-checkbox-labeled formControlName="is_verified" size="l">Is Verified
+        </tui-checkbox-labeled>
     </div>
     <div class="tui-form__row">
         <tui-checkbox-labeled
@@ -68,7 +69,7 @@
                     [valueContent]="events ? (events | stringifyTuiDataList: 'id': 'name') : ''"
                     formControlName="event"
                 >
-                    Event
+                    Assessment
                     <tui-data-list *tuiDataList>
                         <button *ngFor="let event of events" [value]="event.id" tuiOption>
                             {{ event.name }}
