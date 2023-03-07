@@ -1,5 +1,5 @@
 <ng-container *ngIf="!!course && !!leaderBoard && !!leaderBoardName else skeletonTemplate">
-    <h3 class="tui-text_h3 my-8">{{leaderBoardName}} Leader Board</h3>
+    <h3 class="tui-text_h3 my-8">{{leaderBoardName}} Leaderboard</h3>
     <div class="top-x-islands tui-space_bottom-8">
         <tui-island
             *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index"
