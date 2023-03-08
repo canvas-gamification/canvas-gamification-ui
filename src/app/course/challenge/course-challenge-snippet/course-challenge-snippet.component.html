@@ -15,7 +15,7 @@
                 </button>
             </div>
             <button
-                *ngIf="course?.has_create_event_permission"
+                *ngIf="course?.has_create_challenge_permission"
                 [routerLink]="['/course', courseId, 'challenge', 'create']"
                 icon="tuiIconPlus"
                 appearance="secondary"
