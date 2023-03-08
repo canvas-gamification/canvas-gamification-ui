@@ -834,6 +834,7 @@ export const MOCK_COURSE: Course = {
     course_reg: null,
     leader_board: null,
     has_create_event_permission: true,
+    has_create_challenge_permission: true,
     has_view_permission: true,
     description: "",
     registration_mode: CourseRegistrationMode.OPEN,
