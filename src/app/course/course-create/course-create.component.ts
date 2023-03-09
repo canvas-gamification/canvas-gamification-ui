@@ -21,11 +21,6 @@ import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit"
 })
 export class CourseCreateComponent implements OnInit {
 
-    // TODO: Put in breadcrumbs
-    // TODO: Fix dates
-    // TODO: Put edit button for instructor
-    // TODO: Fix wording on edit page
-
     registrationModes = [
         "Open",
         "Private",
@@ -44,8 +39,8 @@ export class CourseCreateComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.route.snapshot.params.courseId) {
-            this.courseId = this.route.snapshot.params.courseId
+        if (this.route.snapshot.parent.params.courseId) {
+            this.courseId = this.route.snapshot.parent.params.courseId
             this.courseService.getCourse(this.courseId).subscribe(course => {
                 this.formGroup = CourseForm.createCourseFormWithData(course)
             })
@@ -57,6 +52,14 @@ export class CourseCreateComponent implements OnInit {
     showAccessCode() {
         const registrationMode = this.formGroup.get('registrationMode').value
         return registrationMode === 'Private'
+    }
+
+    cancelRoute() {
+        if (this.courseId) {
+            this.router.navigate(['/course', this.courseId]).then()
+        } else {
+            this.router.navigate(['/']).then()
+        }
     }
 
     onSubmit() {
@@ -77,6 +80,7 @@ export class CourseCreateComponent implements OnInit {
                 this.notificationsService.show('Course edited successfully!', {
                     status: TuiNotification.Success,
                 }).subscribe()
+                this.router.navigate(['/course', this.courseId]).then()
             })
         }
     }

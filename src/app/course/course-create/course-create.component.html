@@ -1,7 +1,7 @@
 <div *ngIf="formGroup" class="tui-container tui-container_adaptive">
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
         <div class="tui-form__header">
-            {{ courseId ? 'Edit' : 'Create' }} a Course
+            {{ courseId ? 'Edit Course' : 'Create a Course' }}
         </div>
         <div class="tui-form__row">
             <tui-input formControlName="name">Course Name
@@ -59,7 +59,7 @@
                 class="tui-form__button"
                 [disabled]="formGroup.invalid"
             >
-                Submit
+                {{ courseId ? 'Save Changes' : 'Submit' }}
             </button>
             <button
                 tuiButton
@@ -67,7 +67,7 @@
                 appearance="flat"
                 size="m"
                 class="tui-form__button"
-                routerLink="/"
+                (click)="cancelRoute()"
             >
                 Cancel
             </button>

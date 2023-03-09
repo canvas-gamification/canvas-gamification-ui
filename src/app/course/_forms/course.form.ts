@@ -70,8 +70,8 @@ export class CourseForm {
             ),
             date: new FormControl(
                 new TuiDayRange(
-                    TuiDay.currentLocal(),
-                    TuiDay.currentLocal().append({day: 7})
+                    TuiDay.fromLocalNativeDate(new Date(course.start_date)),
+                    TuiDay.fromLocalNativeDate(new Date(course.end_date))
                 ),
                 [Validators.required]
             ),

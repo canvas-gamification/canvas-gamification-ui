@@ -31,6 +31,7 @@
                         {{course?.description}}
                     </p>
                     <a
+                        *ngIf="user.is_teacher"
                         tuiButton
                         type="button"
                         appearance="secondary"

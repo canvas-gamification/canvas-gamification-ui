@@ -76,11 +76,6 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path: ':courseId/edit',
-        component: CourseCreateComponent,
-        canActivate: [AuthGuard]
-    },
-    {
         path: ':courseId',
         component: CourseComponent,
         canActivate: [AuthGuard],
@@ -89,6 +84,19 @@ const routes: Routes = [
                 path: '',
                 redirectTo: 'homepage',
                 pathMatch: 'full'
+            },
+            {
+                path: 'edit',
+                component: CourseCreateComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Edit Course`,
+                        routerLink: '/course/:courseId/edit'
+                    }]
+                }
             },
             {
                 path: 'homepage',
