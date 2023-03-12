@@ -100,6 +100,33 @@
         </div>
         <tui-accordion [closeOthers]="false">
             <tui-accordion-item class="title" open="true" [disableHover]="true">
+                Current Assessments
+                <ng-template tuiAccordionItemContent>
+                    <div
+                        *ngFor="let event of getCurrentEvents()"
+                        class="event"
+                    >
+                        <app-event-row
+                            [event]="event"
+                            (reload)="init()"
+                        >
+                        </app-event-row>
+                    </div>
+                    <div *ngIf="getCurrentEvents().length === 0">
+                        <div class="flex justify-center items-center w-full h-32">
+                            <tui-marker-icon
+                                class="tui-space_right-4"
+                                size="s"
+                                src="tuiIconAlertCircleLarge"
+                            ></tui-marker-icon>
+                            <h2 class="tui-text_body-xl">
+                                Looks like there are no current assessments
+                            </h2>
+                        </div>
+                    </div>
+                </ng-template>
+            </tui-accordion-item>
+            <tui-accordion-item class="title" open="true" [disableHover]="true">
                 Upcoming Assessments
                 <ng-template tuiAccordionItemContent>
                     <div

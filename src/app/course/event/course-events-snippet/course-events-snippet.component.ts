@@ -77,8 +77,13 @@ export class CourseEventsSnippetComponent implements OnInit {
         }
     }
 
+
+    getCurrentEvents(): CourseEvent[] {
+        return this.getEvents().filter(event => event.is_open)
+    }
+
     getUpcomingEvents(): CourseEvent[] {
-        return this.getEvents().filter(event => event.is_open || event.is_not_available_yet)
+        return this.getEvents().filter(event => event.is_not_available_yet)
     }
 
     getPastEvents(): CourseEvent[] {
