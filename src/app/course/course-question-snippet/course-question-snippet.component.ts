@@ -169,9 +169,28 @@ export class CourseQuestionSnippetComponent implements OnInit {
             }).subscribe()
         } else {
             this.router.navigate(
-                ['../' , this.eventId, 'problem', uqj.question.id, 'edit']
-                ,{relativeTo: this.route}
+                ['../', this.eventId, 'problem', uqj.question.id, 'edit']
+                , {relativeTo: this.route}
             ).then()
         }
+    }
+
+    /**
+     * Opens the dialog service based on the template passed
+     * @param content - the template to be used
+     * @param eventRemove - the event to be removed
+     */
+    openRemoveQuestionInEventDialog(
+        content: PolymorpheusContent<TuiDialogContext>,
+        eventRemove: CourseEvent
+    ): void {
+        let labelText = 'Remove question?'
+        if (eventRemove.is_closed) {
+            labelText = 'Remove question in finished assessment?'
+        }
+        this.dialogService.open(content, {
+            closeable: false,
+            label: labelText
+        }).subscribe()
     }
 }

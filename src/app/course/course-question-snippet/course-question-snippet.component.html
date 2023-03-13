@@ -202,7 +202,7 @@
                         </ng-template>
                         <a
                             *ngIf="event.has_edit_permission"
-                            (click)="removeQuestion(uqj.question.id)"
+                            (click)="openRemoveQuestionInEventDialog(removeEventQuestion, event)"
                             appearance="accent"
                             class="tui-form__button"
                             size="s"
@@ -210,6 +210,33 @@
                         >
                             Remove
                         </a>
+                        <ng-template #removeEventQuestion let-observer>
+                            <p *ngIf="event.is_closed && !event.is_not_available_yet">
+                                This assessment has finished. Are you sure that you would like to remove this question?
+                            </p>
+                            <p *ngIf="event.is_open || event.is_not_available_yet">
+                                Are you sure that you would like to remove this question?
+                            </p>
+                            <div class="tui-form__buttons">
+                                <button
+                                    (click)="removeQuestion(uqj.question.id); observer.complete()"
+                                    class="tui-form__button"
+                                    size="m"
+                                    tuiButton
+                                >
+                                    Remove Question
+                                </button>
+                                <button
+                                    (click)="observer.complete()"
+                                    appearance="secondary"
+                                    class="tui-form__button"
+                                    size="m"
+                                    tuiButton
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </ng-template>
                     </div>
                 </tui-island>
             </div>
