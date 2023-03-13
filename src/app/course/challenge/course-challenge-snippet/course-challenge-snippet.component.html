@@ -39,8 +39,17 @@
                             </app-challenge-row>
                         </div>
                     </ng-container>
-                    <div *ngIf="currentEvents.length === 0" class="text-center">
-                        Looks like there are no current challenges at the moment.
+                    <div *ngIf="currentEvents.length === 0">
+                        <div class="flex justify-center items-center w-full h-32">
+                            <tui-marker-icon
+                                class="tui-space_right-4"
+                                size="s"
+                                src="tuiIconAlertCircleLarge"
+                            ></tui-marker-icon>
+                            <h2 class="tui-text_body-xl">
+                                Looks like there are no current challenges
+                            </h2>
+                        </div>
                     </div>
                 </ng-template>
             </tui-accordion-item>
@@ -55,8 +64,17 @@
                             </app-challenge-row>
                         </div>
                     </ng-container>
-                    <div *ngIf="upcomingEvents.length === 0" class="text-center">
-                        Looks like there are no upcoming challenges at the moment.
+                    <div *ngIf="upcomingEvents.length === 0">
+                        <div class="flex justify-center items-center w-full h-32">
+                            <tui-marker-icon
+                                class="tui-space_right-4"
+                                size="s"
+                                src="tuiIconAlertCircleLarge"
+                            ></tui-marker-icon>
+                            <h2 class="tui-text_body-xl">
+                                Looks like there are no upcoming challenges
+                            </h2>
+                        </div>
                     </div>
                 </ng-template>
             </tui-accordion-item>
@@ -71,8 +89,17 @@
                             </app-challenge-row>
                         </div>
                     </ng-container>
-                    <div *ngIf="pastEvents.length === 0" class="text-center">
-                        Looks like there are no past challenges at the moment.
+                    <div *ngIf="pastEvents.length === 0">
+                        <div class="flex justify-center items-center w-full h-32">
+                            <tui-marker-icon
+                                class="tui-space_right-4"
+                                size="s"
+                                src="tuiIconAlertCircleLarge"
+                            ></tui-marker-icon>
+                            <h2 class="tui-text_body-xl">
+                                Looks like there are no past challenges
+                            </h2>
+                        </div>
                     </div>
                 </ng-template>
             </tui-accordion-item>
