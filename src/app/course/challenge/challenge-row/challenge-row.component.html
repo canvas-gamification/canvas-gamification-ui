@@ -75,21 +75,23 @@
     #confirmDeleteDialog
     let-observer
 >
-    <p>{{ event.name }}</p>
-    <button
-        (click)="deleteChallenge(); observer.complete()"
-        size="m"
-        appearance="primary"
-        tuiButton
-    >
-        Confirm
-    </button>
-    <button
-        (click)="observer.complete()"
-        size="m"
-        appearance="primary"
-        tuiButton
-    >
-        Cancel
-    </button>
+    <p class="mb-4 tui-text_body-l-2">{{ event.name }}</p>
+    <div class="flex gap-2">
+        <button
+            (click)="deleteChallenge(); observer.complete()"
+            size="m"
+            appearance="primary"
+            tuiButton
+        >
+            Confirm
+        </button>
+        <button
+            (click)="observer.complete()"
+            size="m"
+            appearance="primary"
+            tuiButton
+        >
+            Cancel
+        </button>
+    </div>
 </ng-template>
