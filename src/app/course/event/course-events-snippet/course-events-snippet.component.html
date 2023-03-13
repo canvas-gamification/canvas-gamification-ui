@@ -73,15 +73,19 @@
                                     <p class="tui-island__category">{{ event.type }}</p>
                                     <h3 class="tui-island__title">{{ event.name }}</h3>
                                 </div>
-                                <button
-                                    (click)="importCourseEvent(event, courseId)"
-                                    appearance="secondary"
-                                    aria-label="Import"
-                                    size="s"
-                                    tuiButton
+                                <div
+                                    class="flex items-center"
                                 >
-                                    Import
-                                </button>
+                                    <button
+                                        (click)="importCourseEvent(event, courseId)"
+                                        appearance="secondary"
+                                        aria-label="Import"
+                                        size="s"
+                                        tuiButton
+                                    >
+                                        Import
+                                    </button>
+                                </div>
                             </div>
                         </tui-island>
                     </div>
