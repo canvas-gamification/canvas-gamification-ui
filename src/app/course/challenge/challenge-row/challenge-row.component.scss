@@ -3,7 +3,7 @@
 .challenge {
     @include screen-lg {
         display: grid;
-        grid-template-columns: 4fr 5fr 10rem 18rem;
+        grid-template-columns: 4fr 5fr 2fr 4fr;
     }
     @include screen-md() {
         display: grid;
