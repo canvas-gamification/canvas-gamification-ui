@@ -53,7 +53,7 @@ export class ChallengeRowComponent implements OnInit {
 
     deleteChallenge(): void {
         this.courseEventService.deleteCourseEvent(this.event.id).subscribe( () => {
-            this.notificationsService.show('Event has been successfully deleted.', {
+            this.notificationsService.show('Challenge has been successfully deleted.', {
                 status: TuiNotification.Success,
             }).subscribe()
             this.reload.emit(true)
