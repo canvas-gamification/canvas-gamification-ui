@@ -32,6 +32,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     courseId: number
     team: Team
     openNewQuestionDropdown = false
+    dropdownLink: string
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -171,6 +172,31 @@ export class CourseQuestionSnippetComponent implements OnInit {
             this.router.navigate(
                 ['../', this.eventId, 'problem', uqj.question.id, 'edit']
                 , {relativeTo: this.route}
+            ).then()
+        }
+    }
+
+    /**
+     * Opens the dialog service based on the template passed
+     * @param content - the template to be used
+     * @param openDialog - the boolean condition used to check if template should be opened
+     * @param link - the ending parameter of the routerlink
+     */
+    openNewQuestionInClosedEventDialog(
+        content: PolymorpheusContent<TuiDialogContext>,
+        openDialog: boolean,
+        link: string
+    ): void {
+        if (openDialog) {
+            this.dropdownLink = link
+            this.dialogService.open(content, {
+                closeable: false,
+                label: 'Create new question in finished assessment?'
+            }).subscribe()
+        } else {
+            this.router.navigate(
+                ['../' , this.eventId, 'problem', 'create', link]
+                ,{relativeTo: this.route}
             ).then()
         }
     }
