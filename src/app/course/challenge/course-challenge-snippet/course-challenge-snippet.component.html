@@ -34,6 +34,7 @@
                         <div *ngFor="let challenge of currentEvents" class="divide">
                             <app-challenge-row
                                 [event]="challenge"
+                                (reload)="init()"
                             >
                             </app-challenge-row>
                         </div>

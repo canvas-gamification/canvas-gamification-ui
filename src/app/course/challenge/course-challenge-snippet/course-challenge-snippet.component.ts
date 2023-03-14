@@ -28,6 +28,10 @@ export class CourseChallengeSnippetComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.init()
+    }
+
+    init(): void {
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.course = course
             this.events = course?.events
@@ -43,6 +47,5 @@ export class CourseChallengeSnippetComponent implements OnInit {
             ).filter(event => event.type === "CHALLENGE")
         })
         this.authenticationService.currentUser.subscribe(user => this.user = user)
-
     }
 }
