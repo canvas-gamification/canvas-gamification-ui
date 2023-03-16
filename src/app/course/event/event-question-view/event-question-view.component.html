@@ -1,2 +1,49 @@
 <div class="line"></div>
-<app-problem-view></app-problem-view>
+<div class="eventQuestionView">
+    <app-sidebar
+        *ngIf="event else skeleton"
+        position="left"
+        sidebarId="eventQuestionSidebar"
+        spacing="start"
+    >
+        <div class="flex flex-col gap-6">
+            <a
+                [routerLink]="['/course', event.course, 'challenge', eventId]"
+                class="mt-6 w-full"
+                icon="tuiIconArrowLeft"
+                size="s"
+                tuiButton
+                appearance="secondary"
+            >
+                Back to Challenge
+            </a>
+            <!--        <p>{{event.name}}</p>-->
+            <!--        <p *ngFor="let uqj of uqjs">{{uqj.question?.title}}</p>-->
+            <div class="mb-6">
+                <div class="flex justify-between items-center">
+                    <button
+                        (click)="prevQuestion()"
+                        icon="tuiIconChevronLeftLarge"
+                        size="m"
+                        tuiIconButton
+                    >
+                    </button>
+                    <p>Browse Questions</p>
+                    <button
+                        (click)="nextQuestion()"
+                        icon="tuiIconChevronRightLarge"
+                        size="m"
+                        tuiIconButton
+                    >
+                    </button>
+                </div>
+            </div>
+        </div>
+    </app-sidebar>
+    <app-problem-view [questionId]="currentQuestionId"></app-problem-view>
+</div>
+
+<ng-template #skeleton>
+
+</ng-template>
+
