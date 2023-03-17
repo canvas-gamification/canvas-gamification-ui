@@ -8,3 +8,9 @@
     align-items: center;
     gap: 1rem;
 }
+
+.top-box{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
