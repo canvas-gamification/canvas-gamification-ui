@@ -3,7 +3,7 @@ import {ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing'
 import {CourseComponent} from '../../course.component'
 import {TestModule} from '@test/test.module'
 import {CourseService} from "@app/course/_services/course.service"
-import {CourseServiceMock} from "@test/course.service.mock"
+import {CourseServiceMock} from "@test/_services/course.service.mock"
 import {ActivatedRoute, Router} from "@angular/router"
 import {MOCK_COURSE1} from "@app/course/_test/mock"
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component"
@@ -20,6 +20,10 @@ import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event
 import {UqjService} from "@app/problems/_services/uqj.service"
 import {UqjServiceMock} from "@app/problems/_test/_services/uqj.service.mock"
 import {RouterMock} from "@app/course/_test/_services/router.mock"
+import {AuthenticationService} from "@app/_services/api/authentication"
+import {AuthenticationServiceMock} from "@test/_services/authentication.service.mock"
+import {TeamService} from "@app/course/_services/team.service"
+import {TeamServiceMock} from "@app/course/_test/_services/team.service.mock"
 
 describe('CourseComponent Homepage', () => {
     let component: CourseComponent
@@ -106,6 +110,8 @@ describe('CourseComponent Question Page', () => {
                 {provide: CourseService, useClass: CourseServiceMock},
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
                 {provide: UqjService, useClass: UqjServiceMock},
+                {provide: AuthenticationService, useClass: AuthenticationServiceMock},
+                {provide: TeamService, useClass: TeamServiceMock},
                 {provide: Router, useClass: RouterMock},
                 {
                     provide: ActivatedRoute, useValue: {
@@ -157,8 +163,8 @@ describe('CourseComponent Question Page', () => {
         expect(component.course).toEqual(MOCK_COURSE1)
     })
 
-    // TODO: Fix this test (We don't know why it's failing)
-    xit('should replace params in the url and caption in the breadcrumbs', fakeAsync(() => {
+    it('should replace params in the url and caption in the breadcrumbs', fakeAsync(async () => {
+        await fixture.whenStable()
         expect(component.breadCrumbs).toEqual([{
             caption: `Homepage`,
             routerLink: '/course/0/homepage'
@@ -166,7 +172,7 @@ describe('CourseComponent Question Page', () => {
             caption: `Assignments and Exams`,
             routerLink: '/course/0/assignments-exams'
         }, {
-            caption: `Mock Event`,
+            caption: `Mock Assessment`,
             routerLink:
                 '/course/0/assignments-exams/1'
         }, {

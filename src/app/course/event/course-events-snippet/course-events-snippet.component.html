@@ -40,11 +40,11 @@
                     (click)="openEventImportDialog()"
                     icon="tuiIconPlus"
                     appearance="secondary"
-                    aria-label="Add Event"
+                    aria-label="Add Assessment"
                     size="m"
                     tuiButton
                 >
-                    Add Event
+                    Add Assessment
                 </button>
             </div>
 
@@ -65,7 +65,7 @@
                             <figure class="tui-island__figure">
                                 <tui-svg src="tuiIconPlusLarge"></tui-svg>
                             </figure>
-                            <h2 class="tui-island__title">Create New Event</h2>
+                            <h2 class="tui-island__title">Create New Assessment</h2>
                         </a>
                         <tui-island *ngFor="let event of courseEvents" size="s">
                             <div class="flex">
@@ -73,15 +73,19 @@
                                     <p class="tui-island__category">{{ event.type }}</p>
                                     <h3 class="tui-island__title">{{ event.name }}</h3>
                                 </div>
-                                <button
-                                    (click)="importCourseEvent(event, courseId)"
-                                    appearance="secondary"
-                                    aria-label="Import"
-                                    size="s"
-                                    tuiButton
+                                <div
+                                    class="flex items-center"
                                 >
-                                    Import
-                                </button>
+                                    <button
+                                        (click)="importCourseEvent(event, courseId)"
+                                        appearance="secondary"
+                                        aria-label="Import"
+                                        size="s"
+                                        tuiButton
+                                    >
+                                        Import
+                                    </button>
+                                </div>
                             </div>
                         </tui-island>
                     </div>
@@ -100,7 +104,34 @@
         </div>
         <tui-accordion [closeOthers]="false">
             <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Upcoming Events
+                Current Assessments
+                <ng-template tuiAccordionItemContent>
+                    <div
+                        *ngFor="let event of getCurrentEvents()"
+                        class="event"
+                    >
+                        <app-event-row
+                            [event]="event"
+                            (reload)="init()"
+                        >
+                        </app-event-row>
+                    </div>
+                    <div *ngIf="getCurrentEvents().length === 0">
+                        <div class="flex justify-center items-center w-full h-32">
+                            <tui-marker-icon
+                                class="tui-space_right-4"
+                                size="s"
+                                src="tuiIconAlertCircleLarge"
+                            ></tui-marker-icon>
+                            <h2 class="tui-text_body-xl">
+                                Looks like there are no current assessments
+                            </h2>
+                        </div>
+                    </div>
+                </ng-template>
+            </tui-accordion-item>
+            <tui-accordion-item class="title" open="true" [disableHover]="true">
+                Upcoming Assessments
                 <ng-template tuiAccordionItemContent>
                     <div
                         *ngFor="let event of getUpcomingEvents()"
@@ -120,14 +151,14 @@
                                 src="tuiIconAlertCircleLarge"
                             ></tui-marker-icon>
                             <h2 class="tui-text_body-xl">
-                                Looks like there are no upcoming events
+                                Looks like there are no upcoming assessments
                             </h2>
                         </div>
                     </div>
                 </ng-template>
             </tui-accordion-item>
             <tui-accordion-item open="true">
-                Past Events
+                Past Assessments
                 <ng-template tuiAccordionItemContent>
                     <div *ngFor="let event of getPastEvents()" class="event">
                         <app-event-row

@@ -24,7 +24,7 @@
                 Tokens: {{ team.tokens_received }} / {{event.total_tokens}}
             </ng-template>
         </div>
-        <div>
+        <div class="flex gap-2">
             <ng-container
                 *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
                 <a
@@ -54,11 +54,44 @@
                 appearance="secondary"
                 aria-label="Edit"
                 size="s"
-                class="ml-2"
                 tuiButton
             >
                 Edit
             </a>
+            <button
+                *ngIf="event.has_edit_permission"
+                (click)="showDialog(confirmDeleteDialog)"
+                size="s"
+                appearance="secondary"
+                tuiButton
+            >
+                Delete
+            </button>
         </div>
     </div>
 </div>
+
+<ng-template
+    #confirmDeleteDialog
+    let-observer
+>
+    <p class="mb-4 tui-text_body-l-2">{{ event.name }}</p>
+    <div class="flex gap-2">
+        <button
+            (click)="deleteChallenge(); observer.complete()"
+            size="m"
+            appearance="primary"
+            tuiButton
+        >
+            Confirm
+        </button>
+        <button
+            (click)="observer.complete()"
+            size="m"
+            appearance="primary"
+            tuiButton
+        >
+            Cancel
+        </button>
+    </div>
+</ng-template>

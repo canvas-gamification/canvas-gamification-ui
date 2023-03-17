@@ -23,6 +23,7 @@ export interface Course {
     course_reg: CourseRegistration
     leader_board: LeaderboardElement[]
     has_create_event_permission: boolean
+    has_create_challenge_permission: boolean
     has_view_permission: boolean
     description: string
     registration_mode: CourseRegistrationMode

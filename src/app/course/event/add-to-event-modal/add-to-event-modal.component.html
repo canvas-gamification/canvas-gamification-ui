@@ -11,15 +11,19 @@
                         <p class="tui-island__category">{{ event.type }}</p>
                         <h3 class="tui-island__title">{{ event.name }}</h3>
                     </div>
-                    <button
-                        (click)="addToEvent(event)"
-                        appearance="secondary"
-                        aria-label="Add"
-                        size="s"
-                        tuiButton
+                    <div
+                        class="flex items-center"
                     >
-                        Add
-                    </button>
+                        <button
+                            (click)="addToEvent(event)"
+                            appearance="secondary"
+                            aria-label="Add"
+                            size="s"
+                            tuiButton
+                        >
+                            Add
+                        </button>
+                    </div>
                 </div>
             </tui-island>
         </div>

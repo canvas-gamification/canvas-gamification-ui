@@ -77,8 +77,13 @@ export class CourseEventsSnippetComponent implements OnInit {
         }
     }
 
+
+    getCurrentEvents(): CourseEvent[] {
+        return this.getEvents().filter(event => event.is_open)
+    }
+
     getUpcomingEvents(): CourseEvent[] {
-        return this.getEvents().filter(event => event.is_open || event.is_not_available_yet)
+        return this.getEvents().filter(event => event.is_not_available_yet)
     }
 
     getPastEvents(): CourseEvent[] {
@@ -92,7 +97,7 @@ export class CourseEventsSnippetComponent implements OnInit {
     setFeatured(eventId: number) {
         return this.courseEventService.setFeatured(eventId).subscribe(() => {
             this.init()
-            this.notificationsService.show('Event successfully marked as featured.', {
+            this.notificationsService.show('Assessment successfully marked as featured.', {
                 status: TuiNotification.Success,
             }).subscribe()
         })
@@ -123,7 +128,7 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.courseEventService.importCourseEvent(event, courseId).subscribe((response) => {
             if (response.status === 201) {
                 this.notificationsService
-                    .show('The event has been imported successfully.', {
+                    .show('The assessment has been imported successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
             }

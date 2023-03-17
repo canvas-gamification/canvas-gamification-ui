@@ -23,6 +23,7 @@ export class ProblemCreateEditComponent implements OnInit {
 
     ngOnInit(): void {
         const questionId = this.route.snapshot.params.id
+        this.questionType = this.route.snapshot.params.type
         this.eventId = +this.route.snapshot.params.eventId
         this.courseId = +this.route.snapshot.parent.params.courseId
 
@@ -30,10 +31,6 @@ export class ProblemCreateEditComponent implements OnInit {
             this.questionService.getQuestion(questionId).subscribe(result => {
                 this.questionDetails = result
                 this.questionType = this.questionService.getQuestionType(result)
-            })
-        } else {
-            this.route.params.subscribe(params => {
-                this.questionType = params.type
             })
         }
     }

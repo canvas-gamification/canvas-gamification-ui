@@ -32,6 +32,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     courseId: number
     team: Team
     openNewQuestionDropdown = false
+    dropdownLink: string
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -162,16 +163,60 @@ export class CourseQuestionSnippetComponent implements OnInit {
         openDialog: boolean,
         uqj: UQJ
     ): void {
-        if(openDialog) {
+        if (openDialog) {
             this.dialogService.open(content, {
                 closeable: false,
-                label: 'Edit Question in Finished Event?'
+                label: 'Edit question in finished assessment?'
             }).subscribe()
-        } else{
+        } else {
             this.router.navigate(
-                ['../' , this.eventId, 'problem', uqj.question.id, 'edit']
+                ['../', this.eventId, 'problem', uqj.question.id, 'edit']
+                , {relativeTo: this.route}
+            ).then()
+        }
+    }
+
+    /**
+     * Opens the dialog service based on the template passed
+     * @param content - the template to be used
+     * @param openDialog - the boolean condition used to check if template should be opened
+     * @param link - the ending parameter of the routerlink
+     */
+    openNewQuestionInClosedEventDialog(
+        content: PolymorpheusContent<TuiDialogContext>,
+        openDialog: boolean,
+        link: string
+    ): void {
+        if (openDialog) {
+            this.dropdownLink = link
+            this.dialogService.open(content, {
+                closeable: false,
+                label: 'Create new question in finished assessment?'
+            }).subscribe()
+        } else {
+            this.router.navigate(
+                ['../' , this.eventId, 'problem', 'create', link]
                 ,{relativeTo: this.route}
             ).then()
         }
+    }
+
+    /**
+     * Opens the dialog service based on the template passed
+     * @param content - the template to be used
+     * @param eventRemove - the event to be removed
+     */
+    openRemoveQuestionInEventDialog(
+        content: PolymorpheusContent<TuiDialogContext>,
+        eventRemove: CourseEvent
+    ): void {
+        let labelText = 'Remove question?'
+        if (eventRemove.is_closed) {
+            labelText = 'Remove question in finished assessment?'
+        }
+        this.dialogService.open(content, {
+            closeable: false,
+            label: labelText
+        }).subscribe()
     }
 }

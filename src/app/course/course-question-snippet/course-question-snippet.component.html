@@ -62,19 +62,56 @@
                 </ng-template>
                 <ng-template #newQuestionDropdownContent>
                     <tui-data-list>
-                        <a [routerLink]="['problem', 'create', 'MCQ']" tuiOption>
+                        <a
+                            (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'MCQ')"
+                            tuiOption
+                        >
                             Multiple Choice Question
                         </a>
-                        <a [routerLink]="['problem', 'create', 'checkbox']" tuiOption>
+                        <a
+                            (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'checkbox')"
+                            tuiOption
+                        >
                             Checkbox Question
                         </a>
-                        <a [routerLink]="['problem', 'create', 'java']" tuiOption>
+                        <a
+                            (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'java')"
+                            tuiOption
+                        >
                             Java Question
                         </a>
-                        <a [routerLink]="['problem', 'create', 'parsons']" tuiOption>
+                        <a
+                            (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'parsons')"
+                            tuiOption
+                        >
                             Parsons Question
                         </a>
                     </tui-data-list>
+                </ng-template>
+
+                <ng-template #addQuestion let-observer>
+                    <p>This event has finished. Are you sure that you would like to create a new
+                        question?</p>
+                    <div class="tui-form__buttons">
+                        <button
+                            (click)="observer.complete()"
+                            [routerLink]="['problem', 'create', dropdownLink]"
+                            class="tui-form__button"
+                            size="m"
+                            tuiButton
+                        >
+                            Continue
+                        </button>
+                        <button
+                            (click)="observer.complete()"
+                            appearance="secondary"
+                            class="tui-form__button"
+                            size="m"
+                            tuiButton
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </ng-template>
             </div>
         </div>
@@ -178,7 +215,8 @@
                             Edit
                         </a>
                         <ng-template #editQuestion let-observer>
-                            <p>This event has finished. Are you sure that you would like to edit this question?</p>
+                            <p>This event has finished. Are you sure that you would like to edit
+                                this question?</p>
                             <div class="tui-form__buttons">
                                 <button
                                     (click)="observer.complete()"
@@ -202,7 +240,7 @@
                         </ng-template>
                         <a
                             *ngIf="event.has_edit_permission"
-                            (click)="removeQuestion(uqj.question.id)"
+                            (click)="openRemoveQuestionInEventDialog(removeEventQuestion, event)"
                             appearance="accent"
                             class="tui-form__button"
                             size="s"
@@ -210,6 +248,33 @@
                         >
                             Remove
                         </a>
+                        <ng-template #removeEventQuestion let-observer>
+                            <p *ngIf="event.is_closed && !event.is_not_available_yet">
+                                This assessment has finished. Are you sure that you would like to remove this question?
+                            </p>
+                            <p *ngIf="event.is_open || event.is_not_available_yet">
+                                Are you sure that you would like to remove this question?
+                            </p>
+                            <div class="tui-form__buttons">
+                                <button
+                                    (click)="removeQuestion(uqj.question.id); observer.complete()"
+                                    class="tui-form__button"
+                                    size="m"
+                                    tuiButton
+                                >
+                                    Remove Question
+                                </button>
+                                <button
+                                    (click)="observer.complete()"
+                                    appearance="secondary"
+                                    class="tui-form__button"
+                                    size="m"
+                                    tuiButton
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </ng-template>
                     </div>
                 </tui-island>
             </div>
