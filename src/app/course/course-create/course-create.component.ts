@@ -39,8 +39,8 @@ export class CourseCreateComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.route.snapshot.parent?.params.courseId) {
-            this.courseId = this.route.snapshot.parent.params.courseId
+        this.courseId = this.route.snapshot.parent?.params.courseId
+        if (this.courseId) {
             this.courseService.getCourse(this.courseId).subscribe(course => {
                 this.formGroup = CourseForm.createCourseFormWithData(course)
             })
