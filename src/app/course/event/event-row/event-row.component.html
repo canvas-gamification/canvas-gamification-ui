@@ -96,7 +96,7 @@
             Edit
         </ng-template>
         <ng-template #editEvent let-observer>
-            <p>This event has finished. Are you sure that you would like to edit this event?</p>
+            <p>This assessment has finished. Are you sure that you would like to edit this assessment?</p>
             <div class="tui-form__buttons">
                 <button
                     (click)="observer.complete()"
@@ -117,6 +117,21 @@
                     Cancel
                 </button>
             </div>
+        </ng-template>
+        <button *ngIf="event.has_edit_permission"
+                (click)="openDeleteEventDialog(deleteDialog)"
+                [tuiHint]="deleteTooltip"
+                class="mr-2"
+                icon="tuiIconTrash"
+                size="s"
+                tuiDescribedBy="delete-{{event.name}}"
+                tuiHintDirection="top-left"
+                tuiHintId="delete-{{event.name}}"
+                tuiHintMode="onDark"
+                tuiIconButton
+        ></button>
+        <ng-template #deleteTooltip>
+            Delete
         </ng-template>
         <button *ngIf="event.has_edit_permission"
                 [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'stats']"
@@ -152,3 +167,26 @@
         </ng-template>
     </div>
 </div>
+
+<ng-template #deleteDialog let-observer>
+    <p>Are you sure that you would like to delete this assessment?</p>
+    <div class="tui-form__buttons">
+        <button
+            (click)="observer.next(); observer.complete()"
+            class="tui-form__button"
+            size="m"
+            tuiButton
+        >
+            Confirm Delete
+        </button>
+        <button
+            (click)="observer.complete()"
+            appearance="secondary"
+            class="tui-form__button"
+            size="m"
+            tuiButton
+        >
+            Cancel
+        </button>
+    </div>
+</ng-template>
