@@ -33,20 +33,17 @@ import {
 import {ExportSnippetComponent} from './export/export-snippet/export-snippet.component'
 import {AdminRoutingModule} from "@app/admin/admin-routing.module"
 import {ExportActionComponent} from './export/export-action/export-action.component'
+import {AdminComponent} from "@app/admin/admin.component"
 
 
 @NgModule({
     declarations: [
+        AdminComponent,
         CategoryStatsComponent,
         CoursesComponent,
         ExportActionComponent,
         ExportPageViewComponentComponent,
         ExportSnippetComponent,
-        QuestionCountComponent
-    ],
-    exports: [
-        CategoryStatsComponent,
-        CoursesComponent,
         QuestionCountComponent,
     ],
     imports: [
