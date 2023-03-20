@@ -81,7 +81,7 @@
             View
         </ng-template>
         <button *ngIf="event.has_edit_permission"
-                (click)="openEditDialog(editEvent, event.is_closed && !event.is_not_available_yet)"
+                (click)="openEditDialog(editEvent, event.is_closed)"
                 [tuiHint]="editTooltip"
                 class="tui-space_right-2 tui-space_vertical-2"
                 icon="tuiIconEdit"

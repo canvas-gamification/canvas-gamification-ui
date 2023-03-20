@@ -206,7 +206,7 @@
                         </ng-template>
                         <a
                             *ngIf="event.has_edit_permission"
-                            (click)="openEditQuestionInEventDialog(editQuestion, event.is_closed && !event.is_not_available_yet, uqj)"
+                            (click)="openEditQuestionInEventDialog(editQuestion, event.is_closed, uqj)"
                             appearance="primary"
                             class="tui-form__button"
                             size="s"
@@ -249,7 +249,7 @@
                             Remove
                         </a>
                         <ng-template #removeEventQuestion let-observer>
-                            <p *ngIf="event.is_closed && !event.is_not_available_yet">
+                            <p *ngIf="event.is_closed">
                                 This assessment has finished. Are you sure that you would like to remove this question?
                             </p>
                             <p *ngIf="event.is_open || event.is_not_available_yet">
