@@ -17,7 +17,8 @@ import {
 } from '@taiga-ui/kit'
 import {FormsModule} from '@angular/forms'
 import {
-    TuiButtonModule, TuiDataListModule,
+    TuiButtonModule,
+    TuiDataListModule,
     TuiLoaderModule,
     TuiScrollbarModule,
     TuiTextfieldControllerModule
@@ -31,12 +32,14 @@ import {
 } from './export/export-page-view-component/export-page-view-component.component'
 import {ExportSnippetComponent} from './export/export-snippet/export-snippet.component'
 import {AdminRoutingModule} from "@app/admin/admin-routing.module"
+import {ExportActionComponent} from './export/export-action/export-action.component'
 
 
 @NgModule({
     declarations: [
         CategoryStatsComponent,
         CoursesComponent,
+        ExportActionComponent,
         ExportPageViewComponentComponent,
         ExportSnippetComponent,
         QuestionCountComponent

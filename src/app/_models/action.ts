@@ -5,17 +5,21 @@ export enum ActionType {
     COURSE = 'Course',
     COURSE_REGISTRATION = 'Course Registration',
     EVENT = 'Event',
+    GOAL = 'Goal',
+    GOAL_ITEM = 'Goal Item',
     QUESTION = 'Question',
     SUBMISSION = 'Submission',
-    USER = 'User'
+    USER = 'User',
+    TEAM = 'Team',
 }
 
 export enum ActionVerb {
     CLICKED = 'Clicked',
-    CREATED = 'Created',
     COMPLETED = 'Completed',
+    CREATED = 'Created',
     DELETED = 'Deleted',
     DELIVERED = 'Delivered',
+    DUPLICATED = 'Duplicated',
     EDITED = 'Edited',
     EVALUATED = 'Evaluated',
     LOGGED_IN = 'Logged In',
@@ -29,7 +33,9 @@ export enum ActionVerb {
     STARTED = 'Started',
     SUBMITTED = 'Submitted',
     UNREAD = 'Unread',
+    UPDATED = 'Updated',
     USED = 'Used',
+    JOINED = 'Joined',
 }
 
 export enum ActionStatus {

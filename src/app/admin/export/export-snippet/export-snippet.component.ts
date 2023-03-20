@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {ApiService} from "@app/_services/api.service"
+import {ActionType, ActionVerb} from "@app/_models"
 
 @Component({
     selector: 'app-export-snippet',
@@ -22,12 +23,18 @@ export class ExportSnippetComponent implements OnInit {
     selectedSearch = ''
     selectedFilters: Record<string, any> = {}
 
+
+    verbs: string[]
+    objectTypes: string[]
+
     constructor(
         private apiService: ApiService
     ) {
     }
 
     ngOnInit(): void {
+        this.verbs = Object.values(ActionVerb)
+        this.objectTypes = Object.values(ActionType)
         this.selectedFields = this.fields
         for (const filter of this.filters) {
             this.selectedFilters[filter.key] = null

@@ -48,6 +48,26 @@
             >
                 {{filter.name}}
             </tui-input-number>
+            <tui-select
+                *ngIf="filter.type === 'verb'"
+                [(ngModel)]="selectedFilters[filter.key]"
+            >
+                {{filter.name}}
+                <tui-data-list-wrapper
+                    *tuiDataList
+                    [items]="verbs"
+                ></tui-data-list-wrapper>
+            </tui-select>
+            <tui-select
+                *ngIf="filter.type === 'objectType'"
+                [(ngModel)]="selectedFilters[filter.key]"
+            >
+                {{filter.name}}
+                <tui-data-list-wrapper
+                    *tuiDataList
+                    [items]="objectTypes"
+                ></tui-data-list-wrapper>
+            </tui-select>
         </div>
     </ng-container>
     <div class="tui-form__buttons">
