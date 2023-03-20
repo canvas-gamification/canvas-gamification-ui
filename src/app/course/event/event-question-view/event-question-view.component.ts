@@ -25,24 +25,30 @@ export class EventQuestionViewComponent implements OnInit {
 
     ngOnInit() : void {
         this.eventId = +this.route.snapshot.paramMap.get('eventId')
+        this.courseEventService.getCourseEvent(this.eventId).subscribe(
+            event => this.event = event
+        )
         // this.uqjService.getUQJs({filters: {question_event: this.eventId}}).subscribe(
         //     uqjs => this.uqjs = uqjs.results
         // )
         this.uqjService.getUQJQuestionIds({question_event: this.eventId}).subscribe(
-            uqjs => this.uqjs = uqjs
-        )
-        this.courseEventService.getCourseEvent(this.eventId).subscribe(
-            event => this.event = event
+            // uqjs => this.uqjs = uqjs
+            uqjs => {
+                this.uqjs = uqjs
+                console.log(uqjs)
+            }
         )
         this.cursor = 0
     }
 
     prevQuestion(): void {
-
+        this.cursor = (this.cursor - 1) % this.uqjs.length
+        this.updateCurrentQuestion()
     }
 
     nextQuestion(): void {
-
+        this.cursor = (this.cursor + 1) % this.uqjs.length
+        this.updateCurrentQuestion()
     }
 
     updateCurrentQuestion(): void {
