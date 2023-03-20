@@ -1,6 +1,6 @@
 <ng-template
     (tuiDialogChange)="toggleDialog($event)"
-    [tuiDialogOptions]="$any({ label: 'Add this question to an event', size: 'm' })"
+    [tuiDialogOptions]="$any({ label: 'Which assessment do you want to add this question to?', size: 'm' })"
     [tuiDialog]="open"
 >
     <ng-container *ngIf="events">
@@ -17,11 +17,11 @@
                         <button
                             (click)="addToEvent(event)"
                             appearance="secondary"
-                            aria-label="Add"
+                            aria-label="Select"
                             size="s"
                             tuiButton
                         >
-                            Add
+                            Select
                         </button>
                     </div>
                 </div>
