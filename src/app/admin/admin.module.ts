@@ -19,8 +19,10 @@ import {FormsModule} from '@angular/forms'
 import {
     TuiButtonModule,
     TuiDataListModule,
+    TuiHostedDropdownModule,
     TuiLoaderModule,
     TuiScrollbarModule,
+    TuiSvgModule,
     TuiTextfieldControllerModule
 } from '@taiga-ui/core'
 import {TuiRingChartModule} from '@taiga-ui/addon-charts'
@@ -56,6 +58,7 @@ import {AdminComponent} from "@app/admin/admin.component"
         TuiDataListWrapperModule,
         TuiFilterPipeModule,
         TuiHighlightModule,
+        TuiHostedDropdownModule,
         TuiInputDateModule,
         TuiInputModule,
         TuiInputNumberModule,
@@ -66,6 +69,7 @@ import {AdminComponent} from "@app/admin/admin.component"
         TuiRingChartModule,
         TuiScrollbarModule,
         TuiSelectModule,
+        TuiSvgModule,
         TuiTableModule,
         TuiTabsModule,
         TuiTextfieldControllerModule,
