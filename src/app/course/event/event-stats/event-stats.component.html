@@ -14,8 +14,16 @@
             <h4 class="tui-text_h4">
                 {{stat.question.title}}
             </h4>
-            <div *ngIf="isEmpty(stat)">
-                hi
+            <div *ngIf="stat.total_submissions === 0"
+                class="flex justify-center items-center w-full h-32">
+                <tui-marker-icon
+                    class="tui-space_right-4"
+                    size="s"
+                    src="tuiIconAlertCircleLarge"
+                ></tui-marker-icon>
+                <h2 class="tui-text_body-xl">
+                    Looks like there are no submissions to show
+                </h2>
             </div>
             <div *ngIf="!isEmpty(stat.answers)">
                 <tui-notification
@@ -32,7 +40,7 @@
                 >
                 </app-event-stats-bar-chart>
             </div>
-            <div *ngIf="!isEmpty(stat.submissions)">
+            <div *ngIf="!isEmpty(stat.total_submissions)">
                 <div class="tui-text_body-l tui-text_bold">Submissions</div>
                 <table class="tui-table mt-3">
                     <tbody>
