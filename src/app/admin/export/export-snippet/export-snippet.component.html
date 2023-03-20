@@ -1,0 +1,63 @@
+<div class="tui-container tui-container_adaptive">
+    <div class="tui-form__header">
+        Export {{name}}
+    </div>
+    <ng-container *ngIf="fields">
+        <div class="tui-form__row">
+            <tui-multi-select
+                aria-label="Fields"
+                [(ngModel)]="selectedFields"
+            >
+                What fields do you want to export?
+                <tui-data-list
+                    *tuiDataList
+                    tuiMultiSelectGroup
+                >
+                    <button
+                        *ngFor="let item of fields"
+                        tuiOption
+                        [value]="item"
+                    >
+                        {{ item }}
+                    </button>
+                </tui-data-list>
+            </tui-multi-select>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="search">
+        <div class="tui-form__row">
+            <tui-input
+                [tuiTextfieldCleaner]="true"
+                [(ngModel)]="selectedSearch"
+            >
+                {{search}}
+            </tui-input>
+        </div>
+    </ng-container>
+    <ng-container *ngFor="let filter of filters">
+        <div class="tui-form__row">
+            <tui-input-date
+                *ngIf="filter.type === 'date'"
+                [(ngModel)]="selectedFilters[filter.key]"
+            >
+                {{filter.name}}
+            </tui-input-date>
+            <tui-input-number
+                *ngIf="filter.type === 'number'"
+                [(ngModel)]="selectedFilters[filter.key]"
+            >
+                {{filter.name}}
+            </tui-input-number>
+        </div>
+    </ng-container>
+    <div class="tui-form__buttons">
+        <a
+            appearance="primary"
+            size="m"
+            tuiButton
+            [href]="getUrl()"
+        >
+            Download
+        </a>
+    </div>
+</div>
