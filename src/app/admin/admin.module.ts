@@ -6,40 +6,70 @@ import {TuiTableModule} from '@taiga-ui/addon-table'
 import {
     TuiDataListWrapperModule,
     TuiHighlightModule,
+    TuiInputDateModule,
     TuiInputModule,
+    TuiInputNumberModule,
+    TuiInputTimeModule,
     TuiIslandModule,
+    TuiMultiSelectModule,
     TuiSelectModule,
     TuiTabsModule
 } from '@taiga-ui/kit'
 import {FormsModule} from '@angular/forms'
-import {TuiButtonModule, TuiLoaderModule, TuiScrollbarModule, TuiTextfieldControllerModule} from '@taiga-ui/core'
+import {
+    TuiButtonModule,
+    TuiDataListModule,
+    TuiHostedDropdownModule,
+    TuiLoaderModule,
+    TuiScrollbarModule,
+    TuiSvgModule,
+    TuiTextfieldControllerModule
+} from '@taiga-ui/core'
 import {TuiRingChartModule} from '@taiga-ui/addon-charts'
 import {TuiFilterPipeModule} from '@taiga-ui/cdk'
 import {CoursesComponent} from './courses/courses.component'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
+import {
+    ExportPageViewComponentComponent
+} from './export/export-page-view-component/export-page-view-component.component'
+import {ExportSnippetComponent} from './export/export-snippet/export-snippet.component'
+import {AdminRoutingModule} from "@app/admin/admin-routing.module"
+import {ExportActionComponent} from './export/export-action/export-action.component'
+import {AdminComponent} from "@app/admin/admin.component"
 
 
 @NgModule({
-    declarations: [CategoryStatsComponent, CoursesComponent, QuestionCountComponent],
-    exports: [
+    declarations: [
+        AdminComponent,
         CategoryStatsComponent,
         CoursesComponent,
+        ExportActionComponent,
+        ExportPageViewComponentComponent,
+        ExportSnippetComponent,
         QuestionCountComponent,
     ],
     imports: [
+        AdminRoutingModule,
         CommonModule,
         FormsModule,
         SidebarModule,
         TuiButtonModule,
+        TuiDataListModule,
         TuiDataListWrapperModule,
         TuiFilterPipeModule,
         TuiHighlightModule,
+        TuiHostedDropdownModule,
+        TuiInputDateModule,
         TuiInputModule,
+        TuiInputNumberModule,
+        TuiInputTimeModule,
         TuiIslandModule,
         TuiLoaderModule,
+        TuiMultiSelectModule,
         TuiRingChartModule,
         TuiScrollbarModule,
         TuiSelectModule,
+        TuiSvgModule,
         TuiTableModule,
         TuiTabsModule,
         TuiTextfieldControllerModule,

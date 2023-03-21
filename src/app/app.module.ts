@@ -31,8 +31,6 @@ import {CommonModule} from '@angular/common'
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs'
 import {NotFoundComponent} from './components/general/not-found/not-found.component'
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component'
-import {AdminComponent} from './admin/admin.component'
-import {AdminModule} from '@app/admin/admin.module'
 import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
 
 import {
@@ -75,7 +73,6 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 
 @NgModule({
     declarations: [
-        AdminComponent,
         AppComponent,
         CourseDashboardComponent,
         FaqComponent,
@@ -94,7 +91,6 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
         UserActionsComponent,
     ],
     imports: [
-        AdminModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         BrowserModule,

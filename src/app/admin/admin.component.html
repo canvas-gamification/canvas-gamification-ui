@@ -1,7 +1,39 @@
 <div class="admin">
     <div class="admin-content">
         <div class="tui-container tui-container_fullwidth">
-            <h1 class="tui-text_h3 tui-space_vertical-10">Admin</h1>
+            <div class="flex justify-between items-center">
+                <h3 class="tui-text_h3 tui-space_vertical-10">Admin</h3>
+                <tui-hosted-dropdown
+                    [(open)]="openExport"
+                    [content]="exportDropdownContent"
+                >
+                    <button
+                        [iconRight]="exportDropdownIcon"
+                        size="m"
+                        tuiButton
+                        type="button"
+                    >
+                        Export
+                    </button>
+                </tui-hosted-dropdown>
+                <ng-template #exportDropdownIcon>
+                    <tui-svg
+                        [class.export-icon_rotated]="openExport"
+                        class="export-icon"
+                        src="tuiIconChevronDown"
+                    ></tui-svg>
+                </ng-template>
+                <ng-template #exportDropdownContent>
+                    <tui-data-list>
+                        <a [routerLink]="['export', 'page-view']" tuiOption>
+                            Page Views
+                        </a>
+                        <a [routerLink]="['export', 'action']" tuiOption>
+                            User Actions
+                        </a>
+                    </tui-data-list>
+                </ng-template>
+            </div>
             <app-question-count></app-question-count>
             <app-category-stats></app-category-stats>
         </div>
