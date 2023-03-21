@@ -14,7 +14,7 @@ export class CoursePracticeComponent implements OnInit {
     course: Course
     courseId: number
     user: User
-    enableListView = false
+    enableListView: boolean
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -29,5 +29,6 @@ export class CoursePracticeComponent implements OnInit {
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.course = course
         })
+        this.enableListView = false
     }
 }
