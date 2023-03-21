@@ -40,7 +40,9 @@
             </div>
         </div>
     </app-sidebar>
-    <app-problem-view [questionId]="currentQuestionId"></app-problem-view>
+    <div class="flex-grow">
+        <app-problem-view [questionId]="currentQuestionId"></app-problem-view>
+    </div>
 </div>
 
 <ng-template #skeleton>
