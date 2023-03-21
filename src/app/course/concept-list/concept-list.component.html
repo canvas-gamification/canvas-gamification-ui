@@ -3,6 +3,7 @@
         <thead tuiThead>
         <tr tuiThGroup>
             <th *tuiHead="'name'" [sorter]="null" tuiTh>Category Name</th>
+            <th *tuiHead="'practice'" [sorter]="null" tuiTh>All</th>
             <ng-container *ngFor="let difficulty of difficulties">
                 <th *tuiHead="difficulty[0]" [sorter]="null" tuiTh>{{ difficulty[1] }}</th>
             </ng-container>
@@ -14,13 +15,24 @@
             [heading]="category.category.full_name"
             tuiTbody
         >
-        <tr *tuiRow="let childCategoryValue of category.children" tuiTr>
+        <tr *tuiRow="let childCategoryValue of category.children"
+            tuiTr>
             <td *tuiCell="'name'" tuiTd>
                 {{ childCategoryValue.category.name }}
             </td>
+            <td *tuiCell="'practice'" tuiTd>
+                <button
+                    (click)="openPracticePage(childCategoryValue.category.name)"
+                    class="tui-space_vertical-2"
+                    size="s"
+                    tuiButton
+                    type="button"
+                >
+                    Practice
+                </button>
+            </td>
         </tr>
         </tbody>
-
     </table>
 </tui-loader>
 

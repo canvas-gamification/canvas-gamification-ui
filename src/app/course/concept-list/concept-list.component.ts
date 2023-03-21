@@ -13,7 +13,7 @@ export class ConceptListComponent implements OnInit {
     categories: Category[]
     nestedCategories: NestedCategories[]
     difficulties: Difficulty[]
-    tableColumns: ['name', ...Array<string>] = ['name']
+    tableColumns: ['name', 'practice', ...Array<string>] = ['name', 'practice']
 
     @Input() currCourse: Course
 
@@ -43,8 +43,11 @@ export class ConceptListComponent implements OnInit {
         })
         this.difficultyService.getDifficulties().subscribe(difficulties => {
             this.difficulties = difficulties
-            this.tableColumns = ['name', ...difficulties.map(difficulty => difficulty[0])]
+            this.tableColumns = ['name', 'practice', ...difficulties.map(difficulty => difficulty[0])]
         })
     }
 
+    openPracticePage(input: string) {
+        console.log(input)
+    }
 }
