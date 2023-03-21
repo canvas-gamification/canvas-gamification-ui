@@ -14,6 +14,7 @@ export class CoursePracticeComponent implements OnInit {
     course: Course
     courseId: number
     user: User
+    enableListView: boolean
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -30,4 +31,11 @@ export class CoursePracticeComponent implements OnInit {
         })
     }
 
+    setListView(value: boolean): void {
+        this.enableListView = value
+    }
+
+    getListView(): boolean {
+        return this.enableListView
+    }
 }

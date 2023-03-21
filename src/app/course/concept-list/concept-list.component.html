@@ -1,28 +1,26 @@
-<p>concept-list works!</p>
-<div class="tui-container tui-container_fullwidth">
-    <tui-loader [overlay]="true" [showLoader]="!nestedCategories">
-        <table *ngIf="difficulties" [columns]="tableColumns" tuiTable>
-            <thead tuiThead>
-            <tr tuiThGroup>
-                <th *tuiHead="'name'" [sorter]="null" tuiTh>Category Name</th>
-                <ng-container *ngFor="let difficulty of difficulties">
-                    <th *tuiHead="difficulty[0]" [sorter]="null" tuiTh>{{ difficulty[1] }}</th>
-                </ng-container>
-            </tr>
-            </thead>
-            <tbody
-                *ngFor="let category of nestedCategories"
-                [data]="category.children"
-                [heading]="category.category.full_name"
-                tuiTbody
-            >
-            <tr *tuiRow="let childCategoryValue of category.children" tuiTr>
-                <td *tuiCell="'name'" tuiTd>
-                    {{ childCategoryValue.category }}
-                </td>
-            </tr>
-            </tbody>
+<tui-loader [overlay]="true" [showLoader]="!nestedCategories">
+    <table *ngIf="difficulties" [columns]="tableColumns" tuiTable>
+        <thead tuiThead>
+        <tr tuiThGroup>
+            <th *tuiHead="'name'" [sorter]="null" tuiTh>Category Name</th>
+            <ng-container *ngFor="let difficulty of difficulties">
+                <th *tuiHead="difficulty[0]" [sorter]="null" tuiTh>{{ difficulty[1] }}</th>
+            </ng-container>
+        </tr>
+        </thead>
+        <tbody
+            *ngFor="let category of nestedCategories"
+            [data]="category.children"
+            [heading]="category.category.full_name"
+            tuiTbody
+        >
+        <tr *tuiRow="let childCategoryValue of category.children" tuiTr>
+            <td *tuiCell="'name'" tuiTd>
+                {{ childCategoryValue.category.name }}
+            </td>
+        </tr>
+        </tbody>
 
-        </table>
-    </tui-loader>
-</div>
+    </table>
+</tui-loader>
+

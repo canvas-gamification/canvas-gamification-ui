@@ -43,7 +43,7 @@ import {
     TuiStepperModule,
     TuiTabsModule,
     TuiTagModule,
-    TuiTextAreaModule
+    TuiTextAreaModule, TuiToggleModule
 } from '@taiga-ui/kit'
 import {
     TuiButtonModule,
@@ -208,6 +208,7 @@ import {ConceptListComponent} from './concept-list/concept-list.component'
         TuiTextAreaModule,
         DragulaModule.forRoot(),
         TuiTextfieldControllerModule,
+        TuiToggleModule,
     ],
     providers: [
         CourseEventService,

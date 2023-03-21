@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core'
 import {CategoryService} from "@app/_services/api/category.service"
 import {Category, Course, NestedCategories} from "@app/_models"
 import {Difficulty} from "@app/_models/difficulty"
@@ -14,6 +14,7 @@ export class ConceptListComponent implements OnInit {
     nestedCategories: NestedCategories[]
     difficulties: Difficulty[]
     tableColumns: ['name', ...Array<string>] = ['name']
+    changeDetection: ChangeDetectionStrategy.OnPush
 
     @Input() currCourse: Course
 

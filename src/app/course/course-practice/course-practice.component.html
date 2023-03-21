@@ -1,4 +1,15 @@
 <section class="tui-container tui-container_fullwidth">
-    <!--    <app-concept-map [currCourse]="course"></app-concept-map>-->
-    <app-concept-list [currCourse]="course"></app-concept-list>
+    <button tuiOption>
+        <label class="tui-text_body-m">
+            List View
+            <tui-toggle
+                (ngModelChange)="setListView($event)"
+                [ngModel]="enableListView"
+                class="tui-space_left-2"
+                size="m"
+            ></tui-toggle>
+        </label>
+    </button>
+    <app-concept-map *ngIf="!enableListView" [currCourse]="course"></app-concept-map>
+    <app-concept-list *ngIf="enableListView" [currCourse]="course"></app-concept-list>
 </section>
