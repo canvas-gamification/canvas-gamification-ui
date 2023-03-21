@@ -48,11 +48,6 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
-    orderQuestions(): void {
-        this.uqjs.sort((a, b) =>
-            a.question.title.localeCompare(b.question.title))
-    }
-
     init() {
         this.courseService.getCourse(this.courseId).subscribe(course => this.course = course)
         if (this.eventId && this.courseId) { // if this snippet is an event-view
@@ -78,6 +73,34 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId') || null
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null
         this.init()
+    }
+
+    orderQuestions(): void {
+        const numsArr: UQJ[] = []
+        const stringsArr: UQJ[] = []
+
+        for (const uqj of this.uqjs) {
+            if (this.containsNumbers(uqj.question.title))
+                numsArr.push(uqj)
+            else
+                stringsArr.push(uqj)
+        }
+
+        numsArr.sort((a, b) => this.scrapeNumberFromString(a.question.title)
+            - this.scrapeNumberFromString(b.question.title))
+
+        stringsArr.sort((a, b) =>
+            a.question.title.localeCompare(b.question.title))
+
+        this.uqjs = numsArr.concat(stringsArr)
+    }
+
+    containsNumbers(str): boolean {
+        return str.match(/\d/) !== null
+    }
+
+    scrapeNumberFromString(str): number {
+        return +str.match(/(\d+)/)[0]
     }
 
     /**
@@ -195,8 +218,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
             }).subscribe()
         } else {
             this.router.navigate(
-                ['../' , this.eventId, 'problem', 'create', link]
-                ,{relativeTo: this.route}
+                ['../', this.eventId, 'problem', 'create', link]
+                , {relativeTo: this.route}
             ).then()
         }
     }
