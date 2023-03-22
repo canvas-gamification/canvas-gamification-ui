@@ -1,38 +1,37 @@
-<tui-loader [overlay]="true" [showLoader]="!nestedCategories">
-    <table *ngIf="difficulties" [columns]="tableColumns" tuiTable>
-        <thead tuiThead>
-        <tr tuiThGroup>
-            <th *tuiHead="'name'" [sorter]="null" tuiTh>Category Name</th>
-            <th *tuiHead="'practice'" [sorter]="null" tuiTh>All</th>
-            <ng-container *ngFor="let difficulty of difficulties">
-                <th *tuiHead="difficulty[0]" [sorter]="null" tuiTh>{{ difficulty[1] }}</th>
-            </ng-container>
-        </tr>
-        </thead>
-        <tbody
-            *ngFor="let category of nestedCategories"
-            [data]="category.children"
-            [heading]="category.category.full_name"
-            tuiTbody
-        >
-        <tr *tuiRow="let childCategoryValue of category.children"
-            tuiTr>
-            <td *tuiCell="'name'" tuiTd>
-                {{ childCategoryValue.category.name }}
-            </td>
-            <td *tuiCell="'practice'" tuiTd>
-                <button
-                    (click)="openPracticePage(childCategoryValue.category.name)"
-                    class="tui-space_vertical-2"
-                    size="s"
-                    tuiButton
-                    type="button"
-                >
-                    Practice
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</tui-loader>
-
+<tui-accordion>
+    <tui-accordion-item *ngFor="let category of nestedCategories" class="title" open="false"
+                        [disableHover]="true">
+        <div class="flex flex-wrap gap-3">
+            <div class="min-w-[25rem] type flex items-center">
+                {{ category.category.name }}
+            </div>
+            <button
+                (click)="openPracticePage(category.category.name)"
+                class="tui-space_vertical-2 justify-center"
+                size="s"
+                tuiButton
+                type="button"
+            >
+                Practice
+            </button>
+        </div>
+        <ng-template tuiAccordionItemContent>
+            <div *ngFor="let childCategory of category.children" class="event">
+                <div class="flex flex-wrap gap-3">
+                    <div class="min-w-[25rem] type flex items-center">
+                        {{ childCategory.category.name }}
+                    </div>
+                    <button
+                        (click)="openPracticePage(childCategory.category.name)"
+                        class="tui-space_vertical-2 justify-center"
+                        size="s"
+                        tuiButton
+                        type="button"
+                    >
+                        Practice
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </tui-accordion-item>
+</tui-accordion>

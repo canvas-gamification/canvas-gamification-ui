@@ -1,12 +1,13 @@
 <section class="tui-container tui-container_fullwidth">
-    <label class="tui-text_body-m">
-        List View
-        <tui-toggle
-            [(ngModel)]="enableListView"
-            class="tui-space_left-2"
-            size="m"
-        ></tui-toggle>
-    </label>
+    <div class="pb-4">
+        <label class="tui-text_body-l">
+            List View
+            <tui-toggle
+                [(ngModel)]="enableListView"
+                size="m"
+            ></tui-toggle>
+        </label>
+    </div>
     <div
         *ngIf="enableListView; then listView; else mapView"
     ></div>
