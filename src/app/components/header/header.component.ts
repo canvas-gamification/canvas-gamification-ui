@@ -13,7 +13,6 @@ export class HeaderComponent {
     user: User
     path: string
     logoPath = 'assets/global/logo.jpg'
-    enableNightMode: boolean
     openUserActions = false
     openSidebar = false
 
