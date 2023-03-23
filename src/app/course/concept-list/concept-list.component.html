@@ -6,7 +6,7 @@
                 {{ category.category.name }}
             </div>
             <button
-                (click)="openPracticePage(category.category.name)"
+                (click)="openPracticePage(category.category)"
                 class="tui-space_vertical-2 justify-center"
                 size="s"
                 tuiButton
@@ -22,7 +22,7 @@
                         {{ childCategory.category.name }}
                     </div>
                     <button
-                        (click)="openPracticePage(childCategory.category.name)"
+                        (click)="openPracticePage(childCategory.category)"
                         class="tui-space_vertical-2 justify-center"
                         size="s"
                         tuiButton

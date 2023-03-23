@@ -1,8 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {CategoryService} from "@app/_services/api/category.service"
-import {Category, Course, NestedCategories} from "@app/_models"
+import {
+    Category,
+    Course,
+    NestedCategories
+} from "@app/_models"
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
+import {Router} from "@angular/router"
 
 @Component({
     selector: 'app-concept-list',
@@ -19,7 +24,8 @@ export class ConceptListComponent implements OnInit {
 
     constructor(
         private categoryService: CategoryService,
-        private difficultyService: DifficultyService
+        private difficultyService: DifficultyService,
+        private router: Router
     ) {
     }
 
@@ -47,7 +53,12 @@ export class ConceptListComponent implements OnInit {
         })
     }
 
-    openPracticePage(input: string) {
-        console.log(input)
+    openPracticePage(category: Category) {
+        console.log(category.name)
+        console.log(category.parent)
+        this.router.navigate(
+            ['course', this.currCourse.id, 'practice', 'category', category.parent]
+            , {queryParams: {difficulty: 'EASY'}}
+        ).then()
     }
 }
