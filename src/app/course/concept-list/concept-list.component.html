@@ -1,49 +1,185 @@
-<tui-accordion class="w-[60rem]">
-    <tui-accordion-item *ngFor="let category of nestedCategories" class="container" open="false"
-                        [disableHover]="true">
-        <div class="flex flex-wrap gap-3">
-            <div class="w-[20rem] type flex items-center">
-                {{ category.category.name }}
-            </div>
-            <div class="w-[15rem] flex items-center">
-                <button
-                    (click)="openPracticePage(category.category)"
-                    class="tui-space_vertical-2 justify-center"
-                    size="m"
-                    tuiButton
-                    type="button"
-                    appearance="flat"
-                >
-                    Practice
-                </button>
-            </div>
-            <div class="w-[10rem] type flex items-center">
-                {{ category.category.question_count }} Questions
-            </div>
-        </div>
-        <ng-template tuiAccordionItemContent>
-            <div *ngFor="let childCategory of category.children" class="event">
-                <div class="flex flex-wrap gap-3">
-                    <div class="w-[20rem] type flex items-center">
-                        {{ childCategory.category.name }}
-                    </div>
-                    <div class="w-[15rem] flex items-center">
-                        <button
-                            (click)="openPracticePage(childCategory.category)"
-                            class="tui-space_vertical-2 justify-center"
-                            size="m"
-                            tuiButton
-                            type="button"
-                            appearance="flat"
-                        >
-                            Practice
-                        </button>
-                    </div>
-                    <div class="w-[10rem] type flex items-center">
-                        {{ childCategory.category.question_count }} Questions
-                    </div>
+<ng-container *ngIf="nestedCategories else skeletonTemplate">
+    <tui-accordion class="w-[60rem]">
+        <tui-accordion-item *ngFor="let category of nestedCategories" class="container" open="false"
+                            [disableHover]="true">
+            <div class="flex flex-wrap gap-3">
+                <div class="w-[20rem] type flex items-center">
+                    {{ category.category.name }}
+                </div>
+                <div class="w-[15rem] flex items-center">
+                    <button
+                        (click)="openPracticePage(category.category)"
+                        class="tui-space_vertical-2 justify-center"
+                        size="m"
+                        tuiButton
+                        type="button"
+                        appearance="flat"
+                    >
+                        Practice
+                    </button>
+                </div>
+                <div class="w-[10rem] type flex items-center">
+                    {{ category.category.question_count }} Questions
                 </div>
             </div>
-        </ng-template>
-    </tui-accordion-item>
-</tui-accordion>
+            <ng-template tuiAccordionItemContent>
+                <div *ngFor="let childCategory of category.children" class="event">
+                    <div class="flex flex-wrap gap-3">
+                        <div class="w-[20rem] type flex items-center">
+                            {{ childCategory.category.name }}
+                        </div>
+                        <div class="w-[15rem] flex items-center">
+                            <button
+                                (click)="openPracticePage(childCategory.category)"
+                                class="tui-space_vertical-2 justify-center"
+                                size="m"
+                                tuiButton
+                                type="button"
+                                appearance="flat"
+                            >
+                                Practice
+                            </button>
+                        </div>
+                        <div class="w-[10rem] type flex items-center">
+                            {{ childCategory.category.question_count }} Questions
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </tui-accordion-item>
+    </tui-accordion>
+</ng-container>
+
+<ng-template #skeletonTemplate>
+    <tui-accordion class="w-[60rem]">
+        <tui-accordion-item class="container" open="false" [disableHover]="true">
+            <div class="flex flex-wrap gap-3">
+                <div class="w-[20rem] type flex items-center tui-skeleton">
+                    Category
+                </div>
+                <div class="w-[15rem] flex items-center">
+                    <button
+                        class="tui-space_vertical-2 justify-center tui-skeleton"
+                        size="m"
+                        tuiButton
+                        type="button"
+                        appearance="flat"
+                    >
+                        Practice
+                    </button>
+                </div>
+                <div class="w-[10rem] type flex items-center tui-skeleton">
+                    0 Questions
+                </div>
+            </div>
+            <ng-template tuiAccordionItemContent>
+                <div class="event">
+                    <div class="flex flex-wrap gap-3">
+                        <div class="w-[20rem] type flex items-center tui-skeleton">
+                            Child category
+                        </div>
+                        <div class="w-[15rem] flex items-center">
+                            <button
+                                class="tui-space_vertical-2 justify-center tui-skeleton"
+                                size="m"
+                                tuiButton
+                                type="button"
+                                appearance="flat"
+                            >
+                                Practice
+                            </button>
+                        </div>
+                        <div class="w-[10rem] type flex items-center tui-skeleton">
+                            0 Questions
+                        </div>
+                    </div>
+                </div>
+                <div class="event">
+                    <div class="flex flex-wrap gap-3">
+                        <div class="w-[20rem] type flex items-center tui-skeleton">
+                            Child category
+                        </div>
+                        <div class="w-[15rem] flex items-center">
+                            <button
+                                class="tui-space_vertical-2 justify-center tui-skeleton"
+                                size="m"
+                                tuiButton
+                                type="button"
+                                appearance="flat"
+                            >
+                                Practice
+                            </button>
+                        </div>
+                        <div class="w-[10rem] type flex items-center tui-skeleton">
+                            0 Questions
+                        </div>
+                    </div>
+                </div>
+                <div class="event">
+                    <div class="flex flex-wrap gap-3">
+                        <div class="w-[20rem] type flex items-center tui-skeleton">
+                            Child category
+                        </div>
+                        <div class="w-[15rem] flex items-center">
+                            <button
+                                class="tui-space_vertical-2 justify-center tui-skeleton"
+                                size="m"
+                                tuiButton
+                                type="button"
+                                appearance="flat"
+                            >
+                                Practice
+                            </button>
+                        </div>
+                        <div class="w-[10rem] type flex items-center tui-skeleton">
+                            0 Questions
+                        </div>
+                    </div>
+                </div>
+                <div class="event">
+                    <div class="flex flex-wrap gap-3">
+                        <div class="w-[20rem] type flex items-center tui-skeleton">
+                            Child category
+                        </div>
+                        <div class="w-[15rem] flex items-center">
+                            <button
+                                class="tui-space_vertical-2 justify-center tui-skeleton"
+                                size="m"
+                                tuiButton
+                                type="button"
+                                appearance="flat"
+                            >
+                                Practice
+                            </button>
+                        </div>
+                        <div class="w-[10rem] type flex items-center tui-skeleton">
+                            0 Questions
+                        </div>
+                    </div>
+                </div>
+                <div class="event">
+                    <div class="flex flex-wrap gap-3">
+                        <div class="w-[20rem] type flex items-center tui-skeleton">
+                            Child category
+                        </div>
+                        <div class="w-[15rem] flex items-center">
+                            <button
+                                class="tui-space_vertical-2 justify-center tui-skeleton"
+                                size="m"
+                                tuiButton
+                                type="button"
+                                appearance="flat"
+                            >
+                                Practice
+                            </button>
+                        </div>
+                        <div class="w-[10rem] type flex items-center tui-skeleton">
+                            0 Questions
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </tui-accordion-item>
+    </tui-accordion>
+</ng-template>
+
