@@ -72,6 +72,7 @@ export class LeaderBoardComponent implements OnChanges, OnInit {
         const sortedLeaderboard = leaderBoard.sort((a, b) => b.token - a.token)
         return sortedLeaderboard.map((element, index) => ({
             rank: index + 1,
+            token: element.token.toFixed(2),
             ...element,
         }))
     }
