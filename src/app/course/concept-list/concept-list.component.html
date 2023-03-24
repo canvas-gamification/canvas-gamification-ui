@@ -1,12 +1,11 @@
 <ng-container *ngIf="nestedCategories else skeletonTemplate">
-    <tui-accordion class="w-[60rem]">
-        <tui-accordion-item *ngFor="let category of nestedCategories" class="container" open="false"
+    <tui-accordion class="w-full">
+        <tui-accordion-item *ngFor="let category of nestedCategories" class="title" open="false"
                             [disableHover]="true">
-            <div class="flex flex-wrap gap-3">
-                <div class="w-[20rem] type flex items-center">
-                    {{ category.category.name }}
-                </div>
-                <div class="w-[15rem] flex items-center">
+            <div class="flex flex-wrap gap-3 justify-between items-center">
+                <p class="type">{{ category.category.name }}</p>
+                <p class="type">{{ category.category.question_count }} Questions</p>
+                <div class="flex items-center">
                     <button
                         (click)="openPracticePage(category.category)"
                         class="tui-space_vertical-2 justify-center"
@@ -18,17 +17,13 @@
                         Practice
                     </button>
                 </div>
-                <div class="w-[10rem] type flex items-center">
-                    {{ category.category.question_count }} Questions
-                </div>
             </div>
             <ng-template tuiAccordionItemContent>
                 <div *ngFor="let childCategory of category.children" class="event">
-                    <div class="flex flex-wrap gap-3">
-                        <div class="w-[20rem] type flex items-center">
-                            {{ childCategory.category.name }}
-                        </div>
-                        <div class="w-[15rem] flex items-center">
+                    <div class="flex flex-wrap gap-3 justify-between items-center">
+                        <p class="type">{{ childCategory.category.name }}</p>
+                        <p class="type">{{ childCategory.category.question_count }} Questions</p>
+                        <div class="flex">
                             <button
                                 (click)="openPracticePage(childCategory.category)"
                                 class="tui-space_vertical-2 justify-center"
@@ -39,9 +34,6 @@
                             >
                                 Practice
                             </button>
-                        </div>
-                        <div class="w-[10rem] type flex items-center">
-                            {{ childCategory.category.question_count }} Questions
                         </div>
                     </div>
                 </div>

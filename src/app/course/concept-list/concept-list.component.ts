@@ -54,10 +54,8 @@ export class ConceptListComponent implements OnInit {
     }
 
     openPracticePage(category: Category) {
-        console.log(category.name)
-        console.log(category.parent)
         this.router.navigate(
-            ['course', this.currCourse.id, 'practice', 'category', category.parent]
+            ['course', this.currCourse.id, 'practice', 'category', category.pk]
             , {queryParams: {difficulty: 'EASY'}}
         ).then()
     }
