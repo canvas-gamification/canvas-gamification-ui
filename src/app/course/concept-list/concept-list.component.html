@@ -1,11 +1,15 @@
 <ng-container *ngIf="nestedCategories else skeletonTemplate">
-    <tui-accordion class="w-full">
+    <tui-accordion>
         <tui-accordion-item *ngFor="let category of nestedCategories" class="title" open="false"
                             [disableHover]="true">
-            <div class="flex flex-wrap gap-3 justify-between items-center">
-                <p class="type">{{ category.category.name }}</p>
-                <p class="type">{{ category.category.question_count }} Questions</p>
-                <div class="flex items-center">
+            <div class="flex flex-wrap gap-3 justify-between">
+                <div class="min-w-[20rem] flex items-center">
+                    <p>{{ category.category.name }}</p>
+                </div>
+                <div class="min-w-[5rem] flex items-center">
+                    <p>{{ category.category.question_count }} Questions</p>
+                </div>
+                <div class="min-w-[5rem] flex items-center float-right">
                     <button
                         (click)="openPracticePage(category.category)"
                         class="tui-space_vertical-2 justify-center"
@@ -20,10 +24,15 @@
             </div>
             <ng-template tuiAccordionItemContent>
                 <div *ngFor="let childCategory of category.children" class="event">
-                    <div class="flex flex-wrap gap-3 justify-between items-center">
-                        <p class="type">{{ childCategory.category.name }}</p>
-                        <p class="type">{{ childCategory.category.question_count }} Questions</p>
-                        <div class="flex">
+                    <div class="flex flex-wrap gap-3 justify-between">
+                        <div class="min-w-[20rem] flex items-center">
+                            <p class="type">{{ childCategory.category.name }}</p>
+                        </div>
+                        <div class="min-w-[5rem] flex items-center">
+                            <p class="type">{{ childCategory.category.question_count }}
+                                Questions</p>
+                        </div>
+                        <div class="min-w-[5rem] flex items-center">
                             <button
                                 (click)="openPracticePage(childCategory.category)"
                                 class="tui-space_vertical-2 justify-center"
