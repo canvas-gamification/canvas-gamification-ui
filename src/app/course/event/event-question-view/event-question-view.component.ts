@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core'
-import {CourseEvent} from "@app/_models"
+import {CourseEvent, UQJ} from "@app/_models"
 import {UqjService} from "@app/problems/_services/uqj.service"
-import {ActivatedRoute, Router} from "@angular/router"
+import {ActivatedRoute} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 
 @Component({
@@ -12,7 +12,7 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
 export class EventQuestionViewComponent implements OnInit {
     eventId: number
     event: CourseEvent
-    questionIds: number[]
+    uqjs: UQJ[]
     currentQuestionId: number
     cursor = 0
 
@@ -20,7 +20,6 @@ export class EventQuestionViewComponent implements OnInit {
         private uqjService: UqjService,
         private route: ActivatedRoute,
         private courseEventService: CourseEventService,
-        private router: Router
     ) {
     }
 
@@ -31,27 +30,28 @@ export class EventQuestionViewComponent implements OnInit {
         )
 
         this.route.paramMap.subscribe(paramMap => {
-            this.uqjService.getUQJQuestionIds({question_event: this.eventId})
-                .subscribe( uqjs => {
-                    this.questionIds = uqjs
-                    this.cursor = this.questionIds.indexOf(+paramMap.get('id'))
+            this.uqjService.getUQJs({filters: {question_event: this.eventId}})
+                .subscribe( result => {
+                    this.uqjs = result.results
+                    //sort here cuz id of an element in the array may change
+                    this.cursor = this.uqjs.map(uqj => uqj.question.id).indexOf(+paramMap.get('id'))
+                    this.updateCurrentQuestion()
                 })
         })
     }
 
     prevQuestion(): void {
-        this.cursor = (this.cursor + this.questionIds.length - 1) % this.questionIds.length
+        this.cursor = (this.cursor + this.uqjs.length - 1) % this.uqjs.length
         this.updateCurrentQuestion()
     }
 
     nextQuestion(): void {
-        this.cursor = (this.cursor + 1) % this.questionIds.length
+        this.cursor = (this.cursor + 1) % this.uqjs.length
         this.updateCurrentQuestion()
     }
 
     updateCurrentQuestion(): void {
-        this.currentQuestionId = this.questionIds[this.cursor]
-        this.router.navigate(['..', this.questionIds[this.cursor]], {relativeTo: this.route})
+        this.currentQuestionId = this.uqjs.map(uqj => uqj.question.id)[this.cursor]
     }
 
 }
