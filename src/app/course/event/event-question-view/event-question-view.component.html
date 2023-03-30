@@ -1,7 +1,6 @@
 <div class="line"></div>
 <div class="flex flex-col md:flex-row">
     <app-sidebar
-        *ngIf="event else skeleton"
         position="left"
         sidebarId="eventQuestionSidebar"
         spacing="start"
@@ -10,6 +9,7 @@
             <a
                 [routerLink]="['/course', event.course, 'challenge', eventId]"
                 class="mt-6 w-full"
+                [class.tui-skeleton]="!currentQuestionId"
                 icon="tuiIconArrowLeft"
                 size="s"
                 tuiButton
@@ -17,21 +17,24 @@
             >
                 Back to Challenge
             </a>
-            <div class="mb-6">
+            <div
+                class="mb-6">
                 <div class="flex justify-between items-center">
                     <button
                         (click)="prevQuestion()"
                         icon="tuiIconChevronLeftLarge"
                         size="m"
                         tuiIconButton
+                        [class.tui-skeleton]="!currentQuestionId"
                     >
                     </button>
-                    <p>Browse Questions</p>
+                    <p [class.tui-skeleton]="!currentQuestionId">Browse Questions</p>
                     <button
                         (click)="nextQuestion()"
                         icon="tuiIconChevronRightLarge"
                         size="m"
                         tuiIconButton
+                        [class.tui-skeleton]="!currentQuestionId"
                     >
                     </button>
                 </div>
@@ -42,8 +45,3 @@
         <app-problem-view [questionId]="currentQuestionId"></app-problem-view>
     </div>
 </div>
-
-<ng-template #skeleton>
-
-</ng-template>
-
