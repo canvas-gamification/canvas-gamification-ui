@@ -28,7 +28,11 @@
                         'clicked font-bold': isCurrentUQJ(uqj)
                     }"
                     >
-                        {{uqj.question.title}}
+                        <span>{{uqj.question.title}}</span>
+                        <tui-svg
+                            *ngIf="uqj.is_solved"
+                            src="tuiIconCheck"
+                        ></tui-svg>
                     </div>
                     <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
                 </ng-container>
