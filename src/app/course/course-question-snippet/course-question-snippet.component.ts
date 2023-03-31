@@ -17,6 +17,7 @@ import {
 } from "@taiga-ui/core"
 import {startCase} from "lodash"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
+import {orderQuestions} from "@app/course/_utils/orderUQJs"
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -48,11 +49,6 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
 
-    orderQuestions(): void {
-        this.uqjs.sort((a, b) =>
-            a.question.title.localeCompare(b.question.title))
-    }
-
     init() {
         this.courseService.getCourse(this.courseId).subscribe(course => this.course = course)
         if (this.eventId && this.courseId) { // if this snippet is an event-view
@@ -64,7 +60,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                     }).subscribe(result => {
                         this.event = result.event
                         this.uqjs = result.uqjs.results
-                        this.orderQuestions()
+                        this.uqjs = orderQuestions(this.uqjs)
                     })
                 } else {
                     this.router.navigate(['course/view', this.courseId]).then()
@@ -195,8 +191,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
             }).subscribe()
         } else {
             this.router.navigate(
-                ['../' , this.eventId, 'problem', 'create', link]
-                ,{relativeTo: this.route}
+                ['../', this.eventId, 'problem', 'create', link]
+                , {relativeTo: this.route}
             ).then()
         }
     }
