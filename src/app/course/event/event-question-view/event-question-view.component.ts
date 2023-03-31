@@ -3,6 +3,7 @@ import {CourseEvent, UQJ} from "@app/_models"
 import {UqjService} from "@app/problems/_services/uqj.service"
 import {ActivatedRoute} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
+import {orderUQJs} from "@app/course/_utils/orderUQJs"
 
 @Component({
     selector: 'app-event-question-view',
@@ -33,7 +34,7 @@ export class EventQuestionViewComponent implements OnInit {
             this.uqjService.getUQJs({filters: {question_event: this.eventId}})
                 .subscribe( result => {
                     this.uqjs = result.results
-                    //sort here cuz id of an element in the array may change
+                    this.uqjs = orderUQJs(this.uqjs)
                     this.cursor = this.uqjs.map(uqj => uqj.question.id).indexOf(+paramMap.get('id'))
                     this.updateCurrentQuestion()
                 })
