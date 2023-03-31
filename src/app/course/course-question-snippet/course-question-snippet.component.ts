@@ -17,6 +17,7 @@ import {
 } from "@taiga-ui/core"
 import {startCase} from "lodash"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
+import {orderQuestions} from "@app/course/_utils/orderUQJs"
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -59,7 +60,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                     }).subscribe(result => {
                         this.event = result.event
                         this.uqjs = result.uqjs.results
-                        this.orderQuestions()
+                        this.uqjs = orderQuestions(this.uqjs)
                     })
                 } else {
                     this.router.navigate(['course/view', this.courseId]).then()
@@ -73,34 +74,6 @@ export class CourseQuestionSnippetComponent implements OnInit {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId') || null
         this.eventId = +this.route.snapshot.paramMap.get('eventId') || null
         this.init()
-    }
-
-    orderQuestions(): void {
-        const numsArr: UQJ[] = []
-        const stringsArr: UQJ[] = []
-
-        for (const uqj of this.uqjs) {
-            if (this.containsNumbers(uqj.question.title))
-                numsArr.push(uqj)
-            else
-                stringsArr.push(uqj)
-        }
-
-        numsArr.sort((a, b) => this.scrapeNumberFromString(a.question.title)
-            - this.scrapeNumberFromString(b.question.title))
-
-        stringsArr.sort((a, b) =>
-            a.question.title.localeCompare(b.question.title))
-
-        this.uqjs = numsArr.concat(stringsArr)
-    }
-
-    containsNumbers(str): boolean {
-        return str.match(/\d/) !== null
-    }
-
-    scrapeNumberFromString(str): number {
-        return +str.match(/(\d+)/)[0]
     }
 
     /**
