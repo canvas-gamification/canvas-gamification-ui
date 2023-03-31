@@ -17,7 +17,7 @@ import {
 } from "@taiga-ui/core"
 import {startCase} from "lodash"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
-import {orderQuestions} from "@app/course/_utils/orderUQJs"
+import {orderUQJs} from "@app/course/_utils/orderUQJs"
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -60,7 +60,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                     }).subscribe(result => {
                         this.event = result.event
                         this.uqjs = result.uqjs.results
-                        this.uqjs = orderQuestions(this.uqjs)
+                        this.uqjs = orderUQJs(this.uqjs)
                     })
                 } else {
                     this.router.navigate(['course/view', this.courseId]).then()
