@@ -9,7 +9,7 @@
             <a
                 [routerLink]="['/course', event.course, 'challenge', eventId]"
                 class="mt-6 w-full"
-                [class.tui-skeleton]="!currentQuestionId"
+                [class.tui-skeleton]="!event"
                 icon="tuiIconArrowLeft"
                 size="s"
                 tuiButton
@@ -17,31 +17,38 @@
             >
                 Back to Challenge
             </a>
-            <div
-                class="mb-6">
-                <div class="flex justify-between items-center">
-                    <button
-                        (click)="prevQuestion()"
-                        icon="tuiIconChevronLeftLarge"
-                        size="m"
-                        tuiIconButton
-                        [class.tui-skeleton]="!currentQuestionId"
+            <p>{{event.name}}</p>
+            <div class="space-y-2" *ngIf="uqjs else skeleton">
+                <ng-container *ngFor="let uqj of uqjs">
+                    <div
+                        (click)=setCurrentUQJ(uqj)
+                        class="cursor-pointer clickable p-2 rounded-lg md:-mx-3"
+                        [class.tui-skeleton]="!uqjs"
+                        [ngClass]="{
+                        'clicked font-bold': isCurrentUQJ(uqj)
+                    }"
                     >
-                    </button>
-                    <p [class.tui-skeleton]="!currentQuestionId">Browse Questions</p>
-                    <button
-                        (click)="nextQuestion()"
-                        icon="tuiIconChevronRightLarge"
-                        size="m"
-                        tuiIconButton
-                        [class.tui-skeleton]="!currentQuestionId"
-                    >
-                    </button>
-                </div>
+                        {{uqj.question.title}}
+                    </div>
+                    <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+                </ng-container>
             </div>
+
         </div>
+        <ng-template #skeleton>
+            <div class="space-y-2">
+                <ng-container *ngFor="let uqj of [0, 0, 0, 0]">
+                    <div
+                        class="cursor-pointer clickable p-2 rounded-lg md:-mx-3 tui-skeleton"
+                    >
+                        Question Titles
+                    </div>
+                    <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+                </ng-container>
+            </div>
+        </ng-template>
     </app-sidebar>
     <div class="flex-grow">
-        <app-problem-view [questionId]="currentQuestionId"></app-problem-view>
+        <app-problem-view [questionId]="currentUJQ.question.id"></app-problem-view>
     </div>
 </div>

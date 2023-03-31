@@ -14,8 +14,7 @@ export class EventQuestionViewComponent implements OnInit {
     eventId: number
     event: CourseEvent
     uqjs: UQJ[]
-    currentQuestionId: number
-    cursor = 0
+    currentUJQ: UQJ
 
     constructor(
         private uqjService: UqjService,
@@ -30,29 +29,19 @@ export class EventQuestionViewComponent implements OnInit {
             event => this.event = event
         )
 
-        this.route.paramMap.subscribe(paramMap => {
-            this.uqjService.getUQJs({filters: {question_event: this.eventId}})
-                .subscribe( result => {
-                    this.uqjs = result.results
-                    this.uqjs = orderUQJs(this.uqjs)
-                    this.cursor = this.uqjs.map(uqj => uqj.question.id).indexOf(+paramMap.get('id'))
-                    this.updateCurrentQuestion()
-                })
-        })
+        this.uqjService.getUQJs({filters: {question_event: this.eventId}})
+            .subscribe(result => {
+                this.uqjs = result.results
+                this.uqjs = orderUQJs(this.uqjs)
+                this.currentUJQ = this.uqjs[0]
+            })
     }
 
-    prevQuestion(): void {
-        this.cursor = (this.cursor + this.uqjs.length - 1) % this.uqjs.length
-        this.updateCurrentQuestion()
+    setCurrentUQJ(uqj: UQJ) {
+        this.currentUJQ = uqj
     }
 
-    nextQuestion(): void {
-        this.cursor = (this.cursor + 1) % this.uqjs.length
-        this.updateCurrentQuestion()
+    isCurrentUQJ(uqj: UQJ): boolean {
+        return this.currentUJQ === uqj
     }
-
-    updateCurrentQuestion(): void {
-        this.currentQuestionId = this.uqjs.map(uqj => uqj.question.id)[this.cursor]
-    }
-
 }
