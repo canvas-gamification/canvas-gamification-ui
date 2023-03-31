@@ -493,25 +493,6 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'challenge/:eventId/problem/:id',
-                component: EventQuestionViewComponent,
-                data: {
-                    breadCrumbs: [{
-                        caption: `Homepage`,
-                        routerLink: '/course/:courseId/homepage'
-                    }, {
-                        caption: `Challenges`,
-                        routerLink: '/course/:courseId/challenge'
-                    }, {
-                        caption: `:eventName`,
-                        routerLink: '/course/:courseId/challenge/:eventId'
-                    }, {
-                        caption: `:questionName`,
-                        routerLink: '/course/:courseId/challenge/:eventId/problem/:id'
-                    }]
-                }
-            },
-            {
                 path: 'challenge/:eventId/problem/create/:type',
                 component: ProblemCreateEditComponent,
                 data: {
@@ -569,6 +550,11 @@ const routes: Routes = [
     {
         path: ':courseId/practice/category/:categoryId',
         component: PracticeProblemComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/challenge/:eventId/problem/:id',
+        component: EventQuestionViewComponent,
         canActivate: [AuthGuard]
     }]
 
