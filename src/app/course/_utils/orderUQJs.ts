@@ -1,7 +1,7 @@
 import {UQJ} from "@app/_models"
 
 
-export const orderQuestions = (uqjs: UQJ[]): UQJ[] =>  {
+export const orderUQJs = (uqjs: UQJ[]): UQJ[] =>  {
     const numsArr: UQJ[] = []
     const stringsArr: UQJ[] = []
 
