@@ -33,7 +33,8 @@ export class EventQuestionViewComponent implements OnInit {
             .subscribe(result => {
                 this.uqjs = result.results
                 this.uqjs = orderUQJs(this.uqjs)
-                this.currentUJQ = this.uqjs[0]
+                this.currentUJQ = this.uqjs.find( uqj =>
+                    uqj.question.id === +this.route.snapshot.paramMap.get('id'))
             })
     }
 
