@@ -7,7 +7,7 @@
     >
         <div class="flex flex-col gap-6">
             <a
-                [routerLink]="['/course', event.course, 'challenge', eventId]"
+                [routerLink]="['/course', event?.course, 'challenge', eventId]"
                 class="mt-6 w-full"
                 [class.tui-skeleton]="!event"
                 icon="tuiIconArrowLeft"
@@ -17,7 +17,9 @@
             >
                 Back to Challenge
             </a>
-            <p>{{event.name}}</p>
+            <p [class.tui-skeleton]="!event">
+                {{event?.name}}
+            </p>
             <div class="space-y-2" *ngIf="uqjs else skeleton">
                 <ng-container *ngFor="let uqj of uqjs">
                     <div
@@ -25,8 +27,8 @@
                         class="cursor-pointer clickable p-2 rounded-lg md:-mx-3"
                         [class.tui-skeleton]="!uqjs"
                         [ngClass]="{
-                        'clicked font-bold': isCurrentUQJ(uqj)
-                    }"
+                            'clicked font-bold': isCurrentUQJ(uqj)
+                        }"
                     >
                         <span>{{uqj.question.title}}</span>
                         <tui-svg
@@ -53,6 +55,6 @@
         </ng-template>
     </app-sidebar>
     <div class="flex-grow">
-        <app-problem-view [questionId]="currentUJQ.question.id"></app-problem-view>
+        <app-problem-view [questionId]="currentUJQ?.question.id"></app-problem-view>
     </div>
 </div>
