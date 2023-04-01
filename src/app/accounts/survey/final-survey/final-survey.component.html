@@ -1,0 +1,80 @@
+<div class="tui-container tui-container_adaptive">
+    <form [formGroup]="formGroup" (ngSubmit)="submit()">
+        <h1 class="tui-form__header">
+            Final Survey
+        </h1>
+        <ng-container
+            *ngFor="let question of s1SelectQuestions"
+        >
+            <p class="tui-text_body-l my-3">
+                {{question.number}}. {{question.text}}
+            </p>
+            <div
+                *ngFor="let choice of question.choices"
+                class="flex items-center gap-3 mt-1"
+            >
+                <tui-radio
+                    [formControlName]="question.code"
+                    [item]="choice"
+                >
+                </tui-radio>
+                <div class="tui-text_body-m">
+                    {{choice}}
+                </div>
+            </div>
+        </ng-container>
+        <p class="tui-text_body-l mt-3">
+            4. Please indicate how much you agree with the following statements:
+        </p>
+        <table class="tui-table mt-3">
+            <tbody>
+            <tr class="tui-table__tr tui-table__tr_border_none">
+                <th class="tui-table__th"></th>
+                <th class="tui-table__th w-0">
+                    <div>Strongly</div>
+                    <div>Disagree</div>
+                </th>
+                <th class="tui-table__th w-0">Disagree</th>
+                <th class="tui-table__th w-0">Neutral</th>
+                <th class="tui-table__th w-0">Agree</th>
+                <th class="tui-table__th w-0">
+                    <div>Strongly</div>
+                    <div>Agree</div>
+                </th>
+                <th class="tui-table__th w-0">
+                    <div>Not</div>
+                    <div>Applicable</div>
+                </th>
+            </tr>
+            <tr
+                *ngFor="let question of s1AgreeQuestions"
+                class="tui-table__tr tui-table__tr_border_none"
+            >
+                <td class="tui-table__td">
+                    {{question.text}}
+                </td>
+                <td *ngFor="let item of agreeTerms" class="tui-table__td">
+                    <div class="flex justify-center">
+                        <tui-radio
+                            [formControlName]="question.code"
+                            [item]="item"
+                            class="tui-space_bottom-3"
+                        >
+                        </tui-radio>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <button
+            type="submit"
+            tuiButton
+            size="m"
+            class="mt-3"
+            [disabled]="formGroup.invalid"
+        >
+            Submit
+        </button>
+    </form>
+</div>
