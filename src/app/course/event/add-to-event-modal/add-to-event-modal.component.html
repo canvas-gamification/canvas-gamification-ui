@@ -3,17 +3,46 @@
     [tuiDialogOptions]="$any({ label: 'Which assessment do you want to add this question to?', size: 'm' })"
     [tuiDialog]="open"
 >
-    <ng-container *ngIf="events">
+    <h2 class="tui-form__header">Open Assessments</h2>
+    <ng-container *ngIf="openEvents">
         <div class="tui-space_top-8 space-y-3">
-            <tui-island *ngFor="let event of events" size="s">
+            <tui-island *ngFor="let event of openEvents" size="s">
                 <div class="flex">
                     <div class="flex-grow">
                         <p class="tui-island__category">{{ event.type }}</p>
                         <h3 class="tui-island__title">{{ event.name }}</h3>
                     </div>
-                    <div
-                        class="flex items-center"
-                    >
+                    <div class="flex items-center">
+                        <button
+                            (click)="addToEvent(event)"
+                            appearance="secondary"
+                            aria-label="Select"
+                            size="s"
+                            tuiButton
+                        >
+                            Select
+                        </button>
+                    </div>
+                </div>
+            </tui-island>
+        </div>
+    </ng-container>
+    <h2 class="tui-form__header">Closed Assessments</h2>
+    <ng-container *ngIf="closedEvents">
+        <div class="tui-space_top-8 space-y-3">
+            <tui-island *ngFor="let event of closedEvents" size="s">
+                <div class="flex">
+                    <div class="flex-grow">
+                        <p class="tui-island__category">{{ event.type }}</p>
+                        <h3 class="tui-island__title">{{ event.name }}</h3>
+                    </div>
+                    <div class="space-x-4 flex items-center">
+                        <tui-tag
+                            size="m"
+                            status="error"
+                            value="Closed"
+                        >
+                        </tui-tag>
                         <button
                             (click)="addToEvent(event)"
                             appearance="secondary"

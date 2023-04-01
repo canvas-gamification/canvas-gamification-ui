@@ -33,13 +33,13 @@
         <tui-tag
             *ngIf="event.is_not_available_yet"
             size="m"
-            status="error"
+            status="warning"
             value="Coming Soon"
         ></tui-tag>
         <tui-tag
             *ngIf="event.is_closed"
             size="m"
-            status="default"
+            status="error"
             value="Closed"
         >
         </tui-tag>

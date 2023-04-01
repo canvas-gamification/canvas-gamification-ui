@@ -5,45 +5,83 @@
     [class.sidebar_right]="position === 'right'"
     [class.sidebar_small]="size === 's'"
 >
-    <div
-        [class.sidebar-content_between]="spacing === 'between'"
-        [class.sidebar-content_closed]="!sidebarOpen"
-        class="sidebar-content tui-container tui-container_fullwidth"
-    >
-        <ng-content></ng-content>
-    </div>
-    <div
-        *ngIf="toggleable"
-        [class.sidebar-toggle_closed]="!sidebarOpen"
-        [class.sidebar-toggle_left]="position === 'left'"
-        class="sidebar-toggle"
-    >
-        <button
-            (click)="toggleSidebar()"
-            [class.tui-space_horizontal-6]="sidebarOpen"
-            [tuiHint]="toggleTooltip"
-            appearance="flat"
-            class="sidebar-toggle_button tui-space_vertical-3"
-            shape="rounded"
-            size="s"
-            tuiDescribedBy="sidebar-{{sidebarId}}"
-            tuiHintId="sidebar-{{sidebarId}}"
-            tuiHintMode="onDark"
-            tuiIconButton
+    <div class="flex">
+
+        <div
+            *ngIf="toggleable && position === 'right'"
+            [class.sidebar-toggle_right]="position === 'right'"
+            [class.sidebar-toggle_closed_right]="!sidebarOpen"
+            class="sidebar-toggle_right"
         >
-            <tui-svg
-                [class.sidebar-toggle_icon-closed]="!sidebarOpen"
-                [src]="position === 'left' ? 'tuiIconChevronLeft' : 'tuiIconChevronRight'"
-                class="sidebar-toggle_icon"
-            ></tui-svg>
-        </button>
-        <ng-template #toggleTooltip>
-            <ng-container *ngIf="sidebarOpen else closedSidebar">
-                Hide Sidebar
-            </ng-container>
-            <ng-template #closedSidebar>
-                Show Sidebar
+            <button
+                (click)="toggleSidebar()"
+                [tuiHint]="toggleTooltip"
+                appearance="flat"
+                class="sidebar-toggle_button"
+                shape="rounded"
+                size="s"
+                tuiDescribedBy="sidebar-{{sidebarId}}"
+                tuiHintId="sidebar-{{sidebarId}}"
+                tuiHintMode="onDark"
+                tuiIconButton
+            >
+                <tui-svg
+                    [class.sidebar-toggle_icon-closed]="!sidebarOpen"
+                    [src]="'tuiIconChevronRight'"
+                    class="sidebar-toggle_icon"
+                ></tui-svg>
+            </button>
+            <ng-template #toggleTooltip>
+                <ng-container *ngIf="sidebarOpen else closedSidebar">
+                    Hide Sidebar
+                </ng-container>
+                <ng-template #closedSidebar>
+                    Show Sidebar
+                </ng-template>
             </ng-template>
-        </ng-template>
+        </div>
+
+        <div
+            [class.sidebar-content_between]="spacing === 'between'"
+            [class.sidebar-content_closed]="!sidebarOpen"
+            class="sidebar-content tui-container tui-container_fullwidth"
+        >
+            <ng-content></ng-content>
+
+        </div>
+
+        <div
+            *ngIf="toggleable && position === 'left'"
+            [class.sidebar-toggle_left]="position === 'left'"
+            [class.sidebar-toggle_closed_left]="!sidebarOpen"
+            class="sidebar-toggle"
+        >
+            <button
+                (click)="toggleSidebar()"
+                [tuiHint]="toggleTooltip"
+                appearance="flat"
+                class="sidebar-toggle_button"
+                shape="rounded"
+                size="s"
+                tuiDescribedBy="sidebar-{{sidebarId}}"
+                tuiHintId="sidebar-{{sidebarId}}"
+                tuiHintMode="onDark"
+                tuiIconButton
+            >
+                <tui-svg
+                    [class.sidebar-toggle_icon-closed]="!sidebarOpen"
+                    [src]="'tuiIconChevronLeft'"
+                    class="sidebar-toggle_icon"
+                ></tui-svg>
+            </button>
+            <ng-template #toggleTooltip>
+                <ng-container *ngIf="sidebarOpen else closedSidebar">
+                    Hide Sidebar left
+                </ng-container>
+                <ng-template #closedSidebar>
+                    Show Sidebar
+                </ng-template>
+            </ng-template>
+        </div>
     </div>
 </aside>
