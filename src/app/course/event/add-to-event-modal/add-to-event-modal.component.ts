@@ -12,15 +12,14 @@ export class AddToEventModalComponent {
     @Input() open = false
     @Output() readonly openChange = new EventEmitter<boolean>()
     @Input() questionId: number
-    @Input() events: CourseEvent[]
-
-
+    @Input() openEvents: CourseEvent[]
+    @Input() closedEvents: CourseEvent[]
 
     constructor(
         private readonly courseEventService: CourseEventService,
         private readonly notificationService: TuiNotificationsService,
-    ) { }
-
+    ) {
+    }
 
     toggleDialog(open: boolean) {
         this.open = open
