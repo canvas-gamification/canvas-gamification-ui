@@ -42,9 +42,9 @@
     left: 0;
     width: $width;
     display: flex;
-    flex-direction: column;
     margin-bottom: -1.5rem;
-    height: calc(100vh - 8rem - 2px); // Window height - (header + footer) - border width
+    min-height: calc(100vh - 8rem - 2px); // Window height - (header + footer) - border width
+    max-height: calc(100vh - 4rem - 2px); // Window height - (header + footer) - border width
     overflow: auto;
 
     @if ($position == left) {
