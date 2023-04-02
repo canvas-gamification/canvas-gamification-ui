@@ -123,3 +123,67 @@ export const S2AgreeQuestions: AgreeQuestion[] = [
         code: "S2-A13",
     },
 ]
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const S3AgreeQuestions: AgreeQuestion[] = [
+    {
+        text: "Seeing how well I did on the leaderboard motivated me to do more practice on the site.",
+        code: "S3-A1",
+    },
+    {
+        text: "I find leaderboards too competitive.",
+        code: "S3-A2",
+    },
+    {
+        text: "I found it really stressful to see how others did compared to me on the leaderboard.",
+        code: "S3-A3",
+    },
+    {
+        text: "I like having the anonymous option so my name does not appear on the leaderboards.",
+        code: "S3-A4",
+    },
+    {
+        text: "I know that there is a separate leaderboard for each challenge.",
+        code: "S3-A5",
+    },
+    {
+        text: "I know where to find the leaderboard for each challenge.",
+        code: "S3-A6",
+    },
+]
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const S4AgreeQuestions: AgreeQuestion[] = [
+    {
+        text: "I would rather complete the challenges without a leaderboard.",
+        code: "S4-A1",
+    },
+    {
+        text: "I found completing the challenges helped me learn the programming concepts.",
+        code: "S4-A2",
+    },
+    {
+        text: "I liked doing the challenges because I could work with other people on the questions.",
+        code: "S4-A3",
+    },
+    {
+        text: "There should be more challenges available throughout the course.",
+        code: "S4-A4",
+    },
+    {
+        text: "There was too much work required to complete a challenge.",
+        code: "S4-A5",
+    },
+    {
+        text: "The challenges were a good way to help me study for exams.",
+        code: "S4-A6",
+    },
+    {
+        text: "I found it difficult to form a team for the challenges.",
+        code: "S4-A7",
+    },
+    {
+        text: "I learned more working in a team.",
+        code: "S4-A8",
+    },
+]

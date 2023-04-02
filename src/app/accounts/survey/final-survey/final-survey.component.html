@@ -188,6 +188,75 @@
             </ng-container>
         </ng-container>
 
+        <ng-container
+            *ngIf="screen === 3"
+        >
+            <p class="tui-text_body-l mt-3">
+                1. Did you use the leaderboard on this website?
+            </p>
+            <tui-radio-list
+                formControlName="S3-1"
+                class="mt-5"
+                [items]="s3Q1Items"
+                [itemContent]="s3Q1Content"
+                size="m"
+            ></tui-radio-list>
+            <ng-template
+                #s3Q1Content
+                let-data
+            >
+                <div class="tui-text_body-m -mt-[4px]">{{ data }}</div>
+            </ng-template>
+
+            <ng-container
+                *ngIf="hasLeaderboard()"
+            >
+                <p class="tui-text_body-l mt-3">
+                    2. Please indicate how much you agree with the following statements:
+                </p>
+                <table class="tui-table mt-3">
+                    <tbody>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <th class="tui-table__th"></th>
+                        <th class="tui-table__th w-0">
+                            <div>Strongly</div>
+                            <div>Disagree</div>
+                        </th>
+                        <th class="tui-table__th w-0">Disagree</th>
+                        <th class="tui-table__th w-0">Neutral</th>
+                        <th class="tui-table__th w-0">Agree</th>
+                        <th class="tui-table__th w-0">
+                            <div>Strongly</div>
+                            <div>Agree</div>
+                        </th>
+                        <th class="tui-table__th w-0">
+                            <div>Not</div>
+                            <div>Applicable</div>
+                        </th>
+                    </tr>
+                    <tr
+                        *ngFor="let question of s3AgreeQuestions"
+                        class="tui-table__tr tui-table__tr_border_none"
+                    >
+                        <td class="tui-table__td">
+                            {{question.text}}
+                        </td>
+                        <td *ngFor="let item of agreeTerms" class="tui-table__td">
+                            <div class="flex justify-center">
+                                <tui-radio
+                                    [formControlName]="question.code"
+                                    [item]="item"
+                                    class="tui-space_bottom-3"
+                                >
+                                </tui-radio>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ng-container>
+        </ng-container>
+
         <button
             *ngIf="!finalScreen()"
             type="button"

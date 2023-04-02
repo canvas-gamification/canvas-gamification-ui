@@ -4,7 +4,8 @@ import {AgreeQuestion, SelectQuestion} from "@app/accounts/survey/types"
 import {
     S1AgreeQuestions,
     S1SelectQuestions,
-    S2AgreeQuestions
+    S2AgreeQuestions,
+    S3AgreeQuestions
 } from "@app/accounts/survey/final-survey/data"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {SurveyService} from "@app/accounts/_services/survey.service"
@@ -21,11 +22,14 @@ export class FinalSurveyComponent implements OnInit {
         "S2-3": new FormControl(null),
         "S2-4": new FormControl(null),
         "S2-5": new FormControl(null),
+        "S3-1": new FormControl(null),
+        "S4-1": new FormControl(null),
     })
 
     s1SelectQuestions: SelectQuestion[]
     s1AgreeQuestions: AgreeQuestion[]
     s2AgreeQuestions: AgreeQuestion[]
+    s3AgreeQuestions: AgreeQuestion[]
 
 
     agreeTerms = [
@@ -56,7 +60,13 @@ export class FinalSurveyComponent implements OnInit {
         "Others",
     ]
 
-    screen = 1
+    s3Q1Items = [
+        "Yes, very often",
+        "Yes, only sometimes",
+        "No",
+    ]
+
+    screen = 3
 
     constructor(
         private surveyService: SurveyService,
@@ -64,6 +74,7 @@ export class FinalSurveyComponent implements OnInit {
         private router: Router
     ) {
     }
+
     ngOnInit(): void {
         this.s1AgreeQuestions = S1AgreeQuestions
         for (const agreeQuestion of S1AgreeQuestions) {
@@ -81,6 +92,14 @@ export class FinalSurveyComponent implements OnInit {
             )
         }
 
+        this.s3AgreeQuestions = S3AgreeQuestions
+        for (const agreeQuestion of S3AgreeQuestions) {
+            this.formGroup.addControl(
+                agreeQuestion.code,
+                new FormControl(null)
+            )
+        }
+
         this.s1SelectQuestions = S1SelectQuestions
         for (const question of S1SelectQuestions) {
             this.formGroup.addControl(question.code, new FormControl(''))
@@ -92,12 +111,18 @@ export class FinalSurveyComponent implements OnInit {
         return !value || value.startsWith("Yes")
     }
 
+    hasLeaderboard() {
+        const value = this.formGroup.get('S3-1').value
+        return !value || value.startsWith("Yes")
+    }
+
     nextScreen() {
         this.screen += 1
+        window.scroll(0, 0)
     }
 
     finalScreen() {
-        return this.screen === 2
+        return this.screen === 5
     }
 
     submit() {
