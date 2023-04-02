@@ -7,9 +7,9 @@
             [style.backgroundColor]="course.name | getColorFromString"
             class="course-background"
         ></div>
-        <div class="flex flex-col grow">
-            <h2 class="tui-island__title flex-col flex grow">{{ course.name }}</h2>
-            <div class="flex grow">
+        <div class="flex flex-col h-[calc(100%-3rem)]">
+            <h2 class="tui-island__title flex-col flex">{{ course.name }}</h2>
+            <div class="flex">
                 <tui-tag
                     [status]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
                     [value]="course.status"
@@ -30,7 +30,7 @@
                     size="m"
                 ></tui-tag>
             </div>
-            <div class="tui-form__buttons flex grow">
+            <div class="tui-form__buttons flex grow items-end">
                 <a
                     *ngIf="user?.is_teacher"
                     appearance="primary"
