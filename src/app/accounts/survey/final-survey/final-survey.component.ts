@@ -5,7 +5,7 @@ import {
     S1AgreeQuestions,
     S1SelectQuestions,
     S2AgreeQuestions,
-    S3AgreeQuestions
+    S3AgreeQuestions, S4AgreeQuestions
 } from "@app/accounts/survey/final-survey/data"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {SurveyService} from "@app/accounts/_services/survey.service"
@@ -24,12 +24,19 @@ export class FinalSurveyComponent implements OnInit {
         "S2-5": new FormControl(null),
         "S3-1": new FormControl(null),
         "S4-1": new FormControl(null),
+        "S4-2": new FormControl(null),
+        "S4-3": new FormControl(null),
+        "S4-5": new FormControl(null),
+        "S4-6": new FormControl(null),
+        "S4-7": new FormControl(null),
+        "S4-8": new FormControl(null),
     })
 
     s1SelectQuestions: SelectQuestion[]
     s1AgreeQuestions: AgreeQuestion[]
     s2AgreeQuestions: AgreeQuestion[]
     s3AgreeQuestions: AgreeQuestion[]
+    s4AgreeQuestions: AgreeQuestion[]
 
 
     agreeTerms = [
@@ -66,7 +73,62 @@ export class FinalSurveyComponent implements OnInit {
         "No",
     ]
 
-    screen = 3
+    s4Q1Items = [
+        "Strongly agree",
+        "Agree",
+        "Neutral",
+        "Disagree",
+        "Strongly disagree",
+    ]
+
+    s4Q2Items = [
+        '0',
+        '1',
+        '2',
+        '3',
+        '4+',
+    ]
+
+    s4Q3Items = [
+        "I didn't know about them",
+        "I didn't have time",
+        "I don't want to do optional work",
+        "I couldn't find anyone to work with",
+        "I just didn't want to",
+        "I didn't use the website much",
+        "The website was too hard to use",
+        "I didn't understand the purpose of challenges",
+        "Other",
+    ]
+
+    s4Q5Items = [
+        "Always on my own",
+        "Always in teams",
+        "A mix of both",
+    ]
+
+    s4Q6Items = [
+        "I didn't know I could work in teams",
+        "It was easier to work individually",
+        "It was less work to do challenges individually",
+        "It was more motivating",
+        "I just didn't want to",
+        "I could do things the way I wanted",
+        "I didn’t understand the purpose of working in teams",
+        "Other",
+    ]
+
+    s4Q7Items = [
+        "I didn't know I could work individually",
+        "It was easier to work in teams",
+        "It was less work to do challenges in teams",
+        "It was more motivating",
+        "I just didn't want to",
+        "I could learn from others",
+        "I didn't understand the purpose of working individually",
+        "Other",
+    ]
+    screen = 4
 
     constructor(
         private surveyService: SurveyService,
@@ -100,6 +162,14 @@ export class FinalSurveyComponent implements OnInit {
             )
         }
 
+        this.s4AgreeQuestions = S4AgreeQuestions
+        for (const agreeQuestion of S4AgreeQuestions) {
+            this.formGroup.addControl(
+                agreeQuestion.code,
+                new FormControl(null)
+            )
+        }
+
         this.s1SelectQuestions = S1SelectQuestions
         for (const question of S1SelectQuestions) {
             this.formGroup.addControl(question.code, new FormControl(''))
@@ -114,6 +184,21 @@ export class FinalSurveyComponent implements OnInit {
     hasLeaderboard() {
         const value = this.formGroup.get('S3-1').value
         return !value || value.startsWith("Yes")
+    }
+
+    hasChallenges() {
+        const value = this.formGroup.get('S4-2').value
+        return !value || value !== '0'
+    }
+
+    hasSolo() {
+        const value = this.formGroup.get('S4-5').value
+        return value && value !== 'Always in teams'
+    }
+
+    hasTeam() {
+        const value = this.formGroup.get('S4-5').value
+        return value && value !== 'Always on my own'
     }
 
     nextScreen() {

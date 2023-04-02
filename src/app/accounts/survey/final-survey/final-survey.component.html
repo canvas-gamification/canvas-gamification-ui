@@ -257,6 +257,213 @@
             </ng-container>
         </ng-container>
 
+        <ng-container
+            *ngIf="screen === 4"
+        >
+            <p class="tui-text_body-l mt-3">
+                1. To what extent do you agree with the following statement: I am confident in my
+                Java programming skills needed for this class.
+            </p>
+            <tui-radio-list
+                formControlName="S4-1"
+                class="mt-5"
+                [items]="s4Q1Items"
+                [itemContent]="s4Q1Content"
+                size="m"
+            ></tui-radio-list>
+            <ng-template
+                #s4Q1Content
+                let-data
+            >
+                <div class="tui-text_body-m -mt-[4px]">{{ data }}</div>
+            </ng-template>
+
+            <p class="tui-text_body-l mt-3">
+                2. How many challenges did you participate in?
+            </p>
+            <tui-radio-list
+                formControlName="S4-2"
+                class="mt-5"
+                [items]="s4Q2Items"
+                [itemContent]="s4Q2Content"
+                size="m"
+            ></tui-radio-list>
+            <ng-template
+                #s4Q2Content
+                let-data
+            >
+                <div class="tui-text_body-m -mt-[4px]">{{ data }}</div>
+            </ng-template>
+
+            <ng-container
+                *ngIf="!hasChallenges()"
+            >
+                <p class="tui-text_body-l mt-3">
+                    3. Why did you not participate in any of the challenges?
+                </p>
+                <tui-multi-select
+                    formControlName="S4-3"
+                    class="mt-3"
+                    tuiTextfieldLabelOutside="true"
+                >
+                    <tui-data-list
+                        *tuiDataList
+                        tuiMultiSelectGroup
+                    >
+                        <button
+                            *ngFor="let item of s4Q3Items"
+                            tuiOption
+                            [value]="item"
+                        >
+                            {{ item }}
+                        </button>
+                    </tui-data-list>
+                </tui-multi-select>
+
+                <p class="tui-text_body-l mt-3">
+                    4. What could we change to convince you that doing challenges would be
+                    beneficial for your learning?
+                </p>
+
+                <tui-text-area
+                    class="mt-3"
+                    formControlName="S4-4"
+                    [tuiTextfieldLabelOutside]="true"
+                >
+                </tui-text-area>
+            </ng-container>
+
+            <ng-container
+                *ngIf="hasChallenges()"
+            >
+                <p class="tui-text_body-l mt-3">
+                    3. Did you work on the challenge(s) individually, in teams, or both?
+                </p>
+                <tui-radio-list
+                    formControlName="S4-5"
+                    class="mt-5"
+                    [items]="s4Q5Items"
+                    [itemContent]="s4Q5Content"
+                    size="m"
+                ></tui-radio-list>
+                <ng-template
+                    #s4Q5Content
+                    let-data
+                >
+                    <div class="tui-text_body-m -mt-[4px]">{{ data }}</div>
+                </ng-template>
+
+                <ng-container
+                    *ngIf="hasSolo()"
+                >
+                    <p class="tui-text_body-l mt-3">
+                        4. What were the reasons for your choice to work individually rather than in
+                        teams?
+                    </p>
+                    <tui-multi-select
+                        formControlName="S4-6"
+                        class="mt-3"
+                        tuiTextfieldLabelOutside="true"
+                    >
+                        <tui-data-list
+                            *tuiDataList
+                            tuiMultiSelectGroup
+                        >
+                            <button
+                                *ngFor="let item of s4Q6Items"
+                                tuiOption
+                                [value]="item"
+                            >
+                                {{ item }}
+                            </button>
+                        </tui-data-list>
+                    </tui-multi-select>
+                </ng-container>
+                <ng-container
+                    *ngIf="hasTeam()"
+                >
+                    <p class="tui-text_body-l mt-3">
+                        4. What were the reasons for your choice to work in teams rather than
+                        individually?
+                    </p>
+                    <tui-multi-select
+                        formControlName="S4-7"
+                        class="mt-3"
+                        tuiTextfieldLabelOutside="true"
+                    >
+                        <tui-data-list
+                            *tuiDataList
+                            tuiMultiSelectGroup
+                        >
+                            <button
+                                *ngFor="let item of s4Q7Items"
+                                tuiOption
+                                [value]="item"
+                            >
+                                {{ item }}
+                            </button>
+                        </tui-data-list>
+                    </tui-multi-select>
+                </ng-container>
+                <p class="tui-text_body-l mt-3">
+                    5. How might we change the challenges so you would choose to complete them in
+                    teams?
+                </p>
+
+                <tui-text-area
+                    class="mt-3"
+                    formControlName="S4-8"
+                    [tuiTextfieldLabelOutside]="true"
+                >
+                </tui-text-area>
+
+                <p class="tui-text_body-l mt-3">
+                    6. Please indicate how much you agree with the following statements:
+                </p>
+                <table class="tui-table mt-3">
+                    <tbody>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <th class="tui-table__th"></th>
+                        <th class="tui-table__th w-0">
+                            <div>Strongly</div>
+                            <div>Disagree</div>
+                        </th>
+                        <th class="tui-table__th w-0">Disagree</th>
+                        <th class="tui-table__th w-0">Neutral</th>
+                        <th class="tui-table__th w-0">Agree</th>
+                        <th class="tui-table__th w-0">
+                            <div>Strongly</div>
+                            <div>Agree</div>
+                        </th>
+                        <th class="tui-table__th w-0">
+                            <div>Not</div>
+                            <div>Applicable</div>
+                        </th>
+                    </tr>
+                    <tr
+                        *ngFor="let question of s4AgreeQuestions"
+                        class="tui-table__tr tui-table__tr_border_none"
+                    >
+                        <td class="tui-table__td">
+                            {{question.text}}
+                        </td>
+                        <td *ngFor="let item of agreeTerms" class="tui-table__td">
+                            <div class="flex justify-center">
+                                <tui-radio
+                                    [formControlName]="question.code"
+                                    [item]="item"
+                                    class="tui-space_bottom-3"
+                                >
+                                </tui-radio>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </ng-container>
+        </ng-container>
+
         <button
             *ngIf="!finalScreen()"
             type="button"
