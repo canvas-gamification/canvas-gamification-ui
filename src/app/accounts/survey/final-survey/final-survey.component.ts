@@ -26,10 +26,13 @@ export class FinalSurveyComponent implements OnInit {
         "S4-1": new FormControl(null),
         "S4-2": new FormControl(null),
         "S4-3": new FormControl(null),
+        "S4-4": new FormControl(null),
         "S4-5": new FormControl(null),
         "S4-6": new FormControl(null),
         "S4-7": new FormControl(null),
         "S4-8": new FormControl(null),
+        "S5-1": new FormControl(null),
+        "S5-2": new FormControl(null),
     })
 
     s1SelectQuestions: SelectQuestion[]
@@ -128,7 +131,7 @@ export class FinalSurveyComponent implements OnInit {
         "I didn't understand the purpose of working individually",
         "Other",
     ]
-    screen = 4
+    screen = 1
 
     constructor(
         private surveyService: SurveyService,

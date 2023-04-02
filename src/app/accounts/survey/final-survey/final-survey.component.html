@@ -464,6 +464,32 @@
             </ng-container>
         </ng-container>
 
+        <ng-container
+            *ngIf="screen === 5"
+        >
+            <p class="tui-text_body-l mt-3">
+                Do you have any other features you would like to see on this site?
+            </p>
+
+            <tui-text-area
+                class="mt-3"
+                formControlName="S5-1"
+                [tuiTextfieldLabelOutside]="true"
+            >
+            </tui-text-area>
+
+            <p class="tui-text_body-l mt-3">
+                Please provide any additional comments you may have:
+            </p>
+
+            <tui-text-area
+                class="mt-3"
+                formControlName="S5-2"
+                [tuiTextfieldLabelOutside]="true"
+            >
+            </tui-text-area>
+        </ng-container>
+
         <button
             *ngIf="!finalScreen()"
             type="button"

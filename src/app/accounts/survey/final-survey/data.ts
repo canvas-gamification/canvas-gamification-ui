@@ -92,35 +92,35 @@ export const S2AgreeQuestions: AgreeQuestion[] = [
     },
     {
         text: "I set similar goals with my friends so we can compete with each other for fun.",
-        code: "S2-A6",
-    },
-    {
-        text: "Completing goals make me feel good about my accomplishments.",
         code: "S2-A7",
     },
     {
-        text: "Setting goals helps me develop a study plan for the course.",
+        text: "Completing goals make me feel good about my accomplishments.",
         code: "S2-A8",
     },
     {
-        text: "When I complete questions in a goal, I like seeing an overview of how I did on the goal performance review.",
+        text: "Setting goals helps me develop a study plan for the course.",
         code: "S2-A9",
     },
     {
-        text: "The feedback on the goal performance review page helps me identify my common mistakes.",
+        text: "When I complete questions in a goal, I like seeing an overview of how I did on the goal performance review.",
         code: "S2-A10",
     },
     {
-        text: "The feedback on the goal performance review page helps me figure out how I should fix my programming errors.",
+        text: "The feedback on the goal performance review page helps me identify my common mistakes.",
         code: "S2-A11",
     },
     {
-        text: "The feedback on the goal performance review page has too much information.",
+        text: "The feedback on the goal performance review page helps me figure out how I should fix my programming errors.",
         code: "S2-A12",
     },
     {
-        text: "The feedback on the goal performance review page is too complicated.",
+        text: "The feedback on the goal performance review page has too much information.",
         code: "S2-A13",
+    },
+    {
+        text: "The feedback on the goal performance review page is too complicated.",
+        code: "S2-A14",
     },
 ]
 
