@@ -44,6 +44,7 @@ import {
     TuiTextfieldControllerModule
 } from "@taiga-ui/core"
 import {InitialSurveyComponent} from './survey/initial-survey/initial-survey.component'
+import {FinalSurveyComponent} from './survey/final-survey/final-survey.component'
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import {InitialSurveyComponent} from './survey/initial-survey/initial-survey.com
         AdminTermsAndConditionsSnippetComponent,
         ChangePasswordComponent,
         ConsentFormComponent,
+        FinalSurveyComponent,
         InitialSurveyComponent,
         LoginComponent,
         ProfileDetailsComponent,

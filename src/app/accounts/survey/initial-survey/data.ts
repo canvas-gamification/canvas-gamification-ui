@@ -1,14 +1,5 @@
-export interface AgreeQuestion {
-    text: string
-    code: string
-}
+import {AgreeQuestion, CheckBoxQuestion} from "@app/accounts/survey/types"
 
-export interface CheckBoxQuestion {
-    text: string,
-    code: string,
-    number: number,
-    choices: string[]
-}
 
 export const agreeQuestions: AgreeQuestion[] = [
     {

@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {
-    AgreeQuestion,
     agreeQuestions,
-    CheckBoxQuestion,
     checkboxQuestions
 } from "@app/accounts/survey/initial-survey/data"
 import {SurveyService} from "@app/accounts/_services/survey.service"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {Router} from "@angular/router"
+import {AgreeQuestion, CheckBoxQuestion} from "@app/accounts/survey/types"
 
 @Component({
     selector: 'app-initial-survey',
