@@ -7,6 +7,19 @@
     >
         <div class="flex flex-col gap-6">
             <a
+                *ngIf="event?.type==='ASSIGNMENT' || 'EXAM'"
+                [routerLink]="['/course', event?.course, 'assignments-exams', eventId]"
+                class="mt-6 w-full"
+                [class.tui-skeleton]="!event"
+                icon="tuiIconArrowLeft"
+                size="s"
+                tuiButton
+                appearance="secondary"
+            >
+                Back to Assessment
+            </a>
+            <a
+                *ngIf="event?.type==='CHALLENGE'"
                 [routerLink]="['/course', event?.course, 'challenge', eventId]"
                 class="mt-6 w-full"
                 [class.tui-skeleton]="!event"
