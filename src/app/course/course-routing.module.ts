@@ -217,27 +217,6 @@ const routes: Routes = [
                 component: ProblemViewComponent,
             },
             {
-                path: 'assignments-exams/:eventId/problem/:id',
-                component: EventQuestionViewComponent,
-                data: {
-                    breadCrumbs: [{
-                        caption: `Homepage`,
-                        routerLink: '/course/:courseId/homepage'
-                    }, {
-                        caption: `Assignments and Exams`,
-                        routerLink: '/course/:courseId/assignments-exams'
-                    }, {
-                        caption: `:eventName`,
-                        routerLink:
-                            '/course/:courseId/assignments-exams/:eventId'
-                    }, {
-                        caption: `:questionName`,
-                        routerLink:
-                            '/course/:courseId/assignments-exams/:eventId/problem/:id'
-                    }]
-                }
-            },
-            {
                 path: 'assignments-exams/:eventId/problem/create/:type',
                 component: ProblemCreateEditComponent,
                 data: {
@@ -554,6 +533,11 @@ const routes: Routes = [
     },
     {
         path: ':courseId/challenge/:eventId/problem/:id',
+        component: EventQuestionViewComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/assignments-exams/:eventId/problem/:id',
         component: EventQuestionViewComponent,
         canActivate: [AuthGuard]
     }]
