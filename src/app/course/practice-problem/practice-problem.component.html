@@ -220,6 +220,7 @@
 <app-add-to-event-modal
     [(open)]="addQuestionModal"
     [questionId]="currentQuestionId"
-    [events]="course?.events"
+    [openEvents]="course?.events"
+    [closedEvents]="course?.events"
 >
 </app-add-to-event-modal>

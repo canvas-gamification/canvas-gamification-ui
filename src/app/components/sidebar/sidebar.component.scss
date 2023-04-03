@@ -2,6 +2,7 @@
 @import '~@taiga-ui/core/styles/taiga-ui-local';
 
 .sidebar {
+
     &_left {
         @include sidebar(left);
     }
@@ -54,25 +55,39 @@
     }
 
     &-toggle {
-        position: sticky;
-        bottom: 0;
-        left: 0;
-        margin-top: auto;
-        border-top: 1px solid var(--tui-base-03);
         background-color: var(--tui-base-01);
-        display: flex;
 
         @include screen-sm() {
             display: none;
         }
 
         &_left {
-            justify-content: flex-end;
+            display: flex;
+            align-items: center;
+            margin-right: 0.5rem;
+            margin-left: -1rem;
+        }
+
+        &_right {
+            display: flex;
+            align-items: center;
+            margin-right: -1rem;
+            margin-left: 0.5rem;
         }
 
         &_closed {
             justify-content: center;
             align-items: center;
+
+            &_left {
+                margin-left: 1rem;
+                margin-right: 0;
+            }
+
+            &_right {
+                margin-right: 0;
+                margin-left: 0.75rem;
+            }
         }
 
         &_button {

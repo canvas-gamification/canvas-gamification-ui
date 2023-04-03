@@ -6,7 +6,7 @@ import {
     ActionType,
     ActionVerb,
     Category,
-    Course,
+    Course, CourseEvent,
     NestedCategories
 } from '@app/_models'
 import {Difficulty} from '@app/_models/difficulty'
@@ -40,6 +40,9 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
     include_solved = false
     reportQuestionModal = false
     addQuestionModal = false
+    events: CourseEvent[]
+    openEvents: CourseEvent[]
+    closedEvents: CourseEvent[]
 
     subscriptions: Subscription = new Subscription()
 
@@ -57,9 +60,13 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
         this.difficulty = this.route.snapshot.queryParamMap.get('difficulty')
         this.courseId = Number.parseInt(this.route.snapshot.paramMap.get('courseId'))
 
-        this.courseService.getCourse(this.courseId).subscribe(
-            course => this.course = course
-        )
+        this.courseService.getCourse(this.courseId).subscribe(course => {
+            this.course = course
+            this.events = course?.events
+
+            this.openEvents = this.events.filter(event => event.is_open || event.is_not_available_yet)
+            this.closedEvents = this.events.filter(event => event.is_closed)
+        })
 
         this.subscriptions.add(this.categoryService.getCategories().subscribe(categories => {
             this.categories = categories

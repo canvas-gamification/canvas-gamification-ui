@@ -7,56 +7,60 @@
             [style.backgroundColor]="course.name | getColorFromString"
             class="course-background"
         ></div>
-        <h2 class="tui-island__title">{{ course.name }}</h2>
-        <tui-tag
-            [status]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
-            [value]="course.status"
-            class="mr-2"
-            size="m"
-        ></tui-tag>
-        <tui-tag
-            [status]="course.is_registered ? 'success' : 'warning'"
-            [value]="course.is_registered ? 'Registered' : 'Not Registered'"
-            class="mr-2"
-            size="m"
-        ></tui-tag>
-        <tui-tag
-            *ngIf="course.instructor === user?.id"
-            [status]="'custom'"
-            [value]="'Instructor'"
-            class="add-color"
-            size="m"
-        ></tui-tag>
-        <div class="tui-form__buttons">
-            <a
-                *ngIf="user?.is_teacher"
-                appearance="primary"
-                [routerLink]="['/course', course.id]"
-                class="tui-form__button"
-                size="m"
-                tuiButton
-            >
-                View
-            </a>
-            <a
-                *ngIf="course.has_view_permission && user?.is_student"
-                appearance="primary"
-                [routerLink]="['/course', course.id]"
-                class="tui-form__button"
-                size="m"
-                tuiButton
-            >
-                Open
-            </a>
-            <a
-                *ngIf="!course.has_view_permission && endDate > currentDate && user?.is_student"
-                [routerLink]="['/course', course.id, 'register']"
-                class="tui-form__button"
-                size="m"
-                tuiButton
-            >
-                Register
-            </a>
+        <div class="flex flex-col h-[calc(100%-3rem)]">
+            <h2 class="tui-island__title flex-col flex">{{ course.name }}</h2>
+            <div class="flex">
+                <tui-tag
+                    [status]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
+                    [value]="course.status"
+                    class="mr-2"
+                    size="m"
+                ></tui-tag>
+                <tui-tag
+                    [status]="course.is_registered ? 'success' : 'warning'"
+                    [value]="course.is_registered ? 'Registered' : 'Not Registered'"
+                    class="mr-2"
+                    size="m"
+                ></tui-tag>
+                <tui-tag
+                    *ngIf="course.instructor === user?.id"
+                    [status]="'custom'"
+                    [value]="'Instructor'"
+                    class="add-color"
+                    size="m"
+                ></tui-tag>
+            </div>
+            <div class="tui-form__buttons flex grow items-end">
+                <a
+                    *ngIf="user?.is_teacher"
+                    appearance="primary"
+                    [routerLink]="['/course', course.id]"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    View
+                </a>
+                <a
+                    *ngIf="course.has_view_permission && user?.is_student"
+                    appearance="primary"
+                    [routerLink]="['/course', course.id]"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    Open
+                </a>
+                <a
+                    *ngIf="!course.has_view_permission && endDate > currentDate && user?.is_student"
+                    [routerLink]="['/course', course.id, 'register']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                >
+                    Register
+                </a>
+            </div>
         </div>
     </ng-container>
     <ng-template #skeletonTemplate>
