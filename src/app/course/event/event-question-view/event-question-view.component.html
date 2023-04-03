@@ -1,2 +1,73 @@
 <div class="line"></div>
-<app-problem-view></app-problem-view>
+<div class="flex flex-col md:flex-row">
+    <app-sidebar
+        position="left"
+        sidebarId="eventQuestionSidebar"
+        spacing="start"
+    >
+        <div class="flex flex-col gap-6">
+            <a
+                *ngIf="event?.type==='ASSIGNMENT' || 'EXAM'"
+                [routerLink]="['/course', event?.course, 'assignments-exams', eventId]"
+                class="mt-6 w-full"
+                [class.tui-skeleton]="!event"
+                icon="tuiIconArrowLeft"
+                size="s"
+                tuiButton
+                appearance="secondary"
+            >
+                Back to Assessment
+            </a>
+            <a
+                *ngIf="event?.type==='CHALLENGE'"
+                [routerLink]="['/course', event?.course, 'challenge', eventId]"
+                class="mt-6 w-full"
+                [class.tui-skeleton]="!event"
+                icon="tuiIconArrowLeft"
+                size="s"
+                tuiButton
+                appearance="secondary"
+            >
+                Back to Challenge
+            </a>
+            <p [class.tui-skeleton]="!event">
+                {{event?.name}}
+            </p>
+            <div class="space-y-2" *ngIf="uqjs else skeleton">
+                <ng-container *ngFor="let uqj of uqjs">
+                    <div
+                        (click)=setCurrentUQJ(uqj)
+                        class="cursor-pointer clickable p-2 rounded-lg md:-mx-3"
+                        [class.tui-skeleton]="!uqjs"
+                        [ngClass]="{
+                            'clicked font-bold': isCurrentUQJ(uqj)
+                        }"
+                    >
+                        <span>{{uqj.question.title}}</span>
+                        <tui-svg
+                            *ngIf="uqj.is_solved"
+                            src="tuiIconCheck"
+                        ></tui-svg>
+                    </div>
+                    <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+                </ng-container>
+            </div>
+
+        </div>
+        <ng-template #skeleton>
+            <div class="space-y-2">
+                <ng-container *ngFor="let uqj of [0, 0, 0, 0]">
+                    <div
+                        class="cursor-pointer clickable p-2 rounded-lg md:-mx-3 tui-skeleton"
+                    >
+                        Question Titles
+                    </div>
+                    <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+                </ng-container>
+            </div>
+        </ng-template>
+    </app-sidebar>
+    <div class="flex-grow">
+        <app-problem-view [questionId]="currentUJQ?.question.id"></app-problem-view>
+    </div>
+</div>
