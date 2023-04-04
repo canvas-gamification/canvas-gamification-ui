@@ -6,6 +6,7 @@ import {
     ExportPageViewComponentComponent
 } from "@app/admin/export/export-page-view-component/export-page-view-component.component"
 import {ExportActionComponent} from "@app/admin/export/export-action/export-action.component"
+import {ExportConsentComponent} from "@app/admin/export/export-consent/export-consent.component"
 
 const routes = [
     {
@@ -15,6 +16,10 @@ const routes = [
     {
         path: 'export/action',
         component: ExportActionComponent,
+    },
+    {
+        path: 'export/consent',
+        component: ExportConsentComponent,
     },
     {
         path: '',

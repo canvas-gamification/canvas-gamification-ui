@@ -26,6 +26,7 @@ export class ExportSnippetComponent implements OnInit {
 
     verbs: string[]
     objectTypes: string[]
+    roles = ["Student", "Teacher"]
 
     constructor(
         private apiService: ApiService

@@ -36,6 +36,7 @@ import {ExportSnippetComponent} from './export/export-snippet/export-snippet.com
 import {AdminRoutingModule} from "@app/admin/admin-routing.module"
 import {ExportActionComponent} from './export/export-action/export-action.component'
 import {AdminComponent} from "@app/admin/admin.component"
+import {ExportConsentComponent} from './export/export-consent/export-consent.component'
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import {AdminComponent} from "@app/admin/admin.component"
         CategoryStatsComponent,
         CoursesComponent,
         ExportActionComponent,
+        ExportConsentComponent,
         ExportPageViewComponentComponent,
         ExportSnippetComponent,
         QuestionCountComponent,
