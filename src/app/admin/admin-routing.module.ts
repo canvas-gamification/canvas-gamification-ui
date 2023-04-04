@@ -8,6 +8,7 @@ import {
 import {ExportActionComponent} from "@app/admin/export/export-action/export-action.component"
 import {ExportConsentComponent} from "@app/admin/export/export-consent/export-consent.component"
 import {ExportUserComponent} from "@app/admin/export/export-user/export-user.component"
+import {ExportSurveyComponent} from "@app/admin/export/export-survey/export-survey.component"
 
 const routes = [
     {
@@ -25,6 +26,10 @@ const routes = [
     {
         path: 'export/user',
         component: ExportUserComponent,
+    },
+    {
+        path: 'export/survey',
+        component: ExportSurveyComponent,
     },
     {
         path: '',

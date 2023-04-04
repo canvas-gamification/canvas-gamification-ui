@@ -38,6 +38,7 @@ import {ExportActionComponent} from './export/export-action/export-action.compon
 import {AdminComponent} from "@app/admin/admin.component"
 import {ExportConsentComponent} from './export/export-consent/export-consent.component'
 import {ExportUserComponent} from './export/export-user/export-user.component'
+import {ExportSurveyComponent} from './export/export-survey/export-survey.component'
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import {ExportUserComponent} from './export/export-user/export-user.component'
         ExportConsentComponent,
         ExportPageViewComponentComponent,
         ExportSnippetComponent,
+        ExportSurveyComponent,
         ExportUserComponent,
         QuestionCountComponent,
     ],

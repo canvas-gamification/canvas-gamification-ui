@@ -76,6 +76,16 @@
                 ></tui-data-list-wrapper>
             </tui-select>
             <tui-select
+                *ngIf="filter.type === 'code'"
+                [(ngModel)]="selectedFilters[filter.key]"
+            >
+                {{filter.name}}
+                <tui-data-list-wrapper
+                    *tuiDataList
+                    [items]="codes"
+                ></tui-data-list-wrapper>
+            </tui-select>
+            <tui-select
                 *ngIf="filter.type === 'verb'"
                 [(ngModel)]="selectedFilters[filter.key]"
             >
