@@ -35,6 +35,11 @@ export class ExportActionComponent {
             type: 'number',
         },
         {
+            key: 'actor__role',
+            name: 'Actor role',
+            type: 'role',
+        },
+        {
             key: 'verb',
             name: 'Verb of the action',
             type: 'verb',
