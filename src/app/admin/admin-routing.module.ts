@@ -7,6 +7,7 @@ import {
 } from "@app/admin/export/export-page-view-component/export-page-view-component.component"
 import {ExportActionComponent} from "@app/admin/export/export-action/export-action.component"
 import {ExportConsentComponent} from "@app/admin/export/export-consent/export-consent.component"
+import {ExportUserComponent} from "@app/admin/export/export-user/export-user.component"
 
 const routes = [
     {
@@ -20,6 +21,10 @@ const routes = [
     {
         path: 'export/consent',
         component: ExportConsentComponent,
+    },
+    {
+        path: 'export/user',
+        component: ExportUserComponent,
     },
     {
         path: '',

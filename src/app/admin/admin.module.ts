@@ -37,6 +37,7 @@ import {AdminRoutingModule} from "@app/admin/admin-routing.module"
 import {ExportActionComponent} from './export/export-action/export-action.component'
 import {AdminComponent} from "@app/admin/admin.component"
 import {ExportConsentComponent} from './export/export-consent/export-consent.component'
+import {ExportUserComponent} from './export/export-user/export-user.component'
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import {ExportConsentComponent} from './export/export-consent/export-consent.com
         ExportConsentComponent,
         ExportPageViewComponentComponent,
         ExportSnippetComponent,
+        ExportUserComponent,
         QuestionCountComponent,
     ],
     imports: [
