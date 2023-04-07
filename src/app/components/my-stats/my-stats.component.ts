@@ -67,14 +67,18 @@ export class MyStatsComponent implements OnInit {
                     }, 0))
                 }
 
+
+                // Get the number of questions solved for each difficulty
                 this.difficultyService.getDifficulties().subscribe(difficulties => {
                     this.difficulties = difficulties
+                    for (let i = 0; i < this.difficulties.length; i++)
+                        this.questionsSolvedByDifficulty.push(
+                            stats.category_stats
+                                .filter(catStats => catStats.difficulty === difficulties[i][0])
+                                .reduce((sum, obj) => sum + obj.questions_solved, 0)
+                            /2 // Divide by 2: To remove double counting the top categories.
+                        )
 
-                    for (let i = 0; i < this.difficulties.length; i++) {
-                        this.questionsSolvedByDifficulty.push(this.stats.category_stats.filter(stats => stats.difficulty === this.difficulties[i][0]).reduce((sum, obj) => {
-                            return sum + obj.questions_solved
-                        }, 0))
-                    }
                 })
 
                 this.totalQuestionsSolved = this.questionsSolvedByCategory.reduce((accumulator, obj) => {
