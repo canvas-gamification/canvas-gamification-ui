@@ -4,6 +4,7 @@ import {ActionStatus, ActionType, ActionVerb, Category, Course} from '@app/_mode
 import {CategoryService} from '@app/_services/api/category.service'
 import {Router} from '@angular/router'
 import {UserActionsService} from "@app/_services/api/user-actions.service"
+import {ParentNodeService} from "@app/_services/parent-node-service"
 
 @Component({
     selector: 'app-concept-map',
@@ -22,7 +23,9 @@ export class ConceptMapComponent implements OnInit {
         private categoryService: CategoryService,
         private router: Router,
         private userActionsService: UserActionsService,
+        private parentNodeService: ParentNodeService
     ) {
+        this.parentNode = this.parentNodeService.getParentNode()
     }
 
     ngOnInit(): void {
@@ -64,7 +67,6 @@ export class ConceptMapComponent implements OnInit {
             this.renderGraph()
             return
         }
-
         this.conceptMapGraph.buildGraphFromAdjacencyList(adj)
     }
 
@@ -87,6 +89,9 @@ export class ConceptMapComponent implements OnInit {
     }
 
     logConceptClick(categoryId: number, isTopLevel: boolean) {
+        if (this.parentNode !== categoryId)
+            this.parentNodeService.setParentNode(categoryId)
+        else this.parentNodeService.setParentNode(null)
         this.userActionsService.createCustomAction({
             description: 'User selected a category on the concept map',
             object_type: ActionType.BUTTON,

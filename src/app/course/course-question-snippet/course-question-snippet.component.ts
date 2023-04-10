@@ -18,6 +18,7 @@ import {
 import {startCase} from "lodash"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
 import {orderUQJs} from "@app/course/_utils/orderUQJs"
+import {ConceptViewService} from "@app/_services/concept-view.service"
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -45,6 +46,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         private teamService: TeamService,
         private readonly notificationService: TuiNotificationsService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
+        private conceptViewService: ConceptViewService
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
@@ -214,5 +216,9 @@ export class CourseQuestionSnippetComponent implements OnInit {
             closeable: false,
             label: labelText
         }).subscribe()
+    }
+
+    isList() {
+        return this.conceptViewService.getListView()
     }
 }
