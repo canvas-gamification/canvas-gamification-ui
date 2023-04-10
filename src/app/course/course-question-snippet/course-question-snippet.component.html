@@ -131,7 +131,10 @@
                 *ngIf="event.has_edit_permission"
             >
                 To add questions go to the
-                <a [routerLink]="['../../practice/concepts']" class="color-link">
+                <a *ngIf="isList()" [routerLink]="['../../practice/concepts']" class="color-link">
+                    Concept List
+                </a>
+                <a *ngIf="!isList()" [routerLink]="['../../practice/concepts']" class="color-link">
                     Concept Map
                 </a>
             </p>
@@ -286,7 +289,10 @@
                     </h2>
                     <h2 class="mt-3" *ngIf="event.has_edit_permission">
                         To add questions go to the
-                        <a [routerLink]="['../../practice/concepts']" class="color-link">
+                        <a *ngIf="isList()" [routerLink]="['../../practice/concepts']" class="color-link">
+                            Concept List
+                        </a>
+                        <a *ngIf="!isList()" [routerLink]="['../../practice/concepts']" class="color-link">
                             Concept Map
                         </a>
                     </h2>
@@ -298,7 +304,10 @@
                         </h2>
                         <h2 class="mt-3" *ngIf="event.has_edit_permission">
                             To add questions go to the
-                            <a [routerLink]="['../../practice/concepts']" class="color-link">
+                            <a *ngIf="isList()" [routerLink]="['../../practice/concepts']" class="color-link">
+                                Concept List
+                            </a>
+                            <a *ngIf="!isList()" [routerLink]="['../../practice/concepts']" class="color-link">
                                 Concept Map
                             </a>
                         </h2>

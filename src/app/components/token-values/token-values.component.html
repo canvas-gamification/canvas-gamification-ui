@@ -1,5 +1,8 @@
 <div class="tui-container tui-container_fullwidth">
-    <h1 class="tui-text_h3 tui-space_vertical-10">Token Values</h1>
+    <h1 class="tui-text_h3">Token Values</h1>
+    <p class="tui-island__paragraph tui-text_body-xl flex-space tui-space_vertical-5">
+        Select the value you wish to edit and submit to save.
+    </p>
     <tui-loader [overlay]="true" [showLoader]="!tokenValues">
         <table *ngIf="difficulties" [columns]="tableColumns" tuiTable>
             <thead tuiThead>

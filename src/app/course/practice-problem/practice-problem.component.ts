@@ -16,6 +16,7 @@ import {CategoryService} from '@app/_services/api/category.service'
 import {forkJoin, Subscription} from 'rxjs'
 import {shuffle} from 'lodash'
 import {UserActionsService} from "@app/_services/api/user-actions.service"
+import {ConceptViewService} from "@app/_services/concept-view.service"
 
 @Component({
     selector: 'app-practice-problem',
@@ -53,6 +54,7 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
         private courseService: CourseService,
         private categoryService: CategoryService,
         private userActionService: UserActionsService,
+        private conceptViewService: ConceptViewService
     ) {
     }
 
@@ -190,5 +192,9 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
 
     openAddQuestion() {
         this.addQuestionModal = true
+    }
+
+    isList() {
+        return this.conceptViewService.getListView()
     }
 }
