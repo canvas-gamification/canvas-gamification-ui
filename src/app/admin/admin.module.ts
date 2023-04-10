@@ -36,6 +36,9 @@ import {ExportSnippetComponent} from './export/export-snippet/export-snippet.com
 import {AdminRoutingModule} from "@app/admin/admin-routing.module"
 import {ExportActionComponent} from './export/export-action/export-action.component'
 import {AdminComponent} from "@app/admin/admin.component"
+import {ExportConsentComponent} from './export/export-consent/export-consent.component'
+import {ExportUserComponent} from './export/export-user/export-user.component'
+import {ExportSurveyComponent} from './export/export-survey/export-survey.component'
 
 
 @NgModule({
@@ -44,8 +47,11 @@ import {AdminComponent} from "@app/admin/admin.component"
         CategoryStatsComponent,
         CoursesComponent,
         ExportActionComponent,
+        ExportConsentComponent,
         ExportPageViewComponentComponent,
         ExportSnippetComponent,
+        ExportSurveyComponent,
+        ExportUserComponent,
         QuestionCountComponent,
     ],
     imports: [

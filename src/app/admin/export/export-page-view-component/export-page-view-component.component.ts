@@ -21,6 +21,11 @@ export class ExportPageViewComponentComponent {
             key: 'user',
             name: 'User ID',
             type: 'number',
-        }
+        },
+        {
+            key: 'user__role',
+            name: 'User role',
+            type: 'role',
+        },
     ]
 }

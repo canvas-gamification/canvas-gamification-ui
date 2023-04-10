@@ -489,26 +489,36 @@
             >
             </tui-text-area>
         </ng-container>
+        <div class="mt-3 flex gap-3">
+            <button
+                *ngIf="!finalScreen()"
+                type="button"
+                tuiButton
+                size="m"
+                (click)="nextScreen()"
+            >
+                Next
+            </button>
 
-        <button
-            *ngIf="!finalScreen()"
-            type="button"
-            tuiButton
-            size="m"
-            class="mt-3"
-            (click)="nextScreen()"
-        >
-            Next
-        </button>
+            <button
+                *ngIf="finalScreen()"
+                type="submit"
+                tuiButton
+                size="m"
+            >
+                Submit
+            </button>
 
-        <button
-            *ngIf="finalScreen()"
-            type="submit"
-            tuiButton
-            size="m"
-            class="mt-3"
-        >
-            Submit
-        </button>
+            <button
+                *ngIf="!firstScreen()"
+                type="button"
+                tuiButton
+                appearance="outline"
+                size="m"
+                (click)="previousScreen()"
+            >
+                Back
+            </button>
+        </div>
     </form>
 </div>

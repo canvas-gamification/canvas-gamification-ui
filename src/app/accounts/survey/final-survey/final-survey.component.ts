@@ -209,6 +209,15 @@ export class FinalSurveyComponent implements OnInit {
         window.scroll(0, 0)
     }
 
+    previousScreen() {
+        this.screen -= 1
+        window.scroll(0, 0)
+    }
+
+    firstScreen() {
+        return this.screen === 1
+    }
+
     finalScreen() {
         return this.screen === 5
     }

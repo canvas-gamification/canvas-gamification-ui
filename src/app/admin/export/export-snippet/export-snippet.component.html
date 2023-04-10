@@ -59,6 +59,32 @@
             >
                 {{filter.name}}
             </tui-input-number>
+            <tui-input
+                *ngIf="filter.type === 'text'"
+                [(ngModel)]="selectedFilters[filter.key]"
+            >
+                {{filter.name}}
+            </tui-input>
+            <tui-select
+                *ngIf="filter.type === 'role'"
+                [(ngModel)]="selectedFilters[filter.key]"
+            >
+                {{filter.name}}
+                <tui-data-list-wrapper
+                    *tuiDataList
+                    [items]="roles"
+                ></tui-data-list-wrapper>
+            </tui-select>
+            <tui-select
+                *ngIf="filter.type === 'code'"
+                [(ngModel)]="selectedFilters[filter.key]"
+            >
+                {{filter.name}}
+                <tui-data-list-wrapper
+                    *tuiDataList
+                    [items]="codes"
+                ></tui-data-list-wrapper>
+            </tui-select>
             <tui-select
                 *ngIf="filter.type === 'verb'"
                 [(ngModel)]="selectedFilters[filter.key]"
