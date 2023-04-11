@@ -44,6 +44,15 @@ export class EventRowComponent implements OnInit {
         })
     }
 
+    clearFeatured() {
+        return this.courseEventService.clearFeatured(this.event.id).subscribe(() => {
+            this.notificationsService.show('Assessment successfully unmarked as featured.', {
+                status: TuiNotification.Success,
+            }).subscribe()
+            this.reload.emit(true)
+        })
+    }
+
     /**
      * Opens the dialog service based on the template passed
      * @param content - the template to be used
