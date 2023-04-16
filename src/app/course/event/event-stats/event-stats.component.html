@@ -6,7 +6,7 @@
         size="s"
         [routerLink]="['..']"
     >
-        Back to event
+        Back to assessment
     </button>
     <h3 class="tui-text_h3">Assessment Stats</h3>
     <ng-container *ngIf="stats.length !== 0 else noStats">
@@ -15,7 +15,7 @@
                 {{stat.question.title}}
             </h4>
             <div *ngIf="stat.total_submissions === 0"
-                class="flex justify-center items-center w-full h-32">
+                 class="flex justify-center items-center w-full h-32">
                 <tui-marker-icon
                     class="tui-space_right-4"
                     size="s"

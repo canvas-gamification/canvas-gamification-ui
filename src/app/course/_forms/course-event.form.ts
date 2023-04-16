@@ -47,7 +47,7 @@ export class CourseEventForm {
             startTimePicker: new FormControl(TuiTime.currentLocal(), [Validators.required]),
             endTimePicker: new FormControl(TuiTime.currentLocal(), [Validators.required]),
             questionSets: new FormArray(
-                [CourseEventForm.createQuestionSetForm()]
+                []
             )
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions)
     }
@@ -80,7 +80,7 @@ export class CourseEventForm {
                 [Validators.required]
             ),
             questionSets: new FormArray(
-                [CourseEventForm.createQuestionSetForm()]
+                []
             )
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions)
     }
