@@ -1,8 +1,28 @@
 <div class="tui-container tui-container_adaptive">
     <form [formGroup]="formGroup" (ngSubmit)="submit()">
         <h1 class="tui-form__header">
-            Final Survey
+            Final Survey ({{screen}} / 5)
         </h1>
+        <p
+            class="mt-3 tui-text_body-m text-[var(--tui-text-02)]"
+        >
+            <ng-container *ngIf="screen === 1">
+                Thank you for using the gamification website. We have a few questions we would like to
+                ask you about your experience using this site. This should take less than 5 minutes.
+            </ng-container>
+            <ng-container *ngIf="screen === 2">
+                Next, we have a few questions about goal setting
+            </ng-container>
+            <ng-container *ngIf="screen === 3">
+                Next, we have a few questions about the leaderboard.
+            </ng-container>
+            <ng-container *ngIf="screen === 4">
+                Lastly, we have a few questions about the challenges.
+            </ng-container>
+            <ng-container *ngIf="screen === 5">
+                Thank you for taking the time to complete this questionnaire!
+            </ng-container>
+        </p>
         <ng-container
             *ngIf="screen === 1"
         >
@@ -495,6 +515,7 @@
                 type="button"
                 tuiButton
                 size="m"
+                [disabled]="!isValid()"
                 (click)="nextScreen()"
             >
                 Next

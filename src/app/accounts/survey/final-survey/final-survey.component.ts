@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core'
-import {FormControl, FormGroup} from "@angular/forms"
+import {FormControl, FormGroup, Validators} from "@angular/forms"
 import {AgreeQuestion, SelectQuestion} from "@app/accounts/survey/types"
 import {
     S1AgreeQuestions,
     S1SelectQuestions,
     S2AgreeQuestions,
-    S3AgreeQuestions, S4AgreeQuestions
+    S3AgreeQuestions,
+    S4AgreeQuestions
 } from "@app/accounts/survey/final-survey/data"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {SurveyService} from "@app/accounts/_services/survey.service"
@@ -18,13 +19,13 @@ import {Router} from "@angular/router"
 })
 export class FinalSurveyComponent implements OnInit {
     formGroup = new FormGroup({
-        "S2-1": new FormControl(null),
+        "S2-1": new FormControl(null, {validators: Validators.required}),
         "S2-3": new FormControl(null),
         "S2-4": new FormControl(null),
         "S2-5": new FormControl(null),
-        "S3-1": new FormControl(null),
-        "S4-1": new FormControl(null),
-        "S4-2": new FormControl(null),
+        "S3-1": new FormControl(null, {validators: Validators.required}),
+        "S4-1": new FormControl(null, {validators: Validators.required}),
+        "S4-2": new FormControl(null, {validators: Validators.required}),
         "S4-3": new FormControl(null),
         "S4-4": new FormControl(null),
         "S4-5": new FormControl(null),
@@ -145,7 +146,7 @@ export class FinalSurveyComponent implements OnInit {
         for (const agreeQuestion of S1AgreeQuestions) {
             this.formGroup.addControl(
                 agreeQuestion.code,
-                new FormControl(null)
+                new FormControl(null, {validators: Validators.required})
             )
         }
 
@@ -175,7 +176,10 @@ export class FinalSurveyComponent implements OnInit {
 
         this.s1SelectQuestions = S1SelectQuestions
         for (const question of S1SelectQuestions) {
-            this.formGroup.addControl(question.code, new FormControl(''))
+            this.formGroup.addControl(
+                question.code,
+                new FormControl('', {validators: Validators.required})
+            )
         }
     }
 
@@ -205,6 +209,7 @@ export class FinalSurveyComponent implements OnInit {
     }
 
     nextScreen() {
+        this.submitSilent()
         this.screen += 1
         window.scroll(0, 0)
     }
@@ -220,6 +225,76 @@ export class FinalSurveyComponent implements OnInit {
 
     finalScreen() {
         return this.screen === 5
+    }
+
+    isValid() {
+        const formGroupNames =
+            Object.keys(this.formGroup.controls).filter(name => name.startsWith(`S${this.screen}`))
+        for (const name of formGroupNames) {
+            if (!this.formGroup.get(name).valid) {
+                return false
+            }
+        }
+
+        if (this.screen === 2) {
+            const agreeNames = formGroupNames.filter(name => name.startsWith('S2-A'))
+            if (this.hasGoals()) {
+                for (const name of agreeNames) {
+                    if (!this.formGroup.get(name).value)
+                        return false
+                }
+                if (!this.formGroup.get('S2-3').value)
+                    return false
+            } else {
+                if (!this.formGroup.get('S2-4').value)
+                    return false
+                if (!this.formGroup.get('S2-5').value)
+                    return false
+            }
+        }
+
+        if (this.screen === 3) {
+            const agreeNames = formGroupNames.filter(name => name.startsWith('S3-A'))
+            if (this.hasLeaderboard()) {
+                for (const name of agreeNames) {
+                    if (!this.formGroup.get(name).value)
+                        return false
+                }
+            }
+        }
+
+        if (this.screen === 4) {
+            const agreeNames = formGroupNames.filter(name => name.startsWith('S4-A'))
+            if (this.hasChallenges()) {
+                for (const name of agreeNames) {
+                    if (!this.formGroup.get(name).value)
+                        return false
+                }
+                if(!this.formGroup.get('S4-5').value)
+                    return false
+                if(!this.formGroup.get('S4-8').value)
+                    return false
+                if(this.hasSolo()) {
+                    if(!this.formGroup.get('S4-6').value)
+                        return false
+                }
+                if (this.hasTeam()) {
+                    if(!this.formGroup.get('S4-7').value)
+                        return false
+                }
+            } else {
+                if(!this.formGroup.get('S4-3').value)
+                    return false
+                if(!this.formGroup.get('S4-4').value)
+                    return false
+            }
+        }
+
+        return true
+    }
+
+    submitSilent() {
+        this.surveyService.postSurvey('final', this.formGroup.value).subscribe()
     }
 
     submit() {
