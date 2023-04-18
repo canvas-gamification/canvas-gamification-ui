@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core'
-import {ActivatedRoute} from '@angular/router'
+import {ActivatedRoute, Router} from '@angular/router'
 import {UqjService} from '@app/problems/_services/uqj.service'
 import {
     ActionStatus,
@@ -16,6 +16,8 @@ import {CategoryService} from '@app/_services/api/category.service'
 import {forkJoin, Subscription} from 'rxjs'
 import {shuffle} from 'lodash'
 import {UserActionsService} from "@app/_services/api/user-actions.service"
+import {ConceptViewService} from "@app/_services/concept-view.service"
+import {ParentNodeService} from "@app/_services/parent-node-service"
 
 @Component({
     selector: 'app-practice-problem',
@@ -53,6 +55,9 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
         private courseService: CourseService,
         private categoryService: CategoryService,
         private userActionService: UserActionsService,
+        private conceptViewService: ConceptViewService,
+        private parentNodeService: ParentNodeService,
+        private router: Router
     ) {
     }
 
@@ -190,5 +195,14 @@ export class PracticeProblemComponent implements OnInit, OnDestroy {
 
     openAddQuestion() {
         this.addQuestionModal = true
+    }
+
+    isList() {
+        return this.conceptViewService.getListView()
+    }
+
+    backToConceptMap() {
+        this.parentNodeService.setParentNode(null)
+        this.router.navigate(['course', this.courseId, 'practice', 'concepts']).then()
     }
 }

@@ -43,7 +43,8 @@ import {
     TuiStepperModule,
     TuiTabsModule,
     TuiTagModule,
-    TuiTextAreaModule
+    TuiTextAreaModule,
+    TuiToggleModule
 } from '@taiga-ui/kit'
 import {
     TuiButtonModule,
@@ -52,6 +53,7 @@ import {
     TuiDescribedByModule,
     TuiDialogModule,
     TuiErrorModule,
+    TuiGroupModule,
     TuiHintModule,
     TuiHostedDropdownModule,
     TuiLinkModule,
@@ -109,12 +111,16 @@ import {EventRowComponent} from './event/event-row/event-row.component'
 import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-modal.component'
 import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.component'
 import {EditorModule} from "@app/components/editor/editor.module"
-import {EventQuestionViewComponent} from './event/event-question-view/event-question-view.component'
+import {
+    EventQuestionViewComponent
+} from './event/event-question-view/event-question-view.component'
+import {ConceptListComponent} from './concept-list/concept-list.component'
 
 @NgModule({
     declarations: [
         AddToEventModalComponent,
         ChallengeRowComponent,
+        ConceptListComponent,
         ConceptMapComponent,
         CourseChallengeCreateEditComponent,
         CourseChallengeSnippetComponent,
@@ -144,7 +150,7 @@ import {EventQuestionViewComponent} from './event/event-question-view/event-ques
         PracticeProblemComponent,
         SubmissionChartComponent,
         TeamCreateEditComponent,
-        TokenUseSnippetComponent,
+        TokenUseSnippetComponent
     ],
     imports: [
         CommonModule,
@@ -176,6 +182,7 @@ import {EventQuestionViewComponent} from './event/event-question-view/event-ques
         TuiFieldErrorModule,
         TuiFilterPipeModule,
         TuiForModule,
+        TuiGroupModule,
         TuiHintModule,
         TuiHostedDropdownModule,
         TuiInputCountModule,
@@ -204,6 +211,7 @@ import {EventQuestionViewComponent} from './event/event-question-view/event-ques
         TuiTextAreaModule,
         DragulaModule.forRoot(),
         TuiTextfieldControllerModule,
+        TuiToggleModule,
     ],
     providers: [
         CourseEventService,

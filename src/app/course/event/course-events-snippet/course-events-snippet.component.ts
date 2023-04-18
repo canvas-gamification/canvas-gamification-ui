@@ -131,6 +131,7 @@ export class CourseEventsSnippetComponent implements OnInit {
                     .show('The assessment has been imported successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
+                this.init()
             }
         })
     }

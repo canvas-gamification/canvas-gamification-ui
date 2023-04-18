@@ -7,23 +7,24 @@
         </p>
     </div>
     <div class="flex justify-center">
-        <div class = "mt-10 custom-max-width">
-                <a
-                    appearance="flat"
-                    [routerLink]="['..']"
-                    icon="tuiIconArrowLeft"
-                    size="s"
-                    tuiButton
-                >
-                    Back to Homepage
-                </a>
+        <div class="mt-10 custom-max-width">
+            <a
+                appearance="flat"
+                [routerLink]="['..']"
+                icon="tuiIconArrowLeft"
+                size="s"
+                tuiButton
+            >
+                Back to Homepage
+            </a>
             <div class="flex-container gap-8 mt-10">
                 <tui-island class="practice-tile tui-island_hoverable"
                             id="Target"
                             [routerLink]="['concepts']" size="m">
                     <div class="practice-background practice-question"></div>
                     <div class="practice-tile-text">
-                        <h3 class="tui-island__title">Concept Map</h3>
+                        <h3 class="tui-island__title" *ngIf="isList()">Concept List</h3>
+                        <h3 class="tui-island__title" *ngIf="!isList()">Concept Map</h3>
                         <p class="tui-island__paragraph tui-text_body-xl flex-space">
                             View programming concepts and practice
                             questions in selected topics and difficulty levels.

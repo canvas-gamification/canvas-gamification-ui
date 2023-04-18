@@ -4,16 +4,30 @@
             <div
                 class="tui-space_bottom-2"
             >
-                <a
+                <button
+                    *ngIf="isList()"
                     [routerLink]="['../../concepts']"
                     class="tui-space_vertical-0 w-full"
                     icon="tuiIconArrowLeft"
+                    aria-label="Back to Concept List"
                     size="s"
                     tuiButton
                     appearance="secondary"
                 >
-                    View Concept Map
-                </a>
+                    Back to Concept List
+                </button>
+                <button
+                    *ngIf="!isList()"
+                    (click)="backToConceptMap()"
+                    class="tui-space_vertical-0 w-full"
+                    icon="tuiIconArrowLeft"
+                    aria-label="Back to Concept List"
+                    size="s"
+                    tuiButton
+                    appearance="secondary"
+                >
+                    Back to Concept Map
+                </button>
             </div>
             <div
                 class="tui-space_bottom-2"
