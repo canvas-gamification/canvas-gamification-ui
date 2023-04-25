@@ -9,7 +9,7 @@ export const S1SelectQuestions: SelectQuestion[] = [
         choices: [
             "Always",
             "Often",
-            "Somtimes",
+            "Sometimes",
             "Rarely",
             "Never",
         ]
@@ -23,7 +23,7 @@ export const S1SelectQuestions: SelectQuestion[] = [
             "Useful",
             "Moderately useful",
             "Slightly useful",
-            "Not usefu",
+            "Not useful",
         ]
     },
     {

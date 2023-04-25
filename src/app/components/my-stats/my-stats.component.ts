@@ -27,7 +27,7 @@ export class MyStatsComponent implements OnInit {
     parsonsNum: number
     javaNum: number
 
-    activeCourses: Course[]
+    activeCourses: Course[] = []
 
     totalQuestionsSolved: number
     questionsSolvedByCategory: number[] = []
