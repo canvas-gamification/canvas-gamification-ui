@@ -10,8 +10,8 @@ import {
 } from '@angular/core'
 import {QuestionSubmission} from '@app/_models/question_submission'
 import {DomSanitizer} from "@angular/platform-browser"
-import {TuiDialogService} from '@taiga-ui/core'
-import {PolymorpheusComponent} from '@tinkoff/ng-polymorpheus'
+import {TuiDialogContext, TuiDialogService} from '@taiga-ui/core'
+import {PolymorpheusComponent, PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
 import {SubmissionViewComponent} from '@app/problems/submission-view/submission-view.component'
 import {SubmissionService} from "@app/problems/_services/submission.service"
 import {map} from "rxjs/operators"
@@ -59,7 +59,9 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
         )
             .pipe(map(submissions => submissions.map(submission => ({
                 ...submission,
-                safeAnswer: [this.sanitizer.bypassSecurityTrustHtml(submission.answer)]
+                safeAnswer: [this.sanitizer.bypassSecurityTrustHtml(
+                    submission.answer_display.toString()
+                )]
             }))))
             .subscribe(submissions => {
                 this.previousSubmissions = submissions
@@ -79,5 +81,12 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
                 label: `Submission ${index}`
             }
         ).subscribe()
+    }
+
+    openMCQSubmissionDialog(content: PolymorpheusContent<TuiDialogContext>, index: number): void {
+        this.dialogService.open(content, {
+            closeable: false,
+            label: `Submission ${index}`
+        }).subscribe()
     }
 }
