@@ -24,7 +24,7 @@
                                 / {{submission.token_value.toFixed(2) }}</p>
                             <p class="tui-island__paragraph">Answer:</p>
                             <ng-container *ngIf="submission.show_answer &&
-                            submission.safeAnswer.toString().length < 500 &&
+                            submissionLessThan500(submission) &&
                             submission.safeAnswer.toString().indexOf('image') === -1
                             else noAnswerShown">
                                 <div *ngFor="let safeAnswer of submission.safeAnswer"
@@ -47,8 +47,8 @@
                                 </button>
                             </div>
                             <div class="tui-form__buttons tui-space_top-4"
-                                 *ngIf="submission.safeAnswer.toString().length >= 500
-                                    || submission.safeAnswer.toString().indexOf('image') !== -1">
+                                 *ngIf="!submissionLessThan500(submission) ||
+                                 submission.safeAnswer.toString().indexOf('image') !== -1">
                                 <button
                                     (click)="openMCQSubmissionDialog(mcqAnswers, index + 1)"
                                     class="tui-form__button"

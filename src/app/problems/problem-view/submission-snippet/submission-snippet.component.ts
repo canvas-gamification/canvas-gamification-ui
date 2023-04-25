@@ -89,4 +89,8 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
             label: `Submission ${index}`
         }).subscribe()
     }
+
+    submissionLessThan500(submission: QuestionSubmission): boolean {
+        return submission.safeAnswer.toString().length < 500
+    }
 }
