@@ -151,6 +151,7 @@
         <button *ngIf="event.has_edit_permission && !event.featured"
                 (click)="setFeatured()"
                 [tuiHint]="setFeaturedTooltip"
+                [disabled]="event.is_closed"
                 class="tui-space_vertical-2"
                 icon="tuiIconStar"
                 size="s"

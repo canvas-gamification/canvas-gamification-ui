@@ -23,7 +23,10 @@
                                 Received: {{ submission.tokens_received.toFixed(2)}}
                                 / {{submission.token_value.toFixed(2) }}</p>
                             <p class="tui-island__paragraph">Answer:</p>
-                            <ng-container *ngIf="submission.show_answer else noAnswerShown">
+                            <ng-container *ngIf="submission.show_answer &&
+                            submission.safeAnswer.toString().length < 500 &&
+                            submission.safeAnswer.toString().indexOf('image') === -1
+                            else noAnswerShown">
                                 <div *ngFor="let safeAnswer of submission.safeAnswer"
                                      [innerHTML]="safeAnswer"></div>
                             </ng-container>
@@ -43,7 +46,44 @@
                                     See Details
                                 </button>
                             </div>
+                            <div class="tui-form__buttons tui-space_top-4"
+                                 *ngIf="submission.safeAnswer.toString().length >= 500
+                                    || submission.safeAnswer.toString().indexOf('image') !== -1">
+                                <button
+                                    (click)="openMCQSubmissionDialog(mcqAnswers, index + 1)"
+                                    class="tui-form__button"
+                                    size="m"
+                                    tuiButton
+                                >
+                                    See Details
+                                </button>
+                            </div>
                         </div>
+                        <ng-template #mcqAnswers let-observer>
+                            <p class="tui-island__paragraph">Grade
+                                Given: {{ submission.grade.toFixed(2) }}</p>
+                            <p class="tui-island__paragraph">Tokens
+                                Received: {{ submission.tokens_received.toFixed(2)}}
+                                / {{submission.token_value.toFixed(2) }}</p>
+                            <p class="tui-island__paragraph">
+                                Time Submitted:
+                                {{ (submission?.submission_time | date: 'medium') || 'No Time'}}
+                            </p>
+                            <p class="tui-island__paragraph">Answer:</p>
+                            <div *ngFor="let safeAnswer of submission.safeAnswer"
+                                 [innerHTML]="safeAnswer"></div>
+                            <div class="tui-form__buttons">
+                                <button
+                                    (click)="observer.complete()"
+                                    appearance="primary"
+                                    class="tui-form__button"
+                                    size="m"
+                                    tuiButton
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </ng-template>
                         <ng-template #examContent>
                             <p class="tui-island__paragraph">
                                 Exam is in progress. You can see the submission results once the
