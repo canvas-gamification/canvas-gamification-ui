@@ -89,4 +89,9 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
             label: `Submission ${index}`
         }).subscribe()
     }
+
+    submissionAppropriateSize(submission: QuestionSubmission): boolean {
+        return submission.safeAnswer.toString().length < 500 &&
+            submission.safeAnswer.toString().indexOf('image') === -1
+    }
 }
