@@ -17,11 +17,6 @@ export class AuthGuard implements CanActivate {
     async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const currentUser: User = this.authenticationService.currentUserValue
         if (currentUser) {
-            const surveyCheck = await this.surveyService.checkSurvey().toPromise()
-            if (surveyCheck.code) {
-                this.router.navigate(['/accounts', 'survey', surveyCheck.code]).then()
-            }
-
             return true
         }
         // not logged in so redirect to login page with the return url
