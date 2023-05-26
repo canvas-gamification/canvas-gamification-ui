@@ -3,14 +3,12 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {User} from '@app/_models'
-import {SurveyService} from "@app/accounts/_services/survey.service"
 
 @Injectable({providedIn: 'root'})
 export class AuthGuard implements CanActivate {
     constructor(
         private router: Router,
-        private authenticationService: AuthenticationService,
-        private surveyService: SurveyService
+        private authenticationService: AuthenticationService
     ) {
     }
 
