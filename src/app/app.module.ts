@@ -13,13 +13,7 @@ import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha'
 import {TokenValuesComponent} from './components/token-values/token-values.component'
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers'
 import {HomepageComponent} from './components/homepage/homepage.component'
-import {
-    RecentUserActionsComponent
-} from './components/homepage/recent-user-actions/recent-user-actions.component'
 import {UserActionsComponent} from './components/homepage/user-actions/user-actions.component'
-import {
-    RecentViewedQuestionsComponent
-} from './components/homepage/recent-viewed-questions/recent-viewed-questions.component'
 import {
     CourseDashboardComponent
 } from './components/homepage/course-dashboard/course-dashboard.component'
@@ -83,8 +77,6 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
         LandingPageComponent,
         MyStatsComponent,
         NotFoundComponent,
-        RecentUserActionsComponent,
-        RecentViewedQuestionsComponent,
         SampleQuestionsComponent,
         TokenValuesComponent,
         TopicsComponent,
