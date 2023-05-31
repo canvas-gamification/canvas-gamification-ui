@@ -5,7 +5,7 @@
         sidebarId="eventQuestionSidebar"
         spacing="start"
     >
-        <div class="flex flex-col gap-6 mr-8">
+        <div class="flex flex-col fill gap-6">
             <a
                 *ngIf="event?.type==='ASSIGNMENT' || 'EXAM'"
                 [routerLink]="['/course', event?.course, 'assignments-exams', eventId]"
@@ -33,7 +33,7 @@
             <p [class.tui-skeleton]="!event">
                 {{event?.name}}
             </p>
-            <div class="space-y-2" *ngIf="uqjs else skeleton">
+            <div class="space-y-2 mr-8 fill" *ngIf="uqjs else skeleton">
                 <ng-container *ngFor="let uqj of uqjs">
                     <div
                         (click)=setCurrentUQJ(uqj)
@@ -51,6 +51,18 @@
                     </div>
                     <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
                 </ng-container>
+            </div>
+            <div class="buttons tui-space_vertical-6">
+                <button
+                    (click)="openReportQuestion()"
+                    [class.tui-skeleton]="!uqjs"
+                    icon="tuiIconAttention"
+                    size="s"
+                    tuiButton
+                    appearance="secondary"
+                >
+                    Report a Problem
+                </button>
             </div>
 
         </div>
@@ -71,3 +83,8 @@
         <app-problem-view [questionId]="currentUJQ?.question.id"></app-problem-view>
     </div>
 </div>
+<app-problem-report-modal
+    [(open)]="reportQuestionModal"
+    [questionId]="currentQuestionId"
+>
+</app-problem-report-modal>

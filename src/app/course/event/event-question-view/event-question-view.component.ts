@@ -15,6 +15,8 @@ export class EventQuestionViewComponent implements OnInit {
     event: CourseEvent
     uqjs: UQJ[]
     currentUJQ: UQJ
+    reportQuestionModal = false
+    currentQuestionId: number
 
     constructor(
         private uqjService: UqjService,
@@ -35,6 +37,7 @@ export class EventQuestionViewComponent implements OnInit {
                 this.currentUJQ = this.uqjs.find( uqj =>
                     uqj.question.id === +this.route.snapshot.paramMap.get('id'))
             })
+        this.currentQuestionId = this.currentUJQ.id
     }
 
     setCurrentUQJ(uqj: UQJ) {
@@ -43,5 +46,12 @@ export class EventQuestionViewComponent implements OnInit {
 
     isCurrentUQJ(uqj: UQJ): boolean {
         return this.currentUJQ === uqj
+    }
+
+    /**
+     * Opens the report question modal
+     */
+    openReportQuestion() {
+        this.reportQuestionModal = true
     }
 }
