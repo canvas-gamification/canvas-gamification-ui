@@ -61,7 +61,7 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
                 ...submission,
                 safeAnswer: [this.sanitizer.bypassSecurityTrustHtml(
                     (submission.question.type_name === 'multiple choice question') ?
-                        submission.answer_display.toString() : submission.answer
+                        submission.answer_display.toString() : ""
                 )]
             }))))
             .subscribe(submissions => {
