@@ -33,25 +33,30 @@
             <p [class.tui-skeleton]="!event">
                 {{event?.name}}
             </p>
-            <div class="space-y-2 mr-8 fill" *ngIf="uqjs else skeleton">
-                <ng-container *ngFor="let uqj of uqjs">
-                    <div
-                        (click)=setCurrentUQJ(uqj)
-                        class="cursor-pointer clickable p-2 rounded-lg md:-mx-3"
-                        [class.tui-skeleton]="!uqjs"
-                        [ngClass]="{
+                <tui-scrollbar>
+                    <div class="line mb-2"></div>
+                    <div class="space-y-2 mr-8 fill box" *ngIf="uqjs else skeleton">
+
+                    <ng-container *ngFor="let uqj of uqjs">
+                        <div
+                            (click)=setCurrentUQJ(uqj)
+                            class="cursor-pointer clickable p-2 rounded-lg fill-space"
+                            [class.tui-skeleton]="!uqjs"
+                            [ngClass]="{
                             'clicked font-bold': isCurrentUQJ(uqj)
                         }"
-                    >
-                        <span>{{uqj.question.title}}</span>
-                        <tui-svg
-                            *ngIf="uqj.is_solved"
-                            src="tuiIconCheck"
-                        ></tui-svg>
+                        >
+                            <span>{{uqj.question.title}}</span>
+                            <tui-svg
+                                *ngIf="uqj.is_solved"
+                                src="tuiIconCheck"
+                            ></tui-svg>
+                        </div>
+                        <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+                    </ng-container>
                     </div>
-                    <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
-                </ng-container>
-            </div>
+
+                </tui-scrollbar>
             <div class="buttons tui-space_vertical-6">
                 <button
                     (click)="openReportQuestion()"

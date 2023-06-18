@@ -24,3 +24,11 @@
         flex-grow: 1;
     }
 }
+
+.box {
+    height: calc(80vh - 12rem - 2px); // Window height - (header + footer) - border width
+}
+
+.fill-space {
+    width: 22vh;
+}

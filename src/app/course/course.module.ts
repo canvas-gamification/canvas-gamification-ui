@@ -60,7 +60,7 @@ import {
     TuiLoaderModule,
     TuiModeModule,
     TuiNotificationModule,
-    TuiPointerHintModule,
+    TuiPointerHintModule, TuiScrollbarModule,
     TuiSvgModule,
     TuiTextfieldControllerModule
 } from '@taiga-ui/core'
@@ -201,6 +201,7 @@ import {ConceptListComponent} from './concept-list/concept-list.component'
         TuiPointerHintModule,
         TuiProgressModule,
         TuiRingChartModule,
+        TuiScrollbarModule,
         TuiSelectModule,
         TuiSidebarModule,
         TuiStepperModule,
@@ -208,8 +209,8 @@ import {ConceptListComponent} from './concept-list/concept-list.component'
         TuiTableModule,
         TuiTabsModule,
         TuiTagModule,
-        TuiTextAreaModule,
         DragulaModule.forRoot(),
+        TuiTextAreaModule,
         TuiTextfieldControllerModule,
         TuiToggleModule,
     ],
