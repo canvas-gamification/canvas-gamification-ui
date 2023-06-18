@@ -26,7 +26,7 @@
 }
 
 .box {
-    height: calc(80vh - 12rem - 2px); // Window height - (header + footer) - border width
+    height: calc(80vh - 12rem - 2px); // Window height - (header + footer + wiggle room) - border width
 }
 
 .fill-space {
