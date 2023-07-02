@@ -96,4 +96,8 @@ export class MyStatsComponent implements OnInit {
             })
         })
     }
+
+    roundTokens(): number {
+        return Math.round(this.user.tokens*10)/10
+    }
 }
