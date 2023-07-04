@@ -5,7 +5,7 @@
             sidebarId="myStatsSidebar"
             spacing="start"
         >
-            <div class="tui-space_vertical-5 tui-col">
+            <div class="tui-space_vertical-5 tui-col changeHeight">
                 <div class="flex-container">
                     <h4 class="tui-text_h4 tui-space_bottom-5">Active Courses</h4>
                     <ng-container *ngIf="activeCourses">
@@ -33,7 +33,6 @@
                     </ng-container>
                 </div>
             </div>
-            <div class="changeHeight"></div>
         </app-sidebar>
         <div class="flex-grow">
             <div class="flex-container tui-space_horizontal-5">
@@ -59,7 +58,7 @@
                                 </tr>
                                 <tr class="tui-table__tr tui-table__tr_border_none">
                                     <td class="tui-table__td">Tokens Earned</td>
-                                    <td class="tui-table__td">{{user?.tokens}}</td>
+                                    <td class="tui-table__td">{{roundTokens()}}</td>
                                 </tr>
                                 <tr class="tui-table__tr tui-table__tr_border_none">
                                     <td class="tui-table__td">Goals Completed</td>
@@ -73,7 +72,7 @@
             </div>
             <div class="flex-container tui-space_horizontal-5">
                 <div>
-                    <h4 class="tui-text_h4 tui-space_vertical-5">Question Stats</h4>
+                    <h4 class="tui-text_h4 tui-space_vertical-5">Question Statistics</h4>
                 </div>
             </div>
             <div class="flex-container tui-space_horizontal-5">
@@ -148,7 +147,7 @@
             sidebarId="myStatsSidebar"
             spacing="start"
         >
-            <div class="tui-space_vertical-5 tui-col">
+            <div class="tui-space_vertical-5 tui-col changeHeight">
                 <div class="flex-container">
                     <h4 class="tui-text_h4 tui-space_bottom-5">Active Courses</h4>
                     <ng-container>
@@ -165,7 +164,6 @@
                     </ng-container>
                 </div>
             </div>
-            <div class="changeHeight"></div>
         </app-sidebar>
         <div class="flex-grow">
             <div class="flex-container tui-space_horizontal-5">
@@ -205,7 +203,7 @@
             </div>
             <div class="flex-container tui-space_horizontal-5">
                 <div>
-                    <h4 class="tui-text_h4 tui-space_vertical-5">Question Stats</h4>
+                    <h4 class="tui-text_h4 tui-space_vertical-5">Question Statistics</h4>
                 </div>
             </div>
             <div class="flex-container tui-space_horizontal-5">
