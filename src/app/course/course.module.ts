@@ -61,6 +61,7 @@ import {
     TuiModeModule,
     TuiNotificationModule,
     TuiPointerHintModule,
+    TuiScrollbarModule,
     TuiSvgModule,
     TuiTextfieldControllerModule
 } from '@taiga-ui/core'
@@ -201,6 +202,7 @@ import {ConceptListComponent} from './concept-list/concept-list.component'
         TuiPointerHintModule,
         TuiProgressModule,
         TuiRingChartModule,
+        TuiScrollbarModule,
         TuiSelectModule,
         TuiSidebarModule,
         TuiStepperModule,
