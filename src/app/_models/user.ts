@@ -10,4 +10,5 @@
     is_teacher: boolean;
     is_student: boolean;
     has_consent: boolean;
+    community_jwt: string;
 }

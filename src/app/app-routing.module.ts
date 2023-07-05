@@ -11,6 +11,7 @@ import {UserActionsComponent} from '@app/components/homepage/user-actions/user-a
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component'
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component'
 import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
+import {CommunityComponent} from './components/community/community.component'
 
 
 const routes: Routes = [
@@ -51,6 +52,11 @@ const routes: Routes = [
     {
         path: 'homepage',
         component: HomepageComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'community',
+        component: CommunityComponent,
         canActivate: [AuthGuard]
     },
     {

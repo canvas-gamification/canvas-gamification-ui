@@ -64,10 +64,12 @@ import {CodeEditorModule} from '@app/components/code-editor/code-editor.module'
 import {FooterModule} from '@app/components/footer/footer.module'
 import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
+import {CommunityComponent} from './components/community/community.component'
 
 @NgModule({
     declarations: [
         AppComponent,
+        CommunityComponent,
         CourseDashboardComponent,
         FaqComponent,
         ForbiddenComponent,
