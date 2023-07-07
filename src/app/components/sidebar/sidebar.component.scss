@@ -28,7 +28,7 @@
     }
 
     &-closed {
-        width: 4rem;
+        width: 2rem;
 
         @include screen-sm() {
             width: auto;
@@ -59,35 +59,6 @@
 
         @include screen-sm() {
             display: none;
-        }
-
-        &_left {
-            display: flex;
-            align-items: center;
-            margin-right: 0.5rem;
-            margin-left: -1rem;
-        }
-
-        &_right {
-            display: flex;
-            align-items: center;
-            margin-right: -1rem;
-            margin-left: 0.5rem;
-        }
-
-        &_closed {
-            justify-content: center;
-            align-items: center;
-
-            &_left {
-                margin-left: 1rem;
-                margin-right: 0;
-            }
-
-            &_right {
-                margin-right: 0;
-                margin-left: 0.75rem;
-            }
         }
 
         &_button {

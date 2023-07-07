@@ -5,7 +5,7 @@
         sidebarId="eventQuestionSidebar"
         spacing="start"
     >
-        <div class="flex flex-col fill gap-6">
+        <div class="flex flex-col gap-6 overflow-hidden">
             <a
                 *ngIf="event?.type==='ASSIGNMENT' || 'EXAM'"
                 [routerLink]="['/course', event?.course, 'assignments-exams', eventId]"
@@ -33,14 +33,13 @@
             <p [class.tui-skeleton]="!event">
                 {{event?.name}}
             </p>
-                <tui-scrollbar>
-                    <div class="line mb-2"></div>
-                    <div class="space-y-2 mr-8 fill box" *ngIf="uqjs else skeleton">
-
+            <tui-scrollbar class="flex-grow">
+                <div class="space-y-2 mr-4" *ngIf="uqjs else skeleton">
+                    <div class="border-t"></div>
                     <ng-container *ngFor="let uqj of uqjs">
                         <div
                             (click)=setCurrentUQJ(uqj)
-                            class="cursor-pointer clickable p-2 rounded-lg fill-space"
+                            class="cursor-pointer clickable p-2 rounded-lg"
                             [class.tui-skeleton]="!uqjs"
                             [ngClass]="{
                             'clicked font-bold': isCurrentUQJ(uqj)
@@ -52,12 +51,11 @@
                                 src="tuiIconCheck"
                             ></tui-svg>
                         </div>
-                        <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+                        <div class="border-t"></div>
                     </ng-container>
-                    </div>
-
-                </tui-scrollbar>
-            <div class="buttons tui-space_vertical-6">
+                </div>
+            </tui-scrollbar>
+            <div class="flex flex-col mb-6">
                 <button
                     (click)="openReportQuestion()"
                     [class.tui-skeleton]="!uqjs"
@@ -75,11 +73,11 @@
             <div class="space-y-2">
                 <ng-container *ngFor="let uqj of [0, 0, 0, 0]">
                     <div
-                        class="cursor-pointer clickable p-2 rounded-lg md:-mx-3 tui-skeleton"
+                        class="cursor-pointer clickable p-2 rounded-lg tui-skeleton"
                     >
                         Question Titles
                     </div>
-                    <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+                    <div class="border-t"></div>
                 </ng-container>
             </div>
         </ng-template>

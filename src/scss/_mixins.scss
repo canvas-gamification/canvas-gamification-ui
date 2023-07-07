@@ -41,11 +41,8 @@
     top: calc(4rem + 1px); // Header height + border width
     left: 0;
     width: $width;
-    display: flex;
     margin-bottom: -1.5rem;
-    min-height: calc(100vh - 8rem - 2px); // Window height - (header + footer) - border width
-    max-height: calc(100vh - 4rem - 2px); // Window height - (header + footer) - border width
-    overflow: auto;
+    height: calc(100vh - 4rem - 2px); // Window height - (header + footer) - border width
 
     @if ($position == left) {
         border-right: 1px solid var(--tui-base-03);

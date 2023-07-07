@@ -10,25 +10,7 @@
     background-color: var(--tui-base-02);
 }
 
-.fill {
-    flex-grow: 1;
-}
-
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    vertical-align: bottom;
-
-    button {
-        flex-grow: 1;
-    }
-}
-
 .box {
     height: calc(80vh - 12rem - 2px); // Window height - (header + footer + wiggle room) - border width
 }
 
-.fill-space {
-    width: 22vh;
-}
