@@ -67,7 +67,6 @@
                     </table>
                 </div>
                 <div *ngIf="!isEmpty(stat.status_messages)">
-                    <div class="tui-text_body-l tui-text_bold">Status</div>
                     <table class="tui-table mt-3">
                         <tbody>
                         <tr class="tui-table__tr tui-table__tr_border_none">
@@ -90,11 +89,10 @@
                     </table>
                 </div>
                 <div *ngIf="!isEmpty(stat.error_messages)">
-                    <div class="tui-text_body-l tui-text_bold">Error Messages</div>
                     <table class="tui-table mt-3">
                         <tbody>
                         <tr class="tui-table__tr tui-table__tr_border_none">
-                            <th class="tui-table__th">Error</th>
+                            <th class="tui-table__th">Error Messages</th>
                             <th class="tui-table__th w-40">Submission Count</th>
                         </tr>
                         <tr
