@@ -12,9 +12,10 @@
     <ng-container *ngIf="stats else skeletonTemplate">
         <ng-container *ngIf="stats.length !== 0 else noStats">
             <tui-island *ngFor="let stat of stats" class="shadow space-y-3">
-                <h4 class="tui-text_h4">
+                <h4 class="tui-text_h4 mb-3">
                     {{stat.question.title}}
                 </h4>
+                <app-editor [ngModel]="stat.question.text" [readonly]="true"></app-editor>
                 <div *ngIf="stat.total_submissions === 0"
                      class="flex justify-center items-center w-full h-32">
                     <tui-marker-icon
