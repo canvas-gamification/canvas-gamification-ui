@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http"
 import {ApiService} from "@app/_services/api.service"
 import {Observable} from "rxjs"
 import {EventSet} from "@app/_models/event-set"
-import {catchError} from "rxjs/operators";
+import {catchError} from "rxjs/operators"
 
 @Injectable({
     providedIn: 'root'
