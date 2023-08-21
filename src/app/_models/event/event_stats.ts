@@ -8,4 +8,5 @@ export type EventStats = {
     submissions: Record<string, number>
     has_variables: boolean
     total_submissions
+    num_students_attempted: number
 }[]
