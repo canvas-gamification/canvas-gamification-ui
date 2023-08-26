@@ -1,15 +1,30 @@
 @import "mixins";
 
-.tokens {
-    h2 {
-        margin-top: 0;
-    }
+.heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    .error {
-        color: var(--tui-negative);
+.grades-table {
+    width: 100%;
+
+    &__actions {
+        display: flex;
+        flex-wrap: nowrap;
     }
 }
 
-.token-use-islands {
-    @include island-grid();
-}
+//.tokens {
+//    h2 {
+//        margin-top: 0;
+//    }
+//
+//    .error {
+//        color: var(--tui-negative);
+//    }
+//}
+//
+//.token-use-islands {
+//    @include island-grid();
+//}

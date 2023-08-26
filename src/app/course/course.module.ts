@@ -73,7 +73,7 @@ import {
     CourseRegistrationStepComponent
 } from './course-registration/course-registration-step/course-registration-step.component'
 import {TuiActiveZoneModule, TuiFilterPipeModule, TuiForModule} from '@taiga-ui/cdk'
-import {TuiTableModule} from '@taiga-ui/addon-table'
+import {TuiTableModule, TuiTablePaginationModule} from '@taiga-ui/addon-table'
 import {DragulaModule} from 'ng2-dragula'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
@@ -208,6 +208,7 @@ import {ConceptListComponent} from './concept-list/concept-list.component'
         TuiStepperModule,
         TuiSvgModule,
         TuiTableModule,
+        TuiTablePaginationModule,
         TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,

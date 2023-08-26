@@ -1,141 +1,287 @@
 <section class="tui-container tui-container_fullwidth">
-    <ng-container *ngIf="user?.is_teacher">
-        <tui-notification class="tui-space_bottom-4" status="warning">
-            Warning: You are logged in as a teacher! Token uses will not do anything for you!
-        </tui-notification>
-    </ng-container>
-    <ng-container *ngIf="courseReg else skeletonTemplate">
-        <div class="tokens">
-            <h2 [class.error]="invalid" class="tui-text_h6 tui-space_bottom-8">
-                {{ remainingTokens | number: '1.0-1' }}/{{ courseReg.total_tokens_received | number: '1.0-1' }} Tokens
-                Available
-            </h2>
-        </div>
-        <form method="post">
-            <div class="token-use-islands">
-                <tui-island *ngFor="let tokenUse of courseReg.token_uses">
-                    <h3 class="tui-island__title">{{ tokenUse.option.assignment_name }}</h3>
-                    <div class="tui-space_bottom-2">
-                        <ng-container *ngIf="tokenUse.num_used > 0; else tokenNotUsedTag">
-                            <tui-tag
-                                *ngIf="tokenUse.num_used === tokenUse.option.maximum_number_of_use; else tokenPartialUseTag"
-                                size="m" status="success"
-                                value="Tokens Used"></tui-tag>
-                            <ng-template #tokenPartialUseTag>
-                                <tui-tag size="m" status="warning" value="Tokens Partially Used"></tui-tag>
-                            </ng-template>
-                        </ng-container>
-                        <ng-template #tokenNotUsedTag>
-                            <tui-tag size="m" status="error" value="Not Used"></tui-tag>
-                        </ng-template>
-                    </div>
-                    <p class="tui-island__paragraph">{{ tokenUse.option.tokens_required }} Tokens Required</p>
-                    <p class="tui-island__paragraph">{{ tokenUse.option.points_given }} Extra Grade Points Given</p>
-                    <p class="tui-island__paragraph">{{ tokenUse.option.maximum_number_of_use }} Maximum Uses</p>
-                    <tui-input-count
-                        (ngModelChange)="calculateCurrentTotal()"
-                        [(ngModel)]="tokenUse.num_used"
-                        [max]="tokenUse.option.maximum_number_of_use"
-                        [min]="0"
-                        [ngModelOptions]="{standalone: true}"
-                        aria-label="Number of Tokens Used"
-                        class="tui-space_top-4"
-                    >
-                        Number of Tokens Used
-                    </tui-input-count>
-                </tui-island>
-            </div>
-            <div class="tui-form__buttons">
-                <button
-                    (click)="confirmChanges()"
-                    [disabled]="invalid"
-                    appearance="primary"
-                    aria-label="Confirm Changes"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                    type="submit"
-                >
-                    Confirm Changes
-                </button>
-            </div>
-        </form>
-    </ng-container>
-    <ng-template #skeletonTemplate>
-        <div class="tokens">
-            <h2 class="tui-text_h6 tui-space_bottom-8 tui-skeleton tui-skeleton_short">
-                0/0 Tokens Available
-            </h2>
-        </div>
-        <div class="token-use-islands">
-            <tui-island>
-                <h3 class="tui-island__title tui-skeleton">Name</h3>
-                <div class="tui-space_bottom-2">
-                    <tui-tag
-                        size="m" status="success"
-                        value="Tokens Used" class="tui-skeleton">
-                    </tui-tag>
-                </div>
-                <p class="tui-island__paragraph tui-skeleton">0 Tokens Required</p>
-                <p class="tui-island__paragraph tui-skeleton">0 Extra Grade Points Given</p>
-                <p class="tui-island__paragraph tui-skeleton">0 Maximum Uses</p>
-                <tui-input-count
-                    [(ngModel)]="courseReg"
-                    aria-label="Number of Tokens Used"
-                    class="tui-space_top-4 tui-skeleton"
-                >
-                    Content
-                </tui-input-count>
-            </tui-island>
-            <tui-island>
-                <h3 class="tui-island__title tui-skeleton">Name</h3>
-                <div class="tui-space_bottom-2">
-                    <tui-tag
-                        size="m" status="success"
-                        value="Tokens Used" class="tui-skeleton">
-                    </tui-tag>
-                </div>
-                <p class="tui-island__paragraph tui-skeleton">0 Tokens Required</p>
-                <p class="tui-island__paragraph tui-skeleton">0 Extra Grade Points Given</p>
-                <p class="tui-island__paragraph tui-skeleton">0 Maximum Uses</p>
-                <tui-input-count
-                    [(ngModel)]="courseReg"
-                    aria-label="Number of Tokens Used"
-                    class="tui-space_top-4 tui-skeleton"
-                >
-                    Content
-                </tui-input-count>
-            </tui-island>
-            <tui-island>
-                <h3 class="tui-island__title tui-skeleton">Name</h3>
-                <div class="tui-space_bottom-2">
-                    <tui-tag
-                        size="m" status="success"
-                        value="Tokens Used" class="tui-skeleton">
-                    </tui-tag>
-                </div>
-                <p class="tui-island__paragraph tui-skeleton">0 Tokens Required</p>
-                <p class="tui-island__paragraph tui-skeleton">0 Extra Grade Points Given</p>
-                <p class="tui-island__paragraph tui-skeleton">0 Maximum Uses</p>
-                <tui-input-count
-                    [(ngModel)]="courseReg"
-                    aria-label="Number of Tokens Used"
-                    class="tui-space_top-4 tui-skeleton"
-                >
-                    Content
-                </tui-input-count>
-            </tui-island>
-        </div>
-        <div class="tui-form__buttons">
+    <div class="flex justify-center">
+        <div
+            tuiGroup
+            class=""
+            [collapsed]="true"
+            [rounded]="true"
+        >
             <button
-                appearance="primary"
-                aria-label="Confirm Changes"
-                class="tui-form__button tui-skeleton"
-                size="m"
                 tuiButton
+                type="button"
+                appearance="secondary"
+                size="l"
+                class="whitespace-nowrap"
+                (click)="setDetailedView(false)"
+                [pseudoPressed]="!showDetailed"
             >
-                Content
+                Overview
+            </button>
+            <button
+                tuiButton
+                type="button"
+                appearance="secondary"
+                size="l"
+                class="whitespace-nowrap"
+                (click)="setDetailedView(true)"
+                [pseudoPressed]="showDetailed"
+            >
+                Detailed View
             </button>
         </div>
-    </ng-template>
+    </div>
+    <div class="py-3"></div>
+    <ng-container *ngIf="!showDetailed">
+        <table
+            [columns]="gradeBookTableHeaders"
+            class="grades-table"
+            tuiTable
+        >
+            <thead tuiThead>
+            <tr tuiThGroup>
+                <th *tuiHead="'name'" tuiTh>Name</th>
+                <th *tuiHead="'legal_first_name'" tuiTh>Legal First Name</th>
+                <th *tuiHead="'legal_last_name'" tuiTh>Legal Last Name</th>
+                <th *tuiHead="'student_number'" tuiTh>Student #</th>
+                <th *tuiHead="'event_name'" tuiTh>Event Name</th>
+                <th *tuiHead="'grade'" tuiTh>Tokens Earned</th>
+                <th *tuiHead="'total'" tuiTh>Out Of</th>
+            </tr>
+            </thead>
+            <tbody [data]="gradesDisplayData" tuiTbody>
+            <tr *tuiRow="let grade of gradesDisplayData" tuiTr>
+                <td *tuiCell="'legal_first_name'" tuiTd>
+                    {{ (grade.legal_first_name) || 'No First Name' }}
+                </td>
+                <td *tuiCell="'legal_last_name'" tuiTd>
+                    {{ (grade.legal_last_name) || 'No Last Name' }}
+                </td>
+                <td *tuiCell="'student_number'" tuiTd>
+                    {{ (grade.student_number) || 'No Student #' }}
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td [colSpan]="gradeBookTableHeaders.length">
+                    <tui-table-pagination
+                        (pageChange)="update({page: $event})"
+                        (sizeChange)="update({pageSize: $event})"
+                        [(page)]="page"
+                        [(size)]="pageSize"
+                        [total]="numberOfGradeLines"
+                        class="tui-space_top-2"
+                    ></tui-table-pagination>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </ng-container>
+    <ng-container *ngIf="showDetailed">
+        <table
+            [columns]="gradeBookTableDetailedHeaders"
+            class="grades-table"
+            tuiTable
+        >
+            <thead tuiThead>
+            <tr tuiThGroup>
+                <th *tuiHead="'name'" tuiTh>Name</th>
+                <th *tuiHead="'legal_first_name'" tuiTh>Legal First Name</th>
+                <th *tuiHead="'legal_last_name'" tuiTh>Legal Last Name</th>
+                <th *tuiHead="'student_number'" tuiTh>Student #</th>
+                <th *tuiHead="'event_name'" tuiTh>Event Name</th>
+                <th *tuiHead="'grade'" tuiTh>Tokens Earned</th>
+                <th *tuiHead="'total'" tuiTh>Out Of</th>
+                <th *tuiHead="'title'" tuiTh>Question Name</th>
+                <th *tuiHead="'question_grade'" tuiTh>Question Grade</th>
+                <th *tuiHead="'attempts'" tuiTh>Attempts</th>
+            </tr>
+            </thead>
+            <tbody [data]="gradesDisplayData" tuiTbody>
+            <tr *tuiRow="let grade of gradesDisplayData" tuiTr>
+                <td *tuiCell="'legal_first_name'" tuiTd>
+                    {{ (grade.legal_first_name) || 'No First Name' }}
+                </td>
+                <td *tuiCell="'legal_last_name'" tuiTd>
+                    {{ (grade.legal_last_name) || 'No Last Name' }}
+                </td>
+                <td *tuiCell="'student_number'" tuiTd>
+                    {{ (grade.student_number) || 'No Student #' }}
+                </td>
+                <td *tuiCell="'title'" tuiTd>
+                    <div *ngFor="let detail of grade.question_details; index as idx">
+                        {{detail.title}}
+                        <hr *ngIf="!(idx === grade.question_details.length - 1)">
+                    </div>
+                </td>
+                <td *tuiCell="'question_grade'" tuiTd>
+                    <div *ngFor="let detail of grade.question_details; index as idx">
+                        {{detail.question_grade}}
+                        <hr *ngIf="!(idx === grade.question_details.length - 1)">
+                    </div>
+                </td>
+                <td *tuiCell="'attempts'" tuiTd>
+                    <div *ngFor="let detail of grade.question_details; index as idx">
+                        {{detail.attempts}}
+                        <hr *ngIf="!(idx === grade.question_details.length - 1)">
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td [colSpan]="gradeBookTableDetailedHeaders.length">
+                    <tui-table-pagination
+                        (pageChange)="update({page: $event})"
+                        (sizeChange)="update({pageSize: $event})"
+                        [(page)]="page"
+                        [(size)]="pageSize"
+                        [total]="numberOfGradeLines"
+                        class="tui-space_top-2"
+                    ></tui-table-pagination>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </ng-container>
+
+    <!--    <ng-container *ngIf="user?.is_teacher">-->
+    <!--        <tui-notification class="tui-space_bottom-4" status="warning">-->
+    <!--            Warning: You are logged in as a teacher! Token uses will not do anything for you!-->
+    <!--        </tui-notification>-->
+    <!--    </ng-container>-->
+    <!--    <ng-container *ngIf="courseReg else skeletonTemplate">-->
+    <!--        <div class="tokens">-->
+    <!--            <h2 [class.error]="invalid" class="tui-text_h6 tui-space_bottom-8">-->
+    <!--                {{ remainingTokens | number: '1.0-1' }}/{{ courseReg.total_tokens_received | number: '1.0-1' }} Tokens-->
+    <!--                Available-->
+    <!--            </h2>-->
+    <!--        </div>-->
+    <!--        <form method="post">-->
+    <!--            <div class="token-use-islands">-->
+    <!--                <tui-island *ngFor="let tokenUse of courseReg.token_uses">-->
+    <!--                    <h3 class="tui-island__title">{{ tokenUse.option.assignment_name }}</h3>-->
+    <!--                    <div class="tui-space_bottom-2">-->
+    <!--                        <ng-container *ngIf="tokenUse.num_used > 0; else tokenNotUsedTag">-->
+    <!--                            <tui-tag-->
+    <!--                                *ngIf="tokenUse.num_used === tokenUse.option.maximum_number_of_use; else tokenPartialUseTag"-->
+    <!--                                size="m" status="success"-->
+    <!--                                value="Tokens Used"></tui-tag>-->
+    <!--                            <ng-template #tokenPartialUseTag>-->
+    <!--                                <tui-tag size="m" status="warning" value="Tokens Partially Used"></tui-tag>-->
+    <!--                            </ng-template>-->
+    <!--                        </ng-container>-->
+    <!--                        <ng-template #tokenNotUsedTag>-->
+    <!--                            <tui-tag size="m" status="error" value="Not Used"></tui-tag>-->
+    <!--                        </ng-template>-->
+    <!--                    </div>-->
+    <!--                    <p class="tui-island__paragraph">{{ tokenUse.option.tokens_required }} Tokens Required</p>-->
+    <!--                    <p class="tui-island__paragraph">{{ tokenUse.option.points_given }} Extra Grade Points Given</p>-->
+    <!--                    <p class="tui-island__paragraph">{{ tokenUse.option.maximum_number_of_use }} Maximum Uses</p>-->
+    <!--                    <tui-input-count-->
+    <!--                        (ngModelChange)="calculateCurrentTotal()"-->
+    <!--                        [(ngModel)]="tokenUse.num_used"-->
+    <!--                        [max]="tokenUse.option.maximum_number_of_use"-->
+    <!--                        [min]="0"-->
+    <!--                        [ngModelOptions]="{standalone: true}"-->
+    <!--                        aria-label="Number of Tokens Used"-->
+    <!--                        class="tui-space_top-4"-->
+    <!--                    >-->
+    <!--                        Number of Tokens Used-->
+    <!--                    </tui-input-count>-->
+    <!--                </tui-island>-->
+    <!--            </div>-->
+    <!--            <div class="tui-form__buttons">-->
+    <!--                <button-->
+    <!--                    (click)="confirmChanges()"-->
+    <!--                    [disabled]="invalid"-->
+    <!--                    appearance="primary"-->
+    <!--                    aria-label="Confirm Changes"-->
+    <!--                    class="tui-form__button"-->
+    <!--                    size="m"-->
+    <!--                    tuiButton-->
+    <!--                    type="submit"-->
+    <!--                >-->
+    <!--                    Confirm Changes-->
+    <!--                </button>-->
+    <!--            </div>-->
+    <!--        </form>-->
+    <!--    </ng-container>-->
+    <!--    <ng-template #skeletonTemplate>-->
+    <!--        <div class="tokens">-->
+    <!--            <h2 class="tui-text_h6 tui-space_bottom-8 tui-skeleton tui-skeleton_short">-->
+    <!--                0/0 Tokens Available-->
+    <!--            </h2>-->
+    <!--        </div>-->
+    <!--        <div class="token-use-islands">-->
+    <!--            <tui-island>-->
+    <!--                <h3 class="tui-island__title tui-skeleton">Name</h3>-->
+    <!--                <div class="tui-space_bottom-2">-->
+    <!--                    <tui-tag-->
+    <!--                        size="m" status="success"-->
+    <!--                        value="Tokens Used" class="tui-skeleton">-->
+    <!--                    </tui-tag>-->
+    <!--                </div>-->
+    <!--                <p class="tui-island__paragraph tui-skeleton">0 Tokens Required</p>-->
+    <!--                <p class="tui-island__paragraph tui-skeleton">0 Extra Grade Points Given</p>-->
+    <!--                <p class="tui-island__paragraph tui-skeleton">0 Maximum Uses</p>-->
+    <!--                <tui-input-count-->
+    <!--                    [(ngModel)]="courseReg"-->
+    <!--                    aria-label="Number of Tokens Used"-->
+    <!--                    class="tui-space_top-4 tui-skeleton"-->
+    <!--                >-->
+    <!--                    Content-->
+    <!--                </tui-input-count>-->
+    <!--            </tui-island>-->
+    <!--            <tui-island>-->
+    <!--                <h3 class="tui-island__title tui-skeleton">Name</h3>-->
+    <!--                <div class="tui-space_bottom-2">-->
+    <!--                    <tui-tag-->
+    <!--                        size="m" status="success"-->
+    <!--                        value="Tokens Used" class="tui-skeleton">-->
+    <!--                    </tui-tag>-->
+    <!--                </div>-->
+    <!--                <p class="tui-island__paragraph tui-skeleton">0 Tokens Required</p>-->
+    <!--                <p class="tui-island__paragraph tui-skeleton">0 Extra Grade Points Given</p>-->
+    <!--                <p class="tui-island__paragraph tui-skeleton">0 Maximum Uses</p>-->
+    <!--                <tui-input-count-->
+    <!--                    [(ngModel)]="courseReg"-->
+    <!--                    aria-label="Number of Tokens Used"-->
+    <!--                    class="tui-space_top-4 tui-skeleton"-->
+    <!--                >-->
+    <!--                    Content-->
+    <!--                </tui-input-count>-->
+    <!--            </tui-island>-->
+    <!--            <tui-island>-->
+    <!--                <h3 class="tui-island__title tui-skeleton">Name</h3>-->
+    <!--                <div class="tui-space_bottom-2">-->
+    <!--                    <tui-tag-->
+    <!--                        size="m" status="success"-->
+    <!--                        value="Tokens Used" class="tui-skeleton">-->
+    <!--                    </tui-tag>-->
+    <!--                </div>-->
+    <!--                <p class="tui-island__paragraph tui-skeleton">0 Tokens Required</p>-->
+    <!--                <p class="tui-island__paragraph tui-skeleton">0 Extra Grade Points Given</p>-->
+    <!--                <p class="tui-island__paragraph tui-skeleton">0 Maximum Uses</p>-->
+    <!--                <tui-input-count-->
+    <!--                    [(ngModel)]="courseReg"-->
+    <!--                    aria-label="Number of Tokens Used"-->
+    <!--                    class="tui-space_top-4 tui-skeleton"-->
+    <!--                >-->
+    <!--                    Content-->
+    <!--                </tui-input-count>-->
+    <!--            </tui-island>-->
+    <!--        </div>-->
+    <!--        <div class="tui-form__buttons">-->
+    <!--            <button-->
+    <!--                appearance="primary"-->
+    <!--                aria-label="Confirm Changes"-->
+    <!--                class="tui-form__button tui-skeleton"-->
+    <!--                size="m"-->
+    <!--                tuiButton-->
+    <!--            >-->
+    <!--                Content-->
+    <!--            </button>-->
+    <!--        </div>-->
+    <!--    </ng-template>-->
 </section>

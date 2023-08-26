@@ -1,71 +1,105 @@
-import {Component, Inject, OnInit} from '@angular/core'
-import {CourseRegistration, User} from '@app/_models'
-import {TokenUseService} from '@app/course/_services/token-use.service'
+import {AfterContentChecked, ChangeDetectorRef, Component, Inject} from '@angular/core'
+import {User} from '@app/_models'
 import {ActivatedRoute} from '@angular/router'
-import {TokenUse} from '@app/_models/token_use'
 import {AuthenticationService} from '@app/_services/api/authentication'
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {TuiNotificationsService} from "@taiga-ui/core"
 import {CourseService} from "@app/course/_services/course.service"
+import {GradeBook} from "@app/_models/grade_book"
 
 @Component({
     selector: 'app-token-use-snippet',
     templateUrl: './token-use-snippet.component.html',
     styleUrls: ['./token-use-snippet.component.scss']
 })
-export class TokenUseSnippetComponent implements OnInit {
-    courseReg: CourseRegistration
-
-    tokenUses: TokenUse[]
-    tokenUsesTableHeaders: string[] = ['assignment_name', 'tokens_required', 'points_given', 'maximum_number_of_use', 'actions']
+export class TokenUseSnippetComponent implements AfterContentChecked{
+    grades: GradeBook
+    gradesDisplayData: GradeBook
+    gradeBookTableHeaders = [
+        'name', 'legal_first_name', 'legal_last_name', 'student_number', 'event_name', 'grade',
+        'total'
+    ]
+    gradeBookTableDetailedHeaders: string[] = [
+        'name', 'legal_first_name', 'legal_last_name', 'student_number', 'event_name', 'grade',
+        'total', 'title', 'question_grade', 'attempts'
+    ]
 
     user: User
     courseId: number
+    showDetailed = false
 
-    invalid: boolean
-    remainingTokens: number
+    // Pagination
+    numberOfGradeLines = 0
+    pageSize = 10
+    page = 0
+
 
     constructor(
-        private tokenUseService: TokenUseService,
         private route: ActivatedRoute,
         private authenticationService: AuthenticationService,
         private courseService: CourseService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+        private changeDetector: ChangeDetectorRef
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
         this.courseId = this.route.snapshot.parent.params.courseId
-    }
 
-    ngOnInit(): void {
-        this.courseService.getCourse(this.courseId).subscribe(course => {
-            this.courseReg = course.course_reg
-            this.tokenUses = this.courseReg.token_uses
-            this.calculateCurrentTotal()
+        this.courseService.getGradeBook(this.courseId).subscribe(grades => {
+            this.grades = grades
+            this.numberOfGradeLines = grades.length
+            this.gradesDisplayData = grades.slice(this.page * this.pageSize, this.page * this.pageSize + this.pageSize)
         })
     }
 
-    /**
-     * Update the current number of tokens left for the user if they use this option
-     */
-    calculateCurrentTotal(): void {
-        this.remainingTokens = this.courseReg.total_tokens_received
-        for (const optionId in this.tokenUses) {
-            this.remainingTokens -= this.tokenUses[optionId].num_used * this.tokenUses[optionId].option.tokens_required
-        }
-        this.invalid = this.remainingTokens < 0
+    ngAfterContentChecked(): void {
+        this.changeDetector.detectChanges()
+    }
+
+    setDetailedView(b: boolean): void {
+        this.showDetailed = b
     }
 
     /**
-     * Confirms the current token uses and sends the data to the server
+     * Update the current view of the grade table.
      */
-    confirmChanges(): void {
-        const courseId = this.route.snapshot.parent.params.courseId
-        const data = {}
-        this.tokenUses.forEach(tokenUse => data[tokenUse.option.id] = tokenUse.num_used)
-        this.tokenUseService.useTokens(data, courseId).subscribe(() => {
-            this.notificationsService
-                .show('Token uses saved!', {
-                    status: TuiNotification.Success
-                }).subscribe()
-        })
+    update(values?: {page?: number, pageSize?: number}): void {
+        const {page, pageSize} = values ?? {}
+        if (page || (page === 0 && this.page === 1))
+            this.page = page
+        if (pageSize)
+            this.pageSize = pageSize
+        this.changeDisplay()
     }
+
+    /**
+     * This does the actually updating because pagination is being faked.
+     */
+    changeDisplay() {
+        this.gradesDisplayData = this.grades.slice(this.page * this.pageSize, this.page * this.pageSize + this.pageSize)
+    }
+
+    // /**
+    //  * Update the current number of tokens left for the user if they use this option
+    //  */
+    // calculateCurrentTotal(): void {
+    //     this.remainingTokens = this.courseReg.total_tokens_received
+    //     for (const optionId in this.tokenUses) {
+    //         this.remainingTokens -= this.tokenUses[optionId].num_used * this.tokenUses[optionId].option.tokens_required
+    //     }
+    //     this.invalid = this.remainingTokens < 0
+    // }
+    //
+    // /**
+    //  * Confirms the current token uses and sends the data to the server
+    //  */
+    // confirmChanges(): void {
+    //     const courseId = this.route.snapshot.parent.params.courseId
+    //     const data = {}
+    //     this.tokenUses.forEach(tokenUse => data[tokenUse.option.id] = tokenUse.num_used)
+    //     this.tokenUseService.useTokens(data, courseId).subscribe(() => {
+    //         this.notificationsService
+    //             .show('Token uses saved!', {
+    //                 status: TuiNotification.Success
+    //             }).subscribe()
+    //     })
+    // }
 }
