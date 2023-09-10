@@ -54,6 +54,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
                 array[0],
                 startCase(array[1].toLowerCase().replace('_', ' '))
             ])
+            this.localChallengeTypes.push(['CONSISTENCY', 'Consistency'])
         })
         this.categoryService.getCategories().subscribe(
             categories => this.categories = categories
