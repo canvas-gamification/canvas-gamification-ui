@@ -183,11 +183,11 @@
                 >
                     <!--                    (searchChange)=""-->
                     Include Challenges
-<!--                    <tui-data-list *tuiDataList tuiMultiSelectGroup>-->
-<!--                        <button *ngFor="let courseReg of getCourseRegistrations()" [value]="courseReg" tuiOption>-->
-<!--                            {{courseReg.name}}-->
-<!--                        </button>-->
-<!--                    </tui-data-list>-->
+                    <tui-data-list *tuiDataList tuiMultiSelectGroup>
+                        <button *ngFor="let eventInCourse of events" [value]="eventInCourse" tuiOption>
+                            {{eventInCourse.name}}
+                        </button>
+                    </tui-data-list>
                 </tui-multi-select>
             </div>
             <div class="tui-form__row">

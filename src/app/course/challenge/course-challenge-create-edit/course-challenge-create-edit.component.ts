@@ -10,6 +10,7 @@ import {startCase} from 'lodash'
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {CategoryService} from "@app/_services/api/category.service"
+import {CourseService} from "@app/course/_services/course.service";
 
 @Component({
     selector: 'app-course-challenge-create-edit',
@@ -19,13 +20,13 @@ import {CategoryService} from "@app/_services/api/category.service"
 export class CourseChallengeCreateEditComponent implements OnInit {
     courseId: number
     eventId: number = null
-    event: CourseEvent
+    event: CourseEvent // The event users are editing
     localChallengeTypes: ChallengeType[]
     challengeForm: FormGroup
     categories: Category[]
     difficulties: Difficulty[]
     limits: EventLimit[]
-
+    events: CourseEvent[] // All the events in this course
 
     constructor(
         private route: ActivatedRoute,
@@ -34,11 +35,15 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         private readonly categoryService: CategoryService,
         private readonly difficultyService: DifficultyService,
         private readonly notificationsService: TuiNotificationsService,
+        private courseService: CourseService,
     ) {
     }
 
     ngOnInit(): void {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
+        this.courseService.getCourse(this.courseId).subscribe( course => {
+            this.events = course.events
+        })
         this.challengeForm = ChallengeForm.createChallengeForm()
 
         if (this.route.snapshot.paramMap.get('eventId')) {
