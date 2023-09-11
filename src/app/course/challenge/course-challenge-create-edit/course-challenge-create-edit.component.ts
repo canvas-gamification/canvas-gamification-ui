@@ -109,6 +109,10 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         return this.challengeForm.get('challengeType').value === 'TOP_TEAMS'
     }
 
+    isConsistency(): boolean {
+        return this.challengeForm.get('challengeType').value === 'CONSISTENCY'
+    }
+
     async onSubmit() {
         const challengeData = ChallengeForm.formatChallengeFormData(
             this.challengeForm,

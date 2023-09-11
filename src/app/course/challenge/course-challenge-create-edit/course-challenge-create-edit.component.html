@@ -47,19 +47,19 @@
             </tui-input-number>
             <tui-field-error formControlName="challengeTypeValue"></tui-field-error>
         </div>
-        <div class="tui-form__row">
+        <div *ngIf="!isConsistency()" class="tui-form__row">
             <tui-input-number aria-label="Max number of students" formControlName="maxTeamSize">
                 Maximum number of students in the team
             </tui-input-number>
             <tui-field-error formControlName="maxTeamSize"></tui-field-error>
         </div>
-        <div class="tui-form__row">
+        <div *ngIf="!isConsistency()" class="tui-form__row">
             <tui-input-date-range aria-label="Start and End Date" formControlName="startEndDate">
                 Start and end date
             </tui-input-date-range>
             <tui-field-error formControlName="startEndDate"></tui-field-error>
         </div>
-        <div class="tui-form__row tui-form__row_multi-fields">
+        <div *ngIf="!isConsistency()" class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
                 <tui-input-time [items]="" aria-label="Start Time" formControlName="startTime">
                     Start time
@@ -80,95 +80,126 @@
         >
             Invalid date range! Please check your start and end times!
         </tui-notification>
-        <h3 class="tui-form__header">
-            Add Questions
-            <button
-                (click)="addChallengeQuestionSet()"
-                icon="tuiIconPlus"
-                size="s"
-                tuiButton
-                type="button"
-                class="ml-3"
-                appearance="secondary"
+        <ng-container *ngIf="!isConsistency()">
+            <h3 class="tui-form__header">
+                Add Questions
+                <button
+                    (click)="addChallengeQuestionSet()"
+                    icon="tuiIconPlus"
+                    size="s"
+                    tuiButton
+                    type="button"
+                    class="ml-3"
+                    appearance="secondary"
+                >
+                    Add More
+                </button>
+            </h3>
+            <div *ngIf="getChallengeQuestionSetFormControls().length === 0">
+                <div *ngIf="eventId">
+                    This challenge will not include any additional questions.
+                </div>
+                <div *ngIf="!eventId">
+                    This challenge will not include any questions.
+                    You can always add more questions by editing the challenge
+                    or from the question bank.
+                </div>
+            </div>
+            <div
+                *ngFor="let questionSetFormControl of getChallengeQuestionSetFormControls(); let index = index"
+                class="tui-form__row tui-form__row_multi-fields"
             >
-                Add More
-            </button>
-        </h3>
-        <div *ngIf="getChallengeQuestionSetFormControls().length === 0">
-            <div *ngIf="eventId">
-                This challenge will not include any additional questions.
-            </div>
-            <div *ngIf="!eventId">
-                This challenge will not include any questions.
-                You can always add more questions by editing the challenge
-                or from the question bank.
-            </div>
-        </div>
-        <div
-            *ngFor="let questionSetFormControl of getChallengeQuestionSetFormControls(); let index = index"
-            class="tui-form__row tui-form__row_multi-fields"
-        >
-            <div class="tui-form__multi-field">
-                <tui-select
-                    [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
-                    [formControl]="getFormControl(questionSetFormControl, 'category')"
-                >
-                    Category
-                    <tui-data-list *tuiDataList>
-                        <button *ngFor="let category of categories" [value]="category.pk" tuiOption>
-                            {{ category.full_name }}
-                        </button>
-                    </tui-data-list>
-                </tui-select>
-                <tui-field-error
-                    [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-field-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-select
-                    [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-                    [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
-                >
-                    Difficulty
-                    <tui-data-list *tuiDataList>
-                        <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]"
-                                tuiOption>
-                            {{ difficulty[1] }}
-                        </button>
-                    </tui-data-list>
-                </tui-select>
-                <tui-field-error
-                    [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
-                ></tui-field-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-input-number
-                    [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
-                    [max]="getNumQuestionsLimit(questionSetFormControl)"
-                >
-                    Number of questions
-                </tui-input-number>
-                <tui-field-error
-                    [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
-                ></tui-field-error>
-                <div class="tui-form__field-note">
-                    {{getNumQuestionsLimit(questionSetFormControl)}} question(s) available.
-                </div>
-            </div>
-            <div class="tui-form__multi-field">
-                <div class="flex h-full items-center">
-                    <button
-                        (click)="removeChallengeQuestionSet(index)"
-                        icon="tuiIconMinus"
-                        size="s"
-                        tuiButton
-                        type="button"
-                        appearance="accent"
+                <div class="tui-form__multi-field">
+                    <tui-select
+                        [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
+                        [formControl]="getFormControl(questionSetFormControl, 'category')"
                     >
-                        Delete
-                    </button>
+                        Category
+                        <tui-data-list *tuiDataList>
+                            <button *ngFor="let category of categories" [value]="category.pk" tuiOption>
+                                {{ category.full_name }}
+                            </button>
+                        </tui-data-list>
+                    </tui-select>
+                    <tui-field-error
+                        [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-field-error>
+                </div>
+                <div class="tui-form__multi-field">
+                    <tui-select
+                        [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+                        [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
+                    >
+                        Difficulty
+                        <tui-data-list *tuiDataList>
+                            <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]"
+                                    tuiOption>
+                                {{ difficulty[1] }}
+                            </button>
+                        </tui-data-list>
+                    </tui-select>
+                    <tui-field-error
+                        [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
+                    ></tui-field-error>
+                </div>
+                <div class="tui-form__multi-field">
+                    <tui-input-number
+                        [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
+                        [max]="getNumQuestionsLimit(questionSetFormControl)"
+                    >
+                        Number of questions
+                    </tui-input-number>
+                    <tui-field-error
+                        [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
+                    ></tui-field-error>
+                    <div class="tui-form__field-note">
+                        {{getNumQuestionsLimit(questionSetFormControl)}} question(s) available.
+                    </div>
+                </div>
+                <div class="tui-form__multi-field">
+                    <div class="flex h-full items-center">
+                        <button
+                            (click)="removeChallengeQuestionSet(index)"
+                            icon="tuiIconMinus"
+                            size="s"
+                            tuiButton
+                            type="button"
+                            appearance="accent"
+                        >
+                            Delete
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </ng-container>
+        <ng-container *ngIf="isConsistency()">
+            <div class="tui-form__row">
+                <tui-multi-select
+                    aria-label="Include Challenges"
+                    formControlName=""
+                    [tuiTextfieldLabelOutside]="true"
+                    [stringify]=""
+                    [editable]="true"
+
+                >
+                    <!--                    (searchChange)=""-->
+                    Include Challenges
+<!--                    <tui-data-list *tuiDataList tuiMultiSelectGroup>-->
+<!--                        <button *ngFor="let courseReg of getCourseRegistrations()" [value]="courseReg" tuiOption>-->
+<!--                            {{courseReg.name}}-->
+<!--                        </button>-->
+<!--                    </tui-data-list>-->
+                </tui-multi-select>
+            </div>
+            <div class="tui-form__row">
+                <tui-input-number
+                    aria-label="How many tokens are rewarded for consistently solving the above challenges?"
+                    formControlName=""
+                >
+                    How many tokens are rewarded for consistently solving the above challenges?
+                </tui-input-number>
+                <tui-field-error formControlName=""></tui-field-error>
+            </div>
+        </ng-container>
         <div class="tui-form__buttons">
             <button
                 [disabled]="challengeForm.invalid"
