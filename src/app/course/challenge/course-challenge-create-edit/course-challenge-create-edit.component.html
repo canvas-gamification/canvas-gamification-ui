@@ -177,14 +177,13 @@
                     aria-label="Include Challenges"
                     formControlName=""
                     [tuiTextfieldLabelOutside]="true"
-                    [stringify]=""
+                    [stringify]="stringify"
                     [editable]="true"
-
+                    (searchChange)="onSearchChange($event)"
                 >
-                    <!--                    (searchChange)=""-->
                     Include Challenges
                     <tui-data-list *tuiDataList tuiMultiSelectGroup>
-                        <button *ngFor="let eventInCourse of events" [value]="eventInCourse" tuiOption>
+                        <button *ngFor="let eventInCourse of getCourseEvents()" [value]="eventInCourse" tuiOption>
                             {{eventInCourse.name}}
                         </button>
                     </tui-data-list>

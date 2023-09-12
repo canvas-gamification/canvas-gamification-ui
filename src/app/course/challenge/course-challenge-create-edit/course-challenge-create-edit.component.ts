@@ -10,7 +10,7 @@ import {startCase} from 'lodash'
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {CategoryService} from "@app/_services/api/category.service"
-import {CourseService} from "@app/course/_services/course.service";
+import {CourseService} from "@app/course/_services/course.service"
 
 @Component({
     selector: 'app-course-challenge-create-edit',
@@ -27,6 +27,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
     difficulties: Difficulty[]
     limits: EventLimit[]
     events: CourseEvent[] // All the events in this course
+    search: string
 
     constructor(
         private route: ActivatedRoute,
@@ -116,6 +117,20 @@ export class CourseChallengeCreateEditComponent implements OnInit {
 
     isConsistency(): boolean {
         return this.challengeForm.get('challengeType').value === 'CONSISTENCY'
+    }
+
+    stringify(eventInCourse: CourseEvent): string {
+        return eventInCourse.name
+    }
+
+    onSearchChange(searchQuery: string | null): void {
+        this.search = searchQuery
+    }
+
+    getCourseEvents(): CourseEvent[] {
+        if(!this.search)
+            return this.events
+        return this.events.filter(event => event.name.includes(this.search) )
     }
 
     async onSubmit() {
