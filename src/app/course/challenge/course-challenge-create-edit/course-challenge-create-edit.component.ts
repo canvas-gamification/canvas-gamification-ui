@@ -28,6 +28,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
     limits: EventLimit[]
     events: CourseEvent[] // All the events in this course
     search: string
+    selectedChallengeType: string = null
 
     constructor(
         private route: ActivatedRoute,
@@ -38,6 +39,10 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         private readonly notificationsService: TuiNotificationsService,
         private courseService: CourseService,
     ) {
+    }
+
+    setSelectedChallengeType(selectedChallengeType: string): void {
+        this.selectedChallengeType = selectedChallengeType
     }
 
     ngOnInit(): void {
