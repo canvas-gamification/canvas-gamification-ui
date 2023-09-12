@@ -8,6 +8,25 @@
     >
         Back to List of Challenges
     </a>
+    <h5 class="tui-text_h5 my-3">Which Type of Challenge Would You Like to Create?</h5>
+    <div class="flex gap-5">
+        <tui-island *ngFor="let localChallengeType of localChallengeTypes">
+            <h3 class="tui-island__title">{{localChallengeType[1]}} Challenge</h3>
+            <p class="tui-island__paragraph">
+                Teams earn tokens from every question solved.
+                Each member gets the number of tokens equivalent to team tokens when the challenge ends.
+            </p>
+            <button
+                appearance="primary"
+                size="s"
+                tuiButton
+            >
+                Select This Type
+            </button>
+        </tui-island>
+    </div>
+
+
     <form (ngSubmit)="onSubmit()" [formGroup]="challengeForm">
         <h5 class="tui-text_h5 mt-3">
             {{eventId ? 'Edit ' + event?.name : 'Create New Challenge'}}
