@@ -50,14 +50,14 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         this.courseService.getCourse(this.courseId).subscribe( course => {
             this.events = course.events
         })
-        this.challengeForm = ChallengeForm.createChallengeForm()
+        // this.challengeForm = ChallengeForm.createChallengeForm()
 
         if (this.route.snapshot.paramMap.get('eventId')) {
             this.eventId = +this.route.snapshot.paramMap.get('eventId')
-            this.courseEventService.getCourseEvent(this.eventId).subscribe(event => {
-                this.event = event
-                this.challengeForm = ChallengeForm.createChallengeFormWithData(this.event)
-            })
+            // this.courseEventService.getCourseEvent(this.eventId).subscribe(event => {
+            //     this.event = event
+            //     this.challengeForm = ChallengeForm.createChallengeFormWithData(this.event)
+            // })
         }
 
         this.courseEventService.getChallengeTypes().subscribe(response => {
@@ -67,15 +67,15 @@ export class CourseChallengeCreateEditComponent implements OnInit {
             ])
             this.localChallengeTypes.push(['CONSISTENCY', 'Consistency'])
         })
-        this.categoryService.getCategories().subscribe(
-            categories => this.categories = categories
-        )
-        this.difficultyService.getDifficulties().subscribe(
-            difficulties => this.difficulties = difficulties
-        )
-        this.courseEventService.getLimits().subscribe(
-            limits => this.limits = limits
-        )
+        // this.categoryService.getCategories().subscribe(
+        //     categories => this.categories = categories
+        // )
+        // this.difficultyService.getDifficulties().subscribe(
+        //     difficulties => this.difficulties = difficulties
+        // )
+        // this.courseEventService.getLimits().subscribe(
+        //     limits => this.limits = limits
+        // )
     }
 
     getChallengeQuestionSets(): FormArray {
