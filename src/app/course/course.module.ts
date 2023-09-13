@@ -115,7 +115,9 @@ import {EditorModule} from "@app/components/editor/editor.module"
 import {
     EventQuestionViewComponent
 } from './event/event-question-view/event-question-view.component'
-import {ConceptListComponent} from './concept-list/concept-list.component'
+import {ConceptListComponent} from './concept-list/concept-list.component';
+import { ChallengeFormSnippetComponent } from './challenge/challenge-form-snippet/challenge-form-snippet.component';
+import { ConsistencyFormSnippetComponent } from './challenge/consistency-form-snippet/consistency-form-snippet.component'
 
 @NgModule({
     declarations: [
@@ -151,7 +153,9 @@ import {ConceptListComponent} from './concept-list/concept-list.component'
         PracticeProblemComponent,
         SubmissionChartComponent,
         TeamCreateEditComponent,
-        TokenUseSnippetComponent
+        TokenUseSnippetComponent,
+        ChallengeFormSnippetComponent,
+        ConsistencyFormSnippetComponent
     ],
     imports: [
         CommonModule,
