@@ -115,16 +115,22 @@ import {EditorModule} from "@app/components/editor/editor.module"
 import {
     EventQuestionViewComponent
 } from './event/event-question-view/event-question-view.component'
-import {ConceptListComponent} from './concept-list/concept-list.component';
-import { ChallengeFormSnippetComponent } from './challenge/challenge-form-snippet/challenge-form-snippet.component';
-import { ConsistencyFormSnippetComponent } from './challenge/consistency-form-snippet/consistency-form-snippet.component'
+import {ConceptListComponent} from './concept-list/concept-list.component'
+import {
+    ChallengeFormSnippetComponent
+} from './challenge/challenge-form-snippet/challenge-form-snippet.component'
+import {
+    ConsistencyFormSnippetComponent
+} from './challenge/consistency-form-snippet/consistency-form-snippet.component'
 
 @NgModule({
     declarations: [
         AddToEventModalComponent,
+        ChallengeFormSnippetComponent,
         ChallengeRowComponent,
         ConceptListComponent,
         ConceptMapComponent,
+        ConsistencyFormSnippetComponent,
         CourseChallengeCreateEditComponent,
         CourseChallengeSnippetComponent,
         CourseComponent,
@@ -154,8 +160,6 @@ import { ConsistencyFormSnippetComponent } from './challenge/consistency-form-sn
         SubmissionChartComponent,
         TeamCreateEditComponent,
         TokenUseSnippetComponent,
-        ChallengeFormSnippetComponent,
-        ConsistencyFormSnippetComponent
     ],
     imports: [
         CommonModule,
