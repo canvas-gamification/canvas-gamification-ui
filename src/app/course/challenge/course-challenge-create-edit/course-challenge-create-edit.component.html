@@ -29,6 +29,15 @@
         </tui-island>
     </div>
 
+    <ng-container *ngIf="selectedChallengeType === 'Consistency'; else quotaAndTopTeamTemplate">
+        <p>consistency form</p>
+    </ng-container>
+    <ng-template #quotaAndTopTeamTemplate>
+        <ng-container *ngIf="selectedChallengeType != null">
+            <p>quota or top team form</p>
+        </ng-container>
+
+    </ng-template>
 
     <form (ngSubmit)="onSubmit()" [formGroup]="challengeForm">
         <h5 class="tui-text_h5 mt-3">
