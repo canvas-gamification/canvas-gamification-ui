@@ -1,0 +1,67 @@
+<p>consistency-form-snippet works!</p>
+<form>
+    <h5 class="tui-text_h5 my-3">
+<!--        TODO: need to add edit in later (after making commits)-->
+        {{'Create New ' + challengeType + ' Challenge'}}
+    </h5>
+    <div class="tui-form__row">
+<!--        TODO: Add form control name in after merging the form pr in-->
+        <tui-input aria-label="Challenge Name" formControlName="">
+            Challenge Name
+        </tui-input>
+        <tui-field-error formControlName=""></tui-field-error>
+    </div>
+    <div class="tui-form__row">
+        <!--        TODO: Add form control name in after merging the form pr in-->
+        <tui-multi-select
+            aria-label="Include Challenges"
+            formControlName=""
+            [tuiTextfieldLabelOutside]="true"
+            [stringify]="stringify"
+            [editable]="true"
+            (searchChange)="onSearchChange($event)"
+        >
+            Include Challenges
+            <tui-data-list *tuiDataList tuiMultiSelectGroup>
+                <button
+                    *ngFor="let eventInCourse of getCourseEvents()"
+                    [value]="eventInCourse"
+                    tuioption
+                >
+                    {{eventInCourse.name}}
+                </button>
+            </tui-data-list>
+        </tui-multi-select>
+    </div>
+    <div class="tui-form__row">
+        <!--        TODO: Add form control name in after merging the form pr in-->
+        <tui-input-number
+            aria-label="How many tokens are rewarded for consistently solving the above challenges?"
+            formControlName=""
+        >
+            How many tokens are rewarded for consistently solving the above challenges?
+        </tui-input-number>
+        <tui-field-error formControlName=""></tui-field-error>
+    </div>
+    <div class="tui-form__buttons">
+        <button
+            [disabled]="consistencyChallengeForm.invalid"
+            class="tui-form__button"
+            size="m"
+            tuiButton
+        >
+<!--            TODO: {{eventId ? 'Save Changes' : 'Create Challenge'}}-->
+            Create Challenge
+        </button>
+        <a
+            [routerLink]=""
+            appearance="secondary"
+            aria-label="Cancel"
+            class="tui-form__button"
+            size="m"
+            tuiButton
+        >
+            Cancel
+        </a>
+    </div>
+</form>
