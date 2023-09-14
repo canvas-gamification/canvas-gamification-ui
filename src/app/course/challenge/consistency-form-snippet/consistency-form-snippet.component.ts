@@ -3,6 +3,7 @@ import {FormGroup} from "@angular/forms"
 import {CourseEvent} from "@app/_models"
 import {ActivatedRoute} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
+import {ChallengeType} from "@app/_models/challengeType"
 
 @Component({
     selector: 'app-consistency-form-snippet',
@@ -10,7 +11,7 @@ import {CourseService} from "@app/course/_services/course.service"
     styleUrls: ['./consistency-form-snippet.component.scss']
 })
 export class ConsistencyFormSnippetComponent implements OnInit {
-    @Input() challengeType: string
+    @Input() localChallengeType: ChallengeType
     courseId: number
     events: CourseEvent[] // All the events in this course
     consistencyChallengeForm: FormGroup
