@@ -3,8 +3,8 @@ import {EventSet} from "@app/_models/event-set"
 
 export interface EventSetFormData {
     name: string
-    course_id: number
-    event_ids: number[]
+    course: number
+    events: number[]
     tokens: number
 }
 
@@ -30,8 +30,8 @@ export class EventSetForm {
     static formatEventSetFormData(formData: FormGroup, courseId: number): EventSetFormData {
         return {
             name: formData.get('name').value,
-            course_id: courseId,
-            event_ids: formData.get('events').value?.map(event => event.id),
+            course: courseId,
+            events: formData.get('events').value?.map(event => event.id),
             tokens: formData.get('tokens').value
         }
     }
