@@ -14,7 +14,7 @@ export class EventSetForm {
         return builder.group({
             name: new FormControl(null, [Validators.required]),
             tokens: new FormControl(null, [Validators.required]),
-            event_ids: new FormControl(null, [Validators.required]),
+            events: new FormControl(null, [Validators.required]),
         })
     }
 
@@ -23,7 +23,7 @@ export class EventSetForm {
         return builder.group({
             name: new FormControl(eventSet.name, [Validators.required]),
             tokens: new FormControl(eventSet.tokens, [Validators.required]),
-            event_ids: new FormControl(eventSet.events, [Validators.required])
+            // event_ids: new FormControl(eventSet.events, [Validators.required])
         })
     }
 
@@ -31,7 +31,7 @@ export class EventSetForm {
         return {
             name: formData.get('name').value,
             course_id: courseId,
-            event_ids: formData.get('event_ids').value,
+            event_ids: formData.get('events').value?.map(event => event.id),
             tokens: formData.get('tokens').value
         }
     }
