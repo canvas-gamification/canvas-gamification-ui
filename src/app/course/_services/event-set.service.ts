@@ -4,6 +4,7 @@ import {ApiService} from "@app/_services/api.service"
 import {Observable} from "rxjs"
 import {EventSet} from "@app/_models/event-set"
 import {catchError} from "rxjs/operators"
+import {EventSetFormData} from "@app/course/_forms/event-set.form"
 
 @Injectable({
     providedIn: 'root'
