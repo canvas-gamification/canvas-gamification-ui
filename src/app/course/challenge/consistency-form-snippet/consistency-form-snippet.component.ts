@@ -4,6 +4,7 @@ import {CourseEvent} from "@app/_models"
 import {ActivatedRoute} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
 import {ChallengeType} from "@app/_models/challengeType"
+import {EventSetForm} from "@app/course/_forms/event-set.form"
 
 @Component({
     selector: 'app-consistency-form-snippet',
@@ -29,7 +30,7 @@ export class ConsistencyFormSnippetComponent implements OnInit {
         this.courseService.getCourse(this.courseId).subscribe(course =>
             this.events = course.events)
 
-        // this.consistencyChallengeForm = EventSetForm.createEventSetForm()
+        this.consistencyChallengeForm = EventSetForm.createEventSetForm()
 
         // if (this.route.snapshot.paramMap.get('eventId')) {
         //     // this.eventId = +this.route.snapshot.paramMap.get('eventId')
