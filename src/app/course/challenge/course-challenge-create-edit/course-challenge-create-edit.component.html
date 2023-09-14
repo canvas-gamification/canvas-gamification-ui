@@ -18,7 +18,7 @@
             </p>
             <div class="flex justify-end">
                 <button
-                    (click)="setSelectedChallengeType(localChallengeType[0])"
+                    (click)="setFilter(localChallengeType)"
                     appearance="primary"
                     size="s"
                     tuiButton
@@ -29,14 +29,14 @@
         </tui-island>
     </div>
 
-    <ng-container *ngIf="selectedChallengeType === 'CONSISTENCY'; else quotaAndTopTeamTemplate">
-        <p>consistency form from parent</p>
-        <app-consistency-form-snippet [challengeType]="selectedChallengeType"></app-consistency-form-snippet>
-    </ng-container>
-    <ng-template #quotaAndTopTeamTemplate>
-        <ng-container *ngIf="selectedChallengeType != null">
-            <app-challenge-form-snippet [challengeType]="selectedChallengeType"></app-challenge-form-snippet>
+    <ng-container *ngIf="filter != null">
+        <ng-container *ngIf="filter[0] === 'CONSISTENCY'; else quotaAndTopTeamTemplate">
+            <p>consistency form from parent</p>
+            <!--        <app-consistency-form-snippet [localChallengeType]="filter"></app-consistency-form-snippet>-->
         </ng-container>
+        <ng-template #quotaAndTopTeamTemplate>
+            <app-challenge-form-snippet [localChallengeType]="filter"></app-challenge-form-snippet>
+        </ng-template>
+    </ng-container>
 
-    </ng-template>
 </div>

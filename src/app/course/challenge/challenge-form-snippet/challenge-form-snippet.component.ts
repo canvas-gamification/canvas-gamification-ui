@@ -17,12 +17,11 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
     styleUrls: ['./challenge-form-snippet.component.scss']
 })
 export class ChallengeFormSnippetComponent implements OnChanges {
-    @Input() challengeType: string
+    @Input() localChallengeType: ChallengeType
     courseId: number
     challengeForm: FormGroup
     eventId: number = null
     event: CourseEvent // The event users are editing
-    localChallengeTypes: ChallengeType[]
     categories: Category[]
     difficulties: Difficulty[]
     limits: EventLimit[]
@@ -40,7 +39,7 @@ export class ChallengeFormSnippetComponent implements OnChanges {
     ngOnChanges(): void {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
         this.challengeForm = ChallengeForm.createChallengeForm()
-        this.challengeForm.controls['challengeType'].setValue(this.challengeType)
+        this.challengeForm.controls['challengeType'].setValue(this.localChallengeType[0])
 
         if (this.route.snapshot.paramMap.get('eventId')) {
             this.eventId = +this.route.snapshot.paramMap.get('eventId')
@@ -49,13 +48,6 @@ export class ChallengeFormSnippetComponent implements OnChanges {
                 this.challengeForm = ChallengeForm.createChallengeFormWithData(this.event)
             })
         }
-
-        this.courseEventService.getChallengeTypes().subscribe(response => {
-            this.localChallengeTypes = response.map(array => [
-                array[0],
-                startCase(array[1].toLowerCase().replace('_', ' '))
-            ])
-        })
 
         this.categoryService.getCategories().subscribe(categories =>
             this.categories = categories)

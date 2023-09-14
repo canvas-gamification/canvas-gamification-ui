@@ -13,7 +13,7 @@ import {startCase} from 'lodash'
 export class CourseChallengeCreateEditComponent implements OnInit {
     eventId: number = null //used for the navigation in the parent component
     localChallengeTypes: ChallengeType[] //used to display the cards
-    selectedChallengeType: string = null //cards will set the types
+    filter: ChallengeType = null //cards will set the types
 
     constructor(
         private route: ActivatedRoute,
@@ -32,7 +32,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         })
     }
 
-    setSelectedChallengeType(selectedChallengeType: string): void {
-        this.selectedChallengeType = selectedChallengeType
+    setFilter(localChallengeType: ChallengeType): void {
+        this.filter = localChallengeType
     }
 }
