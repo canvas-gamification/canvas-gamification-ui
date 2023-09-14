@@ -1,10 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {FormGroup} from "@angular/forms"
 import {CourseEvent} from "@app/_models"
-import {ActivatedRoute} from "@angular/router"
+import {ActivatedRoute, Router} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
 import {ChallengeType} from "@app/_models/challengeType"
 import {EventSetForm} from "@app/course/_forms/event-set.form"
+import {EventSetService} from "@app/course/_services/event-set.service"
+import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-consistency-form-snippet',
@@ -21,6 +23,9 @@ export class ConsistencyFormSnippetComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private courseService: CourseService,
+        private eventSetService: EventSetService,
+        private readonly notificationsService: TuiNotificationsService,
+        private router: Router,
     ) {
     }
 
@@ -50,9 +55,27 @@ export class ConsistencyFormSnippetComponent implements OnInit {
     }
 
     getCourseEvents(): CourseEvent[] {
-        if(!this.search)
+        if (!this.search)
             return this.events
-        return this.events.filter(event => event.name.includes(this.search) )
+        return this.events.filter(event => event.name.includes(this.search))
+    }
+
+    onSubmit() {
+        const eventSetFormData = EventSetForm.formatEventSetFormData(
+            this.consistencyChallengeForm,
+            this.courseId
+        )
+
+        this.eventSetService.addEventSet(eventSetFormData).subscribe(() => {
+            this.notificationsService.show(
+                'The consistency challenge has been updated successfully.',
+                {status: TuiNotification.Success}
+            ).subscribe()
+
+            this.router.navigate(['course', this.courseId, 'challenge']).then()
+        })
+
+
     }
 
 }
