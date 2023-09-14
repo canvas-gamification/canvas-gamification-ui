@@ -13,7 +13,7 @@
     <div class="tui-form__row">
         <tui-multi-select
             aria-label="Include Challenges"
-            formControlName="event_ids"
+            formControlName="events"
             [tuiTextfieldLabelOutside]="true"
             [stringify]="stringify"
             [editable]="true"
@@ -23,14 +23,14 @@
             <tui-data-list *tuiDataList tuiMultiSelectGroup>
                 <button
                     *ngFor="let eventInCourse of getCourseEvents()"
-                    [value]="eventInCourse.id"
+                    [value]="eventInCourse"
                     tuiOption
                 >
                     {{eventInCourse.name}}
                 </button>
             </tui-data-list>
         </tui-multi-select>
-        <tui-field-error formControlName="event_ids"></tui-field-error>
+        <tui-field-error formControlName="events"></tui-field-error>
     </div>
     <div class="tui-form__row">
         <tui-input-number
