@@ -44,23 +44,22 @@
                     >
                     </app-event-stats-bar-chart>
                 </div>
-                <div *ngIf="!isEmpty(stat.total_submissions)">
-                    <div class="tui-text_body-l tui-text_bold">Submissions</div>
+                <div *ngIf="stat.total_submissions !== 0">
                     <table class="tui-table mt-3">
                         <tbody>
                         <tr class="tui-table__tr tui-table__tr_border_none">
-                            <th class="tui-table__th">Evaluation</th>
-                            <th class="tui-table__th w-40">Submission Count</th>
+                            <th class="tui-table__th">Student Progress</th>
+                            <th class="tui-table__th w-40">Students Attempted</th>
                         </tr>
-                        <ng-container *ngFor="let submission of stat.submissions | keyvalue">
+                        <ng-container *ngFor="let submission of stat.submissions | keyvalue: originalOrder">
                             <tr
                                 class="tui-table__tr tui-table__tr_border_none"
                                 *ngIf="submission.value"
                             >
                                 <td class="tui-table__td">{{ submission.key }}</td>
                                 <td class="tui-table__td">
-                                    {{ submission.value / stat.total_submissions | percent }}
-                                    ( {{submission.value}} / {{stat.total_submissions}} )
+                                    {{ submission.value / stat.num_students_attempted | percent }}
+                                    ( {{submission.value}} / {{stat.num_students_attempted}} )
                                 </td>
                             </tr>
                         </ng-container>
