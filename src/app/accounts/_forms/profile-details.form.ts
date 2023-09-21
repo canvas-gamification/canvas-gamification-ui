@@ -6,7 +6,8 @@ export class ProfileDetailsForm {
         return builder.group({
             first_name: new FormControl('', [Validators.required]),
             last_name: new FormControl('', [Validators.required]),
-            email: new FormControl('', [Validators.required, Validators.email])
+            email: new FormControl('', [Validators.required, Validators.email]),
+            display_name: new FormControl('', [Validators.required])
         })
     }
 
@@ -14,6 +15,7 @@ export class ProfileDetailsForm {
         form.controls.first_name.setValue(data.first_name)
         form.controls.last_name.setValue(data.last_name)
         form.controls.email.setValue(data.email)
+        form.controls.display_name.setValue(data.display_name)
     }
 
     static extractData(form: FormGroup): ProfileDetailsFormData {
@@ -25,4 +27,5 @@ export interface ProfileDetailsFormData {
     first_name: string;
     last_name: string;
     email: string;
+    display_name: string;
 }
