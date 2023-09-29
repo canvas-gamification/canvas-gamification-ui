@@ -28,7 +28,7 @@
         </tui-island>
     </div>
 
-    <ng-container *ngIf="filter != null">
+    <ng-container *ngIf="filter">
         <ng-container *ngIf="filter[0] === 'CONSISTENCY'; else quotaAndTopTeamTemplate">
             <p>consistency form from parent</p>
             <app-consistency-form-snippet [localChallengeType]="filter"></app-consistency-form-snippet>
