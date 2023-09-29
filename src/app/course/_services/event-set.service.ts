@@ -35,9 +35,13 @@ export class EventSetService {
 
     }
 
-    // Decision Question: Who can edit the consistency challenge?
-    // updateEventSet():Observable<any> {
-    //
-    // }
+    getEventSet(eventSetId: number): Observable<EventSet>{
+        const url = this.apiService.getURL('event-set', eventSetId)
+        return this.http
+            .get<EventSet>(url)
+            .pipe(catchError(
+                this.apiService.handleError<EventSet>('Error occurred while fetching event set.')
+            ))
+    }
 
 }
