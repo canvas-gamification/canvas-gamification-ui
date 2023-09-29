@@ -28,4 +28,8 @@ export class EventStatsComponent implements OnInit {
     isEmpty(obj: unknown) {
         return isEmpty(obj)
     }
+
+    originalOrder() {
+        return 0
+    }
 }
