@@ -8,25 +8,6 @@
         </tui-input>
         <tui-field-error formControlName="name"></tui-field-error>
     </div>
-<!--    <div class="tui-form__row">-->
-<!--        <tui-select-->
-<!--            aria-label="Challenge Type"-->
-<!--            formControlName="challengeType"-->
-<!--            [valueContent]="localChallengeTypes ? (localChallengeTypes | stringifyTuiDataList: 0: 1) : ''"-->
-<!--        >-->
-<!--            Challenge Type-->
-<!--            <tui-data-list *tuiDataList>-->
-<!--                <button-->
-<!--                    *ngFor="let event of localChallengeTypes"-->
-<!--                    [value]="event[0]"-->
-<!--                    tuiOption-->
-<!--                >-->
-<!--                    {{ event[1] }}-->
-<!--                </button>-->
-<!--            </tui-data-list>-->
-<!--        </tui-select>-->
-<!--        <tui-field-error formControlName="challengeType"></tui-field-error>-->
-<!--    </div>-->
     <div class="tui-form__row">
         <tui-input-number aria-label="Max number of students" formControlName="maxTeamSize">
             Maximum number of students in the team
