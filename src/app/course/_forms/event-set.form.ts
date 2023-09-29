@@ -23,7 +23,7 @@ export class EventSetForm {
         return builder.group({
             name: new FormControl(eventSet.name, [Validators.required]),
             tokens: new FormControl(eventSet.tokens, [Validators.required]),
-            // event_ids: new FormControl(eventSet.events, [Validators.required])
+            events: new FormControl(eventSet.events, [Validators.required])
         })
     }
 
