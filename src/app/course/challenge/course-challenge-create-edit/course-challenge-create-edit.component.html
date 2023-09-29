@@ -10,11 +10,10 @@
     </a>
     <h5 class="tui-text_h5 my-3">Which Type of Challenge Would You Like to Create?</h5>
     <div class="flex gap-5">
-        <tui-island *ngFor="let localChallengeType of localChallengeTypes">
+        <tui-island *ngFor="let localChallengeType of localChallengeTypes; index as i">
             <h3 class="tui-island__title">{{localChallengeType[1]}} Challenge</h3>
             <p class="tui-island__paragraph">
-                Teams earn tokens from every question solved.
-                Each member gets the number of tokens equivalent to team tokens when the challenge ends.
+                {{challengeTypeDes[i][1]}}
             </p>
             <div class="flex justify-end">
                 <button
