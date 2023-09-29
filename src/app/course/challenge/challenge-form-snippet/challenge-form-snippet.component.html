@@ -1,5 +1,3 @@
-<p>I've selected {{localChallengeType[1]}}</p>
-<p>course id: {{courseId}}</p>
 <form (ngSubmit)="onSubmit()" [formGroup]="challengeForm">
     <h5 class="tui-text_h5 mt-3">
         {{eventId ? 'Edit ' + event?.name : 'Create ' + localChallengeType[1] + ' Challenge'}}
