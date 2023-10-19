@@ -11,8 +11,7 @@ export const MOCK_USER: User = {
     last_name: "mock",
     token: "secret_mock_token",
     tokens: 0,
-    username: "mock@mock.com",
-    community_jwt: ""
+    username: "mock@mock.com"
 }
 
 export const MOCK_USER_ACTION_1: Action = {
