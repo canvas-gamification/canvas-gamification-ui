@@ -8,6 +8,7 @@ export class RegisterForm {
             email: new FormControl(null, [Validators.required, Validators.email]),
             first_name: new FormControl(null, [Validators.required]),
             last_name: new FormControl(null, [Validators.required]),
+            nickname: new FormControl(null, [Validators.required, Validators.minLength(1)]),
             password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
             password2: new FormControl(null, [Validators.required, Validators.minLength(8)]),
             recaptcha_key: new FormControl(null, [Validators.required])
@@ -23,9 +24,10 @@ export class RegisterForm {
 
 export interface RegisterFormData {
     email: string;
-    first_name: string;
-    last_name: string;
-    password: string;
-    password2: string;
-    recaptcha_key: string;
+    first_name: string
+    last_name: string
+    nickname: string
+    password: string
+    password2: string
+    recaptcha_key: string
 }

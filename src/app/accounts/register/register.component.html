@@ -13,6 +13,26 @@
                         <div class="tui-form__field-note">We'll never share your email with anyone else.</div>
                     </div>
                     <div class="tui-form__row">
+                        <tui-input aria-label="User Name" formControlName="nickname">
+                            User Name
+                        </tui-input>
+                        <tui-field-error formControlName="nickname"></tui-field-error>
+                    </div>
+                    <div class="tui-form__row tui-form__row_multi-fields">
+                        <div class="tui-form__multi-field">
+                            <tui-input aria-label="First Name" formControlName="first_name">
+                                First Name
+                            </tui-input>
+                            <tui-field-error formControlName="first_name"></tui-field-error>
+                        </div>
+                        <div class="tui-form__multi-field">
+                            <tui-input aria-label="Last Name" formControlName="last_name">
+                                Last Name
+                            </tui-input>
+                            <tui-field-error formControlName="last_name"></tui-field-error>
+                        </div>
+                    </div>
+                    <div class="tui-form__row">
                         <tui-input-password aria-label="Password" formControlName="password">Password
                         </tui-input-password>
                         <tui-field-error formControlName="password"></tui-field-error>
