@@ -140,7 +140,8 @@ export const MOCK_USER_STUDENT: User = {
     role: 'student',
     is_teacher: false,
     is_student: true,
-    has_consent: true
+    has_consent: true,
+    community_jwt: ""
 }
 
 export const MOCK_USER_TEACHER: User = {
@@ -154,7 +155,8 @@ export const MOCK_USER_TEACHER: User = {
     role: 'teacher',
     is_teacher: true,
     is_student: false,
-    has_consent: true
+    has_consent: true,
+    community_jwt: ""
 }
 
 export const MOCK_MCQ_QUESTION: Question = {

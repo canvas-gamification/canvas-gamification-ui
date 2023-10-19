@@ -12,7 +12,8 @@ export const MOCK_ADMIN: User = {
     last_name: "",
     role: "",
     tokens: 0,
-    username: ""
+    username: "",
+    community_jwt: ""
 }
 
 export const MOCK_STUDENT: User = {
@@ -25,7 +26,8 @@ export const MOCK_STUDENT: User = {
     last_name: "",
     role: "",
     tokens: 0,
-    username: ""
+    username: "",
+    community_jwt: ""
 }
 
 export const MOCK_STUDENT_HAS_CONSENT: User = {
@@ -38,7 +40,8 @@ export const MOCK_STUDENT_HAS_CONSENT: User = {
     last_name: "",
     role: "",
     tokens: 0,
-    username: ""
+    username: "",
+    community_jwt: ""
 }
 
 export const MOCK_ADMIN_CONSENT: UserConsent = {
