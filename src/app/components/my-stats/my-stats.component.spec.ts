@@ -7,6 +7,8 @@ import {CategoryService} from "@app/_services/api/category.service"
 import {CategoryServiceMock} from "@test/_services/category.service.mock"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {DifficultyServiceMock} from "@app/problems/_test/_services/difficulty.service.mock"
+import {AuthenticationService} from "@app/_services/api/authentication"
+import {AuthenticationServiceMock} from "@test/_services/authentication.service.mock"
 
 
 describe('MyStatsComponent', () => {
@@ -15,12 +17,12 @@ describe('MyStatsComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ MyStatsComponent ],
+            declarations: [MyStatsComponent],
             providers: [
                 {provide: UserStatsService, useClass: UserStatsServiceMock},
                 {provide: CategoryService, useClass: CategoryServiceMock},
                 {provide: DifficultyService, useClass: DifficultyServiceMock},
-
+                {provide: AuthenticationService, useClass: AuthenticationServiceMock}
             ]
         })
             .compileComponents()
@@ -51,6 +53,4 @@ describe('MyStatsComponent', () => {
     it('should test number of questions solved', () => {
         expect(component.totalQuestionsSolved).toEqual(6)
     })
-
-
 })

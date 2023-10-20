@@ -1,6 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
-
 import {CommunityComponent} from './community.component'
+import {AuthenticationService} from "@app/_services/api/authentication"
+import {AuthenticationServiceMock} from "@test/_services/authentication.service.mock"
 
 describe('CommunityComponent', () => {
     let component: CommunityComponent
@@ -8,7 +9,10 @@ describe('CommunityComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ CommunityComponent ]
+            declarations: [CommunityComponent],
+            providers: [
+                {provide: AuthenticationService, useClass: AuthenticationServiceMock}
+            ]
         })
             .compileComponents()
     })
