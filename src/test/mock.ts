@@ -5,6 +5,7 @@ export const MOCK_USER: User = {
     is_teacher: false,
     email: "mock@mock.com",
     first_name: "mock",
+    nickname: 'Nick',
     has_consent: true,
     is_student: true,
     role: 'student',
