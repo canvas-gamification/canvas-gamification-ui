@@ -11,16 +11,14 @@ import {GradeBook} from "@app/_models/grade_book"
     templateUrl: './token-use-snippet.component.html',
     styleUrls: ['./token-use-snippet.component.scss']
 })
-export class TokenUseSnippetComponent implements AfterContentChecked{
+export class TokenUseSnippetComponent implements AfterContentChecked {
     grades: GradeBook
     gradesDisplayData: GradeBook
     gradeBookTableHeaders = [
-        'name', 'legal_first_name', 'legal_last_name', 'student_number', 'event_name', 'grade',
-        'total'
+        'name', 'event_name', 'grade', 'total'
     ]
     gradeBookTableDetailedHeaders: string[] = [
-        'name', 'legal_first_name', 'legal_last_name', 'student_number', 'event_name', 'grade',
-        'total', 'title', 'question_grade', 'attempts'
+        'name', 'event_name', 'grade', 'total', 'title', 'question_grade', 'attempts'
     ]
 
     user: User
@@ -61,7 +59,7 @@ export class TokenUseSnippetComponent implements AfterContentChecked{
     /**
      * Update the current view of the grade table.
      */
-    update(values?: {page?: number, pageSize?: number}): void {
+    update(values?: { page?: number, pageSize?: number }): void {
         const {page, pageSize} = values ?? {}
         if (page || (page === 0 && this.page === 1))
             this.page = page
