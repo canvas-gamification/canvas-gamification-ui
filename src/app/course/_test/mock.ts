@@ -133,6 +133,7 @@ export const MOCK_USER_STUDENT: User = {
     id: 0,
     username: 'student@test.com',
     first_name: 'Firstname',
+    nickname: 'Savvy Seal',
     last_name: 'Lastname',
     email: 'student@test.com',
     token: null,
@@ -140,7 +141,8 @@ export const MOCK_USER_STUDENT: User = {
     role: 'student',
     is_teacher: false,
     is_student: true,
-    has_consent: true
+    has_consent: true,
+    community_jwt: ""
 }
 
 export const MOCK_USER_TEACHER: User = {
@@ -148,13 +150,15 @@ export const MOCK_USER_TEACHER: User = {
     username: 'teacher@test.com',
     first_name: 'FirstnameTeach',
     last_name: 'LastnameTeach',
+    nickname: 'Teach',
     email: 'teacher@test.com',
     token: null,
     tokens: 0,
     role: 'teacher',
     is_teacher: true,
     is_student: false,
-    has_consent: true
+    has_consent: true,
+    community_jwt: ""
 }
 
 export const MOCK_MCQ_QUESTION: Question = {

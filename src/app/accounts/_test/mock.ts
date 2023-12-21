@@ -5,6 +5,7 @@ import {EmailFormData, PasswordFormData} from "@app/accounts/_forms/reset-passwo
 export const MOCK_ADMIN: User = {
     email: "",
     first_name: "",
+    nickname: "",
     has_consent: false,
     id: 0,
     is_student: false,
@@ -12,12 +13,14 @@ export const MOCK_ADMIN: User = {
     last_name: "",
     role: "",
     tokens: 0,
-    username: ""
+    username: "",
+    community_jwt: ""
 }
 
 export const MOCK_STUDENT: User = {
     email: "",
     first_name: "",
+    nickname: "",
     has_consent: false,
     id: 1,
     is_student: true,
@@ -25,12 +28,14 @@ export const MOCK_STUDENT: User = {
     last_name: "",
     role: "",
     tokens: 0,
-    username: ""
+    username: "",
+    community_jwt: ""
 }
 
 export const MOCK_STUDENT_HAS_CONSENT: User = {
     email: "",
     first_name: "",
+    nickname: "",
     has_consent: true,
     id: 1,
     is_student: true,
@@ -38,7 +43,8 @@ export const MOCK_STUDENT_HAS_CONSENT: User = {
     last_name: "",
     role: "",
     tokens: 0,
-    username: ""
+    username: "",
+    community_jwt: ""
 }
 
 export const MOCK_ADMIN_CONSENT: UserConsent = {

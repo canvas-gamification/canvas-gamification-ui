@@ -36,6 +36,12 @@
                         </div>
                     </div>
                     <div class="tui-form__row">
+                        <tui-input aria-label="Nickname" formControlName="nickname">
+                            Nickname
+                        </tui-input>
+                        <tui-field-error formControlName="nickname"></tui-field-error>
+                    </div>
+                    <div class="tui-form__row">
                         <tui-input [readOnly]="true" aria-label="Email" formControlName="email">
                             Email
                         </tui-input>
