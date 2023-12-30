@@ -32,32 +32,51 @@
     </div>
     <div class="py-3"></div>
     <ng-container *ngIf="!showDetailed">
+        <form (ngSubmit)="update()" ) [formGroup]="name_filter">
+            <tui-input
+                [tuiTextfieldCleaner]="true"
+                class="search tui-space_bottom-4"
+                formControlName="search"
+            >
+                Search for a Student Name
+            </tui-input>
+            <tui-select
+                [tuiTextfieldCleaner]="true"
+                [valueContent]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
+                formControlName="eventName"
+            >
+                Event Name
+                <tui-data-list *tuiDataList [class.tui-skeleton]="!events">
+                    <button *ngFor="let event of events" [value]="event.name" tuiOption>
+                        {{ event.name }}
+                    </button>
+                </tui-data-list>
+            </tui-select>
+            <button
+                size="m"
+                tuiButton
+                type="submit"
+            >
+                Filter
+            </button>
+        </form>
         <table
-            [columns]="gradeBookTableHeaders"
+            [columns]=" gradeBookTableHeaders
+            "
             class="grades-table"
             tuiTable
-        >
+            >
             <thead tuiThead>
             <tr tuiThGroup>
                 <th *tuiHead="'name'" tuiTh>Name</th>
-                <th *tuiHead="'legal_first_name'" tuiTh>Legal First Name</th>
-                <th *tuiHead="'legal_last_name'" tuiTh>Legal Last Name</th>
-                <th *tuiHead="'student_number'" tuiTh>Student #</th>
                 <th *tuiHead="'event_name'" tuiTh>Event Name</th>
                 <th *tuiHead="'grade'" tuiTh>Tokens Earned</th>
-                <th *tuiHead="'total'" tuiTh>Out Of</th>
             </tr>
             </thead>
             <tbody [data]="gradesDisplayData" tuiTbody>
             <tr *tuiRow="let grade of gradesDisplayData" tuiTr>
-                <td *tuiCell="'legal_first_name'" tuiTd>
-                    {{ (grade.legal_first_name) || 'No First Name' }}
-                </td>
-                <td *tuiCell="'legal_last_name'" tuiTd>
-                    {{ (grade.legal_last_name) || 'No Last Name' }}
-                </td>
-                <td *tuiCell="'student_number'" tuiTd>
-                    {{ (grade.student_number) || 'No Student #' }}
+                <td *tuiCell="'grade'" tuiTd>
+                    {{ grade.grade }} / {{ grade.total }}
                 </td>
             </tr>
             </tbody>
@@ -75,7 +94,7 @@
                 </td>
             </tr>
             </tfoot>
-        </table>
+            </table>
     </ng-container>
     <ng-container *ngIf="showDetailed">
         <table
@@ -86,43 +105,33 @@
             <thead tuiThead>
             <tr tuiThGroup>
                 <th *tuiHead="'name'" tuiTh>Name</th>
-                <th *tuiHead="'legal_first_name'" tuiTh>Legal First Name</th>
-                <th *tuiHead="'legal_last_name'" tuiTh>Legal Last Name</th>
-                <th *tuiHead="'student_number'" tuiTh>Student #</th>
                 <th *tuiHead="'event_name'" tuiTh>Event Name</th>
                 <th *tuiHead="'grade'" tuiTh>Tokens Earned</th>
-                <th *tuiHead="'total'" tuiTh>Out Of</th>
                 <th *tuiHead="'title'" tuiTh>Question Name</th>
-                <th *tuiHead="'question_grade'" tuiTh>Question Grade</th>
+                <th *tuiHead="'question_grade'" tuiTh>Question Tokens</th>
                 <th *tuiHead="'attempts'" tuiTh>Attempts</th>
             </tr>
             </thead>
             <tbody [data]="gradesDisplayData" tuiTbody>
             <tr *tuiRow="let grade of gradesDisplayData" tuiTr>
-                <td *tuiCell="'legal_first_name'" tuiTd>
-                    {{ (grade.legal_first_name) || 'No First Name' }}
-                </td>
-                <td *tuiCell="'legal_last_name'" tuiTd>
-                    {{ (grade.legal_last_name) || 'No Last Name' }}
-                </td>
-                <td *tuiCell="'student_number'" tuiTd>
-                    {{ (grade.student_number) || 'No Student #' }}
+                <td *tuiCell="'grade'" tuiTd>
+                    {{ grade.grade }} / {{ grade.total }}
                 </td>
                 <td *tuiCell="'title'" tuiTd>
                     <div *ngFor="let detail of grade.question_details; index as idx">
-                        {{detail.title}}
+                        {{ detail.title }}
                         <hr *ngIf="!(idx === grade.question_details.length - 1)">
                     </div>
                 </td>
                 <td *tuiCell="'question_grade'" tuiTd>
                     <div *ngFor="let detail of grade.question_details; index as idx">
-                        {{detail.question_grade}}
+                        {{ detail.question_grade }} / 1
                         <hr *ngIf="!(idx === grade.question_details.length - 1)">
                     </div>
                 </td>
                 <td *tuiCell="'attempts'" tuiTd>
                     <div *ngFor="let detail of grade.question_details; index as idx">
-                        {{detail.attempts}} / {{detail.max_attempts}}
+                        {{ detail.attempts }} / {{ detail.max_attempts }}
                         <hr *ngIf="!(idx === grade.question_details.length - 1)">
                     </div>
                 </td>
