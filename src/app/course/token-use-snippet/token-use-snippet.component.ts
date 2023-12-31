@@ -5,7 +5,7 @@ import {
     Component,
     Inject
 } from '@angular/core'
-import {CourseEvent, User} from '@app/_models'
+import {CourseEvent, FilterParameters, Question, User} from '@app/_models'
 import {ActivatedRoute} from '@angular/router'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {TuiNotificationsService} from "@taiga-ui/core"
@@ -13,7 +13,14 @@ import {CourseService} from "@app/course/_services/course.service"
 import {GradeBook} from "@app/_models/grade_book"
 import {FormControl, FormGroup} from "@angular/forms";
 import {filter} from "rxjs/operators";
-import {CourseEventService} from "@app/course/_services/course-event.service";
+import {CourseEventService} from "@app/course/_services/course-event.service"
+import {TuiComparator} from "@taiga-ui/addon-table"
+import {Subject} from "rxjs"
+import {TokenFilterParameters} from "@app/_models/token_use"
+
+type SortingKey =
+    'student_name'
+    | 'event_name'
 
 @Component({
     selector: 'app-token-use-snippet',
@@ -35,16 +42,30 @@ export class TokenUseSnippetComponent implements AfterContentChecked {
         search: new FormControl(''),
     })
 
-
-    user: User
-    courseId: number
-    events: CourseEvent[]
-    showDetailed = false
+    // Sorting
+    readonly sorters: Record<SortingKey, TuiComparator<GradeBook>> = {
+        student_name: () => 0,
+        event_name: () => 0,
+    }
+    sorter = this.sorters.student_name
+    sortDirection: -1 | 1 = -1
 
     // Pagination
     numberOfGradeLines = 0
     pageSize = 10
     page = 0
+
+    paramChanged: Subject<TokenFilterParameters> = new Subject<TokenFilterParameters>()
+    filteringQuestions = false
+    orderingMap: {
+        student_name: 'student_name',
+        event_name: 'event_name'
+    }
+
+    user: User
+    courseId: number
+    events: CourseEvent[]
+    showDetailed = false
 
 
     constructor(
@@ -62,13 +83,20 @@ export class TokenUseSnippetComponent implements AfterContentChecked {
             this.events = events.filter(obj => types.includes(obj.type))
         })
 
-        this.courseService.getGradeBook(this.courseId).subscribe(grades => {
-            this.grades = grades
-            this.numberOfGradeLines = grades.length
-            this.gradesDisplayData = grades.slice(this.page * this.pageSize, this.page * this.pageSize + this.pageSize)
-        })
+        if (this.user.is_teacher) {
+            this.courseService.getGradeBook(this.courseId).subscribe(grades => {
+                this.grades = grades
+                this.numberOfGradeLines = grades.length
+                this.gradesDisplayData = grades.slice(this.page * this.pageSize, this.page * this.pageSize + this.pageSize)
+            })
+        } else if (this.user.is_student) {
+            this.courseService.getMyGrades(this.courseId).subscribe(grades => {
+                this.grades = grades
+                this.numberOfGradeLines = grades.length
+                this.gradesDisplayData = grades.slice(this.page * this.pageSize, this.page * this.pageSize + this.pageSize)
+            })
+        }
     }
-
 
 
     ngAfterContentChecked(): void {

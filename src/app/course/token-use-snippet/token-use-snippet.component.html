@@ -31,35 +31,35 @@
         </div>
     </div>
     <div class="py-3"></div>
+    <form (ngSubmit)="update()" [formGroup]="name_filter">
+        <tui-input
+            [tuiTextfieldCleaner]="true"
+            class="search tui-space_bottom-4"
+            formControlName="search"
+        >
+            Search for a Student Name
+        </tui-input>
+        <tui-select
+            [tuiTextfieldCleaner]="true"
+            [valueContent]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
+            formControlName="eventName"
+        >
+            Event Name
+            <tui-data-list *tuiDataList [class.tui-skeleton]="!events">
+                <button *ngFor="let event of events" [value]="event.name" tuiOption>
+                    {{ event.name }}
+                </button>
+            </tui-data-list>
+        </tui-select>
+        <button
+            size="m"
+            tuiButton
+            type="submit"
+        >
+            Filter
+        </button>
+    </form>
     <ng-container *ngIf="!showDetailed">
-        <form (ngSubmit)="update()" ) [formGroup]="name_filter">
-            <tui-input
-                [tuiTextfieldCleaner]="true"
-                class="search tui-space_bottom-4"
-                formControlName="search"
-            >
-                Search for a Student Name
-            </tui-input>
-            <tui-select
-                [tuiTextfieldCleaner]="true"
-                [valueContent]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
-                formControlName="eventName"
-            >
-                Event Name
-                <tui-data-list *tuiDataList [class.tui-skeleton]="!events">
-                    <button *ngFor="let event of events" [value]="event.name" tuiOption>
-                        {{ event.name }}
-                    </button>
-                </tui-data-list>
-            </tui-select>
-            <button
-                size="m"
-                tuiButton
-                type="submit"
-            >
-                Filter
-            </button>
-        </form>
         <table
             [columns]=" gradeBookTableHeaders
             "

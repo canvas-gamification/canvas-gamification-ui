@@ -137,4 +137,14 @@ export class CourseService {
                 )
             ))
     }
+
+    getMyGrades(courseId: number): Observable<GradeBook> {
+        const url = this.apiService.getURL('course', courseId, 'my-grades')
+        return this.http.get<GradeBook>(url)
+            .pipe(catchError(
+                this.apiService.handleError<GradeBook>(
+                    'Error occurred while fetching grades.'
+                )
+            ))
+    }
 }
