@@ -22,6 +22,7 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
 })
 export class TokenUseSnippetComponent implements AfterContentChecked {
     // TODO: Don't display student name if the user is not an instructor
+    // TODO: Test with large number of assignments
     grades: GradeBook
     gradesDisplayData: GradeBook
     gradeBookTableHeaders: string[] = [
