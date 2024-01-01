@@ -30,20 +30,22 @@
             </button>
         </div>
     </div>
-    <div class="py-3"></div>
-    <form (ngSubmit)="update()" [formGroup]="name_filter">
+    <div class="py-3 space-y-3">
+    <div class="flex gap-3 items-center">
         <tui-input
             [tuiTextfieldCleaner]="true"
-            class="search tui-space_bottom-4"
-            formControlName="search"
-        >
+            class="w-64"
+            [ngModel]="query"
+            (ngModelChange)="update({query: $event})"
+            >
             Search for a Student Name
         </tui-input>
         <tui-select
             [tuiTextfieldCleaner]="true"
             [valueContent]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
-            formControlName="eventName"
-        >
+            class="w-48"
+            [ngModel]="event"
+            (ngModelChange)="update({event: $event})">
             Event Name
             <tui-data-list *tuiDataList [class.tui-skeleton]="!events">
                 <button *ngFor="let event of events" [value]="event.name" tuiOption>
@@ -51,21 +53,13 @@
                 </button>
             </tui-data-list>
         </tui-select>
-        <button
-            size="m"
-            tuiButton
-            type="submit"
-        >
-            Filter
-        </button>
-    </form>
+    </div>
     <ng-container *ngIf="!showDetailed">
         <table
-            [columns]=" gradeBookTableHeaders
-            "
+            [columns]="gradeBookTableHeaders"
             class="grades-table"
             tuiTable
-            >
+        >
             <thead tuiThead>
             <tr tuiThGroup>
                 <th *tuiHead="'name'" tuiTh>Name</th>
@@ -88,13 +82,12 @@
                         (sizeChange)="update({pageSize: $event})"
                         [(page)]="page"
                         [(size)]="pageSize"
-                        [total]="numberOfGradeLines"
                         class="tui-space_top-2"
                     ></tui-table-pagination>
                 </td>
             </tr>
             </tfoot>
-            </table>
+        </table>
     </ng-container>
     <ng-container *ngIf="showDetailed">
         <table
@@ -153,4 +146,5 @@
             </tfoot>
         </table>
     </ng-container>
+    </div>
 </section>
