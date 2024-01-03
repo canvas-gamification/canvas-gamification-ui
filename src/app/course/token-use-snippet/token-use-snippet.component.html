@@ -33,6 +33,7 @@
     <div class="py-3 space-y-3">
     <div class="flex gap-3 items-center">
         <tui-input
+            *ngIf="isInstructor"
             [tuiTextfieldCleaner]="true"
             class="w-64"
             [ngModel]="query"

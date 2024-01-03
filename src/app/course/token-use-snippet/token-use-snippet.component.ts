@@ -21,8 +21,8 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TokenUseSnippetComponent implements AfterContentChecked {
-    // TODO: Don't display student name if the user is not an instructor
     // TODO: Test with large number of assignments
+    // TODO: Fix pagination to cycle properly
     grades: GradeBook
     gradesDisplayData: GradeBook
     gradeBookTableHeaders: string[] = [
@@ -46,6 +46,7 @@ export class TokenUseSnippetComponent implements AfterContentChecked {
     courseId: number
     events: CourseEvent[]
     showDetailed = false
+    isInstructor = false
 
 
     constructor(
@@ -56,14 +57,30 @@ export class TokenUseSnippetComponent implements AfterContentChecked {
         @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
         private changeDetector: ChangeDetectorRef
     ) {
+        // TODO: Remove this code
+        // const end = new Date()
+        // end.setDate(end.getDate() + 10)
+        // for (let i = 0; i < 100; i++) {
+        //     this.courseEventService.addCourseEvent(
+        //         {
+        //             count_for_tokens: false,
+        //             course: 1,
+        //             end_date: end,
+        //             max_team_size: 1,
+        //             name: `Assignment 1${i}`,
+        //             start_date: new Date(),
+        //             type: "ASSIGNMENT"
+        //         }
+        //     ).subscribe((event) => console.log(event))
+        // }
         this.authenticationService.currentUser.subscribe(user => this.user = user)
         this.courseId = this.route.snapshot.parent.params.courseId
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.course = course
             const types = ["ASSIGNMENT", "EXAM"]
             this.events = course?.events.filter(obj => types.includes(obj.type))
-
-            if (this.user.id === this.course.instructor) {
+            this.isInstructor = this.user.id === this.course.instructor
+            if (this.isInstructor) {
                 this.courseService.getGradeBook(this.courseId).subscribe(grades => {
                     this.grades = grades
                     this.numberOfGradeLines = grades.length
