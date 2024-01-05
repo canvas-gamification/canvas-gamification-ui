@@ -7,7 +7,7 @@ import {
 import {MOCK_COURSE} from "@app/problems/_test/mock"
 import {MOCK_COURSE1, MOCK_GRADE_BOOK, MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
 import {CourseRegistrationFormData} from "@app/course/_forms/register.form"
-import {GradeBook} from "@app/_models/grade_book";
+import {GradeBook} from "@app/_models/grade_book"
 
 @Injectable({
     providedIn: 'root'

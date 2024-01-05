@@ -12,11 +12,12 @@ import {TokenUseServiceMock} from "@app/course/_test/_services/token-use.service
 import {CourseModule} from "@app/course/course.module"
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseServiceMock} from "@test/_services/course.service.mock"
-import {MOCK_USER} from "@test/mock";
-import {AuthenticationService} from "@app/_services/api/authentication";
-import {AuthenticationServiceMock} from "@test/_services/authentication.service.mock";
+import {MOCK_USER} from "@test/mock"
+import {AuthenticationService} from "@app/_services/api/authentication"
+import {AuthenticationServiceMock} from "@test/_services/authentication.service.mock"
+import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
 
-describe('TokenUseSnippetComponent', () => {
+describe('TokenUseSnippetComponentStudent', () => {
     let component: TokenUseSnippetComponent
     let fixture: ComponentFixture<TokenUseSnippetComponent>
 
@@ -63,5 +64,48 @@ describe('TokenUseSnippetComponent', () => {
 
     it('should get grade book on initial load', () => {
         expect(component.grades).toEqual(MOCK_GRADE_BOOK)
+        expect(component.gradesDisplayData).toEqual(MOCK_GRADE_BOOK)
     })
+
+    it('should filter grade book by assignment', () => {
+        component.update({event: MOCK_COURSE_EVENT.name})
+        expect(component.gradesDisplayData.length).toEqual(1)
+        expect(component.gradesDisplayData[0].name).toEqual(MOCK_COURSE_EVENT.name)
+    })
+})
+
+describe('TokenUseSnippetComponentInstructor', () => {
+    let component: TokenUseSnippetComponent
+    let fixture: ComponentFixture<TokenUseSnippetComponent>
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestModule, CourseModule],
+            declarations: [TokenUseSnippetComponent],
+            providers: [
+                {provide: AuthenticationService, useClass: AuthenticationServiceMock},
+                {provide: CourseService, useClass: CourseServiceMock},
+                {provide: TokenUseService, useClass: TokenUseServiceMock},
+                {
+                    provide: ActivatedRoute, useValue: {
+                        snapshot: {
+                            parent: {
+                                params: {
+                                    courseId: 0
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }).compileComponents()
+    })
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(TokenUseSnippetComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
+
+    // TODO: Write tests for when user is a teacher
 })
