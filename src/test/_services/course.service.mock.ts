@@ -5,8 +5,9 @@ import {
     Course, LeaderboardElement,
 } from "@app/_models"
 import {MOCK_COURSE} from "@app/problems/_test/mock"
-import {MOCK_COURSE1, MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
+import {MOCK_COURSE1, MOCK_GRADE_BOOK, MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
 import {CourseRegistrationFormData} from "@app/course/_forms/register.form"
+import {GradeBook} from "@app/_models/grade_book";
 
 @Injectable({
     providedIn: 'root'
@@ -30,6 +31,10 @@ export class CourseServiceMock {
 
     register(courseId: number, data: CourseRegistrationFormData): Observable<unknown> {
         return of({success: true})
+    }
+
+    getMyGrades(courseId: number): Observable<GradeBook> {
+        return of(MOCK_GRADE_BOOK)
     }
 
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {

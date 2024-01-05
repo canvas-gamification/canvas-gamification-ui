@@ -3,15 +3,12 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    Inject
 } from '@angular/core'
 import {Course, CourseEvent, User} from '@app/_models'
 import {ActivatedRoute} from '@angular/router'
 import {AuthenticationService} from '@app/_services/api/authentication'
-import {TuiNotificationsService} from "@taiga-ui/core"
 import {CourseService} from "@app/course/_services/course.service"
 import {GradeBook} from "@app/_models/grade_book"
-import {CourseEventService} from "@app/course/_services/course-event.service"
 
 
 @Component({
@@ -21,8 +18,6 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TokenUseSnippetComponent implements AfterContentChecked {
-    // TODO: Test with large number of assignments
-    // TODO: Fix pagination to cycle properly
     grades: GradeBook
     gradesDisplayData: GradeBook
     gradeBookTableHeaders: string[] = [
@@ -53,26 +48,8 @@ export class TokenUseSnippetComponent implements AfterContentChecked {
         private route: ActivatedRoute,
         private authenticationService: AuthenticationService,
         private courseService: CourseService,
-        private courseEventService: CourseEventService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
         private changeDetector: ChangeDetectorRef
     ) {
-        // TODO: Remove this code
-        // const end = new Date()
-        // end.setDate(end.getDate() + 10)
-        // for (let i = 0; i < 100; i++) {
-        //     this.courseEventService.addCourseEvent(
-        //         {
-        //             count_for_tokens: false,
-        //             course: 1,
-        //             end_date: end,
-        //             max_team_size: 1,
-        //             name: `Assignment 1${i}`,
-        //             start_date: new Date(),
-        //             type: "ASSIGNMENT"
-        //         }
-        //     ).subscribe((event) => console.log(event))
-        // }
         this.authenticationService.currentUser.subscribe(user => this.user = user)
         this.courseId = this.route.snapshot.parent.params.courseId
         this.courseService.getCourse(this.courseId).subscribe(course => {
@@ -129,10 +106,10 @@ export class TokenUseSnippetComponent implements AfterContentChecked {
      * This does the actually updating because pagination is being faked.
      */
     changeDisplay() {
-        this.gradesDisplayData = this.grades.slice(
-            this.page * this.pageSize,
-            this.page * this.pageSize + this.pageSize
-        ).filter(q => !this.query || q.name.toLowerCase().includes(this.query.toLowerCase()))
-            .filter(q => !this.event || q.event_name === this.event)
+        this.gradesDisplayData = this.grades.filter(q => !this.query || q.name.toLowerCase().includes(this.query.toLowerCase()))
+            .filter(q => !this.event || q.event_name === this.event).slice(
+                this.page * this.pageSize,
+                this.page * this.pageSize + this.pageSize
+            )
     }
 }

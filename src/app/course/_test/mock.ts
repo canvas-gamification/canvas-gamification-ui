@@ -77,7 +77,7 @@ export const MOCK_COURSE1: Course = {
     visible_to_students: true,
     start_date: null,
     end_date: null,
-    instructor: null,
+    instructor: 1,
     status: STATUS.active,
     is_registered: true,
     events: [MOCK_COURSE_EVENT],
@@ -364,6 +364,8 @@ export const MOCK_GOAL_ITEM_SUBMISSION_STATS: GoalItemSubmissionStats = {
 }
 
 import {Goal, GoalItem} from "@app/_models/goal/goal"
+import {GradeBook} from "@app/_models/grade_book";
+import {MOCK_USER} from "@test/mock";
 
 export const MOCK_GOAL_ITEM: GoalItem = {
     id: 1,
@@ -454,3 +456,24 @@ export const MOCK_RANKED_LEADERBOARD: LeaderboardElement[] = [
         course_reg_id: 0,
     },
 ]
+
+export const MOCK_GRADE_BOOK: GradeBook = [{
+    grade: 3,
+    total: 4,
+    name: `${MOCK_USER.first_name} ${MOCK_USER.last_name}`,
+    event_name: MOCK_COURSE_EVENT.name,
+    question_details: [
+        {
+            title: 'Question 1',
+            question_grade: 0,
+            attempts: 0,
+            max_attempts: 4,
+        },
+        {
+            title: 'Question 2',
+            question_grade: 1,
+            attempts: 2,
+            max_attempts: 4,
+        },
+    ]
+}]
