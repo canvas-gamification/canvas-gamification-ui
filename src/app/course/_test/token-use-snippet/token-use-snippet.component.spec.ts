@@ -62,6 +62,10 @@ describe('TokenUseSnippetComponentStudent', () => {
         expect(component.user).toEqual(MOCK_USER)
     })
 
+    it('should detect user is student on initial load', () => {
+        expect(component.isInstructor).toEqual(false)
+    })
+
     it('should get grade book on initial load', () => {
         expect(component.grades).toEqual(MOCK_GRADE_BOOK)
         expect(component.gradesDisplayData).toEqual(MOCK_GRADE_BOOK)
@@ -70,7 +74,7 @@ describe('TokenUseSnippetComponentStudent', () => {
     it('should filter grade book by assignment', () => {
         component.update({event: MOCK_COURSE_EVENT.name})
         expect(component.gradesDisplayData.length).toEqual(1)
-        expect(component.gradesDisplayData[0].name).toEqual(MOCK_COURSE_EVENT.name)
+        expect(component.gradesDisplayData[0].event_name).toEqual(MOCK_COURSE_EVENT.name)
     })
 })
 
