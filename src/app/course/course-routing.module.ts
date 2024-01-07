@@ -63,6 +63,11 @@ import {
 import {
     EventQuestionViewComponent
 } from "@app/course/event/event-question-view/event-question-view.component"
+import {TokenOverviewComponent} from "@app/course/token/token-overview/token-overview.component";
+import {TokensComponent} from "@app/course/token/tokens/tokens.component";
+import {
+    IndividualTokensComponent
+} from "@app/course/token/individual-tokens/individual-tokens.component";
 
 const routes: Routes = [
     {
@@ -322,6 +327,32 @@ const routes: Routes = [
                     }, {
                         caption: `Tokens`,
                         routerLink: '/course/:courseId/token'
+                    }]
+                }
+            },
+            {
+                path: 'tokens',
+                component: TokensComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Tokens`,
+                        routerLink: '/course/:courseId/tokens'
+                    }]
+                }
+            },
+            {
+                path: 'tokens/:studentId',
+                component: IndividualTokensComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Tokens`,
+                        routerLink: '/course/:courseId/tokens/:studentId'
                     }]
                 }
             },

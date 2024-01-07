@@ -1,0 +1,43 @@
+<ng-container>
+    <table
+        [columns]="tableHeaders"
+        class="w-full"
+        tuiTable
+    >
+        <thead tuiThead>
+        <tr tuiThGroup>
+            <th *tuiHead="'name'" tuiTh>Name</th>
+            <th *tuiHead="'event_name'" tuiTh>Event Name</th>
+            <th *tuiHead="'grade'" tuiTh>Tokens Earned</th>
+            <th *tuiHead="'title'" tuiTh>Question Name</th>
+            <th *tuiHead="'question_grade'" tuiTh>Question Tokens</th>
+            <th *tuiHead="'attempts'" tuiTh>Attempts</th>
+        </tr>
+        </thead>
+        <tbody [data]="displayData" tuiTbody>
+        <tr *tuiRow="let grade of displayData" tuiTr>
+            <td *tuiCell="'grade'" tuiTd>
+                {{ grade.grade }} / {{ grade.total }}
+            </td>
+            <td *tuiCell="'title'" tuiTd>
+                <div *ngFor="let detail of grade.question_details; index as idx">
+                    {{ detail.title }}
+                    <hr *ngIf="!(idx === grade.question_details.length - 1)">
+                </div>
+            </td>
+            <td *tuiCell="'question_grade'" tuiTd>
+                <div *ngFor="let detail of grade.question_details; index as idx">
+                    {{ detail.question_grade }} / 1
+                    <hr *ngIf="!(idx === grade.question_details.length - 1)">
+                </div>
+            </td>
+            <td *tuiCell="'attempts'" tuiTd>
+                <div *ngFor="let detail of grade.question_details; index as idx">
+                    {{ detail.attempts }} / {{ detail.max_attempts }}
+                    <hr *ngIf="!(idx === grade.question_details.length - 1)">
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</ng-container>

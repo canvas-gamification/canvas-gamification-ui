@@ -115,7 +115,13 @@ import {EditorModule} from "@app/components/editor/editor.module"
 import {
     EventQuestionViewComponent
 } from './event/event-question-view/event-question-view.component'
-import {ConceptListComponent} from './concept-list/concept-list.component'
+import {ConceptListComponent} from './concept-list/concept-list.component';
+import {TokensComponent} from '@app/course/token/tokens/tokens.component';
+import {
+    IndividualTokensComponent
+} from '@app/course/token/individual-tokens/individual-tokens.component';
+import {TokenOverviewComponent} from './token/token-overview/token-overview.component';
+import {TokenDetailedViewComponent} from './token/token-detailed-view/token-detailed-view.component'
 
 @NgModule({
     declarations: [
@@ -151,7 +157,11 @@ import {ConceptListComponent} from './concept-list/concept-list.component'
         PracticeProblemComponent,
         SubmissionChartComponent,
         TeamCreateEditComponent,
-        TokenUseSnippetComponent
+        TokenUseSnippetComponent,
+        TokensComponent,
+        IndividualTokensComponent,
+        TokenOverviewComponent,
+        TokenDetailedViewComponent
     ],
     imports: [
         CommonModule,
