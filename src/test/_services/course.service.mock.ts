@@ -5,7 +5,12 @@ import {
     Course, LeaderboardElement,
 } from "@app/_models"
 import {MOCK_COURSE} from "@app/problems/_test/mock"
-import {MOCK_COURSE1, MOCK_GRADE_BOOK, MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
+import {
+    MOCK_COURSE1,
+    MOCK_GRADE_BOOK1,
+    MOCK_GRADE_BOOK2,
+    MOCK_RANKED_LEADERBOARD
+} from "@app/course/_test/mock"
 import {CourseRegistrationFormData} from "@app/course/_forms/register.form"
 import {GradeBook} from "@app/_models/grade_book"
 
@@ -34,7 +39,11 @@ export class CourseServiceMock {
     }
 
     getMyGrades(courseId: number): Observable<GradeBook> {
-        return of(MOCK_GRADE_BOOK)
+        return of(MOCK_GRADE_BOOK1)
+    }
+
+    getGradeBook(courseId: number): Observable<GradeBook> {
+        return of(MOCK_GRADE_BOOK2)
     }
 
     getUserStats(courseId: number, categoryId: number): Observable<{ success_rate: number }> {

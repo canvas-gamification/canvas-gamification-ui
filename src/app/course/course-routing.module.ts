@@ -35,9 +35,6 @@ import {
     CoursePracticeComponent
 } from "@app/course/course-practice/course-practice.component"
 import {
-    TokenUseSnippetComponent
-} from "@app/course/token-use-snippet/token-use-snippet.component"
-import {
     CourseChallengeSnippetComponent
 } from "@app/course/challenge/course-challenge-snippet/course-challenge-snippet.component"
 import {
@@ -314,19 +311,6 @@ const routes: Routes = [
                     }, {
                         caption: `Review Goal`,
                         routerLink: '/course/:courseId/goal/:goalId'
-                    }]
-                }
-            },
-            {
-                path: 'token',
-                component: TokenUseSnippetComponent,
-                data: {
-                    breadCrumbs: [{
-                        caption: `Homepage`,
-                        routerLink: '/course/:courseId/homepage'
-                    }, {
-                        caption: `Tokens`,
-                        routerLink: '/course/:courseId/token'
                     }]
                 }
             },

@@ -9,7 +9,6 @@ import {CourseComponent} from '@app/course/course.component'
 import {
     CourseEventsSnippetComponent
 } from '@app/course/event/course-events-snippet/course-events-snippet.component'
-import {TokenUseSnippetComponent} from '@app/course/token-use-snippet/token-use-snippet.component'
 import {
     CourseQuestionSnippetComponent
 } from '@app/course/course-question-snippet/course-question-snippet.component'
@@ -151,17 +150,16 @@ import {TokenDetailedViewComponent} from './token/token-detailed-view/token-deta
         GoalCreateComponent,
         GoalIslandComponent,
         GoalPageComponent,
+        IndividualTokensComponent,
         LeaderBoardComponent,
         LeaderBoardPageComponent,
         ListOfTeamsComponent,
         PracticeProblemComponent,
         SubmissionChartComponent,
         TeamCreateEditComponent,
-        TokenUseSnippetComponent,
-        TokensComponent,
-        IndividualTokensComponent,
+        TokenDetailedViewComponent,
         TokenOverviewComponent,
-        TokenDetailedViewComponent
+        TokensComponent,
     ],
     imports: [
         CommonModule,
