@@ -19,8 +19,7 @@ export class InstructorGuard implements CanActivate {
     ) {
     }
 
-    canActivate(
-        next: ActivatedRouteSnapshot) {
+    canActivate(next: ActivatedRouteSnapshot) {
         console.log(next.parent.params.courseId)
         const currentUser: User = this.authenticationService.currentUserValue
         const courseId: number = next.parent.params.courseId

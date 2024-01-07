@@ -1,8 +1,7 @@
 import {Component} from '@angular/core'
 import {GradeBook} from "@app/_models/grade_book"
-import {Course, CourseEvent, User} from "@app/_models"
+import {Course, CourseEvent} from "@app/_models"
 import {ActivatedRoute} from "@angular/router"
-import {AuthenticationService} from "@app/_services/api/authentication"
 import {CourseService} from "@app/course/_services/course.service"
 
 @Component({
@@ -13,7 +12,6 @@ import {CourseService} from "@app/course/_services/course.service"
 export class TokensComponent {
     grades: GradeBook
     gradesDisplayData: GradeBook
-    user: User
     course: Course
     courseId: number
     events: CourseEvent[]
@@ -25,10 +23,8 @@ export class TokensComponent {
 
     constructor(
         private route: ActivatedRoute,
-        private authenticationService: AuthenticationService,
         private courseService: CourseService,
     ) {
-        this.authenticationService.currentUser.subscribe(user => this.user = user)
         this.courseId = this.route.snapshot.parent.params.courseId
         this.courseService.getCourse(this.courseId).subscribe(course => {
             this.course = course

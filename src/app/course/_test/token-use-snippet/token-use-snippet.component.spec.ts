@@ -4,7 +4,7 @@ import {TokenUseSnippetComponent} from '../../token-use-snippet/token-use-snippe
 import {TestModule} from '@test/test.module'
 import {
     MOCK_COURSE1,
-    MOCK_GRADE_BOOK,
+    MOCK_GRADE_BOOK1,
 } from "@app/course/_test/mock"
 import {ActivatedRoute} from "@angular/router"
 import {TokenUseService} from "@app/course/_services/token-use.service"
@@ -67,8 +67,8 @@ describe('TokenUseSnippetComponentStudent', () => {
     })
 
     it('should get grade book on initial load', () => {
-        expect(component.grades).toEqual(MOCK_GRADE_BOOK)
-        expect(component.gradesDisplayData).toEqual(MOCK_GRADE_BOOK)
+        expect(component.grades).toEqual(MOCK_GRADE_BOOK1)
+        expect(component.gradesDisplayData).toEqual(MOCK_GRADE_BOOK1)
     })
 
     it('should filter grade book by assignment', () => {

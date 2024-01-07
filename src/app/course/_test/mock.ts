@@ -457,7 +457,7 @@ export const MOCK_RANKED_LEADERBOARD: LeaderboardElement[] = [
     },
 ]
 
-export const MOCK_GRADE_BOOK: GradeBook = [
+export const MOCK_GRADE_BOOK1: GradeBook = [
     {
         grade: 3,
         total: 4,
@@ -491,6 +491,87 @@ export const MOCK_GRADE_BOOK: GradeBook = [
             },
             {
                 title: 'Question B',
+                question_grade: 0,
+                attempts: 3,
+                max_attempts: 4,
+            },
+        ]
+    }
+]
+
+export const MOCK_GRADE_BOOK2: GradeBook = [
+    {
+        grade: 3,
+        total: 4,
+        name: `John Doe`,
+        event_name: MOCK_COURSE_EVENT.name,
+        question_details: [
+            {
+                title: 'Question 1',
+                question_grade: 0,
+                attempts: 0,
+                max_attempts: 4,
+            },
+            {
+                title: 'Question 2',
+                question_grade: 1,
+                attempts: 2,
+                max_attempts: 4,
+            },
+        ]
+    }, {
+        grade: 3,
+        total: 4,
+        name: `John Smith`,
+        event_name: MOCK_COURSE_EVENT.name,
+        question_details: [
+            {
+                title: 'Question 1',
+                question_grade: 0.5,
+                attempts: 4,
+                max_attempts: 4,
+            },
+            {
+                title: 'Question 2',
+                question_grade: 0,
+                attempts: 3,
+                max_attempts: 4,
+            },
+        ]
+    },
+    {
+        grade: 3,
+        total: 4,
+        name: `John Doe`,
+        event_name: 'Another Assignment',
+        question_details: [
+            {
+                title: 'A',
+                question_grade: 0,
+                attempts: 0,
+                max_attempts: 4,
+            },
+            {
+                title: 'B',
+                question_grade: 1,
+                attempts: 2,
+                max_attempts: 4,
+            },
+        ]
+    }, {
+        grade: 3,
+        total: 4,
+        name: `John Smith`,
+        event_name: 'Another Assignment',
+        question_details: [
+            {
+                title: 'A',
+                question_grade: 0.5,
+                attempts: 4,
+                max_attempts: 4,
+            },
+            {
+                title: 'B',
                 question_grade: 0,
                 attempts: 3,
                 max_attempts: 4,
