@@ -10,11 +10,11 @@ describe('TokenDetailedViewComponent', () => {
             declarations: [TokenDetailedViewComponent]
         })
             .compileComponents()
-    });
+    })
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(TokenDetailedViewComponent);
-        component = fixture.componentInstance;
+        fixture = TestBed.createComponent(TokenDetailedViewComponent)
+        component = fixture.componentInstance
         fixture.detectChanges()
     })
 

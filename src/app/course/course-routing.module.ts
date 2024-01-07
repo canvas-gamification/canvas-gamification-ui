@@ -60,11 +60,11 @@ import {
 import {
     EventQuestionViewComponent
 } from "@app/course/event/event-question-view/event-question-view.component"
-import {TokensComponent} from "@app/course/token/tokens/tokens.component";
+import {TokensComponent} from "@app/course/token/tokens/tokens.component"
 import {
     IndividualTokensComponent
-} from "@app/course/token/individual-tokens/individual-tokens.component";
-import {InstructorGuard} from "@app/course/guard/instructor.guard";
+} from "@app/course/token/individual-tokens/individual-tokens.component"
+import {InstructorGuard} from "@app/course/guard/instructor.guard"
 
 const routes: Routes = [
     {
