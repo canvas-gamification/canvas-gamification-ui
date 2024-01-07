@@ -63,11 +63,11 @@ import {
 import {
     EventQuestionViewComponent
 } from "@app/course/event/event-question-view/event-question-view.component"
-import {TokenOverviewComponent} from "@app/course/token/token-overview/token-overview.component";
 import {TokensComponent} from "@app/course/token/tokens/tokens.component";
 import {
     IndividualTokensComponent
 } from "@app/course/token/individual-tokens/individual-tokens.component";
+import {InstructorGuard} from "@app/course/guard/instructor.guard";
 
 const routes: Routes = [
     {
@@ -333,6 +333,7 @@ const routes: Routes = [
             {
                 path: 'tokens',
                 component: TokensComponent,
+                canActivate: [InstructorGuard],
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
