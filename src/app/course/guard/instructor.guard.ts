@@ -4,7 +4,7 @@ import {
     CanActivate, Router,
 } from '@angular/router'
 import {AuthenticationService} from "@app/_services/api/authentication"
-import {Course, User} from "@app/_models"
+import {User} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
 import {map} from "rxjs/operators"
 

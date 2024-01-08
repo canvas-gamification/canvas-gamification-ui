@@ -41,6 +41,7 @@ describe('CourseComponent Homepage', () => {
                 LeaderBoardComponent
             ],
             providers: [
+                {provide: AuthenticationService, useClass: AuthenticationServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
                 {provide: UqjService, useClass: UqjServiceMock},
@@ -106,6 +107,7 @@ describe('CourseComponent Question Page', () => {
                 LeaderBoardComponent
             ],
             providers: [
+                {provide: AuthenticationService, useClass: AuthenticationServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
                 {provide: UqjService, useClass: UqjServiceMock},
