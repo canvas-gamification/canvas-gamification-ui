@@ -77,7 +77,7 @@ export const MOCK_COURSE1: Course = {
     visible_to_students: true,
     start_date: null,
     end_date: null,
-    instructor: null,
+    instructor: 1,
     status: STATUS.active,
     is_registered: true,
     events: [MOCK_COURSE_EVENT],
@@ -364,6 +364,8 @@ export const MOCK_GOAL_ITEM_SUBMISSION_STATS: GoalItemSubmissionStats = {
 }
 
 import {Goal, GoalItem} from "@app/_models/goal/goal"
+import {GradeBook} from "@app/_models/grade_book"
+import {MOCK_USER} from "@test/mock"
 
 export const MOCK_GOAL_ITEM: GoalItem = {
     id: 1,
@@ -453,4 +455,127 @@ export const MOCK_RANKED_LEADERBOARD: LeaderboardElement[] = [
         token: 5,
         course_reg_id: 0,
     },
+]
+
+export const MOCK_GRADE_BOOK1: GradeBook = [
+    {
+        grade: 3,
+        total: 4,
+        name: `${MOCK_USER.first_name} ${MOCK_USER.last_name}`,
+        event_name: MOCK_COURSE_EVENT.name,
+        question_details: [
+            {
+                title: 'Question 1',
+                question_grade: 0,
+                attempts: 0,
+                max_attempts: 4,
+            },
+            {
+                title: 'Question 2',
+                question_grade: 1,
+                attempts: 2,
+                max_attempts: 4,
+            },
+        ]
+    }, {
+        grade: 3,
+        total: 4,
+        name: `${MOCK_USER.first_name} ${MOCK_USER.last_name}`,
+        event_name: "Assignment 2",
+        question_details: [
+            {
+                title: 'Question A',
+                question_grade: 0.5,
+                attempts: 4,
+                max_attempts: 4,
+            },
+            {
+                title: 'Question B',
+                question_grade: 0,
+                attempts: 3,
+                max_attempts: 4,
+            },
+        ]
+    }
+]
+
+export const MOCK_GRADE_BOOK2: GradeBook = [
+    {
+        grade: 3,
+        total: 4,
+        name: `John Doe`,
+        event_name: MOCK_COURSE_EVENT.name,
+        question_details: [
+            {
+                title: 'Question 1',
+                question_grade: 0,
+                attempts: 0,
+                max_attempts: 4,
+            },
+            {
+                title: 'Question 2',
+                question_grade: 1,
+                attempts: 2,
+                max_attempts: 4,
+            },
+        ]
+    }, {
+        grade: 3,
+        total: 4,
+        name: `John Smith`,
+        event_name: MOCK_COURSE_EVENT.name,
+        question_details: [
+            {
+                title: 'Question 1',
+                question_grade: 0.5,
+                attempts: 4,
+                max_attempts: 4,
+            },
+            {
+                title: 'Question 2',
+                question_grade: 0,
+                attempts: 3,
+                max_attempts: 4,
+            },
+        ]
+    },
+    {
+        grade: 3,
+        total: 4,
+        name: `John Doe`,
+        event_name: 'Another Assignment',
+        question_details: [
+            {
+                title: 'A',
+                question_grade: 0,
+                attempts: 0,
+                max_attempts: 4,
+            },
+            {
+                title: 'B',
+                question_grade: 1,
+                attempts: 2,
+                max_attempts: 4,
+            },
+        ]
+    }, {
+        grade: 3,
+        total: 4,
+        name: `John Smith`,
+        event_name: 'Another Assignment',
+        question_details: [
+            {
+                title: 'A',
+                question_grade: 0.5,
+                attempts: 4,
+                max_attempts: 4,
+            },
+            {
+                title: 'B',
+                question_grade: 0,
+                attempts: 3,
+                max_attempts: 4,
+            },
+        ]
+    }
 ]

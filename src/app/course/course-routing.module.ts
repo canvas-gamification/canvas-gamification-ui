@@ -35,9 +35,6 @@ import {
     CoursePracticeComponent
 } from "@app/course/course-practice/course-practice.component"
 import {
-    TokenUseSnippetComponent
-} from "@app/course/token-use-snippet/token-use-snippet.component"
-import {
     CourseChallengeSnippetComponent
 } from "@app/course/challenge/course-challenge-snippet/course-challenge-snippet.component"
 import {
@@ -63,6 +60,11 @@ import {
 import {
     EventQuestionViewComponent
 } from "@app/course/event/event-question-view/event-question-view.component"
+import {TokensComponent} from "@app/course/token/tokens/tokens.component"
+import {
+    IndividualTokensComponent
+} from "@app/course/token/individual-tokens/individual-tokens.component"
+import {InstructorGuard} from "@app/course/guard/instructor.guard"
 
 const routes: Routes = [
     {
@@ -313,15 +315,29 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'token',
-                component: TokenUseSnippetComponent,
+                path: 'tokens',
+                component: TokensComponent,
+                canActivate: [InstructorGuard],
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
                         routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Tokens`,
-                        routerLink: '/course/:courseId/token'
+                        routerLink: '/course/:courseId/tokens'
+                    }]
+                }
+            },
+            {
+                path: 'tokens/:studentId',
+                component: IndividualTokensComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Tokens`,
+                        routerLink: '/course/:courseId/tokens/:studentId'
                     }]
                 }
             },

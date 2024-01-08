@@ -1,0 +1,62 @@
+<section class="tui-container tui-container_fullwidth">
+    <div class="flex justify-center">
+        <div
+            tuiGroup
+            class=""
+            [collapsed]="true"
+            [rounded]="true"
+        >
+            <button
+                tuiButton
+                type="button"
+                appearance="secondary"
+                size="l"
+                class="whitespace-nowrap"
+                (click)="setDetailedView(false)"
+                [pseudoPressed]="!showDetailed"
+            >
+                Overview
+            </button>
+            <button
+                tuiButton
+                type="button"
+                appearance="secondary"
+                size="l"
+                class="whitespace-nowrap"
+                (click)="setDetailedView(true)"
+                [pseudoPressed]="showDetailed"
+            >
+                Detailed View
+            </button>
+        </div>
+    </div>
+    <div class="py-3 space-y-3">
+        <div class="flex gap-3 items-center py-3">
+            <tui-input
+                [tuiTextfieldCleaner]="true"
+                class="w-64"
+                [ngModel]="query"
+                (ngModelChange)="update({query: $event})"
+            >
+                Search for a Student Name
+            </tui-input>
+            <tui-select
+                [tuiTextfieldCleaner]="true"
+                [valueContent]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
+                class="w-48"
+                [ngModel]="event"
+                (ngModelChange)="update({event: $event})">
+                Event Name
+                <tui-data-list *tuiDataList [class.tui-skeleton]="!events">
+                    <button *ngFor="let event of events" [value]="event.name" tuiOption>
+                        {{ event.name }}
+                    </button>
+                </tui-data-list>
+            </tui-select>
+        </div>
+        <app-token-detailed-view *ngIf="showDetailed"
+                                 [displayData]="gradesDisplayData"></app-token-detailed-view>
+        <app-token-overview *ngIf="!showDetailed"
+                            [displayData]="gradesDisplayData"></app-token-overview>
+    </div>
+</section>

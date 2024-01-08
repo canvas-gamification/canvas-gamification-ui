@@ -9,7 +9,6 @@ import {CourseComponent} from '@app/course/course.component'
 import {
     CourseEventsSnippetComponent
 } from '@app/course/event/course-events-snippet/course-events-snippet.component'
-import {TokenUseSnippetComponent} from '@app/course/token-use-snippet/token-use-snippet.component'
 import {
     CourseQuestionSnippetComponent
 } from '@app/course/course-question-snippet/course-question-snippet.component'
@@ -73,7 +72,7 @@ import {
     CourseRegistrationStepComponent
 } from './course-registration/course-registration-step/course-registration-step.component'
 import {TuiActiveZoneModule, TuiFilterPipeModule, TuiForModule} from '@taiga-ui/cdk'
-import {TuiTableModule} from '@taiga-ui/addon-table'
+import {TuiTableModule, TuiTablePaginationModule} from '@taiga-ui/addon-table'
 import {DragulaModule} from 'ng2-dragula'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
@@ -116,6 +115,12 @@ import {
     EventQuestionViewComponent
 } from './event/event-question-view/event-question-view.component'
 import {ConceptListComponent} from './concept-list/concept-list.component'
+import {TokensComponent} from '@app/course/token/tokens/tokens.component'
+import {
+    IndividualTokensComponent
+} from '@app/course/token/individual-tokens/individual-tokens.component'
+import {TokenOverviewComponent} from './token/token-overview/token-overview.component'
+import {TokenDetailedViewComponent} from './token/token-detailed-view/token-detailed-view.component'
 
 @NgModule({
     declarations: [
@@ -145,13 +150,16 @@ import {ConceptListComponent} from './concept-list/concept-list.component'
         GoalCreateComponent,
         GoalIslandComponent,
         GoalPageComponent,
+        IndividualTokensComponent,
         LeaderBoardComponent,
         LeaderBoardPageComponent,
         ListOfTeamsComponent,
         PracticeProblemComponent,
         SubmissionChartComponent,
         TeamCreateEditComponent,
-        TokenUseSnippetComponent
+        TokenDetailedViewComponent,
+        TokenOverviewComponent,
+        TokensComponent,
     ],
     imports: [
         CommonModule,
@@ -208,6 +216,7 @@ import {ConceptListComponent} from './concept-list/concept-list.component'
         TuiStepperModule,
         TuiSvgModule,
         TuiTableModule,
+        TuiTablePaginationModule,
         TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
