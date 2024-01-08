@@ -20,15 +20,11 @@ export class InstructorGuard implements CanActivate {
     }
 
     canActivate(next: ActivatedRouteSnapshot) {
-        console.log(next.parent.params.courseId)
         const currentUser: User = this.authenticationService.currentUserValue
         const courseId: number = next.parent.params.courseId
-        let currentCourse: Course = null
         return this.courseService.getCourse(courseId).pipe(
             map(course => {
-                currentCourse = course
-                const isInstructor: boolean = currentCourse.instructor === currentUser.id
-                if (isInstructor) {
+                if (course.has_create_event_permission) {
                     return true
                 } else {
                     this.router.navigate(['/course', courseId, 'tokens', currentUser.id]).then()
