@@ -1,5 +1,5 @@
 <section class="tui-container tui-container_fullwidth">
-    <div class="top-box my-3">
+    <div class="flex flex-wrap justify-between my-3">
         <ng-container *ngIf="breadCrumbs && course else skeletonBreadcrumbs">
             <tui-breadcrumbs [size]="'l'">
                 <ng-container *ngFor="let item of breadCrumbs">
@@ -20,7 +20,7 @@
             </tui-breadcrumbs>
         </ng-template>
         <a
-            *ngIf="user?.is_teacher && onHomepage"
+            *ngIf="course.has_create_event_permission"
             tuiButton
             size="m"
             class="tui-form__button"
