@@ -13,4 +13,8 @@ export class FooterComponent {
     getNightMode(): boolean {
         return this.nightModeService.getNightMode()
     }
+
+    getYear(): number {
+        return new Date().getFullYear()
+    }
 }

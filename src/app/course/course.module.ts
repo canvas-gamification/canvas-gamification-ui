@@ -9,7 +9,6 @@ import {CourseComponent} from '@app/course/course.component'
 import {
     CourseEventsSnippetComponent
 } from '@app/course/event/course-events-snippet/course-events-snippet.component'
-import {TokenUseSnippetComponent} from '@app/course/token-use-snippet/token-use-snippet.component'
 import {
     CourseQuestionSnippetComponent
 } from '@app/course/course-question-snippet/course-question-snippet.component'
@@ -43,7 +42,8 @@ import {
     TuiStepperModule,
     TuiTabsModule,
     TuiTagModule,
-    TuiTextAreaModule
+    TuiTextAreaModule,
+    TuiToggleModule
 } from '@taiga-ui/kit'
 import {
     TuiButtonModule,
@@ -52,6 +52,7 @@ import {
     TuiDescribedByModule,
     TuiDialogModule,
     TuiErrorModule,
+    TuiGroupModule,
     TuiHintModule,
     TuiHostedDropdownModule,
     TuiLinkModule,
@@ -59,6 +60,7 @@ import {
     TuiModeModule,
     TuiNotificationModule,
     TuiPointerHintModule,
+    TuiScrollbarModule,
     TuiSvgModule,
     TuiTextfieldControllerModule
 } from '@taiga-ui/core'
@@ -70,7 +72,7 @@ import {
     CourseRegistrationStepComponent
 } from './course-registration/course-registration-step/course-registration-step.component'
 import {TuiActiveZoneModule, TuiFilterPipeModule, TuiForModule} from '@taiga-ui/cdk'
-import {TuiTableModule} from '@taiga-ui/addon-table'
+import {TuiTableModule, TuiTablePaginationModule} from '@taiga-ui/addon-table'
 import {DragulaModule} from 'ng2-dragula'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
@@ -109,12 +111,22 @@ import {EventRowComponent} from './event/event-row/event-row.component'
 import {AddToEventModalComponent} from './event/add-to-event-modal/add-to-event-modal.component'
 import {LeaderBoardPageComponent} from './leader-board-page/leader-board-page.component'
 import {EditorModule} from "@app/components/editor/editor.module"
-import {EventQuestionViewComponent} from './event/event-question-view/event-question-view.component'
+import {
+    EventQuestionViewComponent
+} from './event/event-question-view/event-question-view.component'
+import {ConceptListComponent} from './concept-list/concept-list.component'
+import {TokensComponent} from '@app/course/token/tokens/tokens.component'
+import {
+    IndividualTokensComponent
+} from '@app/course/token/individual-tokens/individual-tokens.component'
+import {TokenOverviewComponent} from './token/token-overview/token-overview.component'
+import {TokenDetailedViewComponent} from './token/token-detailed-view/token-detailed-view.component'
 
 @NgModule({
     declarations: [
         AddToEventModalComponent,
         ChallengeRowComponent,
+        ConceptListComponent,
         ConceptMapComponent,
         CourseChallengeCreateEditComponent,
         CourseChallengeSnippetComponent,
@@ -138,13 +150,16 @@ import {EventQuestionViewComponent} from './event/event-question-view/event-ques
         GoalCreateComponent,
         GoalIslandComponent,
         GoalPageComponent,
+        IndividualTokensComponent,
         LeaderBoardComponent,
         LeaderBoardPageComponent,
         ListOfTeamsComponent,
         PracticeProblemComponent,
         SubmissionChartComponent,
         TeamCreateEditComponent,
-        TokenUseSnippetComponent,
+        TokenDetailedViewComponent,
+        TokenOverviewComponent,
+        TokensComponent,
     ],
     imports: [
         CommonModule,
@@ -176,6 +191,7 @@ import {EventQuestionViewComponent} from './event/event-question-view/event-ques
         TuiFieldErrorModule,
         TuiFilterPipeModule,
         TuiForModule,
+        TuiGroupModule,
         TuiHintModule,
         TuiHostedDropdownModule,
         TuiInputCountModule,
@@ -194,16 +210,19 @@ import {EventQuestionViewComponent} from './event/event-question-view/event-ques
         TuiPointerHintModule,
         TuiProgressModule,
         TuiRingChartModule,
+        TuiScrollbarModule,
         TuiSelectModule,
         TuiSidebarModule,
         TuiStepperModule,
         TuiSvgModule,
         TuiTableModule,
+        TuiTablePaginationModule,
         TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
         DragulaModule.forRoot(),
         TuiTextfieldControllerModule,
+        TuiToggleModule,
     ],
     providers: [
         CourseEventService,

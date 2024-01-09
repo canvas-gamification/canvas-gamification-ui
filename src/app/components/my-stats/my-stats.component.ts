@@ -27,7 +27,7 @@ export class MyStatsComponent implements OnInit {
     parsonsNum: number
     javaNum: number
 
-    activeCourses: Course[]
+    activeCourses: Course[] = []
 
     totalQuestionsSolved: number
     questionsSolvedByCategory: number[] = []
@@ -62,29 +62,42 @@ export class MyStatsComponent implements OnInit {
                 this.goalsCompleted = stats.goal_stats.goals_completed
 
                 for (const cat of this.topLevelCategories) {
-                    this.questionsSolvedByCategory.push(this.stats.category_stats.filter(stats => stats.difficulty === 'ALL' && stats.category === cat.pk).reduce((sum, obj) => {
-                        return sum + obj.questions_solved
-                    }, 0))
+                    this.questionsSolvedByCategory.push(
+                        this.stats.category_stats
+                            .filter(
+                                stats => stats.difficulty === 'ALL' && stats.category === cat.pk
+                            )
+                            .reduce((sum, obj) => sum + obj.questions_solved, 0)
+                    )
                 }
 
+
+                // Get the number of questions solved for each difficulty
                 this.difficultyService.getDifficulties().subscribe(difficulties => {
                     this.difficulties = difficulties
+                    for (let i = 0; i < this.difficulties.length; i++)
+                        this.questionsSolvedByDifficulty.push(
+                            stats.category_stats
+                                .filter(catStats => catStats.difficulty === difficulties[i][0])
+                                .reduce((sum, obj) => sum + obj.questions_solved, 0)
+                            / 2 // Divide by 2: To remove double counting the top categories ("ALL")
+                        )
 
-                    for (let i = 0; i < this.difficulties.length; i++) {
-                        this.questionsSolvedByDifficulty.push(this.stats.category_stats.filter(stats => stats.difficulty === this.difficulties[i][0]).reduce((sum, obj) => {
-                            return sum + obj.questions_solved
-                        }, 0))
-                    }
                 })
 
-                this.totalQuestionsSolved = this.questionsSolvedByCategory.reduce((accumulator, obj) => {
-                    return accumulator + obj
-                }, 0)
+                this.totalQuestionsSolved = this.questionsSolvedByCategory
+                    .reduce((accumulator, obj) => {
+                        return accumulator + obj
+                    }, 0)
 
                 this.mcqNum = this.stats.question_stats.mcq.questions_solved
                 this.parsonsNum = this.stats.question_stats.parsons.questions_solved
                 this.javaNum = this.stats.question_stats.java.questions_solved
             })
         })
+    }
+
+    roundTokens(): number {
+        return Math.round(this.user.tokens*10)/10
     }
 }

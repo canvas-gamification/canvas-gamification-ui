@@ -6,100 +6,110 @@
         size="s"
         [routerLink]="['..']"
     >
-        Back to event
+        Back to assessment
     </button>
     <h3 class="tui-text_h3">Assessment Stats</h3>
-    <ng-container *ngIf="stats.length !== 0 else noStats">
-        <tui-island *ngFor="let stat of stats" class="shadow space-y-3">
-            <h4 class="tui-text_h4">
-                {{stat.question.title}}
-            </h4>
-            <div *ngIf="isEmpty(stat)">
-                hi
-            </div>
-            <div *ngIf="!isEmpty(stat.answers)">
-                <tui-notification
-                    class="mb-3"
-                    *ngIf="stat.has_variables"
-                >
-                    This is a parameterized question. That means the exact names and numbers used in
-                    this question may vary from student to student. E.g., if the question shows the
-                    number "5", one student may see "4", another student may see "3", etc.
-                </tui-notification>
-                <app-event-stats-bar-chart
-                    *ngIf="stat.answers"
-                    [answers]="stat.answers"
-                >
-                </app-event-stats-bar-chart>
-            </div>
-            <div *ngIf="!isEmpty(stat.submissions)">
-                <div class="tui-text_body-l tui-text_bold">Submissions</div>
-                <table class="tui-table mt-3">
-                    <tbody>
-                    <tr class="tui-table__tr tui-table__tr_border_none">
-                        <th class="tui-table__th">Evaluation</th>
-                        <th class="tui-table__th w-40">Submission Count</th>
-                    </tr>
-                    <ng-container *ngFor="let submission of stat.submissions | keyvalue">
+    <ng-container *ngIf="stats else skeletonTemplate">
+        <ng-container *ngIf="stats.length !== 0 else noStats">
+            <tui-island *ngFor="let stat of stats" class="shadow space-y-3">
+                <h4 class="tui-text_h4 mb-3">
+                    {{stat.question.title}}
+                </h4>
+                <app-editor [ngModel]="stat.question.text" [readonly]="true"></app-editor>
+                <div *ngIf="stat.total_submissions === 0"
+                     class="flex justify-center items-center w-full h-32">
+                    <tui-marker-icon
+                        class="tui-space_right-4"
+                        size="s"
+                        src="tuiIconAlertCircleLarge"
+                    ></tui-marker-icon>
+                    <h2 class="tui-text_body-xl">
+                        Looks like there are no submissions to show
+                    </h2>
+                </div>
+                <div *ngIf="!isEmpty(stat.answers)">
+                    <tui-notification
+                        class="mb-3"
+                        *ngIf="stat.has_variables"
+                    >
+                        This is a parameterized question. That means the exact names and numbers
+                        used in
+                        this question may vary from student to student. E.g., if the question shows
+                        the
+                        number "5", one student may see "4", another student may see "3", etc.
+                    </tui-notification>
+                    <app-event-stats-bar-chart
+                        *ngIf="stat.answers"
+                        [answers]="stat.answers"
+                    >
+                    </app-event-stats-bar-chart>
+                </div>
+                <div *ngIf="stat.total_submissions !== 0">
+                    <table class="tui-table mt-3">
+                        <tbody>
+                        <tr class="tui-table__tr tui-table__tr_border_none">
+                            <th class="tui-table__th">Student Progress</th>
+                            <th class="tui-table__th w-40">Students Attempted</th>
+                        </tr>
+                        <ng-container *ngFor="let submission of stat.submissions | keyvalue: originalOrder">
+                            <tr
+                                class="tui-table__tr tui-table__tr_border_none"
+                                *ngIf="submission.value"
+                            >
+                                <td class="tui-table__td">{{ submission.key }}</td>
+                                <td class="tui-table__td">
+                                    {{ submission.value / stat.num_students_attempted | percent }}
+                                    ( {{submission.value}} / {{stat.num_students_attempted}} )
+                                </td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="!isEmpty(stat.status_messages)">
+                    <table class="tui-table mt-3">
+                        <tbody>
+                        <tr class="tui-table__tr tui-table__tr_border_none">
+                            <th class="tui-table__th">Compilation Results</th>
+                            <th class="tui-table__th w-40">Submission Count</th>
+                        </tr>
                         <tr
                             class="tui-table__tr tui-table__tr_border_none"
-                            *ngIf="submission.value"
+                            *ngFor="let statusMessage of stat.status_messages | keyvalue"
                         >
-                            <td class="tui-table__td">{{ submission.key }}</td>
                             <td class="tui-table__td">
-                                {{ submission.value / stat.total_submissions | percent }}
-                                ( {{submission.value}} / {{stat.total_submissions}} )
+                                {{ statusMessage.key === 'Accepted' ? 'Completed Successfully' : statusMessage.key }}
+                            </td>
+                            <td class="tui-table__td">
+                                {{ statusMessage.value / stat.total_submissions | percent }}
+                                ( {{statusMessage.value}} / {{stat.total_submissions}} )
                             </td>
                         </tr>
-                    </ng-container>
-                    </tbody>
-                </table>
-            </div>
-            <div *ngIf="!isEmpty(stat.status_messages)">
-                <div class="tui-text_body-l tui-text_bold">Status</div>
-                <table class="tui-table mt-3">
-                    <tbody>
-                    <tr class="tui-table__tr tui-table__tr_border_none">
-                        <th class="tui-table__th">Status</th>
-                        <th class="tui-table__th w-40">Submission Count</th>
-                    </tr>
-                    <tr
-                        class="tui-table__tr tui-table__tr_border_none"
-                        *ngFor="let statusMessage of stat.status_messages | keyvalue"
-                    >
-                        <td class="tui-table__td">
-                            {{ statusMessage.key === 'Accepted' ? 'Completed Successfully' : statusMessage.key }}
-                        </td>
-                        <td class="tui-table__td">
-                            {{ statusMessage.value / stat.total_submissions | percent }}
-                            ( {{statusMessage.value}} / {{stat.total_submissions}} )
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div *ngIf="!isEmpty(stat.error_messages)">
-                <div class="tui-text_body-l tui-text_bold">Error Messages</div>
-                <table class="tui-table mt-3">
-                    <tbody>
-                    <tr class="tui-table__tr tui-table__tr_border_none">
-                        <th class="tui-table__th">Error</th>
-                        <th class="tui-table__th w-40">Submission Count</th>
-                    </tr>
-                    <tr
-                        class="tui-table__tr tui-table__tr_border_none"
-                        *ngFor="let errorMessage of stat.error_messages | keyvalue"
-                    >
-                        <td class="tui-table__td">{{ errorMessage.key }}</td>
-                        <td class="tui-table__td">
-                            {{ errorMessage.value / stat.total_submissions | percent }}
-                            ( {{errorMessage.value}} / {{stat.total_submissions}} )
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </tui-island>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="!isEmpty(stat.error_messages)">
+                    <table class="tui-table mt-3">
+                        <tbody>
+                        <tr class="tui-table__tr tui-table__tr_border_none">
+                            <th class="tui-table__th">Error Messages</th>
+                            <th class="tui-table__th w-40">Submission Count</th>
+                        </tr>
+                        <tr
+                            class="tui-table__tr tui-table__tr_border_none"
+                            *ngFor="let errorMessage of stat.error_messages | keyvalue"
+                        >
+                            <td class="tui-table__td">{{ errorMessage.key }}</td>
+                            <td class="tui-table__td">
+                                {{ errorMessage.value / stat.total_submissions | percent }}
+                                ( {{errorMessage.value}} / {{stat.total_submissions}} )
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tui-island>
+        </ng-container>
     </ng-container>
     <ng-template #noStats>
         <div class="flex justify-center items-center w-full h-32">
@@ -112,5 +122,23 @@
                 Looks like there are no stats to show
             </h2>
         </div>
+    </ng-template>
+    <ng-template #skeletonTemplate>
+        <tui-island class="shadow space-y-3 tui-skeleton">
+            <h4 class="tui-text_h4">
+                title
+            </h4>
+            <div *ngFor="let _ of [0, 0, 0, 0]">
+                <div class="tui-text_body-l tui-text_bold">Skeleton</div>
+                <table class="tui-table mt-3">
+                    <tbody>
+                    <tr class="tui-table__tr tui-table__tr_border_none">
+                        <th class="tui-table__th">Skeleton</th>
+                        <th class="tui-table__th w-40">Skeleton</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </tui-island>
     </ng-template>
 </div>

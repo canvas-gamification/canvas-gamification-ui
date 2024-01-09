@@ -116,12 +116,11 @@
                 </div>
             </div>
         </tui-island>
-        <!-- When tokens enabled, add (click)="tokenClickLog()" to log action-->
         <tui-island
+            class="course-tile tui-island_hoverable"
+            [routerLink]="['/course', courseId, 'tokens']"
             size="m"
-            class="course-tile cursor-"
-            tuiPointerHint="Coming Soon..."
-            tuiHintDirection="top-middle"
+            (click)="tokenClickLog()"
         >
             <div class="course-background tokens"></div>
             <div class="course-tile-text">
@@ -129,14 +128,13 @@
                 <p class="tui-island__paragraph tui-text_body-xl flex-space tui-space_right-5">
                     See how many tokens you earned.</p>
                 <div class="course-view-button tui-space_top-3">
-
                     <a
                         appearance="primary"
-                        [routerLink]="['/course', courseId, 'token']"
+                        [routerLink]="['/course', courseId, 'tokens']"
                         class="tui-form__button"
                         size="m"
                         tuiButton
-                        disabled="true"
+                        (click)="tokenClickLog()"
                     >
                         View
                     </a>

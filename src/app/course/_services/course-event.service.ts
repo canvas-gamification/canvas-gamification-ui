@@ -134,6 +134,14 @@ export class CourseEventService {
             ))
     }
 
+    clearFeatured(eventId: number): Observable<unknown> {
+        const url = this.apiService.getURL('event', eventId, 'clear-featured')
+        return this.http.post(url, null)
+            .pipe(catchError(
+                this.apiService.handleError<unknown>(`Error occurred while clearing featured`)
+            ))
+    }
+
     addQuestion(eventId: number, questionId: number): Observable<unknown> {
         const url = this.apiService.getURL('event', eventId, 'add-question')
         return this.http.post(url, {question_id: questionId})

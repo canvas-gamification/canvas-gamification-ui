@@ -1,3 +1,16 @@
 .line {
     border-top: 1px solid var(--tui-base-03);
 }
+
+.clickable:hover {
+    background-color: var(--tui-base-02);
+}
+
+.clicked {
+    background-color: var(--tui-base-02);
+}
+
+.box {
+    height: calc(80vh - 12rem - 2px); // Window height - (header + footer + wiggle room) - border width
+}
+

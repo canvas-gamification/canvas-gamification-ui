@@ -9,6 +9,7 @@ import {ResetPasswordComponent} from "@app/accounts/reset-password/reset-passwor
 import {ConsentFormComponent} from "@app/accounts/consent-form/consent-form.component"
 import {ActivationEmailComponent} from "@app/accounts/activation-email/activation-email.component"
 import {InitialSurveyComponent} from "@app/accounts/survey/initial-survey/initial-survey.component"
+import {FinalSurveyComponent} from "@app/accounts/survey/final-survey/final-survey.component"
 
 
 const routes = [
@@ -21,6 +22,7 @@ const routes = [
     {path: 'consent-form', component: ConsentFormComponent, canActivate: [AuthGuard]},
     {path: 'activate/:uuid/:token', component: ActivationEmailComponent},
     {path: 'survey/initial', component: InitialSurveyComponent},
+    {path: 'survey/final', component: FinalSurveyComponent},
 ]
 
 @NgModule({

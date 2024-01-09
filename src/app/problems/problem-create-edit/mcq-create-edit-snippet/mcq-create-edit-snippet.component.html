@@ -28,7 +28,8 @@
                     <div class="new-answers__answer-input" formArrayName="answer">
                         <app-editor [formControl]="answerFormControl"></app-editor>
                     </div>
-                    <button (click)="removeAnswer(index)" appearance="secondary" icon="tuiIconTrash" size="m" tuiButton
+                    <button (click)="removeAnswer(index)" appearance="secondary" icon="tuiIconTrash"
+                            size="m" tuiButton
                             type="button">
                         Remove
                     </button>
@@ -41,7 +42,9 @@
     </ng-template>
     <div class="tui-form__row">
         <h2 class="tui-form__header">Distractor Answers</h2>
-        <div class="tui-form__field-note tui-space_bottom-2">Number of Visible Distractors</div>
+        <div class="tui-form__field-note tui-space_bottom-2">Number of Visible Distractors (please
+            ensure you have at least one distractor)
+        </div>
         <div class="distractor-count tui-space_bottom-4">
             <tui-radio-labeled [item]="999" formControlName="visible_distractor_count" size="l">
                 All
@@ -55,11 +58,13 @@
         </div>
         <tui-field-error formControlName="visible_distractor_count"></tui-field-error>
         <div class="new-answers tui-space_bottom-4">
-            <div *ngFor="let distractor of getDistractorFormControls(); let index = index" class="new-answers__answer">
+            <div *ngFor="let distractor of getDistractorFormControls(); let index = index"
+                 class="new-answers__answer">
                 <div class="new-answers__answer-input">
                     <app-editor [formControl]="distractor"></app-editor>
                 </div>
-                <button (click)="removeDistractor(index)" appearance="secondary" icon="tuiIconTrash" size="m" tuiButton
+                <button (click)="removeDistractor(index)" appearance="secondary" icon="tuiIconTrash"
+                        size="m" tuiButton
                         type="button">
                     Remove
                 </button>

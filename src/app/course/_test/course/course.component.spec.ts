@@ -14,7 +14,6 @@ import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.compon
 import {
     CourseQuestionSnippetComponent
 } from "@app/course/course-question-snippet/course-question-snippet.component"
-import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event.service.mock"
 import {UqjService} from "@app/problems/_services/uqj.service"
@@ -24,6 +23,7 @@ import {AuthenticationService} from "@app/_services/api/authentication"
 import {AuthenticationServiceMock} from "@test/_services/authentication.service.mock"
 import {TeamService} from "@app/course/_services/team.service"
 import {TeamServiceMock} from "@app/course/_test/_services/team.service.mock"
+import {TokensComponent} from "@app/course/token/tokens/tokens.component"
 
 describe('CourseComponent Homepage', () => {
     let component: CourseComponent
@@ -37,10 +37,11 @@ describe('CourseComponent Homepage', () => {
                 ConceptMapComponent,
                 CourseQuestionSnippetComponent,
                 CourseEventsSnippetComponent,
-                TokenUseSnippetComponent,
+                TokensComponent,
                 LeaderBoardComponent
             ],
             providers: [
+                {provide: AuthenticationService, useClass: AuthenticationServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
                 {provide: UqjService, useClass: UqjServiceMock},
@@ -103,10 +104,10 @@ describe('CourseComponent Question Page', () => {
                 ConceptMapComponent,
                 CourseQuestionSnippetComponent,
                 CourseEventsSnippetComponent,
-                TokenUseSnippetComponent,
                 LeaderBoardComponent
             ],
             providers: [
+                {provide: AuthenticationService, useClass: AuthenticationServiceMock},
                 {provide: CourseService, useClass: CourseServiceMock},
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
                 {provide: UqjService, useClass: UqjServiceMock},

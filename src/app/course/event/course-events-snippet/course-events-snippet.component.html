@@ -52,7 +52,7 @@
                 #importDialog
                 let-observer
             >
-                <ng-container *ngIf="courseEvents">
+                <ng-container *ngIf="courseEvents else skeletonTemplate">
                     <div class="tui-space_top-8 space-y-3">
                         <a
                             (click)="observer.complete()"
@@ -100,6 +100,25 @@
                 >
                     Close
                 </button>
+            </ng-template>
+            <ng-template
+                #skeletonTemplate
+            >
+                <ng-container>
+                    <div class="tui-space_top-8 space-y-3">
+                        <a
+                            size="s"
+                            textAlign="center"
+                            tuiIsland
+                            class="tui-skeleton"
+                        >
+                            <figure class="tui-island__figure">
+                                <tui-svg src="tuiIconPlusLarge"></tui-svg>
+                            </figure>
+                            <h2 class="tui-island__title">Create New Assessment</h2>
+                        </a>
+                    </div>
+                </ng-container>
             </ng-template>
         </div>
         <tui-accordion [closeOthers]="false">

@@ -1,6 +1,7 @@
 @import '~@taiga-ui/core/styles/taiga-ui-local';
 
 .course-island {
+    height: calc(100% - 2rem);
     overflow: hidden;
 
     .course-background {

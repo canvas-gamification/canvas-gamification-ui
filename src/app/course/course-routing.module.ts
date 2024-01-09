@@ -35,9 +35,6 @@ import {
     CoursePracticeComponent
 } from "@app/course/course-practice/course-practice.component"
 import {
-    TokenUseSnippetComponent
-} from "@app/course/token-use-snippet/token-use-snippet.component"
-import {
     CourseChallengeSnippetComponent
 } from "@app/course/challenge/course-challenge-snippet/course-challenge-snippet.component"
 import {
@@ -63,6 +60,11 @@ import {
 import {
     EventQuestionViewComponent
 } from "@app/course/event/event-question-view/event-question-view.component"
+import {TokensComponent} from "@app/course/token/tokens/tokens.component"
+import {
+    IndividualTokensComponent
+} from "@app/course/token/individual-tokens/individual-tokens.component"
+import {InstructorGuard} from "@app/course/guard/instructor.guard"
 
 const routes: Routes = [
     {
@@ -230,27 +232,6 @@ const routes: Routes = [
                 component: ProblemViewComponent,
             },
             {
-                path: 'assignments-exams/:eventId/problem/:id',
-                component: EventQuestionViewComponent,
-                data: {
-                    breadCrumbs: [{
-                        caption: `Homepage`,
-                        routerLink: '/course/:courseId/homepage'
-                    }, {
-                        caption: `Assignments and Exams`,
-                        routerLink: '/course/:courseId/assignments-exams'
-                    }, {
-                        caption: `:eventName`,
-                        routerLink:
-                            '/course/:courseId/assignments-exams/:eventId'
-                    }, {
-                        caption: `:questionName`,
-                        routerLink:
-                            '/course/:courseId/assignments-exams/:eventId/problem/:id'
-                    }]
-                }
-            },
-            {
                 path: 'assignments-exams/:eventId/problem/create/:type',
                 component: ProblemCreateEditComponent,
                 data: {
@@ -347,15 +328,29 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'token',
-                component: TokenUseSnippetComponent,
+                path: 'tokens',
+                component: TokensComponent,
+                canActivate: [InstructorGuard],
                 data: {
                     breadCrumbs: [{
                         caption: `Homepage`,
                         routerLink: '/course/:courseId/homepage'
                     }, {
                         caption: `Tokens`,
-                        routerLink: '/course/:courseId/token'
+                        routerLink: '/course/:courseId/tokens'
+                    }]
+                }
+            },
+            {
+                path: 'tokens/:studentId',
+                component: IndividualTokensComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Tokens`,
+                        routerLink: '/course/:courseId/tokens/:studentId'
                     }]
                 }
             },
@@ -506,25 +501,6 @@ const routes: Routes = [
                 }
             },
             {
-                path: 'challenge/:eventId/problem/:id',
-                component: EventQuestionViewComponent,
-                data: {
-                    breadCrumbs: [{
-                        caption: `Homepage`,
-                        routerLink: '/course/:courseId/homepage'
-                    }, {
-                        caption: `Challenges`,
-                        routerLink: '/course/:courseId/challenge'
-                    }, {
-                        caption: `:eventName`,
-                        routerLink: '/course/:courseId/challenge/:eventId'
-                    }, {
-                        caption: `:questionName`,
-                        routerLink: '/course/:courseId/challenge/:eventId/problem/:id'
-                    }]
-                }
-            },
-            {
                 path: 'challenge/:eventId/problem/create/:type',
                 component: ProblemCreateEditComponent,
                 data: {
@@ -582,6 +558,16 @@ const routes: Routes = [
     {
         path: ':courseId/practice/category/:categoryId',
         component: PracticeProblemComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/challenge/:eventId/problem/:id',
+        component: EventQuestionViewComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: ':courseId/assignments-exams/:eventId/problem/:id',
+        component: EventQuestionViewComponent,
         canActivate: [AuthGuard]
     }]
 

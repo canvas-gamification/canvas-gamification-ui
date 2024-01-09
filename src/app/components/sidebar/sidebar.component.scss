@@ -2,6 +2,7 @@
 @import '~@taiga-ui/core/styles/taiga-ui-local';
 
 .sidebar {
+
     &_left {
         @include sidebar(left);
     }
@@ -27,7 +28,7 @@
     }
 
     &-closed {
-        width: 4rem;
+        width: 2rem;
 
         @include screen-sm() {
             width: auto;
@@ -54,25 +55,10 @@
     }
 
     &-toggle {
-        position: sticky;
-        bottom: 0;
-        left: 0;
-        margin-top: auto;
-        border-top: 1px solid var(--tui-base-03);
         background-color: var(--tui-base-01);
-        display: flex;
 
         @include screen-sm() {
             display: none;
-        }
-
-        &_left {
-            justify-content: flex-end;
-        }
-
-        &_closed {
-            justify-content: center;
-            align-items: center;
         }
 
         &_button {

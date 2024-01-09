@@ -13,13 +13,7 @@ import {RecaptchaFormsModule, RecaptchaModule} from 'ng-recaptcha'
 import {TokenValuesComponent} from './components/token-values/token-values.component'
 import {ErrorInterceptor, JwtInterceptor} from '@app/_helpers'
 import {HomepageComponent} from './components/homepage/homepage.component'
-import {
-    RecentUserActionsComponent
-} from './components/homepage/recent-user-actions/recent-user-actions.component'
 import {UserActionsComponent} from './components/homepage/user-actions/user-actions.component'
-import {
-    RecentViewedQuestionsComponent
-} from './components/homepage/recent-viewed-questions/recent-viewed-questions.component'
 import {
     CourseDashboardComponent
 } from './components/homepage/course-dashboard/course-dashboard.component'
@@ -31,8 +25,6 @@ import {CommonModule} from '@angular/common'
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs'
 import {NotFoundComponent} from './components/general/not-found/not-found.component'
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component'
-import {AdminComponent} from './admin/admin.component'
-import {AdminModule} from '@app/admin/admin.module'
 import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
 
 import {
@@ -72,11 +64,12 @@ import {CodeEditorModule} from '@app/components/code-editor/code-editor.module'
 import {FooterModule} from '@app/components/footer/footer.module'
 import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
+import {CommunityComponent} from './components/community/community.component'
 
 @NgModule({
     declarations: [
-        AdminComponent,
         AppComponent,
+        CommunityComponent,
         CourseDashboardComponent,
         FaqComponent,
         ForbiddenComponent,
@@ -86,15 +79,12 @@ import {SidebarModule} from '@app/components/sidebar/sidebar.module'
         LandingPageComponent,
         MyStatsComponent,
         NotFoundComponent,
-        RecentUserActionsComponent,
-        RecentViewedQuestionsComponent,
         SampleQuestionsComponent,
         TokenValuesComponent,
         TopicsComponent,
         UserActionsComponent,
     ],
     imports: [
-        AdminModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         BrowserModule,

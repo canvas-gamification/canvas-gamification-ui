@@ -49,6 +49,8 @@ export class CourseEventCreateEditComponent implements OnInit {
             this.courseEventService.getCourseEvent(this.eventId).subscribe(event => {
                 this.formData = CourseEventForm.createFormWithData(event)
             })
+        } else{
+            this.addChallengeQuestionSet()
         }
         this.categoryService.getCategories().subscribe(
             categories => this.categories = categories

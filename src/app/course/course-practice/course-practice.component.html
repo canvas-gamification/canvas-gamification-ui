@@ -1,3 +1,47 @@
 <section class="tui-container tui-container_fullwidth">
-    <app-concept-map [currCourse]="course"></app-concept-map>
+    <a
+        appearance="flat"
+        [routerLink]="['..']"
+        icon="tuiIconArrowLeft"
+        size="s"
+        class="p-3"
+        tuiButton
+    >
+        Back to Practice
+    </a>
+    <div class="py-2"></div>
+    <div class="flex justify-center">
+        <div
+            tuiGroup
+            class=""
+            [collapsed]="true"
+            [rounded]="true"
+        >
+            <button
+                tuiButton
+                type="button"
+                appearance="secondary"
+                size="l"
+                class="whitespace-nowrap"
+                (click)="setListView(false)"
+                [pseudoPressed]="!enableListView"
+            >
+                Map View
+            </button>
+            <button
+                tuiButton
+                type="button"
+                appearance="secondary"
+                size="l"
+                class="whitespace-nowrap"
+                (click)="setListView(true)"
+                [pseudoPressed]="enableListView"
+            >
+                List View
+            </button>
+        </div>
+    </div>
+    <div class="py-3"></div>
+    <app-concept-list *ngIf="enableListView" [currCourse]="course"></app-concept-list>
+    <app-concept-map *ngIf="!enableListView" [currCourse]="course"></app-concept-map>
 </section>

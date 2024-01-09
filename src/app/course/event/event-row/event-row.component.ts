@@ -44,6 +44,15 @@ export class EventRowComponent implements OnInit {
         })
     }
 
+    clearFeatured() {
+        return this.courseEventService.clearFeatured(this.event.id).subscribe(() => {
+            this.notificationsService.show('Assessment successfully unmarked as featured.', {
+                status: TuiNotification.Success,
+            }).subscribe()
+            this.reload.emit(true)
+        })
+    }
+
     /**
      * Opens the dialog service based on the template passed
      * @param content - the template to be used
@@ -61,5 +70,30 @@ export class EventRowComponent implements OnInit {
         } else {
             this.router.navigate(['/course', this.event.course, 'assignments-exams', this.event.id, 'edit']).then()
         }
+    }
+
+    /**
+     * Delete an event from the course-list.
+     */
+    deleteEvent() {
+        return this.courseEventService.deleteCourseEvent(this.event.id).subscribe(() => {
+            this.notificationsService.show('Assessment successfully deleted.', {
+                status: TuiNotification.Success,
+            }).subscribe()
+            this.reload.emit(true)
+        })
+    }
+
+    /**
+     * Dialog for confirming if you want to delete a question.
+     * @param content - The modal to open.
+     */
+    openDeleteEventDialog(
+        content: PolymorpheusContent<TuiDialogContext>
+    ): void {
+        this.dialogService.open(content, {
+            closeable: false,
+            label: 'Delete Assessment?'
+        }).subscribe(() => this.deleteEvent())
     }
 }

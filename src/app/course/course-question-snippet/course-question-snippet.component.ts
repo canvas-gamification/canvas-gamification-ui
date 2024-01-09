@@ -17,6 +17,8 @@ import {
 } from "@taiga-ui/core"
 import {startCase} from "lodash"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
+import {orderUQJs} from "@app/course/_utils/orderUQJs"
+import {ConceptViewService} from "@app/_services/concept-view.service"
 
 @Component({
     selector: 'app-course-question-snippet',
@@ -44,13 +46,9 @@ export class CourseQuestionSnippetComponent implements OnInit {
         private teamService: TeamService,
         private readonly notificationService: TuiNotificationsService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
+        private conceptViewService: ConceptViewService
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
-    }
-
-    orderQuestions(): void {
-        this.uqjs.sort((a, b) =>
-            a.question.title.localeCompare(b.question.title))
     }
 
     init() {
@@ -64,7 +62,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
                     }).subscribe(result => {
                         this.event = result.event
                         this.uqjs = result.uqjs.results
-                        this.orderQuestions()
+                        this.uqjs = orderUQJs(this.uqjs)
                     })
                 } else {
                     this.router.navigate(['course/view', this.courseId]).then()
@@ -195,8 +193,8 @@ export class CourseQuestionSnippetComponent implements OnInit {
             }).subscribe()
         } else {
             this.router.navigate(
-                ['../' , this.eventId, 'problem', 'create', link]
-                ,{relativeTo: this.route}
+                ['../', this.eventId, 'problem', 'create', link]
+                , {relativeTo: this.route}
             ).then()
         }
     }
@@ -218,5 +216,9 @@ export class CourseQuestionSnippetComponent implements OnInit {
             closeable: false,
             label: labelText
         }).subscribe()
+    }
+
+    isList() {
+        return this.conceptViewService.getListView()
     }
 }

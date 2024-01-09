@@ -1,0 +1,15 @@
+.type {
+    color: var(--tui-text-02);
+}
+
+.row {
+    &:not(:last-child) {
+        border-bottom: solid 1px var(--tui-base-03);
+        margin: 0;
+        padding-bottom: 5px;
+    }
+
+    &:not(:first-child) {
+        padding-top: 5px;
+    }
+}

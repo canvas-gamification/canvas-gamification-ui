@@ -6,6 +6,7 @@ import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 import {CourseRegistrationFormData} from "@app/course/_forms/register.form"
 import {CourseFormData} from "@app/course/_forms/course.form"
+import {GradeBook} from "@app/_models/grade_book"
 
 @Injectable({
     providedIn: 'root'
@@ -128,6 +129,26 @@ export class CourseService {
             .pipe(catchError(
                 this.apiService.handleError<LeaderboardElement[]>(
                     `Error occurred while fetching course leader board.`
+                )
+            ))
+    }
+
+    getGradeBook(courseId: number): Observable<GradeBook> {
+        const url = this.apiService.getURL('course', courseId, 'grade-book')
+        return this.http.get<GradeBook>(url)
+            .pipe(catchError(
+                this.apiService.handleError<GradeBook>(
+                    'Error occurred while fetching grades.'
+                )
+            ))
+    }
+
+    getMyGrades(courseId: number): Observable<GradeBook> {
+        const url = this.apiService.getURL('course', courseId, 'my-grades')
+        return this.http.get<GradeBook>(url)
+            .pipe(catchError(
+                this.apiService.handleError<GradeBook>(
+                    'Error occurred while fetching grades.'
                 )
             ))
     }

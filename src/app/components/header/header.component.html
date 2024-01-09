@@ -34,6 +34,7 @@
     <nav class="header-nav">
         <a class="tui-text_body-m" routerLink="homepage" tuiLink>Dashboard</a>
         <a class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
+        <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="community" tuiLink>Community</a>
         <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="problems" tuiLink>Problem Sets</a>
         <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="token-values" tuiLink>Token&nbsp;Values</a>
         <a class="tui-text_body-m" routerLink="faq" tuiLink>FAQ</a>
@@ -76,7 +77,7 @@
                                 Night mode
                                 <tui-toggle
                                     (ngModelChange)="setNightMode($event)"
-                                    [ngModel]="enableNightMode"
+                                    [ngModel]="isNightMode()"
                                     class="tui-space_left-2"
                                     size="m"
                                 ></tui-toggle>

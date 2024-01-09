@@ -1,2 +1,93 @@
 <div class="line"></div>
-<app-problem-view></app-problem-view>
+<div class="flex flex-col md:flex-row">
+    <app-sidebar
+        position="left"
+        sidebarId="eventQuestionSidebar"
+        spacing="start"
+    >
+        <div class="flex flex-col gap-6 overflow-hidden">
+            <a
+                *ngIf="event?.type==='ASSIGNMENT' || 'EXAM'"
+                [routerLink]="['/course', event?.course, 'assignments-exams', eventId]"
+                class="mt-6 w-full"
+                [class.tui-skeleton]="!event"
+                icon="tuiIconArrowLeft"
+                size="s"
+                tuiButton
+                appearance="secondary"
+            >
+                Back to Assessment
+            </a>
+            <a
+                *ngIf="event?.type==='CHALLENGE'"
+                [routerLink]="['/course', event?.course, 'challenge', eventId]"
+                class="mt-6 w-full"
+                [class.tui-skeleton]="!event"
+                icon="tuiIconArrowLeft"
+                size="s"
+                tuiButton
+                appearance="secondary"
+            >
+                Back to Challenge
+            </a>
+            <p [class.tui-skeleton]="!event">
+                {{event?.name}}
+            </p>
+            <tui-scrollbar class="flex-grow">
+                <div class="space-y-2 mr-4" *ngIf="uqjs else skeleton">
+                    <div class="border-t"></div>
+                    <ng-container *ngFor="let uqj of uqjs">
+                        <div
+                            (click)=setCurrentUQJ(uqj)
+                            class="cursor-pointer clickable p-2 rounded-lg"
+                            [class.tui-skeleton]="!uqjs"
+                            [ngClass]="{
+                            'clicked font-bold': isCurrentUQJ(uqj)
+                        }"
+                        >
+                            <span>{{uqj.question.title}}</span>
+                            <tui-svg
+                                *ngIf="uqj.is_solved"
+                                src="tuiIconCheck"
+                            ></tui-svg>
+                        </div>
+                        <div class="border-t"></div>
+                    </ng-container>
+                </div>
+            </tui-scrollbar>
+            <div class="flex flex-col mb-6">
+                <button
+                    (click)="openReportQuestion()"
+                    [class.tui-skeleton]="!uqjs"
+                    icon="tuiIconAttention"
+                    size="s"
+                    tuiButton
+                    appearance="secondary"
+                >
+                    Report a Problem
+                </button>
+            </div>
+
+        </div>
+        <ng-template #skeleton>
+            <div class="space-y-2">
+                <ng-container *ngFor="let uqj of [0, 0, 0, 0]">
+                    <div
+                        class="cursor-pointer clickable p-2 rounded-lg tui-skeleton"
+                    >
+                        Question Titles
+                    </div>
+                    <div class="border-t"></div>
+                </ng-container>
+            </div>
+        </ng-template>
+    </app-sidebar>
+    <div class="flex-grow">
+        <app-problem-view [questionId]="currentUJQ?.question.id"></app-problem-view>
+    </div>
+</div>
+<app-problem-report-modal
+    [(open)]="reportQuestionModal"
+    [questionId]="currentUJQ?.question.id"
+>
+</app-problem-report-modal>

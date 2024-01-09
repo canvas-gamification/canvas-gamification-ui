@@ -10,23 +10,28 @@ import {HomepageComponent} from './components/homepage/homepage.component'
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component'
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component'
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component'
-import {AdminComponent} from "@app/admin/admin.component"
 import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
+import {CommunityComponent} from './components/community/community.component'
 
 
 const routes: Routes = [
-    {path: 'accounts', loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)},
-    {path: 'problems', loadChildren: () => import('./problems/problems.module').then(m => m.ProblemsModule)},
-    {path: 'course', loadChildren: () => import('./course/course.module').then(m => m.CourseModule)},
+    {
+        path: 'accounts',
+        loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)
+    },
+    {
+        path: 'problems',
+        loadChildren: () => import('./problems/problems.module').then(m => m.ProblemsModule)
+    },
+    {
+        path: 'course',
+        loadChildren: () => import('./course/course.module').then(m => m.CourseModule)
+    },
+    {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
     {
         path: '',
         pathMatch: 'full',
         component: LandingPageComponent,
-    },
-    {
-        path: 'admin',
-        component: AdminComponent,
-        canActivate: [AuthGuard]
     },
     {
         path: 'sample-questions',
@@ -47,6 +52,11 @@ const routes: Routes = [
     {
         path: 'homepage',
         component: HomepageComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: 'community',
+        component: CommunityComponent,
         canActivate: [AuthGuard]
     },
     {

@@ -6,8 +6,8 @@ export class ConsentForm {
         const builder = new FormBuilder()
         return builder.group({
             consent: true,
-            access_submitted_course_work: false,
-            access_course_grades: false,
+            access_submitted_course_work: true,
+            access_course_grades: true,
             legal_first_name: new FormControl(user?.first_name, [Validators.required]),
             legal_last_name: new FormControl(user?.last_name, [Validators.required]),
             student_number: new FormControl('', [Validators.required]),
