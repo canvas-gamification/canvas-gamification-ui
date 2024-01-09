@@ -27,7 +27,7 @@ export class CourseComponent implements OnInit {
     user: User
     uqjs: UQJ[]
     breadCrumbs: { caption: string, routerLink: string }[]
-    displayDescription: boolean
+    onHomepage: boolean
 
     constructor(
         private authenticationService: AuthenticationService,
@@ -119,13 +119,13 @@ export class CourseComponent implements OnInit {
         })
 
         this.getBreadCrumbs(this.route.snapshot).then()
-        this.displayDescription = this.router.url.includes('/homepage')
+        this.onHomepage = this.router.url.includes('/homepage')
 
         this.router.events
             .pipe(filter(event => event instanceof NavigationEnd))
             .subscribe(() => {
                 this.breadCrumbs = null
-                this.displayDescription = this.router.url.includes('/homepage')
+                this.onHomepage = this.router.url.includes('/homepage')
                 this.getBreadCrumbs(this.route.snapshot).then()
             })
     }

@@ -88,6 +88,19 @@ const routes: Routes = [
                 pathMatch: 'full'
             },
             {
+                path: 'edit',
+                component: CourseCreateComponent,
+                data: {
+                    breadCrumbs: [{
+                        caption: `Homepage`,
+                        routerLink: '/course/:courseId/homepage'
+                    }, {
+                        caption: `Edit Course`,
+                        routerLink: '/course/:courseId/edit'
+                    }]
+                }
+            },
+            {
                 path: 'homepage',
                 component: CourseHomepageComponent,
                 data: {

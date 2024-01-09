@@ -104,6 +104,11 @@ export class CourseService {
             .pipe(catchError(this.apiService.handleFormError()))
     }
 
+    editCourse(courseId: number, input: CourseFormData): Observable<Course> {
+        const url = this.apiService.getURL('course', courseId)
+        return this.http.put<Course>(url, input)
+            .pipe(catchError(this.apiService.handleFormError()))
+    }
 
     /**
      * Retrieve all registrations within a course
