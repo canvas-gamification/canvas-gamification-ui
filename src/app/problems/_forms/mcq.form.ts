@@ -20,6 +20,7 @@ export class McqForm {
             answer: new FormArray([], [Validators.required, Validators.minLength(1)]),
             visible_distractor_count: new FormControl(null, [Validators.required]),
             choices: new FormArray([], [Validators.required, Validators.minLength(1)]),
+            variation_types: new FormControl([]),
             variables: new FormControl([])
         }, [fieldExistsIfOtherExistsValidator('event', 'course')])
     }
@@ -101,6 +102,7 @@ export interface McqFormData {
     text: string,
     answer: string,
     category: number,
+    variation_types: JSON,
     variables: JSON[],
     visible_distractor_count: number,
     is_verified: boolean,

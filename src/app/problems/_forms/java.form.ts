@@ -19,6 +19,7 @@ export class JavaForm {
             text: new FormControl('', [Validators.required]),
             junit_template: new FormControl(null, [Validators.required]),
             input_files: new FormControl([], [Validators.required]),
+            variation_types: new FormControl([]),
             variables: new FormControl([])
         }, [fieldExistsIfOtherExistsValidator('event', 'course')])
     }
@@ -44,6 +45,7 @@ export interface JavaFormData {
     event: number,
     text: string,
     category: number,
+    variation_types: JSON,
     variables: JSON[],
     junit_template: string,
     input_files: JSON,

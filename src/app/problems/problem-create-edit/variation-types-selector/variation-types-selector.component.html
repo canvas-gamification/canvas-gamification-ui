@@ -1,0 +1,16 @@
+<tui-multi-select aria-label="Variation Types">
+    Variation Types Used in Question
+    <span class="tui-required"></span>
+    <tui-data-list
+        *tuiDataList
+        tuiMultiSelectGroup
+    >
+        <button
+            *ngFor="let item of variationTypes"
+            tuiOption
+            [value]="item"
+        >
+            {{ item }}
+        </button>
+    </tui-data-list>
+</tui-multi-select>
