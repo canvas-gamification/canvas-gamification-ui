@@ -725,6 +725,7 @@ export const MOCK_MCQ_FORM_DATA: McqFormData = {
     text: null,
     answer: null,
     category: null,
+    variation_types: ['No Variation'],
     variables: null,
     visible_distractor_count: null,
     choices: null,
@@ -738,6 +739,7 @@ export const MOCK_JAVA_FORM_DATA: JavaFormData = {
     event: null,
     text: null,
     category: null,
+    variation_types: ['No Variation'],
     variables: [],
     junit_template: null,
     input_files: null,
@@ -752,6 +754,7 @@ export const MOCK_PARSONS_FORM_DATA: ParsonsFormData = {
     text: null,
     category: null,
     variables: null,
+    variation_types: ['No Variation'],
     junit_template: null,
     input_files: [{
         name: 'test',

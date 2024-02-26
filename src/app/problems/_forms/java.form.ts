@@ -45,7 +45,7 @@ export interface JavaFormData {
     event: number,
     text: string,
     category: number,
-    variation_types: JSON,
+    variation_types: string[],
     variables: JSON[],
     junit_template: string,
     input_files: JSON,

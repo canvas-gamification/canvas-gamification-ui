@@ -102,7 +102,7 @@ export interface McqFormData {
     text: string,
     answer: string,
     category: number,
-    variation_types: JSON,
+    variation_types: string[],
     variables: JSON[],
     visible_distractor_count: number,
     is_verified: boolean,
