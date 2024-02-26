@@ -20,7 +20,7 @@ export class McqForm {
             answer: new FormArray([], [Validators.required, Validators.minLength(1)]),
             visible_distractor_count: new FormControl(null, [Validators.required]),
             choices: new FormArray([], [Validators.required, Validators.minLength(1)]),
-            variation_types: new FormControl([]),
+            variation_types: new FormControl(['No Variations']),
             variables: new FormControl([])
         }, [fieldExistsIfOtherExistsValidator('event', 'course')])
     }

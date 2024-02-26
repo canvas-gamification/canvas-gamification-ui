@@ -19,7 +19,7 @@ export class JavaForm {
             text: new FormControl('', [Validators.required]),
             junit_template: new FormControl(null, [Validators.required]),
             input_files: new FormControl([], [Validators.required]),
-            variation_types: new FormControl([]),
+            variation_types: new FormControl(['No Variations']),
             variables: new FormControl([])
         }, [fieldExistsIfOtherExistsValidator('event', 'course')])
     }

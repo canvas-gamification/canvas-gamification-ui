@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnInit} from '@angular/core'
-import {AbstractControl, FormGroup} from '@angular/forms'
+import {AbstractControl, FormControl, FormGroup} from '@angular/forms'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {ParsonsForm} from "@app/problems/_forms/parsons.form"
 import {Router} from "@angular/router"
@@ -16,6 +16,7 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
     @Input() eventId: number
     @Input() courseId: number
     formGroup: FormGroup
+    variationControl : FormControl
 
     constructor(
         private questionService: QuestionService,
@@ -38,6 +39,7 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
         } else {
             this.formGroup = ParsonsForm.createForm(this.courseId, this.eventId)
         }
+        this.variationControl = this.formGroup.get('variation_types') as FormControl
     }
 
     onSubmit(): void {

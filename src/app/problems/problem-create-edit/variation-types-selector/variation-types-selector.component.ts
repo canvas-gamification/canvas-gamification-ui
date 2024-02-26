@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, Input} from '@angular/core'
+import {FormControl} from "@angular/forms"
 
 @Component({
     selector: 'app-variation-types-selector',
     templateUrl: './variation-types-selector.component.html',
     styleUrls: ['./variation-types-selector.component.scss']
 })
-export class VariationTypesSelectorComponent implements OnInit {
+export class VariationTypesSelectorComponent {
+    @Input() variationControl: FormControl
     variationTypes = [
         "Variable Name Change",
         "Function Name Change",
@@ -17,10 +19,4 @@ export class VariationTypesSelectorComponent implements OnInit {
         "Console Output Format Change",
         "Question Text Change",
     ]
-
-    constructor() { }
-
-    ngOnInit(): void {
-    }
-
 }

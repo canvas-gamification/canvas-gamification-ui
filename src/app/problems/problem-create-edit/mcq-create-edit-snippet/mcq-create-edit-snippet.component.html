@@ -76,8 +76,8 @@
     </div>
     <div class="tui-form__row">
         <h2 class="tui-form__header">Variables</h2>
-        <app-variation-types-selector formControlName="variation_types"></app-variation-types-selector>
-        <p class="tui-form__field-note pt-2">
+        <app-variation-types-selector [variationControl]="variationControl"></app-variation-types-selector>
+        <p class="tui-form__field-note py-2">
             If you are not using variables,
             please don't add any variables
             and delete the existing ones.
