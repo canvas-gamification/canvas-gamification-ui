@@ -184,6 +184,7 @@ export const MOCK_MCQ_QUESTION: Question = {
     is_sample: false,
     is_verified: true,
     junit_template: '',
+    variation_types: [],
     variables: [],
     max_submission_allowed: 5,
     parent_category_name: '',

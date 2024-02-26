@@ -19,6 +19,7 @@ export class ParsonsForm {
             text: new FormControl('', [Validators.required]),
             junit_template: new FormControl(null, [Validators.required]),
             input_files: new FormControl([], [Validators.required]),
+            variation_types: new FormControl(['No Variations']),
             variables: new FormControl([])
         }, [fieldExistsIfOtherExistsValidator('event', 'course')])
     }
@@ -44,6 +45,7 @@ export interface ParsonsFormData {
     event: number,
     text: string,
     category: number,
+    variation_types: string[],
     variables: JSON[],
     junit_template: string,
     input_files: InputFiles,

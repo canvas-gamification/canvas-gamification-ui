@@ -53,6 +53,7 @@ import {
     TuiInputCountModule,
     TuiInputModule,
     TuiIslandModule,
+    TuiMultiSelectModule,
     TuiRadioBlockModule,
     TuiRadioLabeledModule,
     TuiSelectModule,
@@ -82,6 +83,7 @@ import {TuiEditorSocketModule} from '@taiga-ui/addon-editor'
 import {TuiActiveZoneModule} from '@taiga-ui/cdk'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {ProblemReportModalComponent} from './problem-report/problem-report-modal.component'
+import {VariationTypesSelectorComponent} from './problem-create-edit/variation-types-selector/variation-types-selector.component'
 
 @NgModule({
     declarations: [
@@ -105,6 +107,7 @@ import {ProblemReportModalComponent} from './problem-report/problem-report-modal
         TestCasesEditorComponent,
         VariablesEditorComponent,
         VariableViewComponent,
+        VariationTypesSelectorComponent,
     ],
     imports: [
         CodeEditorModule,
@@ -137,6 +140,7 @@ import {ProblemReportModalComponent} from './problem-report/problem-report-modal
         TuiIslandModule,
         TuiLabelModule,
         TuiLoaderModule,
+        TuiMultiSelectModule,
         TuiNotificationModule,
         TuiRadioBlockModule,
         TuiRadioLabeledModule,

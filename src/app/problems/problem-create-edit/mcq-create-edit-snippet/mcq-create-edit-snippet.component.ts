@@ -23,6 +23,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
     @Input() eventId: number
     @Input() courseId: number
     formGroup: FormGroup
+    variationControl : FormControl
 
     constructor(
         private questionService: QuestionService,
@@ -49,6 +50,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
             this.addDistractor()
             this.addAnswer()
         }
+        this.variationControl = this.formGroup.get('variation_types') as FormControl
     }
 
     checkCheckboxAnswersDialog(content: PolymorpheusContent<TuiDialogContext>): void {
