@@ -45,8 +45,10 @@
         [class.sidebar-content_closed]="!sidebarOpen"
         class="flex-1 sidebar-content tui-container tui-container_fullwidth overflow-hidden"
     >
-        <tui-scrollbar>
-        <ng-content></ng-content>
+        <tui-scrollbar class="pushOffSide">
+            <div class="holdSpace">
+                <ng-content ></ng-content>
+            </div>
         </tui-scrollbar>
     </div>
 
