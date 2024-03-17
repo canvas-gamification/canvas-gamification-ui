@@ -16,8 +16,8 @@ import {TuiButtonModule, TuiDescribedByModule, TuiHintModule, TuiScrollbarModule
         TuiButtonModule,
         TuiDescribedByModule,
         TuiHintModule,
-        TuiSvgModule,
-        TuiScrollbarModule
+        TuiScrollbarModule,
+        TuiSvgModule
     ]
 })
 export class SidebarModule {

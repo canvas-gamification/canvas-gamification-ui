@@ -67,7 +67,6 @@
         </div>
     </div>
     <app-sidebar position="right" sidebarId="questionSidebar">
-<!--        <tui-scrollbar>-->
         <ng-container *ngIf="user?.is_teacher && !!uqj">
             <app-variable-view
                 [variableErrors]="uqj.variables_errors"
@@ -80,6 +79,5 @@
                 (reloadRequestSubscriberEvent)="reloadRequestSubscriber = $event">
             </app-submission-snippet>
         </ng-container>
-<!--        </tui-scrollbar>-->
     </app-sidebar>
 </div>

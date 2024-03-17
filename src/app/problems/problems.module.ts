@@ -40,7 +40,7 @@ import {
     TuiHostedDropdownModule,
     TuiLabelModule,
     TuiLoaderModule,
-    TuiNotificationModule, TuiScrollbarModule,
+    TuiNotificationModule,
     TuiSvgModule,
     TuiTextfieldControllerModule
 } from '@taiga-ui/core'
@@ -149,8 +149,7 @@ import {ProblemReportModalComponent} from './problem-report/problem-report-modal
         TuiTabsModule,
         TuiTagModule,
         TuiTextAreaModule,
-        TuiTextfieldControllerModule,
-        TuiScrollbarModule
+        TuiTextfieldControllerModule
     ],
     exports: [
         ProblemReportModalComponent,
