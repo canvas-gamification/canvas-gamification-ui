@@ -65,7 +65,7 @@ export class ConsentFormComponent implements OnInit {
     }
 
     redirectAfterSubmit(): void {
-        this.router.navigate(['/accounts', 'survey', 'initial']).then()
+        this.router.navigate(['/homepage']).then()
     }
 
     onSubmit(): void {
