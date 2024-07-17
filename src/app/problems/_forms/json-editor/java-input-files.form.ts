@@ -5,7 +5,8 @@ export class JavaInputFilesForm {
         return new FormGroup({
             name: new FormControl('', [Validators.required]),
             compile: new FormControl(false, [Validators.required]),
-            template: new FormControl('', [Validators.required])
+            template: new FormControl('', [Validators.required]),
+            hidden: new FormControl(false, [Validators.required])
         })
     }
 }
