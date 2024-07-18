@@ -189,7 +189,8 @@ export const MOCK_JAVA_QUESTION: Question = {
     input_files: [{
         name: 'input',
         compile: false,
-        template: 'code'
+        template: 'code',
+        hidden: false
     }],
     is_practice: false,
 }
@@ -466,11 +467,13 @@ export const MOCK_UQJ_3: UQJ = {
             name: 'Test',
             compile: true,
             template: 'Test Template',
+            hidden: false
         },
         {
             name: 'Test2',
             compile: false,
             template: '',
+            hidden: false
         }
     ],
     is_allowed_to_submit: true,
@@ -532,11 +535,13 @@ export const MOCK_UQJ_5: UQJ = {
             name: 'Test',
             compile: true,
             template: 'Test Template',
+            hidden: false
         },
         {
             name: 'Test2',
             compile: false,
             template: '',
+            hidden: false
         }
     ],
     is_allowed_to_submit: true,
