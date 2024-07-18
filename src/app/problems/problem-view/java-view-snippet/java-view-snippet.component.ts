@@ -21,11 +21,7 @@ export class JavaViewSnippetComponent implements OnChanges {
     }
 
     ngOnChanges(): void {
-        for (const val of this.uqj.input_files){
-            if(!val.hidden){
-                this.inputFileNames.push(val)
-            }
-        }
+        this.inputFileNames = this.uqj.input_files.filter(val => !val.hidden)
     }
 
     canSubmit(): boolean {
