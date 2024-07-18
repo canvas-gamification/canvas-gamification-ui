@@ -42,6 +42,7 @@ export interface InputFiles extends Array<{
     compile: boolean,
     lines?: string[],
     template?: string,
+    hidden?: boolean
 }> {
 }
 

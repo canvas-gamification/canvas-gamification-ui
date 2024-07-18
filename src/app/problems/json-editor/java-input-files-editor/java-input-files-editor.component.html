@@ -28,11 +28,15 @@
                             <tui-input formControlName="name">Name</tui-input>
                             <tui-field-error formControlName="name"></tui-field-error>
                         </div>
-                        <div class="tui-form__row">
-                            <tui-checkbox-labeled formControlName="compile">
-                                Should This File Be Compiled?
+                        <div class="tui-form__row flex">
+                            <tui-checkbox-labeled formControlName="compile" class="mr-4">
+                                Should this file be compiled?
                             </tui-checkbox-labeled>
                             <tui-field-error formControlName="compile"></tui-field-error>
+                            <tui-checkbox-labeled formControlName="hidden">
+                                Should this file be hidden?
+                            </tui-checkbox-labeled>
+                            <tui-field-error formControlName="hidden"></tui-field-error>
                         </div>
                         <div class="tui-form__row">
                             <label class="tui-form__field-note" for="code-editor-{{index}}">
