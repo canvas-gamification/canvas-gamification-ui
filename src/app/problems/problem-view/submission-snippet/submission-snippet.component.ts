@@ -16,6 +16,7 @@ import {SubmissionViewComponent} from '@app/problems/submission-view/submission-
 import {SubmissionService} from "@app/problems/_services/submission.service"
 import {map} from "rxjs/operators"
 import {Observable, Subscriber} from "rxjs"
+import {InputFiles} from "@app/_models"
 
 @Component({
     selector: 'app-submission-snippet',
@@ -25,6 +26,7 @@ import {Observable, Subscriber} from "rxjs"
 export class SubmissionSnippetComponent implements OnChanges, OnInit {
 
     @Input() questionId: number
+    @Input() inputFiles: InputFiles
     @Output() readonly reloadRequestSubscriberEvent = new EventEmitter<Subscriber<never>>()
 
     reloadRequestObservable: Observable<never>
@@ -77,7 +79,7 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
             new PolymorpheusComponent(SubmissionViewComponent, this.injector),
             {
                 size: 'l',
-                data: submission,
+                data: {submission: submission, hiddenFileNames: this.getHiddenFiles()},
                 closeable: false,
                 label: `Submission ${index}`
             }
@@ -94,5 +96,14 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
     submissionAppropriateSize(submission: QuestionSubmission): boolean {
         return submission.safeAnswer.toString().length < 500 &&
             submission.safeAnswer.toString().indexOf('image') === -1
+    }
+
+    getHiddenFiles(): string[] {
+        const files = this.inputFiles.filter(val => val.hidden)
+        const names:string[] = []
+        for(let x = 0; x < files.length; x++){
+            names[x] = files[x].name
+        }
+        return names
     }
 }

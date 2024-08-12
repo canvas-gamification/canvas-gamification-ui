@@ -76,6 +76,7 @@
         <ng-container *ngIf="!!uqj">
             <app-submission-snippet
                 [questionId]="uqj.question.id"
+                [inputFiles]="uqj.input_files"
                 (reloadRequestSubscriberEvent)="reloadRequestSubscriber = $event">
             </app-submission-snippet>
         </ng-container>

@@ -18,13 +18,16 @@ export class SubmissionViewComponent implements OnInit {
         private submissionService: SubmissionService,
         private route: ActivatedRoute,
         @Inject(POLYMORPHEUS_CONTEXT)
-        private readonly context: TuiDialogContext<QuestionSubmission>,
+        private readonly context: TuiDialogContext<null, {
+            submission: QuestionSubmission,
+            hiddenFileNames: string[],
+        }>,
         private changeDetector: ChangeDetectorRef
     ) {
     }
 
     ngOnInit(): void {
-        this.submission = this.context.data
+        this.submission = this.context.data.submission
         this.answerFiles =
             Object.entries(this.submission.answer_files)
                 .reduce((prev, [key, value]) => {
@@ -33,6 +36,9 @@ export class SubmissionViewComponent implements OnInit {
                         code: value
                     }]
                 }, [])
+        this.context.data.hiddenFileNames.forEach(name => {
+            this.answerFiles = this.answerFiles.filter(value => value.name !== name)
+        })
         this.changeDetector.detectChanges()
     }
 
