@@ -48,7 +48,7 @@ export class GoalCreateComponent implements OnInit {
         this.courseId = this.activatedRoute.snapshot.parent.params.courseId
         this.goalForm = GoalForm.createGoalForm()
         this.categoryService.getCategories().subscribe(
-            categories => this.categories = categories
+            categories => this.categories =  categories.filter(c => c.parent !== null)
         )
         this.difficultyService.getDifficulties().subscribe(
             difficulties => this.difficulties = difficulties

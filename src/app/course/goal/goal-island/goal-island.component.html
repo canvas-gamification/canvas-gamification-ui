@@ -30,7 +30,7 @@
                 <li class="tui-list__item">
                     <div class="flex flex-wrap gap-3">
                         <div>
-                            Review performance
+                            Review performance ({{(goal.claimed ? 1 : 0)}} / 1)
                         </div>
                         <tui-svg
                             *ngIf="goal.claimed"
