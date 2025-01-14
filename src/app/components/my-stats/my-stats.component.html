@@ -57,16 +57,38 @@
                                     <td class="tui-table__td">{{challengesCompleted}}</td>
                                 </tr>
                                 <tr class="tui-table__tr tui-table__tr_border_none">
-                                    <td class="tui-table__td">Tokens Earned</td>
-                                    <td class="tui-table__td">{{roundTokens()}}</td>
-                                </tr>
-                                <tr class="tui-table__tr tui-table__tr_border_none">
                                     <td class="tui-table__td">Goals Completed</td>
                                     <td class="tui-table__td">{{goalsCompleted}}</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-container tui-space_horizontal-5">
+                <div>
+                    <h4 class="tui-text_h4 tui-space_vertical-5">Token Statistics</h4>
+                </div>
+            </div>
+            <div class="flex-container tui-space_horizontal-5">
+                <div class="tui-row tui-row_adaptive">
+                    <div class="tui-col_lg-12 tui-col_md-12 tui-col_xs-6">
+                        <table class="tui-table tui-table_font-size_m ">
+                            <tbody>
+                            <tr class="tui-table__tr tui-table__tr_border_none">
+                                <th class="tui-table__th">Course Name</th>
+                                <th class="tui-table__th">Total Tokens Received</th>
+                            </tr>
+                            <ng-container
+                                *ngFor="let token_stat of stats.token_stats; let i = index">
+                                <tr class="tui-table__tr tui-table__tr_border_none">
+                                    <td class="tui-table__td">{{token_stat.course_name}}</td>
+                                    <td class="tui-table__td">{{token_stat.tokens}}</td>
+                                </tr>
+                            </ng-container>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

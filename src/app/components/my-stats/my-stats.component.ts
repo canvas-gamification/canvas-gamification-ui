@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {Category, Course, STATUS, User} from '@app/_models'
 import {CourseService} from '@app/course/_services/course.service'
-import {ActivatedRoute} from '@angular/router'
 import {AuthenticationService} from '@app/_services/api/authentication'
-import {ApiService} from "@app/_services/api.service"
 import {Stats} from "@app/_models/user_difficulty_stats"
 import {UserStatsService} from "@app/_services/api/user-stats.service"
 import {CategoryService} from "@app/_services/api/category.service"
@@ -34,9 +32,7 @@ export class MyStatsComponent implements OnInit {
     questionsSolvedByDifficulty: number[] = []
 
     constructor(
-        private route: ActivatedRoute,
         private authenticationService: AuthenticationService,
-        private apiService: ApiService,
         private userStatsService: UserStatsService,
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,
