@@ -24,7 +24,6 @@ export class EventStatsComponent implements OnInit {
         this.eventId = this.route.snapshot.params.eventId
         this.courseEventService.getStats(this.eventId).subscribe((stats) => {
             this.stats = stats
-            console.log(this.stats)
         })
     }
 
