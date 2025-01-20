@@ -51,7 +51,8 @@
                             <th class="tui-table__th">Student Progress</th>
                             <th class="tui-table__th w-40">Students Attempted</th>
                         </tr>
-                        <ng-container *ngFor="let submission of stat.submissions | keyvalue: originalOrder">
+                        <ng-container
+                            *ngFor="let submission of stat.submissions | keyvalue: originalOrder">
                             <tr
                                 class="tui-table__tr tui-table__tr_border_none"
                                 *ngIf="submission.value"
@@ -107,6 +108,23 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
+                <div *ngIf="!isEmpty(stat.submission_details)">
+                    <tui-accordion>
+                        <tui-accordion-item [size]="'s'">
+                            <div class="flex flex-wrap gap-3 justify-between">
+                                <div class="min-w-[20rem] flex items-center">
+                                    Show Submissions
+                                </div>
+                            </div>
+                            <ng-template tuiAccordionItemContent>
+                                <app-event-stats-submission-view
+                                    [submissions]="stat.submission_details"
+                                >
+                                </app-event-stats-submission-view>
+                            </ng-template>
+                        </tui-accordion-item>
+                    </tui-accordion>
                 </div>
             </tui-island>
         </ng-container>

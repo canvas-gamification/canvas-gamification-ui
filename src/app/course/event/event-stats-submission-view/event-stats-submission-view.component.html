@@ -1,0 +1,116 @@
+<div class="flex justify-between">
+    <form [formGroup]="form" class="mb-1 text-sm">
+        <label class="mr-2">
+            <input
+                size="m"
+                tuiCheckbox
+                type="checkbox"
+                [formControlName]="'names'"
+                (change)="submit()"
+            />
+            Show Names
+        </label>
+        <label>
+            <input
+                size="m"
+                tuiCheckbox
+                type="checkbox"
+                [formControlName]="'grades'"
+                (change)="submit()"
+            />
+            Show Grades
+        </label>
+    </form>
+    <form [formGroup]="formGroup" class="flex">
+        <tui-select
+            tuiTextfieldSize="s"
+            formControlName="status"
+            class="w-32"
+        >
+            Status
+            <tui-data-list *tuiDataList>
+                <button *ngFor="let status of ['All', 'Correct', 'Partially Correct', 'Incorrect']"
+                        [value]="status" tuiOption
+                        (click)="filter(status)"
+                >
+                    {{status}}
+                </button>
+            </tui-data-list>
+        </tui-select>
+    </form>
+</div>
+<ng-container *ngIf="filteredSubmissions.length !== 0 else noSuchSubmissionsTemplate">
+    <div>
+        <span class="mb-1 text-sm"><b>Status:</b> {{filteredSubmissions[index].status}}</span>
+        <span *ngIf="showName"
+              class="mb-1 ml-2 text-sm"><b>Name:</b> {{filteredSubmissions[index].name}}</span>
+        <span *ngIf="showGrade"
+              class="mb-1 ml-2 text-sm"><b>Grade:</b> {{filteredSubmissions[index].grade}}</span>
+    </div>
+    <div class="flex mt-2">
+        <tui-island class="w-2/3">
+            <p class="tui-island__paragraph">Code: </p>
+            <div *ngFor="let item of answerFiles" class="tui-island__paragraph">
+                <app-code-editor [codeTemplate]="item.code"
+                                 [readOnly]="true"></app-code-editor>
+            </div>
+        </tui-island>
+        <tui-island
+            *ngIf="filteredSubmissions[index].passed_results?.length ||
+        filteredSubmissions[index].failed_results?.length"
+            class="w-1/3">
+            <h3 class="tui-island__paragraph"><b>Unit Testing Results:</b></h3>
+            <div *ngIf="filteredSubmissions[index].passed_results?.length">
+                <h4 class="tui-island__paragraph tui-space_top-2">Passed:</h4>
+                <ul class="tui-list">
+                    <li
+                        *ngFor="let result of filteredSubmissions[index].passed_results"
+                        class="tui-list__item"
+                    >
+                        {{result.name}}
+                    </li>
+                </ul>
+            </div>
+            <div *ngIf="filteredSubmissions[index].failed_results?.length">
+                <h4 class="tui-island__paragraph tui-space_top-2">Failed:</h4>
+                <ul class="tui-list">
+                    <li
+                        *ngFor="let result of filteredSubmissions[index].failed_results"
+                        class="tui-list__item"
+                    >
+                        {{result.message}}
+                    </li>
+                </ul>
+            </div>
+        </tui-island>
+        <tui-island *ngIf="filteredSubmissions[index].decoded_stderr !== ''" class="w-1/3">
+            <p class="tui-island__paragraph">The following error occurred: </p>
+            <div class="tui-island__paragraph">
+                <app-code-editor
+                    [codeTemplate]="filteredSubmissions[index].decoded_stderr"
+                    [readOnly]="true"
+                >
+                </app-code-editor>
+            </div>
+        </tui-island>
+    </div>
+</ng-container>
+<ng-template #noSuchSubmissionsTemplate>
+    <div class="flex justify-center items-center w-full h-32">
+        <tui-marker-icon
+            class="tui-space_right-4"
+            size="s"
+            src="tuiIconAlertCircleLarge"
+        ></tui-marker-icon>
+        <h2 class="tui-text_body-xl">
+            Looks like there are no submissions to show
+        </h2>
+    </div>
+</ng-template>
+<tui-pagination
+    [index]="index"
+    [length]="filteredSubmissions.length"
+    (indexChange)="goToPage($event)"
+    class="mt-2"
+>
+</tui-pagination>

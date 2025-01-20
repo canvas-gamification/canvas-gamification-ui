@@ -22,7 +22,9 @@ export class EventStatsComponent implements OnInit {
 
     ngOnInit(): void {
         this.eventId = this.route.snapshot.params.eventId
-        this.courseEventService.getStats(this.eventId).subscribe(stats => this.stats = stats)
+        this.courseEventService.getStats(this.eventId).subscribe((stats) => {
+            this.stats = stats
+        })
     }
 
     isEmpty(obj: unknown) {

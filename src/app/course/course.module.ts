@@ -37,6 +37,7 @@ import {
     TuiIslandModule,
     TuiMarkerIconModule,
     TuiMultiSelectModule,
+    TuiPaginationModule,
     TuiProgressModule,
     TuiSelectModule,
     TuiStepperModule,
@@ -121,6 +122,10 @@ import {
 } from '@app/course/token/individual-tokens/individual-tokens.component'
 import {TokenOverviewComponent} from './token/token-overview/token-overview.component'
 import {TokenDetailedViewComponent} from './token/token-detailed-view/token-detailed-view.component'
+import {
+    EventStatsSubmissionViewComponent
+} from './event/event-stats-submission-view/event-stats-submission-view.component'
+import {CodeEditorModule} from "@app/components/code-editor/code-editor.module"
 
 @NgModule({
     declarations: [
@@ -146,6 +151,7 @@ import {TokenDetailedViewComponent} from './token/token-detailed-view/token-deta
         EventRowComponent,
         EventStatsBarChartComponent,
         EventStatsComponent,
+        EventStatsSubmissionViewComponent,
         GoalComponent,
         GoalCreateComponent,
         GoalIslandComponent,
@@ -162,6 +168,7 @@ import {TokenDetailedViewComponent} from './token/token-detailed-view/token-deta
         TokensComponent,
     ],
     imports: [
+        CodeEditorModule,
         CommonModule,
         CourseIslandModule,
         CourseRoutingModule,
@@ -207,6 +214,7 @@ import {TokenDetailedViewComponent} from './token/token-detailed-view/token-deta
         TuiModeModule,
         TuiMultiSelectModule,
         TuiNotificationModule,
+        TuiPaginationModule,
         TuiPointerHintModule,
         TuiProgressModule,
         TuiRingChartModule,
