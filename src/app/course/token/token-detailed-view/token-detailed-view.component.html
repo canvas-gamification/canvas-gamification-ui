@@ -27,7 +27,7 @@
             </td>
             <td *tuiCell="'question_grade'" tuiTd>
                 <div *ngFor="let detail of grade.question_details; index as idx">
-                    {{ detail.question_grade }} / 1
+                    {{ detail.question_grade }}
                     <hr *ngIf="!(idx === grade.question_details.length - 1)">
                 </div>
             </td>
