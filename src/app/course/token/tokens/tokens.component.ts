@@ -3,6 +3,7 @@ import {GradeBook} from "@app/_models/grade_book"
 import {Course, CourseEvent} from "@app/_models"
 import {ActivatedRoute} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
+import {ApiService} from "@app/_services/api.service"
 
 @Component({
     selector: 'app-tokens',
@@ -24,6 +25,7 @@ export class TokensComponent {
     constructor(
         private route: ActivatedRoute,
         private courseService: CourseService,
+        private apiService: ApiService
     ) {
         this.courseId = this.route.snapshot.parent.params.courseId
         this.courseService.getCourse(this.courseId).subscribe(course => {
@@ -38,7 +40,6 @@ export class TokensComponent {
     }
 
     setDetailedView(b: boolean): void {
-        console.log(b)
         this.showDetailed = b
     }
 
@@ -58,7 +59,25 @@ export class TokensComponent {
     }
 
     changeDisplay() {
-        this.gradesDisplayData = this.grades.filter(q => !this.query || q.name.toLowerCase().includes(this.query.toLowerCase()))
+        this.gradesDisplayData = this.grades.filter(q => !this.query ||
+            q.name.toLowerCase().includes(this.query.toLowerCase()))
             .filter(q => !this.event || q.event_name === this.event)
+    }
+
+    getUrl() {
+        const params = new URLSearchParams()
+
+        if (this.event !== '' && this.event !== undefined) {
+            params.set("event_name", this.event)
+        }
+        if (this.query !== '' && this.query !== undefined) {
+            params.set("student_name", this.query)
+        }
+        if (this.showDetailed) {
+            params.set("details", String(this.showDetailed))
+        }
+
+        return this.apiService.getURL('course', this.courseId, 'export-grade-book') + "?"
+            + params.toString()
     }
 }

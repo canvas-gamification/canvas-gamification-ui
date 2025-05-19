@@ -54,6 +54,14 @@
                         </button>
                     </tui-data-list>
                 </tui-select>
+                <a
+                    appearance="primary"
+                    size="m"
+                    tuiButton
+                    [href]="getUrl()"
+                >
+                    Download
+                </a>
             </div>
             <app-token-detailed-view *ngIf="showDetailed"
                                      [displayData]="gradesDisplayData"></app-token-detailed-view>
@@ -108,6 +116,14 @@
                     >
                     Event Name
                 </tui-select>
+                <a
+                    class="tui-skeleton"
+                    appearance="primary"
+                    size="m"
+                    tuiButton
+                >
+                    Download
+                </a>
             </div>
             <table
                 [columns]="['name', 'event_name', 'grade']"
