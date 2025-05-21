@@ -5,7 +5,8 @@ export type GradeBook = {
     event_name: string
     question_details: {
         title: string
-        question_grade: string
+        question_grade: number
+        question_value: number
         attempts: number
         max_attempts: number
     }[]

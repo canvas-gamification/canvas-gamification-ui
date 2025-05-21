@@ -14,5 +14,5 @@ export type LeaderboardPageElement = {
 
 export type LeaderboardResult = {
     board: LeaderboardElement[]
-    missing: boolean
+    excluded_values: boolean
 }

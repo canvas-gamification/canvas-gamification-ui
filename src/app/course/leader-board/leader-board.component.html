@@ -1,7 +1,7 @@
 <ng-container *ngIf="!!course && !!leaderBoard && !!leaderBoardName else skeletonTemplate">
     <div class="flex flex-col items-center">
         <h3 class="tui-text_h3 my-8">{{leaderBoardName}} Leaderboard</h3>
-        <div *ngIf="msg" class="flex items-center -mt-6 mb-8">
+        <div *ngIf="display_missing_message" class="flex items-center -mt-6 mb-8">
             <tui-marker-icon
                 src="tuiIconAlertCircleLarge"
                 mode="warning"
