@@ -22,6 +22,12 @@
         >
             The {{getEventType()}} is closed.
         </tui-notification>
+        <tui-notification
+            class="mb-6"
+            *ngIf="!event.count_for_tokens"
+        >
+            This {{getEventType()}} does not count towards the leaderboard.
+        </tui-notification>
         <div
             *ngIf="eventId"
             class="flex justify-between items-center mt-3"
