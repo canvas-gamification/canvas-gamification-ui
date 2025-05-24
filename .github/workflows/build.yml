@@ -12,12 +12,11 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v1
-            -   name: Cache node modules
-                uses: c-hive/gha-npm-cache@v1
             -   name: Set Up Node
                 uses: actions/setup-node@v1
                 with:
                     node-version: ${{ matrix.node }}
+                    cache: 'npm'
             -   name: Install dependencies
                 run: npm ci
             -   name: Lint
@@ -32,12 +31,11 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v1
-            -   name: Cache node modules
-                uses: c-hive/gha-npm-cache@v1
             -   name: Set Up Node
                 uses: actions/setup-node@v1
                 with:
                     node-version: ${{ matrix.node }}
+                    cache: 'npm'
             -   name: Install dependencies
                 run: npm ci
             -   name: Test
@@ -62,12 +60,11 @@ jobs:
         steps:
             -   name: Checkout
                 uses: actions/checkout@v1
-            -   name: Cache node modules
-                uses: c-hive/gha-npm-cache@v1
             -   name: Node 16.x
                 uses: actions/setup-node@v1
                 with:
                     node-version: '16.x'
+                    cache: 'npm'
             -   name: Install dependencies
                 run: npm ci
             -   name: Build
