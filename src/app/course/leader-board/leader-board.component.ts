@@ -18,6 +18,7 @@ export class LeaderBoardComponent implements OnChanges, OnInit {
     @Input() eventId: number
     @Input() leaderBoardName: string
     displayedColumns: string[] = ['rank', 'name', 'token']
+    display_missing_message: boolean
 
     myTeam: Team
 
@@ -50,7 +51,8 @@ export class LeaderBoardComponent implements OnChanges, OnInit {
         } else if(this.course) {
             this.courseService.getCourseLeaderBoard(this.course.id).subscribe(leaderBoard => {
                 if(saveEventId !== this.eventId) return
-                this.leaderBoard = this.getRankedLeaderboard(leaderBoard)
+                this.leaderBoard = this.getRankedLeaderboard(leaderBoard.board)
+                this.display_missing_message = leaderBoard.excluded_values
                 this.logCourseRankingAndTokens()
             })
         }

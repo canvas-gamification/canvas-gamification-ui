@@ -11,3 +11,8 @@ export type LeaderboardPageElement = {
     name: string;
     eventId: number;
 }
+
+export type LeaderboardResult = {
+    board: LeaderboardElement[]
+    excluded_values: boolean
+}

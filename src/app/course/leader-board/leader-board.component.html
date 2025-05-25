@@ -1,5 +1,16 @@
 <ng-container *ngIf="!!course && !!leaderBoard && !!leaderBoardName else skeletonTemplate">
-    <h3 class="tui-text_h3 my-8">{{leaderBoardName}} Leaderboard</h3>
+    <div class="flex flex-col items-center">
+        <h3 class="tui-text_h3 my-8">{{leaderBoardName}} Leaderboard</h3>
+        <div *ngIf="display_missing_message" class="flex items-center -mt-6 mb-8">
+            <tui-marker-icon
+                src="tuiIconAlertCircleLarge"
+                mode="warning"
+                size="xs"
+            >
+            </tui-marker-icon>
+            <h2 class="tui-text_body-m">Some assignments or exams tokens have not been included.</h2>
+        </div>
+    </div>
     <div class="top-x-islands tui-space_bottom-8">
         <tui-island
             *ngFor="let element of leaderBoard | tuiFilter: filterInTopX: rankTopX; let index = index"
@@ -96,7 +107,7 @@
         >
             <div
                 [style.backgroundColor]="avatar.bgColor"
-                 class="top-x-background tui-skeleton"
+                class="top-x-background tui-skeleton"
             ></div>
             <figure class="tui-island__figure tui-skeleton">
                 <tui-avatar

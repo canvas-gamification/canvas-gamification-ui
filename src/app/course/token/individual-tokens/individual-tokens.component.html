@@ -1,54 +1,129 @@
-<section class="tui-container tui-container_fullwidth">
-    <div class="flex justify-center">
-        <div
-            tuiGroup
-            class=""
-            [collapsed]="true"
-            [rounded]="true"
-        >
-            <button
-                tuiButton
-                type="button"
-                appearance="secondary"
-                size="l"
-                class="whitespace-nowrap"
-                (click)="setDetailedView(false)"
-                [pseudoPressed]="!showDetailed"
+<ng-container *ngIf="!!grades else skeletonTemplate">
+    <section class="tui-container tui-container_fullwidth">
+        <div class="flex justify-center">
+            <div
+                tuiGroup
+                class=""
+                [collapsed]="true"
+                [rounded]="true"
             >
-                Overview
-            </button>
-            <button
-                tuiButton
-                type="button"
-                appearance="secondary"
-                size="l"
-                class="whitespace-nowrap"
-                (click)="setDetailedView(true)"
-                [pseudoPressed]="showDetailed"
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="secondary"
+                    size="l"
+                    class="whitespace-nowrap"
+                    (click)="setDetailedView(false)"
+                    [pseudoPressed]="!showDetailed"
+                >
+                    Overview
+                </button>
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="secondary"
+                    size="l"
+                    class="whitespace-nowrap"
+                    (click)="setDetailedView(true)"
+                    [pseudoPressed]="showDetailed"
+                >
+                    Detailed View
+                </button>
+            </div>
+        </div>
+        <div class="py-3 space-y-3">
+            <div class="flex gap-3 items-center py-3">
+                <tui-select
+                    [tuiTextfieldCleaner]="true"
+                    [valueContent]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
+                    class="w-48"
+                    [ngModel]="event"
+                    (ngModelChange)="update({event: $event})">
+                    Event Name
+                    <tui-data-list *tuiDataList [class.tui-skeleton]="!events">
+                        <button *ngFor="let event of events" [value]="event.name" tuiOption>
+                            {{ event.name }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+            </div>
+            <app-token-detailed-view *ngIf="showDetailed"
+                                     [displayData]="gradesDisplayData"></app-token-detailed-view>
+            <app-token-overview *ngIf="!showDetailed"
+                                [displayData]="gradesDisplayData"></app-token-overview>
+        </div>
+    </section>
+</ng-container>
+<ng-template #skeletonTemplate>
+    <section class="tui-container tui-container_fullwidth">
+        <div class="flex justify-center">
+            <div
+                tuiGroup
+                class=""
+                [collapsed]="true"
+                [rounded]="true"
             >
-                Detailed View
-            </button>
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="secondary"
+                    size="l"
+                    class="whitespace-nowrap tui-skeleton"
+                    [pseudoPressed]="!showDetailed"
+                >
+                    Overview
+                </button>
+                <button
+                    tuiButton
+                    type="button"
+                    appearance="secondary"
+                    size="l"
+                    class="whitespace-nowrap tui-skeleton"
+                    [pseudoPressed]="showDetailed"
+                >
+                    Detailed View
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="py-3 space-y-3">
-        <div class="flex gap-3 items-center py-3">
-            <tui-select
-                [tuiTextfieldCleaner]="true"
-                [valueContent]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
-                class="w-48"
-                [ngModel]="event"
-                (ngModelChange)="update({event: $event})">
-                Event Name
-                <tui-data-list *tuiDataList [class.tui-skeleton]="!events">
-                    <button *ngFor="let event of events" [value]="event.name" tuiOption>
-                        {{ event.name }}
-                    </button>
-                </tui-data-list>
-            </tui-select>
+        <div class="py-3 space-y-3">
+            <div class="flex gap-3 items-center py-3">
+                <tui-select
+                    [tuiTextfieldCleaner]="true"
+                    class="w-48 tui-skeleton">
+                    Event Name
+                    <tui-data-list *tuiDataList [class.tui-skeleton]="!events">
+                        <button *ngFor="let event of events" [value]="event.name" tuiOption>
+                            {{ event.name }}
+                        </button>
+                    </tui-data-list>
+                </tui-select>
+            </div>
+            <table
+                [columns]="['name', 'event_name', 'grade']"
+                class="w-full tui-skeleton"
+                tuiTable
+            >
+                <thead tuiThead>
+                <tr tuiThGroup>
+                    <th *tuiHead="'name'" tuiTh>Name</th>
+                    <th *tuiHead="'event_name'" tuiTh>Event Name</th>
+                    <th *tuiHead="'grade'" tuiTh>Tokens Earned</th>
+                </tr>
+                </thead>
+                <tbody tuiTbody>
+                <tr tuiTr>
+                    <td *tuiCell="'name'" tuiTd>
+                        name
+                    </td>
+                    <td *tuiCell="'event_name'" tuiTd>
+                        event name
+                    </td>
+                    <td *tuiCell="'grade'" tuiTd>
+                        grade
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        <app-token-detailed-view *ngIf="showDetailed"
-                                 [displayData]="gradesDisplayData"></app-token-detailed-view>
-        <app-token-overview *ngIf="!showDetailed"
-                            [displayData]="gradesDisplayData"></app-token-overview>
-    </div>
-</section>
+    </section>
+</ng-template>
