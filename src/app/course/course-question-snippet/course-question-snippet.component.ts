@@ -58,7 +58,12 @@ export class CourseQuestionSnippetComponent implements OnInit {
                 if (response.success) {
                     forkJoin({
                         event: this.courseEventService.getCourseEvent(this.eventId),
-                        uqjs: this.uqjService.getUQJs({filters: {question_event: this.eventId}}),
+                        uqjs: this.uqjService.getUQJs({
+                            filters: {
+                                question_event: this.eventId
+                            },
+                            pageSize: 1000
+                        }),
                     }).subscribe(result => {
                         this.event = result.event
                         this.uqjs = result.uqjs.results

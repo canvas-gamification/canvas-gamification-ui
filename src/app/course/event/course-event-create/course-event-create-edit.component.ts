@@ -24,6 +24,7 @@ export class CourseEventCreateEditComponent implements OnInit {
     categories: Category[]
     difficulties: Difficulty[]
     limits: EventLimit[]
+    submitting = false
 
     constructor(
         private route: ActivatedRoute,
@@ -116,6 +117,7 @@ export class CourseEventCreateEditComponent implements OnInit {
      * @param formData - grabs the components formData and creates a request based on that
      */
     async submitEvent(formData: FormGroup) {
+        this.submitting = true
         const ourEvent = CourseEventForm.formatFormData(formData, this.courseId, this.eventId)
         if (this.eventId) { // If this is a previously existing event
             await this.courseEventService.updateCourseEvent(ourEvent).toPromise()

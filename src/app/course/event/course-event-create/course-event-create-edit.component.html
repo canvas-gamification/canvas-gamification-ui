@@ -145,9 +145,16 @@
                 </div>
             </div>
         </div>
+        <tui-notification
+            class="my-6"
+            *ngIf="getQuestionSetFormControls().length > 2"
+        >
+            Adding a lot of questions can take a while. Please do not close the page until the process is completed.
+        </tui-notification>
         <div class="tui-form__buttons">
             <button
                 [disabled]="formData.invalid"
+                [showLoader]="submitting"
                 appearance="primary"
                 aria-label="Submit"
                 class="tui-form__button"
