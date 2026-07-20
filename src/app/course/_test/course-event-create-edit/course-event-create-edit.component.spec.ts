@@ -1,3 +1,4 @@
+import { TuiInputModule, TuiInputDateRangeModule, TuiInputTimeModule, TuiSelectModule } from "@taiga-ui/legacy";
 import {ComponentFixture, fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing'
 
 import {
@@ -8,9 +9,9 @@ import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {ActivatedRoute, convertToParamMap, Router, RouterModule} from "@angular/router"
 import {ReactiveFormsModule} from "@angular/forms"
-import { TuiButtonModule, TuiDataListModule, TuiNotificationModule, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService, TuiNotification, TuiDataList, TuiLabel, TuiButton } from "@taiga-ui/core"
 import {of} from "rxjs"
-import { TuiCheckboxLabeledModule, TuiInputDateRangeModule, TuiInputModule, TuiInputTimeModule, TuiSelectModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
+import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
 
 describe('CourseEventCreateComponent with EventId', () => {
     let component: CourseEventCreateEditComponent
@@ -25,13 +26,13 @@ describe('CourseEventCreateComponent with EventId', () => {
                 RouterModule,
                 TuiInputModule,
                 TuiSelectModule,
-                TuiDataListModule,
-                TuiFieldErrorPipeModule,
-                TuiCheckboxLabeledModule,
+                TuiDataList,
+                TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+                TuiLabel,
                 TuiInputDateRangeModule,
                 TuiInputTimeModule,
-                TuiNotificationModule,
-                TuiButtonModule
+                TuiNotification,
+                TuiButton
             ],
             providers: [
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
@@ -92,13 +93,13 @@ describe('CourseEventCreateComponent without EventId', () => {
                 RouterModule,
                 TuiInputModule,
                 TuiSelectModule,
-                TuiDataListModule,
-                TuiFieldErrorPipeModule,
-                TuiCheckboxLabeledModule,
+                TuiDataList,
+                TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+                TuiLabel,
                 TuiInputDateRangeModule,
                 TuiInputTimeModule,
-                TuiNotificationModule,
-                TuiButtonModule
+                TuiNotification,
+                TuiButton
             ],
             providers: [
                 {provide: CourseEventService, useClass: CourseEventServiceMock},

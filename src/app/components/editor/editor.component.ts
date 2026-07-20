@@ -1,5 +1,7 @@
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { TUI_EDITOR_DEFAULT_EXTENSIONS } from "@taiga-ui/editor";
 import {Component, Injector, Input, OnDestroy} from '@angular/core'
-import {defaultEditorExtensions, TUI_EDITOR_EXTENSIONS} from '@tinkoff/tui-editor'
+import {TUI_EDITOR_EXTENSIONS} from '@taiga-ui/editor'
 import {
     ControlValueAccessor,
     UntypedFormControl,
@@ -10,7 +12,6 @@ import {
     Validators
 } from '@angular/forms'
 import {Subscription} from 'rxjs'
-import {TuiDestroyService} from '@taiga-ui/cdk'
 import {createInlineMathEditorExtension} from '@app/components/editor/inline-math/inline-math.extension'
 
 @Component({
@@ -18,12 +19,11 @@ import {createInlineMathEditorExtension} from '@app/components/editor/inline-mat
     templateUrl: './editor.component.html',
     styleUrls: ['./editor.component.scss'],
     providers: [
-        TuiDestroyService,
         {
             provide: TUI_EDITOR_EXTENSIONS,
             deps: [Injector],
             useFactory: (injector: Injector) => [
-                ...defaultEditorExtensions,
+                ...TUI_EDITOR_DEFAULT_EXTENSIONS,
                 createInlineMathEditorExtension(injector)
             ]
         },

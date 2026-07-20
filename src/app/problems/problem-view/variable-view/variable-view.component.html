@@ -11,7 +11,7 @@
         </p>
     </ng-template>
     <ng-container *ngIf="variableErrors.length !== 0; else noErrors">
-        <tui-notification *ngFor="let error of variableErrors" [hasIcon]="false" class="tui-space_top-2" status="error">
+        <tui-notification size="m" *ngFor="let error of variableErrors" icon="" class="tui-space_top-2" appearance="error">
             {{ error }}
         </tui-notification>
     </ng-container>

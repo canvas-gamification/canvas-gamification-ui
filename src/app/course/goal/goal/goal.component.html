@@ -1,7 +1,7 @@
 <div *ngIf="goal && stats" class="tui-container tui-container_adaptive space-y-3 mt-3">
     <a
         [routerLink]="['..']"
-        icon="tuiIconArrowLeft"
+        iconStart="@tui.arrow-left"
         size="s"
         tuiButton
         appearance="flat"
@@ -77,18 +77,20 @@
                                 [class.success]="getQuestionRelativeSuccessRate(goalItemId, typeKey) >= 0"
                                 [class.error]="getQuestionRelativeSuccessRate(goalItemId, typeKey) < 0"
                             >
-                        <tui-svg
+                        <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
                             *ngIf="getQuestionRelativeSuccessRate(goalItemId, typeKey) >= 0"
-                            src="tuiIconArrowUp"
+                            icon="@tui.arrow-up"
                             class="pb-1 -mx-1"
                         >
-                        </tui-svg>
-                        <tui-svg
+                        </tui-icon>
+                        <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
                             *ngIf="getQuestionRelativeSuccessRate(goalItemId, typeKey) < 0"
-                            src="tuiIconArrowDown"
+                            icon="@tui.arrow-down"
                             class="pb-1 -mx-1"
                         >
-                        </tui-svg>
+                        </tui-icon>
                                 {{getQuestionRelativeSuccessRate(goalItemId, typeKey) | percent}}
                     </span>
                             )
@@ -130,27 +132,27 @@
 
         <h6 class="tui-text_h6 my-3">Practice Recommendations</h6>
         <div class="flex gap-3">
-            <tui-marker-icon
+            <tui-avatar 
                 *ngIf="stats[goalItemId].conclusion.status === 'MASTER'"
-                mode="success"
-                size="xs"
-                src="tuiIconCheckLarge"
+                appearance="success"
+                size="s"
+                src="@tui.check"
             >
-            </tui-marker-icon>
-            <tui-marker-icon
+            </tui-avatar>
+            <tui-avatar 
                 *ngIf="stats[goalItemId].conclusion.status === 'NEED_PRACTICE'"
-                mode="warning"
-                size="xs"
-                src="tuiIconAlertCircleLarge"
+                appearance="warning"
+                size="s"
+                src="@tui.circle-alert"
             >
-            </tui-marker-icon>
-            <tui-marker-icon
+            </tui-avatar>
+            <tui-avatar 
                 *ngIf="stats[goalItemId].conclusion.status === 'NO_DATA'"
-                mode="secondary"
-                size="xs"
-                src="tuiIconAlertCircleLarge"
+                appearance="secondary"
+                size="s"
+                src="@tui.circle-alert"
             >
-            </tui-marker-icon>
+            </tui-avatar>
             <div class="leading-8">
                 {{stats[goalItemId].conclusion.message}}
             </div>
@@ -158,11 +160,11 @@
 
         <ng-template #noSubmission>
             <div class="flex justify-center items-center w-full h-32">
-                <tui-marker-icon
+                <tui-avatar 
                     class="tui-space_right-4"
-                    size="s"
-                    src="tuiIconAlertCircleLarge"
-                ></tui-marker-icon>
+                    size="m"
+                    src="@tui.circle-alert"
+                ></tui-avatar>
                 <h2 class="tui-text_body-xl">
                     There is no details to display
                 </h2>

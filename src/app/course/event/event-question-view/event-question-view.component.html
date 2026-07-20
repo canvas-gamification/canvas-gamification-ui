@@ -11,7 +11,7 @@
                 [routerLink]="['/course', event?.course, 'assignments-exams', eventId]"
                 class="mt-6 w-full"
                 [class.tui-skeleton]="!event"
-                icon="tuiIconArrowLeft"
+                iconStart="@tui.arrow-left"
                 size="s"
                 tuiButton
                 appearance="secondary"
@@ -23,7 +23,7 @@
                 [routerLink]="['/course', event?.course, 'challenge', eventId]"
                 class="mt-6 w-full"
                 [class.tui-skeleton]="!event"
-                icon="tuiIconArrowLeft"
+                iconStart="@tui.arrow-left"
                 size="s"
                 tuiButton
                 appearance="secondary"
@@ -46,10 +46,11 @@
                         }"
                         >
                             <span>{{uqj.question.title}}</span>
-                            <tui-svg
+                            <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
                                 *ngIf="uqj.is_solved"
-                                src="tuiIconCheck"
-                            ></tui-svg>
+                                icon="@tui.check"
+                            ></tui-icon>
                         </div>
                         <div class="border-t"></div>
                     </ng-container>
@@ -59,7 +60,7 @@
                 <button
                     (click)="openReportQuestion()"
                     [class.tui-skeleton]="!uqjs"
-                    icon="tuiIconAttention"
+                    iconStart="@tui.attention"
                     size="s"
                     tuiButton
                     appearance="secondary"

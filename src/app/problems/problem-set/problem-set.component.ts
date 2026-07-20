@@ -8,8 +8,8 @@ import {CategoryService} from "@app/_services/api/category.service"
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {ProblemSetForm} from "@app/problems/_forms/problem-set.form"
-import { TuiDialogContext, TuiDialogService, TuiNotification, TuiAlertService } from "@taiga-ui/core"
-import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
+import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import {PolymorpheusContent} from '@taiga-ui/polymorpheus'
 import {TuiComparator} from "@taiga-ui/addon-table"
 
 export type SortingKey =
@@ -193,7 +193,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
             .subscribe(() => {
                 this.notificationsService
                     .open('The question has been deleted successfully.', {
-                        status: TuiNotification.Success
+                        appearance: 'success'
                     }).subscribe()
                 this.update()
             })

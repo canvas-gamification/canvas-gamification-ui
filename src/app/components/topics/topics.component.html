@@ -15,7 +15,7 @@
                 [heading]="category.name"
                 tuiTbody
             >
-            <tr *tuiRow="let subCategory of subCategories[category.name]" tuiTr>
+            <tr *ngFor="let subCategory of subCategories[category.name]" tuiTr>
                 <td *tuiCell="'topics'" class="subcat-name" tuiTd>
                     <span class="heavy-indent">{{ subCategory.name }}</span>
                 </td>

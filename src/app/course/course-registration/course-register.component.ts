@@ -4,7 +4,7 @@ import {UntypedFormGroup} from '@angular/forms'
 import {CourseService} from '@app/course/_services/course.service'
 import {CourseRegisterForm} from "@app/course/_forms/register.form"
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component"
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 import {CourseRegistrationMode} from "@app/_models"
 
 @Component({
@@ -67,7 +67,7 @@ export class CourseRegisterComponent implements OnInit {
         this.courseService.register(this.courseId, data).subscribe(() => {
             this.notificationsService
                 .open(`Successfully registered in ${this.courseName}`, {
-                    status: TuiNotification.Success
+                    appearance: 'success'
                 }).subscribe()
             this.router.navigate(['/course', this.courseId]).then()
             this.loadingContent = false

@@ -8,13 +8,13 @@
             <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
         </div>
         <div class="tui-form__row">
-            <tui-checkbox-labeled
+           <label tuiLabel> <input tuiCheckbox type="checkbox"
                 aria-label="Set Team To A Private Team"
-                size="l"
+                size="m"
                 formControlName="isPrivate"
             >
                 Check to lock the team so only people you have invited can join your team.
-            </tui-checkbox-labeled>
+            </label>
             <tui-error [error]="[] | tuiFieldError | async" formControlName="isPrivate"></tui-error>
         </div>
         <ng-container *ngIf="isPrivate()">

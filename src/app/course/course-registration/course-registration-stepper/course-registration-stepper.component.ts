@@ -9,7 +9,7 @@ import {
     QueryList,
     ViewChildren
 } from '@angular/core'
-import {TuiStepComponent} from "@taiga-ui/kit"
+import {TuiStep} from "@taiga-ui/kit"
 import {
     CourseRegistrationStepComponent
 } from "@app/course/course-registration/course-registration-step/course-registration-step.component"
@@ -23,7 +23,7 @@ import {
 export class CourseRegistrationStepperComponent implements AfterContentInit, AfterContentChecked {
     @Input() steps: string[] = []
     currentStep = 0
-    @ViewChildren('headerStep') tuiStepComponents!: QueryList<TuiStepComponent>
+    @ViewChildren('headerStep') tuiStepComponents!: QueryList<TuiStep>
     @ContentChildren(CourseRegistrationStepComponent) stepComponents!: QueryList<CourseRegistrationStepComponent>
 
     constructor(private changeDetector: ChangeDetectorRef) {
@@ -38,10 +38,10 @@ export class CourseRegistrationStepperComponent implements AfterContentInit, Aft
     }
 
     /**
-     * Get the current TuiStepComponent
+     * Get the current TuiStep
      * @param stepNumber
      */
-    getStep(stepNumber: number): TuiStepComponent {
+    getStep(stepNumber: number): TuiStep {
         return this.tuiStepComponents.toArray()[stepNumber]
     }
 
@@ -66,7 +66,7 @@ export class CourseRegistrationStepperComponent implements AfterContentInit, Aft
      */
     setStepComplete(stepNumber: number): void {
         this.getStep(stepNumber).stepState = 'pass'
-        this.getStep(stepNumber).icon = 'tuiIconCheckLarge'
+        this.getStep(stepNumber).icon = '@tui.check'
     }
 
     /**

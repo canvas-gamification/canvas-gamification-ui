@@ -10,10 +10,10 @@
                 <div class="previous-submissions-island__submission">
                     {{ submission.submission_time | date:'short' || 'No Date' }}
                     <tui-badge
-                        [status]="submission.status | tuiStatus"
-                        [value]="submission.status || 'Pending'"
+                        [appearance]="submission.status | tuiStatus"
+                       
                         class="tui-space_left-2"
-                    ></tui-badge>
+                    >{{ submission.status || 'Pending' }}</tui-badge>
                     <ng-template tuiAccordionItemContent>
                         <div *ngIf="!submission.question.is_exam_and_open else examContent"
                              class="tui-text_body-m">

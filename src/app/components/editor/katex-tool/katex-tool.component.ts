@@ -1,5 +1,5 @@
 import {Component, ElementRef, Inject, ViewChild} from '@angular/core'
-import {TuiTiptapEditorService} from '@tinkoff/tui-editor'
+import {TuiTiptapEditorService} from '@taiga-ui/editor'
 import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe'
 
 @Component({
@@ -12,6 +12,7 @@ export class KatexToolComponent {
 
     @ViewChild('katexContent') katexContent: ElementRef
     equation = ''
+    open = false
 
     constructor(
         @Inject(TuiTiptapEditorService)

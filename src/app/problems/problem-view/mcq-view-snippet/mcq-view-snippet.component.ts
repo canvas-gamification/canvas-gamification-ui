@@ -3,7 +3,7 @@ import {UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGro
 import {UQJ} from '@app/_models'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
-import { TuiNotification, TuiAlertService } from '@taiga-ui/core'
+import { TuiAlertService } from '@taiga-ui/core'
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -75,7 +75,7 @@ export class McqViewSnippetComponent implements OnChanges {
         this.submissionService.postQuestionSubmission(formData).subscribe(() => {
             this.notificationsService
                 .open('The question has been submitted successfully.', {
-                    status: TuiNotification.Success
+                    appearance: 'success'
                 }).subscribe()
             this.successfulSubmissionEvent.emit(true)
             this.waitingSubmission = false
@@ -95,7 +95,7 @@ export class McqViewSnippetComponent implements OnChanges {
         }).subscribe(() => {
             this.notificationsService
                 .open('The question has been submitted successfully.', {
-                    status: TuiNotification.Success
+                    appearance: 'success'
                 }).subscribe()
             this.successfulSubmissionEvent.emit(true)
             this.waitingSubmission = false

@@ -4,7 +4,7 @@ import {CategoryService} from '@app/_services/api/category.service'
 import {NestedTokenValue} from '@app/_models'
 import {Difficulty} from '@app/_models/difficulty'
 import {DifficultyService} from '@app/problems/_services/difficulty.service'
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-token-values',
@@ -48,7 +48,7 @@ export class TokenValuesComponent implements OnInit {
         this.tokenValueService.updateBulk(data).subscribe(() => {
             this.notificationsService
                 .open('Token values updated successfully', {
-                    status: TuiNotification.Success
+                    appearance: 'success'
                 }).subscribe()
             window.scroll(0, 0)
         })

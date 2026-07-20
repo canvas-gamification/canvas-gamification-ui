@@ -8,7 +8,7 @@
                     *ngIf="isList()"
                     [routerLink]="['../../concepts']"
                     class="tui-space_vertical-0 w-full"
-                    icon="tuiIconArrowLeft"
+                    iconStart="@tui.arrow-left"
                     aria-label="Back to Concept List"
                     size="s"
                     tuiButton
@@ -20,7 +20,7 @@
                     *ngIf="!isList()"
                     (click)="backToConceptMap()"
                     class="tui-space_vertical-0 w-full"
-                    icon="tuiIconArrowLeft"
+                    iconStart="@tui.arrow-left"
                     aria-label="Back to Concept List"
                     size="s"
                     tuiButton
@@ -35,7 +35,7 @@
                 <a
                     [routerLink]="['../../../goal']"
                     class="tui-space_vertical-0 w-full"
-                    icon="tuiIconArrowLeft"
+                    iconStart="@tui.arrow-left"
                     size="s"
                     tuiButton
                     appearance="secondary"
@@ -63,13 +63,14 @@
                 >
                     {{parentCategory?.name}}
                 </a>
-                <tui-svg
+                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
                     *ngIf="parentCategory"
                     [class.tui-skeleton]="!category"
-                    src="tuiIconChevronRight"
-                ></tui-svg>
-                <tui-hosted-dropdown
-                    [content]="categoryDropdown"
+                    icon="@tui.chevron-right"
+                ></tui-icon>
+                <div tuiDropdownOpen
+                    [tuiDropdown]="categoryDropdown"
                 >
                     <button
                         [class.tui-skeleton]="!category"
@@ -77,7 +78,7 @@
                     >
                         {{!parentCategory ? 'All ' : ''}}{{category?.name ?? 'Category Name'}}
                     </button>
-                </tui-hosted-dropdown>
+                </div>
                 <ng-template #categoryDropdown>
                     <tui-data-list role="menu">
                         <tui-opt-group
@@ -94,10 +95,11 @@
                                 tuiOption
                             >
                                 All&nbsp;{{parentCategory.category.name}}
-                                <tui-svg
+                                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  [style.border-width.rem]="0.25"
                                     *ngIf="rla.isActive"
-                                    src="tuiIconCheckLarge">
-                                </tui-svg>
+                                    icon="@tui.check">
+                                </tui-icon>
                             </a>
                             <a
                                 #rla="routerLinkActive"
@@ -110,27 +112,28 @@
                                 tuiOption
                             >
                                 {{childrenCategory.category.full_name}}
-                                <tui-svg
+                                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  [style.border-width.rem]="0.25"
                                     *ngIf="rla.isActive"
-                                    src="tuiIconCheckLarge">
-                                </tui-svg>
+                                    icon="@tui.check">
+                                </tui-icon>
                             </a>
                         </tui-opt-group>
                     </tui-data-list>
                 </ng-template>
             </div>
-            <tui-checkbox-block
+           <label tuiBlock="m"> <input tuiCheckbox type="checkbox"
                 (ngModelChange)="updateQuestions(difficulty, $event)"
                 [class.tui-skeleton]="!difficulties || !category"
                 [ngModel]="include_solved"
                 class="w-full"
                 ngDefaultControl
-                size="m"
+                
             >
                 <span class="tui-text_body-s">
                     Include Solved Questions:
                 </span>
-            </tui-checkbox-block>
+            </label>
             <tui-select
                 class="flex-grow"
                 (ngModelChange)="updateQuestions($event, include_solved)"
@@ -159,7 +162,7 @@
                 <button
                     (click)="prevQuestion()"
                     [class.tui-skeleton]="!category || !uqjs"
-                    icon="tuiIconChevronLeftLarge"
+                    iconStart="@tui.chevron-left"
                     size="m"
                     tuiIconButton
                 >
@@ -167,7 +170,7 @@
                 <button
                     (click)="nextQuestion()"
                     [class.tui-skeleton]="!category || !uqjs"
-                    icon="tuiIconChevronRightLarge"
+                    iconStart="@tui.chevron-right"
                     size="m"
                     tuiIconButton
                 >
@@ -180,7 +183,7 @@
                 *ngIf="course?.has_create_event_permission"
                 (click)="openAddQuestion()"
                 [class.tui-skeleton]="!category || !uqjs"
-                icon="tuiIconCopy"
+                iconStart="@tui.copy"
                 size="s"
                 tuiButton
                 appearance="secondary"
@@ -190,7 +193,7 @@
             <button
                 (click)="openReportQuestion()"
                 [class.tui-skeleton]="!category || !uqjs"
-                icon="tuiIconAttention"
+                iconStart="@tui.attention"
                 size="s"
                 tuiButton
                 appearance="secondary"
@@ -208,13 +211,13 @@
             <div
                 class="tui-container tui-container_fullwidth practice-content_none"
             >
-                <tui-marker-icon
+                <tui-avatar 
                     [class.tui-skeleton]="!category || !uqjs"
                     class="tui-space_bottom-4"
-                    mode="error"
-                    size="s"
-                    src="tuiIconAlertCircleLarge"
-                ></tui-marker-icon>
+                    appearance="error"
+                    size="m"
+                    src="@tui.circle-alert"
+                ></tui-avatar>
                 <h1
                     [class.tui-skeleton]="!category || !uqjs"
                     class="tui-text_h6"

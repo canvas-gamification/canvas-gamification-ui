@@ -89,7 +89,7 @@
                 </tr>
                 </thead>
                 <tbody [data]="categoryStatsData" tuiTbody>
-                <tr *tuiRow="let item of categoryStatsData" tuiTr>
+                <tr *ngFor="let item of categoryStatsData" tuiTr>
                     <td *tuiCell="'category'" tuiTd>
                         {{item.category.name}}
                     </td>

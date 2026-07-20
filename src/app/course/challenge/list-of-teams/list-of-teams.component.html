@@ -8,7 +8,7 @@
             <a
                 *ngIf="!(event.is_open || event.is_closed)"
                 [routerLink]="['create']"
-                icon="tuiIconPlus"
+                iconStart="@tui.plus"
                 appearance="primary"
                 aria-label="Create New Team"
                 size="m"
@@ -18,7 +18,8 @@
             </a>
         </div>
         <div class="tui-island__paragraph tui-text_body-l tui-space_top-6">
-            The team that has the person icon (<tui-svg src="tuiIconUser"></tui-svg>) is your team.
+            The team that has the person icon (<!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  icon="@tui.user"></tui-icon>) is your team.
             You can change the team's name by editing it.
             You can also edit the team settings and invite specific people privately to your team or
             make it public so anyone can join your team.
@@ -32,14 +33,16 @@
                                 <span class="mr-1">
                                     {{index + 1}}
                                 </span>
-                                <tui-svg
-                                    src="tuiIconUser"
+                                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
+                                    icon="@tui.user"
                                     *ngIf="isInTeam(team)"
-                                ></tui-svg>
+                                ></tui-icon>
                             </div>
                             <div class="flex-grow">{{team.name}}</div>
                             <div>
-                                <tui-svg *ngIf="team.is_private" src="tuiIconLock"></tui-svg>
+                                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  *ngIf="team.is_private" icon="@tui.lock"></tui-icon>
                             </div>
                             <div>
                                 {{team.member_names.length}}
@@ -104,7 +107,7 @@
         <h3 class="tui-text_h3 tui-col_stretch flex-grow tui-skeleton">List of Teams</h3>
         <a
             class="tui-skeleton"
-            icon="tuiIconPlus"
+            iconStart="@tui.plus"
             appearance="primary"
             aria-label="Create New Team"
             size="m"

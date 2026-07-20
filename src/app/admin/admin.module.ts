@@ -1,32 +1,14 @@
+import { TuiRingChart } from "@taiga-ui/addon-charts";
+import { TuiTable } from "@taiga-ui/addon-table";
+import { TuiFilterPipe } from "@taiga-ui/cdk";
+import { TuiIslandDirective, TuiTextfieldControllerModule, TuiInputModule, TuiInputDateModule, TuiInputNumberModule, TuiInputTimeModule, TuiMultiSelectModule, TuiSelectModule } from "@taiga-ui/legacy";
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {QuestionCountComponent} from './question-count/question-count.component'
 import {CategoryStatsComponent} from './category-stats/category-stats.component'
-import {TuiTableModule} from '@taiga-ui/addon-table'
-import {
-    TuiDataListWrapperModule,
-    TuiHighlightModule,
-    TuiInputDateModule,
-    TuiInputModule,
-    TuiInputNumberModule,
-    TuiInputTimeModule,
-    TuiIslandModule,
-    TuiMultiSelectModule,
-    TuiSelectModule,
-    TuiTabsModule
-} from '@taiga-ui/kit'
+import { TuiDataListWrapper, TuiHighlight, TuiTabs } from '@taiga-ui/kit'
 import {FormsModule} from '@angular/forms'
-import {
-    TuiButtonModule,
-    TuiDataListModule,
-    TuiHostedDropdownModule,
-    TuiLoaderModule,
-    TuiScrollbarModule,
-    TuiSvgModule,
-    TuiTextfieldControllerModule
-} from '@taiga-ui/core'
-import {TuiRingChartModule} from '@taiga-ui/addon-charts'
-import {TuiFilterPipeModule} from '@taiga-ui/cdk'
+import { TuiDataList, TuiLoader, TuiScrollbar, TuiScrollable, TuiDropdown, TuiIcon, TuiButton } from '@taiga-ui/core'
 import {CoursesComponent} from './courses/courses.component'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {
@@ -59,25 +41,25 @@ import {ExportSurveyComponent} from './export/export-survey/export-survey.compon
         CommonModule,
         FormsModule,
         SidebarModule,
-        TuiButtonModule,
-        TuiDataListModule,
-        TuiDataListWrapperModule,
-        TuiFilterPipeModule,
-        TuiHighlightModule,
-        TuiHostedDropdownModule,
+        TuiButton,
+        ...TuiDataList,
+        ...TuiDataListWrapper,
+        TuiFilterPipe,
+        TuiHighlight,
+        ...TuiDropdown,
         TuiInputDateModule,
         TuiInputModule,
         TuiInputNumberModule,
         TuiInputTimeModule,
-        TuiIslandModule,
-        TuiLoaderModule,
+        TuiIslandDirective,
+        TuiLoader,
         TuiMultiSelectModule,
-        TuiRingChartModule,
-        TuiScrollbarModule,
+        TuiRingChart,
+        TuiScrollbar, TuiScrollable,
         TuiSelectModule,
-        TuiSvgModule,
-        TuiTableModule,
-        TuiTabsModule,
+        TuiIcon,
+        ...TuiTable,
+        ...TuiTabs,
         TuiTextfieldControllerModule,
     ]
 })

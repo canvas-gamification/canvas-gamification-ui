@@ -23,6 +23,7 @@ import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor
 export class ParsonsInputFilesEditorComponent extends AbstractEditorComponent {
 
     codeBlock = ''
+    codeBlockDropdownOpen = false
 
     addNewModel(): void {
         this.models.push(ParsonsInputFilesForm.createParsonsInputFileForm())

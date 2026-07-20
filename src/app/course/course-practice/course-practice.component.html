@@ -2,7 +2,7 @@
     <a
         appearance="flat"
         [routerLink]="['..']"
-        icon="tuiIconArrowLeft"
+        iconStart="@tui.arrow-left"
         size="s"
         class="p-3"
         tuiButton
@@ -24,7 +24,7 @@
                 size="l"
                 class="whitespace-nowrap"
                 (click)="setListView(false)"
-                [pseudoActive]="!enableListView"
+                [tuiAppearanceState]="!enableListView ? 'active' : null"
             >
                 Map View
             </button>
@@ -35,7 +35,7 @@
                 size="l"
                 class="whitespace-nowrap"
                 (click)="setListView(true)"
-                [pseudoActive]="enableListView"
+                [tuiAppearanceState]="enableListView ? 'active' : null"
             >
                 List View
             </button>

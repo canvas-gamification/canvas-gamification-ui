@@ -6,7 +6,7 @@
                 <button
                     appearance="flat"
                     [routerLink]="['..']"
-                    icon="tuiIconArrowLeft"
+                    iconStart="@tui.arrow-left"
                     aria-label="Back to Homepage"
                     size="s"
                     tuiButton
@@ -17,7 +17,7 @@
             <button
                 *ngIf="course?.has_create_challenge_permission"
                 [routerLink]="['/course', courseId, 'challenge', 'create']"
-                icon="tuiIconPlus"
+                iconStart="@tui.plus"
                 appearance="secondary"
                 aria-label="Add Challenge"
                 size="m"
@@ -41,11 +41,11 @@
                     </ng-container>
                     <div *ngIf="currentEvents.length === 0">
                         <div class="flex justify-center items-center w-full h-32">
-                            <tui-marker-icon
+                            <tui-avatar 
                                 class="tui-space_right-4"
-                                size="s"
-                                src="tuiIconAlertCircleLarge"
-                            ></tui-marker-icon>
+                                size="m"
+                                src="@tui.circle-alert"
+                            ></tui-avatar>
                             <h2 class="tui-text_body-xl">
                                 Looks like there are no current challenges
                             </h2>
@@ -66,11 +66,11 @@
                     </ng-container>
                     <div *ngIf="upcomingEvents.length === 0">
                         <div class="flex justify-center items-center w-full h-32">
-                            <tui-marker-icon
+                            <tui-avatar 
                                 class="tui-space_right-4"
-                                size="s"
-                                src="tuiIconAlertCircleLarge"
-                            ></tui-marker-icon>
+                                size="m"
+                                src="@tui.circle-alert"
+                            ></tui-avatar>
                             <h2 class="tui-text_body-xl">
                                 Looks like there are no upcoming challenges
                             </h2>
@@ -91,11 +91,11 @@
                     </ng-container>
                     <div *ngIf="pastEvents.length === 0">
                         <div class="flex justify-center items-center w-full h-32">
-                            <tui-marker-icon
+                            <tui-avatar 
                                 class="tui-space_right-4"
-                                size="s"
-                                src="tuiIconAlertCircleLarge"
-                            ></tui-marker-icon>
+                                size="m"
+                                src="@tui.circle-alert"
+                            ></tui-avatar>
                             <h2 class="tui-text_body-xl">
                                 Looks like there are no past challenges
                             </h2>
@@ -110,7 +110,7 @@
             <button
                 *ngIf="course?.has_create_event_permission"
                 class="tui-skeleton"
-                icon="tuiIconPlus"
+                iconStart="@tui.plus"
                 appearance="secondary"
                 aria-label="Add Challenge"
                 size="m"

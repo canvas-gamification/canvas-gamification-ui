@@ -5,12 +5,12 @@
                 <button
                     (click)="removeModel(index)"
                     [tuiHint]="removeTooltip"
-                    icon="tuiIconTrash"
+                    iconStart="@tui.trash"
                     size="m"
                     id="remove-{{index}}"
                     tuiHintDirection="top-left"
                     tuiHintDescribe="remove-{{index}}"
-                    tuiHintAppearance="onDark"
+                    tuiHintAppearance="dark"
                     tuiIconButton
                     type="button"
                 ></button>
@@ -51,7 +51,7 @@
 </form>
 <button
     (click)="addNewModel()"
-    icon="tuiIconPlus"
+    iconStart="@tui.plus"
     size="m"
     tuiButton
     type="button"

@@ -1,7 +1,7 @@
+import { TuiLink } from "@taiga-ui/core";
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {FooterComponent} from './footer.component'
-import {TuiLinkModule} from "@taiga-ui/core"
 import {RouterModule} from "@angular/router"
 
 @NgModule({
@@ -14,7 +14,7 @@ import {RouterModule} from "@angular/router"
     imports: [
         CommonModule,
         RouterModule,
-        TuiLinkModule
+        TuiLink
     ]
 })
 export class FooterModule {

@@ -1,3 +1,4 @@
+import { TuiTextfieldControllerModule, TuiInputModule } from "@taiga-ui/legacy";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {CourseRegisterComponent} from '../../course-registration/course-register.component'
@@ -8,8 +9,8 @@ import {ActivatedRoute} from "@angular/router"
 import {ReactiveFormsModule} from "@angular/forms"
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component"
 import {CourseRegistrationStepComponent} from "@app/course/course-registration/course-registration-step/course-registration-step.component"
-import { TuiInputModule, TuiStepperModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
-import { TuiTextfieldControllerModule, TuiAlertService } from "@taiga-ui/core"
+import { TuiStepper, TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
+import { TuiAlertService } from "@taiga-ui/core"
 import {of} from "rxjs"
 
 describe('CourseRegisterComponent', () => {
@@ -19,7 +20,7 @@ describe('CourseRegisterComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, ReactiveFormsModule, TuiStepperModule, TuiInputModule, TuiTextfieldControllerModule, TuiFieldErrorPipeModule],
+            imports: [TestModule, ReactiveFormsModule, TuiStepper, TuiInputModule, TuiTextfieldControllerModule, TuiFieldErrorPipe, TuiFieldErrorContentPipe],
             declarations: [CourseRegisterComponent, CourseRegistrationStepperComponent, CourseRegistrationStepComponent],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock},

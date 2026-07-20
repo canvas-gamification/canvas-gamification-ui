@@ -1,3 +1,4 @@
+import { TuiInputModule, TuiInputDateModule, TuiInputDateRangeModule, TuiInputNumberModule, TuiInputTimeModule, TuiSelectModule } from "@taiga-ui/legacy";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {MOCK_CATEGORIES, MOCK_DIFFICULTIES} from "@app/problems/_test/mock"
 import {CategoryService} from "@app/_services/api/category.service"
@@ -10,12 +11,8 @@ import {GoalService} from "@app/course/_services/goal.service"
 import {GoalServiceMock} from "@app/course/_test/_services/goal.service.mock"
 import {ReactiveFormsModule} from "@angular/forms"
 import {ActivatedRoute, RouterModule} from "@angular/router"
-import { TuiCheckboxLabeledModule, TuiInputDateModule, TuiInputDateRangeModule, TuiInputModule, TuiInputNumberModule, TuiInputTimeModule, TuiSelectModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
-import {
-    TuiButtonModule,
-    TuiDataListModule,
-    TuiNotificationModule
-} from "@taiga-ui/core"
+import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
+import { TuiNotification, TuiDataList, TuiLabel, TuiButton } from "@taiga-ui/core"
 import {
     StringifyTuiDataListPipe
 } from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
@@ -34,15 +31,15 @@ describe('GoalCreateComponent', () => {
                 RouterModule,
                 TuiInputModule,
                 TuiSelectModule,
-                TuiDataListModule,
-                TuiFieldErrorPipeModule,
-                TuiCheckboxLabeledModule,
+                TuiDataList,
+                TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+                TuiLabel,
                 TuiInputDateRangeModule,
                 TuiInputDateModule,
                 TuiInputNumberModule,
                 TuiInputTimeModule,
-                TuiNotificationModule,
-                TuiButtonModule
+                TuiNotification,
+                TuiButton
             ],
             declarations: [GoalCreateComponent, StringifyTuiDataListPipe],
             providers: [

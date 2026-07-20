@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core'
 import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from "@angular/forms"
 import {ChangePasswordService} from "@app/accounts/_services/change-password.service"
 import {ChangePasswordForm} from "@app/accounts/_forms/change-password.form"
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 import {Router} from "@angular/router"
 
 @Component({
@@ -37,7 +37,7 @@ export class ChangePasswordComponent implements OnInit {
                 this.router.navigate(['/homepage']).then(() => {
                     this.notificationsService
                         .open('Your password has been updated successfully!', {
-                            status: TuiNotification.Success
+                            appearance: 'success'
                         }).subscribe()
                 })
             })

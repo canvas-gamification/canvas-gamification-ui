@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core'
 import {UQJ} from '@app/_models'
 import {SubmissionService} from '@app/problems/_services/submission.service'
-import { TuiNotification, TuiAlertService } from '@taiga-ui/core'
+import { TuiAlertService } from '@taiga-ui/core'
 
 @Component({
     selector: 'app-java-view-snippet',
@@ -43,7 +43,7 @@ export class JavaViewSnippetComponent implements OnChanges {
         }).subscribe(() => {
             this.notificationsService
                 .open('The question has been submitted successfully.', {
-                    status: TuiNotification.Success
+                    appearance: 'success'
                 }).subscribe()
             this.successfulSubmissionEvent.emit(true)
             this.waitingSubmission = false

@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core'
 import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {ContactService} from '@app/_services/api/contact.service'
 import {environment} from '@environments/environment'
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-contact',
@@ -35,13 +35,13 @@ export class ContactComponent implements OnInit {
                 this.formData.reset()
                 this.notificationsService
                     .open('Your comment have been successfully sent!', {
-                        status: TuiNotification.Success
+                        appearance: 'success'
                     }).subscribe()
             }, error => {
                 console.warn(error)
                 this.notificationsService
                     .open(error, {
-                        status: TuiNotification.Error
+                        appearance: 'error'
                     }).subscribe()
             })
     }

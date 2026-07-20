@@ -1,4 +1,4 @@
-import { TuiStatus } from "@taiga-ui/kit";
+import { TuiStatus } from "@taiga-ui/legacy";
 import {Component, Inject, OnInit} from '@angular/core'
 import {Course, CourseEvent, UQJ, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
@@ -9,9 +9,9 @@ import {CourseEventService} from '@app/course/_services/course-event.service'
 import {CourseService} from '@app/course/_services/course.service'
 import {Team} from "@app/_models/team"
 import {TeamService} from "@app/course/_services/team.service"
-import { TuiDialogContext, TuiNotification, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
 import {startCase} from "lodash"
-import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
+import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 import {orderUQJs} from "@app/course/_utils/orderUQJs"
 import {ConceptViewService} from "@app/_services/concept-view.service"
 
@@ -117,7 +117,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     removeQuestion(questionId: number) {
         this.courseEventService.removeQuestion(this.eventId, questionId).subscribe(() => {
             this.notificationService.open("Question removed successfully", {
-                status: TuiNotification.Success,
+                appearance: 'success',
             }).subscribe()
             this.init()
         })

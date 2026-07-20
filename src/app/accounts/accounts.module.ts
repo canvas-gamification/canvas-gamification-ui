@@ -1,3 +1,4 @@
+import { TuiIslandDirective, TuiTextfieldControllerModule, TuiTextareaModule, TuiInputModule, TuiInputPasswordModule, TuiMultiSelectModule, TuiSelectModule } from "@taiga-ui/legacy";
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {AccountsRoutingModule} from "@app/accounts/accounts-routing.module"
@@ -21,18 +22,10 @@ import {ResetPasswordService} from "@app/accounts/_services/reset-password.servi
 import {
     StudentTermsAndConditionsSnippetComponent
 } from './student-terms-and-conditions-snippet/student-terms-and-conditions-snippet.component'
-import { TuiAvatarModule, TuiCheckboxLabeledModule, TuiDataListWrapperModule, TuiInputInlineModule, TuiInputModule, TuiInputPasswordModule, TuiIslandModule, TuiMultiSelectModule, TuiRadioListModule, TuiRadioModule, TuiSelectModule, TuiTextareaModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
-import {
-    TuiButtonModule,
-    TuiErrorModule,
-    TuiDataListModule,
-    TuiLinkModule,
-    TuiNotificationModule,
-    TuiTextfieldControllerModule
-} from "@taiga-ui/core"
+import { TuiDataListWrapper, TuiInputInline, TuiFieldErrorPipe, TuiFieldErrorContentPipe, TuiAvatar, TuiRadioList, TuiRadio, TuiCheckbox, TuiButtonLoading } from "@taiga-ui/kit"
+import { TuiNotification, TuiDataList, TuiError, TuiLabel, TuiLink, TuiButton, TuiAutoColorPipe, TuiInitialsPipe } from "@taiga-ui/core"
 import {InitialSurveyComponent} from './survey/initial-survey/initial-survey.component'
 import {FinalSurveyComponent} from './survey/final-survey/final-survey.component'
-
 
 @NgModule({
     declarations: [
@@ -55,26 +48,29 @@ import {FinalSurveyComponent} from './survey/final-survey/final-survey.component
         ReactiveFormsModule,
         RecaptchaFormsModule,
         RecaptchaModule,
-        TuiAvatarModule,
-        TuiButtonModule,
-        TuiCheckboxLabeledModule,
-        TuiDataListModule,
-        TuiDataListWrapperModule,
-        TuiErrorModule,
-        TuiFieldErrorPipeModule,
-        TuiInputInlineModule,
+        TuiAvatar,
+        TuiButton,
+        TuiButtonLoading,
+        TuiAutoColorPipe,
+        TuiInitialsPipe,
+        TuiLabel,
+        ...TuiDataList,
+        ...TuiDataListWrapper,
+        TuiError,
+        TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+        TuiInputInline,
         TuiInputModule,
         TuiInputPasswordModule,
-        TuiIslandModule,
-        TuiLinkModule,
+        TuiIslandDirective,
+        TuiLink,
         TuiMultiSelectModule,
-        TuiNotificationModule,
-        TuiRadioListModule,
-        TuiRadioModule,
+        TuiNotification,
+        TuiRadioList,
+        ...TuiRadio,
+
         TuiSelectModule,
         TuiTextareaModule,
-        TuiTextfieldControllerModule,
-    ],
+        TuiTextfieldControllerModule, TuiCheckbox],
     providers: [
         ChangePasswordService,
         ConsentService,

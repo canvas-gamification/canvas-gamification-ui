@@ -5,7 +5,7 @@
         appearance="icon"
         aria-label="Open Sidebar"
         class="header-sidebar"
-        icon="tuiIconMenuLarge"
+        iconStart="@tui.menu"
         shape="square"
         tuiButton
         type="button"
@@ -42,9 +42,9 @@
     </nav>
     <div class="header-user">
         <ng-container *ngIf="user else login">
-            <tui-hosted-dropdown
-                [(open)]="openUserActions"
-                [content]="userActions"
+            <div 
+                [(tuiDropdownOpen)]="openUserActions"
+                [tuiDropdown]="userActions"
             >
                 <button aria-label="User Profile Dropdown" class="header-user_dropdown">
                     <ng-container *ngIf="user.first_name; else incompleteProfile">
@@ -53,20 +53,21 @@
                     <ng-template #incompleteProfile>
                         {{ user.username }}
                     </ng-template>
-                    <tui-avatar
-                        [autoColor]="true"
-                        [rounded]="true"
-                        [text]="user.first_name ? user.first_name + ' ' + user.last_name : user.username"
+                    <tui-avatar [src]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiInitials" [style.background]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiAutoColor"
+                       
+                        [round]="true"
+                       
                         class="tui-space_left-2"
-                        size="s"
+                        size="m"
                     ></tui-avatar>
-                    <tui-svg
+                    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
                         [class.icon_rotated]="openUserActions"
                         class="icon"
-                        src="tuiIconChevronDown"
-                    ></tui-svg>
+                        icon="@tui.chevron-down"
+                    ></tui-icon>
                 </button>
-            </tui-hosted-dropdown>
+            </div>
             <ng-template #userActions>
                 <tui-data-list>
                     <tui-opt-group>
@@ -75,12 +76,14 @@
                         <button tuiOption>
                             <label class="tui-text_body-m">
                                 Night mode
-                                <tui-toggle
+                                <input
+                                    tuiSwitch
+                                    type="checkbox"
                                     (ngModelChange)="setNightMode($event)"
                                     [ngModel]="isNightMode()"
                                     class="tui-space_left-2"
-                                    size="m"
-                                ></tui-toggle>
+                                    size="s"
+                                />
                             </label>
                         </button>
                     </tui-opt-group>

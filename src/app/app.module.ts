@@ -1,3 +1,7 @@
+import { TuiSidebar } from "@taiga-ui/addon-mobile";
+import { TuiIslandDirective, TUI_SANITIZER, TuiInputNumberModule } from "@taiga-ui/legacy";
+import { TuiActiveZone } from "@taiga-ui/cdk";
+import { provideEventPlugins } from "@taiga-ui/event-plugins";
 import {BrowserModule} from '@angular/platform-browser'
 import {NgModule} from '@angular/core'
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
@@ -26,27 +30,17 @@ import {NotFoundComponent} from './components/general/not-found/not-found.compon
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component'
 import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
 
-import { TUI_SANITIZER, TuiButtonModule, TuiDataListModule, TuiDialogModule, TuiHostedDropdownModule, TuiLinkModule, TuiLoaderModule, TuiModeModule, TuiRootModule, TuiSvgModule, TuiThemeNightModule, TuiAlertModule, TuiDropdownModule } from '@taiga-ui/core'
-import {
-    TUI_VALIDATION_ERRORS,
-    TuiAvatarModule,
-    TuiInputCountModule,
-    TuiIslandModule,
-    TuiMarkerIconModule,
-    TuiRadioBlockModule,
-    TuiToggleModule
-} from '@taiga-ui/kit'
-import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
-import {TuiActiveZoneModule} from '@taiga-ui/cdk'
+import { TuiRoot, TuiAlert, TuiDataList, TuiLoader, TuiDropdown, TuiIcon, TuiLink, TuiDialog, TuiButton, TuiInitialsPipe, TuiAutoColorPipe } from '@taiga-ui/core'
+import { TUI_VALIDATION_ERRORS, TuiAvatar, TuiSwitch, TuiBlock, TuiRadio } from '@taiga-ui/kit'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
-import {TuiTableModule, TuiTablePaginationModule} from '@taiga-ui/addon-table'
+import { TuiTablePagination, TuiTable } from '@taiga-ui/addon-table'
 import {FaqAccordionModule} from '@app/components/faq-accordion/faq-accordion.module'
 import {ProblemsModule} from '@app/problems/problems.module'
 import {ContactModule} from '@app/components/contact/contact.module'
 import {CodeEditorModule} from '@app/components/code-editor/code-editor.module'
 import {FooterModule} from '@app/components/footer/footer.module'
-import {NgDompurifySanitizer} from '@tinkoff/ng-dompurify'
+import {NgDompurifySanitizer} from '@taiga-ui/dompurify'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {CommunityComponent} from './components/community/community.component'
 
@@ -86,30 +80,24 @@ import {CommunityComponent} from './components/community/community.component'
         RecaptchaFormsModule,
         RecaptchaModule,
         SidebarModule,
-        TuiActiveZoneModule,
-        TuiAvatarModule,
-        TuiButtonModule,
-        TuiDataListModule,
-        TuiDialogModule,
-        TuiDropdownModule,
-        TuiDropdownModule,
-        TuiHostedDropdownModule,
-        TuiInputCountModule,
-        TuiIslandModule,
-        TuiLinkModule,
-        TuiLoaderModule,
-        TuiMarkerIconModule,
-        TuiModeModule,
-        TuiAlertModule,
-        TuiRadioBlockModule,
-        TuiRootModule,
-        TuiSidebarModule,
-        TuiSvgModule,
-        TuiTableModule,
-        TuiTablePaginationModule,
-        TuiThemeNightModule,
-        TuiToggleModule
-    ],
+        TuiActiveZone,
+        TuiAvatar,
+        TuiButton,
+        ...TuiDataList,
+        TuiDialog,
+        ...TuiDropdown,
+        TuiInputNumberModule,
+        TuiIslandDirective,
+        TuiLink,
+        TuiLoader,
+        TuiAlert,
+        TuiBlock, ...TuiRadio,
+        TuiRoot,
+        ...TuiSidebar,
+        TuiIcon,
+        ...TuiTable,
+        TuiTablePagination,
+        TuiSwitch, TuiInitialsPipe, TuiAutoColorPipe],
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
@@ -125,7 +113,8 @@ import {CommunityComponent} from './components/community/community.component'
         {
             provide: TUI_SANITIZER,
             useClass: NgDompurifySanitizer
-        }
+        },
+        provideEventPlugins()
     ],
     bootstrap: [AppComponent]
 })

@@ -1,3 +1,5 @@
+import { TuiTable } from "@taiga-ui/addon-table";
+import { TuiTextfieldControllerModule, TuiSelectModule, TuiTagModule } from "@taiga-ui/legacy";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {TestModule} from '@test/test.module'
 import {UqjService} from '@app/problems/_services/uqj.service'
@@ -18,20 +20,9 @@ import {
 } from '@app/problems/_test/mock'
 import {UserStatsService} from '@app/_services/api/user-stats.service'
 import {UserStatsServiceMock} from '@test/_services/user-stats.service.mock'
-import {
-    TuiButtonModule,
-    TuiDataListModule,
-    TuiHostedDropdownModule,
-    TuiTextfieldControllerModule
-} from '@taiga-ui/core'
+import { TuiDataList, TuiLabel, TuiDropdown, TuiButton } from '@taiga-ui/core'
 import {PracticeProblemComponent} from '@app/course/practice-problem/practice-problem.component'
-import {
-    TuiCheckboxLabeledModule,
-    TuiMarkerIconModule,
-    TuiSelectModule,
-    TuiTagModule
-} from '@taiga-ui/kit'
-import {TuiTableModule} from '@taiga-ui/addon-table'
+import { TuiAvatar } from '@taiga-ui/kit'
 import {ProblemViewComponent} from '@app/problems/problem-view/problem-view.component'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {StringifyTuiDataListPipe} from '@app/_helpers/pipes/stringify-tui-data-list.pipe'
@@ -78,14 +69,14 @@ describe('PracticeProblemComponent', () => {
                 ReactiveFormsModule,
                 RouterModule,
                 TuiSelectModule,
-                TuiButtonModule,
-                TuiDataListModule,
+                TuiButton,
+                TuiDataList,
                 TuiTagModule,
-                TuiTableModule,
-                TuiHostedDropdownModule,
+                TuiTable,
+                TuiDropdown,
                 TuiTextfieldControllerModule,
-                TuiCheckboxLabeledModule,
-                TuiMarkerIconModule,
+                TuiLabel,
+                TuiAvatar,
                 SidebarModule
             ]
         }).compileComponents()

@@ -4,20 +4,20 @@
 }
 
 .success {
-    color: var(--tui-success-fill)
+    color: var(--tui-status-positive)
 }
 
 .error {
-    color: var(--tui-error-fill)
+    color: var(--tui-status-negative)
 }
 
 .info {
-    color: var(--tui-info-fill)
+    color: var(--tui-status-info)
 }
 
 .button-success {
-    background-color: var(--tui-success-fill);
-    color: var(--tui-base-01);
+    background-color: var(--tui-status-positive);
+    color: var(--tui-background-base);
     &:hover {
         opacity: 0.75;
         transition-duration: 300ms;

@@ -1,3 +1,4 @@
+import { TuiInputModule, TuiSelectModule, TuiTagModule } from "@taiga-ui/legacy";
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {ProblemSetComponent} from '../../problem-set/problem-set.component'
@@ -10,10 +11,9 @@ import {ReactiveFormsModule} from "@angular/forms"
 import {QuestionService} from "@app/problems/_services/question.service"
 import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock"
 import {AppRoutingModule} from "@app/app-routing.module"
-import { TuiDataListModule, TuiHintModule, TuiHostedDropdownModule, TuiLoaderModule, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService, TuiDataList, TuiLoader, TuiDropdown, TuiHint } from "@taiga-ui/core"
 import {of} from "rxjs"
-import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table"
-import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit"
+import { TuiTablePagination, TuiTable } from "@taiga-ui/addon-table"
 import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
 import {Component, ViewChild} from "@angular/core"
 import {MOCK_CATEGORY, MOCK_CATEGORY_2} from "@app/problems/_test/mock"
@@ -42,14 +42,14 @@ describe('ProblemSetComponent', () => {
                 TestModule,
                 ReactiveFormsModule,
                 AppRoutingModule,
-                TuiHostedDropdownModule,
-                TuiLoaderModule,
-                TuiTableModule,
-                TuiTablePaginationModule,
+                TuiDropdown,
+                TuiLoader,
+                TuiTable,
+                TuiTablePagination,
                 TuiSelectModule,
-                TuiDataListModule,
+                TuiDataList,
                 TuiInputModule,
-                TuiHintModule,
+                TuiHint,
                 TuiTagModule
             ],
             declarations: [

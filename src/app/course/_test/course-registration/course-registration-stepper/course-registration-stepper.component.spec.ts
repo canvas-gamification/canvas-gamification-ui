@@ -4,7 +4,7 @@ import {
     CourseRegistrationStepperComponent
 } from '../../../course-registration/course-registration-stepper/course-registration-stepper.component'
 import {TestModule} from "@test/test.module"
-import {TuiStepComponent, TuiStepperComponent, TuiStepperModule} from "@taiga-ui/kit"
+import { TuiStepComponent, TuiStepperComponent, TuiStepper } from "@taiga-ui/kit"
 
 describe('CourseRegistrationStepperComponent', () => {
     let component: CourseRegistrationStepperComponent
@@ -12,7 +12,7 @@ describe('CourseRegistrationStepperComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, TuiStepperModule],
+            imports: [TestModule, TuiStepper],
             declarations: [CourseRegistrationStepperComponent, TuiStepperComponent, TuiStepComponent]
         }).compileComponents()
     })
@@ -61,6 +61,6 @@ describe('CourseRegistrationStepperComponent', () => {
         component.setStepComplete(0)
         const step = component.getStep(0)
         expect(step.state).toEqual('pass')
-        expect(step.icon).toEqual('tuiIconCheckLarge')
+        expect(step.icon).toEqual('@tui.check')
     })
 })

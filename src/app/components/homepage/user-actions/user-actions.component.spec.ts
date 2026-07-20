@@ -1,3 +1,4 @@
+import { TuiLoader } from "@taiga-ui/core";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {UserActionsComponent} from './user-actions.component'
@@ -5,8 +6,7 @@ import {TestModule} from '@test/test.module'
 import {UserActionsService} from "@app/_services/api/user-actions.service"
 import {UserActionsServiceMock} from "@test/_services/user-actions.service.mock"
 import {MOCK_USER_ACTIONS} from "@test/mock"
-import {TuiLoaderModule} from "@taiga-ui/core"
-import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table"
+import { TuiTablePagination, TuiTable } from "@taiga-ui/addon-table"
 
 describe('UserActionsComponent', () => {
     let component: UserActionsComponent
@@ -14,7 +14,7 @@ describe('UserActionsComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, TuiLoaderModule, TuiTableModule, TuiTablePaginationModule],
+            imports: [TestModule, TuiLoader, TuiTable, TuiTablePagination],
             declarations: [UserActionsComponent],
             providers: [
                 {provide: UserActionsService, useClass: UserActionsServiceMock}

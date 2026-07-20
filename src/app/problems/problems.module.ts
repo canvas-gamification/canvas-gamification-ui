@@ -1,3 +1,6 @@
+import { TuiIslandDirective, TuiTextfieldControllerModule, TuiTextareaModule, TuiInputModule, TuiInputNumberModule, TuiMultiSelectModule, TuiSelectModule, TuiTagModule } from "@taiga-ui/legacy";
+import { TuiActiveZone } from "@taiga-ui/cdk";
+import { TuiEditorSocket } from "@taiga-ui/editor";
 import {ProblemCreateEditComponent} from '@app/problems/problem-create-edit/problem-create-edit.component'
 import {
     JavaCreateEditSnippetComponent
@@ -28,9 +31,9 @@ import {UqjService} from '@app/problems/_services/uqj.service'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {ParsonsLinesComponent} from './problem-view/parsons-lines/parsons-lines.component'
-import {TuiTableModule, TuiTablePaginationModule} from '@taiga-ui/addon-table'
-import { TuiButtonModule, TuiDataListModule, TuiDialogModule, TuiHintModule, TuiHostedDropdownModule, TuiLabelModule, TuiLoaderModule, TuiNotificationModule, TuiSvgModule, TuiTextfieldControllerModule, TuiDropdownModule, TuiErrorModule } from '@taiga-ui/core'
-import { TuiAccordionModule, TuiBadgeModule, TuiCheckboxBlockModule, TuiCheckboxLabeledModule, TuiInputCountModule, TuiInputModule, TuiIslandModule, TuiMultiSelectModule, TuiRadioBlockModule, TuiRadioLabeledModule, TuiSelectModule, TuiStringifyContentPipeModule, TuiStringifyPipeModule, TuiTabsModule, TuiTagModule, TuiTextareaModule, TuiFieldErrorPipeModule } from '@taiga-ui/kit'
+import { TuiTablePagination, TuiTable } from '@taiga-ui/addon-table'
+import { TuiNotification, TuiDataList, TuiError, TuiLoader, TuiLabel, TuiDropdown, TuiIcon, TuiDialog, TuiButton, TuiHint } from '@taiga-ui/core'
+import { TuiAccordion, TuiStringifyContentPipe, TuiFieldErrorPipe, TuiFieldErrorContentPipe, TuiBadge, TuiBlock, TuiCheckbox, TuiRadio, TuiTabs, TuiStringifyPipe, TuiButtonLoading } from '@taiga-ui/kit'
 import {TabListViewSwitcherModule} from '@app/components/tab-list-view-switcher/tab-list-view-switcher.module'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 import {TestCasesEditorComponent} from '@app/problems/json-editor/test-cases-editor/test-cases-editor.component'
@@ -47,8 +50,6 @@ import {
 } from './problem-create-edit/default-create-edit-snippet/default-create-edit-snippet.component'
 import {CodeEditorModule} from '@app/components/code-editor/code-editor.module'
 import {EditorModule} from '@app/components/editor/editor.module'
-import {TuiEditorSocketModule} from '@tinkoff/tui-editor'
-import {TuiActiveZoneModule} from '@taiga-ui/cdk'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {ProblemReportModalComponent} from './problem-report/problem-report-modal.component'
 import {VariationTypesSelectorComponent} from './problem-create-edit/variation-types-selector/variation-types-selector.component'
@@ -88,39 +89,36 @@ import {VariationTypesSelectorComponent} from './problem-create-edit/variation-t
         ReactiveFormsModule,
         SidebarModule,
         TabListViewSwitcherModule,
-        TuiAccordionModule,
-        TuiActiveZoneModule,
-        TuiBadgeModule,
-        TuiButtonModule,
-        TuiCheckboxBlockModule,
-        TuiCheckboxLabeledModule,
-        TuiDataListModule,
-        TuiDialogModule,
-        TuiDropdownModule,
-        TuiEditorSocketModule,
-        TuiFieldErrorPipeModule,
-        TuiHintModule,
-        TuiHostedDropdownModule,
-        TuiInputCountModule,
+        ...TuiAccordion,
+        TuiActiveZone,
+        TuiBadge,
+        TuiButton,
+        TuiButtonLoading,
+        TuiBlock, TuiCheckbox,
+        TuiLabel,
+        ...TuiDataList,
+        TuiDialog,
+        ...TuiDropdown,
+        TuiEditorSocket,
+        TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+        ...TuiHint,
+        TuiInputNumberModule,
         TuiInputModule,
-        TuiIslandModule,
-        TuiLabelModule,
-        TuiLoaderModule,
+        TuiIslandDirective,
+        TuiLoader,
         TuiMultiSelectModule,
-        TuiNotificationModule,
-        TuiRadioBlockModule,
-        TuiRadioLabeledModule,
+        TuiNotification, ...TuiRadio,
         TuiSelectModule,
-        TuiStringifyContentPipeModule,
-        TuiStringifyPipeModule,
-        TuiSvgModule,
-        TuiTableModule,
-        TuiTablePaginationModule,
-        TuiTabsModule,
+        TuiStringifyContentPipe,
+        TuiStringifyPipe,
+        TuiIcon,
+        ...TuiTable,
+        TuiTablePagination,
+        ...TuiTabs,
         TuiTagModule,
         TuiTextareaModule,
         TuiTextfieldControllerModule,
-        TuiErrorModule
+        TuiError
     ],
     exports: [
         ProblemReportModalComponent,

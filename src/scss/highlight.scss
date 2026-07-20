@@ -2,21 +2,21 @@
 
 .hljs {
     padding: 0;
-    color: var(--tui-text-01);
+    color: var(--tui-text-primary);
     background: none;
 
     &-keyword {
-        color: var(--tui-text-02);
+        color: var(--tui-text-secondary);
     }
 
     &-class {
         .hljs-title {
-            color: var(--tui-support-02);
+            color: var(--tui-chart-categorical-02);
         }
     }
 
     &-title {
-        color: var(--tui-support-06);
+        color: var(--tui-chart-categorical-06);
     }
 
     &-keyword, &-selector-tag, &-subst {

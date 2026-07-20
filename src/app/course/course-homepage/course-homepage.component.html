@@ -26,13 +26,13 @@
                             View
                         </a>
                     </div>
-                    <tui-marker-icon *ngIf="user.is_teacher"
-                                     size="s"
-                                     src="tuiIconInfo"
-                                     tuiHintAppearance="onDark"
+                    <tui-avatar  *ngIf="user.is_teacher"
+                                     size="m"
+                                     src="@tui.info"
+                                     tuiHintAppearance="dark"
                                      tuiHintPointer tuiHint="All of our questions are licensed under CC BY-NC-SA 4.0"
                                      tuiHintDirection="top"
-                    ></tui-marker-icon>
+                    ></tui-avatar>
                 </div>
             </div>
         </tui-island>

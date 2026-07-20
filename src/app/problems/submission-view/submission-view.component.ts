@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {QuestionSubmission} from '@app/_models/question_submission'
 import {ActivatedRoute} from '@angular/router'
-import {POLYMORPHEUS_CONTEXT} from '@tinkoff/ng-polymorpheus'
+import {POLYMORPHEUS_CONTEXT} from '@taiga-ui/polymorpheus'
 import {TuiDialogContext} from '@taiga-ui/core'
 
 @Component({

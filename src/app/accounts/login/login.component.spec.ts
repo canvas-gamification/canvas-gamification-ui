@@ -1,9 +1,9 @@
+import { TuiTextfieldControllerModule, TuiInputModule } from "@taiga-ui/legacy";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {LoginComponent} from './login.component'
 import {TestModule} from '@test/test.module'
-import { TuiInputModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
-import {TuiTextfieldControllerModule} from "@taiga-ui/core"
+import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
 import {MOCK_STUDENT, MOCK_STUDENT_HAS_CONSENT} from "@app/accounts/_test/mock"
 import {of} from "rxjs"
 
@@ -13,7 +13,7 @@ describe('LoginComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, TuiInputModule, TuiTextfieldControllerModule, TuiFieldErrorPipeModule]
+            imports: [TestModule, TuiInputModule, TuiTextfieldControllerModule, TuiFieldErrorPipe, TuiFieldErrorContentPipe]
         }).compileComponents()
     })
 

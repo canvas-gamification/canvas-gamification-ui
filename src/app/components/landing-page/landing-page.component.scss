@@ -48,7 +48,7 @@
             height: 20rem;
             border-radius: var(--tui-radius-m);
             overflow: auto;
-            @include shadow(2);
+            box-shadow: var(--tui-shadow-medium);
 
             @include screen-md() {
                 width: 100%;
@@ -63,7 +63,7 @@
     height: 100%;
     left: 50%;
     top: 0;
-    background-color: var(--tui-accent);
+    background-color: var(--tui-background-accent-2);
 }
 
 .section {
@@ -71,17 +71,18 @@
 
     &-services {
         padding: 5rem 0;
-        background-color: var(--tui-base-02);
+        background-color: var(--tui-background-base-alt);
 
         .custom-icons {
-            color: var(--tui-primary);
+            color: var(--tui-background-accent-1);
         }
     }
 
     &-action {
         padding: 3rem 0;
-        color: var(--tui-text-01-night);
-        background-color: var(--tui-primary);
+// TODO: (Taiga UI migration) night variables have been removed. Use tuiTheme="dark" on an element to switch colors to dark theme
+        color: var(--tui-text-primary);
+        background-color: var(--tui-background-accent-1);
 
         .center-button {
             margin: 0 auto;
@@ -94,7 +95,7 @@
         .features {
             & > * {
                 padding-bottom: 1.5rem;
-                border-right: 1px solid var(--tui-base-04);
+                border-right: 1px solid var(--tui-border-normal);
 
                 &:last-child {
                     border-right: none;
@@ -115,7 +116,7 @@
 
     &-faq {
         padding: 5rem 0;
-        background-color: var(--tui-base-02);
+        background-color: var(--tui-background-base-alt);
     }
 }
 

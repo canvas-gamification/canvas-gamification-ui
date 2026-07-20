@@ -4,7 +4,7 @@ import {Observable, of, throwError} from "rxjs"
 import {HttpErrorResponse} from "@angular/common/http"
 import {Router} from "@angular/router"
 import {Location} from "@angular/common"
-import { TuiNotification, TuiAlertService } from '@taiga-ui/core'
+import { TuiAlertService } from '@taiga-ui/core'
 
 @Injectable({
     providedIn: 'root'
@@ -60,7 +60,7 @@ export class ApiService {
             if (showMessage)
                 this.notificationsService
                     .open(message || error.statusText, {
-                        status: TuiNotification.Error
+                        appearance: 'error'
                     }).subscribe()
             if (!result) {
                 return throwError(error)
@@ -74,7 +74,7 @@ export class ApiService {
             if (typeof error === 'string') {
                 this.notificationsService
                     .open(error, {
-                        status: TuiNotification.Error
+                        appearance: 'error'
                     }).subscribe()
             } else if (Array.isArray(error)) {
                 error.forEach(toastErrorObject)
@@ -91,7 +91,7 @@ export class ApiService {
             if (!apiError) {
                 this.notificationsService
                     .open('Something went wrong!', {
-                        status: TuiNotification.Error
+                        appearance: 'error'
                     }).subscribe()
             } else {
                 toastErrorObject(apiError)

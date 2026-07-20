@@ -1,5 +1,5 @@
+import { tuiStringHashToHsl } from "@taiga-ui/core";
 import {Pipe, PipeTransform} from '@angular/core'
-import {tuiStringHashToHsl} from "@taiga-ui/kit"
 
 @Pipe({
     name: 'getColorFromString'

@@ -6,7 +6,7 @@
     &_handle {
         padding: 0.5rem;
         cursor: pointer;
-        border: solid 1px var(--tui-base-03);
+        border: solid 1px var(--tui-background-neutral-1-hover);
         border-right: none;
         border-top-left-radius: var(--tui-radius-m);
         border-bottom-left-radius: var(--tui-radius-m);
@@ -15,7 +15,7 @@
         transition-duration: 300ms;
 
         &:hover {
-            background-color: var(--tui-base-02);
+            background-color: var(--tui-background-base-alt);
         }
     }
 

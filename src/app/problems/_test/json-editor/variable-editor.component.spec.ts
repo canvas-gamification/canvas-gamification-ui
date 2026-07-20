@@ -1,8 +1,10 @@
+import { TuiLabel } from "@taiga-ui/core";
+import { TuiIslandDirective, TuiInputModule } from "@taiga-ui/legacy";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {VariablesEditorComponent} from '../../json-editor/variables-editor/variables-editor.component'
 import {TestModule} from "@test/test.module"
-import { TuiCheckboxLabeledModule, TuiInputModule, TuiIslandModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
+import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
 import {UntypedFormArray, UntypedFormGroup, ReactiveFormsModule} from "@angular/forms"
 
 describe('VariableEditorComponent', () => {
@@ -13,8 +15,8 @@ describe('VariableEditorComponent', () => {
         await TestBed.configureTestingModule({
             declarations: [VariablesEditorComponent],
             imports: [
-                TestModule, ReactiveFormsModule, TuiInputModule, TuiCheckboxLabeledModule,
-                TuiFieldErrorPipeModule, TuiIslandModule
+                TestModule, ReactiveFormsModule, TuiInputModule, TuiLabel,
+                TuiFieldErrorPipe, TuiFieldErrorContentPipe, TuiIslandDirective
             ]
         }).compileComponents()
     })

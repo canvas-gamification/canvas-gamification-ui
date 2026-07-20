@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {Subscription} from 'rxjs'
 import {RegisterService} from '@app/accounts/_services/register.service'
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-activation-email',
@@ -32,7 +32,7 @@ export class ActivationEmailComponent implements OnInit {
             () => {
                 this.notificationsService
                     .open('You have activated your account successfully.', {
-                        status: TuiNotification.Success
+                        appearance: 'success'
                     }).subscribe()
                 this.router.navigate(['/accounts/login']).then()
 

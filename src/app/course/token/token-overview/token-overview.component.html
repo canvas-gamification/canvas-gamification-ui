@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody [data]="displayData" tuiTbody>
-        <tr *tuiRow="let grade of displayData" tuiTr>
+        <tr *ngFor="let grade of displayData" tuiTr>
             <td *tuiCell="'grade'" tuiTd>
                 {{ grade.grade }} / {{ grade.total }}
             </td>

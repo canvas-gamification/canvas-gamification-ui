@@ -14,13 +14,13 @@
     <div
         class="flex items-center min-w-[2rem]"
     >
-        <tui-marker-icon
+        <tui-avatar 
             *ngIf="event.featured"
-            src="tuiIconStarFilledLarge"
-            mode="warning"
-            size="xs"
+            src="@tui.star-filled"
+            appearance="warning"
+            size="s"
         >
-        </tui-marker-icon>
+        </tui-avatar>
     </div>
     <div class="min-w-[8rem] flex items-center">
         <tui-tag
@@ -69,12 +69,12 @@
                 [disabled]="!event.is_allowed_to_open && !user?.is_teacher"
                 [tuiHint]="viewTooltip"
                 class="tui-space_right-2 tui-space_vertical-2"
-                icon="tuiIconEyeOpen"
+                iconStart="@tui.eye-open"
                 size="s"
                 id="view"
                 tuiHintDirection="top-left"
                 tuiHintDescribe="edit"
-                tuiHintAppearance="onDark"
+                tuiHintAppearance="dark"
                 tuiIconButton
         ></button>
         <ng-template #viewTooltip>
@@ -84,12 +84,12 @@
                 (click)="openEditDialog(editEvent, event.is_closed)"
                 [tuiHint]="editTooltip"
                 class="tui-space_right-2 tui-space_vertical-2"
-                icon="tuiIconEdit"
+                iconStart="@tui.pencil"
                 size="s"
                 id="edit"
                 tuiHintDirection="top-left"
                 tuiHintDescribe="edit"
-                tuiHintAppearance="onDark"
+                tuiHintAppearance="dark"
                 tuiIconButton
         ></button>
         <ng-template #editTooltip>
@@ -122,12 +122,12 @@
                 (click)="openDeleteEventDialog(deleteDialog)"
                 [tuiHint]="deleteTooltip"
                 class="mr-2"
-                icon="tuiIconTrash"
+                iconStart="@tui.trash"
                 size="s"
                 id="delete-{{event.name}}"
                 tuiHintDirection="top-left"
                 tuiHintDescribe="delete-{{event.name}}"
-                tuiHintAppearance="onDark"
+                tuiHintAppearance="dark"
                 tuiIconButton
         ></button>
         <ng-template #deleteTooltip>
@@ -137,12 +137,12 @@
                 [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'stats']"
                 [tuiHint]="statsTooltip"
                 class="tui-space_right-2 tui-space_vertical-2"
-                icon="tuiIconChartLineLarge"
+                iconStart="@tui.chart-line"
                 size="s"
                 id="stats"
                 tuiHintDirection="top-left"
                 tuiHintDescribe="stats"
-                tuiHintAppearance="onDark"
+                tuiHintAppearance="dark"
                 tuiIconButton
         ></button>
         <ng-template #statsTooltip>
@@ -153,12 +153,12 @@
                 [tuiHint]="setFeaturedTooltip"
                 [disabled]="event.is_closed"
                 class="tui-space_vertical-2"
-                icon="tuiIconStar"
+                iconStart="@tui.star"
                 size="s"
                 id="set featured"
                 tuiHintDirection="top-left"
                 tuiHintDescribe="set featured"
-                tuiHintAppearance="onDark"
+                tuiHintAppearance="dark"
                 tuiIconButton
                 type="button"
         ></button>
@@ -169,12 +169,12 @@
                 (click)="clearFeatured()"
                 [tuiHint]="clearFeaturedTooltip"
                 class="tui-space_vertical-2"
-                icon="tuiIconStar"
+                iconStart="@tui.star"
                 size="s"
                 id="clear featured"
                 tuiHintDirection="top-left"
                 tuiHintDescribe="clear featured"
-                tuiHintAppearance="onDark"
+                tuiHintAppearance="dark"
                 tuiIconButton
                 type="button"
         ></button>

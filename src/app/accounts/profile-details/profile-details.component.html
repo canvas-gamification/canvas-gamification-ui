@@ -1,18 +1,18 @@
 <div class="profile-header">
     <div
         [class.tui-skeleton]="!userDetails"
-        [style.backgroundColor]="avatarComponent.bgColor"
+        [style.backgroundColor]="(userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : '') | tuiAutoColor"
         class="profile-header_background"
     ></div>
-    <tui-avatar
+    <tui-avatar [src]="userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : '' | tuiInitials" [style.background]="userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : '' | tuiAutoColor"
         #avatarComponent
-        [autoColor]="true"
+       
         [class.tui-skeleton]="!userDetails"
         [class.tui-skeleton_rounded]="!userDetails"
-        [rounded]="true"
-        [text]="userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : ''"
+        [round]="true"
+       
         class="profile-header_logo"
-        size="xl"
+        size="xxl"
     ></tui-avatar>
 </div>
 <div class="tui-container tui-container_adaptive">
@@ -58,7 +58,7 @@
                             Update
                         </button>
                         <a
-                            appearance="whiteblock-active"
+                            appearance="outline-grayscale" tuiAppearanceMode="checked"
                             aria-label="Change Password"
                             class="tui-form__button"
                             routerLink="../change-password"

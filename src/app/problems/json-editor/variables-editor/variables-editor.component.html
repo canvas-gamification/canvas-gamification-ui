@@ -4,15 +4,16 @@
         [formGroup]="form | asFormGroup"
         class="tui-space_bottom-4 drag-container"
     >
-        <tui-svg
+        <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
             [tuiHint]="reorderTooltip"
             class="drag-container_handle"
-            src="tuiIconDrag"
+            icon=" @tui.grip-vertical"
             id="reorder-{{index}}"
             tuiHintDirection="top-right"
             tuiHintDescribe="reorder-{{index}}"
-            tuiHintAppearance="onDark"
-        ></tui-svg>
+            tuiHintAppearance="dark"
+        ></tui-icon>
         <ng-template #reorderTooltip>
             Reorder Variable
         </ng-template>
@@ -22,12 +23,12 @@
                     <button
                         (click)="removeModel(index)"
                         [tuiHint]="removeTooltip"
-                        icon="tuiIconTrash"
+                        iconStart="@tui.trash"
                         size="m"
                         id="remove-{{index}}"
                         tuiHintDirection="top-left"
                         tuiHintDescribe="remove-{{index}}"
-                        tuiHintAppearance="onDark"
+                        tuiHintAppearance="dark"
                         tuiIconButton
                         type="button"
                     ></button>
@@ -49,20 +50,20 @@
                                 *ngIf="(form | asFormGroup).controls.type.value === 'int' || (form | asFormGroup).controls.type.value === 'float'">
                                 <div class="tui-form__row tui-form__row_multi-fields">
                                     <div class="tui-form__multi-field">
-                                        <tui-input-count formControlName="min">Minimum Value</tui-input-count>
+                                        <tui-input-number decimal="never" [step]="1" formControlName="min">Minimum Value</tui-input-number>
                                         <tui-error [error]="[] | tuiFieldError | async" formControlName="min"></tui-error>
                                     </div>
                                     <div class="tui-form__multi-field">
-                                        <tui-input-count formControlName="max">Maximum Value</tui-input-count>
+                                        <tui-input-number decimal="never" [step]="1" formControlName="max">Maximum Value</tui-input-number>
                                         <tui-error [error]="[] | tuiFieldError | async" formControlName="max"></tui-error>
                                     </div>
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="(form | asFormGroup).controls.type.value === 'float'">
                                 <div class="tui-form__row">
-                                    <tui-input-count formControlName="precision">Number of Digits After the Decimal
+                                    <tui-input-number decimal="never" [step]="1" formControlName="precision">Number of Digits After the Decimal
                                         Point
-                                    </tui-input-count>
+                                    </tui-input-number>
                                     <tui-error [error]="[] | tuiFieldError | async" formControlName="precision"></tui-error>
                                 </div>
                             </ng-container>
@@ -98,12 +99,12 @@
                                             <button
                                                 (click)="removeValue(form, index)"
                                                 [tuiHint]="removeTooltip"
-                                                icon="tuiIconTrash"
+                                                iconStart="@tui.trash"
                                                 size="m"
                                                 id="remove-value-{{index}}"
                                                 tuiHintDirection="top-left"
                                                 tuiHintDescribe="remove-value-{{index}}"
-                                                tuiHintAppearance="onDark"
+                                                tuiHintAppearance="dark"
                                                 tuiIconButton
                                                 type="button"
                                             ></button>
@@ -114,7 +115,7 @@
                                     </tui-island>
                                     <button
                                         (click)="addNewValue(form)"
-                                        icon="tuiIconPlus"
+                                        iconStart="@tui.plus"
                                         size="m"
                                         tuiButton
                                         type="button"
@@ -141,20 +142,21 @@
         </tui-island>
     </form>
 </div>
-<tui-hosted-dropdown
-    [(open)]="openNewValueDropdown"
-    [content]="newValueDropdownContent"
+<div 
+    [(tuiDropdownOpen)]="openNewValueDropdown"
+    [tuiDropdown]="newValueDropdownContent"
 >
-    <button [iconRight]="newValueDropdownIcon" icon="tuiIconPlus" size="m" tuiButton type="button">
+    <button [iconEnd]="newValueDropdownIcon" iconStart="@tui.plus" size="m" tuiButton type="button">
         Add New Variable
     </button>
-</tui-hosted-dropdown>
+</div>
 <ng-template #newValueDropdownIcon>
-    <tui-svg
+    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
         [class.new-item-icon_rotated]="openNewValueDropdown"
         class="new-item-icon"
-        src="tuiIconChevronDown"
-    ></tui-svg>
+        icon="@tui.chevron-down"
+    ></tui-icon>
 </ng-template>
 <ng-template #newValueDropdownContent>
     <tui-data-list>

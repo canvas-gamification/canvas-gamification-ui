@@ -5,7 +5,7 @@ import {
     checkboxQuestions
 } from "@app/accounts/survey/initial-survey/data"
 import {SurveyService} from "@app/accounts/_services/survey.service"
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 import {Router} from "@angular/router"
 import {AgreeQuestion, CheckBoxQuestion} from "@app/accounts/survey/types"
 
@@ -70,7 +70,7 @@ export class InitialSurveyComponent implements OnInit {
     submit() {
         this.surveyService.postSurvey('initial', this.formGroup.value).subscribe(() => {
             this.notificationService.open("Survey submitted successfully", {
-                status: TuiNotification.Success,
+                appearance: 'success',
             }).subscribe()
             this.router.navigate(['homepage']).then()
         })

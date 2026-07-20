@@ -1,24 +1,23 @@
-<tui-hosted-dropdown
-    #hostedDropdown
-    [content]="katexDropdown"
+<div
+    [tuiDropdown]="katexDropdown"
+    [(tuiDropdownOpen)]="open"
     tuiDropdownAlign="left"
 >
     <button
-        [focusable]="hostedDropdown.open"
-        [pseudoActive]="hostedDropdown.open"
+        [tuiAppearanceState]="open ? 'active' : null"
         appearance="icon"
         class="tool-button"
-        icon="tuiIconTeXLarge"
+        iconStart="@tui.te-x"
         size="s"
         tuiIconButton
         type="button"
     ></button>
-</tui-hosted-dropdown>
+</div>
 
-<ng-template #katexDropdown let-activeZone>
+<ng-template #katexDropdown>
     <form
         (submit)="insertKatex()"
-        [tuiActiveZoneParent]="activeZone"
+       
         class="katex-tool"
     >
         <div class="katex-tool_input">
@@ -29,12 +28,12 @@
                 class="katex-tool_input-text"
             >
                 Type an equation
-                <input tuiTextfield/>
+                <input tuiTextfieldLegacy/>
             </tui-input>
             <button
                 appearance="icon"
                 class="tui-space_left-2"
-                icon="tuiIconCheckCircleLarge"
+                iconStart="@tui.circle-check"
                 size="s"
                 tuiIconButton
                 type="submit"

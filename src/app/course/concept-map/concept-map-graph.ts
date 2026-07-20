@@ -40,22 +40,22 @@ export class ConceptMapGraph {
         return new joint.shapes.standard.Ellipse({
             id,
             size: {width, height},
-            fill: 'var(--tui-secondary)',
+            fill: 'var(--tui-background-neutral-1)',
             attrs: {
                 label: {
                     text: label,
                     'font-size': letterSize,
                     'font-weight': 'bold',
                     'font-family': 'sans-serif',
-                    fill: 'var(--tui-text-01)',
+                    fill: 'var(--tui-text-primary)',
                     cursor: 'pointer',
                 },
                 body: {
                     width, height,
                     rx: 10, ry: 10,
-                    stroke: 'var(--tui-base-08)',
+                    stroke: 'var(--tui-background-accent-opposite-hover)',
                     cursor: 'pointer',
-                    fill: 'var(--tui-secondary)',
+                    fill: 'var(--tui-background-neutral-1)',
                 },
             }
         })
@@ -83,7 +83,7 @@ export class ConceptMapGraph {
             },
             attrs: {
                 line: {
-                    stroke: 'var(--tui-base-08)',
+                    stroke: 'var(--tui-background-accent-opposite-hover)',
                     cursor: 'default',
                 },
                 wrapper: {

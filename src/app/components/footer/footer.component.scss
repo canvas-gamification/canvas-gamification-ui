@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: solid 1px var(--tui-base-03);
+    border-top: solid 1px var(--tui-background-neutral-1-hover);
 
     &-links {
         list-style-type: none;
@@ -11,7 +11,7 @@
         gap: 0.75rem;
 
         * {
-            color: var(--tui-text-02);
+            color: var(--tui-text-secondary);
         }
     }
 }

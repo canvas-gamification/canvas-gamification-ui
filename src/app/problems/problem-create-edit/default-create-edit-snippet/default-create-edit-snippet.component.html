@@ -32,19 +32,19 @@
         <tui-error [error]="[] | tuiFieldError | async" formControlName="category"></tui-error>
     </div>
     <div class="tui-form__row">
-        <tui-checkbox-labeled formControlName="is_verified" size="l">Is Verified
-        </tui-checkbox-labeled>
+       <label tuiLabel> <input tuiCheckbox type="checkbox" formControlName="is_verified" size="m">Is Verified
+        </label>
     </div>
     <div class="tui-form__row">
-        <tui-checkbox-labeled
+       <label tuiLabel> <input tuiCheckbox type="checkbox"
             (ngModelChange)="resetCourseIfPractice($event)"
             [ngModelOptions]="{standalone: true}"
             [ngModel]="isPractice"
             [disabled]="disableEvent"
-            size="l"
+            size="m"
         >
             Practice Question
-        </tui-checkbox-labeled>
+        </label>
     </div>
     <ng-container *ngIf="!isPractice">
         <div class="tui-form__row tui-form__row_multi-fields">

@@ -6,7 +6,7 @@ import {MOCK_UQJ, MOCK_UQJ_2} from '@app/problems/_test/mock'
 import {SubmissionService} from "@app/problems/_services/submission.service"
 import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.service.mock"
 import {ReactiveFormsModule} from "@angular/forms"
-import {TuiCheckboxBlockModule, TuiRadioBlockModule} from "@taiga-ui/kit"
+import { TuiBlock, TuiCheckbox, TuiRadio } from "@taiga-ui/kit"
 import {of} from "rxjs"
 import {HttpHeaderResponse} from "@angular/common/http"
 import {delay} from "rxjs/operators"
@@ -17,7 +17,7 @@ let fixture: ComponentFixture<McqViewSnippetComponent>
 
 beforeEach(async () => {
     await TestBed.configureTestingModule({
-        imports: [TestModule, ReactiveFormsModule, TuiCheckboxBlockModule, TuiRadioBlockModule],
+        imports: [TestModule, ReactiveFormsModule, TuiBlock, TuiCheckbox, TuiBlock, TuiRadio],
         providers: [{provide: SubmissionService, useClass: SubmissionServiceMock}],
         declarations: [McqViewSnippetComponent, AsFormControlPipe]
     }).compileComponents()

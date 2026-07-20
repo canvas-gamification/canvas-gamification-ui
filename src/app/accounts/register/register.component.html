@@ -41,7 +41,7 @@
                         <tui-error [error]="[] | tuiFieldError | async" formControlName="password"></tui-error>
                     </div>
                     <div class="tui-form__row">
-                        <tui-notification [hasIcon]="false" status="info">
+                        <tui-notification size="m" icon="" appearance="info"><div>
                             <ul class="tui-list tui-list_small">
                                 <li class="tui-list__item">Your password must contain at least 8
                                     characters.
@@ -50,7 +50,7 @@
                                     numeric.
                                 </li>
                             </ul>
-                        </tui-notification>
+                        </div></tui-notification>
                     </div>
                     <div class="tui-form__row">
                         <tui-input-password aria-label="Password Confirmation"
@@ -69,7 +69,7 @@
                     <div class="tui-form__buttons">
                         <button
                             [disabled]="formGroup.invalid"
-                            [showLoader]="isLoading"
+                            [loading]="isLoading"
                             aria-label="Register"
                             class="tui-form__button signup-button__wide"
                             size="m"

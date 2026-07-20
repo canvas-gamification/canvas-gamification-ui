@@ -6,8 +6,8 @@ import {User} from '@app/_models'
 import {Router} from '@angular/router'
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form"
 import {AuthenticationService} from "@app/_services/api/authentication"
-import { TuiDialogContext, TuiDialogService, TuiNotification, TuiAlertService } from "@taiga-ui/core"
-import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
+import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 
 @Component({
     selector: 'app-profile-details',
@@ -57,7 +57,7 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
             .subscribe(() => {
                 this.notificationsService
                     .open('Your profile has been updated successfully!', {
-                        status: TuiNotification.Success
+                        appearance: 'success'
                     }).subscribe()
             })
     }
@@ -69,7 +69,7 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
         this.consentService.declineConsent().subscribe(() => {
             this.notificationsService
                 .open('Your consent has been withdrawn successfully!', {
-                    status: TuiNotification.Success
+                    appearance: 'success'
                 }).subscribe()
         })
         this.userConsent = false

@@ -28,14 +28,14 @@
                     <div class="new-answers__answer-input" formArrayName="answer">
                         <app-editor [formControl]="answerFormControl"></app-editor>
                     </div>
-                    <button (click)="removeAnswer(index)" appearance="secondary" icon="tuiIconTrash"
+                    <button (click)="removeAnswer(index)" appearance="secondary" iconStart="@tui.trash"
                             size="m" tuiButton
                             type="button">
                         Remove
                     </button>
                 </div>
             </div>
-            <button (click)="addAnswer()" icon="tuiIconPlus" size="m" tuiButton type="button">
+            <button (click)="addAnswer()" iconStart="@tui.plus" size="m" tuiButton type="button">
                 Add Another
             </button>
         </div>
@@ -46,15 +46,15 @@
             ensure you have at least one distractor)
         </div>
         <div class="distractor-count tui-space_bottom-4">
-            <tui-radio-labeled [item]="999" formControlName="visible_distractor_count" size="l">
+           <label tuiLabel> <input tuiRadio type="radio" [value]="999" formControlName="visible_distractor_count" size="m">
                 All
-            </tui-radio-labeled>
-            <tui-radio-labeled [item]="2" formControlName="visible_distractor_count" size="l">
+            </label>
+           <label tuiLabel> <input tuiRadio type="radio" [value]="2" formControlName="visible_distractor_count" size="m">
                 2
-            </tui-radio-labeled>
-            <tui-radio-labeled [item]="3" formControlName="visible_distractor_count" size="l">
+            </label>
+           <label tuiLabel> <input tuiRadio type="radio" [value]="3" formControlName="visible_distractor_count" size="m">
                 3
-            </tui-radio-labeled>
+            </label>
         </div>
         <tui-error [error]="[] | tuiFieldError | async" formControlName="visible_distractor_count"></tui-error>
         <div class="new-answers tui-space_bottom-4">
@@ -63,14 +63,14 @@
                 <div class="new-answers__answer-input">
                     <app-editor [formControl]="distractor"></app-editor>
                 </div>
-                <button (click)="removeDistractor(index)" appearance="secondary" icon="tuiIconTrash"
+                <button (click)="removeDistractor(index)" appearance="secondary" iconStart="@tui.trash"
                         size="m" tuiButton
                         type="button">
                     Remove
                 </button>
             </div>
         </div>
-        <button (click)="addDistractor()" icon="tuiIconPlus" size="m" tuiButton type="button">
+        <button (click)="addDistractor()" iconStart="@tui.plus" size="m" tuiButton type="button">
             Add Another
         </button>
     </div>

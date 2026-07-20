@@ -1,4 +1,5 @@
-import { TuiErrorModule } from "@taiga-ui/core";
+import { TuiCheckbox } from "@taiga-ui/kit";
+import { TuiError } from "@taiga-ui/core";
 import {AuthGuard} from "@app/_helpers/auth.guard"
 import {NgModule} from "@angular/core"
 import {RouterModule, Routes} from "@angular/router"
@@ -573,7 +574,7 @@ const routes: Routes = [
     }]
 
 @NgModule({
-    imports: [RouterModule.forChild(routes), TuiErrorModule],
+    imports: [RouterModule.forChild(routes), TuiError, TuiCheckbox],
     exports: [RouterModule]
 })
 export class CourseRoutingModule {

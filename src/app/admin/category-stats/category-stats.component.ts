@@ -2,7 +2,7 @@ import {AfterContentInit, ChangeDetectorRef, Component, Inject, OnInit} from '@a
 import {CategoryStatsService} from "@app/admin/_services/category-stats.service"
 import {NestedCategories} from "@app/_models"
 import {TuiDialogContext, TuiDialogService} from '@taiga-ui/core'
-import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
+import {PolymorpheusContent} from '@taiga-ui/polymorpheus'
 
 @Component({
     selector: 'app-category-stats',

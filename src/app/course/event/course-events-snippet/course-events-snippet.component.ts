@@ -2,8 +2,8 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core'
 import {Course, CourseEvent, EventType, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {CourseEventService} from '@app/course/_services/course-event.service'
-import { TuiDialogContext, TuiDialogService, TuiNotification, TuiAlertService } from "@taiga-ui/core"
-import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
+import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import {PolymorpheusContent} from '@taiga-ui/polymorpheus'
 import {CourseService} from "@app/course/_services/course.service"
 import {ActivatedRoute} from "@angular/router"
 
@@ -93,7 +93,7 @@ export class CourseEventsSnippetComponent implements OnInit {
         return this.courseEventService.setFeatured(eventId).subscribe(() => {
             this.init()
             this.notificationsService.open('Assessment successfully marked as featured.', {
-                status: TuiNotification.Success,
+                appearance: 'success',
             }).subscribe()
         })
     }
@@ -124,7 +124,7 @@ export class CourseEventsSnippetComponent implements OnInit {
             if (response.status === 201) {
                 this.notificationsService
                     .open('The assessment has been imported successfully.', {
-                        status: TuiNotification.Success
+                        appearance: 'success'
                     }).subscribe()
                 this.init()
             }

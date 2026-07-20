@@ -11,7 +11,7 @@ import {
 import {QuestionSubmission} from '@app/_models/question_submission'
 import {DomSanitizer} from "@angular/platform-browser"
 import {TuiDialogContext, TuiDialogService} from '@taiga-ui/core'
-import {PolymorpheusComponent, PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
+import {PolymorpheusComponent, PolymorpheusContent} from '@taiga-ui/polymorpheus'
 import {SubmissionViewComponent} from '@app/problems/submission-view/submission-view.component'
 import {SubmissionService} from "@app/problems/_services/submission.service"
 import {map} from "rxjs/operators"

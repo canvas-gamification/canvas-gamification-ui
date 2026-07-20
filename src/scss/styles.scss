@@ -5,13 +5,13 @@
 @import 'tailwind';
 
 body {
-    background: var(--tui-base-01);
+    background: var(--tui-background-base);
     font: var(--tui-font-text-m) !important;
 }
 
 table {
     th {
-        background-color: var(--tui-base-02) !important;
+        background-color: var(--tui-background-base-alt) !important;
 
         // Currently required to deal with a heading placement bug
         .name {

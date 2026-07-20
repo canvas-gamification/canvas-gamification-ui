@@ -17,18 +17,19 @@
             [tuiHint]="toggleTooltip"
             appearance="flat"
             class="sidebar-toggle_button"
-            shape="rounded"
+            [style.border-radius.%]="100"
             size="s"
             id="sidebar-{{sidebarId}}"
             tuiHintDescribe="sidebar-{{sidebarId}}"
-            tuiHintAppearance="onDark"
+            tuiHintAppearance="dark"
             tuiIconButton
         >
-            <tui-svg
+            <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
                 [class.sidebar-toggle_icon-closed]="!sidebarOpen"
-                [src]="'tuiIconChevronRight'"
+                [icon]="'@tui.chevron-right'"
                 class="sidebar-toggle_icon"
-            ></tui-svg>
+            ></tui-icon>
         </button>
         <ng-template #toggleTooltip>
             <ng-container *ngIf="sidebarOpen else closedSidebar">
@@ -63,18 +64,19 @@
             [tuiHint]="toggleTooltip"
             appearance="flat"
             class="sidebar-toggle_button"
-            shape="rounded"
+            [style.border-radius.%]="100"
             size="s"
             id="sidebar-{{sidebarId}}"
             tuiHintDescribe="sidebar-{{sidebarId}}"
-            tuiHintAppearance="onDark"
+            tuiHintAppearance="dark"
             tuiIconButton
         >
-            <tui-svg
+            <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
                 [class.sidebar-toggle_icon-closed]="!sidebarOpen"
-                [src]="'tuiIconChevronLeft'"
+                [icon]="'@tui.chevron-left'"
                 class="sidebar-toggle_icon"
-            ></tui-svg>
+            ></tui-icon>
         </button>
         <ng-template #toggleTooltip>
             <ng-container *ngIf="sidebarOpen else closedSidebar">

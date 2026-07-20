@@ -5,12 +5,12 @@
                 <button
                     (click)="removeModel(index)"
                     [tuiHint]="removeTooltip"
-                    icon="tuiIconTrash"
+                    iconStart="@tui.trash"
                     size="m"
                     id="remove-{{index}}"
                     tuiHintDirection="top-left"
                     tuiHintDescribe="remove-{{index}}"
-                    tuiHintAppearance="onDark"
+                    tuiHintAppearance="dark"
                     tuiIconButton
                     type="button"
                 ></button>
@@ -29,9 +29,9 @@
                             <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
                         </div>
                         <div class="tui-form__row">
-                            <tui-checkbox-labeled formControlName="compile">
+                           <label tuiLabel> <input tuiCheckbox type="checkbox" formControlName="compile">
                                 Should This File Be Compiled?
-                            </tui-checkbox-labeled>
+                            </label>
                             <tui-error [error]="[] | tuiFieldError | async" formControlName="compile"></tui-error>
                         </div>
                         <div class="tui-form__row">
@@ -50,12 +50,12 @@
                                     <button
                                         (click)="removeLine(form, index)"
                                         [tuiHint]="removeTooltip"
-                                        icon="tuiIconTrash"
+                                        iconStart="@tui.trash"
                                         size="m"
                                         id="remove-line-{{index}}"
                                         tuiHintDirection="top-left"
                                         tuiHintDescribe="remove-line-{{index}}"
-                                        tuiHintAppearance="onDark"
+                                        tuiHintAppearance="dark"
                                         tuiIconButton
                                         type="button"
                                     ></button>
@@ -68,35 +68,33 @@
                                 <button
                                     (click)="addNewLine(form)"
                                     class="tui-form__button"
-                                    icon="tuiIconPlus"
+                                    iconStart="@tui.plus"
                                     size="m"
                                     tuiButton
                                     type="button"
                                 >
                                     Add New Line
                                 </button>
-                                <tui-hosted-dropdown
-                                    #hostedCodeBlockDropdown
-                                    [content]="codeBlockDropdown"
+                                <div
+                                    [tuiDropdown]="codeBlockDropdown"
+                                    [(tuiDropdownOpen)]="codeBlockDropdownOpen"
                                     class="tui-form__button"
                                 >
                                     <button
-                                        [focusable]="hostedCodeBlockDropdown.open"
-                                        [pseudoActive]="hostedCodeBlockDropdown.open"
+                                        [tuiAppearanceState]="codeBlockDropdownOpen ? 'active' : null"
                                         class="code-block-dropdown_button"
-                                        icon="tuiIconCode"
-                                        iconRight="tuiIconChevronDown"
+                                        iconStart="@tui.code"
+                                        iconEnd="@tui.chevron-down"
                                         size="m"
                                         tuiButton
                                         type="button"
                                     >
                                         Set With Code Block
                                     </button>
-                                </tui-hosted-dropdown>
-                                <ng-template #codeBlockDropdown let-activeZone>
+                                </div>
+                                <ng-template #codeBlockDropdown>
                                     <form
-                                        (submit)="setLinesFromCodeBlock(form); hostedCodeBlockDropdown.updateOpen(false)"
-                                        [tuiActiveZoneParent]="activeZone"
+                                        (submit)="setLinesFromCodeBlock(form); codeBlockDropdownOpen = false"
                                         class="code-block-dropdown"
                                     >
                                         <app-code-editor [(codeTemplate)]="codeBlock"></app-code-editor>
@@ -132,7 +130,7 @@
 </form>
 <button
     (click)="addNewModel()"
-    icon="tuiIconPlus"
+    iconStart="@tui.plus"
     size="m"
     tuiButton
     type="button"

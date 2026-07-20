@@ -11,7 +11,7 @@
              class="course-registration_skeleton-notification tui-skeleton tui-space_bottom-7"></div>
         <div *ngIf="showSkeletons" class="course-registration_skeleton tui-skeleton"></div>
         <ng-container *ngIf="registered && !showSkeletons">
-            <tui-notification status="success">
+            <tui-notification size="m" appearance="success">
                 You are already registered in this course
             </tui-notification>
             <div class="tui-form__buttons">
@@ -21,12 +21,12 @@
             </div>
         </ng-container>
         <ng-container *ngIf="blocked && !showSkeletons">
-            <tui-notification status="error">
+            <tui-notification size="m" appearance="error">
                 Registration has been blocked for you. Please contact your instructor.
             </tui-notification>
         </ng-container>
         <ng-container *ngIf="!registered && !blocked && !showSkeletons">
-            <tui-notification class="tui-space_bottom-7" status="info">
+            <tui-notification size="m" class="tui-space_bottom-7" appearance="info">
                 If you don't have a verification code please contact your instructor to get one.
             </tui-notification>
             <form (ngSubmit)="onSubmit()" [formGroup]="form">
@@ -39,7 +39,7 @@
                     <tui-error [error]="[] | tuiFieldError | async" formControlName="code"></tui-error>
                 </div>
                 <div class="tui-form__buttons">
-                    <button [showLoader]="loadingContent" aria-label="Register" class="tui-form__button" size="m"
+                    <button [loading]="loadingContent" aria-label="Register" class="tui-form__button" size="m"
                             tuiButton
                             type="submit">
                         Register
@@ -50,12 +50,12 @@
     </ng-container>
     <ng-container *ngIf="courseNotFound">
         <div class="course-registration_none">
-            <tui-marker-icon
+            <tui-avatar 
                 class="tui-space_bottom-4 tui-space_top-15"
-                mode="error"
-                size="s"
-                src="tuiIconAlertCircleLarge"
-            ></tui-marker-icon>
+                appearance="error"
+                size="m"
+                src="@tui.circle-alert"
+            ></tui-avatar>
             <h1 class="tui-text_h6 tui-island_text-align_center">
                 Unable to find the course for registration.
             </h1>

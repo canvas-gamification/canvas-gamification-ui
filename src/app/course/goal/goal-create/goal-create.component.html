@@ -1,7 +1,7 @@
 <div class="tui-container tui-container_adaptive">
     <a
         [routerLink]="['..']"
-        icon="tuiIconArrowLeft"
+        iconStart="@tui.arrow-left"
         size="s"
         tuiButton
         appearance="flat"
@@ -72,7 +72,7 @@
             Tasks
             <button
                 (click)="addGoalItem()"
-                icon="tuiIconPlus"
+                iconStart="@tui.plus"
                 size="s"
                 tuiButton
                 type="button"
@@ -131,7 +131,7 @@
                     <button
                         *ngIf="getGoalItemFormControls().length > 1"
                         (click)="removeGoalItem(index)"
-                        icon="tuiIconMinus"
+                        iconStart="@tui.minus"
                         size="s"
                         tuiButton
                         type="button"

@@ -1,17 +1,13 @@
+import { TuiIslandDirective, TuiTextfieldControllerModule, TuiInputModule } from "@taiga-ui/legacy";
+import { TuiEditor, TuiEditorSocket } from "@taiga-ui/editor";
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {EditorComponent} from './editor.component'
-import {TuiEditorModule, TuiEditorSocketModule} from '@tinkoff/tui-editor'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {KatexToolComponent} from './katex-tool/katex-tool.component'
-import {
-    TuiButtonModule,
-    TuiDropdownModule,
-    TuiHostedDropdownModule,
-    TuiTextfieldControllerModule
-} from '@taiga-ui/core'
-import {TuiActiveZoneModule, TuiAutoFocusModule} from '@taiga-ui/cdk'
-import {TuiInputInlineModule, TuiInputModule, TuiIslandModule} from '@taiga-ui/kit'
+import { TuiDropdown, TuiButton } from '@taiga-ui/core'
+import { TuiActiveZone, TuiAutoFocus } from '@taiga-ui/cdk'
+import { TuiInputInline } from '@taiga-ui/kit'
 import {InlineMathComponent} from './inline-math/inline-math.component'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 
@@ -29,18 +25,14 @@ import {PipesModule} from '@app/_helpers/pipes/pipes.module'
         FormsModule,
         PipesModule,
         ReactiveFormsModule,
-        TuiActiveZoneModule,
-        TuiAutoFocusModule,
-        TuiButtonModule,
-        TuiDropdownModule,
-        TuiDropdownModule,
-        TuiDropdownModule,
-        TuiEditorModule,
-        TuiEditorSocketModule,
-        TuiHostedDropdownModule,
-        TuiInputInlineModule,
+        TuiActiveZone,
+        TuiAutoFocus,
+        TuiButton,
+        ...TuiDropdown,
+        TuiEditor, TuiEditorSocket,
+        TuiInputInline,
         TuiInputModule,
-        TuiIslandModule,
+        TuiIslandDirective,
         TuiTextfieldControllerModule
     ]
 })

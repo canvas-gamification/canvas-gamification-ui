@@ -1,3 +1,4 @@
+import { TuiIslandDirective, TuiTextareaModule, TuiInputModule, TuiSelectModule } from "@taiga-ui/legacy";
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {
@@ -6,9 +7,9 @@ import {
 import {TestModule} from '@test/test.module'
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {MOCK_PARSONS_QUESTION} from "@app/problems/_test/mock"
-import {TuiButtonModule, TuiHostedDropdownModule, TuiNotificationModule, TuiSvgModule} from "@taiga-ui/core"
+import { TuiNotification, TuiDropdown, TuiIcon, TuiButton } from "@taiga-ui/core"
 import {of} from "rxjs"
-import { TuiInputModule, TuiIslandModule, TuiSelectModule, TuiTextareaModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
+import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
 import {delay} from "rxjs/operators"
 import {HttpResponse} from "@angular/common/http"
 import {Question} from "@app/_models"
@@ -30,8 +31,8 @@ describe('ParsonsCreateEditSnippetComponent', () => {
             ],
             imports: [
                 TestModule, ReactiveFormsModule, FormsModule, TuiTextareaModule,
-                TuiInputModule, TuiSelectModule, TuiFieldErrorPipeModule, TuiButtonModule,
-                TuiHostedDropdownModule, TuiSvgModule, TuiNotificationModule, TuiIslandModule
+                TuiInputModule, TuiSelectModule, TuiFieldErrorPipe, TuiFieldErrorContentPipe, TuiButton,
+                TuiDropdown, TuiIcon, TuiNotification, TuiIslandDirective
             ],
         }).compileComponents()
     })

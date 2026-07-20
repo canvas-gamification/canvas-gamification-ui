@@ -8,7 +8,7 @@ import {
     S3AgreeQuestions,
     S4AgreeQuestions
 } from "@app/accounts/survey/final-survey/data"
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 import {SurveyService} from "@app/accounts/_services/survey.service"
 import {Router} from "@angular/router"
 
@@ -300,7 +300,7 @@ export class FinalSurveyComponent implements OnInit {
     submit() {
         this.surveyService.postSurvey('final', this.formGroup.value).subscribe(() => {
             this.notificationService.open("Survey submitted successfully", {
-                status: TuiNotification.Success,
+                appearance: 'success',
             }).subscribe()
             this.router.navigate(['homepage']).then()
         })

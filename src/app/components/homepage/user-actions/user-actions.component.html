@@ -22,7 +22,7 @@
             </tr>
             </thead>
             <tbody [data]="userActions" tuiTbody>
-            <tr *tuiRow="let action of userActions" tuiTr>
+            <tr *ngFor="let action of userActions" tuiTr>
                 <td *tuiCell="'description'" tuiTd>
                     <ng-container
                         *ngIf="action.object_type === 'Question' || action.object_type === 'Submission' && action.description; else notALinkAction">
@@ -58,7 +58,8 @@
             <tfoot>
             <tr>
                 <td [colSpan]="userActionsTableColumns.length">
-                    <tui-table-pagination
+                    <!-- TODO: (Taiga UI migration) (pageChange) and (sizeChange) outputs have been removed. Use (paginationChange) instead -->
+<tui-table-pagination
                         (pageChange)="update()"
                         (sizeChange)="update()"
                         [(page)]="page"

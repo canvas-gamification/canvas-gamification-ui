@@ -1,11 +1,12 @@
+import { TuiTextareaModule, TuiInputModule, TuiInputDateRangeModule, TuiSelectModule } from "@taiga-ui/legacy";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {CourseCreateComponent} from './course-create.component'
 import {TestModule} from "@test/test.module"
-import { TuiInputDateRangeModule, TuiInputModule, TuiSelectModule, TuiTextareaModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
+import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
 import {ReactiveFormsModule} from "@angular/forms"
 import {RouterModule} from "@angular/router"
-import {TuiButtonModule, TuiDataListModule} from "@taiga-ui/core"
+import { TuiDataList, TuiButton } from "@taiga-ui/core"
 
 describe('CourseCreateComponent', () => {
     let component: CourseCreateComponent
@@ -21,9 +22,9 @@ describe('CourseCreateComponent', () => {
                 TuiSelectModule,
                 ReactiveFormsModule,
                 RouterModule,
-                TuiButtonModule,
-                TuiDataListModule,
-                TuiFieldErrorPipeModule,
+                TuiButton,
+                TuiDataList,
+                TuiFieldErrorPipe, TuiFieldErrorContentPipe,
             ],
             declarations: [CourseCreateComponent]
         })

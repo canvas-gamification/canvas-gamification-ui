@@ -1,4 +1,5 @@
-import { TuiAlertService } from "@taiga-ui/core";
+import { TuiIslandDirective, TuiInputModule, TuiMultiSelectModule, TuiSelectModule } from "@taiga-ui/legacy";
+import { TuiAlertService, TuiLabel } from "@taiga-ui/core";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {ConsentFormComponent} from './consent-form.component'
@@ -14,7 +15,7 @@ import {
 import {Router} from "@angular/router"
 import {ConsentService} from "@app/accounts/_services/consent.service"
 import {ConsentServiceMock} from "@app/accounts/_test/_services/consent.service.mock"
-import { TuiCheckboxLabeledModule, TuiInputModule, TuiIslandModule, TuiMultiSelectModule, TuiSelectModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
+import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
 import {of} from "rxjs"
 
 describe('ConsentFormComponent', () => {
@@ -33,10 +34,10 @@ describe('ConsentFormComponent', () => {
             imports: [
                 TestModule,
                 ReactiveFormsModule,
-                TuiIslandModule,
+                TuiIslandDirective,
                 TuiInputModule,
-                TuiFieldErrorPipeModule,
-                TuiCheckboxLabeledModule,
+                TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+                TuiLabel,
                 TuiSelectModule,
                 TuiMultiSelectModule
             ],

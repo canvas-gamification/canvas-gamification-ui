@@ -8,12 +8,12 @@
 .container {
     flex-grow: 1;
     padding: var(--tui-padding-s);
-    background-color: var(--tui-base-02);
+    background-color: var(--tui-background-base-alt);
     min-height: 200px;
 
     &-nested {
         display: none;
-        border-left: dashed 0.15rem var(--tui-base-05);
+        border-left: dashed 0.15rem var(--tui-border-hover);
         padding-right: unset;
 
         &_hover:empty {
@@ -29,10 +29,10 @@
         white-space: pre-wrap;
         cursor: move;
         padding: 0.2rem 0 0.2rem 1rem;
-        background-color: var(--tui-base-01);
+        background-color: var(--tui-background-base);
 
         &:hover {
-            outline: solid 0.15rem var(--tui-primary-hover);
+            outline: solid 0.15rem var(--tui-background-accent-1-hover);
         }
 
         &_hover-none {

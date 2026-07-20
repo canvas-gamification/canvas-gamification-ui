@@ -3,7 +3,7 @@ import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/fo
 import {ResetPasswordService} from '@app/accounts/_services/reset-password.service'
 import {ActivatedRoute, Router} from "@angular/router"
 import {ResetPasswordForm} from "@app/accounts/_forms/reset-password.form"
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-reset-password',
@@ -49,7 +49,7 @@ export class ResetPasswordComponent implements OnInit {
             this.router.navigate(['/accounts/login']).then(() => {
                 this.notificationsService
                     .open('Your password has been updated successfully!', {
-                        status: TuiNotification.Success
+                        appearance: 'success'
                     }).subscribe()
             })
         })
@@ -65,7 +65,7 @@ export class ResetPasswordComponent implements OnInit {
                 this.formGroup.reset()
                 this.notificationsService
                     .open('An email has been sent to you with a password reset link!', {
-                        status: TuiNotification.Info
+                        appearance: 'info'
                     }).subscribe()
             })
     }

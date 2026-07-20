@@ -1,8 +1,8 @@
+import { TuiFilterPipe } from "@taiga-ui/cdk";
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {FaqAccordionComponent} from './faq-accordion.component'
-import {TuiAccordionModule, TuiMarkerIconModule} from "@taiga-ui/kit"
-import {TuiFilterPipeModule} from "@taiga-ui/cdk"
+import { TuiAccordion, TuiAvatar } from "@taiga-ui/kit"
 import {EditorModule} from "@app/components/editor/editor.module"
 import {FormsModule} from "@angular/forms"
 
@@ -16,9 +16,9 @@ import {FormsModule} from "@angular/forms"
         CommonModule,
         EditorModule,
         FormsModule,
-        TuiAccordionModule,
-        TuiFilterPipeModule,
-        TuiMarkerIconModule
+        ...TuiAccordion,
+        TuiFilterPipe,
+        TuiAvatar
     ]
 })
 export class FaqAccordionModule {

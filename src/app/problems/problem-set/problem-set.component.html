@@ -1,26 +1,27 @@
 <div class="tui-container tui-container_fullwidth">
     <div class="heading">
         <h1 class="tui-text_h3 tui-space_vertical-10">Problem Sets</h1>
-        <tui-hosted-dropdown
-            [(open)]="openNewQuestionDropdown"
-            [content]="newQuestionDropdownContent"
+        <div 
+            [(tuiDropdownOpen)]="openNewQuestionDropdown"
+            [tuiDropdown]="newQuestionDropdownContent"
         >
             <button
-                [iconRight]="newQuestionDropdownIcon"
-                icon="tuiIconPlus"
+                [iconEnd]="newQuestionDropdownIcon"
+                iconStart="@tui.plus"
                 size="m"
                 tuiButton
                 type="button"
             >
                 Create New Question
             </button>
-        </tui-hosted-dropdown>
+        </div>
         <ng-template #newQuestionDropdownIcon>
-            <tui-svg
+            <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
                 [class.new-question-icon_rotated]="openNewQuestionDropdown"
                 class="new-question-icon"
-                src="tuiIconChevronDown"
-            ></tui-svg>
+                icon="@tui.chevron-down"
+            ></tui-icon>
         </ng-template>
         <ng-template #newQuestionDropdownContent>
             <tui-data-list>
@@ -147,7 +148,7 @@
                 </tr>
                 </thead>
                 <tbody [data]="questions" tuiTbody>
-                <tr *tuiRow="let question of questions" tuiTr>
+                <tr *ngFor="let question of questions" tuiTr>
                     <td *tuiCell="'author_name'" tuiTd>
                         {{ (question.author_name) || 'No Author' }}
                     </td>
@@ -180,12 +181,12 @@
                                 [routerLink]="[question.id]"
                                 [tuiHint]="viewTooltip"
                                 class="tui-space_right-2 tui-space_vertical-2"
-                                icon="tuiIconEyeOpen"
+                                iconStart="@tui.eye-open"
                                 size="s"
                                 id="view-{{question.id}}"
                                 tuiHintDirection="top-left"
                                 tuiHintDescribe="view-{{question.id}}"
-                                tuiHintAppearance="onDark"
+                                tuiHintAppearance="dark"
                                 tuiIconButton
                             ></a>
                             <ng-template #viewTooltip>
@@ -195,12 +196,12 @@
                                 [routerLink]="[question.id, 'edit']"
                                 [tuiHint]="editTooltip"
                                 class="tui-space_right-2 tui-space_vertical-2"
-                                icon="tuiIconEdit"
+                                iconStart="@tui.pencil"
                                 size="s"
                                 id="edit-{{question.id}}"
                                 tuiHintDirection="top-left"
                                 tuiHintDescribe="edit-{{question.id}}"
-                                tuiHintAppearance="onDark"
+                                tuiHintAppearance="dark"
                                 tuiIconButton
                             ></a>
                             <ng-template #editTooltip>
@@ -210,12 +211,12 @@
                                 (click)="openDeleteQuestionDialog(deleteDialog, question.id)"
                                 [tuiHint]="deleteTooltip"
                                 class="tui-space_vertical-2"
-                                icon="tuiIconTrash"
+                                iconStart="@tui.trash"
                                 size="s"
                                 id="delete-{{question.id}}"
                                 tuiHintDirection="top-left"
                                 tuiHintDescribe="delete-{{question.id}}"
-                                tuiHintAppearance="onDark"
+                                tuiHintAppearance="dark"
                                 tuiIconButton
                                 type="button"
                             ></button>
@@ -229,7 +230,8 @@
                 <tfoot>
                 <tr>
                     <td [colSpan]="questionsTableColumns.length">
-                        <tui-table-pagination
+                        <!-- TODO: (Taiga UI migration) (pageChange) and (sizeChange) outputs have been removed. Use (paginationChange) instead -->
+<tui-table-pagination
                             (pageChange)="update({page: $event})"
                             (sizeChange)="update({pageSize: $event})"
                             [page]="page"
@@ -309,7 +311,8 @@
                 <tfoot>
                 <tr>
                     <td [colSpan]="questionsTableColumns.length">
-                        <tui-table-pagination
+                        <!-- TODO: (Taiga UI migration) (pageChange) and (sizeChange) outputs have been removed. Use (paginationChange) instead -->
+<tui-table-pagination
                             (pageChange)="update({page: $event})"
                             (sizeChange)="update({pageSize: $event})"
                             [page]="page"

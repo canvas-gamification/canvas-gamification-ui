@@ -12,7 +12,8 @@
                     <div class="more-courses-island">
                         <div class="tui-space_vertical-12">
                             <figure class="tui-island__figure">
-                                <tui-svg src="tuiIconAddRowLarge"></tui-svg>
+                                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  [style.border-width.rem]="0.25" icon="@tui.copy-plus"></tui-icon>
                             </figure>
                             <h2 class="tui-island__title">
                                 Looking for {{ activeCourses?.length > 0 ? 'more' : '' }} courses?

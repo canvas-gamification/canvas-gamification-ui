@@ -4,7 +4,7 @@ import {Category, EventLimit, EventType} from '@app/_models'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {CourseEventForm} from "@app/course/_forms/course-event.form"
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 import {tuiCreateTimePeriods} from "@taiga-ui/kit"
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
@@ -130,7 +130,7 @@ export class CourseEventCreateEditComponent implements OnInit {
             }
             this.notificationsService
                 .open('The event has been updated successfully.', {
-                    status: TuiNotification.Success
+                    appearance: 'success'
                 }).subscribe()
             this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
         } else { // Creating a brand-new event
@@ -144,7 +144,7 @@ export class CourseEventCreateEditComponent implements OnInit {
             }
             this.notificationsService
                 .open('The event has been added successfully.', {
-                    status: TuiNotification.Success
+                    appearance: 'success'
                 }).subscribe()
             this.router.navigate(['course', this.courseId, 'assignments-exams']).then()
         }

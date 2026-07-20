@@ -2,7 +2,7 @@
     <button
         tuiButton
         appearance="flat"
-        icon="tuiIconArrowLeft"
+        iconStart="@tui.arrow-left"
         size="s"
         [routerLink]="['..']"
     >
@@ -18,17 +18,17 @@
                 <app-editor [ngModel]="stat.question.text" [readonly]="true"></app-editor>
                 <div *ngIf="stat.total_submissions === 0"
                      class="flex justify-center items-center w-full h-32">
-                    <tui-marker-icon
+                    <tui-avatar 
                         class="tui-space_right-4"
-                        size="s"
-                        src="tuiIconAlertCircleLarge"
-                    ></tui-marker-icon>
+                        size="m"
+                        src="@tui.circle-alert"
+                    ></tui-avatar>
                     <h2 class="tui-text_body-xl">
                         Looks like there are no submissions to show
                     </h2>
                 </div>
                 <div *ngIf="!isEmpty(stat.answers)">
-                    <tui-notification
+                    <tui-notification size="m"
                         class="mb-3"
                         *ngIf="stat.has_variables"
                     >
@@ -131,11 +131,11 @@
     </ng-container>
     <ng-template #noStats>
         <div class="flex justify-center items-center w-full h-32">
-            <tui-marker-icon
+            <tui-avatar 
                 class="tui-space_right-4"
-                size="s"
-                src="tuiIconAlertCircleLarge"
-            ></tui-marker-icon>
+                size="m"
+                src="@tui.circle-alert"
+            ></tui-avatar>
             <h2 class="tui-text_body-xl">
                 Looks like there are no stats to show
             </h2>

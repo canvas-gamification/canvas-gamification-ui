@@ -3,7 +3,7 @@
         <button
             appearance="flat"
             [routerLink]="['..']"
-            icon="tuiIconArrowLeft"
+            iconStart="@tui.arrow-left"
             aria-label="Back to Homepage"
             size="s"
             tuiButton>
@@ -16,7 +16,7 @@
                     [(ngModel)]="filter"
                     class="max-w-xs"
                 > You are viewing
-                    <input tuiTextfield/>
+                    <input tuiTextfieldLegacy/>
                     <tui-data-list-wrapper
                         *tuiDataList
                         [items]="getEventFilterOptions()"
@@ -27,7 +27,7 @@
                 <button
                     *ngIf="getFeaturedEvent()"
                     [routerLink]="[getFeaturedEvent()?.id]"
-                    icon="tuiIconStarFilled"
+                    iconStart="@tui.star-filled"
                     appearance="secondary"
                     aria-label="View Featured Assignment"
                     size="m"
@@ -38,7 +38,7 @@
                 <button
                     *ngIf="course?.has_create_event_permission"
                     (click)="openEventImportDialog()"
-                    icon="tuiIconPlus"
+                    iconStart="@tui.plus"
                     appearance="secondary"
                     aria-label="Add Assessment"
                     size="m"
@@ -63,7 +63,8 @@
                             tuiIsland
                         >
                             <figure class="tui-island__figure">
-                                <tui-svg src="tuiIconPlusLarge"></tui-svg>
+                                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  [style.border-width.rem]="0.25" icon="@tui.plus"></tui-icon>
                             </figure>
                             <h2 class="tui-island__title">Create New Assessment</h2>
                         </a>
@@ -113,7 +114,8 @@
                             class="tui-skeleton"
                         >
                             <figure class="tui-island__figure">
-                                <tui-svg src="tuiIconPlusLarge"></tui-svg>
+                                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  [style.border-width.rem]="0.25" icon="@tui.plus"></tui-icon>
                             </figure>
                             <h2 class="tui-island__title">Create New Assessment</h2>
                         </a>
@@ -137,11 +139,11 @@
                     </div>
                     <div *ngIf="getCurrentEvents().length === 0">
                         <div class="flex justify-center items-center w-full h-32">
-                            <tui-marker-icon
+                            <tui-avatar 
                                 class="tui-space_right-4"
-                                size="s"
-                                src="tuiIconAlertCircleLarge"
-                            ></tui-marker-icon>
+                                size="m"
+                                src="@tui.circle-alert"
+                            ></tui-avatar>
                             <h2 class="tui-text_body-xl">
                                 Looks like there are no current assessments
                             </h2>
@@ -164,11 +166,11 @@
                     </div>
                     <div *ngIf="getUpcomingEvents().length === 0">
                         <div class="flex justify-center items-center w-full h-32">
-                            <tui-marker-icon
+                            <tui-avatar 
                                 class="tui-space_right-4"
-                                size="s"
-                                src="tuiIconAlertCircleLarge"
-                            ></tui-marker-icon>
+                                size="m"
+                                src="@tui.circle-alert"
+                            ></tui-avatar>
                             <h2 class="tui-text_body-xl">
                                 Looks like there are no upcoming assessments
                             </h2>
@@ -188,11 +190,11 @@
                     </div>
                     <div *ngIf="getPastEvents().length === 0">
                         <div class="flex justify-center items-center w-full h-32">
-                            <tui-marker-icon
+                            <tui-avatar 
                                 class="tui-space_right-4"
-                                size="s"
-                                src="tuiIconAlertCircleLarge"
-                            ></tui-marker-icon>
+                                size="m"
+                                src="@tui.circle-alert"
+                            ></tui-avatar>
                             <h2 class="tui-text_body-xl">
                                 Looks like there are no past events
                             </h2>
@@ -210,7 +212,7 @@
                     tuiTextfieldSize="l"
                     [(ngModel)]="filter"
                 > content
-                    <input tuiTextfield/>
+                    <input tuiTextfieldLegacy/>
                     <tui-data-list-wrapper
                         class="tui-skeleton"
                     >content

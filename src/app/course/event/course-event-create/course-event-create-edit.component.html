@@ -21,9 +21,9 @@
             <tui-error [error]="[] | tuiFieldError | async" formControlName="type"></tui-error>
         </div>
         <div class="tui-form__row">
-            <tui-checkbox-labeled aria-label="Counts for Tokens" formControlName="countForTokens">
+           <label tuiLabel> <input tuiCheckbox type="checkbox" aria-label="Counts for Tokens" formControlName="countForTokens">
                 Counts for tokens
-            </tui-checkbox-labeled>
+            </label>
             <tui-error [error]="[] | tuiFieldError | async" formControlName="countForTokens"></tui-error>
         </div>
         <div class="tui-form__row">
@@ -49,10 +49,10 @@
                 <tui-error [error]="[] | tuiFieldError | async" formControlName="endTimePicker"></tui-error>
             </div>
         </div>
-        <tui-notification
+        <tui-notification size="m"
             *ngIf="formData.errors?.forbiddenDateRange"
             class="tui-space_top-4"
-            status="error"
+            appearance="error"
         >
             Invalid date range! Please check your start and end times!
         </tui-notification>
@@ -60,7 +60,7 @@
             Add Questions
             <button
                 (click)="addChallengeQuestionSet()"
-                icon="tuiIconPlus"
+                iconStart="@tui.plus"
                 size="s"
                 tuiButton
                 type="button"
@@ -134,7 +134,7 @@
                 <div class="flex h-full items-center">
                     <button
                         (click)="removeChallengeQuestionSet(index)"
-                        icon="tuiIconMinus"
+                        iconStart="@tui.minus"
                         size="s"
                         tuiButton
                         type="button"
@@ -145,7 +145,7 @@
                 </div>
             </div>
         </div>
-        <tui-notification
+        <tui-notification size="m"
             class="my-6"
             *ngIf="getQuestionSetFormControls().length > 2"
         >
@@ -154,7 +154,7 @@
         <div class="tui-form__buttons">
             <button
                 [disabled]="formData.invalid"
-                [showLoader]="submitting"
+                [loading]="submitting"
                 appearance="primary"
                 aria-label="Submit"
                 class="tui-form__button"

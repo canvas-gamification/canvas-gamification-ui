@@ -2,7 +2,7 @@ import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/c
 import {AbstractControl, UntypedFormGroup} from "@angular/forms"
 import {ReportQuestionService} from "@app/problems/_services/report-question.service"
 import {ReportQuestionForm} from "@app/problems/_forms/problem-report.form"
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-problem-report-modal',
@@ -50,7 +50,7 @@ export class ProblemReportModalComponent implements OnInit {
         this.reportQuestionService.reportQuestion(this.questionId, ReportQuestionForm.extractData(this.formGroup)).subscribe(() => {
             this.notificationsService
                 .open('The question has been successfully reported.', {
-                    status: TuiNotification.Success
+                    appearance: 'success'
                 }).subscribe()
         })
 

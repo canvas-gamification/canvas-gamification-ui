@@ -2,7 +2,7 @@
     <div [class.tui-container]="eventId" [class.tui-container_adaptive]="eventId">
         <a
             [routerLink]="['..']"
-            icon="tuiIconArrowLeft"
+            iconStart="@tui.arrow-left"
             size="s"
             tuiButton
             appearance="flat"
@@ -10,19 +10,19 @@
         >
             Back to {{getBackLabel()}}
         </a>
-        <tui-notification
+        <tui-notification size="m"
             class="mb-6"
             *ngIf="event.is_not_available_yet"
         >
             The {{getEventType()}} is not available yet.
         </tui-notification>
-        <tui-notification
+        <tui-notification size="m"
             class="mb-6"
             *ngIf="event.is_closed"
         >
             The {{getEventType()}} is closed.
         </tui-notification>
-        <tui-notification
+        <tui-notification size="m"
             class="mb-6"
             *ngIf="!event.count_for_tokens"
         >
@@ -44,27 +44,28 @@
                     Stats
                 </a>
 
-                <tui-hosted-dropdown
-                    [(open)]="openNewQuestionDropdown"
-                    [content]="newQuestionDropdownContent"
+                <div 
+                    [(tuiDropdownOpen)]="openNewQuestionDropdown"
+                    [tuiDropdown]="newQuestionDropdownContent"
                 >
                     <button
                         tuiButton
-                        [iconRight]="newQuestionDropdownIcon"
-                        icon="tuiIconPlus"
+                        [iconEnd]="newQuestionDropdownIcon"
+                        iconStart="@tui.plus"
                         size="s"
                         type="button"
                         appearance="secondary"
                     >
                         Create New Question
                     </button>
-                </tui-hosted-dropdown>
+                </div>
                 <ng-template #newQuestionDropdownIcon>
-                    <tui-svg
+                    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon 
                         [class.new-question-icon_rotated]="openNewQuestionDropdown"
                         class="new-question-icon"
-                        src="tuiIconChevronDown"
-                    ></tui-svg>
+                        icon="@tui.chevron-down"
+                    ></tui-icon>
                 </ng-template>
                 <ng-template #newQuestionDropdownContent>
                     <tui-data-list>

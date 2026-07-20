@@ -1,4 +1,4 @@
-import { TuiStatus } from "@taiga-ui/kit";
+import { TuiStatus } from "@taiga-ui/legacy";
 import {Pipe, PipeTransform} from '@angular/core'
 
 @Pipe({

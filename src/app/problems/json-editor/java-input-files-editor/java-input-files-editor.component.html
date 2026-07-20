@@ -5,12 +5,12 @@
                 <button
                     (click)="removeModel(index)"
                     [tuiHint]="removeTooltip"
-                    icon="tuiIconTrash"
+                    iconStart="@tui.trash"
                     size="m"
                     id="remove-{{index}}"
                     tuiHintDirection="top-left"
                     tuiHintDescribe="remove-{{index}}"
-                    tuiHintAppearance="onDark"
+                    tuiHintAppearance="dark"
                     tuiIconButton
                     type="button"
                 ></button>
@@ -29,13 +29,13 @@
                             <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
                         </div>
                         <div class="tui-form__row flex">
-                            <tui-checkbox-labeled formControlName="compile" class="mr-4">
+                           <label tuiLabel> <input tuiCheckbox type="checkbox" formControlName="compile" class="mr-4">
                                 Should this file be compiled?
-                            </tui-checkbox-labeled>
+                            </label>
                             <tui-error [error]="[] | tuiFieldError | async" formControlName="compile"></tui-error>
-                            <tui-checkbox-labeled formControlName="hidden">
+                           <label tuiLabel> <input tuiCheckbox type="checkbox" formControlName="hidden">
                                 Should this file be hidden?
-                            </tui-checkbox-labeled>
+                            </label>
                             <tui-error [error]="[] | tuiFieldError | async" formControlName="hidden"></tui-error>
                         </div>
                         <div class="tui-form__row">
@@ -68,7 +68,7 @@
 </form>
 <button
     (click)="addNewModel()"
-    icon="tuiIconPlus"
+    iconStart="@tui.plus"
     size="m"
     tuiButton
     type="button"

@@ -1,5 +1,4 @@
-<tui-theme-night *ngIf="headerComponent.isNightMode()"></tui-theme-night>
-<tui-root>
+<tui-root [attr.tuiTheme]="headerComponent.isNightMode() ? 'dark' : null">
     <app-header #headerComponent></app-header>
     <div class="app">
         <main class="app-content">

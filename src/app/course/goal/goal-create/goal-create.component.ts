@@ -3,7 +3,7 @@ import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/f
 import {GoalForm} from "@app/course/_forms/goal.form"
 import {GoalService} from "@app/course/_services/goal.service"
 import {ActivatedRoute, Router} from "@angular/router"
-import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
+import { TuiAlertService } from "@taiga-ui/core"
 import {tuiCreateTimePeriods} from "@taiga-ui/kit"
 import {CategoryService} from "@app/_services/api/category.service"
 import {ActionStatus, ActionType, ActionVerb, Category} from "@app/_models"
@@ -147,7 +147,7 @@ export class GoalCreateComponent implements OnInit {
 
         this.notificationService.open('Goal created successfully!', {
             label: 'Success',
-            status: TuiNotification.Success
+            appearance: 'success'
         }).subscribe()
 
         this.router.navigate(['..'], {relativeTo: this.activatedRoute}).then()

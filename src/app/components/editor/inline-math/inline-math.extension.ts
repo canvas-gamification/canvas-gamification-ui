@@ -1,6 +1,6 @@
-import {mergeAttributes, Node} from '@tiptap/core'
+import {mergeAttributes, Node, NodeViewRenderer} from '@tiptap/core'
 import {Injector} from '@angular/core'
-import {TuiNodeView} from '@tinkoff/tui-editor/extensions/tiptap-node-view'
+import {TuiNodeView} from '@taiga-ui/editor/extensions/tiptap-node-view'
 import {InlineMathComponent} from '@app/components/editor/inline-math/inline-math.component'
 
 export interface InlineMath {
@@ -38,7 +38,7 @@ export const createInlineMathEditorExtension = (injector: Injector): Node => {
         },
 
         addNodeView() {
-            return props => new TuiNodeView(InlineMathComponent, props, {injector})
+            return (props => new TuiNodeView(InlineMathComponent, props, {injector})) as unknown as NodeViewRenderer
         },
     })
 }

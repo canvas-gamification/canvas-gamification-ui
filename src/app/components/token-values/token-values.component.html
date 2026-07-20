@@ -19,16 +19,16 @@
                 [heading]="tokenValue.category_name"
                 tuiTbody
             >
-            <tr *tuiRow="let childTokenValue of tokenValue.children" tuiTr>
+            <tr *ngFor="let childTokenValue of tokenValue.children" tuiTr>
                 <td *tuiCell="'name'" tuiTd>
                     {{ childTokenValue.category_name }}
                 </td>
                 <ng-container *ngFor="let tokenVal of childTokenValue.token_values">
                     <td *tuiCell="tokenVal.difficulty" tuiTd>
-                        <tui-input-count
+                        <tui-input-number decimal="never" [step]="1"
                             [(ngModel)]="tokenVal.value"
                             [ngModelOptions]="{updateOn: 'blur'}"
-                        ></tui-input-count>
+                        ></tui-input-number>
                     </td>
                 </ng-container>
             </tr>

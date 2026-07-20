@@ -37,8 +37,9 @@
                 </a>
             </ng-container>
             <ng-template #notAllowedOpen>
-                <a
-                    [disabled]="true"
+                <!-- TODO: (Taiga UI migration) A link cannot have a "disabled" attribute. If you want a disabled appearance, use the tuiAppearanceState directive. See https://taiga-ui.dev/directives/appearance/API?tuiAppearanceState=disabled -->
+<a
+                    
                     appearance="secondary"
                     aria-label="Complete"
                     href=""

@@ -1,7 +1,7 @@
 <div class="tui-container tui-container_adaptive">
     <a
         [routerLink]="eventId ? ['../..'] : ['..']"
-        icon="tuiIconArrowLeft"
+        iconStart="@tui.arrow-left"
         size="s"
         tuiButton
         appearance="flat"
@@ -73,10 +73,10 @@
                 <tui-error [error]="[] | tuiFieldError | async" formControlName="endTime"></tui-error>
             </div>
         </div>
-        <tui-notification
+        <tui-notification size="m"
             *ngIf="challengeForm.errors?.forbiddenDateRange"
             class="tui-space_top-4"
-            status="error"
+            appearance="error"
         >
             Invalid date range! Please check your start and end times!
         </tui-notification>
@@ -84,7 +84,7 @@
             Add Questions
             <button
                 (click)="addChallengeQuestionSet()"
-                icon="tuiIconPlus"
+                iconStart="@tui.plus"
                 size="s"
                 tuiButton
                 type="button"
@@ -158,7 +158,7 @@
                 <div class="flex h-full items-center">
                     <button
                         (click)="removeChallengeQuestionSet(index)"
-                        icon="tuiIconMinus"
+                        iconStart="@tui.minus"
                         size="s"
                         tuiButton
                         type="button"

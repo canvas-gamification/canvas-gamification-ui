@@ -3,8 +3,8 @@ import {QuestionService} from '@app/problems/_services/question.service'
 import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {McqForm} from "@app/problems/_forms/mcq.form"
 import {Router} from "@angular/router"
-import { TuiDialogContext, TuiDialogService, TuiNotification, TuiAlertService } from "@taiga-ui/core"
-import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
+import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 import {Question} from '@app/_models'
 
 @Component({
@@ -71,7 +71,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
                 .subscribe(() => {
                     this.notificationsService
                         .open('The question has been updated successfully.', {
-                            status: TuiNotification.Success
+                            appearance: 'success'
                         }).subscribe()
                     this.refreshPage()
                 })
@@ -80,7 +80,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
                 .subscribe(() => {
                     this.notificationsService
                         .open('The question has been created successfully.', {
-                            status: TuiNotification.Success
+                            appearance: 'success'
                         }).subscribe()
                     this.refreshPage()
                 })
