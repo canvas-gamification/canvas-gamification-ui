@@ -69,7 +69,7 @@ describe('ProblemSetComponent', () => {
 
     beforeEach(() => {
         notificationService = TestBed.inject(TuiNotificationService)
-        spyOn(notificationService, 'show').and.callFake(() => of())
+        spyOn(notificationService, 'open').and.callFake(() => of())
         fixture = TestBed.createComponent(ProblemSetComponent)
         component = fixture.componentInstance
         spyOn(component.paramChanged, 'next').and.callThrough()

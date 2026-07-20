@@ -18,8 +18,9 @@ describe('ProblemViewComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [TestModule, SidebarModule],
-            declarations: [ProblemViewComponent, TitleCasePipe],
+            declarations: [ProblemViewComponent],
             providers: [
+                TitleCasePipe,
                 {provide: SubmissionService, useClass: SubmissionServiceMock},
                 {provide: UqjService, useClass: UqjServiceMock},
                 {

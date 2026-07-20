@@ -44,7 +44,7 @@ describe('ParsonsCreateEditSnippetComponent', () => {
         spyOn(component['questionService'], 'putParsonsQuestion').and.callFake(() => of(new HttpResponse<Question>()).pipe(delay(1)))
         spyOn(component['router'], 'navigate').and.callThrough()
         spyOn(component, 'refreshPage').and.callThrough()
-        spyOn(component['notificationsService'], 'show').and.callThrough()
+        spyOn(component['notificationsService'], 'open').and.callThrough()
         fixture.detectChanges()
     })
 
@@ -67,7 +67,7 @@ describe('ParsonsCreateEditSnippetComponent', () => {
         const data = component.formGroup.getRawValue()
         expect(component['questionService'].postParsonsQuestion).toHaveBeenCalledWith(data)
         tick(1)
-        expect(component['notificationsService'].show).toHaveBeenCalled()
+        expect(component['notificationsService'].open).toHaveBeenCalled()
         expect(component.refreshPage).toHaveBeenCalled()
     }))
 
@@ -91,7 +91,7 @@ describe('ParsonsCreateEditSnippetComponent', () => {
             const data = component.formGroup.getRawValue()
             expect(component['questionService'].putParsonsQuestion).toHaveBeenCalledWith(data, component.questionDetails.id)
             tick(1)
-            expect(component['notificationsService'].show).toHaveBeenCalled()
+            expect(component['notificationsService'].open).toHaveBeenCalled()
             expect(component.refreshPage).toHaveBeenCalled()
         }))
     })

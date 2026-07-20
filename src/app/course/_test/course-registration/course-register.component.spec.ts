@@ -40,7 +40,7 @@ describe('CourseRegisterComponent', () => {
 
     beforeEach(() => {
         notificationService = TestBed.inject(TuiNotificationService)
-        spyOn(notificationService, 'show').and.callFake(() => {
+        spyOn(notificationService, 'open').and.callFake(() => {
             return of()
         })
         fixture = TestBed.createComponent(CourseRegisterComponent)

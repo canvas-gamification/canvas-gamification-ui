@@ -37,7 +37,7 @@ describe('McqCreateEditSnippetComponent', () => {
         spyOn(component['questionService'], 'putMultipleChoiceQuestion').and.callFake(() => of(new HttpResponse<Question>()).pipe(delay(1)))
         spyOn(component['router'], 'navigate').and.callThrough()
         spyOn(component, 'refreshPage').and.callThrough()
-        spyOn(component['notificationsService'], 'show').and.callThrough()
+        spyOn(component['notificationsService'], 'open').and.callThrough()
         fixture.detectChanges()
     })
 
@@ -60,7 +60,7 @@ describe('McqCreateEditSnippetComponent', () => {
         const submissionData = McqForm.submissionData(component.formGroup)
         expect(component['questionService'].postMultipleChoiceQuestion).toHaveBeenCalledWith(submissionData)
         tick(1)
-        expect(component['notificationsService'].show).toHaveBeenCalled()
+        expect(component['notificationsService'].open).toHaveBeenCalled()
         expect(component.refreshPage).toHaveBeenCalled()
     }))
 
@@ -118,7 +118,7 @@ describe('McqCreateEditSnippetComponent', () => {
             const submissionData = McqForm.submissionData(component.formGroup)
             expect(component['questionService'].putMultipleChoiceQuestion).toHaveBeenCalledWith(submissionData, component.questionDetails.id)
             tick(1)
-            expect(component['notificationsService'].show).toHaveBeenCalled()
+            expect(component['notificationsService'].open).toHaveBeenCalled()
             expect(component.refreshPage).toHaveBeenCalled()
         }))
     })

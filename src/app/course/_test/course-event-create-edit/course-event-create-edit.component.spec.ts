@@ -55,7 +55,7 @@ describe('CourseEventCreateComponent with EventId', () => {
 
     beforeEach(() => {
         notificationService = TestBed.inject(TuiNotificationService)
-        spyOn(notificationService, 'show').and.callFake(() => {
+        spyOn(notificationService, 'open').and.callFake(() => {
             return of()
         })
         fixture = TestBed.createComponent(CourseEventCreateEditComponent)
@@ -122,7 +122,7 @@ describe('CourseEventCreateComponent without EventId', () => {
         router = TestBed.inject(Router)
         spyOn(router, 'navigate').and.returnValue(Promise.resolve(true))
         notificationService = TestBed.inject(TuiNotificationService)
-        spyOn(notificationService, 'show').and.callFake(() => {
+        spyOn(notificationService, 'open').and.callFake(() => {
             return of()
         })
         fixture = TestBed.createComponent(CourseEventCreateEditComponent)

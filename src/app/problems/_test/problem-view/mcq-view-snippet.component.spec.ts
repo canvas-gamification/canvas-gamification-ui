@@ -46,11 +46,11 @@ describe('McqViewSnippetComponent - MCQ', () => {
 
     it('should submit', fakeAsync(() => {
         spyOn(component['submissionService'], 'postQuestionSubmission').and.callFake(() => of(new HttpHeaderResponse()).pipe(delay(1)))
-        spyOn(component['notificationsService'], 'show').and.callFake(() => of())
+        spyOn(component['notificationsService'], 'open').and.callFake(() => of())
         component.onSubmit(component.formData.value)
         expect(component['submissionService'].postQuestionSubmission).toHaveBeenCalled()
         tick(1)
-        expect(component['notificationsService'].show).toHaveBeenCalled()
+        expect(component['notificationsService'].open).toHaveBeenCalled()
     }))
 })
 
@@ -69,10 +69,10 @@ describe('McqViewSnippetComponent - Checkbox', () => {
 
     it('should submit', fakeAsync(() => {
         spyOn(component['submissionService'], 'postQuestionSubmission').and.callFake(() => of(new HttpHeaderResponse()).pipe(delay(1)))
-        spyOn(component['notificationsService'], 'show').and.callFake(() => of())
+        spyOn(component['notificationsService'], 'open').and.callFake(() => of())
         component.onCheckboxSubmit()
         expect(component['submissionService'].postQuestionSubmission).toHaveBeenCalled()
         tick(1)
-        expect(component['notificationsService'].show).toHaveBeenCalled()
+        expect(component['notificationsService'].open).toHaveBeenCalled()
     }))
 })

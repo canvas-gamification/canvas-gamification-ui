@@ -1,5 +1,5 @@
 import {TuiCardLarge} from "@taiga-ui/layout"
-import {TuiMultiSelectModule} from "@taiga-ui/legacy"
+import {TuiInputChip, TuiChevron} from "@taiga-ui/kit"
 import {TuiLabel, TuiNotificationService, TuiError, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
@@ -40,7 +40,8 @@ describe('ConsentFormComponent', () => {
                 TuiError, TuiError,
                 TuiLabel,
                 TuiSelect,
-                TuiMultiSelectModule
+                ...TuiInputChip,
+                TuiChevron
             ],
             providers: [{provide: ConsentService, useClass: ConsentServiceMock}]
         }).compileComponents()
@@ -48,7 +49,7 @@ describe('ConsentFormComponent', () => {
     describe('The user is an admin', () => {
         beforeEach(() => {
             notificationService = TestBed.inject(TuiNotificationService)
-            spyOn(notificationService, 'show').and.callFake(() => {
+            spyOn(notificationService, 'open').and.callFake(() => {
                 return of()
             })
             router = TestBed.inject(Router)

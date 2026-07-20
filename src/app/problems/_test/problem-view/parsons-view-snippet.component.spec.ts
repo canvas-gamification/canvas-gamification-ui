@@ -3,7 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {ParsonsViewSnippetComponent} from '../../problem-view/parsons-view-snippet/parsons-view-snippet.component'
 import {TestModule} from '@test/test.module'
-import {DragulaModule} from "ng2-dragula"
+import {DragDropModule} from "@angular/cdk/drag-drop"
 import {MOCK_UQJ_4} from "@app/problems/_test/mock"
 import {TabListViewSwitcherModule} from "@app/components/tab-list-view-switcher/tab-list-view-switcher.module"
 import {ParsonsLinesComponent} from "@app/problems/problem-view/parsons-lines/parsons-lines.component"
@@ -15,7 +15,7 @@ describe('ParsonsViewSnippetComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [ParsonsViewSnippetComponent, ParsonsLinesComponent],
-            imports: [TestModule, DragulaModule.forRoot(), TabListViewSwitcherModule, TuiTabs],
+            imports: [TestModule, DragDropModule, TabListViewSwitcherModule, TuiTabs],
         }).compileComponents()
     })
 
