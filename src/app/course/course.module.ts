@@ -1,4 +1,4 @@
-import { TuiSidebar } from "@taiga-ui/addon-mobile";
+import { TuiDrawer } from "@taiga-ui/kit";
 import { TuiIslandDirective, TuiTextfieldControllerModule, TuiTextareaModule, TuiInputModule, TuiInputDateModule, TuiInputDateRangeModule, TuiInputNumberModule, TuiInputTimeModule, TuiMultiSelectModule, TuiSelectModule, TuiTagModule } from "@taiga-ui/legacy";
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
@@ -22,7 +22,7 @@ import {CourseEventService} from '@app/course/_services/course-event.service'
 import {TokenUseService} from '@app/course/_services/token-use.service'
 import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component'
 import { TuiPagination, TuiDataListWrapper, TuiAccordion, TuiBreadcrumbs, TuiStepper, TuiFieldErrorPipe, TuiFieldErrorContentPipe, TuiAvatar, TuiSwitch, TuiBlock, TuiCheckbox, TuiTabs, TuiProgress, TuiButtonLoading } from '@taiga-ui/kit'
-import { TuiNotification, TuiCalendar, TuiDataList, TuiError, TuiLoader, TuiScrollbar, TuiScrollable, TuiGroup, TuiLabel, TuiDropdown, TuiIcon, TuiLink, TuiDialog, TuiButton, TuiHint, TuiAutoColorPipe, TuiInitialsPipe } from '@taiga-ui/core'
+import { TuiNotification, TuiCalendar, TuiDataList, TuiError, TuiLoader, TuiScrollbar, TuiScrollable, TuiGroup, TuiLabel, TuiDropdown, TuiIcon, TuiLink, TuiDialog, TuiButton, TuiHint, TuiAutoColorPipe, TuiInitialsPipe, TuiPopup } from '@taiga-ui/core'
 import {
     CourseRegistrationStepperComponent
 } from './course-registration/course-registration-stepper/course-registration-stepper.component'
@@ -168,7 +168,8 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module"
         TuiRingChart,
         TuiScrollbar, TuiScrollable,
         TuiSelectModule,
-        ...TuiSidebar,
+        TuiDrawer,
+        TuiPopup,
         ...TuiStepper,
         TuiIcon,
         ...TuiTable,
