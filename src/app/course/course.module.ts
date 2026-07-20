@@ -15,7 +15,6 @@ import {
 import {LeaderBoardComponent} from '@app/course/leader-board/leader-board.component'
 import {CourseRoutingModule} from '@app/course/course-routing.module'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
-import {HighlightModule} from 'ngx-highlightjs'
 import {CourseService} from '@app/course/_services/course.service'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {TokenUseService} from '@app/course/_services/token-use.service'
@@ -130,7 +129,6 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module"
         CourseRoutingModule,
         EditorModule,
         FormsModule,
-        HighlightModule,
         PipesModule,
         ProblemsModule,
         ReactiveFormsModule,

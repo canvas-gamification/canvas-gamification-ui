@@ -22,7 +22,6 @@ import {
 } from './components/homepage/inactive-courses/inactive-courses.component'
 import {FaqComponent} from './components/faq/faq.component'
 import {CommonModule} from '@angular/common'
-import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs'
 import {NotFoundComponent} from './components/general/not-found/not-found.component'
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component'
 import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
@@ -80,7 +79,6 @@ import {CommunityComponent} from './components/community/community.component'
         FaqAccordionModule,
         FooterModule,
         FormsModule,
-        HighlightModule,
         HttpClientModule,
         PipesModule,
         ProblemsModule,
@@ -115,17 +113,6 @@ import {CommunityComponent} from './components/community/community.component'
     providers: [
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-        {
-            provide: HIGHLIGHT_OPTIONS,
-            useValue: {
-                coreLibraryLoader: () => import('highlight.js/lib/core'),
-                // Optional, only if you want the line numbers
-                lineNumbersLoader: () => import('highlightjs-line-numbers.js'),
-                languages: {
-                    java: () => import('highlight.js/lib/languages/java')
-                }
-            }
-        },
         {
             provide: TUI_VALIDATION_ERRORS,
             useValue: {

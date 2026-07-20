@@ -1,5 +1,4 @@
 import {ProblemCreateEditComponent} from '@app/problems/problem-create-edit/problem-create-edit.component'
-import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs'
 import {
     JavaCreateEditSnippetComponent
 } from '@app/problems/problem-create-edit/java-create-edit-snippet/java-create-edit-snippet.component'
@@ -84,7 +83,6 @@ import {VariationTypesSelectorComponent} from './problem-create-edit/variation-t
         DragulaModule.forRoot(),
         EditorModule,
         FormsModule,
-        HighlightModule,
         PipesModule,
         ProblemsRoutingModule,
         ReactiveFormsModule,
@@ -132,17 +130,8 @@ import {VariationTypesSelectorComponent} from './problem-create-edit/variation-t
         DifficultyService,
         QuestionService,
         SubmissionService,
-        UqjService,
-        {
-            provide: HIGHLIGHT_OPTIONS,
-            useValue: {
-                coreLibraryLoader: () => import('highlight.js/lib/core'),
-                lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
-                languages: {
-                    java: () => import('highlight.js/lib/languages/java')
-                }
-            }
-        }]
+        UqjService
+    ]
 })
 export class ProblemsModule {
 }
