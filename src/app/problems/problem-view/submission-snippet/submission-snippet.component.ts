@@ -25,10 +25,10 @@ import {Observable, Subscriber} from "rxjs"
 export class SubmissionSnippetComponent implements OnChanges, OnInit {
 
     @Input() questionId: number
-    @Output() readonly reloadRequestSubscriberEvent = new EventEmitter<Subscriber<never>>()
+    @Output() readonly reloadRequestSubscriberEvent = new EventEmitter<Subscriber<void>>()
 
-    reloadRequestObservable: Observable<never>
-    reloadRequestSubscriber: Subscriber<never>
+    reloadRequestObservable: Observable<void>
+    reloadRequestSubscriber: Subscriber<void>
 
     previousSubmissions: QuestionSubmission[]
 
@@ -41,7 +41,7 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
     }
 
     ngOnInit(): void {
-        this.reloadRequestObservable = new Observable<never>(
+        this.reloadRequestObservable = new Observable<void>(
             subscriber => this.reloadRequestSubscriber = subscriber
         )
         this.reloadRequestObservable.subscribe(() => this.reloadSubmissions())

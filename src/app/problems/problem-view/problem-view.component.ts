@@ -17,7 +17,7 @@ export class ProblemViewComponent implements OnInit, OnChanges, OnDestroy {
     renderedText: string
     subscriptions: Subscription = new Subscription()
 
-    reloadRequestSubscriber: Subscriber<never>
+    reloadRequestSubscriber: Subscriber<void>
 
 
     constructor(
