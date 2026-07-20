@@ -23,7 +23,8 @@ export class ConceptMapGraph {
 
         this.paper.on('cell:pointerdown', (cellView) => {
             if (cellView.model.attributes.type === 'standard.Ellipse') {
-                onclick(cellView.model.id)
+                // Cell ids are stored as strings (see makeElement); callers expect numeric category pks.
+                onclick(Number(cellView.model.id))
             }
         })
     }
@@ -36,7 +37,9 @@ export class ConceptMapGraph {
         const height = 1.5 * ((label.split('\n').length + 1) * letterSize)
 
         return new joint.shapes.standard.Ellipse({
-            id,
+            // @joint/core 4 + @dagrejs/graphlib: graphlib stringifies node ids, and Graph#getCell
+            // lookups are type-sensitive, so numeric ids break DirectedGraph.layout. Use string ids.
+            id: String(id),
             size: {width, height},
             fill: 'var(--tui-background-neutral-1)',
             attrs: {
@@ -62,10 +65,10 @@ export class ConceptMapGraph {
     makeLink(parentElementLabel: number, childElementLabel: number): joint.shapes.standard.Link {
         return new joint.shapes.standard.Link({
             source: {
-                id: parentElementLabel,
+                id: String(parentElementLabel),
             },
             target: {
-                id: childElementLabel,
+                id: String(childElementLabel),
             },
             router: {
                 name: 'manhattan',

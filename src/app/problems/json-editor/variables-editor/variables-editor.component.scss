@@ -39,15 +39,6 @@
     }
 }
 
-.new-item-icon {
-    @include transition(transform);
-    transition-duration: 300ms;
-
-    &_rotated {
-        transform: rotate(180deg);
-    }
-}
-
 .values-control {
     display: flex;
     align-items: center;

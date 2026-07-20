@@ -6,15 +6,6 @@
     align-items: center;
 }
 
-.new-question-icon {
-    @include transition(transform);
-    transition-duration: 300ms;
-
-    &_rotated {
-        transform: rotate(180deg);
-    }
-}
-
 .questions-table {
     width: 100%;
 

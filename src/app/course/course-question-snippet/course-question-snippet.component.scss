@@ -13,15 +13,6 @@
     background-color: var(--tui-background-base-alt);
 }
 
-.new-question-icon {
-    @include transition(transform);
-    transition-duration: 300ms;
-
-    &_rotated {
-        transform: rotate(180deg);
-    }
-}
-
 .color-link {
     color: var(--tui-chart-categorical-02);
 }

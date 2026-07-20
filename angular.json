@@ -128,7 +128,8 @@
                         ],
                         "styles": [
                             "src/tailwind.css",
-                            "src/scss/styles.scss"
+                            "src/scss/styles.scss",
+                            "node_modules/katex/dist/katex.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [

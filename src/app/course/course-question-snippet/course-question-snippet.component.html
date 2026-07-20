@@ -53,7 +53,7 @@
               >
               <button
                 tuiButton
-                [iconEnd]="newQuestionDropdownIcon"
+                [tuiChevron]="openNewQuestionDropdown"
                 iconStart="@tui.plus"
                 size="s"
                 type="button"
@@ -62,14 +62,6 @@
                 Create New Question
               </button>
             </div>
-            <ng-template #newQuestionDropdownIcon>
-              <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-              <tui-icon
-                [class.new-question-icon_rotated]="openNewQuestionDropdown"
-                class="new-question-icon"
-                icon="@tui.chevron-down"
-              ></tui-icon>
-            </ng-template>
             <ng-template #newQuestionDropdownContent>
               <tui-data-list>
                 <a

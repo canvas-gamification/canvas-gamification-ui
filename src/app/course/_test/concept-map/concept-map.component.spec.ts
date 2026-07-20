@@ -94,6 +94,9 @@ describe('ConceptMapComponent without spy', () => {
     it('should show sub categories title when within a parent category of the concept map', () => {
         component.parentNode = 1
         component.renderGraph()
+        // Angular 22 defaults to OnPush-like semantics for non-dirty views; mutating a plain field
+        // from the spec does not mark the view dirty, so request a refresh explicitly.
+        fixture.componentRef.changeDetectorRef.markForCheck()
         fixture.detectChanges()
         const title =
             fixture.debugElement.query(By.css('.tui-text_h6')).nativeElement

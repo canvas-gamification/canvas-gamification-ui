@@ -8,7 +8,7 @@
                     [tuiDropdown]="exportDropdownContent"
                 >
                     <button
-                        [iconEnd]="exportDropdownIcon"
+                        [tuiChevron]="openExport"
                         size="m"
                         tuiButton
                         type="button"
@@ -16,14 +16,6 @@
                         Export Usage Data
                     </button>
                 </div>
-                <ng-template #exportDropdownIcon>
-                    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-<tui-icon 
-                        [class.export-icon_rotated]="openExport"
-                        class="export-icon"
-                        icon="@tui.chevron-down"
-                    ></tui-icon>
-                </ng-template>
                 <ng-template #exportDropdownContent>
                     <tui-data-list>
                         <a [routerLink]="['export', 'page-view']" tuiOption>

@@ -121,14 +121,9 @@
               </div>
             </div>
             <div class="tui-col_4">
-              <!-- TODO: (Taiga UI migration) tui-textarea migration (see https://taiga-ui.dev/components/textarea):
-              - [expandable] was removed. New component always auto-resizes between [min] (default: 1) and [max] (default: 3) rows.
-              - Unrecognized attribute "[ngModelOptions]="{standalone: true}"" was placed on <tui-textfield>. Move it to <textarea tuiTextarea> if it targets the native element.
-              - Unrecognized attribute "class="content__island-json"" was placed on <tui-textfield>. Move it to <textarea tuiTextarea> if it targets the native element.
-              -->
-              <tui-textfield [ngModelOptions]="{standalone: true}" class="content__island-json">
+              <tui-textfield class="content__island-json">
                 <label tuiLabel>JSON</label>
-                <textarea tuiTextarea (ngModelChange)="setFormFromString(form, $event)" [ngModel]="getFormString(form)"></textarea>
+                <textarea tuiTextarea (ngModelChange)="setFormFromString(form, $event)" [ngModel]="getFormString(form)" [ngModelOptions]="{standalone: true}"></textarea>
               </tui-textfield>
             </div>
           </div>

@@ -1,6 +1,7 @@
 @import 'mixins';
 @import 'tui';
-@import 'katex/dist/katex.min.css';
+// KaTeX styles are included via angular.json "styles" (node_modules/katex/dist/katex.css);
+// importing katex css here breaks the karma webpack build (resolve-url-loader rewrites font urls).
 
 body {
     background: var(--tui-background-base);

@@ -21,13 +21,9 @@
         class="katex-tool"
     >
         <div class="katex-tool_input">
-            <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
-     - "(ngModelChange)" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
-     - "[ngModelOptions]" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
--->
-            <tui-textfield (ngModelChange)="equation = $event; displayKatex()" [ngModelOptions]="{standalone: true}" class="katex-tool_input-text">
+            <tui-textfield class="katex-tool_input-text">
             <label tuiLabel>Type an equation</label>
-            <input tuiInput [ngModel]="equation"/>
+            <input tuiInput (ngModelChange)="equation = $event; displayKatex()" [ngModel]="equation" [ngModelOptions]="{standalone: true}"/>
             </tui-textfield>
             <button
                 appearance="icon"
