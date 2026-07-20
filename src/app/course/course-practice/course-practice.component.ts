@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Course, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {CourseService} from "@app/course/_services/course.service"
@@ -9,6 +9,7 @@ import {ConceptViewService} from "@app/_services/concept-view.service"
     selector: 'app-course-practice',
     templateUrl: './course-practice.component.html',
     styleUrls: ['./course-practice.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CoursePracticeComponent implements OnInit {

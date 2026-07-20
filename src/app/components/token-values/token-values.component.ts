@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {TokenValuesService} from '@app/_services/api/token-values.service'
 import {CategoryService} from '@app/_services/api/category.service'
 import {NestedTokenValue} from '@app/_models'
@@ -10,6 +10,7 @@ import { TuiAlertService } from "@taiga-ui/core"
     selector: 'app-token-values',
     templateUrl: './token-values.component.html',
     styleUrls: ['./token-values.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TokenValuesComponent implements OnInit {

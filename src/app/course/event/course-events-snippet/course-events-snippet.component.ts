@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core'
+import {Component, Inject, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core'
 import {Course, CourseEvent, EventType, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {CourseEventService} from '@app/course/_services/course-event.service'
@@ -17,6 +17,7 @@ enum EventFilterOptions {
     selector: 'app-course-events-snippet',
     templateUrl: './course-events-snippet.component.html',
     styleUrls: ['./course-events-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CourseEventsSnippetComponent implements OnInit {

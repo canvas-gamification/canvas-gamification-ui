@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {CategoryService} from '@app/_services/api/category.service'
 import {Category} from '@app/_models'
 
@@ -6,6 +6,7 @@ import {Category} from '@app/_models'
     selector: 'app-topics',
     templateUrl: './topics.component.html',
     styleUrls: ['./topics.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TopicsComponent implements OnInit {

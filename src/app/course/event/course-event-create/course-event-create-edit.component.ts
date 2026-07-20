@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {Category, EventLimit, EventType} from '@app/_models'
 import {CourseEventService} from '@app/course/_services/course-event.service'
@@ -14,6 +14,7 @@ import {CategoryService} from "@app/_services/api/category.service"
     selector: 'app-course-event-create',
     templateUrl: './course-event-create-edit.component.html',
     styleUrls: ['./course-event-create-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CourseEventCreateEditComponent implements OnInit {

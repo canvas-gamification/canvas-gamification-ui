@@ -15,7 +15,7 @@
       </p>
       <p class="tui-island__paragraph">
         Time Submitted:
-        {{ (submission?.submission_time | date: 'medium') || 'No Time'}}
+        {{ ($safeNavigationMigration(submission?.submission_time) | date: 'medium') || 'No Time'}}
       </p>
       @if (submission?.get_passed_test_results?.length) {
         <h3 class="tui-text_bold tui-text_body-l-2">What went well:</h3>
@@ -67,7 +67,7 @@
       <h3 class="tui-island__category tui-text_body-xs">Your Code</h3>
       <div class="tui-island__paragraph">
         <app-code-editor
-          [codeTemplate]="submission?.answer"
+          [codeTemplate]="$safeNavigationMigration(submission?.answer)"
           [readOnly]="true"
           >
         </app-code-editor>
@@ -90,7 +90,7 @@
       <p class="tui-island__paragraph">The following error occurred: </p>
       <div class="tui-island__paragraph">
         <app-code-editor
-          [codeTemplate]="submission?.get_decoded_stderr"
+          [codeTemplate]="$safeNavigationMigration(submission?.get_decoded_stderr)"
           [readOnly]="true"
           >
         </app-code-editor>

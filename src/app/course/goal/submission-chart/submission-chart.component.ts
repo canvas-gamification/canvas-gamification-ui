@@ -1,10 +1,11 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core'
 import {GoalItemSubmissionStats} from "@app/_models/goal/goal"
 
 @Component({
     selector: 'app-submission-chart',
     templateUrl: './submission-chart.component.html',
     styleUrls: ['./submission-chart.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SubmissionChartComponent {

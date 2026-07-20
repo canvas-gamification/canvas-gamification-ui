@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core'
+import {Component, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {UqjService} from '@app/problems/_services/uqj.service'
 import {
@@ -23,6 +23,7 @@ import {ParentNodeService} from "@app/_services/parent-node-service"
     selector: 'app-practice-problem',
     templateUrl: './practice-problem.component.html',
     styleUrls: ['./practice-problem.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PracticeProblemComponent implements OnInit, OnDestroy {

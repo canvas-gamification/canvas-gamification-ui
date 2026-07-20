@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser'
 import {User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
@@ -7,6 +7,7 @@ import {AuthenticationService} from '@app/_services/api/authentication'
     selector: 'app-community',
     templateUrl: './community.component.html',
     styleUrls: ['./community.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CommunityComponent implements OnInit {

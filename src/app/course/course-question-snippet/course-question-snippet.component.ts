@@ -1,5 +1,5 @@
 import { TuiStatus } from "@taiga-ui/legacy";
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Course, CourseEvent, UQJ, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {ActivatedRoute, Router} from '@angular/router'
@@ -19,6 +19,7 @@ import {ConceptViewService} from "@app/_services/concept-view.service"
     selector: 'app-course-question-snippet',
     templateUrl: './course-question-snippet.component.html',
     styleUrls: ['./course-question-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CourseQuestionSnippetComponent implements OnInit {

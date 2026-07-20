@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core'
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild, ChangeDetectionStrategy} from '@angular/core'
 import {basicSetup, EditorState} from '@codemirror/basic-setup'
 import {java} from '@codemirror/lang-java'
 import {EditorView, keymap, ViewUpdate} from '@codemirror/view'
@@ -10,6 +10,7 @@ import {indentUnit} from "@codemirror/language"
     selector: 'app-code-editor',
     templateUrl: './code-editor.component.html',
     styleUrls: ['./code-editor.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CodeEditorComponent implements AfterViewInit {

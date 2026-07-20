@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core'
+import {Component, EventEmitter, Inject, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEvent, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
@@ -10,6 +10,7 @@ import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
     selector: 'app-event-row',
     templateUrl: './event-row.component.html',
     styleUrls: ['./event-row.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EventRowComponent implements OnInit {

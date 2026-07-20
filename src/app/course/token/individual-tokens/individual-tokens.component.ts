@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component, ChangeDetectionStrategy} from '@angular/core'
 import {GradeBook} from "@app/_models/grade_book"
 import {Course, CourseEvent} from "@app/_models"
 import {ActivatedRoute} from "@angular/router"
@@ -8,6 +8,7 @@ import {CourseService} from "@app/course/_services/course.service"
     selector: 'app-individual-tokens',
     templateUrl: './individual-tokens.component.html',
     styleUrls: ['./individual-tokens.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class IndividualTokensComponent {

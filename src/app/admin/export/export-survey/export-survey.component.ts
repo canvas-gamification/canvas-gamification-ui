@@ -1,9 +1,10 @@
-import {Component} from '@angular/core'
+import {Component, ChangeDetectionStrategy} from '@angular/core'
 
 @Component({
     selector: 'app-export-survey',
     templateUrl: './export-survey.component.html',
     styleUrls: ['./export-survey.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ExportSurveyComponent  {

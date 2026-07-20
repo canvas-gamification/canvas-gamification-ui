@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core'
+import {ChangeDetectorRef, Component, Inject, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {UntypedFormGroup} from '@angular/forms'
 import {CourseService} from '@app/course/_services/course.service'
@@ -11,6 +11,7 @@ import {CourseRegistrationMode} from "@app/_models"
     selector: 'app-register',
     templateUrl: './course-register.component.html',
     styleUrls: ['./course-register.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CourseRegisterComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
+import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {Category, FilterParameters, Question} from '@app/_models'
 import {QuestionService} from '@app/problems/_services/question.service'
@@ -26,6 +26,7 @@ export type SortingKey =
     selector: 'app-problem-set',
     templateUrl: './problem-set.component.html',
     styleUrls: ['./problem-set.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ProblemSetComponent implements OnInit, AfterContentChecked {

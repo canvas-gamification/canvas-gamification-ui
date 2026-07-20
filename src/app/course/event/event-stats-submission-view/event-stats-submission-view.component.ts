@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ApiService} from "@app/_services/api.service"
 import {UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 import {EventStatsSubmissionDetail} from "@app/_models/event/event_stats_submission_detail"
@@ -7,6 +7,7 @@ import {EventStatsSubmissionDetail} from "@app/_models/event/event_stats_submiss
     selector: 'app-event-stats-submission-view',
     templateUrl: './event-stats-submission-view.component.html',
     styleUrls: ['./event-stats-submission-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EventStatsSubmissionViewComponent implements OnInit {

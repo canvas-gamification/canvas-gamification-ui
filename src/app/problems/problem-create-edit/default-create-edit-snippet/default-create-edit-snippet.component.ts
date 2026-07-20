@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormGroup} from "@angular/forms"
 import {Category, Course, CourseEvent} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
@@ -11,6 +11,7 @@ import {Difficulty} from "@app/_models/difficulty"
     selector: 'app-default-create-edit-snippet',
     templateUrl: './default-create-edit-snippet.component.html',
     styleUrls: ['./default-create-edit-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DefaultCreateEditSnippetComponent implements OnInit {

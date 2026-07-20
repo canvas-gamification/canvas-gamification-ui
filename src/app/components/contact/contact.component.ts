@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {ContactService} from '@app/_services/api/contact.service'
 import {environment} from '@environments/environment'
@@ -8,6 +8,7 @@ import { TuiAlertService } from "@taiga-ui/core"
     selector: 'app-contact',
     templateUrl: './contact.component.html',
     styleUrls: ['./contact.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ContactComponent implements OnInit {

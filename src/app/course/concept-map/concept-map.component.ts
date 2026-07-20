@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ConceptMapGraph} from './concept-map-graph'
 import {ActionStatus, ActionType, ActionVerb, Category, Course} from '@app/_models'
 import {CategoryService} from '@app/_services/api/category.service'
@@ -10,6 +10,7 @@ import {ParentNodeService} from "@app/_services/parent-node-service"
     selector: 'app-concept-map',
     templateUrl: './concept-map.component.html',
     styleUrls: ['./concept-map.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ConceptMapComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core'
+import {Component, EventEmitter, Inject, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormGroup} from "@angular/forms"
 import {ReportQuestionService} from "@app/problems/_services/report-question.service"
 import {ReportQuestionForm} from "@app/problems/_forms/problem-report.form"
@@ -8,6 +8,7 @@ import { TuiAlertService } from "@taiga-ui/core"
     selector: 'app-problem-report-modal',
     templateUrl: './problem-report-modal.component.html',
     styleUrls: ['./problem-report-modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ProblemReportModalComponent implements OnInit {

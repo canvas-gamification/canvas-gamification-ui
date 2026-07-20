@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core'
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ChangeDetectionStrategy} from '@angular/core'
 import {ParsonsFile} from '@app/_models'
 import {DragulaService} from 'ng2-dragula'
 import {Subscription} from 'rxjs'
@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs'
     selector: 'app-parsons-lines',
     templateUrl: './parsons-lines.component.html',
     styleUrls: ['./parsons-lines.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ParsonsLinesComponent implements OnInit, OnDestroy {

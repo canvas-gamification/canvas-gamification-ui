@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Course, STATUS} from '@app/_models'
 import {CourseService} from '@app/course/_services/course.service'
 
@@ -6,6 +6,7 @@ import {CourseService} from '@app/course/_services/course.service'
     selector: 'app-inactive-courses',
     templateUrl: './inactive-courses.component.html',
     styleUrls: ['./inactive-courses.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class InactiveCoursesComponent implements OnInit {

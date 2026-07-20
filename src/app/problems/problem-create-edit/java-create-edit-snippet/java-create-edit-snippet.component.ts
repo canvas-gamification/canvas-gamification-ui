@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core'
+import {Component, Inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {JavaForm} from "@app/problems/_forms/java.form"
@@ -10,6 +10,7 @@ import {Question} from "@app/_models"
     selector: 'app-java-create-snippet',
     templateUrl: './java-create-edit-snippet.component.html',
     styleUrls: ['./java-create-edit-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class JavaCreateEditSnippetComponent implements OnInit {

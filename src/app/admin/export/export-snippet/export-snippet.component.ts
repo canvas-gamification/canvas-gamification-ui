@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ApiService} from "@app/_services/api.service"
 import {ActionType, ActionVerb} from "@app/_models"
 
@@ -6,6 +6,7 @@ import {ActionType, ActionVerb} from "@app/_models"
     selector: 'app-export-snippet',
     templateUrl: './export-snippet.component.html',
     styleUrls: ['./export-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ExportSnippetComponent implements OnInit {

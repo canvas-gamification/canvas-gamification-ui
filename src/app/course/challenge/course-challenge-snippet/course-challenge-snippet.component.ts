@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Course, CourseEvent, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {CourseService} from "@app/course/_services/course.service"
@@ -9,6 +9,7 @@ import {ActivatedRoute} from "@angular/router"
     selector: 'app-course-challenge-snippet',
     templateUrl: './course-challenge-snippet.component.html',
     styleUrls: ['./course-challenge-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CourseChallengeSnippetComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {FAQ} from "@app/_models/faq"
 import {FaqService} from "@app/_services/api/faq.service"
 
@@ -6,6 +6,7 @@ import {FaqService} from "@app/_services/api/faq.service"
     selector: 'app-faq-accordion',
     templateUrl: './faq-accordion.component.html',
     styleUrls: ['./faq-accordion.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FaqAccordionComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Course, STATUS, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {Router} from "@angular/router"
@@ -8,6 +8,7 @@ import {Router} from "@angular/router"
     selector: 'app-course-island',
     templateUrl: './course-island.component.html',
     styleUrls: ['./course-island.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CourseIslandComponent implements OnInit {

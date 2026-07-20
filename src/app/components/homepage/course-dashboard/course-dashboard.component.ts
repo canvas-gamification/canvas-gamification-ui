@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {CourseService} from '@app/course/_services/course.service'
 import {Course, STATUS} from '@app/_models'
 
@@ -6,6 +6,7 @@ import {Course, STATUS} from '@app/_models'
     selector: 'app-course-dashboard',
     templateUrl: './course-dashboard.component.html',
     styleUrls: ['./course-dashboard.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CourseDashboardComponent implements OnInit {

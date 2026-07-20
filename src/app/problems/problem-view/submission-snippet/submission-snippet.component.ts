@@ -1,12 +1,13 @@
 import {
-    Component,
-    EventEmitter,
-    Inject,
-    Injector,
-    Input,
-    OnChanges,
-    OnInit,
-    Output
+  Component,
+  EventEmitter,
+  Inject,
+  Injector,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ChangeDetectionStrategy
 } from '@angular/core'
 import {QuestionSubmission} from '@app/_models/question_submission'
 import {DomSanitizer} from "@angular/platform-browser"
@@ -21,6 +22,7 @@ import {Observable, Subscriber} from "rxjs"
     selector: 'app-submission-snippet',
     templateUrl: './submission-snippet.component.html',
     styleUrls: ['./submission-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SubmissionSnippetComponent implements OnChanges, OnInit {

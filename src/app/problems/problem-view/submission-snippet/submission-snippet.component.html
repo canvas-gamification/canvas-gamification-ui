@@ -76,7 +76,7 @@
                 / {{submission.token_value.toFixed(2) }}</p>
                 <p class="tui-island__paragraph">
                   Time Submitted:
-                  {{ (submission?.submission_time | date: 'medium') || 'No Time'}}
+                  {{ ($safeNavigationMigration(submission?.submission_time) | date: 'medium') || 'No Time'}}
                 </p>
                 <p class="tui-island__paragraph">Answer:</p>
                 @for (safeAnswer of submission.safeAnswer; track safeAnswer) {

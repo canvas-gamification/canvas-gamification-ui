@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 import {AgreeQuestion, SelectQuestion} from "@app/accounts/survey/types"
 import {
@@ -16,6 +16,7 @@ import {Router} from "@angular/router"
     selector: 'app-final-survey',
     templateUrl: './final-survey.component.html',
     styleUrls: ['./final-survey.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FinalSurveyComponent implements OnInit {

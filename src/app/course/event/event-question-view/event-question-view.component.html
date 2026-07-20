@@ -8,7 +8,7 @@
     <div class="flex flex-col gap-6 overflow-hidden">
       @if (event?.type==='ASSIGNMENT' || 'EXAM') {
         <a
-          [routerLink]="['/course', event?.course, 'assignments-exams', eventId]"
+          [routerLink]="['/course', $safeNavigationMigration(event?.course), 'assignments-exams', eventId]"
           class="mt-6 w-full"
           [class.tui-skeleton]="!event"
           iconStart="@tui.arrow-left"
@@ -21,7 +21,7 @@
       }
       @if (event?.type==='CHALLENGE') {
         <a
-          [routerLink]="['/course', event?.course, 'challenge', eventId]"
+          [routerLink]="['/course', $safeNavigationMigration(event?.course), 'challenge', eventId]"
           class="mt-6 w-full"
           [class.tui-skeleton]="!event"
           iconStart="@tui.arrow-left"
@@ -88,11 +88,11 @@
     </div>
   </app-sidebar>
   <div class="flex-grow">
-    <app-problem-view [questionId]="currentUJQ?.question.id"></app-problem-view>
+    <app-problem-view [questionId]="$safeNavigationMigration(currentUJQ?.question.id)"></app-problem-view>
   </div>
 </div>
 <app-problem-report-modal
   [(open)]="reportQuestionModal"
-  [questionId]="currentUJQ?.question.id"
+  [questionId]="$safeNavigationMigration(currentUJQ?.question.id)"
   >
 </app-problem-report-modal>

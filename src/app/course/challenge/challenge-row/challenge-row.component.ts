@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core'
+import {Component, EventEmitter, Inject, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEvent, User} from "@app/_models"
 import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
@@ -13,6 +13,7 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
     selector: 'app-challenge-row',
     templateUrl: './challenge-row.component.html',
     styleUrls: ['./challenge-row.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ChallengeRowComponent implements OnInit {

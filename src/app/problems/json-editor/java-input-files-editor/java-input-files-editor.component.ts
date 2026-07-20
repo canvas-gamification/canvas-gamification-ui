@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms'
 import {JavaInputFilesForm} from "@app/problems/_forms/json-editor/java-input-files.form"
 import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor/abstract-editor.component"
@@ -19,6 +19,7 @@ import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor
             useExisting: JavaInputFilesEditorComponent
         },
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class JavaInputFilesEditorComponent extends AbstractEditorComponent {

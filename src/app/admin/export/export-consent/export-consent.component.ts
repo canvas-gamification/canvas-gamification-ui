@@ -1,9 +1,10 @@
-import {Component} from '@angular/core'
+import {Component, ChangeDetectionStrategy} from '@angular/core'
 
 @Component({
     selector: 'app-export-consent',
     templateUrl: './export-consent.component.html',
     styleUrls: ['./export-consent.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ExportConsentComponent {

@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {ConsentService} from '@app/accounts/_services/consent.service'
 import {ActivatedRoute, Router} from '@angular/router'
@@ -12,6 +12,7 @@ import { TuiAlertService } from "@taiga-ui/core"
     selector: 'app-consent-form',
     templateUrl: './consent-form.component.html',
     styleUrls: ['./consent-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ConsentFormComponent implements OnInit {

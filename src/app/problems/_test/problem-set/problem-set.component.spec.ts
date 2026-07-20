@@ -15,13 +15,14 @@ import { TuiAlertService, TuiDataList, TuiLoader, TuiDropdown, TuiHint } from "@
 import {of} from "rxjs"
 import { TuiTablePagination, TuiTable } from "@taiga-ui/addon-table"
 import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
-import {Component, ViewChild} from "@angular/core"
+import {Component, ViewChild, ChangeDetectionStrategy} from "@angular/core"
 import {MOCK_CATEGORY, MOCK_CATEGORY_2} from "@app/problems/_test/mock"
 
 @Component({
     selector: 'test-app-problem-set-dialog',
     template: `
         <ng-template let-observer #testDialog></ng-template>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 class TestProblemSetDialogComponent {

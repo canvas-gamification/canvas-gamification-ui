@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEvent, UQJ} from "@app/_models"
 import {UqjService} from "@app/problems/_services/uqj.service"
 import {ActivatedRoute} from "@angular/router"
@@ -9,6 +9,7 @@ import {orderUQJs} from "@app/course/_utils/orderUQJs"
     selector: 'app-event-question-view',
     templateUrl: './event-question-view.component.html',
     styleUrls: ['./event-question-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EventQuestionViewComponent implements OnInit {

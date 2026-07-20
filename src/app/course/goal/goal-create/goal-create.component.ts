@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core'
+import {Component, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 import {GoalForm} from "@app/course/_forms/goal.form"
 import {GoalService} from "@app/course/_services/goal.service"
@@ -20,6 +20,7 @@ import {UserActionsService} from "@app/_services/api/user-actions.service"
     selector: 'app-goal-create',
     templateUrl: './goal-create.component.html',
     styleUrls: ['./goal-create.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class GoalCreateComponent implements OnInit {

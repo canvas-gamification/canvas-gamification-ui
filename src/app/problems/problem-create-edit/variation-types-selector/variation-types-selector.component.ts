@@ -1,10 +1,11 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormControl} from "@angular/forms"
 
 @Component({
     selector: 'app-variation-types-selector',
     templateUrl: './variation-types-selector.component.html',
     styleUrls: ['./variation-types-selector.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class VariationTypesSelectorComponent {

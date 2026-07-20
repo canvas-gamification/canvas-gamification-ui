@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms'
 import {ParsonsInputFilesForm} from "@app/problems/_forms/json-editor/parsons-input-files.form"
 import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor/abstract-editor.component"
@@ -19,6 +19,7 @@ import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor
             useExisting: ParsonsInputFilesEditorComponent
         },
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ParsonsInputFilesEditorComponent extends AbstractEditorComponent {

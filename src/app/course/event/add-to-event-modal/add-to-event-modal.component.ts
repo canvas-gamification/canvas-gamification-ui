@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core'
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEvent} from "@app/_models"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import { TuiAlertService } from "@taiga-ui/core"
@@ -7,6 +7,7 @@ import { TuiAlertService } from "@taiga-ui/core"
     selector: 'app-add-to-event-modal',
     templateUrl: './add-to-event-modal.component.html',
     styleUrls: ['./add-to-event-modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AddToEventModalComponent {

@@ -42,8 +42,8 @@
   <div class="flex-grow tui-container tui-container_fullwidth">
     <app-leader-board
       [course]="course"
-      [eventId]="selectedOption?.eventId"
-      [leaderBoardName]="selectedOption?.name"
+      [eventId]="$safeNavigationMigration(selectedOption?.eventId)"
+      [leaderBoardName]="$safeNavigationMigration(selectedOption?.name)"
     ></app-leader-board>
   </div>
 

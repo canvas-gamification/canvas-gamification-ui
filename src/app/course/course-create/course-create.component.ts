@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormGroup} from "@angular/forms"
 import {CourseForm} from "@app/course/_forms/course.form"
 import {CourseService} from '../_services/course.service'
@@ -18,6 +18,7 @@ import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit"
             },
         },
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CourseCreateComponent implements OnInit {

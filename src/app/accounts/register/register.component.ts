@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormGroup} from '@angular/forms'
 import {environment} from '@environments/environment'
 import {RegisterService} from '@app/accounts/_services/register.service'
@@ -10,6 +10,7 @@ import { TuiAlertService } from '@taiga-ui/core'
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class RegisterComponent implements OnInit {

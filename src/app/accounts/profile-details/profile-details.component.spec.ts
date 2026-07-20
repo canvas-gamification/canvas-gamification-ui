@@ -5,12 +5,13 @@ import {TestModule} from '@test/test.module'
 import {of} from "rxjs"
 import {MOCK_ADMIN, MOCK_ADMIN_CONSENT, MOCK_CONSENT_DECLINE} from "@app/accounts/_test/mock"
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form"
-import {Component, ViewChild} from "@angular/core"
+import {Component, ViewChild, ChangeDetectionStrategy} from "@angular/core"
 
 @Component({
     selector: 'test-app-withdraw-consent-dialog',
     template: `
         <ng-template let-observer #testDialog></ng-template>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 class TestWithdrawConsentDialogComponent {

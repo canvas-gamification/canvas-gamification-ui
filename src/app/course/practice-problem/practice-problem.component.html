@@ -58,7 +58,7 @@
           <a
             [class.tui-skeleton]="!category"
             [class.tui-skeleton_text]="!category"
-            [routerLink]="['../', parentCategory?.pk]"
+            [routerLink]="['../', $safeNavigationMigration(parentCategory?.pk)]"
             [queryParams]="{difficulty}"
             class="tui-space_vertical-0"
             tuiLink
@@ -248,7 +248,7 @@
 <app-add-to-event-modal
   [(open)]="addQuestionModal"
   [questionId]="currentQuestionId"
-  [openEvents]="course?.events"
-  [closedEvents]="course?.events"
+  [openEvents]="$safeNavigationMigration(course?.events)"
+  [closedEvents]="$safeNavigationMigration(course?.events)"
   >
 </app-add-to-event-modal>

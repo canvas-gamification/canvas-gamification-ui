@@ -1,6 +1,6 @@
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { TUI_EDITOR_DEFAULT_EXTENSIONS } from "@taiga-ui/editor";
-import {Component, Injector, Input, OnDestroy} from '@angular/core'
+import {Component, Injector, Input, OnDestroy, ChangeDetectionStrategy} from '@angular/core'
 import {TUI_EDITOR_EXTENSIONS} from '@taiga-ui/editor'
 import {
     ControlValueAccessor,
@@ -38,6 +38,7 @@ import {createInlineMathEditorExtension} from '@app/components/editor/inline-mat
             useExisting: EditorComponent
         }
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EditorComponent implements ControlValueAccessor, Validator, OnDestroy {

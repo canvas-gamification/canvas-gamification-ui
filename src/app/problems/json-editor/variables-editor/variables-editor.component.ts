@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core'
+import {Component, OnDestroy, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormArray, UntypedFormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from "@angular/forms"
 import {VariablesForm} from "@app/problems/_forms/json-editor/variables.form"
 import {VariableEditorTypes} from "@app/_models/json_editor"
@@ -21,6 +21,7 @@ import {DragulaService} from 'ng2-dragula'
             useExisting: VariablesEditorComponent
         },
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class VariablesEditorComponent extends AbstractEditorComponent implements OnDestroy {

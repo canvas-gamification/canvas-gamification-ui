@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {Question} from "@app/_models"
 import {QuestionService} from "@app/problems/_services/question.service"
@@ -7,6 +7,7 @@ import {QuestionService} from "@app/problems/_services/question.service"
     selector: 'app-problem-create',
     templateUrl: './problem-create-edit.component.html',
     styleUrls: ['./problem-create-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ProblemCreateEditComponent implements OnInit {

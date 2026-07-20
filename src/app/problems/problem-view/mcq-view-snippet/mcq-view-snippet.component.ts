@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core'
+import {Component, EventEmitter, Inject, Input, OnChanges, Output, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {UQJ} from '@app/_models'
 import {SubmissionService} from '@app/problems/_services/submission.service'
@@ -9,6 +9,7 @@ import { TuiAlertService } from '@taiga-ui/core'
     selector: 'app-mcq-view-snippet',
     templateUrl: './mcq-view-snippet.component.html',
     styleUrls: ['./mcq-view-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class McqViewSnippetComponent implements OnChanges {

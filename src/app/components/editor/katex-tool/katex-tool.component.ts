@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, ViewChild} from '@angular/core'
+import {Component, ElementRef, Inject, ViewChild, ChangeDetectionStrategy} from '@angular/core'
 import {TuiTiptapEditorService} from '@taiga-ui/editor'
 import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe'
 
@@ -7,6 +7,7 @@ import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe'
     templateUrl: './katex-tool.component.html',
     styleUrls: ['./katex-tool.component.scss'],
     providers: [GetKatexStringPipe],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class KatexToolComponent {

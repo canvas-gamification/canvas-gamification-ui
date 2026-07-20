@@ -1,4 +1,4 @@
-﻿import {Component, OnInit} from '@angular/core'
+﻿import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {first} from 'rxjs/operators'
@@ -10,6 +10,7 @@ import {LoginForm} from "@app/accounts/_forms/login.form"
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class LoginComponent implements OnInit {

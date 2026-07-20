@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Category, Course, STATUS, User} from '@app/_models'
 import {CourseService} from '@app/course/_services/course.service'
 import {AuthenticationService} from '@app/_services/api/authentication'
@@ -12,6 +12,7 @@ import {Difficulty} from "@app/_models/difficulty"
     selector: 'app-my-stats',
     templateUrl: './my-stats.component.html',
     styleUrls: ['./my-stats.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MyStatsComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core'
+import {Component, Inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {McqForm} from "@app/problems/_forms/mcq.form"
@@ -11,6 +11,7 @@ import {Question} from '@app/_models'
     selector: 'app-mcq-create-snippet',
     templateUrl: './mcq-create-edit-snippet.component.html',
     styleUrls: ['./mcq-create-edit-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class McqCreateEditSnippetComponent implements OnInit {

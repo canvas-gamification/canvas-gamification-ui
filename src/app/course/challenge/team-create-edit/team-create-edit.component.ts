@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormGroup} from "@angular/forms"
 import {TeamForm} from "@app/course/_forms/team.form"
 import {Course, CourseEvent, CourseRegistration} from "@app/_models"
@@ -13,6 +13,7 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
     selector: 'app-team-create-edit',
     templateUrl: './team-create-edit.component.html',
     styleUrls: ['./team-create-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class TeamCreateEditComponent implements OnInit {

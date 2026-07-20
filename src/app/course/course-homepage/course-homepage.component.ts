@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component, ChangeDetectionStrategy} from '@angular/core'
 import {ActionStatus, ActionType, ActionVerb, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {CourseService} from "@app/course/_services/course.service"
@@ -9,6 +9,7 @@ import {UserActionsService} from "@app/_services/api/user-actions.service"
     selector: 'app-course-homepage',
     templateUrl: './course-homepage.component.html',
     styleUrls: ['./course-homepage.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CourseHomepageComponent {

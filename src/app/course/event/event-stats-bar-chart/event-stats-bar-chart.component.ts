@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {convert} from 'html-to-text'
 
 @Component({
     selector: 'app-event-stats-bar-chart',
     templateUrl: './event-stats-bar-chart.component.html',
     styleUrls: ['./event-stats-bar-chart.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class EventStatsBarChartComponent implements OnInit {

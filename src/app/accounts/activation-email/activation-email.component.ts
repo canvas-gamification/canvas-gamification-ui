@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {Subscription} from 'rxjs'
 import {RegisterService} from '@app/accounts/_services/register.service'
@@ -8,6 +8,7 @@ import { TuiAlertService } from "@taiga-ui/core"
     selector: 'app-activation-email',
     templateUrl: './activation-email.component.html',
     styleUrls: ['./activation-email.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ActivationEmailComponent implements OnInit {

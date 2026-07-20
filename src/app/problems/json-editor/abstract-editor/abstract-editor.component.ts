@@ -1,4 +1,4 @@
-import {Component, OnDestroy} from '@angular/core'
+import {Component, OnDestroy, ChangeDetectionStrategy} from '@angular/core'
 import {Subscription} from "rxjs"
 import {
     AbstractControl,
@@ -14,6 +14,7 @@ import {
 @Component({
     selector: 'app-abstract-editor',
     template: '',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AbstractEditorComponent implements ControlValueAccessor, Validator, OnDestroy {

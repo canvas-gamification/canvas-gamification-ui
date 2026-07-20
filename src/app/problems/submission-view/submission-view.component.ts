@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
+import {ChangeDetectorRef, Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {QuestionSubmission} from '@app/_models/question_submission'
 import {ActivatedRoute} from '@angular/router'
@@ -9,6 +9,7 @@ import {TuiDialogContext} from '@taiga-ui/core'
     selector: 'app-submission-view',
     templateUrl: './submission-view.component.html',
     styleUrls: ['./submission-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SubmissionViewComponent implements OnInit {

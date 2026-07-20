@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {CourseService} from '@app/course/_services/course.service'
 import {ActivatedRoute} from '@angular/router'
 import {AuthenticationService} from '@app/_services/api/authentication'
@@ -8,6 +8,7 @@ import {Course, STATUS, User} from '@app/_models'
     selector: 'app-course-list',
     templateUrl: './course-list.component.html',
     styleUrls: ['./course-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CourseListComponent implements OnInit {

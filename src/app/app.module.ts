@@ -4,7 +4,7 @@ import { TuiActiveZone } from "@taiga-ui/cdk";
 import { provideEventPlugins } from "@taiga-ui/event-plugins";
 import {BrowserModule} from '@angular/platform-browser'
 import {NgModule} from '@angular/core'
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http'
 import {AppRoutingModule} from './app-routing.module'
 import {AppComponent} from './app.component'
 import {LandingPageComponent} from './components/landing-page/landing-page.component'
@@ -111,7 +111,7 @@ import {CommunityComponent} from './components/community/community.component'
             useClass: NgDompurifySanitizer
         },
         provideEventPlugins(),
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withXhr(), withInterceptorsFromDi())
     ] })
 export class AppModule {
 }

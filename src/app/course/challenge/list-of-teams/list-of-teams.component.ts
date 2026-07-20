@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Team} from "@app/_models/team"
 import {ActivatedRoute} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
@@ -12,6 +12,7 @@ import {CourseService} from "@app/course/_services/course.service"
     selector: 'app-list-of-teams',
     templateUrl: './list-of-teams.component.html',
     styleUrls: ['./list-of-teams.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ListOfTeamsComponent implements OnInit {

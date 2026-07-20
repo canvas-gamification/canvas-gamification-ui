@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core'
+import {Component, Input, OnChanges, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActionStatus, ActionType, ActionVerb, Course, LeaderboardElement} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
 import {CourseEventService} from "@app/course/_services/course-event.service"
@@ -10,6 +10,7 @@ import {Team} from "@app/_models/team"
     selector: 'app-leader-board',
     templateUrl: './leader-board.component.html',
     styleUrls: ['./leader-board.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class LeaderBoardComponent implements OnChanges, OnInit {

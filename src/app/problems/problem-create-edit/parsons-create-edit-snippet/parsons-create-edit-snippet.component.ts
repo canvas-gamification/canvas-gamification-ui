@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnInit} from '@angular/core'
+import {Component, Inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {ParsonsForm} from "@app/problems/_forms/parsons.form"
@@ -10,6 +10,7 @@ import {Question} from "@app/_models"
     selector: 'app-parsons-create-snippet',
     templateUrl: './parsons-create-edit-snippet.component.html',
     styleUrls: ['./parsons-create-edit-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ParsonsCreateEditSnippetComponent implements OnInit {

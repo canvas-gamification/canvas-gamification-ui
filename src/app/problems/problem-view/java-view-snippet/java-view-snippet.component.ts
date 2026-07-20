@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core'
+import {Component, EventEmitter, Inject, Input, OnChanges, Output, ChangeDetectionStrategy} from '@angular/core'
 import {UQJ} from '@app/_models'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import { TuiAlertService } from '@taiga-ui/core'
@@ -7,6 +7,7 @@ import { TuiAlertService } from '@taiga-ui/core'
     selector: 'app-java-view-snippet',
     templateUrl: './java-view-snippet.component.html',
     styleUrls: ['./java-view-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class JavaViewSnippetComponent implements OnChanges {

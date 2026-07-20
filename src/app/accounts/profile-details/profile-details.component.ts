@@ -1,4 +1,4 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
+import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormGroup} from '@angular/forms'
 import {ProfileDetailsService} from '@app/accounts/_services/profile-details.service'
 import {ConsentService} from '@app/accounts/_services/consent.service'
@@ -13,6 +13,7 @@ import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
     selector: 'app-profile-details',
     templateUrl: './profile-details.component.html',
     styleUrls: ['./profile-details.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ProfileDetailsComponent implements OnInit, AfterContentChecked {

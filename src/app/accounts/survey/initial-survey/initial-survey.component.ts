@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {
     agreeQuestions,
@@ -13,6 +13,7 @@ import {AgreeQuestion, CheckBoxQuestion} from "@app/accounts/survey/types"
     selector: 'app-initial-survey',
     templateUrl: './initial-survey.component.html',
     styleUrls: ['./initial-survey.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class InitialSurveyComponent implements OnInit {
