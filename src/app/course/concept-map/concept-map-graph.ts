@@ -1,4 +1,4 @@
-import * as jQuery from 'jquery'
+import jQuery from 'jquery'
 import dagre from 'dagre'
 import graphlib from 'graphlib'
 import * as joint from 'jointjs'

@@ -1,8 +1,8 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Inject, ViewChild} from '@angular/core'
+import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Inject, ViewChild, DOCUMENT} from '@angular/core'
 import {TuiNodeViewNg} from '@taiga-ui/editor'
 import {NodeViewProps} from '@tiptap/core'
 import {InlineMath} from '@app/components/editor/inline-math/inline-math.extension'
-import {DOCUMENT} from '@angular/common'
+
 import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe'
 
 @Component({
