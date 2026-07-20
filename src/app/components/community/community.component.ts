@@ -15,8 +15,8 @@ export class CommunityComponent implements OnInit {
     communityUrl: SafeResourceUrl
 
     constructor(
-      private readonly authenticationService: AuthenticationService,
-      private sanitizer: DomSanitizer
+        private readonly authenticationService: AuthenticationService,
+        private sanitizer: DomSanitizer
     ) { }
 
     ngOnInit(): void {

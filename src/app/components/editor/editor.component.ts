@@ -1,6 +1,5 @@
-import { provideTuiEditor } from "@taiga-ui/editor";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import {Component, Injector, Input, OnDestroy, ChangeDetectionStrategy} from '@angular/core'
+import {provideTuiEditor} from "@taiga-ui/editor"
+import {Component, Input, OnDestroy, ChangeDetectionStrategy} from '@angular/core'
 import {
     ControlValueAccessor,
     UntypedFormControl,
@@ -18,18 +17,19 @@ import {createInlineMathEditorExtension} from '@app/components/editor/inline-mat
     templateUrl: './editor.component.html',
     styleUrls: ['./editor.component.scss'],
     providers: [
-        provideTuiEditor({
-            // You can disable these plugins
-            // if you don't need them
-            image: true,
-            iframe: true,
-            video: true,
-            source: true,
-            audio: true,
-            details: true,
-            detailsSummary: true,
-            detailsContent: true,
-        }),
+        provideTuiEditor(
+            {
+                image: true,
+                iframe: true,
+                video: true,
+                source: true,
+                audio: true,
+                details: true,
+                detailsSummary: true,
+                detailsContent: true,
+            },
+            async injector => createInlineMathEditorExtension(injector),
+        ),
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,
@@ -73,7 +73,11 @@ export class EditorComponent implements ControlValueAccessor, Validator, OnDestr
     }
 
     setDisabledState(isDisabled: boolean): void {
-        isDisabled ? this.editor.disable() : this.editor.enable()
+        if (isDisabled) {
+            this.editor.disable()
+        } else {
+            this.editor.enable()
+        }
     }
 
     writeValue(value: string): void {

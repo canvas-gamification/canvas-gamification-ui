@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core'
-import { TuiStringHandler, TuiContext } from "@taiga-ui/cdk"
+import {TuiStringHandler, TuiContext} from "@taiga-ui/cdk"
 
 @Pipe({
     name: 'stringifyTuiDataList',

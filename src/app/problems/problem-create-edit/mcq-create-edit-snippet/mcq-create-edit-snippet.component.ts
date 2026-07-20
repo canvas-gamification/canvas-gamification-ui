@@ -3,7 +3,7 @@ import {QuestionService} from '@app/problems/_services/question.service'
 import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {McqForm} from "@app/problems/_forms/mcq.form"
 import {Router} from "@angular/router"
-import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
+import {TuiDialogContext, TuiDialogService, TuiNotificationService} from "@taiga-ui/core"
 import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 import {Question} from '@app/_models'
 

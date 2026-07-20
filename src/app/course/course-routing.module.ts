@@ -1,4 +1,4 @@
-import { TuiError, TuiCheckbox } from "@taiga-ui/core";
+import {TuiError, TuiCheckbox} from "@taiga-ui/core"
 import {AuthGuard} from "@app/_helpers/auth.guard"
 import {NgModule} from "@angular/core"
 import {RouterModule, Routes} from "@angular/router"

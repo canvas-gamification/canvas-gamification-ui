@@ -43,7 +43,11 @@ export class AbstractEditorComponent implements ControlValueAccessor, Validator,
     }
 
     setDisabledState(isDisabled: boolean): void {
-        isDisabled ? this.models.disable() : this.models.enable()
+        if (isDisabled) {
+            this.models.disable()
+        } else {
+            this.models.enable()
+        }
     }
 
     writeValue(value: Array<unknown>): void {

@@ -2,7 +2,7 @@ import {fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {QuestionCountService} from './question-count.service'
 import {TestModule} from "@test/test.module"
-import { HttpTestingController } from "@angular/common/http/testing"
+import {HttpTestingController} from "@angular/common/http/testing"
 import {ApiService} from "@app/_services/api.service"
 import {MOCK_QUESTION_COUNT} from "@app/admin/_test/mock"
 

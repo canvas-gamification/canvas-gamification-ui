@@ -1,4 +1,4 @@
-import { TuiError, TuiInput } from "@taiga-ui/core";
+import {TuiError, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {LoginComponent} from './login.component'

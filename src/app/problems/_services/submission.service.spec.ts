@@ -3,7 +3,7 @@ import {fakeAsync, TestBed, tick} from '@angular/core/testing'
 import {SubmissionService} from './submission.service'
 import {TestModule} from '@test/test.module'
 import {ApiService} from "@app/_services/api.service"
-import { HttpTestingController } from "@angular/common/http/testing"
+import {HttpTestingController} from "@angular/common/http/testing"
 import {MOCK_QUESTIONS, MOCK_SUBMISSIONS} from "@app/problems/_test/mock"
 
 describe('SubmissionService', () => {

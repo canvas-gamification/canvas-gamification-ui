@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import {HttpClient} from '@angular/common/http'
 import {Observable} from 'rxjs'
 import {MultipleChoiceQuestion} from '@app/_models'
 import {ApiService} from "@app/_services/api.service"

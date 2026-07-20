@@ -2,10 +2,10 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {CourseCreateComponent} from './course-create.component'
 import {TestModule} from "@test/test.module"
-import { TuiSelect, TuiInputDateRange, TuiTextarea } from "@taiga-ui/kit"
+import {TuiSelect, TuiInputDateRange, TuiTextarea} from "@taiga-ui/kit"
 import {ReactiveFormsModule} from "@angular/forms"
 import {RouterModule} from "@angular/router"
-import { TuiDataList, TuiButton, TuiError, TuiInput } from "@taiga-ui/core"
+import {TuiDataList, TuiButton, TuiError, TuiInput} from "@taiga-ui/core"
 
 describe('CourseCreateComponent', () => {
     let component: CourseCreateComponent

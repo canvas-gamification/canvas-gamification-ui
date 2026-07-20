@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import { HttpResponse } from "@angular/common/http"
+import {HttpResponse} from "@angular/common/http"
 import {Team} from "@app/_models/team"
 import {Observable, of} from "rxjs"
 import {TeamFormData} from "@app/course/_forms/team.form"

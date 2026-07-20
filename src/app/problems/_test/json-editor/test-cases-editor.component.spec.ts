@@ -1,5 +1,5 @@
-import { TuiCardLarge } from "@taiga-ui/layout";
-import { TuiLabel, TuiError, TuiInput } from "@taiga-ui/core";
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiLabel, TuiError, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {TestCasesEditorComponent} from '../../json-editor/test-cases-editor/test-cases-editor.component'

@@ -3,10 +3,10 @@ import {fakeAsync, TestBed, tick} from '@angular/core/testing'
 import {CourseEventService} from './course-event.service'
 import {TestModule} from '@test/test.module'
 import {ApiService} from "@app/_services/api.service"
-import { HttpTestingController } from "@angular/common/http/testing"
+import {HttpTestingController} from "@angular/common/http/testing"
 import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 import {MOCK_COURSE1, MOCK_EVENT_TYPES} from "@app/course/_test/mock"
-import { HttpResponse } from "@angular/common/http"
+import {HttpResponse} from "@angular/common/http"
 
 describe('CourseEventService', () => {
     let courseEventService: CourseEventService

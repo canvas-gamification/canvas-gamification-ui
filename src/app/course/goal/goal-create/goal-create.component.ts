@@ -1,4 +1,4 @@
-import { TuiNotificationService } from "@taiga-ui/core";
+import {TuiNotificationService} from "@taiga-ui/core"
 import {Component, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 import {GoalForm} from "@app/course/_forms/goal.form"

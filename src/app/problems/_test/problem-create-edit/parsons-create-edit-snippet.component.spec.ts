@@ -1,4 +1,4 @@
-import { TuiCardLarge } from "@taiga-ui/layout";
+import {TuiCardLarge} from "@taiga-ui/layout"
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {
@@ -7,11 +7,11 @@ import {
 import {TestModule} from '@test/test.module'
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {MOCK_PARSONS_QUESTION} from "@app/problems/_test/mock"
-import { TuiNotification, TuiDropdown, TuiIcon, TuiButton, TuiError, TuiInput } from "@taiga-ui/core"
+import {TuiNotification, TuiDropdown, TuiIcon, TuiButton, TuiError, TuiInput} from "@taiga-ui/core"
 import {of} from "rxjs"
-import { TuiSelect, TuiTextarea } from "@taiga-ui/kit"
+import {TuiSelect, TuiTextarea} from "@taiga-ui/kit"
 import {delay} from "rxjs/operators"
-import { HttpResponse } from "@angular/common/http"
+import {HttpResponse} from "@angular/common/http"
 import {Question} from "@app/_models"
 import {VariablesEditorComponent} from "@app/problems/json-editor/variables-editor/variables-editor.component"
 import {

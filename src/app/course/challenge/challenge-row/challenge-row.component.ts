@@ -5,7 +5,7 @@ import {Team} from "@app/_models/team"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {startCase} from "lodash"
 import {UserActionsService} from "@app/_services/api/user-actions.service"
-import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
+import {TuiDialogContext, TuiDialogService, TuiNotificationService} from "@taiga-ui/core"
 import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 

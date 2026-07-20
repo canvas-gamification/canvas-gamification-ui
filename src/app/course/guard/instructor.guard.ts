@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import { ActivatedRouteSnapshot, Router } from '@angular/router'
+import {ActivatedRouteSnapshot, Router} from '@angular/router'
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {User} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"

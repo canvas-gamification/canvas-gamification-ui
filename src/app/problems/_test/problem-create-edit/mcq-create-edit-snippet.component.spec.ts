@@ -6,10 +6,10 @@ import {
 import {TestModule} from '@test/test.module'
 import {MOCK_CHECKBOX_QUESTION} from "@app/problems/_test/mock"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
-import { TuiLabel, TuiDropdown, TuiButton, TuiError, TuiInput } from "@taiga-ui/core"
+import {TuiLabel, TuiDropdown, TuiButton, TuiError, TuiInput} from "@taiga-ui/core"
 import {of} from "rxjs"
-import { TuiSelect, TuiTextarea } from "@taiga-ui/kit"
-import { HttpResponse } from "@angular/common/http"
+import {TuiSelect, TuiTextarea} from "@taiga-ui/kit"
+import {HttpResponse} from "@angular/common/http"
 import {Question} from "@app/_models"
 import {delay} from "rxjs/operators"
 import {McqForm} from "@app/problems/_forms/mcq.form"

@@ -1,15 +1,15 @@
-import { TuiCardLarge } from "@taiga-ui/layout";
-import { TuiRingChart } from "@taiga-ui/addon-charts";
-import { TuiTable } from "@taiga-ui/addon-table";
-import { TuiFilterPipe } from "@taiga-ui/cdk";
-import { TuiInputChip, TuiChevron } from "@taiga-ui/kit";
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiRingChart} from "@taiga-ui/addon-charts"
+import {TuiTable} from "@taiga-ui/addon-table"
+import {TuiFilterPipe} from "@taiga-ui/cdk"
+import {TuiInputChip, TuiChevron} from "@taiga-ui/kit"
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {QuestionCountComponent} from './question-count/question-count.component'
 import {CategoryStatsComponent} from './category-stats/category-stats.component'
-import { TuiDataListWrapper, TuiHighlight, TuiTabs, TuiInputNumber, TuiSelect, TuiInputDate, TuiInputTime } from '@taiga-ui/kit'
+import {TuiDataListWrapper, TuiHighlight, TuiTabs, TuiInputNumber, TuiSelect, TuiInputDate, TuiInputTime} from '@taiga-ui/kit'
 import {FormsModule} from '@angular/forms'
-import { TuiDataList, TuiLoader, TuiScrollbar, TuiScrollable, TuiDropdown, TuiIcon, TuiButton, TuiInput } from '@taiga-ui/core'
+import {TuiDataList, TuiLoader, TuiScrollbar, TuiScrollable, TuiDropdown, TuiIcon, TuiButton, TuiInput} from '@taiga-ui/core'
 import {CoursesComponent} from './courses/courses.component'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {

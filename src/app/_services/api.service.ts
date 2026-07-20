@@ -1,8 +1,8 @@
-import { TuiNotificationService } from "@taiga-ui/core";
+import {TuiNotificationService} from "@taiga-ui/core"
 import {Inject, Injectable} from '@angular/core'
 import {environment} from "@environments/environment"
 import {Observable, of, throwError} from "rxjs"
-import { HttpErrorResponse } from "@angular/common/http"
+import {HttpErrorResponse} from "@angular/common/http"
 import {Router} from "@angular/router"
 import {Location} from "@angular/common"
 
@@ -80,7 +80,7 @@ export class ApiService {
                 error.forEach(toastErrorObject)
             } else if (typeof error === 'object') {
                 for (const key in error) {
-                    if (error.hasOwnProperty(key))
+                    if (Object.prototype.hasOwnProperty.call(error, key))
                         toastErrorObject(error[key])
                 }
             }

@@ -4,7 +4,7 @@ import {
     CourseRegistrationStepperComponent
 } from '../../../course-registration/course-registration-stepper/course-registration-stepper.component'
 import {TestModule} from "@test/test.module"
-import { TuiStepComponent, TuiStepperComponent, TuiStepper } from "@taiga-ui/kit"
+import {TuiStepComponent, TuiStepperComponent, TuiStepper} from "@taiga-ui/kit"
 
 describe('CourseRegistrationStepperComponent', () => {
     let component: CourseRegistrationStepperComponent

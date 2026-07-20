@@ -6,7 +6,7 @@ import {User} from '@app/_models'
 import {Router} from '@angular/router'
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form"
 import {AuthenticationService} from "@app/_services/api/authentication"
-import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
+import {TuiDialogContext, TuiDialogService, TuiNotificationService} from "@taiga-ui/core"
 import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 
 @Component({

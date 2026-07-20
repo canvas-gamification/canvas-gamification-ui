@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEvent, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
-import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
+import {TuiDialogContext, TuiDialogService, TuiNotificationService} from "@taiga-ui/core"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Router} from "@angular/router"
 import {PolymorpheusContent} from "@taiga-ui/polymorpheus"

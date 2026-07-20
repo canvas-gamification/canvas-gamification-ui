@@ -23,6 +23,7 @@ export class ExportSnippetComponent implements OnInit {
 
     selectedFields: string[] = []
     selectedSearch = ''
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedFilters: Record<string, any> = {}
 
 

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {CourseEvent, EventLimit, EventType, LeaderboardElement} from '@app/_models'
 import {Observable} from 'rxjs'
-import { HttpClient, HttpResponse } from '@angular/common/http'
+import {HttpClient, HttpResponse} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 import {EventStats} from '@app/_models/event/event_stats'

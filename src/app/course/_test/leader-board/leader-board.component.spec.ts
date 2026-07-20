@@ -1,4 +1,4 @@
-import { TuiFilterPipe } from "@taiga-ui/cdk";
+import {TuiFilterPipe} from "@taiga-ui/cdk"
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {LeaderBoardComponent} from '../../leader-board/leader-board.component'

@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {FaqAccordionComponent} from './faq-accordion.component'
 import {of} from "rxjs"
-import { TuiAccordion, TuiFilter } from "@taiga-ui/kit"
+import {TuiAccordion, TuiFilter} from "@taiga-ui/kit"
 
 describe('FaqAccordionComponent', () => {
     let component: FaqAccordionComponent

@@ -1,5 +1,5 @@
-import { TuiCardLarge } from "@taiga-ui/layout";
-import { TuiSelect } from "@taiga-ui/kit";
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiSelect} from "@taiga-ui/kit"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {

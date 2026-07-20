@@ -1,4 +1,4 @@
-import { TuiNotificationService } from "@taiga-ui/core";
+import {TuiNotificationService} from "@taiga-ui/core"
 import {Component, EventEmitter, Inject, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormGroup} from "@angular/forms"
 import {ReportQuestionService} from "@app/problems/_services/report-question.service"

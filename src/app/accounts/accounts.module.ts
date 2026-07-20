@@ -1,5 +1,5 @@
-import { TuiCardLarge } from "@taiga-ui/layout";
-import { TuiInputChip, TuiChevron } from "@taiga-ui/kit";
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiInputChip, TuiChevron} from "@taiga-ui/kit"
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {AccountsRoutingModule} from "@app/accounts/accounts-routing.module"
@@ -23,8 +23,8 @@ import {ResetPasswordService} from "@app/accounts/_services/reset-password.servi
 import {
     StudentTermsAndConditionsSnippetComponent
 } from './student-terms-and-conditions-snippet/student-terms-and-conditions-snippet.component'
-import { TuiDataListWrapper, TuiInputInline, TuiAvatar, TuiRadioList, TuiButtonLoading, TuiAutoColorPipe, TuiSelect, TuiInitialsPipe, TuiPassword, TuiTextarea } from "@taiga-ui/kit"
-import { TuiNotification, TuiDataList, TuiError, TuiLabel, TuiLink, TuiButton, TuiCheckbox, TuiRadio, TuiIcon, TuiInput } from "@taiga-ui/core"
+import {TuiDataListWrapper, TuiInputInline, TuiAvatar, TuiRadioList, TuiButtonLoading, TuiAutoColorPipe, TuiSelect, TuiInitialsPipe, TuiPassword, TuiTextarea} from "@taiga-ui/kit"
+import {TuiNotification, TuiDataList, TuiError, TuiLabel, TuiLink, TuiButton, TuiCheckbox, TuiRadio, TuiIcon, TuiInput} from "@taiga-ui/core"
 import {InitialSurveyComponent} from './survey/initial-survey/initial-survey.component'
 import {FinalSurveyComponent} from './survey/final-survey/final-survey.component'
 

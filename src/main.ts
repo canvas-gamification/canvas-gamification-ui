@@ -19,5 +19,5 @@ Sentry.init({
     tracesSampleRate: 0.1,
 })
 
-platformBrowserDynamic().bootstrapModule(AppModule, { applicationProviders: [provideZoneChangeDetection()], })
+platformBrowserDynamic().bootstrapModule(AppModule, {applicationProviders: [provideZoneChangeDetection()],})
     .catch(err => console.error(err))

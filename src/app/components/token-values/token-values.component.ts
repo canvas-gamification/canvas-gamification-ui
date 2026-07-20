@@ -1,4 +1,4 @@
-import { TuiNotificationService } from "@taiga-ui/core";
+import {TuiNotificationService} from "@taiga-ui/core"
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {TokenValuesService} from '@app/_services/api/token-values.service'
 import {CategoryService} from '@app/_services/api/category.service'

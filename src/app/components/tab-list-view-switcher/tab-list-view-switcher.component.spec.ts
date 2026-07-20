@@ -1,5 +1,5 @@
-import { TuiIcon, TuiRadio } from "@taiga-ui/core";
-import { TuiBlock } from "@taiga-ui/kit";
+import {TuiIcon, TuiRadio} from "@taiga-ui/core"
+import {TuiBlock} from "@taiga-ui/kit"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {TabListViewSwitcherComponent} from './tab-list-view-switcher.component'

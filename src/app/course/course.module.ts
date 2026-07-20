@@ -1,6 +1,6 @@
-import { TuiCardLarge } from "@taiga-ui/layout";
-import { TuiDrawer, TuiInputNumber, TuiAutoColorPipe, TuiChip, TuiSelect, TuiInitialsPipe, TuiInputDate, TuiInputTime, TuiInputDateRange, TuiTextarea } from "@taiga-ui/kit";
-import { TuiInputChip, TuiChevron } from "@taiga-ui/kit";
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiDrawer, TuiInputNumber, TuiAutoColorPipe, TuiChip, TuiSelect, TuiInitialsPipe, TuiInputDate, TuiInputTime, TuiInputDateRange, TuiTextarea} from "@taiga-ui/kit"
+import {TuiInputChip, TuiChevron} from "@taiga-ui/kit"
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {
@@ -22,16 +22,16 @@ import {CourseService} from '@app/course/_services/course.service'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {TokenUseService} from '@app/course/_services/token-use.service'
 import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component'
-import { TuiPagination, TuiDataListWrapper, TuiAccordion, TuiBreadcrumbs, TuiStepper, TuiAvatar, TuiSwitch, TuiBlock, TuiTabs, TuiProgress, TuiButtonLoading } from '@taiga-ui/kit'
-import { TuiNotification, TuiCalendar, TuiDataList, TuiError, TuiLoader, TuiScrollbar, TuiScrollable, TuiGroup, TuiLabel, TuiDropdown, TuiIcon, TuiLink, TuiDialog, TuiButton, TuiHint, TuiPopup, TuiCheckbox, TuiInput } from '@taiga-ui/core'
+import {TuiPagination, TuiDataListWrapper, TuiAccordion, TuiBreadcrumbs, TuiStepper, TuiAvatar, TuiSwitch, TuiBlock, TuiTabs, TuiProgress, TuiButtonLoading} from '@taiga-ui/kit'
+import {TuiNotification, TuiCalendar, TuiDataList, TuiError, TuiLoader, TuiScrollbar, TuiScrollable, TuiGroup, TuiLabel, TuiDropdown, TuiIcon, TuiLink, TuiDialog, TuiButton, TuiHint, TuiPopup, TuiCheckbox, TuiInput} from '@taiga-ui/core'
 import {
     CourseRegistrationStepperComponent
 } from './course-registration/course-registration-stepper/course-registration-stepper.component'
 import {
     CourseRegistrationStepComponent
 } from './course-registration/course-registration-step/course-registration-step.component'
-import { TuiActiveZone, TuiItem, TuiFilterPipe } from '@taiga-ui/cdk'
-import { TuiTablePagination, TuiTable } from '@taiga-ui/addon-table'
+import {TuiActiveZone, TuiItem, TuiFilterPipe} from '@taiga-ui/cdk'
+import {TuiTablePagination, TuiTable} from '@taiga-ui/addon-table'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 import {PracticeProblemComponent} from './practice-problem/practice-problem.component'
@@ -43,7 +43,7 @@ import {
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
-import { TuiAxes, TuiBarChart, TuiRingChart, TuiChartHint } from "@taiga-ui/addon-charts"
+import {TuiAxes, TuiBarChart, TuiRingChart, TuiChartHint} from "@taiga-ui/addon-charts"
 import {ListOfTeamsComponent} from './challenge/list-of-teams/list-of-teams.component'
 import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 import {CourseCreateComponent} from './course-create/course-create.component'

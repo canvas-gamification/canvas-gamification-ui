@@ -9,7 +9,7 @@ import {CourseEventService} from '@app/course/_services/course-event.service'
 import {CourseService} from '@app/course/_services/course.service'
 import {Team} from "@app/_models/team"
 import {TeamService} from "@app/course/_services/team.service"
-import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
+import {TuiDialogContext, TuiDialogService, TuiNotificationService} from "@taiga-ui/core"
 import {startCase} from "lodash"
 import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 import {orderUQJs} from "@app/course/_utils/orderUQJs"

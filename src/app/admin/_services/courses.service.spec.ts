@@ -3,7 +3,7 @@ import {fakeAsync, TestBed, tick} from '@angular/core/testing'
 import {CoursesService} from './courses.service'
 import {MOCK_VIEW_COURSE} from "@app/admin/_test/mock"
 import {ApiService} from "@app/_services/api.service"
-import { HttpTestingController } from "@angular/common/http/testing"
+import {HttpTestingController} from "@angular/common/http/testing"
 import {TestModule} from "@test/test.module"
 
 describe('ViewCoursesService', () => {

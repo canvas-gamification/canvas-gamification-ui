@@ -1,13 +1,13 @@
 import {
-  Component,
-  EventEmitter,
-  Inject,
-  Injector,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  ChangeDetectionStrategy
+    Component,
+    EventEmitter,
+    Inject,
+    Injector,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    ChangeDetectionStrategy
 } from '@angular/core'
 import {QuestionSubmission} from '@app/_models/question_submission'
 import {DomSanitizer} from "@angular/platform-browser"

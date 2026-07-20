@@ -1,4 +1,4 @@
-import { TuiNotificationService } from "@taiga-ui/core";
+import {TuiNotificationService} from "@taiga-ui/core"
 import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEvent} from "@app/_models"
 import {CourseEventService} from "@app/course/_services/course-event.service"

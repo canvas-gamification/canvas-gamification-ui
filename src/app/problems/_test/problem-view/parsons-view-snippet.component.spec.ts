@@ -1,4 +1,4 @@
-import { TuiTabs } from "@taiga-ui/kit";
+import {TuiTabs} from "@taiga-ui/kit"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {ParsonsViewSnippetComponent} from '../../problem-view/parsons-view-snippet/parsons-view-snippet.component'

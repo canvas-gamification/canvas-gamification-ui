@@ -6,7 +6,7 @@ import {
     CourseRegistration,
     LeaderboardResult
 } from '@app/_models'
-import { HttpClient, HttpParams } from '@angular/common/http'
+import {HttpClient, HttpParams} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 import {CourseRegistrationFormData} from "@app/course/_forms/register.form"

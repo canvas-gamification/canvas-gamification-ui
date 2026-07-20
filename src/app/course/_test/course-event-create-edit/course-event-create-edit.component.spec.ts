@@ -8,9 +8,9 @@ import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {ActivatedRoute, convertToParamMap, Router, RouterModule} from "@angular/router"
 import {ReactiveFormsModule} from "@angular/forms"
-import { TuiNotification, TuiDataList, TuiLabel, TuiButton, TuiNotificationService, TuiError, TuiInput } from "@taiga-ui/core"
+import {TuiNotification, TuiDataList, TuiLabel, TuiButton, TuiNotificationService, TuiError, TuiInput} from "@taiga-ui/core"
 import {of} from "rxjs"
-import { TuiSelect, TuiInputTime, TuiInputDateRange } from "@taiga-ui/kit"
+import {TuiSelect, TuiInputTime, TuiInputDateRange} from "@taiga-ui/kit"
 
 describe('CourseEventCreateComponent with EventId', () => {
     let component: CourseEventCreateEditComponent

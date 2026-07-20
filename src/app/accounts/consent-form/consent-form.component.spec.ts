@@ -1,6 +1,6 @@
-import { TuiCardLarge } from "@taiga-ui/layout";
-import { TuiMultiSelectModule } from "@taiga-ui/legacy";
-import { TuiLabel, TuiNotificationService, TuiError, TuiInput } from "@taiga-ui/core";
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiMultiSelectModule} from "@taiga-ui/legacy"
+import {TuiLabel, TuiNotificationService, TuiError, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {ConsentFormComponent} from './consent-form.component'
@@ -16,7 +16,7 @@ import {
 import {Router} from "@angular/router"
 import {ConsentService} from "@app/accounts/_services/consent.service"
 import {ConsentServiceMock} from "@app/accounts/_test/_services/consent.service.mock"
-import { TuiSelect } from "@taiga-ui/kit"
+import {TuiSelect} from "@taiga-ui/kit"
 import {of} from "rxjs"
 
 describe('ConsentFormComponent', () => {

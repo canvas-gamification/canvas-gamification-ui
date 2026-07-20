@@ -2,7 +2,7 @@ import {fakeAsync, TestBed, tick} from '@angular/core/testing'
 import {UserStatsService} from './user-stats.service'
 import {TestModule} from '@test/test.module'
 import {ApiService} from "@app/_services/api.service"
-import { HttpTestingController } from "@angular/common/http/testing"
+import {HttpTestingController} from "@angular/common/http/testing"
 import {MOCK_USER_DIFFICULTY_STATS} from "@app/problems/_test/mock"
 
 describe('UserStatsService', () => {

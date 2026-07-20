@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import {HttpClient} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {User} from '@app/_models'
 import {Observable} from 'rxjs'

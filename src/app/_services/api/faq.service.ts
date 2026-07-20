@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {FAQ} from '@app/_models/faq'
 import {Observable} from 'rxjs'
-import { HttpClient } from '@angular/common/http'
+import {HttpClient} from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 

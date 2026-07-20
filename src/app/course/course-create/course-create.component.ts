@@ -1,4 +1,4 @@
-import { TuiNotificationService, TUI_VALIDATION_ERRORS } from "@taiga-ui/core";
+import {TuiNotificationService, TUI_VALIDATION_ERRORS} from "@taiga-ui/core"
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormGroup} from "@angular/forms"
 import {CourseForm} from "@app/course/_forms/course.form"

@@ -1,7 +1,7 @@
-import { TuiCardLarge } from "@taiga-ui/layout";
-import { TuiChip } from "@taiga-ui/kit";
-import { TuiFilterPipe } from "@taiga-ui/cdk";
-import { TuiLoader, TuiInput } from "@taiga-ui/core";
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiChip} from "@taiga-ui/kit"
+import {TuiFilterPipe} from "@taiga-ui/cdk"
+import {TuiLoader, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {CourseListComponent} from '../../course-list/course-list.component'
