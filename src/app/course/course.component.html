@@ -1,62 +1,61 @@
 <section class="tui-container tui-container_fullwidth">
-    <div class="flex flex-wrap justify-between my-3">
-        <ng-container *ngIf="breadCrumbs && course else skeletonBreadcrumbs">
-            <tui-breadcrumbs [size]="'l'">
-                <ng-container *ngFor="let item of breadCrumbs">
-                    <a
-                        *tuiItem
-                        tuiLink
-                        [routerLink]="item.routerLink">
-                        {{item.caption}}
-                    </a>
-                </ng-container>
-            </tui-breadcrumbs>
-        </ng-container>
-        <ng-template #skeletonBreadcrumbs>
-            <tui-breadcrumbs class="my-3" [size]="'l'">
-                <a *tuiItem tuiLink class="tui-skeleton">crumb that is longer</a>
-                <a *tuiItem tuiLink class="tui-skeleton">crumb that is longer</a>
-                <a *tuiItem tuiLink class="tui-skeleton">crumb that is longer</a>
-            </tui-breadcrumbs>
-        </ng-template>
-        <a
-            *ngIf="course.has_create_event_permission"
-            tuiButton
-            size="m"
-            class="tui-form__button"
-            appearance="secondary"
-            [routerLink]="['/course', courseId, 'edit']"
+  <div class="flex flex-wrap justify-between my-3">
+    @if (breadCrumbs && course) {
+      <tui-breadcrumbs [size]="'l'">
+        @for (item of breadCrumbs; track item) {
+          <a
+            *tuiItem
+            tuiLink
+            [routerLink]="item.routerLink">
+            {{item.caption}}
+          </a>
+        }
+      </tui-breadcrumbs>
+    } @else {
+      <tui-breadcrumbs class="my-3" [size]="'l'">
+        <a *tuiItem tuiLink class="tui-skeleton">crumb that is longer</a>
+        <a *tuiItem tuiLink class="tui-skeleton">crumb that is longer</a>
+        <a *tuiItem tuiLink class="tui-skeleton">crumb that is longer</a>
+      </tui-breadcrumbs>
+    }
+    @if (course.has_create_event_permission) {
+      <a
+        tuiButton
+        size="m"
+        class="tui-form__button"
+        appearance="secondary"
+        [routerLink]="['/course', courseId, 'edit']"
         >
-            Edit Course
-        </a>
+        Edit Course
+      </a>
+    }
+  </div>
+  @if (course) {
+    <h5
+      [class.tui-skeleton]="!course"
+      class="tui-text_h5 mb-5"
+      >
+      {{ course?.name }}
+    </h5>
+    <div class="mb-10 -mt-5">
+      @if (onHomepage) {
+        <p class="tui-text_body-xl tui-island__paragraph">
+          {{course?.description}}
+        </p>
+      }
     </div>
-    <ng-container *ngIf="course else skeletonTemplate">
-        <h5
-            [class.tui-skeleton]="!course"
-            class="tui-text_h5 mb-5"
-        >
-            {{ course?.name }}
-        </h5>
-        <div class="mb-10 -mt-5">
-            <ng-container *ngIf="onHomepage">
-                <p class="tui-text_body-xl tui-island__paragraph">
-                    {{course?.description}}
-                </p>
-            </ng-container>
-        </div>
-    </ng-container>
-    <ng-template #skeletonTemplate>
-        <h5 class="tui-text_h5 mb-5 tui-skeleton_short tui-skeleton">
-            Content
-        </h5>
-        <ng-container *ngIf="onHomepage">
-            <div class="mb-10">
-                <p class="tui-text_body-xl tui-island__paragraph tui-skeleton">
-                    Content
-                </p>
-            </div>
-        </ng-container>
-    </ng-template>
+  } @else {
+    <h5 class="tui-text_h5 mb-5 tui-skeleton_short tui-skeleton">
+      Content
+    </h5>
+    @if (onHomepage) {
+      <div class="mb-10">
+        <p class="tui-text_body-xl tui-island__paragraph tui-skeleton">
+          Content
+        </p>
+      </div>
+    }
+  }
 </section>
 
 <router-outlet></router-outlet>

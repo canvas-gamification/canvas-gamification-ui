@@ -1,76 +1,80 @@
-<div *ngIf="formGroup" class="tui-container tui-container_adaptive">
+@if (formGroup) {
+  <div class="tui-container tui-container_adaptive">
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-        <div class="tui-form__header">
-            {{ courseId ? 'Edit Course' : 'Create a Course' }}
+      <div class="tui-form__header">
+        {{ courseId ? 'Edit Course' : 'Create a Course' }}
+      </div>
+      <div class="tui-form__row">
+        <tui-input formControlName="name">Course Name
+          <span class="tui-required"></span>
+        </tui-input>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
+      </div>
+      <div class="tui-form__row">
+        <tui-textarea  formControlName="description">Course Description</tui-textarea>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="description"></tui-error>
+        <div class="tui-form__field-note">Display a text message on the Course Homepage to welcome your students to
+          the course or to provide instructions on what they can do.
         </div>
+      </div>
+      <div class="tui-form__row">
+        <tui-input formControlName="url" type="url">Course URL</tui-input>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="url" ></tui-error>
+        <div class="tui-form__field-note">The URL field can be used to link to your course
+          website on another platform, or an external website of your choice.
+        </div>
+      </div>
+      <div class="tui-form__row">
+        <tui-input-date-range formControlName="date">Course Date
+          <span class="tui-required"></span>
+        </tui-input-date-range>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="date"></tui-error>
+      </div>
+      <div class="tui-form__row">
+        <tui-select formControlName="registrationMode">
+          Registration Mode
+          <span class="tui-required"></span>
+          <input
+            tuiTextfieldLegacy
+            placeholder="Select registration mode"
+            />
+          <tui-data-list-wrapper
+            *tuiDataList
+            [items]="registrationModes"
+          ></tui-data-list-wrapper>
+        </tui-select>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="registrationMode"></tui-error>
+        <div class="tui-form__field-note">Everyone can join an open course, while only the ones with an access code
+          can join a private course.
+        </div>
+      </div>
+      @if (showAccessCode()) {
         <div class="tui-form__row">
-            <tui-input formControlName="name">Course Name
-                <span class="tui-required"></span>
-            </tui-input>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
+          <tui-input formControlName="registrationCode">Access Code</tui-input>
+          <tui-error [error]="[] | tuiFieldError | async" formControlName="registrationCode"></tui-error>
         </div>
-        <div class="tui-form__row">
-            <tui-textarea  formControlName="description">Course Description</tui-textarea>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="description"></tui-error>
-            <div class="tui-form__field-note">Display a text message on the Course Homepage to welcome your students to
-                the course or to provide instructions on what they can do.
-            </div>
-        </div>
-        <div class="tui-form__row">
-            <tui-input formControlName="url" type="url">Course URL</tui-input>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="url" ></tui-error>
-            <div class="tui-form__field-note">The URL field can be used to link to your course
-                website on another platform, or an external website of your choice.
-            </div>
-        </div>
-        <div class="tui-form__row">
-            <tui-input-date-range formControlName="date">Course Date
-                <span class="tui-required"></span>
-            </tui-input-date-range>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="date"></tui-error>
-        </div>
-        <div class="tui-form__row">
-            <tui-select formControlName="registrationMode">
-                Registration Mode
-                <span class="tui-required"></span>
-                <input
-                    tuiTextfieldLegacy
-                    placeholder="Select registration mode"
-                />
-                <tui-data-list-wrapper
-                    *tuiDataList
-                    [items]="registrationModes"
-                ></tui-data-list-wrapper>
-            </tui-select>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="registrationMode"></tui-error>
-            <div class="tui-form__field-note">Everyone can join an open course, while only the ones with an access code
-                can join a private course.
-            </div>
-        </div>
-        <div class="tui-form__row" *ngIf="showAccessCode()">
-            <tui-input formControlName="registrationCode">Access Code</tui-input>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="registrationCode"></tui-error>
-        </div>
-        <div class="tui-form__buttons">
-            <button
-                tuiButton
-                size="m"
-                type="submit"
-                class="tui-form__button"
-                [disabled]="formGroup.invalid"
-            >
-                {{ courseId ? 'Save Changes' : 'Submit' }}
-            </button>
-            <button
-                tuiButton
-                type="button"
-                appearance="flat"
-                size="m"
-                class="tui-form__button"
-                (click)="cancelRoute()"
-            >
-                Cancel
-            </button>
-        </div>
+      }
+      <div class="tui-form__buttons">
+        <button
+          tuiButton
+          size="m"
+          type="submit"
+          class="tui-form__button"
+          [disabled]="formGroup.invalid"
+          >
+          {{ courseId ? 'Save Changes' : 'Submit' }}
+        </button>
+        <button
+          tuiButton
+          type="button"
+          appearance="flat"
+          size="m"
+          class="tui-form__button"
+          (click)="cancelRoute()"
+          >
+          Cancel
+        </button>
+      </div>
     </form>
-</div>
+  </div>
+}

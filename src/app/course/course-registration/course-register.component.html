@@ -1,67 +1,71 @@
 <section class="tui-container tui-container_adaptive">
-    <ng-container *ngIf="!courseNotFound">
-        <h1
-            [class.tui-skeleton]="showSkeletons"
-            [class.tui-skeleton_text]="showSkeletons"
-            class="tui-text_h3 tui-space_vertical-10"
-        >
-            Registration for {{courseName}}
-        </h1>
-        <div *ngIf="showSkeletons"
-             class="course-registration_skeleton-notification tui-skeleton tui-space_bottom-7"></div>
-        <div *ngIf="showSkeletons" class="course-registration_skeleton tui-skeleton"></div>
-        <ng-container *ngIf="registered && !showSkeletons">
-            <tui-notification size="m" appearance="success">
-                You are already registered in this course
-            </tui-notification>
-            <div class="tui-form__buttons">
-                <a [routerLink]="['/course', courseId]" class="tui-form__button" size="m" tuiButton type="button">
-                    Open Course
-                </a>
-            </div>
-        </ng-container>
-        <ng-container *ngIf="blocked && !showSkeletons">
-            <tui-notification size="m" appearance="error">
-                Registration has been blocked for you. Please contact your instructor.
-            </tui-notification>
-        </ng-container>
-        <ng-container *ngIf="!registered && !blocked && !showSkeletons">
-            <tui-notification size="m" class="tui-space_bottom-7" appearance="info">
-                If you don't have a verification code please contact your instructor to get one.
-            </tui-notification>
-            <form (ngSubmit)="onSubmit()" [formGroup]="form">
-                <div class="tui-space_top-5">
-                    <tui-input [tuiTextfieldCleaner]="true"
-                               aria-label="Verification Code"
-                               formControlName="code">
-                        Enter verification code&nbsp;<span class="tui-required"></span>
-                    </tui-input>
-                    <tui-error [error]="[] | tuiFieldError | async" formControlName="code"></tui-error>
-                </div>
-                <div class="tui-form__buttons">
-                    <button [loading]="loadingContent" aria-label="Register" class="tui-form__button" size="m"
-                            tuiButton
-                            type="submit">
-                        Register
-                    </button>
-                </div>
-            </form>
-        </ng-container>
-    </ng-container>
-    <ng-container *ngIf="courseNotFound">
-        <div class="course-registration_none">
-            <tui-avatar 
-                class="tui-space_bottom-4 tui-space_top-15"
-                appearance="error"
-                size="m"
-                src="@tui.circle-alert"
-            ></tui-avatar>
-            <h1 class="tui-text_h6 tui-island_text-align_center">
-                Unable to find the course for registration.
-            </h1>
-            <p class="tui-island__paragraph">
-                Please try again later, or contact your course administrator.
-            </p>
+  @if (!courseNotFound) {
+    <h1
+      [class.tui-skeleton]="showSkeletons"
+      [class.tui-skeleton_text]="showSkeletons"
+      class="tui-text_h3 tui-space_vertical-10"
+      >
+      Registration for {{courseName}}
+    </h1>
+    @if (showSkeletons) {
+      <div
+      class="course-registration_skeleton-notification tui-skeleton tui-space_bottom-7"></div>
+    }
+    @if (showSkeletons) {
+      <div class="course-registration_skeleton tui-skeleton"></div>
+    }
+    @if (registered && !showSkeletons) {
+      <tui-notification size="m" appearance="success">
+        You are already registered in this course
+      </tui-notification>
+      <div class="tui-form__buttons">
+        <a [routerLink]="['/course', courseId]" class="tui-form__button" size="m" tuiButton type="button">
+          Open Course
+        </a>
+      </div>
+    }
+    @if (blocked && !showSkeletons) {
+      <tui-notification size="m" appearance="error">
+        Registration has been blocked for you. Please contact your instructor.
+      </tui-notification>
+    }
+    @if (!registered && !blocked && !showSkeletons) {
+      <tui-notification size="m" class="tui-space_bottom-7" appearance="info">
+        If you don't have a verification code please contact your instructor to get one.
+      </tui-notification>
+      <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <div class="tui-space_top-5">
+          <tui-input [tuiTextfieldCleaner]="true"
+            aria-label="Verification Code"
+            formControlName="code">
+            Enter verification code&nbsp;<span class="tui-required"></span>
+          </tui-input>
+          <tui-error [error]="[] | tuiFieldError | async" formControlName="code"></tui-error>
         </div>
-    </ng-container>
+        <div class="tui-form__buttons">
+          <button [loading]="loadingContent" aria-label="Register" class="tui-form__button" size="m"
+            tuiButton
+            type="submit">
+            Register
+          </button>
+        </div>
+      </form>
+    }
+  }
+  @if (courseNotFound) {
+    <div class="course-registration_none">
+      <tui-avatar
+        class="tui-space_bottom-4 tui-space_top-15"
+        appearance="error"
+        size="m"
+        src="@tui.circle-alert"
+      ></tui-avatar>
+      <h1 class="tui-text_h6 tui-island_text-align_center">
+        Unable to find the course for registration.
+      </h1>
+      <p class="tui-island__paragraph">
+        Please try again later, or contact your course administrator.
+      </p>
+    </div>
+  }
 </section>

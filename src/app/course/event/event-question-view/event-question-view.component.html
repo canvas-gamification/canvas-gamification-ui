@@ -1,94 +1,98 @@
 <div class="line"></div>
 <div class="flex flex-col md:flex-row">
-    <app-sidebar
-        position="left"
-        sidebarId="eventQuestionSidebar"
-        spacing="start"
+  <app-sidebar
+    position="left"
+    sidebarId="eventQuestionSidebar"
+    spacing="start"
     >
-        <div class="flex flex-col gap-6 overflow-hidden">
-            <a
-                *ngIf="event?.type==='ASSIGNMENT' || 'EXAM'"
-                [routerLink]="['/course', event?.course, 'assignments-exams', eventId]"
-                class="mt-6 w-full"
-                [class.tui-skeleton]="!event"
-                iconStart="@tui.arrow-left"
-                size="s"
-                tuiButton
-                appearance="secondary"
-            >
-                Back to Assessment
-            </a>
-            <a
-                *ngIf="event?.type==='CHALLENGE'"
-                [routerLink]="['/course', event?.course, 'challenge', eventId]"
-                class="mt-6 w-full"
-                [class.tui-skeleton]="!event"
-                iconStart="@tui.arrow-left"
-                size="s"
-                tuiButton
-                appearance="secondary"
-            >
-                Back to Challenge
-            </a>
-            <p [class.tui-skeleton]="!event">
-                {{event?.name}}
-            </p>
-            <tui-scrollbar class="flex-grow">
-                <div class="space-y-2 mr-4" *ngIf="uqjs else skeleton">
-                    <div class="border-t"></div>
-                    <ng-container *ngFor="let uqj of uqjs">
-                        <div
-                            (click)=setCurrentUQJ(uqj)
-                            class="cursor-pointer clickable p-2 rounded-lg"
-                            [class.tui-skeleton]="!uqjs"
+    <div class="flex flex-col gap-6 overflow-hidden">
+      @if (event?.type==='ASSIGNMENT' || 'EXAM') {
+        <a
+          [routerLink]="['/course', event?.course, 'assignments-exams', eventId]"
+          class="mt-6 w-full"
+          [class.tui-skeleton]="!event"
+          iconStart="@tui.arrow-left"
+          size="s"
+          tuiButton
+          appearance="secondary"
+          >
+          Back to Assessment
+        </a>
+      }
+      @if (event?.type==='CHALLENGE') {
+        <a
+          [routerLink]="['/course', event?.course, 'challenge', eventId]"
+          class="mt-6 w-full"
+          [class.tui-skeleton]="!event"
+          iconStart="@tui.arrow-left"
+          size="s"
+          tuiButton
+          appearance="secondary"
+          >
+          Back to Challenge
+        </a>
+      }
+      <p [class.tui-skeleton]="!event">
+        {{event?.name}}
+      </p>
+      <tui-scrollbar class="flex-grow">
+        @if (uqjs) {
+          <div class="space-y-2 mr-4">
+            <div class="border-t"></div>
+            @for (uqj of uqjs; track uqj) {
+              <div
+                (click)=setCurrentUQJ(uqj)
+                class="cursor-pointer clickable p-2 rounded-lg"
+                [class.tui-skeleton]="!uqjs"
                             [ngClass]="{
                             'clicked font-bold': isCurrentUQJ(uqj)
                         }"
-                        >
-                            <span>{{uqj.question.title}}</span>
-                            <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-<tui-icon 
-                                *ngIf="uqj.is_solved"
-                                icon="@tui.check"
-                            ></tui-icon>
-                        </div>
-                        <div class="border-t"></div>
-                    </ng-container>
-                </div>
-            </tui-scrollbar>
-            <div class="flex flex-col mb-6">
-                <button
-                    (click)="openReportQuestion()"
-                    [class.tui-skeleton]="!uqjs"
-                    iconStart="@tui.attention"
-                    size="s"
-                    tuiButton
-                    appearance="secondary"
                 >
-                    Report a Problem
-                </button>
-            </div>
+                <span>{{uqj.question.title}}</span>
+                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+                @if (uqj.is_solved) {
+                  <tui-icon
+                    icon="@tui.check"
+                  ></tui-icon>
+                }
+              </div>
+              <div class="border-t"></div>
+            }
+          </div>
+        } @else {
+          <div class="space-y-2">
+            @for (uqj of [0, 0, 0, 0]; track uqj) {
+              <div
+                class="cursor-pointer clickable p-2 rounded-lg tui-skeleton"
+                >
+                Question Titles
+              </div>
+              <div class="border-t"></div>
+            }
+          </div>
+        }
+      </tui-scrollbar>
+      <div class="flex flex-col mb-6">
+        <button
+          (click)="openReportQuestion()"
+          [class.tui-skeleton]="!uqjs"
+          iconStart="@tui.attention"
+          size="s"
+          tuiButton
+          appearance="secondary"
+          >
+          Report a Problem
+        </button>
+      </div>
 
-        </div>
-        <ng-template #skeleton>
-            <div class="space-y-2">
-                <ng-container *ngFor="let uqj of [0, 0, 0, 0]">
-                    <div
-                        class="cursor-pointer clickable p-2 rounded-lg tui-skeleton"
-                    >
-                        Question Titles
-                    </div>
-                    <div class="border-t"></div>
-                </ng-container>
-            </div>
-        </ng-template>
-    </app-sidebar>
-    <div class="flex-grow">
-        <app-problem-view [questionId]="currentUJQ?.question.id"></app-problem-view>
     </div>
+  </app-sidebar>
+  <div class="flex-grow">
+    <app-problem-view [questionId]="currentUJQ?.question.id"></app-problem-view>
+  </div>
 </div>
 <app-problem-report-modal
-    [(open)]="reportQuestionModal"
-    [questionId]="currentUJQ?.question.id"
->
+  [(open)]="reportQuestionModal"
+  [questionId]="currentUJQ?.question.id"
+  >
 </app-problem-report-modal>

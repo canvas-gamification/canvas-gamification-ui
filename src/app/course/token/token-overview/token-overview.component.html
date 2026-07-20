@@ -1,22 +1,24 @@
 <ng-container>
-    <table
-        [columns]="tableHeaders"
-        class="w-full"
-        tuiTable
+  <table
+    [columns]="tableHeaders"
+    class="w-full"
+    tuiTable
     >
-        <thead tuiThead>
-        <tr tuiThGroup>
-            <th *tuiHead="'name'" tuiTh>Name</th>
-            <th *tuiHead="'event_name'" tuiTh>Event Name</th>
-            <th *tuiHead="'grade'" tuiTh>Tokens Earned</th>
+    <thead tuiThead>
+      <tr tuiThGroup>
+        <th *tuiHead="'name'" tuiTh>Name</th>
+        <th *tuiHead="'event_name'" tuiTh>Event Name</th>
+        <th *tuiHead="'grade'" tuiTh>Tokens Earned</th>
+      </tr>
+    </thead>
+    <tbody [data]="displayData" tuiTbody>
+      @for (grade of displayData; track grade) {
+        <tr tuiTr>
+          <td *tuiCell="'grade'" tuiTd>
+            {{ grade.grade }} / {{ grade.total }}
+          </td>
         </tr>
-        </thead>
-        <tbody [data]="displayData" tuiTbody>
-        <tr *ngFor="let grade of displayData" tuiTr>
-            <td *tuiCell="'grade'" tuiTd>
-                {{ grade.grade }} / {{ grade.total }}
-            </td>
-        </tr>
-        </tbody>
-    </table>
+      }
+    </tbody>
+  </table>
 </ng-container>

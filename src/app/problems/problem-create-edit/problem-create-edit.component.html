@@ -1,36 +1,36 @@
 `<div class="tui-container tui-container_adaptive">
-    <ng-container *ngIf="questionType === 'MCQ' || questionType === 'multiple choice question'">
-        <app-mcq-create-snippet
-            [isCheckbox]="false"
-            [questionDetails]="questionDetails"
-            [eventId]="eventId"
-            [courseId]="courseId"
-        >
-        </app-mcq-create-snippet>
-    </ng-container>
-    <ng-container *ngIf="questionType === 'checkbox'">
-        <app-mcq-create-snippet
-            [isCheckbox]="true"
-            [questionDetails]="questionDetails"
-            [eventId]="eventId"
-            [courseId]="courseId"
-        >
-        </app-mcq-create-snippet>
-    </ng-container>
-    <ng-container *ngIf="questionType === 'java' || questionType === 'java question'">
-        <app-java-create-snippet
-            [questionDetails]="questionDetails"
-            [eventId]="eventId"
-            [courseId]="courseId"
-        >
-        </app-java-create-snippet>
-    </ng-container>
-    <ng-container *ngIf="questionType === 'parsons' || questionType === 'parsons question'">
-        <app-parsons-create-snippet
-            [questionDetails]="questionDetails"
-            [eventId]="eventId"
-            [courseId]="courseId"
-        >
-        </app-parsons-create-snippet>
-    </ng-container>
+@if (questionType === 'MCQ' || questionType === 'multiple choice question') {
+  <app-mcq-create-snippet
+    [isCheckbox]="false"
+    [questionDetails]="questionDetails"
+    [eventId]="eventId"
+    [courseId]="courseId"
+    >
+  </app-mcq-create-snippet>
+}
+@if (questionType === 'checkbox') {
+  <app-mcq-create-snippet
+    [isCheckbox]="true"
+    [questionDetails]="questionDetails"
+    [eventId]="eventId"
+    [courseId]="courseId"
+    >
+  </app-mcq-create-snippet>
+}
+@if (questionType === 'java' || questionType === 'java question') {
+  <app-java-create-snippet
+    [questionDetails]="questionDetails"
+    [eventId]="eventId"
+    [courseId]="courseId"
+    >
+  </app-java-create-snippet>
+}
+@if (questionType === 'parsons' || questionType === 'parsons question') {
+  <app-parsons-create-snippet
+    [questionDetails]="questionDetails"
+    [eventId]="eventId"
+    [courseId]="courseId"
+    >
+  </app-parsons-create-snippet>
+}
 </div>

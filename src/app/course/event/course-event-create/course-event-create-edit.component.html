@@ -1,179 +1,194 @@
 <div class="tui-container tui-container_adaptive">
-    <form (ngSubmit)="submitEvent(formData)" [formGroup]="formData">
-        <h2 class="tui-form__header">{{getTitle()}} Assessment</h2>
-        <div class="tui-form__row">
-            <tui-input aria-label="Assessment Name" formControlName="name">Assessment Name</tui-input>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
-        </div>
-        <div class="tui-form__row">
-            <tui-select
-                aria-label="Assessment Type"
-                formControlName="type"
-                [valueContent]="localEventTypes ? (localEventTypes | stringifyTuiDataList: 0: 1) : ''"
-            >
-                Assessment Type
-                <tui-data-list *tuiDataList>
-                    <button *ngFor="let event of localEventTypes" [value]="event[0]" tuiOption>
-                        {{ event[1] }}
-                    </button>
-                </tui-data-list>
-            </tui-select>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="type"></tui-error>
-        </div>
-        <div class="tui-form__row">
-           <label tuiLabel> <input tuiCheckbox type="checkbox" aria-label="Counts for Tokens" formControlName="countForTokens">
-                Counts for tokens
-            </label>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="countForTokens"></tui-error>
-        </div>
-        <div class="tui-form__row">
-            <tui-input-date-range aria-label="Start and End Date"
-                                  formControlName="startEndDatePicker">
-                Start and end date
-            </tui-input-date-range>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="startEndDatePicker"></tui-error>
-        </div>
-        <div class="tui-form__row tui-form__row_multi-fields">
-            <div class="tui-form__multi-field">
-                <tui-input-time [items]="timeOptions" aria-label="Start Time"
-                                formControlName="startTimePicker">
-                    Start time
-                </tui-input-time>
-                <tui-error [error]="[] | tuiFieldError | async" formControlName="startTimePicker"></tui-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-input-time [items]="timeOptions" aria-label="End Time"
-                                formControlName="endTimePicker">
-                    End time
-                </tui-input-time>
-                <tui-error [error]="[] | tuiFieldError | async" formControlName="endTimePicker"></tui-error>
-            </div>
-        </div>
-        <tui-notification size="m"
-            *ngIf="formData.errors?.forbiddenDateRange"
-            class="tui-space_top-4"
-            appearance="error"
+  <form (ngSubmit)="submitEvent(formData)" [formGroup]="formData">
+    <h2 class="tui-form__header">{{getTitle()}} Assessment</h2>
+    <div class="tui-form__row">
+      <tui-input aria-label="Assessment Name" formControlName="name">Assessment Name</tui-input>
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
+    </div>
+    <div class="tui-form__row">
+      <tui-select
+        aria-label="Assessment Type"
+        formControlName="type"
+        [valueContent]="localEventTypes ? (localEventTypes | stringifyTuiDataList: 0: 1) : ''"
         >
-            Invalid date range! Please check your start and end times!
-        </tui-notification>
-        <h3 class="tui-form__header">
-            Add Questions
-            <button
-                (click)="addChallengeQuestionSet()"
-                iconStart="@tui.plus"
-                size="s"
-                tuiButton
-                type="button"
-                class="ml-3"
-                appearance="secondary"
-            >
-                Add More
+        Assessment Type
+        <tui-data-list *tuiDataList>
+          @for (event of localEventTypes; track event) {
+            <button [value]="event[0]" tuiOption>
+              {{ event[1] }}
             </button>
-        </h3>
-        <div *ngIf="getQuestionSetFormControls().length === 0">
-            <div *ngIf="eventId">
-                This assessment will not include any additional questions.
-            </div>
-            <div *ngIf="!eventId">
-                This assessment will not include any questions.
-                You can always add more questions by editing the assessment
-                or by adding from the question bank.
-            </div>
-        </div>
-        <div
-            *ngFor="let questionSetFormControl of getQuestionSetFormControls(); let index = index"
-            class="tui-form__row tui-form__row_multi-fields"
+          }
+        </tui-data-list>
+      </tui-select>
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="type"></tui-error>
+    </div>
+    <div class="tui-form__row">
+      <label tuiLabel> <input tuiCheckbox type="checkbox" aria-label="Counts for Tokens" formControlName="countForTokens">
+        Counts for tokens
+      </label>
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="countForTokens"></tui-error>
+    </div>
+    <div class="tui-form__row">
+      <tui-input-date-range aria-label="Start and End Date"
+        formControlName="startEndDatePicker">
+        Start and end date
+      </tui-input-date-range>
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="startEndDatePicker"></tui-error>
+    </div>
+    <div class="tui-form__row tui-form__row_multi-fields">
+      <div class="tui-form__multi-field">
+        <tui-input-time [items]="timeOptions" aria-label="Start Time"
+          formControlName="startTimePicker">
+          Start time
+        </tui-input-time>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="startTimePicker"></tui-error>
+      </div>
+      <div class="tui-form__multi-field">
+        <tui-input-time [items]="timeOptions" aria-label="End Time"
+          formControlName="endTimePicker">
+          End time
+        </tui-input-time>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="endTimePicker"></tui-error>
+      </div>
+    </div>
+    @if (formData.errors?.forbiddenDateRange) {
+      <tui-notification size="m"
+        class="tui-space_top-4"
+        appearance="error"
         >
-            <div class="tui-form__multi-field">
-                <tui-select
-                    [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
-                    [formControl]="getFormControl(questionSetFormControl, 'category')"
-                >
-                    Category
-                    <tui-data-list *tuiDataList>
-                        <button *ngFor="let category of categories" [value]="category.pk" tuiOption>
-                            {{ category.full_name }}
-                        </button>
-                    </tui-data-list>
-                </tui-select>
-                <tui-error [error]="[] | tuiFieldError | async"
-                    [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-select
-                    [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-                    [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
-                >
-                    Difficulty
-                    <tui-data-list *tuiDataList>
-                        <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]"
-                                tuiOption>
-                            {{ difficulty[1] }}
-                        </button>
-                    </tui-data-list>
-                </tui-select>
-                <tui-error [error]="[] | tuiFieldError | async"
-                    [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
-                ></tui-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-input-number
-                    [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
-                    [max]="getNumQuestionsLimit(questionSetFormControl)"
-                >
-                    Number of questions
-                </tui-input-number>
-                <tui-error [error]="[] | tuiFieldError | async"
-                    [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
-                ></tui-error>
-                <div class="tui-form__field-note">
-                    {{getNumQuestionsLimit(questionSetFormControl)}} question(s) available.
-                </div>
-            </div>
-            <div class="tui-form__multi-field">
-                <div class="flex h-full items-center">
-                    <button
-                        (click)="removeChallengeQuestionSet(index)"
-                        iconStart="@tui.minus"
-                        size="s"
-                        tuiButton
-                        type="button"
-                        appearance="accent"
-                    >
-                        Delete
-                    </button>
-                </div>
-            </div>
-        </div>
-        <tui-notification size="m"
-            class="my-6"
-            *ngIf="getQuestionSetFormControls().length > 2"
+        Invalid date range! Please check your start and end times!
+      </tui-notification>
+    }
+    <h3 class="tui-form__header">
+      Add Questions
+      <button
+        (click)="addChallengeQuestionSet()"
+        iconStart="@tui.plus"
+        size="s"
+        tuiButton
+        type="button"
+        class="ml-3"
+        appearance="secondary"
         >
-            Adding a lot of questions can take a while. Please do not close the page until the process is completed.
-        </tui-notification>
-        <div class="tui-form__buttons">
+        Add More
+      </button>
+    </h3>
+    @if (getQuestionSetFormControls().length === 0) {
+      <div>
+        @if (eventId) {
+          <div>
+            This assessment will not include any additional questions.
+          </div>
+        }
+        @if (!eventId) {
+          <div>
+            This assessment will not include any questions.
+            You can always add more questions by editing the assessment
+            or by adding from the question bank.
+          </div>
+        }
+      </div>
+    }
+    @for (questionSetFormControl of getQuestionSetFormControls(); track questionSetFormControl; let index = $index) {
+      <div
+        class="tui-form__row tui-form__row_multi-fields"
+        >
+        <div class="tui-form__multi-field">
+          <tui-select
+            [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
+            [formControl]="getFormControl(questionSetFormControl, 'category')"
+            >
+            Category
+            <tui-data-list *tuiDataList>
+              @for (category of categories; track category) {
+                <button [value]="category.pk" tuiOption>
+                  {{ category.full_name }}
+                </button>
+              }
+            </tui-data-list>
+          </tui-select>
+          <tui-error [error]="[] | tuiFieldError | async"
+          [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-error>
+        </div>
+        <div class="tui-form__multi-field">
+          <tui-select
+            [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+            [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
+            >
+            Difficulty
+            <tui-data-list *tuiDataList>
+              @for (difficulty of difficulties; track difficulty) {
+                <button [value]="difficulty[0]"
+                  tuiOption>
+                  {{ difficulty[1] }}
+                </button>
+              }
+            </tui-data-list>
+          </tui-select>
+          <tui-error [error]="[] | tuiFieldError | async"
+            [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
+          ></tui-error>
+        </div>
+        <div class="tui-form__multi-field">
+          <tui-input-number
+            [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
+            [max]="getNumQuestionsLimit(questionSetFormControl)"
+            >
+            Number of questions
+          </tui-input-number>
+          <tui-error [error]="[] | tuiFieldError | async"
+            [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
+          ></tui-error>
+          <div class="tui-form__field-note">
+            {{getNumQuestionsLimit(questionSetFormControl)}} question(s) available.
+          </div>
+        </div>
+        <div class="tui-form__multi-field">
+          <div class="flex h-full items-center">
             <button
-                [disabled]="formData.invalid"
-                [loading]="submitting"
-                appearance="primary"
-                aria-label="Submit"
-                class="tui-form__button"
-                size="m"
-                tuiButton
-                type="submit"
-            >
-                {{getButtonName()}}
+              (click)="removeChallengeQuestionSet(index)"
+              iconStart="@tui.minus"
+              size="s"
+              tuiButton
+              type="button"
+              appearance="accent"
+              >
+              Delete
             </button>
-            <a
-                [routerLink]="['/course', courseId, 'assignments-exams']"
-                appearance="secondary"
-                aria-label="Cancel"
-                class="tui-form__button"
-                size="m"
-                tuiButton
-            >
-                Cancel
-            </a>
+          </div>
         </div>
-    </form>
+      </div>
+    }
+    @if (getQuestionSetFormControls().length > 2) {
+      <tui-notification size="m"
+        class="my-6"
+        >
+        Adding a lot of questions can take a while. Please do not close the page until the process is completed.
+      </tui-notification>
+    }
+    <div class="tui-form__buttons">
+      <button
+        [disabled]="formData.invalid"
+        [loading]="submitting"
+        appearance="primary"
+        aria-label="Submit"
+        class="tui-form__button"
+        size="m"
+        tuiButton
+        type="submit"
+        >
+        {{getButtonName()}}
+      </button>
+      <a
+        [routerLink]="['/course', courseId, 'assignments-exams']"
+        appearance="secondary"
+        aria-label="Cancel"
+        class="tui-form__button"
+        size="m"
+        tuiButton
+        >
+        Cancel
+      </a>
+    </div>
+  </form>
 </div>

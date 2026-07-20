@@ -1,134 +1,140 @@
-<ng-container *ngIf="teams else skeletonTemplate">
+@if (teams) {
+  @if (course && event && teams) {
     <section
-        *ngIf="course && event && teams"
-        class="tui-container tui-container_adaptive ng-star-inserted"
-    >
-        <div class="flex flex-wrap gap-3 tui-space_top-6">
-            <h3 class="tui-text_h3 tui-col_stretch flex-grow">List of Teams</h3>
-            <a
-                *ngIf="!(event.is_open || event.is_closed)"
-                [routerLink]="['create']"
-                iconStart="@tui.plus"
-                appearance="primary"
-                aria-label="Create New Team"
-                size="m"
-                tuiButton
-            >
-                Create New Team
-            </a>
-        </div>
-        <div class="tui-island__paragraph tui-text_body-l tui-space_top-6">
-            The team that has the person icon (<!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-<tui-icon  icon="@tui.user"></tui-icon>) is your team.
-            You can change the team's name by editing it.
-            You can also edit the team settings and invite specific people privately to your team or
-            make it public so anyone can join your team.
-        </div>
-        <ng-container *ngFor="let team of teams; let index = index">
-            <ng-container *ngIf="team">
-                <tui-accordion class="tui-space_top-6">
-                    <tui-accordion-item>
-                        <div class="flex flex-wrap gap-3">
-                            <div class="min-w-[2rem]">
-                                <span class="mr-1">
-                                    {{index + 1}}
-                                </span>
-                                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-<tui-icon 
-                                    icon="@tui.user"
-                                    *ngIf="isInTeam(team)"
-                                ></tui-icon>
-                            </div>
-                            <div class="flex-grow">{{team.name}}</div>
-                            <div>
-                                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-<tui-icon  *ngIf="team.is_private" icon="@tui.lock"></tui-icon>
-                            </div>
-                            <div>
-                                {{team.member_names.length}}
-                                {{team.member_names.length===1? 'student': 'students'}}
-                            </div>
-                        </div>
-                        <ng-template tuiAccordionItemContent>
-                            <div class="flex flex-wrap gap-3">
-                                <div class="flex-grow">
-                                    <div
-                                        *ngFor="let name of team.member_names"
-                                        class="tui-text_body-l"
-                                    >
-                                        {{name}}
-                                    </div>
-                                    <div
-                                        *ngIf="pendingInvites(team) !== 0"
-                                        class="mt-2"
-                                    >
-                                        {{pendingInvites(team)}} pending invite(s)
-                                    </div>
-                                </div>
-                                <ng-container *ngIf="isInTeam(team); else notInTeam;">
-                                    <a
-                                        *ngIf=
-                                            "isInTeam(team) && event.is_not_available_yet"
-                                        [routerLink]="[team.id, 'edit']"
-                                        appearance="secondary"
-                                        aria-label="Edit"
-                                        size="m"
-                                        tuiButton
-                                        class="w-fit"
-                                    >
-                                        Edit
-                                    </a>
-                                </ng-container>
-                                <ng-template #notInTeam>
-                                    <button
-                                        *ngIf="isJoinAble(team, event)"
-                                        (click)="joinTeam(team.id)"
-                                        appearance="secondary"
-                                        aria-label="Join"
-                                        size="m"
-                                        tuiButton
-                                        class="w-fit"
-                                    >
-                                        Join
-                                    </button>
-                                </ng-template>
-                            </div>
-                        </ng-template>
-                    </tui-accordion-item>
-                </tui-accordion>
-            </ng-container>
-        </ng-container>
-    </section>
-</ng-container>
-
-<ng-template #skeletonTemplate>
-    <div class="tui-container tui-container_adaptive ng-star-inserted">
-    <div class="flex flex-wrap gap-3 tui-space_top-6">
-        <h3 class="tui-text_h3 tui-col_stretch flex-grow tui-skeleton">List of Teams</h3>
-        <a
-            class="tui-skeleton"
+      class="tui-container tui-container_adaptive ng-star-inserted"
+      >
+      <div class="flex flex-wrap gap-3 tui-space_top-6">
+        <h3 class="tui-text_h3 tui-col_stretch flex-grow">List of Teams</h3>
+        @if (!(event.is_open || event.is_closed)) {
+          <a
+            [routerLink]="['create']"
             iconStart="@tui.plus"
             appearance="primary"
             aria-label="Create New Team"
             size="m"
             tuiButton
-        >
+            >
             Create New Team
-        </a>
+          </a>
+        }
+      </div>
+      <div class="tui-island__paragraph tui-text_body-l tui-space_top-6">
+        The team that has the person icon (<!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+        <tui-icon  icon="@tui.user"></tui-icon>) is your team.
+        You can change the team's name by editing it.
+        You can also edit the team settings and invite specific people privately to your team or
+        make it public so anyone can join your team.
+      </div>
+      @for (team of teams; track team; let index = $index) {
+        @if (team) {
+          <tui-accordion class="tui-space_top-6">
+            <tui-accordion-item>
+              <div class="flex flex-wrap gap-3">
+                <div class="min-w-[2rem]">
+                  <span class="mr-1">
+                    {{index + 1}}
+                  </span>
+                  <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+                  @if (isInTeam(team)) {
+                    <tui-icon
+                      icon="@tui.user"
+                    ></tui-icon>
+                  }
+                </div>
+                <div class="flex-grow">{{team.name}}</div>
+                <div>
+                  <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+                  @if (team.is_private) {
+                    <tui-icon  icon="@tui.lock"></tui-icon>
+                  }
+                </div>
+                <div>
+                  {{team.member_names.length}}
+                  {{team.member_names.length===1? 'student': 'students'}}
+                </div>
+              </div>
+              <ng-template tuiAccordionItemContent>
+                <div class="flex flex-wrap gap-3">
+                  <div class="flex-grow">
+                    @for (name of team.member_names; track name) {
+                      <div
+                        class="tui-text_body-l"
+                        >
+                        {{name}}
+                      </div>
+                    }
+                    @if (pendingInvites(team) !== 0) {
+                      <div
+                        class="mt-2"
+                        >
+                        {{pendingInvites(team)}} pending invite(s)
+                      </div>
+                    }
+                  </div>
+                  @if (isInTeam(team)) {
+                    @if (isInTeam(team) && event.is_not_available_yet) {
+                      <a
+                        [routerLink]="[team.id, 'edit']"
+                        appearance="secondary"
+                        aria-label="Edit"
+                        size="m"
+                        tuiButton
+                        class="w-fit"
+                        >
+                        Edit
+                      </a>
+                    }
+                  } @else {
+                    @if (isJoinAble(team, event)) {
+                      <button
+                        (click)="joinTeam(team.id)"
+                        appearance="secondary"
+                        aria-label="Join"
+                        size="m"
+                        tuiButton
+                        class="w-fit"
+                        >
+                        Join
+                      </button>
+                    }
+                  }
+                </div>
+              </ng-template>
+            </tui-accordion-item>
+          </tui-accordion>
+        }
+      }
+    </section>
+  }
+} @else {
+  <div class="tui-container tui-container_adaptive ng-star-inserted">
+    <div class="flex flex-wrap gap-3 tui-space_top-6">
+      <h3 class="tui-text_h3 tui-col_stretch flex-grow tui-skeleton">List of Teams</h3>
+      <a
+        class="tui-skeleton"
+        iconStart="@tui.plus"
+        appearance="primary"
+        aria-label="Create New Team"
+        size="m"
+        tuiButton
+        >
+        Create New Team
+      </a>
     </div>
     <div class="tui-skeleton tui-island__paragraph tui-text_body-l tui-space_top-6"
-    >
-        Instructions
+      >
+      Instructions
     </div>
     <tui-accordion class="accordionContainer tui-space_top-6">
-        <tui-accordion-item>
-            <div class="accordionHeader">
-                <div class="tui-skeleton">content</div>
-                <div class="tui-skeleton">content</div>
-                <div class="tui-skeleton">content</div>
-            </div>
-        </tui-accordion-item>
+      <tui-accordion-item>
+        <div class="accordionHeader">
+          <div class="tui-skeleton">content</div>
+          <div class="tui-skeleton">content</div>
+          <div class="tui-skeleton">content</div>
+        </div>
+      </tui-accordion-item>
     </tui-accordion>
-    </div>
-</ng-template>
+  </div>
+}
+
 

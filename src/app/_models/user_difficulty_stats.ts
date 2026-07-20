@@ -7,7 +7,7 @@ export interface Stats {
     token_stats: {
         course_name: string,
         tokens: number
-    },
+    }[],
     challenge_stats: {
         challenges_completed: number
     },

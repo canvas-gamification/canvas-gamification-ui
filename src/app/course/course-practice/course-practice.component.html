@@ -1,47 +1,51 @@
 <section class="tui-container tui-container_fullwidth">
-    <a
-        appearance="flat"
-        [routerLink]="['..']"
-        iconStart="@tui.arrow-left"
-        size="s"
-        class="p-3"
-        tuiButton
+  <a
+    appearance="flat"
+    [routerLink]="['..']"
+    iconStart="@tui.arrow-left"
+    size="s"
+    class="p-3"
+    tuiButton
     >
-        Back to Practice
-    </a>
-    <div class="py-2"></div>
-    <div class="flex justify-center">
-        <div
-            tuiGroup
-            class=""
-            [collapsed]="true"
-            [rounded]="true"
+    Back to Practice
+  </a>
+  <div class="py-2"></div>
+  <div class="flex justify-center">
+    <div
+      tuiGroup
+      class=""
+      [collapsed]="true"
+      [rounded]="true"
+      >
+      <button
+        tuiButton
+        type="button"
+        appearance="secondary"
+        size="l"
+        class="whitespace-nowrap"
+        (click)="setListView(false)"
+        [tuiAppearanceState]="!enableListView ? 'active' : null"
         >
-            <button
-                tuiButton
-                type="button"
-                appearance="secondary"
-                size="l"
-                class="whitespace-nowrap"
-                (click)="setListView(false)"
-                [tuiAppearanceState]="!enableListView ? 'active' : null"
-            >
-                Map View
-            </button>
-            <button
-                tuiButton
-                type="button"
-                appearance="secondary"
-                size="l"
-                class="whitespace-nowrap"
-                (click)="setListView(true)"
-                [tuiAppearanceState]="enableListView ? 'active' : null"
-            >
-                List View
-            </button>
-        </div>
+        Map View
+      </button>
+      <button
+        tuiButton
+        type="button"
+        appearance="secondary"
+        size="l"
+        class="whitespace-nowrap"
+        (click)="setListView(true)"
+        [tuiAppearanceState]="enableListView ? 'active' : null"
+        >
+        List View
+      </button>
     </div>
-    <div class="py-3"></div>
-    <app-concept-list *ngIf="enableListView" [currCourse]="course"></app-concept-list>
-    <app-concept-map *ngIf="!enableListView" [currCourse]="course"></app-concept-map>
+  </div>
+  <div class="py-3"></div>
+  @if (enableListView) {
+    <app-concept-list [currCourse]="course"></app-concept-list>
+  }
+  @if (!enableListView) {
+    <app-concept-map [currCourse]="course"></app-concept-map>
+  }
 </section>

@@ -1,17 +1,15 @@
-<ng-container *ngIf="!readonly else editorSocket">
-    <tui-editor
-        (ngModelChange)="editor.setValue($event)"
-        [exampleText]="exampleText"
-        [ngModelOptions]="{standalone: true}"
-        [ngModel]="editor.value"
-        
+@if (!readonly) {
+  <tui-editor
+    (ngModelChange)="editor.setValue($event)"
+    [exampleText]="exampleText"
+    [ngModelOptions]="{standalone: true}"
+    [ngModel]="editor.value"
     >
-        {{placeHolder}}
-        <ng-container ngProjectAs="tools">
-            <app-katex-tool tuiItem></app-katex-tool>
-        </ng-container>
-    </tui-editor>
-</ng-container>
-<ng-template #editorSocket>
-    <tui-editor-socket [content]="editor.value | getKatexHtmlString"></tui-editor-socket>
-</ng-template>
+    {{placeHolder}}
+    <ng-container ngProjectAs="tools">
+      <app-katex-tool tuiItem></app-katex-tool>
+    </ng-container>
+  </tui-editor>
+} @else {
+  <tui-editor-socket [content]="editor.value | getKatexHtmlString"></tui-editor-socket>
+}

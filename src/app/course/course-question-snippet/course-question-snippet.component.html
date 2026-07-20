@@ -1,326 +1,358 @@
-<ng-container *ngIf="!!course && !!uqjs">
-    <div [class.tui-container]="eventId" [class.tui-container_adaptive]="eventId">
-        <a
-            [routerLink]="['..']"
-            iconStart="@tui.arrow-left"
-            size="s"
-            tuiButton
-            appearance="flat"
-            class="mb-6"
+@if (!!course && !!uqjs) {
+  <div [class.tui-container]="eventId" [class.tui-container_adaptive]="eventId">
+    <a
+      [routerLink]="['..']"
+      iconStart="@tui.arrow-left"
+      size="s"
+      tuiButton
+      appearance="flat"
+      class="mb-6"
+      >
+      Back to {{getBackLabel()}}
+    </a>
+    @if (event.is_not_available_yet) {
+      <tui-notification size="m"
+        class="mb-6"
         >
-            Back to {{getBackLabel()}}
-        </a>
-        <tui-notification size="m"
-            class="mb-6"
-            *ngIf="event.is_not_available_yet"
+        The {{getEventType()}} is not available yet.
+      </tui-notification>
+    }
+    @if (event.is_closed) {
+      <tui-notification size="m"
+        class="mb-6"
         >
-            The {{getEventType()}} is not available yet.
-        </tui-notification>
-        <tui-notification size="m"
-            class="mb-6"
-            *ngIf="event.is_closed"
+        The {{getEventType()}} is closed.
+      </tui-notification>
+    }
+    @if (!event.count_for_tokens) {
+      <tui-notification size="m"
+        class="mb-6"
         >
-            The {{getEventType()}} is closed.
-        </tui-notification>
-        <tui-notification size="m"
-            class="mb-6"
-            *ngIf="!event.count_for_tokens"
+        This {{getEventType()}} does not count towards the leaderboard.
+      </tui-notification>
+    }
+    @if (eventId) {
+      <div
+        class="flex justify-between items-center mt-3"
+        [class.mb-10]="event.type !== 'CHALLENGE'"
         >
-            This {{getEventType()}} does not count towards the leaderboard.
-        </tui-notification>
-        <div
-            *ngIf="eventId"
-            class="flex justify-between items-center mt-3"
-            [class.mb-10]="event.type !== 'CHALLENGE'"
-        >
-            <h5 class="tui-text_h5">{{ event.name }}</h5>
-            <div class="flex flex-row gap-3" *ngIf="event.has_edit_permission">
-                <a
-                    tuiButton
-                    appearance="secondary"
-                    size="s"
-                    [routerLink]="['stats']"
-                >
-                    Stats
-                </a>
-
-                <div 
-                    [(tuiDropdownOpen)]="openNewQuestionDropdown"
-                    [tuiDropdown]="newQuestionDropdownContent"
-                >
-                    <button
-                        tuiButton
-                        [iconEnd]="newQuestionDropdownIcon"
-                        iconStart="@tui.plus"
-                        size="s"
-                        type="button"
-                        appearance="secondary"
-                    >
-                        Create New Question
-                    </button>
-                </div>
-                <ng-template #newQuestionDropdownIcon>
-                    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-<tui-icon 
-                        [class.new-question-icon_rotated]="openNewQuestionDropdown"
-                        class="new-question-icon"
-                        icon="@tui.chevron-down"
-                    ></tui-icon>
-                </ng-template>
-                <ng-template #newQuestionDropdownContent>
-                    <tui-data-list>
-                        <a
-                            (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'MCQ')"
-                            tuiOption
-                        >
-                            Multiple Choice Question
-                        </a>
-                        <a
-                            (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'checkbox')"
-                            tuiOption
-                        >
-                            Checkbox Question
-                        </a>
-                        <a
-                            (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'java')"
-                            tuiOption
-                        >
-                            Java Question
-                        </a>
-                        <a
-                            (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'parsons')"
-                            tuiOption
-                        >
-                            Parsons Question
-                        </a>
-                    </tui-data-list>
-                </ng-template>
-
-                <ng-template #addQuestion let-observer>
-                    <p>This event has finished. Are you sure that you would like to create a new
-                        question?</p>
-                    <div class="tui-form__buttons">
-                        <button
-                            (click)="observer.complete()"
-                            [routerLink]="['problem', 'create', dropdownLink]"
-                            class="tui-form__button"
-                            size="m"
-                            tuiButton
-                        >
-                            Continue
-                        </button>
-                        <button
-                            (click)="observer.complete()"
-                            appearance="secondary"
-                            class="tui-form__button"
-                            size="m"
-                            tuiButton
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </ng-template>
-            </div>
-        </div>
-        <div
-            *ngIf="event.type==='CHALLENGE'"
-            class="mb-10"
-        >
-            <p>{{getChallengeType()}} Challenge</p>
-            <p>{{getEventTypeDescription()}}</p>
-        </div>
-        <div
-            class="mb-6 -mt-5"
-            *ngIf="uqjs.length"
-        >
-            <p
-                class="tui-island__paragraph tui-text_body-xl"
-                *ngIf="event.has_edit_permission"
-            >
-                To add questions go to the
-                <a *ngIf="isList()" [routerLink]="['../../practice/concepts']" class="color-link">
-                    Concept List
-                </a>
-                <a *ngIf="!isList()" [routerLink]="['../../practice/concepts']" class="color-link">
-                    Concept Map
-                </a>
-            </p>
-        </div>
-        <ng-container *ngIf="event.is_open || course.has_create_event_permission">
+        <h5 class="tui-text_h5">{{ event.name }}</h5>
+        @if (event.has_edit_permission) {
+          <div class="flex flex-row gap-3">
+            <a
+              tuiButton
+              appearance="secondary"
+              size="s"
+              [routerLink]="['stats']"
+              >
+              Stats
+            </a>
             <div
-                *ngIf="event.type==='CHALLENGE' && team"
-                class="teamBar mb-8 flex items-center p-4 rounded-[0.625rem] shadow">
-                <div class="grow">
-                    <p class="tui-text_body-l">Team: {{team.name}}</p>
-                    <p class="tui-text_body-l">Member(s): {{getMemberNames(team.member_names)}}</p>
-                </div>
-                <a
-                    [routerLink]="['/course', courseId, 'challenge', eventId, 'teams']"
-                    appearance="flat"
-                    class="tui-form__button" size="m"
-                    tuiButton
+              [(tuiDropdownOpen)]="openNewQuestionDropdown"
+              [tuiDropdown]="newQuestionDropdownContent"
+              >
+              <button
+                tuiButton
+                [iconEnd]="newQuestionDropdownIcon"
+                iconStart="@tui.plus"
+                size="s"
+                type="button"
+                appearance="secondary"
                 >
-                    View All Teams
+                Create New Question
+              </button>
+            </div>
+            <ng-template #newQuestionDropdownIcon>
+              <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+              <tui-icon
+                [class.new-question-icon_rotated]="openNewQuestionDropdown"
+                class="new-question-icon"
+                icon="@tui.chevron-down"
+              ></tui-icon>
+            </ng-template>
+            <ng-template #newQuestionDropdownContent>
+              <tui-data-list>
+                <a
+                  (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'MCQ')"
+                  tuiOption
+                  >
+                  Multiple Choice Question
                 </a>
+                <a
+                  (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'checkbox')"
+                  tuiOption
+                  >
+                  Checkbox Question
+                </a>
+                <a
+                  (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'java')"
+                  tuiOption
+                  >
+                  Java Question
+                </a>
+                <a
+                  (click)="openNewQuestionInClosedEventDialog(addQuestion, event.is_closed, 'parsons')"
+                  tuiOption
+                  >
+                  Parsons Question
+                </a>
+              </tui-data-list>
+            </ng-template>
+            <ng-template #addQuestion let-observer>
+              <p>This event has finished. Are you sure that you would like to create a new
+              question?</p>
+              <div class="tui-form__buttons">
+                <button
+                  (click)="observer.complete()"
+                  [routerLink]="['problem', 'create', dropdownLink]"
+                  class="tui-form__button"
+                  size="m"
+                  tuiButton
+                  >
+                  Continue
+                </button>
+                <button
+                  (click)="observer.complete()"
+                  appearance="secondary"
+                  class="tui-form__button"
+                  size="m"
+                  tuiButton
+                  >
+                  Cancel
+                </button>
+              </div>
+            </ng-template>
+          </div>
+        }
+      </div>
+    }
+    @if (event.type==='CHALLENGE') {
+      <div
+        class="mb-10"
+        >
+        <p>{{getChallengeType()}} Challenge</p>
+        <p>{{getEventTypeDescription()}}</p>
+      </div>
+    }
+    @if (uqjs.length) {
+      <div
+        class="mb-6 -mt-5"
+        >
+        @if (event.has_edit_permission) {
+          <p
+            class="tui-island__paragraph tui-text_body-xl"
+            >
+            To add questions go to the
+            @if (isList()) {
+              <a [routerLink]="['../../practice/concepts']" class="color-link">
+                Concept List
+              </a>
+            }
+            @if (!isList()) {
+              <a [routerLink]="['../../practice/concepts']" class="color-link">
+                Concept Map
+              </a>
+            }
+          </p>
+        }
+      </div>
+    }
+    @if (event.is_open || course.has_create_event_permission) {
+      @if (event.type==='CHALLENGE' && team) {
+        <div
+          class="teamBar mb-8 flex items-center p-4 rounded-[0.625rem] shadow">
+          <div class="grow">
+            <p class="tui-text_body-l">Team: {{team.name}}</p>
+            <p class="tui-text_body-l">Member(s): {{getMemberNames(team.member_names)}}</p>
+          </div>
+          <a
+            [routerLink]="['/course', courseId, 'challenge', eventId, 'teams']"
+            appearance="flat"
+            class="tui-form__button" size="m"
+            tuiButton
+            >
+            View All Teams
+          </a>
+        </div>
+      }
+      <div class="question-islands">
+        @for (uqj of uqjs; track uqj) {
+          <tui-island>
+            <p class="tui-island__category">
+              {{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }}
+              {{ uqj.question.category_name }}
+            </p>
+            <h2 class="tui-island__title">{{ uqj.question.title }}</h2>
+            <div class="tui-space_bottom-2">
+              <tui-tag
+                [status]="highlight(getStatus(uqj))"
+                [value]="getStatus(uqj)"
+                size="m"
+                >
+              </tui-tag>
             </div>
-            <div class="question-islands">
-                <tui-island *ngFor="let uqj of uqjs">
-                    <p class="tui-island__category">
-                        {{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }}
-                        {{ uqj.question.category_name }}
-                    </p>
-                    <h2 class="tui-island__title">{{ uqj.question.title }}</h2>
-                    <div class="tui-space_bottom-2">
-                        <tui-tag
-                            [status]="highlight(getStatus(uqj))"
-                            [value]="getStatus(uqj)"
-                            size="m"
-                        >
-                        </tui-tag>
-                    </div>
-                    <p class="tui-island__paragraph">
-                        {{ uqj.question.type_name | titlecase }}
-                    </p>
-                    <p class="tui-island__paragraph">
-                        {{ uqj.formatted_current_tokens_received }}
-                        Tokens Received
-                    </p>
-                    <ng-container *ngIf="eventId">
-                        <p class="tui-island__paragraph">
-                            {{ uqj.num_attempts }} / {{ uqj.question.max_submission_allowed }}
-                            Attempts Taken
-                        </p>
-                    </ng-container>
-                    <div class="tui-form__buttons">
-                        <ng-container *ngIf="eventId; else noEvent">
-                            <a
-                                [routerLink]="['problem', uqj.question.id]"
-                                appearance="primary"
-                                class="tui-form__button"
-                                size="s"
-                                tuiButton
-                            >
-                                Open
-                            </a>
-                        </ng-container>
-                        <ng-template #noEvent>
-                            <a
-                                [routerLink]="['/course', courseId, 'problem', uqj.question.id]"
-                                appearance="primary"
-                                class="tui-form__button"
-                                size="s"
-                                tuiButton
-                            >
-                                Open
-                            </a>
-                        </ng-template>
-                        <a
-                            *ngIf="event.has_edit_permission"
-                            (click)="openEditQuestionInEventDialog(editQuestion, event.is_closed, uqj)"
-                            appearance="primary"
-                            class="tui-form__button"
-                            size="s"
-                            tuiButton
-                        >
-                            Edit
-                        </a>
-                        <ng-template #editQuestion let-observer>
-                            <p>This event has finished. Are you sure that you would like to edit
-                                this question?</p>
-                            <div class="tui-form__buttons">
-                                <button
-                                    (click)="observer.complete()"
-                                    [routerLink]="['problem', uqj.question.id, 'edit']"
-                                    class="tui-form__button"
-                                    size="m"
-                                    tuiButton
-                                >
-                                    Edit Question
-                                </button>
-                                <button
-                                    (click)="observer.complete()"
-                                    appearance="secondary"
-                                    class="tui-form__button"
-                                    size="m"
-                                    tuiButton
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </ng-template>
-                        <a
-                            *ngIf="event.has_edit_permission"
-                            (click)="openRemoveQuestionInEventDialog(removeEventQuestion, event)"
-                            appearance="accent"
-                            class="tui-form__button"
-                            size="s"
-                            tuiButton
-                        >
-                            Remove
-                        </a>
-                        <ng-template #removeEventQuestion let-observer>
-                            <p *ngIf="event.is_closed">
-                                This assessment has finished. Are you sure that you would like to remove this question?
-                            </p>
-                            <p *ngIf="event.is_open || event.is_not_available_yet">
-                                Are you sure that you would like to remove this question?
-                            </p>
-                            <div class="tui-form__buttons">
-                                <button
-                                    (click)="removeQuestion(uqj.question.id); observer.complete()"
-                                    class="tui-form__button"
-                                    size="m"
-                                    tuiButton
-                                >
-                                    Remove Question
-                                </button>
-                                <button
-                                    (click)="observer.complete()"
-                                    appearance="secondary"
-                                    class="tui-form__button"
-                                    size="m"
-                                    tuiButton
-                                >
-                                    Cancel
-                                </button>
-                            </div>
-                        </ng-template>
-                    </div>
-                </tui-island>
-            </div>
-            <ng-container *ngIf="!uqjs.length">
-                <div *ngIf="eventId; else inCourse"
-                     class="tui-text_h6 tui-space_auto no-content-heading">
-                    <h2>
-                        There aren't any questions available in this {{getEventType()}}.
-                    </h2>
-                    <h2 class="mt-3" *ngIf="event.has_edit_permission">
-                        To add questions go to the
-                        <a *ngIf="isList()" [routerLink]="['../../practice/concepts']" class="color-link">
-                            Concept List
-                        </a>
-                        <a *ngIf="!isList()" [routerLink]="['../../practice/concepts']" class="color-link">
-                            Concept Map
-                        </a>
-                    </h2>
+            <p class="tui-island__paragraph">
+              {{ uqj.question.type_name | titlecase }}
+            </p>
+            <p class="tui-island__paragraph">
+              {{ uqj.formatted_current_tokens_received }}
+              Tokens Received
+            </p>
+            @if (eventId) {
+              <p class="tui-island__paragraph">
+                {{ uqj.num_attempts }} / {{ uqj.question.max_submission_allowed }}
+                Attempts Taken
+              </p>
+            }
+            <div class="tui-form__buttons">
+              @if (eventId) {
+                <a
+                  [routerLink]="['problem', uqj.question.id]"
+                  appearance="primary"
+                  class="tui-form__button"
+                  size="s"
+                  tuiButton
+                  >
+                  Open
+                </a>
+              } @else {
+                <a
+                  [routerLink]="['/course', courseId, 'problem', uqj.question.id]"
+                  appearance="primary"
+                  class="tui-form__button"
+                  size="s"
+                  tuiButton
+                  >
+                  Open
+                </a>
+              }
+              @if (event.has_edit_permission) {
+                <a
+                  (click)="openEditQuestionInEventDialog(editQuestion, event.is_closed, uqj)"
+                  appearance="primary"
+                  class="tui-form__button"
+                  size="s"
+                  tuiButton
+                  >
+                  Edit
+                </a>
+              }
+              <ng-template #editQuestion let-observer>
+                <p>This event has finished. Are you sure that you would like to edit
+                this question?</p>
+                <div class="tui-form__buttons">
+                  <button
+                    (click)="observer.complete()"
+                    [routerLink]="['problem', uqj.question.id, 'edit']"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                    >
+                    Edit Question
+                  </button>
+                  <button
+                    (click)="observer.complete()"
+                    appearance="secondary"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                    >
+                    Cancel
+                  </button>
                 </div>
-                <ng-template #inCourse>
-                    <div class="tui-text_h6 tui-space_auto no-content-heading">
-                        <h2>
-                            There aren't any questions available in this course.
-                        </h2>
-                        <h2 class="mt-3" *ngIf="event.has_edit_permission">
-                            To add questions go to the
-                            <a *ngIf="isList()" [routerLink]="['../../practice/concepts']" class="color-link">
-                                Concept List
-                            </a>
-                            <a *ngIf="!isList()" [routerLink]="['../../practice/concepts']" class="color-link">
-                                Concept Map
-                            </a>
-                        </h2>
-                    </div>
-                </ng-template>
-            </ng-container>
-        </ng-container>
-    </div>
-</ng-container>
+              </ng-template>
+              @if (event.has_edit_permission) {
+                <a
+                  (click)="openRemoveQuestionInEventDialog(removeEventQuestion, event)"
+                  appearance="accent"
+                  class="tui-form__button"
+                  size="s"
+                  tuiButton
+                  >
+                  Remove
+                </a>
+              }
+              <ng-template #removeEventQuestion let-observer>
+                @if (event.is_closed) {
+                  <p>
+                    This assessment has finished. Are you sure that you would like to remove this question?
+                  </p>
+                }
+                @if (event.is_open || event.is_not_available_yet) {
+                  <p>
+                    Are you sure that you would like to remove this question?
+                  </p>
+                }
+                <div class="tui-form__buttons">
+                  <button
+                    (click)="removeQuestion(uqj.question.id); observer.complete()"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                    >
+                    Remove Question
+                  </button>
+                  <button
+                    (click)="observer.complete()"
+                    appearance="secondary"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                    >
+                    Cancel
+                  </button>
+                </div>
+              </ng-template>
+            </div>
+          </tui-island>
+        }
+      </div>
+      @if (!uqjs.length) {
+        @if (eventId) {
+          <div
+            class="tui-text_h6 tui-space_auto no-content-heading">
+            <h2>
+              There aren't any questions available in this {{getEventType()}}.
+            </h2>
+            @if (event.has_edit_permission) {
+              <h2 class="mt-3">
+                To add questions go to the
+                @if (isList()) {
+                  <a [routerLink]="['../../practice/concepts']" class="color-link">
+                    Concept List
+                  </a>
+                }
+                @if (!isList()) {
+                  <a [routerLink]="['../../practice/concepts']" class="color-link">
+                    Concept Map
+                  </a>
+                }
+              </h2>
+            }
+          </div>
+        } @else {
+          <div class="tui-text_h6 tui-space_auto no-content-heading">
+            <h2>
+              There aren't any questions available in this course.
+            </h2>
+            @if (event.has_edit_permission) {
+              <h2 class="mt-3">
+                To add questions go to the
+                @if (isList()) {
+                  <a [routerLink]="['../../practice/concepts']" class="color-link">
+                    Concept List
+                  </a>
+                }
+                @if (!isList()) {
+                  <a [routerLink]="['../../practice/concepts']" class="color-link">
+                    Concept Map
+                  </a>
+                }
+              </h2>
+            }
+          </div>
+        }
+      }
+    }
+  </div>
+}

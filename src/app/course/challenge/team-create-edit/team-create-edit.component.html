@@ -1,58 +1,60 @@
 <div class="tui-container tui-container_adaptive">
-    <form (ngSubmit)="onSubmit()" [formGroup]="formData">
-        <h2 class="tui-form__header">{{teamId? 'Edit ' + team?.name: 'Create New Team'}}</h2>
-        <div class="tui-form__row">
-            <tui-input aria-label="Team Name" formControlName="name">
-                Team Name
-            </tui-input>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
+  <form (ngSubmit)="onSubmit()" [formGroup]="formData">
+    <h2 class="tui-form__header">{{teamId? 'Edit ' + team?.name: 'Create New Team'}}</h2>
+    <div class="tui-form__row">
+      <tui-input aria-label="Team Name" formControlName="name">
+        Team Name
+      </tui-input>
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
+    </div>
+    <div class="tui-form__row">
+      <label tuiLabel> <input tuiCheckbox type="checkbox"
+        aria-label="Set Team To A Private Team"
+        size="m"
+        formControlName="isPrivate"
+        >
+        Check to lock the team so only people you have invited can join your team.
+      </label>
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="isPrivate"></tui-error>
+    </div>
+    @if (isPrivate()) {
+      <div class="tui-form__row">
+        <div class="mb-2 mt-5">
+          List the people you want to invite to this team.
+          You can invite up to {{event.max_team_size - 1}} people.
         </div>
-        <div class="tui-form__row">
-           <label tuiLabel> <input tuiCheckbox type="checkbox"
-                aria-label="Set Team To A Private Team"
-                size="m"
-                formControlName="isPrivate"
-            >
-                Check to lock the team so only people you have invited can join your team.
-            </label>
-            <tui-error [error]="[] | tuiFieldError | async" formControlName="isPrivate"></tui-error>
-        </div>
-        <ng-container *ngIf="isPrivate()">
-            <div class="tui-form__row">
-                <div class="mb-2 mt-5">
-                    List the people you want to invite to this team.
-                        You can invite up to {{event.max_team_size - 1}} people.
-                </div>
-                <tui-multi-select
-                    aria-label="Invited Member"
-                    formControlName="invitedMembers"
-                    [tuiTextfieldLabelOutside]="true"
-                    [stringify]="stringify"
-                    [editable]="true"
-                    (searchChange)="onSearchChange($event)"
-                >
-                    Invited Members
-                    <tui-data-list *tuiDataList tuiMultiSelectGroup>
-                        <button *ngFor="let courseReg of getCourseRegistrations()" [value]="courseReg" tuiOption>
-                            {{courseReg.name}}
-                        </button>
-                    </tui-data-list>
-                </tui-multi-select>
-            </div>
-        </ng-container>
-        <div class="tui-form__buttons">
-            <button
-                [disabled]="formData.invalid"
-                appearance="primary"
-                aria-label="Submit"
-                class="tui-form__button"
-                size="m"
-                tuiButton
-                type="submit"
-            >
-                {{teamId? 'Save Changes' : 'Create Team'}}
-            </button>
-        </div>
-    </form>
+        <tui-multi-select
+          aria-label="Invited Member"
+          formControlName="invitedMembers"
+          [tuiTextfieldLabelOutside]="true"
+          [stringify]="stringify"
+          [editable]="true"
+          (searchChange)="onSearchChange($event)"
+          >
+          Invited Members
+          <tui-data-list *tuiDataList tuiMultiSelectGroup>
+            @for (courseReg of getCourseRegistrations(); track courseReg) {
+              <button [value]="courseReg" tuiOption>
+                {{courseReg.name}}
+              </button>
+            }
+          </tui-data-list>
+        </tui-multi-select>
+      </div>
+    }
+    <div class="tui-form__buttons">
+      <button
+        [disabled]="formData.invalid"
+        appearance="primary"
+        aria-label="Submit"
+        class="tui-form__button"
+        size="m"
+        tuiButton
+        type="submit"
+        >
+        {{teamId? 'Save Changes' : 'Create Team'}}
+      </button>
+    </div>
+  </form>
 </div>
 

@@ -1,122 +1,128 @@
 <header class="header">
-    <button
-        (click)="toggleSidebar(true)"
-        (tuiActiveZoneChange)="toggleSidebar($event)"
-        appearance="icon"
-        aria-label="Open Sidebar"
-        class="header-sidebar"
-        iconStart="@tui.menu"
-        shape="square"
-        tuiButton
-        type="button"
+  <button
+    (click)="toggleSidebar(true)"
+    (tuiActiveZoneChange)="toggleSidebar($event)"
+    appearance="icon"
+    aria-label="Open Sidebar"
+    class="header-sidebar"
+    iconStart="@tui.menu"
+    shape="square"
+    tuiButton
+    type="button"
     >
-        <nav *tuiSidebar="openSidebar; direction: 'left'" class="header-sidebar_nav">
-            <div class="header-logo">
-                <a (click)="toggleSidebar(false)" class="tui-space_right-2" routerLink="" tuiLink>
-                    <img [src]="logoPath" alt="Logo">
-                </a>
-            </div>
-            <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="homepage" tuiLink>Dashboard</a>
-            <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
-            <a (click)="toggleSidebar(false)" *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="problems"
-               tuiLink>Problem Sets</a>
-            <a (click)="toggleSidebar(false)" *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="token-values"
-               tuiLink>Token&nbsp;Values</a>
-            <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="faq" tuiLink>FAQ</a>
-        </nav>
-    </button>
-    <div class="header-logo">
-        <a class="tui-space_right-2" routerLink="" tuiLink>
-            <img [src]="logoPath" alt="Logo">
+    <nav *tuiSidebar="openSidebar; direction: 'left'" class="header-sidebar_nav">
+      <div class="header-logo">
+        <a (click)="toggleSidebar(false)" class="tui-space_right-2" routerLink="" tuiLink>
+          <img [src]="logoPath" alt="Logo">
         </a>
-        <span class="tui-text_h6 link" (click)="redirectHome()">Course Gamification</span>
-    </div>
-    <nav class="header-nav">
-        <a class="tui-text_body-m" routerLink="homepage" tuiLink>Dashboard</a>
-        <a class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
-        <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="community" tuiLink>Community</a>
-        <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="problems" tuiLink>Problem Sets</a>
-        <a *ngIf="user?.is_teacher" class="tui-text_body-m" routerLink="token-values" tuiLink>Token&nbsp;Values</a>
-        <a class="tui-text_body-m" routerLink="faq" tuiLink>FAQ</a>
-        <a class="tui-text_body-m" routerLink="/" fragment="contact-us" tuiLink>Contact Us</a>
+      </div>
+      <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="homepage" tuiLink>Dashboard</a>
+      <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
+      @if (user?.is_teacher) {
+        <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="problems"
+        tuiLink>Problem Sets</a>
+      }
+      @if (user?.is_teacher) {
+        <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="token-values"
+        tuiLink>Token&nbsp;Values</a>
+      }
+      <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="faq" tuiLink>FAQ</a>
     </nav>
-    <div class="header-user">
-        <ng-container *ngIf="user else login">
-            <div 
-                [(tuiDropdownOpen)]="openUserActions"
-                [tuiDropdown]="userActions"
-            >
-                <button aria-label="User Profile Dropdown" class="header-user_dropdown">
-                    <ng-container *ngIf="user.first_name; else incompleteProfile">
-                        {{ user.first_name }}
-                    </ng-container>
-                    <ng-template #incompleteProfile>
-                        {{ user.username }}
-                    </ng-template>
-                    <tui-avatar [src]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiInitials" [style.background]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiAutoColor"
-                       
-                        [round]="true"
-                       
-                        class="tui-space_left-2"
-                        size="m"
-                    ></tui-avatar>
-                    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-<tui-icon 
-                        [class.icon_rotated]="openUserActions"
-                        class="icon"
-                        icon="@tui.chevron-down"
-                    ></tui-icon>
-                </button>
-            </div>
-            <ng-template #userActions>
-                <tui-data-list>
-                    <tui-opt-group>
-                        <a routerLink="accounts/profile" tuiOption>Profile</a>
-                        <a routerLink="stats" tuiOption>My Stats</a>
-                        <button tuiOption>
-                            <label class="tui-text_body-m">
-                                Night mode
-                                <input
-                                    tuiSwitch
-                                    type="checkbox"
-                                    (ngModelChange)="setNightMode($event)"
-                                    [ngModel]="isNightMode()"
-                                    class="tui-space_left-2"
-                                    size="s"
-                                />
-                            </label>
-                        </button>
-                    </tui-opt-group>
-                    <ng-container *ngIf="user.is_teacher">
-                        <tui-opt-group label="Admin">
-                            <a routerLink="admin" tuiOption>Dashboard</a>
-                            <a routerLink="token-values" tuiOption>Set Token Rules</a>
-                        </tui-opt-group>
-                    </ng-container>
-                    <tui-opt-group>
-                        <a (click)="logout()" class="dropdown-item" routerLink="#" tuiOption>Logout</a>
-                    </tui-opt-group>
-                </tui-data-list>
-            </ng-template>
-        </ng-container>
-        <ng-template #login>
-            <a
-                appearance="flat"
-                class="tui-space_right-2"
-                routerLink="accounts/login"
-                size="m"
-                tuiButton
-            >
-                Login
-            </a>
-            <a
-                appearance="primary"
-                routerLink="accounts/register"
-                size="m"
-                tuiButton
-            >
-                Sign Up
-            </a>
-        </ng-template>
-    </div>
+  </button>
+  <div class="header-logo">
+    <a class="tui-space_right-2" routerLink="" tuiLink>
+      <img [src]="logoPath" alt="Logo">
+    </a>
+    <span class="tui-text_h6 link" (click)="redirectHome()">Course Gamification</span>
+  </div>
+  <nav class="header-nav">
+    <a class="tui-text_body-m" routerLink="homepage" tuiLink>Dashboard</a>
+    <a class="tui-text_body-m" routerLink="course" tuiLink>Courses</a>
+    @if (user?.is_teacher) {
+      <a class="tui-text_body-m" routerLink="community" tuiLink>Community</a>
+    }
+    @if (user?.is_teacher) {
+      <a class="tui-text_body-m" routerLink="problems" tuiLink>Problem Sets</a>
+    }
+    @if (user?.is_teacher) {
+      <a class="tui-text_body-m" routerLink="token-values" tuiLink>Token&nbsp;Values</a>
+    }
+    <a class="tui-text_body-m" routerLink="faq" tuiLink>FAQ</a>
+    <a class="tui-text_body-m" routerLink="/" fragment="contact-us" tuiLink>Contact Us</a>
+  </nav>
+  <div class="header-user">
+    @if (user) {
+      <div
+        [(tuiDropdownOpen)]="openUserActions"
+        [tuiDropdown]="userActions"
+        >
+        <button aria-label="User Profile Dropdown" class="header-user_dropdown">
+          @if (user.first_name) {
+            {{ user.first_name }}
+          } @else {
+            {{ user.username }}
+          }
+          <tui-avatar [src]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiInitials" [style.background]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiAutoColor"
+            [round]="true"
+            class="tui-space_left-2"
+            size="m"
+          ></tui-avatar>
+          <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+          <tui-icon
+            [class.icon_rotated]="openUserActions"
+            class="icon"
+            icon="@tui.chevron-down"
+          ></tui-icon>
+        </button>
+      </div>
+      <ng-template #userActions>
+        <tui-data-list>
+          <tui-opt-group>
+            <a routerLink="accounts/profile" tuiOption>Profile</a>
+            <a routerLink="stats" tuiOption>My Stats</a>
+            <button tuiOption>
+              <label class="tui-text_body-m">
+                Night mode
+                <input
+                  tuiSwitch
+                  type="checkbox"
+                  (ngModelChange)="setNightMode($event)"
+                  [ngModel]="isNightMode()"
+                  class="tui-space_left-2"
+                  size="s"
+                  />
+              </label>
+            </button>
+          </tui-opt-group>
+          @if (user.is_teacher) {
+            <tui-opt-group label="Admin">
+              <a routerLink="admin" tuiOption>Dashboard</a>
+              <a routerLink="token-values" tuiOption>Set Token Rules</a>
+            </tui-opt-group>
+          }
+          <tui-opt-group>
+            <a (click)="logout()" class="dropdown-item" routerLink="#" tuiOption>Logout</a>
+          </tui-opt-group>
+        </tui-data-list>
+      </ng-template>
+    } @else {
+      <a
+        appearance="flat"
+        class="tui-space_right-2"
+        routerLink="accounts/login"
+        size="m"
+        tuiButton
+        >
+        Login
+      </a>
+      <a
+        appearance="primary"
+        routerLink="accounts/register"
+        size="m"
+        tuiButton
+        >
+        Sign Up
+      </a>
+    }
+  </div>
 </header>

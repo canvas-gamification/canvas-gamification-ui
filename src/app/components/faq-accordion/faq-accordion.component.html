@@ -1,24 +1,25 @@
-<ng-container *ngIf="faqs?.length; else noFaqs">
-    <tui-accordion>
-        <tui-accordion-item *ngFor="let faq of faqs | tuiFilter: topX">
-            {{ faq.question }}
-            <ng-template tuiAccordionItemContent>
-                <app-editor
-                    [ngModel]="faq.answer"
-                    readonly="true"
-                >
-                </app-editor>
-            </ng-template>
-        </tui-accordion-item>
-    </tui-accordion>
-</ng-container>
-<ng-template #noFaqs>
-    <div class="no-faqs">
-        <tui-avatar 
-            class="tui-space_right-4"
-            size="m"
-            src="@tui.circle-alert"
-        ></tui-avatar>
-        <h2 class="tui-text_body-xl">Looks like there are no FAQs to show you!</h2>
-    </div>
-</ng-template>
+@if (faqs?.length) {
+  <tui-accordion>
+    @for (faq of faqs | tuiFilter: topX; track faq) {
+      <tui-accordion-item>
+        {{ faq.question }}
+        <ng-template tuiAccordionItemContent>
+          <app-editor
+            [ngModel]="faq.answer"
+            readonly="true"
+            >
+          </app-editor>
+        </ng-template>
+      </tui-accordion-item>
+    }
+  </tui-accordion>
+} @else {
+  <div class="no-faqs">
+    <tui-avatar
+      class="tui-space_right-4"
+      size="m"
+      src="@tui.circle-alert"
+    ></tui-avatar>
+    <h2 class="tui-text_body-xl">Looks like there are no FAQs to show you!</h2>
+  </div>
+}

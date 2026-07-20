@@ -1,19 +1,21 @@
 <app-sidebar position="right" sidebarId="adminSidebar" size="l">
-    <h2 class="tui-text_h6 tui-space_bottom-4 tui-space_top-6">Courses</h2>
-    <tui-loader [overlay]="true" [showLoader]="!courseData">
-        <div class="courses-islands tui-space_bottom-6">
-            <tui-island *ngFor="let course of courseData">
-                <h3 class="tui-island__title">{{ course.name }}</h3>
-                <p class="tui-island__paragraph">
-                    URL: {{ course.url }}
-                </p>
-                <p class="tui-island__paragraph">
-                    Start Date: {{ course.start_date }}
-                </p>
-                <p class="tui-island__paragraph">
-                    End Date: {{ course.end_date }}
-                </p>
-            </tui-island>
-        </div>
-    </tui-loader>
+  <h2 class="tui-text_h6 tui-space_bottom-4 tui-space_top-6">Courses</h2>
+  <tui-loader [overlay]="true" [showLoader]="!courseData">
+    <div class="courses-islands tui-space_bottom-6">
+      @for (course of courseData; track course) {
+        <tui-island>
+          <h3 class="tui-island__title">{{ course.name }}</h3>
+          <p class="tui-island__paragraph">
+            URL: {{ course.url }}
+          </p>
+          <p class="tui-island__paragraph">
+            Start Date: {{ course.start_date }}
+          </p>
+          <p class="tui-island__paragraph">
+            End Date: {{ course.end_date }}
+          </p>
+        </tui-island>
+      }
+    </div>
+  </tui-loader>
 </app-sidebar>

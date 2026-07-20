@@ -1,11 +1,11 @@
 <tui-root [attr.tuiTheme]="headerComponent.isNightMode() ? 'dark' : null">
-    <app-header #headerComponent></app-header>
-    <div class="app">
-        <main class="app-content">
-            <router-outlet></router-outlet>
-        </main>
-        <ng-container *ngIf="!hideFooterForLanding">
-            <app-footer></app-footer>
-        </ng-container>
-    </div>
+  <app-header #headerComponent></app-header>
+  <div class="app">
+    <main class="app-content">
+      <router-outlet></router-outlet>
+    </main>
+    @if (!hideFooterForLanding) {
+      <app-footer></app-footer>
+    }
+  </div>
 </tui-root>

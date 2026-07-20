@@ -1,39 +1,41 @@
 <ng-template
-    (tuiDialogChange)="toggleDialog($event)"
-    [tuiDialogOptions]="$any({ label: 'Report this question', size: 'm' })"
-    [tuiDialog]="open"
->
-    <div [formGroup]="formGroup">
-        <div class="tui-form__row">
-            <tui-select
-                [valueContent]="reportOptions ? (reportOptions | stringifyTuiDataList: 0: 1) : ''"
-                formControlName="report"
-            >
-                Reason
-                <tui-data-list *tuiDataList>
-                    <button *ngFor="let reportOption of reportOptions" [value]="reportOption[0]" tuiOption>
-                        {{ reportOption[1] }}
-                    </button>
-                </tui-data-list>
-                <tui-error [error]="[] | tuiFieldError | async" formControlName="report"></tui-error>
-            </tui-select>
-        </div>
-        <div class="tui-form__row">
-            <tui-textarea 
-                formControlName="report_details">
-                Details
-            </tui-textarea>
-        </div>
+  (tuiDialogChange)="toggleDialog($event)"
+  [tuiDialogOptions]="$any({ label: 'Report this question', size: 'm' })"
+  [tuiDialog]="open"
+  >
+  <div [formGroup]="formGroup">
+    <div class="tui-form__row">
+      <tui-select
+        [valueContent]="reportOptions ? (reportOptions | stringifyTuiDataList: 0: 1) : ''"
+        formControlName="report"
+        >
+        Reason
+        <tui-data-list *tuiDataList>
+          @for (reportOption of reportOptions; track reportOption) {
+            <button [value]="reportOption[0]" tuiOption>
+              {{ reportOption[1] }}
+            </button>
+          }
+        </tui-data-list>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="report"></tui-error>
+      </tui-select>
     </div>
     <div class="tui-form__row">
-        <button
-            (click)="submitReport()"
-            [disabled]="formGroup.invalid"
-            size="m"
-            tuiButton
-            type="submit"
-        >
-            Submit Report
-        </button>
+      <tui-textarea
+        formControlName="report_details">
+        Details
+      </tui-textarea>
     </div>
+  </div>
+  <div class="tui-form__row">
+    <button
+      (click)="submitReport()"
+      [disabled]="formGroup.invalid"
+      size="m"
+      tuiButton
+      type="submit"
+      >
+      Submit Report
+    </button>
+  </div>
 </ng-template>

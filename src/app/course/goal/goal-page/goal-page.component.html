@@ -1,48 +1,62 @@
 <div class="tui-container tui-container_adaptive">
-    <a
-        [routerLink]="['../practice']"
-        iconStart="@tui.arrow-left"
-        size="s"
-        tuiButton
-        appearance="flat"
+  <a
+    [routerLink]="['../practice']"
+    iconStart="@tui.arrow-left"
+    size="s"
+    tuiButton
+    appearance="flat"
     >
-        Back to Question Bank
-    </a>
-    <div class="flex flex-wrap gap-3 mt-3">
-        <h5 class="tui-text_h5 tui-col_stretch flex-grow">
-            Active Goals
-        </h5>
-        <a class="min-w-200 mr-4" tuiButton size="m" routerLink="create">Create a new goal</a>
-    </div>
-    <ng-container *ngIf="activeGoals && activeGoals.length !== 0 else noGoal">
-        <div *ngFor="let goal of activeGoals" class="tui-space_vertical-3">
-            <app-goal-island
-                [goal]="goal"
-            >
-            </app-goal-island>
-        </div>
-    </ng-container>
-    <h5 class="tui-text_h5 tui-space_top-6">
-        Past Goals
+    Back to Question Bank
+  </a>
+  <div class="flex flex-wrap gap-3 mt-3">
+    <h5 class="tui-text_h5 tui-col_stretch flex-grow">
+      Active Goals
     </h5>
-    <ng-container *ngIf="completedGoals && completedGoals.length !== 0 else noGoal">
-        <div *ngFor="let goal of completedGoals" class="tui-space_vertical-3">
-            <app-goal-island
-                [goal]="goal"
-            >
-            </app-goal-island>
-        </div>
-    </ng-container>
-    <ng-template #noGoal>
-        <div class="flex justify-center items-center w-full h-32">
-            <tui-avatar 
-                class="tui-space_right-4"
-                size="m"
-                src="@tui.circle-alert"
-            ></tui-avatar>
-            <h2 class="tui-text_body-xl">
-                Looks like there are no goals to show
-            </h2>
-        </div>
-    </ng-template>
+    <a class="min-w-200 mr-4" tuiButton size="m" routerLink="create">Create a new goal</a>
+  </div>
+  @if (activeGoals && activeGoals.length !== 0) {
+    @for (goal of activeGoals; track goal) {
+      <div class="tui-space_vertical-3">
+        <app-goal-island
+          [goal]="goal"
+          >
+        </app-goal-island>
+      </div>
+    }
+  } @else {
+    <div class="flex justify-center items-center w-full h-32">
+      <tui-avatar
+        class="tui-space_right-4"
+        size="m"
+        src="@tui.circle-alert"
+      ></tui-avatar>
+      <h2 class="tui-text_body-xl">
+        Looks like there are no goals to show
+      </h2>
+    </div>
+  }
+  <h5 class="tui-text_h5 tui-space_top-6">
+    Past Goals
+  </h5>
+  @if (completedGoals && completedGoals.length !== 0) {
+    @for (goal of completedGoals; track goal) {
+      <div class="tui-space_vertical-3">
+        <app-goal-island
+          [goal]="goal"
+          >
+        </app-goal-island>
+      </div>
+    }
+  } @else {
+    <div class="flex justify-center items-center w-full h-32">
+      <tui-avatar
+        class="tui-space_right-4"
+        size="m"
+        src="@tui.circle-alert"
+      ></tui-avatar>
+      <h2 class="tui-text_body-xl">
+        Looks like there are no goals to show
+      </h2>
+    </div>
+  }
 </div>

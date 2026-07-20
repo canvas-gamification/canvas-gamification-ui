@@ -1,208 +1,227 @@
 <div class="flex flex-wrap gap-3">
-    <div class="min-w-[8rem] type flex items-center">
-        <ng-container *ngIf="event.type === 'ASSIGNMENT'">Assignment
-        </ng-container>
-        <ng-container *ngIf="event.type === 'EXAM'">Exam</ng-container>
-    </div>
-    <div class="flex items-center flex-grow">
-        {{ event.name }}
-    </div>
-    <div class="min-w-[22rem]">
-        <div>From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
-        <div>Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
-    </div>
-    <div
-        class="flex items-center min-w-[2rem]"
+  <div class="min-w-[8rem] type flex items-center">
+    @if (event.type === 'ASSIGNMENT') {
+      Assignment
+    }
+    @if (event.type === 'EXAM') {
+      Exam
+    }
+  </div>
+  <div class="flex items-center flex-grow">
+    {{ event.name }}
+  </div>
+  <div class="min-w-[22rem]">
+    <div>From: {{ event.start_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+    <div>Until: {{ event.end_date | date: 'EEEE, MMM d, y, h:mm a' }}</div>
+  </div>
+  <div
+    class="flex items-center min-w-[2rem]"
     >
-        <tui-avatar 
-            *ngIf="event.featured"
-            src="@tui.star-filled"
-            appearance="warning"
-            size="s"
+    @if (event.featured) {
+      <tui-avatar
+        src="@tui.star-filled"
+        appearance="warning"
+        size="s"
         >
-        </tui-avatar>
-    </div>
-    <div class="min-w-[8rem] flex items-center">
-        <tui-tag
-            *ngIf="event.is_open"
-            size="m"
-            status="success"
-            value="Available"
+      </tui-avatar>
+    }
+  </div>
+  <div class="min-w-[8rem] flex items-center">
+    @if (event.is_open) {
+      <tui-tag
+        size="m"
+        status="success"
+        value="Available"
         >
-        </tui-tag>
-        <tui-tag
-            *ngIf="event.is_not_available_yet"
-            size="m"
-            status="warning"
-            value="Coming Soon"
-        ></tui-tag>
-        <tui-tag
-            *ngIf="event.is_closed"
-            size="m"
-            status="error"
-            value="Closed"
+      </tui-tag>
+    }
+    @if (event.is_not_available_yet) {
+      <tui-tag
+        size="m"
+        status="warning"
+        value="Coming Soon"
+      ></tui-tag>
+    }
+    @if (event.is_closed) {
+      <tui-tag
+        size="m"
+        status="error"
+        value="Closed"
         >
-        </tui-tag>
-    </div>
-    <div class="min-w-[6rem] flex items-center">
-        <ng-container
-            *ngIf="event.is_not_available_yet || event.is_exam; else totalEventGrade">
-            Grade: TBA
-        </ng-container>
-        <ng-template #totalEventGrade>
-            Grade: {{ (event.total_event_grade | number: '1.0-1') || 'TBA'}}%
-        </ng-template>
-    </div>
-    <div class="flex items-center">
-        <button *ngIf="user.is_student"
-                [routerLink]="['/course', event.course, 'assignments-exams', event.id]"
-                appearance="primary"
-                [disabled]="!event.is_allowed_to_open && !user?.is_teacher"
-                class="tui-space_right-2 tui-space_vertical-2"
-                size="s"
-                tuiButton
+      </tui-tag>
+    }
+  </div>
+  <div class="min-w-[6rem] flex items-center">
+    @if (event.is_not_available_yet || event.is_exam) {
+      Grade: TBA
+    } @else {
+      Grade: {{ (event.total_event_grade | number: '1.0-1') || 'TBA'}}%
+    }
+  </div>
+  <div class="flex items-center">
+    @if (user.is_student) {
+      <button
+        [routerLink]="['/course', event.course, 'assignments-exams', event.id]"
+        appearance="primary"
+        [disabled]="!event.is_allowed_to_open && !user?.is_teacher"
+        class="tui-space_right-2 tui-space_vertical-2"
+        size="s"
+        tuiButton
         >
-            View
+        View
+      </button>
+    }
+    @if (user.is_teacher) {
+      <button
+        [routerLink]="['/course', event.course, 'assignments-exams', event.id]"
+        [disabled]="!event.is_allowed_to_open && !user?.is_teacher"
+        [tuiHint]="viewTooltip"
+        class="tui-space_right-2 tui-space_vertical-2"
+        iconStart="@tui.eye-open"
+        size="s"
+        id="view"
+        tuiHintDirection="top-left"
+        tuiHintDescribe="edit"
+        tuiHintAppearance="dark"
+        tuiIconButton
+      ></button>
+    }
+    <ng-template #viewTooltip>
+      View
+    </ng-template>
+    @if (event.has_edit_permission) {
+      <button
+        (click)="openEditDialog(editEvent, event.is_closed)"
+        [tuiHint]="editTooltip"
+        class="tui-space_right-2 tui-space_vertical-2"
+        iconStart="@tui.pencil"
+        size="s"
+        id="edit"
+        tuiHintDirection="top-left"
+        tuiHintDescribe="edit"
+        tuiHintAppearance="dark"
+        tuiIconButton
+      ></button>
+    }
+    <ng-template #editTooltip>
+      Edit
+    </ng-template>
+    <ng-template #editEvent let-observer>
+      <p>This assessment has finished. Are you sure that you would like to edit this assessment?</p>
+      <div class="tui-form__buttons">
+        <button
+          (click)="observer.complete()"
+          [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'edit']"
+          class="tui-form__button"
+          size="m"
+          tuiButton
+          >
+          Edit Assessment
         </button>
-        <button *ngIf="user.is_teacher"
-                [routerLink]="['/course', event.course, 'assignments-exams', event.id]"
-                [disabled]="!event.is_allowed_to_open && !user?.is_teacher"
-                [tuiHint]="viewTooltip"
-                class="tui-space_right-2 tui-space_vertical-2"
-                iconStart="@tui.eye-open"
-                size="s"
-                id="view"
-                tuiHintDirection="top-left"
-                tuiHintDescribe="edit"
-                tuiHintAppearance="dark"
-                tuiIconButton
-        ></button>
-        <ng-template #viewTooltip>
-            View
-        </ng-template>
-        <button *ngIf="event.has_edit_permission"
-                (click)="openEditDialog(editEvent, event.is_closed)"
-                [tuiHint]="editTooltip"
-                class="tui-space_right-2 tui-space_vertical-2"
-                iconStart="@tui.pencil"
-                size="s"
-                id="edit"
-                tuiHintDirection="top-left"
-                tuiHintDescribe="edit"
-                tuiHintAppearance="dark"
-                tuiIconButton
-        ></button>
-        <ng-template #editTooltip>
-            Edit
-        </ng-template>
-        <ng-template #editEvent let-observer>
-            <p>This assessment has finished. Are you sure that you would like to edit this assessment?</p>
-            <div class="tui-form__buttons">
-                <button
-                    (click)="observer.complete()"
-                    [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'edit']"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                >
-                    Edit Assessment
-                </button>
-                <button
-                    (click)="observer.complete()"
-                    appearance="secondary"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                >
-                    Cancel
-                </button>
-            </div>
-        </ng-template>
-        <button *ngIf="event.has_edit_permission"
-                (click)="openDeleteEventDialog(deleteDialog)"
-                [tuiHint]="deleteTooltip"
-                class="mr-2"
-                iconStart="@tui.trash"
-                size="s"
-                id="delete-{{event.name}}"
-                tuiHintDirection="top-left"
-                tuiHintDescribe="delete-{{event.name}}"
-                tuiHintAppearance="dark"
-                tuiIconButton
-        ></button>
-        <ng-template #deleteTooltip>
-            Delete
-        </ng-template>
-        <button *ngIf="event.has_edit_permission"
-                [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'stats']"
-                [tuiHint]="statsTooltip"
-                class="tui-space_right-2 tui-space_vertical-2"
-                iconStart="@tui.chart-line"
-                size="s"
-                id="stats"
-                tuiHintDirection="top-left"
-                tuiHintDescribe="stats"
-                tuiHintAppearance="dark"
-                tuiIconButton
-        ></button>
-        <ng-template #statsTooltip>
-            Stats
-        </ng-template>
-        <button *ngIf="event.has_edit_permission && !event.featured"
-                (click)="setFeatured()"
-                [tuiHint]="setFeaturedTooltip"
-                [disabled]="event.is_closed"
-                class="tui-space_vertical-2"
-                iconStart="@tui.star"
-                size="s"
-                id="set featured"
-                tuiHintDirection="top-left"
-                tuiHintDescribe="set featured"
-                tuiHintAppearance="dark"
-                tuiIconButton
-                type="button"
-        ></button>
-        <ng-template #setFeaturedTooltip>
-            Set featured
-        </ng-template>
-        <button *ngIf="event.has_edit_permission && event.featured"
-                (click)="clearFeatured()"
-                [tuiHint]="clearFeaturedTooltip"
-                class="tui-space_vertical-2"
-                iconStart="@tui.star"
-                size="s"
-                id="clear featured"
-                tuiHintDirection="top-left"
-                tuiHintDescribe="clear featured"
-                tuiHintAppearance="dark"
-                tuiIconButton
-                type="button"
-        ></button>
-        <ng-template #clearFeaturedTooltip>
-            Clear featured
-        </ng-template>
-    </div>
+        <button
+          (click)="observer.complete()"
+          appearance="secondary"
+          class="tui-form__button"
+          size="m"
+          tuiButton
+          >
+          Cancel
+        </button>
+      </div>
+    </ng-template>
+    @if (event.has_edit_permission) {
+      <button
+        (click)="openDeleteEventDialog(deleteDialog)"
+        [tuiHint]="deleteTooltip"
+        class="mr-2"
+        iconStart="@tui.trash"
+        size="s"
+        id="delete-{{event.name}}"
+        tuiHintDirection="top-left"
+        tuiHintDescribe="delete-{{event.name}}"
+        tuiHintAppearance="dark"
+        tuiIconButton
+      ></button>
+    }
+    <ng-template #deleteTooltip>
+      Delete
+    </ng-template>
+    @if (event.has_edit_permission) {
+      <button
+        [routerLink]="['/course', event.course, 'assignments-exams', event.id, 'stats']"
+        [tuiHint]="statsTooltip"
+        class="tui-space_right-2 tui-space_vertical-2"
+        iconStart="@tui.chart-line"
+        size="s"
+        id="stats"
+        tuiHintDirection="top-left"
+        tuiHintDescribe="stats"
+        tuiHintAppearance="dark"
+        tuiIconButton
+      ></button>
+    }
+    <ng-template #statsTooltip>
+      Stats
+    </ng-template>
+    @if (event.has_edit_permission && !event.featured) {
+      <button
+        (click)="setFeatured()"
+        [tuiHint]="setFeaturedTooltip"
+        [disabled]="event.is_closed"
+        class="tui-space_vertical-2"
+        iconStart="@tui.star"
+        size="s"
+        id="set featured"
+        tuiHintDirection="top-left"
+        tuiHintDescribe="set featured"
+        tuiHintAppearance="dark"
+        tuiIconButton
+        type="button"
+      ></button>
+    }
+    <ng-template #setFeaturedTooltip>
+      Set featured
+    </ng-template>
+    @if (event.has_edit_permission && event.featured) {
+      <button
+        (click)="clearFeatured()"
+        [tuiHint]="clearFeaturedTooltip"
+        class="tui-space_vertical-2"
+        iconStart="@tui.star"
+        size="s"
+        id="clear featured"
+        tuiHintDirection="top-left"
+        tuiHintDescribe="clear featured"
+        tuiHintAppearance="dark"
+        tuiIconButton
+        type="button"
+      ></button>
+    }
+    <ng-template #clearFeaturedTooltip>
+      Clear featured
+    </ng-template>
+  </div>
 </div>
 
 <ng-template #deleteDialog let-observer>
-    <p>Are you sure that you would like to delete this assessment?</p>
-    <div class="tui-form__buttons">
-        <button
-            (click)="observer.next(); observer.complete()"
-            class="tui-form__button"
-            size="m"
-            tuiButton
-        >
-            Confirm Delete
-        </button>
-        <button
-            (click)="observer.complete()"
-            appearance="secondary"
-            class="tui-form__button"
-            size="m"
-            tuiButton
-        >
-            Cancel
-        </button>
-    </div>
+  <p>Are you sure that you would like to delete this assessment?</p>
+  <div class="tui-form__buttons">
+    <button
+      (click)="observer.next(); observer.complete()"
+      class="tui-form__button"
+      size="m"
+      tuiButton
+      >
+      Confirm Delete
+    </button>
+    <button
+      (click)="observer.complete()"
+      appearance="secondary"
+      class="tui-form__button"
+      size="m"
+      tuiButton
+      >
+      Cancel
+    </button>
+  </div>
 </ng-template>

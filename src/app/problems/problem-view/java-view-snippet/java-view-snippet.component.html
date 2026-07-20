@@ -1,45 +1,50 @@
 <form (ngSubmit)="onSubmit()">
-    <tui-island class="tui-space_top-6">
-        <div class="tui-island__content">
-            <div class="tui-island__figure">
-                <app-tab-list-view-switcher #viewSwitcher></app-tab-list-view-switcher>
-            </div>
-            <h2 class="tui-island__category tui-text_body-xs">Complete The Following</h2>
-        </div>
-        <div class="island_container">
-            <ng-container *ngIf="viewSwitcher.view === 'tab' else listView">
-                <tui-tabs-with-more #tabsComponent class="tui-space_bottom-4">
-                    <ng-container *ngFor="let input of inputFileNames">
-                        <button *tuiItem tuiTab>
-                            {{ input.name }}
-                        </button>
-                    </ng-container>
-                </tui-tabs-with-more>
-                <div *ngFor="let input of inputFileNames; let index = index">
-                    <div *ngIf="tabsComponent.activeItemIndex === index">
-                        <app-code-editor [(codeTemplate)]="input.template"></app-code-editor>
-                    </div>
-                </div>
-            </ng-container>
-            <ng-template #listView>
-                <div class="code-editors__list">
-                    <div *ngFor="let input of inputFileNames">
-                        <p class="code-editors__list-title">{{ input.name }}</p>
-                        <app-code-editor [(codeTemplate)]="input.template"></app-code-editor>
-                    </div>
-                </div>
-            </ng-template>
-        </div>
-    </tui-island>
-    <div class="tui-form__buttons">
-        <button
-            [disabled]="!canSubmit()"
-            [loading]="waitingSubmission"
-            class="tui-form__button"
-            size="m"
-            tuiButton
-        >
-            Submit
-        </button>
+  <tui-island class="tui-space_top-6">
+    <div class="tui-island__content">
+      <div class="tui-island__figure">
+        <app-tab-list-view-switcher #viewSwitcher></app-tab-list-view-switcher>
+      </div>
+      <h2 class="tui-island__category tui-text_body-xs">Complete The Following</h2>
     </div>
+    <div class="island_container">
+      @if (viewSwitcher.view === 'tab') {
+        <tui-tabs-with-more #tabsComponent class="tui-space_bottom-4">
+          @for (input of inputFileNames; track input) {
+            <button *tuiItem tuiTab>
+              {{ input.name }}
+            </button>
+          }
+        </tui-tabs-with-more>
+        @for (input of inputFileNames; track input; let index = $index) {
+          <div>
+            @if (tabsComponent.activeItemIndex === index) {
+              <div>
+                <app-code-editor [(codeTemplate)]="input.template"></app-code-editor>
+              </div>
+            }
+          </div>
+        }
+      } @else {
+        <div class="code-editors__list">
+          @for (input of inputFileNames; track input) {
+            <div>
+              <p class="code-editors__list-title">{{ input.name }}</p>
+              <app-code-editor [(codeTemplate)]="input.template"></app-code-editor>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </tui-island>
+  <div class="tui-form__buttons">
+    <button
+      [disabled]="!canSubmit()"
+      [loading]="waitingSubmission"
+      class="tui-form__button"
+      size="m"
+      tuiButton
+      >
+      Submit
+    </button>
+  </div>
 </form>

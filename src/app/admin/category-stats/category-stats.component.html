@@ -1,109 +1,120 @@
 <tui-island>
-    <h2 class="tui-island__title">Category Stats</h2>
-    <tui-tabs #tabsComponent class="tui-space_bottom-4">
-        <button aria-label="Card View" tuiTab>Card View</button>
-        <button aria-label="Table View" tuiTab>Table View</button>
-    </tui-tabs>
-    <tui-loader [overlay]="true" [showLoader]="!categoryStatsData">
-        <ng-container *ngIf="categoryStatsData">
-            <div *ngIf="tabsComponent.activeItemIndex === 0" class="stats-islands">
-                <tui-island
-                    *ngFor="let categoryStats of categoryStatsData"
+  <h2 class="tui-island__title">Category Stats</h2>
+  <tui-tabs #tabsComponent class="tui-space_bottom-4">
+    <button aria-label="Card View" tuiTab>Card View</button>
+    <button aria-label="Table View" tuiTab>Table View</button>
+  </tui-tabs>
+  <tui-loader [overlay]="true" [showLoader]="!categoryStatsData">
+    @if (categoryStatsData) {
+      @if (tabsComponent.activeItemIndex === 0) {
+        <div class="stats-islands">
+          @for (categoryStats of categoryStatsData; track categoryStats) {
+            <tui-island
+              >
+              <ng-template
+                #categoryDialog
+                let-observer
                 >
-                    <ng-template
-                        #categoryDialog
-                        let-observer
-                    >
-                        <div class="stats-islands tui-space_bottom-4 tui-space_top-8">
-                            <tui-island
-                                *ngFor="let dialogCategoryStats of categoryStats.children"
-                            >
-                                <h3 class="tui-island__title">
-                                    {{ dialogCategoryStats.category.name }}
-                                </h3>
-                                <p class="tui-island__paragraph">
-                                    {{ dialogCategoryStats.category.description }}
-                                </p>
-                                <p class="tui-island__paragraph">
-                                    {{ dialogCategoryStats.category.question_count }} Questions
-                                </p>
-                                <p class="tui-island__paragraph">
-                                    <!-- Temporarily disable success rate for performance-->
-                                    Unknown success rate
-                                    <!-- {{ dialogCategoryStats.category.average_success.toFixed(2) }}% Success Rate-->
-                                </p>
-                            </tui-island>
-                        </div>
-                        <button
-                            (click)="observer.complete()"
-                            appearance="primary"
-                            size="m"
-                            tuiButton
-                        >
-                            Close
-                        </button>
-                    </ng-template>
-                    <h3 class="tui-island__title">
-                        {{ categoryStats.category.name }}
-                    </h3>
-                    <p class="tui-island__paragraph">
-                        {{ categoryStats.category.description }}
-                    </p>
-                    <p class="tui-island__paragraph">
-                        {{ categoryStats.category.question_count }} Questions
-                    </p>
-                    <p class="tui-island__paragraph">
+                <div class="stats-islands tui-space_bottom-4 tui-space_top-8">
+                  @for (dialogCategoryStats of categoryStats.children; track dialogCategoryStats) {
+                    <tui-island
+                      >
+                      <h3 class="tui-island__title">
+                        {{ dialogCategoryStats.category.name }}
+                      </h3>
+                      <p class="tui-island__paragraph">
+                        {{ dialogCategoryStats.category.description }}
+                      </p>
+                      <p class="tui-island__paragraph">
+                        {{ dialogCategoryStats.category.question_count }} Questions
+                      </p>
+                      <p class="tui-island__paragraph">
                         <!-- Temporarily disable success rate for performance-->
                         Unknown success rate
-                        <!-- {{ categoryStats.category.average_success.toFixed(2) }}% Success Rate-->
-                    </p>
-                    <button
-                        (click)="openCategoryStatsDialog(categoryStats.category.name, categoryDialog)"
-                        appearance="flat"
-                        class="tui-island__footer-button"
-                        size="m"
-                        tuiButton
-                    >
-                        View Details
-                    </button>
-                </tui-island>
-            </div>
-            <table
-                *ngIf="tabsComponent.activeItemIndex === 1"
-                [columns]="categoryStatsDataHeader"
-                class="stats-table"
-                tuiTable
-            >
-                <thead>
-                <tr tuiThGroup>
-                    <th *tuiHead="'category'"
-                        tuiTh
-                    >
-                        Category
-                    </th>
-                    <th *tuiHead="'children'"
-                        tuiTh
-                    >
-                        Children
-                    </th>
-                </tr>
-                </thead>
-                <tbody [data]="categoryStatsData" tuiTbody>
-                <tr *ngFor="let item of categoryStatsData" tuiTr>
-                    <td *tuiCell="'category'" tuiTd>
-                        {{item.category.name}}
-                    </td>
-                    <td *tuiCell="'children'" tuiTd>
-                        <span *ngFor="let child of item.children; let index = index">
-                            {{child.category.name}}
-                            <span *ngIf="index !== item.children.length - 1">
-                                ,&nbsp;
-                            </span>
+                        <!-- {{ dialogCategoryStats.category.average_success.toFixed(2) }}% Success Rate-->
+                      </p>
+                    </tui-island>
+                  }
+                </div>
+                <button
+                  (click)="observer.complete()"
+                  appearance="primary"
+                  size="m"
+                  tuiButton
+                  >
+                  Close
+                </button>
+              </ng-template>
+              <h3 class="tui-island__title">
+                {{ categoryStats.category.name }}
+              </h3>
+              <p class="tui-island__paragraph">
+                {{ categoryStats.category.description }}
+              </p>
+              <p class="tui-island__paragraph">
+                {{ categoryStats.category.question_count }} Questions
+              </p>
+              <p class="tui-island__paragraph">
+                <!-- Temporarily disable success rate for performance-->
+                Unknown success rate
+                <!-- {{ categoryStats.category.average_success.toFixed(2) }}% Success Rate-->
+              </p>
+              <button
+                (click)="openCategoryStatsDialog(categoryStats.category.name, categoryDialog)"
+                appearance="flat"
+                class="tui-island__footer-button"
+                size="m"
+                tuiButton
+                >
+                View Details
+              </button>
+            </tui-island>
+          }
+        </div>
+      }
+      @if (tabsComponent.activeItemIndex === 1) {
+        <table
+          [columns]="categoryStatsDataHeader"
+          class="stats-table"
+          tuiTable
+          >
+          <thead>
+            <tr tuiThGroup>
+              <th *tuiHead="'category'"
+                tuiTh
+                >
+                Category
+              </th>
+              <th *tuiHead="'children'"
+                tuiTh
+                >
+                Children
+              </th>
+            </tr>
+          </thead>
+          <tbody [data]="categoryStatsData" tuiTbody>
+            @for (item of categoryStatsData; track item) {
+              <tr tuiTr>
+                <td *tuiCell="'category'" tuiTd>
+                  {{item.category.name}}
+                </td>
+                <td *tuiCell="'children'" tuiTd>
+                  @for (child of item.children; track child; let index = $index) {
+                    <span>
+                      {{child.category.name}}
+                      @if (index !== item.children.length - 1) {
+                        <span>
+                          ,&nbsp;
                         </span>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </ng-container>
-    </tui-loader>
+                      }
+                    </span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+    }
+  </tui-loader>
 </tui-island>

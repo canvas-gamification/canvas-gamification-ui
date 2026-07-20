@@ -1,100 +1,107 @@
 <tui-island class="previous-submissions-island tui-space_vertical-6">
-    <h2 class="tui-text_h6 tui-space_top-0 previous-submissions-island__title">Past Submissions</h2>
-    <ng-container *ngIf="previousSubmissions?.length > 0 else noSubmissions">
-        <tui-accordion [rounded]="false" class="tui-space_bottom-4">
-            <tui-accordion-item
-                *ngFor="let submission of previousSubmissions; let index = index"
-                [showArrow]="false"
-                size="s"
-            >
-                <div class="previous-submissions-island__submission">
-                    {{ (submission.submission_time | date:'short') || 'No Date' }}
-                    <tui-badge
-                        [appearance]="submission.status | tuiStatus"
-                       
-                        class="tui-space_left-2"
-                    >{{ submission.status || 'Pending' }}</tui-badge>
-                    <ng-template tuiAccordionItemContent>
-                        <div *ngIf="!submission.question.is_exam_and_open else examContent"
-                             class="tui-text_body-m">
-                            <p class="tui-island__paragraph">Grade
-                                Given: {{ submission.grade.toFixed(2) }}</p>
-                            <p class="tui-island__paragraph">Tokens
-                                Received: {{ submission.tokens_received.toFixed(2)}}
-                                / {{submission.token_value.toFixed(2) }}</p>
-                            <p class="tui-island__paragraph">Answer:</p>
-                            <ng-container *ngIf="submission.show_answer &&
-                            submissionAppropriateSize(submission)
-                            else noAnswerShown">
-                                <div *ngFor="let safeAnswer of submission.safeAnswer"
-                                     [innerHTML]="safeAnswer"></div>
-                            </ng-container>
-                            <ng-template #noAnswerShown>
-                                See Details For More Information
-                            </ng-template>
-                            <p class="tui-island__paragraph">Submitted
-                                by: {{ submission.author}}</p>
-                            <div class="tui-form__buttons tui-space_top-4"
-                                 *ngIf="!(submission.question.type_name === 'multiple choice question')">
-                                <button
-                                    (click)="openSubmissionDialog(submission, index + 1)"
-                                    class="tui-form__button"
-                                    size="m"
-                                    tuiButton
-                                >
-                                    See Details
-                                </button>
-                            </div>
-                            <div class="tui-form__buttons tui-space_top-4"
-                                 *ngIf="!submissionAppropriateSize(submission)">
-                                <button
-                                    (click)="openMCQSubmissionDialog(mcqAnswers, index + 1)"
-                                    class="tui-form__button"
-                                    size="m"
-                                    tuiButton
-                                >
-                                    See Details
-                                </button>
-                            </div>
-                        </div>
-                        <ng-template #mcqAnswers let-observer>
-                            <p class="tui-island__paragraph">Grade
-                                Given: {{ submission.grade.toFixed(2) }}</p>
-                            <p class="tui-island__paragraph">Tokens
-                                Received: {{ submission.tokens_received.toFixed(2)}}
-                                / {{submission.token_value.toFixed(2) }}</p>
-                            <p class="tui-island__paragraph">
-                                Time Submitted:
-                                {{ (submission?.submission_time | date: 'medium') || 'No Time'}}
-                            </p>
-                            <p class="tui-island__paragraph">Answer:</p>
-                            <div *ngFor="let safeAnswer of submission.safeAnswer"
-                                 [innerHTML]="safeAnswer"></div>
-                            <div class="tui-form__buttons">
-                                <button
-                                    (click)="observer.complete()"
-                                    appearance="primary"
-                                    class="tui-form__button"
-                                    size="m"
-                                    tuiButton
-                                >
-                                    Close
-                                </button>
-                            </div>
-                        </ng-template>
-                        <ng-template #examContent>
-                            <p class="tui-island__paragraph">
-                                Exam is in progress. You can see the submission results once the
-                                exam is over.
-                            </p>
-                        </ng-template>
-                    </ng-template>
+  <h2 class="tui-text_h6 tui-space_top-0 previous-submissions-island__title">Past Submissions</h2>
+  @if (previousSubmissions?.length > 0) {
+    <tui-accordion [rounded]="false" class="tui-space_bottom-4">
+      @for (submission of previousSubmissions; track submission; let index = $index) {
+        <tui-accordion-item
+          [showArrow]="false"
+          size="s"
+          >
+          <div class="previous-submissions-island__submission">
+            {{ (submission.submission_time | date:'short') || 'No Date' }}
+            <tui-badge
+              [appearance]="submission.status | tuiStatus"
+              class="tui-space_left-2"
+            >{{ submission.status || 'Pending' }}</tui-badge>
+            <ng-template tuiAccordionItemContent>
+              @if (!submission.question.is_exam_and_open) {
+                <div
+                  class="tui-text_body-m">
+                  <p class="tui-island__paragraph">Grade
+                  Given: {{ submission.grade.toFixed(2) }}</p>
+                  <p class="tui-island__paragraph">Tokens
+                    Received: {{ submission.tokens_received.toFixed(2)}}
+                  / {{submission.token_value.toFixed(2) }}</p>
+                  <p class="tui-island__paragraph">Answer:</p>
+                  @if (submission.show_answer &&
+                    submissionAppropriateSize(submission)
+                    ) {
+                    @for (safeAnswer of submission.safeAnswer; track safeAnswer) {
+                      <div
+                      [innerHTML]="safeAnswer"></div>
+                    }
+                  } @else {
+                    See Details For More Information
+                  }
+                  <p class="tui-island__paragraph">Submitted
+                  by: {{ submission.author}}</p>
+                  @if (!(submission.question.type_name === 'multiple choice question')) {
+                    <div class="tui-form__buttons tui-space_top-4"
+                      >
+                      <button
+                        (click)="openSubmissionDialog(submission, index + 1)"
+                        class="tui-form__button"
+                        size="m"
+                        tuiButton
+                        >
+                        See Details
+                      </button>
+                    </div>
+                  }
+                  @if (!submissionAppropriateSize(submission)) {
+                    <div class="tui-form__buttons tui-space_top-4"
+                      >
+                      <button
+                        (click)="openMCQSubmissionDialog(mcqAnswers, index + 1)"
+                        class="tui-form__button"
+                        size="m"
+                        tuiButton
+                        >
+                        See Details
+                      </button>
+                    </div>
+                  }
                 </div>
-            </tui-accordion-item>
-        </tui-accordion>
-    </ng-container>
-    <ng-template #noSubmissions>
-        <p class="tui-island__paragraph previous-submissions-island__no-submission">No Submissions
-            Available</p>
-    </ng-template>
+              } @else {
+                <p class="tui-island__paragraph">
+                  Exam is in progress. You can see the submission results once the
+                  exam is over.
+                </p>
+              }
+              <ng-template #mcqAnswers let-observer>
+                <p class="tui-island__paragraph">Grade
+                Given: {{ submission.grade.toFixed(2) }}</p>
+                <p class="tui-island__paragraph">Tokens
+                  Received: {{ submission.tokens_received.toFixed(2)}}
+                / {{submission.token_value.toFixed(2) }}</p>
+                <p class="tui-island__paragraph">
+                  Time Submitted:
+                  {{ (submission?.submission_time | date: 'medium') || 'No Time'}}
+                </p>
+                <p class="tui-island__paragraph">Answer:</p>
+                @for (safeAnswer of submission.safeAnswer; track safeAnswer) {
+                  <div
+                  [innerHTML]="safeAnswer"></div>
+                }
+                <div class="tui-form__buttons">
+                  <button
+                    (click)="observer.complete()"
+                    appearance="primary"
+                    class="tui-form__button"
+                    size="m"
+                    tuiButton
+                    >
+                    Close
+                  </button>
+                </div>
+              </ng-template>
+            </ng-template>
+          </div>
+        </tui-accordion-item>
+      }
+    </tui-accordion>
+  } @else {
+    <p class="tui-island__paragraph previous-submissions-island__no-submission">No Submissions
+    Available</p>
+  }
 </tui-island>
