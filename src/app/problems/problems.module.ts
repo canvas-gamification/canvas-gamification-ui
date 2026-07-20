@@ -26,7 +26,7 @@ import {
     ParsonsCreateEditSnippetComponent
 } from '@app/problems/problem-create-edit/parsons-create-edit-snippet/parsons-create-edit-snippet.component'
 import {ProblemsRoutingModule} from '@app/problems/problems-routing.module'
-import {DragulaModule} from 'ng2-dragula'
+import {DragDropModule} from '@angular/cdk/drag-drop'
 import {DifficultyService} from '@app/problems/_services/difficulty.service'
 import {UqjService} from '@app/problems/_services/uqj.service'
 import {QuestionService} from '@app/problems/_services/question.service'
@@ -82,7 +82,7 @@ import {VariationTypesSelectorComponent} from './problem-create-edit/variation-t
     imports: [
         CodeEditorModule,
         CommonModule,
-        DragulaModule.forRoot(),
+        DragDropModule,
         EditorModule,
         FormsModule,
         PipesModule,

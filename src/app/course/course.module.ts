@@ -32,7 +32,6 @@ import {
 } from './course-registration/course-registration-step/course-registration-step.component'
 import { TuiActiveZone, TuiItem, TuiFilterPipe } from '@taiga-ui/cdk'
 import { TuiTablePagination, TuiTable } from '@taiga-ui/addon-table'
-import {DragulaModule} from 'ng2-dragula'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 import {PracticeProblemComponent} from './practice-problem/practice-problem.component'
@@ -177,7 +176,6 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module"
         ...TuiTabs,
         TuiChip,
         ...TuiTextarea,
-        DragulaModule.forRoot(),
         TuiSwitch, TuiChartHint],
     providers: [
         CourseEventService,

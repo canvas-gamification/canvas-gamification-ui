@@ -1,9 +1,17 @@
-<div class="tui-row tui-row_adaptive">
+<div cdkDropListGroup class="tui-row tui-row_adaptive">
   <div class="tui-col_xs-12 tui-col_md-12 tui-col_lg-6">
     <h3 class="tui-island__category tui-text_body-xs">Lines</h3>
-    <div tuiCardLarge [(dragulaModel)]="leftContainer" [dragula]="file.name" class="container">
+    <div tuiCardLarge
+      (cdkDropListDropped)="onDrop($event)"
+      [cdkDropListData]="leftContainer"
+      cdkDropList
+      class="container"
+    >
       @for (line of leftContainer; track line) {
         <div
+          cdkDrag
+          (cdkDragStarted)="onDragStarted()"
+          (cdkDragEnded)="onDragEnded()"
           class="container-object"
           >
           <ng-container
@@ -16,9 +24,17 @@
   </div>
   <div class="tui-col_xs-12 tui-col_md-12 tui-col_lg-6">
     <h3 class="tui-island__category tui-text_body-xs">My Solution</h3>
-    <div tuiCardLarge [(dragulaModel)]="rightContainer" [dragula]="file.name" class="container">
+    <div tuiCardLarge
+      (cdkDropListDropped)="onDrop($event)"
+      [cdkDropListData]="rightContainer"
+      cdkDropList
+      class="container"
+    >
       @for (line of rightContainer; track line) {
         <div
+          cdkDrag
+          (cdkDragStarted)="onDragStarted()"
+          (cdkDragEnded)="onDragEnded()"
           class="container-object"
           >
           <ng-container
@@ -34,12 +50,16 @@
   {{parsonsObject.value}}
   @if (testABNew) {
     <div
-      [(dragulaModel)]="parsonsObject['nestedObjects']"
-      [dragula]="file.name"
+      (cdkDropListDropped)="onDrop($event)"
+      [cdkDropListData]="parsonsObject['nestedObjects']"
+      cdkDropList
       class="container container-nested tui-space_top-1"
       >
       @for (line of parsonsObject['nestedObjects']; track line) {
         <div
+          cdkDrag
+          (cdkDragStarted)="onDragStarted()"
+          (cdkDragEnded)="onDragEnded()"
           (mouseleave)="containerObjectRemoveHover()"
           (mouseover)="containerObjectHover($event)"
           class="container-object"

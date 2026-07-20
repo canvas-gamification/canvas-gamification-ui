@@ -1,18 +1,19 @@
-<div (dragulaModelChange)="onDragulaChange($event)" [dragulaModel]="models.controls" [dragula]="dragulaName">
+<div (cdkDropListDropped)="onDrop($event)" cdkDropList>
     <form
         *ngFor="let form of models.controls; index as index"
         [formGroup]="form | asFormGroup"
         class="tui-space_bottom-4 drag-container"
+        cdkDrag
     >
-        <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-<tui-icon 
+        <tui-icon
             [tuiHint]="reorderTooltip"
             class="drag-container_handle"
-            icon=" @tui.grip-vertical"
+            icon="@tui.grip-vertical"
             id="reorder-{{index}}"
             tuiHintDirection="top-end"
             tuiHintDescribe="reorder-{{index}}"
             tuiHintAppearance="dark"
+            cdkDragHandle
         ></tui-icon>
         <ng-template #reorderTooltip>
             Reorder Variable
