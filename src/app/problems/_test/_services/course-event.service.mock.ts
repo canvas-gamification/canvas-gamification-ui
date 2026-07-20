@@ -2,7 +2,7 @@ import {Observable, of} from "rxjs"
 import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 import {CourseEvent, EventLimit, EventType, LeaderboardElement} from "@app/_models"
 import {MOCK_EVENT_TYPES, MOCK_RANKED_LEADERBOARD} from "@app/course/_test/mock"
-import {HttpResponse} from "@angular/common/http"
+import { HttpResponse } from "@angular/common/http"
 import {EventQuestionSetFormData} from "@app/course/_forms/course-event.form"
 import {EventStats} from "@app/_models/event/event_stats"
 

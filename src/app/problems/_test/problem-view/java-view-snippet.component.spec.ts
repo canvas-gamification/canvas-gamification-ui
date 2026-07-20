@@ -7,7 +7,7 @@ import {SubmissionService} from "@app/problems/_services/submission.service"
 import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.service.mock"
 import {of} from "rxjs"
 import {delay} from "rxjs/operators"
-import {HttpHeaderResponse} from "@angular/common/http"
+import { HttpHeaderResponse } from "@angular/common/http"
 
 describe('JavaViewSnippetComponent', () => {
     let component: JavaViewSnippetComponent

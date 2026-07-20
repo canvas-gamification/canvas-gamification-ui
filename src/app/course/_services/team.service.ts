@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import {HttpClient, HttpParams, HttpResponse} from "@angular/common/http"
+import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import {ApiService} from "@app/_services/api.service"
 import {Team} from "@app/_models/team"
 import {Observable} from "rxjs"

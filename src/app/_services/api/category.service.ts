@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core'
 import {Category} from '@app/_models'
 import {Observable} from 'rxjs'
-import {HttpClient} from '@angular/common/http'
+import { HttpClient } from '@angular/common/http'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"
 

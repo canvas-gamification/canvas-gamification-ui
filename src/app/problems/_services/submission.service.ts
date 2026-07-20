@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import {HttpClient, HttpHeaderResponse, HttpParams} from '@angular/common/http'
+import { HttpClient, HttpHeaderResponse, HttpParams } from '@angular/common/http'
 import {Observable} from 'rxjs'
 import {QuestionSubmission} from '@app/_models/question_submission'
 import {catchError} from 'rxjs/operators'

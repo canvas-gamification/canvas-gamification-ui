@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import {HttpClient, HttpHeaderResponse, HttpHeaders} from '@angular/common/http'
+import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http'
 import {Observable} from 'rxjs'
 import {catchError} from 'rxjs/operators'
 import {ApiService} from "@app/_services/api.service"

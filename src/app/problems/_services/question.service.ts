@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core'
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http'
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http'
 import {Observable, of} from 'rxjs'
 import {Question} from '@app/_models'
 import {PaginatedResult} from '@app/_models/paginatedResult'

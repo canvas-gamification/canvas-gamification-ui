@@ -8,7 +8,7 @@ import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.se
 import {ReactiveFormsModule} from "@angular/forms"
 import { TuiBlock, TuiCheckbox, TuiRadio } from "@taiga-ui/kit"
 import {of} from "rxjs"
-import {HttpHeaderResponse} from "@angular/common/http"
+import { HttpHeaderResponse } from "@angular/common/http"
 import {delay} from "rxjs/operators"
 import {AsFormControlPipe} from "@app/_helpers/pipes/as-form-control.pipe"
 

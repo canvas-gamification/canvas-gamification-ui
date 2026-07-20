@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core'
 import {environment} from "@environments/environment"
 import {Observable, of, throwError} from "rxjs"
-import {HttpErrorResponse} from "@angular/common/http"
+import { HttpErrorResponse } from "@angular/common/http"
 import {Router} from "@angular/router"
 import {Location} from "@angular/common"
 import { TuiAlertService } from '@taiga-ui/core'

@@ -2,7 +2,7 @@ import {fakeAsync, TestBed, tick} from '@angular/core/testing'
 import {TokenUseService} from './token-use.service'
 import {TestModule} from '@test/test.module'
 import {ApiService} from "@app/_services/api.service"
-import {HttpTestingController} from "@angular/common/http/testing"
+import { HttpTestingController } from "@angular/common/http/testing"
 import {MOCK_COURSE_REGISTRATION} from "@app/course/_test/mock"
 
 describe('TokenUseService', () => {

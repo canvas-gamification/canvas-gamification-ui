@@ -5,7 +5,7 @@ import {TestModule} from '@test/test.module'
 import {MOCK_EMAIL_FORM_DATA, MOCK_PASSWORD_FORM_DATA} from "@app/accounts/_test/mock"
 import {ActivatedRoute} from "@angular/router"
 import {of} from "rxjs"
-import {HttpHeaderResponse} from "@angular/common/http"
+import { HttpHeaderResponse } from "@angular/common/http"
 
 describe('ResetPasswordComponent', () => {
     let component: ResetPasswordComponent
