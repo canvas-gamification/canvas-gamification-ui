@@ -1,12 +1,11 @@
-import { TuiLabel } from "@taiga-ui/core";
-import { TuiIslandDirective, TuiInputModule } from "@taiga-ui/legacy";
+import { TuiCardLarge } from "@taiga-ui/layout";
+import { TuiLabel, TuiError, TuiInput } from "@taiga-ui/core";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {
     ParsonsInputFilesEditorComponent
 } from '../../json-editor/parsons-input-files-editor/parsons-input-files-editor.component'
 import {TestModule} from "@test/test.module"
-import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
 import {UntypedFormArray, UntypedFormGroup, ReactiveFormsModule} from "@angular/forms"
 
 describe('ParsonsInputFilesEditorComponent', () => {
@@ -16,7 +15,7 @@ describe('ParsonsInputFilesEditorComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [ParsonsInputFilesEditorComponent],
-            imports: [TestModule, ReactiveFormsModule, TuiInputModule, TuiLabel, TuiFieldErrorPipe, TuiFieldErrorContentPipe, TuiIslandDirective]
+            imports: [TestModule, ReactiveFormsModule, TuiInput, TuiLabel, TuiError, TuiError, TuiCardLarge]
         }).compileComponents()
     })
 

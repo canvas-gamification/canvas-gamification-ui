@@ -7,12 +7,23 @@
             <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
                 <h2 class="tui-form__header">Login</h2>
                 <div class="tui-form__row">
-                    <tui-input aria-label="Email" formControlName="email">Email</tui-input>
-                    <tui-error [error]="[] | tuiFieldError | async" formControlName="email"></tui-error>
+                    <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria-label" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+                   <tui-textfield aria-label="Email">
+                   <label tuiLabel>Email</label>
+                   <input tuiInput formControlName="email" />
+                   </tui-textfield>
+                    <tui-error  formControlName="email"></tui-error>
                 </div>
                 <div class="tui-form__row">
-                    <tui-input-password aria-label="Password" formControlName="password">Password</tui-input-password>
-                    <tui-error [error]="[] | tuiFieldError | async" formControlName="password"></tui-error>
+                    <tui-textfield aria-label="Password" >
+<label tuiLabel>Password</label>
+
+<input tuiInput type="password" formControlName="password" />
+<tui-icon tuiPassword />
+</tui-textfield>
+                    <tui-error  formControlName="password"></tui-error>
                     <div class="tui-form__field-note">
                         Forgot your password? <a [routerLink]="['/accounts', 'reset-password']" tuiLink>Reset
                         Password</a>

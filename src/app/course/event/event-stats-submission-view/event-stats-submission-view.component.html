@@ -22,13 +22,17 @@
     </label>
   </form>
   <form [formGroup]="formGroup" class="flex">
-    <tui-select
+    <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
       tuiTextfieldSize="s"
-      formControlName="status"
       class="w-32"
       >
+<label tuiLabel>
       Status
-      <tui-data-list *tuiDataList>
+      </label>
+
+<input tuiSelect formControlName="status" />
+<tui-data-list *tuiDropdown>
         @for (status of ['All', 'Correct', 'Partially Correct', 'Incorrect']; track status) {
           <button
             [value]="status" tuiOption
@@ -38,7 +42,7 @@
           </button>
         }
       </tui-data-list>
-    </tui-select>
+    </tui-textfield>
   </form>
 </div>
 @if (filteredSubmissions.length !== 0) {
@@ -54,7 +58,7 @@
         }
       </div>
       <div class="flex mt-2">
-        <tui-island class="w-2/3">
+        <div tuiCardLarge class="w-2/3">
           <p class="tui-island__paragraph">Code: </p>
           @for (item of answerFiles; track item) {
             <div class="tui-island__paragraph">
@@ -62,10 +66,10 @@
               [readOnly]="true"></app-code-editor>
             </div>
           }
-        </tui-island>
+        </div>
         @if (filteredSubmissions[index].passed_results?.length ||
           filteredSubmissions[index].failed_results?.length) {
-          <tui-island
+          <div tuiCardLarge
             class="w-1/3">
             <h3 class="tui-island__paragraph"><b>Unit Testing Results:</b></h3>
             @if (filteredSubmissions[index].passed_results?.length) {
@@ -96,10 +100,10 @@
                 </ul>
               </div>
             }
-          </tui-island>
+          </div>
         }
         @if (filteredSubmissions[index].decoded_stderr !== '') {
-          <tui-island class="w-1/3">
+          <div tuiCardLarge class="w-1/3">
             <p class="tui-island__paragraph">The following error occurred: </p>
             <div class="tui-island__paragraph">
               <app-code-editor
@@ -108,16 +112,16 @@
                 >
               </app-code-editor>
             </div>
-          </tui-island>
+          </div>
         }
       </div>
     } @else {
       <div class="flex justify-center items-center w-full h-32">
-        <tui-avatar
+        <span tuiAvatar="@tui.circle-alert"
           class="tui-space_right-4"
           size="m"
-          src="@tui.circle-alert"
-        ></tui-avatar>
+         
+        ></span>
         <h2 class="tui-text_body-xl">
           Looks like there are no submissions to show
         </h2>

@@ -1,4 +1,5 @@
-import { TuiIslandDirective, TuiTextfieldControllerModule, TuiTextareaModule, TuiInputModule, TuiInputPasswordModule, TuiMultiSelectModule, TuiSelectModule } from "@taiga-ui/legacy";
+import { TuiCardLarge } from "@taiga-ui/layout";
+import { TuiInputChip, TuiChevron } from "@taiga-ui/kit";
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {AccountsRoutingModule} from "@app/accounts/accounts-routing.module"
@@ -22,8 +23,8 @@ import {ResetPasswordService} from "@app/accounts/_services/reset-password.servi
 import {
     StudentTermsAndConditionsSnippetComponent
 } from './student-terms-and-conditions-snippet/student-terms-and-conditions-snippet.component'
-import { TuiDataListWrapper, TuiInputInline, TuiFieldErrorPipe, TuiFieldErrorContentPipe, TuiAvatar, TuiRadioList, TuiRadio, TuiCheckbox, TuiButtonLoading } from "@taiga-ui/kit"
-import { TuiNotification, TuiDataList, TuiError, TuiLabel, TuiLink, TuiButton, TuiAutoColorPipe, TuiInitialsPipe } from "@taiga-ui/core"
+import { TuiDataListWrapper, TuiInputInline, TuiAvatar, TuiRadioList, TuiButtonLoading, TuiAutoColorPipe, TuiSelect, TuiInitialsPipe, TuiPassword, TuiTextarea } from "@taiga-ui/kit"
+import { TuiNotification, TuiDataList, TuiError, TuiLabel, TuiLink, TuiButton, TuiCheckbox, TuiRadio, TuiIcon, TuiInput } from "@taiga-ui/core"
 import {InitialSurveyComponent} from './survey/initial-survey/initial-survey.component'
 import {FinalSurveyComponent} from './survey/final-survey/final-survey.component'
 
@@ -56,21 +57,20 @@ import {FinalSurveyComponent} from './survey/final-survey/final-survey.component
         TuiLabel,
         ...TuiDataList,
         ...TuiDataListWrapper,
-        TuiError,
-        TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+        ...TuiError,
         TuiInputInline,
-        TuiInputModule,
-        TuiInputPasswordModule,
-        TuiIslandDirective,
+        ...TuiInput,
+        TuiIcon, TuiPassword,
+        TuiCardLarge,
         TuiLink,
-        TuiMultiSelectModule,
-        TuiNotification,
+        ...TuiInputChip,
+        TuiChevron,
+        ...TuiNotification,
         TuiRadioList,
         ...TuiRadio,
 
-        TuiSelectModule,
-        TuiTextareaModule,
-        TuiTextfieldControllerModule, TuiCheckbox],
+        ...TuiSelect,
+        ...TuiTextarea, TuiCheckbox],
     providers: [
         ChangePasswordService,
         ConsentService,

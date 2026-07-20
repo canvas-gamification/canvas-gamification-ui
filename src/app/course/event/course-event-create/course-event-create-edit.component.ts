@@ -1,10 +1,10 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {Category, EventLimit, EventType} from '@app/_models'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {CourseEventForm} from "@app/course/_forms/course-event.form"
-import { TuiAlertService } from "@taiga-ui/core"
 import {tuiCreateTimePeriods} from "@taiga-ui/kit"
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
@@ -34,8 +34,8 @@ export class CourseEventCreateEditComponent implements OnInit {
         private router: Router,
         private readonly categoryService: CategoryService,
         private readonly difficultyService: DifficultyService,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
     }
 

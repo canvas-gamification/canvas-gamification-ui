@@ -27,33 +27,35 @@
       </div>
       @for (team of teams; track team; let index = $index) {
         @if (team) {
-          <tui-accordion class="tui-space_top-6">
-            <tui-accordion-item>
-              <div class="flex flex-wrap gap-3">
-                <div class="min-w-[2rem]">
-                  <span class="mr-1">
-                    {{index + 1}}
-                  </span>
-                  <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-                  @if (isInTeam(team)) {
-                    <tui-icon
-                      icon="@tui.user"
-                    ></tui-icon>
-                  }
+          <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<tui-accordion class="tui-space_top-6">
+            <button tuiAccordion>
+                <div class="flex flex-wrap gap-3">
+                  <div class="min-w-[2rem]">
+                    <span class="mr-1">
+                      {{index + 1}}
+                    </span>
+                    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+                    @if (isInTeam(team)) {
+                      <tui-icon
+                        icon="@tui.user"
+                      ></tui-icon>
+                    }
+                  </div>
+                  <div class="flex-grow">{{team.name}}</div>
+                  <div>
+                    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+                    @if (team.is_private) {
+                      <tui-icon  icon="@tui.lock"></tui-icon>
+                    }
+                  </div>
+                  <div>
+                    {{team.member_names.length}}
+                    {{team.member_names.length===1? 'student': 'students'}}
+                  </div>
                 </div>
-                <div class="flex-grow">{{team.name}}</div>
-                <div>
-                  <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
-                  @if (team.is_private) {
-                    <tui-icon  icon="@tui.lock"></tui-icon>
-                  }
-                </div>
-                <div>
-                  {{team.member_names.length}}
-                  {{team.member_names.length===1? 'student': 'students'}}
-                </div>
-              </div>
-              <ng-template tuiAccordionItemContent>
+            </button>
+            <tui-expand>
                 <div class="flex flex-wrap gap-3">
                   <div class="flex-grow">
                     @for (name of team.member_names; track name) {
@@ -99,8 +101,7 @@
                     }
                   }
                 </div>
-              </ng-template>
-            </tui-accordion-item>
+            </tui-expand>
           </tui-accordion>
         }
       }
@@ -125,8 +126,10 @@
       >
       Instructions
     </div>
-    <tui-accordion class="accordionContainer tui-space_top-6">
-      <tui-accordion-item>
+    <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<tui-accordion class="accordionContainer tui-space_top-6">
+      <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<tui-accordion-item>
         <div class="accordionHeader">
           <div class="tui-skeleton">content</div>
           <div class="tui-skeleton">content</div>

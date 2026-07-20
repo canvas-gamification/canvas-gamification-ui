@@ -3,7 +3,7 @@ import {QuestionService} from '@app/problems/_services/question.service'
 import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {McqForm} from "@app/problems/_forms/mcq.form"
 import {Router} from "@angular/router"
-import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
 import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 import {Question} from '@app/_models'
 
@@ -25,8 +25,8 @@ export class McqCreateEditSnippetComponent implements OnInit {
     constructor(
         private questionService: QuestionService,
         private router: Router,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService,
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
     ) {
     }
@@ -53,7 +53,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
     checkCheckboxAnswersDialog(content: PolymorpheusContent<TuiDialogContext>): void {
         if (this.form.answer.value.length <= 1) {
             this.dialogService.open(content, {
-                closeable: false,
+                closable: false,
                 label: 'Submit Question?'
             }).subscribe({
                 next: () => this.onSubmit()

@@ -1,10 +1,9 @@
+import { TuiNotificationService, TUI_VALIDATION_ERRORS } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormGroup} from "@angular/forms"
 import {CourseForm} from "@app/course/_forms/course.form"
 import {CourseService} from '../_services/course.service'
-import { TuiAlertService } from "@taiga-ui/core"
 import {ActivatedRoute, Router} from '@angular/router'
-import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit"
 
 @Component({
     selector: 'app-course-create',
@@ -34,8 +33,8 @@ export class CourseCreateComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private readonly courseService: CourseService,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService,
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService,
         private readonly router: Router,
     ) {
     }

@@ -1,4 +1,3 @@
-import { TuiInputModule, TuiInputDateRangeModule, TuiInputTimeModule, TuiSelectModule } from "@taiga-ui/legacy";
 import {ComponentFixture, fakeAsync, flushMicrotasks, TestBed} from '@angular/core/testing'
 
 import {
@@ -9,14 +8,14 @@ import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {ActivatedRoute, convertToParamMap, Router, RouterModule} from "@angular/router"
 import {ReactiveFormsModule} from "@angular/forms"
-import { TuiAlertService, TuiNotification, TuiDataList, TuiLabel, TuiButton } from "@taiga-ui/core"
+import { TuiNotification, TuiDataList, TuiLabel, TuiButton, TuiNotificationService, TuiError, TuiInput } from "@taiga-ui/core"
 import {of} from "rxjs"
-import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
+import { TuiSelect, TuiInputTime, TuiInputDateRange } from "@taiga-ui/kit"
 
 describe('CourseEventCreateComponent with EventId', () => {
     let component: CourseEventCreateEditComponent
     let fixture: ComponentFixture<CourseEventCreateEditComponent>
-    let notificationService: TuiAlertService
+    let notificationService: TuiNotificationService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -24,13 +23,13 @@ describe('CourseEventCreateComponent with EventId', () => {
                 TestModule,
                 ReactiveFormsModule,
                 RouterModule,
-                TuiInputModule,
-                TuiSelectModule,
+                TuiInput,
+                TuiSelect,
                 TuiDataList,
-                TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+                TuiError, TuiError,
                 TuiLabel,
-                TuiInputDateRangeModule,
-                TuiInputTimeModule,
+                TuiInputDateRange,
+                TuiInputTime,
                 TuiNotification,
                 TuiButton
             ],
@@ -55,7 +54,7 @@ describe('CourseEventCreateComponent with EventId', () => {
     })
 
     beforeEach(() => {
-        notificationService = TestBed.inject(TuiAlertService)
+        notificationService = TestBed.inject(TuiNotificationService)
         spyOn(notificationService, 'show').and.callFake(() => {
             return of()
         })
@@ -83,7 +82,7 @@ describe('CourseEventCreateComponent without EventId', () => {
     let component: CourseEventCreateEditComponent
     let fixture: ComponentFixture<CourseEventCreateEditComponent>
     let router: Router
-    let notificationService: TuiAlertService
+    let notificationService: TuiNotificationService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -91,13 +90,13 @@ describe('CourseEventCreateComponent without EventId', () => {
                 TestModule,
                 ReactiveFormsModule,
                 RouterModule,
-                TuiInputModule,
-                TuiSelectModule,
+                TuiInput,
+                TuiSelect,
                 TuiDataList,
-                TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+                TuiError, TuiError,
                 TuiLabel,
-                TuiInputDateRangeModule,
-                TuiInputTimeModule,
+                TuiInputDateRange,
+                TuiInputTime,
                 TuiNotification,
                 TuiButton
             ],
@@ -122,7 +121,7 @@ describe('CourseEventCreateComponent without EventId', () => {
     beforeEach(() => {
         router = TestBed.inject(Router)
         spyOn(router, 'navigate').and.returnValue(Promise.resolve(true))
-        notificationService = TestBed.inject(TuiAlertService)
+        notificationService = TestBed.inject(TuiNotificationService)
         spyOn(notificationService, 'show').and.callFake(() => {
             return of()
         })

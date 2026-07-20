@@ -11,17 +11,19 @@
         </button>
         <div class="flex flex-wrap gap-3">
             <div class="flex-grow">
-                <tui-select
+                <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
                     tuiTextfieldSize="l"
-                    [(ngModel)]="filter"
                     class="max-w-xs"
-                > You are viewing
-                    <input tuiTextfieldLegacy/>
+                >
+<label tuiLabel> You are viewing
+                    </label>
+<input [(ngModel)]="filter" tuiSelect/>
                     <tui-data-list-wrapper
-                        *tuiDataList
+                        *tuiDropdown
                         [items]="getEventFilterOptions()"
                     ></tui-data-list-wrapper>
-                </tui-select>
+                </tui-textfield>
             </div>
             <div class="flex items-center gap-3 flex-wrap">
                 <button
@@ -68,7 +70,7 @@
                             </figure>
                             <h2 class="tui-island__title">Create New Assessment</h2>
                         </a>
-                        <tui-island *ngFor="let event of courseEvents" size="s">
+                        <div tuiCardLarge *ngFor="let event of courseEvents" size="s">
                             <div class="flex">
                                 <div class="flex-grow">
                                     <p class="tui-island__category">{{ event.type }}</p>
@@ -88,7 +90,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </tui-island>
+                        </div>
                     </div>
                 </ng-container>
                 <button
@@ -123,212 +125,208 @@
                 </ng-container>
             </ng-template>
         </div>
-        <tui-accordion [closeOthers]="false">
-            <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Current Assessments
-                <ng-template tuiAccordionItemContent>
-                    <div
-                        *ngFor="let event of getCurrentEvents()"
-                        class="event"
+        <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<tui-accordion [closeOthers]="false">
+            <button tuiAccordion="true" [disablehover]="true">Current Assessments</button>
+            <tui-expand class="title">
+                <div
+                    *ngFor="let event of getCurrentEvents()"
+                    class="event"
+                >
+                    <app-event-row
+                        [event]="event"
+                        (reload)="init()"
                     >
-                        <app-event-row
-                            [event]="event"
-                            (reload)="init()"
-                        >
-                        </app-event-row>
+                    </app-event-row>
+                </div>
+                <div *ngIf="getCurrentEvents().length === 0">
+                    <div class="flex justify-center items-center w-full h-32">
+                        <tui-avatar 
+                            class="tui-space_right-4"
+                            size="m"
+                            src="@tui.circle-alert"
+                        ></tui-avatar>
+                        <h2 class="tui-text_body-xl">
+                            Looks like there are no current assessments
+                        </h2>
                     </div>
-                    <div *ngIf="getCurrentEvents().length === 0">
-                        <div class="flex justify-center items-center w-full h-32">
-                            <tui-avatar 
-                                class="tui-space_right-4"
-                                size="m"
-                                src="@tui.circle-alert"
-                            ></tui-avatar>
-                            <h2 class="tui-text_body-xl">
-                                Looks like there are no current assessments
-                            </h2>
-                        </div>
-                    </div>
-                </ng-template>
-            </tui-accordion-item>
-            <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Upcoming Assessments
-                <ng-template tuiAccordionItemContent>
-                    <div
-                        *ngFor="let event of getUpcomingEvents()"
-                        class="event"
+                </div>
+            </tui-expand>span tuiAvatar="@tui.circle-alert"span
+            <button tuiAccordion="true" [disablehover]="true">Upcoming Assessments</button>
+            <tui-expand class="title">
+                <div
+                    *ngFor="let event of getUpcomingEvents()"
+                    class="event"
+                >
+                    <app-event-row
+                        [event]="event"
+                        (reload)="init()"
                     >
-                        <app-event-row
-                            [event]="event"
-                            (reload)="init()"
-                        >
-                        </app-event-row>
+                    </app-event-row>
+                </div>
+                <div *ngIf="getUpcomingEvents().length === 0">
+                    <div class="flex justify-center items-center w-full h-32">
+                        <tui-avatar 
+                            class="tui-space_right-4"
+                            size="m"
+                            src="@tui.circle-alert"
+                        ></tui-avatar>
+                        <h2 class="tui-text_body-xl">
+                            Looks like there are no upcoming assessments
+                        </h2>
                     </div>
-                    <div *ngIf="getUpcomingEvents().length === 0">
-                        <div class="flex justify-center items-center w-full h-32">
-                            <tui-avatar 
-                                class="tui-space_right-4"
-                                size="m"
-                                src="@tui.circle-alert"
-                            ></tui-avatar>
-                            <h2 class="tui-text_body-xl">
-                                Looks like there are no upcoming assessments
-                            </h2>
-                        </div>
+                </div>
+            </tui-expand>span tuiAvatar="@tui.circle-alert"span
+            <button tuiAccordion="true">Past Assessments</button>
+            <tui-expand>
+                <div *ngFor="let event of getPastEvents()" class="event">
+                    <app-event-row
+                        [event]="event"
+                        (reload)="init()"
+                    >
+                    </app-event-row>
+                </div>
+                <div *ngIf="getPastEvents().length === 0">
+                    <div class="flex justify-center items-center w-full h-32">
+                        <tui-avatar 
+                            class="tui-space_right-4"
+                            size="m"
+                            src="@tui.circle-alert"
+                        ></tui-avatar>
+                        <h2 class="tui-text_body-xl">
+                            Looks like there are no past events
+                        </h2>
                     </div>
-                </ng-template>
-            </tui-accordion-item>
-            <tui-accordion-item open="true">
-                Past Assessments
-                <ng-template tuiAccordionItemContent>
-                    <div *ngFor="let event of getPastEvents()" class="event">
-                        <app-event-row
-                            [event]="event"
-                            (reload)="init()"
-                        >
-                        </app-event-row>
-                    </div>
-                    <div *ngIf="getPastEvents().length === 0">
-                        <div class="flex justify-center items-center w-full h-32">
-                            <tui-avatar 
-                                class="tui-space_right-4"
-                                size="m"
-                                src="@tui.circle-alert"
-                            ></tui-avatar>
-                            <h2 class="tui-text_body-xl">
-                                Looks like there are no past events
-                            </h2>
-                        </div>
-                    </div>
-                </ng-template>
-            </tui-accordion-item>
+                </div>
+            </tui-expand>span tuiAvatar="@tui.circle-alert"span
         </tui-accordion>
     </ng-container>
     <ng-template #skeletonTemplate>
         <div class="functionBar">
             <div class="filter">
-                <tui-select
+                <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
                     class="tui-skeleton"
                     tuiTextfieldSize="l"
-                    [(ngModel)]="filter"
-                > content
-                    <input tuiTextfieldLegacy/>
+                >
+<label tuiLabel> content
+                    </label>
+<input [(ngModel)]="filter" tuiSelect/>
                     <tui-data-list-wrapper
                         class="tui-skeleton"
                     >content
                     </tui-data-list-wrapper>
-                </tui-select>
+                </tui-textfield>
             </div>
         </div>
-        <tui-accordion class="accordionContainer" [closeOthers]="false">
-            <tui-accordion-item class="title" open="true" [disableHover]="true">
-                <ng-template tuiAccordionItemContent>
-                    <div class="event">
-                        <div class="eventType tui-skeleton">
-                            Content
-                        </div>
-                        <div class="name tui-skeleton">Content</div>
-                        <div class="dates">
-                            <div class="tui-skeleton">Content For Long Dates</div>
-                            <div class="tui-skeleton">Content For Long Dates</div>
-                        </div>
-                        <div class="availability tui-skeleton">
-                            Content
-                        </div>
-                        <div class="grade tui-skeleton">
-                            Content
-                        </div>
-                        <div class="linkBtn">
-                            <a
-                                appearance="primary" aria-label="Edit"
-                                class="tui-form__button tui-skeleton"
-                                size="s"
-                                tuiButton
-                            > Content
-                            </a>
-                        </div>
+        <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<tui-accordion class="accordionContainer" [closeOthers]="false">
+            <button tuiAccordion="true" [disablehover]="true"></button>
+            <tui-expand class="title">
+                <div class="event">
+                    <div class="eventType tui-skeleton">
+                        Content
                     </div>
-                    <div class="event">
-                        <div class="eventType tui-skeleton">
-                            Content
-                        </div>
-                        <div class="name tui-skeleton">Content</div>
-                        <div class="dates">
-                            <div class="tui-skeleton">Content For Long Dates</div>
-                            <div class="tui-skeleton">Content For Long Dates</div>
-                        </div>
-                        <div class="availability tui-skeleton">
-                            Content
-                        </div>
-                        <div class="grade tui-skeleton">
-                            Content
-                        </div>
-                        <div class="linkBtn">
-                            <a
-                                appearance="primary" aria-label="Edit"
-                                class="tui-form__button tui-skeleton"
-                                size="s"
-                                tuiButton
-                            > Content
-                            </a>
-                        </div>
+                    <div class="name tui-skeleton">Content</div>
+                    <div class="dates">
+                        <div class="tui-skeleton">Content For Long Dates</div>
+                        <div class="tui-skeleton">Content For Long Dates</div>
                     </div>
-                </ng-template>
-            </tui-accordion-item>
-            <tui-accordion-item class="title" open="true" [disableHover]="true">
-                <ng-template tuiAccordionItemContent>
-                    <div class="event">
-                        <div class="eventType tui-skeleton">
-                            Content
-                        </div>
-                        <div class="name tui-skeleton">Content</div>
-                        <div class="dates">
-                            <div class="tui-skeleton">Content For Long Dates</div>
-                            <div class="tui-skeleton">Content For Long Dates</div>
-                        </div>
-                        <div class="availability tui-skeleton">
-                            Content
-                        </div>
-                        <div class="grade tui-skeleton">
-                            Content
-                        </div>
-                        <div class="linkBtn">
-                            <a
-                                appearance="primary" aria-label="Edit"
-                                class="tui-form__button tui-skeleton"
-                                size="s"
-                                tuiButton
-                            > Content
-                            </a>
-                        </div>
+                    <div class="availability tui-skeleton">
+                        Content
                     </div>
-                    <div class="event">
-                        <div class="eventType tui-skeleton">
-                            Content
-                        </div>
-                        <div class="name tui-skeleton">Content</div>
-                        <div class="dates">
-                            <div class="tui-skeleton">Content For Long Dates</div>
-                            <div class="tui-skeleton">Content For Long Dates</div>
-                        </div>
-                        <div class="availability tui-skeleton">
-                            Content
-                        </div>
-                        <div class="grade tui-skeleton">
-                            Content
-                        </div>
-                        <div class="linkBtn">
-                            <a
-                                appearance="primary" aria-label="Edit"
-                                class="tui-form__button tui-skeleton"
-                                size="s"
-                                tuiButton
-                            > Content
-                            </a>
-                        </div>
+                    <div class="grade tui-skeleton">
+                        Content
                     </div>
-                </ng-template>
-            </tui-accordion-item>
+                    <div class="linkBtn">
+                        <a
+                            appearance="primary" aria-label="Edit"
+                            class="tui-form__button tui-skeleton"
+                            size="s"
+                            tuiButton
+                        > Content
+                        </a>
+                    </div>
+                </div>
+                <div class="event">
+                    <div class="eventType tui-skeleton">
+                        Content
+                    </div>
+                    <div class="name tui-skeleton">Content</div>
+                    <div class="dates">
+                        <div class="tui-skeleton">Content For Long Dates</div>
+                        <div class="tui-skeleton">Content For Long Dates</div>
+                    </div>
+                    <div class="availability tui-skeleton">
+                        Content
+                    </div>
+                    <div class="grade tui-skeleton">
+                        Content
+                    </div>
+                    <div class="linkBtn">
+                        <a
+                            appearance="primary" aria-label="Edit"
+                            class="tui-form__button tui-skeleton"
+                            size="s"
+                            tuiButton
+                        > Content
+                        </a>
+                    </div>
+                </div>
+            </tui-expand>
+            <button tuiAccordion="true" [disablehover]="true"></button>
+            <tui-expand class="title">
+                <div class="event">
+                    <div class="eventType tui-skeleton">
+                        Content
+                    </div>
+                    <div class="name tui-skeleton">Content</div>
+                    <div class="dates">
+                        <div class="tui-skeleton">Content For Long Dates</div>
+                        <div class="tui-skeleton">Content For Long Dates</div>
+                    </div>
+                    <div class="availability tui-skeleton">
+                        Content
+                    </div>
+                    <div class="grade tui-skeleton">
+                        Content
+                    </div>
+                    <div class="linkBtn">
+                        <a
+                            appearance="primary" aria-label="Edit"
+                            class="tui-form__button tui-skeleton"
+                            size="s"
+                            tuiButton
+                        > Content
+                        </a>
+                    </div>
+                </div>
+                <div class="event">
+                    <div class="eventType tui-skeleton">
+                        Content
+                    </div>
+                    <div class="name tui-skeleton">Content</div>
+                    <div class="dates">
+                        <div class="tui-skeleton">Content For Long Dates</div>
+                        <div class="tui-skeleton">Content For Long Dates</div>
+                    </div>
+                    <div class="availability tui-skeleton">
+                        Content
+                    </div>
+                    <div class="grade tui-skeleton">
+                        Content
+                    </div>
+                    <div class="linkBtn">
+                        <a
+                            appearance="primary" aria-label="Edit"
+                            class="tui-form__button tui-skeleton"
+                            size="s"
+                            tuiButton
+                        > Content
+                        </a>
+                    </div>
+                </div>
+            </tui-expand>
         </tui-accordion>
     </ng-template>
 </div>

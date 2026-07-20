@@ -18,7 +18,7 @@
       </app-goal-island>
     </div>
     @for (goalItemId of goalItemIds(); track goalItemId; let i = $index) {
-      <tui-island
+      <div tuiCardLarge
         class="shadow"
         >
         <h5 class="tui-text_h5">Task {{ i + 1 }}</h5>
@@ -102,39 +102,37 @@
           </table>
           @if (getBugs(goalItemId).length > 0) {
             <h6 class="tui-text_h6 my-3">Most Common Mistakes</h6>
-            <tui-accordion
-              [rounded]="false"
+            <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<!-- TODO: (Taiga UI migration) rounded input has been removed. The previous rounded look can still be achieved with CSS. See example https://taiga-ui.dev/components/accordion#custom -->
+<tui-accordion
+              
               >
               @for (bug of getBugs(goalItemId); track bug) {
-                <tui-accordion-item
-                  borders="top-bottom"
-                  >
-                  <div
-                    class="tui-island__paragraph"
-                    >
-                    {{bug.short_message}} (occurred {{bug.count}}
-                    time{{bug.count > 1 ? 's' : ''}})
-                  </div>
-                  <ng-template
-                    tuiAccordionItemContent
-                    >
+                <button tuiAccordion>
+                    <div
+                      class="tui-island__paragraph"
+                      >
+                      {{bug.short_message}} (occurred {{bug.count}}
+                      time{{bug.count > 1 ? 's' : ''}})
+                    </div>
+                </button>
+                <tui-expand>
                     <app-editor
                       [ngModel]="getPattern(goalItemId, bug.type).details"
                       [readonly]="true"
                       >
                     </app-editor>
-                  </ng-template>
-                </tui-accordion-item>
+                </tui-expand>
               }
             </tui-accordion>
           }
         } @else {
           <div class="flex justify-center items-center w-full h-32">
-            <tui-avatar
+            <span tuiAvatar="@tui.circle-alert"
               class="tui-space_right-4"
               size="m"
-              src="@tui.circle-alert"
-            ></tui-avatar>
+             
+            ></span>
             <h2 class="tui-text_body-xl">
               There is no details to display
             </h2>
@@ -143,34 +141,34 @@
         <h6 class="tui-text_h6 my-3">Practice Recommendations</h6>
         <div class="flex gap-3">
           @if (stats[goalItemId].conclusion.status === 'MASTER') {
-            <tui-avatar
-              appearance="success"
+            <span tuiAvatar="@tui.check"
+              appearance="positive"
               size="s"
-              src="@tui.check"
+             
               >
-            </tui-avatar>
+            </span>
           }
           @if (stats[goalItemId].conclusion.status === 'NEED_PRACTICE') {
-            <tui-avatar
+            <span tuiAvatar="@tui.circle-alert"
               appearance="warning"
               size="s"
-              src="@tui.circle-alert"
+             
               >
-            </tui-avatar>
+            </span>
           }
           @if (stats[goalItemId].conclusion.status === 'NO_DATA') {
-            <tui-avatar
+            <span tuiAvatar="@tui.circle-alert"
               appearance="secondary"
               size="s"
-              src="@tui.circle-alert"
+             
               >
-            </tui-avatar>
+            </span>
           }
           <div class="leading-8">
             {{stats[goalItemId].conclusion.message}}
           </div>
         </div>
-      </tui-island>
+      </div>
     }
   </div>
 }

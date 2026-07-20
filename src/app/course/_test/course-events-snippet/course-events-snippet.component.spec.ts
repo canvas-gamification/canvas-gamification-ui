@@ -1,4 +1,5 @@
-import { TuiIslandDirective, TuiSelectModule } from "@taiga-ui/legacy";
+import { TuiCardLarge } from "@taiga-ui/layout";
+import { TuiSelect } from "@taiga-ui/kit";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {
@@ -25,8 +26,8 @@ describe('CourseEventsSnippetComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 TestModule,
-                TuiSelectModule,
-                TuiIslandDirective,
+                TuiSelect,
+                TuiCardLarge,
                 ReactiveFormsModule,
                 FormsModule
             ],

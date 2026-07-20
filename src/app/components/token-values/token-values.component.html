@@ -3,7 +3,7 @@
   <p class="tui-island__paragraph tui-text_body-xl flex-space tui-space_vertical-5">
     Select the value you wish to edit and submit to save.
   </p>
-  <tui-loader [overlay]="true" [showLoader]="!tokenValues">
+  <tui-loader [overlay]="true" [loading]="!tokenValues">
     @if (difficulties) {
       <table [columns]="tableColumns" tuiTable>
         <thead tuiThead>
@@ -27,10 +27,12 @@
                 </td>
                 @for (tokenVal of childTokenValue.token_values; track tokenVal) {
                   <td *tuiCell="tokenVal.difficulty" tuiTd>
-                    <tui-input-number decimal="never" [step]="1"
-                      [(ngModel)]="tokenVal.value"
-                      [ngModelOptions]="{updateOn: 'blur'}"
-                    ></tui-input-number>
+                    <tui-textfield decimal="never" 
+                      
+                      
+                    >
+<input tuiInputNumber [(ngModel)]="tokenVal.value" [ngmodeloptions]="{updateOn: 'blur'}" [step]="1" />
+</tui-textfield>
                   </td>
                 }
               </tr>

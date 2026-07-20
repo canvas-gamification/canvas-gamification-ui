@@ -1,3 +1,4 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 import {AgreeQuestion, SelectQuestion} from "@app/accounts/survey/types"
@@ -8,7 +9,6 @@ import {
     S3AgreeQuestions,
     S4AgreeQuestions
 } from "@app/accounts/survey/final-survey/data"
-import { TuiAlertService } from "@taiga-ui/core"
 import {SurveyService} from "@app/accounts/_services/survey.service"
 import {Router} from "@angular/router"
 
@@ -138,7 +138,7 @@ export class FinalSurveyComponent implements OnInit {
 
     constructor(
         private surveyService: SurveyService,
-        private notificationService: TuiAlertService,
+        private notificationService: TuiNotificationService,
         private router: Router
     ) {
     }

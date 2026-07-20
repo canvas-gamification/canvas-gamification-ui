@@ -1,10 +1,10 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Team} from "@app/_models/team"
 import {ActivatedRoute} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Course, CourseEvent, User} from "@app/_models"
 import {TeamService} from "@app/course/_services/team.service"
-import { TuiAlertService } from "@taiga-ui/core"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {CourseService} from "@app/course/_services/course.service"
 
@@ -29,8 +29,8 @@ export class ListOfTeamsComponent implements OnInit {
         private courseService: CourseService,
         private courseEventService: CourseEventService,
         private teamService: TeamService,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService,
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService,
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }

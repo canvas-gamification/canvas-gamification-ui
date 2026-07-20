@@ -35,7 +35,7 @@ export class CategoryStatsComponent implements OnInit, AfterContentInit {
 
     openCategoryStatsDialog(title: string, content: PolymorpheusContent<TuiDialogContext>): void {
         this.dialogService.open(content, {
-            closeable: false,
+            closable: false,
             size: 'l',
             label: title
         }).subscribe()

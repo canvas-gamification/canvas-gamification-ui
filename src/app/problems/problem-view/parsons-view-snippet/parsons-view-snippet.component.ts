@@ -1,7 +1,7 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, EventEmitter, Inject, Input, OnChanges, Output, ChangeDetectionStrategy} from '@angular/core'
 import {ParsonsFile, UQJ} from '@app/_models'
 import {SubmissionService} from '@app/problems/_services/submission.service'
-import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-parsons-view-snippet',
@@ -18,7 +18,7 @@ export class ParsonsViewSnippetComponent implements OnChanges {
 
     constructor(
         private submissionService: SubmissionService,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 

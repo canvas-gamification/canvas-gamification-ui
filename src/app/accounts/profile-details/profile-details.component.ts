@@ -6,7 +6,7 @@ import {User} from '@app/_models'
 import {Router} from '@angular/router'
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form"
 import {AuthenticationService} from "@app/_services/api/authentication"
-import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
 import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 
 @Component({
@@ -28,7 +28,7 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
         private consentService: ConsentService,
         private authenticationService: AuthenticationService,
         private changeDetector: ChangeDetectorRef,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService,
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
     ) {
         this.userId = this.authenticationService.currentUserValue?.id
@@ -83,7 +83,7 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
      */
     confirmWithdrawConsentDialog(content: PolymorpheusContent<TuiDialogContext>): void {
         this.dialogService.open(content, {
-            closeable: false,
+            closable: false,
             label: 'Withdraw Consent?'
         }).subscribe({
             next: () => this.withdraw()

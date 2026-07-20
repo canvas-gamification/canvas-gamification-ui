@@ -73,7 +73,7 @@
             icon="@tui.chevron-right"
           ></tui-icon>
         }
-        <div tuiDropdownOpen
+        <div tuiDropdownAuto
           [tuiDropdown]="categoryDropdown"
           >
           <button
@@ -142,17 +142,21 @@
           Include Solved Questions:
         </span>
       </label>
-      <tui-select
+      <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
         class="flex-grow"
         (ngModelChange)="updateQuestions($event, include_solved)"
         [class.tui-skeleton]="!difficulties || !category"
-        [ngModel]="difficulty"
         [tuiTextfieldCleaner]="true"
-        [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+        [content]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
         tuiTextfieldSize="m"
         >
+<label tuiLabel>
         Difficulty:
-        <tui-data-list *tuiDataList>
+        </label>
+
+<input tuiSelect [ngModel]="difficulty" />
+<tui-data-list *tuiDropdown>
           @for (diff of difficulties; track diff) {
             <button
               [value]="diff[0]"
@@ -162,7 +166,7 @@
             </button>
           }
         </tui-data-list>
-      </tui-select>
+      </tui-textfield>
 
 
       <div class="text-center">
@@ -222,13 +226,13 @@
       <div
         class="tui-container tui-container_fullwidth practice-content_none"
         >
-        <tui-avatar
+        <span tuiAvatar="@tui.circle-alert"
           [class.tui-skeleton]="!category || !uqjs"
           class="tui-space_bottom-4"
-          appearance="error"
+          appearance="negative"
           size="m"
-          src="@tui.circle-alert"
-        ></tui-avatar>
+         
+        ></span>
         <h1
           [class.tui-skeleton]="!category || !uqjs"
           class="tui-text_h6"

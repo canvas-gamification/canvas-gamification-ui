@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEvent, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
-import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Router} from "@angular/router"
 import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
@@ -22,7 +22,7 @@ export class EventRowComponent implements OnInit {
     constructor(
         private readonly authenticationService: AuthenticationService,
         private readonly courseEventService: CourseEventService,
-        private readonly notificationsService: TuiAlertService,
+        private readonly notificationsService: TuiNotificationService,
         private router: Router,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
     ) {
@@ -61,7 +61,7 @@ export class EventRowComponent implements OnInit {
     ): void {
         if (openDialog) {
             this.dialogService.open(content, {
-                closeable: false,
+                closable: false,
                 label: 'Edit finished assessment?'
             }).subscribe()
         } else {
@@ -89,7 +89,7 @@ export class EventRowComponent implements OnInit {
         content: PolymorpheusContent<TuiDialogContext>
     ): void {
         this.dialogService.open(content, {
-            closeable: false,
+            closable: false,
             label: 'Delete Assessment?'
         }).subscribe(() => this.deleteEvent())
     }

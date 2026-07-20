@@ -1,10 +1,10 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {ChangeDetectorRef, Component, Inject, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {UntypedFormGroup} from '@angular/forms'
 import {CourseService} from '@app/course/_services/course.service'
 import {CourseRegisterForm} from "@app/course/_forms/register.form"
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component"
-import { TuiAlertService } from "@taiga-ui/core"
 import {CourseRegistrationMode} from "@app/_models"
 
 @Component({
@@ -32,7 +32,7 @@ export class CourseRegisterComponent implements OnInit {
         private router: Router,
         private courseService: CourseService,
         private changeDetector: ChangeDetectorRef,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
         this.courseId = this.route.snapshot.parent.params.courseId
         this.loadingContent = false

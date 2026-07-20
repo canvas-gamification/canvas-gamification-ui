@@ -33,29 +33,32 @@
     </div>
     <div class="py-3 space-y-3">
       <div class="flex gap-3 items-center py-3">
-        <tui-input
+        <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "(ngModelChange)" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+        <tui-textfield [tuiTextfieldCleaner]="true" class="w-64" (ngModelChange)="update({query: $event})">
+        <label tuiLabel>Search for a Student Name</label>
+        <input tuiInput [ngModel]="query" />
+        </tui-textfield>
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
           [tuiTextfieldCleaner]="true"
-          class="w-64"
-          [ngModel]="query"
-          (ngModelChange)="update({query: $event})"
-          >
-          Search for a Student Name
-        </tui-input>
-        <tui-select
-          [tuiTextfieldCleaner]="true"
-          [valueContent]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
+          [content]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
           class="w-48"
-          [ngModel]="event"
           (ngModelChange)="update({event: $event})">
+<label tuiLabel>
           Event Name
-          <tui-data-list *tuiDataList [class.tui-skeleton]="!events">
+          </label>
+
+<input tuiSelect [ngModel]="event" />
+<tui-data-list *tuiDropdown [class.tui-skeleton]="!events">
             @for (event of events; track event) {
               <button [value]="event.name" tuiOption>
                 {{ event.name }}
               </button>
             }
           </tui-data-list>
-        </tui-select>
+        </tui-textfield>
         <a
           appearance="primary"
           size="m"
@@ -108,19 +111,22 @@
     </div>
     <div class="py-3 space-y-3">
       <div class="flex gap-3 items-center pt-3">
-        <tui-input
+        <tui-textfield [tuiTextfieldCleaner]="true" class="w-64 tui-skeleton">
+        <label tuiLabel>Search for a Student Name</label>
+        <input tuiInput />
+        </tui-textfield>
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
           [tuiTextfieldCleaner]="true"
-          class="w-64 tui-skeleton"
-          >
-          Search for a Student Name
-        </tui-input>
-        <tui-select
-          [tuiTextfieldCleaner]="true"
-          [valueContent]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
+          [content]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
           class="w-48 tui-skeleton"
           >
+<label tuiLabel>
           Event Name
-        </tui-select>
+        </label>
+
+<input tuiSelect />
+</tui-textfield>
         <a
           class="tui-skeleton"
           appearance="primary"

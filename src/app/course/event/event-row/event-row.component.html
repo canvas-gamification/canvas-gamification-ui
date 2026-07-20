@@ -18,37 +18,40 @@
     class="flex items-center min-w-[2rem]"
     >
     @if (event.featured) {
-      <tui-avatar
-        src="@tui.star-filled"
+      <span tuiAvatar="@tui.star-filled"
+       
         appearance="warning"
         size="s"
         >
-      </tui-avatar>
+      </span>
     }
   </div>
   <div class="min-w-[8rem] flex items-center">
     @if (event.is_open) {
-      <tui-tag
+      <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
+<span tuiChip
         size="m"
-        status="success"
-        value="Available"
+        appearance="success"
+       
         >
-      </tui-tag>
+      Available</span>
     }
     @if (event.is_not_available_yet) {
-      <tui-tag
+      <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
+<span tuiChip
         size="m"
-        status="warning"
-        value="Coming Soon"
-      ></tui-tag>
+        appearance="warning"
+       
+      >Coming Soon</span>
     }
     @if (event.is_closed) {
-      <tui-tag
+      <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
+<span tuiChip
         size="m"
-        status="error"
-        value="Closed"
+        appearance="error"
+       
         >
-      </tui-tag>
+      Closed</span>
     }
   </div>
   <div class="min-w-[6rem] flex items-center">
@@ -80,7 +83,7 @@
         iconStart="@tui.eye-open"
         size="s"
         id="view"
-        tuiHintDirection="top-left"
+        tuiHintDirection="top-start"
         tuiHintDescribe="edit"
         tuiHintAppearance="dark"
         tuiIconButton
@@ -97,7 +100,7 @@
         iconStart="@tui.pencil"
         size="s"
         id="edit"
-        tuiHintDirection="top-left"
+        tuiHintDirection="top-start"
         tuiHintDescribe="edit"
         tuiHintAppearance="dark"
         tuiIconButton
@@ -137,7 +140,7 @@
         iconStart="@tui.trash"
         size="s"
         id="delete-{{event.name}}"
-        tuiHintDirection="top-left"
+        tuiHintDirection="top-start"
         tuiHintDescribe="delete-{{event.name}}"
         tuiHintAppearance="dark"
         tuiIconButton
@@ -154,7 +157,7 @@
         iconStart="@tui.chart-line"
         size="s"
         id="stats"
-        tuiHintDirection="top-left"
+        tuiHintDirection="top-start"
         tuiHintDescribe="stats"
         tuiHintAppearance="dark"
         tuiIconButton
@@ -172,7 +175,7 @@
         iconStart="@tui.star"
         size="s"
         id="set featured"
-        tuiHintDirection="top-left"
+        tuiHintDirection="top-start"
         tuiHintDescribe="set featured"
         tuiHintAppearance="dark"
         tuiIconButton
@@ -190,7 +193,7 @@
         iconStart="@tui.star"
         size="s"
         id="clear featured"
-        tuiHintDirection="top-left"
+        tuiHintDirection="top-start"
         tuiHintDescribe="clear featured"
         tuiHintAppearance="dark"
         tuiIconButton

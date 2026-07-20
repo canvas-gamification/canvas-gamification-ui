@@ -1,7 +1,7 @@
 <section class="tui-container tui-container_fullwidth">
   <div class="flex-container">
 
-    <tui-island
+    <div tuiCardLarge
       class="course-tile tui-island_hoverable"
       [routerLink]="['/course', courseId, 'practice']"
       (click)="practiceClickLog()"
@@ -27,19 +27,19 @@
             </a>
           </div>
           @if (user.is_teacher) {
-            <tui-avatar
+            <span tuiAvatar="@tui.info"
               size="m"
-              src="@tui.info"
+             
               tuiHintAppearance="dark"
               tuiHintPointer tuiHint="All of our questions are licensed under CC BY-NC-SA 4.0"
               tuiHintDirection="top"
-            ></tui-avatar>
+            ></span>
           }
         </div>
       </div>
-    </tui-island>
+    </div>
 
-    <tui-island
+    <div tuiCardLarge
       class="course-tile tui-island_hoverable"
       [routerLink]="['/course', courseId, 'assignments-exams']"
       size="m"
@@ -63,9 +63,9 @@
           </a>
         </div>
       </div>
-    </tui-island>
+    </div>
 
-    <tui-island
+    <div tuiCardLarge
       class="course-tile tui-island_hoverable"
       [routerLink]="['/course', courseId, 'challenge']" size="m"
       (click)="challengeClickLog()"
@@ -90,9 +90,9 @@
           </a>
         </div>
       </div>
-    </tui-island>
+    </div>
 
-    <tui-island
+    <div tuiCardLarge
       class="course-tile tui-island_hoverable"
       [routerLink]="['/course', courseId, 'leaderboard']"
       size="m"
@@ -117,8 +117,8 @@
           </a>
         </div>
       </div>
-    </tui-island>
-    <tui-island
+    </div>
+    <div tuiCardLarge
       class="course-tile tui-island_hoverable"
       [routerLink]="['/course', courseId, 'tokens']"
       size="m"
@@ -142,6 +142,6 @@
           </a>
         </div>
       </div>
-    </tui-island>
+    </div>
   </div>
 </section>

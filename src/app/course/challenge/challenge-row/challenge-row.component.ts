@@ -5,7 +5,7 @@ import {Team} from "@app/_models/team"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {startCase} from "lodash"
 import {UserActionsService} from "@app/_services/api/user-actions.service"
-import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
 import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 
@@ -29,7 +29,7 @@ export class ChallengeRowComponent implements OnInit {
         private userAction: UserActionsService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
         private courseEventService: CourseEventService,
-        private readonly notificationsService: TuiAlertService,
+        private readonly notificationsService: TuiNotificationService,
     ) { }
 
     ngOnInit(): void {
@@ -44,7 +44,7 @@ export class ChallengeRowComponent implements OnInit {
     showDialog(content: PolymorpheusContent<TuiDialogContext>): void {
         this.dialogService.open(
             content,
-            {label: 'You are about to delete this challenge!', size: 'l', closeable: true}
+            {label: 'You are about to delete this challenge!', size: 'l', closable: true}
         ).subscribe()
     }
 

@@ -1,6 +1,6 @@
 <div class="tui-container tui-container_fullwidth">
   <h1 class="tui-text_h3 tui-space_vertical-10">Topics</h1>
-  <tui-loader [overlay]="true" [showLoader]="!topLevelCategories">
+  <tui-loader [overlay]="true" [loading]="!topLevelCategories">
     <table [columns]="tableHeaders" class="topics-table" tuiTable>
       <thead tuiThead>
         <tr tuiThGroup>

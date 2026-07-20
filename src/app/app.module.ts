@@ -1,7 +1,7 @@
-import { TuiDrawer } from "@taiga-ui/kit";
-import { TuiIslandDirective, TUI_SANITIZER, TuiInputNumberModule } from "@taiga-ui/legacy";
+import { TUI_EDITOR_SANITIZER } from "@taiga-ui/editor";
+import { TuiCardLarge } from "@taiga-ui/layout";
+import { TuiDrawer, TuiInputNumber, TuiAutoColorPipe, TuiInitialsPipe } from "@taiga-ui/kit";
 import { TuiActiveZone } from "@taiga-ui/cdk";
-import { provideEventPlugins } from "@taiga-ui/event-plugins";
 import {BrowserModule} from '@angular/platform-browser'
 import {NgModule} from '@angular/core'
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http'
@@ -30,8 +30,8 @@ import {NotFoundComponent} from './components/general/not-found/not-found.compon
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component'
 import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
 
-import { TuiRoot, TuiAlert, TuiDataList, TuiLoader, TuiDropdown, TuiIcon, TuiLink, TuiDialog, TuiButton, TuiInitialsPipe, TuiAutoColorPipe, TuiPopup } from '@taiga-ui/core'
-import { TUI_VALIDATION_ERRORS, TuiAvatar, TuiSwitch, TuiBlock, TuiRadio } from '@taiga-ui/kit'
+import { TuiRoot, TuiDataList, TuiLoader, TuiDropdown, TuiIcon, TuiLink, TuiDialog, TuiButton, TuiPopup, provideTaiga, TuiRadio, TUI_VALIDATION_ERRORS } from '@taiga-ui/core'
+import { TuiAvatar, TuiSwitch, TuiBlock } from '@taiga-ui/kit'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
 import { TuiTablePagination, TuiTable } from '@taiga-ui/addon-table'
@@ -83,11 +83,10 @@ import {CommunityComponent} from './components/community/community.component'
         ...TuiDataList,
         TuiDialog,
         ...TuiDropdown,
-        TuiInputNumberModule,
-        TuiIslandDirective,
+        ...TuiInputNumber,
+        TuiCardLarge,
         TuiLink,
         TuiLoader,
-        TuiAlert,
         TuiBlock,
         ...TuiRadio,
         TuiRoot,
@@ -113,10 +112,10 @@ import {CommunityComponent} from './components/community/community.component'
             },
         },
         {
-            provide: TUI_SANITIZER,
+            provide: TUI_EDITOR_SANITIZER,
             useClass: NgDompurifySanitizer
         },
-        provideEventPlugins(),
+        provideTaiga(),
         provideHttpClient(withXhr(), withInterceptorsFromDi())
     ] })
 export class AppModule {

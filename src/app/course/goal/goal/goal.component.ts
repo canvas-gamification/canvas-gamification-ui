@@ -1,4 +1,4 @@
-import { TuiAlertService } from "@taiga-ui/core";
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {GoalService} from "@app/course/_services/goal.service"
 import {Goal, GoalStats, QuestionTypeKey} from "@app/_models/goal/goal"
@@ -19,8 +19,8 @@ export class GoalComponent implements OnInit {
         private goalService: GoalService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
     }
 

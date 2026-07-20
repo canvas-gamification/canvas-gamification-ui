@@ -1,10 +1,9 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormGroup} from '@angular/forms'
 import {environment} from '@environments/environment'
 import {RegisterService} from '@app/accounts/_services/register.service'
 import {RegisterForm} from "@app/accounts/_forms/register.form"
-import { TuiAlertService } from '@taiga-ui/core'
-
 
 @Component({
     selector: 'app-register',
@@ -22,7 +21,7 @@ export class RegisterComponent implements OnInit {
 
     constructor(
         private register: RegisterService,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 

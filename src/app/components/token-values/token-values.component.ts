@@ -1,10 +1,10 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {TokenValuesService} from '@app/_services/api/token-values.service'
 import {CategoryService} from '@app/_services/api/category.service'
 import {NestedTokenValue} from '@app/_models'
 import {Difficulty} from '@app/_models/difficulty'
 import {DifficultyService} from '@app/problems/_services/difficulty.service'
-import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-token-values',
@@ -22,7 +22,7 @@ export class TokenValuesComponent implements OnInit {
         private tokenValueService: TokenValuesService,
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 

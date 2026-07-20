@@ -1,7 +1,6 @@
+import { provideTuiEditor } from "@taiga-ui/editor";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { TUI_EDITOR_DEFAULT_EXTENSIONS } from "@taiga-ui/editor";
 import {Component, Injector, Input, OnDestroy, ChangeDetectionStrategy} from '@angular/core'
-import {TUI_EDITOR_EXTENSIONS} from '@taiga-ui/editor'
 import {
     ControlValueAccessor,
     UntypedFormControl,
@@ -19,14 +18,18 @@ import {createInlineMathEditorExtension} from '@app/components/editor/inline-mat
     templateUrl: './editor.component.html',
     styleUrls: ['./editor.component.scss'],
     providers: [
-        {
-            provide: TUI_EDITOR_EXTENSIONS,
-            deps: [Injector],
-            useFactory: (injector: Injector) => [
-                ...TUI_EDITOR_DEFAULT_EXTENSIONS,
-                createInlineMathEditorExtension(injector)
-            ]
-        },
+        provideTuiEditor({
+            // You can disable these plugins
+            // if you don't need them
+            image: true,
+            iframe: true,
+            video: true,
+            source: true,
+            audio: true,
+            details: true,
+            detailsSummary: true,
+            detailsContent: true,
+        }),
         {
             provide: NG_VALUE_ACCESSOR,
             multi: true,

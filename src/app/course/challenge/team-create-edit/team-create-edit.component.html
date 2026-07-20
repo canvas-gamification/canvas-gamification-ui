@@ -2,10 +2,14 @@
   <form (ngSubmit)="onSubmit()" [formGroup]="formData">
     <h2 class="tui-form__header">{{teamId? 'Edit ' + team?.name: 'Create New Team'}}</h2>
     <div class="tui-form__row">
-      <tui-input aria-label="Team Name" formControlName="name">
-        Team Name
-      </tui-input>
-      <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
+      <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+      <tui-textfield aria-label="Team Name">
+      <label tuiLabel>Team Name</label>
+      <input tuiInput formControlName="name" />
+      </tui-textfield>
+      <tui-error  formControlName="name"></tui-error>
     </div>
     <div class="tui-form__row">
       <label tuiLabel> <input tuiCheckbox type="checkbox"
@@ -15,7 +19,7 @@
         >
         Check to lock the team so only people you have invited can join your team.
       </label>
-      <tui-error [error]="[] | tuiFieldError | async" formControlName="isPrivate"></tui-error>
+      <tui-error  formControlName="isPrivate"></tui-error>
     </div>
     @if (isPrivate()) {
       <div class="tui-form__row">
@@ -23,23 +27,21 @@
           List the people you want to invite to this team.
           You can invite up to {{event.max_team_size - 1}} people.
         </div>
-        <tui-multi-select
+        <tui-textfield multi tuiChevron
           aria-label="Invited Member"
-          formControlName="invitedMembers"
-          [tuiTextfieldLabelOutside]="true"
           [stringify]="stringify"
-          [editable]="true"
-          (searchChange)="onSearchChange($event)"
           >
           Invited Members
-          <tui-data-list *tuiDataList tuiMultiSelectGroup>
+          <!-- TODO: (Taiga UI migration) (searchChange) was replaced by (input) on <input tuiInputChip (input)="onSearch($any($event).target.value)">. See: https://taiga-ui.dev/components/input-chip -->
+<input tuiInputChip formControlName="invitedMembers" (input)="onSearchChange($any($event.target).value)" />
+<tui-data-list *tuiDropdown tuiMultiSelectGroup>
             @for (courseReg of getCourseRegistrations(); track courseReg) {
               <button [value]="courseReg" tuiOption>
                 {{courseReg.name}}
               </button>
             }
           </tui-data-list>
-        </tui-multi-select>
+        </tui-textfield>
       </div>
     }
     <div class="tui-form__buttons">

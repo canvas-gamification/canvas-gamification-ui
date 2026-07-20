@@ -1,9 +1,9 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {JavaForm} from "@app/problems/_forms/java.form"
 import {Router} from "@angular/router"
-import { TuiAlertService } from "@taiga-ui/core"
 import {Question} from "@app/_models"
 
 @Component({
@@ -23,8 +23,8 @@ export class JavaCreateEditSnippetComponent implements OnInit {
     constructor(
         private questionService: QuestionService,
         private router: Router,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
     }
 

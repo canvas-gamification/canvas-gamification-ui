@@ -1,4 +1,4 @@
-<tui-island class="tui-space_top-6">
+<div tuiCardLarge class="tui-space_top-6">
   <h2 class="tui-text_h6 tui-space_top-0">Generated Variables</h2>
   @if (generatedVariables.length !== 0) {
     @for (variable of generatedVariables; track variable) {
@@ -13,11 +13,11 @@
   }
   @if (variableErrors.length !== 0) {
     @for (error of variableErrors; track error) {
-      <tui-notification size="m" icon="" class="tui-space_top-2" appearance="error">
+      <div tuiNotification size="m" icon="" class="tui-space_top-2" appearance="negative">
         {{ error }}
-      </tui-notification>
+      </div>
     }
   } @else {
     <p class="tui-island__paragraph">No Errors.</p>
   }
-</tui-island>
+</div>

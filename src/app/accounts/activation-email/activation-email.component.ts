@@ -1,8 +1,8 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {Subscription} from 'rxjs'
 import {RegisterService} from '@app/accounts/_services/register.service'
-import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-activation-email',
@@ -20,7 +20,7 @@ export class ActivationEmailComponent implements OnInit {
         private route: ActivatedRoute,
         private registerService: RegisterService,
         private router: Router,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 

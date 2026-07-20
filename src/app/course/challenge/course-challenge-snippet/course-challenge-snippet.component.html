@@ -26,10 +26,10 @@
         </button>
       }
     </div>
-    <tui-accordion class="accordionContainer" [closeOthers]="false">
-      <tui-accordion-item class="title" open="true" [disableHover]="true">
-        Current Challenges
-        <ng-template tuiAccordionItemContent>
+    <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<tui-accordion class="accordionContainer" [closeOthers]="false">
+      <button tuiAccordion="true" [disablehover]="true">Current Challenges</button>
+      <tui-expand class="title">
           @if (currentEvents.length > 0) {
             @for (challenge of currentEvents; track challenge) {
               <div class="divide">
@@ -55,11 +55,9 @@
               </div>
             </div>
           }
-        </ng-template>
-      </tui-accordion-item>
-      <tui-accordion-item class="title" open="true">
-        Upcoming Challenges
-        <ng-template tuiAccordionItemContent>
+      </tui-expand>span tuiAvatar="@tui.circle-alert"span
+      <button tuiAccordion="true">Upcoming Challenges</button>
+      <tui-expand class="title">
           @if (upcomingEvents.length > 0) {
             @for (challenge of upcomingEvents; track challenge) {
               <div class="divide">
@@ -84,11 +82,9 @@
               </div>
             </div>
           }
-        </ng-template>
-      </tui-accordion-item>
-      <tui-accordion-item class="title" open="true">
-        Past Challenges
-        <ng-template tuiAccordionItemContent>
+      </tui-expand>span tuiAvatar="@tui.circle-alert"span
+      <button tuiAccordion="true">Past Challenges</button>
+      <tui-expand class="title">
           @if (pastEvents.length > 0) {
             @for (challenge of pastEvents; track challenge) {
               <div class="divide">
@@ -113,8 +109,7 @@
               </div>
             </div>
           }
-        </ng-template>
-      </tui-accordion-item>
+      </tui-expand>span tuiAvatar="@tui.circle-alert"span
     </tui-accordion>
   } @else {
     <div class="flex justify-end toolBar">
@@ -131,10 +126,10 @@
         </button>
       }
     </div>
-    <tui-accordion class="accordionContainer" [closeOthers]="false">
-      <tui-accordion-item class="title" open="true" [disableHover]="true">
-        Current Challenges
-        <ng-template tuiAccordionItemContent>
+    <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<tui-accordion class="accordionContainer" [closeOthers]="false">
+      <button tuiAccordion="true" [disablehover]="true">Current Challenges</button>
+      <tui-expand class="title">
           <div class="pb-5">
             <div class="tui-skeleton">content</div>
             <div class="tui-skeleton">Content</div>
@@ -144,11 +139,9 @@
             <div class="tui-skeleton">content</div>
             <div class="tui-skeleton">Content</div>
           </div>
-        </ng-template>
-      </tui-accordion-item>
-      <tui-accordion-item class="title" open="true" [disableHover]="true">
-        Upcoming Challenges
-        <ng-template tuiAccordionItemContent>
+      </tui-expand>
+      <button tuiAccordion="true" [disablehover]="true">Upcoming Challenges</button>
+      <tui-expand class="title">
           <div class="pb-5">
             <div class="tui-skeleton">content</div>
             <div class="tui-skeleton">Content</div>
@@ -158,11 +151,9 @@
             <div class="tui-skeleton">content</div>
             <div class="tui-skeleton">Content</div>
           </div>
-        </ng-template>
-      </tui-accordion-item>
-      <tui-accordion-item class="title" open="true" [disableHover]="true">
-        Past Challenges
-        <ng-template tuiAccordionItemContent>
+      </tui-expand>
+      <button tuiAccordion="true" [disablehover]="true">Past Challenges</button>
+      <tui-expand class="title">
           <div class="pb-5">
             <div class="tui-skeleton">content</div>
             <div class="tui-skeleton">Content</div>
@@ -172,8 +163,7 @@
             <div class="tui-skeleton">content</div>
             <div class="tui-skeleton">Content</div>
           </div>
-        </ng-template>
-      </tui-accordion-item>
+      </tui-expand>
     </tui-accordion>
   }
 </div>

@@ -1,4 +1,4 @@
-<tui-island
+<div tuiCardLarge
   [class]="getIslandClass()"
   (click)="redirect()"
   size="m">
@@ -10,25 +10,28 @@
     <div class="flex flex-col h-[calc(100%-3rem)]">
       <h2 class="tui-island__title flex-col flex">{{ course.name }}</h2>
       <div class="flex">
-        <tui-tag
-          [status]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
-          [value]="course.status"
+        <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
+<span tuiChip
+          [appearance]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
+         
           class="mr-2"
           size="m"
-        ></tui-tag>
-        <tui-tag
-          [status]="course.is_registered ? 'success' : 'warning'"
-          [value]="course.is_registered ? 'Registered' : 'Not Registered'"
+        >{{course.status}}</span>
+        <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
+<span tuiChip
+          [appearance]="course.is_registered ? 'success' : 'warning'"
+         
           class="mr-2"
           size="m"
-        ></tui-tag>
+        >{{course.is_registered ? 'Registered' : 'Not Registered'}}</span>
         @if (course.instructor === user?.id) {
-          <tui-tag
-            [status]="'custom'"
-            [value]="'Instructor'"
+          <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
+<span tuiChip
+            [appearance]="'custom'"
+           
             class="add-color"
             size="m"
-          ></tui-tag>
+          >{{'Instructor'}}</span>
         }
       </div>
       <div class="tui-form__buttons flex grow items-end">
@@ -69,8 +72,10 @@
   } @else {
     <div class="course-background tui-skeleton"></div>
     <h2 class="tui-island__title tui-space_top-4 tui-skeleton tui-skeleton_short">content</h2>
-    <tui-tag class="tui-space_right-2 tui-skeleton" size="m" value="content-tag"></tui-tag>
-    <tui-tag class="tui-skeleton" size="m" value="content-tag"></tui-tag>
+    <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
+<span tuiChip class="tui-space_right-2 tui-skeleton" size="m">content-tag</span>
+    <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
+<span tuiChip class="tui-skeleton" size="m">content-tag</span>
     <div class="tui-form__buttons">
       <a
         class="tui-form__button tui-skeleton"
@@ -88,4 +93,4 @@
       </a>
     </div>
   }
-</tui-island>
+</div>

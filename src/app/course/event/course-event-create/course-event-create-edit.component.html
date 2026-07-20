@@ -2,62 +2,91 @@
   <form (ngSubmit)="submitEvent(formData)" [formGroup]="formData">
     <h2 class="tui-form__header">{{getTitle()}} Assessment</h2>
     <div class="tui-form__row">
-      <tui-input aria-label="Assessment Name" formControlName="name">Assessment Name</tui-input>
-      <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
+      <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+      <tui-textfield aria-label="Assessment Name">
+      <label tuiLabel>Assessment Name</label>
+      <input tuiInput formControlName="name" />
+      </tui-textfield>
+      <tui-error  formControlName="name"></tui-error>
     </div>
     <div class="tui-form__row">
-      <tui-select
+      <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
         aria-label="Assessment Type"
-        formControlName="type"
-        [valueContent]="localEventTypes ? (localEventTypes | stringifyTuiDataList: 0: 1) : ''"
+        [content]="localEventTypes ? (localEventTypes | stringifyTuiDataList: 0: 1) : ''"
         >
+<label tuiLabel>
         Assessment Type
-        <tui-data-list *tuiDataList>
+        </label>
+
+<input tuiSelect formControlName="type" />
+<tui-data-list *tuiDropdown>
           @for (event of localEventTypes; track event) {
             <button [value]="event[0]" tuiOption>
               {{ event[1] }}
             </button>
           }
         </tui-data-list>
-      </tui-select>
-      <tui-error [error]="[] | tuiFieldError | async" formControlName="type"></tui-error>
+      </tui-textfield>
+      <tui-error  formControlName="type"></tui-error>
     </div>
     <div class="tui-form__row">
       <label tuiLabel> <input tuiCheckbox type="checkbox" aria-label="Counts for Tokens" formControlName="countForTokens">
         Counts for tokens
       </label>
-      <tui-error [error]="[] | tuiFieldError | async" formControlName="countForTokens"></tui-error>
+      <tui-error  formControlName="countForTokens"></tui-error>
     </div>
     <div class="tui-form__row">
-      <tui-input-date-range aria-label="Start and End Date"
-        formControlName="startEndDatePicker">
+      <tui-textfield aria-label="Start and End Date"
+        >
+<label tuiLabel>
         Start and end date
-      </tui-input-date-range>
-      <tui-error [error]="[] | tuiFieldError | async" formControlName="startEndDatePicker"></tui-error>
+      </label>
+
+<input tuiInputDateRange formControlName="startEndDatePicker" />
+<tui-calendar-range *tuiDropdown />
+</tui-textfield>
+      <tui-error  formControlName="startEndDatePicker"></tui-error>
     </div>
     <div class="tui-form__row tui-form__row_multi-fields">
       <div class="tui-form__multi-field">
-        <tui-input-time [items]="timeOptions" aria-label="Start Time"
-          formControlName="startTimePicker">
+        <!-- TODO: (Taiga UI migration) tui-input-time migration (see https://taiga-ui.dev/components/input-time):
+     - [items] was renamed to [accept] on <input tuiInputTime>. For a dropdown list, also add <tui-data-list-wrapper *tuiDropdown [items]="timeOptions | tuiFilterByInput: matcher" /> inside <tui-textfield>. See: https://taiga-ui.dev/components/input-time#dropdown-with--data-list
+-->
+<tui-textfield  aria-label="Start Time"
+          >
+<label tuiLabel>
           Start time
-        </tui-input-time>
-        <tui-error [error]="[] | tuiFieldError | async" formControlName="startTimePicker"></tui-error>
+        </label>
+
+<input tuiInputTime formControlName="startTimePicker" [accept]="timeOptions" />
+</tui-textfield>
+        <tui-error  formControlName="startTimePicker"></tui-error>
       </div>
       <div class="tui-form__multi-field">
-        <tui-input-time [items]="timeOptions" aria-label="End Time"
-          formControlName="endTimePicker">
+        <!-- TODO: (Taiga UI migration) tui-input-time migration (see https://taiga-ui.dev/components/input-time):
+     - [items] was renamed to [accept] on <input tuiInputTime>. For a dropdown list, also add <tui-data-list-wrapper *tuiDropdown [items]="timeOptions | tuiFilterByInput: matcher" /> inside <tui-textfield>. See: https://taiga-ui.dev/components/input-time#dropdown-with--data-list
+-->
+<tui-textfield  aria-label="End Time"
+          >
+<label tuiLabel>
           End time
-        </tui-input-time>
-        <tui-error [error]="[] | tuiFieldError | async" formControlName="endTimePicker"></tui-error>
+        </label>
+
+<input tuiInputTime formControlName="endTimePicker" [accept]="timeOptions" />
+</tui-textfield>
+        <tui-error  formControlName="endTimePicker"></tui-error>
       </div>
     </div>
     @if (formData.errors?.forbiddenDateRange) {
-      <tui-notification size="m"
+      <div tuiNotification size="m"
         class="tui-space_top-4"
-        appearance="error"
+        appearance="negative"
         >
         Invalid date range! Please check your start and end times!
-      </tui-notification>
+      </div>
     }
     <h3 class="tui-form__header">
       Add Questions
@@ -94,29 +123,37 @@
         class="tui-form__row tui-form__row_multi-fields"
         >
         <div class="tui-form__multi-field">
-          <tui-select
-            [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
-            [formControl]="getFormControl(questionSetFormControl, 'category')"
+          <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+            [content]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
             >
+<label tuiLabel>
             Category
-            <tui-data-list *tuiDataList>
+            </label>
+
+<input tuiSelect [formControl]="getFormControl(questionSetFormControl, 'category')" />
+<tui-data-list *tuiDropdown>
               @for (category of categories; track category) {
                 <button [value]="category.pk" tuiOption>
                   {{ category.full_name }}
                 </button>
               }
             </tui-data-list>
-          </tui-select>
-          <tui-error [error]="[] | tuiFieldError | async"
+          </tui-textfield>
+          <tui-error 
           [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-error>
         </div>
         <div class="tui-form__multi-field">
-          <tui-select
-            [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-            [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
+          <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+            [content]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
             >
+<label tuiLabel>
             Difficulty
-            <tui-data-list *tuiDataList>
+            </label>
+
+<input tuiSelect [formControl]="getFormControl(questionSetFormControl, 'difficulty')" />
+<tui-data-list *tuiDropdown>
               @for (difficulty of difficulties; track difficulty) {
                 <button [value]="difficulty[0]"
                   tuiOption>
@@ -124,19 +161,23 @@
                 </button>
               }
             </tui-data-list>
-          </tui-select>
-          <tui-error [error]="[] | tuiFieldError | async"
+          </tui-textfield>
+          <tui-error 
             [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
           ></tui-error>
         </div>
         <div class="tui-form__multi-field">
-          <tui-input-number
-            [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
-            [max]="getNumQuestionsLimit(questionSetFormControl)"
+          <tui-textfield
+            
+            
             >
+<label tuiLabel>
             Number of questions
-          </tui-input-number>
-          <tui-error [error]="[] | tuiFieldError | async"
+          </label>
+
+<input tuiInputNumber [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')" [max]="getNumQuestionsLimit(questionSetFormControl)" />
+</tui-textfield>
+          <tui-error 
             [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
           ></tui-error>
           <div class="tui-form__field-note">
@@ -160,11 +201,11 @@
       </div>
     }
     @if (getQuestionSetFormControls().length > 2) {
-      <tui-notification size="m"
+      <div tuiNotification size="m"
         class="my-6"
         >
         Adding a lot of questions can take a while. Please do not close the page until the process is completed.
-      </tui-notification>
+      </div>
     }
     <div class="tui-form__buttons">
       <button

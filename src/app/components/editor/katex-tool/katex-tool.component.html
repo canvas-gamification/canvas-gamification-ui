@@ -1,7 +1,7 @@
 <div
     [tuiDropdown]="katexDropdown"
     [(tuiDropdownOpen)]="open"
-    tuiDropdownAlign="left"
+    tuiDropdownAlign="start"
 >
     <button
         [tuiAppearanceState]="open ? 'active' : null"
@@ -21,15 +21,14 @@
         class="katex-tool"
     >
         <div class="katex-tool_input">
-            <tui-input
-                (ngModelChange)="equation = $event; displayKatex()"
-                [ngModelOptions]="{standalone: true}"
-                [ngModel]="equation"
-                class="katex-tool_input-text"
-            >
-                Type an equation
-                <input tuiTextfieldLegacy/>
-            </tui-input>
+            <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "(ngModelChange)" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+     - "[ngModelOptions]" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+            <tui-textfield (ngModelChange)="equation = $event; displayKatex()" [ngModelOptions]="{standalone: true}" class="katex-tool_input-text">
+            <label tuiLabel>Type an equation</label>
+            <input tuiInput [ngModel]="equation"/>
+            </tui-textfield>
             <button
                 appearance="icon"
                 class="tui-space_left-2"
@@ -41,9 +40,9 @@
         </div>
         <div>
             <p class="tui-space_vertical-1">Preview:</p>
-            <tui-island>
+            <div tuiCardLarge>
                 <div #katexContent></div>
-            </tui-island>
+            </div>
         </div>
     </form>
 </ng-template>

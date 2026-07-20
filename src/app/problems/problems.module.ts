@@ -1,4 +1,5 @@
-import { TuiIslandDirective, TuiTextfieldControllerModule, TuiTextareaModule, TuiInputModule, TuiInputNumberModule, TuiMultiSelectModule, TuiSelectModule, TuiTagModule } from "@taiga-ui/legacy";
+import { TuiCardLarge } from "@taiga-ui/layout";
+import { TuiInputChip, TuiChevron } from "@taiga-ui/kit";
 import { TuiActiveZone } from "@taiga-ui/cdk";
 import { TuiEditorSocket } from "@taiga-ui/editor";
 import {ProblemCreateEditComponent} from '@app/problems/problem-create-edit/problem-create-edit.component'
@@ -32,8 +33,8 @@ import {QuestionService} from '@app/problems/_services/question.service'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {ParsonsLinesComponent} from './problem-view/parsons-lines/parsons-lines.component'
 import { TuiTablePagination, TuiTable } from '@taiga-ui/addon-table'
-import { TuiNotification, TuiDataList, TuiError, TuiLoader, TuiLabel, TuiDropdown, TuiIcon, TuiDialog, TuiButton, TuiHint } from '@taiga-ui/core'
-import { TuiAccordion, TuiStringifyContentPipe, TuiFieldErrorPipe, TuiFieldErrorContentPipe, TuiBadge, TuiBlock, TuiCheckbox, TuiRadio, TuiTabs, TuiStringifyPipe, TuiButtonLoading } from '@taiga-ui/kit'
+import { TuiNotification, TuiDataList, TuiError, TuiLoader, TuiLabel, TuiDropdown, TuiIcon, TuiDialog, TuiButton, TuiHint, TuiCheckbox, TuiRadio, TuiInput } from '@taiga-ui/core'
+import { TuiAccordion, TuiStringifyContentPipe, TuiBadge, TuiBlock, TuiTabs, TuiStringifyPipe, TuiButtonLoading, TuiInputNumber, TuiChip, TuiSelect, TuiTextarea } from '@taiga-ui/kit'
 import {TabListViewSwitcherModule} from '@app/components/tab-list-view-switcher/tab-list-view-switcher.module'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 import {TestCasesEditorComponent} from '@app/problems/json-editor/test-cases-editor/test-cases-editor.component'
@@ -100,25 +101,24 @@ import {VariationTypesSelectorComponent} from './problem-create-edit/variation-t
         TuiDialog,
         ...TuiDropdown,
         TuiEditorSocket,
-        TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+        ...TuiError,
         ...TuiHint,
-        TuiInputNumberModule,
-        TuiInputModule,
-        TuiIslandDirective,
+        ...TuiInputNumber,
+        ...TuiInput,
+        TuiCardLarge,
         TuiLoader,
-        TuiMultiSelectModule,
-        TuiNotification, ...TuiRadio,
-        TuiSelectModule,
+        ...TuiInputChip,
+        TuiChevron,
+        ...TuiNotification, ...TuiRadio,
+        ...TuiSelect,
         TuiStringifyContentPipe,
         TuiStringifyPipe,
         TuiIcon,
         ...TuiTable,
         TuiTablePagination,
         ...TuiTabs,
-        TuiTagModule,
-        TuiTextareaModule,
-        TuiTextfieldControllerModule,
-        TuiError
+        TuiChip,
+        ...TuiTextarea
     ],
     exports: [
         ProblemReportModalComponent,

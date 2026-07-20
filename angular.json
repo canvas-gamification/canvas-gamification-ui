@@ -45,12 +45,13 @@
                             }
                         ],
                         "styles": [
-                          "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-                          "node_modules/@taiga-ui/styles/taiga-ui-global.less",
+                          "node_modules/@taiga-ui/styles/taiga-ui-fonts.less",
+// TODO: (Taiga UI migration) Global styles will be removed in next major release. Include their source code in your project if you still require them: https://github.com/taiga-family/taiga-ui/blob/main/projects/legacy/styles/taiga-ui-global.less
+                          "node_modules/@taiga-ui/legacy/styles/taiga-ui-global.less",
                           "node_modules/jointjs/css/layout.css",
                           "node_modules/dragula/dist/dragula.css",
                           "src/scss/styles.scss",
-                          "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
+                          "node_modules/@taiga-ui/styles/taiga-ui-theme.less",
                           "node_modules/katex/dist/katex.css"
                         ],
                         "stylePreprocessorOptions": {

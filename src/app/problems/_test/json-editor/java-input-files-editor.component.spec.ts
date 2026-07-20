@@ -1,12 +1,11 @@
-import { TuiLabel } from "@taiga-ui/core";
-import { TuiIslandDirective, TuiInputModule } from "@taiga-ui/legacy";
+import { TuiCardLarge } from "@taiga-ui/layout";
+import { TuiLabel, TuiError, TuiInput } from "@taiga-ui/core";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {
     JavaInputFilesEditorComponent
 } from '../../json-editor/java-input-files-editor/java-input-files-editor.component'
 import {TestModule} from "@test/test.module"
-import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
 import {ReactiveFormsModule} from "@angular/forms"
 
 describe('JavaInputFilesEditorComponent', () => {
@@ -17,8 +16,8 @@ describe('JavaInputFilesEditorComponent', () => {
         await TestBed.configureTestingModule({
             declarations: [JavaInputFilesEditorComponent],
             imports: [
-                TestModule, ReactiveFormsModule, TuiInputModule, TuiLabel,
-                TuiFieldErrorPipe, TuiFieldErrorContentPipe, TuiIslandDirective
+                TestModule, ReactiveFormsModule, TuiInput, TuiLabel,
+                TuiError, TuiError, TuiCardLarge
             ]
         }).compileComponents()
     })

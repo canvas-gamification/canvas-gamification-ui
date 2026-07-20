@@ -1,4 +1,3 @@
-import { TuiTextareaModule, TuiInputModule, TuiSelectModule } from "@taiga-ui/legacy";
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {
@@ -7,9 +6,9 @@ import {
 import {TestModule} from '@test/test.module'
 import {MOCK_CHECKBOX_QUESTION} from "@app/problems/_test/mock"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
-import { TuiLabel, TuiDropdown, TuiButton } from "@taiga-ui/core"
+import { TuiLabel, TuiDropdown, TuiButton, TuiError, TuiInput } from "@taiga-ui/core"
 import {of} from "rxjs"
-import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
+import { TuiSelect, TuiTextarea } from "@taiga-ui/kit"
 import { HttpResponse } from "@angular/common/http"
 import {Question} from "@app/_models"
 import {delay} from "rxjs/operators"
@@ -23,8 +22,8 @@ describe('McqCreateEditSnippetComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                TestModule, ReactiveFormsModule, FormsModule, TuiTextareaModule,
-                TuiLabel, TuiInputModule, TuiSelectModule, TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+                TestModule, ReactiveFormsModule, FormsModule, TuiTextarea,
+                TuiLabel, TuiInput, TuiSelect, TuiError, TuiError,
                 TuiButton, TuiDropdown
             ],
             declarations: [McqCreateEditSnippetComponent, VariablesEditorComponent]

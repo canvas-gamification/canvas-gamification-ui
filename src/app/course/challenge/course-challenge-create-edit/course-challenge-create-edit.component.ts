@@ -1,10 +1,10 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Category, CourseEvent, EventLimit} from "@app/_models"
 import {ChallengeType} from "@app/_models/challengeType"
 import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/forms"
-import { TuiAlertService } from "@taiga-ui/core"
 import {ChallengeForm} from "@app/course/_forms/challenge.form"
 import {startCase} from 'lodash'
 import {Difficulty} from "@app/_models/difficulty"
@@ -35,7 +35,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         private courseEventService: CourseEventService,
         private readonly categoryService: CategoryService,
         private readonly difficultyService: DifficultyService,
-        private readonly notificationsService: TuiAlertService,
+        private readonly notificationsService: TuiNotificationService,
     ) {
     }
 

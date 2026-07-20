@@ -1,8 +1,9 @@
-<tui-multi-select [formControl]="variationControl" aria-label="Variation Types">
+<tui-textfield multi tuiChevron aria-label="Variation Types">
   Variation Types Used in Question
-  <span class="tui-required"></span>
+  <input tuiInputChip [formControl]="variationControl" />
+<span class="tui-required"></span>
   <tui-data-list
-    *tuiDataList
+    *tuiDropdown
     tuiMultiSelectGroup
     >
     @for (item of variationTypes; track item) {
@@ -14,4 +15,4 @@
       </button>
     }
   </tui-data-list>
-</tui-multi-select>
+</tui-textfield>

@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, ViewChild, ChangeDetectionStrategy} from '@an
 import {Course, CourseEvent, EventType, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {CourseEventService} from '@app/course/_services/course-event.service'
-import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
 import {PolymorpheusContent} from '@taiga-ui/polymorpheus'
 import {CourseService} from "@app/course/_services/course.service"
 import {ActivatedRoute} from "@angular/router"
@@ -36,8 +36,8 @@ export class CourseEventsSnippetComponent implements OnInit {
         private courseService: CourseService,
         private route: ActivatedRoute,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
     }
@@ -112,7 +112,7 @@ export class CourseEventsSnippetComponent implements OnInit {
         })
         this.dialogService.open(
             this.importDialog,
-            {label: 'Which assessment do you want to import?', size: 'l', closeable: false}
+            {label: 'Which assessment do you want to import?', size: 'l', closable: false}
         ).subscribe()
     }
 

@@ -1,15 +1,15 @@
-<tui-island>
+<div tuiCardLarge>
   <h2 class="tui-island__title">Category Stats</h2>
   <tui-tabs #tabsComponent class="tui-space_bottom-4">
     <button aria-label="Card View" tuiTab>Card View</button>
     <button aria-label="Table View" tuiTab>Table View</button>
   </tui-tabs>
-  <tui-loader [overlay]="true" [showLoader]="!categoryStatsData">
+  <tui-loader [overlay]="true" [loading]="!categoryStatsData">
     @if (categoryStatsData) {
       @if (tabsComponent.activeItemIndex === 0) {
         <div class="stats-islands">
           @for (categoryStats of categoryStatsData; track categoryStats) {
-            <tui-island
+            <div tuiCardLarge
               >
               <ng-template
                 #categoryDialog
@@ -17,7 +17,7 @@
                 >
                 <div class="stats-islands tui-space_bottom-4 tui-space_top-8">
                   @for (dialogCategoryStats of categoryStats.children; track dialogCategoryStats) {
-                    <tui-island
+                    <div tuiCardLarge
                       >
                       <h3 class="tui-island__title">
                         {{ dialogCategoryStats.category.name }}
@@ -33,7 +33,7 @@
                         Unknown success rate
                         <!-- {{ dialogCategoryStats.category.average_success.toFixed(2) }}% Success Rate-->
                       </p>
-                    </tui-island>
+                    </div>
                   }
                 </div>
                 <button
@@ -68,7 +68,7 @@
                 >
                 View Details
               </button>
-            </tui-island>
+            </div>
           }
         </div>
       }
@@ -117,4 +117,4 @@
       }
     }
   </tui-loader>
-</tui-island>
+</div>

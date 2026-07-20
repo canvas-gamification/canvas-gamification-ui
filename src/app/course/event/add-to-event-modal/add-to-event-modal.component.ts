@@ -1,7 +1,7 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEvent} from "@app/_models"
 import {CourseEventService} from "@app/course/_services/course-event.service"
-import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-add-to-event-modal',
@@ -19,7 +19,7 @@ export class AddToEventModalComponent {
 
     constructor(
         private readonly courseEventService: CourseEventService,
-        private readonly notificationService: TuiAlertService,
+        private readonly notificationService: TuiNotificationService,
     ) {
     }
 

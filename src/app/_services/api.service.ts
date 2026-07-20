@@ -1,10 +1,10 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Inject, Injectable} from '@angular/core'
 import {environment} from "@environments/environment"
 import {Observable, of, throwError} from "rxjs"
 import { HttpErrorResponse } from "@angular/common/http"
 import {Router} from "@angular/router"
 import {Location} from "@angular/common"
-import { TuiAlertService } from '@taiga-ui/core'
 
 @Injectable({
     providedIn: 'root'
@@ -12,8 +12,8 @@ import { TuiAlertService } from '@taiga-ui/core'
 export class ApiService {
     constructor(
         private router: Router,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
     }
 

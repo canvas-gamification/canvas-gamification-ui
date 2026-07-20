@@ -1,4 +1,4 @@
-import { TuiStatus } from "@taiga-ui/legacy";
+type TuiStatus = "default" | "error" | "info" | "neutral" | "primary" | "success" | "warning"
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Course, CourseEvent, UQJ, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
@@ -9,7 +9,7 @@ import {CourseEventService} from '@app/course/_services/course-event.service'
 import {CourseService} from '@app/course/_services/course.service'
 import {Team} from "@app/_models/team"
 import {TeamService} from "@app/course/_services/team.service"
-import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
 import {startCase} from "lodash"
 import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 import {orderUQJs} from "@app/course/_utils/orderUQJs"
@@ -41,7 +41,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         private courseEventService: CourseEventService,
         private courseService: CourseService,
         private teamService: TeamService,
-        private readonly notificationService: TuiAlertService,
+        private readonly notificationService: TuiNotificationService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
         private conceptViewService: ConceptViewService
     ) {
@@ -165,7 +165,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
     ): void {
         if (openDialog) {
             this.dialogService.open(content, {
-                closeable: false,
+                closable: false,
                 label: 'Edit question in finished assessment?'
             }).subscribe()
         } else {
@@ -190,7 +190,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         if (openDialog) {
             this.dropdownLink = link
             this.dialogService.open(content, {
-                closeable: false,
+                closable: false,
                 label: 'Create new question in finished assessment?'
             }).subscribe()
         } else {
@@ -215,7 +215,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
             labelText = 'Remove question in finished assessment?'
         }
         this.dialogService.open(content, {
-            closeable: false,
+            closable: false,
             label: labelText
         }).subscribe()
     }

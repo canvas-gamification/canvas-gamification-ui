@@ -1,6 +1,7 @@
+import { TuiCardLarge } from "@taiga-ui/layout";
+import { TuiChip } from "@taiga-ui/kit";
 import { TuiFilterPipe } from "@taiga-ui/cdk";
-import { TuiIslandDirective, TuiInputModule, TuiTagModule } from "@taiga-ui/legacy";
-import { TuiLoader } from "@taiga-ui/core";
+import { TuiLoader, TuiInput } from "@taiga-ui/core";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {CourseListComponent} from '../../course-list/course-list.component'
@@ -23,8 +24,8 @@ describe('CourseListComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 TestModule, ReactiveFormsModule, FormsModule,
-                TuiInputModule, TuiLoader, TuiFilterPipe,
-                TuiTagModule, TuiIslandDirective, CourseIslandModule
+                TuiInput, TuiLoader, TuiFilterPipe,
+                TuiChip, TuiCardLarge, CourseIslandModule
             ],
             declarations: [CourseListComponent, UserHasCourseViewPermissionsPipe],
             providers: [

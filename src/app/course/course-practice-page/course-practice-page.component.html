@@ -18,7 +18,7 @@
         Back to Homepage
       </a>
       <div class="flex-container gap-8 mt-10">
-        <tui-island class="practice-tile tui-island_hoverable"
+        <div tuiCardLarge class="practice-tile tui-island_hoverable"
           id="Target"
           [routerLink]="['concepts']" size="m">
           <div class="practice-background practice-question"></div>
@@ -45,9 +45,9 @@
               </a>
             </div>
           </div>
-        </tui-island>
+        </div>
 
-        <tui-island class="practice-tile tui-island_hoverable"
+        <div tuiCardLarge class="practice-tile tui-island_hoverable"
           [routerLink]="['/course', courseId, 'goal']" size="m">
           <div class="practice-background view-goals"></div>
           <div class="practice-tile-text">
@@ -68,7 +68,7 @@
               </a>
             </div>
           </div>
-        </tui-island>
+        </div>
       </div>
     </div>
   </div>

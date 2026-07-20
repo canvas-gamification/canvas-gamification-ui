@@ -1,3 +1,4 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormGroup} from "@angular/forms"
 import {TeamForm} from "@app/course/_forms/team.form"
@@ -6,7 +7,6 @@ import {ActivatedRoute, Router} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
 import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
-import { TuiAlertService } from "@taiga-ui/core"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 
 @Component({
@@ -33,8 +33,8 @@ export class TeamCreateEditComponent implements OnInit {
         private courseEventService: CourseEventService,
         private teamService: TeamService,
         private router: Router,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService,
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService,
     ) {
     }
 

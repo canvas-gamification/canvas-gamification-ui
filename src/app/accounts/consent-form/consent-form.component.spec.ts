@@ -1,5 +1,6 @@
-import { TuiIslandDirective, TuiInputModule, TuiMultiSelectModule, TuiSelectModule } from "@taiga-ui/legacy";
-import { TuiAlertService, TuiLabel } from "@taiga-ui/core";
+import { TuiCardLarge } from "@taiga-ui/layout";
+import { TuiMultiSelectModule } from "@taiga-ui/legacy";
+import { TuiLabel, TuiNotificationService, TuiError, TuiInput } from "@taiga-ui/core";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {ConsentFormComponent} from './consent-form.component'
@@ -15,13 +16,13 @@ import {
 import {Router} from "@angular/router"
 import {ConsentService} from "@app/accounts/_services/consent.service"
 import {ConsentServiceMock} from "@app/accounts/_test/_services/consent.service.mock"
-import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
+import { TuiSelect } from "@taiga-ui/kit"
 import {of} from "rxjs"
 
 describe('ConsentFormComponent', () => {
     let component: ConsentFormComponent
     let fixture: ComponentFixture<ConsentFormComponent>
-    let notificationService: TuiAlertService
+    let notificationService: TuiNotificationService
     let router: Router
 
     beforeEach(async () => {
@@ -34,11 +35,11 @@ describe('ConsentFormComponent', () => {
             imports: [
                 TestModule,
                 ReactiveFormsModule,
-                TuiIslandDirective,
-                TuiInputModule,
-                TuiFieldErrorPipe, TuiFieldErrorContentPipe,
+                TuiCardLarge,
+                TuiInput,
+                TuiError, TuiError,
                 TuiLabel,
-                TuiSelectModule,
+                TuiSelect,
                 TuiMultiSelectModule
             ],
             providers: [{provide: ConsentService, useClass: ConsentServiceMock}]
@@ -46,7 +47,7 @@ describe('ConsentFormComponent', () => {
     })
     describe('The user is an admin', () => {
         beforeEach(() => {
-            notificationService = TestBed.inject(TuiAlertService)
+            notificationService = TestBed.inject(TuiNotificationService)
             spyOn(notificationService, 'show').and.callFake(() => {
                 return of()
             })

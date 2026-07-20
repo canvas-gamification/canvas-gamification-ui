@@ -8,7 +8,7 @@ import {CategoryService} from "@app/_services/api/category.service"
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {ProblemSetForm} from "@app/problems/_forms/problem-set.form"
-import { TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotificationService } from "@taiga-ui/core"
 import {PolymorpheusContent} from '@taiga-ui/polymorpheus'
 import {TuiComparator} from "@taiga-ui/addon-table"
 
@@ -80,8 +80,8 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         private questionService: QuestionService,
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService,
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
         private changeDetector: ChangeDetectorRef
     ) {
@@ -211,7 +211,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         questionId: number
     ): void {
         this.dialogService.open(content, {
-            closeable: false,
+            closable: false,
             label: 'Delete Question?'
         }).subscribe({
             next: () => this.deleteQuestion(questionId)

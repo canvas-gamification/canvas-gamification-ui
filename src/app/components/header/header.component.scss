@@ -1,4 +1,4 @@
-@import '@taiga-ui/core/styles/taiga-ui-local';
+@import '@taiga-ui/styles/utils';
 @import 'mixins';
 
 .header {
@@ -28,8 +28,8 @@
             flex-direction: column;
 
             a {
-                color: var(--tui-font-text);
-                font: var(--tui-font-heading-6);
+                color: var(--tui-typography-family-text);
+                font: var(--tui-typography-heading-h6);
                 padding: 1rem;
                 border-bottom: 1px solid var(--tui-background-neutral-1-hover);
             }
@@ -84,7 +84,7 @@
 
         a {
             color: var(--tui-text_h6);
-            font: var(--tui-font-text-m);
+            font: var(--tui-typography-body-m);
             margin-right: 1.5rem;
 
             &:hover {
@@ -115,7 +115,7 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            font: var(--tui-font-text-m);
+            font: var(--tui-typography-body-m);
             border: none;
             background-color: transparent;
             cursor: pointer;

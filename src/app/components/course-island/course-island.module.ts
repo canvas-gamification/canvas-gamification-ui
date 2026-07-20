@@ -1,5 +1,6 @@
+import { TuiCardLarge } from "@taiga-ui/layout";
+import { TuiChip } from "@taiga-ui/kit";
 import { TuiButton } from "@taiga-ui/core";
-import { TuiIslandDirective, TuiTagModule } from "@taiga-ui/legacy";
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {CourseIslandComponent} from './course-island.component'
@@ -17,8 +18,8 @@ import {PipesModule} from "@app/_helpers/pipes/pipes.module"
         PipesModule,
         RouterModule,
         TuiButton,
-        TuiIslandDirective,
-        TuiTagModule,
+        TuiCardLarge,
+        TuiChip,
     ]
 })
 export class CourseIslandModule {

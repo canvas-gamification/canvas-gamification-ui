@@ -1,8 +1,8 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, EventEmitter, Inject, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormGroup} from "@angular/forms"
 import {ReportQuestionService} from "@app/problems/_services/report-question.service"
 import {ReportQuestionForm} from "@app/problems/_forms/problem-report.form"
-import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-problem-report-modal',
@@ -28,7 +28,7 @@ export class ProblemReportModalComponent implements OnInit {
 
     constructor(
         private readonly reportQuestionService: ReportQuestionService,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 

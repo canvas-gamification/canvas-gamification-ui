@@ -7,7 +7,7 @@
   @if (openEvents) {
     <div class="tui-space_top-8 space-y-3">
       @for (event of openEvents; track event) {
-        <tui-island size="s">
+        <div tuiCardLarge size="s">
           <div class="flex">
             <div class="flex-grow">
               <p class="tui-island__category">{{ event.type }}</p>
@@ -25,7 +25,7 @@
               </button>
             </div>
           </div>
-        </tui-island>
+        </div>
       }
     </div>
   }
@@ -33,19 +33,20 @@
   @if (closedEvents) {
     <div class="tui-space_top-8 space-y-3">
       @for (event of closedEvents; track event) {
-        <tui-island size="s">
+        <div tuiCardLarge size="s">
           <div class="flex">
             <div class="flex-grow">
               <p class="tui-island__category">{{ event.type }}</p>
               <h3 class="tui-island__title">{{ event.name }}</h3>
             </div>
             <div class="space-x-4 flex items-center">
-              <tui-tag
+              <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
+<span tuiChip
                 size="m"
-                status="error"
-                value="Closed"
+                appearance="error"
+               
                 >
-              </tui-tag>
+              Closed</span>
               <button
                 (click)="addToEvent(event)"
                 appearance="secondary"
@@ -57,7 +58,7 @@
               </button>
             </div>
           </div>
-        </tui-island>
+        </div>
       }
     </div>
   }

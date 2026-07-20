@@ -57,7 +57,7 @@
         3
       </label>
     </div>
-    <tui-error [error]="[] | tuiFieldError | async" formControlName="visible_distractor_count"></tui-error>
+    <tui-error  formControlName="visible_distractor_count"></tui-error>
     <div class="new-answers tui-space_bottom-4">
       @for (distractor of getDistractorFormControls(); track distractor; let index = $index) {
         <div

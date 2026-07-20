@@ -50,10 +50,10 @@
   <div class="question-skeleton tui-skeleton"></div>
 }
 @if (renderedText) {
-  <tui-island class="tui-space_top-2">
+  <div tuiCardLarge class="tui-space_top-2">
     <p class="tui-island__category">Question</p>
     <app-editor [ngModel]="renderedText" [readonly]="true"></app-editor>
-  </tui-island>
+  </div>
 }
 @if (uqj?.question?.type_name === 'multiple choice question') {
   <app-mcq-view-snippet (successfulSubmissionEvent)="updateQuestionSubmissions($event)"

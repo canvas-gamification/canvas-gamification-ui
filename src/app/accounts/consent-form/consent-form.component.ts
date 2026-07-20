@@ -1,3 +1,4 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {ConsentService} from '@app/accounts/_services/consent.service'
@@ -5,8 +6,6 @@ import {ActivatedRoute, Router} from '@angular/router'
 import {ConsentForm} from "@app/accounts/_forms/consent.form"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {User} from "@app/_models"
-import { TuiAlertService } from "@taiga-ui/core"
-
 
 @Component({
     selector: 'app-consent-form',
@@ -48,8 +47,8 @@ export class ConsentFormComponent implements OnInit {
         private builder: UntypedFormBuilder,
         private consentService: ConsentService,
         private authenticationService: AuthenticationService,
-        @Inject(TuiAlertService)
-        private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }

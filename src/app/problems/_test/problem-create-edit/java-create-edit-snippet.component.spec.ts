@@ -1,4 +1,4 @@
-import { TuiIslandDirective, TuiTextareaModule, TuiInputModule, TuiSelectModule } from "@taiga-ui/legacy";
+import { TuiCardLarge } from "@taiga-ui/layout";
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {
@@ -9,9 +9,9 @@ import {QuestionService} from "@app/problems/_services/question.service"
 import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {MOCK_JAVA_QUESTION} from "@app/problems/_test/mock"
-import { TuiDropdown, TuiIcon, TuiButton } from "@taiga-ui/core"
+import { TuiDropdown, TuiIcon, TuiButton, TuiError, TuiInput } from "@taiga-ui/core"
 import {of} from "rxjs"
-import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
+import { TuiSelect, TuiTextarea } from "@taiga-ui/kit"
 import { HttpResponse } from "@angular/common/http"
 import {Question} from "@app/_models"
 import {delay} from "rxjs/operators"
@@ -32,9 +32,9 @@ describe('JavaCreateEditSnippetComponent', () => {
                 JavaInputFilesEditorComponent, AsFormGroupPipe
             ],
             imports: [
-                TestModule, ReactiveFormsModule, FormsModule, TuiTextareaModule,
-                TuiInputModule, TuiSelectModule, TuiFieldErrorPipe, TuiFieldErrorContentPipe, TuiButton,
-                TuiDropdown, TuiIcon, TuiIslandDirective
+                TestModule, ReactiveFormsModule, FormsModule, TuiTextarea,
+                TuiInput, TuiSelect, TuiError, TuiError, TuiButton,
+                TuiDropdown, TuiIcon, TuiCardLarge
             ],
             providers: [
                 {provide: QuestionService, useClass: QuestionServiceMock}

@@ -1,10 +1,9 @@
-import { TuiTextfieldControllerModule, TuiTextareaModule, TuiInputModule } from "@taiga-ui/legacy";
+import { TuiTextarea } from "@taiga-ui/kit";
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {ContactComponent} from './contact.component'
 import {ReactiveFormsModule} from "@angular/forms"
-import { TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
-import { TuiError, TuiButton } from "@taiga-ui/core"
+import { TuiError, TuiButton, TuiInput } from "@taiga-ui/core"
 import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha"
 
 @NgModule({
@@ -18,11 +17,9 @@ import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha"
         RecaptchaFormsModule,
         RecaptchaModule,
         TuiButton,
-        TuiFieldErrorPipe, TuiFieldErrorContentPipe,
-        TuiInputModule,
-        TuiTextareaModule,
-        TuiTextfieldControllerModule,
-        TuiError
+        ...TuiError,
+        ...TuiInput,
+        ...TuiTextarea
     ]
 })
 export class ContactModule {

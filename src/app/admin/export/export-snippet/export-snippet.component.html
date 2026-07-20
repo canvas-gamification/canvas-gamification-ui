@@ -15,13 +15,13 @@
   </div>
   @if (fields) {
     <div class="tui-form__row">
-      <tui-multi-select
+      <tui-textfield multi tuiChevron
         aria-label="Fields"
-        [(ngModel)]="selectedFields"
         >
         What fields do you want to export?
-        <tui-data-list
-          *tuiDataList
+        <input tuiInputChip [(ngModel)]="selectedFields" />
+<tui-data-list
+          *tuiDropdown
           tuiMultiSelectGroup
           >
           @for (item of fields; track item) {
@@ -33,85 +33,107 @@
             </button>
           }
         </tui-data-list>
-      </tui-multi-select>
+      </tui-textfield>
     </div>
   }
   @if (search) {
     <div class="tui-form__row">
-      <tui-input
-        [tuiTextfieldCleaner]="true"
-        [(ngModel)]="selectedSearch"
-        >
-        {{search}}
-      </tui-input>
+      <tui-textfield [tuiTextfieldCleaner]="true">
+      <label tuiLabel>{{search}}</label>
+      <input tuiInput [(ngModel)]="selectedSearch" />
+      </tui-textfield>
     </div>
   }
   @for (filter of filters; track filter) {
     <div class="tui-form__row">
       @if (filter.type === 'date') {
-        <tui-input-date
-          [(ngModel)]="selectedFilters[filter.key]"
+        <tui-textfield
+          
           >
+<label tuiLabel>
           {{filter.name}}
-        </tui-input-date>
+        </label>
+
+<input tuiInputDate [(ngModel)]="selectedFilters[filter.key]" />
+<tui-calendar *tuiDropdown />
+</tui-textfield>
       }
       @if (filter.type === 'number') {
-        <tui-input-number
-          [(ngModel)]="selectedFilters[filter.key]"
+        <tui-textfield
+          
           >
+<label tuiLabel>
           {{filter.name}}
-        </tui-input-number>
+        </label>
+
+<input tuiInputNumber [(ngModel)]="selectedFilters[filter.key]" />
+</tui-textfield>
       }
       @if (filter.type === 'text') {
-        <tui-input
-          [(ngModel)]="selectedFilters[filter.key]"
-          >
-          {{filter.name}}
-        </tui-input>
+        <tui-textfield>
+        <label tuiLabel>{{filter.name}}</label>
+        <input tuiInput [(ngModel)]="selectedFilters[filter.key]" />
+        </tui-textfield>
       }
       @if (filter.type === 'role') {
-        <tui-select
-          [(ngModel)]="selectedFilters[filter.key]"
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
           >
+<label tuiLabel>
           {{filter.name}}
-          <tui-data-list-wrapper
-            *tuiDataList
+          </label>
+
+<input tuiSelect [(ngModel)]="selectedFilters[filter.key]" />
+<tui-data-list-wrapper
+            *tuiDropdown
             [items]="roles"
           ></tui-data-list-wrapper>
-        </tui-select>
+        </tui-textfield>
       }
       @if (filter.type === 'code') {
-        <tui-select
-          [(ngModel)]="selectedFilters[filter.key]"
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
           >
+<label tuiLabel>
           {{filter.name}}
-          <tui-data-list-wrapper
-            *tuiDataList
+          </label>
+
+<input tuiSelect [(ngModel)]="selectedFilters[filter.key]" />
+<tui-data-list-wrapper
+            *tuiDropdown
             [items]="codes"
           ></tui-data-list-wrapper>
-        </tui-select>
+        </tui-textfield>
       }
       @if (filter.type === 'verb') {
-        <tui-select
-          [(ngModel)]="selectedFilters[filter.key]"
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
           >
+<label tuiLabel>
           {{filter.name}}
-          <tui-data-list-wrapper
-            *tuiDataList
+          </label>
+
+<input tuiSelect [(ngModel)]="selectedFilters[filter.key]" />
+<tui-data-list-wrapper
+            *tuiDropdown
             [items]="verbs"
           ></tui-data-list-wrapper>
-        </tui-select>
+        </tui-textfield>
       }
       @if (filter.type === 'objectType') {
-        <tui-select
-          [(ngModel)]="selectedFilters[filter.key]"
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
           >
+<label tuiLabel>
           {{filter.name}}
-          <tui-data-list-wrapper
-            *tuiDataList
+          </label>
+
+<input tuiSelect [(ngModel)]="selectedFilters[filter.key]" />
+<tui-data-list-wrapper
+            *tuiDropdown
             [items]="objectTypes"
           ></tui-data-list-wrapper>
-        </tui-select>
+        </tui-textfield>
       }
     </div>
   }

@@ -11,25 +11,25 @@
       Back to {{getBackLabel()}}
     </a>
     @if (event.is_not_available_yet) {
-      <tui-notification size="m"
+      <div tuiNotification size="m"
         class="mb-6"
         >
         The {{getEventType()}} is not available yet.
-      </tui-notification>
+      </div>
     }
     @if (event.is_closed) {
-      <tui-notification size="m"
+      <div tuiNotification size="m"
         class="mb-6"
         >
         The {{getEventType()}} is closed.
-      </tui-notification>
+      </div>
     }
     @if (!event.count_for_tokens) {
-      <tui-notification size="m"
+      <div tuiNotification size="m"
         class="mb-6"
         >
         This {{getEventType()}} does not count towards the leaderboard.
-      </tui-notification>
+      </div>
     }
     @if (eventId) {
       <div
@@ -177,19 +177,20 @@
       }
       <div class="question-islands">
         @for (uqj of uqjs; track uqj) {
-          <tui-island>
+          <div tuiCardLarge>
             <p class="tui-island__category">
               {{ uqj.question.parent_category_name ? uqj.question.parent_category_name + ': ' : '' }}
               {{ uqj.question.category_name }}
             </p>
             <h2 class="tui-island__title">{{ uqj.question.title }}</h2>
             <div class="tui-space_bottom-2">
-              <tui-tag
-                [status]="highlight(getStatus(uqj))"
-                [value]="getStatus(uqj)"
+              <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
+<span tuiChip
+                [appearance]="highlight(getStatus(uqj))"
+               
                 size="m"
                 >
-              </tui-tag>
+              {{getStatus(uqj)}}</span>
             </div>
             <p class="tui-island__paragraph">
               {{ uqj.question.type_name | titlecase }}
@@ -304,7 +305,7 @@
                 </div>
               </ng-template>
             </div>
-          </tui-island>
+          </div>
         }
       </div>
       @if (!uqjs.length) {

@@ -1,4 +1,4 @@
-import { TuiTextfieldControllerModule, TuiInputModule } from "@taiga-ui/legacy";
+import { TuiNotificationService, TuiError, TuiInput } from "@taiga-ui/core";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {CourseRegisterComponent} from '../../course-registration/course-register.component'
@@ -9,18 +9,17 @@ import {ActivatedRoute} from "@angular/router"
 import {ReactiveFormsModule} from "@angular/forms"
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component"
 import {CourseRegistrationStepComponent} from "@app/course/course-registration/course-registration-step/course-registration-step.component"
-import { TuiStepper, TuiFieldErrorPipe, TuiFieldErrorContentPipe } from "@taiga-ui/kit"
-import { TuiAlertService } from "@taiga-ui/core"
+import { TuiStepper } from "@taiga-ui/kit"
 import {of} from "rxjs"
 
 describe('CourseRegisterComponent', () => {
     let component: CourseRegisterComponent
     let fixture: ComponentFixture<CourseRegisterComponent>
-    let notificationService: TuiAlertService
+    let notificationService: TuiNotificationService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, ReactiveFormsModule, TuiStepper, TuiInputModule, TuiTextfieldControllerModule, TuiFieldErrorPipe, TuiFieldErrorContentPipe],
+            imports: [TestModule, ReactiveFormsModule, TuiStepper, TuiInput, TuiError, TuiError],
             declarations: [CourseRegisterComponent, CourseRegistrationStepperComponent, CourseRegistrationStepComponent],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock},
@@ -40,7 +39,7 @@ describe('CourseRegisterComponent', () => {
     })
 
     beforeEach(() => {
-        notificationService = TestBed.inject(TuiAlertService)
+        notificationService = TestBed.inject(TuiNotificationService)
         spyOn(notificationService, 'show').and.callFake(() => {
             return of()
         })

@@ -1,4 +1,4 @@
-import { TuiIslandDirective } from "@taiga-ui/legacy";
+import { TuiCardLarge } from "@taiga-ui/layout";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {ParsonsLinesComponent} from '../../problem-view/parsons-lines/parsons-lines.component'
@@ -10,7 +10,7 @@ describe('ParsonsLinesComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [ParsonsLinesComponent],
-            imports: [TuiIslandDirective],
+            imports: [TuiCardLarge],
             providers: [DragulaService],
         }).compileComponents()
     })

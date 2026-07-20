@@ -1,6 +1,6 @@
 <div class="tui-container tui-container_fullwidth">
   <h1 class="tui-text_h3 tui-space_vertical-10">Actions</h1>
-  <tui-loader [overlay]="true" [showLoader]="!userActions || loadingTable">
+  <tui-loader [overlay]="true" [loading]="!userActions || loadingTable">
     <table
       (directionChange)="update()"
       (sorterChange)="update()"

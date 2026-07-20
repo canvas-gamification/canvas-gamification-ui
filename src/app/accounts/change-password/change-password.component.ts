@@ -1,8 +1,8 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from "@angular/forms"
 import {ChangePasswordService} from "@app/accounts/_services/change-password.service"
 import {ChangePasswordForm} from "@app/accounts/_forms/change-password.form"
-import { TuiAlertService } from "@taiga-ui/core"
 import {Router} from "@angular/router"
 
 @Component({
@@ -20,7 +20,7 @@ export class ChangePasswordComponent implements OnInit {
         private builder: UntypedFormBuilder,
         private password: ChangePasswordService,
         private router: Router,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 

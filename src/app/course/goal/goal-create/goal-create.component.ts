@@ -1,9 +1,9 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 import {GoalForm} from "@app/course/_forms/goal.form"
 import {GoalService} from "@app/course/_services/goal.service"
 import {ActivatedRoute, Router} from "@angular/router"
-import { TuiAlertService } from "@taiga-ui/core"
 import {tuiCreateTimePeriods} from "@taiga-ui/kit"
 import {CategoryService} from "@app/_services/api/category.service"
 import {ActionStatus, ActionType, ActionVerb, Category} from "@app/_models"
@@ -11,8 +11,8 @@ import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {Difficulty} from "@app/_models/difficulty"
 import {Goal, GoalItem, GoalLimit} from "@app/_models/goal/goal"
 import {goalItemString} from "@app/course/goal/utils"
-import * as dayjs from 'dayjs'
-import * as relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import {UserActionsService} from "@app/_services/api/user-actions.service"
 
 
@@ -40,7 +40,7 @@ export class GoalCreateComponent implements OnInit {
         private readonly difficultyService: DifficultyService,
         private readonly router: Router,
         private readonly activatedRoute: ActivatedRoute,
-        private readonly notificationService: TuiAlertService,
+        private readonly notificationService: TuiNotificationService,
         private readonly userActionsService: UserActionsService,
     ) {
         dayjs.extend(relativeTime)

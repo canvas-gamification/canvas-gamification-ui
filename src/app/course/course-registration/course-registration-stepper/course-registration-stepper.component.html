@@ -1,7 +1,9 @@
 <tui-stepper [(activeItemIndex)]="currentStep">
-  @for (step of steps; track step) {
-    <button #headerStep
+  @for (step of steps; track step; let i = $index) {
+    <button
       [disabled]="true"
+      [stepState]="completedSteps.has(i) ? 'pass' : 'normal'"
+      [icon]="completedSteps.has(i) ? '@tui.check' : ''"
       tuiStep>
       {{step}}
     </button>

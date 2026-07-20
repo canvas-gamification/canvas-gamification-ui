@@ -1,3 +1,4 @@
+import { TuiCheckbox, TuiRadio } from "@taiga-ui/core";
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {McqViewSnippetComponent} from '../../problem-view/mcq-view-snippet/mcq-view-snippet.component'
@@ -6,7 +7,7 @@ import {MOCK_UQJ, MOCK_UQJ_2} from '@app/problems/_test/mock'
 import {SubmissionService} from "@app/problems/_services/submission.service"
 import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.service.mock"
 import {ReactiveFormsModule} from "@angular/forms"
-import { TuiBlock, TuiCheckbox, TuiRadio } from "@taiga-ui/kit"
+import { TuiBlock } from "@taiga-ui/kit"
 import {of} from "rxjs"
 import { HttpHeaderResponse } from "@angular/common/http"
 import {delay} from "rxjs/operators"

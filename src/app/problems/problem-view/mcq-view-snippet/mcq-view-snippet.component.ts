@@ -1,9 +1,9 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, EventEmitter, Inject, Input, OnChanges, Output, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {UQJ} from '@app/_models'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
-import { TuiAlertService } from '@taiga-ui/core'
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -25,7 +25,7 @@ export class McqViewSnippetComponent implements OnChanges {
         private submissionService: SubmissionService,
         private formBuilder: UntypedFormBuilder,
         private sanitizer: DomSanitizer,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 

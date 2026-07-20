@@ -81,7 +81,7 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
             {
                 size: 'l',
                 data: submission,
-                closeable: false,
+                closable: false,
                 label: `Submission ${index}`
             }
         ).subscribe()
@@ -89,7 +89,7 @@ export class SubmissionSnippetComponent implements OnChanges, OnInit {
 
     openMCQSubmissionDialog(content: PolymorpheusContent<TuiDialogContext>, index: number): void {
         this.dialogService.open(content, {
-            closeable: false,
+            closable: false,
             label: `Submission ${index}`
         }).subscribe()
     }

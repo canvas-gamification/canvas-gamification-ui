@@ -1,4 +1,4 @@
-import { tuiStringHashToHsl } from "@taiga-ui/core";
+
 import {Pipe, PipeTransform} from '@angular/core'
 
 @Pipe({
@@ -7,6 +7,7 @@ import {Pipe, PipeTransform} from '@angular/core'
 })
 export class GetColorFromStringPipe implements PipeTransform {
     transform(value: string): string {
-        return tuiStringHashToHsl(value)
+        const hash = value.split('').reduce((acc, char) => char.charCodeAt(0) + ((acc << 5) - acc), 0)
+        return `hsl(${hash % 360}, 60%, 70%)`
     }
 }

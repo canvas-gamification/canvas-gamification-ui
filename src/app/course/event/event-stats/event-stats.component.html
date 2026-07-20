@@ -12,7 +12,7 @@
   @if (stats) {
     @if (stats.length !== 0) {
       @for (stat of stats; track stat) {
-        <tui-island class="shadow space-y-3">
+        <div tuiCardLarge class="shadow space-y-3">
           <h4 class="tui-text_h4 mb-3">
             {{stat.question.title}}
           </h4>
@@ -20,11 +20,11 @@
           @if (stat.total_submissions === 0) {
             <div
               class="flex justify-center items-center w-full h-32">
-              <tui-avatar
+              <span tuiAvatar="@tui.circle-alert"
                 class="tui-space_right-4"
                 size="m"
-                src="@tui.circle-alert"
-              ></tui-avatar>
+               
+              ></span>
               <h2 class="tui-text_body-xl">
                 Looks like there are no submissions to show
               </h2>
@@ -33,7 +33,7 @@
           @if (!isEmpty(stat.answers)) {
             <div>
               @if (stat.has_variables) {
-                <tui-notification size="m"
+                <div tuiNotification size="m"
                   class="mb-3"
                   >
                   This is a parameterized question. That means the exact names and numbers
@@ -41,7 +41,7 @@
                   this question may vary from student to student. E.g., if the question shows
                   the
                   number "5", one student may see "4", another student may see "3", etc.
-                </tui-notification>
+                </div>
               }
               @if (stat.answers) {
                 <app-event-stats-bar-chart
@@ -126,39 +126,41 @@
           }
           @if (!isEmpty(stat.submission_details)) {
             <div>
-              <tui-accordion>
-                <tui-accordion-item [size]="'s'">
-                  <div class="flex flex-wrap gap-3 justify-between">
-                    <div class="min-w-[20rem] flex items-center">
-                      Show Submissions
+              <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<tui-accordion>
+                <!-- TODO: (Taiga UI migration) `size` was removed from individual accordion items; set it on the parent <tui-accordion size="..."> instead. See https://taiga-ui.dev/components/accordion -->
+                <button tuiAccordion>
+                    <div class="flex flex-wrap gap-3 justify-between">
+                      <div class="min-w-[20rem] flex items-center">
+                        Show Submissions
+                      </div>
                     </div>
-                  </div>
-                  <ng-template tuiAccordionItemContent>
+                </button>
+                <tui-expand>
                     <app-event-stats-submission-view
                       [submissions]="stat.submission_details"
                       >
                     </app-event-stats-submission-view>
-                  </ng-template>
-                </tui-accordion-item>
+                </tui-expand>
               </tui-accordion>
             </div>
           }
-        </tui-island>
+        </div>
       }
     } @else {
       <div class="flex justify-center items-center w-full h-32">
-        <tui-avatar
+        <span tuiAvatar="@tui.circle-alert"
           class="tui-space_right-4"
           size="m"
-          src="@tui.circle-alert"
-        ></tui-avatar>
+         
+        ></span>
         <h2 class="tui-text_body-xl">
           Looks like there are no stats to show
         </h2>
       </div>
     }
   } @else {
-    <tui-island class="shadow space-y-3 tui-skeleton">
+    <div tuiCardLarge class="shadow space-y-3 tui-skeleton">
       <h4 class="tui-text_h4">
         title
       </h4>
@@ -175,6 +177,6 @@
           </table>
         </div>
       }
-    </tui-island>
+    </div>
   }
 </div>

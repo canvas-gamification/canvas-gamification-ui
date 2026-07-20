@@ -34,35 +34,49 @@
       }
       <div class="tui-form__row tui-form__row_multi-fields">
         <div class="tui-form__multi-field">
-          <tui-input aria-label="First Name" formControlName="legal_first_name">
-            Type in your first name:
-            <span class="tui-required"></span>
-          </tui-input>
-          <tui-error [error]="[] | tuiFieldError | async" formControlName="legal_first_name"></tui-error>
+          <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+          <tui-textfield aria-label="First Name">
+          <label tuiLabel>Type in your first name:</label>
+          <input tuiInput formControlName="legal_first_name" />
+<span class="tui-required"></span>          </tui-textfield>
+          <tui-error  formControlName="legal_first_name"></tui-error>
         </div>
         <div class="tui-form__multi-field">
-          <tui-input aria-label="Last Name" formControlName="legal_last_name">
-            Type in your last name:
-            <span class="tui-required"></span>
-          </tui-input>
-          <tui-error [error]="[] | tuiFieldError | async" formControlName="legal_last_name"></tui-error>
+          <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+          <tui-textfield aria-label="Last Name">
+          <label tuiLabel>Type in your last name:</label>
+          <input tuiInput formControlName="legal_last_name" />
+<span class="tui-required"></span>          </tui-textfield>
+          <tui-error  formControlName="legal_last_name"></tui-error>
         </div>
       </div>
       <div class="tui-form__row">
-        <tui-input aria-label="Student Number" formControlName="student_number">
-          Type in your student number (this is only needed in case there are
-          students with the same first and last name):
-          <span class="tui-required"></span>
-        </tui-input>
-        <tui-error [error]="[] | tuiFieldError | async" formControlName="student_number"></tui-error>
+        <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+        <tui-textfield aria-label="Student Number">
+        <label tuiLabel>Type in your student number (this is only needed in case there are
+          students with the same first and last name):</label>
+        <input tuiInput formControlName="student_number" />
+<span class="tui-required"></span>        </tui-textfield>
+        <tui-error  formControlName="student_number"></tui-error>
       </div>
       <div class="tui-form__row">
-        <tui-select aria-label="Gender" formControlName="gender"
-          [valueContent]="genderContent">
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron aria-label="Gender"
+          [content]="genderContent">
+<label tuiLabel>
           What gender do you identify as?
-          <span class="tui-required"></span>
+          </label>
+
+<input tuiSelect formControlName="gender" />
+<span class="tui-required"></span>
           <tui-data-list-wrapper
-            *tuiDataList
+            *tuiDropdown
             [items]="genders"
             [itemContent]="genderContent"
           ></tui-data-list-wrapper>
@@ -72,15 +86,16 @@
             >
             {{genderMapper[gender]}}
           </ng-template>
-        </tui-select>
-        <tui-error [error]="[] | tuiFieldError | async" formControlName="gender"></tui-error>
+        </tui-textfield>
+        <tui-error  formControlName="gender"></tui-error>
       </div>
       <div class="tui-form__row">
-        <tui-multi-select aria-label="Race" formControlName="race">
+        <tui-textfield multi tuiChevron aria-label="Race">
           What is your cultural background? Choose all that apply.
-          <span class="tui-required"></span>
+          <input tuiInputChip formControlName="race" />
+<span class="tui-required"></span>
           <tui-data-list
-            *tuiDataList
+            *tuiDropdown
             tuiMultiSelectGroup
             >
             @for (item of races; track item) {
@@ -92,15 +107,18 @@
               </button>
             }
           </tui-data-list>
-        </tui-multi-select>
-        <tui-error [error]="[] | tuiFieldError | async" formControlName="race"></tui-error>
+        </tui-textfield>
+        <tui-error  formControlName="race"></tui-error>
       </div>
       <div class="tui-form__row">
-        <tui-input aria-label="Today's Date" formControlName="date">
-          Type in today's date:
-          <span class="tui-required"></span>
-        </tui-input>
-        <tui-error [error]="[] | tuiFieldError | async" formControlName="date"></tui-error>
+        <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+        <tui-textfield aria-label="Today's Date">
+        <label tuiLabel>Type in today's date:</label>
+        <input tuiInput formControlName="date" />
+<span class="tui-required"></span>        </tui-textfield>
+        <tui-error  formControlName="date"></tui-error>
       </div>
       <div class="tui-form__buttons">
         <button

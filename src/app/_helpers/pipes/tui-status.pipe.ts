@@ -1,4 +1,4 @@
-import { TuiStatus } from "@taiga-ui/legacy";
+type TuiStatus = "default" | "error" | "info" | "neutral" | "primary" | "success" | "warning"
 import {Pipe, PipeTransform} from '@angular/core'
 
 @Pipe({

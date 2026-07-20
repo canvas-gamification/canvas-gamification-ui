@@ -1,9 +1,9 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {ResetPasswordService} from '@app/accounts/_services/reset-password.service'
 import {ActivatedRoute, Router} from "@angular/router"
 import {ResetPasswordForm} from "@app/accounts/_forms/reset-password.form"
-import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-reset-password',
@@ -22,7 +22,7 @@ export class ResetPasswordComponent implements OnInit {
         private resetPasswordService: ResetPasswordService,
         private route: ActivatedRoute,
         private router: Router,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 

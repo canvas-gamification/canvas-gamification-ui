@@ -1,4 +1,4 @@
-import { TuiInputModule, TuiSelectModule, TuiTagModule } from "@taiga-ui/legacy";
+import { TuiChip, TuiSelect } from "@taiga-ui/kit";
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {ProblemSetComponent} from '../../problem-set/problem-set.component'
@@ -11,7 +11,7 @@ import {ReactiveFormsModule} from "@angular/forms"
 import {QuestionService} from "@app/problems/_services/question.service"
 import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock"
 import {AppRoutingModule} from "@app/app-routing.module"
-import { TuiAlertService, TuiDataList, TuiLoader, TuiDropdown, TuiHint } from "@taiga-ui/core"
+import { TuiDataList, TuiLoader, TuiDropdown, TuiHint, TuiNotificationService, TuiInput } from "@taiga-ui/core"
 import {of} from "rxjs"
 import { TuiTablePagination, TuiTable } from "@taiga-ui/addon-table"
 import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
@@ -36,7 +36,7 @@ class TestProblemSetDialogComponent {
 describe('ProblemSetComponent', () => {
     let component: ProblemSetComponent
     let fixture: ComponentFixture<ProblemSetComponent>
-    let notificationService: TuiAlertService
+    let notificationService: TuiNotificationService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -48,11 +48,11 @@ describe('ProblemSetComponent', () => {
                 TuiLoader,
                 TuiTable,
                 TuiTablePagination,
-                TuiSelectModule,
+                TuiSelect,
                 TuiDataList,
-                TuiInputModule,
+                TuiInput,
                 TuiHint,
-                TuiTagModule
+                TuiChip
             ],
             declarations: [
                 ProblemSetComponent,
@@ -68,7 +68,7 @@ describe('ProblemSetComponent', () => {
     })
 
     beforeEach(() => {
-        notificationService = TestBed.inject(TuiAlertService)
+        notificationService = TestBed.inject(TuiNotificationService)
         spyOn(notificationService, 'show').and.callFake(() => of())
         fixture = TestBed.createComponent(ProblemSetComponent)
         component = fixture.componentInstance

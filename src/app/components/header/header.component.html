@@ -10,7 +10,7 @@
     tuiButton
     type="button"
     >
-    <nav *tuiSidebar="openSidebar; direction: 'left'" class="header-sidebar_nav">
+    <tui-drawer *tuiPopup="openSidebar" class="header-sidebar_nav" direction="start">
       <div class="header-logo">
         <a (click)="toggleSidebar(false)" class="tui-space_right-2" routerLink="" tuiLink>
           <img [src]="logoPath" alt="Logo">
@@ -27,7 +27,7 @@
         tuiLink>Token&nbsp;Values</a>
       }
       <a (click)="toggleSidebar(false)" class="tui-text_body-m" routerLink="faq" tuiLink>FAQ</a>
-    </nav>
+    </tui-drawer>
   </button>
   <div class="header-logo">
     <a class="tui-space_right-2" routerLink="" tuiLink>
@@ -62,11 +62,11 @@
           } @else {
             {{ user.username }}
           }
-          <tui-avatar [src]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiInitials" [style.background]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiAutoColor"
+          <span [tuiAvatar]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiInitials" [style.background]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiAutoColor"
             [round]="true"
             class="tui-space_left-2"
             size="m"
-          ></tui-avatar>
+          ></span>
           <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
           <tui-icon
             [class.icon_rotated]="openUserActions"

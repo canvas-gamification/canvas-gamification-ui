@@ -14,7 +14,7 @@
   @for (goal of recommendedGoals; track goal; let i = $index) {
     <div>
       @if (false) {
-        <tui-island class="shadow">
+        <div tuiCardLarge class="shadow">
           <div class="flex">
             <div class="flex-1">
               <div class="flex space-x-1">
@@ -55,7 +55,7 @@
               </button>
             </div>
           </div>
-        </tui-island>
+        </div>
       }
     </div>
   }
@@ -64,16 +64,28 @@
     <h5 class="tui-text_h5 mt-3">Create New Goal</h5>
     <div class="tui-form__row tui-form__row_multi-fields">
       <div class="tui-form__multi-field">
-        <tui-input-date aria-label="End Date" formControlName="end_date">
+        <tui-textfield aria-label="End Date" >
+<label tuiLabel>
           End date
-        </tui-input-date>
-        <tui-error [error]="[] | tuiFieldError | async" formControlName="end_date"></tui-error>
+        </label>
+
+<input tuiInputDate formControlName="end_date" />
+<tui-calendar *tuiDropdown />
+</tui-textfield>
+        <tui-error  formControlName="end_date"></tui-error>
       </div>
       <div class="tui-form__multi-field">
-        <tui-input-time [items]="timeOptions" aria-label="End Time" formControlName="end_time">
+        <!-- TODO: (Taiga UI migration) tui-input-time migration (see https://taiga-ui.dev/components/input-time):
+     - [items] was renamed to [accept] on <input tuiInputTime>. For a dropdown list, also add <tui-data-list-wrapper *tuiDropdown [items]="timeOptions | tuiFilterByInput: matcher" /> inside <tui-textfield>. See: https://taiga-ui.dev/components/input-time#dropdown-with--data-list
+-->
+<tui-textfield  aria-label="End Time" >
+<label tuiLabel>
           End time
-        </tui-input-time>
-        <tui-error [error]="[] | tuiFieldError | async" formControlName="end_time"></tui-error>
+        </label>
+
+<input tuiInputTime formControlName="end_time" [accept]="timeOptions" />
+</tui-textfield>
+        <tui-error  formControlName="end_time"></tui-error>
       </div>
     </div>
     <h3 class="tui-form__header">
@@ -94,46 +106,58 @@
       <div
         class="tui-form__row tui-form__row_multi-fields">
         <div class="tui-form__multi-field">
-          <tui-select
-            [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
-            [formControl]="getFormControl(goalItemFormControl, 'category')"
+          <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+            [content]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
             >
+<label tuiLabel>
             Category
-            <tui-data-list *tuiDataList>
+            </label>
+
+<input tuiSelect [formControl]="getFormControl(goalItemFormControl, 'category')" />
+<tui-data-list *tuiDropdown>
               @for (category of categories; track category) {
                 <button [value]="category.pk" tuiOption>
                   {{ category.full_name }}
                 </button>
               }
             </tui-data-list>
-          </tui-select>
-          <tui-error [error]="[] | tuiFieldError | async" [formControl]="getFormControl(goalItemFormControl, 'category')"></tui-error>
+          </tui-textfield>
+          <tui-error  [formControl]="getFormControl(goalItemFormControl, 'category')"></tui-error>
         </div>
         <div class="tui-form__multi-field">
-          <tui-select
-            [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-            [formControl]="getFormControl(goalItemFormControl, 'difficulty')"
+          <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+            [content]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
             >
+<label tuiLabel>
             Difficulty
-            <tui-data-list *tuiDataList>
+            </label>
+
+<input tuiSelect [formControl]="getFormControl(goalItemFormControl, 'difficulty')" />
+<tui-data-list *tuiDropdown>
               @for (difficulty of difficulties; track difficulty) {
                 <button [value]="difficulty[0]" tuiOption>
                   {{ difficulty[1] }}
                 </button>
               }
             </tui-data-list>
-          </tui-select>
-          <tui-error [error]="[] | tuiFieldError | async"
+          </tui-textfield>
+          <tui-error 
           [formControl]="getFormControl(goalItemFormControl, 'difficulty')"></tui-error>
         </div>
         <div class="tui-form__multi-field">
-          <tui-input-number
-            [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"
-            [max]="getNumQuestionsLimit(goalItemFormControl)"
+          <tui-textfield
+            
+            
             >
+<label tuiLabel>
             Number of questions
-          </tui-input-number>
-          <tui-error [error]="[] | tuiFieldError | async"
+          </label>
+
+<input tuiInputNumber [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')" [max]="getNumQuestionsLimit(goalItemFormControl)" />
+</tui-textfield>
+          <tui-error 
           [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"></tui-error>
           <div class="tui-form__field-note">
             {{getNumQuestionsLimit(goalItemFormControl)}} question(s) unsolved.

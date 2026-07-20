@@ -1,8 +1,8 @@
+import { TuiNotificationService } from "@taiga-ui/core";
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {ContactService} from '@app/_services/api/contact.service'
 import {environment} from '@environments/environment'
-import { TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-contact',
@@ -18,7 +18,7 @@ export class ContactComponent implements OnInit {
     constructor(
         private builder: UntypedFormBuilder,
         private contact: ContactService,
-        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 

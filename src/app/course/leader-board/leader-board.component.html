@@ -3,31 +3,31 @@
     <h3 class="tui-text_h3 my-8">{{leaderBoardName}} Leaderboard</h3>
     @if (display_missing_message) {
       <div class="flex items-center -mt-6 mb-8">
-        <tui-avatar
-          src="@tui.circle-alert"
+        <span tuiAvatar="@tui.circle-alert"
+         
           appearance="warning"
           size="s"
           >
-        </tui-avatar>
+        </span>
         <h2 class="tui-text_body-m">Some assignments or exams tokens have not been included.</h2>
       </div>
     }
   </div>
   <div class="top-x-islands tui-space_bottom-8">
     @for (element of leaderBoard | tuiFilter: filterInTopX: rankTopX; track element; let index = $index) {
-      <tui-island
+      <div tuiCardLarge
         [style.marginTop]="(index) + 'rem'" [style.order]="(index % 2 * -index)"
         class="top-x-island"
         textAlign="center"
         >
         <div [style.background-color]="element.name || 'Anonymous User' | tuiAutoColor" class="top-x-background"></div>
         <figure class="tui-island__figure">
-          <tui-avatar [src]="element.name || 'Anonymous User' | tuiInitials" [style.background]="element.name || 'Anonymous User' | tuiAutoColor"
+          <span [tuiAvatar]="element.name || 'Anonymous User' | tuiInitials" [style.background]="element.name || 'Anonymous User' | tuiAutoColor"
             #avatar
             [round]="true"
             class="top-x-avatar"
             size="xl"
-          ></tui-avatar>
+          ></span>
         </figure>
         <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2">{{ getGetOrdinal(element.rank) }}</p>
         <h3 class="tui-island__title">
@@ -36,7 +36,7 @@
         <p class="tui-island__paragraph">
           {{ element.token ? (element.token + ' Tokens') : 'No Tokens' }}
         </p>
-      </tui-island>
+      </div>
     }
   </div>
   <table [columns]="displayedColumns" class="table" tuiTable>
@@ -56,11 +56,11 @@
             </td>
             <td *tuiCell="'name'" tuiTd>
               <div class="table-avatar-with-name">
-                <tui-avatar [src]="element.name || 'Anonymous User' | tuiInitials" [style.background]="element.name || 'Anonymous User' | tuiAutoColor"
+                <span [tuiAvatar]="element.name || 'Anonymous User' | tuiInitials" [style.background]="element.name || 'Anonymous User' | tuiAutoColor"
                   [round]="true"
                   class="tui-space_right-2"
                   size="m"
-                ></tui-avatar>
+                ></span>
                 {{ element.name || 'Anonymous User' }}
               </div>
             </td>
@@ -80,11 +80,11 @@
             </td>
             <td *tuiCell="'name'" tuiTd>
               <div class="table-avatar-with-name">
-                <tui-avatar [src]="element.name || 'Anonymous User' | tuiInitials" [style.background]="element.name || 'Anonymous User' | tuiAutoColor"
+                <span [tuiAvatar]="element.name || 'Anonymous User' | tuiInitials" [style.background]="element.name || 'Anonymous User' | tuiAutoColor"
                   [round]="true"
                   class="tui-space_right-2"
                   size="m"
-                ></tui-avatar>
+                ></span>
                 {{ element.name || 'Anonymous User' }}:
                 {{ element.member_names}}
               </div>
@@ -100,7 +100,7 @@
 } @else {
   <h3 class="tui-text_h3 my-8 tui-skeleton">{{leaderBoardName}} Leader Board</h3>
   <div class="top-x-islands tui-space_bottom-8">
-    <tui-island
+    <div tuiCardLarge
       [style.marginTop]="1 + 'rem'" [style.order]="(1 % 2 * -1)"
       class="top-x-island"
       textAlign="center"
@@ -110,12 +110,12 @@
         class="top-x-background tui-skeleton"
       ></div>
       <figure class="tui-island__figure tui-skeleton">
-        <tui-avatar [src]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
+        <span [tuiAvatar]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
           #avatar
           [round]="true"
           class="top-x-avatar tui-skeleton"
           size="xl"
-        ></tui-avatar>
+        ></span>
       </figure>
       <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2 tui-skeleton">1st</p>
       <h3 class="tui-island__title tui-skeleton">
@@ -124,20 +124,20 @@
       <p class="tui-island__paragraph tui-skeleton">
         No Tokens
       </p>
-    </tui-island>
-    <tui-island
+    </div>
+    <div tuiCardLarge
       [style.marginTop]="2 + 'rem'" [style.order]="(2 % 2 * -2)"
       class="top-x-island"
       textAlign="center">
       <div [style.backgroundColor]="'Anonymous User' | tuiAutoColor"
       class="top-x-background tui-skeleton"></div>
       <figure class="tui-island__figure tui-skeleton">
-        <tui-avatar [src]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
+        <span [tuiAvatar]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
           #avatar
           [round]="true"
           class="top-x-avatar tui-skeleton"
           size="xl"
-        ></tui-avatar>
+        ></span>
       </figure>
       <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2 tui-skeleton">2nd</p>
       <h3 class="tui-island__title tui-skeleton">
@@ -146,20 +146,20 @@
       <p class="tui-island__paragraph tui-skeleton">
         No Tokens
       </p>
-    </tui-island>
-    <tui-island
+    </div>
+    <div tuiCardLarge
       [style.marginTop]="3 + 'rem'" [style.order]="(3 % 2 * -3)"
       class="top-x-island"
       textAlign="center">
       <div [style.backgroundColor]="'Anonymous User' | tuiAutoColor"
       class="top-x-background tui-skeleton"></div>
       <figure class="tui-island__figure tui-skeleton">
-        <tui-avatar [src]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
+        <span [tuiAvatar]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
           #avatar
           [round]="true"
           class="top-x-avatar tui-skeleton"
           size="xl"
-        ></tui-avatar>
+        ></span>
       </figure>
       <p class="tui-island__paragraph tui-text_h3 tui-space_bottom-2 tui-skeleton">3rd</p>
       <h3 class="tui-island__title tui-skeleton">
@@ -168,7 +168,7 @@
       <p class="tui-island__paragraph tui-skeleton">
         No Tokens
       </p>
-    </tui-island>
+    </div>
   </div>
   <table [columns]="displayedColumns" class="table" tuiTable>
     <thead tuiThead>
@@ -185,11 +185,11 @@
         </td>
         <td class="tui-skeleton" *tuiCell="'name'" tuiTd>
           <div class="table-avatar-with-name">
-            <tui-avatar [src]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
+            <span [tuiAvatar]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
               [round]="true"
               class="tui-space_right-2"
               size="m"
-            ></tui-avatar>
+            ></span>
             Anonymous User
           </div>
         </td>
@@ -203,11 +203,11 @@
         </td>
         <td class="tui-skeleton" *tuiCell="'name'" tuiTd>
           <div class="table-avatar-with-name">
-            <tui-avatar [src]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
+            <span [tuiAvatar]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
               [round]="true"
               class="tui-space_right-2"
               size="m"
-            ></tui-avatar>
+            ></span>
             Anonymous User
           </div>
         </td>
@@ -221,11 +221,11 @@
         </td>
         <td class="tui-skeleton" *tuiCell="'name'" tuiTd>
           <div class="table-avatar-with-name">
-            <tui-avatar [src]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
+            <span [tuiAvatar]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
               [round]="true"
               class="tui-space_right-2"
               size="m"
-            ></tui-avatar>
+            ></span>
             Anonymous User
           </div>
         </td>
@@ -239,11 +239,11 @@
         </td>
         <td class="tui-skeleton" *tuiCell="'name'" tuiTd>
           <div class="table-avatar-with-name">
-            <tui-avatar [src]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
+            <span [tuiAvatar]="'Anonymous User' | tuiInitials" [style.background]="'Anonymous User' | tuiAutoColor"
               [round]="true"
               class="tui-space_right-2"
               size="m"
-            ></tui-avatar>
+            ></span>
             Anonymous User
           </div>
         </td>
