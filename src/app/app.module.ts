@@ -1,4 +1,4 @@
-import { TuiSidebar } from "@taiga-ui/addon-mobile";
+import { TuiDrawer } from "@taiga-ui/kit";
 import { TuiIslandDirective, TUI_SANITIZER, TuiInputNumberModule } from "@taiga-ui/legacy";
 import { TuiActiveZone } from "@taiga-ui/cdk";
 import { provideEventPlugins } from "@taiga-ui/event-plugins";
@@ -30,7 +30,7 @@ import {NotFoundComponent} from './components/general/not-found/not-found.compon
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component'
 import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
 
-import { TuiRoot, TuiAlert, TuiDataList, TuiLoader, TuiDropdown, TuiIcon, TuiLink, TuiDialog, TuiButton, TuiInitialsPipe, TuiAutoColorPipe } from '@taiga-ui/core'
+import { TuiRoot, TuiAlert, TuiDataList, TuiLoader, TuiDropdown, TuiIcon, TuiLink, TuiDialog, TuiButton, TuiInitialsPipe, TuiAutoColorPipe, TuiPopup } from '@taiga-ui/core'
 import { TUI_VALIDATION_ERRORS, TuiAvatar, TuiSwitch, TuiBlock, TuiRadio } from '@taiga-ui/kit'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
@@ -91,7 +91,8 @@ import {CommunityComponent} from './components/community/community.component'
         TuiBlock,
         ...TuiRadio,
         TuiRoot,
-        ...TuiSidebar,
+        TuiDrawer,
+        TuiPopup,
         TuiIcon,
         ...TuiTable,
         TuiTablePagination,
