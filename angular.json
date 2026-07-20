@@ -108,14 +108,14 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "canvas-gamification-ui:build"
+                      "buildTarget": "canvas-gamification-ui:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "canvas-gamification-ui:build:production"
+                          "buildTarget": "canvas-gamification-ui:build:production"
                         },
                         "development": {
-                            "browserTarget": "canvas-gamification-ui:build:development"
+                          "buildTarget": "canvas-gamification-ui:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -123,7 +123,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "canvas-gamification-ui:build"
+                      "buildTarget": "canvas-gamification-ui:build"
                     }
                 },
                 "test": {
