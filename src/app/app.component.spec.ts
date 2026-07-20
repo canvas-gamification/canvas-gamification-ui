@@ -23,7 +23,7 @@ describe('AppComponent', () => {
                 }, {
                     path: 'homepage',
                     component: HomepageComponent,
-                }], {relativeLinkResolution: 'legacy'})
+                }], {})
             ]
         }).compileComponents()
     }))
