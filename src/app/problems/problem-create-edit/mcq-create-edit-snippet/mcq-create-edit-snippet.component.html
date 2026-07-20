@@ -56,7 +56,7 @@
                 3
             </tui-radio-labeled>
         </div>
-        <tui-field-error formControlName="visible_distractor_count"></tui-field-error>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="visible_distractor_count"></tui-error>
         <div class="new-answers tui-space_bottom-4">
             <div *ngFor="let distractor of getDistractorFormControls(); let index = index"
                  class="new-answers__answer">

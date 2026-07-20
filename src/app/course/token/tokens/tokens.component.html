@@ -14,7 +14,7 @@
                     size="l"
                     class="whitespace-nowrap"
                     (click)="setDetailedView(false)"
-                    [pseudoPressed]="!showDetailed"
+                    [pseudoActive]="!showDetailed"
                 >
                     Overview
                 </button>
@@ -25,7 +25,7 @@
                     size="l"
                     class="whitespace-nowrap"
                     (click)="setDetailedView(true)"
-                    [pseudoPressed]="showDetailed"
+                    [pseudoActive]="showDetailed"
                 >
                     Detailed View
                 </button>
@@ -85,7 +85,7 @@
                     appearance="secondary"
                     size="l"
                     class="whitespace-nowrap tui-skeleton"
-                    [pseudoPressed]="!showDetailed"
+                    [pseudoActive]="!showDetailed"
                 >
                     Overview
                 </button>
@@ -95,7 +95,7 @@
                     appearance="secondary"
                     size="l"
                     class="whitespace-nowrap tui-skeleton"
-                    [pseudoPressed]="showDetailed"
+                    [pseudoActive]="showDetailed"
                 >
                     Detailed View
                 </button>

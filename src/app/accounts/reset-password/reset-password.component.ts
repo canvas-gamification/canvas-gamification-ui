@@ -3,7 +3,7 @@ import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/fo
 import {ResetPasswordService} from '@app/accounts/_services/reset-password.service'
 import {ActivatedRoute, Router} from "@angular/router"
 import {ResetPasswordForm} from "@app/accounts/_forms/reset-password.form"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-reset-password',
@@ -20,7 +20,7 @@ export class ResetPasswordComponent implements OnInit {
         private resetPasswordService: ResetPasswordService,
         private route: ActivatedRoute,
         private router: Router,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
     ) {
     }
 
@@ -48,7 +48,7 @@ export class ResetPasswordComponent implements OnInit {
         this.resetPasswordService.putPasswordReset(data).subscribe(() => {
             this.router.navigate(['/accounts/login']).then(() => {
                 this.notificationsService
-                    .show('Your password has been updated successfully!', {
+                    .open('Your password has been updated successfully!', {
                         status: TuiNotification.Success
                     }).subscribe()
             })
@@ -64,7 +64,7 @@ export class ResetPasswordComponent implements OnInit {
             .subscribe(() => {
                 this.formGroup.reset()
                 this.notificationsService
-                    .show('An email has been sent to you with a password reset link!', {
+                    .open('An email has been sent to you with a password reset link!', {
                         status: TuiNotification.Info
                     }).subscribe()
             })

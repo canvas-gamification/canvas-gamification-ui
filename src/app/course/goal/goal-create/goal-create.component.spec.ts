@@ -10,14 +10,7 @@ import {GoalService} from "@app/course/_services/goal.service"
 import {GoalServiceMock} from "@app/course/_test/_services/goal.service.mock"
 import {ReactiveFormsModule} from "@angular/forms"
 import {ActivatedRoute, RouterModule} from "@angular/router"
-import {
-    TuiCheckboxLabeledModule,
-    TuiFieldErrorModule, TuiInputDateModule,
-    TuiInputDateRangeModule,
-    TuiInputModule, TuiInputNumberModule,
-    TuiInputTimeModule,
-    TuiSelectModule
-} from "@taiga-ui/kit"
+import { TuiCheckboxLabeledModule, TuiInputDateModule, TuiInputDateRangeModule, TuiInputModule, TuiInputNumberModule, TuiInputTimeModule, TuiSelectModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
 import {
     TuiButtonModule,
     TuiDataListModule,
@@ -42,7 +35,7 @@ describe('GoalCreateComponent', () => {
                 TuiInputModule,
                 TuiSelectModule,
                 TuiDataListModule,
-                TuiFieldErrorModule,
+                TuiFieldErrorPipeModule,
                 TuiCheckboxLabeledModule,
                 TuiInputDateRangeModule,
                 TuiInputDateModule,

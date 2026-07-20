@@ -5,7 +5,7 @@
             <tui-input aria-label="Team Name" formControlName="name">
                 Team Name
             </tui-input>
-            <tui-field-error formControlName="name"></tui-field-error>
+            <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
         </div>
         <div class="tui-form__row">
             <tui-checkbox-labeled
@@ -15,7 +15,7 @@
             >
                 Check to lock the team so only people you have invited can join your team.
             </tui-checkbox-labeled>
-            <tui-field-error formControlName="isPrivate"></tui-field-error>
+            <tui-error [error]="[] | tuiFieldError | async" formControlName="isPrivate"></tui-error>
         </div>
         <ng-container *ngIf="isPrivate()">
             <div class="tui-form__row">

@@ -59,13 +59,13 @@
                 <tui-input-date aria-label="End Date" formControlName="end_date">
                     End date
                 </tui-input-date>
-                <tui-field-error formControlName="end_date"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="end_date"></tui-error>
             </div>
             <div class="tui-form__multi-field">
                 <tui-input-time [items]="timeOptions" aria-label="End Time" formControlName="end_time">
                     End time
                 </tui-input-time>
-                <tui-field-error formControlName="end_time"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="end_time"></tui-error>
             </div>
         </div>
         <h3 class="tui-form__header">
@@ -96,7 +96,7 @@
                         </button>
                     </tui-data-list>
                 </tui-select>
-                <tui-field-error [formControl]="getFormControl(goalItemFormControl, 'category')"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" [formControl]="getFormControl(goalItemFormControl, 'category')"></tui-error>
             </div>
             <div class="tui-form__multi-field">
                 <tui-select
@@ -110,8 +110,8 @@
                         </button>
                     </tui-data-list>
                 </tui-select>
-                <tui-field-error
-                    [formControl]="getFormControl(goalItemFormControl, 'difficulty')"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async"
+                    [formControl]="getFormControl(goalItemFormControl, 'difficulty')"></tui-error>
             </div>
             <div class="tui-form__multi-field">
                 <tui-input-number
@@ -120,8 +120,8 @@
                 >
                     Number of questions
                 </tui-input-number>
-                <tui-field-error
-                    [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async"
+                    [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"></tui-error>
                 <div class="tui-form__field-note">
                     {{getNumQuestionsLimit(goalItemFormControl)}} question(s) unsolved.
                 </div>

@@ -4,7 +4,7 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Category, CourseEvent, EventLimit} from "@app/_models"
 import {ChallengeType} from "@app/_models/challengeType"
 import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/forms"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
 import {ChallengeForm} from "@app/course/_forms/challenge.form"
 import {startCase} from 'lodash'
 import {Difficulty} from "@app/_models/difficulty"
@@ -33,7 +33,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         private courseEventService: CourseEventService,
         private readonly categoryService: CategoryService,
         private readonly difficultyService: DifficultyService,
-        private readonly notificationsService: TuiNotificationsService,
+        private readonly notificationsService: TuiAlertService,
     ) {
     }
 
@@ -124,7 +124,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
                     .toPromise()
             }
             this.notificationsService
-                .show('The challenge has been updated successfully.', {
+                .open('The challenge has been updated successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.router.navigate(
@@ -143,7 +143,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
             }
 
             this.notificationsService
-                .show('The challenge has been created successfully.', {
+                .open('The challenge has been created successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
 

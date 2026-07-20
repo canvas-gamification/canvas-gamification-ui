@@ -24,7 +24,7 @@
                 size="l"
                 class="whitespace-nowrap"
                 (click)="setListView(false)"
-                [pseudoPressed]="!enableListView"
+                [pseudoActive]="!enableListView"
             >
                 Map View
             </button>
@@ -35,7 +35,7 @@
                 size="l"
                 class="whitespace-nowrap"
                 (click)="setListView(true)"
-                [pseudoPressed]="enableListView"
+                [pseudoActive]="enableListView"
             >
                 List View
             </button>

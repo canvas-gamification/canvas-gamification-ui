@@ -14,16 +14,15 @@
                     <h3 class="tui-island__title">
                         {{ questionCount.name }}
                     </h3>
-                    <tui-ring-chart [content]="chartContent"
+                    <tui-ring-chart #chart
                                     [value]="getCountPerDifficultyValues(questionCount.count_per_difficulty)"
                                     class="tui-space_auto"
-                    ></tui-ring-chart>
-                    <ng-template #chartContent let-index>
+                    >
                         <div class="tui-text_body-xl tui-text_bold">
-                            {{getDifficultyPerCountLabel(index, questionCount)}}
+                            {{getDifficultyPerCountLabel(chart.activeItemIndex, questionCount)}}
                         </div>
-                        <div>{{getDifficultyPerCountValue(index, questionCount)}}</div>
-                    </ng-template>
+                        <div>{{getDifficultyPerCountValue(chart.activeItemIndex, questionCount)}}</div>
+                    </tui-ring-chart>
                 </tui-island>
             </div>
             <table

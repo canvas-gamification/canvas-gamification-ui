@@ -1,16 +1,16 @@
 <form (ngSubmit)="onSubmit(formData.value)" [formGroup]="formData">
     <div class="tui-form__row">
         <tui-input formControlName="email">Email</tui-input>
-        <tui-field-error formControlName="email"></tui-field-error>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="email"></tui-error>
         <div class="tui-form__field-note">We'll never share your email with anyone else.</div>
     </div>
     <div class="tui-form__row">
         <tui-input formControlName="fullname">Full Name</tui-input>
-        <tui-field-error formControlName="fullname"></tui-field-error>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="fullname"></tui-error>
     </div>
     <div class="tui-form__row">
-        <tui-text-area formControlName="comment">Comment</tui-text-area>
-        <tui-field-error formControlName="comment"></tui-field-error>
+        <tui-textarea  formControlName="comment">Comment</tui-textarea>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="comment"></tui-error>
     </div>
     <div class="tui-form__row">
         <re-captcha

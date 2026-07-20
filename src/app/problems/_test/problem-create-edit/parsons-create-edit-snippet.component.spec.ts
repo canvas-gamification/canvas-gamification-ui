@@ -8,7 +8,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {MOCK_PARSONS_QUESTION} from "@app/problems/_test/mock"
 import {TuiButtonModule, TuiHostedDropdownModule, TuiNotificationModule, TuiSvgModule} from "@taiga-ui/core"
 import {of} from "rxjs"
-import {TuiFieldErrorModule, TuiInputModule, TuiIslandModule, TuiSelectModule, TuiTextAreaModule} from "@taiga-ui/kit"
+import { TuiInputModule, TuiIslandModule, TuiSelectModule, TuiTextareaModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
 import {delay} from "rxjs/operators"
 import {HttpResponse} from "@angular/common/http"
 import {Question} from "@app/_models"
@@ -29,8 +29,8 @@ describe('ParsonsCreateEditSnippetComponent', () => {
                 ParsonsInputFilesEditorComponent, AsFormGroupPipe
             ],
             imports: [
-                TestModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
-                TuiInputModule, TuiSelectModule, TuiFieldErrorModule, TuiButtonModule,
+                TestModule, ReactiveFormsModule, FormsModule, TuiTextareaModule,
+                TuiInputModule, TuiSelectModule, TuiFieldErrorPipeModule, TuiButtonModule,
                 TuiHostedDropdownModule, TuiSvgModule, TuiNotificationModule, TuiIslandModule
             ],
         }).compileComponents()

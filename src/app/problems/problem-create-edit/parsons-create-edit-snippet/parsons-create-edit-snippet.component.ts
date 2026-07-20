@@ -3,7 +3,7 @@ import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/fo
 import {QuestionService} from '@app/problems/_services/question.service'
 import {ParsonsForm} from "@app/problems/_forms/parsons.form"
 import {Router} from "@angular/router"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
 import {Question} from "@app/_models"
 
 @Component({
@@ -21,8 +21,8 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
     constructor(
         private questionService: QuestionService,
         private router: Router,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiAlertService)
+        private readonly notificationsService: TuiAlertService
     ) {
     }
 
@@ -48,7 +48,7 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
             this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The question has been updated successfully.', {
+                        .open('The question has been updated successfully.', {
                             status: TuiNotification.Success
                         }).subscribe()
                     this.refreshPage()
@@ -57,7 +57,7 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
             this.questionService.postParsonsQuestion(submissionRequest)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The question has been created successfully.', {
+                        .open('The question has been created successfully.', {
                             status: TuiNotification.Success
                         }).subscribe()
                     this.refreshPage()

@@ -1,5 +1,5 @@
 import {Component, ElementRef, Inject, ViewChild} from '@angular/core'
-import {TuiTiptapEditorService} from '@taiga-ui/addon-editor'
+import {TuiTiptapEditorService} from '@tinkoff/tui-editor'
 import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe'
 
 @Component({

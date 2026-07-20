@@ -3,7 +3,7 @@ import {AbstractControl, UntypedFormGroup} from '@angular/forms'
 import {environment} from '@environments/environment'
 import {RegisterService} from '@app/accounts/_services/register.service'
 import {RegisterForm} from "@app/accounts/_forms/register.form"
-import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
+import { TuiNotification, TuiAlertService } from '@taiga-ui/core'
 
 
 @Component({
@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
     constructor(
         private register: RegisterService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
     ) {
     }
 
@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
             () => {
                 this.formGroup.reset()
                 this.notificationsService
-                    .show('You have successfully registered.', {
+                    .open('You have successfully registered.', {
                         status: TuiNotification.Success
                     }).subscribe()
                 this.formSubmitted = true

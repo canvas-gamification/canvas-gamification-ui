@@ -6,7 +6,7 @@ import {User} from '@app/_models'
 import {Router} from '@angular/router'
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form"
 import {AuthenticationService} from "@app/_services/api/authentication"
-import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotification, TuiAlertService } from "@taiga-ui/core"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
 
 @Component({
@@ -26,7 +26,7 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
         private consentService: ConsentService,
         private authenticationService: AuthenticationService,
         private changeDetector: ChangeDetectorRef,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
     ) {
         this.userId = this.authenticationService.currentUserValue?.id
@@ -56,7 +56,7 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
         this.profile.putProfileDetails(data, this.userDetails.id)
             .subscribe(() => {
                 this.notificationsService
-                    .show('Your profile has been updated successfully!', {
+                    .open('Your profile has been updated successfully!', {
                         status: TuiNotification.Success
                     }).subscribe()
             })
@@ -68,7 +68,7 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
     withdraw(): void {
         this.consentService.declineConsent().subscribe(() => {
             this.notificationsService
-                .show('Your consent has been withdrawn successfully!', {
+                .open('Your consent has been withdrawn successfully!', {
                     status: TuiNotification.Success
                 }).subscribe()
         })

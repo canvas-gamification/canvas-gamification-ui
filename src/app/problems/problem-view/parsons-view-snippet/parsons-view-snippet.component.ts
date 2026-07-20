@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core'
 import {ParsonsFile, UQJ} from '@app/_models'
 import {SubmissionService} from '@app/problems/_services/submission.service'
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-parsons-view-snippet',
@@ -16,7 +16,7 @@ export class ParsonsViewSnippetComponent implements OnChanges {
 
     constructor(
         private submissionService: SubmissionService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
     ) {
     }
 
@@ -45,7 +45,7 @@ export class ParsonsViewSnippetComponent implements OnChanges {
             solution: solution,
         }).subscribe(() => {
             this.notificationsService
-                .show('The question has been submitted successfully.', {
+                .open('The question has been submitted successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.successfulSubmissionEvent.emit(true)

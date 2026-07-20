@@ -8,26 +8,14 @@ import {CourseEventServiceMock} from "@app/problems/_test/_services/course-event
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {ActivatedRoute, convertToParamMap, Router, RouterModule} from "@angular/router"
 import {ReactiveFormsModule} from "@angular/forms"
-import {
-    TuiButtonModule,
-    TuiDataListModule,
-    TuiNotificationModule,
-    TuiNotificationsService
-} from "@taiga-ui/core"
+import { TuiButtonModule, TuiDataListModule, TuiNotificationModule, TuiAlertService } from "@taiga-ui/core"
 import {of} from "rxjs"
-import {
-    TuiCheckboxLabeledModule,
-    TuiFieldErrorModule,
-    TuiInputDateRangeModule,
-    TuiInputModule,
-    TuiInputTimeModule,
-    TuiSelectModule
-} from "@taiga-ui/kit"
+import { TuiCheckboxLabeledModule, TuiInputDateRangeModule, TuiInputModule, TuiInputTimeModule, TuiSelectModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
 
 describe('CourseEventCreateComponent with EventId', () => {
     let component: CourseEventCreateEditComponent
     let fixture: ComponentFixture<CourseEventCreateEditComponent>
-    let notificationService: TuiNotificationsService
+    let notificationService: TuiAlertService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -38,7 +26,7 @@ describe('CourseEventCreateComponent with EventId', () => {
                 TuiInputModule,
                 TuiSelectModule,
                 TuiDataListModule,
-                TuiFieldErrorModule,
+                TuiFieldErrorPipeModule,
                 TuiCheckboxLabeledModule,
                 TuiInputDateRangeModule,
                 TuiInputTimeModule,
@@ -66,7 +54,7 @@ describe('CourseEventCreateComponent with EventId', () => {
     })
 
     beforeEach(() => {
-        notificationService = TestBed.inject(TuiNotificationsService)
+        notificationService = TestBed.inject(TuiAlertService)
         spyOn(notificationService, 'show').and.callFake(() => {
             return of()
         })
@@ -86,7 +74,7 @@ describe('CourseEventCreateComponent with EventId', () => {
     it('submitEvent should work with eventId', fakeAsync(() => {
         component.submitEvent(component.formData)
         flushMicrotasks()
-        expect(notificationService.show).toHaveBeenCalled()
+        expect(notificationService.open).toHaveBeenCalled()
     }))
 })
 
@@ -94,7 +82,7 @@ describe('CourseEventCreateComponent without EventId', () => {
     let component: CourseEventCreateEditComponent
     let fixture: ComponentFixture<CourseEventCreateEditComponent>
     let router: Router
-    let notificationService: TuiNotificationsService
+    let notificationService: TuiAlertService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -105,7 +93,7 @@ describe('CourseEventCreateComponent without EventId', () => {
                 TuiInputModule,
                 TuiSelectModule,
                 TuiDataListModule,
-                TuiFieldErrorModule,
+                TuiFieldErrorPipeModule,
                 TuiCheckboxLabeledModule,
                 TuiInputDateRangeModule,
                 TuiInputTimeModule,
@@ -133,7 +121,7 @@ describe('CourseEventCreateComponent without EventId', () => {
     beforeEach(() => {
         router = TestBed.inject(Router)
         spyOn(router, 'navigate').and.returnValue(Promise.resolve(true))
-        notificationService = TestBed.inject(TuiNotificationsService)
+        notificationService = TestBed.inject(TuiAlertService)
         spyOn(notificationService, 'show').and.callFake(() => {
             return of()
         })
@@ -149,7 +137,7 @@ describe('CourseEventCreateComponent without EventId', () => {
     it('submitEvent should work without eventId', fakeAsync(() => {
         component.submitEvent(component.formData)
         flushMicrotasks()
-        expect(notificationService.show).toHaveBeenCalled()
+        expect(notificationService.open).toHaveBeenCalled()
         expect(router.navigate).toHaveBeenCalledOnceWith(['course', 1, 'assignments-exams'])
     }))
 })

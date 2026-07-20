@@ -1,3 +1,4 @@
+import { TuiAlertService } from "@taiga-ui/core";
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {ConsentFormComponent} from './consent-form.component'
@@ -13,21 +14,13 @@ import {
 import {Router} from "@angular/router"
 import {ConsentService} from "@app/accounts/_services/consent.service"
 import {ConsentServiceMock} from "@app/accounts/_test/_services/consent.service.mock"
-import {
-    TuiCheckboxLabeledModule,
-    TuiFieldErrorModule,
-    TuiInputModule,
-    TuiIslandModule,
-    TuiMultiSelectModule,
-    TuiSelectModule
-} from "@taiga-ui/kit"
-import {TuiNotificationsService} from '@taiga-ui/core'
+import { TuiCheckboxLabeledModule, TuiInputModule, TuiIslandModule, TuiMultiSelectModule, TuiSelectModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
 import {of} from "rxjs"
 
 describe('ConsentFormComponent', () => {
     let component: ConsentFormComponent
     let fixture: ComponentFixture<ConsentFormComponent>
-    let notificationService: TuiNotificationsService
+    let notificationService: TuiAlertService
     let router: Router
 
     beforeEach(async () => {
@@ -42,7 +35,7 @@ describe('ConsentFormComponent', () => {
                 ReactiveFormsModule,
                 TuiIslandModule,
                 TuiInputModule,
-                TuiFieldErrorModule,
+                TuiFieldErrorPipeModule,
                 TuiCheckboxLabeledModule,
                 TuiSelectModule,
                 TuiMultiSelectModule
@@ -52,7 +45,7 @@ describe('ConsentFormComponent', () => {
     })
     describe('The user is an admin', () => {
         beforeEach(() => {
-            notificationService = TestBed.inject(TuiNotificationsService)
+            notificationService = TestBed.inject(TuiAlertService)
             spyOn(notificationService, 'show').and.callFake(() => {
                 return of()
             })
@@ -76,13 +69,13 @@ describe('ConsentFormComponent', () => {
             fixture.detectChanges()
             component.onSubmit()
             expect(router.navigate).toHaveBeenCalledOnceWith(['/accounts', 'survey', 'initial'])
-            expect(notificationService.show).toHaveBeenCalled()
+            expect(notificationService.open).toHaveBeenCalled()
         })
 
         it('remove a user consent', () => {
             component.declineConsent()
             expect(router.navigate).toHaveBeenCalledOnceWith(['/accounts', 'survey', 'initial'])
-            expect(notificationService.show).toHaveBeenCalled()
+            expect(notificationService.open).toHaveBeenCalled()
         })
 
         it('should fill form with name', () => {

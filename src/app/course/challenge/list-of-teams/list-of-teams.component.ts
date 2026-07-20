@@ -4,7 +4,7 @@ import {ActivatedRoute} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Course, CourseEvent, User} from "@app/_models"
 import {TeamService} from "@app/course/_services/team.service"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {CourseService} from "@app/course/_services/course.service"
 
@@ -27,8 +27,8 @@ export class ListOfTeamsComponent implements OnInit {
         private courseService: CourseService,
         private courseEventService: CourseEventService,
         private teamService: TeamService,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiAlertService)
+        private readonly notificationsService: TuiAlertService,
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
@@ -45,7 +45,7 @@ export class ListOfTeamsComponent implements OnInit {
     joinTeam(teamId: number): void {
         this.teamService.joinTeam(teamId).subscribe(() => {
             this.notificationsService
-                .show('You have successfully joined the team.', {
+                .open('You have successfully joined the team.', {
                     status: TuiNotification.Success
                 }).subscribe()
         })

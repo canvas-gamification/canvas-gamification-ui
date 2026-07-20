@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router'
 import {ConsentForm} from "@app/accounts/_forms/consent.form"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {User} from "@app/_models"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
 
 
 @Component({
@@ -46,8 +46,8 @@ export class ConsentFormComponent implements OnInit {
         private builder: UntypedFormBuilder,
         private consentService: ConsentService,
         private authenticationService: AuthenticationService,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiAlertService)
+        private readonly notificationsService: TuiAlertService
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
@@ -72,7 +72,7 @@ export class ConsentFormComponent implements OnInit {
         const data = ConsentForm.extractData(this.formGroup)
         this.consentService.postConsent(data).subscribe(() => {
             this.notificationsService
-                .show('You have successfully consented!', {
+                .open('You have successfully consented!', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.redirectAfterSubmit()
@@ -82,7 +82,7 @@ export class ConsentFormComponent implements OnInit {
     declineConsent(): void {
         this.consentService.declineConsent().subscribe(() => {
             this.notificationsService
-                .show('You successfully declined to consent.', {
+                .open('You successfully declined to consent.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.redirectAfterSubmit()

@@ -182,10 +182,10 @@
                                 class="tui-space_right-2 tui-space_vertical-2"
                                 icon="tuiIconEyeOpen"
                                 size="s"
-                                tuiDescribedBy="view-{{question.id}}"
+                                id="view-{{question.id}}"
                                 tuiHintDirection="top-left"
-                                tuiHintId="view-{{question.id}}"
-                                tuiHintMode="onDark"
+                                tuiHintDescribe="view-{{question.id}}"
+                                tuiHintAppearance="onDark"
                                 tuiIconButton
                             ></a>
                             <ng-template #viewTooltip>
@@ -197,10 +197,10 @@
                                 class="tui-space_right-2 tui-space_vertical-2"
                                 icon="tuiIconEdit"
                                 size="s"
-                                tuiDescribedBy="edit-{{question.id}}"
+                                id="edit-{{question.id}}"
                                 tuiHintDirection="top-left"
-                                tuiHintId="edit-{{question.id}}"
-                                tuiHintMode="onDark"
+                                tuiHintDescribe="edit-{{question.id}}"
+                                tuiHintAppearance="onDark"
                                 tuiIconButton
                             ></a>
                             <ng-template #editTooltip>
@@ -212,10 +212,10 @@
                                 class="tui-space_vertical-2"
                                 icon="tuiIconTrash"
                                 size="s"
-                                tuiDescribedBy="delete-{{question.id}}"
+                                id="delete-{{question.id}}"
                                 tuiHintDirection="top-left"
-                                tuiHintId="delete-{{question.id}}"
-                                tuiHintMode="onDark"
+                                tuiHintDescribe="delete-{{question.id}}"
+                                tuiHintAppearance="onDark"
                                 tuiIconButton
                                 type="button"
                             ></button>

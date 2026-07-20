@@ -7,10 +7,10 @@
                     [tuiHint]="removeTooltip"
                     icon="tuiIconTrash"
                     size="m"
-                    tuiDescribedBy="remove-{{index}}"
+                    id="remove-{{index}}"
                     tuiHintDirection="top-left"
-                    tuiHintId="remove-{{index}}"
-                    tuiHintMode="onDark"
+                    tuiHintDescribe="remove-{{index}}"
+                    tuiHintAppearance="onDark"
                     tuiIconButton
                     type="button"
                 ></button>
@@ -26,13 +26,13 @@
                     <div class="tui-col_8">
                         <div class="tui-form__row">
                             <tui-input formControlName="name">Name</tui-input>
-                            <tui-field-error formControlName="name"></tui-field-error>
+                            <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
                         </div>
                         <div class="tui-form__row">
                             <tui-checkbox-labeled formControlName="compile">
                                 Should This File Be Compiled?
                             </tui-checkbox-labeled>
-                            <tui-field-error formControlName="compile"></tui-field-error>
+                            <tui-error [error]="[] | tuiFieldError | async" formControlName="compile"></tui-error>
                         </div>
                         <div class="tui-form__row">
                             <div class="tui-form__field-note">Lines</div>
@@ -45,17 +45,17 @@
                                         <tui-input [formControl]="line | asFormControl">
                                             Line {{ index + 1 }}
                                         </tui-input>
-                                        <tui-field-error [formControl]="line | asFormControl"></tui-field-error>
+                                        <tui-error [error]="[] | tuiFieldError | async" [formControl]="line | asFormControl"></tui-error>
                                     </div>
                                     <button
                                         (click)="removeLine(form, index)"
                                         [tuiHint]="removeTooltip"
                                         icon="tuiIconTrash"
                                         size="m"
-                                        tuiDescribedBy="remove-line-{{index}}"
+                                        id="remove-line-{{index}}"
                                         tuiHintDirection="top-left"
-                                        tuiHintId="remove-line-{{index}}"
-                                        tuiHintMode="onDark"
+                                        tuiHintDescribe="remove-line-{{index}}"
+                                        tuiHintAppearance="onDark"
                                         tuiIconButton
                                         type="button"
                                     ></button>
@@ -82,7 +82,7 @@
                                 >
                                     <button
                                         [focusable]="hostedCodeBlockDropdown.open"
-                                        [pseudoPressed]="hostedCodeBlockDropdown.open"
+                                        [pseudoActive]="hostedCodeBlockDropdown.open"
                                         class="code-block-dropdown_button"
                                         icon="tuiIconCode"
                                         iconRight="tuiIconChevronDown"
@@ -115,7 +115,7 @@
                         </div>
                     </div>
                     <div class="tui-col_4">
-                        <tui-text-area
+                        <tui-textarea 
                             (ngModelChange)="setFormFromString(form, $event)"
                             [expandable]="true"
                             [ngModelOptions]="{standalone: true}"
@@ -123,7 +123,7 @@
                             class="content__island-json"
                         >
                             JSON
-                        </tui-text-area>
+                        </tui-textarea>
                     </div>
                 </div>
             </div>

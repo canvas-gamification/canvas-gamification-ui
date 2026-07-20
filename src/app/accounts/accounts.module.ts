@@ -21,23 +21,10 @@ import {ResetPasswordService} from "@app/accounts/_services/reset-password.servi
 import {
     StudentTermsAndConditionsSnippetComponent
 } from './student-terms-and-conditions-snippet/student-terms-and-conditions-snippet.component'
-import {
-    TuiAvatarModule,
-    TuiCheckboxLabeledModule,
-    TuiDataListWrapperModule,
-    TuiFieldErrorModule,
-    TuiInputInlineModule,
-    TuiInputModule,
-    TuiInputPasswordModule,
-    TuiIslandModule,
-    TuiMultiSelectModule,
-    TuiRadioListModule,
-    TuiRadioModule,
-    TuiSelectModule,
-    TuiTextAreaModule
-} from "@taiga-ui/kit"
+import { TuiAvatarModule, TuiCheckboxLabeledModule, TuiDataListWrapperModule, TuiInputInlineModule, TuiInputModule, TuiInputPasswordModule, TuiIslandModule, TuiMultiSelectModule, TuiRadioListModule, TuiRadioModule, TuiSelectModule, TuiTextareaModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
 import {
     TuiButtonModule,
+    TuiErrorModule,
     TuiDataListModule,
     TuiLinkModule,
     TuiNotificationModule,
@@ -73,7 +60,8 @@ import {FinalSurveyComponent} from './survey/final-survey/final-survey.component
         TuiCheckboxLabeledModule,
         TuiDataListModule,
         TuiDataListWrapperModule,
-        TuiFieldErrorModule,
+        TuiErrorModule,
+        TuiFieldErrorPipeModule,
         TuiInputInlineModule,
         TuiInputModule,
         TuiInputPasswordModule,
@@ -84,7 +72,7 @@ import {FinalSurveyComponent} from './survey/final-survey/final-survey.component
         TuiRadioListModule,
         TuiRadioModule,
         TuiSelectModule,
-        TuiTextAreaModule,
+        TuiTextareaModule,
         TuiTextfieldControllerModule,
     ],
     providers: [

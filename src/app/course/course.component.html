@@ -4,7 +4,7 @@
             <tui-breadcrumbs [size]="'l'">
                 <ng-container *ngFor="let item of breadCrumbs">
                     <a
-                        *tuiBreadcrumb
+                        *tuiItem
                         tuiLink
                         [routerLink]="item.routerLink">
                         {{item.caption}}
@@ -14,9 +14,9 @@
         </ng-container>
         <ng-template #skeletonBreadcrumbs>
             <tui-breadcrumbs class="my-3" [size]="'l'">
-                <a *tuiBreadcrumb tuiLink class="tui-skeleton">crumb that is longer</a>
-                <a *tuiBreadcrumb tuiLink class="tui-skeleton">crumb that is longer</a>
-                <a *tuiBreadcrumb tuiLink class="tui-skeleton">crumb that is longer</a>
+                <a *tuiItem tuiLink class="tui-skeleton">crumb that is longer</a>
+                <a *tuiItem tuiLink class="tui-skeleton">crumb that is longer</a>
+                <a *tuiItem tuiLink class="tui-skeleton">crumb that is longer</a>
             </tui-breadcrumbs>
         </ng-template>
         <a

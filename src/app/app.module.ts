@@ -27,25 +27,10 @@ import {NotFoundComponent} from './components/general/not-found/not-found.compon
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component'
 import {MyStatsComponent} from "@app/components/my-stats/my-stats.component"
 
-import {
-    TUI_SANITIZER,
-    TuiButtonModule,
-    TuiDataListModule,
-    TuiDialogModule,
-    TuiDropdownControllerModule,
-    TuiHostedDropdownModule,
-    TuiLinkModule,
-    TuiLoaderModule,
-    TuiModeModule,
-    TuiNotificationsModule,
-    TuiRootModule,
-    TuiSvgModule,
-    TuiThemeNightModule
-} from '@taiga-ui/core'
+import { TUI_SANITIZER, TuiButtonModule, TuiDataListModule, TuiDialogModule, TuiHostedDropdownModule, TuiLinkModule, TuiLoaderModule, TuiModeModule, TuiRootModule, TuiSvgModule, TuiThemeNightModule, TuiAlertModule, TuiDropdownModule } from '@taiga-ui/core'
 import {
     TUI_VALIDATION_ERRORS,
     TuiAvatarModule,
-    TuiDropdownHoverModule,
     TuiInputCountModule,
     TuiIslandModule,
     TuiMarkerIconModule,
@@ -108,8 +93,8 @@ import {CommunityComponent} from './components/community/community.component'
         TuiButtonModule,
         TuiDataListModule,
         TuiDialogModule,
-        TuiDropdownControllerModule,
-        TuiDropdownHoverModule,
+        TuiDropdownModule,
+        TuiDropdownModule,
         TuiHostedDropdownModule,
         TuiInputCountModule,
         TuiIslandModule,
@@ -117,7 +102,7 @@ import {CommunityComponent} from './components/community/community.component'
         TuiLoaderModule,
         TuiMarkerIconModule,
         TuiModeModule,
-        TuiNotificationsModule,
+        TuiAlertModule,
         TuiRadioBlockModule,
         TuiRootModule,
         TuiSidebarModule,

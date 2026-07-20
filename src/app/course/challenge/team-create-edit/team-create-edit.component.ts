@@ -6,7 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
 import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 
 @Component({
@@ -31,8 +31,8 @@ export class TeamCreateEditComponent implements OnInit {
         private courseEventService: CourseEventService,
         private teamService: TeamService,
         private router: Router,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiAlertService)
+        private readonly notificationsService: TuiAlertService,
     ) {
     }
 
@@ -83,7 +83,7 @@ export class TeamCreateEditComponent implements OnInit {
         if (this.teamId) {
             this.teamService.updateTeam(teamData, this.teamId).subscribe(() => {
                 this.notificationsService
-                    .show('The team has been updated successfully.', {
+                    .open('The team has been updated successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
                 this.router.navigate(
@@ -93,7 +93,7 @@ export class TeamCreateEditComponent implements OnInit {
         } else {
             this.teamService.createAndJoin(teamData).subscribe(() => {
                 this.notificationsService
-                    .show('The team has been created successfully.', {
+                    .open('The team has been created successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
                 this.router.navigate(

@@ -2,12 +2,7 @@ import {Component, Inject, OnInit, ViewChild} from '@angular/core'
 import {Course, CourseEvent, EventType, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {CourseEventService} from '@app/course/_services/course-event.service'
-import {
-    TuiDialogContext,
-    TuiDialogService,
-    TuiNotification,
-    TuiNotificationsService
-} from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotification, TuiAlertService } from "@taiga-ui/core"
 import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
 import {CourseService} from "@app/course/_services/course.service"
 import {ActivatedRoute} from "@angular/router"
@@ -39,8 +34,8 @@ export class CourseEventsSnippetComponent implements OnInit {
         private courseService: CourseService,
         private route: ActivatedRoute,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiAlertService)
+        private readonly notificationsService: TuiAlertService
     ) {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
     }
@@ -97,7 +92,7 @@ export class CourseEventsSnippetComponent implements OnInit {
     setFeatured(eventId: number) {
         return this.courseEventService.setFeatured(eventId).subscribe(() => {
             this.init()
-            this.notificationsService.show('Assessment successfully marked as featured.', {
+            this.notificationsService.open('Assessment successfully marked as featured.', {
                 status: TuiNotification.Success,
             }).subscribe()
         })
@@ -128,7 +123,7 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.courseEventService.importCourseEvent(event, courseId).subscribe((response) => {
             if (response.status === 201) {
                 this.notificationsService
-                    .show('The assessment has been imported successfully.', {
+                    .open('The assessment has been imported successfully.', {
                         status: TuiNotification.Success
                     }).subscribe()
                 this.init()

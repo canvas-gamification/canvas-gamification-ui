@@ -5,12 +5,7 @@ import {Team} from "@app/_models/team"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {startCase} from "lodash"
 import {UserActionsService} from "@app/_services/api/user-actions.service"
-import {
-    TuiDialogContext,
-    TuiDialogService,
-    TuiNotification,
-    TuiNotificationsService
-} from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotification, TuiAlertService } from "@taiga-ui/core"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 
@@ -32,7 +27,7 @@ export class ChallengeRowComponent implements OnInit {
         private userAction: UserActionsService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
         private courseEventService: CourseEventService,
-        private readonly notificationsService: TuiNotificationsService,
+        private readonly notificationsService: TuiAlertService,
     ) { }
 
     ngOnInit(): void {
@@ -53,7 +48,7 @@ export class ChallengeRowComponent implements OnInit {
 
     deleteChallenge(): void {
         this.courseEventService.deleteCourseEvent(this.event.id).subscribe( () => {
-            this.notificationsService.show('Challenge has been successfully deleted.', {
+            this.notificationsService.open('Challenge has been successfully deleted.', {
                 status: TuiNotification.Success,
             }).subscribe()
             this.reload.emit(true)

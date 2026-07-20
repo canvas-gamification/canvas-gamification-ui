@@ -10,7 +10,7 @@
             <ng-container *ngIf="viewSwitcher.view === 'tab' else listView">
                 <tui-tabs-with-more #tabsComponent class="tui-space_bottom-4">
                     <ng-container *ngFor="let input of inputFileNames">
-                        <button *tuiTab tuiTab>
+                        <button *tuiItem tuiTab>
                             {{ input.name }}
                         </button>
                     </ng-container>

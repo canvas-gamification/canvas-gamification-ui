@@ -30,39 +30,8 @@ import {QuestionService} from '@app/problems/_services/question.service'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {ParsonsLinesComponent} from './problem-view/parsons-lines/parsons-lines.component'
 import {TuiTableModule, TuiTablePaginationModule} from '@taiga-ui/addon-table'
-import {
-    TuiButtonModule,
-    TuiDataListModule,
-    TuiDescribedByModule,
-    TuiDialogModule,
-    TuiDropdownControllerModule,
-    TuiHintModule,
-    TuiHostedDropdownModule,
-    TuiLabelModule,
-    TuiLoaderModule,
-    TuiNotificationModule,
-    TuiSvgModule,
-    TuiTextfieldControllerModule
-} from '@taiga-ui/core'
-import {
-    TuiAccordionModule,
-    TuiBadgeModule,
-    TuiCheckboxBlockModule,
-    TuiCheckboxLabeledModule,
-    TuiFieldErrorModule,
-    TuiInputCountModule,
-    TuiInputModule,
-    TuiIslandModule,
-    TuiMultiSelectModule,
-    TuiRadioBlockModule,
-    TuiRadioLabeledModule,
-    TuiSelectModule,
-    TuiStringifyContentPipeModule,
-    TuiStringifyPipeModule,
-    TuiTabsModule,
-    TuiTagModule,
-    TuiTextAreaModule
-} from '@taiga-ui/kit'
+import { TuiButtonModule, TuiDataListModule, TuiDialogModule, TuiHintModule, TuiHostedDropdownModule, TuiLabelModule, TuiLoaderModule, TuiNotificationModule, TuiSvgModule, TuiTextfieldControllerModule, TuiDropdownModule, TuiErrorModule } from '@taiga-ui/core'
+import { TuiAccordionModule, TuiBadgeModule, TuiCheckboxBlockModule, TuiCheckboxLabeledModule, TuiInputCountModule, TuiInputModule, TuiIslandModule, TuiMultiSelectModule, TuiRadioBlockModule, TuiRadioLabeledModule, TuiSelectModule, TuiStringifyContentPipeModule, TuiStringifyPipeModule, TuiTabsModule, TuiTagModule, TuiTextareaModule, TuiFieldErrorPipeModule } from '@taiga-ui/kit'
 import {TabListViewSwitcherModule} from '@app/components/tab-list-view-switcher/tab-list-view-switcher.module'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 import {TestCasesEditorComponent} from '@app/problems/json-editor/test-cases-editor/test-cases-editor.component'
@@ -79,7 +48,7 @@ import {
 } from './problem-create-edit/default-create-edit-snippet/default-create-edit-snippet.component'
 import {CodeEditorModule} from '@app/components/code-editor/code-editor.module'
 import {EditorModule} from '@app/components/editor/editor.module'
-import {TuiEditorSocketModule} from '@taiga-ui/addon-editor'
+import {TuiEditorSocketModule} from '@tinkoff/tui-editor'
 import {TuiActiveZoneModule} from '@taiga-ui/cdk'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {ProblemReportModalComponent} from './problem-report/problem-report-modal.component'
@@ -128,11 +97,10 @@ import {VariationTypesSelectorComponent} from './problem-create-edit/variation-t
         TuiCheckboxBlockModule,
         TuiCheckboxLabeledModule,
         TuiDataListModule,
-        TuiDescribedByModule,
         TuiDialogModule,
-        TuiDropdownControllerModule,
+        TuiDropdownModule,
         TuiEditorSocketModule,
-        TuiFieldErrorModule,
+        TuiFieldErrorPipeModule,
         TuiHintModule,
         TuiHostedDropdownModule,
         TuiInputCountModule,
@@ -152,8 +120,9 @@ import {VariationTypesSelectorComponent} from './problem-create-edit/variation-t
         TuiTablePaginationModule,
         TuiTabsModule,
         TuiTagModule,
-        TuiTextAreaModule,
-        TuiTextfieldControllerModule
+        TuiTextareaModule,
+        TuiTextfieldControllerModule,
+        TuiErrorModule
     ],
     exports: [
         ProblemReportModalComponent,

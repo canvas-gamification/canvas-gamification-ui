@@ -4,11 +4,11 @@
         [exampleText]="exampleText"
         [ngModelOptions]="{standalone: true}"
         [ngModel]="editor.value"
-        new
+        
     >
         {{placeHolder}}
         <ng-container ngProjectAs="tools">
-            <app-katex-tool tuiToolbarTool></app-katex-tool>
+            <app-katex-tool tuiItem></app-katex-tool>
         </ng-container>
     </tui-editor>
 </ng-container>

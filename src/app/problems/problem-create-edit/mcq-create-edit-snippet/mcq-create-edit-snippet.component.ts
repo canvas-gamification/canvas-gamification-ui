@@ -3,12 +3,7 @@ import {QuestionService} from '@app/problems/_services/question.service'
 import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {McqForm} from "@app/problems/_forms/mcq.form"
 import {Router} from "@angular/router"
-import {
-    TuiDialogContext,
-    TuiDialogService,
-    TuiNotification,
-    TuiNotificationsService
-} from "@taiga-ui/core"
+import { TuiDialogContext, TuiDialogService, TuiNotification, TuiAlertService } from "@taiga-ui/core"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
 import {Question} from '@app/_models'
 
@@ -28,8 +23,8 @@ export class McqCreateEditSnippetComponent implements OnInit {
     constructor(
         private questionService: QuestionService,
         private router: Router,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiAlertService)
+        private readonly notificationsService: TuiAlertService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
     ) {
     }
@@ -75,7 +70,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
             this.questionService.putMultipleChoiceQuestion(submissionData, this.questionDetails.id)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The question has been updated successfully.', {
+                        .open('The question has been updated successfully.', {
                             status: TuiNotification.Success
                         }).subscribe()
                     this.refreshPage()
@@ -84,7 +79,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
             this.questionService.postMultipleChoiceQuestion(submissionData)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The question has been created successfully.', {
+                        .open('The question has been created successfully.', {
                             status: TuiNotification.Success
                         }).subscribe()
                     this.refreshPage()

@@ -8,10 +8,10 @@
             [tuiHint]="reorderTooltip"
             class="drag-container_handle"
             src="tuiIconDrag"
-            tuiDescribedBy="reorder-{{index}}"
+            id="reorder-{{index}}"
             tuiHintDirection="top-right"
-            tuiHintId="reorder-{{index}}"
-            tuiHintMode="onDark"
+            tuiHintDescribe="reorder-{{index}}"
+            tuiHintAppearance="onDark"
         ></tui-svg>
         <ng-template #reorderTooltip>
             Reorder Variable
@@ -24,10 +24,10 @@
                         [tuiHint]="removeTooltip"
                         icon="tuiIconTrash"
                         size="m"
-                        tuiDescribedBy="remove-{{index}}"
+                        id="remove-{{index}}"
                         tuiHintDirection="top-left"
-                        tuiHintId="remove-{{index}}"
-                        tuiHintMode="onDark"
+                        tuiHintDescribe="remove-{{index}}"
+                        tuiHintAppearance="onDark"
                         tuiIconButton
                         type="button"
                     ></button>
@@ -43,18 +43,18 @@
                         <div class="tui-col_8">
                             <div class="tui-form__row">
                                 <tui-input formControlName="name">Name</tui-input>
-                                <tui-field-error formControlName="name"></tui-field-error>
+                                <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
                             </div>
                             <ng-container
                                 *ngIf="(form | asFormGroup).controls.type.value === 'int' || (form | asFormGroup).controls.type.value === 'float'">
                                 <div class="tui-form__row tui-form__row_multi-fields">
                                     <div class="tui-form__multi-field">
                                         <tui-input-count formControlName="min">Minimum Value</tui-input-count>
-                                        <tui-field-error formControlName="min"></tui-field-error>
+                                        <tui-error [error]="[] | tuiFieldError | async" formControlName="min"></tui-error>
                                     </div>
                                     <div class="tui-form__multi-field">
                                         <tui-input-count formControlName="max">Maximum Value</tui-input-count>
-                                        <tui-field-error formControlName="max"></tui-field-error>
+                                        <tui-error [error]="[] | tuiFieldError | async" formControlName="max"></tui-error>
                                     </div>
                                 </div>
                             </ng-container>
@@ -63,7 +63,7 @@
                                     <tui-input-count formControlName="precision">Number of Digits After the Decimal
                                         Point
                                     </tui-input-count>
-                                    <tui-field-error formControlName="precision"></tui-field-error>
+                                    <tui-error [error]="[] | tuiFieldError | async" formControlName="precision"></tui-error>
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="(form | asFormGroup).controls.type.value === 'enum'">
@@ -71,13 +71,13 @@
                             <ng-container *ngIf="(form | asFormGroup).controls.type.value === 'expression'">
                                 <div class="tui-form__row">
                                     <tui-input formControlName="expression">Expression</tui-input>
-                                    <tui-field-error formControlName="expression"></tui-field-error>
+                                    <tui-error [error]="[] | tuiFieldError | async" formControlName="expression"></tui-error>
                                 </div>
                             </ng-container>
                             <ng-container *ngIf="(form | asFormGroup).controls.type.value === 'choice'">
                                 <div class="tui-form__row">
                                     <tui-input formControlName="choice">Choice</tui-input>
-                                    <tui-field-error formControlName="choice"></tui-field-error>
+                                    <tui-error [error]="[] | tuiFieldError | async" formControlName="choice"></tui-error>
                                 </div>
                             </ng-container>
                             <ng-container
@@ -92,18 +92,18 @@
                                         >
                                             <div class="tui-space_right-4 values-control__input" formArrayName="values">
                                                 <tui-input [formControl]="value | asFormControl">Value</tui-input>
-                                                <tui-field-error
-                                                    [formControl]="value | asFormControl"></tui-field-error>
+                                                <tui-error [error]="[] | tuiFieldError | async"
+                                                    [formControl]="value | asFormControl"></tui-error>
                                             </div>
                                             <button
                                                 (click)="removeValue(form, index)"
                                                 [tuiHint]="removeTooltip"
                                                 icon="tuiIconTrash"
                                                 size="m"
-                                                tuiDescribedBy="remove-value-{{index}}"
+                                                id="remove-value-{{index}}"
                                                 tuiHintDirection="top-left"
-                                                tuiHintId="remove-value-{{index}}"
-                                                tuiHintMode="onDark"
+                                                tuiHintDescribe="remove-value-{{index}}"
+                                                tuiHintAppearance="onDark"
                                                 tuiIconButton
                                                 type="button"
                                             ></button>
@@ -125,7 +125,7 @@
                             </ng-container>
                         </div>
                         <div class="tui-col_4">
-                            <tui-text-area
+                            <tui-textarea 
                                 (ngModelChange)="setFormFromString(form, $event)"
                                 [expandable]="true"
                                 [ngModelOptions]="{standalone: true}"
@@ -133,7 +133,7 @@
                                 class="content__island-json"
                             >
                                 JSON
-                            </tui-text-area>
+                            </tui-textarea>
                         </div>
                     </div>
                 </div>

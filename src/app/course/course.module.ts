@@ -20,52 +20,8 @@ import {CourseService} from '@app/course/_services/course.service'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {TokenUseService} from '@app/course/_services/token-use.service'
 import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component'
-import {
-    TuiAccordionModule,
-    TuiAvatarModule,
-    TuiBreadcrumbsModule,
-    TuiCheckboxBlockModule,
-    TuiCheckboxLabeledModule,
-    TuiDataListWrapperModule,
-    TuiFieldErrorModule,
-    TuiInputCountModule,
-    TuiInputDateModule,
-    TuiInputDateRangeModule,
-    TuiInputModule,
-    TuiInputNumberModule,
-    TuiInputTimeModule,
-    TuiIslandModule,
-    TuiMarkerIconModule,
-    TuiMultiSelectModule,
-    TuiPaginationModule,
-    TuiProgressModule,
-    TuiSelectModule,
-    TuiStepperModule,
-    TuiTabsModule,
-    TuiTagModule,
-    TuiTextAreaModule,
-    TuiToggleModule
-} from '@taiga-ui/kit'
-import {
-    TuiButtonModule,
-    TuiCalendarModule,
-    TuiDataListModule,
-    TuiDescribedByModule,
-    TuiDialogModule,
-    TuiErrorModule,
-    TuiGroupModule,
-    TuiHintModule,
-    TuiHostedDropdownModule,
-    TuiLinkModule,
-    TuiLoaderModule,
-    TuiModeModule,
-    TuiNotificationModule,
-    TuiPointerHintModule,
-    TuiScrollbarModule,
-    TuiSvgModule,
-    TuiTextfieldControllerModule
-} from '@taiga-ui/core'
-import {TextMaskModule} from 'angular2-text-mask'
+import { TuiAccordionModule, TuiAvatarModule, TuiBreadcrumbsModule, TuiCheckboxBlockModule, TuiCheckboxLabeledModule, TuiDataListWrapperModule, TuiInputCountModule, TuiInputDateModule, TuiInputDateRangeModule, TuiInputModule, TuiInputNumberModule, TuiInputTimeModule, TuiIslandModule, TuiMarkerIconModule, TuiMultiSelectModule, TuiPaginationModule, TuiProgressModule, TuiSelectModule, TuiStepperModule, TuiTabsModule, TuiTagModule, TuiTextareaModule, TuiToggleModule, TuiFieldErrorPipeModule } from '@taiga-ui/kit'
+import { TuiButtonModule, TuiCalendarModule, TuiDataListModule, TuiDialogModule, TuiErrorModule, TuiGroupModule, TuiHintModule, TuiHostedDropdownModule, TuiLinkModule, TuiLoaderModule, TuiModeModule, TuiNotificationModule, TuiScrollbarModule, TuiSvgModule, TuiTextfieldControllerModule } from '@taiga-ui/core'
 import {
     CourseRegistrationStepperComponent
 } from './course-registration/course-registration-stepper/course-registration-stepper.component'
@@ -179,7 +135,6 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module"
         ProblemsModule,
         ReactiveFormsModule,
         SidebarModule,
-        TextMaskModule,
         TuiAccordionModule,
         TuiActiveZoneModule,
         TuiAvatarModule,
@@ -192,10 +147,9 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module"
         TuiCheckboxLabeledModule,
         TuiDataListModule,
         TuiDataListWrapperModule,
-        TuiDescribedByModule,
         TuiDialogModule,
         TuiErrorModule,
-        TuiFieldErrorModule,
+        TuiFieldErrorPipeModule,
         TuiFilterPipeModule,
         TuiForModule,
         TuiGroupModule,
@@ -215,7 +169,7 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module"
         TuiMultiSelectModule,
         TuiNotificationModule,
         TuiPaginationModule,
-        TuiPointerHintModule,
+        TuiHintModule,
         TuiProgressModule,
         TuiRingChartModule,
         TuiScrollbarModule,
@@ -227,10 +181,11 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module"
         TuiTablePaginationModule,
         TuiTabsModule,
         TuiTagModule,
-        TuiTextAreaModule,
+        TuiTextareaModule,
         DragulaModule.forRoot(),
         TuiTextfieldControllerModule,
         TuiToggleModule,
+
     ],
     providers: [
         CourseEventService,

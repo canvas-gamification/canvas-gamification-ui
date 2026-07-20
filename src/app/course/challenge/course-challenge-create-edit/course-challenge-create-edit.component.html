@@ -16,7 +16,7 @@
             <tui-input aria-label="Challenge Name" formControlName="name">
                 Challenge Name
             </tui-input>
-            <tui-field-error formControlName="name"></tui-field-error>
+            <tui-error [error]="[] | tuiFieldError | async" formControlName="name"></tui-error>
         </div>
         <div class="tui-form__row">
             <tui-select
@@ -35,7 +35,7 @@
                     </button>
                 </tui-data-list>
             </tui-select>
-            <tui-field-error formControlName="challengeType"></tui-field-error>
+            <tui-error [error]="[] | tuiFieldError | async" formControlName="challengeType"></tui-error>
         </div>
         <div *ngIf="isTopTeams()" class="tui-form__row">
             <tui-input-number
@@ -45,32 +45,32 @@
             >
                 How many of the top teams will receive tokens?
             </tui-input-number>
-            <tui-field-error formControlName="challengeTypeValue"></tui-field-error>
+            <tui-error [error]="[] | tuiFieldError | async" formControlName="challengeTypeValue"></tui-error>
         </div>
         <div class="tui-form__row">
             <tui-input-number aria-label="Max number of students" formControlName="maxTeamSize">
                 Maximum number of students in the team
             </tui-input-number>
-            <tui-field-error formControlName="maxTeamSize"></tui-field-error>
+            <tui-error [error]="[] | tuiFieldError | async" formControlName="maxTeamSize"></tui-error>
         </div>
         <div class="tui-form__row">
             <tui-input-date-range aria-label="Start and End Date" formControlName="startEndDate">
                 Start and end date
             </tui-input-date-range>
-            <tui-field-error formControlName="startEndDate"></tui-field-error>
+            <tui-error [error]="[] | tuiFieldError | async" formControlName="startEndDate"></tui-error>
         </div>
         <div class="tui-form__row tui-form__row_multi-fields">
             <div class="tui-form__multi-field">
                 <tui-input-time [items]="" aria-label="Start Time" formControlName="startTime">
                     Start time
                 </tui-input-time>
-                <tui-field-error formControlName="startTime"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="startTime"></tui-error>
             </div>
             <div class="tui-form__multi-field">
                 <tui-input-time [items]="" aria-label="End Time" formControlName="endTime">
                     End time
                 </tui-input-time>
-                <tui-field-error formControlName="endTime"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="endTime"></tui-error>
             </div>
         </div>
         <tui-notification
@@ -120,8 +120,8 @@
                         </button>
                     </tui-data-list>
                 </tui-select>
-                <tui-field-error
-                    [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async"
+                    [formControl]="getFormControl(questionSetFormControl, 'category')"></tui-error>
             </div>
             <div class="tui-form__multi-field">
                 <tui-select
@@ -136,9 +136,9 @@
                         </button>
                     </tui-data-list>
                 </tui-select>
-                <tui-field-error
+                <tui-error [error]="[] | tuiFieldError | async"
                     [formControl]="getFormControl(questionSetFormControl, 'difficulty')"
-                ></tui-field-error>
+                ></tui-error>
             </div>
             <div class="tui-form__multi-field">
                 <tui-input-number
@@ -147,9 +147,9 @@
                 >
                     Number of questions
                 </tui-input-number>
-                <tui-field-error
+                <tui-error [error]="[] | tuiFieldError | async"
                     [formControl]="getFormControl(questionSetFormControl, 'number_of_questions')"
-                ></tui-field-error>
+                ></tui-error>
                 <div class="tui-form__field-note">
                     {{getNumQuestionsLimit(questionSetFormControl)}} question(s) available.
                 </div>

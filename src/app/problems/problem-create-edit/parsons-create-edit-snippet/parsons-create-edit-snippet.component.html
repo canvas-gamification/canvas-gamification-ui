@@ -17,7 +17,7 @@
             (codeTemplateChange)="form.junit_template.setValue($event)"
             [codeTemplate]="form.junit_template.value"
         ></app-code-editor>
-        <tui-field-error formControlName="junit_template"></tui-field-error>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="junit_template"></tui-error>
         <p class="tui-form__field-note">
             Please provide a JUnit template to evaluate the code.
             Identify where to insert the solution by "code"

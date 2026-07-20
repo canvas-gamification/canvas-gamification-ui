@@ -3,7 +3,7 @@ import {UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGro
 import {UQJ} from '@app/_models'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
-import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
+import { TuiNotification, TuiAlertService } from '@taiga-ui/core'
 
 @Component({
     selector: 'app-mcq-view-snippet',
@@ -23,7 +23,7 @@ export class McqViewSnippetComponent implements OnChanges {
         private submissionService: SubmissionService,
         private formBuilder: UntypedFormBuilder,
         private sanitizer: DomSanitizer,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiAlertService) private readonly notificationsService: TuiAlertService
     ) {
     }
 
@@ -74,7 +74,7 @@ export class McqViewSnippetComponent implements OnChanges {
         this.waitingSubmission = true
         this.submissionService.postQuestionSubmission(formData).subscribe(() => {
             this.notificationsService
-                .show('The question has been submitted successfully.', {
+                .open('The question has been submitted successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.successfulSubmissionEvent.emit(true)
@@ -94,7 +94,7 @@ export class McqViewSnippetComponent implements OnChanges {
             solution: this.checkboxAnswers.sort().toString()
         }).subscribe(() => {
             this.notificationsService
-                .show('The question has been submitted successfully.', {
+                .open('The question has been submitted successfully.', {
                     status: TuiNotification.Success
                 }).subscribe()
             this.successfulSubmissionEvent.emit(true)

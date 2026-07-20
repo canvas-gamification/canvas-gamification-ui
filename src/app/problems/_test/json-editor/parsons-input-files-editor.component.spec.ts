@@ -4,7 +4,7 @@ import {
     ParsonsInputFilesEditorComponent
 } from '../../json-editor/parsons-input-files-editor/parsons-input-files-editor.component'
 import {TestModule} from "@test/test.module"
-import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit"
+import { TuiCheckboxLabeledModule, TuiInputModule, TuiIslandModule, TuiFieldErrorPipeModule } from "@taiga-ui/kit"
 import {UntypedFormArray, UntypedFormGroup, ReactiveFormsModule} from "@angular/forms"
 
 describe('ParsonsInputFilesEditorComponent', () => {
@@ -14,7 +14,7 @@ describe('ParsonsInputFilesEditorComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [ParsonsInputFilesEditorComponent],
-            imports: [TestModule, ReactiveFormsModule, TuiInputModule, TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiIslandModule]
+            imports: [TestModule, ReactiveFormsModule, TuiInputModule, TuiCheckboxLabeledModule, TuiFieldErrorPipeModule, TuiIslandModule]
         }).compileComponents()
     })
 

@@ -1,10 +1,5 @@
 import {Component, Injector, Input, OnDestroy} from '@angular/core'
-import {
-    defaultEditorExtensions,
-    tiptapEditorStyles,
-    TUI_EDITOR_EXTENSIONS,
-    TUI_EDITOR_STYLES
-} from '@taiga-ui/addon-editor'
+import {defaultEditorExtensions, TUI_EDITOR_EXTENSIONS} from '@tinkoff/tui-editor'
 import {
     ControlValueAccessor,
     UntypedFormControl,
@@ -31,10 +26,6 @@ import {createInlineMathEditorExtension} from '@app/components/editor/inline-mat
                 ...defaultEditorExtensions,
                 createInlineMathEditorExtension(injector)
             ]
-        },
-        {
-            provide: TUI_EDITOR_STYLES,
-            useValue: tiptapEditorStyles,
         },
         {
             provide: NG_VALUE_ACCESSOR,

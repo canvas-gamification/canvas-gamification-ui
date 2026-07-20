@@ -1,3 +1,4 @@
+import { TuiStatus } from "@taiga-ui/kit";
 import {Component, Inject, OnInit} from '@angular/core'
 import {Course, CourseEvent, UQJ, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
@@ -6,15 +7,9 @@ import {UqjService} from '@app/problems/_services/uqj.service'
 import {forkJoin} from 'rxjs'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {CourseService} from '@app/course/_services/course.service'
-import {TuiStatusT} from "@taiga-ui/kit"
 import {Team} from "@app/_models/team"
 import {TeamService} from "@app/course/_services/team.service"
-import {
-    TuiDialogContext,
-    TuiNotification,
-    TuiNotificationsService,
-    TuiDialogService
-} from "@taiga-ui/core"
+import { TuiDialogContext, TuiNotification, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
 import {startCase} from "lodash"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
 import {orderUQJs} from "@app/course/_utils/orderUQJs"
@@ -44,7 +39,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
         private courseEventService: CourseEventService,
         private courseService: CourseService,
         private teamService: TeamService,
-        private readonly notificationService: TuiNotificationsService,
+        private readonly notificationService: TuiAlertService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
         private conceptViewService: ConceptViewService
     ) {
@@ -104,7 +99,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
      * Return the CSS class corresponding to the completion status of the UQJ
      * @param status - the status text to be checked
      */
-    highlight(status: string): TuiStatusT {
+    highlight(status: string): TuiStatus {
         if (status.localeCompare('Solved') === 0) {
             return 'success'
         } else if (status.localeCompare('Partially Solved') === 0) {
@@ -121,7 +116,7 @@ export class CourseQuestionSnippetComponent implements OnInit {
 
     removeQuestion(questionId: number) {
         this.courseEventService.removeQuestion(this.eventId, questionId).subscribe(() => {
-            this.notificationService.show("Question removed successfully", {
+            this.notificationService.open("Question removed successfully", {
                 status: TuiNotification.Success,
             }).subscribe()
             this.init()

@@ -1,7 +1,7 @@
 <div [formGroup]="formGroup">
     <div class="tui-form__row">
         <tui-input formControlName="title">Question Name</tui-input>
-        <tui-field-error formControlName="title"></tui-field-error>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="title"></tui-error>
     </div>
     <div class="tui-form__row">
         <tui-select
@@ -14,7 +14,7 @@
                     {{ difficulty[1] }}
                 </button>
             </tui-data-list>
-            <tui-field-error formControlName="difficulty"></tui-field-error>
+            <tui-error [error]="[] | tuiFieldError | async" formControlName="difficulty"></tui-error>
         </tui-select>
     </div>
     <div class="tui-form__row">
@@ -29,7 +29,7 @@
                 </button>
             </tui-data-list>
         </tui-select>
-        <tui-field-error formControlName="category"></tui-field-error>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="category"></tui-error>
     </div>
     <div class="tui-form__row">
         <tui-checkbox-labeled formControlName="is_verified" size="l">Is Verified
@@ -61,7 +61,7 @@
                         </button>
                     </tui-data-list>
                 </tui-select>
-                <tui-field-error formControlName="course"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="course"></tui-error>
             </div>
             <div class="tui-form__multi-field">
                 <tui-select
@@ -76,7 +76,7 @@
                         </button>
                     </tui-data-list>
                 </tui-select>
-                <tui-field-error formControlName="event"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="event"></tui-error>
             </div>
         </div>
     </ng-container>

@@ -26,26 +26,26 @@
                             <tui-input aria-label="First Name" formControlName="first_name">
                                 First Name
                             </tui-input>
-                            <tui-field-error formControlName="first_name"></tui-field-error>
+                            <tui-error [error]="[] | tuiFieldError | async" formControlName="first_name"></tui-error>
                         </div>
                         <div class="tui-form__multi-field">
                             <tui-input aria-label="Last Name" formControlName="last_name">
                                 Last Name
                             </tui-input>
-                            <tui-field-error formControlName="last_name"></tui-field-error>
+                            <tui-error [error]="[] | tuiFieldError | async" formControlName="last_name"></tui-error>
                         </div>
                     </div>
                     <div class="tui-form__row">
                         <tui-input aria-label="Nickname" formControlName="nickname">
                             Nickname
                         </tui-input>
-                        <tui-field-error formControlName="nickname"></tui-field-error>
+                        <tui-error [error]="[] | tuiFieldError | async" formControlName="nickname"></tui-error>
                     </div>
                     <div class="tui-form__row">
                         <tui-input [readOnly]="true" aria-label="Email" formControlName="email">
                             Email
                         </tui-input>
-                        <tui-field-error formControlName="email"></tui-field-error>
+                        <tui-error [error]="[] | tuiFieldError | async" formControlName="email"></tui-error>
                     </div>
                     <div class="tui-form__buttons">
                         <button

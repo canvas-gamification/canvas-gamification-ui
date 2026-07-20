@@ -65,7 +65,7 @@ export class CourseRegistrationStepperComponent implements AfterContentInit, Aft
      * @param stepNumber
      */
     setStepComplete(stepNumber: number): void {
-        this.getStep(stepNumber).state = 'pass'
+        this.getStep(stepNumber).stepState = 'pass'
         this.getStep(stepNumber).icon = 'tuiIconCheckLarge'
     }
 

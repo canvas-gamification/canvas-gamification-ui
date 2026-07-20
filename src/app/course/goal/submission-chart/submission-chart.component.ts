@@ -1,6 +1,5 @@
 import {Component, Input} from '@angular/core'
 import {GoalItemSubmissionStats} from "@app/_models/goal/goal"
-import {TuiBaseColor} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-submission-chart',
@@ -21,15 +20,6 @@ export class SubmissionChartComponent {
         if (isNaN(this.activeItemIndex))
             return this.submissionStats.total
         return this.values()[this.activeItemIndex]
-    }
-
-    color(i: number) {
-        const colors = {
-            0: TuiBaseColor.Success,
-            1: TuiBaseColor.Primary,
-            2: TuiBaseColor.Error,
-        }
-        return colors[i]
     }
 
     label(i: number) {

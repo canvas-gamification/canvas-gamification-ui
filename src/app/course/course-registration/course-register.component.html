@@ -36,7 +36,7 @@
                                formControlName="code">
                         Enter verification code&nbsp;<span class="tui-required"></span>
                     </tui-input>
-                    <tui-field-error formControlName="code"></tui-field-error>
+                    <tui-error [error]="[] | tuiFieldError | async" formControlName="code"></tui-error>
                 </div>
                 <div class="tui-form__buttons">
                     <button [showLoader]="loadingContent" aria-label="Register" class="tui-form__button" size="m"

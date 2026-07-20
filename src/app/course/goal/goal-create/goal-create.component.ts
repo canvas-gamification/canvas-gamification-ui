@@ -3,7 +3,7 @@ import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/f
 import {GoalForm} from "@app/course/_forms/goal.form"
 import {GoalService} from "@app/course/_services/goal.service"
 import {ActivatedRoute, Router} from "@angular/router"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
 import {tuiCreateTimePeriods} from "@taiga-ui/kit"
 import {CategoryService} from "@app/_services/api/category.service"
 import {ActionStatus, ActionType, ActionVerb, Category} from "@app/_models"
@@ -38,7 +38,7 @@ export class GoalCreateComponent implements OnInit {
         private readonly difficultyService: DifficultyService,
         private readonly router: Router,
         private readonly activatedRoute: ActivatedRoute,
-        private readonly notificationService: TuiNotificationsService,
+        private readonly notificationService: TuiAlertService,
         private readonly userActionsService: UserActionsService,
     ) {
         dayjs.extend(relativeTime)
@@ -145,7 +145,7 @@ export class GoalCreateComponent implements OnInit {
             await this.goalService.createGoalItem(goalItemData).toPromise()
         }
 
-        this.notificationService.show('Goal created successfully!', {
+        this.notificationService.open('Goal created successfully!', {
             label: 'Success',
             status: TuiNotification.Success
         }).subscribe()

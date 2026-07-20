@@ -10,13 +10,7 @@ import {ReactiveFormsModule} from "@angular/forms"
 import {QuestionService} from "@app/problems/_services/question.service"
 import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock"
 import {AppRoutingModule} from "@app/app-routing.module"
-import {
-    TuiDataListModule,
-    TuiHintModule,
-    TuiHostedDropdownModule,
-    TuiLoaderModule,
-    TuiNotificationsService
-} from "@taiga-ui/core"
+import { TuiDataListModule, TuiHintModule, TuiHostedDropdownModule, TuiLoaderModule, TuiAlertService } from "@taiga-ui/core"
 import {of} from "rxjs"
 import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table"
 import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit"
@@ -40,7 +34,7 @@ class TestProblemSetDialogComponent {
 describe('ProblemSetComponent', () => {
     let component: ProblemSetComponent
     let fixture: ComponentFixture<ProblemSetComponent>
-    let notificationService: TuiNotificationsService
+    let notificationService: TuiAlertService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -72,7 +66,7 @@ describe('ProblemSetComponent', () => {
     })
 
     beforeEach(() => {
-        notificationService = TestBed.inject(TuiNotificationsService)
+        notificationService = TestBed.inject(TuiAlertService)
         spyOn(notificationService, 'show').and.callFake(() => of())
         fixture = TestBed.createComponent(ProblemSetComponent)
         component = fixture.componentInstance
@@ -129,7 +123,7 @@ describe('ProblemSetComponent', () => {
     it('should delete a question', fakeAsync(() => {
         component.deleteQuestion(0)
         tick(1000)
-        expect(notificationService.show).toHaveBeenCalled()
+        expect(notificationService.open).toHaveBeenCalled()
     }))
 
     it('should open delete modal', fakeAsync(() => {

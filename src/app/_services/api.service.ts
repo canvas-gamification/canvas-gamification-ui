@@ -4,7 +4,7 @@ import {Observable, of, throwError} from "rxjs"
 import {HttpErrorResponse} from "@angular/common/http"
 import {Router} from "@angular/router"
 import {Location} from "@angular/common"
-import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
+import { TuiNotification, TuiAlertService } from '@taiga-ui/core'
 
 @Injectable({
     providedIn: 'root'
@@ -12,8 +12,8 @@ import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
 export class ApiService {
     constructor(
         private router: Router,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiAlertService)
+        private readonly notificationsService: TuiAlertService
     ) {
     }
 
@@ -59,7 +59,7 @@ export class ApiService {
 
             if (showMessage)
                 this.notificationsService
-                    .show(message || error.statusText, {
+                    .open(message || error.statusText, {
                         status: TuiNotification.Error
                     }).subscribe()
             if (!result) {
@@ -73,7 +73,7 @@ export class ApiService {
         const toastErrorObject = (error: unknown): void => {
             if (typeof error === 'string') {
                 this.notificationsService
-                    .show(error, {
+                    .open(error, {
                         status: TuiNotification.Error
                     }).subscribe()
             } else if (Array.isArray(error)) {
@@ -90,7 +90,7 @@ export class ApiService {
             const apiError = error.error
             if (!apiError) {
                 this.notificationsService
-                    .show('Something went wrong!', {
+                    .open('Something went wrong!', {
                         status: TuiNotification.Error
                     }).subscribe()
             } else {

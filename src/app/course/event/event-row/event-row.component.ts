@@ -1,12 +1,7 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core'
 import {CourseEvent, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
-import {
-    TuiNotification,
-    TuiNotificationsService,
-    TuiDialogContext,
-    TuiDialogService
-} from "@taiga-ui/core"
+import { TuiNotification, TuiDialogContext, TuiDialogService, TuiAlertService } from "@taiga-ui/core"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Router} from "@angular/router"
 import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
@@ -25,7 +20,7 @@ export class EventRowComponent implements OnInit {
     constructor(
         private readonly authenticationService: AuthenticationService,
         private readonly courseEventService: CourseEventService,
-        private readonly notificationsService: TuiNotificationsService,
+        private readonly notificationsService: TuiAlertService,
         private router: Router,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
     ) {
@@ -37,7 +32,7 @@ export class EventRowComponent implements OnInit {
 
     setFeatured() {
         return this.courseEventService.setFeatured(this.event.id).subscribe(() => {
-            this.notificationsService.show('Assessment successfully marked as featured.', {
+            this.notificationsService.open('Assessment successfully marked as featured.', {
                 status: TuiNotification.Success,
             }).subscribe()
             this.reload.emit(true)
@@ -46,7 +41,7 @@ export class EventRowComponent implements OnInit {
 
     clearFeatured() {
         return this.courseEventService.clearFeatured(this.event.id).subscribe(() => {
-            this.notificationsService.show('Assessment successfully unmarked as featured.', {
+            this.notificationsService.open('Assessment successfully unmarked as featured.', {
                 status: TuiNotification.Success,
             }).subscribe()
             this.reload.emit(true)
@@ -77,7 +72,7 @@ export class EventRowComponent implements OnInit {
      */
     deleteEvent() {
         return this.courseEventService.deleteCourseEvent(this.event.id).subscribe(() => {
-            this.notificationsService.show('Assessment successfully deleted.', {
+            this.notificationsService.open('Assessment successfully deleted.', {
                 status: TuiNotification.Success,
             }).subscribe()
             this.reload.emit(true)

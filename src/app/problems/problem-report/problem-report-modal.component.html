@@ -15,14 +15,14 @@
                         {{ reportOption[1] }}
                     </button>
                 </tui-data-list>
-                <tui-field-error formControlName="report"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="report"></tui-error>
             </tui-select>
         </div>
         <div class="tui-form__row">
-            <tui-text-area
+            <tui-textarea 
                 formControlName="report_details">
                 Details
-            </tui-text-area>
+            </tui-textarea>
         </div>
     </div>
     <div class="tui-form__row">

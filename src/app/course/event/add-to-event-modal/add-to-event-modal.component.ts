@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core'
 import {CourseEvent} from "@app/_models"
 import {CourseEventService} from "@app/course/_services/course-event.service"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import { TuiNotification, TuiAlertService } from "@taiga-ui/core"
 
 @Component({
     selector: 'app-add-to-event-modal',
@@ -17,7 +17,7 @@ export class AddToEventModalComponent {
 
     constructor(
         private readonly courseEventService: CourseEventService,
-        private readonly notificationService: TuiNotificationsService,
+        private readonly notificationService: TuiAlertService,
     ) {
     }
 
@@ -28,7 +28,7 @@ export class AddToEventModalComponent {
 
     addToEvent(event: CourseEvent) {
         this.courseEventService.addQuestion(event.id, this.questionId).subscribe(() => {
-            this.notificationService.show("Question added to event.", {
+            this.notificationService.open("Question added to event.", {
                 status: TuiNotification.Success,
             }).subscribe()
         })

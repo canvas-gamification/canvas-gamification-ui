@@ -38,14 +38,14 @@
                         Type in your first name:
                         <span class="tui-required"></span>
                     </tui-input>
-                    <tui-field-error formControlName="legal_first_name"></tui-field-error>
+                    <tui-error [error]="[] | tuiFieldError | async" formControlName="legal_first_name"></tui-error>
                 </div>
                 <div class="tui-form__multi-field">
                     <tui-input aria-label="Last Name" formControlName="legal_last_name">
                         Type in your last name:
                         <span class="tui-required"></span>
                     </tui-input>
-                    <tui-field-error formControlName="legal_last_name"></tui-field-error>
+                    <tui-error [error]="[] | tuiFieldError | async" formControlName="legal_last_name"></tui-error>
                 </div>
             </div>
             <div class="tui-form__row">
@@ -54,7 +54,7 @@
                     students with the same first and last name):
                     <span class="tui-required"></span>
                 </tui-input>
-                <tui-field-error formControlName="student_number"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="student_number"></tui-error>
             </div>
             <div class="tui-form__row">
                 <tui-select aria-label="Gender" formControlName="gender"
@@ -73,7 +73,7 @@
                         {{genderMapper[gender]}}
                     </ng-template>
                 </tui-select>
-                <tui-field-error formControlName="gender"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="gender"></tui-error>
             </div>
             <div class="tui-form__row">
                 <tui-multi-select aria-label="Race" formControlName="race">
@@ -92,14 +92,14 @@
                         </button>
                     </tui-data-list>
                 </tui-multi-select>
-                <tui-field-error formControlName="race"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="race"></tui-error>
             </div>
             <div class="tui-form__row">
                 <tui-input aria-label="Today's Date" formControlName="date">
                     Type in today's date:
                     <span class="tui-required"></span>
                 </tui-input>
-                <tui-field-error formControlName="date"></tui-field-error>
+                <tui-error [error]="[] | tuiFieldError | async" formControlName="date"></tui-error>
             </div>
             <div class="tui-form__buttons">
                 <button
