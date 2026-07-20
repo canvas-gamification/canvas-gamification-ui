@@ -29,10 +29,7 @@
                         "allowedCommonJsDependencies": [
                             "lodash",
                             "graphlib",
-                            "dagre",
-                            "jquery",
-                            "backbone",
-                            "angular2-text-mask"
+                            "dagre"
                         ],
                         "assets": [
                             "src/favicon.ico",
@@ -44,26 +41,18 @@
                             }
                         ],
                         "styles": [
-                          "node_modules/@taiga-ui/styles/taiga-ui-fonts.less",
-// TODO: (Taiga UI migration) Global styles will be removed in next major release. Include their source code in your project if you still require them: https://github.com/taiga-family/taiga-ui/blob/main/projects/legacy/styles/taiga-ui-global.less
-                          "node_modules/@taiga-ui/legacy/styles/taiga-ui-global.less",
-                          "node_modules/jointjs/css/layout.css",
-                          "src/scss/styles.scss",
-                          "node_modules/@taiga-ui/styles/taiga-ui-theme.less",
-                          "node_modules/katex/dist/katex.css"
+                            "node_modules/@taiga-ui/styles/taiga-ui-fonts.less",
+                            "node_modules/@taiga-ui/legacy/styles/taiga-ui-global.less",
+                            "src/scss/styles.scss",
+                            "node_modules/@taiga-ui/styles/taiga-ui-theme.less",
+                            "node_modules/katex/dist/katex.css"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
                                 "src/scss"
                             ]
                         },
-                        "scripts": [
-                            "node_modules/jquery/dist/jquery.min.js",
-                            "node_modules/lodash/lodash.js",
-                            "node_modules/backbone/backbone.js",
-                            "node_modules/jointjs/dist/joint.js",
-                            "node_modules/katex/dist/katex.js"
-                        ]
+                        "scripts": []
                     },
                     "configurations": {
                         "production": {
@@ -107,14 +96,14 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                      "buildTarget": "canvas-gamification-ui:build"
+                        "buildTarget": "canvas-gamification-ui:build"
                     },
                     "configurations": {
                         "production": {
-                          "buildTarget": "canvas-gamification-ui:build:production"
+                            "buildTarget": "canvas-gamification-ui:build:production"
                         },
                         "development": {
-                          "buildTarget": "canvas-gamification-ui:build:development"
+                            "buildTarget": "canvas-gamification-ui:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -122,7 +111,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                      "buildTarget": "canvas-gamification-ui:build"
+                        "buildTarget": "canvas-gamification-ui:build"
                     }
                 },
                 "test": {
@@ -144,12 +133,7 @@
                                 "src/scss"
                             ]
                         },
-                        "scripts": [
-                            "node_modules/jquery/dist/jquery.min.js",
-                            "node_modules/lodash/lodash.js",
-                            "node_modules/backbone/backbone.js",
-                            "node_modules/jointjs/dist/joint.js"
-                        ]
+                        "scripts": []
                     }
                 },
                 "lint": {
@@ -180,29 +164,29 @@
         "analytics": "9de04249-6dbe-4103-b4f2-50ce895f19e6"
     },
     "schematics": {
-      "@schematics/angular:component": {
-        "type": "component"
-      },
-      "@schematics/angular:directive": {
-        "type": "directive"
-      },
-      "@schematics/angular:service": {
-        "type": "service"
-      },
-      "@schematics/angular:guard": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:interceptor": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:module": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:pipe": {
-        "typeSeparator": "."
-      },
-      "@schematics/angular:resolver": {
-        "typeSeparator": "."
-      }
+        "@schematics/angular:component": {
+            "type": "component"
+        },
+        "@schematics/angular:directive": {
+            "type": "directive"
+        },
+        "@schematics/angular:service": {
+            "type": "service"
+        },
+        "@schematics/angular:guard": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:interceptor": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:module": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:pipe": {
+            "typeSeparator": "."
+        },
+        "@schematics/angular:resolver": {
+            "typeSeparator": "."
+        }
     }
 }

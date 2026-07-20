@@ -1,7 +1,5 @@
-import jQuery from 'jquery'
-import dagre from 'dagre'
-import graphlib from 'graphlib'
-import * as joint from 'jointjs'
+import * as joint from '@joint/core'
+import {DirectedGraph} from '@joint/layout-directed-graph'
 import {Category} from '@app/_models'
 
 export class ConceptMapGraph {
@@ -14,7 +12,7 @@ export class ConceptMapGraph {
         this.graph = new joint.dia.Graph()
 
         this.paper = new joint.dia.Paper({
-            el: jQuery('#paper'),
+            el: document.getElementById('paper'),
             width: '100%',
             height: 'calc(100vh - 19rem)',
             model: this.graph,
@@ -114,9 +112,7 @@ export class ConceptMapGraph {
     buildGraphFromAdjacencyList(adj: Category[]): void {
         const cells = this.makeCellsFromAdjacencyList(adj)
         this.graph.resetCells(cells)
-        const directedGraph = joint.layout.DirectedGraph.layout(this.graph, {
-            dagre,
-            graphlib,
+        const directedGraph = DirectedGraph.layout(this.graph, {
             nodeSep: 40,
             edgeSep: 40,
             ranker: 'longest-path',

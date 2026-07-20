@@ -14,7 +14,7 @@ import {
 import {ActivationEmailComponent} from "@app/accounts/activation-email/activation-email.component"
 import {ChangePasswordComponent} from "@app/accounts/change-password/change-password.component"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
-import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha"
+import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha-2"
 import {ChangePasswordService} from "@app/accounts/_services/change-password.service"
 import {ConsentService} from "@app/accounts/_services/consent.service"
 import {ProfileDetailsService} from "@app/accounts/_services/profile-details.service"
