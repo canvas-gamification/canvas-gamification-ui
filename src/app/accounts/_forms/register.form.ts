@@ -1,23 +1,23 @@
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 import {confirmPasswordValidator} from "@app/_helpers/forms/validators/confirm-password.validator"
 
 export class RegisterForm {
-    static createForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            email: new FormControl(null, [Validators.required, Validators.email]),
-            first_name: new FormControl(null, [Validators.required]),
-            last_name: new FormControl(null, [Validators.required]),
-            nickname: new FormControl(null, [Validators.required]),
-            password: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-            password2: new FormControl(null, [Validators.required, Validators.minLength(8)]),
-            recaptcha_key: new FormControl(null, [Validators.required])
+            email: new UntypedFormControl(null, [Validators.required, Validators.email]),
+            first_name: new UntypedFormControl(null, [Validators.required]),
+            last_name: new UntypedFormControl(null, [Validators.required]),
+            nickname: new UntypedFormControl(null, [Validators.required]),
+            password: new UntypedFormControl(null, [Validators.required, Validators.minLength(8)]),
+            password2: new UntypedFormControl(null, [Validators.required, Validators.minLength(8)]),
+            recaptcha_key: new UntypedFormControl(null, [Validators.required])
         }, {
             validators: confirmPasswordValidator,
         })
     }
 
-    static extractData(form: FormGroup): RegisterFormData {
+    static extractData(form: UntypedFormGroup): RegisterFormData {
         return form.getRawValue()
     }
 }

@@ -7,7 +7,7 @@ import {
 } from '@taiga-ui/addon-editor'
 import {
     ControlValueAccessor,
-    FormControl,
+    UntypedFormControl,
     NG_VALIDATORS,
     NG_VALUE_ACCESSOR,
     ValidationErrors,
@@ -53,7 +53,7 @@ export class EditorComponent implements ControlValueAccessor, Validator, OnDestr
     @Input() placeHolder = ''
     @Input() readonly = false
 
-    editor = new FormControl('', [Validators.required])
+    editor = new UntypedFormControl('', [Validators.required])
     onChangeSubs: Subscription[] = []
 
     onTouched = (): void => {

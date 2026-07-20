@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core'
-import {FormControl} from "@angular/forms"
+import {UntypedFormControl} from "@angular/forms"
 
 @Component({
     selector: 'app-variation-types-selector',
@@ -7,7 +7,7 @@ import {FormControl} from "@angular/forms"
     styleUrls: ['./variation-types-selector.component.scss']
 })
 export class VariationTypesSelectorComponent {
-    @Input() variationControl: FormControl
+    @Input() variationControl: UntypedFormControl
     variationTypes = [
         "Variable Name Change",
         "Function Name Change",

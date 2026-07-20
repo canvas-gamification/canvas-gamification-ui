@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core'
-import {FormGroup} from "@angular/forms"
+import {UntypedFormGroup} from "@angular/forms"
 import {TeamForm} from "@app/course/_forms/team.form"
 import {Course, CourseEvent, CourseRegistration} from "@app/_models"
 import {ActivatedRoute, Router} from "@angular/router"
@@ -15,7 +15,7 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
     styleUrls: ['./team-create-edit.component.scss']
 })
 export class TeamCreateEditComponent implements OnInit {
-    formData: FormGroup
+    formData: UntypedFormGroup
     courseId: number
     eventId: number
     event: CourseEvent

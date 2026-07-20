@@ -1,6 +1,6 @@
 import {Component, Inject, Input, OnInit} from '@angular/core'
 import {QuestionService} from '@app/problems/_services/question.service'
-import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms'
+import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {McqForm} from "@app/problems/_forms/mcq.form"
 import {Router} from "@angular/router"
 import {
@@ -22,8 +22,8 @@ export class McqCreateEditSnippetComponent implements OnInit {
     @Input() isCheckbox: boolean
     @Input() eventId: number
     @Input() courseId: number
-    formGroup: FormGroup
-    variationControl : FormControl
+    formGroup: UntypedFormGroup
+    variationControl : UntypedFormControl
 
     constructor(
         private questionService: QuestionService,
@@ -50,7 +50,7 @@ export class McqCreateEditSnippetComponent implements OnInit {
             this.addDistractor()
             this.addAnswer()
         }
-        this.variationControl = this.formGroup.get('variation_types') as FormControl
+        this.variationControl = this.formGroup.get('variation_types') as UntypedFormControl
     }
 
     checkCheckboxAnswersDialog(content: PolymorpheusContent<TuiDialogContext>): void {
@@ -92,12 +92,12 @@ export class McqCreateEditSnippetComponent implements OnInit {
         }
     }
 
-    getAnswerFormControls(): FormControl[] {
-        return (this.form.answer as FormArray).controls as FormControl[]
+    getAnswerFormControls(): UntypedFormControl[] {
+        return (this.form.answer as UntypedFormArray).controls as UntypedFormControl[]
     }
 
-    getAnswers(): FormArray {
-        return this.form.answer as FormArray
+    getAnswers(): UntypedFormArray {
+        return this.form.answer as UntypedFormArray
     }
 
     addAnswer(): void {
@@ -108,12 +108,12 @@ export class McqCreateEditSnippetComponent implements OnInit {
         this.getAnswers()?.removeAt(index)
     }
 
-    getDistractors(): FormArray {
-        return this.form.choices as FormArray
+    getDistractors(): UntypedFormArray {
+        return this.form.choices as UntypedFormArray
     }
 
-    getDistractorFormControls(): FormControl[] {
-        return this.getDistractors().controls as FormControl[]
+    getDistractorFormControls(): UntypedFormControl[] {
+        return this.getDistractors().controls as UntypedFormControl[]
     }
 
     addDistractor(): void {

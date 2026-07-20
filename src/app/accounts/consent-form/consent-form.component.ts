@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms'
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {ConsentService} from '@app/accounts/_services/consent.service'
 import {ActivatedRoute, Router} from '@angular/router'
 import {ConsentForm} from "@app/accounts/_forms/consent.form"
@@ -14,7 +14,7 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
     styleUrls: ['./consent-form.component.scss']
 })
 export class ConsentFormComponent implements OnInit {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     logoPath = 'assets/global/logo.jpg'
     user: User
 
@@ -43,7 +43,7 @@ export class ConsentFormComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private builder: FormBuilder,
+        private builder: UntypedFormBuilder,
         private consentService: ConsentService,
         private authenticationService: AuthenticationService,
         @Inject(TuiNotificationsService)

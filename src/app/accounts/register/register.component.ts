@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormGroup} from '@angular/forms'
+import {AbstractControl, UntypedFormGroup} from '@angular/forms'
 import {environment} from '@environments/environment'
 import {RegisterService} from '@app/accounts/_services/register.service'
 import {RegisterForm} from "@app/accounts/_forms/register.form"
@@ -12,7 +12,7 @@ import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
     styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     siteKey = environment.siteKey
     formSubmitted = false
     isLoading = false

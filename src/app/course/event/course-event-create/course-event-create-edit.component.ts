@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {Category, EventLimit, EventType} from '@app/_models'
 import {CourseEventService} from '@app/course/_services/course-event.service'
-import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms'
+import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {CourseEventForm} from "@app/course/_forms/course-event.form"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {tuiCreateTimePeriods} from "@taiga-ui/kit"
@@ -19,7 +19,7 @@ export class CourseEventCreateEditComponent implements OnInit {
     localEventTypes: EventType[] = [['ASSIGNMENT', 'Assignment'], ["EXAM", "Exam"]]
     courseId: number
     eventId: number = null
-    formData: FormGroup
+    formData: UntypedFormGroup
     timeOptions = tuiCreateTimePeriods()
     categories: Category[]
     difficulties: Difficulty[]
@@ -64,19 +64,19 @@ export class CourseEventCreateEditComponent implements OnInit {
         )
     }
 
-    getQuestionSets(): FormArray {
-        return this.formData.get('questionSets') as FormArray
+    getQuestionSets(): UntypedFormArray {
+        return this.formData.get('questionSets') as UntypedFormArray
     }
 
-    getQuestionSetFormControls(): FormControl[] {
-        return this.getQuestionSets().controls as FormControl[]
+    getQuestionSetFormControls(): UntypedFormControl[] {
+        return this.getQuestionSets().controls as UntypedFormControl[]
     }
 
-    getFormControl(fc: FormControl, field: string): FormControl {
-        return fc.get(field) as FormControl
+    getFormControl(fc: UntypedFormControl, field: string): UntypedFormControl {
+        return fc.get(field) as UntypedFormControl
     }
 
-    getNumQuestionsLimit(formControl: FormControl) {
+    getNumQuestionsLimit(formControl: UntypedFormControl) {
         const category = formControl.get('category').value as number
         const difficulty = formControl.get('difficulty').value as string
         if (!category || !difficulty) {
@@ -116,7 +116,7 @@ export class CourseEventCreateEditComponent implements OnInit {
      * the event being created is a new event or not.
      * @param formData - grabs the components formData and creates a request based on that
      */
-    async submitEvent(formData: FormGroup) {
+    async submitEvent(formData: UntypedFormGroup) {
         this.submitting = true
         const ourEvent = CourseEventForm.formatFormData(formData, this.courseId, this.eventId)
         if (this.eventId) { // If this is a previously existing event

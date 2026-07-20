@@ -1,5 +1,5 @@
 import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormGroup} from '@angular/forms'
+import {AbstractControl, UntypedFormGroup} from '@angular/forms'
 import {ProfileDetailsService} from '@app/accounts/_services/profile-details.service'
 import {ConsentService} from '@app/accounts/_services/consent.service'
 import {User} from '@app/_models'
@@ -15,7 +15,7 @@ import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
     styleUrls: ['./profile-details.component.scss']
 })
 export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     userConsent: boolean
     userDetails: User
     userId: number

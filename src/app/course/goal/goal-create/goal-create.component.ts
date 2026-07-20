@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core'
-import {FormArray, FormControl, FormGroup} from "@angular/forms"
+import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 import {GoalForm} from "@app/course/_forms/goal.form"
 import {GoalService} from "@app/course/_services/goal.service"
 import {ActivatedRoute, Router} from "@angular/router"
@@ -25,7 +25,7 @@ export class GoalCreateComponent implements OnInit {
 
     @ViewChild('createGoalElement') createGoalElement
     timeOptions = tuiCreateTimePeriods()
-    goalForm: FormGroup
+    goalForm: UntypedFormGroup
     categories: Category[]
     difficulties: Difficulty[]
     courseId: number
@@ -61,16 +61,16 @@ export class GoalCreateComponent implements OnInit {
         )
     }
 
-    getGoalItems(): FormArray {
-        return this.goalForm.get('goal_items') as FormArray
+    getGoalItems(): UntypedFormArray {
+        return this.goalForm.get('goal_items') as UntypedFormArray
     }
 
-    getFormControl(fc: FormControl, field: string): FormControl {
-        return fc.get(field) as FormControl
+    getFormControl(fc: UntypedFormControl, field: string): UntypedFormControl {
+        return fc.get(field) as UntypedFormControl
     }
 
-    getGoalItemFormControls(): FormControl[] {
-        return this.getGoalItems().controls as FormControl[]
+    getGoalItemFormControls(): UntypedFormControl[] {
+        return this.getGoalItems().controls as UntypedFormControl[]
     }
 
     addGoalItem(): void {
@@ -104,7 +104,7 @@ export class GoalCreateComponent implements OnInit {
         return dayjs(time).fromNow()
     }
 
-    getNumQuestionsLimit(formControl: FormControl) {
+    getNumQuestionsLimit(formControl: UntypedFormControl) {
         const category = formControl.get('category').value as number
         const difficulty = formControl.get('difficulty').value as string
         if (!category || !difficulty) {

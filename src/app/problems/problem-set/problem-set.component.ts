@@ -1,5 +1,5 @@
 import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms'
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {Category, FilterParameters, Question} from '@app/_models'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {Subject} from 'rxjs'
@@ -33,7 +33,7 @@ export type SortingKey =
     styleUrls: ['./problem-set.component.scss'],
 })
 export class ProblemSetComponent implements OnInit, AfterContentChecked {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     questions: Question[] = []
     questionsTableColumns: string[] = [
         'id', 'title', 'author_name', 'event_name', 'parent_category_name', 'category_name',
@@ -79,7 +79,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
     difficulties: Difficulty[]
 
     constructor(
-        private builder: FormBuilder,
+        private builder: UntypedFormBuilder,
         private questionService: QuestionService,
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,

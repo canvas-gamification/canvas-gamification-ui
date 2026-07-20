@@ -1,5 +1,5 @@
 import {Component, Inject, Input, OnInit} from '@angular/core'
-import {AbstractControl, FormControl, FormGroup} from '@angular/forms'
+import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {JavaForm} from "@app/problems/_forms/java.form"
 import {Router} from "@angular/router"
@@ -15,8 +15,8 @@ export class JavaCreateEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question
     @Input() eventId: number
     @Input() courseId: number
-    formGroup: FormGroup
-    variationControl : FormControl
+    formGroup: UntypedFormGroup
+    variationControl : UntypedFormControl
 
     constructor(
         private questionService: QuestionService,
@@ -39,7 +39,7 @@ export class JavaCreateEditSnippetComponent implements OnInit {
         } else {
             this.formGroup = JavaForm.createForm(this.courseId, this.eventId)
         }
-        this.variationControl = this.formGroup.get('variation_types') as FormControl
+        this.variationControl = this.formGroup.get('variation_types') as UntypedFormControl
     }
 
     /**

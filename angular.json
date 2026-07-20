@@ -176,7 +176,6 @@
             }
         }
     },
-    "defaultProject": "canvas-gamification-ui",
     "cli": {
         "analytics": "9de04249-6dbe-4103-b4f2-50ce895f19e6"
     }

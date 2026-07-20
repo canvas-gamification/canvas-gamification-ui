@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core'
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {ContactService} from '@app/_services/api/contact.service'
 import {environment} from '@environments/environment'
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
@@ -10,11 +10,11 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
     styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent implements OnInit {
-    formData: FormGroup
+    formData: UntypedFormGroup
     siteKey: string = environment.siteKey
 
     constructor(
-        private builder: FormBuilder,
+        private builder: UntypedFormBuilder,
         private contact: ContactService,
         @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
     ) {
@@ -22,10 +22,10 @@ export class ContactComponent implements OnInit {
 
     ngOnInit(): void {
         this.formData = this.builder.group({
-            fullname: new FormControl('', [Validators.required]),
-            email: new FormControl('', [Validators.required, Validators.email]),
-            comment: new FormControl('', [Validators.required]),
-            recaptcha_key: new FormControl(null, [Validators.required])
+            fullname: new UntypedFormControl('', [Validators.required]),
+            email: new UntypedFormControl('', [Validators.required, Validators.email]),
+            comment: new UntypedFormControl('', [Validators.required]),
+            recaptcha_key: new UntypedFormControl(null, [Validators.required])
         })
     }
 

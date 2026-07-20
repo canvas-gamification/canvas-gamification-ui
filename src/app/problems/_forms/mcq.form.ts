@@ -1,4 +1,4 @@
-import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms"
+import {UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 import {Question} from "@app/_models"
 import {
     fieldExistsIfOtherExistsValidator
@@ -8,20 +8,20 @@ export class McqForm {
     /**
      * Creates a FormGroup for a MCQ question.
      */
-    static createForm(course?: number, event?: number): FormGroup {
-        return new FormGroup({
-            title: new FormControl(null, [Validators.required]),
-            difficulty: new FormControl(null, [Validators.required]),
-            category: new FormControl(null, [Validators.required]),
-            is_verified: new FormControl(false),
-            course: new FormControl(course),
-            event: new FormControl(event),
-            text: new FormControl('', [Validators.required]),
-            answer: new FormArray([], [Validators.required, Validators.minLength(1)]),
-            visible_distractor_count: new FormControl(null, [Validators.required]),
-            choices: new FormArray([], [Validators.required, Validators.minLength(1)]),
-            variation_types: new FormControl(['No Variations']),
-            variables: new FormControl([])
+    static createForm(course?: number, event?: number): UntypedFormGroup {
+        return new UntypedFormGroup({
+            title: new UntypedFormControl(null, [Validators.required]),
+            difficulty: new UntypedFormControl(null, [Validators.required]),
+            category: new UntypedFormControl(null, [Validators.required]),
+            is_verified: new UntypedFormControl(false),
+            course: new UntypedFormControl(course),
+            event: new UntypedFormControl(event),
+            text: new UntypedFormControl('', [Validators.required]),
+            answer: new UntypedFormArray([], [Validators.required, Validators.minLength(1)]),
+            visible_distractor_count: new UntypedFormControl(null, [Validators.required]),
+            choices: new UntypedFormArray([], [Validators.required, Validators.minLength(1)]),
+            variation_types: new UntypedFormControl(['No Variations']),
+            variables: new UntypedFormControl([])
         }, [fieldExistsIfOtherExistsValidator('event', 'course')])
     }
 
@@ -29,7 +29,7 @@ export class McqForm {
      * Creates a FormGroup for a MCQ question with existing data.
      * @param question - The question object.
      */
-    static createFormWithData(question: Question): FormGroup {
+    static createFormWithData(question: Question): UntypedFormGroup {
         const newForm = this.createForm()
         const [answers, distractors] = this.getFormAnswersAndDistractors(question)
         newForm.patchValue({
@@ -39,23 +39,23 @@ export class McqForm {
             choices: []
         })
         answers.forEach((answer) => (
-            newForm.controls.answer as FormArray
+            newForm.controls.answer as UntypedFormArray
         ).push(
-            new FormControl(answer, [Validators.required])
+            new UntypedFormControl(answer, [Validators.required])
         ))
         distractors.forEach((distractor) => (
-            newForm.controls.choices as FormArray
+            newForm.controls.choices as UntypedFormArray
         ).push(
-            new FormControl(distractor, [Validators.required])
+            new UntypedFormControl(distractor, [Validators.required])
         ))
         return newForm
     }
 
-    static createChoiceControl(): FormControl {
-        return new FormControl('', [Validators.required])
+    static createChoiceControl(): UntypedFormControl {
+        return new UntypedFormControl('', [Validators.required])
     }
 
-    static submissionData(form: FormGroup): McqFormData {
+    static submissionData(form: UntypedFormGroup): McqFormData {
         const data = form.getRawValue()
         const [answer, choices] = this.getQuestionAnswerAndChoices(data.answer, data.choices)
         return {

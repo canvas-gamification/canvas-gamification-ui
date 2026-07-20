@@ -1,19 +1,19 @@
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 import {confirmPasswordValidator} from "@app/_helpers/forms/validators/confirm-password.validator"
 
 export class ResetPasswordForm {
-    static createEmailForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createEmailForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            email: new FormControl('', [Validators.required, Validators.email])
+            email: new UntypedFormControl('', [Validators.required, Validators.email])
         })
     }
 
-    static createPasswordForm(uid: string, token: string): FormGroup {
-        const builder = new FormBuilder()
+    static createPasswordForm(uid: string, token: string): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-            password2: new FormControl('', [Validators.required, Validators.minLength(8)]),
+            password: new UntypedFormControl('', [Validators.required, Validators.minLength(8)]),
+            password2: new UntypedFormControl('', [Validators.required, Validators.minLength(8)]),
             uid,
             token,
         }, {
@@ -21,11 +21,11 @@ export class ResetPasswordForm {
         })
     }
 
-    static extractEmailFormData(form: FormGroup): EmailFormData {
+    static extractEmailFormData(form: UntypedFormGroup): EmailFormData {
         return form.value
     }
 
-    static extractPasswordFormData(form: FormGroup): PasswordFormData {
+    static extractPasswordFormData(form: UntypedFormGroup): PasswordFormData {
         return form.value
     }
 }

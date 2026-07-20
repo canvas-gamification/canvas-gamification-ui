@@ -3,7 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {VariablesEditorComponent} from '../../json-editor/variables-editor/variables-editor.component'
 import {TestModule} from "@test/test.module"
 import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit"
-import {FormArray, FormGroup, ReactiveFormsModule} from "@angular/forms"
+import {UntypedFormArray, UntypedFormGroup, ReactiveFormsModule} from "@angular/forms"
 
 describe('VariableEditorComponent', () => {
     let component: VariablesEditorComponent
@@ -30,12 +30,12 @@ describe('VariableEditorComponent', () => {
     })
 
     it('should get values', () => {
-        const form = new FormGroup({values: new FormArray([])})
+        const form = new UntypedFormGroup({values: new UntypedFormArray([])})
         expect(component.getValues(form)).toBeTruthy()
     })
 
     it('should add value', () => {
-        const form = new FormGroup({values: new FormArray([])})
+        const form = new UntypedFormGroup({values: new UntypedFormArray([])})
         spyOn(component.getValues(form), 'push').and.callThrough()
         const valLength = component.getValues(form).length
         component.addNewValue(form)
@@ -44,7 +44,7 @@ describe('VariableEditorComponent', () => {
     })
 
     it('should remove value', () => {
-        const form = new FormGroup({values: new FormArray([])})
+        const form = new UntypedFormGroup({values: new UntypedFormArray([])})
         component.addNewValue(form)
         spyOn(component.getValues(form), 'removeAt').and.callThrough()
         const valLength = component.getValues(form).length

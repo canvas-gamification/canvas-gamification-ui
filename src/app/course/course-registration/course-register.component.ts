@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
-import {FormGroup} from '@angular/forms'
+import {UntypedFormGroup} from '@angular/forms'
 import {CourseService} from '@app/course/_services/course.service'
 import {CourseRegisterForm} from "@app/course/_forms/register.form"
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component"
@@ -15,7 +15,7 @@ import {CourseRegistrationMode} from "@app/_models"
 export class CourseRegisterComponent implements OnInit {
     @ViewChild('stepper') stepper!: CourseRegistrationStepperComponent
 
-    form: FormGroup
+    form: UntypedFormGroup
 
     courseId: number
     courseName: string

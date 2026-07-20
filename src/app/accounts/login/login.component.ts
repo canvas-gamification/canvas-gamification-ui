@@ -1,6 +1,6 @@
 ﻿import {Component, OnInit} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
-import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms'
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {first} from 'rxjs/operators'
 
 import {AuthenticationService} from '@app/_services/api/authentication'
@@ -12,13 +12,13 @@ import {LoginForm} from "@app/accounts/_forms/login.form"
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     loading = false
     error = ''
     logoPath = 'assets/global/logo.jpg'
 
     constructor(
-        private formBuilder: FormBuilder,
+        private formBuilder: UntypedFormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,

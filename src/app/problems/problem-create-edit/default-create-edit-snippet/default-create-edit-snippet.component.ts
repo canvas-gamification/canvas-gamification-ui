@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core'
-import {AbstractControl, FormGroup} from "@angular/forms"
+import {AbstractControl, UntypedFormGroup} from "@angular/forms"
 import {Category, Course, CourseEvent} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
 import {CategoryService} from "@app/_services/api/category.service"
@@ -14,7 +14,7 @@ import {Difficulty} from "@app/_models/difficulty"
 })
 export class DefaultCreateEditSnippetComponent implements OnInit {
 
-    @Input() formGroup: FormGroup
+    @Input() formGroup: UntypedFormGroup
     @Input() disableEvent = false
     courses: Course[]
     categories: Category[]

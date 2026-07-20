@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {FormControl, FormGroup, Validators} from '@angular/forms'
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {
     agreeQuestions,
     checkboxQuestions
@@ -16,9 +16,9 @@ import {AgreeQuestion, CheckBoxQuestion} from "@app/accounts/survey/types"
 })
 export class InitialSurveyComponent implements OnInit {
 
-    formGroup = new FormGroup({
-        two: new FormControl(null, [Validators.required]),
-        six: new FormControl(null),
+    formGroup = new UntypedFormGroup({
+        two: new UntypedFormControl(null, [Validators.required]),
+        six: new UntypedFormControl(null),
     })
     agreeQuestions: AgreeQuestion[]
     checkboxQuestions: CheckBoxQuestion[]
@@ -51,14 +51,14 @@ export class InitialSurveyComponent implements OnInit {
         for (const agreeQuestion of agreeQuestions) {
             this.formGroup.addControl(
                 agreeQuestion.code,
-                new FormControl(null, [Validators.required])
+                new UntypedFormControl(null, [Validators.required])
             )
         }
 
         this.checkboxQuestions = checkboxQuestions
         for (const question of checkboxQuestions) {
             for (const choice of question.choices) {
-                this.formGroup.addControl(choice, new FormControl(false))
+                this.formGroup.addControl(choice, new UntypedFormControl(false))
             }
         }
     }

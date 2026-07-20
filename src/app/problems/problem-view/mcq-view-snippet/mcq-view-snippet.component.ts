@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core'
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
+import {UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {UQJ} from '@app/_models'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {DomSanitizer, SafeHtml} from '@angular/platform-browser'
@@ -13,15 +13,15 @@ import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
 export class McqViewSnippetComponent implements OnChanges {
     @Input() uqj: UQJ
     @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>()
-    formData: FormGroup
-    checkboxFormData: FormGroup
+    formData: UntypedFormGroup
+    checkboxFormData: UntypedFormGroup
     choiceArray: { id: string, value: string, safeValue: SafeHtml }[]
     checkboxAnswers: string[]
     waitingSubmission = false
 
     constructor(
         private submissionService: SubmissionService,
-        private formBuilder: FormBuilder,
+        private formBuilder: UntypedFormBuilder,
         private sanitizer: DomSanitizer,
         @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
     ) {
@@ -30,8 +30,8 @@ export class McqViewSnippetComponent implements OnChanges {
     /**
      * Get the checkbox form controls as a FormArray.
      */
-    get checkboxesArray(): FormArray {
-        return this.checkboxFormData.controls.solutions as FormArray
+    get checkboxesArray(): UntypedFormArray {
+        return this.checkboxFormData.controls.solutions as UntypedFormArray
     }
 
     ngOnChanges(): void {
@@ -46,14 +46,14 @@ export class McqViewSnippetComponent implements OnChanges {
         }
         if (!this.uqj.is_checkbox) {
             this.formData = this.formBuilder.group({
-                question: new FormControl(this.uqj.question.id),
-                solution: new FormControl(null, [Validators.required])
+                question: new UntypedFormControl(this.uqj.question.id),
+                solution: new UntypedFormControl(null, [Validators.required])
             })
         } else {
             this.checkboxAnswers = []
             this.checkboxFormData = this.formBuilder.group({
-                question: new FormControl(this.uqj.question.id),
-                solutions: new FormArray(this.choiceArray.map(() => new FormControl(false)))
+                question: new UntypedFormControl(this.uqj.question.id),
+                solutions: new UntypedFormArray(this.choiceArray.map(() => new UntypedFormControl(false)))
             })
             this.checkboxFormData.controls.solutions.valueChanges.subscribe((answers) => {
                 this.checkboxAnswers = answers.map((answer, index) => {

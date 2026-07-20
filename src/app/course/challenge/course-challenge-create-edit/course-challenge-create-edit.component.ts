@@ -3,7 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Category, CourseEvent, EventLimit} from "@app/_models"
 import {ChallengeType} from "@app/_models/challengeType"
-import {FormArray, FormControl, FormGroup} from "@angular/forms"
+import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {ChallengeForm} from "@app/course/_forms/challenge.form"
 import {startCase} from 'lodash'
@@ -21,7 +21,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
     eventId: number = null
     event: CourseEvent
     localChallengeTypes: ChallengeType[]
-    challengeForm: FormGroup
+    challengeForm: UntypedFormGroup
     categories: Category[]
     difficulties: Difficulty[]
     limits: EventLimit[]
@@ -66,19 +66,19 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         )
     }
 
-    getChallengeQuestionSets(): FormArray {
-        return this.challengeForm.get('challengeQuestionSets') as FormArray
+    getChallengeQuestionSets(): UntypedFormArray {
+        return this.challengeForm.get('challengeQuestionSets') as UntypedFormArray
     }
 
-    getChallengeQuestionSetFormControls(): FormControl[] {
-        return this.getChallengeQuestionSets().controls as FormControl[]
+    getChallengeQuestionSetFormControls(): UntypedFormControl[] {
+        return this.getChallengeQuestionSets().controls as UntypedFormControl[]
     }
 
-    getFormControl(fc: FormControl, field: string): FormControl {
-        return fc.get(field) as FormControl
+    getFormControl(fc: UntypedFormControl, field: string): UntypedFormControl {
+        return fc.get(field) as UntypedFormControl
     }
 
-    getNumQuestionsLimit(formControl: FormControl) {
+    getNumQuestionsLimit(formControl: UntypedFormControl) {
         const category = formControl.get('category').value as number
         const difficulty = formControl.get('difficulty').value as string
         if (!category || !difficulty) {

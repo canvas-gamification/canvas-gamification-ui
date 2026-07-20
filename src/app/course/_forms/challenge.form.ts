@@ -1,9 +1,9 @@
 import {
     AbstractControl,
-    AbstractControlOptions, FormArray,
-    FormBuilder,
-    FormControl,
-    FormGroup,
+    AbstractControlOptions, UntypedFormArray,
+    UntypedFormBuilder,
+    UntypedFormControl,
+    UntypedFormGroup,
     ValidationErrors,
     ValidatorFn,
     Validators
@@ -16,77 +16,77 @@ export class ChallengeForm {
     /**
      * Creates another FormGroup for a Course Challenge.
      */
-    static createChallengeForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createChallengeForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            name: new FormControl(null, [Validators.required]),
-            challengeType: new FormControl('', [Validators.required]),
-            challengeTypeValue: new FormControl(3),
-            maxTeamSize: new FormControl(null, [Validators.required]),
-            startEndDate: new FormControl(
+            name: new UntypedFormControl(null, [Validators.required]),
+            challengeType: new UntypedFormControl('', [Validators.required]),
+            challengeTypeValue: new UntypedFormControl(3),
+            maxTeamSize: new UntypedFormControl(null, [Validators.required]),
+            startEndDate: new UntypedFormControl(
                 new TuiDayRange(
                     TuiDay.currentLocal(),
                     TuiDay.currentLocal().append({day: 7})
                 ),
                 [Validators.required]
             ),
-            startTime: new FormControl(
+            startTime: new UntypedFormControl(
                 TuiTime.currentLocal(),
                 [Validators.required]
             ),
-            endTime: new FormControl(
+            endTime: new UntypedFormControl(
                 TuiTime.currentLocal(),
                 [Validators.required]
             ),
-            challengeQuestionSets: new FormArray(
+            challengeQuestionSets: new UntypedFormArray(
                 [ChallengeForm.createChallengeQuestionSetForm()]
             )
         }, {validator: ChallengeForm.dateValidator} as AbstractControlOptions)
     }
 
-    static createChallengeFormWithData(challenge: CourseEvent): FormGroup {
-        const builder = new FormBuilder()
+    static createChallengeFormWithData(challenge: CourseEvent): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            name: new FormControl(challenge.name, [Validators.required]),
-            challengeType: new FormControl(
+            name: new UntypedFormControl(challenge.name, [Validators.required]),
+            challengeType: new UntypedFormControl(
                 challenge.challenge_type,
                 [Validators.required]
             ),
-            challengeTypeValue: new FormControl(
+            challengeTypeValue: new UntypedFormControl(
                 challenge.challenge_type_value,
                 [Validators.required]
             ),
-            maxTeamSize: new FormControl(
+            maxTeamSize: new UntypedFormControl(
                 challenge.max_team_size,
                 [Validators.required]
             ),
-            startEndDate: new FormControl(
+            startEndDate: new UntypedFormControl(
                 new TuiDayRange(
                     TuiDay.fromLocalNativeDate(new Date(challenge.start_date)),
                     TuiDay.fromLocalNativeDate(new Date(challenge.end_date))
                 ),
                 [Validators.required]
             ),
-            startTime: new FormControl(
+            startTime: new UntypedFormControl(
                 TuiTime.fromLocalNativeDate(new Date(challenge.start_date)),
                 [Validators.required]
             ),
-            endTime: new FormControl(
+            endTime: new UntypedFormControl(
                 TuiTime.fromLocalNativeDate(new Date(challenge.end_date)),
                 [Validators.required]
             ),
-            challengeQuestionSets: new FormArray(
+            challengeQuestionSets: new UntypedFormArray(
                 [ChallengeForm.createChallengeQuestionSetForm()]
             )
         }, {validator: ChallengeForm.dateValidator} as AbstractControlOptions)
     }
 
-    static createChallengeQuestionSetForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createChallengeQuestionSetForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            category: new FormControl('' ,[Validators.required]),
-            difficulty: new FormControl('', [Validators.required]),
-            number_of_questions: new FormControl('', [Validators.required])
+            category: new UntypedFormControl('' ,[Validators.required]),
+            difficulty: new UntypedFormControl('', [Validators.required]),
+            number_of_questions: new UntypedFormControl('', [Validators.required])
         })
     }
 
@@ -97,7 +97,7 @@ export class ChallengeForm {
      * @param eventId - the id of the event
      */
     static formatChallengeFormData(
-        formData: FormGroup,
+        formData: UntypedFormGroup,
         courseId: number,
         eventId: number,
     ): EventFormData {
@@ -122,7 +122,7 @@ export class ChallengeForm {
     }
 
     static formatChallengeQuestionSetFormData(
-        formControl: FormControl,
+        formControl: UntypedFormControl,
     ): EventQuestionSetFormData {
         return formControl.value
     }

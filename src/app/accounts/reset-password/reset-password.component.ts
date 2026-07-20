@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms'
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {ResetPasswordService} from '@app/accounts/_services/reset-password.service'
 import {ActivatedRoute, Router} from "@angular/router"
 import {ResetPasswordForm} from "@app/accounts/_forms/reset-password.form"
@@ -11,12 +11,12 @@ import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
     styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent implements OnInit {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     logoPath = 'assets/global/logo.jpg'
     emailSent = false
 
     constructor(
-        private builder: FormBuilder,
+        private builder: UntypedFormBuilder,
         private resetPasswordService: ResetPasswordService,
         private route: ActivatedRoute,
         private router: Router,

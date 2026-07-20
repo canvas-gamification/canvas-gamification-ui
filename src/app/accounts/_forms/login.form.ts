@@ -1,15 +1,15 @@
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 
 export class LoginForm {
-    static createForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            email: new FormControl(null, [Validators.required, Validators.email]),
-            password: new FormControl(null, [Validators.required]),
+            email: new UntypedFormControl(null, [Validators.required, Validators.email]),
+            password: new UntypedFormControl(null, [Validators.required]),
         })
     }
 
-    static extractData(form: FormGroup): LoginFormData {
+    static extractData(form: UntypedFormGroup): LoginFormData {
         return form.value
     }
 }

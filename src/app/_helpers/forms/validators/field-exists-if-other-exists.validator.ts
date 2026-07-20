@@ -1,4 +1,4 @@
-import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from "@angular/forms"
+import {AbstractControl, UntypedFormGroup, ValidationErrors, ValidatorFn} from "@angular/forms"
 
 /**
  * Only allow the form to validate if the other parameter has a value in the form
@@ -6,7 +6,7 @@ import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from "@angula
  * @param other
  */
 export const fieldExistsIfOtherExistsValidator = (field: string, other: string): ValidatorFn => {
-    return (formGroup: FormGroup): ValidationErrors | null => {
+    return (formGroup: UntypedFormGroup): ValidationErrors | null => {
         const otherControl: AbstractControl = formGroup.get(other)
         const fieldControl: AbstractControl = formGroup.get(field)
         if (otherControl.value && !fieldControl.value) {

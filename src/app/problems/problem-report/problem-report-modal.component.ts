@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core'
-import {AbstractControl, FormGroup} from "@angular/forms"
+import {AbstractControl, UntypedFormGroup} from "@angular/forms"
 import {ReportQuestionService} from "@app/problems/_services/report-question.service"
 import {ReportQuestionForm} from "@app/problems/_forms/problem-report.form"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
@@ -14,7 +14,7 @@ export class ProblemReportModalComponent implements OnInit {
     @Output() readonly openChange = new EventEmitter<boolean>()
     @Input() questionId: number
 
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
 
     readonly reportOptions = [
         ["TYPO_TEXT", "There is a typo in the question instructions"],

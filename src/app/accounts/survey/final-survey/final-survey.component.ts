@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {FormControl, FormGroup, Validators} from "@angular/forms"
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 import {AgreeQuestion, SelectQuestion} from "@app/accounts/survey/types"
 import {
     S1AgreeQuestions,
@@ -18,22 +18,22 @@ import {Router} from "@angular/router"
     styleUrls: ['./final-survey.component.scss']
 })
 export class FinalSurveyComponent implements OnInit {
-    formGroup = new FormGroup({
-        "S2-1": new FormControl(null, {validators: Validators.required}),
-        "S2-3": new FormControl(null),
-        "S2-4": new FormControl(null),
-        "S2-5": new FormControl(null),
-        "S3-1": new FormControl(null, {validators: Validators.required}),
-        "S4-1": new FormControl(null, {validators: Validators.required}),
-        "S4-2": new FormControl(null, {validators: Validators.required}),
-        "S4-3": new FormControl(null),
-        "S4-4": new FormControl(null),
-        "S4-5": new FormControl(null),
-        "S4-6": new FormControl(null),
-        "S4-7": new FormControl(null),
-        "S4-8": new FormControl(null),
-        "S5-1": new FormControl(null),
-        "S5-2": new FormControl(null),
+    formGroup = new UntypedFormGroup({
+        "S2-1": new UntypedFormControl(null, {validators: Validators.required}),
+        "S2-3": new UntypedFormControl(null),
+        "S2-4": new UntypedFormControl(null),
+        "S2-5": new UntypedFormControl(null),
+        "S3-1": new UntypedFormControl(null, {validators: Validators.required}),
+        "S4-1": new UntypedFormControl(null, {validators: Validators.required}),
+        "S4-2": new UntypedFormControl(null, {validators: Validators.required}),
+        "S4-3": new UntypedFormControl(null),
+        "S4-4": new UntypedFormControl(null),
+        "S4-5": new UntypedFormControl(null),
+        "S4-6": new UntypedFormControl(null),
+        "S4-7": new UntypedFormControl(null),
+        "S4-8": new UntypedFormControl(null),
+        "S5-1": new UntypedFormControl(null),
+        "S5-2": new UntypedFormControl(null),
     })
 
     s1SelectQuestions: SelectQuestion[]
@@ -146,7 +146,7 @@ export class FinalSurveyComponent implements OnInit {
         for (const agreeQuestion of S1AgreeQuestions) {
             this.formGroup.addControl(
                 agreeQuestion.code,
-                new FormControl(null, {validators: Validators.required})
+                new UntypedFormControl(null, {validators: Validators.required})
             )
         }
 
@@ -154,7 +154,7 @@ export class FinalSurveyComponent implements OnInit {
         for (const agreeQuestion of S2AgreeQuestions) {
             this.formGroup.addControl(
                 agreeQuestion.code,
-                new FormControl(null)
+                new UntypedFormControl(null)
             )
         }
 
@@ -162,7 +162,7 @@ export class FinalSurveyComponent implements OnInit {
         for (const agreeQuestion of S3AgreeQuestions) {
             this.formGroup.addControl(
                 agreeQuestion.code,
-                new FormControl(null)
+                new UntypedFormControl(null)
             )
         }
 
@@ -170,7 +170,7 @@ export class FinalSurveyComponent implements OnInit {
         for (const agreeQuestion of S4AgreeQuestions) {
             this.formGroup.addControl(
                 agreeQuestion.code,
-                new FormControl(null)
+                new UntypedFormControl(null)
             )
         }
 
@@ -178,7 +178,7 @@ export class FinalSurveyComponent implements OnInit {
         for (const question of S1SelectQuestions) {
             this.formGroup.addControl(
                 question.code,
-                new FormControl('', {validators: Validators.required})
+                new UntypedFormControl('', {validators: Validators.required})
             )
         }
     }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core'
 import {TabListViewService} from "@app/_services/tab-list-view.service"
-import {FormControl, FormGroup} from "@angular/forms"
+import {UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 
 @Component({
     selector: 'app-tab-list-view-switcher',
@@ -9,8 +9,8 @@ import {FormControl, FormGroup} from "@angular/forms"
 })
 export class TabListViewSwitcherComponent implements OnInit {
 
-    viewForm = new FormGroup({
-        view: new FormControl('list')
+    viewForm = new UntypedFormGroup({
+        view: new UntypedFormControl('list')
     })
 
     constructor(private tabListViewService: TabListViewService) {

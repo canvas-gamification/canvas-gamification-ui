@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms"
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from "@angular/forms"
 import {ChangePasswordService} from "@app/accounts/_services/change-password.service"
 import {ChangePasswordForm} from "@app/accounts/_forms/change-password.form"
 import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
@@ -11,11 +11,11 @@ import {Router} from "@angular/router"
     styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     logoPath = 'assets/global/logo.jpg'
 
     constructor(
-        private builder: FormBuilder,
+        private builder: UntypedFormBuilder,
         private password: ChangePasswordService,
         private router: Router,
         @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
