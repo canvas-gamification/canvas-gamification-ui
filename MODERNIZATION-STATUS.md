@@ -28,13 +28,22 @@ Goal: upgrade everything to modern versions, keep functionality/UX. No framework
 
 ## OPEN ISSUES (in priority order)
 1. ~~/problems/create/:type page body is blank~~ **FIXED**: root cause was `[iconEnd]="templateRef"` (ng-template with rotating tui-icon chevron) — Taiga 5 `iconEnd` only accepts a string icon name; tuiGetIconMode crashed on the TemplateRef. Replaced with `[tuiChevron]` directive (same rotate-on-open UX) in variables-editor, problem-set, admin, course-question-snippet. Also moved misplaced `[ngModelOptions]`/`(ngModelChange)` from `<tui-textfield>` to the native input/textarea in the 4 json-editors + katex-tool (fixed NG01352 error and katex live preview not updating). Note: route type is case-sensitive — MCQ page is /problems/create/MCQ (lowercase mcq renders nothing by design). All 3 create pages verified in browser (editors render, typing works, katex preview renders).
-2. **Unit tests**: 305 specs; compile now, majority pass, but: some suites fail (ConceptMap x2, CourseEventCreate NG0100 ExpressionChanged, McqCreateEditSnippet ~7, ParsonsCreateEditSnippet ~4, EditorComponent socket test) AND one spec hangs Chrome (60s disconnect) when full suite runs (order seed 4321). Suite was already broken on master (mock.ts didn't compile) so this is still net-better.
+2. **Unit tests** (IN PROGRESS — resume here): 305 specs; compile now, majority pass, but: some suites fail (ConceptMap x2, CourseEventCreate NG0100 ExpressionChanged, McqCreateEditSnippet ~7, ParsonsCreateEditSnippet ~4, EditorComponent socket test) AND one spec hangs Chrome (60s disconnect) when full suite runs (order seed 4321). Suite was already broken on master (mock.ts didn't compile) so this is still net-better.
+   - A subagent session (2026-07-20) was fixing these when paused. It had gotten McqCreateEditSnippet to 4/5 passing and left ONE UNCOMMITTED, UNVERIFIED edit in the working tree: `src/app/course/_test/course-event-create-edit/course-event-create-edit.component.spec.ts` (adds StringifyTuiDataListPipe + component to `declarations`, stubs `router.navigate` to stop lazy-load inside fakeAsync). Verify it compiles/passes before keeping — check whether a `declarations` key already existed (risk of duplicate key) and that `Router` is imported.
 3. Pre-existing runtime errors (NOT regressions, present with empty data): CourseIslandComponent.canView reads undefined course; consent undefined in accounts. Leave unless trivial.
-4. Editor "example text" behavior of tui-editor and parsons drag-drop not yet browser-verified (blocked by issue 1 for create pages).
+4. Parsons drag-drop (CDK rewrite) not yet browser-verified end-to-end; editor typing/katex on create pages now verified (issue 1).
+5. Backend change is UNCOMMITTED in ../canvas-gamification: settings.py got `"baggage"` added to CORS_ALLOW_HEADERS (needed by Sentry 10 tracing). Decide whether to commit it there.
+
+## Remaining before goal complete
+- Finish unit-test fixes (issue 2), re-run full suite for final tally
+- Final verification pass: `npm run build`, `npx ng lint`, browser smoke (login, problems, create pages, parsons drag-drop)
+- Kill background servers when done (see below) — done for the 2026-07-20 pause; restart on resume:
+  - backend: `cd ../canvas-gamification && source .venv/bin/activate && python manage.py runserver 8000`
+  - frontend: `source ~/.nvm/nvm.sh && nvm use 24.16.0 && npx ng serve`
 
 ## Environment notes
 - Node: use nvm; node 24.16.0 for current stack (`source ~/.nvm/nvm.sh && nvm use 24.16.0`)
-- Servers currently running in background: Django on :8000 (/tmp/backend.log), ng serve on :4200 (/tmp/ngserve.log). MUST be killed before finishing: `pkill -f "manage.py runserver"; pkill -f "ng serve"`
+- Servers (Django :8000, ng serve :4200) were killed at the 2026-07-20 pause; restart commands above. If running, kill with: `pkill -f "manage.py runserver"; pkill -f "ng serve"`
 - Playwright installed in scratchpad dir (/private/tmp/claude-501/.../scratchpad) with test scripts browser-test*.mjs
 - npm installs generally need `--force` (peer conflicts); package-lock regenerated
 - Do NOT commit to master; branch modernize-deps, do not push
