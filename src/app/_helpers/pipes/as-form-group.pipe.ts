@@ -6,7 +6,8 @@ import {AbstractControl, UntypedFormGroup} from "@angular/forms"
  * the value as a FormGroup object
  */
 @Pipe({
-    name: 'asFormGroup'
+    name: 'asFormGroup',
+    standalone: false
 })
 export class AsFormGroupPipe implements PipeTransform {
     transform(value: AbstractControl): UntypedFormGroup {

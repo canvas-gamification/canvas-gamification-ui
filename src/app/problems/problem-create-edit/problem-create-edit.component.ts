@@ -7,6 +7,7 @@ import {QuestionService} from "@app/problems/_services/question.service"
     selector: 'app-problem-create',
     templateUrl: './problem-create-edit.component.html',
     styleUrls: ['./problem-create-edit.component.scss'],
+    standalone: false
 })
 export class ProblemCreateEditComponent implements OnInit {
 

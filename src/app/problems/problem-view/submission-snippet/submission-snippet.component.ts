@@ -20,7 +20,8 @@ import {Observable, Subscriber} from "rxjs"
 @Component({
     selector: 'app-submission-snippet',
     templateUrl: './submission-snippet.component.html',
-    styleUrls: ['./submission-snippet.component.scss']
+    styleUrls: ['./submission-snippet.component.scss'],
+    standalone: false
 })
 export class SubmissionSnippetComponent implements OnChanges, OnInit {
 

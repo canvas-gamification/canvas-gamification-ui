@@ -7,7 +7,8 @@ import {CourseService} from "@app/course/_services/course.service"
 @Component({
     selector: 'app-individual-tokens',
     templateUrl: './individual-tokens.component.html',
-    styleUrls: ['./individual-tokens.component.scss']
+    styleUrls: ['./individual-tokens.component.scss'],
+    standalone: false
 })
 export class IndividualTokensComponent {
     grades: GradeBook

@@ -2,7 +2,8 @@ import { TuiStatus } from "@taiga-ui/legacy";
 import {Pipe, PipeTransform} from '@angular/core'
 
 @Pipe({
-    name: 'tuiStatus'
+    name: 'tuiStatus',
+    standalone: false
 })
 export class TuiStatusPipe implements PipeTransform {
     transform(status: string): TuiStatus {

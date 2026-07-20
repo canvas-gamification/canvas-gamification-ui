@@ -12,7 +12,8 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
 @Component({
     selector: 'app-team-create-edit',
     templateUrl: './team-create-edit.component.html',
-    styleUrls: ['./team-create-edit.component.scss']
+    styleUrls: ['./team-create-edit.component.scss'],
+    standalone: false
 })
 export class TeamCreateEditComponent implements OnInit {
     formData: UntypedFormGroup

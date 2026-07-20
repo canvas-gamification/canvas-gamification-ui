@@ -3,7 +3,8 @@ import {Component} from '@angular/core'
 @Component({
     selector: 'app-export-page-view-component',
     templateUrl: './export-page-view-component.component.html',
-    styleUrls: ['./export-page-view-component.component.scss']
+    styleUrls: ['./export-page-view-component.component.scss'],
+    standalone: false
 })
 export class ExportPageViewComponentComponent {
     filters = [

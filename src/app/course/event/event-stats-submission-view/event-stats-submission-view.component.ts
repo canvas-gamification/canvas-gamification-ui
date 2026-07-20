@@ -6,7 +6,8 @@ import {EventStatsSubmissionDetail} from "@app/_models/event/event_stats_submiss
 @Component({
     selector: 'app-event-stats-submission-view',
     templateUrl: './event-stats-submission-view.component.html',
-    styleUrls: ['./event-stats-submission-view.component.scss']
+    styleUrls: ['./event-stats-submission-view.component.scss'],
+    standalone: false
 })
 export class EventStatsSubmissionViewComponent implements OnInit {
 

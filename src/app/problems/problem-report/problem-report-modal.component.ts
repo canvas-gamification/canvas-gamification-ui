@@ -7,7 +7,8 @@ import { TuiAlertService } from "@taiga-ui/core"
 @Component({
     selector: 'app-problem-report-modal',
     templateUrl: './problem-report-modal.component.html',
-    styleUrls: ['./problem-report-modal.component.scss']
+    styleUrls: ['./problem-report-modal.component.scss'],
+    standalone: false
 })
 export class ProblemReportModalComponent implements OnInit {
     @Input() open = false

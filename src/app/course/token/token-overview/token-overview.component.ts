@@ -4,7 +4,8 @@ import {GradeBook} from "@app/_models/grade_book"
 @Component({
     selector: 'app-token-overview',
     templateUrl: './token-overview.component.html',
-    styleUrls: ['./token-overview.component.scss']
+    styleUrls: ['./token-overview.component.scss'],
+    standalone: false
 })
 export class TokenOverviewComponent {
     @Input() displayData: GradeBook

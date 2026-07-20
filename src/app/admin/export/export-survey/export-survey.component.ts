@@ -3,7 +3,8 @@ import {Component} from '@angular/core'
 @Component({
     selector: 'app-export-survey',
     templateUrl: './export-survey.component.html',
-    styleUrls: ['./export-survey.component.scss']
+    styleUrls: ['./export-survey.component.scss'],
+    standalone: false
 })
 export class ExportSurveyComponent  {
     filters = [

@@ -14,6 +14,7 @@ import {
 @Component({
     selector: 'app-abstract-editor',
     template: '',
+    standalone: false
 })
 export class AbstractEditorComponent implements ControlValueAccessor, Validator, OnDestroy {
 

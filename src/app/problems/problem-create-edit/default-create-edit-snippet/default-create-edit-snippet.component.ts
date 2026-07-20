@@ -10,7 +10,8 @@ import {Difficulty} from "@app/_models/difficulty"
 @Component({
     selector: 'app-default-create-edit-snippet',
     templateUrl: './default-create-edit-snippet.component.html',
-    styleUrls: ['./default-create-edit-snippet.component.scss']
+    styleUrls: ['./default-create-edit-snippet.component.scss'],
+    standalone: false
 })
 export class DefaultCreateEditSnippetComponent implements OnInit {
 

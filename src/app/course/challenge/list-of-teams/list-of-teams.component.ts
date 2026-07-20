@@ -11,7 +11,8 @@ import {CourseService} from "@app/course/_services/course.service"
 @Component({
     selector: 'app-list-of-teams',
     templateUrl: './list-of-teams.component.html',
-    styleUrls: ['./list-of-teams.component.scss']
+    styleUrls: ['./list-of-teams.component.scss'],
+    standalone: false
 })
 export class ListOfTeamsComponent implements OnInit {
     user: User

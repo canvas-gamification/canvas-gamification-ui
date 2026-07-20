@@ -7,7 +7,8 @@ import {ActivatedRoute, Router} from "@angular/router"
 @Component({
     selector: 'app-goal',
     templateUrl: './goal.component.html',
-    styleUrls: ['./goal.component.scss']
+    styleUrls: ['./goal.component.scss'],
+    standalone: false
 })
 export class GoalComponent implements OnInit {
     goal: Goal

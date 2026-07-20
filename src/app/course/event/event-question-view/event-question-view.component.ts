@@ -8,7 +8,8 @@ import {orderUQJs} from "@app/course/_utils/orderUQJs"
 @Component({
     selector: 'app-event-question-view',
     templateUrl: './event-question-view.component.html',
-    styleUrls: ['./event-question-view.component.scss']
+    styleUrls: ['./event-question-view.component.scss'],
+    standalone: false
 })
 export class EventQuestionViewComponent implements OnInit {
     eventId: number

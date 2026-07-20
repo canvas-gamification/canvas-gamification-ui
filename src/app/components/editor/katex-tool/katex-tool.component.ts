@@ -6,7 +6,8 @@ import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe'
     selector: 'app-katex-tool',
     templateUrl: './katex-tool.component.html',
     styleUrls: ['./katex-tool.component.scss'],
-    providers: [GetKatexStringPipe]
+    providers: [GetKatexStringPipe],
+    standalone: false
 })
 export class KatexToolComponent {
 

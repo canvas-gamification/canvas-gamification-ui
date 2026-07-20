@@ -6,7 +6,8 @@ import {AuthenticationService} from '@app/_services/api/authentication'
 @Component({
     selector: 'app-community',
     templateUrl: './community.component.html',
-    styleUrls: ['./community.component.scss']
+    styleUrls: ['./community.component.scss'],
+    standalone: false
 })
 export class CommunityComponent implements OnInit {
     user: User

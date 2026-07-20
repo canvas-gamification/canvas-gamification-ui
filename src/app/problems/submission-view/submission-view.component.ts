@@ -9,6 +9,7 @@ import {TuiDialogContext} from '@taiga-ui/core'
     selector: 'app-submission-view',
     templateUrl: './submission-view.component.html',
     styleUrls: ['./submission-view.component.scss'],
+    standalone: false
 })
 export class SubmissionViewComponent implements OnInit {
     submission: QuestionSubmission

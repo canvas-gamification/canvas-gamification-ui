@@ -5,7 +5,8 @@ import {UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 @Component({
     selector: 'app-tab-list-view-switcher',
     templateUrl: './tab-list-view-switcher.component.html',
-    styleUrls: ['./tab-list-view-switcher.component.scss']
+    styleUrls: ['./tab-list-view-switcher.component.scss'],
+    standalone: false
 })
 export class TabListViewSwitcherComponent implements OnInit {
 

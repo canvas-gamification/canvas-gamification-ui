@@ -18,6 +18,7 @@ import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit"
             },
         },
     ],
+    standalone: false
 })
 export class CourseCreateComponent implements OnInit {
 

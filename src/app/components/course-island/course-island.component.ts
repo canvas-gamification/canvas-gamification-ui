@@ -7,7 +7,8 @@ import {Router} from "@angular/router"
 @Component({
     selector: 'app-course-island',
     templateUrl: './course-island.component.html',
-    styleUrls: ['./course-island.component.scss']
+    styleUrls: ['./course-island.component.scss'],
+    standalone: false
 })
 export class CourseIslandComponent implements OnInit {
     @Input() course: Course

@@ -3,7 +3,8 @@ import {Component} from '@angular/core'
 @Component({
     selector: 'app-export-user',
     templateUrl: './export-user.component.html',
-    styleUrls: ['./export-user.component.scss']
+    styleUrls: ['./export-user.component.scss'],
+    standalone: false
 })
 export class ExportUserComponent {
 

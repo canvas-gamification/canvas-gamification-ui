@@ -37,7 +37,8 @@ import {createInlineMathEditorExtension} from '@app/components/editor/inline-mat
             multi: true,
             useExisting: EditorComponent
         }
-    ]
+    ],
+    standalone: false
 })
 export class EditorComponent implements ControlValueAccessor, Validator, OnDestroy {
     @Input() exampleText = ''

@@ -2,7 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core'
 import { TuiStringHandler, TuiContext } from "@taiga-ui/cdk"
 
 @Pipe({
-    name: 'stringifyTuiDataList'
+    name: 'stringifyTuiDataList',
+    standalone: false
 })
 export class StringifyTuiDataListPipe implements PipeTransform {
     transform(items: Array<unknown>, key: string | number, value: string | number): TuiStringHandler<TuiContext<number>> {

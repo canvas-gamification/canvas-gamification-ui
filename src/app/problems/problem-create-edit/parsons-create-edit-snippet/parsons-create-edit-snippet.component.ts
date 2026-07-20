@@ -10,6 +10,7 @@ import {Question} from "@app/_models"
     selector: 'app-parsons-create-snippet',
     templateUrl: './parsons-create-edit-snippet.component.html',
     styleUrls: ['./parsons-create-edit-snippet.component.scss'],
+    standalone: false
 })
 export class ParsonsCreateEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question

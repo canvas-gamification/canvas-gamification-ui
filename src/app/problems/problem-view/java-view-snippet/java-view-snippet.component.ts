@@ -7,6 +7,7 @@ import { TuiAlertService } from '@taiga-ui/core'
     selector: 'app-java-view-snippet',
     templateUrl: './java-view-snippet.component.html',
     styleUrls: ['./java-view-snippet.component.scss'],
+    standalone: false
 })
 export class JavaViewSnippetComponent implements OnChanges {
     @Input() uqj: UQJ

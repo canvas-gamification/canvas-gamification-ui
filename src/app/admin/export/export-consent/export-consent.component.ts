@@ -3,7 +3,8 @@ import {Component} from '@angular/core'
 @Component({
     selector: 'app-export-consent',
     templateUrl: './export-consent.component.html',
-    styleUrls: ['./export-consent.component.scss']
+    styleUrls: ['./export-consent.component.scss'],
+    standalone: false
 })
 export class ExportConsentComponent {
     filters = [

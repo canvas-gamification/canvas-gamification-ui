@@ -8,7 +8,7 @@
                 size="s"
             >
                 <div class="previous-submissions-island__submission">
-                    {{ submission.submission_time | date:'short' || 'No Date' }}
+                    {{ (submission.submission_time | date:'short') || 'No Date' }}
                     <tui-badge
                         [appearance]="submission.status | tuiStatus"
                        

@@ -13,7 +13,8 @@ import {CategoryService} from "@app/_services/api/category.service"
 @Component({
     selector: 'app-course-event-create',
     templateUrl: './course-event-create-edit.component.html',
-    styleUrls: ['./course-event-create-edit.component.scss']
+    styleUrls: ['./course-event-create-edit.component.scss'],
+    standalone: false
 })
 export class CourseEventCreateEditComponent implements OnInit {
     localEventTypes: EventType[] = [['ASSIGNMENT', 'Assignment'], ["EXAM", "Exam"]]

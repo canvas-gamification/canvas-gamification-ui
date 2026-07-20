@@ -10,7 +10,8 @@ import {ActionStatus, ActionType, ActionVerb} from "@app/_models"
 @Component({
     selector: 'app-goal-island',
     templateUrl: './goal-island.component.html',
-    styleUrls: ['./goal-island.component.scss']
+    styleUrls: ['./goal-island.component.scss'],
+    standalone: false
 })
 export class GoalIslandComponent {
 

@@ -26,6 +26,7 @@ export type SortingKey =
     selector: 'app-problem-set',
     templateUrl: './problem-set.component.html',
     styleUrls: ['./problem-set.component.scss'],
+    standalone: false
 })
 export class ProblemSetComponent implements OnInit, AfterContentChecked {
     formGroup: UntypedFormGroup

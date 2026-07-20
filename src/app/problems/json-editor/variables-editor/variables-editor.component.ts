@@ -20,7 +20,8 @@ import {DragulaService} from 'ng2-dragula'
             multi: true,
             useExisting: VariablesEditorComponent
         },
-    ]
+    ],
+    standalone: false
 })
 export class VariablesEditorComponent extends AbstractEditorComponent implements OnDestroy {
 

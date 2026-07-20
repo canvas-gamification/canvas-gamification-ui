@@ -18,7 +18,8 @@ import {
     selector: 'app-course-registration-stepper',
     templateUrl: './course-registration-stepper.component.html',
     styleUrls: ['./course-registration-stepper.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CourseRegistrationStepperComponent implements AfterContentInit, AfterContentChecked {
     @Input() steps: string[] = []

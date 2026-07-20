@@ -6,7 +6,8 @@ import {Subscription} from 'rxjs'
 @Component({
     selector: 'app-parsons-lines',
     templateUrl: './parsons-lines.component.html',
-    styleUrls: ['./parsons-lines.component.scss']
+    styleUrls: ['./parsons-lines.component.scss'],
+    standalone: false
 })
 export class ParsonsLinesComponent implements OnInit, OnDestroy {
     @Input() testABNew = false

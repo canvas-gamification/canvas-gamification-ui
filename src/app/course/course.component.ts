@@ -17,7 +17,8 @@ import {TeamService} from "@app/course/_services/team.service"
 @Component({
     selector: 'app-course',
     templateUrl: './course.component.html',
-    styleUrls: ['./course.component.scss']
+    styleUrls: ['./course.component.scss'],
+    standalone: false
 })
 export class CourseComponent implements OnInit {
     course: Course

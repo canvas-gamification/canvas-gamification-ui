@@ -8,7 +8,8 @@ import {UserActionsService} from "@app/_services/api/user-actions.service"
 @Component({
     selector: 'app-course-homepage',
     templateUrl: './course-homepage.component.html',
-    styleUrls: ['./course-homepage.component.scss']
+    styleUrls: ['./course-homepage.component.scss'],
+    standalone: false
 })
 export class CourseHomepageComponent {
     courseId: number

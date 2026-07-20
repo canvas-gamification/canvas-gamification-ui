@@ -18,7 +18,8 @@ import {ConceptViewService} from "@app/_services/concept-view.service"
 @Component({
     selector: 'app-course-question-snippet',
     templateUrl: './course-question-snippet.component.html',
-    styleUrls: ['./course-question-snippet.component.scss']
+    styleUrls: ['./course-question-snippet.component.scss'],
+    standalone: false
 })
 export class CourseQuestionSnippetComponent implements OnInit {
     uqjs: UQJ[]

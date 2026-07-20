@@ -11,6 +11,7 @@ import {Question} from '@app/_models'
     selector: 'app-mcq-create-snippet',
     templateUrl: './mcq-create-edit-snippet.component.html',
     styleUrls: ['./mcq-create-edit-snippet.component.scss'],
+    standalone: false
 })
 export class McqCreateEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question

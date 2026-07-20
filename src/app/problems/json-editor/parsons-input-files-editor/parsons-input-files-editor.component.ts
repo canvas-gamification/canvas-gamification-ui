@@ -18,7 +18,8 @@ import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor
             multi: true,
             useExisting: ParsonsInputFilesEditorComponent
         },
-    ]
+    ],
+    standalone: false
 })
 export class ParsonsInputFilesEditorComponent extends AbstractEditorComponent {
 

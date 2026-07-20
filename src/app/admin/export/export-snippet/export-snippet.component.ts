@@ -5,7 +5,8 @@ import {ActionType, ActionVerb} from "@app/_models"
 @Component({
     selector: 'app-export-snippet',
     templateUrl: './export-snippet.component.html',
-    styleUrls: ['./export-snippet.component.scss']
+    styleUrls: ['./export-snippet.component.scss'],
+    standalone: false
 })
 export class ExportSnippetComponent implements OnInit {
 

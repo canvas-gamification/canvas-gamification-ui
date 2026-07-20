@@ -8,7 +8,8 @@ import {ConceptViewService} from "@app/_services/concept-view.service"
 @Component({
     selector: 'app-course-practice-page',
     templateUrl: './course-practice-page.component.html',
-    styleUrls: ['./course-practice-page.component.scss']
+    styleUrls: ['./course-practice-page.component.scss'],
+    standalone: false
 })
 export class CoursePracticePageComponent implements OnInit {
     course: Course

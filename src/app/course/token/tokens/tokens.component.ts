@@ -8,7 +8,8 @@ import {ApiService} from "@app/_services/api.service"
 @Component({
     selector: 'app-tokens',
     templateUrl: './tokens.component.html',
-    styleUrls: ['./tokens.component.scss']
+    styleUrls: ['./tokens.component.scss'],
+    standalone: false
 })
 export class TokensComponent {
     grades: GradeBook

@@ -5,7 +5,8 @@ import {CourseService} from '@app/course/_services/course.service'
 @Component({
     selector: 'app-inactive-courses',
     templateUrl: './inactive-courses.component.html',
-    styleUrls: ['./inactive-courses.component.scss']
+    styleUrls: ['./inactive-courses.component.scss'],
+    standalone: false
 })
 export class InactiveCoursesComponent implements OnInit {
     inactiveCourses: Course[]

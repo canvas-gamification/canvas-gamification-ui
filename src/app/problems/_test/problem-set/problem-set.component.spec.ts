@@ -21,7 +21,8 @@ import {MOCK_CATEGORY, MOCK_CATEGORY_2} from "@app/problems/_test/mock"
 @Component({
     selector: 'test-app-problem-set-dialog',
     template: `
-        <ng-template let-observer #testDialog></ng-template>`
+        <ng-template let-observer #testDialog></ng-template>`,
+    standalone: false
 })
 class TestProblemSetDialogComponent {
     @ViewChild('testDialog') testDialog

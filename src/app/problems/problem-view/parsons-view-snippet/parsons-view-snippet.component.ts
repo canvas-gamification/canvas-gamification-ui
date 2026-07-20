@@ -7,6 +7,7 @@ import { TuiAlertService } from "@taiga-ui/core"
     selector: 'app-parsons-view-snippet',
     templateUrl: './parsons-view-snippet.component.html',
     styleUrls: ['./parsons-view-snippet.component.scss'],
+    standalone: false
 })
 export class ParsonsViewSnippetComponent implements OnChanges {
     @Input() uqj: UQJ

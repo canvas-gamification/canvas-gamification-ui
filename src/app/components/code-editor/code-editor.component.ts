@@ -9,7 +9,8 @@ import {indentUnit} from "@codemirror/language"
 @Component({
     selector: 'app-code-editor',
     templateUrl: './code-editor.component.html',
-    styleUrls: ['./code-editor.component.scss']
+    styleUrls: ['./code-editor.component.scss'],
+    standalone: false
 })
 export class CodeEditorComponent implements AfterViewInit {
 

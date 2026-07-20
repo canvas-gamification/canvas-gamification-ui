@@ -9,7 +9,8 @@ import {Team} from "@app/_models/team"
 @Component({
     selector: 'app-leader-board',
     templateUrl: './leader-board.component.html',
-    styleUrls: ['./leader-board.component.scss']
+    styleUrls: ['./leader-board.component.scss'],
+    standalone: false
 })
 export class LeaderBoardComponent implements OnChanges, OnInit {
     leaderBoard: LeaderboardElement[]

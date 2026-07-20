@@ -7,7 +7,8 @@ import { TuiAlertService } from "@taiga-ui/core"
 @Component({
     selector: 'app-activation-email',
     templateUrl: './activation-email.component.html',
-    styleUrls: ['./activation-email.component.scss']
+    styleUrls: ['./activation-email.component.scss'],
+    standalone: false
 })
 export class ActivationEmailComponent implements OnInit {
     uuid: string

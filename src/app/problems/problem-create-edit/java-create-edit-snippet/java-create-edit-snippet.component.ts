@@ -10,6 +10,7 @@ import {Question} from "@app/_models"
     selector: 'app-java-create-snippet',
     templateUrl: './java-create-edit-snippet.component.html',
     styleUrls: ['./java-create-edit-snippet.component.scss'],
+    standalone: false
 })
 export class JavaCreateEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question

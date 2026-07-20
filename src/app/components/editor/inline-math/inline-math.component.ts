@@ -10,7 +10,8 @@ import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe'
     templateUrl: './inline-math.component.html',
     styleUrls: ['./inline-math.component.scss'],
     providers: [GetKatexStringPipe],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class InlineMathComponent extends TuiNodeViewNg implements AfterViewInit {
 

@@ -11,7 +11,8 @@ import { TuiAlertService } from "@taiga-ui/core"
 @Component({
     selector: 'app-consent-form',
     templateUrl: './consent-form.component.html',
-    styleUrls: ['./consent-form.component.scss']
+    styleUrls: ['./consent-form.component.scss'],
+    standalone: false
 })
 export class ConsentFormComponent implements OnInit {
     formGroup: UntypedFormGroup

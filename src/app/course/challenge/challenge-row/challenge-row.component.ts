@@ -12,7 +12,8 @@ import {CourseEventService} from "@app/course/_services/course-event.service"
 @Component({
     selector: 'app-challenge-row',
     templateUrl: './challenge-row.component.html',
-    styleUrls: ['./challenge-row.component.scss']
+    styleUrls: ['./challenge-row.component.scss'],
+    standalone: false
 })
 export class ChallengeRowComponent implements OnInit {
 

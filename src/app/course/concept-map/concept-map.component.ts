@@ -9,7 +9,8 @@ import {ParentNodeService} from "@app/_services/parent-node-service"
 @Component({
     selector: 'app-concept-map',
     templateUrl: './concept-map.component.html',
-    styleUrls: ['./concept-map.component.scss']
+    styleUrls: ['./concept-map.component.scss'],
+    standalone: false
 })
 export class ConceptMapComponent implements OnInit {
     rawCategories: Category[]

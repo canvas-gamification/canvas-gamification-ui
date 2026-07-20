@@ -10,7 +10,8 @@ import {CourseRegistrationMode} from "@app/_models"
 @Component({
     selector: 'app-register',
     templateUrl: './course-register.component.html',
-    styleUrls: ['./course-register.component.scss']
+    styleUrls: ['./course-register.component.scss'],
+    standalone: false
 })
 export class CourseRegisterComponent implements OnInit {
     @ViewChild('stepper') stepper!: CourseRegistrationStepperComponent

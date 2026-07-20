@@ -10,7 +10,8 @@ import {Component, ViewChild} from "@angular/core"
 @Component({
     selector: 'test-app-withdraw-consent-dialog',
     template: `
-        <ng-template let-observer #testDialog></ng-template>`
+        <ng-template let-observer #testDialog></ng-template>`,
+    standalone: false
 })
 class TestWithdrawConsentDialogComponent {
     @ViewChild('testDialog') testDialog

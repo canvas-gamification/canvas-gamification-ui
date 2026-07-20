@@ -14,7 +14,8 @@ import {CategoryService} from "@app/_services/api/category.service"
 @Component({
     selector: 'app-course-challenge-create-edit',
     templateUrl: './course-challenge-create-edit.component.html',
-    styleUrls: ['./course-challenge-create-edit.component.scss']
+    styleUrls: ['./course-challenge-create-edit.component.scss'],
+    standalone: false
 })
 export class CourseChallengeCreateEditComponent implements OnInit {
     courseId: number

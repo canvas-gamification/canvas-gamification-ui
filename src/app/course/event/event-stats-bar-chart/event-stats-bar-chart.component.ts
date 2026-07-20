@@ -4,7 +4,8 @@ import {convert} from 'html-to-text'
 @Component({
     selector: 'app-event-stats-bar-chart',
     templateUrl: './event-stats-bar-chart.component.html',
-    styleUrls: ['./event-stats-bar-chart.component.scss']
+    styleUrls: ['./event-stats-bar-chart.component.scss'],
+    standalone: false
 })
 export class EventStatsBarChartComponent implements OnInit {
 

@@ -7,7 +7,8 @@ import {PolymorpheusContent} from '@taiga-ui/polymorpheus'
 @Component({
     selector: 'app-category-stats',
     templateUrl: './category-stats.component.html',
-    styleUrls: ['./category-stats.component.scss']
+    styleUrls: ['./category-stats.component.scss'],
+    standalone: false
 })
 export class CategoryStatsComponent implements OnInit, AfterContentInit {
     categoryStatsData!: NestedCategories[]

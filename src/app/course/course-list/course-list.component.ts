@@ -7,7 +7,8 @@ import {Course, STATUS, User} from '@app/_models'
 @Component({
     selector: 'app-course-list',
     templateUrl: './course-list.component.html',
-    styleUrls: ['./course-list.component.scss']
+    styleUrls: ['./course-list.component.scss'],
+    standalone: false
 })
 export class CourseListComponent implements OnInit {
     STATUS = STATUS

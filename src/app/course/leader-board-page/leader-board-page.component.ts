@@ -6,7 +6,8 @@ import {Course, CourseEvent, LeaderboardPageElement} from "@app/_models"
 @Component({
     selector: 'app-leader-board-page',
     templateUrl: './leader-board-page.component.html',
-    styleUrls: ['./leader-board-page.component.scss']
+    styleUrls: ['./leader-board-page.component.scss'],
+    standalone: false
 })
 export class LeaderBoardPageComponent implements OnInit {
     courseId: number

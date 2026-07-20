@@ -9,6 +9,7 @@ import {ActivatedRoute} from "@angular/router"
     selector: 'app-course-challenge-snippet',
     templateUrl: './course-challenge-snippet.component.html',
     styleUrls: ['./course-challenge-snippet.component.scss'],
+    standalone: false
 })
 export class CourseChallengeSnippetComponent implements OnInit {
     events: CourseEvent[]

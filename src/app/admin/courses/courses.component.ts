@@ -5,7 +5,8 @@ import {Course} from "@app/_models"
 @Component({
     selector: 'app-view-courses',
     templateUrl: './courses.component.html',
-    styleUrls: ['./courses.component.scss']
+    styleUrls: ['./courses.component.scss'],
+    standalone: false
 })
 export class CoursesComponent implements OnInit, AfterContentInit {
     courseData!: Course[]

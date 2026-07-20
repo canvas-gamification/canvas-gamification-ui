@@ -7,7 +7,8 @@ import {isEmpty} from "lodash"
 @Component({
     selector: 'app-event-stats',
     templateUrl: './event-stats.component.html',
-    styleUrls: ['./event-stats.component.scss']
+    styleUrls: ['./event-stats.component.scss'],
+    standalone: false
 })
 export class EventStatsComponent implements OnInit {
 

@@ -5,7 +5,8 @@ import {Course, STATUS} from '@app/_models'
 @Component({
     selector: 'app-course-dashboard',
     templateUrl: './course-dashboard.component.html',
-    styleUrls: ['./course-dashboard.component.scss']
+    styleUrls: ['./course-dashboard.component.scss'],
+    standalone: false
 })
 export class CourseDashboardComponent implements OnInit {
     activeCourses: Course[]

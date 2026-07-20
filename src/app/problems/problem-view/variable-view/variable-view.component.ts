@@ -3,7 +3,8 @@ import {Component, Input, OnInit} from '@angular/core'
 @Component({
     selector: 'app-variable-view',
     templateUrl: './variable-view.component.html',
-    styleUrls: ['./variable-view.component.scss']
+    styleUrls: ['./variable-view.component.scss'],
+    standalone: false
 })
 export class VariableViewComponent implements OnInit {
     @Input() variables

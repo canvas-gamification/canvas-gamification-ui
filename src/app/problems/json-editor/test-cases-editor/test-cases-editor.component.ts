@@ -18,7 +18,8 @@ import {TestCasesForm} from "@app/problems/_forms/json-editor/test-cases.form"
             multi: true,
             useExisting: TestCasesEditorComponent
         },
-    ]
+    ],
+    standalone: false
 })
 export class TestCasesEditorComponent extends AbstractEditorComponent {
 

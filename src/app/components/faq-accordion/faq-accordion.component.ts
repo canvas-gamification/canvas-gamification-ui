@@ -5,7 +5,8 @@ import {FaqService} from "@app/_services/api/faq.service"
 @Component({
     selector: 'app-faq-accordion',
     templateUrl: './faq-accordion.component.html',
-    styleUrls: ['./faq-accordion.component.scss']
+    styleUrls: ['./faq-accordion.component.scss'],
+    standalone: false
 })
 export class FaqAccordionComponent implements OnInit {
 

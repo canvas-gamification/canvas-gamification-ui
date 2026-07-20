@@ -9,7 +9,8 @@ import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 @Component({
     selector: 'app-event-row',
     templateUrl: './event-row.component.html',
-    styleUrls: ['./event-row.component.scss']
+    styleUrls: ['./event-row.component.scss'],
+    standalone: false
 })
 export class EventRowComponent implements OnInit {
 

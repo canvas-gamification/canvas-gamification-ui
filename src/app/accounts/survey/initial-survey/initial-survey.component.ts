@@ -12,7 +12,8 @@ import {AgreeQuestion, CheckBoxQuestion} from "@app/accounts/survey/types"
 @Component({
     selector: 'app-initial-survey',
     templateUrl: './initial-survey.component.html',
-    styleUrls: ['./initial-survey.component.scss']
+    styleUrls: ['./initial-survey.component.scss'],
+    standalone: false
 })
 export class InitialSurveyComponent implements OnInit {
 

@@ -4,7 +4,8 @@ import {UntypedFormControl} from "@angular/forms"
 @Component({
     selector: 'app-variation-types-selector',
     templateUrl: './variation-types-selector.component.html',
-    styleUrls: ['./variation-types-selector.component.scss']
+    styleUrls: ['./variation-types-selector.component.scss'],
+    standalone: false
 })
 export class VariationTypesSelectorComponent {
     @Input() variationControl: UntypedFormControl

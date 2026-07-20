@@ -22,7 +22,8 @@ import {ParentNodeService} from "@app/_services/parent-node-service"
 @Component({
     selector: 'app-practice-problem',
     templateUrl: './practice-problem.component.html',
-    styleUrls: ['./practice-problem.component.scss']
+    styleUrls: ['./practice-problem.component.scss'],
+    standalone: false
 })
 export class PracticeProblemComponent implements OnInit, OnDestroy {
     courseId: number

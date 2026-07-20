@@ -9,7 +9,8 @@ import { TuiAlertService } from "@taiga-ui/core"
 @Component({
     selector: 'app-token-values',
     templateUrl: './token-values.component.html',
-    styleUrls: ['./token-values.component.scss']
+    styleUrls: ['./token-values.component.scss'],
+    standalone: false
 })
 export class TokenValuesComponent implements OnInit {
     tokenValues: NestedTokenValue[]

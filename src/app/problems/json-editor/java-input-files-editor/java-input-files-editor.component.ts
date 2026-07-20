@@ -18,7 +18,8 @@ import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor
             multi: true,
             useExisting: JavaInputFilesEditorComponent
         },
-    ]
+    ],
+    standalone: false
 })
 export class JavaInputFilesEditorComponent extends AbstractEditorComponent {
 

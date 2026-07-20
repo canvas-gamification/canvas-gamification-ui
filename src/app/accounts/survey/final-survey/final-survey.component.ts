@@ -15,7 +15,8 @@ import {Router} from "@angular/router"
 @Component({
     selector: 'app-final-survey',
     templateUrl: './final-survey.component.html',
-    styleUrls: ['./final-survey.component.scss']
+    styleUrls: ['./final-survey.component.scss'],
+    standalone: false
 })
 export class FinalSurveyComponent implements OnInit {
     formGroup = new UntypedFormGroup({

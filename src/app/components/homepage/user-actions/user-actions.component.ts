@@ -16,7 +16,8 @@ export type SortingKey =
 @Component({
     selector: 'app-user-actions',
     templateUrl: './user-actions.component.html',
-    styleUrls: ['./user-actions.component.scss']
+    styleUrls: ['./user-actions.component.scss'],
+    standalone: false
 })
 export class UserActionsComponent implements OnInit, AfterContentChecked {
     userActions: Action[] = []

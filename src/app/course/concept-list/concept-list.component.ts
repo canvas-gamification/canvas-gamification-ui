@@ -13,7 +13,8 @@ import {ParentNodeService} from "@app/_services/parent-node-service"
 @Component({
     selector: 'app-concept-list',
     templateUrl: './concept-list.component.html',
-    styleUrls: ['./concept-list.component.scss']
+    styleUrls: ['./concept-list.component.scss'],
+    standalone: false
 })
 export class ConceptListComponent implements OnInit {
     categories: Category[]

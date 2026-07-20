@@ -16,7 +16,8 @@ enum EventFilterOptions {
 @Component({
     selector: 'app-course-events-snippet',
     templateUrl: './course-events-snippet.component.html',
-    styleUrls: ['./course-events-snippet.component.scss']
+    styleUrls: ['./course-events-snippet.component.scss'],
+    standalone: false
 })
 export class CourseEventsSnippetComponent implements OnInit {
     events: CourseEvent[]

@@ -19,7 +19,8 @@ import {UserActionsService} from "@app/_services/api/user-actions.service"
 @Component({
     selector: 'app-goal-create',
     templateUrl: './goal-create.component.html',
-    styleUrls: ['./goal-create.component.scss']
+    styleUrls: ['./goal-create.component.scss'],
+    standalone: false
 })
 export class GoalCreateComponent implements OnInit {
 

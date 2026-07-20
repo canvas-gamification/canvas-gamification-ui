@@ -6,6 +6,7 @@ import {Category} from '@app/_models'
     selector: 'app-topics',
     templateUrl: './topics.component.html',
     styleUrls: ['./topics.component.scss'],
+    standalone: false
 })
 export class TopicsComponent implements OnInit {
     topLevelCategories: Category[]

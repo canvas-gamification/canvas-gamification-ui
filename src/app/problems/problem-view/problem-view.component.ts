@@ -9,6 +9,7 @@ import {Subscriber, Subscription} from 'rxjs'
     selector: 'app-problem-view',
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
+    standalone: false
 })
 export class ProblemViewComponent implements OnInit, OnChanges, OnDestroy {
     @Input() questionId: number

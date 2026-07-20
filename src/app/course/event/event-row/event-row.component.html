@@ -50,7 +50,7 @@
             Grade: TBA
         </ng-container>
         <ng-template #totalEventGrade>
-            Grade: {{ event.total_event_grade | number: '1.0-1' || 'TBA'}}%
+            Grade: {{ (event.total_event_grade | number: '1.0-1') || 'TBA'}}%
         </ng-template>
     </div>
     <div class="flex items-center">

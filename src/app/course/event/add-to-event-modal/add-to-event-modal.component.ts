@@ -6,7 +6,8 @@ import { TuiAlertService } from "@taiga-ui/core"
 @Component({
     selector: 'app-add-to-event-modal',
     templateUrl: './add-to-event-modal.component.html',
-    styleUrls: ['./add-to-event-modal.component.scss']
+    styleUrls: ['./add-to-event-modal.component.scss'],
+    standalone: false
 })
 export class AddToEventModalComponent {
     @Input() open = false

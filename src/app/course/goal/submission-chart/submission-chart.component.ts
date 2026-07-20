@@ -4,7 +4,8 @@ import {GoalItemSubmissionStats} from "@app/_models/goal/goal"
 @Component({
     selector: 'app-submission-chart',
     templateUrl: './submission-chart.component.html',
-    styleUrls: ['./submission-chart.component.scss']
+    styleUrls: ['./submission-chart.component.scss'],
+    standalone: false
 })
 export class SubmissionChartComponent {
 

@@ -5,7 +5,8 @@ import {QuestionCount} from "@app/_models"
 @Component({
     selector: 'app-question-count',
     templateUrl: './question-count.component.html',
-    styleUrls: ['./question-count.component.scss']
+    styleUrls: ['./question-count.component.scss'],
+    standalone: false
 })
 export class QuestionCountComponent implements OnInit, AfterContentInit {
     questionCountData!: QuestionCount[]

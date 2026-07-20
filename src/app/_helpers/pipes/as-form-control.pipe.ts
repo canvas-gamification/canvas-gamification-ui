@@ -6,7 +6,8 @@ import {AbstractControl, UntypedFormControl} from "@angular/forms"
  * the value as a FormControl object
  */
 @Pipe({
-    name: 'asFormControl'
+    name: 'asFormControl',
+    standalone: false
 })
 export class AsFormControlPipe implements PipeTransform {
     transform(value: AbstractControl): UntypedFormControl {

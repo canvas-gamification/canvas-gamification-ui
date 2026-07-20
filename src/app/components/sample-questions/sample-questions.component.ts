@@ -5,7 +5,8 @@ import {MultipleChoiceQuestion} from '@app/_models'
 @Component({
     selector: 'app-sample-questions',
     templateUrl: './sample-questions.component.html',
-    styleUrls: ['./sample-questions.component.scss']
+    styleUrls: ['./sample-questions.component.scss'],
+    standalone: false
 })
 export class SampleQuestionsComponent implements OnInit {
 

@@ -9,6 +9,7 @@ import { TuiAlertService } from '@taiga-ui/core'
     selector: 'app-mcq-view-snippet',
     templateUrl: './mcq-view-snippet.component.html',
     styleUrls: ['./mcq-view-snippet.component.scss'],
+    standalone: false
 })
 export class McqViewSnippetComponent implements OnChanges {
     @Input() uqj: UQJ

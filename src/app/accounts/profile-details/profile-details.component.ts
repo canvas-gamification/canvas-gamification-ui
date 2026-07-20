@@ -12,7 +12,8 @@ import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 @Component({
     selector: 'app-profile-details',
     templateUrl: './profile-details.component.html',
-    styleUrls: ['./profile-details.component.scss']
+    styleUrls: ['./profile-details.component.scss'],
+    standalone: false
 })
 export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
     formGroup: UntypedFormGroup
