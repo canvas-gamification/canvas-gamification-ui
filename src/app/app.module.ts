@@ -88,13 +88,18 @@ import {CommunityComponent} from './components/community/community.component'
         TuiLink,
         TuiLoader,
         TuiAlert,
-        TuiBlock, ...TuiRadio,
+        TuiBlock,
+        ...TuiRadio,
         TuiRoot,
         ...TuiSidebar,
         TuiIcon,
         ...TuiTable,
         TuiTablePagination,
-        TuiSwitch, TuiInitialsPipe, TuiAutoColorPipe], providers: [
+        TuiSwitch,
+        TuiInitialsPipe,
+        TuiAutoColorPipe
+    ],
+    providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         {
