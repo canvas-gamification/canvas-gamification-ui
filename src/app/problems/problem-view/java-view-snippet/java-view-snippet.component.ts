@@ -11,6 +11,7 @@ import {SubmissionService} from '@app/problems/_services/submission.service'
     standalone: false
 })
 export class JavaViewSnippetComponent implements OnChanges {
+    activeTabIndex = 0
     @Input() uqj: UQJ
     @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>()
     inputFileNames = new Array<{ name: string, template: string }>()

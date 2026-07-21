@@ -1,12 +1,12 @@
 <div class="tui-island tui-island_size_m tui-space_bottom-8">
   <h2 class="tui-island__title">Question Counts</h2>
-  <tui-tabs #tabsComponent class="tui-space_bottom-4">
+  <tui-tabs [(activeItemIndex)]="activeTabIndex" class="tui-space_bottom-4">
     <button aria-label="Card View" tuiTab>Card View</button>
     <button aria-label="Table View" tuiTab>Table View</button>
   </tui-tabs>
   <tui-loader [overlay]="true" [loading]="!questionCountData">
     @if (questionCountData) {
-      @if (tabsComponent.activeItemIndex === 0) {
+      @if (activeTabIndex === 0) {
         <div class="count-islands">
           @for (questionCount of questionCountData; track questionCount) {
             <div class="tui-island tui-island_size_m tui-island_text-align_center"
@@ -19,15 +19,15 @@
                 class="tui-space_auto"
                 >
                 <div class="tui-text_body-xl tui-text_bold">
-                  {{getDifficultyPerCountLabel(chart.activeItemIndex, questionCount)}}
+                  {{getDifficultyPerCountLabel(chart.activeItemIndex(), questionCount)}}
                 </div>
-                <div>{{getDifficultyPerCountValue(chart.activeItemIndex, questionCount)}}</div>
+                <div>{{getDifficultyPerCountValue(chart.activeItemIndex(), questionCount)}}</div>
               </tui-ring-chart>
             </div>
           }
         </div>
       }
-      @if (tabsComponent.activeItemIndex === 1) {
+      @if (activeTabIndex === 1) {
         <table
           [columns]="questionCountDataHeader"
           class="count-table"

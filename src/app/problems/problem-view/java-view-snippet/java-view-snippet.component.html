@@ -8,7 +8,7 @@
     </div>
     <div class="island_container">
       @if (viewSwitcher.view === 'tab') {
-        <tui-tabs-with-more #tabsComponent class="tui-space_bottom-4">
+        <tui-tabs-with-more [(activeItemIndex)]="activeTabIndex" class="tui-space_bottom-4">
           @for (input of inputFileNames; track input) {
             <button *tuiItem tuiTab>
               {{ input.name }}
@@ -17,7 +17,7 @@
         </tui-tabs-with-more>
         @for (input of inputFileNames; track input; let index = $index) {
           <div>
-            @if (tabsComponent.activeItemIndex === index) {
+            @if (activeTabIndex === index) {
               <div>
                 <app-code-editor [(codeTemplate)]="input.template"></app-code-editor>
               </div>

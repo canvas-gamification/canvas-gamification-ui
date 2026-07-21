@@ -62,7 +62,7 @@
           } @else {
             {{ user.username }}
           }
-          <span [tuiAvatar]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiInitials" [style.background]="user.first_name ? user.first_name + ' ' + user.last_name : user.username | tuiAutoColor"
+          <span [tuiAvatar]="(user.first_name ? user.first_name + ' ' + user.last_name : user.username) | tuiInitials" [style.background]="(user.first_name ? user.first_name + ' ' + user.last_name : user.username) | tuiAutoColor"
             [round]="true"
             class="tui-space_left-2"
             size="m"
@@ -80,18 +80,19 @@
           <tui-opt-group>
             <a routerLink="accounts/profile" tuiOption>Profile</a>
             <a routerLink="stats" tuiOption>My Stats</a>
-            <button tuiOption>
-              <label class="tui-text_body-m">
+            <button (click)="toggleNightMode()" tuiOption type="button">
+              <span class="tui-text_body-m">
                 Night mode
                 <input
                   tuiSwitch
                   type="checkbox"
-                  (ngModelChange)="setNightMode($event)"
                   [ngModel]="isNightMode()"
-                  class="tui-space_left-2"
+                  aria-hidden="true"
+                  class="night-mode-switch tui-space_left-2"
                   size="s"
+                  tabindex="-1"
                   />
-              </label>
+              </span>
             </button>
           </tui-opt-group>
           @if (user.is_teacher) {

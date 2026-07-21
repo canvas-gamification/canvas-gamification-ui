@@ -1,12 +1,12 @@
 <div class="tui-island tui-island_size_m">
   <h2 class="tui-island__title">Category Stats</h2>
-  <tui-tabs #tabsComponent class="tui-space_bottom-4">
+  <tui-tabs [(activeItemIndex)]="activeTabIndex" class="tui-space_bottom-4">
     <button aria-label="Card View" tuiTab>Card View</button>
     <button aria-label="Table View" tuiTab>Table View</button>
   </tui-tabs>
   <tui-loader [overlay]="true" [loading]="!categoryStatsData">
     @if (categoryStatsData) {
-      @if (tabsComponent.activeItemIndex === 0) {
+      @if (activeTabIndex === 0) {
         <div class="stats-islands">
           @for (categoryStats of categoryStatsData; track categoryStats) {
             <div class="tui-island tui-island_size_m"
@@ -72,7 +72,7 @@
           }
         </div>
       }
-      @if (tabsComponent.activeItemIndex === 1) {
+      @if (activeTabIndex === 1) {
         <table
           [columns]="categoryStatsDataHeader"
           class="stats-table"

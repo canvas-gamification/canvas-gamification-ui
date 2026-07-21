@@ -12,6 +12,7 @@ import {PolymorpheusContent} from '@taiga-ui/polymorpheus'
     standalone: false
 })
 export class CategoryStatsComponent implements OnInit, AfterContentInit {
+    activeTabIndex = 0
     categoryStatsData!: NestedCategories[]
     categoryStatsDataHeader!: string[]
 

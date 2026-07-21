@@ -17,9 +17,17 @@
     background-color: rgba(218,179,249,0.5);
 }
 
-// Restore the old Taiga 2 tui-tag status="default" look (gray pill, white text);
-// Taiga 5 tuiChip has no "default" appearance, so it would render transparent.
-[tuiChip][data-appearance='default'] {
+// Match the old Taiga 2 tui-tag (size m) proportions: 0.5rem radius, 0 0.5rem padding.
+// The [data-size] attribute is repeated to out-rank Taiga's own per-size radius rule.
+[tuiChip][data-size][data-size] {
+    border-radius: 0.5rem;
+    padding: 0 0.5rem;
+}
+
+// Finished/inactive courses used the old tui-tag status="default" look (solid gray
+// pill, white text). Taiga 5's "neutral" appearance is a much lighter gray, so
+// restore the old colors for it here.
+[tuiChip][data-appearance='neutral'] {
     background: #959595; // old --tui-base-06
     color: #fff;
 }

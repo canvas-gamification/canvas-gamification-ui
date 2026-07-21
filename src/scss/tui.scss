@@ -29,3 +29,23 @@
     align-items: center;
     justify-content: center;
 }
+
+// Taiga 5 renamed the status appearances (success -> positive, error -> negative,
+// default -> neutral). Several status chips still emit the legacy names
+// (e.g. course-question-snippet highlight(), tuiStatus pipe, event-row tags),
+// which otherwise render as unstyled chips. Map the legacy names to the
+// Taiga 5 status looks.
+[tuiAppearance][data-appearance='success'] {
+    background: var(--tui-status-positive-pale);
+    color: var(--tui-text-primary);
+}
+
+[tuiAppearance][data-appearance='error'] {
+    background: var(--tui-status-negative-pale);
+    color: var(--tui-text-primary);
+}
+
+[tuiAppearance][data-appearance='default'] {
+    background: var(--tui-background-neutral-1);
+    color: var(--tui-text-primary);
+}

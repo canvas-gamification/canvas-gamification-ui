@@ -31,7 +31,7 @@
           aria-label="Invited Member"
           [stringify]="stringify"
           >
-          Invited Members
+          <label tuiLabel>Invited Members</label>
           <!-- TODO: (Taiga UI migration) (searchChange) was replaced by (input) on <input tuiInputChip (input)="onSearch($any($event).target.value)">. See: https://taiga-ui.dev/components/input-chip -->
 <input tuiInputChip formControlName="invitedMembers" (input)="onSearchChange($any($event.target).value)" />
 <tui-data-list *tuiDropdown tuiMultiSelectGroup>

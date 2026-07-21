@@ -44,6 +44,10 @@ export class HeaderComponent {
         this.nightModeService.setNightMode(value)
     }
 
+    toggleNightMode(): void {
+        this.setNightMode(!this.isNightMode())
+    }
+
     isNightMode(): boolean {
         return this.nightModeService.getNightMode()
     }

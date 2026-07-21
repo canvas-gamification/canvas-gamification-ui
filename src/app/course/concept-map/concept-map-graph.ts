@@ -47,16 +47,19 @@ export class ConceptMapGraph {
                     'font-size': letterSize,
                     'font-weight': 'bold',
                     'font-family': 'sans-serif',
-                    fill: 'var(--tui-text-primary)',
+                    // Theme-aware replacements for the removed Taiga 2 tokens the original
+                    // graph used (--tui-text-01 / --tui-base-08 / --tui-secondary); declared
+                    // in concept-map.component.scss with the original light/night values.
+                    fill: 'var(--concept-map-text)',
                     cursor: 'pointer',
                 },
                 // Note: do NOT override rx/ry here. @joint/core 4 removed the ref* attributes,
                 // so standard.Ellipse sizes its body via rx/ry defaults (calc(0.5*w)/calc(0.5*h));
                 // overriding them shrinks every node to a tiny circle.
                 body: {
-                    stroke: '#333', // old Taiga 2 --tui-base-08
+                    stroke: 'var(--concept-map-stroke)',
                     cursor: 'pointer',
-                    fill: '#ebefff', // old Taiga 2 --tui-secondary
+                    fill: 'var(--concept-map-node-fill)',
                 },
             }
         })
@@ -84,7 +87,7 @@ export class ConceptMapGraph {
             },
             attrs: {
                 line: {
-                    stroke: '#333', // old Taiga 2 --tui-base-08
+                    stroke: 'var(--concept-map-stroke)',
                     cursor: 'default',
                 },
                 wrapper: {

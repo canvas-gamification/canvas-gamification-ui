@@ -16,25 +16,25 @@
         @for (option of options; track option) {
           <div
             (click)=setSelectedOption(option)
-            class="cursor-pointer clickable p-2 rounded-lg md:-mx-3"
+            class="cursor-pointer clickable p-2 rounded-lg"
                     [ngClass]="{
                         'clicked font-bold': isSelectedOption(option)
                     }"
             >
             {{option.name}}
           </div>
-          <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+          <div class="border-t border-base3"></div>
         }
       </div>
     } @else {
       <div class="space-y-2">
         @for (option of [0, 0, 0, 0]; track option) {
           <div
-            class="cursor-pointer clickable p-2 rounded-lg md:-mx-3 tui-skeleton"
+            class="cursor-pointer clickable p-2 rounded-lg tui-skeleton"
             >
             This is the leaderboard
           </div>
-          <div class="border-t border-base3 -mx-3 md:-mx-6"></div>
+          <div class="border-t border-base3"></div>
         }
       </div>
     }

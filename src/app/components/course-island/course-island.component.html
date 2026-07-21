@@ -9,27 +9,20 @@
     <div class="flex flex-col h-[calc(100%-3rem)]">
       <h2 class="tui-island__title flex-col flex">{{ course.name }}</h2>
       <div class="flex">
-        <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
-<span tuiChip
-          [appearance]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
-         
+        <span tuiChip
+          [appearance]="course.status === STATUS.active ? 'positive' : course.status === STATUS.blocked ? 'negative' : course.status === STATUS.pending ? 'warning' : 'neutral'"
           class="mr-2"
-          size="m"
+          size="xs"
         >{{course.status}}</span>
-        <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
-<span tuiChip
-          [appearance]="course.is_registered ? 'success' : 'warning'"
-         
+        <span tuiChip
+          [appearance]="course.is_registered ? 'positive' : 'warning'"
           class="mr-2"
-          size="m"
+          size="xs"
         >{{course.is_registered ? 'Registered' : 'Not Registered'}}</span>
         @if (course.instructor === user?.id) {
-          <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
-<span tuiChip
-            [appearance]="'custom'"
-           
+          <span tuiChip
             class="add-color"
-            size="m"
+            size="xs"
           >{{'Instructor'}}</span>
         }
       </div>
@@ -71,10 +64,8 @@
   } @else {
     <div class="course-background tui-skeleton"></div>
     <h2 class="tui-island__title tui-space_top-4 tui-skeleton tui-skeleton_short">content</h2>
-    <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
-<span tuiChip class="tui-space_right-2 tui-skeleton" size="m">content-tag</span>
-    <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
-<span tuiChip class="tui-skeleton" size="m">content-tag</span>
+    <span tuiChip class="tui-space_right-2 tui-skeleton" size="xs">content-tag</span>
+    <span tuiChip class="tui-skeleton" size="xs">content-tag</span>
     <div class="tui-form__buttons">
       <a
         class="tui-form__button tui-skeleton"

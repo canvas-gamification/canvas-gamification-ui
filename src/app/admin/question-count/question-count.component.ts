@@ -10,6 +10,7 @@ import {QuestionCount} from "@app/_models"
     standalone: false
 })
 export class QuestionCountComponent implements OnInit, AfterContentInit {
+    activeTabIndex = 0
     questionCountData!: QuestionCount[]
     questionCountDataHeader!: string[]
     openGraphDropdown!: boolean[]

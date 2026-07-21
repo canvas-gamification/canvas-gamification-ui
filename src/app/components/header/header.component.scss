@@ -136,3 +136,9 @@
 .link {
     cursor: pointer;
 }
+
+// The switch is presentational: the whole "Night mode" option row toggles it,
+// so clicks must never be captured by the nested checkbox.
+.night-mode-switch {
+    pointer-events: none;
+}
