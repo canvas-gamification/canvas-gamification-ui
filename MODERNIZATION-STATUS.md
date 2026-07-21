@@ -39,6 +39,9 @@ Goal: upgrade everything to modern versions, keep functionality/UX. No framework
 4. ~~Parsons drag-drop (CDK rewrite) not yet browser-verified end-to-end~~ **VERIFIED 2026-07-21** (see "Verified in browser" above); editor typing/katex on create pages verified earlier (issue 1).
 5. Backend change is UNCOMMITTED in ../canvas-gamification: settings.py got `"baggage"` added to CORS_ALLOW_HEADERS (needed by Sentry 10 tracing). Decide whether to commit it there.
 
+## Visual-parity pass (2026-07-21, after user reported broken UI)
+User reported broken UI (/course cards, concept map, practice sidebar). Full sweep done: old site (master) was built in a worktree (scratchpad/old-site, node 16) and 17 reference screenshots captured (scratchpad/refs/ref-*.png); every page compared and fixed. Highlights: tui-island classes restored app-wide (migration had replaced tui-island with bare tuiCardLarge divs), concept-map ellipse sizing (@joint/core 4 rx/ry semantics), practice-sidebar checkbox block, $safeNavigationMigration crash artifacts in 6 templates, tui-text_body-xl restored globally, chip appearances success/error->positive/negative, editor toolbar pinned to old tool set, profile avatar pipe precedence, token-values steppers removed. Commits c211267c1, e9af6fc99, f7afcf9ee, d79b8f8d5, 1834f5548. All verified vs refs; build/lint/305-305 tests green. NOTE: backend db was reseeded during testing — question ids shifted (61-66), category pks 64+.
+
 ## GOAL COMPLETE (2026-07-21)
 Final verification on the last commit: `npm run build` OK (warnings only: pre-existing 2MB budget + CommonJS dayjs/graphlib notes), `ng lint` 0 errors, unit tests 305/305, browser smoke of all key flows done across 2026-07-20/21. All background servers killed. Only follow-up: item 5 above (uncommitted backend CORS change) and the optional pre-existing runtime errors in item 3.
 
