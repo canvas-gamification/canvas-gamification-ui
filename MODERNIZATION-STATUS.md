@@ -24,6 +24,7 @@ Goal: upgrade everything to modern versions, keep functionality/UX. No framework
 - Landing page + CodeMirror java highlighting: OK
 - Login (username must be an email-format username, e.g. claudetest@example.com / TestPass123!), homepage, problems list, courses, profile form: OK
 - Dark mode via tui-root [attr.tuiTheme]="'dark'": OK (screenshot verified)
+- CDK drag-drop (2026-07-21, scratchpad drag-test.mjs, screenshots shot5-*): parsons problem view /problems/6 — transfer between Lines/My Solution both directions (transferArrayItem) + reorder within list (moveItemInArray) all OK; variables-editor on /problems/create/MCQ — add int+float variables, drag-reorder by cdkDragHandle grip icon OK (form values move with rows). Zero console errors. Note: Playwright must simulate CDK drags with mouse.down/small move/stepped move/up — HTML5 dragTo does not work.
 - Backend: ../canvas-gamification, .venv python 3.9, `manage.py runserver 8000`; test user claudetest@example.com (Teacher role) exists in db.sqlite3
 
 ## OPEN ISSUES (in priority order)
@@ -31,12 +32,12 @@ Goal: upgrade everything to modern versions, keep functionality/UX. No framework
 2. **Unit tests** (IN PROGRESS — resume here): 305 specs; compile now, majority pass, but: some suites fail (ConceptMap x2, CourseEventCreate NG0100 ExpressionChanged, McqCreateEditSnippet ~7, ParsonsCreateEditSnippet ~4, EditorComponent socket test) AND one spec hangs Chrome (60s disconnect) when full suite runs (order seed 4321). Suite was already broken on master (mock.ts didn't compile) so this is still net-better.
    - A subagent session (2026-07-20) was fixing these when paused. It had gotten McqCreateEditSnippet to 4/5 passing and left ONE UNCOMMITTED, UNVERIFIED edit in the working tree: `src/app/course/_test/course-event-create-edit/course-event-create-edit.component.spec.ts` (adds StringifyTuiDataListPipe + component to `declarations`, stubs `router.navigate` to stop lazy-load inside fakeAsync). Verify it compiles/passes before keeping — check whether a `declarations` key already existed (risk of duplicate key) and that `Router` is imported.
 3. Pre-existing runtime errors (NOT regressions, present with empty data): CourseIslandComponent.canView reads undefined course; consent undefined in accounts. Leave unless trivial.
-4. Parsons drag-drop (CDK rewrite) not yet browser-verified end-to-end; editor typing/katex on create pages now verified (issue 1).
+4. ~~Parsons drag-drop (CDK rewrite) not yet browser-verified end-to-end~~ **VERIFIED 2026-07-21** (see "Verified in browser" above); editor typing/katex on create pages verified earlier (issue 1).
 5. Backend change is UNCOMMITTED in ../canvas-gamification: settings.py got `"baggage"` added to CORS_ALLOW_HEADERS (needed by Sentry 10 tracing). Decide whether to commit it there.
 
 ## Remaining before goal complete
 - Finish unit-test fixes (issue 2), re-run full suite for final tally
-- Final verification pass: `npm run build`, `npx ng lint`, browser smoke (login, problems, create pages, parsons drag-drop)
+- Final verification pass: `npm run build`, `npx ng lint`, browser smoke (login, problems, create pages; parsons drag-drop already verified)
 - Kill background servers when done (see below) — done for the 2026-07-20 pause; restart on resume:
   - backend: `cd ../canvas-gamification && source .venv/bin/activate && python manage.py runserver 8000`
   - frontend: `source ~/.nvm/nvm.sh && nvm use 24.16.0 && npx ng serve`
