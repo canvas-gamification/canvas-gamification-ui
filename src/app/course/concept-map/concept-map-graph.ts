@@ -41,7 +41,6 @@ export class ConceptMapGraph {
             // lookups are type-sensitive, so numeric ids break DirectedGraph.layout. Use string ids.
             id: String(id),
             size: {width, height},
-            fill: 'var(--tui-background-neutral-1)',
             attrs: {
                 label: {
                     text: label,
@@ -51,12 +50,13 @@ export class ConceptMapGraph {
                     fill: 'var(--tui-text-primary)',
                     cursor: 'pointer',
                 },
+                // Note: do NOT override rx/ry here. @joint/core 4 removed the ref* attributes,
+                // so standard.Ellipse sizes its body via rx/ry defaults (calc(0.5*w)/calc(0.5*h));
+                // overriding them shrinks every node to a tiny circle.
                 body: {
-                    width, height,
-                    rx: 10, ry: 10,
-                    stroke: 'var(--tui-background-accent-opposite-hover)',
+                    stroke: '#333', // old Taiga 2 --tui-base-08
                     cursor: 'pointer',
-                    fill: 'var(--tui-background-neutral-1)',
+                    fill: '#ebefff', // old Taiga 2 --tui-secondary
                 },
             }
         })
@@ -84,7 +84,7 @@ export class ConceptMapGraph {
             },
             attrs: {
                 line: {
-                    stroke: 'var(--tui-background-accent-opposite-hover)',
+                    stroke: '#333', // old Taiga 2 --tui-base-08
                     cursor: 'default',
                 },
                 wrapper: {
