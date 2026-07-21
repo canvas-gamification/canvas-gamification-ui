@@ -37,13 +37,12 @@
 <tui-textfield tuiChevron
           [tuiTextfieldCleaner]="true"
           [content]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
-          class="w-48"
-          (ngModelChange)="update({event: $event})">
+          class="w-48">
 <label tuiLabel>
           Event Name
           </label>
 
-<input tuiSelect [ngModel]="event" />
+<input tuiSelect [ngModel]="event" (ngModelChange)="update({event: $event})" />
 <tui-data-list *tuiDropdown [class.tui-skeleton]="!events">
             @for (event of events; track event) {
               <button [value]="event.name" tuiOption>
@@ -104,7 +103,7 @@
           Event Name
           </label>
 
-<input tuiSelect />
+<input tuiSelect ngModel />
 <tui-data-list *tuiDropdown [class.tui-skeleton]="!events">
             @for (event of events; track event) {
               <button [value]="event.name" tuiOption>

@@ -36,21 +36,20 @@
         <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
      - "(ngModelChange)" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
 -->
-        <tui-textfield [tuiTextfieldCleaner]="true" class="w-64" (ngModelChange)="update({query: $event})">
+        <tui-textfield [tuiTextfieldCleaner]="true" class="w-64">
         <label tuiLabel>Search for a Student Name</label>
-        <input tuiInput [ngModel]="query" />
+        <input tuiInput [ngModel]="query" (ngModelChange)="update({query: $event})" />
         </tui-textfield>
         <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
 <tui-textfield tuiChevron
           [tuiTextfieldCleaner]="true"
           [content]="events ? (events | stringifyTuiDataList: 'name': 'name') : ''"
-          class="w-48"
-          (ngModelChange)="update({event: $event})">
+          class="w-48">
 <label tuiLabel>
           Event Name
           </label>
 
-<input tuiSelect [ngModel]="event" />
+<input tuiSelect [ngModel]="event" (ngModelChange)="update({event: $event})" />
 <tui-data-list *tuiDropdown [class.tui-skeleton]="!events">
             @for (event of events; track event) {
               <button [value]="event.name" tuiOption>
@@ -125,7 +124,7 @@
           Event Name
         </label>
 
-<input tuiSelect />
+<input tuiSelect ngModel />
 </tui-textfield>
         <a
           class="tui-skeleton"
