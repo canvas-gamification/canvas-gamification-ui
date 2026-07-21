@@ -39,11 +39,12 @@ Goal: upgrade everything to modern versions, keep functionality/UX. No framework
 4. ~~Parsons drag-drop (CDK rewrite) not yet browser-verified end-to-end~~ **VERIFIED 2026-07-21** (see "Verified in browser" above); editor typing/katex on create pages verified earlier (issue 1).
 5. Backend change is UNCOMMITTED in ../canvas-gamification: settings.py got `"baggage"` added to CORS_ALLOW_HEADERS (needed by Sentry 10 tracing). Decide whether to commit it there.
 
-## Remaining before goal complete
-- Final verification pass: browser smoke (login, problems, create pages; parsons drag-drop already verified) — build/lint/tests all green as of 2026-07-21
-- Kill background servers when done (see below) — done for the 2026-07-20 pause; restart on resume:
-  - backend: `cd ../canvas-gamification && source .venv/bin/activate && python manage.py runserver 8000`
-  - frontend: `source ~/.nvm/nvm.sh && nvm use 24.16.0 && npx ng serve`
+## GOAL COMPLETE (2026-07-21)
+Final verification on the last commit: `npm run build` OK (warnings only: pre-existing 2MB budget + CommonJS dayjs/graphlib notes), `ng lint` 0 errors, unit tests 305/305, browser smoke of all key flows done across 2026-07-20/21. All background servers killed. Only follow-up: item 5 above (uncommitted backend CORS change) and the optional pre-existing runtime errors in item 3.
+
+Restart commands if work resumes:
+- backend: `cd ../canvas-gamification && source .venv/bin/activate && python manage.py runserver 8000`
+- frontend: `source ~/.nvm/nvm.sh && nvm use 24.16.0 && npx ng serve`
 
 ## Environment notes
 - Node: use nvm; node 24.16.0 for current stack (`source ~/.nvm/nvm.sh && nvm use 24.16.0`)
