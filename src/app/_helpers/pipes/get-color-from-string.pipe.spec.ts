@@ -9,6 +9,8 @@ describe('GetColorFromStringPipe', () => {
     it('should get correct colour', () => {
         const pipe = new GetColorFromStringPipe()
         const color = pipe.transform('test')
-        expect(color).toBe('hsl(58,63%,83%)')
+        // tuiStringHashToHsl was removed in Taiga 5; the pipe now hashes to hue with
+        // fixed saturation/lightness (same hue as before for a given string).
+        expect(color).toBe('hsl(58, 60%, 70%)')
     })
 })

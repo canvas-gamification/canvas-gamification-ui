@@ -129,7 +129,9 @@ describe('ProblemSetComponent', () => {
     }))
 
     it('should open delete modal', fakeAsync(() => {
-        spyOn(component['dialogService'], 'open').and.callThrough()
+        // Taiga 5 dialogs render through portals and require a tui-root host;
+        // return an empty observable instead of calling through in TestBed.
+        spyOn(component['dialogService'], 'open').and.returnValue(of())
         spyOn(component, 'deleteQuestion').and.callThrough()
         component.openDeleteQuestionDialog('', 0)
         tick(1)

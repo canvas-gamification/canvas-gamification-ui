@@ -2,6 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {EditorComponent} from './editor.component'
 import {DebugElement} from '@angular/core'
+import {GetKatexHtmlStringPipe} from '@app/_helpers/pipes/get-katex-html-string.pipe'
 
 describe('EditorComponent', () => {
     let component: EditorComponent
@@ -11,7 +12,7 @@ describe('EditorComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [EditorComponent]
+            declarations: [EditorComponent, GetKatexHtmlStringPipe]
         })
             .compileComponents()
     })
@@ -29,13 +30,15 @@ describe('EditorComponent', () => {
     })
 
     it('should render editor when not readonly', () => {
-        component.readonly = false
+        // setInput (rather than a direct field write) marks the view dirty,
+        // which Angular 22 requires for the change to be picked up by detectChanges.
+        fixture.componentRef.setInput('readonly', false)
         fixture.detectChanges()
         expect(componentEl.querySelector('tui-editor')).toBeTruthy()
     })
 
     it('should render socket when readonly', () => {
-        component.readonly = true
+        fixture.componentRef.setInput('readonly', true)
         fixture.detectChanges()
         expect(componentEl.querySelector('tui-editor-socket')).toBeTruthy()
     })

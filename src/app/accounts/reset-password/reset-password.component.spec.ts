@@ -20,6 +20,9 @@ describe('ResetPasswordComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ResetPasswordComponent)
         component = fixture.componentInstance
+        // Taiga 5 alerts render through portals and require a tui-root host; stub the
+        // notification stream so success alerts do not throw asynchronously after the spec.
+        spyOn(component['notificationsService'], 'open').and.returnValue(of())
         fixture.detectChanges()
     })
 
@@ -62,6 +65,9 @@ describe('ResetPasswordComponentLinkClicked', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ResetPasswordComponent)
         component = fixture.componentInstance
+        // Taiga 5 alerts render through portals and require a tui-root host; stub the
+        // notification stream so success alerts do not throw asynchronously after the spec.
+        spyOn(component['notificationsService'], 'open').and.returnValue(of())
         fixture.detectChanges()
     })
 

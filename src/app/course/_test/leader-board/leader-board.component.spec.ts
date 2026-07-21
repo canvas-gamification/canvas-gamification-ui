@@ -1,4 +1,5 @@
 import {TuiFilterPipe} from "@taiga-ui/cdk"
+import {TuiAutoColorPipe, TuiAvatar, TuiInitialsPipe} from "@taiga-ui/kit"
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {LeaderBoardComponent} from '../../leader-board/leader-board.component'
@@ -15,7 +16,7 @@ describe('LeaderBoardComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, TuiFilterPipe],
+            imports: [TestModule, TuiFilterPipe, TuiAutoColorPipe, TuiInitialsPipe, TuiAvatar],
             declarations: [LeaderBoardComponent],
             providers: [
                 {

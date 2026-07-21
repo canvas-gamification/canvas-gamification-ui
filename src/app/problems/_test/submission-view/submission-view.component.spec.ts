@@ -12,8 +12,9 @@ describe('SubmissionViewComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [SubmissionViewComponent, DatePipe],
-            imports: [TestModule],
+            declarations: [SubmissionViewComponent],
+            // DatePipe is standalone in Angular 22 and must be imported, not declared.
+            imports: [TestModule, DatePipe],
             providers: [
                 {
                     provide: POLYMORPHEUS_CONTEXT, useValue: {

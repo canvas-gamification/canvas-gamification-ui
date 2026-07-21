@@ -37,7 +37,9 @@ describe('McqCreateEditSnippetComponent', () => {
         spyOn(component['questionService'], 'putMultipleChoiceQuestion').and.callFake(() => of(new HttpResponse<Question>()).pipe(delay(1)))
         spyOn(component['router'], 'navigate').and.callThrough()
         spyOn(component, 'refreshPage').and.callThrough()
-        spyOn(component['notificationsService'], 'open').and.callThrough()
+        // Taiga 5 alerts/dialogs render through portals and require a tui-root host;
+        // return an empty observable instead of calling through in TestBed.
+        spyOn(component['notificationsService'], 'open').and.returnValue(of())
         fixture.detectChanges()
     })
 
@@ -78,14 +80,18 @@ describe('McqCreateEditSnippetComponent', () => {
 
         describe('Check Checkbox Answers Dialog', () => {
             beforeEach(() => {
-                spyOn(component['dialogService'], 'open').and.callThrough()
+                // Same portal constraint as above: stub the dialog stream.
+                spyOn(component['dialogService'], 'open').and.returnValue(of())
                 spyOn(component, 'onSubmit').and.callThrough()
             })
 
-            it('should give no dialog and submit', () => {
+            it('should give no dialog and submit', fakeAsync(() => {
                 component.checkCheckboxAnswersDialog('')
                 expect(component.onSubmit).toHaveBeenCalled()
-            })
+                // Flush the mocked question service delay(1) inside the spec so its
+                // subscription does not fire after spies are restored.
+                tick(1)
+            }))
 
             it('should have one answer and show dialog', () => {
                 const lenAnswers = component.form.answer.value.length

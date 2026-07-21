@@ -71,13 +71,14 @@ describe('ConsentFormComponent', () => {
             component.form.race.setValue(['White'])
             fixture.detectChanges()
             component.onSubmit()
-            expect(router.navigate).toHaveBeenCalledOnceWith(['/accounts', 'survey', 'initial'])
+            // redirectAfterSubmit navigates to /homepage (see consent-form.component.ts)
+            expect(router.navigate).toHaveBeenCalledOnceWith(['/homepage'])
             expect(notificationService.open).toHaveBeenCalled()
         })
 
         it('remove a user consent', () => {
             component.declineConsent()
-            expect(router.navigate).toHaveBeenCalledOnceWith(['/accounts', 'survey', 'initial'])
+            expect(router.navigate).toHaveBeenCalledOnceWith(['/homepage'])
             expect(notificationService.open).toHaveBeenCalled()
         })
 

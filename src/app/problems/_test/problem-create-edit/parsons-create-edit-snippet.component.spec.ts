@@ -44,7 +44,9 @@ describe('ParsonsCreateEditSnippetComponent', () => {
         spyOn(component['questionService'], 'putParsonsQuestion').and.callFake(() => of(new HttpResponse<Question>()).pipe(delay(1)))
         spyOn(component['router'], 'navigate').and.callThrough()
         spyOn(component, 'refreshPage').and.callThrough()
-        spyOn(component['notificationsService'], 'open').and.callThrough()
+        // Taiga 5 alerts render through portals and require a tui-root host;
+        // return an empty observable instead of calling through in TestBed.
+        spyOn(component['notificationsService'], 'open').and.returnValue(of())
         fixture.detectChanges()
     })
 

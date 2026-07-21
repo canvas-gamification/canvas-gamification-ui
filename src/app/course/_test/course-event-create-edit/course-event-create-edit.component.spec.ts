@@ -11,11 +11,13 @@ import {ReactiveFormsModule} from "@angular/forms"
 import {TuiNotification, TuiDataList, TuiLabel, TuiButton, TuiNotificationService, TuiError, TuiInput} from "@taiga-ui/core"
 import {of} from "rxjs"
 import {TuiSelect, TuiInputTime, TuiInputDateRange} from "@taiga-ui/kit"
+import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
 
 describe('CourseEventCreateComponent with EventId', () => {
     let component: CourseEventCreateEditComponent
     let fixture: ComponentFixture<CourseEventCreateEditComponent>
     let notificationService: TuiNotificationService
+    let router: Router
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -33,6 +35,7 @@ describe('CourseEventCreateComponent with EventId', () => {
                 TuiNotification,
                 TuiButton
             ],
+            declarations: [CourseEventCreateEditComponent, StringifyTuiDataListPipe],
             providers: [
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
                 {
@@ -54,6 +57,10 @@ describe('CourseEventCreateComponent with EventId', () => {
     })
 
     beforeEach(() => {
+        // submitEvent navigates after updating; stub it so the real router does not
+        // attempt to lazy-load the course module chunk inside fakeAsync.
+        router = TestBed.inject(Router)
+        spyOn(router, 'navigate').and.returnValue(Promise.resolve(true))
         notificationService = TestBed.inject(TuiNotificationService)
         spyOn(notificationService, 'open').and.callFake(() => {
             return of()
@@ -100,6 +107,7 @@ describe('CourseEventCreateComponent without EventId', () => {
                 TuiNotification,
                 TuiButton
             ],
+            declarations: [CourseEventCreateEditComponent, StringifyTuiDataListPipe],
             providers: [
                 {provide: CourseEventService, useClass: CourseEventServiceMock},
                 {

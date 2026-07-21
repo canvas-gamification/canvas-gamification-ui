@@ -93,6 +93,13 @@ describe('PracticeProblemComponent', () => {
         fixture.detectChanges()
     })
 
+    // Angular 22 skips non-dirty views on detectChanges; specs mutate component
+    // state directly, so mark the view for check before refreshing.
+    const refresh = (): void => {
+        fixture.componentRef.changeDetectorRef.markForCheck()
+        fixture.detectChanges()
+    }
+
     it('should create', () => {
         expect(component).toBeTruthy()
     })
@@ -111,36 +118,36 @@ describe('PracticeProblemComponent', () => {
     it('should not skip question when there is only one uqj', () => {
         component.uqjs = [MOCK_UQJ_5.question.id]
         component.nextQuestion()
-        fixture.detectChanges()
+        refresh()
         expect(component.currentQuestionId).toEqual(MOCK_UQJ_5.id)
     })
 
     it('should skip question when there are multiple uqjs', () => {
         const firstUqj = component.currentQuestionId
         component.nextQuestion()
-        fixture.detectChanges()
+        refresh()
         expect(component.currentQuestionId === firstUqj).toBeFalsy()
     })
 
     it('should not change question when clicking previous question with one uqj', () => {
         component.uqjs = [MOCK_UQJ_5.question.id]
         component.prevQuestion()
-        fixture.detectChanges()
+        refresh()
         expect(component.currentQuestionId).toEqual(MOCK_UQJ_5.id)
     })
 
     it('should go to previous question when there are multiple uqjs', () => {
         const previousQuestionId = component.currentQuestionId
         component.nextQuestion()
-        fixture.detectChanges()
+        refresh()
         component.prevQuestion()
-        fixture.detectChanges()
+        refresh()
         expect(component.currentQuestionId).toEqual(previousQuestionId)
     })
 
     it('should apply filter - uqjs in filtered list', () => {
         component.updateQuestions(null, null)
-        fixture.detectChanges()
+        refresh()
         expect(component.difficulty).toEqual(null)
     })
 })

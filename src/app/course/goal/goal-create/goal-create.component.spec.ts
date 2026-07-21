@@ -72,7 +72,8 @@ describe('GoalCreateComponent', () => {
     })
 
     it('should retrieve categories', () => {
-        expect(component.categories).toEqual(MOCK_CATEGORIES)
+        // The component filters out top-level categories (parent === null).
+        expect(component.categories).toEqual(MOCK_CATEGORIES.filter(c => c.parent !== null))
     })
 
     it('should retrieve difficulties', () => {
