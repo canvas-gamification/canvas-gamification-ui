@@ -17,8 +17,20 @@
 
 .filters {
     display: flex;
+    align-items: flex-start;
 
     .search {
         flex: 1
+    }
+
+    // Taiga 5 selects no longer size to their placeholder text
+    // (the input is absolutely positioned), so give the filter
+    // dropdowns an explicit width to match the old layout.
+    .filter-select {
+        inline-size: 7.75rem;
+
+        &_wide {
+            inline-size: 9.25rem;
+        }
     }
 }

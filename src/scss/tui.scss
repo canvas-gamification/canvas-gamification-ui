@@ -12,3 +12,20 @@
 [automation-id="tui-accordion__item-wrapper"] .header_open {
     background-color: var(--tui-background-base-alt) !important;
 }
+
+// Taiga 5 dropped the body-xl text style; restore the Taiga 2 metrics
+// (--tui-font-text-xl: normal 1.25rem/1.75rem) used across the app.
+.tui-text_body-xl {
+    font-weight: normal;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+// The legacy island stylesheet sets footer buttons to display: block, which
+// overrides the Taiga 5 button's inline-flex and left-aligns its label.
+// Restore centered content like Taiga 2 buttons had.
+.tui-island .tui-island__footer-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

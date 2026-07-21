@@ -15,12 +15,9 @@
         <tui-error  formControlName="fullname"></tui-error>
     </div>
     <div class="tui-form__row">
-        <!-- TODO: (Taiga UI migration) tui-textarea migration (see https://taiga-ui.dev/components/textarea):
-     - Legacy tui-textarea had a fixed height of 20 rows by default. New component auto-resizes between [min] (default: 1) and [max] (default: 3) rows. Set min and max explicitly if the previous layout needs to be preserved.
--->
-        <tui-textfield>
+        <tui-textfield class="comment-field">
         <label tuiLabel>Comment</label>
-        <textarea tuiTextarea formControlName="comment"></textarea>
+        <textarea [min]="3" formControlName="comment" tuiTextarea></textarea>
         </tui-textfield>
         <tui-error  formControlName="comment"></tui-error>
     </div>

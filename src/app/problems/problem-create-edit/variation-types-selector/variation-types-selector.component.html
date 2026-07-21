@@ -1,7 +1,6 @@
-<tui-textfield multi tuiChevron aria-label="Variation Types">
-  Variation Types Used in Question
+<tui-textfield multi tuiChevron aria-label="Variation Types" [tuiTextfieldCleaner]="false">
+  <label tuiLabel>Variation Types Used in Question<span class="tui-required"></span></label>
   <input tuiInputChip [formControl]="variationControl" />
-<span class="tui-required"></span>
   <tui-data-list
     *tuiDropdown
     tuiMultiSelectGroup

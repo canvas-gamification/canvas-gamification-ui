@@ -4,13 +4,13 @@
     [style.backgroundColor]="(userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : '') | tuiAutoColor"
     class="profile-header_background"
   ></div>
-  <span [tuiAvatar]="userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : '' | tuiInitials" [style.background]="userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : '' | tuiAutoColor"
+  <span
     #avatarComponent
-
+    [tuiAvatar]="((userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : '') | tuiInitials)"
+    [style.background]="((userDetails ? (form.first_name.value && form.last_name.value) ? form.first_name.value + ' ' + form.last_name.value : form.email.value : '') | tuiAutoColor)"
     [class.tui-skeleton]="!userDetails"
     [class.tui-skeleton_rounded]="!userDetails"
     [round]="true"
-
     class="profile-header_logo"
     size="xxl"
   ></span>

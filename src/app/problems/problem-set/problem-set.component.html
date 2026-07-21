@@ -41,13 +41,9 @@
 <tui-textfield tuiChevron
       [tuiTextfieldCleaner]="true"
       [content]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-      class="tui-space_left-4"
+      class="filter-select tui-space_left-4"
       >
-<label tuiLabel>
-      Difficulty
-      </label>
-
-<input tuiSelect formControlName="difficulty" />
+<input tuiSelect formControlName="difficulty" placeholder="Difficulty" />
 <tui-data-list *tuiDropdown>
         @for (diff of difficulties; track diff) {
           <button [value]="diff[0]" tuiOption>
@@ -60,13 +56,9 @@
 <tui-textfield tuiChevron
       [tuiTextfieldCleaner]="true"
       [content]="parentCategories ? (parentCategories | stringifyTuiDataList: 'name': 'name') : ''"
-      class="tui-space_left-4"
+      class="filter-select tui-space_left-4"
       >
-<label tuiLabel>
-      Category
-      </label>
-
-<input tuiSelect formControlName="parentCategory" />
+<input tuiSelect formControlName="parentCategory" placeholder="Category" />
 <tui-data-list *tuiDropdown [class.tui-skeleton]="!parentCategories">
         @for (category of parentCategories; track category) {
           <button [value]="category.name" tuiOption>
@@ -79,13 +71,9 @@
 <tui-textfield tuiChevron
       [tuiTextfieldCleaner]="true"
       [content]="subCategories ? (subCategories | stringifyTuiDataList: 'name': 'name') : ''"
-      class="tui-space_left-4"
+      class="filter-select filter-select_wide tui-space_left-4"
       >
-<label tuiLabel>
-      Sub Category
-      </label>
-
-<input tuiSelect formControlName="subCategory" />
+<input tuiSelect formControlName="subCategory" placeholder="Sub Category" />
 <tui-data-list *tuiDropdown>
         @for (category of subCategories; track category) {
           <button [value]="category.name" tuiOption>
@@ -98,13 +86,9 @@
 <tui-textfield tuiChevron
       [tuiTextfieldCleaner]="true"
       [content]="[[true, 'Yes'], [false, 'No']] | stringifyTuiDataList: 0: 1"
-      class="tui-space_left-4"
+      class="filter-select tui-space_left-4"
       >
-<label tuiLabel>
-      Sample
-      </label>
-
-<input tuiSelect formControlName="is_sample" />
+<input tuiSelect formControlName="is_sample" placeholder="Sample" />
 <tui-data-list *tuiDropdown>
         <button [value]="true" tuiOption>
           Yes
@@ -181,11 +165,9 @@
             </td>
             <td *tuiCell="'status'" tuiTd>
               @if (question.is_verified) {
-                <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
-<span tuiChip size="m" appearance="success">Verified</span>
+                <span tuiChip size="m" appearance="positive">Verified</span>
               } @else {
-                <!-- TODO: (Taiga UI migration) tui-tag/tuiTag migrated to tuiChip. Check visuals and content manually -->
-<span tuiChip size="m" appearance="error">Not Verified</span>
+                <span tuiChip size="m" appearance="negative">Not Verified</span>
               }
             </td>
             <td *tuiCell="'actions'" tuiTd>

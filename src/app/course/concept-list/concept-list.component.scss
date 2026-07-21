@@ -2,6 +2,17 @@
     color: var(--tui-text-secondary);
 }
 
+// The old tui-accordion-item header stretched its content across the row;
+// the new tuiAccordion button sizes content to fit, so stretch it back for
+// the name / question count / practice columns to spread like before.
+button[tuiAccordion] {
+    > div {
+        flex: 1;
+    }
+
+    font-weight: normal;
+}
+
 .row {
     &:not(:last-child) {
         border-bottom: solid 1px var(--tui-background-neutral-1-hover);

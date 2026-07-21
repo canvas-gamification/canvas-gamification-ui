@@ -27,12 +27,9 @@
                 </td>
                 @for (tokenVal of childTokenValue.token_values; track tokenVal) {
                   <td *tuiCell="tokenVal.difficulty" tuiTd>
-                    <tui-textfield decimal="never" 
-                      
-                      
-                    >
-<input tuiInputNumber [(ngModel)]="tokenVal.value" [ngmodeloptions]="{updateOn: 'blur'}" [step]="1" />
-</tui-textfield>
+                    <tui-textfield decimal="never">
+                      <input tuiInputNumber [(ngModel)]="tokenVal.value" [ngModelOptions]="{updateOn: 'blur'}" />
+                    </tui-textfield>
                   </td>
                 }
               </tr>

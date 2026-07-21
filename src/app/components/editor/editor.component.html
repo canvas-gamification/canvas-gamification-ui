@@ -1,6 +1,7 @@
 @if (!readonly) {
   <tui-editor
     (ngModelChange)="editor.setValue($event)"
+    [tools]="tools"
     [exampleText]="exampleText"
     [ngModelOptions]="{standalone: true}"
     [ngModel]="editor.value"

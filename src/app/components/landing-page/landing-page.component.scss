@@ -13,6 +13,8 @@
 
         h1 {
             font-size: 4rem;
+            // Taiga 5 zeroes default heading margins; restore the old gap to the subtitle
+            margin-bottom: 0.67em;
         }
     }
 
@@ -80,12 +82,19 @@
 
     &-action {
         padding: 3rem 0;
-// TODO: (Taiga UI migration) night variables have been removed. Use tuiTheme="dark" on an element to switch colors to dark theme
-        color: var(--tui-text-primary);
+        // White text on the accent background (old --tui-text-01-night)
+        color: #fff;
         background-color: var(--tui-background-accent-1);
 
         .center-button {
             margin: 0 auto;
+            // Old Taiga 2 "secondary + tuiMode onDark" look: translucent white button
+            background: rgba(255, 255, 255, 0.16);
+            color: #fff;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.24);
+            }
         }
     }
 

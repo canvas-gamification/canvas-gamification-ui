@@ -1,4 +1,4 @@
-import {provideTuiEditor} from "@taiga-ui/editor"
+import {provideTuiEditor, TuiEditorTool, type TuiEditorToolType} from "@taiga-ui/editor"
 import {Component, Input, OnDestroy, ChangeDetectionStrategy} from '@angular/core'
 import {
     ControlValueAccessor,
@@ -10,7 +10,9 @@ import {
     Validators
 } from '@angular/forms'
 import {Subscription} from 'rxjs'
-import {createInlineMathEditorExtension} from '@app/components/editor/inline-math/inline-math.extension'
+import {
+    createInlineMathEditorExtension
+} from '@app/components/editor/inline-math/inline-math.extension'
 
 @Component({
     selector: 'app-editor',
@@ -48,6 +50,29 @@ export class EditorComponent implements ControlValueAccessor, Validator, OnDestr
     @Input() exampleText = ''
     @Input() placeHolder = ''
     @Input() readonly = false
+
+    // Tool set matching the old (Taiga 2) default editor toolbar
+    readonly tools: TuiEditorToolType[] = [
+        TuiEditorTool.Undo,
+        TuiEditorTool.Size,
+        TuiEditorTool.Bold,
+        TuiEditorTool.Italic,
+        TuiEditorTool.Underline,
+        TuiEditorTool.Align,
+        TuiEditorTool.List,
+        TuiEditorTool.Quote,
+        TuiEditorTool.Link,
+        TuiEditorTool.Color,
+        TuiEditorTool.Hilite,
+        TuiEditorTool.Clear,
+        TuiEditorTool.Strikethrough,
+        TuiEditorTool.Code,
+        TuiEditorTool.Img,
+        TuiEditorTool.HR,
+        TuiEditorTool.Sup,
+        TuiEditorTool.Sub,
+        TuiEditorTool.Table,
+    ]
 
     editor = new UntypedFormControl('', [Validators.required])
     onChangeSubs: Subscription[] = []
