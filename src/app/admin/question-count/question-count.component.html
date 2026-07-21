@@ -1,4 +1,4 @@
-<div tuiCardLarge class="tui-space_bottom-8">
+<div class="tui-island tui-island_size_m tui-space_bottom-8">
   <h2 class="tui-island__title">Question Counts</h2>
   <tui-tabs #tabsComponent class="tui-space_bottom-4">
     <button aria-label="Card View" tuiTab>Card View</button>
@@ -9,8 +9,7 @@
       @if (tabsComponent.activeItemIndex === 0) {
         <div class="count-islands">
           @for (questionCount of questionCountData; track questionCount) {
-            <div tuiCardLarge
-              textAlign="center"
+            <div class="tui-island tui-island_size_m tui-island_text-align_center"
               >
               <h3 class="tui-island__title">
                 {{ questionCount.name }}

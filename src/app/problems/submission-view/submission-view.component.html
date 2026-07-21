@@ -15,7 +15,7 @@
       </p>
       <p class="tui-island__paragraph">
         Time Submitted:
-        {{ ($safeNavigationMigration(submission?.submission_time) | date: 'medium') || 'No Time'}}
+        {{ (submission?.submission_time | date: 'medium') || 'No Time'}}
       </p>
       @if (submission?.get_passed_test_results?.length) {
         <h3 class="tui-text_bold tui-text_body-l-2">What went well:</h3>
@@ -63,11 +63,11 @@
 <div class="submission-code_islands tui-space_top-4">
 
   @if (submission?.no_file_answer) {
-    <div tuiCardLarge>
+    <div class="tui-island tui-island_size_m">
       <h3 class="tui-island__category tui-text_body-xs">Your Code</h3>
       <div class="tui-island__paragraph">
         <app-code-editor
-          [codeTemplate]="$safeNavigationMigration(submission?.answer)"
+          [codeTemplate]="submission?.answer"
           [readOnly]="true"
           >
         </app-code-editor>
@@ -76,7 +76,7 @@
   }
 
   @for (item of answerFiles; track item; let index = $index) {
-    <div tuiCardLarge>
+    <div class="tui-island tui-island_size_m">
       <h2 class="tui-island__category tui-text_body-xs">Your Code:</h2>
       <div class="tui-island__paragraph">
         <app-code-editor [codeTemplate]="item.code" [readOnly]="true"></app-code-editor>
@@ -84,13 +84,13 @@
     </div>
   }
 
-  <div tuiCardLarge>
+  <div class="tui-island tui-island_size_m">
     <h3 class="tui-island__category tui-text_body-xs">Compile Output</h3>
     @if (submission?.get_decoded_stderr) {
       <p class="tui-island__paragraph">The following error occurred: </p>
       <div class="tui-island__paragraph">
         <app-code-editor
-          [codeTemplate]="$safeNavigationMigration(submission?.get_decoded_stderr)"
+          [codeTemplate]="submission?.get_decoded_stderr"
           [readOnly]="true"
           >
         </app-code-editor>
@@ -104,7 +104,7 @@
   </div>
 
   @if (submission?.bugs?.bugs?.length > 0) {
-    <div tuiCardLarge>
+    <div class="tui-island tui-island_size_m">
       <h3 class="tui-island__category tui-text_body-xs">Potential Mistakes</h3>
       <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
 <!-- TODO: (Taiga UI migration) rounded input has been removed. The previous rounded look can still be achieved with CSS. See example https://taiga-ui.dev/components/accordion#custom -->

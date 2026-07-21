@@ -18,9 +18,9 @@
         Back to Homepage
       </a>
       <div class="flex-container gap-8 mt-10">
-        <div tuiCardLarge class="practice-tile tui-island_hoverable"
+        <div class="tui-island tui-island_size_m practice-tile tui-island_hoverable"
           id="Target"
-          [routerLink]="['concepts']" size="m">
+          [routerLink]="['concepts']">
           <div class="practice-background practice-question"></div>
           <div class="practice-tile-text">
             @if (isList()) {
@@ -47,8 +47,8 @@
           </div>
         </div>
 
-        <div tuiCardLarge class="practice-tile tui-island_hoverable"
-          [routerLink]="['/course', courseId, 'goal']" size="m">
+        <div class="tui-island tui-island_size_m practice-tile tui-island_hoverable"
+          [routerLink]="['/course', courseId, 'goal']">
           <div class="practice-background view-goals"></div>
           <div class="practice-tile-text">
             <h3 class="tui-island__title">Personal Goals</h3>

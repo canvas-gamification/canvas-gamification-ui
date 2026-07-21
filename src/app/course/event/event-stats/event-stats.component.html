@@ -12,7 +12,7 @@
   @if (stats) {
     @if (stats.length !== 0) {
       @for (stat of stats; track stat) {
-        <div tuiCardLarge class="shadow space-y-3">
+        <div class="tui-island tui-island_size_m shadow space-y-3">
           <h4 class="tui-text_h4 mb-3">
             {{stat.question.title}}
           </h4>
@@ -160,7 +160,7 @@
       </div>
     }
   } @else {
-    <div tuiCardLarge class="shadow space-y-3 tui-skeleton">
+    <div class="tui-island tui-island_size_m shadow space-y-3 tui-skeleton">
       <h4 class="tui-text_h4">
         title
       </h4>

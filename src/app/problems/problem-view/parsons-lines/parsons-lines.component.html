@@ -1,11 +1,10 @@
 <div cdkDropListGroup class="tui-row tui-row_adaptive">
   <div class="tui-col_xs-12 tui-col_md-12 tui-col_lg-6">
     <h3 class="tui-island__category tui-text_body-xs">Lines</h3>
-    <div tuiCardLarge
-      (cdkDropListDropped)="onDrop($event)"
+    <div (cdkDropListDropped)="onDrop($event)"
       [cdkDropListData]="leftContainer"
       cdkDropList
-      class="container"
+      class="tui-island tui-island_size_m container"
     >
       @for (line of leftContainer; track line) {
         <div
@@ -24,11 +23,10 @@
   </div>
   <div class="tui-col_xs-12 tui-col_md-12 tui-col_lg-6">
     <h3 class="tui-island__category tui-text_body-xs">My Solution</h3>
-    <div tuiCardLarge
-      (cdkDropListDropped)="onDrop($event)"
+    <div (cdkDropListDropped)="onDrop($event)"
       [cdkDropListData]="rightContainer"
       cdkDropList
-      class="container"
+      class="tui-island tui-island_size_m container"
     >
       @for (line of rightContainer; track line) {
         <div

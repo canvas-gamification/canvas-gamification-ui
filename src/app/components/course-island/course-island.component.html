@@ -1,7 +1,6 @@
-<div tuiCardLarge
+<div
   [class]="getIslandClass()"
-  (click)="redirect()"
-  size="m">
+  (click)="redirect()">
   @if (!skeleton) {
     <div
       [style.backgroundColor]="course.name | getColorFromString"

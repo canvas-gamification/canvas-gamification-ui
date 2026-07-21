@@ -18,7 +18,7 @@
       <ng-template #reorderTooltip>
         Reorder Variable
       </ng-template>
-      <div tuiCardLarge class="drag-container_content">
+      <div class="tui-island tui-island_size_m drag-container_content">
         <div class="tui-island__content">
           <div class="tui-island__figure">
             <button
@@ -103,8 +103,7 @@
                   <div class="tui-form__row">
                     <div class="tui-form__field-note">Values</div>
                     @if (getValues(form).value.length > 0) {
-                      <div tuiCardLarge
-                        class="tui-space_bottom-4">
+                      <div class="tui-island tui-island_size_m tui-space_bottom-4">
                         @for (value of getValues(form).controls; track value; let index = $index) {
                           <div
                             class="tui-form__row values-control"

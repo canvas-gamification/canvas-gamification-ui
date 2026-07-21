@@ -3,7 +3,7 @@
   <tui-loader [overlay]="true" [loading]="!courseData">
     <div class="courses-islands tui-space_bottom-6">
       @for (course of courseData; track course) {
-        <div tuiCardLarge>
+        <div class="tui-island tui-island_size_m">
           <h3 class="tui-island__title">{{ course.name }}</h3>
           <p class="tui-island__paragraph">
             URL: {{ course.url }}

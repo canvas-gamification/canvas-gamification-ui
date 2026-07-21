@@ -15,10 +15,8 @@
   </div>
   <div class="top-x-islands tui-space_bottom-8">
     @for (element of leaderBoard | tuiFilter: filterInTopX: rankTopX; track element; let index = $index) {
-      <div tuiCardLarge
-        [style.marginTop]="(index) + 'rem'" [style.order]="(index % 2 * -index)"
-        class="top-x-island"
-        textAlign="center"
+      <div [style.marginTop]="(index) + 'rem'" [style.order]="(index % 2 * -index)"
+        class="tui-island tui-island_size_m tui-island_text-align_center top-x-island"
         >
         <div [style.background-color]="element.name || 'Anonymous User' | tuiAutoColor" class="top-x-background"></div>
         <figure class="tui-island__figure">
@@ -100,10 +98,8 @@
 } @else {
   <h3 class="tui-text_h3 my-8 tui-skeleton">{{leaderBoardName}} Leader Board</h3>
   <div class="top-x-islands tui-space_bottom-8">
-    <div tuiCardLarge
-      [style.marginTop]="1 + 'rem'" [style.order]="(1 % 2 * -1)"
-      class="top-x-island"
-      textAlign="center"
+    <div [style.marginTop]="1 + 'rem'" [style.order]="(1 % 2 * -1)"
+      class="tui-island tui-island_size_m tui-island_text-align_center top-x-island"
       >
       <div
         [style.backgroundColor]="'Anonymous User' | tuiAutoColor"
@@ -125,10 +121,8 @@
         No Tokens
       </p>
     </div>
-    <div tuiCardLarge
-      [style.marginTop]="2 + 'rem'" [style.order]="(2 % 2 * -2)"
-      class="top-x-island"
-      textAlign="center">
+    <div [style.marginTop]="2 + 'rem'" [style.order]="(2 % 2 * -2)"
+      class="tui-island tui-island_size_m tui-island_text-align_center top-x-island">
       <div [style.backgroundColor]="'Anonymous User' | tuiAutoColor"
       class="top-x-background tui-skeleton"></div>
       <figure class="tui-island__figure tui-skeleton">
@@ -147,10 +141,8 @@
         No Tokens
       </p>
     </div>
-    <div tuiCardLarge
-      [style.marginTop]="3 + 'rem'" [style.order]="(3 % 2 * -3)"
-      class="top-x-island"
-      textAlign="center">
+    <div [style.marginTop]="3 + 'rem'" [style.order]="(3 % 2 * -3)"
+      class="tui-island tui-island_size_m tui-island_text-align_center top-x-island">
       <div [style.backgroundColor]="'Anonymous User' | tuiAutoColor"
       class="top-x-background tui-skeleton"></div>
       <figure class="tui-island__figure tui-skeleton">

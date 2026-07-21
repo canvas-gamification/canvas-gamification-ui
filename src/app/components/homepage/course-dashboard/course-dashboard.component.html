@@ -1,4 +1,4 @@
-<div tuiCardLarge>
+<div class="tui-island tui-island_size_m">
   <h2 class="tui-island__title tui-space_bottom-6">Active Courses</h2>
   <div class="course-islands">
     @if (activeCourses) {
@@ -8,7 +8,7 @@
         }
       }
       <ng-container>
-        <div tuiCardLarge [hoverable]="true" [routerLink]="['/course']" size="m" textAlign="center">
+        <div class="tui-island tui-island_size_m tui-island_hoverable tui-island_text-align_center" [routerLink]="['/course']">
           <div class="more-courses-island">
             <div class="tui-space_vertical-12">
               <figure class="tui-island__figure">

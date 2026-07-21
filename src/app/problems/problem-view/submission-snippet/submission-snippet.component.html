@@ -1,4 +1,4 @@
-<div tuiCardLarge class="previous-submissions-island tui-space_vertical-6">
+<div class="tui-island tui-island_size_m previous-submissions-island tui-space_vertical-6">
   <h2 class="tui-text_h6 tui-space_top-0 previous-submissions-island__title">Past Submissions</h2>
   @if (previousSubmissions?.length > 0) {
     <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
@@ -78,7 +78,7 @@
               / {{submission.token_value.toFixed(2) }}</p>
               <p class="tui-island__paragraph">
                 Time Submitted:
-                {{ ($safeNavigationMigration(submission?.submission_time) | date: 'medium') || 'No Time'}}
+                {{ (submission?.submission_time | date: 'medium') || 'No Time'}}
               </p>
               <p class="tui-island__paragraph">Answer:</p>
               @for (safeAnswer of submission.safeAnswer; track safeAnswer) {

@@ -58,7 +58,7 @@
         }
       </div>
       <div class="flex mt-2">
-        <div tuiCardLarge class="w-2/3">
+        <div class="tui-island tui-island_size_m w-2/3">
           <p class="tui-island__paragraph">Code: </p>
           @for (item of answerFiles; track item) {
             <div class="tui-island__paragraph">
@@ -69,8 +69,7 @@
         </div>
         @if (filteredSubmissions[index].passed_results?.length ||
           filteredSubmissions[index].failed_results?.length) {
-          <div tuiCardLarge
-            class="w-1/3">
+          <div class="tui-island tui-island_size_m w-1/3">
             <h3 class="tui-island__paragraph"><b>Unit Testing Results:</b></h3>
             @if (filteredSubmissions[index].passed_results?.length) {
               <div>
@@ -103,7 +102,7 @@
           </div>
         }
         @if (filteredSubmissions[index].decoded_stderr !== '') {
-          <div tuiCardLarge class="w-1/3">
+          <div class="tui-island tui-island_size_m w-1/3">
             <p class="tui-island__paragraph">The following error occurred: </p>
             <div class="tui-island__paragraph">
               <app-code-editor

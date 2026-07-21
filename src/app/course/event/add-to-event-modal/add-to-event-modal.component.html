@@ -7,7 +7,7 @@
   @if (openEvents) {
     <div class="tui-space_top-8 space-y-3">
       @for (event of openEvents; track event) {
-        <div tuiCardLarge size="s">
+        <div class="tui-island tui-island_size_s">
           <div class="flex">
             <div class="flex-grow">
               <p class="tui-island__category">{{ event.type }}</p>
@@ -33,7 +33,7 @@
   @if (closedEvents) {
     <div class="tui-space_top-8 space-y-3">
       @for (event of closedEvents; track event) {
-        <div tuiCardLarge size="s">
+        <div class="tui-island tui-island_size_s">
           <div class="flex">
             <div class="flex-grow">
               <p class="tui-island__category">{{ event.type }}</p>

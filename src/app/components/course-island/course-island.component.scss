@@ -16,3 +16,10 @@
 .add-color {
     background-color: rgba(218,179,249,0.5);
 }
+
+// Restore the old Taiga 2 tui-tag status="default" look (gray pill, white text);
+// Taiga 5 tuiChip has no "default" appearance, so it would render transparent.
+[tuiChip][data-appearance='default'] {
+    background: #959595; // old --tui-base-06
+    color: #fff;
+}

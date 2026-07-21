@@ -28,7 +28,7 @@
       <div class="flex items-center gap-3 flex-wrap">
         @if (getFeaturedEvent()) {
           <button
-            [routerLink]="[$safeNavigationMigration(getFeaturedEvent()?.id)]"
+            [routerLink]="[getFeaturedEvent()?.id]"
             iconStart="@tui.star-filled"
             appearance="secondary"
             aria-label="View Featured Assignment"
@@ -59,11 +59,8 @@
           <div class="tui-space_top-8 space-y-3">
             <a
               (click)="observer.complete()"
-              [hoverable]="true"
               [routerLink]="['/course', courseId, 'assignments-exams', 'create']"
-              size="s"
-              textAlign="center"
-              tuiIsland
+              class="tui-island tui-island_size_s tui-island_hoverable tui-island_text-align_center"
               >
               <figure class="tui-island__figure">
                 <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
@@ -72,7 +69,7 @@
               <h2 class="tui-island__title">Create New Assessment</h2>
             </a>
             @for (event of courseEvents; track event) {
-              <div tuiCardLarge size="s">
+              <div class="tui-island tui-island_size_s">
                 <div class="flex">
                   <div class="flex-grow">
                     <p class="tui-island__category">{{ event.type }}</p>
@@ -99,10 +96,7 @@
           <ng-container>
             <div class="tui-space_top-8 space-y-3">
               <a
-                size="s"
-                textAlign="center"
-                tuiIsland
-                class="tui-skeleton"
+                class="tui-island tui-island_size_s tui-island_text-align_center tui-skeleton"
                 >
                 <figure class="tui-island__figure">
                   <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
@@ -130,10 +124,7 @@
         <ng-container>
           <div class="tui-space_top-8 space-y-3">
             <a
-              size="s"
-              textAlign="center"
-              tuiIsland
-              class="tui-skeleton"
+              class="tui-island tui-island_size_s tui-island_text-align_center tui-skeleton"
               >
               <figure class="tui-island__figure">
                 <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
