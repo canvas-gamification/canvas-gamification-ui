@@ -58,7 +58,7 @@
           <a
             [class.tui-skeleton]="!category"
             [class.tui-skeleton_text]="!category"
-            [routerLink]="['../', $safeNavigationMigration(parentCategory?.pk)]"
+            [routerLink]="['../', parentCategory?.pk]"
             [queryParams]="{difficulty}"
             class="tui-space_vertical-0"
             tuiLink
@@ -130,33 +130,35 @@
           </tui-data-list>
         </ng-template>
       </div>
-      <label tuiBlock="m"> <input tuiCheckbox type="checkbox"
-        (ngModelChange)="updateQuestions(difficulty, $event)"
+      <label tuiBlock="m"
         [class.tui-skeleton]="!difficulties || !category"
-        [ngModel]="include_solved"
         class="w-full"
-        ngDefaultControl
-
         >
         <span class="tui-text_body-s">
           Include Solved Questions:
         </span>
+        <input tuiCheckbox
+          type="checkbox"
+          (ngModelChange)="updateQuestions(difficulty, $event)"
+          [ngModel]="include_solved"
+          ngDefaultControl
+          >
       </label>
-      <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
-<tui-textfield tuiChevron
+      <tui-textfield tuiChevron
         class="flex-grow"
-        (ngModelChange)="updateQuestions($event, include_solved)"
         [class.tui-skeleton]="!difficulties || !category"
         [tuiTextfieldCleaner]="true"
         [content]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
         tuiTextfieldSize="m"
         >
-<label tuiLabel>
-        Difficulty:
+        <label tuiLabel>
+          Difficulty:
         </label>
-
-<input tuiSelect [ngModel]="difficulty" />
-<tui-data-list *tuiDropdown>
+        <input tuiSelect
+          [ngModel]="difficulty"
+          (ngModelChange)="updateQuestions($event, include_solved)"
+          />
+        <tui-data-list *tuiDropdown>
           @for (diff of difficulties; track diff) {
             <button
               [value]="diff[0]"
@@ -252,7 +254,7 @@
 <app-add-to-event-modal
   [(open)]="addQuestionModal"
   [questionId]="currentQuestionId"
-  [openEvents]="$safeNavigationMigration(course?.events)"
-  [closedEvents]="$safeNavigationMigration(course?.events)"
+  [openEvents]="course?.events"
+  [closedEvents]="course?.events"
   >
 </app-add-to-event-modal>
