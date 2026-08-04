@@ -5,12 +5,14 @@ import {TestModule} from '@test/test.module'
 import {of} from "rxjs"
 import {MOCK_ADMIN, MOCK_ADMIN_CONSENT, MOCK_CONSENT_DECLINE} from "@app/accounts/_test/mock"
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form"
-import {Component, ViewChild} from "@angular/core"
+import {Component, ViewChild, ChangeDetectionStrategy} from "@angular/core"
 
 @Component({
     selector: 'test-app-withdraw-consent-dialog',
     template: `
-        <ng-template let-observer #testDialog></ng-template>`
+        <ng-template let-observer #testDialog></ng-template>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 class TestWithdrawConsentDialogComponent {
     @ViewChild('testDialog') testDialog
@@ -34,6 +36,9 @@ describe('ProfileDetailsComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ProfileDetailsComponent)
         component = fixture.componentInstance
+        // Taiga 5 alerts render through portals and require a tui-root host;
+        // stub the notification stream so success alerts do not throw in TestBed.
+        spyOn(component['notificationsService'], 'open').and.returnValue(of())
         spyOn(component['profile'], 'getProfileDetails').and.returnValue(of(MOCK_ADMIN))
         spyOn(component['consentService'], 'getConsent').and.returnValue(of([MOCK_ADMIN_CONSENT]))
         component.userId = 0
@@ -62,7 +67,8 @@ describe('ProfileDetailsComponent', () => {
     }))
 
     it('should open withdraw consent modal', () => {
-        spyOn(component['dialogService'], 'open').and.callThrough()
+        // Same portal constraint as above: stub the dialog stream.
+        spyOn(component['dialogService'], 'open').and.returnValue(of())
         spyOn(component, 'withdraw').and.callThrough()
         component.confirmWithdrawConsentDialog('')
         expect(component['dialogService'].open).toHaveBeenCalled()

@@ -2,7 +2,7 @@
 
 .tui-island_hoverable {
     box-shadow: 0 0.05rem 0.75rem rgba(0, 0, 0, 0.025) !important;
-    border: 1px dashed var(--tui-base-03);
+    border: 1px dashed var(--tui-background-neutral-1-hover);
 
     &:hover {
         box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1) !important;
@@ -10,5 +10,42 @@
 }
 
 [automation-id="tui-accordion__item-wrapper"] .header_open {
-    background-color: var(--tui-base-02) !important;
+    background-color: var(--tui-background-base-alt) !important;
+}
+
+// Taiga 5 dropped the body-xl text style; restore the Taiga 2 metrics
+// (--tui-font-text-xl: normal 1.25rem/1.75rem) used across the app.
+.tui-text_body-xl {
+    font-weight: normal;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+// The legacy island stylesheet sets footer buttons to display: block, which
+// overrides the Taiga 5 button's inline-flex and left-aligns its label.
+// Restore centered content like Taiga 2 buttons had.
+.tui-island .tui-island__footer-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// Taiga 5 renamed the status appearances (success -> positive, error -> negative,
+// default -> neutral). Several status chips still emit the legacy names
+// (e.g. course-question-snippet highlight(), tuiStatus pipe, event-row tags),
+// which otherwise render as unstyled chips. Map the legacy names to the
+// Taiga 5 status looks.
+[tuiAppearance][data-appearance='success'] {
+    background: var(--tui-status-positive-pale);
+    color: var(--tui-text-primary);
+}
+
+[tuiAppearance][data-appearance='error'] {
+    background: var(--tui-status-negative-pale);
+    color: var(--tui-text-primary);
+}
+
+[tuiAppearance][data-appearance='default'] {
+    background: var(--tui-background-neutral-1);
+    color: var(--tui-text-primary);
 }

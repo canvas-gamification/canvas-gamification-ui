@@ -1,3 +1,6 @@
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiInputChip, TuiChevron} from "@taiga-ui/kit"
+import {TuiLabel, TuiNotificationService, TuiError, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {ConsentFormComponent} from './consent-form.component'
@@ -13,21 +16,13 @@ import {
 import {Router} from "@angular/router"
 import {ConsentService} from "@app/accounts/_services/consent.service"
 import {ConsentServiceMock} from "@app/accounts/_test/_services/consent.service.mock"
-import {
-    TuiCheckboxLabeledModule,
-    TuiFieldErrorModule,
-    TuiInputModule,
-    TuiIslandModule,
-    TuiMultiSelectModule,
-    TuiSelectModule
-} from "@taiga-ui/kit"
-import {TuiNotificationsService} from '@taiga-ui/core'
+import {TuiSelect} from "@taiga-ui/kit"
 import {of} from "rxjs"
 
 describe('ConsentFormComponent', () => {
     let component: ConsentFormComponent
     let fixture: ComponentFixture<ConsentFormComponent>
-    let notificationService: TuiNotificationsService
+    let notificationService: TuiNotificationService
     let router: Router
 
     beforeEach(async () => {
@@ -40,20 +35,21 @@ describe('ConsentFormComponent', () => {
             imports: [
                 TestModule,
                 ReactiveFormsModule,
-                TuiIslandModule,
-                TuiInputModule,
-                TuiFieldErrorModule,
-                TuiCheckboxLabeledModule,
-                TuiSelectModule,
-                TuiMultiSelectModule
+                TuiCardLarge,
+                TuiInput,
+                TuiError, TuiError,
+                TuiLabel,
+                TuiSelect,
+                ...TuiInputChip,
+                TuiChevron
             ],
             providers: [{provide: ConsentService, useClass: ConsentServiceMock}]
         }).compileComponents()
     })
     describe('The user is an admin', () => {
         beforeEach(() => {
-            notificationService = TestBed.inject(TuiNotificationsService)
-            spyOn(notificationService, 'show').and.callFake(() => {
+            notificationService = TestBed.inject(TuiNotificationService)
+            spyOn(notificationService, 'open').and.callFake(() => {
                 return of()
             })
             router = TestBed.inject(Router)
@@ -75,14 +71,15 @@ describe('ConsentFormComponent', () => {
             component.form.race.setValue(['White'])
             fixture.detectChanges()
             component.onSubmit()
-            expect(router.navigate).toHaveBeenCalledOnceWith(['/accounts', 'survey', 'initial'])
-            expect(notificationService.show).toHaveBeenCalled()
+            // redirectAfterSubmit navigates to /homepage (see consent-form.component.ts)
+            expect(router.navigate).toHaveBeenCalledOnceWith(['/homepage'])
+            expect(notificationService.open).toHaveBeenCalled()
         })
 
         it('remove a user consent', () => {
             component.declineConsent()
-            expect(router.navigate).toHaveBeenCalledOnceWith(['/accounts', 'survey', 'initial'])
-            expect(notificationService.show).toHaveBeenCalled()
+            expect(router.navigate).toHaveBeenCalledOnceWith(['/homepage'])
+            expect(notificationService.open).toHaveBeenCalled()
         })
 
         it('should fill form with name', () => {

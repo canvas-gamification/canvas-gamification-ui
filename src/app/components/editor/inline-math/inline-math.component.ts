@@ -1,24 +1,35 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Inject, ViewChild} from '@angular/core'
-import {TuiDestroyService} from '@taiga-ui/cdk'
-import {TuiNodeViewNgComponent} from '@taiga-ui/addon-editor'
+import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Inject, ViewChild, DOCUMENT} from '@angular/core'
+import {TuiNodeViewNg} from '@taiga-ui/editor'
+import {NodeViewProps} from '@tiptap/core'
 import {InlineMath} from '@app/components/editor/inline-math/inline-math.extension'
-import {DOCUMENT} from '@angular/common'
+
 import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe'
 
 @Component({
     selector: 'editor-inline-math',
     templateUrl: './inline-math.component.html',
     styleUrls: ['./inline-math.component.scss'],
-    providers: [TuiDestroyService, GetKatexStringPipe],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    providers: [GetKatexStringPipe],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
-export class InlineMathComponent extends TuiNodeViewNgComponent implements AfterViewInit {
+export class InlineMathComponent extends TuiNodeViewNg implements AfterViewInit {
 
     @ViewChild('katexContent') katexContainer: ElementRef
 
+    private nodeValue: NodeViewProps['node']
+
+    get node(): NodeViewProps['node'] {
+        return this.nodeValue
+    }
+
+    set node(value: NodeViewProps['node']) {
+        this.nodeValue = value
+        this.renderEquation()
+    }
+
     constructor(
         @Inject(DOCUMENT) readonly documentRef: Document,
-        @Inject(TuiDestroyService) readonly destroy$: TuiDestroyService,
         private getKatexStringPipe: GetKatexStringPipe
     ) {
         super()

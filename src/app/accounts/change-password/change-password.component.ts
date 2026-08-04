@@ -1,24 +1,26 @@
-import {Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormBuilder, FormGroup} from "@angular/forms"
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from "@angular/forms"
 import {ChangePasswordService} from "@app/accounts/_services/change-password.service"
 import {ChangePasswordForm} from "@app/accounts/_forms/change-password.form"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {Router} from "@angular/router"
 
 @Component({
     selector: 'app-change-password',
     templateUrl: './change-password.component.html',
-    styleUrls: ['./change-password.component.scss']
+    styleUrls: ['./change-password.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ChangePasswordComponent implements OnInit {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     logoPath = 'assets/global/logo.jpg'
 
     constructor(
-        private builder: FormBuilder,
+        private builder: UntypedFormBuilder,
         private password: ChangePasswordService,
         private router: Router,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 
@@ -36,8 +38,8 @@ export class ChangePasswordComponent implements OnInit {
             .subscribe(() => {
                 this.router.navigate(['/homepage']).then(() => {
                     this.notificationsService
-                        .show('Your password has been updated successfully!', {
-                            status: TuiNotification.Success
+                        .open('Your password has been updated successfully!', {
+                            appearance: 'success'
                         }).subscribe()
                 })
             })

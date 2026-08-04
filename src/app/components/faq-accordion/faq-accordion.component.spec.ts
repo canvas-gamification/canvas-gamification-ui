@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {FaqAccordionComponent} from './faq-accordion.component'
 import {of} from "rxjs"
-import {TuiAccordionModule, TuiFilterModule} from "@taiga-ui/kit"
+import {TuiAccordion, TuiFilter} from "@taiga-ui/kit"
 
 describe('FaqAccordionComponent', () => {
     let component: FaqAccordionComponent
@@ -11,7 +11,7 @@ describe('FaqAccordionComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [FaqAccordionComponent],
-            imports: [TuiAccordionModule, TuiFilterModule]
+            imports: [TuiAccordion, TuiFilter]
         }).compileComponents()
     })
 

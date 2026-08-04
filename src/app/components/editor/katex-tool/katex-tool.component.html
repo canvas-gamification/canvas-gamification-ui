@@ -1,40 +1,34 @@
-<tui-hosted-dropdown
-    #hostedDropdown
-    [content]="katexDropdown"
-    tuiDropdownAlign="left"
+<div
+    [tuiDropdown]="katexDropdown"
+    [(tuiDropdownOpen)]="open"
+    tuiDropdownAlign="start"
 >
     <button
-        [focusable]="hostedDropdown.open"
-        [pseudoPressed]="hostedDropdown.open"
+        [tuiAppearanceState]="open ? 'active' : null"
         appearance="icon"
         class="tool-button"
-        icon="tuiIconTeXLarge"
+        iconStart="@tui.sigma"
         size="s"
         tuiIconButton
         type="button"
     ></button>
-</tui-hosted-dropdown>
+</div>
 
-<ng-template #katexDropdown let-activeZone>
+<ng-template #katexDropdown>
     <form
         (submit)="insertKatex()"
-        [tuiActiveZoneParent]="activeZone"
+       
         class="katex-tool"
     >
         <div class="katex-tool_input">
-            <tui-input
-                (ngModelChange)="equation = $event; displayKatex()"
-                [ngModelOptions]="{standalone: true}"
-                [ngModel]="equation"
-                class="katex-tool_input-text"
-            >
-                Type an equation
-                <input tuiTextfield/>
-            </tui-input>
+            <tui-textfield class="katex-tool_input-text">
+            <label tuiLabel>Type an equation</label>
+            <input tuiInput (ngModelChange)="equation = $event; displayKatex()" [ngModel]="equation" [ngModelOptions]="{standalone: true}"/>
+            </tui-textfield>
             <button
                 appearance="icon"
                 class="tui-space_left-2"
-                icon="tuiIconCheckCircleLarge"
+                iconStart="@tui.circle-check"
                 size="s"
                 tuiIconButton
                 type="submit"
@@ -42,9 +36,9 @@
         </div>
         <div>
             <p class="tui-space_vertical-1">Preview:</p>
-            <tui-island>
+            <div class="tui-island tui-island_size_m">
                 <div #katexContent></div>
-            </tui-island>
+            </div>
         </div>
     </form>
 </ng-template>

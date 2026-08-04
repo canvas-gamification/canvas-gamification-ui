@@ -1,15 +1,18 @@
-import {AfterContentInit, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
+import {AfterContentInit, ChangeDetectorRef, Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {CategoryStatsService} from "@app/admin/_services/category-stats.service"
 import {NestedCategories} from "@app/_models"
 import {TuiDialogContext, TuiDialogService} from '@taiga-ui/core'
-import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
+import {PolymorpheusContent} from '@taiga-ui/polymorpheus'
 
 @Component({
     selector: 'app-category-stats',
     templateUrl: './category-stats.component.html',
-    styleUrls: ['./category-stats.component.scss']
+    styleUrls: ['./category-stats.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CategoryStatsComponent implements OnInit, AfterContentInit {
+    activeTabIndex = 0
     categoryStatsData!: NestedCategories[]
     categoryStatsDataHeader!: string[]
 
@@ -33,7 +36,7 @@ export class CategoryStatsComponent implements OnInit, AfterContentInit {
 
     openCategoryStatsDialog(title: string, content: PolymorpheusContent<TuiDialogContext>): void {
         this.dialogService.open(content, {
-            closeable: false,
+            closable: false,
             size: 'l',
             label: title
         }).subscribe()

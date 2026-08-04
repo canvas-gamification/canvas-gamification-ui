@@ -1,11 +1,12 @@
+type TuiStatus = "default" | "error" | "info" | "neutral" | "primary" | "success" | "warning"
 import {Pipe, PipeTransform} from '@angular/core'
-import {TuiStatusT} from "@taiga-ui/kit"
 
 @Pipe({
-    name: 'tuiStatus'
+    name: 'tuiStatus',
+    standalone: false
 })
 export class TuiStatusPipe implements PipeTransform {
-    transform(status: string): TuiStatusT {
+    transform(status: string): TuiStatus {
         if (status === 'Solved' || status === 'Correct') return 'success'
         else if (status === 'Partially Correct') return 'warning'
         else if (status === 'Incorrect') return 'error'

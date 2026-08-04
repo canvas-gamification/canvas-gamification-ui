@@ -1,11 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ApiService} from "@app/_services/api.service"
 import {ActionType, ActionVerb} from "@app/_models"
 
 @Component({
     selector: 'app-export-snippet',
     templateUrl: './export-snippet.component.html',
-    styleUrls: ['./export-snippet.component.scss']
+    styleUrls: ['./export-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ExportSnippetComponent implements OnInit {
 
@@ -21,6 +23,7 @@ export class ExportSnippetComponent implements OnInit {
 
     selectedFields: string[] = []
     selectedSearch = ''
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedFilters: Record<string, any> = {}
 
 

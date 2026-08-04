@@ -5,7 +5,8 @@ import katex from 'katex'
  * Return string with formatted katex html
  */
 @Pipe({
-    name: 'getKatexString'
+    name: 'getKatexString',
+    standalone: false
 })
 export class GetKatexStringPipe implements PipeTransform {
     transform(equation: string): string {

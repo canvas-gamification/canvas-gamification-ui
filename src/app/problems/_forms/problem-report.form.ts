@@ -1,14 +1,14 @@
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 
 export class ReportQuestionForm {
     /**
      * Creates a FormGroup for the problem report.
      */
-    static createForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            report: new FormControl('', [Validators.required]),
-            report_details: new FormControl(''),
+            report: new UntypedFormControl('', [Validators.required]),
+            report_details: new UntypedFormControl(''),
         })
     }
 
@@ -16,7 +16,7 @@ export class ReportQuestionForm {
      * Extracts the data from the FormGroup.
      * @param form - The FormGroup for the problem report.
      */
-    static extractData(form: FormGroup): ProblemReportFormData {
+    static extractData(form: UntypedFormGroup): ProblemReportFormData {
         return form.value
     }
 }

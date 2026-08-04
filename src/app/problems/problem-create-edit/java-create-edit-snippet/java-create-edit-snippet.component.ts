@@ -1,28 +1,30 @@
-import {Component, Inject, Input, OnInit} from '@angular/core'
-import {AbstractControl, FormControl, FormGroup} from '@angular/forms'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {JavaForm} from "@app/problems/_forms/java.form"
 import {Router} from "@angular/router"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {Question} from "@app/_models"
 
 @Component({
     selector: 'app-java-create-snippet',
     templateUrl: './java-create-edit-snippet.component.html',
     styleUrls: ['./java-create-edit-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class JavaCreateEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question
     @Input() eventId: number
     @Input() courseId: number
-    formGroup: FormGroup
-    variationControl : FormControl
+    formGroup: UntypedFormGroup
+    variationControl : UntypedFormControl
 
     constructor(
         private questionService: QuestionService,
         private router: Router,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
     }
 
@@ -39,7 +41,7 @@ export class JavaCreateEditSnippetComponent implements OnInit {
         } else {
             this.formGroup = JavaForm.createForm(this.courseId, this.eventId)
         }
-        this.variationControl = this.formGroup.get('variation_types') as FormControl
+        this.variationControl = this.formGroup.get('variation_types') as UntypedFormControl
     }
 
     /**
@@ -51,8 +53,8 @@ export class JavaCreateEditSnippetComponent implements OnInit {
             this.questionService.putJavaQuestion(submissionRequest, this.questionDetails.id)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The question has been updated successfully.', {
-                            status: TuiNotification.Success
+                        .open('The question has been updated successfully.', {
+                            appearance: 'success'
                         }).subscribe()
                     this.refreshPage()
                 })
@@ -60,8 +62,8 @@ export class JavaCreateEditSnippetComponent implements OnInit {
             this.questionService.postJavaQuestion(submissionRequest)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The question has been created successfully.', {
-                            status: TuiNotification.Success
+                        .open('The question has been created successfully.', {
+                            appearance: 'success'
                         }).subscribe()
                     this.refreshPage()
                 })

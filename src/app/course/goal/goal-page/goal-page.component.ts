@@ -1,11 +1,13 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {GoalService} from "@app/course/_services/goal.service"
 import {Goal} from "@app/_models/goal/goal"
 
 @Component({
     selector: 'app-goal-page',
     templateUrl: './goal-page.component.html',
-    styleUrls: ['./goal-page.component.scss']
+    styleUrls: ['./goal-page.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GoalPageComponent implements OnInit {
 

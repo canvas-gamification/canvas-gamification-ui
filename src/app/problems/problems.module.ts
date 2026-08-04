@@ -1,5 +1,8 @@
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiInputChip, TuiChevron} from "@taiga-ui/kit"
+import {TuiActiveZone} from "@taiga-ui/cdk"
+import {TuiEditorSocket} from "@taiga-ui/editor"
 import {ProblemCreateEditComponent} from '@app/problems/problem-create-edit/problem-create-edit.component'
-import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs'
 import {
     JavaCreateEditSnippetComponent
 } from '@app/problems/problem-create-edit/java-create-edit-snippet/java-create-edit-snippet.component'
@@ -23,46 +26,15 @@ import {
     ParsonsCreateEditSnippetComponent
 } from '@app/problems/problem-create-edit/parsons-create-edit-snippet/parsons-create-edit-snippet.component'
 import {ProblemsRoutingModule} from '@app/problems/problems-routing.module'
-import {DragulaModule} from 'ng2-dragula'
+import {DragDropModule} from '@angular/cdk/drag-drop'
 import {DifficultyService} from '@app/problems/_services/difficulty.service'
 import {UqjService} from '@app/problems/_services/uqj.service'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {SubmissionService} from '@app/problems/_services/submission.service'
 import {ParsonsLinesComponent} from './problem-view/parsons-lines/parsons-lines.component'
-import {TuiTableModule, TuiTablePaginationModule} from '@taiga-ui/addon-table'
-import {
-    TuiButtonModule,
-    TuiDataListModule,
-    TuiDescribedByModule,
-    TuiDialogModule,
-    TuiDropdownControllerModule,
-    TuiHintModule,
-    TuiHostedDropdownModule,
-    TuiLabelModule,
-    TuiLoaderModule,
-    TuiNotificationModule,
-    TuiSvgModule,
-    TuiTextfieldControllerModule
-} from '@taiga-ui/core'
-import {
-    TuiAccordionModule,
-    TuiBadgeModule,
-    TuiCheckboxBlockModule,
-    TuiCheckboxLabeledModule,
-    TuiFieldErrorModule,
-    TuiInputCountModule,
-    TuiInputModule,
-    TuiIslandModule,
-    TuiMultiSelectModule,
-    TuiRadioBlockModule,
-    TuiRadioLabeledModule,
-    TuiSelectModule,
-    TuiStringifyContentPipeModule,
-    TuiStringifyPipeModule,
-    TuiTabsModule,
-    TuiTagModule,
-    TuiTextAreaModule
-} from '@taiga-ui/kit'
+import {TuiTablePagination, TuiTable} from '@taiga-ui/addon-table'
+import {TuiNotification, TuiDataList, TuiError, TuiLoader, TuiLabel, TuiDropdown, TuiIcon, TuiDialog, TuiButton, TuiHint, TuiCheckbox, TuiRadio, TuiInput} from '@taiga-ui/core'
+import {TuiAccordion, TuiStringifyContentPipe, TuiBadge, TuiBlock, TuiTabs, TuiStringifyPipe, TuiButtonLoading, TuiInputNumber, TuiChip, TuiSelect, TuiTextarea} from '@taiga-ui/kit'
 import {TabListViewSwitcherModule} from '@app/components/tab-list-view-switcher/tab-list-view-switcher.module'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 import {TestCasesEditorComponent} from '@app/problems/json-editor/test-cases-editor/test-cases-editor.component'
@@ -79,8 +51,6 @@ import {
 } from './problem-create-edit/default-create-edit-snippet/default-create-edit-snippet.component'
 import {CodeEditorModule} from '@app/components/code-editor/code-editor.module'
 import {EditorModule} from '@app/components/editor/editor.module'
-import {TuiEditorSocketModule} from '@taiga-ui/addon-editor'
-import {TuiActiveZoneModule} from '@taiga-ui/cdk'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {ProblemReportModalComponent} from './problem-report/problem-report-modal.component'
 import {VariationTypesSelectorComponent} from './problem-create-edit/variation-types-selector/variation-types-selector.component'
@@ -112,48 +82,43 @@ import {VariationTypesSelectorComponent} from './problem-create-edit/variation-t
     imports: [
         CodeEditorModule,
         CommonModule,
-        DragulaModule.forRoot(),
+        DragDropModule,
         EditorModule,
         FormsModule,
-        HighlightModule,
         PipesModule,
         ProblemsRoutingModule,
         ReactiveFormsModule,
         SidebarModule,
         TabListViewSwitcherModule,
-        TuiAccordionModule,
-        TuiActiveZoneModule,
-        TuiBadgeModule,
-        TuiButtonModule,
-        TuiCheckboxBlockModule,
-        TuiCheckboxLabeledModule,
-        TuiDataListModule,
-        TuiDescribedByModule,
-        TuiDialogModule,
-        TuiDropdownControllerModule,
-        TuiEditorSocketModule,
-        TuiFieldErrorModule,
-        TuiHintModule,
-        TuiHostedDropdownModule,
-        TuiInputCountModule,
-        TuiInputModule,
-        TuiIslandModule,
-        TuiLabelModule,
-        TuiLoaderModule,
-        TuiMultiSelectModule,
-        TuiNotificationModule,
-        TuiRadioBlockModule,
-        TuiRadioLabeledModule,
-        TuiSelectModule,
-        TuiStringifyContentPipeModule,
-        TuiStringifyPipeModule,
-        TuiSvgModule,
-        TuiTableModule,
-        TuiTablePaginationModule,
-        TuiTabsModule,
-        TuiTagModule,
-        TuiTextAreaModule,
-        TuiTextfieldControllerModule
+        ...TuiAccordion,
+        TuiActiveZone,
+        TuiBadge,
+        TuiButton,
+        TuiButtonLoading,
+        TuiBlock, TuiCheckbox,
+        TuiLabel,
+        ...TuiDataList,
+        TuiDialog,
+        ...TuiDropdown,
+        TuiEditorSocket,
+        ...TuiError,
+        ...TuiHint,
+        ...TuiInputNumber,
+        ...TuiInput,
+        TuiCardLarge,
+        TuiLoader,
+        ...TuiInputChip,
+        TuiChevron,
+        ...TuiNotification, ...TuiRadio,
+        ...TuiSelect,
+        TuiStringifyContentPipe,
+        TuiStringifyPipe,
+        TuiIcon,
+        ...TuiTable,
+        TuiTablePagination,
+        ...TuiTabs,
+        TuiChip,
+        ...TuiTextarea
     ],
     exports: [
         ProblemReportModalComponent,
@@ -163,17 +128,8 @@ import {VariationTypesSelectorComponent} from './problem-create-edit/variation-t
         DifficultyService,
         QuestionService,
         SubmissionService,
-        UqjService,
-        {
-            provide: HIGHLIGHT_OPTIONS,
-            useValue: {
-                coreLibraryLoader: () => import('highlight.js/lib/core'),
-                lineNumbersLoader: () => import('highlightjs-line-numbers.js'), // Optional, only if you want the line numbers
-                languages: {
-                    java: () => import('highlight.js/lib/languages/java')
-                }
-            }
-        }]
+        UqjService
+    ]
 })
 export class ProblemsModule {
 }

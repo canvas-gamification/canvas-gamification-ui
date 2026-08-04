@@ -1,3 +1,4 @@
+import {TuiCardLarge} from "@taiga-ui/layout"
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {
@@ -8,9 +9,9 @@ import {QuestionService} from "@app/problems/_services/question.service"
 import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {MOCK_JAVA_QUESTION} from "@app/problems/_test/mock"
-import {TuiButtonModule, TuiHostedDropdownModule, TuiSvgModule} from "@taiga-ui/core"
+import {TuiDropdown, TuiIcon, TuiButton, TuiError, TuiInput} from "@taiga-ui/core"
 import {of} from "rxjs"
-import {TuiFieldErrorModule, TuiInputModule, TuiIslandModule, TuiSelectModule, TuiTextAreaModule} from "@taiga-ui/kit"
+import {TuiSelect, TuiTextarea} from "@taiga-ui/kit"
 import {HttpResponse} from "@angular/common/http"
 import {Question} from "@app/_models"
 import {delay} from "rxjs/operators"
@@ -31,9 +32,9 @@ describe('JavaCreateEditSnippetComponent', () => {
                 JavaInputFilesEditorComponent, AsFormGroupPipe
             ],
             imports: [
-                TestModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
-                TuiInputModule, TuiSelectModule, TuiFieldErrorModule, TuiButtonModule,
-                TuiHostedDropdownModule, TuiSvgModule, TuiIslandModule
+                TestModule, ReactiveFormsModule, FormsModule, TuiTextarea,
+                TuiInput, TuiSelect, TuiError, TuiError, TuiButton,
+                TuiDropdown, TuiIcon, TuiCardLarge
             ],
             providers: [
                 {provide: QuestionService, useClass: QuestionServiceMock}
@@ -48,7 +49,9 @@ describe('JavaCreateEditSnippetComponent', () => {
         spyOn(component['questionService'], 'putJavaQuestion').and.callFake(() => of(new HttpResponse<Question>()).pipe(delay(1)))
         spyOn(component['router'], 'navigate').and.callThrough()
         spyOn(component, 'refreshPage').and.callThrough()
-        spyOn(component['notificationsService'], 'show').and.callThrough()
+        // Taiga 5 alerts render through portals and require a tui-root host;
+        // return an empty observable instead of calling through in TestBed.
+        spyOn(component['notificationsService'], 'open').and.returnValue(of())
         fixture.detectChanges()
     })
 
@@ -71,7 +74,7 @@ describe('JavaCreateEditSnippetComponent', () => {
         const data = component.formGroup.getRawValue()
         expect(component['questionService'].postJavaQuestion).toHaveBeenCalledWith(data)
         tick(1)
-        expect(component['notificationsService'].show).toHaveBeenCalled()
+        expect(component['notificationsService'].open).toHaveBeenCalled()
         expect(component.refreshPage).toHaveBeenCalled()
     }))
 
@@ -95,7 +98,7 @@ describe('JavaCreateEditSnippetComponent', () => {
             const data = component.formGroup.getRawValue()
             expect(component['questionService'].putJavaQuestion).toHaveBeenCalledWith(data, component.questionDetails.id)
             tick(1)
-            expect(component['notificationsService'].show).toHaveBeenCalled()
+            expect(component['notificationsService'].open).toHaveBeenCalled()
             expect(component.refreshPage).toHaveBeenCalled()
         }))
     })

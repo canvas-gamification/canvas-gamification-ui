@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {convert} from 'html-to-text'
 
 @Component({
     selector: 'app-event-stats-bar-chart',
     templateUrl: './event-stats-bar-chart.component.html',
-    styleUrls: ['./event-stats-bar-chart.component.scss']
+    styleUrls: ['./event-stats-bar-chart.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class EventStatsBarChartComponent implements OnInit {
 
@@ -16,7 +18,7 @@ export class EventStatsBarChartComponent implements OnInit {
 
     ngOnInit(): void {
         this.labelsX = Object.keys(this.answers)
-            .map(convert)
+            .map(label => convert(label))
             .map((label: string) => label.length < 90 ? label : label.slice(0, 90) + '...')
         this.value = [Object.values(this.answers)]
         const max = this.getMax()

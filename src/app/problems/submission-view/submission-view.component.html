@@ -1,142 +1,147 @@
-<div *ngIf="!submission?.question?.is_exam_and_open; else examInProgress">
-    <ng-container *ngIf="submission?.get_decoded_results; else noFeedback">
+@if (!submission?.question?.is_exam_and_open) {
+  <div>
+    @if (submission?.get_decoded_results) {
+      <p class="tui-island__paragraph">
+        Grade Given:
+        {{ submission?.grade || 'No Grade' }}
+      </p>
+      <p class="tui-island__paragraph">
+        Score:
+        {{ submission?.get_formatted_test_results }}
+      </p>
+      <p class="tui-island__paragraph">
+        Tokens Received:
+        {{ submission?.formatted_tokens_received }}
+      </p>
+      <p class="tui-island__paragraph">
+        Time Submitted:
+        {{ (submission?.submission_time | date: 'medium') || 'No Time'}}
+      </p>
+      @if (submission?.get_passed_test_results?.length) {
+        <h3 class="tui-text_bold tui-text_body-l-2">What went well:</h3>
+        <ul class="tui-list">
+          @for (result of submission?.get_passed_test_results; track result) {
+            <li
+              class="tui-list__item"
+              >
+              {{ result.name }}
+            </li>
+          }
+        </ul>
+      }
+      @if (submission?.get_failed_test_results?.length) {
+        <h3 class="tui-text_bold tui-text_body-l-2">Still needs some work:</h3>
+        <ul class="tui-list">
+          @for (result of submission?.get_failed_test_results; track result) {
+            <li
+              class="tui-list__item"
+              >
+              {{ result.message }}
+            </li>
+          }
+        </ul>
         <p class="tui-island__paragraph">
-            Grade Given:
-            {{ submission?.grade || 'No Grade' }}
+          If there are multiple issues, attempt to fix the first
+          issue as that might solve subsequent issues
         </p>
-        <p class="tui-island__paragraph">
-            Score:
-            {{ submission?.get_formatted_test_results }}
-        </p>
-        <p class="tui-island__paragraph">
-            Tokens Received:
-            {{ submission?.formatted_tokens_received }}
-        </p>
-        <p class="tui-island__paragraph">
-            Time Submitted:
-            {{ (submission?.submission_time | date: 'medium') || 'No Time'}}
-        </p>
-        <ng-container *ngIf="submission?.get_passed_test_results?.length">
-            <h3 class="tui-text_bold tui-text_body-l-2">What went well:</h3>
-            <ul class="tui-list">
-                <li
-                    *ngFor="let result of submission?.get_passed_test_results"
-                    class="tui-list__item"
-                >
-                    {{ result.name }}
-                </li>
-            </ul>
-        </ng-container>
-        <ng-container *ngIf="submission?.get_failed_test_results?.length">
-            <h3 class="tui-text_bold tui-text_body-l-2">Still needs some work:</h3>
-            <ul class="tui-list">
-                <li
-
-                    *ngFor="let result of submission?.get_failed_test_results"
-                    class="tui-list__item"
-                >
-                    {{ result.message }}
-                </li>
-            </ul>
-            <p class="tui-island__paragraph">
-                If there are multiple issues, attempt to fix the first
-                issue as that might solve subsequent issues
-            </p>
-        </ng-container>
-    </ng-container>
-    <ng-template #noFeedback>
-        <h3 class="tui-text_bold tui-text_body-l-2">No feedback</h3>
-        <p class="tui-island__paragraph">
-            This is usually due to compilation error or your answer is
-            still being evaluated, see compile output or refresh the page
-        </p>
-    </ng-template>
-</div>
-<ng-template #examInProgress>
-    <h3 class="tui-text_bold tui-text_body-l-2">The Exam is Still in Progress</h3>
-    <p class="tui-island__paragraph">
-        Your results will be available to view following the completion of the exam.
-    </p>
-</ng-template>
+      }
+    } @else {
+      <h3 class="tui-text_bold tui-text_body-l-2">No feedback</h3>
+      <p class="tui-island__paragraph">
+        This is usually due to compilation error or your answer is
+        still being evaluated, see compile output or refresh the page
+      </p>
+    }
+  </div>
+} @else {
+  <h3 class="tui-text_bold tui-text_body-l-2">The Exam is Still in Progress</h3>
+  <p class="tui-island__paragraph">
+    Your results will be available to view following the completion of the exam.
+  </p>
+}
 
 <div class="submission-code_islands tui-space_top-4">
 
-    <tui-island *ngIf="submission?.no_file_answer">
-        <h3 class="tui-island__category tui-text_body-xs">Your Code</h3>
-        <div class="tui-island__paragraph">
-            <app-code-editor
-                [codeTemplate]="submission?.answer"
-                [readOnly]="true"
-            >
-            </app-code-editor>
-        </div>
-    </tui-island>
+  @if (submission?.no_file_answer) {
+    <div class="tui-island tui-island_size_m">
+      <h3 class="tui-island__category tui-text_body-xs">Your Code</h3>
+      <div class="tui-island__paragraph">
+        <app-code-editor
+          [codeTemplate]="submission?.answer"
+          [readOnly]="true"
+          >
+        </app-code-editor>
+      </div>
+    </div>
+  }
 
-    <tui-island *ngFor="let item of answerFiles; let index = index">
-        <h2 class="tui-island__category tui-text_body-xs">Your Code:</h2>
-        <div class="tui-island__paragraph">
-            <app-code-editor [codeTemplate]="item.code" [readOnly]="true"></app-code-editor>
-        </div>
-    </tui-island>
+  @for (item of answerFiles; track item; let index = $index) {
+    <div class="tui-island tui-island_size_m">
+      <h2 class="tui-island__category tui-text_body-xs">Your Code:</h2>
+      <div class="tui-island__paragraph">
+        <app-code-editor [codeTemplate]="item.code" [readOnly]="true"></app-code-editor>
+      </div>
+    </div>
+  }
 
-    <tui-island>
-        <h3 class="tui-island__category tui-text_body-xs">Compile Output</h3>
-        <ng-container *ngIf="submission?.get_decoded_stderr; else successCompile">
-            <p class="tui-island__paragraph">The following error occurred: </p>
-            <div class="tui-island__paragraph">
-                <app-code-editor
-                    [codeTemplate]="submission?.get_decoded_stderr"
-                    [readOnly]="true"
-                >
-                </app-code-editor>
-            </div>
-        </ng-container>
-        <ng-template #successCompile>
-            <p class="tui-island__paragraph">Compiled successfully!</p>
-        </ng-template>
-        <ng-container *ngIf="submission?.get_status_message">
-            <p class="tui-island__paragraph">Message: {{ submission?.get_status_message }}</p>
-        </ng-container>
-    </tui-island>
+  <div class="tui-island tui-island_size_m">
+    <h3 class="tui-island__category tui-text_body-xs">Compile Output</h3>
+    @if (submission?.get_decoded_stderr) {
+      <p class="tui-island__paragraph">The following error occurred: </p>
+      <div class="tui-island__paragraph">
+        <app-code-editor
+          [codeTemplate]="submission?.get_decoded_stderr"
+          [readOnly]="true"
+          >
+        </app-code-editor>
+      </div>
+    } @else {
+      <p class="tui-island__paragraph">Compiled successfully!</p>
+    }
+    @if (submission?.get_status_message) {
+      <p class="tui-island__paragraph">Message: {{ submission?.get_status_message }}</p>
+    }
+  </div>
 
-    <tui-island *ngIf="submission?.bugs?.bugs?.length > 0">
-        <h3 class="tui-island__category tui-text_body-xs">Potential Mistakes</h3>
-        <tui-accordion
-            [rounded]="false"
+  @if (submission?.bugs?.bugs?.length > 0) {
+    <div class="tui-island tui-island_size_m">
+      <h3 class="tui-island__category tui-text_body-xs">Potential Mistakes</h3>
+      <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<!-- TODO: (Taiga UI migration) rounded input has been removed. The previous rounded look can still be achieved with CSS. See example https://taiga-ui.dev/components/accordion#custom -->
+<tui-accordion
+        
         >
-            <tui-accordion-item
-                *ngFor="let bug of submission.bugs.bugs"
-                borders="top-bottom"
-            >
-                <div
-                    class="tui-island__paragraph"
+        @for (bug of submission.bugs.bugs; track bug) {
+          <button tuiAccordion>
+              <div
+                class="tui-island__paragraph"
                 >
-                    {{bug.short_message}}
-                </div>
-                <ng-template
-                    tuiAccordionItemContent
-                >
-                    <div class="mb-3">
-                        {{bug.long_message}}
-                    </div>
-                    <div class="mb-3">
-                        {{bug.source_line}}
-                    </div>
-                    <app-editor [ngModel]="getPattern(bug.type).details" [readonly]="true"></app-editor>
-                </ng-template>
-            </tui-accordion-item>
-        </tui-accordion>
-    </tui-island>
+                {{bug.short_message}}
+              </div>
+          </button>
+          <tui-expand>
+              <div class="mb-3">
+                {{bug.long_message}}
+              </div>
+              <div class="mb-3">
+                {{bug.source_line}}
+              </div>
+              <app-editor [ngModel]="getPattern(bug.type).details" [readonly]="true"></app-editor>
+          </tui-expand>
+        }
+      </tui-accordion>
+    </div>
+  }
 </div>
 
 <div class="tui-form__buttons">
-    <button
-        (click)="closeDialog()"
-        appearance="primary"
-        class="tui-form__button"
-        size="m"
-        tuiButton
+  <button
+    (click)="closeDialog()"
+    appearance="primary"
+    class="tui-form__button"
+    size="m"
+    tuiButton
     >
-        Close
-    </button>
+    Close
+  </button>
 </div>

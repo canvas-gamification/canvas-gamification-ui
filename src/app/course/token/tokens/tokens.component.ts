@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component, ChangeDetectionStrategy} from '@angular/core'
 import {GradeBook} from "@app/_models/grade_book"
 import {Course, CourseEvent} from "@app/_models"
 import {ActivatedRoute} from "@angular/router"
@@ -8,7 +8,9 @@ import {ApiService} from "@app/_services/api.service"
 @Component({
     selector: 'app-tokens',
     templateUrl: './tokens.component.html',
-    styleUrls: ['./tokens.component.scss']
+    styleUrls: ['./tokens.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TokensComponent {
     grades: GradeBook

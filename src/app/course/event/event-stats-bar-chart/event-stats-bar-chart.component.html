@@ -1,13 +1,14 @@
+<!-- TODO: (Taiga UI migration) labels positioning on x axes were updated. Add empty string to axisXLabels array. See https://taiga-ui.dev/charts/axes -->
 <tui-axes
     [axisXLabels]="labelsX"
-    axisY="none"
+    
     axisYName="Number of Submissions"
     [axisYLabels]="labelsY"
     class="h-80"
 >
     <tui-bar-chart
         [value]="value"
-        [hintContent]="hint"
+        [tuiHintContent]="hint"
         [size]="null"
         [max]="getMax()"
     >

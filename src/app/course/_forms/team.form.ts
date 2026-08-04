@@ -1,4 +1,4 @@
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 import {Team} from "@app/_models/team"
 import {CourseRegistration} from "@app/_models"
 
@@ -10,25 +10,25 @@ export interface TeamFormData {
 }
 
 export class TeamForm {
-    static createTeamForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createTeamForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            name: new FormControl(null, [Validators.required]),
-            isPrivate: new FormControl(false, [Validators.required]),
-            invitedMembers: new FormControl(null),
+            name: new UntypedFormControl(null, [Validators.required]),
+            isPrivate: new UntypedFormControl(false, [Validators.required]),
+            invitedMembers: new UntypedFormControl(null),
         })
     }
 
     static createTeamFormTeam(
         team: Team,
         courseRegistrations: CourseRegistration[]
-    ): FormGroup {
+    ): UntypedFormGroup {
         const invitedMembers = courseRegistrations.filter(reg => team.who_can_join.includes(reg.id))
-        const builder = new FormBuilder()
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            name: new FormControl(team.name, [Validators.required]),
-            isPrivate: new FormControl(team.is_private, [Validators.required]),
-            invitedMembers: new FormControl(invitedMembers),
+            name: new UntypedFormControl(team.name, [Validators.required]),
+            isPrivate: new UntypedFormControl(team.is_private, [Validators.required]),
+            invitedMembers: new UntypedFormControl(invitedMembers),
         })
     }
 
@@ -37,7 +37,7 @@ export class TeamForm {
      * @param formData - the data to be formatted, a FormGroup object
      * @param eventId - the ID of the event that the team belongs to
      */
-    static formatTeamFormData(formData: FormGroup, eventId: number): TeamFormData{
+    static formatTeamFormData(formData: UntypedFormGroup, eventId: number): TeamFormData{
         return {
             event_id: eventId,
             name: formData.get('name').value,

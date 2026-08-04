@@ -1,88 +1,86 @@
-<tui-island
-    [class]="getIslandClass()"
-    (click)="redirect()"
-    size="m">
-    <ng-container *ngIf="!skeleton else skeletonTemplate">
-        <div
-            [style.backgroundColor]="course.name | getColorFromString"
-            class="course-background"
-        ></div>
-        <div class="flex flex-col h-[calc(100%-3rem)]">
-            <h2 class="tui-island__title flex-col flex">{{ course.name }}</h2>
-            <div class="flex">
-                <tui-tag
-                    [status]="course.status === STATUS.active ? 'success' : course.status === STATUS.blocked ? 'error' : course.status === STATUS.pending ? 'warning' : 'default'"
-                    [value]="course.status"
-                    class="mr-2"
-                    size="m"
-                ></tui-tag>
-                <tui-tag
-                    [status]="course.is_registered ? 'success' : 'warning'"
-                    [value]="course.is_registered ? 'Registered' : 'Not Registered'"
-                    class="mr-2"
-                    size="m"
-                ></tui-tag>
-                <tui-tag
-                    *ngIf="course.instructor === user?.id"
-                    [status]="'custom'"
-                    [value]="'Instructor'"
-                    class="add-color"
-                    size="m"
-                ></tui-tag>
-            </div>
-            <div class="tui-form__buttons flex grow items-end">
-                <a
-                    *ngIf="user?.is_teacher"
-                    appearance="primary"
-                    [routerLink]="['/course', course.id]"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                >
-                    View
-                </a>
-                <a
-                    *ngIf="course.has_view_permission && user?.is_student"
-                    appearance="primary"
-                    [routerLink]="['/course', course.id]"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                >
-                    Open
-                </a>
-                <a
-                    *ngIf="!course.has_view_permission && endDate > currentDate && user?.is_student"
-                    [routerLink]="['/course', course.id, 'register']"
-                    class="tui-form__button"
-                    size="m"
-                    tuiButton
-                >
-                    Register
-                </a>
-            </div>
-        </div>
-    </ng-container>
-    <ng-template #skeletonTemplate>
-        <div class="course-background tui-skeleton"></div>
-        <h2 class="tui-island__title tui-space_top-4 tui-skeleton tui-skeleton_short">content</h2>
-        <tui-tag class="tui-space_right-2 tui-skeleton" size="m" value="content-tag"></tui-tag>
-        <tui-tag class="tui-skeleton" size="m" value="content-tag"></tui-tag>
-        <div class="tui-form__buttons">
-            <a
-                class="tui-form__button tui-skeleton"
-                size="m"
-                tuiButton
+<div
+  [class]="getIslandClass()"
+  (click)="redirect()">
+  @if (!skeleton) {
+    <div
+      [style.backgroundColor]="course.name | getColorFromString"
+      class="course-background"
+    ></div>
+    <div class="flex flex-col h-[calc(100%-3rem)]">
+      <h2 class="tui-island__title flex-col flex">{{ course.name }}</h2>
+      <div class="flex">
+        <span tuiChip
+          [appearance]="course.status === STATUS.active ? 'positive' : course.status === STATUS.blocked ? 'negative' : course.status === STATUS.pending ? 'warning' : 'neutral'"
+          class="mr-2"
+          size="xs"
+        >{{course.status}}</span>
+        <span tuiChip
+          [appearance]="course.is_registered ? 'positive' : 'warning'"
+          class="mr-2"
+          size="xs"
+        >{{course.is_registered ? 'Registered' : 'Not Registered'}}</span>
+        @if (course.instructor === user?.id) {
+          <span tuiChip
+            class="add-color"
+            size="xs"
+          >{{'Instructor'}}</span>
+        }
+      </div>
+      <div class="tui-form__buttons flex grow items-end">
+        @if (user?.is_teacher) {
+          <a
+            appearance="primary"
+            [routerLink]="['/course', course.id]"
+            class="tui-form__button"
+            size="m"
+            tuiButton
             >
-                content
-            </a>
-            <a
-                class="tui-form__button tui-skeleton"
-                size="m"
-                tuiButton
+            View
+          </a>
+        }
+        @if (course.has_view_permission && user?.is_student) {
+          <a
+            appearance="primary"
+            [routerLink]="['/course', course.id]"
+            class="tui-form__button"
+            size="m"
+            tuiButton
             >
-                content
-            </a>
-        </div>
-    </ng-template>
-</tui-island>
+            Open
+          </a>
+        }
+        @if (!course.has_view_permission && endDate > currentDate && user?.is_student) {
+          <a
+            [routerLink]="['/course', course.id, 'register']"
+            class="tui-form__button"
+            size="m"
+            tuiButton
+            >
+            Register
+          </a>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="course-background tui-skeleton"></div>
+    <h2 class="tui-island__title tui-space_top-4 tui-skeleton tui-skeleton_short">content</h2>
+    <span tuiChip class="tui-space_right-2 tui-skeleton" size="xs">content-tag</span>
+    <span tuiChip class="tui-skeleton" size="xs">content-tag</span>
+    <div class="tui-form__buttons">
+      <a
+        class="tui-form__button tui-skeleton"
+        size="m"
+        tuiButton
+        >
+        content
+      </a>
+      <a
+        class="tui-form__button tui-skeleton"
+        size="m"
+        tuiButton
+        >
+        content
+      </a>
+    </div>
+  }
+</div>

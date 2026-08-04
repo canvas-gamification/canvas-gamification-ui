@@ -1,4 +1,4 @@
-@import '~@taiga-ui/core/styles/taiga-ui-local';
+@import '@taiga-ui/styles/utils';
 @import "mixins";
 
 .top-x-islands {
@@ -29,7 +29,7 @@
 
         .top-x-avatar {
             margin-top: -2.75rem;
-            border: var(--tui-base-01) 2px solid
+            border: var(--tui-background-base) 2px solid
         }
 
         .top-x-background {
@@ -37,7 +37,7 @@
             height: 4rem;
             margin-top: -1rem;
             margin-left: -1rem;
-            @include tui-space(bottom, 3);
+            margin-bottom: 0.75rem;
         }
     }
 }

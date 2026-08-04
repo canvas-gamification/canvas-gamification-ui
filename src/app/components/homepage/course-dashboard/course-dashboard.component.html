@@ -1,29 +1,31 @@
-<tui-island>
-    <h2 class="tui-island__title tui-space_bottom-6">Active Courses</h2>
-    <div class="course-islands">
-        <ng-container *ngIf="activeCourses else waitingActive">
-            <ng-container *ngIf="activeCourses.length > 0">
-                <ng-container *ngFor="let course of activeCourses">
-                    <app-course-island [course]="course"></app-course-island>
-                </ng-container>
-            </ng-container>
-            <ng-container>
-                <tui-island [hoverable]="true" [routerLink]="['/course']" size="m" textAlign="center">
-                    <div class="more-courses-island">
-                        <div class="tui-space_vertical-12">
-                            <figure class="tui-island__figure">
-                                <tui-svg src="tuiIconAddRowLarge"></tui-svg>
-                            </figure>
-                            <h2 class="tui-island__title">
-                                Looking for {{ activeCourses?.length > 0 ? 'more' : '' }} courses?
-                            </h2>
-                        </div>
-                    </div>
-                </tui-island>
-            </ng-container>
-        </ng-container>
-        <ng-template #waitingActive>
-            <app-course-island *ngFor="let _ of [0, 0, 0]" [skeleton]="true"></app-course-island>
-        </ng-template>
-    </div>
-</tui-island>
+<div class="tui-island tui-island_size_m">
+  <h2 class="tui-island__title tui-space_bottom-6">Active Courses</h2>
+  <div class="course-islands">
+    @if (activeCourses) {
+      @if (activeCourses.length > 0) {
+        @for (course of activeCourses; track course) {
+          <app-course-island [course]="course"></app-course-island>
+        }
+      }
+      <ng-container>
+        <div class="tui-island tui-island_size_m tui-island_hoverable tui-island_text-align_center" [routerLink]="['/course']">
+          <div class="more-courses-island">
+            <div class="tui-space_vertical-12">
+              <figure class="tui-island__figure">
+                <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+                <tui-icon  [style.border-width.rem]="0.25" icon="@tui.copy-plus"></tui-icon>
+              </figure>
+              <h2 class="tui-island__title">
+                Looking for {{ activeCourses?.length > 0 ? 'more' : '' }} courses?
+              </h2>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    } @else {
+      @for (_ of [0, 0, 0]; track _) {
+        <app-course-island [skeleton]="true"></app-course-island>
+      }
+    }
+  </div>
+</div>

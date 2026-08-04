@@ -1,8 +1,8 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input, ChangeDetectionStrategy} from '@angular/core'
 import {Goal, GoalItem} from "@app/_models/goal/goal"
 import {goalItemString} from "@app/course/goal/utils"
-import * as dayjs from "dayjs"
-import * as relativeTime from "dayjs/plugin/relativeTime"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
 import {ActivatedRoute} from '@angular/router'
 import {UserActionsService} from "@app/_services/api/user-actions.service"
 import {ActionStatus, ActionType, ActionVerb} from "@app/_models"
@@ -10,7 +10,9 @@ import {ActionStatus, ActionType, ActionVerb} from "@app/_models"
 @Component({
     selector: 'app-goal-island',
     templateUrl: './goal-island.component.html',
-    styleUrls: ['./goal-island.component.scss']
+    styleUrls: ['./goal-island.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GoalIslandComponent {
 

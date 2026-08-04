@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core'
+import {Component, Input, OnChanges, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute} from '@angular/router'
 import {UQJ, User} from '@app/_models'
 import {UqjService} from '@app/problems/_services/uqj.service'
@@ -9,6 +9,8 @@ import {Subscriber, Subscription} from 'rxjs'
     selector: 'app-problem-view',
     templateUrl: './problem-view.component.html',
     styleUrls: ['./problem-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ProblemViewComponent implements OnInit, OnChanges, OnDestroy {
     @Input() questionId: number
@@ -17,7 +19,7 @@ export class ProblemViewComponent implements OnInit, OnChanges, OnDestroy {
     renderedText: string
     subscriptions: Subscription = new Subscription()
 
-    reloadRequestSubscriber: Subscriber<never>
+    reloadRequestSubscriber: Subscriber<void>
 
 
     constructor(

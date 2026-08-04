@@ -164,7 +164,11 @@ describe('CourseComponent Question Page', () => {
         expect(component.course).toEqual(MOCK_COURSE1)
     })
 
-    it('should replace params in the url and caption in the breadcrumbs', fakeAsync(async () => {
+    // Plain async spec: fakeAsync(async () => ...) is unsupported, and whenStable() does not
+    // track the fire-and-forget getBreadCrumbs().then() chain started in ngOnInit, so await
+    // the breadcrumb computation explicitly before asserting.
+    it('should replace params in the url and caption in the breadcrumbs', async () => {
+        await component.getBreadCrumbs(TestBed.inject(ActivatedRoute).snapshot)
         await fixture.whenStable()
         expect(component.breadCrumbs).toEqual([{
             caption: `Homepage`,
@@ -181,5 +185,5 @@ describe('CourseComponent Question Page', () => {
             routerLink:
                 '/course/0/assignments-exams/1/problem/1'
         }])
-    }))
+    })
 })

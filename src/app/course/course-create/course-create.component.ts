@@ -1,10 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core'
-import {FormGroup} from "@angular/forms"
+import {TuiNotificationService, TUI_VALIDATION_ERRORS} from "@taiga-ui/core"
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {UntypedFormGroup} from "@angular/forms"
 import {CourseForm} from "@app/course/_forms/course.form"
 import {CourseService} from '../_services/course.service'
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {ActivatedRoute, Router} from '@angular/router'
-import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit"
 
 @Component({
     selector: 'app-course-create',
@@ -18,6 +17,8 @@ import {TUI_VALIDATION_ERRORS} from "@taiga-ui/kit"
             },
         },
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CourseCreateComponent implements OnInit {
 
@@ -26,14 +27,14 @@ export class CourseCreateComponent implements OnInit {
         "Private",
     ]
 
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     courseId: number
 
     constructor(
         private route: ActivatedRoute,
         private readonly courseService: CourseService,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService,
         private readonly router: Router,
     ) {
     }
@@ -67,8 +68,8 @@ export class CourseCreateComponent implements OnInit {
             this.courseService.createCourse(
                 CourseForm.formatCourseFormData(this.formGroup)
             ).subscribe(course => {
-                this.notificationsService.show('Course created successfully!', {
-                    status: TuiNotification.Success,
+                this.notificationsService.open('Course created successfully!', {
+                    appearance: 'success',
                 }).subscribe()
                 this.router.navigate(['/course', course.id]).then()
             })
@@ -77,8 +78,8 @@ export class CourseCreateComponent implements OnInit {
                 this.courseId,
                 CourseForm.formatCourseFormData(this.formGroup)
             ).subscribe(() => {
-                this.notificationsService.show('Course edited successfully!', {
-                    status: TuiNotification.Success,
+                this.notificationsService.open('Course edited successfully!', {
+                    appearance: 'success',
                 }).subscribe()
                 this.router.navigate(['/course', this.courseId]).then()
             })

@@ -1,32 +1,15 @@
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiRingChart} from "@taiga-ui/addon-charts"
+import {TuiTable} from "@taiga-ui/addon-table"
+import {TuiFilterPipe} from "@taiga-ui/cdk"
+import {TuiInputChip, TuiChevron} from "@taiga-ui/kit"
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {QuestionCountComponent} from './question-count/question-count.component'
 import {CategoryStatsComponent} from './category-stats/category-stats.component'
-import {TuiTableModule} from '@taiga-ui/addon-table'
-import {
-    TuiDataListWrapperModule,
-    TuiHighlightModule,
-    TuiInputDateModule,
-    TuiInputModule,
-    TuiInputNumberModule,
-    TuiInputTimeModule,
-    TuiIslandModule,
-    TuiMultiSelectModule,
-    TuiSelectModule,
-    TuiTabsModule
-} from '@taiga-ui/kit'
+import {TuiDataListWrapper, TuiHighlight, TuiTabs, TuiInputNumber, TuiSelect, TuiInputDate, TuiInputTime} from '@taiga-ui/kit'
 import {FormsModule} from '@angular/forms'
-import {
-    TuiButtonModule,
-    TuiDataListModule,
-    TuiHostedDropdownModule,
-    TuiLoaderModule,
-    TuiScrollbarModule,
-    TuiSvgModule,
-    TuiTextfieldControllerModule
-} from '@taiga-ui/core'
-import {TuiRingChartModule} from '@taiga-ui/addon-charts'
-import {TuiFilterPipeModule} from '@taiga-ui/cdk'
+import {TuiDataList, TuiLoader, TuiScrollbar, TuiScrollable, TuiDropdown, TuiIcon, TuiButton, TuiInput} from '@taiga-ui/core'
 import {CoursesComponent} from './courses/courses.component'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {
@@ -59,26 +42,26 @@ import {ExportSurveyComponent} from './export/export-survey/export-survey.compon
         CommonModule,
         FormsModule,
         SidebarModule,
-        TuiButtonModule,
-        TuiDataListModule,
-        TuiDataListWrapperModule,
-        TuiFilterPipeModule,
-        TuiHighlightModule,
-        TuiHostedDropdownModule,
-        TuiInputDateModule,
-        TuiInputModule,
-        TuiInputNumberModule,
-        TuiInputTimeModule,
-        TuiIslandModule,
-        TuiLoaderModule,
-        TuiMultiSelectModule,
-        TuiRingChartModule,
-        TuiScrollbarModule,
-        TuiSelectModule,
-        TuiSvgModule,
-        TuiTableModule,
-        TuiTabsModule,
-        TuiTextfieldControllerModule,
+        TuiButton,
+        ...TuiDataList,
+        ...TuiDataListWrapper,
+        TuiFilterPipe,
+        TuiHighlight,
+        ...TuiDropdown,
+        ...TuiInputDate,
+        ...TuiInput,
+        ...TuiInputNumber,
+        ...TuiInputTime,
+        TuiCardLarge,
+        TuiLoader,
+        ...TuiInputChip,
+        TuiChevron,
+        TuiRingChart,
+        TuiScrollbar, TuiScrollable,
+        ...TuiSelect,
+        TuiIcon,
+        ...TuiTable,
+        ...TuiTabs
     ]
 })
 export class AdminModule {

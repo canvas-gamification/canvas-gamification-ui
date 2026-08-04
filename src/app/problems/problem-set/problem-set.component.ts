@@ -1,5 +1,5 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms'
+import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {Category, FilterParameters, Question} from '@app/_models'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {Subject} from 'rxjs'
@@ -8,13 +8,8 @@ import {CategoryService} from "@app/_services/api/category.service"
 import {Difficulty} from "@app/_models/difficulty"
 import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {ProblemSetForm} from "@app/problems/_forms/problem-set.form"
-import {
-    TuiDialogContext,
-    TuiDialogService,
-    TuiNotification,
-    TuiNotificationsService
-} from "@taiga-ui/core"
-import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
+import {TuiDialogContext, TuiDialogService, TuiNotificationService} from "@taiga-ui/core"
+import {PolymorpheusContent} from '@taiga-ui/polymorpheus'
 import {TuiComparator} from "@taiga-ui/addon-table"
 
 export type SortingKey =
@@ -31,9 +26,11 @@ export type SortingKey =
     selector: 'app-problem-set',
     templateUrl: './problem-set.component.html',
     styleUrls: ['./problem-set.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ProblemSetComponent implements OnInit, AfterContentChecked {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     questions: Question[] = []
     questionsTableColumns: string[] = [
         'id', 'title', 'author_name', 'event_name', 'parent_category_name', 'category_name',
@@ -79,12 +76,12 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
     difficulties: Difficulty[]
 
     constructor(
-        private builder: FormBuilder,
+        private builder: UntypedFormBuilder,
         private questionService: QuestionService,
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
         private changeDetector: ChangeDetectorRef
     ) {
@@ -180,7 +177,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         subCategory: string,
         difficulty: string,
         is_sample: string
-        } {
+    } {
         const formValues = this.formGroup.value
         Object.keys(formValues).forEach(key => {
             if (!formValues[key]) {
@@ -197,8 +194,8 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         this.questionService.deleteQuestion(questionId)
             .subscribe(() => {
                 this.notificationsService
-                    .show('The question has been deleted successfully.', {
-                        status: TuiNotification.Success
+                    .open('The question has been deleted successfully.', {
+                        appearance: 'success'
                     }).subscribe()
                 this.update()
             })
@@ -214,7 +211,7 @@ export class ProblemSetComponent implements OnInit, AfterContentChecked {
         questionId: number
     ): void {
         this.dialogService.open(content, {
-            closeable: false,
+            closable: false,
             label: 'Delete Question?'
         }).subscribe({
             next: () => this.deleteQuestion(questionId)

@@ -1,3 +1,4 @@
+import {TuiTable} from "@taiga-ui/addon-table"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {TestModule} from '@test/test.module'
 import {UqjService} from '@app/problems/_services/uqj.service'
@@ -18,20 +19,9 @@ import {
 } from '@app/problems/_test/mock'
 import {UserStatsService} from '@app/_services/api/user-stats.service'
 import {UserStatsServiceMock} from '@test/_services/user-stats.service.mock'
-import {
-    TuiButtonModule,
-    TuiDataListModule,
-    TuiHostedDropdownModule,
-    TuiTextfieldControllerModule
-} from '@taiga-ui/core'
+import {TuiDataList, TuiLabel, TuiDropdown, TuiButton} from '@taiga-ui/core'
 import {PracticeProblemComponent} from '@app/course/practice-problem/practice-problem.component'
-import {
-    TuiCheckboxLabeledModule,
-    TuiMarkerIconModule,
-    TuiSelectModule,
-    TuiTagModule
-} from '@taiga-ui/kit'
-import {TuiTableModule} from '@taiga-ui/addon-table'
+import {TuiAvatar, TuiChip, TuiSelect} from '@taiga-ui/kit'
 import {ProblemViewComponent} from '@app/problems/problem-view/problem-view.component'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {StringifyTuiDataListPipe} from '@app/_helpers/pipes/stringify-tui-data-list.pipe'
@@ -77,15 +67,14 @@ describe('PracticeProblemComponent', () => {
                 FormsModule,
                 ReactiveFormsModule,
                 RouterModule,
-                TuiSelectModule,
-                TuiButtonModule,
-                TuiDataListModule,
-                TuiTagModule,
-                TuiTableModule,
-                TuiHostedDropdownModule,
-                TuiTextfieldControllerModule,
-                TuiCheckboxLabeledModule,
-                TuiMarkerIconModule,
+                TuiSelect,
+                TuiButton,
+                TuiDataList,
+                TuiChip,
+                TuiTable,
+                TuiDropdown,
+                TuiLabel,
+                TuiAvatar,
                 SidebarModule
             ]
         }).compileComponents()
@@ -103,6 +92,13 @@ describe('PracticeProblemComponent', () => {
         component = fixture.componentInstance
         fixture.detectChanges()
     })
+
+    // Angular 22 skips non-dirty views on detectChanges; specs mutate component
+    // state directly, so mark the view for check before refreshing.
+    const refresh = (): void => {
+        fixture.componentRef.changeDetectorRef.markForCheck()
+        fixture.detectChanges()
+    }
 
     it('should create', () => {
         expect(component).toBeTruthy()
@@ -122,36 +118,36 @@ describe('PracticeProblemComponent', () => {
     it('should not skip question when there is only one uqj', () => {
         component.uqjs = [MOCK_UQJ_5.question.id]
         component.nextQuestion()
-        fixture.detectChanges()
+        refresh()
         expect(component.currentQuestionId).toEqual(MOCK_UQJ_5.id)
     })
 
     it('should skip question when there are multiple uqjs', () => {
         const firstUqj = component.currentQuestionId
         component.nextQuestion()
-        fixture.detectChanges()
+        refresh()
         expect(component.currentQuestionId === firstUqj).toBeFalsy()
     })
 
     it('should not change question when clicking previous question with one uqj', () => {
         component.uqjs = [MOCK_UQJ_5.question.id]
         component.prevQuestion()
-        fixture.detectChanges()
+        refresh()
         expect(component.currentQuestionId).toEqual(MOCK_UQJ_5.id)
     })
 
     it('should go to previous question when there are multiple uqjs', () => {
         const previousQuestionId = component.currentQuestionId
         component.nextQuestion()
-        fixture.detectChanges()
+        refresh()
         component.prevQuestion()
-        fixture.detectChanges()
+        refresh()
         expect(component.currentQuestionId).toEqual(previousQuestionId)
     })
 
     it('should apply filter - uqjs in filtered list', () => {
         component.updateQuestions(null, null)
-        fixture.detectChanges()
+        refresh()
         expect(component.difficulty).toEqual(null)
     })
 })

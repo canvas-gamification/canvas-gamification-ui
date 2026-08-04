@@ -1,10 +1,10 @@
+import {TuiNotificationService} from "@taiga-ui/core"
 import {Inject, Injectable} from '@angular/core'
 import {environment} from "@environments/environment"
 import {Observable, of, throwError} from "rxjs"
 import {HttpErrorResponse} from "@angular/common/http"
 import {Router} from "@angular/router"
 import {Location} from "@angular/common"
-import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
 
 @Injectable({
     providedIn: 'root'
@@ -12,8 +12,8 @@ import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
 export class ApiService {
     constructor(
         private router: Router,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
     }
 
@@ -59,8 +59,8 @@ export class ApiService {
 
             if (showMessage)
                 this.notificationsService
-                    .show(message || error.statusText, {
-                        status: TuiNotification.Error
+                    .open(message || error.statusText, {
+                        appearance: 'error'
                     }).subscribe()
             if (!result) {
                 return throwError(error)
@@ -73,14 +73,14 @@ export class ApiService {
         const toastErrorObject = (error: unknown): void => {
             if (typeof error === 'string') {
                 this.notificationsService
-                    .show(error, {
-                        status: TuiNotification.Error
+                    .open(error, {
+                        appearance: 'error'
                     }).subscribe()
             } else if (Array.isArray(error)) {
                 error.forEach(toastErrorObject)
             } else if (typeof error === 'object') {
                 for (const key in error) {
-                    if (error.hasOwnProperty(key))
+                    if (Object.prototype.hasOwnProperty.call(error, key))
                         toastErrorObject(error[key])
                 }
             }
@@ -90,8 +90,8 @@ export class ApiService {
             const apiError = error.error
             if (!apiError) {
                 this.notificationsService
-                    .show('Something went wrong!', {
-                        status: TuiNotification.Error
+                    .open('Something went wrong!', {
+                        appearance: 'error'
                     }).subscribe()
             } else {
                 toastErrorObject(apiError)

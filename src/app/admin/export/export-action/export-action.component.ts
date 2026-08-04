@@ -1,9 +1,11 @@
-import {Component} from '@angular/core'
+import {Component, ChangeDetectionStrategy} from '@angular/core'
 
 @Component({
     selector: 'app-export-action',
     templateUrl: './export-action.component.html',
-    styleUrls: ['./export-action.component.scss']
+    styleUrls: ['./export-action.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ExportActionComponent {
     fields = [

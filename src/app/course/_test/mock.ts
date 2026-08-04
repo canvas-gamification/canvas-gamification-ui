@@ -260,6 +260,7 @@ export const MOCK_UQJ2: UQJ = {
 }
 
 export const MOCK_USER_STATS1: Stats = {
+    token_stats: [],
     challenge_stats: {
         challenges_completed: 2
     },
@@ -468,12 +469,14 @@ export const MOCK_GRADE_BOOK1: GradeBook = [
             {
                 title: 'Question 1',
                 question_grade: 0,
+                question_value: 0,
                 attempts: 0,
                 max_attempts: 4,
             },
             {
                 title: 'Question 2',
                 question_grade: 1,
+                question_value: 0,
                 attempts: 2,
                 max_attempts: 4,
             },
@@ -487,12 +490,14 @@ export const MOCK_GRADE_BOOK1: GradeBook = [
             {
                 title: 'Question A',
                 question_grade: 0.5,
+                question_value: 0,
                 attempts: 4,
                 max_attempts: 4,
             },
             {
                 title: 'Question B',
                 question_grade: 0,
+                question_value: 0,
                 attempts: 3,
                 max_attempts: 4,
             },
@@ -510,12 +515,14 @@ export const MOCK_GRADE_BOOK2: GradeBook = [
             {
                 title: 'Question 1',
                 question_grade: 0,
+                question_value: 0,
                 attempts: 0,
                 max_attempts: 4,
             },
             {
                 title: 'Question 2',
                 question_grade: 1,
+                question_value: 0,
                 attempts: 2,
                 max_attempts: 4,
             },
@@ -529,12 +536,14 @@ export const MOCK_GRADE_BOOK2: GradeBook = [
             {
                 title: 'Question 1',
                 question_grade: 0.5,
+                question_value: 0,
                 attempts: 4,
                 max_attempts: 4,
             },
             {
                 title: 'Question 2',
                 question_grade: 0,
+                question_value: 0,
                 attempts: 3,
                 max_attempts: 4,
             },
@@ -549,12 +558,14 @@ export const MOCK_GRADE_BOOK2: GradeBook = [
             {
                 title: 'A',
                 question_grade: 0,
+                question_value: 0,
                 attempts: 0,
                 max_attempts: 4,
             },
             {
                 title: 'B',
                 question_grade: 1,
+                question_value: 0,
                 attempts: 2,
                 max_attempts: 4,
             },
@@ -568,12 +579,14 @@ export const MOCK_GRADE_BOOK2: GradeBook = [
             {
                 title: 'A',
                 question_grade: 0.5,
+                question_value: 0,
                 attempts: 4,
                 max_attempts: 4,
             },
             {
                 title: 'B',
                 question_grade: 0,
+                question_value: 0,
                 attempts: 3,
                 max_attempts: 4,
             },

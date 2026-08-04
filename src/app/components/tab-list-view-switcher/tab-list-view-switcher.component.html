@@ -1,35 +1,37 @@
 <div [collapsed]="true" [formGroup]="viewForm" class="tab-switcher" tuiGroup>
-    <tui-radio-block
-        [hideRadio]="true"
-        [item]="'list'"
+   <label tuiBlock="s" appearance=""> <input tuiRadio type="radio" tuiBlock
+        
+        [value]="'list'"
         [tuiHint]="listTooltip"
-        contentAlign="left"
+        
         formControlName="view"
-        size="s"
-        tuiDescribedBy="list"
-        tuiHintDirection="top-left"
-        tuiHintId="list"
-        tuiHintMode="onDark"
+        
+        id="list"
+        tuiHintDirection="top-start"
+        tuiHintDescribe="list"
+        tuiHintAppearance="dark"
     >
-        <tui-svg src="tuiIconMoreVer"></tui-svg>
-    </tui-radio-block>
+        <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  icon="@tui.ellipsis-vertical"></tui-icon>
+    </label>
     <ng-template #listTooltip>
         View Content as List
     </ng-template>
-    <tui-radio-block
-        [hideRadio]="true"
-        [item]="'tab'"
+   <label tuiBlock="s" appearance=""> <input tuiRadio type="radio" tuiBlock
+        
+        [value]="'tab'"
         [tuiHint]="tabTooltip"
-        contentAlign="left"
+        
         formControlName="view"
-        size="s"
-        tuiDescribedBy="tab"
-        tuiHintDirection="top-left"
-        tuiHintId="tab"
-        tuiHintMode="onDark"
+        
+        id="tab"
+        tuiHintDirection="top-start"
+        tuiHintDescribe="tab"
+        tuiHintAppearance="dark"
     >
-        <tui-svg src="tuiIconFolder"></tui-svg>
-    </tui-radio-block>
+        <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  icon="@tui.folder"></tui-icon>
+    </label>
     <ng-template #tabTooltip>
         View Content as Tabs
     </ng-template>

@@ -6,15 +6,9 @@ import {
 import {TestModule} from '@test/test.module'
 import {MOCK_CHECKBOX_QUESTION} from "@app/problems/_test/mock"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
-import {TuiButtonModule, TuiHostedDropdownModule} from "@taiga-ui/core"
+import {TuiLabel, TuiDropdown, TuiButton, TuiError, TuiInput} from "@taiga-ui/core"
 import {of} from "rxjs"
-import {
-    TuiFieldErrorModule,
-    TuiInputModule,
-    TuiRadioLabeledModule,
-    TuiSelectModule,
-    TuiTextAreaModule
-} from "@taiga-ui/kit"
+import {TuiSelect, TuiTextarea} from "@taiga-ui/kit"
 import {HttpResponse} from "@angular/common/http"
 import {Question} from "@app/_models"
 import {delay} from "rxjs/operators"
@@ -28,9 +22,9 @@ describe('McqCreateEditSnippetComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                TestModule, ReactiveFormsModule, FormsModule, TuiTextAreaModule,
-                TuiRadioLabeledModule, TuiInputModule, TuiSelectModule, TuiFieldErrorModule,
-                TuiButtonModule, TuiHostedDropdownModule
+                TestModule, ReactiveFormsModule, FormsModule, TuiTextarea,
+                TuiLabel, TuiInput, TuiSelect, TuiError, TuiError,
+                TuiButton, TuiDropdown
             ],
             declarations: [McqCreateEditSnippetComponent, VariablesEditorComponent]
         }).compileComponents()
@@ -43,7 +37,9 @@ describe('McqCreateEditSnippetComponent', () => {
         spyOn(component['questionService'], 'putMultipleChoiceQuestion').and.callFake(() => of(new HttpResponse<Question>()).pipe(delay(1)))
         spyOn(component['router'], 'navigate').and.callThrough()
         spyOn(component, 'refreshPage').and.callThrough()
-        spyOn(component['notificationsService'], 'show').and.callThrough()
+        // Taiga 5 alerts/dialogs render through portals and require a tui-root host;
+        // return an empty observable instead of calling through in TestBed.
+        spyOn(component['notificationsService'], 'open').and.returnValue(of())
         fixture.detectChanges()
     })
 
@@ -66,7 +62,7 @@ describe('McqCreateEditSnippetComponent', () => {
         const submissionData = McqForm.submissionData(component.formGroup)
         expect(component['questionService'].postMultipleChoiceQuestion).toHaveBeenCalledWith(submissionData)
         tick(1)
-        expect(component['notificationsService'].show).toHaveBeenCalled()
+        expect(component['notificationsService'].open).toHaveBeenCalled()
         expect(component.refreshPage).toHaveBeenCalled()
     }))
 
@@ -84,14 +80,18 @@ describe('McqCreateEditSnippetComponent', () => {
 
         describe('Check Checkbox Answers Dialog', () => {
             beforeEach(() => {
-                spyOn(component['dialogService'], 'open').and.callThrough()
+                // Same portal constraint as above: stub the dialog stream.
+                spyOn(component['dialogService'], 'open').and.returnValue(of())
                 spyOn(component, 'onSubmit').and.callThrough()
             })
 
-            it('should give no dialog and submit', () => {
+            it('should give no dialog and submit', fakeAsync(() => {
                 component.checkCheckboxAnswersDialog('')
                 expect(component.onSubmit).toHaveBeenCalled()
-            })
+                // Flush the mocked question service delay(1) inside the spec so its
+                // subscription does not fire after spies are restored.
+                tick(1)
+            }))
 
             it('should have one answer and show dialog', () => {
                 const lenAnswers = component.form.answer.value.length
@@ -124,7 +124,7 @@ describe('McqCreateEditSnippetComponent', () => {
             const submissionData = McqForm.submissionData(component.formGroup)
             expect(component['questionService'].putMultipleChoiceQuestion).toHaveBeenCalledWith(submissionData, component.questionDetails.id)
             tick(1)
-            expect(component['notificationsService'].show).toHaveBeenCalled()
+            expect(component['notificationsService'].open).toHaveBeenCalled()
             expect(component.refreshPage).toHaveBeenCalled()
         }))
     })

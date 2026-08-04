@@ -10,19 +10,8 @@ import {GoalService} from "@app/course/_services/goal.service"
 import {GoalServiceMock} from "@app/course/_test/_services/goal.service.mock"
 import {ReactiveFormsModule} from "@angular/forms"
 import {ActivatedRoute, RouterModule} from "@angular/router"
-import {
-    TuiCheckboxLabeledModule,
-    TuiFieldErrorModule, TuiInputDateModule,
-    TuiInputDateRangeModule,
-    TuiInputModule, TuiInputNumberModule,
-    TuiInputTimeModule,
-    TuiSelectModule
-} from "@taiga-ui/kit"
-import {
-    TuiButtonModule,
-    TuiDataListModule,
-    TuiNotificationModule
-} from "@taiga-ui/core"
+import {TuiInputNumber, TuiSelect, TuiInputDate, TuiInputTime, TuiInputDateRange} from "@taiga-ui/kit"
+import {TuiNotification, TuiDataList, TuiLabel, TuiButton, TuiError, TuiInput} from "@taiga-ui/core"
 import {
     StringifyTuiDataListPipe
 } from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
@@ -39,17 +28,17 @@ describe('GoalCreateComponent', () => {
             imports: [
                 ReactiveFormsModule,
                 RouterModule,
-                TuiInputModule,
-                TuiSelectModule,
-                TuiDataListModule,
-                TuiFieldErrorModule,
-                TuiCheckboxLabeledModule,
-                TuiInputDateRangeModule,
-                TuiInputDateModule,
-                TuiInputNumberModule,
-                TuiInputTimeModule,
-                TuiNotificationModule,
-                TuiButtonModule
+                TuiInput,
+                TuiSelect,
+                TuiDataList,
+                TuiError, TuiError,
+                TuiLabel,
+                TuiInputDateRange,
+                TuiInputDate,
+                TuiInputNumber,
+                TuiInputTime,
+                TuiNotification,
+                TuiButton
             ],
             declarations: [GoalCreateComponent, StringifyTuiDataListPipe],
             providers: [
@@ -83,7 +72,8 @@ describe('GoalCreateComponent', () => {
     })
 
     it('should retrieve categories', () => {
-        expect(component.categories).toEqual(MOCK_CATEGORIES)
+        // The component filters out top-level categories (parent === null).
+        expect(component.categories).toEqual(MOCK_CATEGORIES.filter(c => c.parent !== null))
     })
 
     it('should retrieve difficulties', () => {

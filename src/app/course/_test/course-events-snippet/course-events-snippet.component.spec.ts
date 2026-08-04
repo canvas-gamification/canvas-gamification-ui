@@ -1,3 +1,5 @@
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiSelect} from "@taiga-ui/kit"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {
@@ -10,7 +12,6 @@ import {MOCK_COURSE1, MOCK_EVENT_TYPES} from "@app/course/_test/mock"
 import {MOCK_COURSE, MOCK_COURSE_EVENT} from "@app/problems/_test/mock"
 import {TuiDialogService} from "@taiga-ui/core"
 import {of} from "rxjs"
-import {TuiIslandModule, TuiSelectModule} from "@taiga-ui/kit"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {ActivatedRoute, convertToParamMap} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
@@ -25,8 +26,8 @@ describe('CourseEventsSnippetComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 TestModule,
-                TuiSelectModule,
-                TuiIslandModule,
+                TuiSelect,
+                TuiCardLarge,
                 ReactiveFormsModule,
                 FormsModule
             ],
@@ -78,7 +79,7 @@ describe('CourseEventsSnippetComponent', () => {
         expect(component.courseEvents).toEqual([MOCK_COURSE_EVENT])
         expect(dialogService.open).toHaveBeenCalledOnceWith(
             component.importDialog,
-            {label: 'Which assessment do you want to import?', size: 'l', closeable: false}
+            {label: 'Which assessment do you want to import?', size: 'l', closable: false}
         )
     })
 

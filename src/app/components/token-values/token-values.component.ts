@@ -1,15 +1,17 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {TokenValuesService} from '@app/_services/api/token-values.service'
 import {CategoryService} from '@app/_services/api/category.service'
 import {NestedTokenValue} from '@app/_models'
 import {Difficulty} from '@app/_models/difficulty'
 import {DifficultyService} from '@app/problems/_services/difficulty.service'
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-token-values',
     templateUrl: './token-values.component.html',
-    styleUrls: ['./token-values.component.scss']
+    styleUrls: ['./token-values.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TokenValuesComponent implements OnInit {
     tokenValues: NestedTokenValue[]
@@ -20,7 +22,7 @@ export class TokenValuesComponent implements OnInit {
         private tokenValueService: TokenValuesService,
         private categoryService: CategoryService,
         private difficultyService: DifficultyService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 
@@ -47,8 +49,8 @@ export class TokenValuesComponent implements OnInit {
 
         this.tokenValueService.updateBulk(data).subscribe(() => {
             this.notificationsService
-                .show('Token values updated successfully', {
-                    status: TuiNotification.Success
+                .open('Token values updated successfully', {
+                    appearance: 'success'
                 }).subscribe()
             window.scroll(0, 0)
         })

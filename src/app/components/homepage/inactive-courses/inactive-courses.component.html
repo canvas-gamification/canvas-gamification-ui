@@ -1,13 +1,14 @@
-<tui-island class="tui-space_top-4">
-    <h2 class="tui-island__title tui-space_bottom-6">Inactive Courses</h2>
-    <div class="course-islands">
-        <ng-container *ngIf="inactiveCourses else waitingInactive">
-            <ng-container *ngFor="let course of inactiveCourses">
-                <app-course-island [course]="course"></app-course-island>
-            </ng-container>
-        </ng-container>
-        <ng-template #waitingInactive>
-            <app-course-island *ngFor="let _ of [0, 0, 0]" [skeleton]="true"></app-course-island>
-        </ng-template>
-    </div>
-</tui-island>
+<div class="tui-island tui-island_size_m tui-space_top-4">
+  <h2 class="tui-island__title tui-space_bottom-6">Inactive Courses</h2>
+  <div class="course-islands">
+    @if (inactiveCourses) {
+      @for (course of inactiveCourses; track course) {
+        <app-course-island [course]="course"></app-course-island>
+      }
+    } @else {
+      @for (_ of [0, 0, 0]; track _) {
+        <app-course-island [skeleton]="true"></app-course-island>
+      }
+    }
+  </div>
+</div>

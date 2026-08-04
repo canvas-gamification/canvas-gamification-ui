@@ -1,35 +1,38 @@
 <div class="tui-container tui-container_fullwidth">
-    <h1 class="tui-text_h3 tui-space_vertical-10">Topics</h1>
-    <tui-loader [overlay]="true" [showLoader]="!topLevelCategories">
-        <table [columns]="tableHeaders" class="topics-table" tuiTable>
-            <thead tuiThead>
-            <tr tuiThGroup>
-                <th *tuiHead="'topics'" [sorter]="null" tuiTh>Topics</th>
-                <th *tuiHead="'available_questions'" [sorter]="null" tuiTh>Available Questions</th>
-                <th *tuiHead="'success_rate'" [sorter]="null" tuiTh>Average Success Rate</th>
-            </tr>
-            </thead>
-            <tbody
-                *ngFor="let category of topLevelCategories"
-                [data]="subCategories[category.name]"
-                [heading]="category.name"
-                tuiTbody
-            >
-            <tr *tuiRow="let subCategory of subCategories[category.name]" tuiTr>
-                <td *tuiCell="'topics'" class="subcat-name" tuiTd>
-                    <span class="heavy-indent">{{ subCategory.name }}</span>
-                </td>
-                <td *tuiCell="'available_questions'" tuiTd>{{ subCategory.question_count }}</td>
-                <td *tuiCell="'success_rate'" tuiTd>-</td>
-                <!-- TEMPORARILY DISABLE SUCCESS RATE FOR PERFORMANCE -->
-                <!-- <ng-container *ngIf="subCategory.average_success else noSuccessRate">-->
-                <!--     <td *tuiCell="'success_rate'" tuiTd>{{ category.average_success }}%</td>-->
-                <!-- </ng-container>-->
-                <!-- <ng-template #noSuccessRate>-->
-                <!--     <td *tuiCell="'success_rate'" tuiTd>-</td>-->
-                <!-- </ng-template>-->
-            </tr>
-            </tbody>
-        </table>
-    </tui-loader>
+  <h1 class="tui-text_h3 tui-space_vertical-10">Topics</h1>
+  <tui-loader [overlay]="true" [loading]="!topLevelCategories">
+    <table [columns]="tableHeaders" class="topics-table" tuiTable>
+      <thead tuiThead>
+        <tr tuiThGroup>
+          <th *tuiHead="'topics'" [sorter]="null" tuiTh>Topics</th>
+          <th *tuiHead="'available_questions'" [sorter]="null" tuiTh>Available Questions</th>
+          <th *tuiHead="'success_rate'" [sorter]="null" tuiTh>Average Success Rate</th>
+        </tr>
+      </thead>
+      @for (category of topLevelCategories; track category) {
+        <tbody
+          [data]="subCategories[category.name]"
+          [heading]="category.name"
+          tuiTbody
+          >
+          @for (subCategory of subCategories[category.name]; track subCategory) {
+            <tr tuiTr>
+              <td *tuiCell="'topics'" class="subcat-name" tuiTd>
+                <span class="heavy-indent">{{ subCategory.name }}</span>
+              </td>
+              <td *tuiCell="'available_questions'" tuiTd>{{ subCategory.question_count }}</td>
+              <td *tuiCell="'success_rate'" tuiTd>-</td>
+              <!-- TEMPORARILY DISABLE SUCCESS RATE FOR PERFORMANCE -->
+              <!-- <ng-container *ngIf="subCategory.average_success else noSuccessRate">-->
+              <!--     <td *tuiCell="'success_rate'" tuiTd>{{ category.average_success }}%</td>-->
+            <!-- </ng-container>-->
+            <!-- <ng-template #noSuccessRate>-->
+            <!--     <td *tuiCell="'success_rate'" tuiTd>-</td>-->
+          <!-- </ng-template>-->
+        </tr>
+      }
+    </tbody>
+  }
+</table>
+</tui-loader>
 </div>

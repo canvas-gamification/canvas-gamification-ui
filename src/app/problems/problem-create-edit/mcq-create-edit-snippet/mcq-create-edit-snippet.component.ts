@@ -1,35 +1,32 @@
-import {Component, Inject, Input, OnInit} from '@angular/core'
+import {Component, Inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {QuestionService} from '@app/problems/_services/question.service'
-import {AbstractControl, FormArray, FormControl, FormGroup} from '@angular/forms'
+import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {McqForm} from "@app/problems/_forms/mcq.form"
 import {Router} from "@angular/router"
-import {
-    TuiDialogContext,
-    TuiDialogService,
-    TuiNotification,
-    TuiNotificationsService
-} from "@taiga-ui/core"
-import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
+import {TuiDialogContext, TuiDialogService, TuiNotificationService} from "@taiga-ui/core"
+import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 import {Question} from '@app/_models'
 
 @Component({
     selector: 'app-mcq-create-snippet',
     templateUrl: './mcq-create-edit-snippet.component.html',
     styleUrls: ['./mcq-create-edit-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class McqCreateEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question
     @Input() isCheckbox: boolean
     @Input() eventId: number
     @Input() courseId: number
-    formGroup: FormGroup
-    variationControl : FormControl
+    formGroup: UntypedFormGroup
+    variationControl : UntypedFormControl
 
     constructor(
         private questionService: QuestionService,
         private router: Router,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
     ) {
     }
@@ -50,13 +47,13 @@ export class McqCreateEditSnippetComponent implements OnInit {
             this.addDistractor()
             this.addAnswer()
         }
-        this.variationControl = this.formGroup.get('variation_types') as FormControl
+        this.variationControl = this.formGroup.get('variation_types') as UntypedFormControl
     }
 
     checkCheckboxAnswersDialog(content: PolymorpheusContent<TuiDialogContext>): void {
         if (this.form.answer.value.length <= 1) {
             this.dialogService.open(content, {
-                closeable: false,
+                closable: false,
                 label: 'Submit Question?'
             }).subscribe({
                 next: () => this.onSubmit()
@@ -75,8 +72,8 @@ export class McqCreateEditSnippetComponent implements OnInit {
             this.questionService.putMultipleChoiceQuestion(submissionData, this.questionDetails.id)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The question has been updated successfully.', {
-                            status: TuiNotification.Success
+                        .open('The question has been updated successfully.', {
+                            appearance: 'success'
                         }).subscribe()
                     this.refreshPage()
                 })
@@ -84,20 +81,20 @@ export class McqCreateEditSnippetComponent implements OnInit {
             this.questionService.postMultipleChoiceQuestion(submissionData)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The question has been created successfully.', {
-                            status: TuiNotification.Success
+                        .open('The question has been created successfully.', {
+                            appearance: 'success'
                         }).subscribe()
                     this.refreshPage()
                 })
         }
     }
 
-    getAnswerFormControls(): FormControl[] {
-        return (this.form.answer as FormArray).controls as FormControl[]
+    getAnswerFormControls(): UntypedFormControl[] {
+        return (this.form.answer as UntypedFormArray).controls as UntypedFormControl[]
     }
 
-    getAnswers(): FormArray {
-        return this.form.answer as FormArray
+    getAnswers(): UntypedFormArray {
+        return this.form.answer as UntypedFormArray
     }
 
     addAnswer(): void {
@@ -108,12 +105,12 @@ export class McqCreateEditSnippetComponent implements OnInit {
         this.getAnswers()?.removeAt(index)
     }
 
-    getDistractors(): FormArray {
-        return this.form.choices as FormArray
+    getDistractors(): UntypedFormArray {
+        return this.form.choices as UntypedFormArray
     }
 
-    getDistractorFormControls(): FormControl[] {
-        return this.getDistractors().controls as FormControl[]
+    getDistractorFormControls(): UntypedFormControl[] {
+        return this.getDistractors().controls as UntypedFormControl[]
     }
 
     addDistractor(): void {

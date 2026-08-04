@@ -1,13 +1,15 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
 import {Subscription} from 'rxjs'
 import {RegisterService} from '@app/accounts/_services/register.service'
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-activation-email',
     templateUrl: './activation-email.component.html',
-    styleUrls: ['./activation-email.component.scss']
+    styleUrls: ['./activation-email.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ActivationEmailComponent implements OnInit {
     uuid: string
@@ -18,7 +20,7 @@ export class ActivationEmailComponent implements OnInit {
         private route: ActivatedRoute,
         private registerService: RegisterService,
         private router: Router,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 
@@ -31,8 +33,8 @@ export class ActivationEmailComponent implements OnInit {
         this.registerService.postActivation(this.uuid, this.token).subscribe(
             () => {
                 this.notificationsService
-                    .show('You have activated your account successfully.', {
-                        status: TuiNotification.Success
+                    .open('You have activated your account successfully.', {
+                        appearance: 'success'
                     }).subscribe()
                 this.router.navigate(['/accounts/login']).then()
 

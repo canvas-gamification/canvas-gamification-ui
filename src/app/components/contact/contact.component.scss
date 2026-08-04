@@ -1,0 +1,8 @@
+// Workaround for Taiga 5 textfield + textarea: the floating label is squeezed
+// to zero width by tui-textarea-content sharing its flex line. Force the label
+// onto its own line (the content is pulled back up by Taiga's negative margin).
+.comment-field {
+    label[tuiLabel] {
+        min-inline-size: 100%;
+    }
+}

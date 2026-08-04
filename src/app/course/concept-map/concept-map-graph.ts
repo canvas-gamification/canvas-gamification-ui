@@ -1,7 +1,5 @@
-import * as jQuery from 'jquery'
-import dagre from 'dagre'
-import graphlib from 'graphlib'
-import * as joint from 'jointjs'
+import * as joint from '@joint/core'
+import {DirectedGraph} from '@joint/layout-directed-graph'
 import {Category} from '@app/_models'
 
 export class ConceptMapGraph {
@@ -14,7 +12,7 @@ export class ConceptMapGraph {
         this.graph = new joint.dia.Graph()
 
         this.paper = new joint.dia.Paper({
-            el: jQuery('#paper'),
+            el: document.getElementById('paper'),
             width: '100%',
             height: 'calc(100vh - 19rem)',
             model: this.graph,
@@ -25,7 +23,8 @@ export class ConceptMapGraph {
 
         this.paper.on('cell:pointerdown', (cellView) => {
             if (cellView.model.attributes.type === 'standard.Ellipse') {
-                onclick(cellView.model.id)
+                // Cell ids are stored as strings (see makeElement); callers expect numeric category pks.
+                onclick(Number(cellView.model.id))
             }
         })
     }
@@ -38,24 +37,29 @@ export class ConceptMapGraph {
         const height = 1.5 * ((label.split('\n').length + 1) * letterSize)
 
         return new joint.shapes.standard.Ellipse({
-            id,
+            // @joint/core 4 + @dagrejs/graphlib: graphlib stringifies node ids, and Graph#getCell
+            // lookups are type-sensitive, so numeric ids break DirectedGraph.layout. Use string ids.
+            id: String(id),
             size: {width, height},
-            fill: 'var(--tui-secondary)',
             attrs: {
                 label: {
                     text: label,
                     'font-size': letterSize,
                     'font-weight': 'bold',
                     'font-family': 'sans-serif',
-                    fill: 'var(--tui-text-01)',
+                    // Theme-aware replacements for the removed Taiga 2 tokens the original
+                    // graph used (--tui-text-01 / --tui-base-08 / --tui-secondary); declared
+                    // in concept-map.component.scss with the original light/night values.
+                    fill: 'var(--concept-map-text)',
                     cursor: 'pointer',
                 },
+                // Note: do NOT override rx/ry here. @joint/core 4 removed the ref* attributes,
+                // so standard.Ellipse sizes its body via rx/ry defaults (calc(0.5*w)/calc(0.5*h));
+                // overriding them shrinks every node to a tiny circle.
                 body: {
-                    width, height,
-                    rx: 10, ry: 10,
-                    stroke: 'var(--tui-base-08)',
+                    stroke: 'var(--concept-map-stroke)',
                     cursor: 'pointer',
-                    fill: 'var(--tui-secondary)',
+                    fill: 'var(--concept-map-node-fill)',
                 },
             }
         })
@@ -64,10 +68,10 @@ export class ConceptMapGraph {
     makeLink(parentElementLabel: number, childElementLabel: number): joint.shapes.standard.Link {
         return new joint.shapes.standard.Link({
             source: {
-                id: parentElementLabel,
+                id: String(parentElementLabel),
             },
             target: {
-                id: childElementLabel,
+                id: String(childElementLabel),
             },
             router: {
                 name: 'manhattan',
@@ -83,7 +87,7 @@ export class ConceptMapGraph {
             },
             attrs: {
                 line: {
-                    stroke: 'var(--tui-base-08)',
+                    stroke: 'var(--concept-map-stroke)',
                     cursor: 'default',
                 },
                 wrapper: {
@@ -114,9 +118,7 @@ export class ConceptMapGraph {
     buildGraphFromAdjacencyList(adj: Category[]): void {
         const cells = this.makeCellsFromAdjacencyList(adj)
         this.graph.resetCells(cells)
-        const directedGraph = joint.layout.DirectedGraph.layout(this.graph, {
-            dagre,
-            graphlib,
+        const directedGraph = DirectedGraph.layout(this.graph, {
             nodeSep: 40,
             edgeSep: 40,
             ranker: 'longest-path',

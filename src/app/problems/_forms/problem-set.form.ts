@@ -1,17 +1,17 @@
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms"
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 
 export class ProblemSetForm {
     /**
      * Creates a FormGroup for the problem set.
      */
-    static createForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            search: new FormControl(''),
-            difficulty: new FormControl(null),
-            parentCategory: new FormControl(null),
-            subCategory: new FormControl(null),
-            is_sample: new FormControl(null),
+            search: new UntypedFormControl(''),
+            difficulty: new UntypedFormControl(null),
+            parentCategory: new UntypedFormControl(null),
+            subCategory: new UntypedFormControl(null),
+            is_sample: new UntypedFormControl(null),
         })
     }
 
@@ -19,7 +19,7 @@ export class ProblemSetForm {
      * Extracts the data from the FormGroup.
      * @param form - The FormGroup for the problem set.
      */
-    static extractData(form: FormGroup): ProblemSetFormData {
+    static extractData(form: UntypedFormGroup): ProblemSetFormData {
         return form.value
     }
 }

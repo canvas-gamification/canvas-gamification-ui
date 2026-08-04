@@ -1,9 +1,10 @@
+import {TuiLabel, TuiError, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {
     DefaultCreateEditSnippetComponent
 } from '../../problem-create-edit/default-create-edit-snippet/default-create-edit-snippet.component'
-import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiSelectModule} from "@taiga-ui/kit"
+import {TuiSelect} from "@taiga-ui/kit"
 import {TestModule} from "@test/test.module"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
@@ -21,8 +22,8 @@ describe('DefaultCreateEditSnippetComponent', () => {
         await TestBed.configureTestingModule({
             declarations: [DefaultCreateEditSnippetComponent, StringifyTuiDataListPipe],
             imports: [
-                TestModule, ReactiveFormsModule, FormsModule, TuiInputModule, TuiFieldErrorModule,
-                TuiSelectModule, TuiCheckboxLabeledModule
+                TestModule, ReactiveFormsModule, FormsModule, TuiInput, TuiError, TuiError,
+                TuiSelect, TuiLabel
             ]
         })
             .compileComponents()

@@ -1,43 +1,57 @@
 <ng-container>
-    <table
-        [columns]="tableHeaders"
-        class="w-full"
-        tuiTable
+  <table
+    [columns]="tableHeaders"
+    class="w-full"
+    tuiTable
     >
-        <thead tuiThead>
-        <tr tuiThGroup>
-            <th *tuiHead="'name'" tuiTh>Name</th>
-            <th *tuiHead="'event_name'" tuiTh>Event Name</th>
-            <th *tuiHead="'grade'" tuiTh>Tokens Earned</th>
-            <th *tuiHead="'title'" tuiTh>Question Name</th>
-            <th *tuiHead="'question_grade'" tuiTh>Question Tokens</th>
-            <th *tuiHead="'attempts'" tuiTh>Attempts</th>
-        </tr>
-        </thead>
-        <tbody [data]="displayData" tuiTbody>
-        <tr *tuiRow="let grade of displayData" tuiTr>
-            <td *tuiCell="'grade'" tuiTd>
-                {{ grade.grade }} / {{ grade.total }}
-            </td>
-            <td *tuiCell="'title'" tuiTd>
-                <div *ngFor="let detail of grade.question_details; index as idx">
-                    {{ detail.title }}
-                    <hr *ngIf="!(idx === grade.question_details.length - 1)">
+    <thead tuiThead>
+      <tr tuiThGroup>
+        <th *tuiHead="'name'" tuiTh>Name</th>
+        <th *tuiHead="'event_name'" tuiTh>Event Name</th>
+        <th *tuiHead="'grade'" tuiTh>Tokens Earned</th>
+        <th *tuiHead="'title'" tuiTh>Question Name</th>
+        <th *tuiHead="'question_grade'" tuiTh>Question Tokens</th>
+        <th *tuiHead="'attempts'" tuiTh>Attempts</th>
+      </tr>
+    </thead>
+    <tbody [data]="displayData" tuiTbody>
+      @for (grade of displayData; track grade) {
+        <tr tuiTr>
+          <td *tuiCell="'grade'" tuiTd>
+            {{ grade.grade }} / {{ grade.total }}
+          </td>
+          <td *tuiCell="'title'" tuiTd>
+            @for (detail of grade.question_details; track detail; let idx = $index) {
+              <div>
+                {{ detail.title }}
+                @if (!(idx === grade.question_details.length - 1)) {
+                  <hr>
+                  }
                 </div>
+              }
             </td>
             <td *tuiCell="'question_grade'" tuiTd>
-                <div *ngFor="let detail of grade.question_details; index as idx">
-                    {{ detail.question_grade }} / {{detail.question_value}}
-                    <hr *ngIf="!(idx === grade.question_details.length - 1)">
-                </div>
-            </td>
-            <td *tuiCell="'attempts'" tuiTd>
-                <div *ngFor="let detail of grade.question_details; index as idx">
+              @for (detail of grade.question_details; track detail; let idx = $index) {
+                <div>
+                  {{ detail.question_grade }} / {{detail.question_value}}
+                  @if (!(idx === grade.question_details.length - 1)) {
+                    <hr>
+                    }
+                  </div>
+                }
+              </td>
+              <td *tuiCell="'attempts'" tuiTd>
+                @for (detail of grade.question_details; track detail; let idx = $index) {
+                  <div>
                     {{ detail.attempts }} / {{ detail.max_attempts }}
-                    <hr *ngIf="!(idx === grade.question_details.length - 1)">
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</ng-container>
+                    @if (!(idx === grade.question_details.length - 1)) {
+                      <hr>
+                      }
+                    </div>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </ng-container>

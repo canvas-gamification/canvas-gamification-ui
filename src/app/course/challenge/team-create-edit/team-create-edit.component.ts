@@ -1,21 +1,23 @@
-import {Component, Inject, OnInit} from '@angular/core'
-import {FormGroup} from "@angular/forms"
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {UntypedFormGroup} from "@angular/forms"
 import {TeamForm} from "@app/course/_forms/team.form"
 import {Course, CourseEvent, CourseRegistration} from "@app/_models"
 import {ActivatedRoute, Router} from "@angular/router"
 import {CourseService} from "@app/course/_services/course.service"
 import {TeamService} from "@app/course/_services/team.service"
 import {Team} from "@app/_models/team"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 
 @Component({
     selector: 'app-team-create-edit',
     templateUrl: './team-create-edit.component.html',
-    styleUrls: ['./team-create-edit.component.scss']
+    styleUrls: ['./team-create-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TeamCreateEditComponent implements OnInit {
-    formData: FormGroup
+    formData: UntypedFormGroup
     courseId: number
     eventId: number
     event: CourseEvent
@@ -31,8 +33,8 @@ export class TeamCreateEditComponent implements OnInit {
         private courseEventService: CourseEventService,
         private teamService: TeamService,
         private router: Router,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService,
     ) {
     }
 
@@ -83,8 +85,8 @@ export class TeamCreateEditComponent implements OnInit {
         if (this.teamId) {
             this.teamService.updateTeam(teamData, this.teamId).subscribe(() => {
                 this.notificationsService
-                    .show('The team has been updated successfully.', {
-                        status: TuiNotification.Success
+                    .open('The team has been updated successfully.', {
+                        appearance: 'success'
                     }).subscribe()
                 this.router.navigate(
                     ['course', this.courseId, 'challenge', this.eventId, 'teams']
@@ -93,8 +95,8 @@ export class TeamCreateEditComponent implements OnInit {
         } else {
             this.teamService.createAndJoin(teamData).subscribe(() => {
                 this.notificationsService
-                    .show('The team has been created successfully.', {
-                        status: TuiNotification.Success
+                    .open('The team has been created successfully.', {
+                        appearance: 'success'
                     }).subscribe()
                 this.router.navigate(
                     ['course', this.courseId, 'challenge', this.eventId, 'teams']

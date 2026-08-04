@@ -1,12 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ApiService} from "@app/_services/api.service"
-import {FormControl, FormGroup} from "@angular/forms"
+import {UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 import {EventStatsSubmissionDetail} from "@app/_models/event/event_stats_submission_detail"
 
 @Component({
     selector: 'app-event-stats-submission-view',
     templateUrl: './event-stats-submission-view.component.html',
-    styleUrls: ['./event-stats-submission-view.component.scss']
+    styleUrls: ['./event-stats-submission-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class EventStatsSubmissionViewComponent implements OnInit {
 
@@ -17,12 +19,12 @@ export class EventStatsSubmissionViewComponent implements OnInit {
     showGrade = false
     answerFiles: { name: string, code: string }[] = []
 
-    form = new FormGroup({
-        names: new FormControl(this.showName),
-        grades: new FormControl(this.showGrade),
+    form = new UntypedFormGroup({
+        names: new UntypedFormControl(this.showName),
+        grades: new UntypedFormControl(this.showGrade),
     })
-    formGroup = new FormGroup({
-        status: new FormControl()
+    formGroup = new UntypedFormGroup({
+        status: new UntypedFormControl()
     })
 
     constructor(

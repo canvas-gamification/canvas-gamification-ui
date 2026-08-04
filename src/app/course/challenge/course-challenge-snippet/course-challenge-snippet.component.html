@@ -1,167 +1,169 @@
 <div class="flex flex-col gap-5">
-    <ng-container *ngIf="course else skeletonTemplate">
-
-        <div class="flex justify-end toolBar">
-            <div class="flex justify-start toolBar">
-                <button
-                    appearance="flat"
-                    [routerLink]="['..']"
-                    icon="tuiIconArrowLeft"
-                    aria-label="Back to Homepage"
-                    size="s"
-                    tuiButton
-                >
-                    Back to Homepage
-                </button>
+  @if (course) {
+    <div class="flex justify-end toolBar">
+      <div class="flex justify-start toolBar">
+        <button
+          appearance="flat"
+          [routerLink]="['..']"
+          iconStart="@tui.arrow-left"
+          aria-label="Back to Homepage"
+          size="s"
+          tuiButton
+          >
+          Back to Homepage
+        </button>
+      </div>
+      @if (course?.has_create_challenge_permission) {
+        <button
+          [routerLink]="['/course', courseId, 'challenge', 'create']"
+          iconStart="@tui.plus"
+          appearance="secondary"
+          aria-label="Add Challenge"
+          size="m"
+          tuiButton
+          >
+          Add Challenge
+        </button>
+      }
+    </div>
+    <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<tui-accordion class="accordionContainer" [closeOthers]="false">
+      <button tuiAccordion="true" [disablehover]="true">Current Challenges</button>
+      <tui-expand class="title">
+          @if (currentEvents.length > 0) {
+            @for (challenge of currentEvents; track challenge) {
+              <div class="divide">
+                <app-challenge-row
+                  [event]="challenge"
+                  (reload)="init()"
+                  >
+                </app-challenge-row>
+              </div>
+            }
+          }
+          @if (currentEvents.length === 0) {
+            <div>
+              <div class="flex justify-center items-center w-full h-32">
+                <tui-avatar
+                  class="tui-space_right-4"
+                  size="m"
+                  src="@tui.circle-alert"
+                ></tui-avatar>
+                <h2 class="tui-text_body-xl">
+                  Looks like there are no current challenges
+                </h2>
+              </div>
             </div>
-            <button
-                *ngIf="course?.has_create_challenge_permission"
-                [routerLink]="['/course', courseId, 'challenge', 'create']"
-                icon="tuiIconPlus"
-                appearance="secondary"
-                aria-label="Add Challenge"
-                size="m"
-                tuiButton
-            >
-                Add Challenge
-            </button>
-        </div>
-        <tui-accordion class="accordionContainer" [closeOthers]="false">
-            <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Current Challenges
-                <ng-template tuiAccordionItemContent>
-                    <ng-container *ngIf="currentEvents.length > 0">
-                        <div *ngFor="let challenge of currentEvents" class="divide">
-                            <app-challenge-row
-                                [event]="challenge"
-                                (reload)="init()"
-                            >
-                            </app-challenge-row>
-                        </div>
-                    </ng-container>
-                    <div *ngIf="currentEvents.length === 0">
-                        <div class="flex justify-center items-center w-full h-32">
-                            <tui-marker-icon
-                                class="tui-space_right-4"
-                                size="s"
-                                src="tuiIconAlertCircleLarge"
-                            ></tui-marker-icon>
-                            <h2 class="tui-text_body-xl">
-                                Looks like there are no current challenges
-                            </h2>
-                        </div>
-                    </div>
-                </ng-template>
-            </tui-accordion-item>
-            <tui-accordion-item class="title" open="true">
-                Upcoming Challenges
-                <ng-template tuiAccordionItemContent>
-                    <ng-container *ngIf="upcomingEvents.length > 0">
-                        <div *ngFor="let challenge of upcomingEvents" class="divide">
-                            <app-challenge-row
-                                [event]="challenge"
-                            >
-                            </app-challenge-row>
-                        </div>
-                    </ng-container>
-                    <div *ngIf="upcomingEvents.length === 0">
-                        <div class="flex justify-center items-center w-full h-32">
-                            <tui-marker-icon
-                                class="tui-space_right-4"
-                                size="s"
-                                src="tuiIconAlertCircleLarge"
-                            ></tui-marker-icon>
-                            <h2 class="tui-text_body-xl">
-                                Looks like there are no upcoming challenges
-                            </h2>
-                        </div>
-                    </div>
-                </ng-template>
-            </tui-accordion-item>
-            <tui-accordion-item class="title" open="true">
-                Past Challenges
-                <ng-template tuiAccordionItemContent>
-                    <ng-container *ngIf="pastEvents.length > 0">
-                        <div *ngFor="let challenge of pastEvents" class="divide">
-                            <app-challenge-row
-                                [event]="challenge"
-                            >
-                            </app-challenge-row>
-                        </div>
-                    </ng-container>
-                    <div *ngIf="pastEvents.length === 0">
-                        <div class="flex justify-center items-center w-full h-32">
-                            <tui-marker-icon
-                                class="tui-space_right-4"
-                                size="s"
-                                src="tuiIconAlertCircleLarge"
-                            ></tui-marker-icon>
-                            <h2 class="tui-text_body-xl">
-                                Looks like there are no past challenges
-                            </h2>
-                        </div>
-                    </div>
-                </ng-template>
-            </tui-accordion-item>
-        </tui-accordion>
-    </ng-container>
-    <ng-template #skeletonTemplate>
-        <div class="flex justify-end toolBar">
-            <button
-                *ngIf="course?.has_create_event_permission"
-                class="tui-skeleton"
-                icon="tuiIconPlus"
-                appearance="secondary"
-                aria-label="Add Challenge"
-                size="m"
-                tuiButton
-            >
-                Content
-            </button>
-        </div>
-        <tui-accordion class="accordionContainer" [closeOthers]="false">
-            <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Current Challenges
-                <ng-template tuiAccordionItemContent>
-                    <div class="pb-5">
-                        <div class="tui-skeleton">content</div>
-                        <div class="tui-skeleton">Content</div>
-                    </div>
-                    <div class="borderB"></div>
-                    <div class="pt-5">
-                        <div class="tui-skeleton">content</div>
-                        <div class="tui-skeleton">Content</div>
-                    </div>
-                </ng-template>
-            </tui-accordion-item>
-            <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Upcoming Challenges
-                <ng-template tuiAccordionItemContent>
-                    <div class="pb-5">
-                        <div class="tui-skeleton">content</div>
-                        <div class="tui-skeleton">Content</div>
-                    </div>
-                    <div class="borderB"></div>
-                    <div class="pt-5">
-                        <div class="tui-skeleton">content</div>
-                        <div class="tui-skeleton">Content</div>
-                    </div>
-                </ng-template>
-            </tui-accordion-item>
-            <tui-accordion-item class="title" open="true" [disableHover]="true">
-                Past Challenges
-                <ng-template tuiAccordionItemContent>
-                    <div class="pb-5">
-                        <div class="tui-skeleton">content</div>
-                        <div class="tui-skeleton">Content</div>
-                    </div>
-                    <div class="borderB"></div>
-                    <div class="pt-5">
-                        <div class="tui-skeleton">content</div>
-                        <div class="tui-skeleton">Content</div>
-                    </div>
-                </ng-template>
-            </tui-accordion-item>
-        </tui-accordion>
-    </ng-template>
+          }
+      </tui-expand>
+      <button tuiAccordion="true">Upcoming Challenges</button>
+      <tui-expand class="title">
+          @if (upcomingEvents.length > 0) {
+            @for (challenge of upcomingEvents; track challenge) {
+              <div class="divide">
+                <app-challenge-row
+                  [event]="challenge"
+                  >
+                </app-challenge-row>
+              </div>
+            }
+          }
+          @if (upcomingEvents.length === 0) {
+            <div>
+              <div class="flex justify-center items-center w-full h-32">
+                <tui-avatar
+                  class="tui-space_right-4"
+                  size="m"
+                  src="@tui.circle-alert"
+                ></tui-avatar>
+                <h2 class="tui-text_body-xl">
+                  Looks like there are no upcoming challenges
+                </h2>
+              </div>
+            </div>
+          }
+      </tui-expand>
+      <button tuiAccordion="true">Past Challenges</button>
+      <tui-expand class="title">
+          @if (pastEvents.length > 0) {
+            @for (challenge of pastEvents; track challenge) {
+              <div class="divide">
+                <app-challenge-row
+                  [event]="challenge"
+                  >
+                </app-challenge-row>
+              </div>
+            }
+          }
+          @if (pastEvents.length === 0) {
+            <div>
+              <div class="flex justify-center items-center w-full h-32">
+                <tui-avatar
+                  class="tui-space_right-4"
+                  size="m"
+                  src="@tui.circle-alert"
+                ></tui-avatar>
+                <h2 class="tui-text_body-xl">
+                  Looks like there are no past challenges
+                </h2>
+              </div>
+            </div>
+          }
+      </tui-expand>
+    </tui-accordion>
+  } @else {
+    <div class="flex justify-end toolBar">
+      @if (course?.has_create_event_permission) {
+        <button
+          class="tui-skeleton"
+          iconStart="@tui.plus"
+          appearance="secondary"
+          aria-label="Add Challenge"
+          size="m"
+          tuiButton
+          >
+          Content
+        </button>
+      }
+    </div>
+    <!-- TODO: (Taiga UI migration) tui-accordion-item has been removed. Use new tuiAccordion instead. See example https://taiga-ui.dev/components/accordion -->
+<tui-accordion class="accordionContainer" [closeOthers]="false">
+      <button tuiAccordion="true" [disablehover]="true">Current Challenges</button>
+      <tui-expand class="title">
+          <div class="pb-5">
+            <div class="tui-skeleton">content</div>
+            <div class="tui-skeleton">Content</div>
+          </div>
+          <div class="borderB"></div>
+          <div class="pt-5">
+            <div class="tui-skeleton">content</div>
+            <div class="tui-skeleton">Content</div>
+          </div>
+      </tui-expand>
+      <button tuiAccordion="true" [disablehover]="true">Upcoming Challenges</button>
+      <tui-expand class="title">
+          <div class="pb-5">
+            <div class="tui-skeleton">content</div>
+            <div class="tui-skeleton">Content</div>
+          </div>
+          <div class="borderB"></div>
+          <div class="pt-5">
+            <div class="tui-skeleton">content</div>
+            <div class="tui-skeleton">Content</div>
+          </div>
+      </tui-expand>
+      <button tuiAccordion="true" [disablehover]="true">Past Challenges</button>
+      <tui-expand class="title">
+          <div class="pb-5">
+            <div class="tui-skeleton">content</div>
+            <div class="tui-skeleton">Content</div>
+          </div>
+          <div class="borderB"></div>
+          <div class="pt-5">
+            <div class="tui-skeleton">content</div>
+            <div class="tui-skeleton">Content</div>
+          </div>
+      </tui-expand>
+    </tui-accordion>
+  }
 </div>

@@ -1,24 +1,26 @@
-import {Component, OnInit} from '@angular/core'
-import {FormControl, FormGroup, Validators} from '@angular/forms'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {
     agreeQuestions,
     checkboxQuestions
 } from "@app/accounts/survey/initial-survey/data"
 import {SurveyService} from "@app/accounts/_services/survey.service"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {Router} from "@angular/router"
 import {AgreeQuestion, CheckBoxQuestion} from "@app/accounts/survey/types"
 
 @Component({
     selector: 'app-initial-survey',
     templateUrl: './initial-survey.component.html',
-    styleUrls: ['./initial-survey.component.scss']
+    styleUrls: ['./initial-survey.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class InitialSurveyComponent implements OnInit {
 
-    formGroup = new FormGroup({
-        two: new FormControl(null, [Validators.required]),
-        six: new FormControl(null),
+    formGroup = new UntypedFormGroup({
+        two: new UntypedFormControl(null, [Validators.required]),
+        six: new UntypedFormControl(null),
     })
     agreeQuestions: AgreeQuestion[]
     checkboxQuestions: CheckBoxQuestion[]
@@ -41,7 +43,7 @@ export class InitialSurveyComponent implements OnInit {
 
     constructor(
         private readonly surveyService: SurveyService,
-        private readonly notificationService: TuiNotificationsService,
+        private readonly notificationService: TuiNotificationService,
         private readonly router: Router,
     ) {
     }
@@ -51,14 +53,14 @@ export class InitialSurveyComponent implements OnInit {
         for (const agreeQuestion of agreeQuestions) {
             this.formGroup.addControl(
                 agreeQuestion.code,
-                new FormControl(null, [Validators.required])
+                new UntypedFormControl(null, [Validators.required])
             )
         }
 
         this.checkboxQuestions = checkboxQuestions
         for (const question of checkboxQuestions) {
             for (const choice of question.choices) {
-                this.formGroup.addControl(choice, new FormControl(false))
+                this.formGroup.addControl(choice, new UntypedFormControl(false))
             }
         }
     }
@@ -69,8 +71,8 @@ export class InitialSurveyComponent implements OnInit {
 
     submit() {
         this.surveyService.postSurvey('initial', this.formGroup.value).subscribe(() => {
-            this.notificationService.show("Survey submitted successfully", {
-                status: TuiNotification.Success,
+            this.notificationService.open("Survey submitted successfully", {
+                appearance: 'success',
             }).subscribe()
             this.router.navigate(['homepage']).then()
         })

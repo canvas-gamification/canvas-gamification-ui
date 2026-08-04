@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core'
-import {AbstractControl, FormGroup} from "@angular/forms"
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {AbstractControl, UntypedFormGroup} from "@angular/forms"
 import {Category, Course, CourseEvent} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
 import {CategoryService} from "@app/_services/api/category.service"
@@ -10,11 +10,13 @@ import {Difficulty} from "@app/_models/difficulty"
 @Component({
     selector: 'app-default-create-edit-snippet',
     templateUrl: './default-create-edit-snippet.component.html',
-    styleUrls: ['./default-create-edit-snippet.component.scss']
+    styleUrls: ['./default-create-edit-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class DefaultCreateEditSnippetComponent implements OnInit {
 
-    @Input() formGroup: FormGroup
+    @Input() formGroup: UntypedFormGroup
     @Input() disableEvent = false
     courses: Course[]
     categories: Category[]

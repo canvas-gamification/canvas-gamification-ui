@@ -4,7 +4,7 @@ import {
     CourseRegistrationStepperComponent
 } from '../../../course-registration/course-registration-stepper/course-registration-stepper.component'
 import {TestModule} from "@test/test.module"
-import {TuiStepComponent, TuiStepperComponent, TuiStepperModule} from "@taiga-ui/kit"
+import {TuiStepper} from "@taiga-ui/kit"
 
 describe('CourseRegistrationStepperComponent', () => {
     let component: CourseRegistrationStepperComponent
@@ -12,8 +12,8 @@ describe('CourseRegistrationStepperComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, TuiStepperModule],
-            declarations: [CourseRegistrationStepperComponent, TuiStepperComponent, TuiStepComponent]
+            imports: [TestModule, ...TuiStepper],
+            declarations: [CourseRegistrationStepperComponent]
         }).compileComponents()
     })
 
@@ -34,14 +34,9 @@ describe('CourseRegistrationStepperComponent', () => {
         expect(component.currentStep).toEqual(0)
     })
 
-    it('should get existing taiga step components', () => {
-        expect(component.getStep(0)).toEqual(jasmine.any(TuiStepComponent))
-        expect(component.getStep(1)).toEqual(jasmine.any(TuiStepComponent))
-        expect(component.getStep(2)).toEqual(jasmine.any(TuiStepComponent))
-    })
-
-    it('should not get out of index taiga step component', () => {
-        expect(component.getStep(3)).toEqual(undefined)
+    it('should render a step per configured step', () => {
+        const steps = fixture.nativeElement.querySelectorAll('[tuiStep]')
+        expect(steps.length).toEqual(3)
     })
 
     it('should set next step', () => {
@@ -59,8 +54,6 @@ describe('CourseRegistrationStepperComponent', () => {
 
     it('should mark step as complete', () => {
         component.setStepComplete(0)
-        const step = component.getStep(0)
-        expect(step.state).toEqual('pass')
-        expect(step.icon).toEqual('tuiIconCheckLarge')
+        expect(component.completedSteps.has(0)).toBeTrue()
     })
 })

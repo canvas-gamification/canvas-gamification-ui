@@ -1,14 +1,15 @@
-import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core'
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core'
 import {ParsonsFile} from '@app/_models'
-import {DragulaService} from 'ng2-dragula'
-import {Subscription} from 'rxjs'
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop'
 
 @Component({
     selector: 'app-parsons-lines',
     templateUrl: './parsons-lines.component.html',
-    styleUrls: ['./parsons-lines.component.scss']
+    styleUrls: ['./parsons-lines.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
-export class ParsonsLinesComponent implements OnInit, OnDestroy {
+export class ParsonsLinesComponent implements OnInit {
     @Input() testABNew = false
     @Input() file: ParsonsFile
     @Output() readonly code = new EventEmitter<string>()
@@ -16,10 +17,7 @@ export class ParsonsLinesComponent implements OnInit, OnDestroy {
     leftContainer: ContainerObject[] = []
     rightContainer: ContainerObject[] = []
 
-    subscriptions: Subscription = new Subscription()
-
     constructor(
-        private dragulaService: DragulaService,
         private elementRef: ElementRef
     ) {
     }
@@ -28,50 +26,41 @@ export class ParsonsLinesComponent implements OnInit, OnDestroy {
         this.leftContainer = this.file.lines.map(line => {
             return new ContainerObject(line)
         })
-        this.dragulaService.destroy(this.file.name)
-        this.dragulaService.createGroup(this.file.name, {
-            revertOnSpill: true
-        })
-
-        if (this.testABNew) {
-            this.subscriptions.add(this.dragulaService.dragend().subscribe(() => {
-                this.calculateSourceCode();
-                [...this.elementRef.nativeElement.getElementsByClassName('container-nested')].forEach(element => {
-                    element.classList.remove('container-nested_hover')
-                })
-            }))
-            this.subscriptions.add(this.dragulaService.drag().subscribe(() => {
-                [...this.elementRef.nativeElement.getElementsByClassName('container-nested')].forEach(element => {
-                    element.classList.add('container-nested_hover')
-                })
-            }))
-            // These two subscriptions are used as a workaround to stop nested dragula arrays
-            // from giving an error with "Node.insertBefore: The new child is an ancestor of the parent"
-            this.subscriptions.add(this.dragulaService.over().subscribe(({el}) => {
-                if (el.classList.contains('gu-transit')) {
-                    el.querySelectorAll('.container').forEach(child => {
-                        child.classList.add('remove-container-events')
-                    })
-                }
-            }))
-            this.subscriptions.add(this.dragulaService.dragend().subscribe(({el}) => {
-                el.querySelectorAll('.container').forEach(child => {
-                    child.classList.remove('remove-container-events')
-                })
-            }))
-        } else {
+        if (!this.testABNew) {
             this.removeLeftContainerIndents()
-            this.dragulaService.dragend().subscribe(() => {
-                this.determineIndents()
-                this.removeLeftContainerIndents()
-                this.calculateSourceCode()
+        }
+    }
+
+    /**
+     * Move the dragged line within or between containers, then recompute the source code.
+     */
+    onDrop(event: CdkDragDrop<ContainerObject[]>): void {
+        if (event.previousContainer === event.container) {
+            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex)
+        } else {
+            transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex)
+        }
+        if (!this.testABNew) {
+            this.determineIndents()
+            this.removeLeftContainerIndents()
+        }
+        this.calculateSourceCode()
+    }
+
+    onDragStarted(): void {
+        if (this.testABNew) {
+            [...this.elementRef.nativeElement.getElementsByClassName('container-nested')].forEach(element => {
+                element.classList.add('container-nested_hover')
             })
         }
     }
 
-    ngOnDestroy(): void {
-        this.dragulaService.destroy(this.file.name)
-        this.subscriptions.unsubscribe()
+    onDragEnded(): void {
+        if (this.testABNew) {
+            [...this.elementRef.nativeElement.getElementsByClassName('container-nested')].forEach(element => {
+                element.classList.remove('container-nested_hover')
+            })
+        }
     }
 
     /**

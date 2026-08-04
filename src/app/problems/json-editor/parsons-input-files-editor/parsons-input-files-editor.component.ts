@@ -1,5 +1,5 @@
-import {Component} from '@angular/core'
-import {AbstractControl, FormArray, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms'
+import {Component, ChangeDetectionStrategy} from '@angular/core'
+import {AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms'
 import {ParsonsInputFilesForm} from "@app/problems/_forms/json-editor/parsons-input-files.form"
 import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor/abstract-editor.component"
 
@@ -18,17 +18,20 @@ import {AbstractEditorComponent} from "@app/problems/json-editor/abstract-editor
             multi: true,
             useExisting: ParsonsInputFilesEditorComponent
         },
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ParsonsInputFilesEditorComponent extends AbstractEditorComponent {
 
     codeBlock = ''
+    codeBlockDropdownOpen = false
 
     addNewModel(): void {
         this.models.push(ParsonsInputFilesForm.createParsonsInputFileForm())
     }
 
-    addNewLine(form: AbstractControl): FormControl {
+    addNewLine(form: AbstractControl): UntypedFormControl {
         const newControl = ParsonsInputFilesForm.createLinesControl()
         this.getLines(form)?.push(newControl)
         return newControl
@@ -38,8 +41,8 @@ export class ParsonsInputFilesEditorComponent extends AbstractEditorComponent {
         this.getLines(form)?.removeAt(index)
     }
 
-    getLines(form: AbstractControl): FormArray {
-        return (form as FormGroup).controls.lines as FormArray
+    getLines(form: AbstractControl): UntypedFormArray {
+        return (form as UntypedFormGroup).controls.lines as UntypedFormArray
     }
 
     setLinesFromCodeBlock(form: AbstractControl): void {

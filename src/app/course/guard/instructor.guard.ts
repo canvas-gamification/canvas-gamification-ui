@@ -1,8 +1,5 @@
 import {Injectable} from '@angular/core'
-import {
-    ActivatedRouteSnapshot,
-    CanActivate, Router,
-} from '@angular/router'
+import {ActivatedRouteSnapshot, Router} from '@angular/router'
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {User} from "@app/_models"
 import {CourseService} from "@app/course/_services/course.service"
@@ -11,7 +8,7 @@ import {map} from "rxjs/operators"
 @Injectable({
     providedIn: 'root'
 })
-export class InstructorGuard implements CanActivate {
+export class InstructorGuard  {
     constructor(
         private authenticationService: AuthenticationService,
         private router: Router,

@@ -1,9 +1,7 @@
+import {TuiCardLarge} from "@taiga-ui/layout"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {ParsonsLinesComponent} from '../../problem-view/parsons-lines/parsons-lines.component'
-import {DragulaService} from "ng2-dragula"
-import {TuiIslandModule} from "@taiga-ui/kit"
-
 describe('ParsonsLinesComponent', () => {
     let component: ParsonsLinesComponent
     let fixture: ComponentFixture<ParsonsLinesComponent>
@@ -11,8 +9,8 @@ describe('ParsonsLinesComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [ParsonsLinesComponent],
-            imports: [TuiIslandModule],
-            providers: [DragulaService],
+            imports: [TuiCardLarge],
+            providers: [],
         }).compileComponents()
     })
 

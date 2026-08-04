@@ -9,7 +9,7 @@
                 <a
                     appearance="primary"
                     class="tui-form__button"
-                    iconRight="tuiIconArrowUpRight"
+                    iconEnd="@tui.arrow-up-right"
                     routerLink="homepage"
                     size="l"
                     tuiButton
@@ -46,51 +46,51 @@
                 </p>
             </div>
             <div class="tui-col_lg-7 tui-col_md-8 tui-col_xs-12">
-                <tui-island class="tui-space_bottom-4">
+                <div class="tui-island tui-island_size_m tui-space_bottom-4">
                     <div class="tui-island__content">
                         <figure class="tui-island__figure">
-                            <tui-marker-icon class="custom-icons" size="s" src="tuiIconOLLarge"></tui-marker-icon>
+                            <span tuiAvatar="@tui.list-ordered"  class="custom-icons" size="m"></span>
                         </figure>
                         <div>
                             <h3 class="tui-island__title">Practice</h3>
                             <p class="tui-island__paragraph">Practice from thousands of questions.</p>
                         </div>
                     </div>
-                </tui-island>
-                <tui-island class="tui-space_bottom-4">
+                </div>
+                <div class="tui-island tui-island_size_m tui-space_bottom-4">
                     <div class="tui-island__content">
                         <figure class="tui-island__figure">
-                            <tui-marker-icon class="custom-icons" size="s" src="tuiIconCodeLarge"></tui-marker-icon>
+                            <span tuiAvatar="@tui.code"  class="custom-icons" size="m"></span>
                         </figure>
                         <div>
                             <h3 class="tui-island__title">Assignments</h3>
                             <p class="tui-island__paragraph">Do your assignments here.</p>
                         </div>
                     </div>
-                </tui-island>
-                <tui-island class="tui-space_bottom-4">
+                </div>
+                <div class="tui-island tui-island_size_m tui-space_bottom-4">
                     <div class="tui-island__content">
                         <figure class="tui-island__figure">
-                            <tui-marker-icon class="custom-icons" size="s" src="tuiIconStarLarge"></tui-marker-icon>
+                            <span tuiAvatar="@tui.star"  class="custom-icons" size="m"></span>
                         </figure>
                         <div>
                             <h3 class="tui-island__title">Exams</h3>
                             <p class="tui-island__paragraph">Complete your exams here.</p>
                         </div>
                     </div>
-                </tui-island>
-                <tui-island>
+                </div>
+                <div class="tui-island tui-island_size_m">
                     <div class="tui-island__content">
                         <figure class="tui-island__figure">
-                            <tui-marker-icon class="custom-icons" size="s"
-                                             src="tuiIconChartLineLarge"></tui-marker-icon>
+                            <span tuiAvatar="@tui.chart-line"  class="custom-icons" size="m"
+                                            ></span>
                         </figure>
                         <div>
                             <h3 class="tui-island__title">Bonus Marks</h3>
                             <p class="tui-island__paragraph">Get extra grades by practicing!</p>
                         </div>
                     </div>
-                </tui-island>
+                </div>
             </div>
         </div>
     </div>
@@ -101,7 +101,8 @@
         <div class="features tui-row tui-row_adaptive">
             <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
                 <div class="features-title">
-                    <tui-svg src="tuiIconChartLineLarge"></tui-svg>
+                    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  [style.border-width.rem]="0.25" icon="@tui.chart-line"></tui-icon>
                     <h3 class="tui-text_h5">Earn Tokens</h3>
                 </div>
                 <p class="tui-island__paragraph tui-text_body-l">
@@ -111,7 +112,8 @@
             </div>
             <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
                 <div class="features-title">
-                    <tui-svg src="tuiIconOLLarge"></tui-svg>
+                    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  [style.border-width.rem]="0.25" icon="@tui.list-ordered"></tui-icon>
                     <h3 class="tui-text_h5">Multiple Question Types</h3>
                 </div>
                 <p class="tui-island__paragraph tui-text_body-l">
@@ -121,7 +123,8 @@
             </div>
             <div class="tui-col_lg-4 tui-col_md-4 tui-col_xs-12">
                 <div class="features-title">
-                    <tui-svg src="tuiIconChartLarge"></tui-svg>
+                    <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+<tui-icon  [style.border-width.rem]="0.25" icon="@tui.chart-bar"></tui-icon>
                     <h3 class="tui-text_h5">Different Skill Levels</h3>
                 </div>
                 <p class="tui-island__paragraph tui-text_body-l">
@@ -168,11 +171,10 @@
                     <a
                         appearance="secondary"
                         class="center-button tui-form__button"
-                        iconRight="tuiIconArrowUpRight"
+                        iconEnd="@tui.arrow-up-right"
                         routerLink="homepage"
                         size="m"
                         tuiButton
-                        tuiMode="onDark"
                     >
                         Get Started
                     </a>

@@ -6,7 +6,8 @@ import {GetKatexStringPipe} from '@app/_helpers/pipes/get-katex-string.pipe'
  * parse them to display KaTeX based on their equation
  */
 @Pipe({
-    name: 'getKatexHtmlString'
+    name: 'getKatexHtmlString',
+    standalone: false
 })
 export class GetKatexHtmlStringPipe implements PipeTransform {
     transform(html: string): string {

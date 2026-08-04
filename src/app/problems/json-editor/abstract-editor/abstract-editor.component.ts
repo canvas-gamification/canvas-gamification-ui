@@ -1,11 +1,11 @@
-import {Component, OnDestroy} from '@angular/core'
+import {Component, OnDestroy, ChangeDetectionStrategy} from '@angular/core'
 import {Subscription} from "rxjs"
 import {
     AbstractControl,
     ControlValueAccessor,
-    FormArray,
-    FormControl,
-    FormGroup,
+    UntypedFormArray,
+    UntypedFormControl,
+    UntypedFormGroup,
     ValidationErrors,
     Validator,
     Validators
@@ -14,10 +14,12 @@ import {
 @Component({
     selector: 'app-abstract-editor',
     template: '',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AbstractEditorComponent implements ControlValueAccessor, Validator, OnDestroy {
 
-    models = new FormArray([])
+    models = new UntypedFormArray([])
     onChangeSubs: Subscription[] = []
 
     onTouched = (): void => {
@@ -41,7 +43,11 @@ export class AbstractEditorComponent implements ControlValueAccessor, Validator,
     }
 
     setDisabledState(isDisabled: boolean): void {
-        isDisabled ? this.models.disable() : this.models.enable()
+        if (isDisabled) {
+            this.models.disable()
+        } else {
+            this.models.enable()
+        }
     }
 
     writeValue(value: Array<unknown>): void {
@@ -78,7 +84,7 @@ export class AbstractEditorComponent implements ControlValueAccessor, Validator,
      * Get form as a JSON string value
      */
     getFormString(form: AbstractControl): string {
-        return JSON.stringify((form as FormGroup).getRawValue(), null, 2)
+        return JSON.stringify((form as UntypedFormGroup).getRawValue(), null, 2)
     }
 
     /**
@@ -92,14 +98,14 @@ export class AbstractEditorComponent implements ControlValueAccessor, Validator,
             const jsonParsed = JSON.parse(value)
             if (form.value.type) jsonParsed['type'] = form.value.type
             Object.entries(jsonParsed).forEach(([key, value]) => {
-                const formControl = (form as FormGroup).controls[key]
+                const formControl = (form as UntypedFormGroup).controls[key]
                 if (formControl) {
-                    if (formControl instanceof FormArray) {
+                    if (formControl instanceof UntypedFormArray) {
                         if (!(value instanceof Array)) throw SyntaxError
-                        const formArray = formControl as FormArray
+                        const formArray = formControl as UntypedFormArray
                         formArray.clear()
                         value.forEach(value1 => {
-                            formArray.push(new FormControl(value1, [Validators.required]))
+                            formArray.push(new UntypedFormControl(value1, [Validators.required]))
                         })
                     } else {
                         formControl.setValue(value)

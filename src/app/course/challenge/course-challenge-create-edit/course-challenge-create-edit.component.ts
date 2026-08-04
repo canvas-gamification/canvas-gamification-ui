@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Category, CourseEvent, EventLimit} from "@app/_models"
 import {ChallengeType} from "@app/_models/challengeType"
-import {FormArray, FormControl, FormGroup} from "@angular/forms"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
+import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 import {ChallengeForm} from "@app/course/_forms/challenge.form"
 import {startCase} from 'lodash'
 import {Difficulty} from "@app/_models/difficulty"
@@ -14,14 +14,16 @@ import {CategoryService} from "@app/_services/api/category.service"
 @Component({
     selector: 'app-course-challenge-create-edit',
     templateUrl: './course-challenge-create-edit.component.html',
-    styleUrls: ['./course-challenge-create-edit.component.scss']
+    styleUrls: ['./course-challenge-create-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CourseChallengeCreateEditComponent implements OnInit {
     courseId: number
     eventId: number = null
     event: CourseEvent
     localChallengeTypes: ChallengeType[]
-    challengeForm: FormGroup
+    challengeForm: UntypedFormGroup
     categories: Category[]
     difficulties: Difficulty[]
     limits: EventLimit[]
@@ -33,7 +35,7 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         private courseEventService: CourseEventService,
         private readonly categoryService: CategoryService,
         private readonly difficultyService: DifficultyService,
-        private readonly notificationsService: TuiNotificationsService,
+        private readonly notificationsService: TuiNotificationService,
     ) {
     }
 
@@ -66,19 +68,19 @@ export class CourseChallengeCreateEditComponent implements OnInit {
         )
     }
 
-    getChallengeQuestionSets(): FormArray {
-        return this.challengeForm.get('challengeQuestionSets') as FormArray
+    getChallengeQuestionSets(): UntypedFormArray {
+        return this.challengeForm.get('challengeQuestionSets') as UntypedFormArray
     }
 
-    getChallengeQuestionSetFormControls(): FormControl[] {
-        return this.getChallengeQuestionSets().controls as FormControl[]
+    getChallengeQuestionSetFormControls(): UntypedFormControl[] {
+        return this.getChallengeQuestionSets().controls as UntypedFormControl[]
     }
 
-    getFormControl(fc: FormControl, field: string): FormControl {
-        return fc.get(field) as FormControl
+    getFormControl(fc: UntypedFormControl, field: string): UntypedFormControl {
+        return fc.get(field) as UntypedFormControl
     }
 
-    getNumQuestionsLimit(formControl: FormControl) {
+    getNumQuestionsLimit(formControl: UntypedFormControl) {
         const category = formControl.get('category').value as number
         const difficulty = formControl.get('difficulty').value as string
         if (!category || !difficulty) {
@@ -124,8 +126,8 @@ export class CourseChallengeCreateEditComponent implements OnInit {
                     .toPromise()
             }
             this.notificationsService
-                .show('The challenge has been updated successfully.', {
-                    status: TuiNotification.Success
+                .open('The challenge has been updated successfully.', {
+                    appearance: 'success'
                 }).subscribe()
             this.router.navigate(
                 ['course', this.courseId, 'challenge']
@@ -143,8 +145,8 @@ export class CourseChallengeCreateEditComponent implements OnInit {
             }
 
             this.notificationsService
-                .show('The challenge has been created successfully.', {
-                    status: TuiNotification.Success
+                .open('The challenge has been created successfully.', {
+                    appearance: 'success'
                 }).subscribe()
 
             this.router.navigate(

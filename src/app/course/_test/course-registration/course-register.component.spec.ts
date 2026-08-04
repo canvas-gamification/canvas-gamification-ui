@@ -1,3 +1,4 @@
+import {TuiNotificationService, TuiError, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {CourseRegisterComponent} from '../../course-registration/course-register.component'
@@ -8,18 +9,17 @@ import {ActivatedRoute} from "@angular/router"
 import {ReactiveFormsModule} from "@angular/forms"
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component"
 import {CourseRegistrationStepComponent} from "@app/course/course-registration/course-registration-step/course-registration-step.component"
-import {TuiFieldErrorModule, TuiInputModule, TuiStepperModule} from "@taiga-ui/kit"
-import {TuiNotificationsService, TuiTextfieldControllerModule} from "@taiga-ui/core"
+import {TuiStepper} from "@taiga-ui/kit"
 import {of} from "rxjs"
 
 describe('CourseRegisterComponent', () => {
     let component: CourseRegisterComponent
     let fixture: ComponentFixture<CourseRegisterComponent>
-    let notificationService: TuiNotificationsService
+    let notificationService: TuiNotificationService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [TestModule, ReactiveFormsModule, TuiStepperModule, TuiInputModule, TuiTextfieldControllerModule, TuiFieldErrorModule],
+            imports: [TestModule, ReactiveFormsModule, TuiStepper, TuiInput, TuiError, TuiError],
             declarations: [CourseRegisterComponent, CourseRegistrationStepperComponent, CourseRegistrationStepComponent],
             providers: [
                 {provide: CourseService, useClass: CourseServiceMock},
@@ -39,8 +39,8 @@ describe('CourseRegisterComponent', () => {
     })
 
     beforeEach(() => {
-        notificationService = TestBed.inject(TuiNotificationsService)
-        spyOn(notificationService, 'show').and.callFake(() => {
+        notificationService = TestBed.inject(TuiNotificationService)
+        spyOn(notificationService, 'open').and.callFake(() => {
             return of()
         })
         fixture = TestBed.createComponent(CourseRegisterComponent)
@@ -56,6 +56,6 @@ describe('CourseRegisterComponent', () => {
         component.form.get('code').setValue("123")
         fixture.detectChanges()
         component.onSubmit()
-        expect(notificationService.show).toHaveBeenCalled()
+        expect(notificationService.open).toHaveBeenCalled()
     })
 })

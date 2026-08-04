@@ -1,15 +1,16 @@
 import {Pipe, PipeTransform} from '@angular/core'
-import {AbstractControl, FormControl} from "@angular/forms"
+import {AbstractControl, UntypedFormControl} from "@angular/forms"
 
 /**
  * Given an AbstractControl object, return
  * the value as a FormControl object
  */
 @Pipe({
-    name: 'asFormControl'
+    name: 'asFormControl',
+    standalone: false
 })
 export class AsFormControlPipe implements PipeTransform {
-    transform(value: AbstractControl): FormControl {
-        return value as FormControl
+    transform(value: AbstractControl): UntypedFormControl {
+        return value as UntypedFormControl
     }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {CategoryService} from "@app/_services/api/category.service"
 import {
     Category,
@@ -13,7 +13,9 @@ import {ParentNodeService} from "@app/_services/parent-node-service"
 @Component({
     selector: 'app-concept-list',
     templateUrl: './concept-list.component.html',
-    styleUrls: ['./concept-list.component.scss']
+    styleUrls: ['./concept-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ConceptListComponent implements OnInit {
     categories: Category[]

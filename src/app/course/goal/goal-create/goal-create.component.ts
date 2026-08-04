@@ -1,9 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core'
-import {FormArray, FormControl, FormGroup} from "@angular/forms"
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core'
+import {UntypedFormArray, UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 import {GoalForm} from "@app/course/_forms/goal.form"
 import {GoalService} from "@app/course/_services/goal.service"
 import {ActivatedRoute, Router} from "@angular/router"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {tuiCreateTimePeriods} from "@taiga-ui/kit"
 import {CategoryService} from "@app/_services/api/category.service"
 import {ActionStatus, ActionType, ActionVerb, Category} from "@app/_models"
@@ -11,21 +11,23 @@ import {DifficultyService} from "@app/problems/_services/difficulty.service"
 import {Difficulty} from "@app/_models/difficulty"
 import {Goal, GoalItem, GoalLimit} from "@app/_models/goal/goal"
 import {goalItemString} from "@app/course/goal/utils"
-import * as dayjs from 'dayjs'
-import * as relativeTime from 'dayjs/plugin/relativeTime'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import {UserActionsService} from "@app/_services/api/user-actions.service"
 
 
 @Component({
     selector: 'app-goal-create',
     templateUrl: './goal-create.component.html',
-    styleUrls: ['./goal-create.component.scss']
+    styleUrls: ['./goal-create.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GoalCreateComponent implements OnInit {
 
     @ViewChild('createGoalElement') createGoalElement
     timeOptions = tuiCreateTimePeriods()
-    goalForm: FormGroup
+    goalForm: UntypedFormGroup
     categories: Category[]
     difficulties: Difficulty[]
     courseId: number
@@ -38,7 +40,7 @@ export class GoalCreateComponent implements OnInit {
         private readonly difficultyService: DifficultyService,
         private readonly router: Router,
         private readonly activatedRoute: ActivatedRoute,
-        private readonly notificationService: TuiNotificationsService,
+        private readonly notificationService: TuiNotificationService,
         private readonly userActionsService: UserActionsService,
     ) {
         dayjs.extend(relativeTime)
@@ -61,16 +63,16 @@ export class GoalCreateComponent implements OnInit {
         )
     }
 
-    getGoalItems(): FormArray {
-        return this.goalForm.get('goal_items') as FormArray
+    getGoalItems(): UntypedFormArray {
+        return this.goalForm.get('goal_items') as UntypedFormArray
     }
 
-    getFormControl(fc: FormControl, field: string): FormControl {
-        return fc.get(field) as FormControl
+    getFormControl(fc: UntypedFormControl, field: string): UntypedFormControl {
+        return fc.get(field) as UntypedFormControl
     }
 
-    getGoalItemFormControls(): FormControl[] {
-        return this.getGoalItems().controls as FormControl[]
+    getGoalItemFormControls(): UntypedFormControl[] {
+        return this.getGoalItems().controls as UntypedFormControl[]
     }
 
     addGoalItem(): void {
@@ -104,7 +106,7 @@ export class GoalCreateComponent implements OnInit {
         return dayjs(time).fromNow()
     }
 
-    getNumQuestionsLimit(formControl: FormControl) {
+    getNumQuestionsLimit(formControl: UntypedFormControl) {
         const category = formControl.get('category').value as number
         const difficulty = formControl.get('difficulty').value as string
         if (!category || !difficulty) {
@@ -145,9 +147,9 @@ export class GoalCreateComponent implements OnInit {
             await this.goalService.createGoalItem(goalItemData).toPromise()
         }
 
-        this.notificationService.show('Goal created successfully!', {
+        this.notificationService.open('Goal created successfully!', {
             label: 'Success',
-            status: TuiNotification.Success
+            appearance: 'success'
         }).subscribe()
 
         this.router.navigate(['..'], {relativeTo: this.activatedRoute}).then()

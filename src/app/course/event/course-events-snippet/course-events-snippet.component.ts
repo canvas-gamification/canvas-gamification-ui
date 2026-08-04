@@ -1,14 +1,9 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core'
+import {Component, Inject, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core'
 import {Course, CourseEvent, EventType, User} from '@app/_models'
 import {AuthenticationService} from '@app/_services/api/authentication'
 import {CourseEventService} from '@app/course/_services/course-event.service'
-import {
-    TuiDialogContext,
-    TuiDialogService,
-    TuiNotification,
-    TuiNotificationsService
-} from "@taiga-ui/core"
-import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus'
+import {TuiDialogContext, TuiDialogService, TuiNotificationService} from "@taiga-ui/core"
+import {PolymorpheusContent} from '@taiga-ui/polymorpheus'
 import {CourseService} from "@app/course/_services/course.service"
 import {ActivatedRoute} from "@angular/router"
 
@@ -21,7 +16,9 @@ enum EventFilterOptions {
 @Component({
     selector: 'app-course-events-snippet',
     templateUrl: './course-events-snippet.component.html',
-    styleUrls: ['./course-events-snippet.component.scss']
+    styleUrls: ['./course-events-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CourseEventsSnippetComponent implements OnInit {
     events: CourseEvent[]
@@ -39,8 +36,8 @@ export class CourseEventsSnippetComponent implements OnInit {
         private courseService: CourseService,
         private route: ActivatedRoute,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
         this.courseId = +this.route.snapshot.parent.paramMap.get('courseId')
     }
@@ -97,8 +94,8 @@ export class CourseEventsSnippetComponent implements OnInit {
     setFeatured(eventId: number) {
         return this.courseEventService.setFeatured(eventId).subscribe(() => {
             this.init()
-            this.notificationsService.show('Assessment successfully marked as featured.', {
-                status: TuiNotification.Success,
+            this.notificationsService.open('Assessment successfully marked as featured.', {
+                appearance: 'success',
             }).subscribe()
         })
     }
@@ -115,7 +112,7 @@ export class CourseEventsSnippetComponent implements OnInit {
         })
         this.dialogService.open(
             this.importDialog,
-            {label: 'Which assessment do you want to import?', size: 'l', closeable: false}
+            {label: 'Which assessment do you want to import?', size: 'l', closable: false}
         ).subscribe()
     }
 
@@ -128,8 +125,8 @@ export class CourseEventsSnippetComponent implements OnInit {
         this.courseEventService.importCourseEvent(event, courseId).subscribe((response) => {
             if (response.status === 201) {
                 this.notificationsService
-                    .show('The assessment has been imported successfully.', {
-                        status: TuiNotification.Success
+                    .open('The assessment has been imported successfully.', {
+                        appearance: 'success'
                     }).subscribe()
                 this.init()
             }

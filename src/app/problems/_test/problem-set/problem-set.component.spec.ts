@@ -1,3 +1,4 @@
+import {TuiChip, TuiSelect} from "@taiga-ui/kit"
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {ProblemSetComponent} from '../../problem-set/problem-set.component'
@@ -10,24 +11,19 @@ import {ReactiveFormsModule} from "@angular/forms"
 import {QuestionService} from "@app/problems/_services/question.service"
 import {QuestionServiceMock} from "@app/problems/_test/_services/question.service.mock"
 import {AppRoutingModule} from "@app/app-routing.module"
-import {
-    TuiDataListModule,
-    TuiHintModule,
-    TuiHostedDropdownModule,
-    TuiLoaderModule,
-    TuiNotificationsService
-} from "@taiga-ui/core"
+import {TuiDataList, TuiLoader, TuiDropdown, TuiHint, TuiNotificationService, TuiInput} from "@taiga-ui/core"
 import {of} from "rxjs"
-import {TuiTableModule, TuiTablePaginationModule} from "@taiga-ui/addon-table"
-import {TuiInputModule, TuiSelectModule, TuiTagModule} from "@taiga-ui/kit"
+import {TuiTablePagination, TuiTable} from "@taiga-ui/addon-table"
 import {StringifyTuiDataListPipe} from "@app/_helpers/pipes/stringify-tui-data-list.pipe"
-import {Component, ViewChild} from "@angular/core"
+import {Component, ViewChild, ChangeDetectionStrategy} from "@angular/core"
 import {MOCK_CATEGORY, MOCK_CATEGORY_2} from "@app/problems/_test/mock"
 
 @Component({
     selector: 'test-app-problem-set-dialog',
     template: `
-        <ng-template let-observer #testDialog></ng-template>`
+        <ng-template let-observer #testDialog></ng-template>`,
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 class TestProblemSetDialogComponent {
     @ViewChild('testDialog') testDialog
@@ -40,7 +36,7 @@ class TestProblemSetDialogComponent {
 describe('ProblemSetComponent', () => {
     let component: ProblemSetComponent
     let fixture: ComponentFixture<ProblemSetComponent>
-    let notificationService: TuiNotificationsService
+    let notificationService: TuiNotificationService
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -48,15 +44,15 @@ describe('ProblemSetComponent', () => {
                 TestModule,
                 ReactiveFormsModule,
                 AppRoutingModule,
-                TuiHostedDropdownModule,
-                TuiLoaderModule,
-                TuiTableModule,
-                TuiTablePaginationModule,
-                TuiSelectModule,
-                TuiDataListModule,
-                TuiInputModule,
-                TuiHintModule,
-                TuiTagModule
+                TuiDropdown,
+                TuiLoader,
+                TuiTable,
+                TuiTablePagination,
+                TuiSelect,
+                TuiDataList,
+                TuiInput,
+                TuiHint,
+                TuiChip
             ],
             declarations: [
                 ProblemSetComponent,
@@ -72,8 +68,8 @@ describe('ProblemSetComponent', () => {
     })
 
     beforeEach(() => {
-        notificationService = TestBed.inject(TuiNotificationsService)
-        spyOn(notificationService, 'show').and.callFake(() => of())
+        notificationService = TestBed.inject(TuiNotificationService)
+        spyOn(notificationService, 'open').and.callFake(() => of())
         fixture = TestBed.createComponent(ProblemSetComponent)
         component = fixture.componentInstance
         spyOn(component.paramChanged, 'next').and.callThrough()
@@ -129,11 +125,13 @@ describe('ProblemSetComponent', () => {
     it('should delete a question', fakeAsync(() => {
         component.deleteQuestion(0)
         tick(1000)
-        expect(notificationService.show).toHaveBeenCalled()
+        expect(notificationService.open).toHaveBeenCalled()
     }))
 
     it('should open delete modal', fakeAsync(() => {
-        spyOn(component['dialogService'], 'open').and.callThrough()
+        // Taiga 5 dialogs render through portals and require a tui-root host;
+        // return an empty observable instead of calling through in TestBed.
+        spyOn(component['dialogService'], 'open').and.returnValue(of())
         spyOn(component, 'deleteQuestion').and.callThrough()
         component.openDeleteQuestionDialog('', 0)
         tick(1)

@@ -29,14 +29,16 @@ describe('SidebarComponent', () => {
     })
 
     it('should throw error when no ID is provided', () => {
-        component.sidebarId = undefined
+        // setInput marks the view dirty, which Angular 22 requires for detectChanges
+        // to pick up input changes made from a spec.
+        fixture.componentRef.setInput('sidebarId', undefined)
         fixture.detectChanges()
         expect(component.getSidebarDirectory).toThrowError('Attach an ID to the sidebar!')
     })
 
     it('should not throw error when not toggleable', () => {
-        component.sidebarId = undefined
-        component.toggleable = false
+        fixture.componentRef.setInput('sidebarId', undefined)
+        fixture.componentRef.setInput('toggleable', false)
         fixture.detectChanges()
         expect(component.getSidebarDirectory).toThrowError('Attach an ID to the sidebar!')
     })

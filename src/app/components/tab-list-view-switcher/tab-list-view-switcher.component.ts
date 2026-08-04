@@ -1,16 +1,18 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {TabListViewService} from "@app/_services/tab-list-view.service"
-import {FormControl, FormGroup} from "@angular/forms"
+import {UntypedFormControl, UntypedFormGroup} from "@angular/forms"
 
 @Component({
     selector: 'app-tab-list-view-switcher',
     templateUrl: './tab-list-view-switcher.component.html',
-    styleUrls: ['./tab-list-view-switcher.component.scss']
+    styleUrls: ['./tab-list-view-switcher.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class TabListViewSwitcherComponent implements OnInit {
 
-    viewForm = new FormGroup({
-        view: new FormControl('list')
+    viewForm = new UntypedFormGroup({
+        view: new UntypedFormControl('list')
     })
 
     constructor(private tabListViewService: TabListViewService) {

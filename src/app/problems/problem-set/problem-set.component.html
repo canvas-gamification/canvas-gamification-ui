@@ -1,347 +1,345 @@
 <div class="tui-container tui-container_fullwidth">
-    <div class="heading">
-        <h1 class="tui-text_h3 tui-space_vertical-10">Problem Sets</h1>
-        <tui-hosted-dropdown
-            [(open)]="openNewQuestionDropdown"
-            [content]="newQuestionDropdownContent"
+  <div class="heading">
+    <h1 class="tui-text_h3 tui-space_vertical-10">Problem Sets</h1>
+    <div
+      [(tuiDropdownOpen)]="openNewQuestionDropdown"
+      [tuiDropdown]="newQuestionDropdownContent"
+      >
+      <button
+        [tuiChevron]="openNewQuestionDropdown"
+        iconStart="@tui.plus"
+        size="m"
+        tuiButton
+        type="button"
         >
-            <button
-                [iconRight]="newQuestionDropdownIcon"
-                icon="tuiIconPlus"
-                size="m"
-                tuiButton
-                type="button"
-            >
-                Create New Question
-            </button>
-        </tui-hosted-dropdown>
-        <ng-template #newQuestionDropdownIcon>
-            <tui-svg
-                [class.new-question-icon_rotated]="openNewQuestionDropdown"
-                class="new-question-icon"
-                src="tuiIconChevronDown"
-            ></tui-svg>
-        </ng-template>
-        <ng-template #newQuestionDropdownContent>
-            <tui-data-list>
-                <a [routerLink]="['create', 'MCQ']" tuiOption>
-                    Multiple Choice Question
-                </a>
-                <a [routerLink]="['create', 'checkbox']" tuiOption>
-                    Checkbox Question
-                </a>
-                <a [routerLink]="['create', 'java']" tuiOption>
-                    Java Question
-                </a>
-                <a [routerLink]="['create', 'parsons']" tuiOption>
-                    Parsons Question
-                </a>
-            </tui-data-list>
-        </ng-template>
+        Create New Question
+      </button>
     </div>
-    <form (ngSubmit)="update()" [formGroup]="formGroup" class="filters" tuiTextfieldSize="m">
-        <tui-input
-            [tuiTextfieldCleaner]="true"
-            class="search tui-space_bottom-4"
-            formControlName="search"
-        >
-            Search for a Question Name
-        </tui-input>
-        <tui-select
-            [tuiTextfieldCleaner]="true"
-            [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-            class="tui-space_left-4"
-            formControlName="difficulty"
-        >
-            Difficulty
-            <tui-data-list *tuiDataList>
-                <button *ngFor="let diff of difficulties" [value]="diff[0]" tuiOption>
-                    {{ diff[1] }}
-                </button>
-            </tui-data-list>
-        </tui-select>
-        <tui-select
-            [tuiTextfieldCleaner]="true"
-            [valueContent]="parentCategories ? (parentCategories | stringifyTuiDataList: 'name': 'name') : ''"
-            class="tui-space_left-4"
-            formControlName="parentCategory"
-        >
-            Category
-            <tui-data-list *tuiDataList [class.tui-skeleton]="!parentCategories">
-                <button *ngFor="let category of parentCategories" [value]="category.name" tuiOption>
-                    {{ category.name }}
-                </button>
-            </tui-data-list>
-        </tui-select>
-        <tui-select
-            [tuiTextfieldCleaner]="true"
-            [valueContent]="subCategories ? (subCategories | stringifyTuiDataList: 'name': 'name') : ''"
-            class="tui-space_left-4"
-            formControlName="subCategory"
-        >
-            Sub Category
-            <tui-data-list *tuiDataList>
-                <button *ngFor="let category of subCategories" [value]="category.name" tuiOption>
-                    {{ category.name }}
-                </button>
-            </tui-data-list>
-        </tui-select>
-        <tui-select
-            [tuiTextfieldCleaner]="true"
-            [valueContent]="[[true, 'Yes'], [false, 'No']] | stringifyTuiDataList: 0: 1"
-            class="tui-space_left-4"
-            formControlName="is_sample"
-        >
-            Sample
-            <tui-data-list *tuiDataList>
-                <button [value]="true" tuiOption>
-                    Yes
-                </button>
-                <button [value]="false" tuiOption>
-                    No
-                </button>
-            </tui-data-list>
-        </tui-select>
-        <button
-            class="tui-space_left-4"
-            size="m"
-            tuiButton
-            type="submit"
-        >
-            Filter
-        </button>
-    </form>
-
-    <ng-container *ngIf="questions && !filteringQuestions else skeletonTemplate">
-            <table
-                (directionChange)="update({sortDirection: $event})"
-                (sorterChange)="update({sorter: $event})"
-                [direction]="sortDirection"
-                [sorter]="sorter"
-                [columns]="questionsTableColumns"
-                class="questions-table"
-                tuiTable
-            >
-                <thead tuiThead>
-                <tr tuiThGroup>
-                    <th *tuiHead="'id'" [sorter]="sorters.id" tuiTh>#</th>
-                    <th *tuiHead="'title'" [sorter]="sorters.title" tuiTh>Question Name</th>
-                    <th *tuiHead="'author_name'" [sorter]="sorters.author_name" tuiTh>Author</th>
-                    <th *tuiHead="'event_name'" [sorter]="sorters.event_name" tuiTh>Assessment</th>
-                    <th
-                        *tuiHead="'parent_category_name'"
-                        [sorter]="sorters.parent_category_name"
-                        tuiTh
-                    >
-                        Category
-                    </th>
-                    <th *tuiHead="'category_name'" [sorter]="sorters.category_name" tuiTh>
-                        Sub-Category
-                    </th>
-                    <th *tuiHead="'difficulty'" [sorter]="sorters.difficulty" tuiTh>Difficulty</th>
-                    <th *tuiHead="'type_name'" [sorter]="null" tuiTh>Type</th>
-                    <th *tuiHead="'token_value'" [sorter]="null" tuiTh>Token Value</th>
-                    <th *tuiHead="'success_rate'" [sorter]="null" tuiTh>Avg Success</th>
-                    <th *tuiHead="'status'" [sorter]="sorters.status" tuiTh>Status</th>
-                    <th *tuiHead="'actions'" [sorter]="null" tuiTh>Actions</th>
-                </tr>
-                </thead>
-                <tbody [data]="questions" tuiTbody>
-                <tr *tuiRow="let question of questions" tuiTr>
-                    <td *tuiCell="'author_name'" tuiTd>
-                        {{ (question.author_name) || 'No Author' }}
-                    </td>
-                    <td *tuiCell="'event_name'" tuiTd>
-                        {{ (question.event_obj.name) || 'No Assessment' }}
-                    </td>
-                    <td *tuiCell="'parent_category_name'" tuiTd>
-                        {{ (question.parent_category_name) || 'No Category' }}
-                    </td>
-                    <td *tuiCell="'category_name'" tuiTd>
-                        {{ (question.category_name) || 'No Sub-Category' }}
-                    </td>
-                    <td *tuiCell="'difficulty'" tuiTd>
-                        {{ (question.difficulty | titlecase) || 'No Difficulty' }}
-                    </td>
-                    <td *tuiCell="'type_name'" tuiTd>
-                        {{ (question.type_name | titlecase) || 'No Type' }}
-                    </td>
-                    <td *tuiCell="'status'" tuiTd>
-                        <ng-container *ngIf="question.is_verified else questionNotVerified">
-                            <tui-tag size="m" status="success" value="Verified"></tui-tag>
-                        </ng-container>
-                        <ng-template #questionNotVerified>
-                            <tui-tag size="m" status="error" value="Not Verified"></tui-tag>
-                        </ng-template>
-                    </td>
-                    <td *tuiCell="'actions'" tuiTd>
-                        <div class="questions-table__actions">
-                            <a
-                                [routerLink]="[question.id]"
-                                [tuiHint]="viewTooltip"
-                                class="tui-space_right-2 tui-space_vertical-2"
-                                icon="tuiIconEyeOpen"
-                                size="s"
-                                tuiDescribedBy="view-{{question.id}}"
-                                tuiHintDirection="top-left"
-                                tuiHintId="view-{{question.id}}"
-                                tuiHintMode="onDark"
-                                tuiIconButton
-                            ></a>
-                            <ng-template #viewTooltip>
-                                View Question
-                            </ng-template>
-                            <a
-                                [routerLink]="[question.id, 'edit']"
-                                [tuiHint]="editTooltip"
-                                class="tui-space_right-2 tui-space_vertical-2"
-                                icon="tuiIconEdit"
-                                size="s"
-                                tuiDescribedBy="edit-{{question.id}}"
-                                tuiHintDirection="top-left"
-                                tuiHintId="edit-{{question.id}}"
-                                tuiHintMode="onDark"
-                                tuiIconButton
-                            ></a>
-                            <ng-template #editTooltip>
-                                Edit Question
-                            </ng-template>
-                            <button
-                                (click)="openDeleteQuestionDialog(deleteDialog, question.id)"
-                                [tuiHint]="deleteTooltip"
-                                class="tui-space_vertical-2"
-                                icon="tuiIconTrash"
-                                size="s"
-                                tuiDescribedBy="delete-{{question.id}}"
-                                tuiHintDirection="top-left"
-                                tuiHintId="delete-{{question.id}}"
-                                tuiHintMode="onDark"
-                                tuiIconButton
-                                type="button"
-                            ></button>
-                            <ng-template #deleteTooltip>
-                                Delete Question
-                            </ng-template>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td [colSpan]="questionsTableColumns.length">
-                        <tui-table-pagination
-                            (pageChange)="update({page: $event})"
-                            (sizeChange)="update({pageSize: $event})"
-                            [page]="page"
-                            [size]="pageSize"
-                            [total]="numberOfQuestions"
-                            class="tui-space_top-2"
-                        ></tui-table-pagination>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
-    </ng-container>
-    <ng-template #skeletonTemplate>
-
-            <table
-                [columns]="questionsTableColumns"
-                class="questions-table"
-                tuiTable
-            >
-                <thead tuiThead>
-                <tr tuiThGroup>
-                    <th *tuiHead="'id'" tuiTh>#</th>
-                    <th *tuiHead="'title'" tuiTh>Question Name</th>
-                    <th *tuiHead="'author_name'" tuiTh>Author</th>
-                    <th *tuiHead="'event_name'" tuiTh>Assessment</th>
-                    <th *tuiHead="'parent_category_name'" tuiTh> Category</th>
-                    <th  *tuiHead="'category_name'" tuiTh>Sub-Category </th>
-                    <th *tuiHead="'difficulty'" tuiTh>Difficulty</th>
-                    <th *tuiHead="'type_name'" tuiTh>Type</th>
-                    <th *tuiHead="'token_value'" tuiTh>Token Value</th>
-                    <th *tuiHead="'success_rate'" tuiTh>Avg Success</th>
-                    <th *tuiHead="'status'" tuiTh>Status</th>
-                    <th *tuiHead="'actions'" tuiTh>Actions</th>
-                </tr>
-                </thead>
-                <tbody tuiTbody [data]="questions">
-                <tr tuiTr *ngFor="let _ of [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]">
-                    <td *tuiCell="'id'" class="tui-skeleton" tuiTd>
-                        Content
-                    </td>
-                    <td *tuiCell="'title'" class="tui-skeleton" tuiTd>
-                        Content
-                    </td>
-                    <td *tuiCell="'author_name'" class="tui-skeleton" tuiTd>
-                        Content
-                    </td>
-                    <td *tuiCell="'event_name'" class="tui-skeleton" tuiTd>
-                        content
-                    </td>
-                    <td *tuiCell="'parent_category_name'" class="tui-skeleton" tuiTd>
-                        content
-                    </td>
-                    <td *tuiCell="'category_name'" class="tui-skeleton" tuiTd>
-                        content
-                    </td>
-                    <td *tuiCell="'difficulty'" class="tui-skeleton" tuiTd>
-                        content
-                    </td>
-                    <td *tuiCell="'type_name'" class="tui-skeleton" tuiTd>
-                        content
-                    </td>
-                    <td *tuiCell="'token_value'" class="tui-skeleton" tuiTd>
-                        Content
-                    </td>
-                    <td *tuiCell="'success_rate'" class="tui-skeleton" tuiTd>
-                        Content
-                    </td>
-                    <td *tuiCell="'status'" class="tui-skeleton" tuiTd>
-                        Content
-                    </td>
-                    <td *tuiCell="'actions'" class="tui-skeleton" tuiTd>
-                        Content
-                    </td>
-
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td [colSpan]="questionsTableColumns.length">
-                        <tui-table-pagination
-                            (pageChange)="update({page: $event})"
-                            (sizeChange)="update({pageSize: $event})"
-                            [page]="page"
-                            [size]="pageSize"
-                            [total]="numberOfQuestions"
-                            class="tui-space_top-2"
-                        ></tui-table-pagination>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
+    <ng-template #newQuestionDropdownContent>
+      <tui-data-list>
+        <a [routerLink]="['create', 'MCQ']" tuiOption>
+          Multiple Choice Question
+        </a>
+        <a [routerLink]="['create', 'checkbox']" tuiOption>
+          Checkbox Question
+        </a>
+        <a [routerLink]="['create', 'java']" tuiOption>
+          Java Question
+        </a>
+        <a [routerLink]="['create', 'parsons']" tuiOption>
+          Parsons Question
+        </a>
+      </tui-data-list>
     </ng-template>
+  </div>
+  <form (ngSubmit)="update()" [formGroup]="formGroup" class="filters" tuiTextfieldSize="m">
+    <tui-textfield [tuiTextfieldCleaner]="true" class="search tui-space_bottom-4">
+    <label tuiLabel>Search for a Question Name</label>
+    <input tuiInput formControlName="search" />
+    </tui-textfield>
+    <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+      [tuiTextfieldCleaner]="true"
+      [content]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+      class="filter-select tui-space_left-4"
+      >
+<input tuiSelect formControlName="difficulty" placeholder="Difficulty" />
+<tui-data-list *tuiDropdown>
+        @for (diff of difficulties; track diff) {
+          <button [value]="diff[0]" tuiOption>
+            {{ diff[1] }}
+          </button>
+        }
+      </tui-data-list>
+    </tui-textfield>
+    <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+      [tuiTextfieldCleaner]="true"
+      [content]="parentCategories ? (parentCategories | stringifyTuiDataList: 'name': 'name') : ''"
+      class="filter-select tui-space_left-4"
+      >
+<input tuiSelect formControlName="parentCategory" placeholder="Category" />
+<tui-data-list *tuiDropdown [class.tui-skeleton]="!parentCategories">
+        @for (category of parentCategories; track category) {
+          <button [value]="category.name" tuiOption>
+            {{ category.name }}
+          </button>
+        }
+      </tui-data-list>
+    </tui-textfield>
+    <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+      [tuiTextfieldCleaner]="true"
+      [content]="subCategories ? (subCategories | stringifyTuiDataList: 'name': 'name') : ''"
+      class="filter-select filter-select_wide tui-space_left-4"
+      >
+<input tuiSelect formControlName="subCategory" placeholder="Sub Category" />
+<tui-data-list *tuiDropdown>
+        @for (category of subCategories; track category) {
+          <button [value]="category.name" tuiOption>
+            {{ category.name }}
+          </button>
+        }
+      </tui-data-list>
+    </tui-textfield>
+    <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+      [tuiTextfieldCleaner]="true"
+      [content]="[[true, 'Yes'], [false, 'No']] | stringifyTuiDataList: 0: 1"
+      class="filter-select tui-space_left-4"
+      >
+<input tuiSelect formControlName="is_sample" placeholder="Sample" />
+<tui-data-list *tuiDropdown>
+        <button [value]="true" tuiOption>
+          Yes
+        </button>
+        <button [value]="false" tuiOption>
+          No
+        </button>
+      </tui-data-list>
+    </tui-textfield>
+    <button
+      class="tui-space_left-4"
+      size="m"
+      tuiButton
+      type="submit"
+      >
+      Filter
+    </button>
+  </form>
+
+  @if (questions && !filteringQuestions) {
+    <table
+      (directionChange)="update({sortDirection: $event})"
+      (sorterChange)="update({sorter: $event})"
+      [direction]="sortDirection"
+      [sorter]="sorter"
+      [columns]="questionsTableColumns"
+      class="questions-table"
+      tuiTable
+      >
+      <thead tuiThead>
+        <tr tuiThGroup>
+          <th *tuiHead="'id'" [sorter]="sorters.id" tuiTh>#</th>
+          <th *tuiHead="'title'" [sorter]="sorters.title" tuiTh>Question Name</th>
+          <th *tuiHead="'author_name'" [sorter]="sorters.author_name" tuiTh>Author</th>
+          <th *tuiHead="'event_name'" [sorter]="sorters.event_name" tuiTh>Assessment</th>
+          <th
+            *tuiHead="'parent_category_name'"
+            [sorter]="sorters.parent_category_name"
+            tuiTh
+            >
+            Category
+          </th>
+          <th *tuiHead="'category_name'" [sorter]="sorters.category_name" tuiTh>
+            Sub-Category
+          </th>
+          <th *tuiHead="'difficulty'" [sorter]="sorters.difficulty" tuiTh>Difficulty</th>
+          <th *tuiHead="'type_name'" [sorter]="null" tuiTh>Type</th>
+          <th *tuiHead="'token_value'" [sorter]="null" tuiTh>Token Value</th>
+          <th *tuiHead="'success_rate'" [sorter]="null" tuiTh>Avg Success</th>
+          <th *tuiHead="'status'" [sorter]="sorters.status" tuiTh>Status</th>
+          <th *tuiHead="'actions'" [sorter]="null" tuiTh>Actions</th>
+        </tr>
+      </thead>
+      <tbody [data]="questions" tuiTbody>
+        @for (question of questions; track question) {
+          <tr tuiTr>
+            <td *tuiCell="'author_name'" tuiTd>
+              {{ (question.author_name) || 'No Author' }}
+            </td>
+            <td *tuiCell="'event_name'" tuiTd>
+              {{ (question.event_obj.name) || 'No Assessment' }}
+            </td>
+            <td *tuiCell="'parent_category_name'" tuiTd>
+              {{ (question.parent_category_name) || 'No Category' }}
+            </td>
+            <td *tuiCell="'category_name'" tuiTd>
+              {{ (question.category_name) || 'No Sub-Category' }}
+            </td>
+            <td *tuiCell="'difficulty'" tuiTd>
+              {{ (question.difficulty | titlecase) || 'No Difficulty' }}
+            </td>
+            <td *tuiCell="'type_name'" tuiTd>
+              {{ (question.type_name | titlecase) || 'No Type' }}
+            </td>
+            <td *tuiCell="'status'" tuiTd>
+              @if (question.is_verified) {
+                <span tuiChip size="m" appearance="positive">Verified</span>
+              } @else {
+                <span tuiChip size="m" appearance="negative">Not Verified</span>
+              }
+            </td>
+            <td *tuiCell="'actions'" tuiTd>
+              <div class="questions-table__actions">
+                <a
+                  [routerLink]="[question.id]"
+                  [tuiHint]="viewTooltip"
+                  class="tui-space_right-2 tui-space_vertical-2"
+                  iconStart="@tui.eye"
+                  size="s"
+                  id="view-{{question.id}}"
+                  tuiHintDirection="top-start"
+                  tuiHintDescribe="view-{{question.id}}"
+                  tuiHintAppearance="dark"
+                  tuiIconButton
+                ></a>
+                <ng-template #viewTooltip>
+                  View Question
+                </ng-template>
+                <a
+                  [routerLink]="[question.id, 'edit']"
+                  [tuiHint]="editTooltip"
+                  class="tui-space_right-2 tui-space_vertical-2"
+                  iconStart="@tui.pencil"
+                  size="s"
+                  id="edit-{{question.id}}"
+                  tuiHintDirection="top-start"
+                  tuiHintDescribe="edit-{{question.id}}"
+                  tuiHintAppearance="dark"
+                  tuiIconButton
+                ></a>
+                <ng-template #editTooltip>
+                  Edit Question
+                </ng-template>
+                <button
+                  (click)="openDeleteQuestionDialog(deleteDialog, question.id)"
+                  [tuiHint]="deleteTooltip"
+                  class="tui-space_vertical-2"
+                  iconStart="@tui.trash"
+                  size="s"
+                  id="delete-{{question.id}}"
+                  tuiHintDirection="top-start"
+                  tuiHintDescribe="delete-{{question.id}}"
+                  tuiHintAppearance="dark"
+                  tuiIconButton
+                  type="button"
+                ></button>
+                <ng-template #deleteTooltip>
+                  Delete Question
+                </ng-template>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+      <tfoot>
+        <tr>
+          <td [colSpan]="questionsTableColumns.length">
+            <!-- TODO: (Taiga UI migration) (pageChange) and (sizeChange) outputs have been removed. Use (paginationChange) instead -->
+            <tui-table-pagination
+              (pageChange)="update({page: $event})"
+              (sizeChange)="update({pageSize: $event})"
+              [page]="page"
+              [size]="pageSize"
+              [total]="numberOfQuestions"
+              class="tui-space_top-2"
+            ></tui-table-pagination>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  } @else {
+    <table
+      [columns]="questionsTableColumns"
+      class="questions-table"
+      tuiTable
+      >
+      <thead tuiThead>
+        <tr tuiThGroup>
+          <th *tuiHead="'id'" tuiTh>#</th>
+          <th *tuiHead="'title'" tuiTh>Question Name</th>
+          <th *tuiHead="'author_name'" tuiTh>Author</th>
+          <th *tuiHead="'event_name'" tuiTh>Assessment</th>
+          <th *tuiHead="'parent_category_name'" tuiTh> Category</th>
+          <th  *tuiHead="'category_name'" tuiTh>Sub-Category </th>
+          <th *tuiHead="'difficulty'" tuiTh>Difficulty</th>
+          <th *tuiHead="'type_name'" tuiTh>Type</th>
+          <th *tuiHead="'token_value'" tuiTh>Token Value</th>
+          <th *tuiHead="'success_rate'" tuiTh>Avg Success</th>
+          <th *tuiHead="'status'" tuiTh>Status</th>
+          <th *tuiHead="'actions'" tuiTh>Actions</th>
+        </tr>
+      </thead>
+      <tbody tuiTbody [data]="questions">
+        @for (_ of [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; track _) {
+          <tr tuiTr>
+            <td *tuiCell="'id'" class="tui-skeleton" tuiTd>
+              Content
+            </td>
+            <td *tuiCell="'title'" class="tui-skeleton" tuiTd>
+              Content
+            </td>
+            <td *tuiCell="'author_name'" class="tui-skeleton" tuiTd>
+              Content
+            </td>
+            <td *tuiCell="'event_name'" class="tui-skeleton" tuiTd>
+              content
+            </td>
+            <td *tuiCell="'parent_category_name'" class="tui-skeleton" tuiTd>
+              content
+            </td>
+            <td *tuiCell="'category_name'" class="tui-skeleton" tuiTd>
+              content
+            </td>
+            <td *tuiCell="'difficulty'" class="tui-skeleton" tuiTd>
+              content
+            </td>
+            <td *tuiCell="'type_name'" class="tui-skeleton" tuiTd>
+              content
+            </td>
+            <td *tuiCell="'token_value'" class="tui-skeleton" tuiTd>
+              Content
+            </td>
+            <td *tuiCell="'success_rate'" class="tui-skeleton" tuiTd>
+              Content
+            </td>
+            <td *tuiCell="'status'" class="tui-skeleton" tuiTd>
+              Content
+            </td>
+            <td *tuiCell="'actions'" class="tui-skeleton" tuiTd>
+              Content
+            </td>
+          </tr>
+        }
+      </tbody>
+      <tfoot>
+        <tr>
+          <td [colSpan]="questionsTableColumns.length">
+            <!-- TODO: (Taiga UI migration) (pageChange) and (sizeChange) outputs have been removed. Use (paginationChange) instead -->
+            <tui-table-pagination
+              (pageChange)="update({page: $event})"
+              (sizeChange)="update({pageSize: $event})"
+              [page]="page"
+              [size]="pageSize"
+              [total]="numberOfQuestions"
+              class="tui-space_top-2"
+            ></tui-table-pagination>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  }
 </div>
 <ng-template #deleteDialog let-observer>
-    <p>Are you sure that you would like to delete this question?</p>
-    <div class="tui-form__buttons">
-        <button
-            (click)="observer.next(); observer.complete()"
-            class="tui-form__button"
-            size="m"
-            tuiButton
-        >
-            Confirm Changes
-        </button>
-        <button
-            (click)="observer.complete()"
-            appearance="secondary"
-            class="tui-form__button"
-            size="m"
-            tuiButton
-        >
-            Cancel
-        </button>
-    </div>
+  <p>Are you sure that you would like to delete this question?</p>
+  <div class="tui-form__buttons">
+    <button
+      (click)="observer.next(); observer.complete()"
+      class="tui-form__button"
+      size="m"
+      tuiButton
+      >
+      Confirm Changes
+    </button>
+    <button
+      (click)="observer.complete()"
+      appearance="secondary"
+      class="tui-form__button"
+      size="m"
+      tuiButton
+      >
+      Cancel
+    </button>
+  </div>
 </ng-template>

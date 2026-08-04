@@ -1,17 +1,16 @@
 @import 'mixins';
-@import 'highlight';
 @import 'tui';
-@import '~katex/dist/katex.min.css';
-@import 'tailwind';
+// KaTeX styles are included via angular.json "styles" (node_modules/katex/dist/katex.css);
+// importing katex css here breaks the karma webpack build (resolve-url-loader rewrites font urls).
 
 body {
-    background: var(--tui-base-01);
-    font: var(--tui-font-text-m) !important;
+    background: var(--tui-background-base);
+    font: var(--tui-typography-body-m) !important;
 }
 
 table {
     th {
-        background-color: var(--tui-base-02) !important;
+        background-color: var(--tui-background-base-alt) !important;
 
         // Currently required to deal with a heading placement bug
         .name {

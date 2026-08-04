@@ -19,6 +19,10 @@ describe('RegisterComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(RegisterComponent)
         component = fixture.componentInstance
+        // Taiga 5 alerts render through portals and require a tui-root host; without this stub
+        // the success alert throws asynchronously (rxjs unhandled-error rethrow) after the spec
+        // finishes, wedging the karma/jasmine adapter for the rest of the run.
+        spyOn(component['notificationsService'], 'open').and.returnValue(of())
         fixture.detectChanges()
     })
 

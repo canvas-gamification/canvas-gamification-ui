@@ -1,3 +1,4 @@
+import {TuiCheckbox, TuiRadio} from "@taiga-ui/core"
 import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing'
 
 import {McqViewSnippetComponent} from '../../problem-view/mcq-view-snippet/mcq-view-snippet.component'
@@ -6,7 +7,7 @@ import {MOCK_UQJ, MOCK_UQJ_2} from '@app/problems/_test/mock'
 import {SubmissionService} from "@app/problems/_services/submission.service"
 import {SubmissionServiceMock} from "@app/problems/_test/_services/submission.service.mock"
 import {ReactiveFormsModule} from "@angular/forms"
-import {TuiCheckboxBlockModule, TuiRadioBlockModule} from "@taiga-ui/kit"
+import {TuiBlock} from "@taiga-ui/kit"
 import {of} from "rxjs"
 import {HttpHeaderResponse} from "@angular/common/http"
 import {delay} from "rxjs/operators"
@@ -17,7 +18,7 @@ let fixture: ComponentFixture<McqViewSnippetComponent>
 
 beforeEach(async () => {
     await TestBed.configureTestingModule({
-        imports: [TestModule, ReactiveFormsModule, TuiCheckboxBlockModule, TuiRadioBlockModule],
+        imports: [TestModule, ReactiveFormsModule, TuiBlock, TuiCheckbox, TuiBlock, TuiRadio],
         providers: [{provide: SubmissionService, useClass: SubmissionServiceMock}],
         declarations: [McqViewSnippetComponent, AsFormControlPipe]
     }).compileComponents()
@@ -45,11 +46,11 @@ describe('McqViewSnippetComponent - MCQ', () => {
 
     it('should submit', fakeAsync(() => {
         spyOn(component['submissionService'], 'postQuestionSubmission').and.callFake(() => of(new HttpHeaderResponse()).pipe(delay(1)))
-        spyOn(component['notificationsService'], 'show').and.callFake(() => of())
+        spyOn(component['notificationsService'], 'open').and.callFake(() => of())
         component.onSubmit(component.formData.value)
         expect(component['submissionService'].postQuestionSubmission).toHaveBeenCalled()
         tick(1)
-        expect(component['notificationsService'].show).toHaveBeenCalled()
+        expect(component['notificationsService'].open).toHaveBeenCalled()
     }))
 })
 
@@ -68,10 +69,10 @@ describe('McqViewSnippetComponent - Checkbox', () => {
 
     it('should submit', fakeAsync(() => {
         spyOn(component['submissionService'], 'postQuestionSubmission').and.callFake(() => of(new HttpHeaderResponse()).pipe(delay(1)))
-        spyOn(component['notificationsService'], 'show').and.callFake(() => of())
+        spyOn(component['notificationsService'], 'open').and.callFake(() => of())
         component.onCheckboxSubmit()
         expect(component['submissionService'].postQuestionSubmission).toHaveBeenCalled()
         tick(1)
-        expect(component['notificationsService'].show).toHaveBeenCalled()
+        expect(component['notificationsService'].open).toHaveBeenCalled()
     }))
 })

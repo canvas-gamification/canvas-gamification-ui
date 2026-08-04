@@ -1,20 +1,17 @@
-import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core'
+import {Component, EventEmitter, Inject, Input, OnInit, Output, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEvent, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
-import {
-    TuiNotification,
-    TuiNotificationsService,
-    TuiDialogContext,
-    TuiDialogService
-} from "@taiga-ui/core"
+import {TuiDialogContext, TuiDialogService, TuiNotificationService} from "@taiga-ui/core"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Router} from "@angular/router"
-import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
+import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 
 @Component({
     selector: 'app-event-row',
     templateUrl: './event-row.component.html',
-    styleUrls: ['./event-row.component.scss']
+    styleUrls: ['./event-row.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class EventRowComponent implements OnInit {
 
@@ -25,7 +22,7 @@ export class EventRowComponent implements OnInit {
     constructor(
         private readonly authenticationService: AuthenticationService,
         private readonly courseEventService: CourseEventService,
-        private readonly notificationsService: TuiNotificationsService,
+        private readonly notificationsService: TuiNotificationService,
         private router: Router,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService,
     ) {
@@ -37,8 +34,8 @@ export class EventRowComponent implements OnInit {
 
     setFeatured() {
         return this.courseEventService.setFeatured(this.event.id).subscribe(() => {
-            this.notificationsService.show('Assessment successfully marked as featured.', {
-                status: TuiNotification.Success,
+            this.notificationsService.open('Assessment successfully marked as featured.', {
+                appearance: 'success',
             }).subscribe()
             this.reload.emit(true)
         })
@@ -46,8 +43,8 @@ export class EventRowComponent implements OnInit {
 
     clearFeatured() {
         return this.courseEventService.clearFeatured(this.event.id).subscribe(() => {
-            this.notificationsService.show('Assessment successfully unmarked as featured.', {
-                status: TuiNotification.Success,
+            this.notificationsService.open('Assessment successfully unmarked as featured.', {
+                appearance: 'success',
             }).subscribe()
             this.reload.emit(true)
         })
@@ -64,7 +61,7 @@ export class EventRowComponent implements OnInit {
     ): void {
         if (openDialog) {
             this.dialogService.open(content, {
-                closeable: false,
+                closable: false,
                 label: 'Edit finished assessment?'
             }).subscribe()
         } else {
@@ -77,8 +74,8 @@ export class EventRowComponent implements OnInit {
      */
     deleteEvent() {
         return this.courseEventService.deleteCourseEvent(this.event.id).subscribe(() => {
-            this.notificationsService.show('Assessment successfully deleted.', {
-                status: TuiNotification.Success,
+            this.notificationsService.open('Assessment successfully deleted.', {
+                appearance: 'success',
             }).subscribe()
             this.reload.emit(true)
         })
@@ -92,7 +89,7 @@ export class EventRowComponent implements OnInit {
         content: PolymorpheusContent<TuiDialogContext>
     ): void {
         this.dialogService.open(content, {
-            closeable: false,
+            closable: false,
             label: 'Delete Assessment?'
         }).subscribe(() => this.deleteEvent())
     }

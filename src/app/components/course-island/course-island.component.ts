@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Course, STATUS, User} from "@app/_models"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {Router} from "@angular/router"
@@ -7,7 +7,9 @@ import {Router} from "@angular/router"
 @Component({
     selector: 'app-course-island',
     templateUrl: './course-island.component.html',
-    styleUrls: ['./course-island.component.scss']
+    styleUrls: ['./course-island.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CourseIslandComponent implements OnInit {
     @Input() course: Course
@@ -38,7 +40,7 @@ export class CourseIslandComponent implements OnInit {
     }
 
     getIslandClass(): string {
-        return `course-island ${this.canView() ? 'tui-island_hoverable' : ''}`
+        return `tui-island tui-island_size_m course-island ${this.canView() ? 'tui-island_hoverable' : ''}`
     }
 
     redirect(): void {

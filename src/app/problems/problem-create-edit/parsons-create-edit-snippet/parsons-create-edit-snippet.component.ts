@@ -1,28 +1,30 @@
-import {Component, Inject, Input, OnInit} from '@angular/core'
-import {AbstractControl, FormControl, FormGroup} from '@angular/forms'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {AbstractControl, UntypedFormControl, UntypedFormGroup} from '@angular/forms'
 import {QuestionService} from '@app/problems/_services/question.service'
 import {ParsonsForm} from "@app/problems/_forms/parsons.form"
 import {Router} from "@angular/router"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {Question} from "@app/_models"
 
 @Component({
     selector: 'app-parsons-create-snippet',
     templateUrl: './parsons-create-edit-snippet.component.html',
     styleUrls: ['./parsons-create-edit-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ParsonsCreateEditSnippetComponent implements OnInit {
     @Input() questionDetails: Question
     @Input() eventId: number
     @Input() courseId: number
-    formGroup: FormGroup
-    variationControl : FormControl
+    formGroup: UntypedFormGroup
+    variationControl : UntypedFormControl
 
     constructor(
         private questionService: QuestionService,
         private router: Router,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
     }
 
@@ -39,7 +41,7 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
         } else {
             this.formGroup = ParsonsForm.createForm(this.courseId, this.eventId)
         }
-        this.variationControl = this.formGroup.get('variation_types') as FormControl
+        this.variationControl = this.formGroup.get('variation_types') as UntypedFormControl
     }
 
     onSubmit(): void {
@@ -48,8 +50,8 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
             this.questionService.putParsonsQuestion(submissionRequest, this.questionDetails.id)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The question has been updated successfully.', {
-                            status: TuiNotification.Success
+                        .open('The question has been updated successfully.', {
+                            appearance: 'success'
                         }).subscribe()
                     this.refreshPage()
                 })
@@ -57,8 +59,8 @@ export class ParsonsCreateEditSnippetComponent implements OnInit {
             this.questionService.postParsonsQuestion(submissionRequest)
                 .subscribe(() => {
                     this.notificationsService
-                        .show('The question has been created successfully.', {
-                            status: TuiNotification.Success
+                        .open('The question has been created successfully.', {
+                            appearance: 'success'
                         }).subscribe()
                     this.refreshPage()
                 })

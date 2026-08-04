@@ -1,20 +1,21 @@
-import {Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {AbstractControl, UntypedFormBuilder, UntypedFormGroup} from '@angular/forms'
 import {ConsentService} from '@app/accounts/_services/consent.service'
 import {ActivatedRoute, Router} from '@angular/router'
 import {ConsentForm} from "@app/accounts/_forms/consent.form"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {User} from "@app/_models"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
-
 
 @Component({
     selector: 'app-consent-form',
     templateUrl: './consent-form.component.html',
-    styleUrls: ['./consent-form.component.scss']
+    styleUrls: ['./consent-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ConsentFormComponent implements OnInit {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     logoPath = 'assets/global/logo.jpg'
     user: User
 
@@ -43,11 +44,11 @@ export class ConsentFormComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private builder: FormBuilder,
+        private builder: UntypedFormBuilder,
         private consentService: ConsentService,
         private authenticationService: AuthenticationService,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
@@ -72,8 +73,8 @@ export class ConsentFormComponent implements OnInit {
         const data = ConsentForm.extractData(this.formGroup)
         this.consentService.postConsent(data).subscribe(() => {
             this.notificationsService
-                .show('You have successfully consented!', {
-                    status: TuiNotification.Success
+                .open('You have successfully consented!', {
+                    appearance: 'success'
                 }).subscribe()
             this.redirectAfterSubmit()
         })
@@ -82,8 +83,8 @@ export class ConsentFormComponent implements OnInit {
     declineConsent(): void {
         this.consentService.declineConsent().subscribe(() => {
             this.notificationsService
-                .show('You successfully declined to consent.', {
-                    status: TuiNotification.Success
+                .open('You successfully declined to consent.', {
+                    appearance: 'success'
                 }).subscribe()
             this.redirectAfterSubmit()
         })

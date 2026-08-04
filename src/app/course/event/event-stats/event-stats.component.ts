@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {EventStats} from "@app/_models/event/event_stats"
 import {ActivatedRoute} from "@angular/router"
@@ -7,7 +7,9 @@ import {isEmpty} from "lodash"
 @Component({
     selector: 'app-event-stats',
     templateUrl: './event-stats.component.html',
-    styleUrls: ['./event-stats.component.scss']
+    styleUrls: ['./event-stats.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class EventStatsComponent implements OnInit {
 

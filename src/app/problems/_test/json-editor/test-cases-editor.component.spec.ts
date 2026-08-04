@@ -1,8 +1,9 @@
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiLabel, TuiError, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {TestCasesEditorComponent} from '../../json-editor/test-cases-editor/test-cases-editor.component'
 import {TestModule} from "@test/test.module"
-import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit"
 import {ReactiveFormsModule} from "@angular/forms"
 
 describe('TestCasesEditorComponent', () => {
@@ -13,8 +14,8 @@ describe('TestCasesEditorComponent', () => {
         await TestBed.configureTestingModule({
             declarations: [TestCasesEditorComponent],
             imports: [
-                TestModule, ReactiveFormsModule, TuiInputModule, TuiCheckboxLabeledModule,
-                TuiFieldErrorModule, TuiIslandModule
+                TestModule, ReactiveFormsModule, TuiInput, TuiLabel,
+                TuiError, TuiError, TuiCardLarge
             ]
         }).compileComponents()
     })

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {SidebarComponent} from './sidebar.component'
-import {TuiButtonModule, TuiDescribedByModule, TuiHintModule, TuiScrollbarModule, TuiSvgModule} from '@taiga-ui/core'
+import {TuiScrollbar, TuiScrollable, TuiIcon, TuiButton, TuiHint} from '@taiga-ui/core'
 
 
 @NgModule({
@@ -13,11 +13,10 @@ import {TuiButtonModule, TuiDescribedByModule, TuiHintModule, TuiScrollbarModule
     ],
     imports: [
         CommonModule,
-        TuiButtonModule,
-        TuiDescribedByModule,
-        TuiHintModule,
-        TuiScrollbarModule,
-        TuiSvgModule
+        TuiButton,
+        ...TuiHint,
+        TuiScrollbar, TuiScrollable,
+        TuiIcon
     ]
 })
 export class SidebarModule {

@@ -1,4 +1,4 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, OnInit} from '@angular/core'
+import {AfterContentChecked, ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {UserActionsService} from '@app/_services/api/user-actions.service'
 import {Action} from '@app/_models'
 import {Subject} from "rxjs"
@@ -16,7 +16,9 @@ export type SortingKey =
 @Component({
     selector: 'app-user-actions',
     templateUrl: './user-actions.component.html',
-    styleUrls: ['./user-actions.component.scss']
+    styleUrls: ['./user-actions.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class UserActionsComponent implements OnInit, AfterContentChecked {
     userActions: Action[] = []

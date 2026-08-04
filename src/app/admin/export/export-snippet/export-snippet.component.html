@@ -1,120 +1,150 @@
 <div class="tui-container tui-container_adaptive">
-    <button
-        appearance="flat"
-        [routerLink]="['../..']"
-        icon="tuiIconArrowLeft"
-        aria-label="Back to Homepage"
-        size="s"
-        tuiButton
-        class="mt-3 -mb-3"
+  <button
+    appearance="flat"
+    [routerLink]="['../..']"
+    iconStart="@tui.arrow-left"
+    aria-label="Back to Homepage"
+    size="s"
+    tuiButton
+    class="mt-3 -mb-3"
     >
-        Back to Admin Dashboard
-    </button>
-    <div class="tui-form__header">
-        Export {{name}}
-    </div>
-    <ng-container *ngIf="fields">
-        <div class="tui-form__row">
-            <tui-multi-select
-                aria-label="Fields"
-                [(ngModel)]="selectedFields"
-            >
-                What fields do you want to export?
-                <tui-data-list
-                    *tuiDataList
-                    tuiMultiSelectGroup
-                >
-                    <button
-                        *ngFor="let item of fields"
-                        tuiOption
-                        [value]="item"
-                    >
-                        {{ item }}
-                    </button>
-                </tui-data-list>
-            </tui-multi-select>
-        </div>
-    </ng-container>
-    <ng-container *ngIf="search">
-        <div class="tui-form__row">
-            <tui-input
-                [tuiTextfieldCleaner]="true"
-                [(ngModel)]="selectedSearch"
-            >
-                {{search}}
-            </tui-input>
-        </div>
-    </ng-container>
-    <ng-container *ngFor="let filter of filters">
-        <div class="tui-form__row">
-            <tui-input-date
-                *ngIf="filter.type === 'date'"
-                [(ngModel)]="selectedFilters[filter.key]"
-            >
-                {{filter.name}}
-            </tui-input-date>
-            <tui-input-number
-                *ngIf="filter.type === 'number'"
-                [(ngModel)]="selectedFilters[filter.key]"
-            >
-                {{filter.name}}
-            </tui-input-number>
-            <tui-input
-                *ngIf="filter.type === 'text'"
-                [(ngModel)]="selectedFilters[filter.key]"
-            >
-                {{filter.name}}
-            </tui-input>
-            <tui-select
-                *ngIf="filter.type === 'role'"
-                [(ngModel)]="selectedFilters[filter.key]"
-            >
-                {{filter.name}}
-                <tui-data-list-wrapper
-                    *tuiDataList
-                    [items]="roles"
-                ></tui-data-list-wrapper>
-            </tui-select>
-            <tui-select
-                *ngIf="filter.type === 'code'"
-                [(ngModel)]="selectedFilters[filter.key]"
-            >
-                {{filter.name}}
-                <tui-data-list-wrapper
-                    *tuiDataList
-                    [items]="codes"
-                ></tui-data-list-wrapper>
-            </tui-select>
-            <tui-select
-                *ngIf="filter.type === 'verb'"
-                [(ngModel)]="selectedFilters[filter.key]"
-            >
-                {{filter.name}}
-                <tui-data-list-wrapper
-                    *tuiDataList
-                    [items]="verbs"
-                ></tui-data-list-wrapper>
-            </tui-select>
-            <tui-select
-                *ngIf="filter.type === 'objectType'"
-                [(ngModel)]="selectedFilters[filter.key]"
-            >
-                {{filter.name}}
-                <tui-data-list-wrapper
-                    *tuiDataList
-                    [items]="objectTypes"
-                ></tui-data-list-wrapper>
-            </tui-select>
-        </div>
-    </ng-container>
-    <div class="tui-form__buttons">
-        <a
-            appearance="primary"
-            size="m"
-            tuiButton
-            [href]="getUrl()"
+    Back to Admin Dashboard
+  </button>
+  <div class="tui-form__header">
+    Export {{name}}
+  </div>
+  @if (fields) {
+    <div class="tui-form__row">
+      <tui-textfield multi tuiChevron
+        aria-label="Fields"
         >
-            Download
-        </a>
+        <label tuiLabel>What fields do you want to export?</label>
+        <input tuiInputChip [(ngModel)]="selectedFields" />
+<tui-data-list
+          *tuiDropdown
+          tuiMultiSelectGroup
+          >
+          @for (item of fields; track item) {
+            <button
+              tuiOption
+              [value]="item"
+              >
+              {{ item }}
+            </button>
+          }
+        </tui-data-list>
+      </tui-textfield>
     </div>
+  }
+  @if (search) {
+    <div class="tui-form__row">
+      <tui-textfield [tuiTextfieldCleaner]="true">
+      <label tuiLabel>{{search}}</label>
+      <input tuiInput [(ngModel)]="selectedSearch" />
+      </tui-textfield>
+    </div>
+  }
+  @for (filter of filters; track filter) {
+    <div class="tui-form__row">
+      @if (filter.type === 'date') {
+        <tui-textfield
+          
+          >
+<label tuiLabel>
+          {{filter.name}}
+        </label>
+
+<input tuiInputDate [(ngModel)]="selectedFilters[filter.key]" />
+<tui-calendar *tuiDropdown />
+</tui-textfield>
+      }
+      @if (filter.type === 'number') {
+        <tui-textfield
+          
+          >
+<label tuiLabel>
+          {{filter.name}}
+        </label>
+
+<input tuiInputNumber [(ngModel)]="selectedFilters[filter.key]" />
+</tui-textfield>
+      }
+      @if (filter.type === 'text') {
+        <tui-textfield>
+        <label tuiLabel>{{filter.name}}</label>
+        <input tuiInput [(ngModel)]="selectedFilters[filter.key]" />
+        </tui-textfield>
+      }
+      @if (filter.type === 'role') {
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+          >
+<label tuiLabel>
+          {{filter.name}}
+          </label>
+
+<input tuiSelect [(ngModel)]="selectedFilters[filter.key]" />
+<tui-data-list-wrapper
+            *tuiDropdown
+            [items]="roles"
+          ></tui-data-list-wrapper>
+        </tui-textfield>
+      }
+      @if (filter.type === 'code') {
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+          >
+<label tuiLabel>
+          {{filter.name}}
+          </label>
+
+<input tuiSelect [(ngModel)]="selectedFilters[filter.key]" />
+<tui-data-list-wrapper
+            *tuiDropdown
+            [items]="codes"
+          ></tui-data-list-wrapper>
+        </tui-textfield>
+      }
+      @if (filter.type === 'verb') {
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+          >
+<label tuiLabel>
+          {{filter.name}}
+          </label>
+
+<input tuiSelect [(ngModel)]="selectedFilters[filter.key]" />
+<tui-data-list-wrapper
+            *tuiDropdown
+            [items]="verbs"
+          ></tui-data-list-wrapper>
+        </tui-textfield>
+      }
+      @if (filter.type === 'objectType') {
+        <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+          >
+<label tuiLabel>
+          {{filter.name}}
+          </label>
+
+<input tuiSelect [(ngModel)]="selectedFilters[filter.key]" />
+<tui-data-list-wrapper
+            *tuiDropdown
+            [items]="objectTypes"
+          ></tui-data-list-wrapper>
+        </tui-textfield>
+      }
+    </div>
+  }
+  <div class="tui-form__buttons">
+    <a
+      appearance="primary"
+      size="m"
+      tuiButton
+      [href]="getUrl()"
+      >
+      Download
+    </a>
+  </div>
 </div>

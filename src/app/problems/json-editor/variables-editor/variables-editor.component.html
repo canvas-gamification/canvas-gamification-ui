@@ -1,169 +1,182 @@
-<div (dragulaModelChange)="onDragulaChange($event)" [dragulaModel]="models.controls" [dragula]="dragulaName">
+<div (cdkDropListDropped)="onDrop($event)" cdkDropList>
+  @for (form of models.controls; track form; let index = $index) {
     <form
-        *ngFor="let form of models.controls; index as index"
-        [formGroup]="form | asFormGroup"
-        class="tui-space_bottom-4 drag-container"
-    >
-        <tui-svg
-            [tuiHint]="reorderTooltip"
-            class="drag-container_handle"
-            src="tuiIconDrag"
-            tuiDescribedBy="reorder-{{index}}"
-            tuiHintDirection="top-right"
-            tuiHintId="reorder-{{index}}"
-            tuiHintMode="onDark"
-        ></tui-svg>
-        <ng-template #reorderTooltip>
-            Reorder Variable
-        </ng-template>
-        <tui-island class="drag-container_content">
-            <div class="tui-island__content">
-                <div class="tui-island__figure">
-                    <button
-                        (click)="removeModel(index)"
-                        [tuiHint]="removeTooltip"
-                        icon="tuiIconTrash"
-                        size="m"
-                        tuiDescribedBy="remove-{{index}}"
-                        tuiHintDirection="top-left"
-                        tuiHintId="remove-{{index}}"
-                        tuiHintMode="onDark"
-                        tuiIconButton
-                        type="button"
-                    ></button>
-                    <ng-template #removeTooltip>
-                        Remove Value
-                    </ng-template>
+      [formGroup]="form | asFormGroup"
+      class="tui-space_bottom-4 drag-container"
+      cdkDrag
+      >
+      <tui-icon
+        [tuiHint]="reorderTooltip"
+        class="drag-container_handle"
+        icon="@tui.grip-vertical"
+        id="reorder-{{index}}"
+        tuiHintDirection="top-end"
+        tuiHintDescribe="reorder-{{index}}"
+        tuiHintAppearance="dark"
+        cdkDragHandle
+      ></tui-icon>
+      <ng-template #reorderTooltip>
+        Reorder Variable
+      </ng-template>
+      <div class="tui-island tui-island_size_m drag-container_content">
+        <div class="tui-island__content">
+          <div class="tui-island__figure">
+            <button
+              (click)="removeModel(index)"
+              [tuiHint]="removeTooltip"
+              iconStart="@tui.trash"
+              size="m"
+              id="remove-{{index}}"
+              tuiHintDirection="top-start"
+              tuiHintDescribe="remove-{{index}}"
+              tuiHintAppearance="dark"
+              tuiIconButton
+              type="button"
+            ></button>
+            <ng-template #removeTooltip>
+              Remove Value
+            </ng-template>
+          </div>
+          <div class="content__island">
+            <h2 class="tui-island__title">
+              {{ (form | asFormGroup).controls.type.value | titlecase }}
+            </h2>
+            <div class="tui-row tui-row_adaptive">
+              <div class="tui-col_8">
+                <div class="tui-form__row">
+                  <tui-textfield>
+                    <label tuiLabel>Name</label>
+                    <input tuiInput formControlName="name" />
+                  </tui-textfield>
+                  <tui-error  formControlName="name"></tui-error>
                 </div>
-                <div class="content__island">
-                    <h2 class="tui-island__title">
-                        {{ (form | asFormGroup).controls.type.value | titlecase }}
-                    </h2>
-                    <div class="tui-row tui-row_adaptive">
-                        <div class="tui-col_8">
-                            <div class="tui-form__row">
-                                <tui-input formControlName="name">Name</tui-input>
-                                <tui-field-error formControlName="name"></tui-field-error>
-                            </div>
-                            <ng-container
-                                *ngIf="(form | asFormGroup).controls.type.value === 'int' || (form | asFormGroup).controls.type.value === 'float'">
-                                <div class="tui-form__row tui-form__row_multi-fields">
-                                    <div class="tui-form__multi-field">
-                                        <tui-input-count formControlName="min">Minimum Value</tui-input-count>
-                                        <tui-field-error formControlName="min"></tui-field-error>
-                                    </div>
-                                    <div class="tui-form__multi-field">
-                                        <tui-input-count formControlName="max">Maximum Value</tui-input-count>
-                                        <tui-field-error formControlName="max"></tui-field-error>
-                                    </div>
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="(form | asFormGroup).controls.type.value === 'float'">
-                                <div class="tui-form__row">
-                                    <tui-input-count formControlName="precision">Number of Digits After the Decimal
-                                        Point
-                                    </tui-input-count>
-                                    <tui-field-error formControlName="precision"></tui-field-error>
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="(form | asFormGroup).controls.type.value === 'enum'">
-                            </ng-container>
-                            <ng-container *ngIf="(form | asFormGroup).controls.type.value === 'expression'">
-                                <div class="tui-form__row">
-                                    <tui-input formControlName="expression">Expression</tui-input>
-                                    <tui-field-error formControlName="expression"></tui-field-error>
-                                </div>
-                            </ng-container>
-                            <ng-container *ngIf="(form | asFormGroup).controls.type.value === 'choice'">
-                                <div class="tui-form__row">
-                                    <tui-input formControlName="choice">Choice</tui-input>
-                                    <tui-field-error formControlName="choice"></tui-field-error>
-                                </div>
-                            </ng-container>
-                            <ng-container
-                                *ngIf="(form | asFormGroup).controls.type.value === 'choice' || (form | asFormGroup).controls.type.value === 'enum'">
-                                <div class="tui-form__row">
-                                    <div class="tui-form__field-note">Values</div>
-                                    <tui-island *ngIf="getValues(form).value.length > 0"
-                                                class="tui-space_bottom-4">
-                                        <div
-                                            *ngFor="let value of getValues(form).controls; let index = index"
-                                            class="tui-form__row values-control"
-                                        >
-                                            <div class="tui-space_right-4 values-control__input" formArrayName="values">
-                                                <tui-input [formControl]="value | asFormControl">Value</tui-input>
-                                                <tui-field-error
-                                                    [formControl]="value | asFormControl"></tui-field-error>
-                                            </div>
-                                            <button
-                                                (click)="removeValue(form, index)"
-                                                [tuiHint]="removeTooltip"
-                                                icon="tuiIconTrash"
-                                                size="m"
-                                                tuiDescribedBy="remove-value-{{index}}"
-                                                tuiHintDirection="top-left"
-                                                tuiHintId="remove-value-{{index}}"
-                                                tuiHintMode="onDark"
-                                                tuiIconButton
-                                                type="button"
-                                            ></button>
-                                            <ng-template #removeTooltip>
-                                                Remove Value
-                                            </ng-template>
-                                        </div>
-                                    </tui-island>
-                                    <button
-                                        (click)="addNewValue(form)"
-                                        icon="tuiIconPlus"
-                                        size="m"
-                                        tuiButton
-                                        type="button"
-                                    >
-                                        Add New Value
-                                    </button>
-                                </div>
-                            </ng-container>
-                        </div>
-                        <div class="tui-col_4">
-                            <tui-text-area
-                                (ngModelChange)="setFormFromString(form, $event)"
-                                [expandable]="true"
-                                [ngModelOptions]="{standalone: true}"
-                                [ngModel]="getFormString(form)"
-                                class="content__island-json"
-                            >
-                                JSON
-                            </tui-text-area>
-                        </div>
+                @if ((form | asFormGroup).controls.type.value === 'int' || (form | asFormGroup).controls.type.value === 'float') {
+                  <div class="tui-form__row tui-form__row_multi-fields">
+                    <div class="tui-form__multi-field">
+                      <tui-textfield decimal="never"  >
+                        <label tuiLabel>Minimum Value</label>
+                        <input tuiInputNumber formControlName="min" [step]="1" />
+                      </tui-textfield>
+                      <tui-error  formControlName="min"></tui-error>
                     </div>
-                </div>
+                    <div class="tui-form__multi-field">
+                      <tui-textfield decimal="never"  >
+                        <label tuiLabel>Maximum Value</label>
+                        <input tuiInputNumber formControlName="max" [step]="1" />
+                      </tui-textfield>
+                      <tui-error  formControlName="max"></tui-error>
+                    </div>
+                  </div>
+                }
+                @if ((form | asFormGroup).controls.type.value === 'float') {
+                  <div class="tui-form__row">
+                    <tui-textfield decimal="never"  >
+                      <label tuiLabel>Number of Digits After the Decimal
+                        Point
+                      </label>
+                      <input tuiInputNumber formControlName="precision" [step]="1" />
+                    </tui-textfield>
+                    <tui-error  formControlName="precision"></tui-error>
+                  </div>
+                }
+                @if ((form | asFormGroup).controls.type.value === 'enum') {
+                }
+                @if ((form | asFormGroup).controls.type.value === 'expression') {
+                  <div class="tui-form__row">
+                    <tui-textfield>
+                      <label tuiLabel>Expression</label>
+                      <input tuiInput formControlName="expression" />
+                    </tui-textfield>
+                    <tui-error  formControlName="expression"></tui-error>
+                  </div>
+                }
+                @if ((form | asFormGroup).controls.type.value === 'choice') {
+                  <div class="tui-form__row">
+                    <tui-textfield>
+                      <label tuiLabel>Choice</label>
+                      <input tuiInput formControlName="choice" />
+                    </tui-textfield>
+                    <tui-error  formControlName="choice"></tui-error>
+                  </div>
+                }
+                @if ((form | asFormGroup).controls.type.value === 'choice' || (form | asFormGroup).controls.type.value === 'enum') {
+                  <div class="tui-form__row">
+                    <div class="tui-form__field-note">Values</div>
+                    @if (getValues(form).value.length > 0) {
+                      <div class="tui-island tui-island_size_m tui-space_bottom-4">
+                        @for (value of getValues(form).controls; track value; let index = $index) {
+                          <div
+                            class="tui-form__row values-control"
+                            >
+                            <div class="tui-space_right-4 values-control__input" formArrayName="values">
+                              <tui-textfield>
+                                <label tuiLabel>Value</label>
+                                <input tuiInput [formControl]="value | asFormControl" />
+                              </tui-textfield>
+                              <tui-error
+                              [formControl]="value | asFormControl"></tui-error>
+                            </div>
+                            <button
+                              (click)="removeValue(form, index)"
+                              [tuiHint]="removeValueTooltip"
+                              iconStart="@tui.trash"
+                              size="m"
+                              id="remove-value-{{index}}"
+                              tuiHintDirection="top-start"
+                              tuiHintDescribe="remove-value-{{index}}"
+                              tuiHintAppearance="dark"
+                              tuiIconButton
+                              type="button"
+                            ></button>
+                            <ng-template #removeValueTooltip>
+                              Remove Value
+                            </ng-template>
+                          </div>
+                        }
+                      </div>
+                    }
+                    <button
+                      (click)="addNewValue(form)"
+                      iconStart="@tui.plus"
+                      size="m"
+                      tuiButton
+                      type="button"
+                      >
+                      Add New Value
+                    </button>
+                  </div>
+                }
+              </div>
+              <div class="tui-col_4">
+                <tui-textfield class="content__island-json">
+                  <label tuiLabel>JSON</label>
+                  <textarea tuiTextarea (ngModelChange)="setFormFromString(form, $event)" [ngModel]="getFormString(form)" [ngModelOptions]="{standalone: true}"></textarea>
+                </tui-textfield>
+              </div>
             </div>
-        </tui-island>
+          </div>
+        </div>
+      </div>
     </form>
+  }
 </div>
-<tui-hosted-dropdown
-    [(open)]="openNewValueDropdown"
-    [content]="newValueDropdownContent"
->
-    <button [iconRight]="newValueDropdownIcon" icon="tuiIconPlus" size="m" tuiButton type="button">
-        Add New Variable
-    </button>
-</tui-hosted-dropdown>
-<ng-template #newValueDropdownIcon>
-    <tui-svg
-        [class.new-item-icon_rotated]="openNewValueDropdown"
-        class="new-item-icon"
-        src="tuiIconChevronDown"
-    ></tui-svg>
-</ng-template>
+<div
+  [(tuiDropdownOpen)]="openNewValueDropdown"
+  [tuiDropdown]="newValueDropdownContent"
+  >
+  <button [tuiChevron]="openNewValueDropdown" iconStart="@tui.plus" size="m" tuiButton type="button">
+    Add New Variable
+  </button>
+</div>
 <ng-template #newValueDropdownContent>
-    <tui-data-list>
-        <button
-            (click)="addNewModel(modelType)"
-            *ngFor="let modelType of modelTypes"
-            tuiOption
+  <tui-data-list>
+    @for (modelType of modelTypes; track modelType) {
+      <button
+        (click)="addNewModel(modelType)"
+        tuiOption
         >
-            {{ modelType | titlecase }}
-        </button>
-    </tui-data-list>
+        {{ modelType | titlecase }}
+      </button>
+    }
+  </tui-data-list>
 </ng-template>

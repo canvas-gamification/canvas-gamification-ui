@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core"
 import {Observable, of} from "rxjs"
 import {
     APIResponse,
-    Course, LeaderboardElement,
+    Course, LeaderboardResult,
 } from "@app/_models"
 import {MOCK_COURSE} from "@app/problems/_test/mock"
 import {
@@ -50,7 +50,8 @@ export class CourseServiceMock {
         return of({success_rate: 1})
     }
 
-    getCourseLeaderBoard(courseId: number): Observable<LeaderboardElement[]> {
-        return of(MOCK_RANKED_LEADERBOARD)
+    getCourseLeaderBoard(courseId: number): Observable<LeaderboardResult> {
+        // Matches CourseService.getCourseLeaderBoard, which returns a LeaderboardResult.
+        return of({board: MOCK_RANKED_LEADERBOARD, excluded_values: false})
     }
 }

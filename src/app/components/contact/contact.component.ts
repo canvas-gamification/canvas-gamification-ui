@@ -1,31 +1,33 @@
-import {Component, Inject, OnInit} from '@angular/core'
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms'
 import {ContactService} from '@app/_services/api/contact.service'
 import {environment} from '@environments/environment'
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-contact',
     templateUrl: './contact.component.html',
-    styleUrls: ['./contact.component.scss']
+    styleUrls: ['./contact.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ContactComponent implements OnInit {
-    formData: FormGroup
+    formData: UntypedFormGroup
     siteKey: string = environment.siteKey
 
     constructor(
-        private builder: FormBuilder,
+        private builder: UntypedFormBuilder,
         private contact: ContactService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 
     ngOnInit(): void {
         this.formData = this.builder.group({
-            fullname: new FormControl('', [Validators.required]),
-            email: new FormControl('', [Validators.required, Validators.email]),
-            comment: new FormControl('', [Validators.required]),
-            recaptcha_key: new FormControl(null, [Validators.required])
+            fullname: new UntypedFormControl('', [Validators.required]),
+            email: new UntypedFormControl('', [Validators.required, Validators.email]),
+            comment: new UntypedFormControl('', [Validators.required]),
+            recaptcha_key: new UntypedFormControl(null, [Validators.required])
         })
     }
 
@@ -34,14 +36,14 @@ export class ContactComponent implements OnInit {
             .subscribe(() => {
                 this.formData.reset()
                 this.notificationsService
-                    .show('Your comment have been successfully sent!', {
-                        status: TuiNotification.Success
+                    .open('Your comment have been successfully sent!', {
+                        appearance: 'success'
                     }).subscribe()
             }, error => {
                 console.warn(error)
                 this.notificationsService
-                    .show(error, {
-                        status: TuiNotification.Error
+                    .open(error, {
+                        appearance: 'error'
                     }).subscribe()
             })
     }

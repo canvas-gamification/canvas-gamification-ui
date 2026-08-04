@@ -1,108 +1,135 @@
 <div class="tui-container tui-container_adaptive">
-    <div class="tui-row tui-row_adaptive">
-        <div class="tui-space_auto tui-col_xs-12 tui-col_md-8 tui-col_lg-6">
-            <div class="tui-space_auto tui-space_vertical-10 signup-brand">
-                <img [src]="logoPath" alt="logo">
+  <div class="tui-row tui-row_adaptive">
+    <div class="tui-space_auto tui-col_xs-12 tui-col_md-8 tui-col_lg-6">
+      <div class="tui-space_auto tui-space_vertical-10 signup-brand">
+        <img [src]="logoPath" alt="logo">
+      </div>
+      @if (!formSubmitted) {
+        <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+          <h2 class="tui-form__header">Register</h2>
+          <div class="tui-form__row">
+            <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+            <tui-textfield aria-label="Email">
+            <label tuiLabel>Email</label>
+            <input tuiInput formControlName="email" />
+            </tui-textfield>
+            <tui-error  formControlName="email"></tui-error>
+          </div>
+          <div class="tui-form__row">
+            <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+            <tui-textfield aria-label="Nickname">
+            <label tuiLabel>Nickname</label>
+            <input tuiInput formControlName="nickname" />
+            </tui-textfield>
+            <div class="tui-form__field-note">
+              This name will be displayed to other users
             </div>
-            <ng-container *ngIf="!formSubmitted; else successfulSubmission">
-                <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
-                    <h2 class="tui-form__header">Register</h2>
-                    <div class="tui-form__row">
-                        <tui-input aria-label="Email" formControlName="email">Email</tui-input>
-                        <tui-field-error formControlName="email"></tui-field-error>
-                    </div>
-                    <div class="tui-form__row">
-                        <tui-input aria-label="Nickname" formControlName="nickname">
-                            Nickname
-                        </tui-input>
-                        <div class="tui-form__field-note">
-                            This name will be displayed to other users
-                        </div>
-                        <tui-field-error formControlName="nickname"></tui-field-error>
-                    </div>
-                    <div class="tui-form__row tui-form__row_multi-fields">
-                        <div class="tui-form__multi-field">
-                            <tui-input aria-label="First Name" formControlName="first_name">
-                                First Name
-                            </tui-input>
-                            <tui-field-error formControlName="first_name"></tui-field-error>
-                        </div>
-                        <div class="tui-form__multi-field">
-                            <tui-input aria-label="Last Name" formControlName="last_name">
-                                Last Name
-                            </tui-input>
-                            <tui-field-error formControlName="last_name"></tui-field-error>
-                        </div>
-                    </div>
-                    <div class="tui-form__row">
-                        <tui-input-password aria-label="Password" formControlName="password">
-                            Password
-                        </tui-input-password>
-                        <tui-field-error formControlName="password"></tui-field-error>
-                    </div>
-                    <div class="tui-form__row">
-                        <tui-notification [hasIcon]="false" status="info">
-                            <ul class="tui-list tui-list_small">
-                                <li class="tui-list__item">Your password must contain at least 8
-                                    characters.
-                                </li>
-                                <li class="tui-list__item">Your password can’t be entirely
-                                    numeric.
-                                </li>
-                            </ul>
-                        </tui-notification>
-                    </div>
-                    <div class="tui-form__row">
-                        <tui-input-password aria-label="Password Confirmation"
-                                            formControlName="password2">Password
-                            Confirmation:
-                        </tui-input-password>
-                        <tui-field-error formControlName="password2"></tui-field-error>
-                    </div>
-                    <div class="tui-form__row">
-                        <re-captcha
-                            formControlName="recaptcha_key"
-                            siteKey="{{siteKey}}"
-                        >
-                        </re-captcha>
-                    </div>
-                    <div class="tui-form__buttons">
-                        <button
-                            [disabled]="formGroup.invalid"
-                            [showLoader]="isLoading"
-                            aria-label="Register"
-                            class="tui-form__button signup-button__wide"
-                            size="m"
-                            tuiButton
-                            type="submit"
-                        >
-                            Register
-                        </button>
-                    </div>
-                    <div class="tui-form__row signup-login__center">
-                        Already have an account? <a routerLink="../login" tuiLink>Login</a>
-                    </div>
-                </form>
-            </ng-container>
-            <ng-template #successfulSubmission>
-                <h2 class="tui-form__header">Registration Successful</h2>
-                <div class="tui-form__row">
-                    <p>
-                        Thank you for signing up. An activation link is sent to your email.
-                        Please activate your account using that link.
-                    </p>
-                </div>
-                <div class="tui-form__buttons">
-                    <a
-                        [routerLink]="'/'"
-                        class="tui-form__button signup-button__wide"
-                        size="m"
-                        tuiButton
-                    >
-                        Go Home
-                    </a>
-                </div>
-            </ng-template>
+            <tui-error  formControlName="nickname"></tui-error>
+          </div>
+          <div class="tui-form__row tui-form__row_multi-fields">
+            <div class="tui-form__multi-field">
+              <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+              <tui-textfield aria-label="First Name">
+              <label tuiLabel>First Name</label>
+              <input tuiInput formControlName="first_name" />
+              </tui-textfield>
+              <tui-error  formControlName="first_name"></tui-error>
+            </div>
+            <div class="tui-form__multi-field">
+              <!-- TODO: (Taiga UI migration) tui-input migration (see https://taiga-ui.dev/components/input):
+     - "aria" is an unrecognized attribute and was placed on <tui-textfield>. Move it to <input tuiInput> if it targets the native element.
+-->
+              <tui-textfield aria-label="Last Name">
+              <label tuiLabel>Last Name</label>
+              <input tuiInput formControlName="last_name" />
+              </tui-textfield>
+              <tui-error  formControlName="last_name"></tui-error>
+            </div>
+          </div>
+          <div class="tui-form__row">
+            <tui-textfield aria-label="Password" >
+<label tuiLabel>
+              Password
+            </label>
+
+<input tuiInput type="password" formControlName="password" />
+<tui-icon tuiPassword />
+</tui-textfield>
+            <tui-error  formControlName="password"></tui-error>
+          </div>
+          <div class="tui-form__row">
+            <div tuiNotification size="m" icon="" appearance="info"><div>
+              <ul class="tui-list tui-list_small">
+                <li class="tui-list__item">Your password must contain at least 8
+                  characters.
+                </li>
+                <li class="tui-list__item">Your password can’t be entirely
+                  numeric.
+                </li>
+              </ul>
+            </div></div>
+          </div>
+          <div class="tui-form__row">
+            <tui-textfield aria-label="Password Confirmation"
+              >
+<label tuiLabel>Password
+              Confirmation:
+            </label>
+
+<input tuiInput type="password" formControlName="password2" />
+<tui-icon tuiPassword />
+</tui-textfield>
+            <tui-error  formControlName="password2"></tui-error>
+          </div>
+          <div class="tui-form__row">
+            <re-captcha
+              formControlName="recaptcha_key"
+              siteKey="{{siteKey}}"
+              >
+            </re-captcha>
+          </div>
+          <div class="tui-form__buttons">
+            <button
+              [disabled]="formGroup.invalid"
+              [loading]="isLoading"
+              aria-label="Register"
+              class="tui-form__button signup-button__wide"
+              size="m"
+              tuiButton
+              type="submit"
+              >
+              Register
+            </button>
+          </div>
+          <div class="tui-form__row signup-login__center">
+            Already have an account? <a routerLink="../login" tuiLink>Login</a>
+          </div>
+        </form>
+      } @else {
+        <h2 class="tui-form__header">Registration Successful</h2>
+        <div class="tui-form__row">
+          <p>
+            Thank you for signing up. An activation link is sent to your email.
+            Please activate your account using that link.
+          </p>
         </div>
+        <div class="tui-form__buttons">
+          <a
+            [routerLink]="'/'"
+            class="tui-form__button signup-button__wide"
+            size="m"
+            tuiButton
+            >
+            Go Home
+          </a>
+        </div>
+      }
     </div>
+  </div>
 </div>

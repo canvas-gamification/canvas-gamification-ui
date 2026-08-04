@@ -1,11 +1,12 @@
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiLabel, TuiError, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {
     ParsonsInputFilesEditorComponent
 } from '../../json-editor/parsons-input-files-editor/parsons-input-files-editor.component'
 import {TestModule} from "@test/test.module"
-import {TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiInputModule, TuiIslandModule} from "@taiga-ui/kit"
-import {FormArray, FormGroup, ReactiveFormsModule} from "@angular/forms"
+import {UntypedFormArray, UntypedFormGroup, ReactiveFormsModule} from "@angular/forms"
 
 describe('ParsonsInputFilesEditorComponent', () => {
     let component: ParsonsInputFilesEditorComponent
@@ -14,7 +15,7 @@ describe('ParsonsInputFilesEditorComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             declarations: [ParsonsInputFilesEditorComponent],
-            imports: [TestModule, ReactiveFormsModule, TuiInputModule, TuiCheckboxLabeledModule, TuiFieldErrorModule, TuiIslandModule]
+            imports: [TestModule, ReactiveFormsModule, TuiInput, TuiLabel, TuiError, TuiError, TuiCardLarge]
         }).compileComponents()
     })
 
@@ -29,12 +30,12 @@ describe('ParsonsInputFilesEditorComponent', () => {
     })
 
     it('should get lines', () => {
-        const form = new FormGroup({lines: new FormArray([])})
+        const form = new UntypedFormGroup({lines: new UntypedFormArray([])})
         expect(component.getLines(form)).toBeTruthy()
     })
 
     it('should add line', () => {
-        const form = new FormGroup({lines: new FormArray([])})
+        const form = new UntypedFormGroup({lines: new UntypedFormArray([])})
         spyOn(component.getLines(form), 'push').and.callThrough()
         const valLength = component.getLines(form).length
         component.addNewLine(form)
@@ -43,7 +44,7 @@ describe('ParsonsInputFilesEditorComponent', () => {
     })
 
     it('should remove line', () => {
-        const form = new FormGroup({lines: new FormArray([])})
+        const form = new UntypedFormGroup({lines: new UntypedFormArray([])})
         component.addNewLine(form)
         spyOn(component.getLines(form), 'removeAt').and.callThrough()
         const valLength = component.getLines(form).length
@@ -53,7 +54,7 @@ describe('ParsonsInputFilesEditorComponent', () => {
     })
 
     it('should set lines from code block', () => {
-        const form = new FormGroup({lines: new FormArray([])})
+        const form = new UntypedFormGroup({lines: new UntypedFormArray([])})
         const codeBlock =
             'public int sub(int x, int y) {\n' +
             '    if (x == y)\n' +

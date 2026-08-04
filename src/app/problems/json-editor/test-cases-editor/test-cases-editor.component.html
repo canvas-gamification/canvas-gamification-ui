@@ -1,60 +1,63 @@
-<form *ngFor="let form of models.controls; index as index" [formGroup]="form | asFormGroup" class="tui-space_bottom-4">
-    <tui-island>
-        <div class="tui-island__content">
-            <div class="tui-island__figure">
-                <button
-                    (click)="removeModel(index)"
-                    [tuiHint]="removeTooltip"
-                    icon="tuiIconTrash"
-                    size="m"
-                    tuiDescribedBy="remove-{{index}}"
-                    tuiHintDirection="top-left"
-                    tuiHintId="remove-{{index}}"
-                    tuiHintMode="onDark"
-                    tuiIconButton
-                    type="button"
-                ></button>
-                <ng-template #removeTooltip>
-                    Remove Value
-                </ng-template>
-            </div>
-            <div class="content__island">
-                <h2 class="tui-island__title">
-                    Test Case
-                </h2>
-                <div class="tui-row tui-row_adaptive">
-                    <div class="tui-col_8">
-                        <div class="tui-form__row">
-                            <tui-input formControlName="input">Standard Input of This Test Case</tui-input>
-                            <tui-field-error formControlName="input"></tui-field-error>
-                        </div>
-                        <div class="tui-form__row">
-                            <tui-input formControlName="output">Expected Output of This Test Case</tui-input>
-                            <tui-field-error formControlName="output"></tui-field-error>
-                        </div>
-                    </div>
-                    <div class="tui-col_4">
-                        <tui-text-area
-                            (ngModelChange)="setFormFromString(form, $event)"
-                            [expandable]="true"
-                            [ngModelOptions]="{standalone: true}"
-                            [ngModel]="getFormString(form)"
-                            class="content__island-json"
-                        >
-                            JSON
-                        </tui-text-area>
-                    </div>
-                </div>
-            </div>
+@for (form of models.controls; track form; let index = $index) {
+  <form [formGroup]="form | asFormGroup" class="tui-space_bottom-4">
+    <div class="tui-island tui-island_size_m">
+      <div class="tui-island__content">
+        <div class="tui-island__figure">
+          <button
+            (click)="removeModel(index)"
+            [tuiHint]="removeTooltip"
+            iconStart="@tui.trash"
+            size="m"
+            id="remove-{{index}}"
+            tuiHintDirection="top-start"
+            tuiHintDescribe="remove-{{index}}"
+            tuiHintAppearance="dark"
+            tuiIconButton
+            type="button"
+          ></button>
+          <ng-template #removeTooltip>
+            Remove Value
+          </ng-template>
         </div>
-    </tui-island>
-</form>
+        <div class="content__island">
+          <h2 class="tui-island__title">
+            Test Case
+          </h2>
+          <div class="tui-row tui-row_adaptive">
+            <div class="tui-col_8">
+              <div class="tui-form__row">
+                <tui-textfield>
+                <label tuiLabel>Standard Input of This Test Case</label>
+                <input tuiInput formControlName="input" />
+                </tui-textfield>
+                <tui-error  formControlName="input"></tui-error>
+              </div>
+              <div class="tui-form__row">
+                <tui-textfield>
+                <label tuiLabel>Expected Output of This Test Case</label>
+                <input tuiInput formControlName="output" />
+                </tui-textfield>
+                <tui-error  formControlName="output"></tui-error>
+              </div>
+            </div>
+            <div class="tui-col_4">
+              <tui-textfield class="content__island-json">
+              <label tuiLabel>JSON</label>
+              <textarea tuiTextarea (ngModelChange)="setFormFromString(form, $event)" [ngModel]="getFormString(form)" [ngModelOptions]="{standalone: true}"></textarea>
+              </tui-textfield>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+}
 <button
-    (click)="addNewModel()"
-    icon="tuiIconPlus"
-    size="m"
-    tuiButton
-    type="button"
->
-    Add New Test Case
+  (click)="addNewModel()"
+  iconStart="@tui.plus"
+  size="m"
+  tuiButton
+  type="button"
+  >
+  Add New Test Case
 </button>

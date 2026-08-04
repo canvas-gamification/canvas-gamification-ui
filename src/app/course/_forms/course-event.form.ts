@@ -1,9 +1,9 @@
 import {
     AbstractControl,
-    AbstractControlOptions, FormArray,
-    FormBuilder,
-    FormControl,
-    FormGroup,
+    AbstractControlOptions, UntypedFormArray,
+    UntypedFormBuilder,
+    UntypedFormControl,
+    UntypedFormGroup,
     ValidationErrors,
     ValidatorFn,
     Validators
@@ -34,19 +34,19 @@ export class CourseEventForm {
     /**
      * Creates a FormGroup for a CourseEvent.
      */
-    static createForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            name: new FormControl(null, [Validators.required]),
-            type: new FormControl('', [Validators.required]),
-            countForTokens: new FormControl(false, [Validators.required]),
-            startEndDatePicker: new FormControl(
+            name: new UntypedFormControl(null, [Validators.required]),
+            type: new UntypedFormControl('', [Validators.required]),
+            countForTokens: new UntypedFormControl(false, [Validators.required]),
+            startEndDatePicker: new UntypedFormControl(
                 new TuiDayRange(TuiDay.currentLocal(), TuiDay.currentLocal().append({day: 7})),
                 [Validators.required]
             ),
-            startTimePicker: new FormControl(TuiTime.currentLocal(), [Validators.required]),
-            endTimePicker: new FormControl(TuiTime.currentLocal(), [Validators.required]),
-            questionSets: new FormArray(
+            startTimePicker: new UntypedFormControl(TuiTime.currentLocal(), [Validators.required]),
+            endTimePicker: new UntypedFormControl(TuiTime.currentLocal(), [Validators.required]),
+            questionSets: new UntypedFormArray(
                 []
             )
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions)
@@ -56,13 +56,13 @@ export class CourseEventForm {
      * Creates a FormGroup for a CourseEvent with existing data.
      * @param event - The event.
      */
-    static createFormWithData(event: CourseEvent): FormGroup {
-        const builder = new FormBuilder()
+    static createFormWithData(event: CourseEvent): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            name: new FormControl(event.name, [Validators.required]),
-            type: new FormControl(event.type, [Validators.required]),
-            countForTokens: new FormControl(event.count_for_tokens, [Validators.required]),
-            startEndDatePicker: new FormControl(
+            name: new UntypedFormControl(event.name, [Validators.required]),
+            type: new UntypedFormControl(event.type, [Validators.required]),
+            countForTokens: new UntypedFormControl(event.count_for_tokens, [Validators.required]),
+            startEndDatePicker: new UntypedFormControl(
                 new TuiDayRange(
                     TuiDay.fromLocalNativeDate(
                         new Date(event.start_date)
@@ -71,15 +71,15 @@ export class CourseEventForm {
                 ),
                 [Validators.required]
             ),
-            startTimePicker: new FormControl(
+            startTimePicker: new UntypedFormControl(
                 TuiTime.fromLocalNativeDate(new Date(event.start_date)),
                 [Validators.required]
             ),
-            endTimePicker: new FormControl(
+            endTimePicker: new UntypedFormControl(
                 TuiTime.fromLocalNativeDate(new Date(event.end_date)),
                 [Validators.required]
             ),
-            questionSets: new FormArray(
+            questionSets: new UntypedFormArray(
                 []
             )
         }, {validator: CourseEventForm.dateValidator} as AbstractControlOptions)
@@ -91,7 +91,7 @@ export class CourseEventForm {
      * @param courseId - the event's courseId
      * @param eventId - the event's ID if it already exists
      */
-    static formatFormData(formData: FormGroup, courseId: number, eventId: number): EventFormData {
+    static formatFormData(formData: UntypedFormGroup, courseId: number, eventId: number): EventFormData {
         return {
             id: eventId,
             name: formData.get('name').value,
@@ -110,17 +110,17 @@ export class CourseEventForm {
         }
     }
 
-    static createQuestionSetForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createQuestionSetForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            category: new FormControl('', [Validators.required]),
-            difficulty: new FormControl('', [Validators.required]),
-            number_of_questions: new FormControl('', [Validators.required])
+            category: new UntypedFormControl('', [Validators.required]),
+            difficulty: new UntypedFormControl('', [Validators.required]),
+            number_of_questions: new UntypedFormControl('', [Validators.required])
         })
     }
 
     static formatQuestionSetFormData(
-        formControl: FormControl,
+        formControl: UntypedFormControl,
     ): EventQuestionSetFormData {
         return formControl.value
     }

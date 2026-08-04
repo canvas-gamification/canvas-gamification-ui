@@ -1,10 +1,10 @@
-import {FormControl, FormGroup, Validators} from "@angular/forms"
+import {UntypedFormControl, UntypedFormGroup, Validators} from "@angular/forms"
 
 export class TestCasesForm {
-    static createTestCaseForm(): FormGroup {
-        return new FormGroup({
-            input: new FormControl('', [Validators.required]),
-            output: new FormControl('', [Validators.required])
+    static createTestCaseForm(): UntypedFormGroup {
+        return new UntypedFormGroup({
+            input: new UntypedFormControl('', [Validators.required]),
+            output: new UntypedFormControl('', [Validators.required])
         })
     }
 }

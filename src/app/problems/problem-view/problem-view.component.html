@@ -1,83 +1,89 @@
 <div class="question">
-    <div class="question_content mt-6">
-        <div class="tui-container tui-container_fullwidth">
-            <p
-                [class.tui-skeleton]="!uqj"
-                [class.tui-skeleton_short]="!uqj"
-                [class.tui-skeleton_text]="!uqj"
-                class="tui-island__paragraph tui-text_body-xs tui-space_bottom-0"
-            >
-                {{ uqj?.question?.full_category_name || 'No Category' | uppercase }}
-            </p>
-            <!--            Temporarily remove question details-->
-            <!--            <div class="tui-space_bottom-10 tui-space_top-2">-->
-            <!--                <div class="question-header">-->
-            <!--                    <h1-->
-            <!--                        [class.tui-skeleton]="!uqj"-->
-            <!--                        [class.tui-skeleton_text]="!uqj"-->
-            <!--                        class="tui-text_h3 tui-space_vertical-1"-->
-            <!--                    >-->
-            <!--                        {{ uqj?.question?.title ?? 'Question Title' }}-->
-            <!--                    </h1>-->
-            <!--                    <tui-badge-->
-            <!--                        *ngIf="uqj && uqj.status !== 'No Status' && uqj.status !== 'New'"-->
-            <!--                        [class.tui-skeleton]="!uqj"-->
-            <!--                        [status]="uqj.status | tuiStatus"-->
-            <!--                        [value]="uqj.status"-->
-            <!--                        class="tui-space_left-4"-->
-            <!--                    ></tui-badge>-->
-            <!--                </div>-->
-            <!--                <p-->
-            <!--                    [class.tui-skeleton]="!uqj"-->
-            <!--                    [class.tui-skeleton_short]="!uqj"-->
-            <!--                    [class.tui-skeleton_text]="!uqj"-->
-            <!--                    class="tui-space_top-2 tui-space_bottom-0"-->
-            <!--                >-->
-            <!--                    {{ uqj?.question?.token_value || 'No' }}-->
-            <!--                    &nbsp;Tokens Possible-->
-            <!--                </p>-->
-            <!--                <p-->
-            <!--                    [class.tui-skeleton]="!uqj"-->
-            <!--                    [class.tui-skeleton_short]="!uqj"-->
-            <!--                    [class.tui-skeleton_text]="!uqj"-->
-            <!--                    class="tui-space_vertical-0"-->
-            <!--                >-->
-            <!--                    {{ (uqj?.question?.max_submission_allowed - uqj?.num_attempts) ?? 'Unlimited' }}-->
-            <!--                    &nbsp;Attempts Remaining-->
-            <!--                </p>-->
-            <!--            </div>-->
-            <div *ngIf="!uqj" class="question-skeleton tui-skeleton"></div>
-            <tui-island *ngIf="renderedText" class="tui-space_top-2">
-                <p class="tui-island__category">Question</p>
-                <app-editor [ngModel]="renderedText" [readonly]="true"></app-editor>
-            </tui-island>
-            <ng-container *ngIf="uqj?.question?.type_name === 'multiple choice question'">
-                <app-mcq-view-snippet (successfulSubmissionEvent)="updateQuestionSubmissions($event)"
-                                      [uqj]="uqj"></app-mcq-view-snippet>
-            </ng-container>
-            <ng-container *ngIf="uqj?.question?.type_name === 'java question'">
-                <app-java-view-snippet (successfulSubmissionEvent)="updateQuestionSubmissions($event)"
-                                       [uqj]="uqj"></app-java-view-snippet>
-            </ng-container>
-            <ng-container *ngIf="uqj?.question?.type_name === 'parsons question'">
-                <app-parsons-view-snippet (successfulSubmissionEvent)="updateQuestionSubmissions($event)"
-                                          [uqj]="uqj"></app-parsons-view-snippet>
-            </ng-container>
-            <div *ngIf="!uqj" class="question-skeleton tui-skeleton"></div>
-        </div>
-    </div>
-    <app-sidebar position="right" sidebarId="questionSidebar">
-        <ng-container *ngIf="user?.is_teacher && !!uqj">
-            <app-variable-view
-                [variableErrors]="uqj.variables_errors"
-                [variables]="uqj.variables"
-            ></app-variable-view>
-        </ng-container>
-        <ng-container *ngIf="!!uqj">
-            <app-submission-snippet
-                [questionId]="uqj.question.id"
-                (reloadRequestSubscriberEvent)="reloadRequestSubscriber = $event">
-            </app-submission-snippet>
-        </ng-container>
-    </app-sidebar>
+  <div class="question_content mt-6">
+    <div class="tui-container tui-container_fullwidth">
+      <p
+        [class.tui-skeleton]="!uqj"
+        [class.tui-skeleton_short]="!uqj"
+        [class.tui-skeleton_text]="!uqj"
+        class="tui-island__paragraph tui-text_body-xs tui-space_bottom-0"
+        >
+        {{ uqj?.question?.full_category_name || 'No Category' | uppercase }}
+      </p>
+      <!--            Temporarily remove question details-->
+      <!--            <div class="tui-space_bottom-10 tui-space_top-2">-->
+      <!--                <div class="question-header">-->
+      <!--                    <h1-->
+      <!--                        [class.tui-skeleton]="!uqj"-->
+      <!--                        [class.tui-skeleton_text]="!uqj"-->
+      <!--                        class="tui-text_h3 tui-space_vertical-1"-->
+      <!--                    >-->
+      <!--                        {{ uqj?.question?.title ?? 'Question Title' }}-->
+    <!--                    </h1>-->
+    <!--                    <tui-badge-->
+    <!--                        *ngIf="uqj && uqj.status !== 'No Status' && uqj.status !== 'New'"-->
+    <!--                        [class.tui-skeleton]="!uqj"-->
+    <!--                        [status]="uqj.status | tuiStatus"-->
+    <!--                        [value]="uqj.status"-->
+    <!--                        class="tui-space_left-4"-->
+  <!--                    ></tui-badge>-->
+<!--                </div>-->
+<!--                <p-->
+<!--                    [class.tui-skeleton]="!uqj"-->
+<!--                    [class.tui-skeleton_short]="!uqj"-->
+<!--                    [class.tui-skeleton_text]="!uqj"-->
+<!--                    class="tui-space_top-2 tui-space_bottom-0"-->
+<!--                >-->
+<!--                    {{ uqj?.question?.token_value || 'No' }}-->
+<!--                    &nbsp;Tokens Possible-->
+<!--                </p>-->
+<!--                <p-->
+<!--                    [class.tui-skeleton]="!uqj"-->
+<!--                    [class.tui-skeleton_short]="!uqj"-->
+<!--                    [class.tui-skeleton_text]="!uqj"-->
+<!--                    class="tui-space_vertical-0"-->
+<!--                >-->
+<!--                    {{ (uqj?.question?.max_submission_allowed - uqj?.num_attempts) ?? 'Unlimited' }}-->
+<!--                    &nbsp;Attempts Remaining-->
+<!--                </p>-->
+<!--            </div>-->
+@if (!uqj) {
+  <div class="question-skeleton tui-skeleton"></div>
+}
+@if (renderedText) {
+  <div class="tui-island tui-island_size_m tui-space_top-2">
+    <p class="tui-island__category">Question</p>
+    <app-editor [ngModel]="renderedText" [readonly]="true"></app-editor>
+  </div>
+}
+@if (uqj?.question?.type_name === 'multiple choice question') {
+  <app-mcq-view-snippet (successfulSubmissionEvent)="updateQuestionSubmissions($event)"
+  [uqj]="uqj"></app-mcq-view-snippet>
+}
+@if (uqj?.question?.type_name === 'java question') {
+  <app-java-view-snippet (successfulSubmissionEvent)="updateQuestionSubmissions($event)"
+  [uqj]="uqj"></app-java-view-snippet>
+}
+@if (uqj?.question?.type_name === 'parsons question') {
+  <app-parsons-view-snippet (successfulSubmissionEvent)="updateQuestionSubmissions($event)"
+  [uqj]="uqj"></app-parsons-view-snippet>
+}
+@if (!uqj) {
+  <div class="question-skeleton tui-skeleton"></div>
+}
+</div>
+</div>
+<app-sidebar position="right" sidebarId="questionSidebar">
+  @if (user?.is_teacher && !!uqj) {
+    <app-variable-view
+      [variableErrors]="uqj.variables_errors"
+      [variables]="uqj.variables"
+    ></app-variable-view>
+  }
+  @if (!!uqj) {
+    <app-submission-snippet
+      [questionId]="uqj.question.id"
+      (reloadRequestSubscriberEvent)="reloadRequestSubscriber = $event">
+    </app-submission-snippet>
+  }
+</app-sidebar>
 </div>

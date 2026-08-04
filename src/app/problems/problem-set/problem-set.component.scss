@@ -1,18 +1,9 @@
-@import '~@taiga-ui/core/styles/taiga-ui-local';
+@import '@taiga-ui/styles/utils';
 
 .heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.new-question-icon {
-    @include transition(transform);
-    transition-duration: 300ms;
-
-    &_rotated {
-        transform: rotate(180deg);
-    }
 }
 
 .questions-table {
@@ -26,8 +17,20 @@
 
 .filters {
     display: flex;
+    align-items: flex-start;
 
     .search {
         flex: 1
+    }
+
+    // Taiga 5 selects no longer size to their placeholder text
+    // (the input is absolutely positioned), so give the filter
+    // dropdowns an explicit width to match the old layout.
+    .filter-select {
+        inline-size: 7.75rem;
+
+        &_wide {
+            inline-size: 9.25rem;
+        }
     }
 }

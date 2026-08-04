@@ -1,12 +1,14 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, EventEmitter, Input, Output, ChangeDetectionStrategy} from '@angular/core'
 import {CourseEvent} from "@app/_models"
 import {CourseEventService} from "@app/course/_services/course-event.service"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-add-to-event-modal',
     templateUrl: './add-to-event-modal.component.html',
-    styleUrls: ['./add-to-event-modal.component.scss']
+    styleUrls: ['./add-to-event-modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AddToEventModalComponent {
     @Input() open = false
@@ -17,7 +19,7 @@ export class AddToEventModalComponent {
 
     constructor(
         private readonly courseEventService: CourseEventService,
-        private readonly notificationService: TuiNotificationsService,
+        private readonly notificationService: TuiNotificationService,
     ) {
     }
 
@@ -28,8 +30,8 @@ export class AddToEventModalComponent {
 
     addToEvent(event: CourseEvent) {
         this.courseEventService.addQuestion(event.id, this.questionId).subscribe(() => {
-            this.notificationService.show("Question added to event.", {
-                status: TuiNotification.Success,
+            this.notificationService.open("Question added to event.", {
+                appearance: 'success',
             }).subscribe()
         })
     }

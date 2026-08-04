@@ -1,13 +1,15 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {GoalService} from "@app/course/_services/goal.service"
 import {Goal, GoalStats, QuestionTypeKey} from "@app/_models/goal/goal"
 import {ActivatedRoute, Router} from "@angular/router"
-import {TuiNotificationsService} from "@taiga-ui/core"
 
 @Component({
     selector: 'app-goal',
     templateUrl: './goal.component.html',
-    styleUrls: ['./goal.component.scss']
+    styleUrls: ['./goal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class GoalComponent implements OnInit {
     goal: Goal
@@ -17,8 +19,8 @@ export class GoalComponent implements OnInit {
         private goalService: GoalService,
         private activatedRoute: ActivatedRoute,
         private router: Router,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService
     ) {
     }
 

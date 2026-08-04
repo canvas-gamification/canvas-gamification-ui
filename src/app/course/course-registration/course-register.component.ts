@@ -1,21 +1,23 @@
-import {ChangeDetectorRef, Component, Inject, OnInit, ViewChild} from '@angular/core'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {ChangeDetectorRef, Component, Inject, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core'
 import {ActivatedRoute, Router} from '@angular/router'
-import {FormGroup} from '@angular/forms'
+import {UntypedFormGroup} from '@angular/forms'
 import {CourseService} from '@app/course/_services/course.service'
 import {CourseRegisterForm} from "@app/course/_forms/register.form"
 import {CourseRegistrationStepperComponent} from "@app/course/course-registration/course-registration-stepper/course-registration-stepper.component"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {CourseRegistrationMode} from "@app/_models"
 
 @Component({
     selector: 'app-register',
     templateUrl: './course-register.component.html',
-    styleUrls: ['./course-register.component.scss']
+    styleUrls: ['./course-register.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class CourseRegisterComponent implements OnInit {
     @ViewChild('stepper') stepper!: CourseRegistrationStepperComponent
 
-    form: FormGroup
+    form: UntypedFormGroup
 
     courseId: number
     courseName: string
@@ -30,7 +32,7 @@ export class CourseRegisterComponent implements OnInit {
         private router: Router,
         private courseService: CourseService,
         private changeDetector: ChangeDetectorRef,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
         this.courseId = this.route.snapshot.parent.params.courseId
         this.loadingContent = false
@@ -66,8 +68,8 @@ export class CourseRegisterComponent implements OnInit {
         this.loadingContent = true
         this.courseService.register(this.courseId, data).subscribe(() => {
             this.notificationsService
-                .show(`Successfully registered in ${this.courseName}`, {
-                    status: TuiNotification.Success
+                .open(`Successfully registered in ${this.courseName}`, {
+                    appearance: 'success'
                 }).subscribe()
             this.router.navigate(['/course', this.courseId]).then()
             this.loadingContent = false

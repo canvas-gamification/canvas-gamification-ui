@@ -1,17 +1,17 @@
 @import "mixins";
 
 .border-base3 {
-    border-color: var(--tui-base-03)
+    border-color: var(--tui-background-neutral-1-hover)
 }
 
 .clickable:hover {
-    background-color: var(--tui-base-02);
+    background-color: var(--tui-background-base-alt);
 }
 
 .clicked {
-    background-color: var(--tui-base-02);
+    background-color: var(--tui-background-base-alt);
 }
 
 .line {
-    border-top: 1px solid var(--tui-base-03);
+    border-top: 1px solid var(--tui-background-neutral-1-hover);
 }

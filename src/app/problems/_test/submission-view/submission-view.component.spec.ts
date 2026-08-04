@@ -3,7 +3,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {SubmissionViewComponent} from '../../submission-view/submission-view.component'
 import {TestModule} from '@test/test.module'
 import {DatePipe} from "@angular/common"
-import {POLYMORPHEUS_CONTEXT} from '@tinkoff/ng-polymorpheus'
+import {POLYMORPHEUS_CONTEXT} from '@taiga-ui/polymorpheus'
 import {MOCK_QUESTION_SUBMISSION} from '@app/problems/_test/mock'
 
 describe('SubmissionViewComponent', () => {
@@ -12,8 +12,9 @@ describe('SubmissionViewComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [SubmissionViewComponent, DatePipe],
-            imports: [TestModule],
+            declarations: [SubmissionViewComponent],
+            // DatePipe is standalone in Angular 22 and must be imported, not declared.
+            imports: [TestModule, DatePipe],
             providers: [
                 {
                     provide: POLYMORPHEUS_CONTEXT, useValue: {

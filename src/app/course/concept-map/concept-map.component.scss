@@ -1,11 +1,25 @@
 @import "mixins";
 
 #paper {
+    // The graph originally colored nodes/links with Taiga 2 tokens that no longer
+    // exist in Taiga 5 (--tui-secondary, --tui-base-08, --tui-text-01). Redeclare
+    // their exact light/night values here so the map keeps its original colors in
+    // both themes; concept-map-graph.ts references these variables.
+    --concept-map-node-fill: #ebefff; // Taiga 2 --tui-secondary
+    --concept-map-stroke: #333; // Taiga 2 --tui-base-08
+    --concept-map-text: rgba(27, 31, 59, 1); // Taiga 2 --tui-text-01
     width: 100%;
     height: calc(100vh - 19rem);
     overflow: auto;
     border-radius: var(--tui-radius-m);
-    border: var(--tui-base-03) 1px solid;
+    border: var(--tui-background-neutral-1-hover) 1px solid;
+}
+
+:host-context(tui-root[tuiTheme="dark"]) #paper {
+    // Taiga 2 night-theme values of the same tokens.
+    --concept-map-node-fill: rgba(255, 255, 255, 0.16);
+    --concept-map-stroke: #f6f6f6;
+    --concept-map-text: #fff;
 }
 
 .flowchart-instructions {

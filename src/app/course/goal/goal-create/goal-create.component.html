@@ -1,156 +1,195 @@
 <div class="tui-container tui-container_adaptive">
-    <a
-        [routerLink]="['..']"
-        icon="tuiIconArrowLeft"
+  <a
+    [routerLink]="['..']"
+    iconStart="@tui.arrow-left"
+    size="s"
+    tuiButton
+    appearance="flat"
+    >
+    Back to Goals
+  </a>
+  @if (false) {
+    <h2 class="tui-form__header">Recommended Goals</h2>
+  }
+  @for (goal of recommendedGoals; track goal; let i = $index) {
+    <div>
+      @if (false) {
+        <div class="tui-island tui-island_size_m shadow">
+          <div class="flex">
+            <div class="flex-1">
+              <div class="flex space-x-1">
+                <div class="tui-text_bold tui-text_body-l">
+                  Duration:
+                </div>
+                <div>{{getRelativeTime(goal.end_date)}}</div>
+              </div>
+              <div class="tui-text_bold tui-text_body-l tui-space_top-3">
+                Tasks:
+              </div>
+              <ul class="tui-list">
+                @for (goalItem of goal.goal_items; track goalItem) {
+                  <li class="tui-list__item">
+                    {{goalItemString(goalItem)}}
+                  </li>
+                }
+              </ul>
+            </div>
+            <div class="flex flex-col space-y-3">
+              @if (false) {
+                <button
+                  tuiButton
+                  size="s"
+                  (click)="createGoal(goal)"
+                  appearance="secondary"
+                  >
+                  Create Goal
+                </button>
+              }
+              <button
+                tuiButton
+                size="s"
+                (click)="setGoal(goal)"
+                appearance="secondary"
+                >
+                Use This Goal
+              </button>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <form #createGoalElement (ngSubmit)="onSubmit()" [formGroup]="goalForm">
+    <h5 class="tui-text_h5 mt-3">Create New Goal</h5>
+    <div class="tui-form__row tui-form__row_multi-fields">
+      <div class="tui-form__multi-field">
+        <tui-textfield aria-label="End Date" >
+<label tuiLabel>
+          End date
+        </label>
+
+<input tuiInputDate formControlName="end_date" />
+<tui-calendar *tuiDropdown />
+</tui-textfield>
+        <tui-error  formControlName="end_date"></tui-error>
+      </div>
+      <div class="tui-form__multi-field">
+        <!-- TODO: (Taiga UI migration) tui-input-time migration (see https://taiga-ui.dev/components/input-time):
+     - [items] was renamed to [accept] on <input tuiInputTime>. For a dropdown list, also add <tui-data-list-wrapper *tuiDropdown [items]="timeOptions | tuiFilterByInput: matcher" /> inside <tui-textfield>. See: https://taiga-ui.dev/components/input-time#dropdown-with--data-list
+-->
+<tui-textfield  aria-label="End Time" >
+<label tuiLabel>
+          End time
+        </label>
+
+<input tuiInputTime formControlName="end_time" [accept]="timeOptions" />
+</tui-textfield>
+        <tui-error  formControlName="end_time"></tui-error>
+      </div>
+    </div>
+    <h3 class="tui-form__header">
+      Tasks
+      <button
+        (click)="addGoalItem()"
+        iconStart="@tui.plus"
         size="s"
         tuiButton
-        appearance="flat"
-    >
-        Back to Goals
-    </a>
-    <h2 *ngIf="false" class="tui-form__header">Recommended Goals</h2>
-    <div *ngFor="let goal of recommendedGoals; let i = index">
-        <tui-island *ngIf="false" class="shadow">
-            <div class="flex">
-                <div class="flex-1">
-                    <div class="flex space-x-1">
-                        <div class="tui-text_bold tui-text_body-l">
-                            Duration:
-                        </div>
-                        <div>{{getRelativeTime(goal.end_date)}}</div>
-                    </div>
-                    <div class="tui-text_bold tui-text_body-l tui-space_top-3">
-                        Tasks:
-                    </div>
-                    <ul class="tui-list">
-                        <li class="tui-list__item" *ngFor="let goalItem of goal.goal_items">
-                            {{goalItemString(goalItem)}}
-                        </li>
-                    </ul>
-                </div>
-                <div class="flex flex-col space-y-3">
-                    <button
-                        *ngIf="false"
-                        tuiButton
-                        size="s"
-                        (click)="createGoal(goal)"
-                        appearance="secondary"
-                    >
-                        Create Goal
-                    </button>
-                    <button
-                        tuiButton
-                        size="s"
-                        (click)="setGoal(goal)"
-                        appearance="secondary"
-                    >
-                        Use This Goal
-                    </button>
-                </div>
-            </div>
+        type="button"
+        class="ml-3"
+        appearance="secondary"
+        >
+        Add Another
+      </button>
+    </h3>
+    @for (goalItemFormControl of getGoalItemFormControls(); track goalItemFormControl; let index = $index) {
+      <div
+        class="tui-form__row tui-form__row_multi-fields">
+        <div class="tui-form__multi-field">
+          <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+            [content]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
+            >
+<label tuiLabel>
+            Category
+            </label>
 
-        </tui-island>
-    </div>
-
-    <form #createGoalElement (ngSubmit)="onSubmit()" [formGroup]="goalForm">
-        <h5 class="tui-text_h5 mt-3">Create New Goal</h5>
-        <div class="tui-form__row tui-form__row_multi-fields">
-            <div class="tui-form__multi-field">
-                <tui-input-date aria-label="End Date" formControlName="end_date">
-                    End date
-                </tui-input-date>
-                <tui-field-error formControlName="end_date"></tui-field-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-input-time [items]="timeOptions" aria-label="End Time" formControlName="end_time">
-                    End time
-                </tui-input-time>
-                <tui-field-error formControlName="end_time"></tui-field-error>
-            </div>
+<input tuiSelect [formControl]="getFormControl(goalItemFormControl, 'category')" />
+<tui-data-list *tuiDropdown>
+              @for (category of categories; track category) {
+                <button [value]="category.pk" tuiOption>
+                  {{ category.full_name }}
+                </button>
+              }
+            </tui-data-list>
+          </tui-textfield>
+          <tui-error  [formControl]="getFormControl(goalItemFormControl, 'category')"></tui-error>
         </div>
-        <h3 class="tui-form__header">
-            Tasks
-            <button
-                (click)="addGoalItem()"
-                icon="tuiIconPlus"
+        <div class="tui-form__multi-field">
+          <!-- TODO: (Taiga UI migration) tui-select was partially migrated. Complete migration manually. See examples: https://taiga-ui.dev/components/select -->
+<tui-textfield tuiChevron
+            [content]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
+            >
+<label tuiLabel>
+            Difficulty
+            </label>
+
+<input tuiSelect [formControl]="getFormControl(goalItemFormControl, 'difficulty')" />
+<tui-data-list *tuiDropdown>
+              @for (difficulty of difficulties; track difficulty) {
+                <button [value]="difficulty[0]" tuiOption>
+                  {{ difficulty[1] }}
+                </button>
+              }
+            </tui-data-list>
+          </tui-textfield>
+          <tui-error 
+          [formControl]="getFormControl(goalItemFormControl, 'difficulty')"></tui-error>
+        </div>
+        <div class="tui-form__multi-field">
+          <tui-textfield
+            
+            
+            >
+<label tuiLabel>
+            Number of questions
+          </label>
+
+<input tuiInputNumber [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')" [max]="getNumQuestionsLimit(goalItemFormControl)" />
+</tui-textfield>
+          <tui-error 
+          [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"></tui-error>
+          <div class="tui-form__field-note">
+            {{getNumQuestionsLimit(goalItemFormControl)}} question(s) unsolved.
+          </div>
+        </div>
+        <div class="tui-form__multi-field">
+          <div class="flex h-full items-center">
+            @if (getGoalItemFormControls().length > 1) {
+              <button
+                (click)="removeGoalItem(index)"
+                iconStart="@tui.minus"
                 size="s"
                 tuiButton
                 type="button"
-                class="ml-3"
-                appearance="secondary"
-            >
-                Add Another
-            </button>
-        </h3>
-        <div *ngFor="let goalItemFormControl of getGoalItemFormControls(); let index = index"
-             class="tui-form__row tui-form__row_multi-fields">
-            <div class="tui-form__multi-field">
-                <tui-select
-                    [valueContent]="categories ? (categories | stringifyTuiDataList: 'pk': 'full_name') : ''"
-                    [formControl]="getFormControl(goalItemFormControl, 'category')"
+                appearance="accent"
                 >
-                    Category
-                    <tui-data-list *tuiDataList>
-                        <button *ngFor="let category of categories" [value]="category.pk" tuiOption>
-                            {{ category.full_name }}
-                        </button>
-                    </tui-data-list>
-                </tui-select>
-                <tui-field-error [formControl]="getFormControl(goalItemFormControl, 'category')"></tui-field-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-select
-                    [valueContent]="difficulties ? (difficulties | stringifyTuiDataList: 0: 1) : ''"
-                    [formControl]="getFormControl(goalItemFormControl, 'difficulty')"
-                >
-                    Difficulty
-                    <tui-data-list *tuiDataList>
-                        <button *ngFor="let difficulty of difficulties" [value]="difficulty[0]" tuiOption>
-                            {{ difficulty[1] }}
-                        </button>
-                    </tui-data-list>
-                </tui-select>
-                <tui-field-error
-                    [formControl]="getFormControl(goalItemFormControl, 'difficulty')"></tui-field-error>
-            </div>
-            <div class="tui-form__multi-field">
-                <tui-input-number
-                    [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"
-                    [max]="getNumQuestionsLimit(goalItemFormControl)"
-                >
-                    Number of questions
-                </tui-input-number>
-                <tui-field-error
-                    [formControl]="getFormControl(goalItemFormControl, 'number_of_questions')"></tui-field-error>
-                <div class="tui-form__field-note">
-                    {{getNumQuestionsLimit(goalItemFormControl)}} question(s) unsolved.
-                </div>
-            </div>
-            <div class="tui-form__multi-field">
-                <div class="flex h-full items-center">
-                    <button
-                        *ngIf="getGoalItemFormControls().length > 1"
-                        (click)="removeGoalItem(index)"
-                        icon="tuiIconMinus"
-                        size="s"
-                        tuiButton
-                        type="button"
-                        appearance="accent"
-                    >
-                        Delete
-                    </button>
-                </div>
-            </div>
+                Delete
+              </button>
+            }
+          </div>
         </div>
-        <div class="tui-form__buttons">
-            <button
-                [disabled]="goalForm.invalid"
-                class="tui-form__button"
-                size="m"
-                tuiButton
-            >
-                Create Goal
-            </button>
-        </div>
-    </form>
+      </div>
+    }
+    <div class="tui-form__buttons">
+      <button
+        [disabled]="goalForm.invalid"
+        class="tui-form__button"
+        size="m"
+        tuiButton
+        >
+        Create Goal
+      </button>
+    </div>
+  </form>
 </div>

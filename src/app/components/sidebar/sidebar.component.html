@@ -1,88 +1,76 @@
 <aside
-    [class.sidebar-closed]="!sidebarOpen"
-    [class.sidebar_large]="size === 'l'"
-    [class.sidebar_left]="position === 'left'"
-    [class.sidebar_right]="position === 'right'"
-    [class.sidebar_small]="size === 's'"
-    class="flex flex-col"
->
+  [class.sidebar-closed]="!sidebarOpen"
+  [class.sidebar_large]="size === 'l'"
+  [class.sidebar_left]="position === 'left'"
+  [class.sidebar_right]="position === 'right'"
+  [class.sidebar_small]="size === 's'"
+  class="flex flex-col"
+  >
+  @if (toggleable && position === 'right') {
     <div
-        *ngIf="toggleable && position === 'right'"
-        [class.sidebar-toggle_right]="position === 'right'"
-        [class.sidebar-toggle_closed_right]="!sidebarOpen"
-        class="sidebar-toggle absolute left-0 translate-x-[-50%] top-[50%] transform translate-y-[-50%] z-1"
-    >
-        <button
-            (click)="toggleSidebar()"
-            [tuiHint]="toggleTooltip"
-            appearance="flat"
-            class="sidebar-toggle_button"
-            shape="rounded"
-            size="s"
-            tuiDescribedBy="sidebar-{{sidebarId}}"
-            tuiHintId="sidebar-{{sidebarId}}"
-            tuiHintMode="onDark"
-            tuiIconButton
+      [class.sidebar-toggle_right]="position === 'right'"
+      [class.sidebar-toggle_closed_right]="!sidebarOpen"
+      class="sidebar-toggle absolute left-0 translate-x-[-50%] top-[50%] transform translate-y-[-50%] z-1"
+      >
+      <button
+        (click)="toggleSidebar()"
+        [tuiHint]="sidebarOpen ? 'Hide Sidebar' : 'Show Sidebar'"
+        appearance="flat"
+        class="sidebar-toggle_button"
+        [style.border-radius.%]="100"
+        size="s"
+        id="sidebar-{{sidebarId}}"
+        tuiHintDescribe="sidebar-{{sidebarId}}"
+        tuiHintAppearance="dark"
+        tuiIconButton
         >
-            <tui-svg
-                [class.sidebar-toggle_icon-closed]="!sidebarOpen"
-                [src]="'tuiIconChevronRight'"
-                class="sidebar-toggle_icon"
-            ></tui-svg>
-        </button>
-        <ng-template #toggleTooltip>
-            <ng-container *ngIf="sidebarOpen else closedSidebar">
-                Hide Sidebar
-            </ng-container>
-            <ng-template #closedSidebar>
-                Show Sidebar
-            </ng-template>
-        </ng-template>
+        <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+        <tui-icon
+          [class.sidebar-toggle_icon-closed]="!sidebarOpen"
+          [icon]="'@tui.chevron-right'"
+          class="sidebar-toggle_icon"
+        ></tui-icon>
+      </button>
     </div>
+  }
 
-    <div
-        [class.sidebar-content_between]="spacing === 'between'"
-        [class.sidebar-content_closed]="!sidebarOpen"
-        class="flex-1 sidebar-content tui-container tui-container_fullwidth overflow-hidden"
+  <div
+    [class.sidebar-content_between]="spacing === 'between'"
+    [class.sidebar-content_closed]="!sidebarOpen"
+    class="flex-1 sidebar-content tui-container tui-container_fullwidth overflow-hidden"
     >
-        <tui-scrollbar class="pushOffSide">
-            <div class="holdSpace">
-                <ng-content ></ng-content>
-            </div>
-        </tui-scrollbar>
-    </div>
+    <tui-scrollbar class="pushOffSide">
+      <div class="holdSpace">
+        <ng-content ></ng-content>
+      </div>
+    </tui-scrollbar>
+  </div>
 
+  @if (toggleable && position === 'left') {
     <div
-        *ngIf="toggleable && position === 'left'"
-        [class.sidebar-toggle_left]="position === 'left'"
-        [class.sidebar-toggle_closed_left]="!sidebarOpen"
-        class="sidebar-toggle absolute right-0 translate-x-[50%] top-[50%] transform translate-y-[-50%] z-1"
-    >
-        <button
-            (click)="toggleSidebar()"
-            [tuiHint]="toggleTooltip"
-            appearance="flat"
-            class="sidebar-toggle_button"
-            shape="rounded"
-            size="s"
-            tuiDescribedBy="sidebar-{{sidebarId}}"
-            tuiHintId="sidebar-{{sidebarId}}"
-            tuiHintMode="onDark"
-            tuiIconButton
+      [class.sidebar-toggle_left]="position === 'left'"
+      [class.sidebar-toggle_closed_left]="!sidebarOpen"
+      class="sidebar-toggle absolute right-0 translate-x-[50%] top-[50%] transform translate-y-[-50%] z-1"
+      >
+      <button
+        (click)="toggleSidebar()"
+        [tuiHint]="sidebarOpen ? 'Hide Sidebar' : 'Show Sidebar'"
+        appearance="flat"
+        class="sidebar-toggle_button"
+        [style.border-radius.%]="100"
+        size="s"
+        id="sidebar-{{sidebarId}}"
+        tuiHintDescribe="sidebar-{{sidebarId}}"
+        tuiHintAppearance="dark"
+        tuiIconButton
         >
-            <tui-svg
-                [class.sidebar-toggle_icon-closed]="!sidebarOpen"
-                [src]="'tuiIconChevronLeft'"
-                class="sidebar-toggle_icon"
-            ></tui-svg>
-        </button>
-        <ng-template #toggleTooltip>
-            <ng-container *ngIf="sidebarOpen else closedSidebar">
-                Hide Sidebar left
-            </ng-container>
-            <ng-template #closedSidebar>
-                Show Sidebar
-            </ng-template>
-        </ng-template>
+        <!-- TODO: (Taiga UI migration) For colored icons, please use <img src="'name' | tuiIcon" alt="icon" /> -->
+        <tui-icon
+          [class.sidebar-toggle_icon-closed]="!sidebarOpen"
+          [icon]="'@tui.chevron-left'"
+          class="sidebar-toggle_icon"
+        ></tui-icon>
+      </button>
     </div>
+  }
 </aside>

@@ -1,4 +1,4 @@
-@import '~@taiga-ui/core/styles/taiga-ui-local';
+@import '@taiga-ui/styles/utils';
 
 .course-island {
     height: calc(100% - 2rem);
@@ -9,10 +9,25 @@
         height: calc(3 * var(--tui-padding-l));
         margin-top: calc(-1 * var(--tui-padding-l));
         margin-left: calc(-1 * var(--tui-padding-l));
-        @include tui-space(bottom, 3);
+        margin-bottom: 0.75rem;
     }
 }
 
 .add-color {
     background-color: rgba(218,179,249,0.5);
+}
+
+// Match the old Taiga 2 tui-tag (size m) proportions: 0.5rem radius, 0 0.5rem padding.
+// The [data-size] attribute is repeated to out-rank Taiga's own per-size radius rule.
+[tuiChip][data-size][data-size] {
+    border-radius: 0.5rem;
+    padding: 0 0.5rem;
+}
+
+// Finished/inactive courses used the old tui-tag status="default" look (solid gray
+// pill, white text). Taiga 5's "neutral" appearance is a much lighter gray, so
+// restore the old colors for it here.
+[tuiChip][data-appearance='neutral'] {
+    background: #959595; // old --tui-base-06
+    color: #fff;
 }

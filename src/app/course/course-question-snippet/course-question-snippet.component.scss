@@ -1,5 +1,5 @@
 @import "mixins";
-@import '~@taiga-ui/core/styles/taiga-ui-local';
+@import '@taiga-ui/styles/utils';
 
 .no-content-heading {
     margin-top: 0;
@@ -10,18 +10,9 @@
 }
 
 .teamBar{
-    background-color: var(--tui-base-02);
-}
-
-.new-question-icon {
-    @include transition(transform);
-    transition-duration: 300ms;
-
-    &_rotated {
-        transform: rotate(180deg);
-    }
+    background-color: var(--tui-background-base-alt);
 }
 
 .color-link {
-    color: var(--tui-support-02);
+    color: var(--tui-chart-categorical-02);
 }

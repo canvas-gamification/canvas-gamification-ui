@@ -1,18 +1,19 @@
-import {Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormGroup} from '@angular/forms'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {AbstractControl, UntypedFormGroup} from '@angular/forms'
 import {environment} from '@environments/environment'
 import {RegisterService} from '@app/accounts/_services/register.service'
 import {RegisterForm} from "@app/accounts/_forms/register.form"
-import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
-
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.component.html',
-    styleUrls: ['./register.component.scss']
+    styleUrls: ['./register.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class RegisterComponent implements OnInit {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     siteKey = environment.siteKey
     formSubmitted = false
     isLoading = false
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
 
     constructor(
         private register: RegisterService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 
@@ -39,8 +40,8 @@ export class RegisterComponent implements OnInit {
             () => {
                 this.formGroup.reset()
                 this.notificationsService
-                    .show('You have successfully registered.', {
-                        status: TuiNotification.Success
+                    .open('You have successfully registered.', {
+                        appearance: 'success'
                     }).subscribe()
                 this.formSubmitted = true
                 this.isLoading = false

@@ -1,4 +1,4 @@
-@import '~@taiga-ui/core/styles/taiga-ui-local';
+@import '@taiga-ui/styles/utils';
 @import "mixins";
 
 .w-full {
@@ -18,7 +18,7 @@
             flex-direction: column;
 
             &-breadcrumbs {
-                color: var(--tui-text-03);
+                color: var(--tui-text-tertiary);
                 display: flex;
                 align-items: center;
                 width: 100%;
@@ -43,7 +43,7 @@
                     transition-duration: 300ms;
 
                     &:hover {
-                        color: var(--tui-primary-hover);
+                        color: var(--tui-background-accent-1-hover);
                     }
                 }
             }

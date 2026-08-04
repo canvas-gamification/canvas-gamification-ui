@@ -1,17 +1,19 @@
-import {Component, Inject, OnInit} from '@angular/core'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {Team} from "@app/_models/team"
 import {ActivatedRoute} from "@angular/router"
 import {CourseEventService} from "@app/course/_services/course-event.service"
 import {Course, CourseEvent, User} from "@app/_models"
 import {TeamService} from "@app/course/_services/team.service"
-import {TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
 import {AuthenticationService} from "@app/_services/api/authentication"
 import {CourseService} from "@app/course/_services/course.service"
 
 @Component({
     selector: 'app-list-of-teams',
     templateUrl: './list-of-teams.component.html',
-    styleUrls: ['./list-of-teams.component.scss']
+    styleUrls: ['./list-of-teams.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ListOfTeamsComponent implements OnInit {
     user: User
@@ -27,8 +29,8 @@ export class ListOfTeamsComponent implements OnInit {
         private courseService: CourseService,
         private courseEventService: CourseEventService,
         private teamService: TeamService,
-        @Inject(TuiNotificationsService)
-        private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiNotificationService)
+        private readonly notificationsService: TuiNotificationService,
     ) {
         this.authenticationService.currentUser.subscribe(user => this.user = user)
     }
@@ -45,8 +47,8 @@ export class ListOfTeamsComponent implements OnInit {
     joinTeam(teamId: number): void {
         this.teamService.joinTeam(teamId).subscribe(() => {
             this.notificationsService
-                .show('You have successfully joined the team.', {
-                    status: TuiNotification.Success
+                .open('You have successfully joined the team.', {
+                    appearance: 'success'
                 }).subscribe()
         })
         window.location.reload()

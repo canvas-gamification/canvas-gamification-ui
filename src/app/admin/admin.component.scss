@@ -1,5 +1,5 @@
 @import "mixins";
-@import '~@taiga-ui/core/styles/taiga-ui-local';
+@import '@taiga-ui/styles/utils';
 
 .admin {
     display: flex;
@@ -10,14 +10,5 @@
 
     &-content {
         flex: 1;
-    }
-}
-
-.export-icon {
-    @include transition(transform);
-    transition-duration: 300ms;
-
-    &_rotated {
-        transform: rotate(180deg);
     }
 }

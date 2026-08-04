@@ -1,21 +1,23 @@
-import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit} from '@angular/core'
-import {AbstractControl, FormGroup} from '@angular/forms'
+import {AfterContentChecked, ChangeDetectorRef, Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core'
+import {AbstractControl, UntypedFormGroup} from '@angular/forms'
 import {ProfileDetailsService} from '@app/accounts/_services/profile-details.service'
 import {ConsentService} from '@app/accounts/_services/consent.service'
 import {User} from '@app/_models'
 import {Router} from '@angular/router'
 import {ProfileDetailsForm} from "@app/accounts/_forms/profile-details.form"
 import {AuthenticationService} from "@app/_services/api/authentication"
-import {TuiDialogContext, TuiDialogService, TuiNotification, TuiNotificationsService} from "@taiga-ui/core"
-import {PolymorpheusContent} from "@tinkoff/ng-polymorpheus"
+import {TuiDialogContext, TuiDialogService, TuiNotificationService} from "@taiga-ui/core"
+import {PolymorpheusContent} from "@taiga-ui/polymorpheus"
 
 @Component({
     selector: 'app-profile-details',
     templateUrl: './profile-details.component.html',
-    styleUrls: ['./profile-details.component.scss']
+    styleUrls: ['./profile-details.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
-    formGroup: FormGroup
+    formGroup: UntypedFormGroup
     userConsent: boolean
     userDetails: User
     userId: number
@@ -26,7 +28,7 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
         private consentService: ConsentService,
         private authenticationService: AuthenticationService,
         private changeDetector: ChangeDetectorRef,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService,
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService,
         @Inject(TuiDialogService) private readonly dialogService: TuiDialogService
     ) {
         this.userId = this.authenticationService.currentUserValue?.id
@@ -56,8 +58,8 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
         this.profile.putProfileDetails(data, this.userDetails.id)
             .subscribe(() => {
                 this.notificationsService
-                    .show('Your profile has been updated successfully!', {
-                        status: TuiNotification.Success
+                    .open('Your profile has been updated successfully!', {
+                        appearance: 'success'
                     }).subscribe()
             })
     }
@@ -68,8 +70,8 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
     withdraw(): void {
         this.consentService.declineConsent().subscribe(() => {
             this.notificationsService
-                .show('Your consent has been withdrawn successfully!', {
-                    status: TuiNotification.Success
+                .open('Your consent has been withdrawn successfully!', {
+                    appearance: 'success'
                 }).subscribe()
         })
         this.userConsent = false
@@ -81,7 +83,7 @@ export class ProfileDetailsComponent implements OnInit, AfterContentChecked {
      */
     confirmWithdrawConsentDialog(content: PolymorpheusContent<TuiDialogContext>): void {
         this.dialogService.open(content, {
-            closeable: false,
+            closable: false,
             label: 'Withdraw Consent?'
         }).subscribe({
             next: () => this.withdraw()

@@ -1,13 +1,16 @@
-import {AfterContentInit, ChangeDetectorRef, Component, OnInit} from '@angular/core'
+import {AfterContentInit, ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy} from '@angular/core'
 import {QuestionCountService} from "@app/admin/_services/question-count.service"
 import {QuestionCount} from "@app/_models"
 
 @Component({
     selector: 'app-question-count',
     templateUrl: './question-count.component.html',
-    styleUrls: ['./question-count.component.scss']
+    styleUrls: ['./question-count.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class QuestionCountComponent implements OnInit, AfterContentInit {
+    activeTabIndex = 0
     questionCountData!: QuestionCount[]
     questionCountDataHeader!: string[]
     openGraphDropdown!: boolean[]

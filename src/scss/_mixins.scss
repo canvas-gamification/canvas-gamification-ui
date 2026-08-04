@@ -45,11 +45,11 @@
     height: calc(100vh - 4rem - 2px); // Window height - (header + footer) - border width
 
     @if ($position == left) {
-        border-right: 1px solid var(--tui-base-03);
+        border-right: 1px solid var(--tui-background-neutral-1-hover);
     }
 
     @if ($position == right) {
-        border-left: 1px solid var(--tui-base-03);
+        border-left: 1px solid var(--tui-background-neutral-1-hover);
     }
 
     @include screen-sm() {
@@ -61,12 +61,12 @@
         height: auto;
 
         @if ($position == left) {
-            border-bottom: 1px solid var(--tui-base-03);
+            border-bottom: 1px solid var(--tui-background-neutral-1-hover);
             margin-bottom: var(--tui-padding-l);
         }
 
         @if ($position == right) {
-            border-top: 1px solid var(--tui-base-03);
+            border-top: 1px solid var(--tui-background-neutral-1-hover);
             margin-top: var(--tui-padding-l);
         }
     }

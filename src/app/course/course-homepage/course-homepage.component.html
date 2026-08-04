@@ -1,145 +1,138 @@
 <section class="tui-container tui-container_fullwidth">
-    <div class="flex-container">
+  <div class="flex-container">
 
-        <tui-island
-            class="course-tile tui-island_hoverable"
-            [routerLink]="['/course', courseId, 'practice']"
-            (click)="practiceClickLog()"
-            size="m"
-        >
-            <div class="course-background practice"></div>
-            <div class="course-tile-text">
-                <h3 class="tui-island__title">Question Bank</h3>
-                <p class="tui-island__paragraph tui-text_body-xl flex-space">
-                    Improve your skills by solving practice
-                    questions.</p>
-                <div class="flex items-end justify-between">
-                    <div class="course-view-button tui-space_top-3">
-                        <a
-                            appearance="primary"
-                            [routerLink]="['/course', courseId, 'practice']"
-                            (click)="practiceClickLog()"
-                            class="tui-form__button"
-                            size="m"
-                            tuiButton
-                        >
-                            View
-                        </a>
-                    </div>
-                    <tui-marker-icon *ngIf="user.is_teacher"
-                                     size="s"
-                                     src="tuiIconInfo"
-                                     tuiHintMode="onDark"
-                                     tuiPointerHint="All of our questions are licensed under CC BY-NC-SA 4.0"
-                                     tuiHintDirection="top-middle"
-                    ></tui-marker-icon>
-                </div>
-            </div>
-        </tui-island>
-
-        <tui-island
-            class="course-tile tui-island_hoverable"
-            [routerLink]="['/course', courseId, 'assignments-exams']"
-            size="m"
-            (click)="assignmentsAndExamsClickLog()"
-        >
-            <div class="course-background assessment"></div>
-            <div class="course-tile-text">
-                <h3 class="tui-island__title ">Assignments and Exams</h3>
-                <p class="tui-island__paragraph tui-text_body-xl flex-space">
-                    Work on assignments and exams for this course.</p>
-                <div class="course-view-button tui-space_top-3">
-                    <a
-                        appearance="primary"
-                        [routerLink]="['/course', courseId, 'assignments-exams']"
-                        class="tui-form__button"
-                        size="m"
-                        tuiButton
-                        (click)="assignmentsAndExamsClickLog()"
-                    >
-                        View
-                    </a>
-                </div>
-            </div>
-        </tui-island>
-
-        <tui-island
-            class="course-tile tui-island_hoverable"
-            [routerLink]="['/course', courseId, 'challenge']" size="m"
-            (click)="challengeClickLog()"
-        >
-            <div class=" course-background challenge">
-            </div>
-            <div class="course-tile-text">
-                <h3 class="tui-island__title">Challenges</h3>
-                <p class="tui-island__paragraph tui-text_body-xl flex-space">
-                    Complete challenges on your own or in a team.
-                </p>
-                <div class="course-view-button tui-space_top-3">
-                    <a
-                        appearance="primary"
-                        [routerLink]="['/course', courseId, 'challenge']"
-                        class="tui-form__button"
-                        size="m"
-                        tuiButton
-                        (click)="challengeClickLog()"
-                    >
-                        View
-                    </a>
-                </div>
-            </div>
-        </tui-island>
-
-        <tui-island
-            class="course-tile tui-island_hoverable"
-            [routerLink]="['/course', courseId, 'leaderboard']"
-            size="m"
-            (click)="leaderboardClickLog()"
-        >
-            <div class="course-background leaderboard"></div>
-            <div class="course-tile-text">
-                <h3 class="tui-island__title">Leaderboard</h3>
-                <p class="tui-island__paragraph tui-text_body-xl flex-space">
-                    View your performance on the leaderboard for this
-                    website.</p>
-                <div class="course-view-button tui-space_top-3">
-                    <a
-                        appearance="primary"
-                        [routerLink]="['/course', courseId, 'leaderboard']"
-                        class="tui-form__button"
-                        size="m"
-                        tuiButton
-                        (click)="leaderboardClickLog()"
-                    >
-                        View
-                    </a>
-                </div>
-            </div>
-        </tui-island>
-        <tui-island
-            class="course-tile tui-island_hoverable"
-            [routerLink]="['/course', courseId, 'tokens']"
-            size="m"
-            (click)="tokenClickLog()"
-        >
-            <div class="course-background tokens"></div>
-            <div class="course-tile-text">
-                <h3 class="tui-island__title">Tokens</h3>
-                <p class="tui-island__paragraph tui-text_body-xl flex-space tui-space_right-5">
-                    See how many tokens you earned.</p>
-                <div class="course-view-button tui-space_top-3">
-                    <a
-                        appearance="primary"
-                        [routerLink]="['/course', courseId, 'tokens']"
-                        class="tui-form__button"
-                        size="m"
-                        tuiButton
-                        (click)="tokenClickLog()"
-                    >
-                        View
-                    </a>
-                </div>
-            </div>
-        </tui-island>
+    <div class="tui-island tui-island_size_m course-tile tui-island_hoverable"
+      [routerLink]="['/course', courseId, 'practice']"
+      (click)="practiceClickLog()"
+      >
+      <div class="course-background practice"></div>
+      <div class="course-tile-text">
+        <h3 class="tui-island__title">Question Bank</h3>
+        <p class="tui-island__paragraph tui-text_body-xl flex-space">
+          Improve your skills by solving practice
+        questions.</p>
+        <div class="flex items-end justify-between">
+          <div class="course-view-button tui-space_top-3">
+            <a
+              appearance="primary"
+              [routerLink]="['/course', courseId, 'practice']"
+              (click)="practiceClickLog()"
+              class="tui-form__button"
+              size="m"
+              tuiButton
+              >
+              View
+            </a>
+          </div>
+          @if (user.is_teacher) {
+            <span tuiAvatar="@tui.info"
+              size="m"
+             
+              tuiHintAppearance="dark"
+              tuiHintPointer tuiHint="All of our questions are licensed under CC BY-NC-SA 4.0"
+              tuiHintDirection="top"
+            ></span>
+          }
+        </div>
+      </div>
     </div>
+
+    <div class="tui-island tui-island_size_m course-tile tui-island_hoverable"
+      [routerLink]="['/course', courseId, 'assignments-exams']"
+      (click)="assignmentsAndExamsClickLog()"
+      >
+      <div class="course-background assessment"></div>
+      <div class="course-tile-text">
+        <h3 class="tui-island__title ">Assignments and Exams</h3>
+        <p class="tui-island__paragraph tui-text_body-xl flex-space">
+        Work on assignments and exams for this course.</p>
+        <div class="course-view-button tui-space_top-3">
+          <a
+            appearance="primary"
+            [routerLink]="['/course', courseId, 'assignments-exams']"
+            class="tui-form__button"
+            size="m"
+            tuiButton
+            (click)="assignmentsAndExamsClickLog()"
+            >
+            View
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tui-island tui-island_size_m course-tile tui-island_hoverable"
+      [routerLink]="['/course', courseId, 'challenge']"
+      (click)="challengeClickLog()"
+      >
+      <div class=" course-background challenge">
+      </div>
+      <div class="course-tile-text">
+        <h3 class="tui-island__title">Challenges</h3>
+        <p class="tui-island__paragraph tui-text_body-xl flex-space">
+          Complete challenges on your own or in a team.
+        </p>
+        <div class="course-view-button tui-space_top-3">
+          <a
+            appearance="primary"
+            [routerLink]="['/course', courseId, 'challenge']"
+            class="tui-form__button"
+            size="m"
+            tuiButton
+            (click)="challengeClickLog()"
+            >
+            View
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tui-island tui-island_size_m course-tile tui-island_hoverable"
+      [routerLink]="['/course', courseId, 'leaderboard']"
+      (click)="leaderboardClickLog()"
+      >
+      <div class="course-background leaderboard"></div>
+      <div class="course-tile-text">
+        <h3 class="tui-island__title">Leaderboard</h3>
+        <p class="tui-island__paragraph tui-text_body-xl flex-space">
+          View your performance on the leaderboard for this
+        website.</p>
+        <div class="course-view-button tui-space_top-3">
+          <a
+            appearance="primary"
+            [routerLink]="['/course', courseId, 'leaderboard']"
+            class="tui-form__button"
+            size="m"
+            tuiButton
+            (click)="leaderboardClickLog()"
+            >
+            View
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="tui-island tui-island_size_m course-tile tui-island_hoverable"
+      [routerLink]="['/course', courseId, 'tokens']"
+      (click)="tokenClickLog()"
+      >
+      <div class="course-background tokens"></div>
+      <div class="course-tile-text">
+        <h3 class="tui-island__title">Tokens</h3>
+        <p class="tui-island__paragraph tui-text_body-xl flex-space tui-space_right-5">
+        See how many tokens you earned.</p>
+        <div class="course-view-button tui-space_top-3">
+          <a
+            appearance="primary"
+            [routerLink]="['/course', courseId, 'tokens']"
+            class="tui-form__button"
+            size="m"
+            tuiButton
+            (click)="tokenClickLog()"
+            >
+            View
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

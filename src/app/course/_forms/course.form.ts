@@ -1,8 +1,8 @@
 import {
     AbstractControl,
-    FormBuilder,
-    FormControl,
-    FormGroup,
+    UntypedFormBuilder,
+    UntypedFormControl,
+    UntypedFormGroup,
     ValidationErrors,
     ValidatorFn,
     Validators
@@ -34,56 +34,56 @@ const registrationModeMapperReverse = {
 }
 
 export class CourseForm {
-    static createCourseForm(): FormGroup {
-        const builder = new FormBuilder()
+    static createCourseForm(): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            name: new FormControl('', [Validators.required]),
-            description: new FormControl(''),
-            url: new FormControl(
+            name: new UntypedFormControl('', [Validators.required]),
+            description: new UntypedFormControl(''),
+            url: new UntypedFormControl(
                 '',
                 [Validators.pattern(
                     '(https?://)([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
                 )]
             ),
-            date: new FormControl(
+            date: new UntypedFormControl(
                 new TuiDayRange(
                     TuiDay.currentLocal(),
                     TuiDay.currentLocal().append({day: 7})
                 ),
                 [Validators.required]
             ),
-            registrationMode: new FormControl('', [Validators.required]),
-            registrationCode: new FormControl(''),
+            registrationMode: new UntypedFormControl('', [Validators.required]),
+            registrationCode: new UntypedFormControl(''),
         }, {validator: CourseForm.dateValidator})
     }
 
-    static createCourseFormWithData(course: Course): FormGroup {
-        const builder = new FormBuilder()
+    static createCourseFormWithData(course: Course): UntypedFormGroup {
+        const builder = new UntypedFormBuilder()
         return builder.group({
-            name: new FormControl(course.name, [Validators.required]),
-            description: new FormControl(course.description),
-            url: new FormControl(
+            name: new UntypedFormControl(course.name, [Validators.required]),
+            description: new UntypedFormControl(course.description),
+            url: new UntypedFormControl(
                 course.url,
                 [Validators.pattern(
                     '(https?://)([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
                 )]
             ),
-            date: new FormControl(
+            date: new UntypedFormControl(
                 new TuiDayRange(
                     TuiDay.fromLocalNativeDate(new Date(course.start_date)),
                     TuiDay.fromLocalNativeDate(new Date(course.end_date))
                 ),
                 [Validators.required]
             ),
-            registrationMode: new FormControl(
+            registrationMode: new UntypedFormControl(
                 registrationModeMapperReverse[course.registration_mode],
                 [Validators.required]
             ),
-            registrationCode: new FormControl(course.secret_registration_code),
+            registrationCode: new UntypedFormControl(course.secret_registration_code),
         }, {validator: CourseForm.dateValidator})
     }
 
-    static formatCourseFormData(formData: FormGroup): CourseFormData {
+    static formatCourseFormData(formData: UntypedFormGroup): CourseFormData {
         return {
             name: formData.get('name').value,
             description: formData.get('description').value,

@@ -1,3 +1,6 @@
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiDrawer, TuiInputNumber, TuiAutoColorPipe, TuiChip, TuiSelect, TuiInitialsPipe, TuiInputDate, TuiInputTime, TuiInputDateRange, TuiTextarea} from "@taiga-ui/kit"
+import {TuiInputChip, TuiChevron} from "@taiga-ui/kit"
 import {NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {
@@ -15,71 +18,24 @@ import {
 import {LeaderBoardComponent} from '@app/course/leader-board/leader-board.component'
 import {CourseRoutingModule} from '@app/course/course-routing.module'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
-import {HighlightModule} from 'ngx-highlightjs'
 import {CourseService} from '@app/course/_services/course.service'
 import {CourseEventService} from '@app/course/_services/course-event.service'
 import {TokenUseService} from '@app/course/_services/token-use.service'
 import {ConceptMapComponent} from '@app/course/concept-map/concept-map.component'
-import {
-    TuiAccordionModule,
-    TuiAvatarModule,
-    TuiBreadcrumbsModule,
-    TuiCheckboxBlockModule,
-    TuiCheckboxLabeledModule,
-    TuiDataListWrapperModule,
-    TuiFieldErrorModule,
-    TuiInputCountModule,
-    TuiInputDateModule,
-    TuiInputDateRangeModule,
-    TuiInputModule,
-    TuiInputNumberModule,
-    TuiInputTimeModule,
-    TuiIslandModule,
-    TuiMarkerIconModule,
-    TuiMultiSelectModule,
-    TuiPaginationModule,
-    TuiProgressModule,
-    TuiSelectModule,
-    TuiStepperModule,
-    TuiTabsModule,
-    TuiTagModule,
-    TuiTextAreaModule,
-    TuiToggleModule
-} from '@taiga-ui/kit'
-import {
-    TuiButtonModule,
-    TuiCalendarModule,
-    TuiDataListModule,
-    TuiDescribedByModule,
-    TuiDialogModule,
-    TuiErrorModule,
-    TuiGroupModule,
-    TuiHintModule,
-    TuiHostedDropdownModule,
-    TuiLinkModule,
-    TuiLoaderModule,
-    TuiModeModule,
-    TuiNotificationModule,
-    TuiPointerHintModule,
-    TuiScrollbarModule,
-    TuiSvgModule,
-    TuiTextfieldControllerModule
-} from '@taiga-ui/core'
-import {TextMaskModule} from 'angular2-text-mask'
+import {TuiPagination, TuiDataListWrapper, TuiAccordion, TuiBreadcrumbs, TuiStepper, TuiAvatar, TuiSwitch, TuiBlock, TuiTabs, TuiProgress, TuiButtonLoading} from '@taiga-ui/kit'
+import {TuiNotification, TuiCalendar, TuiDataList, TuiError, TuiLoader, TuiScrollbar, TuiScrollable, TuiGroup, TuiLabel, TuiDropdown, TuiIcon, TuiLink, TuiDialog, TuiButton, TuiHint, TuiPopup, TuiCheckbox, TuiInput} from '@taiga-ui/core'
 import {
     CourseRegistrationStepperComponent
 } from './course-registration/course-registration-stepper/course-registration-stepper.component'
 import {
     CourseRegistrationStepComponent
 } from './course-registration/course-registration-step/course-registration-step.component'
-import {TuiActiveZoneModule, TuiFilterPipeModule, TuiForModule} from '@taiga-ui/cdk'
-import {TuiTableModule, TuiTablePaginationModule} from '@taiga-ui/addon-table'
-import {DragulaModule} from 'ng2-dragula'
+import {TuiActiveZone, TuiItem, TuiFilterPipe} from '@taiga-ui/cdk'
+import {TuiTablePagination, TuiTable} from '@taiga-ui/addon-table'
 import {CourseIslandModule} from '@app/components/course-island/course-island.module'
 import {PipesModule} from '@app/_helpers/pipes/pipes.module'
 import {PracticeProblemComponent} from './practice-problem/practice-problem.component'
 import {ProblemsModule} from '@app/problems/problems.module'
-import {TuiSidebarModule} from '@taiga-ui/addon-mobile'
 import {SidebarModule} from '@app/components/sidebar/sidebar.module'
 import {
     CourseChallengeSnippetComponent
@@ -87,11 +43,7 @@ import {
 import {GoalPageComponent} from './goal/goal-page/goal-page.component'
 import {GoalCreateComponent} from './goal/goal-create/goal-create.component'
 import {GoalComponent} from './goal/goal/goal.component'
-import {
-    TuiAxesModule,
-    TuiBarChartModule,
-    TuiRingChartModule
-} from "@taiga-ui/addon-charts"
+import {TuiAxes, TuiBarChart, TuiRingChart, TuiChartHint} from "@taiga-ui/addon-charts"
 import {ListOfTeamsComponent} from './challenge/list-of-teams/list-of-teams.component'
 import {SubmissionChartComponent} from './goal/submission-chart/submission-chart.component'
 import {CourseCreateComponent} from './course-create/course-create.component'
@@ -174,64 +126,57 @@ import {CodeEditorModule} from "@app/components/code-editor/code-editor.module"
         CourseRoutingModule,
         EditorModule,
         FormsModule,
-        HighlightModule,
         PipesModule,
         ProblemsModule,
         ReactiveFormsModule,
         SidebarModule,
-        TextMaskModule,
-        TuiAccordionModule,
-        TuiActiveZoneModule,
-        TuiAvatarModule,
-        TuiAxesModule,
-        TuiBarChartModule,
-        TuiBreadcrumbsModule,
-        TuiButtonModule,
-        TuiCalendarModule,
-        TuiCheckboxBlockModule,
-        TuiCheckboxLabeledModule,
-        TuiDataListModule,
-        TuiDataListWrapperModule,
-        TuiDescribedByModule,
-        TuiDialogModule,
-        TuiErrorModule,
-        TuiFieldErrorModule,
-        TuiFilterPipeModule,
-        TuiForModule,
-        TuiGroupModule,
-        TuiHintModule,
-        TuiHostedDropdownModule,
-        TuiInputCountModule,
-        TuiInputDateModule,
-        TuiInputDateRangeModule,
-        TuiInputModule,
-        TuiInputNumberModule,
-        TuiInputTimeModule,
-        TuiIslandModule,
-        TuiLinkModule,
-        TuiLoaderModule,
-        TuiMarkerIconModule,
-        TuiModeModule,
-        TuiMultiSelectModule,
-        TuiNotificationModule,
-        TuiPaginationModule,
-        TuiPointerHintModule,
-        TuiProgressModule,
-        TuiRingChartModule,
-        TuiScrollbarModule,
-        TuiSelectModule,
-        TuiSidebarModule,
-        TuiStepperModule,
-        TuiSvgModule,
-        TuiTableModule,
-        TuiTablePaginationModule,
-        TuiTabsModule,
-        TuiTagModule,
-        TuiTextAreaModule,
-        DragulaModule.forRoot(),
-        TuiTextfieldControllerModule,
-        TuiToggleModule,
-    ],
+        ...TuiAccordion,
+        TuiActiveZone,
+        TuiAvatar,
+        TuiAxes,
+        TuiBarChart,
+        TuiBreadcrumbs, TuiItem,
+        TuiButton,
+        TuiButtonLoading,
+        TuiAutoColorPipe,
+        TuiInitialsPipe,
+        TuiCalendar,
+        TuiBlock, TuiCheckbox,
+        TuiLabel,
+        ...TuiDataList,
+        ...TuiDataListWrapper,
+        TuiDialog,
+        ...TuiError,
+        TuiFilterPipe,
+        TuiGroup,
+        ...TuiHint,
+        ...TuiDropdown,
+        ...TuiInputNumber,
+        ...TuiInputDate,
+        ...TuiInputDateRange,
+        ...TuiInput,
+        ...TuiInputTime,
+        TuiCardLarge,
+        TuiLink,
+        TuiLoader,
+        ...TuiInputChip,
+        TuiChevron,
+        ...TuiNotification,
+        TuiPagination,
+        ...TuiProgress,
+        TuiRingChart,
+        TuiScrollbar, TuiScrollable,
+        ...TuiSelect,
+        TuiDrawer,
+        TuiPopup,
+        ...TuiStepper,
+        TuiIcon,
+        ...TuiTable,
+        TuiTablePagination,
+        ...TuiTabs,
+        TuiChip,
+        ...TuiTextarea,
+        TuiSwitch, TuiChartHint],
     providers: [
         CourseEventService,
         CourseService,

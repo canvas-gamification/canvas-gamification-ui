@@ -1,14 +1,17 @@
-import {Component, EventEmitter, Inject, Input, OnChanges, Output} from '@angular/core'
+import {TuiNotificationService} from "@taiga-ui/core"
+import {Component, EventEmitter, Inject, Input, OnChanges, Output, ChangeDetectionStrategy} from '@angular/core'
 import {UQJ} from '@app/_models'
 import {SubmissionService} from '@app/problems/_services/submission.service'
-import {TuiNotification, TuiNotificationsService} from '@taiga-ui/core'
 
 @Component({
     selector: 'app-java-view-snippet',
     templateUrl: './java-view-snippet.component.html',
     styleUrls: ['./java-view-snippet.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class JavaViewSnippetComponent implements OnChanges {
+    activeTabIndex = 0
     @Input() uqj: UQJ
     @Output() readonly successfulSubmissionEvent = new EventEmitter<boolean>()
     inputFileNames = new Array<{ name: string, template: string }>()
@@ -16,7 +19,7 @@ export class JavaViewSnippetComponent implements OnChanges {
 
     constructor(
         private submissionService: SubmissionService,
-        @Inject(TuiNotificationsService) private readonly notificationsService: TuiNotificationsService
+        @Inject(TuiNotificationService) private readonly notificationsService: TuiNotificationService
     ) {
     }
 
@@ -42,8 +45,8 @@ export class JavaViewSnippetComponent implements OnChanges {
             solution: codeSolution
         }).subscribe(() => {
             this.notificationsService
-                .show('The question has been submitted successfully.', {
-                    status: TuiNotification.Success
+                .open('The question has been submitted successfully.', {
+                    appearance: 'success'
                 }).subscribe()
             this.successfulSubmissionEvent.emit(true)
             this.waitingSubmission = false

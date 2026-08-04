@@ -1,111 +1,116 @@
 <div class="tui-container tui-container_adaptive">
-    <form [formGroup]="formGroup" (ngSubmit)="submit()">
-        <h1 class="tui-form__header">
-            Initial Survey
-        </h1>
-        <p class="tui-text_body-l">
-            1. Please indicate how much you agree with each of the following sentences about goal
-            setting:
-        </p>
-        <table class="tui-table mt-3">
-            <tbody>
-            <tr class="tui-table__tr tui-table__tr_border_none">
-                <th class="tui-table__th"></th>
-                <th class="tui-table__th w-0">
-                    <div>Strongly</div>
-                    <div>Disagree</div>
-                </th>
-                <th class="tui-table__th w-0">Disagree</th>
-                <th class="tui-table__th w-0">Neutral</th>
-                <th class="tui-table__th w-0">Agree</th>
-                <th class="tui-table__th w-0">
-                    <div>Strongly</div>
-                    <div>Agree</div>
-                </th>
-                <th class="tui-table__th w-0">
-                    <div>Not</div>
-                    <div>Applicable</div>
-                </th>
-            </tr>
-            <tr
-                *ngFor="let question of agreeQuestions"
-                class="tui-table__tr tui-table__tr_border_none"
+  <form [formGroup]="formGroup" (ngSubmit)="submit()">
+    <h1 class="tui-form__header">
+      Initial Survey
+    </h1>
+    <p class="tui-text_body-l">
+      1. Please indicate how much you agree with each of the following sentences about goal
+      setting:
+    </p>
+    <table class="tui-table mt-3">
+      <tbody>
+        <tr class="tui-table__tr tui-table__tr_border_none">
+          <th class="tui-table__th"></th>
+          <th class="tui-table__th w-0">
+            <div>Strongly</div>
+            <div>Disagree</div>
+          </th>
+          <th class="tui-table__th w-0">Disagree</th>
+          <th class="tui-table__th w-0">Neutral</th>
+          <th class="tui-table__th w-0">Agree</th>
+          <th class="tui-table__th w-0">
+            <div>Strongly</div>
+            <div>Agree</div>
+          </th>
+          <th class="tui-table__th w-0">
+            <div>Not</div>
+            <div>Applicable</div>
+          </th>
+        </tr>
+        @for (question of agreeQuestions; track question) {
+          <tr
+            class="tui-table__tr tui-table__tr_border_none"
             >
-                <td class="tui-table__td">
-                    {{question.text}}
-                </td>
-                <td *ngFor="let item of agreeTerms" class="tui-table__td">
-                    <div class="flex justify-center">
-                        <tui-radio
-                            [formControlName]="question.code"
-                            [item]="item"
-                            class="tui-space_bottom-3"
-                        ></tui-radio>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+            <td class="tui-table__td">
+              {{question.text}}
+            </td>
+            @for (item of agreeTerms; track item) {
+              <td class="tui-table__td">
+                <div class="flex justify-center">
+                  <input
+                    tuiRadio
+                    type="radio"
+                    [formControlName]="question.code"
+                    [value]="item"
+                    class="tui-space_bottom-3"
+                    />
+                </div>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
 
+    <p class="tui-text_body-l mt-3">
+      2. Do you set goals for yourself when you learn something new? E.g., you think "I need
+      to accomplish …"
+    </p>
+    <tui-radio-list
+      formControlName="two"
+      class="mt-5"
+      [items]="twoItems"
+      [itemContent]="twoContent"
+      size="m"
+    ></tui-radio-list>
+    <ng-template
+      #twoContent
+      let-data
+      >
+      <div class="tui-text_body-m -mt-[4px]">{{ data }}</div>
+    </ng-template>
+
+    @if (hasGoals()) {
+      @for (question of checkboxQuestions; track question) {
         <p class="tui-text_body-l mt-3">
-            2. Do you set goals for yourself when you learn something new? E.g., you think "I need
-            to accomplish …"
+          {{question.number}}. {{question.text}}
         </p>
-        <tui-radio-list
-            formControlName="two"
-            class="mt-5"
-            [items]="twoItems"
-            [itemContent]="twoContent"
-            size="m"
-        ></tui-radio-list>
-        <ng-template
-            #twoContent
-            let-data
-        >
-            <div class="tui-text_body-m -mt-[4px]">{{ data }}</div>
-        </ng-template>
-
-        <ng-container *ngIf="hasGoals()">
-            <ng-container
-                *ngFor="let question of checkboxQuestions"
+        @for (choice of question.choices; track choice) {
+          <label tuiLabel> <input tuiCheckbox type="checkbox"
+            class="mt-3"
+            [formControlName]="choice"
             >
-                <p class="tui-text_body-l mt-3">
-                    {{question.number}}. {{question.text}}
-                </p>
-                <tui-checkbox-labeled
-                    class="mt-3"
-                    [formControlName]="choice"
-                    *ngFor="let choice of question.choices"
-                >
-                    <div class="tui-text_body-m -mt-[4px]">
-                        {{choice}}
-                    </div>
-                </tui-checkbox-labeled>
-            </ng-container>
-        </ng-container>
+            <div class="tui-text_body-m -mt-[4px]">
+              {{choice}}
+            </div>
+          </label>
+        }
+      }
+    }
 
-        <p class="tui-text_body-l mt-3">
-            6. If there is an educational software to help you set, track, and review goals for your
-            learning, what kind of feedback would you want to see that could help you improve?
-            Please explain the type of information you want to see in the feedback and how that
-            helps you (so we can replicate it as much as possible in our future design).
-        </p>
+    <p class="tui-text_body-l mt-3">
+      6. If there is an educational software to help you set, track, and review goals for your
+      learning, what kind of feedback would you want to see that could help you improve?
+      Please explain the type of information you want to see in the feedback and how that
+      helps you (so we can replicate it as much as possible in our future design).
+    </p>
 
-        <tui-text-area
-            class="mt-3"
-            formControlName="six"
-            [tuiTextfieldLabelOutside]="true"
-        >
-        </tui-text-area>
+    <!-- TODO: (Taiga UI migration) tui-textarea migration (see https://taiga-ui.dev/components/textarea):
+     - Legacy tui-textarea had a fixed height of 20 rows by default. New component auto-resizes between [min] (default: 1) and [max] (default: 3) rows. Set min and max explicitly if the previous layout needs to be preserved.
+     - Unrecognized attribute "class="mt-3"" was placed on <tui-textfield>. Move it to <textarea tuiTextarea> if it targets the native element.
+-->
+    <tui-textfield class="mt-3">
+    <textarea tuiTextarea formControlName="six"></textarea>
+    </tui-textfield>
 
-        <button
-            type="submit"
-            tuiButton
-            size="m"
-            class="mt-3"
-            [disabled]="formGroup.invalid"
-        >
-            Submit
-        </button>
-    </form>
+    <button
+      type="submit"
+      tuiButton
+      size="m"
+      class="mt-3"
+      [disabled]="formGroup.invalid"
+      >
+      Submit
+    </button>
+  </form>
 </div>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component, ChangeDetectionStrategy} from '@angular/core'
 import {NavigationEnd, Router, RouterEvent} from "@angular/router"
 import {PageViewService} from "@app/_services/api/page_view/page-view.service"
 import {AuthenticationService} from "@app/_services/api/authentication"
@@ -6,7 +6,9 @@ import {AuthenticationService} from "@app/_services/api/authentication"
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class AppComponent {
     title = 'canvas-gamification-ui'

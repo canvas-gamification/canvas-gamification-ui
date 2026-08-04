@@ -1,3 +1,7 @@
+import {TuiCardLarge} from "@taiga-ui/layout"
+import {TuiChip} from "@taiga-ui/kit"
+import {TuiFilterPipe} from "@taiga-ui/cdk"
+import {TuiLoader, TuiInput} from "@taiga-ui/core"
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 
 import {CourseListComponent} from '../../course-list/course-list.component'
@@ -6,9 +10,6 @@ import {CourseService} from "@app/course/_services/course.service"
 import {CourseServiceMock} from "@test/_services/course.service.mock"
 import {MOCK_COURSE} from "@app/problems/_test/mock"
 import {MOCK_COURSES, MOCK_USER_STUDENT} from "@app/course/_test/mock"
-import {TuiFilterPipeModule} from "@taiga-ui/cdk"
-import {TuiInputModule, TuiIslandModule, TuiTagModule} from "@taiga-ui/kit"
-import {TuiLoaderModule} from "@taiga-ui/core"
 import {FormsModule, ReactiveFormsModule} from "@angular/forms"
 import {
     UserHasCourseViewPermissionsPipe
@@ -23,8 +24,8 @@ describe('CourseListComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 TestModule, ReactiveFormsModule, FormsModule,
-                TuiInputModule, TuiLoaderModule, TuiFilterPipeModule,
-                TuiTagModule, TuiIslandModule, CourseIslandModule
+                TuiInput, TuiLoader, TuiFilterPipe,
+                TuiChip, TuiCardLarge, CourseIslandModule
             ],
             declarations: [CourseListComponent, UserHasCourseViewPermissionsPipe],
             providers: [

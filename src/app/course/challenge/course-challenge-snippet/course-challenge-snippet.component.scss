@@ -2,7 +2,7 @@
 
 .divide {
     &:not(:last-child) {
-        border-bottom: solid 1px var(--tui-base-03);
+        border-bottom: solid 1px var(--tui-background-neutral-1-hover);
         margin: 0;
         padding-bottom: 20px;
     }
@@ -23,5 +23,5 @@
 }
 
 .borderB {
-    border-bottom: solid 1px var(--tui-base-03);
+    border-bottom: solid 1px var(--tui-background-neutral-1-hover);
 }
