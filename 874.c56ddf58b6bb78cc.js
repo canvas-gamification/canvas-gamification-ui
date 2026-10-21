@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcanvas_gamification_ui=self.webpackChunkcanvas_gamification_ui||[]).push([[874],{2874(d,t,n){n.r(t),n.d(t,{default:()=>u});const a=n(5482).bP.create({name:"doc",topNode:!0,content:"block+",renderMarkdown:(c,o)=>c.content?o.renderChildren(c.content,"\n\n"):""});var u=a;n.d(t,["Document",0,a])}}]);
